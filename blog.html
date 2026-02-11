@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Notes on thoughtful registry planning, nursery design, and calm preparation from Registry With Taylor."
+    />
+    <title>Blog — Registry With Taylor</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="site">
+      <header class="site-header" role="banner">
+        <div class="container site-header__wrapper">
+          <a class="site-header__brand" href="index.html">
+            <img src="assets/logo.svg" alt="Registry With Taylor logo" class="brand__logo" />
+            <span class="brand__name">Registry With Taylor</span>
+          </a>
+          <nav
+            class="primary-nav"
+            id="primary-nav"
+            role="navigation"
+            aria-label="Primary"
+          >
+            <a class="primary-nav__link" href="how-it-works.html">How It Works</a>
+            <a class="primary-nav__link" href="services.html">Services</a>
+            <a class="primary-nav__link" href="blog.html" aria-current="page">Blog</a>
+            <a class="primary-nav__link" href="faq.html">FAQ</a>
+            <a class="primary-nav__link" href="contact.html">Contact</a>
+          </nav>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+          >
+            <span class="nav-toggle__icon" aria-hidden="true"></span>
+            <span>Menu</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="site-main">
+        <section class="hero" aria-labelledby="blog-hero">
+          <div class="container hero__content">
+            <p class="hero__eyebrow">From the Journal</p>
+            <h1 id="blog-hero" class="hero__title">Thoughtful notes on registry planning, nursery design, and calm preparation.</h1>
+            <p class="hero__subtitle">
+              Stories, quick tips, and practical thinking to keep every moment intentional.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" aria-label="Blog posts">
+          <div class="container">
+            <h2 class="section__title">Latest journal entries</h2>
+            <div id="blog-posts" class="feature-grid" aria-live="polite"></div>
+            <p id="blog-empty" class="hero__subtitle" hidden>New journal entries coming soon.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" role="contentinfo">
+        <div class="container site-footer__wrapper">
+          <p>© 2026 Registry With Taylor. Built with care in Chicago.</p>
+          <nav class="footer-nav" aria-label="Footer">
+            <a class="footer-nav__link" href="index.html">Home</a>
+            <a class="footer-nav__link" href="services.html">Services</a>
+            <a class="footer-nav__link" href="faq.html">FAQ</a>
+            <a class="footer-nav__link" href="contact.html">Contact</a>
+            <a class="footer-nav__link" href="how-it-works.html">How It Works</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module">
+      const posts = [
+        {
+          title: 'Building a Registry Without Overbuying',
+          date: 'March 4, 2026',
+          tag: 'Registry',
+          excerpt:
+            'Pair intentional research with curated picks so every product earns a place in your home without inflating the list.'
+        },
+        {
+          title: 'Nursery Layout: What Actually Matters',
+          date: 'February 18, 2026',
+          tag: 'Design',
+          excerpt:
+            'Prioritize sight-lines, storage, and lighting before buying trendy accents so functionality supports calm sleep routines.'
+        },
+        {
+          title: 'Traveling With a Newborn — Gear That Helps',
+          date: 'February 2, 2026',
+          tag: 'Travel',
+          excerpt:
+            'Long flights and weekends away stay manageable when you pair compact gear with layered packing lists from our editors.'
+        },
+        {
+          title: 'How to Choose a Stroller for Your Lifestyle',
+          date: 'January 21, 2026',
+          tag: 'Gear',
+          excerpt:
+            'City sidewalks, trail runs, or suburban errands? Match the stroller frame to your daily path to avoid returns.'
+        },
+        {
+          title: 'Convertible Car Seats Explained',
+          date: 'January 9, 2026',
+          tag: 'Safety',
+          excerpt:
+            'Transition timelines, harness positioning, and real-world fit checks keep this safety upgrade sensible and stress-free.'
+        },
+        {
+          title: 'Minimalist Baby Prep: Where to Start',
+          date: 'December 30, 2025',
+          tag: 'Planning',
+          excerpt:
+            'Focus on three core routines—feeding, sleeping, and cleaning—then fold in extras only when they genuinely elevate your flow.'
+        }
+      ];
+
+      const postsContainer = document.querySelector('#blog-posts');
+      const emptyState = document.querySelector('#blog-empty');
+
+      if (!postsContainer) return;
+
+      if (!posts.length) {
+        emptyState?.removeAttribute('hidden');
+      } else {
+        posts.forEach((post) => {
+          const card = document.createElement('article');
+          card.className = 'feature-card';
+          card.innerHTML = `
+            <p class="feature-card__body" aria-label="${post.tag}">${post.tag}</p>
+            <a class="feature-card__title" href="#">${post.title}</a>
+            <p class="feature-card__body">${post.excerpt}</p>
+            <div class="hero__actions">
+              <span class="hero__subtitle">${post.date}</span>
+              <a class="primary-nav__link" href="#">Read More</a>
+            </div>
+          `;
+          postsContainer.appendChild(card);
+        });
+      }
+    </script>
+  </body>
+</html>
