@@ -15,20 +15,20 @@
       <header class="site-header" role="banner">
         <div class="container site-header__wrapper">
           <a class="site-header__brand" href="index.html">
-            <img src="assets/logo.svg" alt="Registry With Taylor logo" class="brand__logo" />
             <span class="brand__name">Registry With Taylor</span>
           </a>
           <nav
-            class="primary-nav"
+            class="primary-nav nav"
             id="primary-nav"
             role="navigation"
             aria-label="Primary"
+            style="border-bottom: 1px solid var(--color-border);"
           >
-            <a class="primary-nav__link" href="how-it-works.html">How It Works</a>
-            <a class="primary-nav__link" href="services.html">Services</a>
-            <a class="primary-nav__link" href="blog.html" aria-current="page">Blog</a>
-            <a class="primary-nav__link" href="faq.html">FAQ</a>
-            <a class="primary-nav__link" href="contact.html">Contact</a>
+            <a class="nav-item primary-nav__link" href="how-it-works.html">How It Works</a>
+            <a class="nav-item primary-nav__link" href="services.html">Services</a>
+            <a class="nav-item primary-nav__link" href="blog.html" aria-current="page">Blog</a>
+            <a class="nav-item primary-nav__link" href="faq.html">FAQ</a>
+            <a class="nav-item primary-nav__link" href="contact.html">Contact</a>
           </nav>
           <button
             class="nav-toggle"
@@ -43,7 +43,7 @@
       </header>
 
       <main class="site-main">
-        <section class="hero" aria-labelledby="blog-hero">
+        <section class="hero bg-ivory" aria-labelledby="blog-hero">
           <div class="container hero__content">
             <p class="hero__eyebrow">From the Journal</p>
             <h1 id="blog-hero" class="hero__title">Thoughtful notes on registry planning, nursery design, and calm preparation.</h1>
@@ -53,7 +53,7 @@
           </div>
         </section>
 
-        <section class="section" aria-label="Blog posts">
+        <section class="section bg-white" aria-label="Blog posts">
           <div class="container">
             <h2 class="section__title">Latest journal entries</h2>
             <div id="blog-posts" class="feature-grid" aria-live="polite"></div>
