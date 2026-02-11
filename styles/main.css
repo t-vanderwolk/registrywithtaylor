@@ -240,6 +240,11 @@ nav a,
   margin: 0 auto;
 }
 
+.hero__title {
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+  text-align: center;
+}
+
 .hero__content > * + * {
   margin-top: 1.25rem;
 }
@@ -302,6 +307,18 @@ nav a,
   background-color: #f6eef1;
 }
 
+.btn--secondary {
+  background-color: #ffffff;
+  color: var(--text-primary);
+  border: 1px solid var(--color-border);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-paper);
+}
+
 .section {
   padding-top: var(--space-xl);
   padding-bottom: var(--space-xl);
@@ -354,6 +371,99 @@ nav a,
   justify-content: space-between;
 }
 
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.service-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 15px 30px rgba(31, 31, 31, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.service-card__icon {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: rgba(212, 162, 177, 0.2);
+}
+
+.service-card h3 {
+  font-size: 1.2rem;
+}
+
+.service-card p {
+  margin-bottom: 0.25rem;
+}
+
+.link-text {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.micro-text {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.mid-cta {
+  padding-top: calc(var(--space-xl) - 1rem);
+  padding-bottom: calc(var(--space-xl) - 1rem);
+}
+
+.cta-panel {
+  background: var(--color-sand);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(31, 31, 31, 0.07);
+}
+
+.cta-panel h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.trust-block .testimonial-card {
+  background: var(--color-paper);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-sm);
+  box-shadow: 0 15px 30px rgba(31, 31, 31, 0.07);
+}
+
+.quote-icon {
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.final-cta {
+  background: var(--color-blush);
+}
+
+.final-cta__content {
+  background: transparent;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.final-cta__actions {
+  margin-top: 1.5rem;
+}
 .card {
   background: var(--color-paper);
   padding: var(--space-md);
