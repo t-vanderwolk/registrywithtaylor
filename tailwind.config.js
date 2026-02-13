@@ -13,7 +13,6 @@ module.exports = {
     extend: {
       colors: {
         blush: '#CFA6A0',
-        'blush-soft': '#F7E9E6',
         ivory: '#FDF8F6',
         charcoal: '#3A3A3A',
         taupe: '#d6bfb7',

@@ -49,9 +49,9 @@ const posts = [
 ];
 
 export const metadata = {
-  title: 'Blog — Registry With Taylor',
+  title: 'Blog — Taylor-Made Baby Planning',
   description:
-    'Notes on thoughtful registry planning, nursery design, and calm preparation from Registry With Taylor.',
+    'Notes on thoughtful registry planning, nursery design, and calm preparation from Taylor-Made Baby Planning.',
 };
 
 export default function BlogPage() {
@@ -79,13 +79,19 @@ export default function BlogPage() {
                   <Body className="feature-card__body body-copy--full" aria-label={post.tag}>
                     {post.tag}
                   </Body>
-                  <Link className="feature-card__title" href="/blog">
+                  <Link
+                    className="feature-card__title text-neutral-900 no-underline hover:underline underline-offset-4"
+                    href="/blog"
+                  >
                     {post.title}
                   </Link>
                   <Body className="feature-card__body body-copy--full">{post.excerpt}</Body>
                   <div className="hero__actions">
                     <span className="hero__subtitle">{post.date}</span>
-                    <Link className="primary-nav__link" href="/blog">
+                    <Link
+                      className="primary-nav__link text-neutral-900 no-underline hover:underline underline-offset-4"
+                      href="/blog"
+                    >
                       Read More
                     </Link>
                   </div>

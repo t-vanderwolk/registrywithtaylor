@@ -3,8 +3,12 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata = {
-  title: 'Registry With Taylor — Calm Registry & Planning Support',
-  description: 'Virtual registry guidance, thoughtful planning, and calming support for modern parents.',
+  title: {
+    default: 'Taylor-Made Baby Planning — Modern Baby Preparation',
+    template: '%s',
+  },
+  description:
+    'Taylor-Made Baby Planning delivers calm, private guidance so expecting parents can prepare confidently without overwhelm.',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

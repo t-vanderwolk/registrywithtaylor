@@ -4,9 +4,9 @@ import SiteShell from '@/components/SiteShell';
 import { Body, Display, Eyebrow, Lead, SectionTitle } from '@/components/Typography';
 
 export const metadata = {
-  title: 'Contact — Registry With Taylor',
+  title: 'Contact — Taylor-Made Baby Planning',
   description:
-    'Reach Registry With Taylor by email, phone, or the contact form to discuss your registry and celebration plans.',
+    'Reach Taylor-Made Baby Planning by email, phone, or the contact form to discuss your registry and celebration plans.',
 };
 
 export default function ContactPage() {
@@ -40,7 +40,7 @@ export default function ContactPage() {
                 <a
                   className="primary-nav__link"
                   href="mailto:registrywithtaylor@gmail.com"
-                  aria-label="Email registry with taylor"
+                  aria-label="Email Taylor-Made Baby Planning"
                 >
                   Send an email
                 </a>
@@ -51,7 +51,7 @@ export default function ContactPage() {
                 <a
                   className="primary-nav__link"
                   href="tel:+15056605436"
-                  aria-label="Call registry with taylor"
+                  aria-label="Call Taylor-Made Baby Planning"
                 >
                   Call now
                 </a>

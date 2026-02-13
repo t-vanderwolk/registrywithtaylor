@@ -49,9 +49,9 @@ const services = [
 ];
 
 export const metadata = {
-  title: 'Services — Registry With Taylor',
+  title: 'Services — Taylor-Made Baby Planning',
   description:
-    'Bespoke baby planning services from Registry With Taylor covering registries, nursery design, events, and ongoing support.',
+    'Bespoke baby planning services from Taylor-Made Baby Planning covering registries, nursery design, events, and ongoing support.',
 };
 
 export default function ServicesPage() {

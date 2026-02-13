@@ -5,9 +5,9 @@ import SiteShell from '@/components/SiteShell';
 import { Body, Display, Lead, SectionTitle } from '@/components/Typography';
 
 export const metadata = {
-  title: 'How It Works — Registry With Taylor',
+  title: 'How It Works — Taylor-Made Baby Planning',
   description:
-    'Understand how Registry With Taylor guides couples through a step-by-step planning and registry process.',
+    'Understand how Taylor-Made Baby Planning guides couples through a step-by-step planning and registry process.',
 };
 
 const steps = [

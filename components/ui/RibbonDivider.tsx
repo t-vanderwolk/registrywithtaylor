@@ -1,18 +1,31 @@
-import Image from 'next/image'
+import Image from "next/image";
 
-export function RibbonDivider() {
+export default function RibbonDivider({
+  className = "",
+  alt = "Decorative ribbon divider",
+}: {
+  className?: string;
+  alt?: string;
+}) {
+  const containerClasses = [
+    className,
+    "relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className="relative w-full py-12 md:py-16">
-      <div className="mx-auto max-w-5xl px-6">
+    <div aria-hidden="true" className={containerClasses}>
+      <div className="relative h-[140px] w-full sm:h-[160px] md:h-[200px]">
         <Image
-          src="/assets/brand/dividers/ribbon-wave.png"
-          alt=""
-          width={1600}
-          height={200}
-          className="w-full h-auto object-contain scale-[0.98] brightness-95"
+          src="/assets/dividers/ribbon-divider.png"
+          alt={alt}
+          fill
+          sizes="100vw"
           priority
+          className="w-full h-auto object-cover"
         />
       </div>
     </div>
-  )
+  );
 }

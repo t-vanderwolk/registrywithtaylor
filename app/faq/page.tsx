@@ -53,9 +53,9 @@ const faqs = [
 ];
 
 export const metadata = {
-  title: 'FAQ — Registry With Taylor',
+  title: 'FAQ — Taylor-Made Baby Planning',
   description:
-    'Frequently asked questions about Registry With Taylor\'s services, process, and support.',
+    'Frequently asked questions about Taylor-Made Baby Planning\'s services, process, and support.',
 };
 
 export default function FAQPage() {

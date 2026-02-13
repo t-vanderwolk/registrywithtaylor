@@ -23,7 +23,7 @@ export default function Header({ currentPath }: HeaderProps) {
     <header className="site-header" role="banner">
       <div className="container site-header__wrapper">
         <Link className="site-header__brand" href="/">
-          <span className="brand__name">Registry With Taylor</span>
+          <span className="brand__name">Taylor-Made Baby Planning</span>
         </Link>
 
         <nav

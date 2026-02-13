@@ -11,10 +11,12 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="container site-footer__wrapper">
-        <Body className="body-copy--full">© 2026 Registry With Taylor. Built with care in Chicago.</Body>
+        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Planning. Built with care in Chicago.</Body>
         <nav className="footer-nav" aria-label="Footer">
           {footerLinks.map((link) => (
             <Link key={link.href} className="footer-nav__link" href={link.href}>
