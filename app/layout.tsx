@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import type { ReactNode } from 'react';
 import './globals.css';
+import Providers from './providers';
 
 export const metadata = {
   title: {
@@ -15,7 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-gradient-primary text-charcoal font-sans antialiased">
-        {children}
+        <Providers>{children}</Providers>
         <Script src="/scripts/main.js" strategy="lazyOnload" />
       </body>
     </html>
