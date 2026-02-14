@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Body, Display, Lead, SectionTitle } from '@/components/Typography';
+import { Body, Lead, SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 
 const services = [
   {
@@ -58,23 +59,15 @@ export default function ServicesPage() {
   return (
     <SiteShell currentPath="/services">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="services-hero">
-          <div className="container hero__content">
-            <Display id="services-hero" className="hero__title">
-              Bespoke Baby Planning Services
-            </Display>
-            <Lead className="hero__subtitle">Personalized guidance to help you plan with calm confidence.</Lead>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Book a Free Consultation
-              </Link>
-              <Link className="link-text" href="/how-it-works">
-                How It Works
-              </Link>
-            </div>
-            <Body className="micro-note">No pressure. Camera optional.</Body>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="Services"
+          title="Bespoke Baby Planning Services"
+          subtitle="Personalized guidance to help you plan with calm confidence."
+          primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
+          secondaryCta={{ label: 'How It Works', href: '/how-it-works' }}
+          tagline="No pressure. Camera optional."
+          image="/assets/hero/hero-03.jpg"
+        />
 
         <Section variant="warm" aria-label="service offerings">
           <div className="container">

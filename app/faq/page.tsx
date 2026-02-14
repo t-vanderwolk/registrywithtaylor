@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Display, Eyebrow, Lead, SectionTitle } from '@/components/Typography';
+import { SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 
 const faqs = [
   {
@@ -62,17 +63,12 @@ export default function FAQPage() {
   return (
     <SiteShell currentPath="/faq">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="faq-hero">
-          <div className="container hero__content">
-            <Eyebrow className="hero__eyebrow">Frequently Asked Questions</Eyebrow>
-            <Display id="faq-hero" className="hero__title">
-              Frequently Asked Questions
-            </Display>
-            <Lead className="hero__subtitle">
-              Quick answers to common registry and planning questions.
-            </Lead>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="Frequently Asked Questions"
+          title="Frequently Asked Questions"
+          subtitle="Quick answers to common registry and planning questions."
+          image="/assets/hero/hero-05.jpg"
+        />
 
         <Section variant="warm" aria-label="FAQ accordion">
           <div className="container">

@@ -2,13 +2,26 @@ import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, Display, Lead, SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 import RibbonDivider from './ui/RibbonDivider';
 
 const qualificationItems = [
-  'You crave thoughtful, personal guidance',
-  'You want clarity without the noise',
-  'You value intentional choices over trends',
-  'You desire confidence before the baby arrives',
+  {
+    title: 'You crave thoughtful, personal guidance',
+    copy: 'You want a steady, experienced voice helping you filter what actually matters.',
+  },
+  {
+    title: 'You want clarity without the noise',
+    copy: 'You are overwhelmed by opinions and ready for decisions that fit your life.',
+  },
+  {
+    title: 'You value intentional choices over trends',
+    copy: 'You care more about longevity and function than what is popular this month.',
+  },
+  {
+    title: 'You desire confidence before the baby arrives',
+    copy: 'You want a grounded plan that leaves space for calm, flexibility, and real life.',
+  },
 ];
 
 const whyDifferent = [
@@ -45,50 +58,39 @@ export default function HomeContent() {
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="home-hero">
-          <div className="container hero__content">
-            <p className="hero__eyebrow">Taylor-Made Baby Planning</p>
-            <Display id="home-hero" className="hero__title">
-              Baby prep, simplified.
-            </Display>
-            <Lead className="hero__subtitle">
-              Because parenthood should start with confidence, not confusion.
-            </Lead>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Book a Free Consultation
-              </Link>
-              <Link className="btn btn--ghost" href="/how-it-works">
-                How it works
-              </Link>
-            </div>
-            <Body className="micro-text">Private · Personalized · No pressure</Body>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="Taylor-Made Baby Planning"
+          title="Baby prep, simplified."
+          subtitle="Because parenthood should start with confidence, not confusion."
+          primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
+          secondaryCta={{ label: 'View Services', href: '/services' }}
+          tagline="Private · Personalized · No pressure"
+          image="/assets/hero/hero-01.jpg"
+        />
+     
 
         <Section variant="warm" aria-label="Thoughtful advice">
           <div className="container text-center space-y-3">
             <SectionTitle>There’s a lot of advice out there.</SectionTitle>
-            <Body>Most of it loud. Some of it helpful. Very little of it tailored to you.</Body>
-            <Body>
+            <Body className="mx-auto text-center">
+              Most of it loud. Some of it helpful. Very little of it tailored to you.
+            </Body>
+            <Body className="mx-auto text-center">
               Taylor-Made Baby Planning delivers calm, thoughtful guidance that helps you prepare
               intentionally — with products, decisions, and timelines that fit your real life.
             </Body>
-            <RibbonDivider className="mt-10" />
           </div>
         </Section>
-
-        <Section variant="neutral" aria-label="Qualifications">
+   <RibbonDivider />
+        <Section variant="neutral" className="this-for-you-section" aria-label="Qualifications">
           <div className="container">
-            <SectionTitle className="text-center">This is for you if…</SectionTitle>
-            <div className="grid gap-6 md:grid-cols-2 mt-8">
-              {qualificationItems.map((item) => (
-                <article key={item} className="feature-card">
-                  <h3>{item}</h3>
-                  <Body className="body-copy--full">
-                    Calm guidance, thoughtful pacing, and a private planning partner you can trust.
-                  </Body>
-                </article>
+            <h2 className="this-for-you-header">This is for you if…</h2>
+            <div className="this-for-you-grid">
+              {qualificationItems.map((item, index) => (
+                <div key={item.title} className={`this-for-you-card stagger-${index}`}>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                </div>
               ))}
             </div>
             <div className="text-center mt-6">

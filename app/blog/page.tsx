@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Body, Display, Eyebrow, Lead, SectionTitle } from '@/components/Typography';
+import { Body, SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 
 const posts = [
   {
@@ -58,17 +59,12 @@ export default function BlogPage() {
   return (
     <SiteShell currentPath="/blog">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="blog-hero">
-          <div className="container hero__content">
-            <Eyebrow className="hero__eyebrow">From the Journal</Eyebrow>
-            <Display id="blog-hero" className="hero__title">
-              Thoughtful notes on registry planning, nursery design, and calm preparation.
-            </Display>
-            <Lead className="hero__subtitle">
-              Stories, quick tips, and practical thinking to keep every moment intentional.
-            </Lead>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="From the Journal"
+          title="Thoughtful notes on registry planning, nursery design, and calm preparation."
+          subtitle="Stories, quick tips, and practical thinking to keep every moment intentional."
+          image="/assets/hero/hero-04.jpg"
+        />
 
         <Section variant="neutral" aria-label="Blog posts">
           <div className="container">

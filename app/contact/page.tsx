@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Body, Display, Eyebrow, Lead, SectionTitle } from '@/components/Typography';
+import { Body, SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 
 export const metadata = {
   title: 'Contact — Taylor-Made Baby Planning',
@@ -13,22 +14,13 @@ export default function ContactPage() {
   return (
     <SiteShell currentPath="/contact">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="contact-hero">
-          <div className="container hero__content">
-            <Eyebrow className="hero__eyebrow">Get in Touch</Eyebrow>
-            <Display id="contact-hero" className="hero__title">
-              Get in Touch
-            </Display>
-            <Lead className="hero__subtitle">
-              Have questions or ready to start your registry? I’m here to help.
-            </Lead>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="#contact-form">
-                Book a Consultation
-              </Link>
-            </div>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="Get in Touch"
+          title="Get in Touch"
+          subtitle="Have questions or ready to start your registry? I’m here to help."
+          primaryCta={{ label: 'Book a Consultation', href: '#contact-form' }}
+          image="/assets/hero/hero-06.jpg"
+        />
 
         <Section variant="warm" aria-label="Direct contacts">
           <div className="container">

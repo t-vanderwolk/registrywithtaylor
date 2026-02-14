@@ -15,7 +15,7 @@ export const metadata = {
     locale: 'en_US',
     images: [
       {
-        url: 'https://taylormadebabyplanning.com/assets/hero/home-hero.png',
+        url: 'https://taylormadebabyplanning.com/assets/hero/hero-01.jpg',
         width: 1200,
         height: 630,
         alt: 'Taylor-Made Baby Planning hero background',
@@ -27,7 +27,7 @@ export const metadata = {
     title: 'Taylor-Made Baby Planning',
     description:
       'Baby prep, simplified. Private guidance, clear next steps, and calm confidence for expecting parents.',
-    images: ['https://taylormadebabyplanning.com/assets/hero/home-hero.png'],
+    images: ['https://taylormadebabyplanning.com/assets/hero/hero-01.jpg'],
   },
 };
 

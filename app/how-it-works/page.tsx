@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Body, Display, Lead, SectionTitle } from '@/components/Typography';
+import { Body, Lead, SectionTitle } from '@/components/Typography';
+import Hero from '@/components/ui/Hero';
 
 export const metadata = {
   title: 'How It Works — Taylor-Made Baby Planning',
@@ -45,23 +46,13 @@ export default function HowItWorksPage() {
   return (
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
-        <Section variant="base" className="hero" aria-labelledby="how-title">
-          <div className="container hero__content">
-            <Display id="how-title" className="hero__title">
-              Transparent process, confident decisions.
-            </Display>
-            <Lead className="hero__subtitle">A calm, intentional approach to building your registry.</Lead>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Book a Free Consultation
-              </Link>
-            </div>
-            <Body className="micro-note">No pressure. Just clarity.</Body>
-            <div className="hero__media" aria-hidden="true">
-              {/* IMAGE: howitworks-hero-illustration */}
-            </div>
-          </div>
-        </Section>
+        <Hero
+          eyebrow="How It Works"
+          title="Transparent process, confident decisions."
+          subtitle="A calm, intentional approach to building your registry."
+          primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
+          image="/assets/hero/hero-02.jpg"
+        />
 
         <Section variant="neutral" aria-label="intro copy">
           <div className="container">
