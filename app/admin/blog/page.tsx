@@ -1,30 +1,31 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { Fragment } from 'react';
+import Hero from '@/components/ui/Hero';
 import prisma from '@/lib/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 
-export const dynamic = 'force-dynamic';
+type Filter = 'all' | 'draft' | 'published';
 
-async function togglePublish(formData: FormData) {
-  'use server';
-  const postId = formData.get('postId');
-  const publishTarget = formData.get('publish');
+type SearchParams = Promise<{ status?: string }> | { status?: string } | undefined;
 
-  if (!postId || typeof postId !== 'string') {
-    throw new Error('Missing post ID');
+const resolveFilter = (value?: string): Filter => {
+  if (value === 'draft') {
+    return 'draft';
   }
 
-  await requireAdminSession();
-  await prisma.post.update({
-    where: { id: postId },
-    data: {
-      published: publishTarget === 'true',
-    },
-  });
+  if (value === 'published') {
+    return 'published';
+  }
 
-  redirect('/admin/blog');
-}
+  return 'all';
+};
+
+const formatDate = (value: Date) =>
+  value.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 
 async function deletePost(formData: FormData) {
   'use server';
@@ -39,94 +40,122 @@ async function deletePost(formData: FormData) {
   redirect('/admin/blog');
 }
 
-export default async function AdminBlogPage() {
+export default async function AdminBlogPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  await requireAdminSession();
+
+  const { status } = (await Promise.resolve(searchParams)) ?? {};
+  const filter = resolveFilter(status);
+  const where =
+    filter === 'all'
+      ? undefined
+      : {
+          published: filter === 'published',
+        };
+
   const posts = await prisma.post.findMany({
-    orderBy: { updatedAt: 'desc' },
+    where,
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
       title: true,
       slug: true,
       published: true,
       views: true,
-      updatedAt: true,
+      createdAt: true,
     },
   });
 
-  const postIds = posts.map((post) => post.id);
-  const clickBreakdown = postIds.length
-    ? await prisma.postAnalytics.groupBy({
-        by: ['postId'],
-        where: {
-          postId: { in: postIds },
-          event: 'AFFILIATE_CLICK',
-        },
-        _count: { _all: true },
-      })
-    : [];
-  const clickMap = new Map(
-    clickBreakdown.map((row) => [row.postId, row._count._all]),
-  );
-
   return (
     <div className="space-y-6">
-      <header>
-        <p className="eyebrow">Blog CMS</p>
-        <h1>Journal posts</h1>
-        <div className="hero__actions" style={{ justifyContent: 'flex-start' }}>
-          <Link className="btn btn--primary" href="/admin/blog/new">
-            Create new post
-          </Link>
-        </div>
-      </header>
+      <Hero
+        eyebrow="Admin Blog"
+        title="Publish and manage journal content"
+        subtitle="Create, edit, and publish blog posts that appear instantly on the public journal."
+        image="/assets/hero/hero-06.jpg"
+        primaryCta={{ label: 'New Post', href: '/admin/blog/new' }}
+      />
 
       <section className="card">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '1rem',
-          }}
-        >
-          <span>
-            <strong>Title</strong>
-          </span>
-          <span>
-            <strong>Status</strong>
-          </span>
-          <span>
-            <strong>Views</strong>
-          </span>
-          <span>
-            <strong>Affiliate Clicks</strong>
-          </span>
-          <span>
-            <strong>Actions</strong>
-          </span>
-          {posts.map((post) => (
-            <Fragment key={post.id}>
-              <span>
-                <Link href={`/admin/blog/${post.id}/edit`}>{post.title}</Link>
-              </span>
-              <span>{post.published ? 'Published' : 'Draft'}</span>
-              <span>{post.views}</span>
-              <span>{clickMap.get(post.id) ?? 0}</span>
-              <span style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <form action={togglePublish}>
-                  <input type="hidden" name="postId" value={post.id} />
-                  <input type="hidden" name="publish" value={(!post.published).toString()} />
-                  <button type="submit" className="btn btn--secondary">
-                    {post.published ? 'Unpublish' : 'Publish'}
-                  </button>
-                </form>
-                <form action={deletePost}>
-                  <input type="hidden" name="postId" value={post.id} />
-                  <button type="submit" className="btn btn--ghost">
-                    Delete
-                  </button>
-                </form>
-              </span>
-            </Fragment>
-          ))}
+        <div className="admin-toolbar">
+          <div className="admin-filter-group" role="tablist" aria-label="Filter posts">
+            <Link
+              href="/admin/blog"
+              className={`btn btn--secondary ${filter === 'all' ? 'is-active' : ''}`}
+            >
+              All
+            </Link>
+            <Link
+              href="/admin/blog?status=draft"
+              className={`btn btn--secondary ${filter === 'draft' ? 'is-active' : ''}`}
+            >
+              Draft
+            </Link>
+            <Link
+              href="/admin/blog?status=published"
+              className={`btn btn--secondary ${filter === 'published' ? 'is-active' : ''}`}
+            >
+              Published
+            </Link>
+          </div>
+          <Link className="btn btn--primary" href="/admin/blog/new">
+            New Post
+          </Link>
+        </div>
+
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Status</th>
+                <th>Views</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="admin-table__empty">
+                    No posts found for this filter.
+                  </td>
+                </tr>
+              )}
+              {posts.map((post) => (
+                <tr key={post.id}>
+                  <td>{post.title}</td>
+                  <td>
+                    <code>{post.slug}</code>
+                  </td>
+                  <td>
+                    <span className={`status-chip ${post.published ? 'is-published' : 'is-draft'}`}>
+                      {post.published ? 'Published' : 'Draft'}
+                    </span>
+                  </td>
+                  <td>{post.views}</td>
+                  <td>{formatDate(post.createdAt)}</td>
+                  <td>
+                    <div className="admin-actions-cell">
+                      <Link className="btn btn--secondary" href={`/admin/blog/${post.id}/edit`}>
+                        Edit
+                      </Link>
+                      <form action={deletePost}>
+                        <input type="hidden" name="postId" value={post.id} />
+                        <button type="submit" className="btn btn--ghost">
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
     </div>

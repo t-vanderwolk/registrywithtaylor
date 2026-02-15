@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import prisma from '@/lib/prisma';
-import { Roles } from '@/lib/auth';
 import { generateUniqueSlug } from '@/lib/blog';
+import { Roles } from '@/lib/auth';
+import prisma from '@/lib/prisma';
 
 const requireAdmin = async (req: NextRequest) => {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   if (token?.role !== Roles.ADMIN) {
     return null;
   }
+
   return token;
 };
+
+const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
 export async function GET(
   req: NextRequest,
@@ -43,16 +46,18 @@ export async function PUT(
   }
 
   const body = await req.json();
-  const title = typeof body.title === 'string' ? body.title.trim() : '';
-  const content = typeof body.content === 'string' ? body.content.trim() : '';
-  const excerpt = typeof body.excerpt === 'string' ? body.excerpt.trim() || null : null;
+  const title = asText(body.title);
+  const slugInput = asText(body.slug);
+  const excerpt = asText(body.excerpt) || null;
+  const coverImage = asText(body.coverImage) || null;
+  const content = asText(body.content);
   const published = Boolean(body.published);
 
   if (!title || !content) {
     return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
   }
 
-  const slug = await generateUniqueSlug(title, id);
+  const slug = await generateUniqueSlug(slugInput || title, id);
   const post = await prisma.post.update({
     where: { id },
     data: {
@@ -60,6 +65,7 @@ export async function PUT(
       slug,
       content,
       excerpt,
+      coverImage,
       published,
     },
   });

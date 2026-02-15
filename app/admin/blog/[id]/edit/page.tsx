@@ -1,41 +1,48 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import Hero from '@/components/ui/Hero';
+import { generateUniqueSlug } from '@/lib/blog';
 import prisma from '@/lib/prisma';
 import { requireAdminSession } from '@/lib/server/session';
-import { generateUniqueSlug } from '@/lib/blog';
+
+const asText = (value: FormDataEntryValue | null) =>
+  typeof value === 'string' ? value.trim() : '';
 
 async function updatePost(formData: FormData) {
   'use server';
-  const postId = formData.get('postId');
-  const titleInput = formData.get('title');
-  const contentInput = formData.get('content');
 
-  if (!postId || typeof postId !== 'string') {
+  const postId = asText(formData.get('postId'));
+  const title = asText(formData.get('title'));
+  const slugInput = asText(formData.get('slug'));
+  const excerpt = asText(formData.get('excerpt'));
+  const coverImage = asText(formData.get('coverImage'));
+  const content = asText(formData.get('content'));
+  const published = formData.get('published') === 'on';
+
+  if (!postId) {
     throw new Error('Missing post ID');
   }
 
-  if (!titleInput || typeof titleInput !== 'string') {
+  if (!title) {
     throw new Error('Title is required');
   }
 
-  if (!contentInput || typeof contentInput !== 'string') {
+  if (!content) {
     throw new Error('Content is required');
   }
 
   await requireAdminSession();
 
-  const published = formData.get('published') === 'on';
-  const excerptInput = formData.get('excerpt');
-  const slug = await generateUniqueSlug(titleInput, postId);
+  const slug = await generateUniqueSlug(slugInput || title, postId);
 
   await prisma.post.update({
     where: { id: postId },
     data: {
-      title: titleInput.trim(),
+      title,
       slug,
-      excerpt:
-        typeof excerptInput === 'string' ? excerptInput.trim() || null : null,
-      content: contentInput.trim(),
+      excerpt: excerpt || null,
+      coverImage: coverImage || null,
+      content,
       published,
     },
   });
@@ -43,10 +50,15 @@ async function updatePost(formData: FormData) {
   redirect('/admin/blog');
 }
 
-export default async function AdminBlogEditPage({ params }: { params: { id: string } }) {
-  const post = await prisma.post.findUnique({
-    where: { id: params.id },
-  });
+export default async function AdminBlogEditPage({
+  params,
+}: {
+  params: Promise<{ id: string }> | { id: string };
+}) {
+  await requireAdminSession();
+
+  const { id } = await Promise.resolve(params);
+  const post = await prisma.post.findUnique({ where: { id } });
 
   if (!post) {
     notFound();
@@ -54,12 +66,14 @@ export default async function AdminBlogEditPage({ params }: { params: { id: stri
 
   return (
     <div className="space-y-6">
-      <header>
-        <p className="eyebrow">Edit post</p>
-        <h1>{post.title}</h1>
-      </header>
+      <Hero
+        eyebrow="Edit Post"
+        title={post.title}
+        subtitle="Update copy, cover image, slug, and publish status."
+        image={post.coverImage ?? '/assets/hero/hero-04.jpg'}
+      />
 
-      <form action={updatePost} className="card space-y-4">
+      <form action={updatePost} className="card admin-form">
         <input type="hidden" name="postId" value={post.id} />
 
         <div className="form-field">
@@ -70,15 +84,34 @@ export default async function AdminBlogEditPage({ params }: { params: { id: stri
         </div>
 
         <div className="form-field">
+          <label className="form-field__label" htmlFor="slug">
+            Slug
+          </label>
+          <input id="slug" name="slug" defaultValue={post.slug} className="form-field__input" />
+        </div>
+
+        <div className="form-field">
           <label className="form-field__label" htmlFor="excerpt">
-            Excerpt / summary
+            Excerpt
           </label>
           <textarea
             id="excerpt"
             name="excerpt"
             className="form-field__textarea"
-            rows={2}
+            rows={3}
             defaultValue={post.excerpt ?? ''}
+          />
+        </div>
+
+        <div className="form-field">
+          <label className="form-field__label" htmlFor="coverImage">
+            Cover Image URL
+          </label>
+          <input
+            id="coverImage"
+            name="coverImage"
+            defaultValue={post.coverImage ?? ''}
+            className="form-field__input"
           />
         </div>
 
@@ -90,20 +123,20 @@ export default async function AdminBlogEditPage({ params }: { params: { id: stri
             id="content"
             name="content"
             className="form-field__textarea"
-            rows={8}
+            rows={12}
             required
             defaultValue={post.content}
           />
         </div>
 
-        <label className="form-field">
-          <input type="checkbox" name="published" defaultChecked={post.published} />
-          <span style={{ marginLeft: '0.5rem' }}>Published</span>
+        <label className="form-field form-field--inline" htmlFor="published">
+          <input id="published" type="checkbox" name="published" defaultChecked={post.published} />
+          <span>Published</span>
         </label>
 
-        <div className="hero__actions" style={{ justifyContent: 'flex-start' }}>
+        <div className="admin-actions-row">
           <button type="submit" className="btn btn--primary">
-            Save changes
+            Save Changes
           </button>
           <Link href="/admin/blog" className="btn btn--ghost">
             Cancel

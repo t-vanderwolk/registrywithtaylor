@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 
 const ADMIN_PREFIX = '/admin';
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   if (!req.nextUrl.pathname.startsWith(ADMIN_PREFIX)) {
     return NextResponse.next();
   }

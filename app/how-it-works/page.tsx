@@ -52,10 +52,15 @@ export default function HowItWorksPage() {
           subtitle="A calm, intentional approach to building your registry."
           primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
           image="/assets/hero/hero-02.jpg"
+          className="hero-bottom-fade hero-cta-buffer"
         />
 
-        <Section variant="neutral" aria-label="intro copy">
-          <div className="container">
+        <Section
+          variant="neutral"
+          aria-label="intro copy"
+          className="section-ivory section-spacing"
+        >
+          <div className="container spacing-card-gap">
             <SectionTitle className="section__title">Why the checklist stops working</SectionTitle>
             <Lead>Because walking into a baby store shouldn&apos;t feel intimidating.</Lead>
             <Body>
@@ -64,13 +69,16 @@ export default function HowItWorksPage() {
             <Body>We flip the script with a calm Learn → Plan → Try → Buy rhythm so you enter every decision curious and confident.</Body>
           </div>
         </Section>
-
-        <Section variant="warm" aria-label="process steps">
-          <div className="container">
+        <Section
+          variant="warm"
+          aria-label="process steps"
+          className="section-white section-spacing"
+        >
+          <div className="container spacing-card-gap">
             <SectionTitle className="section__title">The model</SectionTitle>
             <div className="steps-grid">
               {steps.map((step) => (
-                <article key={step.title} className="step-card">
+                <article key={step.title} className="step-card card-surface">
                   <Image
                     src={step.icon}
                     alt={`${step.title} icon`}
@@ -91,13 +99,16 @@ export default function HowItWorksPage() {
             </div>
           </div>
         </Section>
-
-        <Section variant="base" aria-label="benefits">
-          <div className="container">
+        <Section
+          variant="base"
+          aria-label="benefits"
+          className="section-ivory section-spacing"
+        >
+          <div className="container spacing-card-gap">
             <SectionTitle className="section__title">Why this model works</SectionTitle>
             <div className="benefits-grid">
               {['Understand before spending.', 'Plan once, not repeatedly.', 'Buy with clarity and confidence.'].map((benefit) => (
-                <article key={benefit} className="benefit-card">
+                <article key={benefit} className="benefit-card card-surface">
                   <span aria-hidden="true">•</span>
                   <Body className="body-copy--full">{benefit}</Body>
                 </article>
@@ -121,18 +132,6 @@ export default function HowItWorksPage() {
                 </div>
               ))}
             </section>
-          </div>
-        </Section>
-
-        <Section variant="highlight" className="final-cta" aria-label="closing call to action">
-          <div className="container hero__content">
-            <SectionTitle className="section__title">Ready when you are.</SectionTitle>
-            <Lead className="hero__subtitle">No pressure. Just clarity when you need it.</Lead>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Book a Free Consultation
-              </Link>
-            </div>
           </div>
         </Section>
       </main>

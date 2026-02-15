@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { redirect } from 'next/navigation';
+import Hero from '@/components/ui/Hero';
 import prisma from '@/lib/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 import { slugify } from '@/lib/slugify';
@@ -124,17 +125,20 @@ const parseAssets = (value: Prisma.JsonValue | null): PartnerAsset[] => {
 };
 
 export default async function AdminAffiliatesPage() {
+  await requireAdminSession();
+
   const partners = await prisma.affiliatePartner.findMany({
     orderBy: { createdAt: 'desc' },
   });
 
   return (
     <div className="space-y-6">
-      <header>
-        <p className="eyebrow">Affiliate partners</p>
-        <h1>Partner asset library</h1>
-        <p className="body-copy">Centralize partner creatives, commission details, and notes.</p>
-      </header>
+      <Hero
+        eyebrow="Affiliate Partners"
+        title="Manage partner asset library"
+        subtitle="Centralize partner creatives, commission details, and embed resources."
+        image="/assets/hero/hero-02.jpg"
+      />
 
       <form action={createPartner} className="card space-y-3">
         <h2>New partner</h2>
@@ -178,7 +182,7 @@ export default async function AdminAffiliatesPage() {
           const assets = parseAssets(partner.assets);
           return (
             <article key={partner.id} className="card space-y-3">
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+              <div className="admin-row-between">
                 <h2>{partner.name}</h2>
                 <span>{partner.commission ?? 'Commission TBD'}</span>
               </div>

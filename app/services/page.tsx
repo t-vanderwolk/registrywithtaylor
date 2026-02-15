@@ -3,6 +3,7 @@ import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
 import Hero from '@/components/ui/Hero';
+import RibbonDivider from '@/components/layout/RibbonDivider';
 
 const services = [
   {
@@ -69,11 +70,15 @@ export default function ServicesPage() {
           image="/assets/hero/hero-03.jpg"
         />
 
-        <Section variant="warm" aria-label="service offerings">
-          <div className="container">
+        <Section
+          variant="warm"
+          aria-label="service offerings"
+          className="section-ivory section-spacing"
+        >
+          <div className="container spacing-card-gap">
             <div className="service-grid">
               {services.map((service) => (
-                <article key={service.title} className="service-card">
+                <article key={service.title} className="service-card card-surface">
                   <span
                     className="service-card__icon"
                     role="presentation"
@@ -88,17 +93,22 @@ export default function ServicesPage() {
                       <Body className="micro-text body-copy--full">{service.reassurance}</Body>
                       <Link className="link-text" href={service.href}>
                         {service.title.includes('Registry') ? 'Explore registry planning' : 'Learn more'}
-                      </Link>
-                    </div>
-                  </details>
-                </article>
-              ))}
-            </div>
-          </div>
+                  </Link>
+                </div>
+              </details>
+            </article>
+          ))}
+        </div>
+      </div>
         </Section>
-        <Section variant="neutral" className="mid-cta" aria-label="secondary cta">
-          <div className="container">
-            <div className="cta-panel">
+        <RibbonDivider />
+        <Section
+          variant="neutral"
+          className="mid-cta section-white section-spacing"
+          aria-label="secondary cta"
+        >
+          <div className="container spacing-card-gap">
+            <div className="cta-panel card-surface spacing-card-gap">
               <h3>Ready to talk through your unique plan?</h3>
               <Link className="btn btn--secondary" href="/contact">
                 Book a Free Consultation
@@ -106,9 +116,14 @@ export default function ServicesPage() {
             </div>
           </div>
         </Section>
+        <RibbonDivider />
 
-        <Section variant="base" className="trust-block" aria-label="testimonial">
-          <div className="container testimonial-card">
+        <Section
+          variant="base"
+          className="trust-block section-ivory section-spacing"
+          aria-label="testimonial"
+        >
+          <div className="container testimonial-card card-surface spacing-card-gap">
             <span className="quote-icon" aria-hidden="true">
               “
             </span>
@@ -116,9 +131,14 @@ export default function ServicesPage() {
             <Body className="micro-text">— Grateful parents</Body>
           </div>
         </Section>
+        <RibbonDivider />
 
-        <Section variant="highlight" className="final-cta" aria-label="closing call to action">
-          <div className="container final-cta__content">
+        <Section
+          variant="highlight"
+          className="final-cta section-beige section-spacing"
+          aria-label="closing call to action"
+        >
+          <div className="container final-cta__content card-surface spacing-card-gap">
             <SectionTitle className="section__title">Start with confidence.</SectionTitle>
             <Lead className="hero__subtitle">
               Book a free consultation and discover how thoughtful planning keeps you present for what matters most.

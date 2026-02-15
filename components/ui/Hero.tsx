@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import RibbonDivider from '@/components/layout/RibbonDivider';
 
 type CTA = {
   label: string;
@@ -14,6 +15,7 @@ export default function Hero({
   secondaryCta,
   tagline: _tagline,
   image,
+  className = '',
 }: {
   eyebrow?: string;
   title: string;
@@ -22,23 +24,31 @@ export default function Hero({
   secondaryCta?: CTA;
   tagline?: string;
   image: string;
+  className?: string;
 }) {
+  const sectionClassName = `hero-section relative overflow-visible ${className}`.trim();
+
   return (
-    <section className="hero-section">
-      <div className="hero-media">
+    <section className={`${sectionClassName} min-h-[85vh]`}>
+      <div className="hero-media absolute inset-0">
         <Image
           src={image}
-          // Decorative hero background; all meaningful content is in text/CTAs.
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="hero-overlay" />
+
+        {/* optional subtle darkening if needed */}
+        <div className="hero-overlay absolute inset-0" />
       </div>
 
-      <div className="hero-inner">
+      <div className="absolute bottom-[-10px] left-0 w-full z-20 pointer-events-none">
+        <RibbonDivider />
+      </div>
+
+      <div className="hero-inner relative z-10">
         <div className="hero-content animate-hero-fade">
           {eyebrow && <p className="hero-eyebrow">{eyebrow}</p>}
 
@@ -62,6 +72,9 @@ export default function Hero({
           )}
         </div>
       </div>
+
+      {/* ⬇️ CRITICAL: Bottom fade into ivory */}
+      <div className="absolute bottom-0 left-0 w-full h-[160px] bg-gradient-to-b from-transparent via-[#f8f4f0]/30 to-[#f8f4f0]" />
     </section>
   );
 }

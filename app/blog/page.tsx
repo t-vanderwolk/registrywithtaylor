@@ -1,21 +1,27 @@
 import Link from 'next/link';
-import SiteShell from '@/components/SiteShell';
 import Section from '@/components/Section';
+import SiteShell from '@/components/SiteShell';
 import Hero from '@/components/ui/Hero';
 import { Body, SectionTitle } from '@/components/Typography';
 import prisma from '@/lib/prisma';
 
-const formatDate = (value: Date) =>
-  value.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+export const dynamic = 'force-dynamic';
+
+const fallbackCover = '/assets/hero/hero-05.jpg';
 
 export const metadata = {
   title: 'Blog — Taylor-Made Baby Planning',
   description:
     'Notes on thoughtful registry planning, nursery design, and calm preparation from Taylor-Made Baby Planning.',
+};
+
+const toExcerpt = (excerpt: string | null, content: string) => {
+  if (excerpt?.trim()) {
+    return excerpt;
+  }
+
+  const clean = content.replace(/\s+/g, ' ').trim();
+  return clean.length > 180 ? `${clean.slice(0, 177)}...` : clean;
 };
 
 export default async function BlogPage() {
@@ -27,7 +33,8 @@ export default async function BlogPage() {
       title: true,
       slug: true,
       excerpt: true,
-      createdAt: true,
+      content: true,
+      coverImage: true,
     },
   });
 
@@ -39,7 +46,6 @@ export default async function BlogPage() {
           title="Thoughtful notes on registry planning, nursery design, and calm preparation."
           subtitle="Stories, quick tips, and practical thinking to keep every moment intentional."
           image="/assets/hero/hero-04.jpg"
-          primaryCta={{ label: 'Browse latest', href: '/blog' }}
         />
 
         <Section variant="neutral" aria-label="Blog posts">
@@ -47,31 +53,27 @@ export default async function BlogPage() {
             <SectionTitle className="section__title">Latest journal entries</SectionTitle>
             <div id="blog-posts" className="feature-grid" aria-live="polite">
               {posts.map((post) => (
-                <article key={post.id} className="feature-card">
+                <article key={post.id} className="feature-card blog-card">
+                  <img
+                    src={post.coverImage || fallbackCover}
+                    alt={post.title}
+                    className="blog-card__image"
+                    loading="lazy"
+                  />
                   <Body className="feature-card__body body-copy--full">Journal</Body>
+                  <h2 className="feature-card__title">{post.title}</h2>
+                  <Body className="feature-card__body body-copy--full">
+                    {toExcerpt(post.excerpt, post.content)}
+                  </Body>
                   <Link
-                    className="feature-card__title text-neutral-900 no-underline hover:underline underline-offset-4"
+                    className="btn btn--secondary blog-card__link"
                     href={`/blog/${post.slug}`}
                   >
-                    {post.title}
+                    Read More
                   </Link>
-                  <Body className="feature-card__body body-copy--full">{post.excerpt}</Body>
-                  <div className="hero__actions" style={{ justifyContent: 'space-between' }}>
-                    <span className="hero__subtitle">
-                      {formatDate(new Date(post.createdAt))}
-                    </span>
-                    <Link
-                      className="primary-nav__link text-neutral-900 no-underline hover:underline underline-offset-4"
-                      href={`/blog/${post.slug}`}
-                    >
-                      Read More
-                    </Link>
-                  </div>
                 </article>
               ))}
-              {posts.length === 0 && (
-                <p className="body-copy">No posts published yet.</p>
-              )}
+              {posts.length === 0 && <p className="body-copy">No posts published yet.</p>}
             </div>
           </div>
         </Section>
