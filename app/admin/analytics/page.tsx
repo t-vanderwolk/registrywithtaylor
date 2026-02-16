@@ -1,6 +1,12 @@
-import Hero from '@/components/ui/Hero';
+import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import { requireAdminSession } from '@/lib/server/session';
+import AdminButton from '@/components/admin/ui/AdminButton';
+import AdminHeader from '@/components/admin/ui/AdminHeader';
+import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
+import AdminStack from '@/components/admin/ui/AdminStack';
+import AdminSurface from '@/components/admin/ui/AdminSurface';
+import AdminTable from '@/components/admin/ui/AdminTable';
 
 export default async function AdminAnalyticsPage() {
   await requireAdminSession();
@@ -26,73 +32,59 @@ export default async function AdminAnalyticsPage() {
   ]);
 
   return (
-    <div className="space-y-6">
-      <Hero
+    <AdminStack gap="xl">
+      <AdminHeader
         eyebrow="Analytics"
         title="Blog performance overview"
         subtitle="Track output volume, publication state, and post-level readership at a glance."
-        image="/assets/hero/hero-03.jpg"
+        actions={
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/blog">Manage blog</Link>
+          </AdminButton>
+        }
       />
 
-      <section className="admin-metric-grid">
-        <article className="card">
-          <h3>Total posts</h3>
-          <p className="display">{totalPosts}</p>
-        </article>
-        <article className="card">
-          <h3>Published posts</h3>
-          <p className="display">{publishedPosts}</p>
-        </article>
-        <article className="card">
-          <h3>Total views</h3>
-          <p className="display">{(viewsSum._sum.views ?? 0).toLocaleString()}</p>
-        </article>
-        <article className="card">
-          <h3>Most viewed post</h3>
-          <p className="body-copy">
-            {mostViewedPost ? `${mostViewedPost.title} (${mostViewedPost.views} views)` : 'No posts yet'}
-          </p>
-        </article>
+      <section className="admin-kpi-grid" aria-label="Analytics metrics">
+        <AdminKpiCard label="Total posts" value={String(totalPosts)} />
+        <AdminKpiCard label="Published" value={String(publishedPosts)} />
+        <AdminKpiCard label="Total views" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
       </section>
 
-      <section className="card">
-        <h2>Post view counts</h2>
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Slug</th>
-                <th>Status</th>
-                <th>Views</th>
-              </tr>
-            </thead>
-            <tbody>
-              {postsByViews.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="admin-table__empty">
-                    No post data yet.
-                  </td>
-                </tr>
-              )}
-              {postsByViews.map((post) => (
-                <tr key={post.id}>
-                  <td>{post.title}</td>
-                  <td>
-                    <code>{post.slug}</code>
-                  </td>
-                  <td>
-                    <span className={`status-chip ${post.published ? 'is-published' : 'is-draft'}`}>
-                      {post.published ? 'Published' : 'Draft'}
-                    </span>
-                  </td>
-                  <td>{post.views}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
+      <AdminSurface variant="muted" className="admin-stack" >
+        <p className="admin-eyebrow">Top performer</p>
+        <p className="admin-body">
+          {mostViewedPost ? `${mostViewedPost.title} (${mostViewedPost.views} views)` : 'No post data yet.'}
+        </p>
+      </AdminSurface>
+
+      <AdminSurface className="admin-stack" >
+        <h2 className="admin-h2">Post view counts</h2>
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'title', label: 'Title' },
+            { key: 'slug', label: 'Slug' },
+            { key: 'status', label: 'Status' },
+            { key: 'views', label: 'Views', align: 'right' },
+          ]}
+          emptyState={<p className="admin-body p-6">No post data yet.</p>}
+        >
+          {postsByViews.map((post) => (
+            <tr key={post.id} className="admin-row">
+              <td className="text-[var(--admin-color-text)]">{post.title}</td>
+              <td>
+                <span className="admin-table-code">{post.slug}</span>
+              </td>
+              <td>
+                <span className={`admin-chip ${post.published ? 'admin-chip--published' : 'admin-chip--draft'}`}>
+                  {post.published ? 'Published' : 'Draft'}
+                </span>
+              </td>
+              <td className="text-right text-[var(--admin-color-text)]">{post.views}</td>
+            </tr>
+          ))}
+        </AdminTable>
+      </AdminSurface>
+    </AdminStack>
   );
 }

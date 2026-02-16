@@ -562,9 +562,45 @@ img {
   opacity: 1;
 }
 
+.hero-home-radial .hero-content {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-home-radial .hero-content::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: -4rem;
+  right: -2rem;
+  top: -2.5rem;
+  bottom: -3.25rem;
+  background: radial-gradient(
+    ellipse at 24% 36%,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.66) 38%,
+    rgba(255, 255, 255, 0.28) 66%,
+    rgba(255, 255, 255, 0) 86%
+  );
+  filter: blur(8px);
+}
+
+.hero-home-radial .hero-inner {
+  padding-bottom: clamp(6rem, 9vw, 7.5rem);
+}
+
 @media (max-width: 767px) {
   .hero-content {
     max-width: 32rem;
+  }
+
+  .hero-home-radial .hero-content::before {
+    left: -1.25rem;
+    right: -1rem;
+    top: -1.5rem;
+    bottom: -2rem;
+    filter: blur(6px);
   }
 }
 
@@ -574,16 +610,16 @@ img {
 
 .hero-section {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   height: 88vh;
   min-height: 680px;
   overflow: visible;
 }
 
-.hero-section.overflow-visible {
-  overflow: visible;
+.hero-section--full-bleed {
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .hero-cta-buffer .hero-inner {
@@ -700,12 +736,12 @@ img {
 .this-for-you-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2.5rem, 4vw, 3.5rem);
+  gap: clamp(3.25rem, 5vw, 4.75rem);
   max-width: 1100px;
   margin: 0 auto;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .this-for-you-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -739,6 +775,25 @@ img {
   font-size: clamp(1.4rem, 1.8vw, 1.75rem);
   margin-bottom: 1rem;
   position: relative;
+  padding-left: 2rem;
+}
+
+.this-for-you-card h3::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #7e5b57;
+  background: rgba(207, 166, 160, 0.18);
+  border: 1px solid rgba(207, 166, 160, 0.38);
 }
 
 .this-for-you-card h3::after {
@@ -757,12 +812,32 @@ img {
   color: rgba(0,0,0,0.7);
 }
 
-@media (min-width: 900px) {
-  .stagger-1,
-  .stagger-3,
-  .stagger-5 {
-    margin-top: 4rem;
-  }
+.this-for-you-thesis {
+  text-align: center;
+  max-width: 56rem;
+  margin: clamp(2.5rem, 4.5vw, 4rem) auto 0;
+  padding-top: clamp(1.5rem, 2.8vw, 2.25rem);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.this-for-you-thesis__line {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.this-for-you-thesis__line + .this-for-you-thesis__line {
+  margin-top: 0.6rem;
+}
+
+.this-for-you-thesis__line--emphasis {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.55rem, 2.9vw, 2.2rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .feature-grid {
@@ -810,6 +885,14 @@ img {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.service-card:hover,
+.service-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 44px rgba(31, 31, 31, 0.12);
 }
 
 .service-card__icon {
@@ -828,6 +911,16 @@ img {
 
 .service-card p {
   margin-bottom: 0.25rem;
+}
+
+.service-card__subcopy {
+  margin-top: 0.15rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.66);
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 .link-text {
@@ -983,6 +1076,34 @@ img {
 
 .final-cta__actions {
   margin-top: 1.5rem;
+}
+
+.final-cta-glow {
+  background: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(255, 248, 242, 0.96) 0%,
+    rgba(250, 239, 232, 0.78) 48%,
+    rgba(248, 244, 240, 0.62) 78%,
+    rgba(248, 244, 240, 0.3) 100%
+  );
+  border: 1px solid rgba(231, 211, 200, 0.55);
+  border-radius: 1.75rem;
+  box-shadow: 0 14px 36px rgba(188, 158, 145, 0.12);
+  padding: clamp(2rem, 4vw, 3rem);
+}
+
+.final-cta-glow__title {
+  font-size: clamp(2.2rem, 2.75vw, 3.3rem);
+}
+
+.final-cta-glow__reassurance {
+  margin: 0.25rem 0 0;
+  max-width: none;
+  text-align: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.56);
 }
 
 .card {

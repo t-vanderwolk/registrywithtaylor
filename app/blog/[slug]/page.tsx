@@ -31,7 +31,6 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       id: true,
       title: true,
       content: true,
-      coverImage: true,
       views: true,
       createdAt: true,
       author: {
@@ -52,13 +51,13 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         <Section variant="highlight" aria-label="Blog post">
           <div className="container">
             <article className="card blog-detail-card">
-              <p className="eyebrow">Journal entry</p>
+              <p className="eyebrow">Blog entry</p>
               <h1>{post.title}</h1>
               <p className="micro-text">
                 {post.author.email} • {formatDate(post.createdAt)} • {post.views} views
               </p>
               <img
-                src={post.coverImage || fallbackCover}
+                src={fallbackCover}
                 alt={post.title}
                 className="blog-detail__cover"
               />

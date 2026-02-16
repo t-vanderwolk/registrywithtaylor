@@ -3,13 +3,16 @@ import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
-import Hero from '@/components/ui/Hero';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const metadata = {
+export const metadata = buildMarketingMetadata({
   title: 'How It Works — Taylor-Made Baby Planning',
   description:
     'Understand how Taylor-Made Baby Planning guides couples through a step-by-step planning and registry process.',
-};
+  path: '/how-it-works',
+  imagePath: '/assets/hero/hero-02.jpg',
+  imageAlt: 'How it works planning process',
+});
 
 const steps = [
   {
@@ -46,27 +49,75 @@ export default function HowItWorksPage() {
   return (
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
-        <Hero
-          eyebrow="How It Works"
-          title="Transparent process, confident decisions."
-          subtitle="A calm, intentional approach to building your registry."
-          primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
-          image="/assets/hero/hero-02.jpg"
-          className="hero-bottom-fade hero-cta-buffer"
-        />
+        <section
+          className="relative pt-24 md:pt-28 pb-8 md:pb-10 overflow-visible"
+          style={{
+            backgroundImage: 'linear-gradient(180deg, #f3ece5 0%, #f8f4f0 55%, #ffffff 100%)',
+          }}
+        >
+          <div className="max-w-3xl mx-auto text-center space-y-5 px-6 animate-hero-fade">
+            <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">
+              How It Works
+            </p>
 
+            <h1 className="font-serif text-[clamp(3rem,5.5vw,5rem)] tracking-[-0.02em] text-neutral-900 leading-[1.05] mb-0">
+              A calmer way to prepare.
+            </h1>
+
+            <p className="text-base md:text-lg text-neutral-700 max-w-xl mx-auto leading-relaxed mb-0">
+              Because walking into a baby store shouldn't feel intimidating.
+            </p>
+
+            <div className="hero-cta-group justify-center">
+              <Link href="/contact" className="btn-primary">
+                Book a Free Consultation
+              </Link>
+              <Link href="/services" className="btn-secondary">
+                View Services
+              </Link>
+            </div>
+          </div>
+
+          {/* Ribbon Divider */}
+          <div className="relative mt-5 -mb-10 left-1/2 -translate-x-1/2 w-screen pointer-events-none">
+            <div className="relative w-full h-[8vw] min-h-[85px]">
+              <Image
+                src="/assets/dividers/ribbon-divider.png"
+                alt=""
+                aria-hidden="true"
+                fill
+                priority
+                className="object-fill opacity-100 drop-shadow-[0_18px_40px_rgba(0,0,0,0.06)]"
+              />
+
+              {/* Silk highlight layer */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0.1) 40%, rgba(0,0,0,0.05) 100%)',
+                  mixBlendMode: 'soft-light',
+                }}
+              />
+            </div>
+          </div>
+        </section>
+        <div className="h-10 md:h-12 bg-gradient-to-b from-[#f8f4f0] via-[#f8f4f0]/70 to-white" />
         <Section
           variant="neutral"
           aria-label="intro copy"
-          className="section-ivory section-spacing"
+          className="section-base !pt-4 md:!pt-6 !pb-16 md:!pb-20"
+          style={{
+            background: '#ffffff',
+          }}
         >
-          <div className="container spacing-card-gap">
+          <div className="container spacing-card-gap text-center">
             <SectionTitle className="section__title">Why the checklist stops working</SectionTitle>
-            <Lead>Because walking into a baby store shouldn&apos;t feel intimidating.</Lead>
-            <Body>
+            <Lead className="mx-auto">Because walking into a baby store shouldn&apos;t feel intimidating.</Lead>
+            <Body className="mx-auto">
               <strong>You don’t need to buy everything.</strong> You just need to know what you need — before you buy it.
             </Body>
-            <Body>We flip the script with a calm Learn → Plan → Try → Buy rhythm so you enter every decision curious and confident.</Body>
+            <Body className="mx-auto">We flip the script with a calm Learn → Plan → Try → Buy rhythm so you enter every decision curious and confident.</Body>
           </div>
         </Section>
         <Section

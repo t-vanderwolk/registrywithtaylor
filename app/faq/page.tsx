@@ -3,6 +3,7 @@ import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { SectionTitle } from '@/components/Typography';
 import Hero from '@/components/ui/Hero';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 const faqs = [
   {
@@ -53,11 +54,14 @@ const faqs = [
   },
 ];
 
-export const metadata = {
+export const metadata = buildMarketingMetadata({
   title: 'FAQ — Taylor-Made Baby Planning',
   description:
     'Frequently asked questions about Taylor-Made Baby Planning\'s services, process, and support.',
-};
+  path: '/faq',
+  imagePath: '/assets/hero/hero-05.jpg',
+  imageAlt: 'Frequently asked questions',
+});
 
 export default function FAQPage() {
   return (
@@ -68,6 +72,7 @@ export default function FAQPage() {
           title="Frequently Asked Questions"
           subtitle="Quick answers to common registry and planning questions."
           image="/assets/hero/hero-05.jpg"
+          imageAlt="Frequently asked questions background"
         />
 
         <Section variant="warm" aria-label="FAQ accordion">

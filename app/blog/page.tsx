@@ -34,7 +34,6 @@ export default async function BlogPage() {
       slug: true,
       excerpt: true,
       content: true,
-      coverImage: true,
     },
   });
 
@@ -42,25 +41,26 @@ export default async function BlogPage() {
     <SiteShell currentPath="/blog">
       <main className="site-main">
         <Hero
-          eyebrow="From the Journal"
+          eyebrow="From the Blog"
           title="Thoughtful notes on registry planning, nursery design, and calm preparation."
           subtitle="Stories, quick tips, and practical thinking to keep every moment intentional."
           image="/assets/hero/hero-04.jpg"
+          imageAlt="Blog hero background for Taylor-Made Baby Planning"
         />
 
         <Section variant="neutral" aria-label="Blog posts">
           <div className="container">
-            <SectionTitle className="section__title">Latest journal entries</SectionTitle>
+            <SectionTitle className="section__title">Latest blog entries</SectionTitle>
             <div id="blog-posts" className="feature-grid" aria-live="polite">
               {posts.map((post) => (
                 <article key={post.id} className="feature-card blog-card">
                   <img
-                    src={post.coverImage || fallbackCover}
+                    src={fallbackCover}
                     alt={post.title}
                     className="blog-card__image"
                     loading="lazy"
                   />
-                  <Body className="feature-card__body body-copy--full">Journal</Body>
+                  <Body className="feature-card__body body-copy--full">Blog</Body>
                   <h2 className="feature-card__title">{post.title}</h2>
                   <Body className="feature-card__body body-copy--full">
                     {toExcerpt(post.excerpt, post.content)}

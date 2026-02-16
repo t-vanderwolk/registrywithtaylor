@@ -1,60 +1,21 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
-import Hero from '@/components/ui/Hero';
 import RibbonDivider from '@/components/layout/RibbonDivider';
+import Hero from '@/components/ui/Hero';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { marketingServices } from '@/lib/marketing/services';
 
-const services = [
-  {
-    title: 'Registry Curation',
-    description: 'Distill every category so you gift and register with clarity.',
-    reassurance: 'Focus on what fits your life.',
-    href: '/how-it-works#registry',
-    icon: '/assets/icons/icon-services-registry.png',
-  },
-  {
-    title: 'Nursery & Home Setup',
-    description: 'Calm layouts, textiles, and lighting that keep safety and serenity in balance.',
-    reassurance: 'Create calm flow from day one.',
-    href: '/contact',
-    icon: '/assets/icons/icon-services-nursery.png',
-  },
-  {
-    title: 'Gear Planning & Personal Shopping',
-    description: 'Research-backed gear and gifting lists so you can stay fully present.',
-    reassurance: 'We handle the research.',
-    href: '/contact',
-    icon: '/assets/icons/icon-services-shopping.png',
-  },
-  {
-    title: 'Family Dynamics Support',
-    description: 'Gentle scripts, boundaries, and expert perspective for tricky conversations.',
-    reassurance: 'Kind, confident guidance.',
-    href: '/contact',
-    icon: '/assets/icons/icon-services-family.png',
-  },
-  {
-    title: 'Baby Shower & Gifting Guidance',
-    description: 'Coordinate invitations, wish lists, and thank-yous that respect every guest.',
-    reassurance: 'Serve your people thoughtfully.',
-    href: '/contact',
-    icon: '/assets/icons/icon-services-babyshower.png',
-  },
-  {
-    title: 'Travel & Everyday Logistics',
-    description: 'Packing lists, rental coordination, and travel prep to keep life moving gently.',
-    reassurance: 'Keep life moving — gently.',
-    href: '/contact',
-    icon: '/assets/icons/icon-services-travel.png',
-  },
-];
-
-export const metadata = {
+export const metadata = buildMarketingMetadata({
   title: 'Services — Taylor-Made Baby Planning',
   description:
     'Bespoke baby planning services from Taylor-Made Baby Planning covering registries, nursery design, events, and ongoing support.',
-};
+  path: '/services',
+  imagePath: '/assets/hero/hero-03.jpg',
+  imageAlt: 'Service consultation planning',
+});
 
 export default function ServicesPage() {
   return (
@@ -66,87 +27,128 @@ export default function ServicesPage() {
           subtitle="Personalized guidance to help you plan with calm confidence."
           primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
           secondaryCta={{ label: 'How It Works', href: '/how-it-works' }}
-          tagline="No pressure. Camera optional."
           image="/assets/hero/hero-03.jpg"
+          imageAlt="Service consultation planning"
+          className="hero-bottom-fade !h-[74vh] !min-h-[560px] md:!min-h-[620px]"
+          showRibbon={false}
         />
 
-        <Section
-          variant="warm"
-          aria-label="service offerings"
-          className="section-ivory section-spacing"
-        >
-          <div className="container spacing-card-gap">
-            <div className="service-grid">
-              {services.map((service) => (
-                <article key={service.title} className="service-card card-surface">
-                  <span
-                    className="service-card__icon"
-                    role="presentation"
-                    aria-hidden="true"
-                    style={{ backgroundImage: `url(${service.icon})` }}
-                  />
-                  <h3>{service.title}</h3>
-                  <details className="service-card__details">
-                    <summary className="service-card__summary">Tap to expand</summary>
-                    <div className="service-card__body">
-                      <Body className="body-copy--full">{service.description}</Body>
-                      <Body className="micro-text body-copy--full">{service.reassurance}</Body>
-                      <Link className="link-text" href={service.href}>
-                        {service.title.includes('Registry') ? 'Explore registry planning' : 'Learn more'}
-                  </Link>
-                </div>
-              </details>
-            </article>
-          ))}
-        </div>
-      </div>
-        </Section>
-        <RibbonDivider />
-        <Section
-          variant="neutral"
-          className="mid-cta section-white section-spacing"
-          aria-label="secondary cta"
-        >
-          <div className="container spacing-card-gap">
-            <div className="cta-panel card-surface spacing-card-gap">
-              <h3>Ready to talk through your unique plan?</h3>
-              <Link className="btn btn--secondary" href="/contact">
-                Book a Free Consultation
-              </Link>
-            </div>
+        <div className="relative -mt-24 md:-mt-28 -mb-14 md:-mb-16 z-20 pointer-events-none overflow-visible">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fcf7f2 52%, #f8f4f0 100%)',
+            }}
+          />
+          <div className="relative z-10">
+            <RibbonDivider />
           </div>
-        </Section>
-        <RibbonDivider />
+        </div>
 
         <Section
           variant="base"
-          className="trust-block section-ivory section-spacing"
-          aria-label="testimonial"
+          aria-label="service offerings"
+          className="!pb-16 md:!pb-20"
+          style={{ paddingTop: '1.25rem' }}
         >
-          <div className="container testimonial-card card-surface spacing-card-gap">
-            <span className="quote-icon" aria-hidden="true">
-              “
-            </span>
-            <Body>Taylor helped us prioritize what actually works for our days instead of following another list.</Body>
-            <Body className="micro-text">— Grateful parents</Body>
+          <div className="container spacing-card-gap">
+            <div className="space-y-3 text-center max-w-3xl mx-auto">
+              <p className="hero__eyebrow">Services</p>
+              <SectionTitle className="section__title">Support designed around your real life.</SectionTitle>
+              <Lead className="mx-auto">
+                Pick the support you need now, then add more as your plans evolve. Everything is tailored to your routines, home, and priorities.
+              </Lead>
+            </div>
+
+            <div className="service-grid">
+              {marketingServices.map((service) => (
+                <article key={service.title} className="service-card card-surface">
+                  <Image
+                    className="service-card__icon"
+                    src={service.icon}
+                    alt=""
+                    aria-hidden="true"
+                    width={64}
+                    height={64}
+                  />
+                  <h3>{service.title}</h3>
+                  <Body className="service-card__subcopy body-copy--full">{service.reassurance}</Body>
+                  <details className="service-card__details">
+                    <summary className="service-card__summary">Learn more</summary>
+                    <div className="service-card__body">
+                      <Body className="body-copy--full">{service.description}</Body>
+                    </div>
+                  </details>
+                </article>
+              ))}
+            </div>
           </div>
         </Section>
-        <RibbonDivider />
 
         <Section
-          variant="highlight"
-          className="final-cta section-beige section-spacing"
-          aria-label="closing call to action"
+          variant="neutral"
+          aria-label="planning approach"
         >
-          <div className="container final-cta__content card-surface spacing-card-gap">
-            <SectionTitle className="section__title">Start with confidence.</SectionTitle>
-            <Lead className="hero__subtitle">
-              Book a free consultation and discover how thoughtful planning keeps you present for what matters most.
-            </Lead>
-            <div className="final-cta__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Book a Free Consultation
-              </Link>
+          <div className="container spacing-card-gap">
+            <div className="space-y-3 text-center max-w-3xl mx-auto">
+              <SectionTitle className="section__title">A calm planning rhythm you can trust</SectionTitle>
+              <Lead className="mx-auto">
+                We keep each step focused so you can make clear decisions without pressure or overwhelm.
+              </Lead>
+            </div>
+
+            <div className="feature-grid">
+              <article className="feature-card card-surface">
+                <h3 className="feature-card__title">Learn first</h3>
+                <Body className="feature-card__body body-copy--full">
+                  Understand categories and product differences before you commit to purchases.
+                </Body>
+              </article>
+              <article className="feature-card card-surface">
+                <h3 className="feature-card__title">Plan with intention</h3>
+                <Body className="feature-card__body body-copy--full">
+                  Build a registry around your actual routines, home layout, and support system.
+                </Body>
+              </article>
+              <article className="feature-card card-surface">
+                <h3 className="feature-card__title">Buy with confidence</h3>
+                <Body className="feature-card__body body-copy--full">
+                  Move forward knowing each item has a purpose and fits how you want to live.
+                </Body>
+              </article>
+            </div>
+          </div>
+        </Section>
+
+        <Section variant="base" aria-label="testimonial">
+          <div className="container">
+            <div className="card-surface max-w-3xl mx-auto text-center spacing-card-gap">
+              <span className="quote-icon" aria-hidden="true">
+                "
+              </span>
+              <Body className="mx-auto">
+                Taylor helped us prioritize what actually works for our days instead of following another list.
+              </Body>
+              <Body className="micro-text mx-auto">Grateful parents</Body>
+            </div>
+          </div>
+        </Section>
+
+        <Section variant="highlight" aria-label="closing call to action">
+          <div className="container">
+            <div className="text-center space-y-6 max-w-3xl mx-auto">
+              <SectionTitle className="section__title">Start with confidence.</SectionTitle>
+              <Lead className="mx-auto">
+                Book a free consultation and get a clear, personalized plan that keeps you present for what matters most.
+              </Lead>
+              <div className="hero__actions">
+                <Link className="btn btn--primary" href="/contact">
+                  Book a Free Consultation
+                </Link>
+                <Link className="btn btn--secondary" href="/how-it-works">
+                  See How It Works
+                </Link>
+              </div>
             </div>
           </div>
         </Section>

@@ -5,37 +5,16 @@ import WhyAdvice from '@/components/home/WhyAdvice';
 import ForYouIf from '@/components/home/ForYouIf';
 import ServicesPreview from '@/components/home/ServicesPreview';
 import FinalCTA from '@/components/home/FinalCTA';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const metadata = {
-  metadataBase: new URL('https://taylormadebabyplanning.com'),
+export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Planning — Modern Baby Preparation',
   description:
     'Taylor-Made Baby Planning delivers calm, private guidance so expecting parents can prepare confidently without overwhelm.',
-  openGraph: {
-    title: 'Taylor-Made Baby Planning',
-    description:
-      'Calm, thoughtful baby preparation with private planning sessions tailored to your life.',
-    url: 'https://taylormadebabyplanning.com',
-    siteName: 'Taylor-Made Baby Planning',
-    type: 'website',
-    locale: 'en_US',
-    images: [
-      {
-        url: 'https://taylormadebabyplanning.com/assets/hero/hero-01.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Taylor-Made Baby Planning hero background',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Taylor-Made Baby Planning',
-    description:
-      'Baby prep, simplified. Private guidance, clear next steps, and calm confidence for expecting parents.',
-    images: ['https://taylormadebabyplanning.com/assets/hero/hero-01.jpg'],
-  },
-};
+  path: '/',
+  imagePath: '/assets/hero/hero-01.jpg',
+  imageAlt: 'Taylor-Made Baby Planning hero background',
+});
 
 export default function HomePage() {
   return (
@@ -49,10 +28,20 @@ export default function HomePage() {
           secondaryCta={{ label: 'View Services', href: '/services' }}
           tagline="Private · Personalized · No pressure"
           image="/assets/hero/hero-01.jpg"
-          className="hero-bottom-fade"
+          imageAlt="Taylor-Made Baby Planning hero background"
+          className="hero-bottom-fade hero-home-radial"
+          contentStyle={{
+            backgroundImage:
+              'radial-gradient(circle at 24% 34%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.83) 44%, rgba(248,244,240,0.46) 72%, rgba(248,244,240,0) 100%)',
+            borderRadius: '1.5rem',
+            padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.8vw, 2rem)',
+          }}
         />
 
-        <SectionWrapper tone="ivory">
+        <SectionWrapper
+          tone="ivoryWarm"
+          className="!pt-[clamp(4.5rem,7vw,6.5rem)] !pb-[clamp(8rem,12vw,12rem)]"
+        >
           <WhyAdvice />
         </SectionWrapper>
 

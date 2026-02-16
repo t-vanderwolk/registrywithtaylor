@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
   const title = asText(body.title);
   const slugInput = asText(body.slug);
   const excerpt = asText(body.excerpt) || null;
-  const coverImage = asText(body.coverImage) || null;
   const content = asText(body.content);
   const published = Boolean(body.published);
 
@@ -55,7 +54,6 @@ export async function POST(req: NextRequest) {
       slug,
       content,
       excerpt,
-      coverImage,
       published,
       authorId: token.id as string,
     },

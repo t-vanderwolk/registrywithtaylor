@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 
 type CTA = {
@@ -13,9 +14,14 @@ export default function Hero({
   subtitle,
   primaryCta,
   secondaryCta,
-  tagline: _tagline,
+  tagline,
   image,
+  imageAlt = '',
   className = '',
+  contentStyle,
+  showRibbon = true,
+  fullBleed = true,
+  showImage = true,
 }: {
   eyebrow?: string;
   title: string;
@@ -24,32 +30,50 @@ export default function Hero({
   secondaryCta?: CTA;
   tagline?: string;
   image: string;
+  imageAlt?: string;
   className?: string;
+  contentStyle?: CSSProperties;
+  showRibbon?: boolean;
+  fullBleed?: boolean;
+  showImage?: boolean;
 }) {
-  const sectionClassName = `hero-section relative overflow-visible ${className}`.trim();
+  const sectionClassName = [
+    'hero-section',
+    'relative',
+    'overflow-visible',
+    fullBleed ? 'hero-section--full-bleed' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <section className={`${sectionClassName} min-h-[85vh]`}>
-      <div className="hero-media absolute inset-0">
-        <Image
-          src={image}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+      {showImage && (
+        <div className="hero-media absolute inset-0">
+          <Image
+            src={image}
+            alt={imageAlt}
+            aria-hidden={imageAlt ? undefined : true}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
 
-        {/* optional subtle darkening if needed */}
-        <div className="hero-overlay absolute inset-0" />
-      </div>
+          {/* optional subtle darkening if needed */}
+          <div className="hero-overlay absolute inset-0" />
+        </div>
+      )}
 
-      <div className="absolute bottom-[-10px] left-0 w-full z-20 pointer-events-none">
-        <RibbonDivider />
-      </div>
+      {showRibbon && showImage && (
+        <div className="absolute bottom-[-10px] left-0 w-full z-20 pointer-events-none">
+          <RibbonDivider />
+        </div>
+      )}
 
       <div className="hero-inner relative z-10">
-        <div className="hero-content animate-hero-fade">
+        <div className="hero-content animate-hero-fade" style={contentStyle}>
           {eyebrow && <p className="hero-eyebrow">{eyebrow}</p>}
 
           <h1 className="hero-title">{title}</h1>
@@ -70,6 +94,8 @@ export default function Hero({
               )}
             </div>
           )}
+
+          {tagline && <p className="hero-tagline">{tagline}</p>}
         </div>
       </div>
 

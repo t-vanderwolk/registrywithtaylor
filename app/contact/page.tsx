@@ -3,12 +3,16 @@ import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, SectionTitle } from '@/components/Typography';
 import Hero from '@/components/ui/Hero';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const metadata = {
+export const metadata = buildMarketingMetadata({
   title: 'Contact — Taylor-Made Baby Planning',
   description:
     'Reach Taylor-Made Baby Planning by email, phone, or the contact form to discuss your registry and celebration plans.',
-};
+  path: '/contact',
+  imagePath: '/assets/hero/hero-06.jpg',
+  imageAlt: 'Contact Taylor-Made Baby Planning',
+});
 
 export default function ContactPage() {
   return (
@@ -20,6 +24,7 @@ export default function ContactPage() {
           subtitle="Have questions or ready to start your registry? I’m here to help."
           primaryCta={{ label: 'Book a Consultation', href: '#contact-form' }}
           image="/assets/hero/hero-06.jpg"
+          imageAlt="Contact Taylor-Made Baby Planning"
         />
 
         <Section variant="warm" aria-label="Direct contacts">
@@ -30,7 +35,7 @@ export default function ContactPage() {
                 <h3 className="feature-card__title">Email</h3>
                 <Body className="feature-card__body body-copy--full">registrywithtaylor@gmail.com</Body>
                 <a
-                  className="primary-nav__link"
+                  className="link-text"
                   href="mailto:registrywithtaylor@gmail.com"
                   aria-label="Email Taylor-Made Baby Planning"
                 >
@@ -41,7 +46,7 @@ export default function ContactPage() {
                 <h3 className="feature-card__title">Phone</h3>
                 <Body className="feature-card__body body-copy--full">(505) 660-5436</Body>
                 <a
-                  className="primary-nav__link"
+                  className="link-text"
                   href="tel:+15056605436"
                   aria-label="Call Taylor-Made Baby Planning"
                 >

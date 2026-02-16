@@ -49,7 +49,6 @@ export async function PUT(
   const title = asText(body.title);
   const slugInput = asText(body.slug);
   const excerpt = asText(body.excerpt) || null;
-  const coverImage = asText(body.coverImage) || null;
   const content = asText(body.content);
   const published = Boolean(body.published);
 
@@ -65,7 +64,6 @@ export async function PUT(
       slug,
       content,
       excerpt,
-      coverImage,
       published,
     },
   });
