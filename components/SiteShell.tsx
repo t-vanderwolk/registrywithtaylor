@@ -12,7 +12,7 @@ export default function SiteShell({ children, currentPath }: SiteShellProps) {
     <div className="site">
       <Header currentPath={currentPath} />
       {children}
-      <Footer />
+      <Footer currentPath={currentPath} />
     </div>
   );
 }
