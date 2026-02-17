@@ -125,7 +125,7 @@ export default function Hero({
               {primaryCta && (
                 <Link
                   href={primaryCta.href}
-                  className="btn-primary inline-flex items-center justify-center transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0,0,0,0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
                   {primaryCta.label}
                 </Link>
@@ -133,7 +133,7 @@ export default function Hero({
               {secondaryCta && (
                 <Link
                   href={secondaryCta.href}
-                  className="btn-secondary inline-flex items-center justify-center border transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
                   {secondaryCta.label}
                 </Link>
@@ -149,8 +149,6 @@ export default function Hero({
         </div>
       </div>
 
-      {/* ⬇️ CRITICAL: Bottom fade into ivory */}
-      <div className="absolute bottom-0 left-0 w-full h-[160px] bg-gradient-to-b from-transparent via-[#f8f4f0]/30 to-[#f8f4f0]" />
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
+import MarketingSection from '@/components/layout/MarketingSection';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -69,10 +69,10 @@ export default function HowItWorksPage() {
             </p>
 
             <div className="hero-cta-group justify-center">
-              <Link href="/contact" className="btn-primary">
+              <Link href="/contact" className="btn btn--primary">
                 Book a Free Consultation
               </Link>
-              <Link href="/services" className="btn-secondary">
+              <Link href="/services" className="btn btn--secondary">
                 View Services
               </Link>
             </div>
@@ -103,15 +103,12 @@ export default function HowItWorksPage() {
           </div>
         </section>
         <div className="h-10 md:h-12 bg-gradient-to-b from-[#f8f4f0] via-[#f8f4f0]/70 to-white" />
-        <Section
-          variant="neutral"
-          aria-label="intro copy"
-          className="section-base !pt-4 md:!pt-6 !pb-16 md:!pb-20"
-          style={{
-            background: '#ffffff',
-          }}
+        <MarketingSection
+          tone="white"
+          container="default"
+          className="pt-4 md:pt-6 pb-16 md:pb-20"
         >
-          <div className="container spacing-card-gap text-center">
+          <div className="spacing-card-gap text-center">
             <SectionTitle className="section__title">Why the checklist stops working</SectionTitle>
             <Lead className="mx-auto">Because walking into a baby store shouldn&apos;t feel intimidating.</Lead>
             <Body className="mx-auto">
@@ -119,13 +116,13 @@ export default function HowItWorksPage() {
             </Body>
             <Body className="mx-auto">We flip the script with a calm Learn → Plan → Try → Buy rhythm so you enter every decision curious and confident.</Body>
           </div>
-        </Section>
-        <Section
-          variant="warm"
-          aria-label="process steps"
-          className="section-white section-spacing"
+        </MarketingSection>
+        <MarketingSection
+          tone="white"
+          container="default"
+          spacing="spacious"
         >
-          <div className="container spacing-card-gap">
+          <div className="spacing-card-gap">
             <SectionTitle className="section__title">The model</SectionTitle>
             <div className="steps-grid">
               {steps.map((step) => (
@@ -149,13 +146,13 @@ export default function HowItWorksPage() {
               ))}
             </div>
           </div>
-        </Section>
-        <Section
-          variant="base"
-          aria-label="benefits"
-          className="section-ivory section-spacing"
+        </MarketingSection>
+        <MarketingSection
+          tone="ivory"
+          container="default"
+          spacing="spacious"
         >
-          <div className="container spacing-card-gap">
+          <div className="spacing-card-gap">
             <SectionTitle className="section__title">Why this model works</SectionTitle>
             <div className="benefits-grid">
               {['Understand before spending.', 'Plan once, not repeatedly.', 'Buy with clarity and confidence.'].map((benefit) => (
@@ -184,7 +181,7 @@ export default function HowItWorksPage() {
               ))}
             </section>
           </div>
-        </Section>
+        </MarketingSection>
       </main>
     </SiteShell>
   );

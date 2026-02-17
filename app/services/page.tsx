@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
 import RibbonDivider from '@/components/layout/RibbonDivider';
+import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { marketingServices } from '@/lib/marketing/services';
@@ -45,13 +45,12 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        <Section
-          variant="base"
-          aria-label="service offerings"
-          className="!pb-16 md:!pb-20"
-          style={{ paddingTop: '1.25rem' }}
+        <MarketingSection
+          tone="ivory"
+          container="default"
+          spacing="tight"
         >
-          <div className="container spacing-card-gap">
+          <div className="spacing-card-gap">
             <div className="space-y-3 text-center max-w-3xl mx-auto">
               <p className="hero__eyebrow">Services</p>
               <SectionTitle className="section__title">Support designed around your real life.</SectionTitle>
@@ -83,13 +82,14 @@ export default function ServicesPage() {
               ))}
             </div>
           </div>
-        </Section>
+        </MarketingSection>
 
-        <Section
-          variant="neutral"
-          aria-label="planning approach"
+        <MarketingSection
+          tone="neutral"
+          container="default"
+          className="!bg-[rgba(255,255,255,0.82)]"
         >
-          <div className="container spacing-card-gap">
+          <div className="spacing-card-gap">
             <div className="space-y-3 text-center max-w-3xl mx-auto">
               <SectionTitle className="section__title">A calm planning rhythm you can trust</SectionTitle>
               <Lead className="mx-auto">
@@ -118,10 +118,10 @@ export default function ServicesPage() {
               </article>
             </div>
           </div>
-        </Section>
+        </MarketingSection>
 
-        <Section variant="base" aria-label="testimonial">
-          <div className="container">
+        <MarketingSection tone="ivory" container="default">
+          <div>
             <div className="card-surface max-w-3xl mx-auto text-center spacing-card-gap">
               <span className="quote-icon" aria-hidden="true">
                 "
@@ -132,10 +132,14 @@ export default function ServicesPage() {
               <Body className="micro-text mx-auto">Grateful parents</Body>
             </div>
           </div>
-        </Section>
+        </MarketingSection>
 
-        <Section variant="highlight" aria-label="closing call to action">
-          <div className="container">
+        <MarketingSection
+          tone="ivoryWarm"
+          container="default"
+          className="!bg-[linear-gradient(180deg,var(--color-paper),#ffffff)] !border-0"
+        >
+          <div>
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <SectionTitle className="section__title">Start with confidence.</SectionTitle>
               <Lead className="mx-auto">
@@ -151,7 +155,7 @@ export default function ServicesPage() {
               </div>
             </div>
           </div>
-        </Section>
+        </MarketingSection>
       </main>
     </SiteShell>
   );

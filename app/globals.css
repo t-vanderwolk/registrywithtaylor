@@ -75,6 +75,13 @@
   --space-lg: 4rem;
   --space-xl: 6rem;
   --max-width: 1100px;
+  --card-radius: var(--radius-lg);
+  --card-border-width: 1px;
+  --card-border-color: var(--color-border);
+  --card-shadow: 0 15px 35px rgba(31, 31, 31, 0.08);
+  --card-padding-sm: var(--space-md);
+  --card-padding-md: clamp(2rem, 3.5vw, 2.75rem);
+  --card-padding-lg: clamp(2.5rem, 4vw, 3.5rem);
 }
 
 body {
@@ -513,41 +520,6 @@ img {
    BUTTON REFINEMENT
 ========================= */
 
-.btn-primary {
-  background: var(--color-blush);
-  color: #ffffff;
-  padding: 0.95rem 1.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-}
-
-.btn-primary:hover {
-  transform: scale(1.02);
-  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.1);
-}
-
-.btn-secondary {
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  color: rgba(0, 0, 0, 0.75);
-  padding: 0.95rem 1.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: transparent;
-  transition: all 0.25s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(0, 0, 0, 0.75);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
 .hero-cta-group {
   margin-top: 1.25rem;
   display: flex;
@@ -754,62 +726,6 @@ img {
   margin-bottom: clamp(3rem, 5vw, 4rem);
   letter-spacing: -0.01em;
   animation: fadeUpSoft 0.6s ease-out both;
-}
-
-.this-for-you-card {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: clamp(2.5rem, 3vw, 3.25rem);
-  border: 1px solid rgba(0,0,0,0.04);
-  box-shadow: 0 25px 70px rgba(0,0,0,0.05);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.this-for-you-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 40px 90px rgba(0,0,0,0.08);
-}
-
-.this-for-you-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 1.8vw, 1.75rem);
-  margin-bottom: 1rem;
-  position: relative;
-  padding-left: 2rem;
-}
-
-.this-for-you-card h3::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0.2rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  line-height: 1;
-  color: #7e5b57;
-  background: rgba(207, 166, 160, 0.18);
-  border: 1px solid rgba(207, 166, 160, 0.38);
-}
-
-.this-for-you-card h3::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: var(--color-blush);
-  margin-top: 1rem;
-  opacity: 0.5;
-}
-
-.this-for-you-card p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(0,0,0,0.7);
 }
 
 .this-for-you-thesis {
@@ -1078,20 +994,6 @@ img {
   margin-top: 1.5rem;
 }
 
-.final-cta-glow {
-  background: radial-gradient(
-    ellipse at 50% 20%,
-    rgba(255, 248, 242, 0.96) 0%,
-    rgba(250, 239, 232, 0.78) 48%,
-    rgba(248, 244, 240, 0.62) 78%,
-    rgba(248, 244, 240, 0.3) 100%
-  );
-  border: 1px solid rgba(231, 211, 200, 0.55);
-  border-radius: 1.75rem;
-  box-shadow: 0 14px 36px rgba(188, 158, 145, 0.12);
-  padding: clamp(2rem, 4vw, 3rem);
-}
-
 .final-cta-glow__title {
   font-size: clamp(2.2rem, 2.75vw, 3.3rem);
 }
@@ -1108,10 +1010,31 @@ img {
 
 .card {
   background: var(--color-paper);
-  padding: var(--space-md);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 15px 35px rgba(31, 31, 31, 0.08);
+  padding: var(--card-padding-sm);
+  border-radius: var(--card-radius);
+  border: var(--card-border-width) solid var(--card-border-color);
+  box-shadow: var(--card-shadow);
   margin-bottom: var(--space-md);
+}
+
+.card--service {
+  background: #ffffff;
+  padding: var(--card-padding-lg);
+}
+
+.card--quote {
+  background: var(--color-paper);
+  padding: var(--card-padding-md);
+}
+
+.card--journal {
+  background: #ffffff;
+  padding: var(--card-padding-sm);
+}
+
+.card--feature {
+  background: var(--color-paper);
+  padding: var(--card-padding-md);
 }
 
 .feature-card__title {
