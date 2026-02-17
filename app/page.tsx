@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -65,87 +66,82 @@ export default function HomePage() {
           <div className="mt-6 mx-auto w-16 h-px bg-[var(--color-border-soft)]" />
         </MarketingSection>
 
-        <MarketingSection tone="ivory" container="narrow">
-          <div className="text-center space-y-6">
-            <h2 className="section-title">
-              What Does a Baby Planner Do?
-            </h2>
+        <MarketingSection
+          container="default"
+          className="bg-[var(--color-ivory)] py-32"
+        >
+          <div className="clarity-grid mx-auto max-w-6xl">
 
-            <p>
-              A baby planner helps you prepare intentionally for life with a newborn — from
-              registry strategy and nursery layout to smart purchasing timelines.
-            </p>
+            {/* LEFT COLUMN — Text (two stacked blocks) */}
+            <div className="clarity-left">
 
-            <p>
-              It’s not about buying everything. It’s about buying the right things —
-              so you can prepare intentionally, not reactively.
-            </p>
+              {/* TOP TEXT BLOCK: headline, body, CTA */}
+              <div className="space-y-8 max-w-xl">
+                <h2 className="text-4xl lg:text-5xl font-serif text-[var(--text-primary)] leading-tight">
+                  Designed for clarity, not chaos.
+                </h2>
 
-            <div className="pt-4">
-              <Link href="/how-it-works" className="btn btn--secondary">
-                How It Works →
-              </Link>
+                <div className="space-y-6 text-lg text-[var(--color-muted)] leading-relaxed">
+                  <p>
+                    A baby planner helps you prepare intentionally for life with a newborn —
+                    from registry strategy and nursery layout to smart purchasing timelines
+                    and thoughtful decision guidance.
+                  </p>
+
+                  <p>
+                    It’s not about buying everything —
+                    <span className="italic"> it’s about buying the right things.</span>
+                    So you can prepare intentionally, not reactively.
+                  </p>
+                </div>
+
+                <Link
+                  href="/how-it-works"
+                  className="inline-flex items-center px-8 py-3 rounded-full border border-[var(--color-border-soft)] text-sm tracking-wide uppercase hover:bg-[var(--color-blush-soft)] transition-all duration-300"
+                >
+                  How It Works →
+                </Link>
+              </div>
+
+              {/* BOTTOM TEXT BLOCK: “For parents who” list */}
+              <div className="space-y-6 max-w-xl">
+                <p className="text-xs tracking-[0.35em] uppercase text-[var(--color-muted)]">
+                  For parents who
+                </p>
+
+                <ul className="space-y-4 text-[var(--color-muted)] leading-relaxed">
+                  <li className="flex gap-3">
+                    <span className="opacity-40">—</span>
+                    <span>Feeling overwhelmed by conflicting advice and trends.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="opacity-40">—</span>
+                    <span>Want to avoid impulse purchases and wasted money.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="opacity-40">—</span>
+                    <span>Hoping for thoughtful planning, not pressure or chaos.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="opacity-40">—</span>
+                    <span>Crave clarity, calm, and a plan that fits their life.</span>
+                  </li>
+                </ul>
+              </div>
+
             </div>
-          </div>
-        </MarketingSection>
 
-        <MarketingSection tone="blush" spacing="spacious">
-          <div className="mx-auto max-w-[720px] px-6 text-center">
-
-            <p className="mb-4 text-xs tracking-widest uppercase text-[var(--color-muted)]">
-              Who This Is For
-            </p>
-
-            <h2 className="text-4xl md:text-5xl font-display leading-tight text-[var(--text-primary)] mb-8">
-              This Is Designed for Parents Who…
-            </h2>
-
-            <ul className="space-y-5 text-lg leading-relaxed text-[var(--text-primary)] text-left mx-auto">
-
-              <li className="flex gap-3 items-start">
-                <span className="mt-1 text-[var(--color-muted)] text-base">✓</span>
-                <span>
-                  Feel overwhelmed by conflicting advice from friends, TikTok, and registry lists.
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-start">
-                <span className="mt-1 text-[var(--color-muted)] text-base">✓</span>
-                <span>
-                  Don’t want to buy everything — <em>just the right things.</em>
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-start">
-                <span className="mt-1 text-[var(--color-muted)] text-base">✓</span>
-                <span>
-                  Worry about wasting money on gear they’ll never use.
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-start">
-                <span className="mt-1 text-[var(--color-muted)] text-base">✓</span>
-                <span>
-                  Want their nursery and registry to feel thoughtful — not chaotic.
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-start">
-                <span className="mt-1 text-[var(--color-muted)] text-base">✓</span>
-                <span>
-                  Crave clarity, calm, and a plan that actually fits their life.
-                </span>
-              </li>
-
-            </ul>
-
-            <div className="mt-10">
-              <Link
-                href="/how-it-works"
-                className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-medium tracking-wide text-[var(--text-primary)] shadow-sm hover:shadow-md transition"
-              >
-                See How It Works →
-              </Link>
+            {/* RIGHT COLUMN — Editorial Image (full height) */}
+            <div className="clarity-image-col">
+              <div className="clarity-image-shell">
+                <Image
+                  src="/assets/editorial/growing-with-confidence.jpg"
+                  alt="Growing with confidence editorial image"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
 
           </div>
@@ -248,15 +244,105 @@ export default function HomePage() {
         </div>
       </MarketingSection>
 
-        <MarketingSection tone="white" container="narrow">
-          <div className="text-center space-y-6">
-            <h2 className="section-title">
+        {/* Testimonials */}
+        <MarketingSection tone="ivory" container="narrow" spacing="spacious">
+          <div className="text-center space-y-10">
+
+            <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)]">
               What Parents Say
             </h2>
 
-            <blockquote className="text-2xl font-serif italic">
-              “We saved money and avoided buying what we didn’t need.”
-            </blockquote>
+            <div className="max-w-3xl mx-auto space-y-6">
+              <div className="w-16 h-px bg-[var(--color-muted)] mx-auto opacity-40" />
+              
+              <p className="text-3xl md:text-4xl font-serif italic text-[var(--text-primary)] leading-relaxed">
+                “We saved money and avoided buying what we didn’t need.”
+              </p>
+
+              <p className="text-sm uppercase tracking-widest text-[var(--color-muted)]">
+                First-Time Parents · Scottsdale
+              </p>
+
+            </div>
+
+          </div>
+        </MarketingSection>
+
+        {/* Journal Highlight */}
+        <MarketingSection tone="ivoryWarm" container="default" spacing="spacious">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+
+            {/* Left Editorial Intro */}
+            <div className="space-y-6">
+
+              <p className="text-xs tracking-[0.3em] uppercase text-[var(--color-muted)]">
+                From The Journal
+              </p>
+
+              <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight">
+                Thoughtful guidance for modern parents
+              </h2>
+
+              <p className="text-lg text-[var(--color-muted)] max-w-lg">
+                Honest, grounded conversations about baby gear, 
+                preparation, and making decisions with clarity — 
+                not pressure.
+              </p>
+
+              <a
+                href="/blog"
+                className="inline-block text-sm uppercase tracking-widest border-b border-[var(--text-primary)] pb-1 hover:opacity-70 transition"
+              >
+                View All Articles →
+              </a>
+
+            </div>
+
+            {/* Featured Article Card */}
+            <div className="bg-white rounded-3xl shadow-sm border border-[rgba(0,0,0,0.05)] p-10 space-y-6">
+
+              <h3 className="text-2xl font-serif text-[var(--text-primary)]">
+                The Art of the Registry
+              </h3>
+
+              <p className="text-[var(--color-muted)] leading-relaxed">
+                How to prepare for baby without overbuying, 
+                overspending, or feeling overwhelmed.
+              </p>
+
+              <a
+                href="/blog/the-art-of-the-registry"
+                className="inline-flex items-center text-sm uppercase tracking-widest text-[var(--text-primary)] hover:opacity-70 transition"
+              >
+                Read the Article →
+              </a>
+
+            </div>
+
+          </div>
+        </MarketingSection>
+
+        {/* Final Call To Action */}
+        <MarketingSection tone="blush" container="narrow" spacing="spacious">
+          <div className="text-center space-y-8">
+
+            <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[var(--text-primary)]">
+              Start with confidence.
+            </h2>
+
+            <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
+              Begin with a complimentary consultation and move forward with clarity — grounded, intentional, and even a little exciting.
+            </p>
+
+            <div className="pt-4">
+              <a
+                href="/contact"
+                className="btn btn--primary"
+              >
+                Book Your Complimentary Consultation
+              </a>
+            </div>
+
           </div>
         </MarketingSection>
       </main>
