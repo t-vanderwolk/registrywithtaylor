@@ -49,6 +49,13 @@
 }
 
 @layer utilities {
+  .text-admin { color: var(--admin-color-text); }
+  .text-admin-muted { color: var(--admin-color-text-muted); }
+  .text-admin-micro { color: var(--admin-color-text-micro); }
+  .text-admin-danger { color: var(--admin-color-danger); }
+  .text-admin-success { color: var(--admin-color-success); }
+  .text-admin-warning { color: var(--admin-color-warning); }
+
   .admin-page {
     min-height: 100svh;
     background: radial-gradient(1400px 600px at 6% -10%, rgba(255, 255, 255, 0.72), transparent 48%), var(--admin-color-background);

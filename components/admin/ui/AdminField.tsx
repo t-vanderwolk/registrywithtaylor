@@ -19,7 +19,7 @@ export default function AdminField({
         {label}
       </label>
       {children}
-      {error ? <p className="admin-help text-[var(--admin-color-danger)]">{error}</p> : null}
+      {error ? <p className="admin-help text-admin-danger">{error}</p> : null}
       {!error && help ? <p className="admin-help">{help}</p> : null}
     </div>
   );

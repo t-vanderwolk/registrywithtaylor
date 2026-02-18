@@ -4,6 +4,7 @@ import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import ServiceFeatureRow from '@/components/home/ServiceFeatureRow';
 
 export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Planning — Modern Baby Preparation',
@@ -20,6 +21,35 @@ export default function HomePage() {
     'Calm Over Chaos',
     'Strategy > Trends',
     'Smart, Not Sprawling',
+  ];
+  const serviceOffers = [
+    {
+      label: 'Registry',
+      title: 'Registry Curation',
+      description: 'Build a registry that fits your space, routines, and priorities — without the overwhelm spiral.',
+      bullets: ['Category-by-category clarity', 'Smart timing + what to skip'],
+      image: '/assets/services/registry-guidance.jpg',
+      alt: 'Registry planning editorial',
+      href: '/services/registry',
+    },
+    {
+      label: 'Nursery',
+      title: 'Nursery & Home Setup',
+      description: 'Create a calm flow from day one — layout, essentials, and systems that make life easier.',
+      bullets: ['Space planning + must-haves', 'Organization that stays realistic'],
+      image: '/assets/services/nursery-design.jpg',
+      alt: 'Nursery design editorial',
+      href: '/services/nursery',
+    },
+    {
+      label: 'Lifestyle',
+      title: 'Gear Planning & Personal Shopping',
+      description: 'Research-backed guidance so you can choose well — for your car, your walk, your travel, your baby.',
+      bullets: ['Shortlists tailored to you', 'Tradeoffs explained simply'],
+      image: '/assets/services/personal-shopping.jpg',
+      alt: 'Personal shopping editorial',
+      href: '/services/personal-shopping',
+    },
   ];
 
   return (
@@ -138,6 +168,7 @@ export default function HomePage() {
                   src="/assets/editorial/growing-with-confidence.jpg"
                   alt="Growing with confidence editorial image"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                   priority
                 />
@@ -147,76 +178,21 @@ export default function HomePage() {
           </div>
         </MarketingSection>
 
-        {/* Ways We Can Work Together */}
-        <MarketingSection tone="white" container="default">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-4xl md:text-5xl">Ways We Can Work Together</h2>
-            <p className="mt-4 text-lg text-[var(--color-muted)]">
-              Thoughtful planning support tailored to your real life — calm, clear, and never trend-chasing.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-10 max-w-6xl">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="card card--service">
-                <p className="text-xs tracking-[0.18em] uppercase text-[var(--color-muted)]">Registry</p>
-                <h3 className="mt-2 font-display text-2xl">Registry Curation</h3>
-                <p className="mt-3 text-[var(--color-muted)]">
-                  Build a registry that fits your space, routines, and priorities — without the overwhelm spiral.
-                </p>
-                <ul className="mt-5 space-y-2 text-sm text-[var(--text-primary)]/80">
-                  <li>• Category-by-category clarity</li>
-                  <li>• Smart timing + what to skip</li>
-                </ul>
-                <div className="mt-6">
-                  <a href="/services" className="inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4">
-                    Learn more <span aria-hidden>→</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="card card--service">
-                <p className="text-xs tracking-[0.18em] uppercase text-[var(--color-muted)]">Nursery</p>
-                <h3 className="mt-2 font-display text-2xl">Nursery & Home Setup</h3>
-                <p className="mt-3 text-[var(--color-muted)]">
-                  Create a calm flow from day one — layout, essentials, and systems that make life easier.
-                </p>
-                <ul className="mt-5 space-y-2 text-sm text-[var(--text-primary)]/80">
-                  <li>• Space planning + must-haves</li>
-                  <li>• Organization that stays realistic</li>
-                </ul>
-                <div className="mt-6">
-                  <a href="/services" className="inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4">
-                    Learn more <span aria-hidden>→</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="card card--service">
-                <p className="text-xs tracking-[0.18em] uppercase text-[var(--color-muted)]">Lifestyle</p>
-                <h3 className="mt-2 font-display text-2xl">Gear Planning & Personal Shopping</h3>
-                <p className="mt-3 text-[var(--color-muted)]">
-                  Research-backed guidance so you can choose well — for your car, your walk, your travel, your baby.
-                </p>
-                <ul className="mt-5 space-y-2 text-sm text-[var(--text-primary)]/80">
-                  <li>• Shortlists tailored to you</li>
-                  <li>• Tradeoffs explained simply</li>
-                </ul>
-                <div className="mt-6">
-                  <a href="/services" className="inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4">
-                    Learn more <span aria-hidden>→</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 flex justify-center">
-              <a href="/services" className="btn btn--secondary">
-                View All Services <span aria-hidden>→</span>
-              </a>
-            </div>
-          </div>
-        </MarketingSection>
+     {serviceOffers.map((service, index) => (
+  <ServiceFeatureRow
+    key={service.title}
+    eyebrow={service.label}
+    title={service.title}
+    description={service.description}
+    bullets={service.bullets}
+    image={service.image}
+    alt={service.alt}
+    href={service.href}
+    tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
+    reverse={index % 2 === 1}
+    priority={index === 0}
+  />
+))}
 
       {/* Founder Authority */}
       <MarketingSection tone="ivoryWarm" container="narrow">

@@ -17,8 +17,8 @@ const toneClassMap: Record<MarketingSectionTone, string> = {
   white: 'section-white',
   ivory: 'section-ivory',
   ivoryWarm: 'bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] border-t border-[#efe3d6]',
-  neutral: 'bg-[var(--color-warm-neutral)]',
-  blush: 'bg-[var(--color-soft-blush)]',
+  neutral: 'bg-warm-neutral',
+  blush: 'bg-soft-blush',
 };
 
 const containerClassMap: Record<MarketingSectionContainer, string> = {

@@ -7,10 +7,10 @@ export default function AdminToast({
 }) {
   const toneClass =
     tone === 'success'
-      ? 'text-[var(--admin-color-success)]'
+      ? 'text-admin-success'
       : tone === 'warning'
-        ? 'text-[var(--admin-color-warning)]'
-        : 'text-[var(--admin-color-text-micro)]';
+        ? 'text-admin-warning'
+        : 'text-admin-micro';
 
   return <p className={`admin-micro ${toneClass}`}>{children}</p>;
 }

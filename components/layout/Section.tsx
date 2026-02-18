@@ -11,10 +11,10 @@ type SectionProps = {
 export default function Section({ children, tone = 'ivory', className = '' }: SectionProps) {
   const bgClass =
     tone === 'blush'
-      ? 'bg-[var(--color-soft-blush)]'
+      ? 'bg-soft-blush'
       : tone === 'beige'
-      ? 'bg-[var(--color-warm-beige)]'
-      : 'bg-[var(--color-ivory)]';
+      ? 'bg-warm-neutral'
+      : 'bg-ivory';
 
   return (
     <section className={`section ${bgClass} ${className}`.trim()}>

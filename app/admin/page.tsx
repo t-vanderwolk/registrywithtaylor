@@ -36,7 +36,7 @@ export default async function AdminHome() {
         <h2 className="admin-h2">Next up</h2>
         <ul className="admin-stack list-disc gap-2 pl-5 admin-body">
           <li>
-            Continue drafting: <span className="text-[var(--admin-color-text)]">The Art of the Registry</span>.
+            Continue drafting: <span className="text-admin">The Art of the Registry</span>.
           </li>
           <li>Publish-ready cover images (hero-safe, no baked-in text).</li>
           <li>Optional Prisma wiring when database mode is switched back on.</li>

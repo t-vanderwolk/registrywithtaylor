@@ -60,7 +60,7 @@ export default function AdminShell({
               </nav>
               <div className="admin-divider" />
               <p className="admin-micro">
-                Local drafts live in <span className="font-mono text-[var(--admin-color-text-muted)]">/data/blog-drafts.json</span>.
+                Local drafts live in <span className="font-mono text-admin-muted">/data/blog-drafts.json</span>.
               </p>
             </AdminSurface>
           </aside>

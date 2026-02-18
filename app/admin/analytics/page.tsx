@@ -71,7 +71,7 @@ export default async function AdminAnalyticsPage() {
         >
           {postsByViews.map((post) => (
             <tr key={post.id} className="admin-row">
-              <td className="text-[var(--admin-color-text)]">{post.title}</td>
+              <td className="text-admin">{post.title}</td>
               <td>
                 <span className="admin-table-code">{post.slug}</span>
               </td>
@@ -80,7 +80,7 @@ export default async function AdminAnalyticsPage() {
                   {post.published ? 'Published' : 'Draft'}
                 </span>
               </td>
-              <td className="text-right text-[var(--admin-color-text)]">{post.views}</td>
+              <td className="text-right text-admin">{post.views}</td>
             </tr>
           ))}
         </AdminTable>

@@ -7,12 +7,12 @@ import { getDraftById } from '@/lib/admin/blogStore';
 
 export const dynamic = 'force-dynamic';
 
-type EditDraftParams = {
-  params: Promise<{ id: string }> | { id: string };
+type EditDraftProps = {
+  params: Promise<{ id: string }>;
 };
 
-export default async function EditDraftPage({ params }: EditDraftParams) {
-  const { id } = await Promise.resolve(params);
+export default async function EditDraftPage({ params }: EditDraftProps) {
+  const { id } = await params;
   const draft = await getDraftById(id);
 
   if (!draft) notFound();

@@ -12,7 +12,7 @@ import AdminTabs from '@/components/admin/ui/AdminTabs';
 
 type Filter = 'all' | 'draft' | 'published';
 
-type SearchParams = Promise<{ status?: string }> | { status?: string } | undefined;
+type SearchParams = Promise<{ status?: string }> | undefined;
 
 function resolveFilter(value?: string): Filter {
   if (value === 'draft') return 'draft';
@@ -22,8 +22,9 @@ function resolveFilter(value?: string): Filter {
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminBlogIndex({ searchParams }: { searchParams: SearchParams }) {
-  const { status } = (await Promise.resolve(searchParams)) ?? {};
+export default async function AdminBlogIndex({ searchParams }: { searchParams?: SearchParams }) {
+  const params = searchParams ? await searchParams : undefined;
+  const { status } = params ?? {};
   const filter = resolveFilter(status);
 
   const drafts = await getDrafts();
@@ -95,7 +96,7 @@ export default async function AdminBlogIndex({ searchParams }: { searchParams: S
               <td>
                 <div className="admin-stack gap-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-serif text-[1.1rem] leading-tight text-[var(--admin-color-text)]">
+                  <p className="font-serif text-[1.1rem] leading-tight text-admin">
                       {draft.title || 'Untitled draft'}
                     </p>
                     <span className={`admin-chip ${draft.status === 'published' ? 'admin-chip--published' : 'admin-chip--draft'}`}>

@@ -210,7 +210,7 @@ export default async function AdminAffiliatesPage() {
                   ) : (
                     assets.map((asset) => (
                       <p key={`${partner.id}-${asset.createdAt}-${asset.type}`} className="admin-micro">
-                        <span className="font-semibold text-[var(--admin-color-text)]">{asset.type}</span> • {asset.assetUrl ?? 'No URL'} •{' '}
+                        <span className="font-semibold text-admin">{asset.type}</span> • {asset.assetUrl ?? 'No URL'} •{' '}
                         {asset.embedCode ? 'Embed provided' : 'No embed'}
                       </p>
                     ))

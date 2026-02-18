@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 const fallbackCover = '/assets/hero/hero-04.jpg';
 
 type BlogPostParams = {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 const formatDate = (value: Date) =>
@@ -20,7 +20,7 @@ const formatDate = (value: Date) =>
   });
 
 export default async function BlogPostPage({ params }: BlogPostParams) {
-  const { slug } = await Promise.resolve(params);
+  const { slug } = await params;
 
   const post = await prisma.post.findFirst({
     where: {
