@@ -61,19 +61,19 @@ export default function HowItWorksPage() {
             </p>
 
             <h1 className="font-serif text-[clamp(3rem,5.5vw,5rem)] tracking-[-0.02em] text-neutral-900 leading-[1.05] mb-0">
-              A calmer way to prepare.
+              How It Works
             </h1>
 
             <p className="text-base md:text-lg text-neutral-700 max-w-xl mx-auto leading-relaxed mb-0">
-              Because walking into a baby store shouldn't feel intimidating.
+              A clear, practical path from overwhelmed to prepared.
             </p>
 
             <div className="hero-cta-group justify-center">
               <Link href="/contact" className="btn btn--primary">
-                Book a Free Consultation
+                BOOK A FREE CONSULTATION
               </Link>
               <Link href="/services" className="btn btn--secondary">
-                View Services
+                VIEW SERVICES
               </Link>
             </div>
           </div>
@@ -105,20 +105,87 @@ export default function HowItWorksPage() {
         <div className="h-10 md:h-12 bg-gradient-to-b from-[#f8f4f0] via-[#f8f4f0]/70 to-white" />
         <MarketingSection
           tone="white"
+          spacing="spacious"
           container="default"
-          className="pt-4 md:pt-6 pb-16 md:pb-20"
         >
-          <div className="spacing-card-gap text-center">
-            <SectionTitle className="section__title">Why the checklist stops working</SectionTitle>
-            <Lead className="mx-auto">Because walking into a baby store shouldn&apos;t feel intimidating.</Lead>
-            <Body className="mx-auto">
-              <strong>You don’t need to buy everything.</strong> You just need to know what you need — before you buy it.
-            </Body>
-            <Body className="mx-auto">We flip the script with a calm Learn → Plan → Try → Buy rhythm so you enter every decision curious and confident.</Body>
+          <div className="max-w-4xl mx-auto rounded-[28px] bg-[var(--color-ivory)] shadow-[0_30px_60px_rgba(0,0,0,0.06)] px-8 md:px-16 py-16">
+
+            {/* Step Label */}
+            <p className="text-xs tracking-[0.35em] uppercase text-neutral-500 text-center mb-4">
+              Step 1
+            </p>
+
+            {/* Headline */}
+            <h2 className="font-serif text-4xl md:text-5xl text-center mb-3">
+              Complimentary Virtual Consultation
+            </h2>
+
+            {/* Subhead */}
+            <p className="text-lg text-neutral-600 text-center mx-auto mb-6">
+              Begin with clarity.
+            </p>
+
+            {/* Authority Line */}
+            <div className="flex justify-center items-center mb-8">
+              <Image
+                src="/assets/brand/totsquad.png"
+                alt="TotSquad Baby Concierge"
+                width={320}
+                height={60}
+                className="h-6 md:h-7 w-auto opacity-70"
+                priority={false}
+              />
+            </div>
+
+            {/* Body Copy */}
+            <div className="max-w-2xl mx-auto text-center text-neutral-700 leading-relaxed space-y-3">
+              <p className="text-neutral-800 font-medium text-lg text-center mb-2 max-w-2xl mx-auto">
+                Before anything is purchased, we talk.
+              </p>
+              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+                We review your space, lifestyle, priorities, and timeline so you know exactly what makes sense for your family.
+              </p>
+            </div>
+
+            {/* Icon Row */}
+            <div className="grid grid-cols-4 gap-8 text-center mt-8 mb-6">
+
+              <div>
+                <div className="text-3xl mb-2">🏡</div>
+                <p className="text-sm text-neutral-700">Lifestyle & space review</p>
+              </div>
+
+              <div>
+                <div className="text-3xl mb-2">📝</div>
+                <p className="text-sm text-neutral-700">Registry refinement</p>
+              </div>
+
+              <div>
+                <div className="text-3xl mb-2">🔍</div>
+                <p className="text-sm text-neutral-700">Product comparisons</p>
+              </div>
+
+              <div>
+                <div className="text-3xl mb-2">✨</div>
+                <p className="text-sm text-neutral-700">Clarity</p>
+              </div>
+
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-4">
+              <Link
+                href="/contact"
+                className="btn btn--primary"
+              >
+                Book Complimentary Consultation →
+              </Link>
+            </div>
+
           </div>
         </MarketingSection>
         <MarketingSection
-          tone="white"
+          tone="ivory"
           container="default"
           spacing="spacious"
         >
