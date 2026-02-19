@@ -1,23 +1,18 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import SiteShell from '@/components/SiteShell';
-import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import ServiceFeatureRow from '@/components/home/ServiceFeatureRow';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
 
-export const metadata = buildMarketingMetadata({
-  title: 'Taylor-Made Baby Co. — Modern Baby Preparation',
-  description:
-    'Taylor-Made Baby Co. delivers calm, private guidance so expecting parents can prepare confidently without overwhelm.',
-  path: '/',
-  imagePath: '/assets/hero/hero-01.jpg',
-  imageAlt: 'Taylor-Made Baby Co. hero background',
-});
-
 export default function HomePage() {
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+
   const secondaryCtaClass =
     'btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
 
@@ -29,28 +24,94 @@ export default function HomePage() {
   ];
   const serviceOffers = [
     {
+      id: 'registry',
       label: 'Registry',
       title: 'Registry Curation',
       description: 'Build a registry that fits your space, routines, and priorities — without the overwhelm spiral.',
-      bullets: ['Category-by-category clarity', 'Smart timing + what to skip'],
+      detailedBullets: [
+        {
+          emoji: '📅',
+          text: 'Smart timing',
+        },
+        {
+          emoji: '✅',
+          text: 'Category clarity',
+        },
+        {
+          emoji: '📝',
+          text: 'Planning strategy',
+        },
+        {
+          emoji: '🎯',
+          text: 'Focused must-haves',
+        },
+        {
+          emoji: '💡',
+          text: 'What to skip',
+        },
+      ],
       image: '/assets/services/registry-guidance.jpg',
       alt: 'Registry planning editorial',
       href: '/services/registry',
     },
     {
+      id: 'nursery',
       label: 'Nursery',
       title: 'Nursery & Home Setup',
       description: 'Create a calm flow from day one — layout, essentials, and systems that make life easier.',
-      bullets: ['Space planning + must-haves', 'Organization that stays realistic'],
+      detailedBullets: [
+        {
+          emoji: '🛏️',
+          text: 'Room layout planning',
+        },
+        {
+          emoji: '📐',
+          text: 'Space optimization',
+        },
+        {
+          emoji: '🧺',
+          text: 'Storage systems',
+        },
+        {
+          emoji: '🏡',
+          text: 'Flow & functionality',
+        },
+        {
+          emoji: '🪴',
+          text: 'Calm environment styling',
+        },
+      ],
       image: '/assets/services/nursery-design.jpg',
       alt: 'Nursery design editorial',
       href: '/services/nursery',
     },
     {
+      id: 'lifestyle',
       label: 'Lifestyle',
       title: 'Gear Planning & Personal Shopping',
       description: 'Research-backed guidance so you can choose well — for your car, your walk, your travel, your baby.',
-      bullets: ['Shortlists tailored to you', 'Tradeoffs explained simply'],
+      detailedBullets: [
+        {
+          emoji: '🛒',
+          text: 'Smart purchasing strategy',
+        },
+        {
+          emoji: '🚗',
+          text: 'Car seat & travel planning',
+        },
+        {
+          emoji: '🧳',
+          text: 'Lifestyle compatibility',
+        },
+        {
+          emoji: '🔍',
+          text: 'Brand comparisons',
+        },
+        {
+          emoji: '💳',
+          text: 'Budget alignment',
+        },
+      ],
       image: '/assets/services/personal-shopping.jpg',
       alt: 'Personal shopping editorial',
       href: '/services/personal-shopping',
@@ -179,33 +240,46 @@ export default function HomePage() {
 
         </MarketingSection>
 
-     {serviceOffers.map((service, index) => {
-       const rhythmClass = index === 1 ? 'lg:-mt-10' : index === 2 ? 'lg:-mt-6' : '';
+        <div className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-soft-blush)_22%,var(--color-ivory)_100%)]">
+          {serviceOffers.map((service, index) => {
+            const rhythmClass = index === 1 ? 'service-preview-row-offset' : '';
 
-       return (
-          <div key={service.title} className={rhythmClass}>
-            <ServiceFeatureRow
-              sectionHeader={index === 0 ? 'Service Preview' : undefined}
-              eyebrow={service.label}
-              title={service.title}
-              description={service.description}
-             bullets={service.bullets}
-             image={service.image}
-             alt={service.alt}
-             href={service.href}
-             tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
-             reverse={index % 2 === 0}
-             priority={index === 0}
-           />
-         </div>
-       );
-     })}
+            return (
+              <div key={service.id} className={rhythmClass}>
+                <ServiceFeatureRow
+                  id={service.id}
+                  sectionHeader={index === 0 ? 'Service Preview' : undefined}
+                  sectionIntro={
+                    index === 0
+                      ? 'Thoughtfully designed support — tailored to how you actually live.'
+                      : undefined
+                  }
+                  eyebrow={service.label}
+                  title={service.title}
+                  description={service.description}
+                  detailedBullets={service.detailedBullets}
+                  image={service.image}
+                  alt={service.alt}
+                  href={service.href}
+                  tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
+                  reverse={index % 2 === 0}
+                  priority={index === 0}
+                  isExpanded={expandedRow === service.id}
+                  onToggle={() =>
+                    setExpandedRow(expandedRow === service.id ? null : service.id)
+                  }
+                  className="!bg-transparent !border-0"
+                />
+              </div>
+            );
+          })}
+        </div>
 
       {/* Founder Authority */}
       <MarketingSection
         tone="ivoryWarm"
         container="narrow"
-        className="relative overflow-visible !pt-20 md:!pt-24"
+        className="group relative overflow-visible !pt-20 md:!pt-24"
       >
         <div className="mx-auto text-center">
           <h3 className="font-display text-3xl md:text-4xl">
@@ -230,17 +304,17 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 bottom-0 z-20 w-screen -translate-x-1/2 translate-y-0 md:translate-y-[4%]">
-          <EndBowDivider className="origin-center scale-y-[0.8]" />
+        <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
+          <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
         </div>
       </MarketingSection>
 
         {/* Journal Highlight */}
         <MarketingSection
-          tone="ivoryWarm"
+          tone="white"
           spacing="spacious"
           container="default"
-          className="!border-t-0 !pt-12 md:!pt-16"
+          className="!pt-28 md:!pt-32"
         >
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
