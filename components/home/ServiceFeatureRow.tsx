@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import MarketingSection from '@/components/layout/MarketingSection'
 import { Eyebrow, SectionTitle, Lead, Body } from '@/components/Typography'
 
@@ -7,6 +8,7 @@ type Props = {
   title: string
   description: string
   bullets?: string[]
+  sectionHeader?: string
   image: string
   alt?: string
   href?: string
@@ -20,6 +22,7 @@ export default function ServiceFeatureRow({
   title,
   description,
   bullets = [],
+  sectionHeader,
   image,
   alt,
   href,
@@ -28,10 +31,23 @@ export default function ServiceFeatureRow({
   priority = false,
 }: Props) {
   return (
-    <MarketingSection tone={tone} spacing="spacious" container="wide">
-<div className="grid grid-cols-2 gap-12 items-center">
+    <MarketingSection
+      tone={tone}
+      spacing="spacious"
+      container="wide"
+      className={sectionHeader ? '!pt-8 md:!pt-12' : ''}
+    >
+      {sectionHeader && (
+        <div className="mb-6 w-full text-left">
+          <p className="!mb-0 text-xs tracking-[0.3em] uppercase text-[var(--color-muted)]">
+            {sectionHeader}
+          </p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 gap-12 items-center">
         {/* TEXT */}
-        <div className={`${reverse ? 'md:order-2' : ''} space-y-8`}>
+        <div className={`${reverse ? 'order-2 ml-auto' : 'mr-auto'} w-full max-w-[48ch] space-y-8`}>
           <Eyebrow>{eyebrow}</Eyebrow>
 
           <SectionTitle className="leading-[1.2]">
@@ -57,12 +73,12 @@ export default function ServiceFeatureRow({
 
           {href && (
             <div className="pt-6">
-              <a
+              <Link
                 href={href}
-                className="inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase border border-[var(--color-border)] rounded-full px-6 py-3 hover:bg-[var(--color-paper)] transition"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Explore Service →
-              </a>
+              </Link>
             </div>
           )}
         </div>
@@ -70,9 +86,8 @@ export default function ServiceFeatureRow({
         {/* IMAGE */}
         <div
           className={`
-            ${reverse ? 'md:order-1' : ''}
-            relative w-full
-            h-[320px] md:h-[420px] lg:h-[460px]
+            ${reverse ? 'order-1 mr-auto' : 'ml-auto'}
+            relative w-full max-w-[420px] aspect-square
             overflow-hidden
             rounded-[28px]
             shadow-[0_28px_60px_rgba(0,0,0,0.07)]
@@ -83,7 +98,7 @@ export default function ServiceFeatureRow({
             alt={alt || title}
             fill
             className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 520px"
+            sizes="(max-width: 1024px) 100vw, 420px"
             priority={priority}
           />
         </div>

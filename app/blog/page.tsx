@@ -10,9 +10,9 @@ export const dynamic = 'force-dynamic';
 const fallbackCover = '/assets/hero/hero-05.jpg';
 
 export const metadata = {
-  title: 'Blog — Taylor-Made Baby Planning',
+  title: 'Blog — Taylor-Made Baby Co.',
   description:
-    'Notes on thoughtful registry planning, nursery design, and calm preparation from Taylor-Made Baby Planning.',
+    'Notes on thoughtful registry planning, nursery design, and calm preparation from Taylor-Made Baby Co.',
 };
 
 const toExcerpt = (excerpt: string | null, content: string) => {
@@ -45,7 +45,7 @@ export default async function BlogPage() {
           title="Thoughtful notes on registry planning, nursery design, and calm preparation."
           subtitle="Stories, quick tips, and practical thinking to keep every moment intentional."
           image="/assets/hero/hero-04.jpg"
-          imageAlt="Blog hero background for Taylor-Made Baby Planning"
+          imageAlt="Blog hero background for Taylor-Made Baby Co."
         />
 
         <Section variant="neutral" aria-label="Blog posts">

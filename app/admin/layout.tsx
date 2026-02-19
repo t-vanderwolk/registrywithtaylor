@@ -4,7 +4,7 @@ import AdminShell from '@/components/admin/AdminShell';
 import { requireAdminSession } from '@/lib/server/session';
 
 export const metadata = {
-  title: 'Admin • Taylor-Made Baby Planning',
+  title: 'Admin • Taylor-Made Baby Co.',
   robots: { index: false, follow: false },
 };
 
@@ -13,7 +13,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   return (
     <AdminShell
-      brand="Taylor-Made Baby Planning"
+      brand="Taylor-Made Baby Co."
       links={[
         { label: 'Dashboard', href: '/admin' },
         { label: 'Blog Drafts', href: '/admin/blog' },

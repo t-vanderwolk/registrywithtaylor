@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const SITE_NAME = 'Taylor-Made Baby Planning';
+const SITE_NAME = 'Taylor-Made Baby Co.';
 const SITE_URL = 'https://taylormadebabyplanning.com';
 
 type BuildMarketingMetadataInput = {

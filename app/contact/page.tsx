@@ -6,12 +6,12 @@ import Hero from '@/components/ui/Hero';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Contact — Taylor-Made Baby Planning',
+  title: 'Contact — Taylor-Made Baby Co.',
   description:
-    'Reach Taylor-Made Baby Planning by email, phone, or the contact form to discuss your registry and celebration plans.',
+    'Reach Taylor-Made Baby Co. by email, phone, or the contact form to discuss your registry and celebration plans.',
   path: '/contact',
   imagePath: '/assets/hero/hero-06.jpg',
-  imageAlt: 'Contact Taylor-Made Baby Planning',
+  imageAlt: 'Contact Taylor-Made Baby Co.',
 });
 
 export default function ContactPage() {
@@ -24,7 +24,7 @@ export default function ContactPage() {
           subtitle="Have questions or ready to start your registry? I’m here to help."
           primaryCta={{ label: 'Book a Consultation', href: '#contact-form' }}
           image="/assets/hero/hero-06.jpg"
-          imageAlt="Contact Taylor-Made Baby Planning"
+          imageAlt="Contact Taylor-Made Baby Co."
         />
 
         <Section variant="warm" aria-label="Direct contacts">
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 <a
                   className="link-text"
                   href="mailto:registrywithtaylor@gmail.com"
-                  aria-label="Email Taylor-Made Baby Planning"
+                  aria-label="Email Taylor-Made Baby Co."
                 >
                   Send an email
                 </a>
@@ -48,7 +48,7 @@ export default function ContactPage() {
                 <a
                   className="link-text"
                   href="tel:+15056605436"
-                  aria-label="Call Taylor-Made Baby Planning"
+                  aria-label="Call Taylor-Made Baby Co."
                 >
                   Call now
                 </a>

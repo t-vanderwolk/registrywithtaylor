@@ -34,7 +34,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="mb-1 h-px w-full bg-gradient-to-r from-transparent via-[#d9c8ba] to-transparent"
           />
         )}
-        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Planning. Built with care in Chicago.</Body>
+        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Co. Built with care in Chicago.</Body>
         <nav className="footer-nav" aria-label="Footer">
           {footerLinks.map((link) => (
             <Link

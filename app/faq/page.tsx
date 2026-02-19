@@ -55,9 +55,9 @@ const faqs = [
 ];
 
 export const metadata = buildMarketingMetadata({
-  title: 'FAQ — Taylor-Made Baby Planning',
+  title: 'FAQ — Taylor-Made Baby Co.',
   description:
-    'Frequently asked questions about Taylor-Made Baby Planning\'s services, process, and support.',
+    'Frequently asked questions about Taylor-Made Baby Co.\'s services, process, and support.',
   path: '/faq',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'Frequently asked questions',

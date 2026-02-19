@@ -9,9 +9,9 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { marketingServices } from '@/lib/marketing/services';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Services — Taylor-Made Baby Planning',
+  title: 'Services — Taylor-Made Baby Co.',
   description:
-    'Bespoke baby planning services from Taylor-Made Baby Planning covering registries, nursery design, events, and ongoing support.',
+    'Bespoke baby planning services from Taylor-Made Baby Co. covering registries, nursery design, events, and ongoing support.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Service consultation planning',

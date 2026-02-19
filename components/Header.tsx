@@ -32,7 +32,7 @@ export default function Header({ currentPath }: HeaderProps) {
     <header className="site-header">
       <div className="container">
         <Link href="/" className="brand">
-          Taylor-Made Baby Planning
+          Taylor-Made Baby Co.
         </Link>
 
         <nav className="primary-nav">

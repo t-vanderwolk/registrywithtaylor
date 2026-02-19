@@ -2,20 +2,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
+import EndBowDivider from '@/components/layout/EndBowDivider';
 import SiteShell from '@/components/SiteShell';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import ServiceFeatureRow from '@/components/home/ServiceFeatureRow';
+import { Body, Lead, SectionTitle } from '@/components/Typography';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Taylor-Made Baby Planning — Modern Baby Preparation',
+  title: 'Taylor-Made Baby Co. — Modern Baby Preparation',
   description:
-    'Taylor-Made Baby Planning delivers calm, private guidance so expecting parents can prepare confidently without overwhelm.',
+    'Taylor-Made Baby Co. delivers calm, private guidance so expecting parents can prepare confidently without overwhelm.',
   path: '/',
   imagePath: '/assets/hero/hero-01.jpg',
-  imageAlt: 'Taylor-Made Baby Planning hero background',
+  imageAlt: 'Taylor-Made Baby Co. hero background',
 });
 
 export default function HomePage() {
+  const secondaryCtaClass =
+    'btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
+
   const features = [
     'Clarity First',
     'Calm Over Chaos',
@@ -56,14 +61,14 @@ export default function HomePage() {
     <SiteShell currentPath="/">
       <main className="site-main">
         <Hero
-          eyebrow="Taylor-Made Baby Planning"
+          eyebrow="Taylor-Made Baby Co."
           title="Baby prep, simplified."
           subtitle="Because parenthood should start with confidence, not confusion."
           primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
           secondaryCta={{ label: 'View Services', href: '/services' }}
           tagline="Private · Personalized · No pressure"
           image="/assets/hero/hero-01.jpg"
-          imageAlt="Taylor-Made Baby Planning hero background"
+          imageAlt="Taylor-Made Baby Co. hero background"
           className="hero-bottom-fade hero-home-radial pb-16 z-20"
           showRibbon
           ribbonEnhanced
@@ -107,56 +112,50 @@ export default function HomePage() {
 
               {/* TOP TEXT BLOCK: headline, body, CTA */}
               <div className="space-y-8 max-w-xl">
-                <h2 className="text-4xl lg:text-5xl font-serif text-[var(--text-primary)] leading-tight">
-                  Designed for clarity, not chaos.
-                </h2>
+                <SectionTitle className="text-4xl lg:text-5xl leading-tight !mb-0">
+                  What is a baby planner?
+                </SectionTitle>
 
-                <div className="space-y-6 text-lg text-[var(--color-muted)] leading-relaxed">
-                  <p>
-                    A baby planner helps you prepare intentionally for life with a newborn —
-                    from registry strategy and nursery layout to smart purchasing timelines
-                    and thoughtful decision guidance.
-                  </p>
+                <div className="space-y-6 text-lg leading-relaxed">
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    Think of it like a wedding planner — but for life with a newborn.
+                  </Body>
 
-                  <p>
-                    It’s not about buying everything —
-                    <span className="italic"> it’s about buying the right things.</span>
-                    So you can prepare intentionally, not reactively.
-                  </p>
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    Your doctor handles the medical care.
+                  </Body>
+
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    I handle the practical preparation.
+                  </Body>
+
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    A baby planner helps you decide what you actually need, when you need it, and how it fits into your real life — from registry strategy and nursery layout to thoughtful purchasing timelines.
+                  </Body>
+
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    It’s not about buying everything on the internet.
+                  </Body>
+
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    It’s about building a plan that makes sense for your space, your routines, and your comfort level.
+                  </Body>
+
+                  <Body className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                    Because bringing home a baby is a life event — and no one hands you the playbook.
+                  </Body>
                 </div>
+
+                <Lead className="!m-0 max-w-[62ch] text-[var(--color-muted)]">
+                  That’s where calm, intentional planning comes in.
+                </Lead>
 
                 <Link
                   href="/how-it-works"
-                  className="inline-flex items-center px-8 py-3 rounded-full border border-[var(--color-border-soft)] text-sm tracking-wide uppercase hover:bg-[var(--color-blush-soft)] transition-all duration-300"
+                  className={secondaryCtaClass}
                 >
                   How It Works →
                 </Link>
-              </div>
-
-              {/* BOTTOM TEXT BLOCK: “For parents who” list */}
-              <div className="space-y-6 max-w-xl">
-                <p className="text-xs tracking-[0.35em] uppercase text-[var(--color-muted)]">
-                  For parents who
-                </p>
-
-                <ul className="space-y-4 text-[var(--color-muted)] leading-relaxed">
-                  <li className="flex gap-3">
-                    <span className="opacity-40">—</span>
-                    <span>Feeling overwhelmed by conflicting advice and trends.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="opacity-40">—</span>
-                    <span>Want to avoid impulse purchases and wasted money.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="opacity-40">—</span>
-                    <span>Hoping for thoughtful planning, not pressure or chaos.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="opacity-40">—</span>
-                    <span>Crave clarity, calm, and a plan that fits their life.</span>
-                  </li>
-                </ul>
               </div>
 
             </div>
@@ -164,6 +163,7 @@ export default function HomePage() {
             {/* RIGHT COLUMN — Editorial Image (full height) */}
             <div className="clarity-image-col">
               <div className="clarity-image-shell">
+                
                 <Image
                   src="/assets/editorial/growing-with-confidence.jpg"
                   alt="Growing with confidence editorial image"
@@ -176,83 +176,79 @@ export default function HomePage() {
             </div>
 
           </div>
+
         </MarketingSection>
 
-     {serviceOffers.map((service, index) => (
-  <ServiceFeatureRow
-    key={service.title}
-    eyebrow={service.label}
-    title={service.title}
-    description={service.description}
-    bullets={service.bullets}
-    image={service.image}
-    alt={service.alt}
-    href={service.href}
-    tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
-    reverse={index % 2 === 1}
-    priority={index === 0}
-  />
-))}
+     {serviceOffers.map((service, index) => {
+       const rhythmClass = index === 1 ? 'lg:-mt-10' : index === 2 ? 'lg:-mt-6' : '';
+
+       return (
+          <div key={service.title} className={rhythmClass}>
+            <ServiceFeatureRow
+              sectionHeader={index === 0 ? 'Service Preview' : undefined}
+              eyebrow={service.label}
+              title={service.title}
+              description={service.description}
+             bullets={service.bullets}
+             image={service.image}
+             alt={service.alt}
+             href={service.href}
+             tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
+             reverse={index % 2 === 0}
+             priority={index === 0}
+           />
+         </div>
+       );
+     })}
 
       {/* Founder Authority */}
-      <MarketingSection tone="ivoryWarm" container="narrow">
+      <MarketingSection
+        tone="ivoryWarm"
+        container="narrow"
+        className="relative overflow-visible !pt-20 md:!pt-24"
+      >
         <div className="mx-auto text-center">
           <h3 className="font-display text-3xl md:text-4xl">
             A Personal Note from Taylor
           </h3>
 
-          <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted)]">
+          <p className="mt-6 mx-auto text-center text-lg leading-relaxed text-[var(--color-muted)]">
             After years in the baby gear industry — guiding families through registries,
             nursery builds, and major purchasing decisions — I saw how often preparation
             turned into pressure. 
           </p>
 
-          <p className="mt-4 text-lg leading-relaxed text-[var(--color-muted)]">
-            Taylor-Made Baby Planning was created to replace overwhelm with clarity —
+          <p className="mt-4 mx-auto text-center text-lg leading-relaxed text-[var(--color-muted)]">
+            Taylor-Made Baby Co. was created to replace overwhelm with clarity —
             so you can prepare intentionally, not reactively.
           </p>
 
           <div className="mt-8">
-            <a href="/about" className="inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4">
+            <Link href="/about" className={secondaryCtaClass}>
               Meet Taylor <span aria-hidden>→</span>
-            </a>
+            </Link>
           </div>
+        </div>
+
+        <div className="pointer-events-none absolute left-1/2 bottom-0 z-20 w-screen -translate-x-1/2 translate-y-0 md:translate-y-[4%]">
+          <EndBowDivider className="origin-center scale-y-[0.8]" />
         </div>
       </MarketingSection>
 
-        {/* Testimonials */}
-        <MarketingSection tone="ivory" container="narrow" spacing="spacious">
-          <div className="text-center space-y-10">
-
-            <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)]">
-              What Parents Say
-            </h2>
-
-            <div className="max-w-3xl mx-auto space-y-6">
-              <div className="w-16 h-px bg-[var(--color-muted)] mx-auto opacity-40" />
-              
-              <p className="text-3xl md:text-4xl font-serif italic text-[var(--text-primary)] leading-relaxed">
-                “We saved money and avoided buying what we didn’t need.”
-              </p>
-
-              <p className="text-sm uppercase tracking-widest text-[var(--color-muted)]">
-                First-Time Parents · Scottsdale
-              </p>
-
-            </div>
-
-          </div>
-        </MarketingSection>
-
         {/* Journal Highlight */}
-        <MarketingSection tone="ivoryWarm" container="default" spacing="spacious">
+        <MarketingSection
+          tone="ivoryWarm"
+          spacing="spacious"
+          container="default"
+          className="!border-t-0 !pt-12 md:!pt-16"
+        >
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
             {/* Left Editorial Intro */}
             <div className="space-y-6">
 
               <p className="text-xs tracking-[0.3em] uppercase text-[var(--color-muted)]">
-                From The Journal
+                From The Blog
               </p>
 
               <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight">
@@ -265,12 +261,12 @@ export default function HomePage() {
                 not pressure.
               </p>
 
-              <a
+              <Link
                 href="/blog"
-                className="inline-block text-sm uppercase tracking-widest border-b border-[var(--text-primary)] pb-1 hover:opacity-70 transition"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 View All Articles →
-              </a>
+              </Link>
 
             </div>
 
@@ -286,12 +282,12 @@ export default function HomePage() {
                 overspending, or feeling overwhelmed.
               </p>
 
-              <a
+              <Link
                 href="/blog/the-art-of-the-registry"
-                className="inline-flex items-center text-sm uppercase tracking-widest text-[var(--text-primary)] hover:opacity-70 transition"
+                className={secondaryCtaClass}
               >
                 Read the Article →
-              </a>
+              </Link>
 
             </div>
 
@@ -311,12 +307,12 @@ export default function HomePage() {
             </p>
 
             <div className="pt-4">
-              <a
+              <Link
                 href="/contact"
-                className="btn btn--primary"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Book Your Complimentary Consultation
-              </a>
+              </Link>
             </div>
 
           </div>

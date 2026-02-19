@@ -6,9 +6,9 @@ import { Body, Lead, SectionTitle } from '@/components/Typography';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'How It Works — Taylor-Made Baby Planning',
+  title: 'How It Works — Taylor-Made Baby Co.',
   description:
-    'Understand how Taylor-Made Baby Planning guides couples through a step-by-step planning and registry process.',
+    'Understand how Taylor-Made Baby Co. guides couples through a step-by-step planning and registry process.',
   path: '/how-it-works',
   imagePath: '/assets/hero/hero-02.jpg',
   imageAlt: 'How it works planning process',
