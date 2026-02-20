@@ -1208,6 +1208,65 @@ li {
   color: var(--color-muted);
 }
 
+.testimonial-fader {
+  position: relative;
+  min-height: clamp(16rem, 30vw, 22rem);
+}
+
+.testimonial-fader__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-inline: 0.5rem;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: testimonialFade 18s ease-in-out infinite;
+}
+
+@keyframes testimonialFade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  6% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  27% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-fader {
+    min-height: auto;
+  }
+
+  .testimonial-fader__slide {
+    position: static;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .testimonial-fader__slide:not(:first-child) {
+    display: none;
+  }
+}
+
 .contact {
   background: var(--color-sand);
   border-radius: var(--radius-lg);
