@@ -141,11 +141,22 @@ export default function HowItWorksPage() {
 <div>
             {/* Body Copy */}
             <div className="max-w-2xl mx-auto text-center text-neutral-700 leading-relaxed space-y-3">
-              <p className="text-neutral-800 font-medium text-lg text-center mb-2 max-w-2xl mx-auto">
+              {/* Lead Line */}
+              <p className="text-neutral-900 font-medium text-lg md:text-xl mb-4">
                 Before anything is purchased, we talk.
               </p>
+
+              {/* Expanded Explanation */}
+              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto mb-4">
+                Your complimentary consultation is offered through the Target Baby Concierge program powered by TotSquad — a national network of certified baby gear specialists.
+              </p>
+
+              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto mb-4">
+                When you schedule your session, you’ll meet directly with me as your dedicated baby specialist.
+              </p>
+
               <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-                We review your space, lifestyle, priorities, and timeline so you know exactly what makes sense for your family.
+                During our virtual consultation, we review your home, lifestyle, priorities, and timeline so every decision feels intentional — not reactive.
               </p>
            
 

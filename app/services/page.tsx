@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
-import { Body, Lead, SectionTitle } from '@/components/Typography';
-import RibbonDivider from '@/components/layout/RibbonDivider';
+import { SectionTitle } from '@/components/Typography';
+import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { marketingServices } from '@/lib/marketing/services';
 
 export const metadata = buildMarketingMetadata({
   title: 'Services — Taylor-Made Baby Co.',
@@ -23,134 +22,310 @@ export default function ServicesPage() {
       <main className="site-main">
         <Hero
           eyebrow="Services"
-          title="Bespoke Baby Planning Services"
-          subtitle="Personalized guidance to help you plan with calm confidence."
-          primaryCta={{ label: 'Book a Free Consultation', href: '/contact' }}
-          secondaryCta={{ label: 'How It Works', href: '/how-it-works' }}
+          title="Bespoke Planning Services"
+          subtitle="Preparation doesn’t have to feel chaotic. It can feel steady. Structured. Thoughtful."
+          primaryCta={{ label: 'Begin with a Consultation →', href: '/book' }}
           image="/assets/hero/hero-03.jpg"
           imageAlt="Service consultation planning"
-          className="hero-bottom-fade !h-[74vh] !min-h-[560px] md:!min-h-[620px]"
-          showRibbon={false}
+          className="hero-bottom-fade hero-home-radial pb-16 z-20"
+          showRibbon
+          ribbonEnhanced
+          contentStyle={{
+            backgroundImage:
+              'radial-gradient(circle at 24% 34%, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.5) 44%, rgba(248,244,240,0.2) 72%, rgba(248,244,240,0) 100%)',
+            borderRadius: '1.5rem',
+            padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.8vw, 2rem)',
+          }}
         />
 
-        <div className="relative -mt-24 md:-mt-28 -mb-14 md:-mb-16 z-20 pointer-events-none overflow-visible">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fcf7f2 52%, #f8f4f0 100%)',
-            }}
-          />
-          <div className="relative z-10">
-            <RibbonDivider />
+     
+
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="default"
+        >
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+
+            <SectionTitle>
+              Bespoke Baby Planning Services
+            </SectionTitle>
+
+            <p className="text-neutral-700 leading-relaxed text-lg">
+              You don’t need more opinions.
+              <br />
+              You need a plan that fits your life.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
+              <Link
+                href="/book"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--color-blush)] text-white px-8 py-3 text-sm tracking-wide transition hover:opacity-90"
+              >
+                Book a Consultation
+              </Link>
+
+              <Link
+                href="/how-it-works"
+                className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
+              >
+                How It Works
+              </Link>
+            </div>
+
           </div>
-        </div>
+        </MarketingSection>
 
         <MarketingSection
           tone="ivory"
+          spacing="default"
           container="default"
-          spacing="tight"
         >
-          <div className="spacing-card-gap">
-            <div className="space-y-3 text-center max-w-3xl mx-auto">
-              <p className="hero__eyebrow">Services</p>
-              <SectionTitle className="section__title">Support designed around your real life.</SectionTitle>
-              <Lead className="mx-auto">
-                Pick the support you need now, then add more as your plans evolve. Everything is tailored to your routines, home, and priorities.
-              </Lead>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+
+            <div className="space-y-3">
+              <p className="font-serif text-lg">Clarity before checkout.</p>
             </div>
 
-            <div className="service-grid">
-              {marketingServices.map((service) => (
-                <article key={service.title} className="service-card card-surface">
-                  <Image
-                    className="service-card__icon"
-                    src={service.icon}
-                    alt=""
-                    aria-hidden="true"
-                    width={64}
-                    height={64}
-                  />
-                  <h3>{service.title}</h3>
-                  <Body className="service-card__subcopy body-copy--full">{service.reassurance}</Body>
-                  <details className="service-card__details">
-                    <summary className="service-card__summary">Learn more</summary>
-                    <div className="service-card__body">
-                      <Body className="body-copy--full">{service.description}</Body>
-                    </div>
-                  </details>
-                </article>
-              ))}
+            <div className="space-y-3">
+              <p className="font-serif text-lg">Confidence before comparison.</p>
+            </div>
+
+            <div className="space-y-3">
+              <p className="font-serif text-lg">A plan before you purchase.</p>
+            </div>
+
+          </div>
+        </MarketingSection>
+
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="default"
+        >
+          <div className="max-w-6xl mx-auto">
+
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
+              <h2 className="font-serif text-4xl md:text-5xl leading-[1.1] tracking-[-0.02em]">
+                Support, structured around you.
+              </h2>
+
+              <p className="uppercase tracking-[0.25em] text-xs text-neutral-500">
+                Choose your planning experience
+              </p>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+              {/* The Focused Edit */}
+              <div className="rounded-3xl bg-white shadow-sm hover:shadow-md transition p-10 space-y-6">
+                <div className="space-y-2">
+                  <h3 className="font-serif text-2xl">The Focused Edit</h3>
+                  <p className="text-neutral-600">A clear starting point</p>
+                </div>
+
+                <ul className="space-y-3 text-neutral-700">
+                  <li>✓ 1 Planning Session</li>
+                  <li>✓ Registry or Nursery Review</li>
+                  <li>✓ Personalized Action Plan</li>
+                </ul>
+
+                <div className="pt-4">
+                  <Link
+                    href="/book"
+                    className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+
+              {/* The Signature Plan (Most Popular) */}
+              <div className="relative rounded-3xl bg-white shadow-md p-10 space-y-6">
+
+                {/* Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--color-blush)] text-white text-xs tracking-wide px-4 py-1 rounded-full">
+                  Most Popular
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="font-serif text-2xl">The Signature Plan</h3>
+                  <p className="text-neutral-600">A guided preparation journey</p>
+                </div>
+
+                <ul className="space-y-3 text-neutral-700">
+                  <li>✓ 3 Planning Sessions</li>
+                  <li>✓ Registry + Nursery Planning</li>
+                  <li>✓ Timeline + Product Guidance</li>
+                </ul>
+
+                <div className="pt-4">
+                  <Link
+                    href="/book"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-blush)] text-white px-6 py-3 text-sm tracking-wide transition hover:opacity-90"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+
+              {/* The Private Concierge */}
+              <div className="rounded-3xl bg-white shadow-sm hover:shadow-md transition p-10 space-y-6">
+                <div className="space-y-2">
+                  <h3 className="font-serif text-2xl">The Private Concierge</h3>
+                  <p className="text-neutral-600">Your on-call pregnancy partner</p>
+                </div>
+
+                <ul className="space-y-3 text-neutral-700">
+                  <li>✓ Ongoing Support</li>
+                  <li>✓ Full Strategy + Planning</li>
+                  <li>✓ Real-Time Guidance</li>
+                </ul>
+
+                <div className="pt-4">
+                  <Link
+                    href="/book"
+                    className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </MarketingSection>
 
         <MarketingSection
-          tone="neutral"
+          tone="ivory"
+          spacing="spacious"
           container="default"
-          className="!bg-[rgba(255,255,255,0.82)]"
         >
-          <div className="spacing-card-gap">
-            <div className="space-y-3 text-center max-w-3xl mx-auto">
-              <SectionTitle className="section__title">A calm planning rhythm you can trust</SectionTitle>
-              <Lead className="mx-auto">
-                We keep each step focused so you can make clear decisions without pressure or overwhelm.
-              </Lead>
+          <div className="max-w-3xl mx-auto text-center space-y-10">
+
+            {/* Partnership Label */}
+            <p className="uppercase tracking-[0.2em] text-xs text-neutral-500">
+              In Partnership With
+            </p>
+
+            {/* Albee Baby Logo */}
+            <Image
+              src="/assets/brand/albeebaby.png"
+              alt="Albee Baby"
+              width={180}
+              height={48}
+              className="mx-auto opacity-90"
+            />
+
+            {/* Headline */}
+            <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] tracking-[-0.01em]">
+              NYC In-Store Blueprint
+            </h2>
+
+            {/* Body Copy */}
+            <p className="text-neutral-700 leading-relaxed text-lg">
+              Before you walk into your in-store appointment, we handle the Learn and Plan.
+            </p>
+
+            <p className="text-neutral-600 leading-relaxed">
+              You’ll arrive clear on your needs, confident in your budget,
+              and ready to test and compare with purpose.
+              The Albee Baby team will already be up to speed on your priorities,
+              so your time in-store is productive — not overwhelming.
+            </p>
+
+            {/* CTA */}
+            <div className="pt-6">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
+              >
+                Explore the NYC Blueprint
+              </Link>
             </div>
 
-            <div className="feature-grid">
-              <article className="feature-card card-surface">
-                <h3 className="feature-card__title">Learn first</h3>
-                <Body className="feature-card__body body-copy--full">
-                  Understand categories and product differences before you commit to purchases.
-                </Body>
-              </article>
-              <article className="feature-card card-surface">
-                <h3 className="feature-card__title">Plan with intention</h3>
-                <Body className="feature-card__body body-copy--full">
-                  Build a registry around your actual routines, home layout, and support system.
-                </Body>
-              </article>
-              <article className="feature-card card-surface">
-                <h3 className="feature-card__title">Buy with confidence</h3>
-                <Body className="feature-card__body body-copy--full">
-                  Move forward knowing each item has a purpose and fits how you want to live.
-                </Body>
-              </article>
-            </div>
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" container="default">
-          <div>
-            <div className="card-surface max-w-3xl mx-auto text-center spacing-card-gap">
-              <span className="quote-icon" aria-hidden="true">
-                "
-              </span>
-              <Body className="mx-auto">
-                Taylor helped us prioritize what actually works for our days instead of following another list.
-              </Body>
-              <Body className="micro-text mx-auto">Grateful parents</Body>
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="default"
+        >
+          <div className="max-w-5xl mx-auto">
+
+            <SectionTitle className="text-center">
+              Additional Support
+            </SectionTitle>
+
+            <div className="grid md:grid-cols-2 gap-12 mt-16">
+              <div className="space-y-4">
+                <h4 className="font-serif text-xl">Shower Registry Coordination</h4>
+                <p className="text-neutral-600">Strategic oversight to prevent duplicates and gaps.</p>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-serif text-xl">Travel Gear Planning</h4>
+                <p className="text-neutral-600">Solutions for flights, road trips, and second homes.</p>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-serif text-xl">Sibling & Pet Preparation</h4>
+                <p className="text-neutral-600">Guidance for smooth family transitions.</p>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-serif text-xl">Postpartum Home Setup</h4>
+                <p className="text-neutral-600">Practical comfort planning before baby arrives.</p>
+              </div>
             </div>
+
           </div>
         </MarketingSection>
+
+        {/* End Bow Divider */}
+        <div className="relative w-full -mt-24 md:-mt-32 z-20">
+          <EndBowDivider />
+        </div>
 
         <MarketingSection
           tone="ivoryWarm"
+          spacing="spacious"
           container="default"
-          className="!bg-[linear-gradient(180deg,var(--color-paper),#ffffff)] !border-0"
+        >
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <p className="text-2xl font-serif leading-relaxed">
+              “I walked into the baby store already knowing what we needed.
+              No panic. No second-guessing. Just clarity.”
+            </p>
+            <p className="text-neutral-600">— TMBC Client</p>
+          </div>
+        </MarketingSection>
+
+        <MarketingSection
+          tone="blush"
+          spacing="spacious"
+          container="default"
         >
           <div>
             <div className="text-center space-y-6 max-w-3xl mx-auto">
-              <SectionTitle className="section__title">Start with confidence.</SectionTitle>
-              <Lead className="mx-auto">
-                Book a free consultation and get a clear, personalized plan that keeps you present for what matters most.
-              </Lead>
-              <div className="hero__actions">
-                <Link className="btn btn--primary" href="/contact">
-                  Book a Free Consultation
-                </Link>
-                <Link className="btn btn--secondary" href="/how-it-works">
-                  See How It Works
+              <SectionTitle>
+                Start with clarity.
+              </SectionTitle>
+
+              <p className="text-neutral-700">
+                Preparation doesn’t have to feel chaotic.
+                It can feel steady. Structured. Supported.
+              </p>
+
+              <div>
+                <Link
+                  href="/book"
+                  className="inline-flex items-center justify-center rounded-full bg-white text-neutral-900 px-8 py-3 text-sm tracking-wide transition hover:opacity-90"
+                >
+                  Book a Consultation
                 </Link>
               </div>
             </div>
