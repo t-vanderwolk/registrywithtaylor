@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
-import { SectionTitle } from '@/components/Typography';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
@@ -45,153 +44,119 @@ export default function ServicesPage() {
           spacing="spacious"
           container="default"
         >
-          <div className="max-w-3xl mx-auto text-center space-y-8">
-
-            <SectionTitle>
-              Bespoke Baby Planning Services
-            </SectionTitle>
-
-            <p className="text-neutral-700 leading-relaxed text-lg">
-              You don’t need more opinions.
-              <br />
-              You need a plan that fits your life.
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-              <Link
-                href="/book"
-                className="inline-flex items-center justify-center rounded-full bg-[var(--color-blush)] text-white px-8 py-3 text-sm tracking-wide transition hover:opacity-90"
-              >
-                Book a Consultation
-              </Link>
-
-              <Link
-                href="/how-it-works"
-                className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
-              >
-                How It Works
-              </Link>
-            </div>
-
-          </div>
-        </MarketingSection>
-
-        <MarketingSection
-          tone="ivory"
-          spacing="default"
-          container="default"
-        >
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-
-            <div className="space-y-3">
-              <p className="font-serif text-lg">Clarity before checkout.</p>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-serif text-lg">Confidence before comparison.</p>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-serif text-lg">A plan before you purchase.</p>
-            </div>
-
-          </div>
-        </MarketingSection>
-
-        <MarketingSection
-          tone="white"
-          spacing="spacious"
-          container="default"
-        >
           <div className="max-w-6xl mx-auto">
 
-            {/* Section Header */}
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
-              <h2 className="font-serif text-4xl md:text-5xl leading-[1.1] tracking-[-0.02em]">
+            <div className="max-w-4xl mx-auto text-center mb-6">
+              <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-6">
                 Support, structured around you.
               </h2>
 
-              <p className="uppercase tracking-[0.25em] text-xs text-neutral-500">
-                Choose your planning experience
-              </p>
+              <div className="flex items-center justify-center gap-4 text-xs tracking-[0.25em] text-neutral-500 uppercase">
+                <span className="h-px w-10 bg-neutral-300" />
+                Choose Your Planning Experience
+                <span className="h-px w-10 bg-neutral-300" />
+              </div>
             </div>
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="mt-16 services-packages-grid">
 
-              {/* The Focused Edit */}
-              <div className="rounded-3xl bg-white shadow-sm hover:shadow-md transition p-10 space-y-6">
-                <div className="space-y-2">
-                  <h3 className="font-serif text-2xl">The Focused Edit</h3>
-                  <p className="text-neutral-600">A clear starting point</p>
-                </div>
+              {/* Focused Edit */}
+              <div className="services-package-card">
+                <h3 className="font-serif text-2xl mb-4">The Focused Edit</h3>
 
-                <ul className="space-y-3 text-neutral-700">
-                  <li>✓ 1 Planning Session</li>
-                  <li>✓ Registry or Nursery Review</li>
-                  <li>✓ Personalized Action Plan</li>
+                <p className="text-neutral-600 mb-6 leading-relaxed">
+                  One dedicated planning session to refine a specific decision —
+                  whether that’s your registry, nursery layout, or gear shortlist.
+                </p>
+
+                <ul className="services-package-list">
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    1 Private Session
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Targeted Recommendations
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Written Follow-Up Notes
+                  </li>
                 </ul>
 
-                <div className="pt-4">
-                  <Link
-                    href="/book"
-                    className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
-                  >
-                    Learn More
-                  </Link>
-                </div>
+                <Link
+                  href="/book?package=focused"
+                  className="services-package-cta services-package-cta--secondary"
+                >
+                  Book the Focused Edit →
+                </Link>
               </div>
 
-              {/* The Signature Plan (Most Popular) */}
-              <div className="relative rounded-3xl bg-white shadow-md p-10 space-y-6">
-
-                {/* Badge */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--color-blush)] text-white text-xs tracking-wide px-4 py-1 rounded-full">
+              {/* Signature Plan */}
+              <div className="services-package-card">
+                <div className="services-package-badge">
                   Most Popular
                 </div>
+                <h3 className="font-serif text-2xl mb-4">The Signature Plan</h3>
 
-                <div className="space-y-2">
-                  <h3 className="font-serif text-2xl">The Signature Plan</h3>
-                  <p className="text-neutral-600">A guided preparation journey</p>
-                </div>
+                <p className="text-neutral-600 mb-6 leading-relaxed">
+                  A structured, multi-session approach designed to guide you
+                  from registry clarity to full nursery and home preparation.
+                </p>
 
-                <ul className="space-y-3 text-neutral-700">
-                  <li>✓ 3 Planning Sessions</li>
-                  <li>✓ Registry + Nursery Planning</li>
-                  <li>✓ Timeline + Product Guidance</li>
+                <ul className="services-package-list">
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    3 Planning Sessions
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Registry + Nursery Planning
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Implementation Roadmap
+                  </li>
                 </ul>
 
-                <div className="pt-4">
-                  <Link
-                    href="/book"
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-blush)] text-white px-6 py-3 text-sm tracking-wide transition hover:opacity-90"
-                  >
-                    Learn More
-                  </Link>
-                </div>
+                <Link
+                  href="/book?package=signature"
+                  className="services-package-cta services-package-cta--primary"
+                >
+                  Begin the Signature Plan →
+                </Link>
               </div>
 
-              {/* The Private Concierge */}
-              <div className="rounded-3xl bg-white shadow-sm hover:shadow-md transition p-10 space-y-6">
-                <div className="space-y-2">
-                  <h3 className="font-serif text-2xl">The Private Concierge</h3>
-                  <p className="text-neutral-600">Your on-call pregnancy partner</p>
-                </div>
+              {/* Private Concierge */}
+              <div className="services-package-card">
+                <h3 className="font-serif text-2xl mb-4">The Private Concierge</h3>
 
-                <ul className="space-y-3 text-neutral-700">
-                  <li>✓ Ongoing Support</li>
-                  <li>✓ Full Strategy + Planning</li>
-                  <li>✓ Real-Time Guidance</li>
+                <p className="text-neutral-600 mb-6 leading-relaxed">
+                  Your on-call pregnancy partner — ongoing guidance,
+                  priority scheduling, and direct access throughout your journey.
+                </p>
+
+                <ul className="services-package-list">
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Ongoing Support
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Priority Scheduling
+                  </li>
+                  <li>
+                    <span className="services-package-check">✓</span>
+                    Direct Message Access
+                  </li>
                 </ul>
 
-                <div className="pt-4">
-                  <Link
-                    href="/book"
-                    className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
-                  >
-                    Learn More
-                  </Link>
-                </div>
+                <Link
+                  href="/book?package=concierge"
+                  className="services-package-cta services-package-cta--secondary"
+                >
+                  Inquire About Private Concierge →
+                </Link>
               </div>
 
             </div>
@@ -201,51 +166,60 @@ export default function ServicesPage() {
         <MarketingSection
           tone="ivory"
           spacing="spacious"
-          container="default"
+          variant="wide"
+          className="relative overflow-hidden services-blueprint-section"
         >
-          <div className="max-w-3xl mx-auto text-center space-y-10">
+          <div className="relative mx-auto max-w-6xl services-blueprint-split">
+            <div className="max-w-xl space-y-6 services-blueprint-content">
+              <div className="services-blueprint-brand-lockup">
+                <div className="services-blueprint-partnership">
+                  <span aria-hidden className="services-blueprint-partnership-line" />
+                  <span>In Partnership With</span>
+                  <span aria-hidden className="services-blueprint-partnership-line" />
+                </div>
 
-            {/* Partnership Label */}
-            <p className="uppercase tracking-[0.2em] text-xs text-neutral-500">
-              In Partnership With
-            </p>
+                <Image
+                  src="/assets/brand/albeebaby.png"
+                  alt="Albee Baby"
+                  width={180}
+                  height={48}
+                  className="services-blueprint-logo"
+                />
+              </div>
 
-            {/* Albee Baby Logo */}
-            <Image
-              src="/assets/brand/albeebaby.png"
-              alt="Albee Baby"
-              width={180}
-              height={48}
-              className="mx-auto opacity-90"
-            />
+              <h2 className="services-blueprint-title">
+                NYC In-Store Blueprint
+              </h2>
 
-            {/* Headline */}
-            <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] tracking-[-0.01em]">
-              NYC In-Store Blueprint
-            </h2>
+              <p className="services-blueprint-kicker">
+                Walk in prepared. Confident. Stress-free.
+              </p>
 
-            {/* Body Copy */}
-            <p className="text-neutral-700 leading-relaxed text-lg">
-              Before you walk into your in-store appointment, we handle the Learn and Plan.
-            </p>
+              <p className="services-blueprint-body">
+                Before you walk into your in-store appointment, we handle the Learn and Plan. You&apos;ll arrive clear on your needs, confident in your budget, and ready to test &amp; compare with purpose.
+              </p>
 
-            <p className="text-neutral-600 leading-relaxed">
-              You’ll arrive clear on your needs, confident in your budget,
-              and ready to test and compare with purpose.
-              The Albee Baby team will already be up to speed on your priorities,
-              so your time in-store is productive — not overwhelming.
-            </p>
+              <p className="services-blueprint-body">
+                The Albee Baby team will already be up to speed on your priorities, so your time in-store is productive — not overwhelming.
+              </p>
 
-            {/* CTA */}
-            <div className="pt-6">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide transition hover:bg-neutral-100"
+                className="services-blueprint-cta focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Explore the NYC Blueprint
               </Link>
             </div>
 
+            <div className="services-blueprint-image-shell">
+              <Image
+                src="/assets/brand/albeebabystore.png"
+                alt="Albee Baby storefront in New York City"
+                width={900}
+                height={700}
+                className="services-blueprint-image"
+              />
+            </div>
           </div>
         </MarketingSection>
 
@@ -253,47 +227,160 @@ export default function ServicesPage() {
           tone="white"
           spacing="spacious"
           container="default"
+          className="relative overflow-visible services-extended-section bg-white"
         >
-          <div className="max-w-5xl mx-auto">
+          {/* Section Header */}
+          <div className="services-extended-header max-w-3xl mx-auto text-center mb-20">
+            <p className="text-[11px] tracking-[0.3em] uppercase text-neutral-400 mb-6">
+              Extended Support
+            </p>
 
-            <SectionTitle className="text-center">
-              Additional Support
-            </SectionTitle>
+            <h2 className="font-serif text-3xl md:text-4xl tracking-tight leading-[1.2] mb-6 text-neutral-900">
+              Design Your Experience
+            </h2>
 
-            <div className="grid md:grid-cols-2 gap-12 mt-16">
-              <div className="space-y-4">
-                <h4 className="font-serif text-xl">Shower Registry Coordination</h4>
-                <p className="text-neutral-600">Strategic oversight to prevent duplicates and gaps.</p>
+            <div className="mx-auto w-16 h-px bg-neutral-200 mt-6 mb-12" />
+
+            <p className="text-neutral-600 text-[15px] leading-7">
+              Every family&apos;s preparation looks different. These additional baby planning services allow you to personalize your experience —
+              from focused registry planning to postpartum home preparation and support through adoption or surrogacy.
+            </p>
+
+            <p className="text-neutral-600 text-[15px] leading-7 mt-4">
+              Each service can be integrated into your core planning package
+              or reserved as a dedicated session.
+            </p>
+          </div>
+
+
+          {/* Three Column Structured Groups */}
+          <div className="services-extended-grid relative mx-auto max-w-6xl">
+            <div className="services-extended-divider hidden md:block absolute left-1/3 top-4 bottom-4 w-px bg-neutral-100" />
+            <div className="services-extended-divider hidden md:block absolute left-2/3 top-4 bottom-4 w-px bg-neutral-100" />
+
+            {/* Column 1 */}
+            <div className="services-extended-column services-extended-group">
+              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
+                Family & Transitions
+              </h3>
+
+              <div className="services-extended-card-stack">
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Grandparents Planning Session</h4>
+                  <p>
+                    A structured baby planning consultation designed for grandparents
+                    and extended family — aligning expectations, registry guidance,
+                    and practical preparation.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Surrogacy & Adoption Planning Support</h4>
+                  <p>
+                    Tailored baby registry planning and newborn home preparation
+                    for families growing through surrogacy or adoption,
+                    including timeline coordination and travel planning support.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Sibling & Pet Preparation</h4>
+                  <p>
+                    Strategic guidance to help siblings and pets adjust smoothly
+                    and safely to life with a newborn.
+                  </p>
+                </article>
               </div>
+            </div>
 
-              <div className="space-y-4">
-                <h4 className="font-serif text-xl">Travel Gear Planning</h4>
-                <p className="text-neutral-600">Solutions for flights, road trips, and second homes.</p>
+
+            {/* Column 2 */}
+            <div className="services-extended-column services-extended-group">
+              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
+                Home & Gear Lifecycle
+              </h3>
+
+              <div className="services-extended-card-stack">
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Postpartum Home Setup</h4>
+                  <p>
+                    Intentional newborn home preparation focused on recovery,
+                    organization, and realistic daily flow.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Gear Cleaning & Reset Strategy</h4>
+                  <p>
+                    Expert guidance on cleaning, sanitizing, and preparing baby gear
+                    for safe reuse.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Gear Resale Strategy</h4>
+                  <p>
+                    Consultation on reselling baby gear, pricing strategy,
+                    and preparing items for resale or donation.
+                  </p>
+                </article>
               </div>
+            </div>
 
-              <div className="space-y-4">
-                <h4 className="font-serif text-xl">Sibling & Pet Preparation</h4>
-                <p className="text-neutral-600">Guidance for smooth family transitions.</p>
-              </div>
 
-              <div className="space-y-4">
-                <h4 className="font-serif text-xl">Postpartum Home Setup</h4>
-                <p className="text-neutral-600">Practical comfort planning before baby arrives.</p>
+            {/* Column 3 */}
+            <div className="services-extended-column services-extended-group">
+              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
+                Events & Registry Coordination
+              </h3>
+
+              <div className="services-extended-card-stack">
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Shower Registry Coordination</h4>
+                  <p>
+                    Professional baby registry planning support to ensure your registry
+                    is aligned before baby shower invitations are sent.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Welcome Box Registration Setup</h4>
+                  <p>
+                    Coordination of registry perks, completion discounts,
+                    and welcome programs across major retailers.
+                  </p>
+                </article>
+
+                <article className="services-extended-item-card">
+                  <h4 className="services-extended-item-title">Sip & See Planning Support</h4>
+                  <p>
+                    Structured guidance for hosting a post-arrival gathering
+                    while managing registry updates and gift coordination.
+                  </p>
+                </article>
               </div>
             </div>
 
           </div>
-        </MarketingSection>
 
-        {/* End Bow Divider */}
-        <div className="relative w-full -mt-24 md:-mt-32 z-20">
-          <EndBowDivider />
-        </div>
+
+          {/* Integration Note */}
+          <div className="max-w-2xl mx-auto text-center mt-20 text-neutral-500 text-[14px] leading-6">
+            These extended baby planning services are designed to complement
+            your registry planning, nursery design, and newborn preparation —
+            providing structured, thoughtful support at every stage.
+          </div>
+
+          <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
+            <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
+          </div>
+        </MarketingSection>
 
         <MarketingSection
           tone="ivoryWarm"
           spacing="spacious"
           container="default"
+          className="!border-t-0 !pt-20 md:!pt-28"
         >
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <p className="text-2xl font-serif leading-relaxed">
@@ -307,27 +394,24 @@ export default function ServicesPage() {
         <MarketingSection
           tone="blush"
           spacing="spacious"
-          container="default"
+          container="narrow"
         >
-          <div>
-            <div className="text-center space-y-6 max-w-3xl mx-auto">
-              <SectionTitle>
-                Start with clarity.
-              </SectionTitle>
+          <div className="text-center space-y-8">
+            <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[var(--text-primary)]">
+              Start with confidence.
+            </h2>
 
-              <p className="text-neutral-700">
-                Preparation doesn’t have to feel chaotic.
-                It can feel steady. Structured. Supported.
-              </p>
+            <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
+              Begin with a complimentary consultation and move forward with clarity — grounded, intentional, and even a little exciting.
+            </p>
 
-              <div>
-                <Link
-                  href="/book"
-                  className="inline-flex items-center justify-center rounded-full bg-white text-neutral-900 px-8 py-3 text-sm tracking-wide transition hover:opacity-90"
-                >
-                  Book a Consultation
-                </Link>
-              </div>
+            <div className="pt-4">
+              <Link
+                href="/contact"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Book Your Complimentary Consultation
+              </Link>
             </div>
           </div>
         </MarketingSection>

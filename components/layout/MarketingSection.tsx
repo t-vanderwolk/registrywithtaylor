@@ -7,6 +7,7 @@ type MarketingSectionSpacing = 'default' | 'tight' | 'spacious';
 type MarketingSectionProps = {
   tone?: MarketingSectionTone;
   container?: MarketingSectionContainer;
+  variant?: MarketingSectionContainer;
   spacing?: MarketingSectionSpacing;
   className?: string;
   id?: string;
@@ -37,18 +38,20 @@ const spacingClassMap: Record<MarketingSectionSpacing, string> = {
 export default function MarketingSection({
   tone = 'ivory',
   container = 'default',
+  variant,
   spacing = 'default',
   className = '',
   id,
   children,
 }: MarketingSectionProps) {
+  const resolvedContainer = variant ?? container;
   const sectionClassName = [spacingClassMap[spacing], toneClassMap[tone], className]
     .filter(Boolean)
     .join(' ');
 
   return (
     <section id={id} className={sectionClassName}>
-      <div className={containerClassMap[container]}>{children}</div>
+      <div className={containerClassMap[resolvedContainer]}>{children}</div>
     </section>
   );
 }
