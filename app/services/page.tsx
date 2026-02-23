@@ -61,7 +61,7 @@ export default function ServicesPage() {
             <div className="mt-16 services-packages-grid">
 
               {/* Focused Edit */}
-              <div className="services-package-card">
+              <div className="package-card">
                 <h3 className="font-serif text-2xl mb-4">The Focused Edit</h3>
 
                 <p className="text-neutral-600 mb-6 leading-relaxed">
@@ -88,12 +88,13 @@ export default function ServicesPage() {
                   href="/book?package=focused"
                   className="services-package-cta services-package-cta--secondary"
                 >
-                  Book the Focused Edit →
+                  Book the Focused Edit
+                  <span className="cta-arrow ml-2">→</span>
                 </Link>
               </div>
 
               {/* Signature Plan */}
-              <div className="services-package-card">
+              <div className="package-card">
                 <div className="services-package-badge">
                   Most Popular
                 </div>
@@ -123,12 +124,13 @@ export default function ServicesPage() {
                   href="/book?package=signature"
                   className="services-package-cta services-package-cta--primary"
                 >
-                  Begin the Signature Plan →
+                  Begin the Signature Plan
+                  <span className="cta-arrow ml-2">→</span>
                 </Link>
               </div>
 
               {/* Private Concierge */}
-              <div className="services-package-card">
+              <div className="package-card">
                 <h3 className="font-serif text-2xl mb-4">The Private Concierge</h3>
 
                 <p className="text-neutral-600 mb-6 leading-relaxed">
@@ -155,7 +157,8 @@ export default function ServicesPage() {
                   href="/book?package=concierge"
                   className="services-package-cta services-package-cta--secondary"
                 >
-                  Inquire About Private Concierge →
+                  Inquire About Private Concierge
+                  <span className="cta-arrow ml-2">→</span>
                 </Link>
               </div>
 
@@ -223,158 +226,280 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="white"
-          spacing="spacious"
-          container="default"
-          className="relative overflow-visible services-extended-section bg-white"
-        >
-          {/* Section Header */}
-          <div className="services-extended-header max-w-3xl mx-auto text-center mb-20">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-neutral-400 mb-6">
-              Extended Support
-            </p>
-
-            <h2 className="font-serif text-3xl md:text-4xl tracking-tight leading-[1.2] mb-6 text-neutral-900">
-              Design Your Experience
-            </h2>
-
-            <div className="mx-auto w-16 h-px bg-neutral-200 mt-6 mb-12" />
-
-            <p className="text-neutral-600 text-[15px] leading-7">
-              Every family&apos;s preparation looks different. These additional baby planning services allow you to personalize your experience —
-              from focused registry planning to postpartum home preparation and support through adoption or surrogacy.
-            </p>
-
-            <p className="text-neutral-600 text-[15px] leading-7 mt-4">
-              Each service can be integrated into your core planning package
-              or reserved as a dedicated session.
-            </p>
-          </div>
-
-
-          {/* Three Column Structured Groups */}
-          <div className="services-extended-grid relative mx-auto max-w-6xl">
-            <div className="services-extended-divider hidden md:block absolute left-1/3 top-4 bottom-4 w-px bg-neutral-100" />
-            <div className="services-extended-divider hidden md:block absolute left-2/3 top-4 bottom-4 w-px bg-neutral-100" />
-
-            {/* Column 1 */}
-            <div className="services-extended-column services-extended-group">
-              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
-                Family & Transitions
-              </h3>
-
-              <div className="services-extended-card-stack">
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Grandparents Planning Session</h4>
-                  <p>
-                    A structured baby planning consultation designed for grandparents
-                    and extended family — aligning expectations, registry guidance,
-                    and practical preparation.
-                  </p>
-                </article>
-
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Surrogacy & Adoption Planning Support</h4>
-                  <p>
-                    Tailored baby registry planning and newborn home preparation
-                    for families growing through surrogacy or adoption,
-                    including timeline coordination and travel planning support.
-                  </p>
-                </article>
-
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Sibling & Pet Preparation</h4>
-                  <p>
-                    Strategic guidance to help siblings and pets adjust smoothly
-                    and safely to life with a newborn.
-                  </p>
-                </article>
-              </div>
+        <section className="design-experience-wrapper relative overflow-visible">
+          <div className="design-experience-inner">
+            <div className="text-center mb-16">
+              <h2 className="font-serif text-4xl mb-4">
+                Design Your Experience
+              </h2>
+              <p className="max-w-2xl mx-auto text-neutral-600 leading-relaxed">
+                Flexible baby planning services that complement your core package —
+                tailored to your registry, home, and celebration needs.
+              </p>
             </div>
 
+            <div className="category-grid">
+              <div className="service-category">
+                <h3 className="category-title">Planning</h3>
+                <div className="addon-grid">
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Grandparents Planning Session
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Structured planning support for grandparents and extended family.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Family alignment guidance
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Registry gifting clarity
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Practical preparation plan
+                      </li>
+                    </ul>
+                  </article>
 
-            {/* Column 2 */}
-            <div className="services-extended-column services-extended-group">
-              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
-                Home & Gear Lifecycle
-              </h3>
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Surrogacy &amp; Adoption Planning Support
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Tailored planning for families growing through surrogacy or adoption.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Timeline and travel coordination
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Registry strategy alignment
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Newborn setup planning
+                      </li>
+                    </ul>
+                  </article>
 
-              <div className="services-extended-card-stack">
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Postpartum Home Setup</h4>
-                  <p>
-                    Intentional newborn home preparation focused on recovery,
-                    organization, and realistic daily flow.
-                  </p>
-                </article>
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Sibling &amp; Pet Preparation
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Smooth, safety-first transition planning for siblings and pets.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Introduction game plan
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Safety and routine guidance
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Adjustment support strategy
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+              </div>
 
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Gear Cleaning & Reset Strategy</h4>
-                  <p>
-                    Expert guidance on cleaning, sanitizing, and preparing baby gear
-                    for safe reuse.
-                  </p>
-                </article>
+              <div className="service-category">
+                <h3 className="category-title">Home &amp; Gear</h3>
+                <div className="addon-grid">
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Postpartum Home Setup
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Recovery-focused setup to support calm, functional daily flow.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Recovery-first room planning
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Feeding and sleep station flow
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Essentials organization strategy
+                      </li>
+                    </ul>
+                  </article>
 
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Gear Resale Strategy</h4>
-                  <p>
-                    Consultation on reselling baby gear, pricing strategy,
-                    and preparing items for resale or donation.
-                  </p>
-                </article>
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Gear Cleaning &amp; Reset Strategy
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Expert guidance for cleaning and preparing gear for safe reuse.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Sanitizing best practices
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Reuse readiness checklist
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Donation and resale prep
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Gear Resale Strategy
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Structured support for reselling gear with confidence and clarity.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Platform and pricing strategy
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Listing and staging guidance
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Resale vs donation decisions
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+              </div>
+
+              <div className="service-category">
+                <h3 className="category-title">Events &amp; Coordination</h3>
+                <div className="addon-grid">
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Shower Registry Coordination
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Registry planning support before invitations go out.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Registry audit and refinement
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Priority item sequencing
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Gift flow timing strategy
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Gender Reveal Planning &amp; Coordination
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Personalized reveal planning with polished, stress-free coordination.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Reveal concept planning
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Vendor and timeline coordination
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Day-of setup guidance
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Welcome Box Registration Setup
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Setup support for retailer perks, welcome programs, and discounts.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Retailer perk mapping
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Completion discount tracking
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Enrollment setup support
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article className="addon-card">
+                    <span className="addon-label">Optional Add-On</span>
+                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                      Sip &amp; See Planning Support
+                    </h4>
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      Thoughtful support for a smooth, post-arrival gathering.
+                    </p>
+                    <ul className="services-package-list">
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Event timeline planning
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Registry update guidance
+                      </li>
+                      <li>
+                        <span className="services-package-check">✓</span>
+                        Gift coordination strategy
+                      </li>
+                    </ul>
+                  </article>
+                </div>
               </div>
             </div>
-
-
-            {/* Column 3 */}
-            <div className="services-extended-column services-extended-group">
-              <h3 className="font-serif text-xl tracking-tight text-neutral-800">
-                Events & Registry Coordination
-              </h3>
-
-              <div className="services-extended-card-stack">
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Shower Registry Coordination</h4>
-                  <p>
-                    Professional baby registry planning support to ensure your registry
-                    is aligned before baby shower invitations are sent.
-                  </p>
-                </article>
-
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Welcome Box Registration Setup</h4>
-                  <p>
-                    Coordination of registry perks, completion discounts,
-                    and welcome programs across major retailers.
-                  </p>
-                </article>
-
-                <article className="services-extended-item-card">
-                  <h4 className="services-extended-item-title">Sip & See Planning Support</h4>
-                  <p>
-                    Structured guidance for hosting a post-arrival gathering
-                    while managing registry updates and gift coordination.
-                  </p>
-                </article>
-              </div>
-            </div>
-
-          </div>
-
-
-          {/* Integration Note */}
-          <div className="max-w-2xl mx-auto text-center mt-20 text-neutral-500 text-[14px] leading-6">
-            These extended baby planning services are designed to complement
-            your registry planning, nursery design, and newborn preparation —
-            providing structured, thoughtful support at every stage.
           </div>
 
           <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
             <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
           </div>
-        </MarketingSection>
+        </section>
 
         <MarketingSection
           tone="ivoryWarm"

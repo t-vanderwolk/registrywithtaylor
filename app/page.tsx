@@ -52,7 +52,7 @@ export default function HomePage() {
       ],
       image: '/assets/services/registry-guidance.jpg',
       alt: 'Registry planning editorial',
-      href: '/services/registry',
+      href: '/services',
     },
     {
       id: 'nursery',
@@ -83,7 +83,7 @@ export default function HomePage() {
       ],
       image: '/assets/services/nursery-design.jpg',
       alt: 'Nursery design editorial',
-      href: '/services/nursery',
+      href: '/services',
     },
     {
       id: 'lifestyle',
@@ -114,7 +114,7 @@ export default function HomePage() {
       ],
       image: '/assets/services/personal-shopping.jpg',
       alt: 'Personal shopping editorial',
-      href: '/services/personal-shopping',
+      href: '/services',
     },
   ];
 
@@ -143,23 +143,86 @@ export default function HomePage() {
 
         <MarketingSection
           tone="white"
-          container="default"
-          className="relative !pt-24 md:!pt-28"
+          container="wide"
+          spacing={'compact' as never}
         >
-          <h2 className="section-title text-center">
-            There’s a lot of advice out there.
-          </h2>
+          <div className="border-t border-b border-charcoal/5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-sm tracking-wide uppercase text-charcoal/70 pt-11 pb-0">
+              <p>Baby Gear Specialist</p>
 
-          <p className="mt-6 text-[var(--color-muted)] max-w-xl mx-auto text-center">
-            Most of it loud. Some of it helpful. Very little of it tailored to you.
-          </p>
+              <p className="md:border-l md:border-r md:border-charcoal/10 md:px-6">
+                Brand-Trained Product Expertise
+              </p>
 
-          <p className="mt-6 max-w-2xl mx-auto text-center">
-            Between registry lists, social media trends, and well-meaning opinions,
-            it’s easy to feel pressured to buy everything immediately.
-          </p>
+              <p>Private Planning for Modern Families</p>
+            </div>
+          </div>
+        </MarketingSection>
 
-          <div className="mt-6 mx-auto w-16 h-px bg-[var(--color-border-soft)]" />
+        {/* Advice Section */}
+        <MarketingSection tone="white" container="wide" spacing="spacious">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 md:gap-24 items-start">
+
+            {/* LEFT COLUMN */}
+            <div className="max-w-[560px]">
+              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+                There’s a lot of advice out there.
+              </h2>
+
+              <p className="text-lg leading-relaxed mb-6">
+                Most of it loud. Some of it helpful. Very little of it tailored to you.
+              </p>
+
+              <p className="text-lg leading-relaxed mb-6">
+                Between registry lists, social media trends, and well-meaning opinions,
+                it’s easy to feel pressured to buy everything immediately.
+              </p>
+
+              <p className="text-lg leading-relaxed">
+                And when everything feels urgent, nothing feels clear.
+              </p>
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <div className="bg-[var(--color-ivory)] border border-[var(--color-charcoal)]/5 shadow-none rounded-2xl p-8 md:p-10">
+              <h3 className="text-2xl font-serif mb-6">
+                This is for you if…
+              </h3>
+
+              <ul className="space-y-4 text-base">
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
+                  <span>You want guidance without pressure</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
+                  <span>You prefer intentional decisions over trends</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
+                  <span>You value quality, longevity, and practicality</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
+                  <span>You want your registry to reflect your real life</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
+                  <span>You’re ready for calm, private planning</span>
+                </li>
+              </ul>
+
+              <div className="mt-10">
+                <Link
+                  href="/how-it-works"
+                  className={secondaryCtaClass}
+                >
+                  Explore How It Works →
+                </Link>
+              </div>
+            </div>
+
+          </div>
         </MarketingSection>
 
         <MarketingSection
@@ -240,40 +303,186 @@ export default function HomePage() {
 
         </MarketingSection>
 
-        <div className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-soft-blush)_22%,var(--color-ivory)_100%)]">
-          {serviceOffers.map((service, index) => {
-            const rhythmClass = index === 1 ? 'service-preview-row-offset' : '';
+        {/* Planning Overview — Stacked Editorial Journey */}
 
-            return (
-              <div key={service.id} className={rhythmClass}>
-                <ServiceFeatureRow
-                  id={service.id}
-                  sectionHeader={index === 0 ? 'Service Preview' : undefined}
-                  sectionIntro={
-                    index === 0
-                      ? 'Thoughtfully designed support — tailored to how you actually live.'
-                      : undefined
-                  }
-                  eyebrow={service.label}
-                  title={service.title}
-                  description={service.description}
-                  detailedBullets={service.detailedBullets}
-                  image={service.image}
-                  alt={service.alt}
-                  href={service.href}
-                  tone={index % 2 === 0 ? 'ivoryWarm' : 'white'}
-                  reverse={index % 2 === 0}
-                  priority={index === 0}
-                  isExpanded={expandedRow === service.id}
-                  onToggle={() =>
-                    setExpandedRow(expandedRow === service.id ? null : service.id)
-                  }
-                  className="!bg-transparent !border-0"
-                />
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="narrow"
+          className="py-28 md:py-32"
+        >
+          <div className="max-w-3xl mx-auto">
+
+            {/* Section Intro */}
+            <div className="mb-20 md:pl-4">
+              <p className="uppercase tracking-[0.25em] text-xs text-muted-foreground mb-6">
+                Planning Overview
+              </p>
+
+              <h2 className="text-4xl md:text-5xl font-serif mb-6">
+                How Families Typically Work With Me
+              </h2>
+
+              <p className="text-lg text-muted-foreground max-w-[60ch]">
+                A structured, private approach to thoughtful baby preparation.
+              </p>
+            </div>
+
+            {/* -------- Pillar 01 -------- */}
+            <div className="mb-28">
+              <div className="grid md:grid-cols-2 gap-16 items-center">
+
+                {/* Text Column */}
+                <div>
+                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                    01
+                  </p>
+
+                  <h3 className="text-2xl font-serif mb-4">
+                    Registry Clarity
+                  </h3>
+
+                  <p className="text-muted-foreground mb-6 max-w-[60ch]">
+                    We begin by refining what truly belongs on your registry — guided by brand-trained insight,
+                    lifestyle alignment, and long-term practicality.
+                  </p>
+
+                  <ul className="space-y-3 text-muted-foreground mb-6">
+                    <li>• Brand-informed recommendations</li>
+                    <li>• Clear “buy now vs later” prioritization</li>
+                    <li>• Registry structure built around your real life</li>
+                  </ul>
+
+                  <Link
+                    href="/services"
+                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+                  >
+                    Explore Registry Support →
+                  </Link>
+                </div>
+
+                {/* Image Column */}
+                <div className="relative">
+                  <div className="rounded-2xl overflow-hidden">
+                    <Image
+                      src="/assets/editorial/registry.jpg"
+                      alt="Curated baby registry planning session"
+                      width={800}
+                      height={1000}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                </div>
+
               </div>
-            );
-          })}
-        </div>
+            </div>
+
+            <div className="border-t border-neutral-200 my-20" />
+
+
+            {/* -------- Pillar 02 -------- */}
+            <div className="mb-28">
+              <div className="grid md:grid-cols-2 gap-16 items-center">
+
+                {/* Image Column */}
+                <div className="relative order-2 md:order-1">
+                  <div className="rounded-2xl overflow-hidden">
+                    <Image
+                      src="/assets/editorial/nursery.jpg"
+                      alt="Calm and functional nursery design"
+                      width={800}
+                      height={1000}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Text Column */}
+                <div className="order-1 md:order-2">
+                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                    02
+                  </p>
+
+                  <h3 className="text-2xl font-serif mb-4">
+                    Home & Nursery Preparation
+                  </h3>
+
+                  <p className="text-muted-foreground mb-6 max-w-[60ch]">
+                    Next, we translate your vision into a space that feels calm,
+                    functional, and ready for daily life with baby.
+                  </p>
+
+                  <ul className="space-y-3 text-muted-foreground mb-6">
+                    <li>• Layout and furniture planning</li>
+                    <li>• Safety-focused recommendations</li>
+                    <li>• Sourcing and implementation guidance</li>
+                  </ul>
+
+                  <Link
+                    href="/services"
+                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+                  >
+                    Explore Nursery Support →
+                  </Link>
+                </div>
+
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-200 my-20" />
+
+
+            {/* -------- Pillar 03 -------- */}
+            <div>
+              <div className="grid md:grid-cols-2 gap-16 items-center">
+
+                {/* Text Column */}
+                <div>
+                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                    03
+                  </p>
+
+                  <h3 className="text-2xl font-serif mb-4">
+                    Intentional Gear Planning
+                  </h3>
+
+                  <p className="text-muted-foreground mb-6 max-w-[60ch]">
+                    Finally, we design the daily systems — strollers, car seats, carriers —
+                    chosen with longevity, safety, and real routines in mind.
+                  </p>
+
+                  <ul className="space-y-3 text-muted-foreground mb-6">
+                    <li>• Stroller + car seat strategy</li>
+                    <li>• Real-world usage planning</li>
+                    <li>• Streamlined daily systems</li>
+                  </ul>
+
+                  <Link
+                    href="/services"
+                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+                  >
+                    Explore Gear Planning →
+                  </Link>
+                </div>
+
+                {/* Image Column */}
+                <div className="relative">
+                  <div className="rounded-2xl overflow-hidden">
+                    <Image
+                      src="/assets/editorial/gear.jpg"
+                      alt="Thoughtfully selected baby gear essentials"
+                      width={800}
+                      height={1000}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </MarketingSection>
 
       {/* Founder Authority */}
       <MarketingSection

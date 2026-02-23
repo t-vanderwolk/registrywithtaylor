@@ -3,7 +3,7 @@ import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
-import RibbonDivider from '@/components/layout/RibbonDivider';
+import Hero from '@/components/ui/Hero';
 import { Body, Lead, SectionTitle } from '@/components/Typography';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -47,63 +47,29 @@ const steps = [
   },
 ];
 
-const testimonialSlides = [
-  {
-    quote:
-      'Working with Taylor made everything feel manageable. Instead of guessing what we needed, we had a clear plan — and that changed everything.',
-    author: 'First-Time Parent, Scottsdale',
-  },
-  {
-    quote:
-      'Taylor helped us prioritize what actually works for our days instead of following another list.',
-    author: 'Grateful Parents',
-  },
-  {
-    quote:
-      'We stopped second-guessing every purchase and finally felt prepared for baby.',
-    author: 'Expecting Parent, Phoenix',
-  },
-];
-
 export default function HowItWorksPage() {
   return (
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
-        <section
-          className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-visible"
-          style={{
-            backgroundImage: 'linear-gradient(180deg, #f3ece5 0%, #f8f4f0 55%, #ffffff 100%)',
+        <Hero
+          eyebrow="How It Works"
+          title="How It Works"
+          subtitle="A clear, practical path from overwhelmed to prepared."
+          primaryCta={{ label: 'Book a Free Consultation →', href: '/contact' }}
+          secondaryCta={{ label: 'View Services →', href: '/services' }}
+          image="/assets/hero/hero-02.jpg"
+          imageAlt="How it works planning process"
+          className="hero-bottom-fade hero-home-radial pb-16 z-20"
+          showRibbon
+          ribbonEnhanced
+          contentStyle={{
+            backgroundImage:
+              'radial-gradient(circle at 24% 34%, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.5) 44%, rgba(248,244,240,0.2) 72%, rgba(248,244,240,0) 100%)',
+            borderRadius: '1.5rem',
+            padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.8vw, 2rem)',
           }}
-        >
-          <div className="max-w-3xl mx-auto text-center space-y-5 px-6 animate-hero-fade">
-            <p className="hero-eyebrow !mb-0">
-              How It Works
-            </p>
+        />
 
-            <h1 className="hero-title !mb-0">
-              How It Works
-            </h1>
-
-            <p className="hero-subhead !mb-0 mx-auto">
-              A clear, practical path from overwhelmed to prepared.
-            </p>
-
-            <div className="hero-cta-group justify-center">
-              <Link href="/contact" className="btn btn--primary">
-                BOOK A FREE CONSULTATION
-              </Link>
-              <Link href="/services" className="btn btn--secondary">
-                VIEW SERVICES
-              </Link>
-            </div>
-          </div>
-
-          {/* Ribbon Divider */}
-          <div className="absolute left-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-148px]">
-            <RibbonDivider />
-          </div>
-        </section>
-        <div className="h-10 md:h-12 bg-gradient-to-b from-[#f8f4f0] via-[#f8f4f0]/70 to-white" />
         <MarketingSection
           tone="white"
           spacing="spacious"
@@ -362,64 +328,44 @@ export default function HowItWorksPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="ivoryWarm"
-          spacing="spacious"
-          container="default"
-          className="!border-t-0 !pt-20 md:!pt-28"
-        >
-          <div className="max-w-3xl mx-auto text-center">
+        {/* --- Bridge Section After Tot Squad --- */}
+        <section className="bridge-section">
+          <div className="bridge-section__inner">
+            <p className="bridge-section__eyebrow">
+              After Your Complimentary Consultation
+            </p>
 
-            <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] tracking-[-0.01em] mb-6">
-              When you’re ready for more personalized support.
+            <h2 className="bridge-section__title">
+              Ready for a more structured plan?
             </h2>
 
-            <p className="text-neutral-700 leading-relaxed text-lg text-center max-w-2xl mx-auto mb-6">
-              For families seeking deeper, ongoing guidance, <span className="font-serif text-[1.1rem] tracking-[0.02em] text-[#2e2e2e]">Taylor-Made Baby Co.</span> offers bespoke planning services designed independently — and tailored entirely to your home, your routines, and your long-term needs.
+            <ul className="bridge-section__list">
+              <li>
+                <span className="services-package-check bridge-section__check">✓</span>
+                <span>Personalized registry strategy</span>
+              </li>
+              <li>
+                <span className="services-package-check bridge-section__check">✓</span>
+                <span>Nursery &amp; home preparation roadmap</span>
+              </li>
+              <li>
+                <span className="services-package-check bridge-section__check">✓</span>
+                <span>Ongoing guidance beyond one conversation</span>
+              </li>
+            </ul>
+
+            <p className="bridge-section__kicker">
+              This is where preparation becomes intentional.
             </p>
 
-            <p className="text-neutral-700 leading-relaxed text-lg text-center max-w-2xl mx-auto mb-10">
-              From comprehensive registry strategy and nursery design to hands-on product research and purchase planning, this private support extends far beyond a single conversation.
-            </p>
-
-            <div className="pt-2">
-              <Link
-                href="/services"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                Explore Bespoke Services
-              </Link>
-            </div>
-
-            <div className="mt-24 pt-12 border-t border-neutral-200/70">
-              <p className="text-xs tracking-[0.3em] uppercase text-neutral-500 mb-3">
-                Testimonial
-              </p>
-
-              <p className="text-[0.72rem] tracking-[0.28em] uppercase text-neutral-500 mb-8">
-                First-Time Families
-              </p>
-
-              <div className="testimonial-fader mx-auto max-w-3xl">
-                {testimonialSlides.map((item, index) => (
-                  <article
-                    key={`${item.author}-${index}`}
-                    className="testimonial-fader__slide"
-                    style={{ animationDelay: `${index * 6}s` }}
-                  >
-                    <p className="font-serif text-3xl md:text-4xl leading-[1.2] tracking-[-0.01em] text-neutral-900 mb-8">
-                      “{item.quote}”
-                    </p>
-                    <p className="text-neutral-500 text-sm tracking-wide uppercase">
-                      — {item.author}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
+            <Link
+              href="/services"
+              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            >
+              Explore Taylor-Made Planning →
+            </Link>
           </div>
-        </MarketingSection>
+        </section>
 
         <MarketingSection tone="blush" container="narrow" spacing="spacious">
           <div className="text-center space-y-8">
