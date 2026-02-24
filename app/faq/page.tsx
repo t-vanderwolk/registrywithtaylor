@@ -1,58 +1,7 @@
 import Link from 'next/link';
-import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { SectionTitle } from '@/components/Typography';
-import Hero from '@/components/ui/Hero';
+import MarketingSection from '@/components/layout/MarketingSection';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-
-const faqs = [
-  {
-    id: 'faq-1',
-    question: 'Do I have to purchase everything you recommend?',
-    answer:
-      'No. Guidance is educational and collaborative — you decide what fits your lifestyle and budget.',
-  },
-  {
-    id: 'faq-2',
-    question: 'Are consultations virtual or in-person?',
-    answer:
-      'Primarily virtual, with flexibility for local clients who prefer an in-person walkthrough.',
-  },
-  {
-    id: 'faq-3',
-    question: 'Is this only for first-time parents?',
-    answer:
-      'No. Many returning parents use the services to refresh their registry or simplify the planning load.',
-  },
-  {
-    id: 'faq-4',
-    question: 'Do you receive commissions from brands?',
-    answer:
-      'Recommendations are based on fit first. Partnerships may exist, but they do not dictate guidance.',
-  },
-  {
-    id: 'faq-5',
-    question: 'How long is a consultation?',
-    answer:
-      'Typically 45–60 minutes depending on goals and the number of registry elements we review.',
-  },
-  {
-    id: 'faq-6',
-    question: 'Can I come back with questions later?',
-    answer: 'Yes. Ongoing support and adjustments are encouraged as plans evolve.',
-  },
-  {
-    id: 'faq-7',
-    question: 'Do you help with nursery design?',
-    answer: 'Yes — layout, product selection, and organization guidance are available.',
-  },
-  {
-    id: 'faq-8',
-    question: 'What happens after the consultation?',
-    answer:
-      'You’ll receive recap notes, curated suggestions, and optional follow-up support to keep momentum.',
-  },
-];
 
 export const metadata = buildMarketingMetadata({
   title: 'FAQ — Taylor-Made Baby Co.',
@@ -63,52 +12,144 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'Frequently asked questions',
 });
 
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  return (
+    <details className="group border-b border-neutral-200 pb-4">
+      <summary className="cursor-pointer font-medium text-neutral-900 flex justify-between items-center py-3">
+        {question}
+        <span className="text-neutral-400 group-open:rotate-45 transition-transform">+</span>
+      </summary>
+      <p className="text-neutral-700 leading-relaxed pt-2">
+        {answer}
+      </p>
+    </details>
+  );
+}
+
 export default function FAQPage() {
   return (
     <SiteShell currentPath="/faq">
       <main className="site-main">
-        <Hero
-          eyebrow="Frequently Asked Questions"
-          title="Frequently Asked Questions"
-          subtitle="Quick answers to common registry and planning questions."
-          image="/assets/hero/hero-05.jpg"
-          imageAlt="Frequently asked questions background"
-        />
+        <MarketingSection tone="white" spacing="spacious" container="default">
+          <div className="max-w-3xl mx-auto space-y-16">
 
-        <Section variant="warm" aria-label="FAQ accordion">
-          <div className="container">
-            <SectionTitle className="section__title">Answers from our studio</SectionTitle>
-            <div className="accordion" id="faq-accordion">
-              {faqs.map((faq) => (
-                <div className="accordion__item" key={faq.id}>
-                  <button
-                    className="accordion__trigger"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls={faq.id}
-                  >
-                    {faq.question}
-                    <span aria-hidden="true">+</span>
-                  </button>
-                  <div className="accordion__content" id={faq.id} aria-hidden="true">
-                    {faq.answer}
-                  </div>
-                </div>
-              ))}
+            {/* Page Header */}
+            <div className="text-center space-y-6">
+              <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+                Frequently Asked Questions
+              </h1>
+              <p className="text-lg text-neutral-700">
+                A little clarity before we begin.
+              </p>
             </div>
-          </div>
-        </Section>
 
-        <Section variant="neutral" aria-label="Still have questions">
-          <div className="container hero__content">
-            <SectionTitle className="section__title">Still have questions?</SectionTitle>
-            <div className="hero__actions">
-              <Link className="btn btn--primary" href="/contact">
-                Contact
-              </Link>
+            {/* FAQ Groups */}
+            <div className="space-y-12">
+
+              {/* Complimentary Consultation */}
+              <div className="space-y-6">
+                <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
+                  Complimentary Consultation
+                </h2>
+
+                <FAQItem
+                  question="Is the consultation really complimentary?"
+                  answer="Yes. The virtual consultation is offered through the Target Baby Concierge program powered by Tot Squad. There is no cost to book the session."
+                />
+
+                <FAQItem
+                  question="Do I need to register at Target first?"
+                  answer="Yes. The consultation is part of the Target Baby Concierge experience. Once your registry is created, you can schedule your session and I’ll serve as your dedicated Baby Specialist through Tot Squad."
+                />
+
+                <FAQItem
+                  question="Will I be meeting with you directly?"
+                  answer="Yes. When you book through the Tot Squad platform, you’ll meet with me personally for your consultation."
+                />
+
+                <FAQItem
+                  question="What happens during the session?"
+                  answer="We review your registry, your space, your lifestyle, and your timeline. Together, we identify what’s essential, what may be unnecessary, and what best supports how you actually live. The goal is clarity — not more things."
+                />
+
+                <FAQItem
+                  question="How long is the consultation?"
+                  answer="Most sessions are 30–60 minutes, depending on your needs."
+                />
+
+                <FAQItem
+                  question="What should I prepare beforehand?"
+                  answer="Come with your registry (even if it’s unfinished), your biggest questions, and a sense of your space. You don’t need to have everything figured out — that’s what the session is for."
+                />
+              </div>
+
+              {/* After the Consultation */}
+              <div className="space-y-6">
+                <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
+                  After the Consultation
+                </h2>
+
+                <FAQItem
+                  question="What happens after our session?"
+                  answer="Some families feel fully confident moving forward independently. Others choose continued support through Taylor-Made Baby Co. for more structured, private planning. There is no obligation either way."
+                />
+
+                <FAQItem
+                  question="Am I required to book private services?"
+                  answer="No. The complimentary consultation stands on its own. If you’d like additional support — nursery planning, registry refinement, gear strategy, or ongoing guidance — those services are available separately through Taylor-Made Baby Co."
+                />
+
+                <FAQItem
+                  question="What’s the difference between Tot Squad and Taylor-Made Baby Co.?"
+                  answer="Tot Squad powers the Target Baby Concierge program, which provides complimentary registry consultations. Taylor-Made Baby Co. offers private, personalized planning services for families who want continued guidance beyond that initial session."
+                />
+              </div>
+
+              {/* Private Planning Services */}
+              <div className="space-y-6">
+                <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
+                  Private Planning Services
+                </h2>
+
+                <FAQItem
+                  question="What do private services include?"
+                  answer="Private services may include registry refinement, nursery layout and design guidance, product comparison and gear strategy, personal shopping support, and ongoing planning sessions. Each engagement is tailored to your family."
+                />
+
+                <FAQItem
+                  question="Do you work with families outside Chicago?"
+                  answer="Yes. Most consultations are virtual and available nationwide. In-home support may be available for select clients."
+                />
+
+                <FAQItem
+                  question="Do you receive commission on products you recommend?"
+                  answer="I may receive affiliate compensation from certain retail partners, but recommendations are always based on what fits your lifestyle, space, and priorities — not on commission. Clarity and trust come first."
+                />
+
+                <FAQItem
+                  question="How do I know if private planning is right for me?"
+                  answer="If you’re looking for continued structure, thoughtful decision-making, and a calm, guided approach to preparation — private planning may be a strong fit. If you’re unsure, begin with your complimentary consultation."
+                />
+              </div>
+
             </div>
+
           </div>
-        </Section>
+        </MarketingSection>
+
+        <MarketingSection tone="ivory" spacing="spacious" container="narrow">
+          <div className="text-center space-y-6">
+
+            <p className="text-lg text-neutral-700 leading-relaxed">
+              Not sure if private planning is the right fit?
+            </p>
+
+            <Link href="/how-it-works" className="btn btn--secondary">
+              Start with a Complimentary Consultation
+            </Link>
+
+          </div>
+        </MarketingSection>
       </main>
     </SiteShell>
   );

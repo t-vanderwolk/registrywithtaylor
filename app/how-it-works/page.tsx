@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Script from 'next/script';
 import SiteShell from '@/components/SiteShell';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -52,113 +53,130 @@ export default function HowItWorksPage() {
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
         <Hero
-          eyebrow="How It Works"
-          title="How It Works"
-          subtitle="A clear, practical path from overwhelmed to prepared."
-          primaryCta={{ label: 'Book a Free Consultation →', href: '/contact' }}
-          secondaryCta={{ label: 'View Services →', href: '/services' }}
-          image="/assets/hero/hero-02.jpg"
-          imageAlt="How it works planning process"
-          className="hero-bottom-fade hero-home-radial pb-16 z-20"
           showRibbon
           ribbonEnhanced
+          className="hero-bottom-fade pb-16 z-20"
+          contentClassName="max-w-2xl"
           contentStyle={{
-            backgroundImage:
-              'radial-gradient(circle at 24% 34%, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.5) 44%, rgba(248,244,240,0.2) 72%, rgba(248,244,240,0) 100%)',
-            borderRadius: '1.5rem',
-            padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.8vw, 2rem)',
+            borderRadius: '32px',
+            padding: '3.5rem 3rem',
           }}
-        />
-
-        <MarketingSection
-          tone="white"
-          spacing="spacious"
-          container="default"
-          className="relative overflow-visible"
+          image="/assets/hero/hero-02.jpg"
+          imageAlt="How it works planning process"
         >
-          <div className="max-w-4xl mx-auto rounded-[28px] bg-[var(--color-ivory)] shadow-[0_30px_60px_rgba(0,0,0,0.06)] px-8 md:px-16 py-16">
+          <div className="space-y-6">
 
-            {/* Step Label */}
-            <p className="text-xs tracking-[0.35em] uppercase text-neutral-500 text-center mb-4">
-              Step 1
+            <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+              How It Works
+            </h1>
+
+            <p className="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+              A calm, structured path from your complimentary consultation
+              to a fully prepared home.
             </p>
 
-            {/* Headline */}
-            <h2 className="font-serif text-4xl md:text-5xl text-center mb-3">
-              Complimentary Virtual Consultation
-            </h2>
-
-            {/* Subhead */}
-            <p className="text-lg text-neutral-600 text-center mx-auto mb-6">
-              Begin with clarity.
-            </p>
-
-            {/* Authority Line */}
-            <div className="flex justify-center items-center mb-8">
-              <Image
-                src="/assets/brand/totsquad.png"
-                alt="TotSquad Baby Concierge"
-                width={320}
-                height={60}
-                className="h-8 md:h-10 w-auto opacity-80"
-                priority={false}
-              />
-            </div>
-<div>
-            {/* Body Copy */}
-            <div className="max-w-2xl mx-auto text-center text-neutral-700 leading-relaxed space-y-3">
-              {/* Lead Line */}
-              <p className="text-neutral-900 font-medium text-lg md:text-xl mb-4">
-                Before anything is purchased, we talk.
-              </p>
-
-              {/* Expanded Explanation */}
-              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto mb-4">
-                Your complimentary consultation is offered through the Target Baby Concierge program powered by TotSquad — a national network of certified baby gear specialists.
-              </p>
-
-              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto mb-4">
-                When you schedule your session, you’ll meet directly with me as your dedicated baby specialist.
-              </p>
-
-              <p className="text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-                During our virtual consultation, we review your home, lifestyle, priorities, and timeline so every decision feels intentional — not reactive.
-              </p>
-           
-
-            {/* Icon Row */}
-            <div className="grid grid-cols-4 gap-8 text-center mt-8 mb-6">
-
-              <div>
-                <div className="text-3xl mb-2">🏡</div>
-                <p className="text-sm text-neutral-700">Lifestyle & space review</p>
-              </div>
-
-              <div>
-                <div className="text-3xl mb-2">📝</div>
-                <p className="text-sm text-neutral-700">Registry refinement</p>
-              </div>
-
-              <div>
-                <div className="text-3xl mb-2">🔍</div>
-                <p className="text-sm text-neutral-700">Product comparisons</p>
-              </div>
-
-              <div>
-                <div className="text-3xl mb-2">✨</div>
-                <p className="text-sm text-neutral-700">Clarity</p>
-              </div>
-
-            </div>
-</div>
-    </div>        {/* CTA */}
-            <div className="text-center mt-4">
+            <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/contact"
                 className="btn btn--primary"
               >
-                Book Complimentary Consultation →
+                Book a Complimentary Consultation
               </Link>
+
+              <Link
+                href="/services"
+                className="btn btn--secondary"
+              >
+                View Services
+              </Link>
+            </div>
+
+          </div>
+        </Hero>
+
+        <MarketingSection
+          id="step-1"
+          tone="white"
+          spacing="spacious"
+          container="default"
+        >
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-start">
+
+            {/* LEFT COLUMN — COPY */}
+            <div className="max-w-[520px] space-y-7">
+
+              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+                Start with Clarity
+              </h2>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                Your journey begins with a complimentary virtual consultation
+                offered through the Target Baby Concierge program powered by Tot Squad.
+              </p>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                After creating your Target registry, you can schedule your session —
+                where I will personally serve as your dedicated Baby Specialist,
+                guiding you through every decision with clarity and intention.
+              </p>
+
+              <ul className="space-y-3 pt-2 text-neutral-700">
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Review your registry and starting point
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Identify overbuying risks and gaps
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Align purchases with your real lifestyle and space
+                </li>
+              </ul>
+
+              <p className="text-neutral-900 font-medium pt-4">
+                This isn’t about adding more.
+                It’s about choosing well from the start.
+              </p>
+
+            </div>
+
+            {/* RIGHT COLUMN — DIRECT BOOKING CARD */}
+            <div className="flex justify-center">
+              <div className="bg-[var(--color-ivory)] p-10 max-w-md w-full space-y-6 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.06)]">
+
+                <div className="text-center space-y-2">
+                  <p className="text-xs uppercase tracking-wide text-neutral-500">
+                    Book Your Complimentary Consultation
+                  </p>
+                  <p className="text-sm text-neutral-600">
+                    Complimentary session through the Target Baby Concierge program powered by Tot Squad — with Taylor as your dedicated Baby Specialist.
+                  </p>
+                </div>
+
+                <div className="rounded-xl overflow-hidden border border-neutral-200 bg-white">
+
+                  <div
+                    className="embedded-booking"
+                    data-url="https://babyconcierge.totsquad.com"
+                    data-query="&t=s&uuid=1ec6c642-8cf5-4096-a860-301523e75853"
+                    data-employee="taylor-vanderwolk"
+                    data-lang="en"
+                    data-autoresize="0"
+                    data-showsidebar="1"
+                    data-showservices="0"
+                    style={{ minWidth: 320, height: 650 }}
+                  />
+
+                  <Script
+                    src="https://babyconcierge.totsquad.com/embed.js"
+                    strategy="afterInteractive"
+                  />
+
+                </div>
+
+              </div>
             </div>
 
           </div>
@@ -168,82 +186,65 @@ export default function HowItWorksPage() {
           spacing="spacious"
           container="default"
         >
-          <div className="group service-preview-row service-preview-row--normal max-w-6xl mx-auto">
-            <div className="service-preview-text service-preview-text--normal w-full max-w-[520px] space-y-10">
-              <p className="text-xs tracking-[0.35em] uppercase text-neutral-500 pt-[2px]">
-                Step 2
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+
+            {/* LEFT COLUMN — IMAGE (keep existing if desired) */}
+            <div className="flex justify-center group">
+              <div className="max-w-[440px] w-full">
+                <div className="service-preview-image service-preview-image--normal relative w-full aspect-square overflow-hidden rounded-2xl shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
+                  <Image
+                    src="/assets/editorial/step-2.png"
+                    alt="Planning notebook with curated registry guidance materials"
+                    fill
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    sizes="(max-width: 1024px) 100vw, 440px"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN — COPY */}
+            <div className="max-w-[520px] space-y-7">
+
+              <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+                During Your Consultation
               </p>
 
-              <div className="space-y-6">
-                <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] tracking-[-0.01em]">
-                  Build Your Plan
-                </h2>
+              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+                We Clarify What Actually Matters
+              </h2>
 
-                <p className="text-neutral-700 leading-relaxed max-w-xl text-lg">
-                  We create a personalized roadmap based on your home, lifestyle, priorities, and comfort level.
-                </p>
-              </div>
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                In your complimentary session, we review your registry, your home,
+                your lifestyle, and your timeline.
+              </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 pt-2">
-                <div className="flex items-start gap-3">
-                  <div className="text-xl">📝</div>
-                  <div>
-                    <p className="font-medium text-neutral-900">
-                      Registry strategy
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      What to include, what to skip, and when to buy.
-                    </p>
-                  </div>
-                </div>
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                We look at what’s essential, what’s unnecessary,
+                and what truly fits how you live.
+              </p>
 
-                <div className="flex items-start gap-3">
-                  <div className="text-xl">🛏️</div>
-                  <div>
-                    <p className="font-medium text-neutral-900">
-                      Nursery layout
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      Functional flow for your real home.
-                    </p>
-                  </div>
-                </div>
+              <ul className="space-y-3 pt-2 text-neutral-700">
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Thoughtful registry review
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Space and lifestyle alignment
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[var(--color-blush)]">✓</span>
+                  Product comparisons without pressure
+                </li>
+              </ul>
 
-                <div className="flex items-start gap-3">
-                  <div className="text-xl">🚼</div>
-                  <div>
-                    <p className="font-medium text-neutral-900">
-                      Gear prioritization
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      What matters now versus later.
-                    </p>
-                  </div>
-                </div>
+              <p className="text-neutral-900 font-medium pt-4">
+                You leave with clarity — not overwhelm.
+              </p>
 
-                <div className="flex items-start gap-3">
-                  <div className="text-xl">💳</div>
-                  <div>
-                    <p className="font-medium text-neutral-900">
-                      Budget alignment
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      Smart planning without overwhelm.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            <div className="service-preview-image service-preview-image--normal relative w-full max-w-[440px] aspect-square overflow-hidden rounded-2xl shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
-              <Image
-                src="/assets/editorial/step-2.png"
-                alt="Planning notebook with curated registry guidance materials"
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 440px"
-              />
-            </div>
           </div>
         </MarketingSection>
         <MarketingSection
@@ -252,75 +253,60 @@ export default function HowItWorksPage() {
           container="default"
           className="relative overflow-visible"
         >
-          <div className="group service-preview-row service-preview-row--reverse max-w-6xl mx-auto">
-            <div className="service-preview-image service-preview-image--reverse relative w-full max-w-[440px] aspect-square overflow-hidden rounded-2xl shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
-              <Image
-                src="/assets/editorial/step-3.png"
-                alt="Curated baby products arranged for implementation planning"
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 440px"
-              />
-            </div>
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
 
-            <div className="service-preview-text service-preview-text--reverse w-full max-w-[520px] space-y-10">
-              <p className="text-xs tracking-[0.35em] uppercase text-neutral-500 pt-[2px]">
-                Step 3
+            {/* LEFT COLUMN — COPY */}
+            <div className="max-w-[520px] space-y-7">
+
+              <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+                After Your Session
               </p>
 
-              <div className="space-y-6">
-                <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] tracking-[-0.01em]">
-                  Implement with Confidence
-                </h2>
+              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+                Move Forward With Confidence
+              </h2>
 
-                <p className="text-neutral-700 leading-relaxed text-lg max-w-xl">
-                  Once your plan is clear, we move into execution — with support at every step.
-                </p>
-              </div>
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                You’ll walk away knowing exactly what to buy,
+                what to remove, and what can wait.
+              </p>
 
-              <div className="space-y-6 max-w-xl">
-                <div className="flex items-start gap-3 text-left">
-                  <div className="text-xl leading-none mt-0.5 shrink-0">🛒</div>
-                  <p className="text-neutral-700 leading-relaxed mb-0">
-                    Smart purchasing timelines so you’re never rushed.
-                  </p>
-                </div>
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                Some families feel fully confident after one session.
+                Others choose to continue with private planning support
+                through Taylor-Made Baby Co.
+              </p>
 
-                <div className="flex items-start gap-3 text-left">
-                  <div className="text-xl leading-none mt-0.5 shrink-0">📦</div>
-                  <p className="text-neutral-700 leading-relaxed mb-0">
-                    Clear guidance on what to assemble, install, or prepare.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-3 text-left">
-                  <div className="text-xl leading-none mt-0.5 shrink-0">💬</div>
-                  <p className="text-neutral-700 leading-relaxed mb-0">
-                    Ongoing support as questions come up.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-3 text-left">
-                  <div className="text-xl leading-none mt-0.5 shrink-0">✨</div>
-                  <p className="text-neutral-700 leading-relaxed mb-0">
-                    Final walkthrough so everything feels ready.
-                  </p>
-                </div>
-              </div>
+              <p className="text-neutral-900 font-medium pt-4">
+                Either way, your preparation becomes intentional.
+              </p>
 
               <div className="pt-4">
-                <p className="text-neutral-600 mb-6">
-                  Ready to begin?
-                </p>
-
                 <Link
-                  href="/book"
-                  className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  href="/services"
+                  className="btn btn--secondary"
                 >
-                  Book Your Free Consultation
+                  Explore Private Planning
                 </Link>
               </div>
+
             </div>
+
+            {/* RIGHT COLUMN — IMAGE */}
+            <div className="flex justify-center group">
+              <div className="max-w-[440px] w-full">
+                <div className="service-preview-image service-preview-image--reverse relative w-full aspect-square overflow-hidden rounded-2xl shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
+                  <Image
+                    src="/assets/editorial/step-3.png"
+                    alt="Curated baby products arranged for implementation planning"
+                    fill
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    sizes="(max-width: 1024px) 100vw, 440px"
+                  />
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
@@ -328,44 +314,43 @@ export default function HowItWorksPage() {
           </div>
         </MarketingSection>
 
-        {/* --- Bridge Section After Tot Squad --- */}
-        <section className="bridge-section">
-          <div className="bridge-section__inner">
-            <p className="bridge-section__eyebrow">
-              After Your Complimentary Consultation
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="narrow"
+        >
+          <div className="text-center space-y-6">
+
+            <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+              Beyond the Consultation
             </p>
 
-            <h2 className="bridge-section__title">
-              Ready for a more structured plan?
+            <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+              Taylor-Made Baby Co.
             </h2>
 
-            <ul className="bridge-section__list">
-              <li>
-                <span className="services-package-check bridge-section__check">✓</span>
-                <span>Personalized registry strategy</span>
-              </li>
-              <li>
-                <span className="services-package-check bridge-section__check">✓</span>
-                <span>Nursery &amp; home preparation roadmap</span>
-              </li>
-              <li>
-                <span className="services-package-check bridge-section__check">✓</span>
-                <span>Ongoing guidance beyond one conversation</span>
-              </li>
-            </ul>
-
-            <p className="bridge-section__kicker">
-              This is where preparation becomes intentional.
+            <p className="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-2xl mx-auto">
+              For families who want continued structure, thoughtful decision-making,
+              and hands-on guidance beyond their initial registry consultation,
+              private planning support is available.
             </p>
 
-            <Link
-              href="/services"
-              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-            >
-              Explore Taylor-Made Planning →
-            </Link>
+            <p className="text-neutral-600 leading-relaxed max-w-xl mx-auto">
+              From nursery design to complete gear strategy and personal shopping,
+              this is where preparation becomes fully tailored.
+            </p>
+
+            <div className="pt-6">
+              <Link
+                href="/services"
+                className="btn btn--primary"
+              >
+                View Private Planning Services
+              </Link>
+            </div>
+
           </div>
-        </section>
+        </MarketingSection>
 
         <MarketingSection tone="blush" container="narrow" spacing="spacious">
           <div className="text-center space-y-8">

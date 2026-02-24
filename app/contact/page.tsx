@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import Section from '@/components/Section';
 import SiteShell from '@/components/SiteShell';
-import { Body, SectionTitle } from '@/components/Typography';
-import Hero from '@/components/ui/Hero';
+import MarketingSection from '@/components/layout/MarketingSection';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -14,87 +12,101 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'Contact Taylor-Made Baby Co.',
 });
 
+function ContactForm() {
+  return (
+    <form id="contact-form" className="contact-form" noValidate>
+      <div className="form-field">
+        <label className="form-field__label" htmlFor="contact-name">
+          Name *
+        </label>
+        <input className="form-field__input" type="text" id="contact-name" name="contact-name" required />
+        <span className="form-message" aria-live="polite"></span>
+      </div>
+      <div className="form-field">
+        <label className="form-field__label" htmlFor="contact-email">
+          Email *
+        </label>
+        <input className="form-field__input" type="email" id="contact-email" name="contact-email" required />
+        <span className="form-message" aria-live="polite"></span>
+      </div>
+      <div className="form-field">
+        <label className="form-field__label" htmlFor="contact-message">
+          Message *
+        </label>
+        <textarea className="form-field__textarea" id="contact-message" name="contact-message" required></textarea>
+        <span className="form-message" aria-live="polite"></span>
+      </div>
+      <p className="form-status body-copy--full" aria-live="polite"></p>
+      <button className="btn btn--primary" type="submit">
+        Submit
+      </button>
+    </form>
+  );
+}
+
 export default function ContactPage() {
   return (
     <SiteShell currentPath="/contact">
       <main className="site-main">
-        <Hero
-          eyebrow="Get in Touch"
-          title="Get in Touch"
-          subtitle="Have questions or ready to start your registry? I’m here to help."
-          primaryCta={{ label: 'Book a Consultation', href: '#contact-form' }}
-          image="/assets/hero/hero-06.jpg"
-          imageAlt="Contact Taylor-Made Baby Co."
-        />
+        <MarketingSection tone="white" spacing="spacious" container="default">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-start">
 
-        <Section variant="warm" aria-label="Direct contacts">
-          <div className="container">
-            <SectionTitle className="section__title">Reach out directly</SectionTitle>
-            <div className="feature-grid">
-              <article className="feature-card">
-                <h3 className="feature-card__title">Email</h3>
-                <Body className="feature-card__body body-copy--full">registrywithtaylor@gmail.com</Body>
-                <a
-                  className="link-text"
-                  href="mailto:registrywithtaylor@gmail.com"
-                  aria-label="Email Taylor-Made Baby Co."
-                >
-                  Send an email
-                </a>
-              </article>
-              <article className="feature-card">
-                <h3 className="feature-card__title">Phone</h3>
-                <Body className="feature-card__body body-copy--full">(505) 660-5436</Body>
-                <a
-                  className="link-text"
-                  href="tel:+15056605436"
-                  aria-label="Call Taylor-Made Baby Co."
-                >
-                  Call now
-                </a>
-              </article>
+            {/* LEFT COLUMN — COPY */}
+            <div className="max-w-[520px] space-y-7">
+
+              <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+                Let&apos;s Begin with Intention.
+              </h1>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                For families seeking continued, private planning support beyond
+                their complimentary consultation.
+              </p>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                After your Baby Concierge session, some families feel fully confident
+                moving forward on their own.
+              </p>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
+                Others choose ongoing guidance through Taylor-Made Baby Co.
+                - from nursery planning and registry refinement
+                to complete home preparation.
+              </p>
+
+              <p className="text-neutral-900 font-medium">
+                I personally review every inquiry and respond within 24 hours.
+              </p>
+
+              <p className="text-sm uppercase tracking-wide text-neutral-500 pt-4">
+                Private · Personalized · No pressure
+              </p>
+
             </div>
-          </div>
-        </Section>
 
-        <Section variant="neutral" aria-label="Contact form">
-          <div className="container">
-            <SectionTitle className="section__title">Send a message</SectionTitle>
-            <form id="contact-form" className="contact-form" noValidate>
-              <div className="form-field">
-                <label className="form-field__label" htmlFor="contact-name">
-                  Name *
-                </label>
-                <input className="form-field__input" type="text" id="contact-name" name="contact-name" required />
-                <span className="form-message" aria-live="polite"></span>
-              </div>
-              <div className="form-field">
-                <label className="form-field__label" htmlFor="contact-email">
-                  Email *
-                </label>
-                <input className="form-field__input" type="email" id="contact-email" name="contact-email" required />
-                <span className="form-message" aria-live="polite"></span>
-              </div>
-              <div className="form-field">
-                <label className="form-field__label" htmlFor="contact-message">
-                  Message *
-                </label>
-                <textarea className="form-field__textarea" id="contact-message" name="contact-message" required></textarea>
-                <span className="form-message" aria-live="polite"></span>
-              </div>
-              <Body className="form-status body-copy--full" aria-live="polite"></Body>
-              <button className="btn btn--primary" type="submit">
-                Submit
-              </button>
-            </form>
-          </div>
-        </Section>
+            {/* RIGHT COLUMN — FORM */}
+            <div className="bg-[var(--color-ivory)] p-10 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.06)]">
 
-        <Section variant="base" aria-label="Response time">
-          <div className="container">
-            <Body className="hero__subtitle">Responses typically within 24 hours.</Body>
+              <ContactForm />
+
+            </div>
+
           </div>
-        </Section>
+        </MarketingSection>
+
+        <MarketingSection tone="ivory" spacing="spacious" container="narrow">
+          <div className="text-center space-y-6">
+
+            <p className="text-lg text-neutral-700 leading-relaxed">
+              Not sure if private planning is the right fit?
+            </p>
+
+            <Link href="/how-it-works" className="btn btn--secondary">
+              Start with a Complimentary Consultation
+            </Link>
+
+          </div>
+        </MarketingSection>
       </main>
     </SiteShell>
   );

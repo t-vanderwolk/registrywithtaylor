@@ -23,17 +23,16 @@ export default function ServicesPage() {
           eyebrow="Services"
           title="Bespoke Planning Services"
           subtitle="Preparation doesn’t have to feel chaotic. It can feel steady. Structured. Thoughtful."
-          primaryCta={{ label: 'Begin with a Consultation →', href: '/book' }}
+          primaryCta={{ label: 'Begin with a Consultation →', href: '/how-it-works#step-1' }}
           image="/assets/hero/hero-03.jpg"
           imageAlt="Service consultation planning"
-          className="hero-bottom-fade hero-home-radial pb-16 z-20"
+          className="hero-bottom-fade pb-16 z-20"
+          contentClassName="max-w-2xl"
           showRibbon
           ribbonEnhanced
           contentStyle={{
-            backgroundImage:
-              'radial-gradient(circle at 24% 34%, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.5) 44%, rgba(248,244,240,0.2) 72%, rgba(248,244,240,0) 100%)',
-            borderRadius: '1.5rem',
-            padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.8vw, 2rem)',
+            borderRadius: '32px',
+            padding: '3.5rem 3rem',
           }}
         />
 
@@ -85,7 +84,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/book?package=focused"
+                  href="/how-it-works#step-1"
                   className="services-package-cta services-package-cta--secondary"
                 >
                   Book the Focused Edit
@@ -121,7 +120,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/book?package=signature"
+                  href="/how-it-works#step-1"
                   className="services-package-cta services-package-cta--primary"
                 >
                   Begin the Signature Plan
@@ -154,7 +153,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/book?package=concierge"
+                  href="/how-it-works#step-1"
                   className="services-package-cta services-package-cta--secondary"
                 >
                   Inquire About Private Concierge

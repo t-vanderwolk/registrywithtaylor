@@ -1,11 +1,34 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 
 type CTA = {
   label: string;
   href: string;
+};
+
+type HeroProps = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  primaryCta?: CTA;
+  secondaryCta?: CTA;
+  tagline?: string;
+  image?: string;
+  imageAlt?: string;
+  className?: string;
+  contentStyle?: CSSProperties;
+  contentClassName?: string;
+  innerClassName?: string;
+  innerStyle?: CSSProperties;
+  showRibbon?: boolean;
+  fullBleed?: boolean;
+  showImage?: boolean;
+  staggerContent?: boolean;
+  ribbonEnhanced?: boolean;
+  ribbonClassName?: string;
+  children?: ReactNode;
 };
 
 export default function Hero({
@@ -28,27 +51,8 @@ export default function Hero({
   staggerContent = false,
   ribbonEnhanced = false,
   ribbonClassName = '',
-}: {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  primaryCta?: CTA;
-  secondaryCta?: CTA;
-  tagline?: string;
-  image: string;
-  imageAlt?: string;
-  className?: string;
-  contentStyle?: CSSProperties;
-  contentClassName?: string;
-  innerClassName?: string;
-  innerStyle?: CSSProperties;
-  showRibbon?: boolean;
-  fullBleed?: boolean;
-  showImage?: boolean;
-  staggerContent?: boolean;
-  ribbonEnhanced?: boolean;
-  ribbonClassName?: string;
-}) {
+  children,
+}: HeroProps) {
   const sectionClassName = [
     'hero-section',
     'relative',
@@ -70,9 +74,11 @@ export default function Hero({
         }
       : undefined;
 
+  const hasCustomContent = children !== undefined && children !== null;
+
   return (
     <section className={`${sectionClassName} min-h-[85vh]`}>
-      {showImage && (
+      {showImage && image && (
         <div className="hero-media absolute inset-0">
           <Image
             src={image}
@@ -89,7 +95,7 @@ export default function Hero({
         </div>
       )}
 
-      {showRibbon && showImage && (
+      {showRibbon && showImage && image && (
         <div
           className={`absolute left-0 w-full z-20 pointer-events-none ${
             ribbonEnhanced ? 'bottom-[-42px] md:bottom-[-54px]' : 'bottom-[-10px]'
@@ -104,47 +110,55 @@ export default function Hero({
           className={`hero-content ${staggerContent ? '' : 'animate-hero-fade'} ${contentClassName}`.trim()}
           style={contentStyle}
         >
-          {eyebrow && (
-            <p className={`hero-eyebrow ${staggerClass}`.trim()} style={staggerStyle(120)}>
-              {eyebrow}
-            </p>
-          )}
-
-          <h1 className={`hero-title ${staggerClass}`.trim()} style={staggerStyle(220)}>
-            {title}
-          </h1>
-
-          {subtitle && (
-            <p className={`hero-subhead ${staggerClass}`.trim()} style={staggerStyle(320)}>
-              {subtitle}
-            </p>
-          )}
-
-          {(primaryCta || secondaryCta) && (
-            <div className={`hero-cta-group ${staggerClass}`.trim()} style={staggerStyle(420)}>
-              {primaryCta && (
-                <Link
-                  href={primaryCta.href}
-                  className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  {primaryCta.label}
-                </Link>
+          {hasCustomContent ? (
+            children
+          ) : (
+            <>
+              {eyebrow && (
+                <p className={`hero-eyebrow ${staggerClass}`.trim()} style={staggerStyle(120)}>
+                  {eyebrow}
+                </p>
               )}
-              {secondaryCta && (
-                <Link
-                  href={secondaryCta.href}
-                  className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  {secondaryCta.label}
-                </Link>
-              )}
-            </div>
-          )}
 
-          {tagline && (
-            <p className={`hero-tagline ${staggerClass}`.trim()} style={staggerStyle(500)}>
-              {tagline}
-            </p>
+              {title && (
+                <h1 className={`hero-title ${staggerClass}`.trim()} style={staggerStyle(220)}>
+                  {title}
+                </h1>
+              )}
+
+              {subtitle && (
+                <p className={`hero-subhead ${staggerClass}`.trim()} style={staggerStyle(320)}>
+                  {subtitle}
+                </p>
+              )}
+
+              {(primaryCta || secondaryCta) && (
+                <div className={`hero-cta-group ${staggerClass}`.trim()} style={staggerStyle(420)}>
+                  {primaryCta && (
+                    <Link
+                      href={primaryCta.href}
+                      className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                    >
+                      {primaryCta.label}
+                    </Link>
+                  )}
+                  {secondaryCta && (
+                    <Link
+                      href={secondaryCta.href}
+                      className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                    >
+                      {secondaryCta.label}
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {tagline && (
+                <p className={`hero-tagline ${staggerClass}`.trim()} style={staggerStyle(500)}>
+                  {tagline}
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

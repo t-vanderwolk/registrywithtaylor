@@ -46,6 +46,14 @@ export default async function BlogPage() {
           subtitle="Stories, quick tips, and practical thinking to keep every moment intentional."
           image="/assets/hero/hero-04.jpg"
           imageAlt="Blog hero background for Taylor-Made Baby Co."
+          className="hero-bottom-fade pb-16 z-20"
+          contentClassName="max-w-2xl"
+          showRibbon
+          ribbonEnhanced
+          contentStyle={{
+            borderRadius: '32px',
+            padding: '3.5rem 3rem',
+          }}
         />
 
         <Section variant="neutral" aria-label="Blog posts">

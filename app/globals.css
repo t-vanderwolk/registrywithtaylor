@@ -585,20 +585,31 @@ li {
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(3rem, 5.5vw, 5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
 }
 
 .hero-subhead {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   line-height: 1.7;
-  color: rgba(0,0,0,0.75);
+  color: var(--color-muted);
   margin-bottom: 1.5rem;
-  max-width: 34rem;
+  max-width: 52ch;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.75rem;
+  }
+
+  .hero-subhead {
+    font-size: 1.25rem;
+  }
 }
 
 .hero-tagline {
