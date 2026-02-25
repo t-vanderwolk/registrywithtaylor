@@ -2,121 +2,33 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import SiteShell from '@/components/SiteShell';
-import ServiceFeatureRow from '@/components/home/ServiceFeatureRow';
+
+const insightPreviews = [
+  {
+    title: 'The Art of the Registry',
+    date: 'February 2026',
+    excerpt: 'How to prepare for baby without overbuying, overspending, or feeling overwhelmed.',
+    image: '/assets/editorial/registry.jpg',
+  },
+  {
+    title: 'Nursery Setup That Actually Works',
+    date: 'January 2026',
+    excerpt: 'A practical framework for building a calm nursery flow around real daily routines.',
+    image: '/assets/editorial/nursery.jpg',
+  },
+  {
+    title: 'Gear Decisions Without Guesswork',
+    date: 'December 2025',
+    excerpt: 'A clearer way to evaluate strollers, car seats, and everyday systems with confidence.',
+    image: '/assets/editorial/gear.jpg',
+  },
+];
 
 export default function HomePage() {
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
-
-  const secondaryCtaClass =
-    'btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
-
-  const features = [
-    'Clarity First',
-    'Calm Over Chaos',
-    'Strategy > Trends',
-    'Smart, Not Sprawling',
-  ];
-  const serviceOffers = [
-    {
-      id: 'registry',
-      label: 'Registry',
-      title: 'Registry Curation',
-      description: 'Build a registry that fits your space, routines, and priorities — without the overwhelm spiral.',
-      detailedBullets: [
-        {
-          emoji: '📅',
-          text: 'Smart timing',
-        },
-        {
-          emoji: '✅',
-          text: 'Category clarity',
-        },
-        {
-          emoji: '📝',
-          text: 'Planning strategy',
-        },
-        {
-          emoji: '🎯',
-          text: 'Focused must-haves',
-        },
-        {
-          emoji: '💡',
-          text: 'What to skip',
-        },
-      ],
-      image: '/assets/services/registry-guidance.jpg',
-      alt: 'Registry planning editorial',
-      href: '/services',
-    },
-    {
-      id: 'nursery',
-      label: 'Nursery',
-      title: 'Nursery & Home Setup',
-      description: 'Create a calm flow from day one — layout, essentials, and systems that make life easier.',
-      detailedBullets: [
-        {
-          emoji: '🛏️',
-          text: 'Room layout planning',
-        },
-        {
-          emoji: '📐',
-          text: 'Space optimization',
-        },
-        {
-          emoji: '🧺',
-          text: 'Storage systems',
-        },
-        {
-          emoji: '🏡',
-          text: 'Flow & functionality',
-        },
-        {
-          emoji: '🪴',
-          text: 'Calm environment styling',
-        },
-      ],
-      image: '/assets/services/nursery-design.jpg',
-      alt: 'Nursery design editorial',
-      href: '/services',
-    },
-    {
-      id: 'lifestyle',
-      label: 'Lifestyle',
-      title: 'Gear Planning & Personal Shopping',
-      description: 'Research-backed guidance so you can choose well — for your car, your walk, your travel, your baby.',
-      detailedBullets: [
-        {
-          emoji: '🛒',
-          text: 'Smart purchasing strategy',
-        },
-        {
-          emoji: '🚗',
-          text: 'Car seat & travel planning',
-        },
-        {
-          emoji: '🧳',
-          text: 'Lifestyle compatibility',
-        },
-        {
-          emoji: '🔍',
-          text: 'Brand comparisons',
-        },
-        {
-          emoji: '💳',
-          text: 'Budget alignment',
-        },
-      ],
-      image: '/assets/services/personal-shopping.jpg',
-      alt: 'Personal shopping editorial',
-      href: '/services',
-    },
-  ];
-
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
@@ -126,20 +38,18 @@ export default function HomePage() {
           className="pb-20 md:pb-24"
           contentClassName="max-w-xl"
           image="/assets/hero/hero-01.jpg"
-          imageAlt="Taylor-Made Baby Co. hero background"
+          imageAlt=""
         >
           <h1 className="text-5xl md:text-6xl font-serif leading-[1.1] mb-6">
             Baby prep, simplified.
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-700 mb-6 max-w-[52ch]">
+          <p className="text-lg md:text-xl text-neutral-700 max-w-[52ch]">
             Because parenthood should start with confidence, not confusion.
           </p>
 
-          <p className="text-sm uppercase tracking-[0.18em] text-neutral-500 mb-10">
-            Bespoke baby planning services
-            <br className="hidden sm:block" />
-            Registry · Nursery · Gear Strategy
+          <p className="text-base text-neutral-600 mt-4 mb-10 max-w-2xl">
+            Bespoke baby planning services · Registry · Nursery · Gear Strategy
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -147,7 +57,7 @@ export default function HomePage() {
               href="/contact"
               className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             >
-              Schedule a Complimentary Consultation
+              Schedule Your Complimentary Consultation
             </Link>
 
             <Link
@@ -163,35 +73,25 @@ export default function HomePage() {
           </p>
         </Hero>
 
-        <MarketingSection
-          tone="white"
-          container="wide"
-          spacing={'compact' as never}
-        >
-          <div className="border-t border-b border-charcoal/5">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-sm tracking-wide uppercase text-charcoal/70 pt-11 pb-0">
-              <p>Baby Gear Specialist</p>
-
-              <p className="md:border-l md:border-r md:border-charcoal/10 md:px-6">
-                Brand-Trained Product Expertise
-              </p>
-
-              <p>Private Planning for Modern Families</p>
-            </div>
+        <section className="bg-white border-t border-b border-charcoal/5">
+          <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+            <p>Baby Gear Specialist</p>
+            <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand Trained Expertise</p>
+            <p>Private Planning for Modern Families</p>
           </div>
-        </MarketingSection>
+        </section>
 
         {/* Advice Section */}
         <MarketingSection tone="white" container="wide" className="py-24 md:py-32">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20 items-start">
 
             {/* LEFT COLUMN */}
-            <div className="max-w-[560px]">
+            <div className="max-w-3xl">
               <h2 className="text-3xl md:text-4xl font-serif mb-6">
                 There’s no shortage of advice.
               </h2>
 
-              <p className="text-lg leading-relaxed mb-6">
+              <p className="text-lg leading-relaxed mb-8">
                 Most of it loud.
                 <br />
                 Some of it helpful.
@@ -199,19 +99,15 @@ export default function HomePage() {
                 Very little of it tailored to you.
               </p>
 
-              <p className="text-lg leading-relaxed mb-6">
+              <p className="text-lg leading-relaxed mb-8">
                 Between registry lists, social media trends, and well-meaning opinions, it’s easy to feel pressured to
                 buy everything immediately.
               </p>
 
-              <p className="text-lg leading-relaxed mb-6">
+              <p className="text-lg leading-relaxed mb-10">
                 Preparation shouldn’t feel reactive.
                 <br />
                 It should feel intentional.
-              </p>
-
-              <p className="text-lg leading-relaxed mb-10">
-                That’s where thoughtful guidance makes all the difference.
               </p>
 
               <div className="mt-2 pt-8 border-t border-[var(--color-charcoal)]/10">
@@ -224,7 +120,7 @@ export default function HomePage() {
             {/* RIGHT COLUMN */}
             <div className="md:max-w-[520px] bg-[var(--color-ivory)] rounded-2xl p-8 md:p-10">
               <h3 className="text-2xl font-serif mb-6">
-                This is for you if…
+                This is for you if you want preparation to feel calm.
               </h3>
 
               <ul className="space-y-5 text-base">
@@ -256,47 +152,39 @@ export default function HomePage() {
 
         <MarketingSection
           container="default"
-          className="bg-[var(--color-ivory)] py-32"
+          className="bg-[var(--color-ivory)] py-24 md:py-32"
         >
           <div className="clarity-grid mx-auto max-w-6xl">
             <div className="clarity-left">
-              <div className="space-y-8 max-w-[560px]">
+              <div className="max-w-3xl mx-auto md:mx-0 space-y-8">
                 <h2 className="font-serif text-4xl md:text-5xl text-neutral-900 tracking-tight">
                   What Is a Baby Planner?
                 </h2>
 
-                <div className="space-y-8 text-lg leading-relaxed text-neutral-700">
+                <div className="space-y-6 text-lg leading-relaxed text-neutral-700">
                   <p>
-                    A baby planner guides the practical side of preparation.
+                    A baby planner is like a wedding planner for early parenthood:
+                    a steady guide for the practical side of preparation.
                   </p>
 
                   <p>
-                    Your doctor oversees medical care.<br />
-                    Your family offers opinions.<br />
-                    The internet offers everything.
+                    Your doctor handles medical care.
+                    <br />
+                    I handle practical preparation — registry strategy, nursery flow, and major gear decisions.
                   </p>
 
                   <p className="text-neutral-900 font-medium">
-                    I help you sort through it all.
+                    I help you sort what matters now, what can wait, and what truly fits your life.
                   </p>
 
                   <p>
-                    From registry strategy to nursery layout to major purchasing decisions,
-                    I guide you toward choices that reflect your real life — not trends, pressure, or panic buying.
+                    Together, we replace overwhelm with a clear, personalized plan so you can prepare intentionally.
                   </p>
 
                   <p className="text-neutral-900 font-medium">
-                    This isn’t about buying more.<br />
+                    This isn’t about buying more.
+                    <br />
                     It’s about choosing well.
-                  </p>
-
-                  <p>
-                    Through structured planning sessions and private guidance,
-                    I help families move from overwhelm to clarity — with intention, not urgency.
-                  </p>
-
-                  <p className="text-neutral-900 italic">
-                    Preparation should feel steady. Thoughtful. Tailored.
                   </p>
                 </div>
               </div>
@@ -328,30 +216,26 @@ export default function HomePage() {
 
             {/* Section Intro */}
             <div className="mb-20 md:pl-4">
-              <p className="uppercase tracking-[0.25em] text-xs text-muted-foreground mb-6">
-                Planning Overview
-              </p>
-
               <h2 className="text-4xl md:text-5xl font-serif mb-6">
-                How Families Typically Work With Me
+                A Thoughtful Path to Preparation
               </h2>
 
               <p className="text-lg text-muted-foreground max-w-[60ch]">
-                A structured, private approach to thoughtful baby preparation.
+                How Families Typically Work With Me
               </p>
             </div>
 
             {/* -------- Pillar 01 -------- */}
-            <div className="mb-28">
+            <div className="mb-28 transition-transform duration-300 hover:-translate-y-1">
               <div className="grid md:grid-cols-2 gap-16 items-center">
 
                 {/* Text Column */}
                 <div>
-                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                  <p className="text-6xl font-serif text-neutral-200 mb-5">
                     01
                   </p>
 
-                  <h3 className="text-2xl font-serif mb-4">
+                  <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
                     Registry Clarity
                   </h3>
 
@@ -366,12 +250,6 @@ export default function HomePage() {
                     <li>• Registry structure built around your real life</li>
                   </ul>
 
-                  <Link
-                    href="/services"
-                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
-                  >
-                    Explore Registry Support →
-                  </Link>
                 </div>
 
                 {/* Image Column */}
@@ -394,7 +272,7 @@ export default function HomePage() {
 
 
             {/* -------- Pillar 02 -------- */}
-            <div className="mb-28">
+            <div className="mb-28 transition-transform duration-300 hover:-translate-y-1">
               <div className="grid md:grid-cols-2 gap-16 items-center">
 
                 {/* Image Column */}
@@ -412,11 +290,11 @@ export default function HomePage() {
 
                 {/* Text Column */}
                 <div className="order-1 md:order-2">
-                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                  <p className="text-6xl font-serif text-neutral-200 mb-5">
                     02
                   </p>
 
-                  <h3 className="text-2xl font-serif mb-4">
+                  <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
                     Home & Nursery Preparation
                   </h3>
 
@@ -431,12 +309,6 @@ export default function HomePage() {
                     <li>• Sourcing and implementation guidance</li>
                   </ul>
 
-                  <Link
-                    href="/services"
-                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
-                  >
-                    Explore Nursery Support →
-                  </Link>
                 </div>
 
               </div>
@@ -446,16 +318,16 @@ export default function HomePage() {
 
 
             {/* -------- Pillar 03 -------- */}
-            <div>
+            <div className="transition-transform duration-300 hover:-translate-y-1">
               <div className="grid md:grid-cols-2 gap-16 items-center">
 
                 {/* Text Column */}
                 <div>
-                  <p className="text-6xl font-serif text-[var(--color-soft-blush)] mb-6">
+                  <p className="text-6xl font-serif text-neutral-200 mb-5">
                     03
                   </p>
 
-                  <h3 className="text-2xl font-serif mb-4">
+                  <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
                     Intentional Gear Planning
                   </h3>
 
@@ -470,12 +342,6 @@ export default function HomePage() {
                     <li>• Streamlined daily systems</li>
                   </ul>
 
-                  <Link
-                    href="/services"
-                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
-                  >
-                    Explore Gear Planning →
-                  </Link>
                 </div>
 
                 {/* Image Column */}
@@ -494,12 +360,33 @@ export default function HomePage() {
               </div>
             </div>
 
+            <div className="mt-16 text-center">
+              <Link
+                href="/services"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                View Full Services <span aria-hidden>→</span>
+              </Link>
+            </div>
+
           </div>
         </MarketingSection>
 
+      <section className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <p className="text-xl font-serif text-neutral-900">
+            &ldquo;Taylor helped us feel calm, confident, and completely prepared. We invested in what mattered — and
+            avoided what didn&rsquo;t.&rdquo;
+          </p>
+          <p className="text-sm text-neutral-600">
+            — First-Time Parents
+          </p>
+        </div>
+      </section>
+
       {/* Founder Authority */}
       <MarketingSection
-        tone="ivoryWarm"
+        tone="ivory"
         container="narrow"
         className="group relative overflow-visible !pt-20 md:!pt-24"
       >
@@ -509,18 +396,25 @@ export default function HomePage() {
           </h3>
 
           <p className="mt-6 mx-auto text-center text-lg leading-relaxed text-[var(--color-muted)]">
-            After years in the baby gear industry — guiding families through registries,
-            nursery builds, and major purchasing decisions — I saw how often preparation
-            turned into pressure. 
+            With years immersed in premium baby retail, national pilot programs, and independent consulting,
+            I&apos;ve guided families through registries, nursery builds, and real purchasing decisions.
           </p>
 
           <p className="mt-4 mx-auto text-center text-lg leading-relaxed text-[var(--color-muted)]">
-            Taylor-Made Baby Co. was created to replace overwhelm with clarity —
-            so you can prepare intentionally, not reactively.
+            I translate product complexity into clear next steps, so you can choose what truly fits your home and
+            routine with confidence.
+          </p>
+
+          <p className="mt-4 mx-auto text-center text-lg leading-relaxed text-[var(--color-muted)]">
+            Taylor-Made Baby Co. was created to replace overwhelm with clarity — so you can prepare intentionally,
+            not reactively.
           </p>
 
           <div className="mt-8">
-            <Link href="/about" className={secondaryCtaClass}>
+            <Link
+              href="/about"
+              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            >
               Meet Taylor <span aria-hidden>→</span>
             </Link>
           </div>
@@ -536,22 +430,22 @@ export default function HomePage() {
           tone="white"
           spacing="spacious"
           container="default"
-          className="!pt-28 md:!pt-32"
+          className="!py-28 md:!py-32"
         >
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="max-w-6xl mx-auto">
 
             {/* Left Editorial Intro */}
-            <div className="space-y-6">
+            <div className="space-y-6 pt-4 md:pt-8 max-w-md">
 
-              <p className="text-xs tracking-[0.3em] uppercase text-[var(--color-muted)]">
+              <p className="text-xs uppercase tracking-[0.3em] text-neutral-500 mb-4">
                 From The Blog
               </p>
 
-              <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight">
-                Thoughtful guidance for modern parents
+              <h2 className="font-serif text-4xl md:text-5xl text-neutral-900 mb-6">
+                Insights
               </h2>
 
-              <p className="text-lg text-[var(--color-muted)] max-w-lg">
+              <p className="text-neutral-600 leading-relaxed max-w-md">
                 Honest, grounded conversations about baby gear, 
                 preparation, and making decisions with clarity — 
                 not pressure.
@@ -559,32 +453,30 @@ export default function HomePage() {
 
               <Link
                 href="/blog"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="mt-8 inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide text-[var(--color-charcoal)] transition-colors duration-200 hover:border-neutral-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 View All Articles →
               </Link>
 
             </div>
 
-            {/* Featured Article Card */}
-            <div className="bg-white rounded-3xl shadow-sm border border-[rgba(0,0,0,0.05)] p-10 space-y-6">
-
-              <h3 className="text-2xl font-serif text-[var(--text-primary)]">
-                The Art of the Registry
-              </h3>
-
-              <p className="text-[var(--color-muted)] leading-relaxed">
-                How to prepare for baby without overbuying, 
-                overspending, or feeling overwhelmed.
-              </p>
-
-              <Link
-                href="/blog/the-art-of-the-registry"
-                className={secondaryCtaClass}
-              >
-                Read the Article →
-              </Link>
-
+            <div className="mt-12 grid gap-8 md:grid-cols-3">
+              {insightPreviews.map((post) => (
+                <article
+                  key={post.title}
+                  className="bg-white rounded-2xl border border-[rgba(0,0,0,0.06)] p-5 transition-transform duration-300 hover:-translate-y-1"
+                >
+                  <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-2">{post.date}</p>
+                  <h3 className="text-xl font-serif text-[var(--text-primary)] mb-2">{post.title}</h3>
+                  <p className="text-[var(--color-muted)] leading-relaxed mb-4">{post.excerpt}</p>
+                  <Link
+                    href="/blog"
+                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+                  >
+                    Read <span aria-hidden>→</span>
+                  </Link>
+                </article>
+              ))}
             </div>
 
           </div>
@@ -599,7 +491,7 @@ export default function HomePage() {
             </h2>
 
             <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
-              Begin with a complimentary consultation and move forward with clarity — grounded, intentional, and even a little exciting.
+              Clear, calm preparation starts with one thoughtful conversation.
             </p>
 
             <div className="pt-4">
@@ -607,7 +499,7 @@ export default function HomePage() {
                 href="/contact"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Book Your Complimentary Consultation
+                Schedule Your Complimentary Consultation
               </Link>
             </div>
 

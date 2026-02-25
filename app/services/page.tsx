@@ -20,21 +20,52 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <Hero
-          eyebrow="Services"
-          title="Bespoke Planning Services"
-          subtitle="Preparation doesn’t have to feel chaotic. It can feel steady. Structured. Thoughtful."
-          primaryCta={{ label: 'Begin with a Consultation →', href: '/how-it-works#step-1' }}
           image="/assets/hero/hero-03.jpg"
           imageAlt="Service consultation planning"
-          className="hero-bottom-fade pb-16 z-20"
+          className="hero-bottom-fade pb-20 md:pb-24 z-20"
           contentClassName="max-w-2xl"
           showRibbon
-          ribbonEnhanced
+          ribbonClassName="translate-y-1 md:translate-y-2"
           contentStyle={{
             borderRadius: '32px',
             padding: '3.5rem 3rem',
           }}
-        />
+        >
+          <div className="space-y-6">
+            <p className="text-xs tracking-[0.25em] uppercase text-neutral-500">
+              Services
+            </p>
+
+            <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+              Bespoke Planning Services
+            </h1>
+
+            <p className="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+              Preparation doesn’t have to feel chaotic. It can feel steady. Structured. Thoughtful.
+            </p>
+
+            <p className="mx-auto max-w-2xl text-center text-sm text-neutral-600 leading-relaxed">
+              Private, structured planning for modern families — from registry clarity to full home preparation.
+            </p>
+
+            <div className="pt-4 flex flex-wrap gap-4">
+              <Link
+                href="/how-it-works#step-1"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Begin with a Consultation →
+              </Link>
+            </div>
+          </div>
+        </Hero>
+
+        <section className="bg-white border-t border-b border-charcoal/5">
+          <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+            <p>Baby Gear Specialist</p>
+            <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand Trained Expertise</p>
+            <p>Private Planning for Modern Families</p>
+          </div>
+        </section>
 
      
 
@@ -50,6 +81,11 @@ export default function ServicesPage() {
                 Support, structured around you.
               </h2>
 
+              <p className="text-sm text-neutral-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Led by a baby gear specialist experienced in guiding families through major purchasing decisions and
+                real-life setup planning.
+              </p>
+
               <div className="flex items-center justify-center gap-4 text-xs tracking-[0.25em] text-neutral-500 uppercase">
                 <span className="h-px w-10 bg-neutral-300" />
                 Choose Your Planning Experience
@@ -62,10 +98,12 @@ export default function ServicesPage() {
               {/* Focused Edit */}
               <div className="package-card">
                 <h3 className="font-serif text-2xl mb-4">The Focused Edit</h3>
+                <p className="text-sm text-neutral-600 mt-2 mb-4">
+                  Ideal for one key decision.
+                </p>
 
                 <p className="text-neutral-600 mb-6 leading-relaxed">
-                  One dedicated planning session to refine a specific decision —
-                  whether that’s your registry, nursery layout, or gear shortlist.
+                  One dedicated session to refine a key decision — registry, nursery layout, or gear shortlist.
                 </p>
 
                 <ul className="services-package-list">
@@ -94,14 +132,16 @@ export default function ServicesPage() {
 
               {/* Signature Plan */}
               <div className="package-card">
-                <div className="services-package-badge">
-                  Most Popular
+                <div className="services-package-badge rounded-full !px-3 !py-1 text-xs tracking-wide !shadow-none">
+                  Most Popular Choice
                 </div>
                 <h3 className="font-serif text-2xl mb-4">The Signature Plan</h3>
+                <p className="text-sm text-neutral-600 mt-2 mb-4">
+                  Best for full preparation from registry to nursery.
+                </p>
 
                 <p className="text-neutral-600 mb-6 leading-relaxed">
-                  A structured, multi-session approach designed to guide you
-                  from registry clarity to full nursery and home preparation.
+                  A structured multi-session approach guiding you from registry decisions to nursery and home setup.
                 </p>
 
                 <ul className="services-package-list">
@@ -131,10 +171,12 @@ export default function ServicesPage() {
               {/* Private Concierge */}
               <div className="package-card">
                 <h3 className="font-serif text-2xl mb-4">The Private Concierge</h3>
+                <p className="text-sm text-neutral-600 mt-2 mb-4">
+                  For families who want ongoing, white-glove guidance.
+                </p>
 
                 <p className="text-neutral-600 mb-6 leading-relaxed">
-                  Your on-call pregnancy partner — ongoing guidance,
-                  priority scheduling, and direct access throughout your journey.
+                  Ongoing, high-touch guidance with priority scheduling and direct support throughout your pregnancy.
                 </p>
 
                 <ul className="services-package-list">
@@ -176,7 +218,7 @@ export default function ServicesPage() {
               <div className="services-blueprint-brand-lockup">
                 <div className="services-blueprint-partnership">
                   <span aria-hidden className="services-blueprint-partnership-line" />
-                  <span>In Partnership With</span>
+                  <span>In partnership with</span>
                   <span aria-hidden className="services-blueprint-partnership-line" />
                 </div>
 
@@ -193,16 +235,22 @@ export default function ServicesPage() {
                 NYC In-Store Blueprint
               </h2>
 
+              <p className="text-sm text-neutral-600 leading-relaxed">
+                Designed for families planning an in-store visit in NYC.
+              </p>
+
               <p className="services-blueprint-kicker">
-                Walk in prepared. Confident. Stress-free.
+                Walk in prepared and compare with confidence.
               </p>
 
               <p className="services-blueprint-body">
-                Before you walk into your in-store appointment, we handle the Learn and Plan. You&apos;ll arrive clear on your needs, confident in your budget, and ready to test &amp; compare with purpose.
+                Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
+                shortlist tailored to your home.
               </p>
 
               <p className="services-blueprint-body">
-                The Albee Baby team will already be up to speed on your priorities, so your time in-store is productive — not overwhelming.
+                You arrive ready to test and compare with purpose, while the in-store partner team supports a smooth
+                in-store experience.
               </p>
 
               <Link
@@ -232,22 +280,24 @@ export default function ServicesPage() {
                 Design Your Experience
               </h2>
               <p className="max-w-2xl mx-auto text-neutral-600 leading-relaxed">
-                Flexible baby planning services that complement your core package —
-                tailored to your registry, home, and celebration needs.
+                Flexible add-ons that complement your core package — tailored to your registry, home, and milestones.
               </p>
             </div>
 
             <div className="category-grid">
               <div className="service-category">
-                <h3 className="category-title">Planning</h3>
+                <h3 className="text-lg md:text-xl font-medium tracking-[0.06em] uppercase text-neutral-700 text-center mb-4">
+                  Planning
+                </h3>
                 <div className="addon-grid">
                   <article className="addon-card">
                     <span className="addon-label">Optional Add-On</span>
+                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
                       Grandparents Planning Session
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Structured planning support for grandparents and extended family.
+                      Planning support for grandparents and extended family.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -295,7 +345,7 @@ export default function ServicesPage() {
                       Sibling &amp; Pet Preparation
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Smooth, safety-first transition planning for siblings and pets.
+                      Safety-first transition planning for siblings and pets.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -316,15 +366,18 @@ export default function ServicesPage() {
               </div>
 
               <div className="service-category">
-                <h3 className="category-title">Home &amp; Gear</h3>
+                <h3 className="text-lg md:text-xl font-medium tracking-[0.06em] uppercase text-neutral-700 text-center mb-4">
+                  Home &amp; Gear
+                </h3>
                 <div className="addon-grid">
                   <article className="addon-card">
                     <span className="addon-label">Optional Add-On</span>
+                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
                       Postpartum Home Setup
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Recovery-focused setup to support calm, functional daily flow.
+                      Recovery-focused setup for a calm, functional daily flow.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -348,7 +401,7 @@ export default function ServicesPage() {
                       Gear Cleaning &amp; Reset Strategy
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Expert guidance for cleaning and preparing gear for safe reuse.
+                      Guidance for cleaning and preparing gear for safe reuse.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -372,7 +425,7 @@ export default function ServicesPage() {
                       Gear Resale Strategy
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Structured support for reselling gear with confidence and clarity.
+                      Support for reselling gear with confidence and clear strategy.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -393,15 +446,18 @@ export default function ServicesPage() {
               </div>
 
               <div className="service-category">
-                <h3 className="category-title">Events &amp; Coordination</h3>
+                <h3 className="text-lg md:text-xl font-medium tracking-[0.06em] uppercase text-neutral-700 text-center mb-4">
+                  Events &amp; Coordination
+                </h3>
                 <div className="addon-grid">
                   <article className="addon-card">
                     <span className="addon-label">Optional Add-On</span>
+                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
                       Shower Registry Coordination
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Registry planning support before invitations go out.
+                      Registry support before invitations go out.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -425,7 +481,7 @@ export default function ServicesPage() {
                       Gender Reveal Planning &amp; Coordination
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Personalized reveal planning with polished, stress-free coordination.
+                      Personalized reveal planning with polished, low-stress coordination.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -449,7 +505,7 @@ export default function ServicesPage() {
                       Welcome Box Registration Setup
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Setup support for retailer perks, welcome programs, and discounts.
+                      Support for retailer perks, welcome programs, and discounts.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -473,7 +529,7 @@ export default function ServicesPage() {
                       Sip &amp; See Planning Support
                     </h4>
                     <p className="text-neutral-600 mb-6 leading-relaxed">
-                      Thoughtful support for a smooth, post-arrival gathering.
+                      Thoughtful support for a smooth post-arrival gathering.
                     </p>
                     <ul className="services-package-list">
                       <li>
@@ -511,7 +567,7 @@ export default function ServicesPage() {
               “I walked into the baby store already knowing what we needed.
               No panic. No second-guessing. Just clarity.”
             </p>
-            <p className="text-neutral-600">— TMBC Client</p>
+            <p className="text-neutral-600">— TMBC Client, Chicago</p>
           </div>
         </MarketingSection>
 
@@ -537,6 +593,7 @@ export default function ServicesPage() {
                 Book Your Complimentary Consultation
               </Link>
             </div>
+
           </div>
         </MarketingSection>
       </main>

@@ -31,12 +31,16 @@ export default function AboutPage() {
           image="/assets/hero/hero-05.jpg"
           imageAlt="Soft baby essentials arranged for planning"
         >
+          <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-6">
+            Meet Taylor
+          </p>
+
           <h1 className="text-5xl md:text-6xl font-serif leading-[1.1] tracking-tight mb-6 text-neutral-900">
-            Preparation should feel grounded - not overwhelming.
+            A Thoughtful Specialist in the Details of Early Parenthood
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-600 leading-relaxed mb-10 max-w-xl">
-            I help families make calm, confident decisions from registry to nursery to daily life with baby.
+            I guide families through registry, nursery, and gear decisions with clarity and care.
           </p>
 
           <div>
@@ -60,10 +64,36 @@ export default function AboutPage() {
               My work sits at the intersection of safety, design, and real-world usability.
             </p>
 
-            <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-              Over years across premium retail floors, national pilot programs, and independent consulting, I have
-              helped families choose what truly fits their home, routines, and priorities.
-            </p>
+            <div className="max-w-2xl mx-auto space-y-6 text-lg text-neutral-700 leading-relaxed text-left">
+              <p>
+                With hands-on experience across premium retail floors, national pilot programs, and private consulting,
+                I&apos;ve guided hundreds of families through the earliest decisions of parenthood - the ones that feel
+                small until you realize they&apos;re not.
+              </p>
+
+              <p>
+                From registry strategy to nursery planning to daily gear systems, my work lives at the intersection of
+                safety, design, and real-life functionality - the place where beautiful meets practical and trends meet
+                reality.
+              </p>
+
+              <p>
+                This kind of planning is nuanced. It&apos;s personal. And it&apos;s often unfolding during one of the most
+                tender, vulnerable seasons of someone&apos;s life.
+              </p>
+
+              <p>
+                When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
+                trusting me with more than a checklist. You&apos;re trusting me with your story.
+              </p>
+
+              <p>That&apos;s a responsibility I don&apos;t take lightly.</p>
+
+              <p>
+                My role isn&apos;t to sell you more. It&apos;s to help you choose well. With clarity. With intention. With
+                confidence - because parenthood should start with confidence, not confusion.
+              </p>
+            </div>
 
             <ul className="max-w-xl mx-auto text-left space-y-4 text-neutral-700">
               <li className="flex items-start gap-3">
@@ -87,49 +117,92 @@ export default function AboutPage() {
         </MarketingSection>
 
         <MarketingSection tone="ivory" spacing="spacious" container="narrow">
-          <div className="max-w-2xl mx-auto text-center space-y-8">
+          <div className="max-w-2xl mx-auto space-y-8">
             <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
               The Taylor-Made Approach
             </h2>
 
             <div className="space-y-1 pt-1">
-              <p className="font-serif text-2xl md:text-3xl text-neutral-900">Clarity over trends.</p>
+              <p className="font-serif text-2xl md:text-3xl text-neutral-900">Clarity over noise.</p>
               <p className="font-serif text-2xl md:text-3xl text-neutral-900">Fit over features.</p>
               <p className="font-serif text-2xl md:text-3xl text-neutral-900">Confidence over consumption.</p>
             </div>
 
-            <p className="text-lg text-neutral-700 leading-relaxed">
-              Today&apos;s baby market offers endless options, but more options do not create better decisions.
-              My role is to translate the noise into a plan that feels steady and specific to your life.
-            </p>
+            <div className="space-y-6 text-lg text-neutral-700 leading-relaxed">
+              <p>
+                Today&apos;s baby market offers endless options - and endless opinions. But more options don&apos;t create
+                better decisions. They create pressure.
+              </p>
 
-            <p className="text-lg text-neutral-700 leading-relaxed">
-              Together, we invest in what your family truly needs now, what can wait, and what is worth skipping
-              altogether.
-            </p>
+              <p>The Taylor-Made approach is built on discernment.</p>
 
-            <p className="text-lg text-neutral-700 leading-relaxed">
-              Parenthood should start with confidence, not confusion.
-            </p>
+              <p>
+                We slow the process down.
+                <br />
+                We look at how you actually live.
+                <br />
+                We consider your space, your routines, your budget, and your long-term plans.
+              </p>
+
+              <p>Then we build from there.</p>
+
+              <p>
+                No panic buying.
+                <br />
+                No trend chasing.
+                <br />
+                No &quot;just in case&quot; overload.
+              </p>
+
+              <p>Just thoughtful decisions that make sense for your real life.</p>
+
+              <p>Because the goal isn&apos;t to have everything.</p>
+
+              <p>It&apos;s to have what fits.</p>
+            </div>
           </div>
         </MarketingSection>
 
         <MarketingSection tone="white" spacing="spacious" container="narrow">
-          <div className="max-w-2xl mx-auto text-center space-y-7">
+          <div className="max-w-2xl mx-auto space-y-7">
             <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
               What Makes This Different
             </h2>
 
-            <div className="space-y-3 text-xl text-neutral-900">
+            <div className="space-y-6 text-lg text-neutral-700 leading-relaxed">
+              <p className="text-xl text-neutral-900">Most baby guidance focuses on products.</p>
+              <p className="text-xl text-neutral-900">This focuses on people.</p>
+
+              <p>
+                Your home.
+                <br />
+                Your routines.
+                <br />
+                Your comfort level with risk, spending, and space.
+                <br />
+                Your decision-making style.
+              </p>
+
               <p>This isn&apos;t a template registry.</p>
               <p>It isn&apos;t a sales floor disguised as advice.</p>
-              <p>It isn&apos;t a checklist handed over and forgotten.</p>
-            </div>
+              <p>And it isn&apos;t a checklist handed over and forgotten.</p>
 
-            <p className="text-lg text-neutral-700 leading-relaxed">
-              This is thoughtful, private planning support that adapts to your home, your timeline, and your
-              decision-making style - so every next step feels clear and grounded.
-            </p>
+              <p>It&apos;s structured, private planning support - designed to evolve with you.</p>
+
+              <p>
+                Baby prep is nuanced. Emotional. Sometimes overwhelming in ways no one talks about.
+              </p>
+
+              <p>
+                What makes this different is the level of care and discernment applied to every recommendation,
+                every comparison, every pause before a purchase.
+              </p>
+
+              <p className="text-xl text-neutral-900">Not louder.</p>
+              <p className="text-xl text-neutral-900">Just clearer.</p>
+
+              <p>Because when preparation feels aligned, everything ahead feels lighter.</p>
+            </div>
           </div>
         </MarketingSection>
 

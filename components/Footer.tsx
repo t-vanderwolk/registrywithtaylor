@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { Body } from '@/components/Typography';
 
 const footerLinks = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Blog', href: '/blog' },
@@ -18,10 +18,6 @@ type FooterProps = {
 };
 
 export default function Footer({ currentPath = '' }: FooterProps) {
-  const { status } = useSession();
-  const isLoggedIn = status === 'authenticated';
-  const authLink = isLoggedIn ? '/admin' : '/login';
-  const authLabel = isLoggedIn ? 'Dashboard' : 'Login';
   const currentYear = new Date().getFullYear();
   const isHome = currentPath === '/';
 
@@ -41,6 +37,30 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="mb-1 h-px w-full bg-gradient-to-r from-transparent via-[#d9c8ba] to-transparent"
           />
         )}
+        <p className="text-sm text-[var(--color-muted)] body-copy--full">
+          Private, personalized baby planning for modern families.
+        </p>
+        <div className="flex flex-wrap items-center gap-4">
+          <a
+            className="text-sm text-[var(--color-muted)] hover:opacity-70 transition"
+            href="mailto:registrywithtaylor@gmail.com"
+          >
+            registrywithtaylor@gmail.com
+          </a>
+          <a
+            href="https://instagram.com/registrywithtaylor"
+            aria-label="Taylor-Made Baby Co. on Instagram"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[var(--color-muted)] hover:opacity-70 transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.75" />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.75" />
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+            </svg>
+          </a>
+        </div>
         <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Co. Built with care in Chicago.</Body>
         <nav className="footer-nav" aria-label="Footer">
           {footerLinks.map((link) => (
@@ -52,13 +72,6 @@ export default function Footer({ currentPath = '' }: FooterProps) {
               {link.label}
             </Link>
           ))}
-          <Link
-            className="footer-nav__link focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-            href={authLink}
-            aria-current={authLink === currentPath ? 'page' : undefined}
-          >
-            {authLabel}
-          </Link>
         </nav>
       </div>
     </footer>

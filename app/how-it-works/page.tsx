@@ -5,7 +5,6 @@ import SiteShell from '@/components/SiteShell';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
-import { Body, Lead, SectionTitle } from '@/components/Typography';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -17,45 +16,14 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'How it works planning process',
 });
 
-const steps = [
-  {
-    title: 'Learn what each category does.',
-    description:
-      'Calm explanations replace guesswork so you know what each category is for before buying a single thing.',
-    reassurance: 'Understanding without pressure.',
-    icon: '/assets/icons/icon-learn.png',
-  },
-  {
-    title: 'Plan your registry around your real life.',
-    description:
-      'Intentional decisions take the place of filler items so every add-on fits your space, routine, and vibe.',
-    reassurance: 'Personalized planning.',
-    icon: '/assets/icons/icon-plan.png',
-  },
-  {
-    title: 'Try the gear with confidence.',
-    description:
-      'Walk into a store, demo a stroller, or test a product — you’ll know exactly what to look for.',
-    reassurance: 'Hands-on confidence.',
-    icon: '/assets/icons/icon-try.png',
-  },
-  {
-    title: 'Buy what fits — skip what doesn’t.',
-    description:
-      'When you already understand the why, solid choices feel easy, intuitive, and aligned with your life.',
-    reassurance: 'Decisions that fit you.',
-    icon: '/assets/icons/icon-buy.png',
-  },
-];
-
 export default function HowItWorksPage() {
   return (
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
         <Hero
           showRibbon
-          ribbonEnhanced
-          className="hero-bottom-fade pb-16 z-20"
+          ribbonClassName="translate-y-1 md:translate-y-2"
+          className="hero-bottom-fade pb-20 md:pb-24 z-20"
           contentClassName="max-w-2xl"
           contentStyle={{
             borderRadius: '32px',
@@ -75,12 +43,16 @@ export default function HowItWorksPage() {
               to a fully prepared home.
             </p>
 
+            <p className="mx-auto max-w-2xl text-center text-sm text-neutral-600 leading-relaxed">
+              Complimentary consultation through Target Baby Concierge, with private planning available beyond.
+            </p>
+
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/contact"
                 className="btn btn--primary"
               >
-                Book a Complimentary Consultation
+                Schedule Your Complimentary Consultation
               </Link>
 
               <Link
@@ -94,30 +66,38 @@ export default function HowItWorksPage() {
           </div>
         </Hero>
 
+        <section className="bg-white border-t border-b border-charcoal/5">
+          <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+            <p>Baby Gear Specialist</p>
+            <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand Trained Expertise</p>
+            <p>Private Planning for Modern Families</p>
+          </div>
+        </section>
+
         <MarketingSection
           id="step-1"
           tone="white"
           spacing="spacious"
           container="default"
+          className="py-24 md:py-32"
         >
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-start">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-12 md:gap-16 items-stretch">
 
             {/* LEFT COLUMN — COPY */}
-            <div className="max-w-[520px] space-y-7">
+            <div className="max-w-[520px] space-y-6 pt-4 md:pt-8 pb-6 md:pb-8">
 
               <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
                 Start with Clarity
               </h2>
 
               <p className="text-lg text-neutral-700 leading-relaxed">
-                Your journey begins with a complimentary virtual consultation
-                offered through the Target Baby Concierge program powered by Tot Squad.
+                Your journey begins with a complimentary virtual consultation through Target&apos;s Baby Concierge
+                program, where I serve as your dedicated specialist.
               </p>
 
               <p className="text-lg text-neutral-700 leading-relaxed">
-                After creating your Target registry, you can schedule your session —
-                where I will personally serve as your dedicated Baby Specialist,
-                guiding you through every decision with clarity and intention.
+                Whether you&apos;re just starting your registry or refining it, we begin with clarity around what fits
+                your real lifestyle, space, and priorities.
               </p>
 
               <ul className="space-y-3 pt-2 text-neutral-700">
@@ -143,19 +123,23 @@ export default function HowItWorksPage() {
             </div>
 
             {/* RIGHT COLUMN — DIRECT BOOKING CARD */}
-            <div className="flex justify-center">
-              <div className="bg-[var(--color-ivory)] p-10 max-w-md w-full space-y-6 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.06)]">
+            <div className="w-full h-full flex">
+              <div className="bg-[var(--color-ivory)] p-8 md:p-10 w-full max-w-[620px] md:ml-auto h-full flex flex-col space-y-6 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.06)]">
 
-                <div className="text-center space-y-2">
-                  <p className="text-xs uppercase tracking-wide text-neutral-500">
-                    Book Your Complimentary Consultation
-                  </p>
+                <div className="text-center space-y-3">
+                  <Image
+                    src="/assets/brand/totsquad.png"
+                    alt="Target Baby Concierge powered by Tot Squad"
+                    width={360}
+                    height={84}
+                    className="mx-auto h-auto max-h-14 w-auto max-w-[320px] object-contain opacity-75"
+                  />
                   <p className="text-sm text-neutral-600">
-                    Complimentary session through the Target Baby Concierge program powered by Tot Squad — with Taylor as your dedicated Baby Specialist.
+                    Complimentary consultation through Target Baby Concierge
                   </p>
                 </div>
 
-                <div className="rounded-xl overflow-hidden border border-neutral-200 bg-white">
+                <div className="rounded-xl overflow-hidden border border-neutral-200 bg-white flex-1 min-h-[540px]">
 
                   <div
                     className="embedded-booking"
@@ -166,7 +150,7 @@ export default function HowItWorksPage() {
                     data-autoresize="0"
                     data-showsidebar="1"
                     data-showservices="0"
-                    style={{ minWidth: 320, height: 650 }}
+                    style={{ minWidth: 320, minHeight: 540, height: '100%' }}
                   />
 
                   <Script
@@ -215,6 +199,10 @@ export default function HowItWorksPage() {
               </h2>
 
               <p className="text-lg text-neutral-700 leading-relaxed">
+                In 30 focused minutes, we concentrate on what actually matters.
+              </p>
+
+              <p className="text-lg text-neutral-700 leading-relaxed">
                 In your complimentary session, we review your registry, your home,
                 your lifestyle, and your timeline.
               </p>
@@ -240,7 +228,7 @@ export default function HowItWorksPage() {
               </ul>
 
               <p className="text-neutral-900 font-medium pt-4">
-                You leave with clarity — not overwhelm.
+                You leave feeling confident — not overwhelmed.
               </p>
 
             </div>
@@ -272,9 +260,8 @@ export default function HowItWorksPage() {
               </p>
 
               <p className="text-lg text-neutral-700 leading-relaxed">
-                Some families feel fully confident after one session.
-                Others choose to continue with private planning support
-                through Taylor-Made Baby Co.
+                Many families feel fully confident after one session. Others continue with private planning for
+                deeper, tailored support.
               </p>
 
               <p className="text-neutral-900 font-medium pt-4">
@@ -330,14 +317,12 @@ export default function HowItWorksPage() {
             </h2>
 
             <p className="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-              For families who want continued structure, thoughtful decision-making,
-              and hands-on guidance beyond their initial registry consultation,
-              private planning support is available.
+              For families who want continued support after their consultation, private planning offers deeper
+              structure and thoughtful guidance.
             </p>
 
             <p className="text-neutral-600 leading-relaxed max-w-xl mx-auto">
-              From nursery design to complete gear strategy and personal shopping,
-              this is where preparation becomes fully tailored.
+              This is where preparation becomes deeply personal — refined, structured, and fully aligned with your home and daily life.
             </p>
 
             <div className="pt-6">
@@ -354,13 +339,12 @@ export default function HowItWorksPage() {
 
         <MarketingSection tone="blush" container="narrow" spacing="spacious">
           <div className="text-center space-y-8">
-
             <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[var(--text-primary)]">
               Start with confidence.
             </h2>
 
             <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
-              Begin with a complimentary consultation and move forward with clarity — grounded, intentional, and even a little exciting.
+              Begin with a complimentary consultation and move forward with a clear, grounded plan.
             </p>
 
             <div className="pt-4">
@@ -368,7 +352,7 @@ export default function HowItWorksPage() {
                 href="/contact"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Book Your Complimentary Consultation
+                Schedule Your Complimentary Consultation
               </Link>
             </div>
 
