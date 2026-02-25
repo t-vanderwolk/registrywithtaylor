@@ -1,7 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
 
 type NavLink = {
   label: string;
@@ -22,12 +20,6 @@ type HeaderProps = {
 };
 
 export default function Header({ currentPath }: HeaderProps) {
-  const pathname = usePathname();
-  const { data: session, status } = useSession();
-  const isLoggedIn = status === 'authenticated';
-  const authLink = isLoggedIn ? '/admin' : '/login';
-  const authLabel = isLoggedIn ? 'Dashboard' : 'Login';
-
   return (
     <header className="site-header">
       <div className="container">
@@ -48,12 +40,6 @@ export default function Header({ currentPath }: HeaderProps) {
               </Link>
             );
           })}
-          <Link
-            href={authLink}
-            aria-current={authLink === pathname ? 'page' : undefined}
-          >
-            {authLabel}
-          </Link>
         </nav>
       </div>
     </header>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
+import RibbonDivider from '@/components/layout/RibbonDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -30,18 +31,28 @@ export default function FAQPage() {
   return (
     <SiteShell currentPath="/faq">
       <main className="site-main">
-        <MarketingSection tone="white" spacing="spacious" container="default">
-          <div className="max-w-3xl mx-auto space-y-16">
+        <MarketingSection
+          tone="white"
+          spacing="spacious"
+          container="narrow"
+          className="relative overflow-visible bg-[linear-gradient(180deg,var(--color-ivory)_0%,#ffffff_100%)] !pt-20 md:!pt-24 !pb-20 md:!pb-24"
+        >
+          <div className="text-center space-y-6">
+            <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-lg text-neutral-700 leading-relaxed mx-auto max-w-2xl">
+              A little clarity before we begin.
+            </p>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 h-16 md:h-20 bg-white z-10" />
+          <div className="absolute left-1/2 -bottom-4 md:-bottom-6 w-screen -translate-x-1/2 z-20 pointer-events-none">
+            <RibbonDivider decorative className="opacity-90" />
+          </div>
+        </MarketingSection>
 
-            {/* Page Header */}
-            <div className="text-center space-y-6">
-              <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
-                Frequently Asked Questions
-              </h1>
-              <p className="text-lg text-neutral-700">
-                A little clarity before we begin.
-              </p>
-            </div>
+        <MarketingSection tone="white" spacing="default" container="default">
+          <div className="max-w-3xl mx-auto space-y-12">
 
             {/* FAQ Groups */}
             <div className="space-y-12">
@@ -133,7 +144,6 @@ export default function FAQPage() {
               </div>
 
             </div>
-
           </div>
         </MarketingSection>
 

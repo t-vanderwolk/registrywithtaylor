@@ -18,6 +18,7 @@ type HeroProps = {
   image?: string;
   imageAlt?: string;
   className?: string;
+  overlayStyle?: CSSProperties;
   contentStyle?: CSSProperties;
   contentClassName?: string;
   innerClassName?: string;
@@ -41,6 +42,7 @@ export default function Hero({
   image,
   imageAlt = '',
   className = '',
+  overlayStyle,
   contentStyle,
   contentClassName = '',
   innerClassName = '',
@@ -91,11 +93,11 @@ export default function Hero({
           />
 
           {/* optional subtle darkening if needed */}
-          <div className="hero-overlay absolute inset-0" />
+          <div className="hero-overlay absolute inset-0" style={overlayStyle} />
         </div>
       )}
 
-      {showRibbon && showImage && image && (
+      {showRibbon && (
         <div
           className={`absolute left-0 w-full z-20 pointer-events-none ${
             ribbonEnhanced ? 'bottom-[-42px] md:bottom-[-54px]' : 'bottom-[-10px]'

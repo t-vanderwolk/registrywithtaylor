@@ -84,7 +84,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/how-it-works#step-1"
+                  href="/contact?service=focused-edit"
                   className="services-package-cta services-package-cta--secondary"
                 >
                   Book the Focused Edit
@@ -120,7 +120,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/how-it-works#step-1"
+                  href="/contact?service=signature-plan"
                   className="services-package-cta services-package-cta--primary"
                 >
                   Begin the Signature Plan
@@ -153,7 +153,7 @@ export default function ServicesPage() {
                 </ul>
 
                 <Link
-                  href="/how-it-works#step-1"
+                  href="/contact?service=private-concierge"
                   className="services-package-cta services-package-cta--secondary"
                 >
                   Inquire About Private Concierge

@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { Body } from '@/components/Typography';
 
 const footerLinks = [
@@ -15,6 +18,10 @@ type FooterProps = {
 };
 
 export default function Footer({ currentPath = '' }: FooterProps) {
+  const { status } = useSession();
+  const isLoggedIn = status === 'authenticated';
+  const authLink = isLoggedIn ? '/admin' : '/login';
+  const authLabel = isLoggedIn ? 'Dashboard' : 'Login';
   const currentYear = new Date().getFullYear();
   const isHome = currentPath === '/';
 
@@ -45,6 +52,13 @@ export default function Footer({ currentPath = '' }: FooterProps) {
               {link.label}
             </Link>
           ))}
+          <Link
+            className="footer-nav__link focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            href={authLink}
+            aria-current={authLink === currentPath ? 'page' : undefined}
+          >
+            {authLabel}
+          </Link>
         </nav>
       </div>
     </footer>
