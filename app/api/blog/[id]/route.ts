@@ -14,6 +14,11 @@ const requireAdmin = async (req: NextRequest) => {
 };
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+const asNullableText = (value: unknown) => {
+  const text = asText(value);
+  return text.length > 0 ? text : null;
+};
+const hasOwn = (obj: object, key: string) => Object.prototype.hasOwnProperty.call(obj, key);
 
 export async function GET(
   req: NextRequest,
@@ -45,26 +50,38 @@ export async function PUT(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await req.json();
-  const title = asText(body.title);
-  const slugInput = asText(body.slug);
-  const excerpt = asText(body.excerpt) || null;
-  const content = asText(body.content);
-  const published = Boolean(body.published);
-
-  if (!title || !content) {
-    return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
+  const body = await req.json().catch(() => null);
+  if (!body || typeof body !== 'object') {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const slug = await generateUniqueSlug(slugInput || title, id);
+  const existingPost = await prisma.post.findUnique({ where: { id } });
+  if (!existingPost) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  const shouldUpdateSlug = hasOwn(body, 'slug') || hasOwn(body, 'title');
+  const nextTitle = hasOwn(body, 'title') ? asText(body.title) || 'Untitled post' : existingPost.title;
+  const nextContent = hasOwn(body, 'content') ? asText(body.content) : existingPost.content;
+  const nextExcerpt = hasOwn(body, 'excerpt') ? asNullableText(body.excerpt) : existingPost.excerpt;
+  const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
+  const nextPublished = hasOwn(body, 'published') ? Boolean(body.published) : existingPost.published;
+
+  if (nextPublished && !nextContent) {
+    return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
+  }
+
+  const slugSeed = shouldUpdateSlug ? asText(body.slug) || nextTitle : existingPost.slug;
+  const slug = shouldUpdateSlug ? await generateUniqueSlug(slugSeed, id) : existingPost.slug;
   const post = await prisma.post.update({
     where: { id },
     data: {
-      title,
+      title: nextTitle,
       slug,
-      content,
-      excerpt,
-      published,
+      content: nextContent,
+      excerpt: nextExcerpt,
+      coverImage: nextCoverImage,
+      published: nextPublished,
     },
   });
 

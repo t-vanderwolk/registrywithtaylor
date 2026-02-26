@@ -2,22 +2,37 @@ import BlogDraftEditor from '@/components/admin/BlogDraftEditor';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import { createDraft } from '@/lib/admin/blogStore';
+import { generateUniqueSlug } from '@/lib/blog';
+import prisma from '@/lib/prisma';
+import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
 export default async function NewDraftPage() {
-  const draft = await createDraft();
+  const session = await requireAdminSession();
+  const slug = await generateUniqueSlug(`untitled-post-${Date.now()}`);
+
+  const post = await prisma.post.create({
+    data: {
+      title: 'Untitled post',
+      slug,
+      excerpt: '',
+      coverImage: '',
+      content: 'Start writing...',
+      published: false,
+      authorId: session.user.id,
+    },
+  });
 
   return (
     <AdminStack gap="xl">
       <AdminHeader
         eyebrow="Blog"
-        title="New draft"
+        title="New post"
         subtitle="Start with confidence. Then refine with calm editorial cadence."
       />
       <AdminSurface>
-        <BlogDraftEditor draftId={draft.id} initialDraft={draft} />
+        <BlogDraftEditor draftId={post.id} initialDraft={post} />
       </AdminSurface>
     </AdminStack>
   );

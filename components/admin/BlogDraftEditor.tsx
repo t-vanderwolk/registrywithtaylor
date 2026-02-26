@@ -9,18 +9,16 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminTextarea from '@/components/admin/ui/AdminTextarea';
 import AdminToast from '@/components/admin/ui/AdminToast';
 
-type DraftStatus = 'draft' | 'published';
-
 type Draft = {
   id: string;
-  title?: string;
-  slug?: string;
-  excerpt?: string;
-  coverImageUrl?: string;
-  content?: string;
-  status?: DraftStatus;
-  createdAt?: number;
-  updatedAt?: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  coverImage: string | null;
+  content: string;
+  published: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 function slugify(input: string) {
@@ -40,30 +38,24 @@ function getSavedText(saving: boolean, savedAt: number | null) {
 }
 
 export default function BlogDraftEditor({ draftId, initialDraft }: { draftId: string; initialDraft: Draft }) {
-  const [draft, setDraft] = useState<Draft>({
-    ...initialDraft,
-    status: initialDraft.status === 'published' ? 'published' : 'draft',
-  });
+  const [draft, setDraft] = useState<Draft>(initialDraft);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const debounceRef = useRef<number | null>(null);
 
-  const apiUrl = useMemo(() => `/api/admin/blog/${draftId}`, [draftId]);
+  const apiUrl = useMemo(() => `/api/blog/${draftId}`, [draftId]);
 
   async function save(partial: Partial<Draft>) {
     setSaving(true);
     const res = await fetch(apiUrl, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(partial),
     });
     const json = await res.json();
     setSaving(false);
-    if (res.ok && json?.draft) {
-      setDraft({
-        ...json.draft,
-        status: json.draft.status === 'published' ? 'published' : 'draft',
-      });
+    if (res.ok && json?.id) {
+      setDraft(json as Draft);
       setSavedAt(Date.now());
     }
   }
@@ -89,8 +81,8 @@ export default function BlogDraftEditor({ draftId, initialDraft }: { draftId: st
           <AdminToast tone={saving ? 'warning' : 'success'}>{getSavedText(saving, savedAt)}</AdminToast>
           <div className="flex flex-wrap items-center gap-2">
             <AdminButton asChild variant="secondary" size="sm">
-              <Link href="/admin/blog" aria-label="Back to drafts">
-                Back to drafts
+              <Link href="/admin/blog" aria-label="Back to posts">
+                Back to posts
               </Link>
             </AdminButton>
             <AdminButton variant="ghost" size="sm" disabled aria-disabled="true">
@@ -143,19 +135,19 @@ export default function BlogDraftEditor({ draftId, initialDraft }: { draftId: st
         >
           <AdminInput
             id="draft-cover-image"
-            value={draft.coverImageUrl ?? ''}
-            onChange={(event) => queueSave({ coverImageUrl: event.target.value })}
+            value={draft.coverImage ?? ''}
+            onChange={(event) => queueSave({ coverImage: event.target.value })}
             placeholder="/assets/blog/the-art-of-the-registry.jpg"
           />
         </AdminField>
 
-        <AdminField label="Publishing" htmlFor="draft-published" help="Toggles local draft status only.">
+        <AdminField label="Publishing" htmlFor="draft-published" help="Published posts are visible on the public blog.">
           <label className="admin-toggle" htmlFor="draft-published">
             <input
               id="draft-published"
               type="checkbox"
-              checked={draft.status === 'published'}
-              onChange={(event) => queueSave({ status: event.target.checked ? 'published' : 'draft' })}
+              checked={draft.published}
+              onChange={(event) => queueSave({ published: event.target.checked })}
             />
             <span>Published</span>
           </label>

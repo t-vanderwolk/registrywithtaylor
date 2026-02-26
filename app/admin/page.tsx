@@ -1,17 +1,19 @@
 import Link from 'next/link';
-import { getDrafts } from '@/lib/admin/blogStore';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
+import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminHome() {
-  const drafts = await getDrafts();
-  const draftCount = drafts.length;
-  const publishedCount = drafts.filter((draft) => draft.status === 'published').length;
+  const [postCount, publishedCount] = await Promise.all([
+    prisma.post.count(),
+    prisma.post.count({ where: { published: true } }),
+  ]);
+  const draftCount = postCount - publishedCount;
 
   return (
     <AdminStack gap="xl">
@@ -27,8 +29,8 @@ export default async function AdminHome() {
       />
 
       <section className="admin-kpi-grid" aria-label="Admin metrics">
-        <AdminKpiCard label="Drafts" value={String(draftCount)} hint="Saved locally in JSON." />
-        <AdminKpiCard label="Published" value={String(publishedCount)} hint="Local status toggle only." />
+        <AdminKpiCard label="Drafts" value={String(draftCount)} hint="Saved in Prisma." />
+        <AdminKpiCard label="Published" value={String(publishedCount)} hint="Visible on public blog." />
         <AdminKpiCard label="Cadence" value="Ivory / Blush / Neutral" hint="Marketing visuals remain frozen." />
       </section>
 
@@ -39,7 +41,7 @@ export default async function AdminHome() {
             Continue drafting: <span className="text-admin">The Art of the Registry</span>.
           </li>
           <li>Publish-ready cover images (hero-safe, no baked-in text).</li>
-          <li>Optional Prisma wiring when database mode is switched back on.</li>
+          <li>Publish directly to the public journal when ready.</li>
         </ul>
       </AdminSurface>
     </AdminStack>

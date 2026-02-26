@@ -3,7 +3,7 @@ import BlogDraftEditor from '@/components/admin/BlogDraftEditor';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import { getDraftById } from '@/lib/admin/blogStore';
+import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,19 +13,32 @@ type EditDraftProps = {
 
 export default async function EditDraftPage({ params }: EditDraftProps) {
   const { id } = await params;
-  const draft = await getDraftById(id);
+  const post = await prisma.post.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      coverImage: true,
+      content: true,
+      published: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
 
-  if (!draft) notFound();
+  if (!post) notFound();
 
   return (
     <AdminStack gap="xl">
       <AdminHeader
         eyebrow="Blog"
-        title={draft.title?.trim() ? draft.title : 'Untitled draft'}
-        subtitle="Local draft mode with autosave and manual publish status."
+        title={post.title?.trim() ? post.title : 'Untitled post'}
+        subtitle="Autosave is enabled. Publish when you are ready."
       />
       <AdminSurface>
-        <BlogDraftEditor draftId={draft.id} initialDraft={draft} />
+        <BlogDraftEditor draftId={post.id} initialDraft={post} />
       </AdminSurface>
     </AdminStack>
   );

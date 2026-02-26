@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Prisma } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -19,16 +18,12 @@ type MaybeTagged = {
 type BlogPostRecord = {
   id: string;
   title: string;
+  slug: string;
   content: string;
   excerpt: string | null;
-  coverImage: string | null;
+  published: boolean;
   createdAt: Date;
 };
-
-const isMissingCoverImageColumnError = (error: unknown) =>
-  error instanceof Prisma.PrismaClientKnownRequestError
-  && error.code === 'P2022'
-  && error.message.includes('Post.coverImage');
 
 const formatDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
@@ -72,51 +67,20 @@ const getPrimaryTag = (post: MaybeTagged): string | null => {
 export default async function BlogPostPage({ params }: BlogPostParams) {
   const { slug } = await params;
 
-  let post: BlogPostRecord | null = null;
+  const post = (await prisma.post.findUnique({
+    where: { slug },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      content: true,
+      excerpt: true,
+      published: true,
+      createdAt: true,
+    },
+  })) as BlogPostRecord | null;
 
-  try {
-    post = await prisma.post.findFirst({
-      where: {
-        slug,
-        published: true,
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        excerpt: true,
-        coverImage: true,
-        createdAt: true,
-      },
-    });
-  } catch (error) {
-    if (!isMissingCoverImageColumnError(error)) {
-      throw error;
-    }
-
-    const fallbackPost = await prisma.post.findFirst({
-      where: {
-        slug,
-        published: true,
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        excerpt: true,
-        createdAt: true,
-      },
-    });
-
-    post = fallbackPost
-      ? {
-          ...fallbackPost,
-          coverImage: null,
-        }
-      : null;
-  }
-
-  if (!post) {
+  if (!post || !post.published) {
     notFound();
   }
 
@@ -166,22 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
             <div className="mt-10 border-t border-neutral-200" />
 
-            {post.coverImage ? (
-              <div className="mt-10 overflow-hidden rounded-[28px] border border-neutral-200/70">
-                <img
-                  src={post.coverImage}
-                  alt={post.title}
-                  className="w-full aspect-[16/10] object-cover"
-                />
-              </div>
-            ) : (
-              <div
-                aria-hidden
-                className="mt-10 w-full aspect-[16/10] rounded-[28px] border border-neutral-200/70 bg-[linear-gradient(135deg,#f8f4f0_0%,#f1e7dc_52%,#fbf8f4_100%)]"
-              />
-            )}
-
-            <div className="mt-12 max-w-3xl mx-auto">
+            <div className="mt-10 max-w-3xl mx-auto">
               <PostContent postId={post.id} content={post.content} />
             </div>
           </article>

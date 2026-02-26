@@ -11,6 +11,10 @@ const getSessionToken = async (req: NextRequest) =>
   });
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+const asNullableText = (value: unknown) => {
+  const text = asText(value);
+  return text.length > 0 ? text : null;
+};
 
 export async function GET(req: NextRequest) {
   const token = await getSessionToken(req);
@@ -36,15 +40,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await req.json();
-  const title = asText(body.title);
+  const body = await req.json().catch(() => null);
+  if (!body || typeof body !== 'object') {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const titleInput = asText(body.title);
+  const title = titleInput || 'Untitled post';
   const slugInput = asText(body.slug);
-  const excerpt = asText(body.excerpt) || null;
+  const excerpt = asNullableText(body.excerpt);
+  const coverImage = asNullableText(body.coverImage);
   const content = asText(body.content);
   const published = Boolean(body.published);
 
-  if (!title || !content) {
-    return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
+  if (published && !content) {
+    return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
   }
 
   const slug = await generateUniqueSlug(slugInput || title);
@@ -52,8 +62,9 @@ export async function POST(req: NextRequest) {
     data: {
       title,
       slug,
-      content,
+      content: content || '',
       excerpt,
+      coverImage,
       published,
       authorId: token.id as string,
     },

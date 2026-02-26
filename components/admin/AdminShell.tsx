@@ -60,7 +60,7 @@ export default function AdminShell({
               </nav>
               <div className="admin-divider" />
               <p className="admin-micro">
-                Local drafts live in <span className="font-mono text-admin-muted">/data/blog-drafts.json</span>.
+                Blog content is managed in Prisma and published to the public journal.
               </p>
             </AdminSurface>
           </aside>

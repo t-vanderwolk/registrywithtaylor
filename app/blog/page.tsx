@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Prisma } from '@prisma/client';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import RibbonDivider from '@/components/layout/RibbonDivider';
@@ -19,7 +18,6 @@ type BlogPost = {
   slug: string;
   excerpt: string | null;
   content: string;
-  coverImage: string | null;
   createdAt: Date;
 };
 
@@ -27,10 +25,7 @@ type MaybeTagged = {
   tags?: string[] | null;
 };
 
-const isMissingCoverImageColumnError = (error: unknown) =>
-  error instanceof Prisma.PrismaClientKnownRequestError
-  && error.code === 'P2022'
-  && error.message.includes('Post.coverImage');
+const FEATURED_POST_TITLE = 'The Art of the Registry';
 
 const formatDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
@@ -71,76 +66,22 @@ const getPrimaryTag = (post: MaybeTagged): string | null => {
   return post.tags[0] || null;
 };
 
-function ImageOrPlaceholder({
-  image,
-  alt,
-  className,
-}: {
-  image: string | null;
-  alt: string;
-  className: string;
-}) {
-  if (image) {
-    return (
-      <img
-        src={image}
-        alt={alt}
-        className={className}
-        loading="lazy"
-      />
-    );
-  }
-
-  return (
-    <div
-      aria-hidden
-      className={`${className} bg-[linear-gradient(135deg,#f8f4f0_0%,#f1e7dc_52%,#fbf8f4_100%)]`}
-    />
-  );
-}
-
 export default async function BlogPage() {
-  let posts: BlogPost[] = [];
+  const posts = (await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      content: true,
+      createdAt: true,
+    },
+  })) as BlogPost[];
 
-  try {
-    posts = await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        excerpt: true,
-        content: true,
-        coverImage: true,
-        createdAt: true,
-      },
-    }) as BlogPost[];
-  } catch (error) {
-    if (!isMissingCoverImageColumnError(error)) {
-      throw error;
-    }
-
-    const fallbackPosts = await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        excerpt: true,
-        content: true,
-        createdAt: true,
-      },
-    });
-
-    posts = fallbackPosts.map((post) => ({
-      ...post,
-      coverImage: null,
-    }));
-  }
-
-  const [featuredPost, ...curatedPosts] = posts as BlogPost[];
+  const featuredPost = posts.find((post) => post.title === FEATURED_POST_TITLE) ?? posts[0];
+  const curatedPosts = featuredPost ? posts.filter((post) => post.id !== featuredPost.id) : [];
 
   return (
     <SiteShell currentPath="/blog">
@@ -167,42 +108,32 @@ export default async function BlogPage() {
 
         {featuredPost && (
           <MarketingSection tone="white" spacing="default" container="default">
-            <article className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
-              <Link href={`/blog/${featuredPost.slug}`} className="block group">
-                <ImageOrPlaceholder
-                  image={featuredPost.coverImage}
-                  alt={featuredPost.title}
-                  className="w-full aspect-[4/3] rounded-[28px] object-cover border border-neutral-200/70 transition-transform duration-500 ease-out group-hover:scale-[1.01]"
-                />
+            <article className="max-w-4xl mx-auto space-y-5">
+              {getPrimaryTag(featuredPost as MaybeTagged) && (
+                <p className="inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
+                  {getPrimaryTag(featuredPost as MaybeTagged)}
+                </p>
+              )}
+              <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">
+                Featured Article
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
+                {featuredPost.title}
+              </h2>
+              {toExcerpt(featuredPost.excerpt, featuredPost.content, 180) && (
+                <p className="text-lg text-neutral-700 leading-relaxed">
+                  {toExcerpt(featuredPost.excerpt, featuredPost.content, 180)}
+                </p>
+              )}
+              <p className="text-sm text-neutral-500">
+                By Taylor Vanderwolk · {formatDate(featuredPost.createdAt)}
+              </p>
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
+              >
+                Read Article -&gt;
               </Link>
-
-              <div className="space-y-5">
-                {getPrimaryTag(featuredPost as MaybeTagged) && (
-                  <p className="inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
-                    {getPrimaryTag(featuredPost as MaybeTagged)}
-                  </p>
-                )}
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">
-                  Featured Article
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
-                  {featuredPost.title}
-                </h2>
-                {toExcerpt(featuredPost.excerpt, featuredPost.content, 180) && (
-                  <p className="text-lg text-neutral-700 leading-relaxed">
-                    {toExcerpt(featuredPost.excerpt, featuredPost.content, 180)}
-                  </p>
-                )}
-                <p className="text-sm text-neutral-500">
-                  By Taylor Vanderwolk · {formatDate(featuredPost.createdAt)}
-                </p>
-                <Link
-                  href={`/blog/${featuredPost.slug}`}
-                  className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
-                >
-                  Read Article -&gt;
-                </Link>
-              </div>
             </article>
           </MarketingSection>
         )}
@@ -213,35 +144,26 @@ export default async function BlogPage() {
             <div className="space-y-0">
               {curatedPosts.map((post) => (
                 <article key={post.id} className="border-b border-neutral-200 py-8">
-                  <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-start">
-                    <Link href={`/blog/${post.slug}`} className="block group">
-                      <ImageOrPlaceholder
-                        image={post.coverImage}
-                        alt={post.title}
-                        className="w-full aspect-[4/3] rounded-2xl object-cover border border-neutral-200/70"
-                      />
-                    </Link>
-                    <div className="space-y-3">
-                      <h3 className="font-serif text-2xl tracking-tight text-neutral-900 leading-tight">
-                        <Link href={`/blog/${post.slug}`} className="hover:opacity-80 transition">
-                          {post.title}
-                        </Link>
-                      </h3>
-                      {toExcerpt(post.excerpt, post.content, 170) && (
-                        <p className="text-neutral-700 leading-relaxed">
-                          {toExcerpt(post.excerpt, post.content, 170)}
-                        </p>
-                      )}
-                      <p className="text-sm text-neutral-500">
-                        By Taylor Vanderwolk · {formatDate(post.createdAt)}
-                      </p>
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        className="inline-flex items-center text-xs uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
-                      >
-                        Read -&gt;
+                  <div className="space-y-3">
+                    <h3 className="font-serif text-2xl tracking-tight text-neutral-900 leading-tight">
+                      <Link href={`/blog/${post.slug}`} className="hover:opacity-80 transition">
+                        {post.title}
                       </Link>
-                    </div>
+                    </h3>
+                    {toExcerpt(post.excerpt, post.content, 170) && (
+                      <p className="text-neutral-700 leading-relaxed">
+                        {toExcerpt(post.excerpt, post.content, 170)}
+                      </p>
+                    )}
+                    <p className="text-sm text-neutral-500">
+                      By Taylor Vanderwolk · {formatDate(post.createdAt)}
+                    </p>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center text-xs uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
+                    >
+                      Read -&gt;
+                    </Link>
                   </div>
                 </article>
               ))}

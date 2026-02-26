@@ -1,34 +1,66 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import SiteShell from '@/components/SiteShell';
+import prisma from '@/lib/prisma';
 
-const insightPreviews = [
-  {
-    title: 'The Art of the Registry',
-    date: 'February 2026',
-    excerpt: 'How to prepare for baby without overbuying, overspending, or feeling overwhelmed.',
-    image: '/assets/editorial/registry.jpg',
-  },
-  {
-    title: 'Nursery Setup That Actually Works',
-    date: 'January 2026',
-    excerpt: 'A practical framework for building a calm nursery flow around real daily routines.',
-    image: '/assets/editorial/nursery.jpg',
-  },
-  {
-    title: 'Gear Decisions Without Guesswork',
-    date: 'December 2025',
-    excerpt: 'A clearer way to evaluate strollers, car seats, and everyday systems with confidence.',
-    image: '/assets/editorial/gear.jpg',
-  },
-];
+type InsightPreview = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string;
+  createdAt: Date;
+};
 
-export default function HomePage() {
+const formatInsightDate = (value: Date) =>
+  value.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  });
+
+const stripMarkdown = (value: string) =>
+  value
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/[*_~>#]/g, '')
+    .replace(/\r?\n+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const toInsightExcerpt = (excerpt: string | null, content: string, maxLength = 150) => {
+  if (excerpt?.trim()) {
+    return excerpt.trim();
+  }
+
+  const clean = stripMarkdown(content);
+  if (!clean) {
+    return '';
+  }
+
+  return clean.length > maxLength ? `${clean.slice(0, maxLength - 1)}...` : clean;
+};
+
+export default async function HomePage() {
+  const insightPreviews = (await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      content: true,
+      createdAt: true,
+    },
+  })) as InsightPreview[];
+
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
@@ -461,22 +493,30 @@ export default function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-8 md:grid-cols-3">
-              {insightPreviews.map((post) => (
-                <article
-                  key={post.title}
-                  className="bg-white rounded-2xl border border-[rgba(0,0,0,0.06)] p-5 transition-transform duration-300 hover:-translate-y-1"
-                >
-                  <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-2">{post.date}</p>
-                  <h3 className="text-xl font-serif text-[var(--text-primary)] mb-2">{post.title}</h3>
-                  <p className="text-[var(--color-muted)] leading-relaxed mb-4">{post.excerpt}</p>
-                  <Link
-                    href="/blog"
-                    className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+              {insightPreviews.length > 0 ? (
+                insightPreviews.map((post) => (
+                  <article
+                    key={post.id}
+                    className="bg-white rounded-2xl border border-[rgba(0,0,0,0.06)] p-5 transition-transform duration-300 hover:-translate-y-1"
                   >
-                    Read <span aria-hidden>→</span>
-                  </Link>
-                </article>
-              ))}
+                    <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-2">
+                      {formatInsightDate(post.createdAt)}
+                    </p>
+                    <h3 className="text-xl font-serif text-[var(--text-primary)] mb-2">{post.title}</h3>
+                    <p className="text-[var(--color-muted)] leading-relaxed mb-4">
+                      {toInsightExcerpt(post.excerpt, post.content)}
+                    </p>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-sm tracking-wide underline underline-offset-4 hover:opacity-70 transition"
+                    >
+                      Read <span aria-hidden>→</span>
+                    </Link>
+                  </article>
+                ))
+              ) : (
+                <p className="text-[var(--color-muted)]">No articles published yet.</p>
+              )}
             </div>
 
           </div>
