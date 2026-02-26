@@ -23,8 +23,23 @@ export default async function EditDraftPage({ params }: EditDraftProps) {
       coverImage: true,
       content: true,
       published: true,
+      affiliates: {
+        select: {
+          affiliateId: true,
+        },
+      },
       createdAt: true,
       updatedAt: true,
+    },
+  });
+
+  const affiliateOptions = await prisma.affiliatePartner.findMany({
+    where: { isActive: true },
+    orderBy: [{ network: 'asc' }, { name: 'asc' }],
+    select: {
+      id: true,
+      name: true,
+      network: true,
     },
   });
 
@@ -38,7 +53,11 @@ export default async function EditDraftPage({ params }: EditDraftProps) {
         subtitle="Autosave is enabled. Publish when you are ready."
       />
       <AdminSurface>
-        <BlogDraftEditor draftId={post.id} initialDraft={post} />
+        <BlogDraftEditor
+          draftId={post.id}
+          initialDraft={{ ...post, affiliateIds: post.affiliates.map((entry) => entry.affiliateId) }}
+          affiliateOptions={affiliateOptions}
+        />
       </AdminSurface>
     </AdminStack>
   );

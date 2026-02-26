@@ -1,23 +1,56 @@
+import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import prisma from '@/lib/prisma';
 import { Roles } from '@/lib/auth';
-import { slugify } from '@/lib/slugify';
 
 const requireAdmin = async (req: NextRequest) => {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   return token?.role === Roles.ADMIN;
 };
 
+const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+
+const asNullableText = (value: unknown) => {
+  const text = asText(value);
+  return text.length > 0 ? text : null;
+};
+
+const asNullableFloat = (value: unknown) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsed = Number.parseFloat(value);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+
+  return null;
+};
+
+const asNetwork = (value: unknown): AffiliateNetwork | null => {
+  if (typeof value !== 'string') return null;
+  return Object.values(AffiliateNetwork).includes(value as AffiliateNetwork)
+    ? (value as AffiliateNetwork)
+    : null;
+};
+
+const asCommissionType = (value: unknown): CommissionType | null => {
+  if (typeof value !== 'string') return null;
+  return Object.values(CommissionType).includes(value as CommissionType)
+    ? (value as CommissionType)
+    : null;
+};
+
 export async function GET(req: NextRequest) {
   const isAdmin = await requireAdmin(req);
-
   if (!isAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const partners = await prisma.affiliatePartner.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: [{ network: 'asc' }, { name: 'asc' }],
   });
 
   return NextResponse.json(partners);
@@ -25,31 +58,39 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const isAdmin = await requireAdmin(req);
-
   if (!isAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await req.json();
-  const name = typeof body.name === 'string' ? body.name.trim() : '';
-
-  if (!name) {
-    return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+  const body = await req.json().catch(() => null);
+  if (!body || typeof body !== 'object') {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const slug = typeof body.slug === 'string' && body.slug.trim()
-    ? slugify(body.slug)
-    : slugify(name);
+  const name = asText(body.name);
+  const network = asNetwork(body.network);
+  const commissionType = asCommissionType(body.commissionType);
+  const commissionRate = asText(body.commissionRate);
+
+  if (!name || !network || !commissionType || !commissionRate) {
+    return NextResponse.json(
+      { error: 'name, network, commissionType, and commissionRate are required' },
+      { status: 400 },
+    );
+  }
 
   const partner = await prisma.affiliatePartner.create({
     data: {
       name,
-      slug,
-      description: typeof body.description === 'string' ? body.description.trim() || null : null,
-      logoUrl: typeof body.logoUrl === 'string' ? body.logoUrl.trim() || null : null,
-      websiteUrl: typeof body.websiteUrl === 'string' ? body.websiteUrl.trim() || null : null,
-      commission: typeof body.commission === 'string' ? body.commission.trim() || null : null,
-      assets: body.assets ?? null,
+      network,
+      advertiserId: asNullableText(body.advertiserId),
+      commissionType,
+      commissionRate,
+      category: asNullableText(body.category),
+      threeMonthEpc: asNullableFloat(body.threeMonthEpc),
+      sevenDayEpc: asNullableFloat(body.sevenDayEpc),
+      notes: asNullableText(body.notes),
+      isActive: typeof body.isActive === 'boolean' ? body.isActive : true,
     },
   });
 

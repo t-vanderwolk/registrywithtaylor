@@ -19,6 +19,45 @@ const asNullableText = (value: unknown) => {
   return text.length > 0 ? text : null;
 };
 const hasOwn = (obj: object, key: string) => Object.prototype.hasOwnProperty.call(obj, key);
+const asStringArray = (value: unknown) => {
+  if (!Array.isArray(value)) {
+    return [] as string[];
+  }
+
+  return value
+    .flatMap((entry) => (typeof entry === 'string' ? [entry.trim()] : []))
+    .filter((entry) => entry.length > 0);
+};
+
+type PostWithAffiliateIds = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string | null;
+  coverImage: string | null;
+  published: boolean;
+  authorId: string;
+  views: number;
+  createdAt: Date;
+  updatedAt: Date;
+  affiliates: Array<{ affiliateId: string }>;
+};
+
+const toResponsePost = (post: PostWithAffiliateIds) => ({
+  id: post.id,
+  title: post.title,
+  slug: post.slug,
+  content: post.content,
+  excerpt: post.excerpt,
+  coverImage: post.coverImage,
+  published: post.published,
+  authorId: post.authorId,
+  views: post.views,
+  createdAt: post.createdAt,
+  updatedAt: post.updatedAt,
+  affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
+});
 
 export async function GET(
   req: NextRequest,
@@ -26,7 +65,16 @@ export async function GET(
 ) {
   const { id } = await context.params;
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  const post = await prisma.post.findUnique({ where: { id } });
+  const post = await prisma.post.findUnique({
+    where: { id },
+    include: {
+      affiliates: {
+        select: {
+          affiliateId: true,
+        },
+      },
+    },
+  });
 
   if (!post) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -36,7 +84,7 @@ export async function GET(
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  return NextResponse.json(post);
+  return NextResponse.json(toResponsePost(post));
 }
 
 export async function PUT(
@@ -66,6 +114,9 @@ export async function PUT(
   const nextExcerpt = hasOwn(body, 'excerpt') ? asNullableText(body.excerpt) : existingPost.excerpt;
   const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
   const nextPublished = hasOwn(body, 'published') ? Boolean(body.published) : existingPost.published;
+  const nextAffiliateIds = hasOwn(body, 'affiliateIds')
+    ? Array.from(new Set(asStringArray(body.affiliateIds)))
+    : null;
 
   if (nextPublished && !nextContent) {
     return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
@@ -73,19 +124,50 @@ export async function PUT(
 
   const slugSeed = shouldUpdateSlug ? asText(body.slug) || nextTitle : existingPost.slug;
   const slug = shouldUpdateSlug ? await generateUniqueSlug(slugSeed, id) : existingPost.slug;
-  const post = await prisma.post.update({
-    where: { id },
-    data: {
-      title: nextTitle,
-      slug,
-      content: nextContent,
-      excerpt: nextExcerpt,
-      coverImage: nextCoverImage,
-      published: nextPublished,
-    },
+  const post = await prisma.$transaction(async (tx) => {
+    await tx.post.update({
+      where: { id },
+      data: {
+        title: nextTitle,
+        slug,
+        content: nextContent,
+        excerpt: nextExcerpt,
+        coverImage: nextCoverImage,
+        published: nextPublished,
+      },
+    });
+
+    if (nextAffiliateIds !== null) {
+      await tx.blogPostAffiliate.deleteMany({ where: { blogPostId: id } });
+
+      if (nextAffiliateIds.length > 0) {
+        await tx.blogPostAffiliate.createMany({
+          data: nextAffiliateIds.map((affiliateId) => ({
+            blogPostId: id,
+            affiliateId,
+          })),
+          skipDuplicates: true,
+        });
+      }
+    }
+
+    return tx.post.findUnique({
+      where: { id },
+      include: {
+        affiliates: {
+          select: {
+            affiliateId: true,
+          },
+        },
+      },
+    });
   });
 
-  return NextResponse.json(post);
+  if (!post) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  return NextResponse.json(toResponsePost(post));
 }
 
 export async function DELETE(

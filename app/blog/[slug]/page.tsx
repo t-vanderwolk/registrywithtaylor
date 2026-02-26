@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { AffiliateNetwork } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -21,7 +22,15 @@ type BlogPostRecord = {
   slug: string;
   content: string;
   excerpt: string | null;
+  coverImage: string | null;
   published: boolean;
+  affiliates: Array<{
+    affiliate: {
+      id: string;
+      name: string;
+      network: AffiliateNetwork;
+    };
+  }>;
   createdAt: Date;
 };
 
@@ -75,7 +84,24 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       slug: true,
       content: true,
       excerpt: true,
+      coverImage: true,
       published: true,
+      affiliates: {
+        where: {
+          affiliate: {
+            isActive: true,
+          },
+        },
+        select: {
+          affiliate: {
+            select: {
+              id: true,
+              name: true,
+              network: true,
+            },
+          },
+        },
+      },
       createdAt: true,
     },
   })) as BlogPostRecord | null;
@@ -108,7 +134,17 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     <SiteShell currentPath="/blog">
       <main className="site-main">
         <MarketingSection tone="white" spacing="spacious" container="default">
-          <article className="max-w-3xl mx-auto">
+          <article className="max-w-3xl mx-auto px-5 md:px-8 py-12 md:py-16">
+            {post.coverImage && (
+              <div className="rounded-2xl overflow-hidden mb-10 shadow-sm">
+                <img
+                  src={post.coverImage}
+                  alt={post.title}
+                  className="object-cover w-full aspect-[16/9]"
+                />
+              </div>
+            )}
+
             <header className="space-y-6">
               {primaryTag && (
                 <p className="inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
@@ -118,11 +154,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               <p className="text-sm uppercase tracking-[0.16em] text-neutral-500">
                 By Taylor Vanderwolk · {formatDate(post.createdAt)}
               </p>
-              <h1 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900 leading-tight">
+              <h1 className="font-serif text-3xl md:text-5xl tracking-tight text-neutral-900 leading-tight">
                 {post.title}
               </h1>
               {headerExcerpt && (
-                <p className="text-lg text-neutral-700 leading-relaxed">
+                <p className="text-lg md:text-xl text-neutral-700 leading-relaxed">
                   {headerExcerpt}
                 </p>
               )}
@@ -131,8 +167,30 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
             <div className="mt-10 border-t border-neutral-200" />
 
             <div className="mt-10 max-w-3xl mx-auto">
-              <PostContent postId={post.id} content={post.content} />
+              <PostContent
+                postId={post.id}
+                content={post.content}
+                className="prose prose-neutral max-w-none prose-headings:font-serif prose-h1:text-4xl prose-h1:md:text-5xl prose-h1:tracking-tight prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-14 prose-h2:mb-6 prose-p:leading-relaxed prose-p:text-[1.05rem] prose-ul:my-6 prose-li:leading-relaxed prose-strong:font-semibold prose-strong:text-neutral-900"
+              />
             </div>
+
+            {post.affiliates.length > 0 && (
+              <div className="mt-16 border-t border-neutral-100 pt-10">
+                <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-neutral-900">
+                  Trusted Brands Featured in This Article
+                </h2>
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  {post.affiliates.map(({ affiliate }) => (
+                    <span
+                      key={affiliate.id}
+                      className="inline-flex rounded-full border border-neutral-200 px-4 py-2 text-sm text-neutral-700"
+                    >
+                      {affiliate.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </article>
         </MarketingSection>
 

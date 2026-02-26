@@ -15,6 +15,15 @@ const asNullableText = (value: unknown) => {
   const text = asText(value);
   return text.length > 0 ? text : null;
 };
+const asStringArray = (value: unknown) => {
+  if (!Array.isArray(value)) {
+    return [] as string[];
+  }
+
+  return value
+    .flatMap((entry) => (typeof entry === 'string' ? [entry.trim()] : []))
+    .filter((entry) => entry.length > 0);
+};
 
 export async function GET(req: NextRequest) {
   const token = await getSessionToken(req);
@@ -52,23 +61,57 @@ export async function POST(req: NextRequest) {
   const coverImage = asNullableText(body.coverImage);
   const content = asText(body.content);
   const published = Boolean(body.published);
+  const affiliateIds = Array.from(new Set(asStringArray(body.affiliateIds)));
 
   if (published && !content) {
     return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
   }
 
   const slug = await generateUniqueSlug(slugInput || title);
-  const post = await prisma.post.create({
-    data: {
-      title,
-      slug,
-      content: content || '',
-      excerpt,
-      coverImage,
-      published,
-      authorId: token.id as string,
-    },
+  const post = await prisma.$transaction(async (tx) => {
+    const created = await tx.post.create({
+      data: {
+        title,
+        slug,
+        content: content || '',
+        excerpt,
+        coverImage,
+        published,
+        authorId: token.id as string,
+      },
+    });
+
+    if (affiliateIds.length > 0) {
+      await tx.blogPostAffiliate.createMany({
+        data: affiliateIds.map((affiliateId) => ({
+          blogPostId: created.id,
+          affiliateId,
+        })),
+        skipDuplicates: true,
+      });
+    }
+
+    return tx.post.findUnique({
+      where: { id: created.id },
+      include: {
+        affiliates: {
+          select: {
+            affiliateId: true,
+          },
+        },
+      },
+    });
   });
 
-  return NextResponse.json(post, { status: 201 });
+  if (!post) {
+    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
+  }
+
+  return NextResponse.json(
+    {
+      ...post,
+      affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
+    },
+    { status: 201 },
+  );
 }

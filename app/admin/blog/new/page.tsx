@@ -24,6 +24,16 @@ export default async function NewDraftPage() {
     },
   });
 
+  const affiliateOptions = await prisma.affiliatePartner.findMany({
+    where: { isActive: true },
+    orderBy: [{ network: 'asc' }, { name: 'asc' }],
+    select: {
+      id: true,
+      name: true,
+      network: true,
+    },
+  });
+
   return (
     <AdminStack gap="xl">
       <AdminHeader
@@ -32,7 +42,7 @@ export default async function NewDraftPage() {
         subtitle="Start with confidence. Then refine with calm editorial cadence."
       />
       <AdminSurface>
-        <BlogDraftEditor draftId={post.id} initialDraft={post} />
+        <BlogDraftEditor draftId={post.id} initialDraft={{ ...post, affiliateIds: [] }} affiliateOptions={affiliateOptions} />
       </AdminSurface>
     </AdminStack>
   );

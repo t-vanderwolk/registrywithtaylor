@@ -2,12 +2,19 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { AffiliateNetwork } from '@prisma/client';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminField from '@/components/admin/ui/AdminField';
 import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminTextarea from '@/components/admin/ui/AdminTextarea';
 import AdminToast from '@/components/admin/ui/AdminToast';
+
+type AffiliateOption = {
+  id: string;
+  name: string;
+  network: AffiliateNetwork;
+};
 
 type Draft = {
   id: string;
@@ -17,6 +24,7 @@ type Draft = {
   coverImage: string | null;
   content: string;
   published: boolean;
+  affiliateIds: string[];
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -37,7 +45,15 @@ function getSavedText(saving: boolean, savedAt: number | null) {
   return 'Autosave is on. Changes save every few seconds.';
 }
 
-export default function BlogDraftEditor({ draftId, initialDraft }: { draftId: string; initialDraft: Draft }) {
+export default function BlogDraftEditor({
+  draftId,
+  initialDraft,
+  affiliateOptions,
+}: {
+  draftId: string;
+  initialDraft: Draft;
+  affiliateOptions: AffiliateOption[];
+}) {
   const [draft, setDraft] = useState<Draft>(initialDraft);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
@@ -151,6 +167,29 @@ export default function BlogDraftEditor({ draftId, initialDraft }: { draftId: st
             />
             <span>Published</span>
           </label>
+        </AdminField>
+
+        <AdminField
+          label="Affiliate Partners"
+          htmlFor="draft-affiliates"
+          help="Select all relevant active partners for this post."
+        >
+          <select
+            id="draft-affiliates"
+            className="admin-select min-h-[180px]"
+            multiple
+            value={draft.affiliateIds ?? []}
+            onChange={(event) => {
+              const affiliateIds = Array.from(event.target.selectedOptions).map((option) => option.value);
+              queueSave({ affiliateIds });
+            }}
+          >
+            {affiliateOptions.map((partner) => (
+              <option key={partner.id} value={partner.id}>
+                {partner.name} ({partner.network})
+              </option>
+            ))}
+          </select>
         </AdminField>
 
         <AdminField label="Content" htmlFor="draft-content">

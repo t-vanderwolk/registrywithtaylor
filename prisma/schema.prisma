@@ -35,6 +35,8 @@ model Post {
   author      User           @relation(fields: [authorId], references: [id])
   views       Int            @default(0)
   analytics   PostAnalytics[]
+  affiliates  BlogPostAffiliate[]
+  affiliateLinks AffiliateLink[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
 }
@@ -48,15 +50,70 @@ model PostAnalytics {
   createdAt DateTime @default(now())
 }
 
+enum AffiliateNetwork {
+  CJ
+  IMPACT
+  AWIN
+  DIRECT
+}
+
+enum CommissionType {
+  PERCENTAGE
+  CPL
+  FLAT_FEE
+  VARIABLE
+}
+
 model AffiliatePartner {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String?
-  logoUrl     String?
-  websiteUrl  String?
-  commission  String?
-  assets      Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String           @id @default(uuid())
+  name           String
+  network        AffiliateNetwork
+  advertiserId   String?
+  commissionType CommissionType
+  commissionRate String
+  category       String?
+  threeMonthEpc  Float?
+  sevenDayEpc    Float?
+  notes          String?
+  isActive       Boolean          @default(true)
+  blogPosts      BlogPostAffiliate[]
+  affiliateLinks AffiliateLink[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([name, network])
+}
+
+model BlogPostAffiliate {
+  id          String           @id @default(cuid())
+  blogPostId  String
+  affiliateId String
+  blogPost    Post             @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  affiliate   AffiliatePartner @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now())
+
+  @@unique([blogPostId, affiliateId])
+}
+
+model AffiliateLink {
+  id             String           @id @default(cuid())
+  affiliateId    String
+  destinationUrl String
+  shortCode      String           @unique
+  context        String?
+  blogPostId     String?
+  createdAt      DateTime         @default(now())
+  affiliate      AffiliatePartner @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  blogPost       Post?            @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  clicks         AffiliateClick[]
+}
+
+model AffiliateClick {
+  id              String        @id @default(cuid())
+  affiliateLinkId String
+  ipAddress       String?
+  userAgent       String?
+  referrer        String?
+  createdAt       DateTime      @default(now())
+  affiliateLink   AffiliateLink @relation(fields: [affiliateLinkId], references: [id], onDelete: Cascade)
 }
