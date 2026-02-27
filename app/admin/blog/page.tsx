@@ -8,7 +8,7 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 type Filter = 'all' | 'draft' | 'published';
 

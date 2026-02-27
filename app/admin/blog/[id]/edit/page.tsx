@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation';
-import BlogDraftEditor from '@/components/admin/BlogDraftEditor';
+import PostEditor from '@/components/admin/PostEditor';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
 
-type EditDraftProps = {
+type EditPostProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function EditDraftPage({ params }: EditDraftProps) {
+export default async function EditPostPage({ params }: EditPostProps) {
   const { id } = await params;
   const post = await prisma.post.findUnique({
     where: { id },
@@ -53,9 +53,9 @@ export default async function EditDraftPage({ params }: EditDraftProps) {
         subtitle="Autosave is enabled. Publish when you are ready."
       />
       <AdminSurface>
-        <BlogDraftEditor
-          draftId={post.id}
-          initialDraft={{ ...post, affiliateIds: post.affiliates.map((entry) => entry.affiliateId) }}
+        <PostEditor
+          postId={post.id}
+          initialPost={{ ...post, affiliateIds: post.affiliates.map((entry) => entry.affiliateId) }}
           affiliateOptions={affiliateOptions}
         />
       </AdminSurface>

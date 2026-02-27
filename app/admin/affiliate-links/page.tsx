@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 import AffiliateLinkCopyButton from '@/components/admin/AffiliateLinkCopyButton';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
@@ -57,7 +57,7 @@ async function generateShortCode(length = 7) {
     }
 
     const exists = await prisma.affiliateLink.findUnique({
-      where: { shortCode: code },
+      where: { code },
       select: { id: true },
     });
 
@@ -74,12 +74,12 @@ async function createAffiliateLink(formData: FormData) {
 
   await requireAdminSession();
 
-  const affiliateId = asText(formData.get('affiliateId'));
+  const partnerId = asText(formData.get('partnerId'));
   const destinationUrl = asText(formData.get('destinationUrl'));
-  const context = asText(formData.get('context'));
+  const label = asText(formData.get('context'));
   const blogPostId = asText(formData.get('blogPostId'));
 
-  if (!affiliateId || !destinationUrl) {
+  if (!partnerId || !destinationUrl) {
     redirect('/admin/affiliate-links');
   }
 
@@ -87,10 +87,10 @@ async function createAffiliateLink(formData: FormData) {
 
   await prisma.affiliateLink.create({
     data: {
-      affiliateId,
+      partnerId,
       destinationUrl,
-      shortCode,
-      context: context || null,
+      code: shortCode,
+      label: label || null,
       blogPostId: blogPostId || null,
     },
   });
@@ -100,13 +100,11 @@ async function createAffiliateLink(formData: FormData) {
 
 export const dynamic = 'force-dynamic';
 
-export default async function DashboardAdminAffiliateLinksPage({
+export default async function AdminAffiliateLinksPage({
   searchParams,
 }: {
   searchParams?: SearchParams;
 }) {
-  await requireAdminSession();
-
   const params = searchParams ? await searchParams : undefined;
   const sort = normalizeSort(params?.sort);
   const createdCode = params?.created ? params.created.trim() : '';
@@ -132,7 +130,7 @@ export default async function DashboardAdminAffiliateLinksPage({
     prisma.affiliateLink.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
-        affiliate: {
+        partner: {
           select: {
             id: true,
             name: true,
@@ -184,7 +182,7 @@ export default async function DashboardAdminAffiliateLinksPage({
         <form action={createAffiliateLink} className="admin-stack gap-3.5">
           <div className="grid gap-3 md:grid-cols-2">
             <AdminField label="Affiliate partner" htmlFor="affiliate-link-partner">
-              <select id="affiliate-link-partner" name="affiliateId" className="admin-select" required>
+              <select id="affiliate-link-partner" name="partnerId" className="admin-select" required>
                 <option value="">Select active partner</option>
                 {affiliateOptions.map((partner) => (
                   <option key={partner.id} value={partner.id}>
@@ -276,7 +274,7 @@ export default async function DashboardAdminAffiliateLinksPage({
           }
         >
           {sortedLinks.map((link) => {
-            const shortUrl = `${siteOrigin}/r/${link.shortCode}`;
+            const shortUrl = `${siteOrigin}/r/${link.code}`;
             const lastClickedAt = link.clicks[0]?.createdAt ?? null;
 
             return (
@@ -297,9 +295,9 @@ export default async function DashboardAdminAffiliateLinksPage({
                     ) : null}
                   </div>
                 </td>
-                <td>{link.affiliate.name}</td>
-                <td>{link.affiliate.network}</td>
-                <td>{link.context || '—'}</td>
+                <td>{link.partner?.name || '—'}</td>
+                <td>{link.partner?.network || '—'}</td>
+                <td>{link.label || '—'}</td>
                 <td className="text-right">{link._count.clicks}</td>
                 <td className="text-right admin-micro">{formatDateTime(lastClickedAt)}</td>
               </tr>

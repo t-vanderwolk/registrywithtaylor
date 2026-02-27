@@ -1,5 +1,5 @@
-import prisma from '@/lib/prisma';
-import { generateUniqueSlug } from '@/lib/blog';
+import prisma from '@/lib/server/prisma';
+import { generateUniqueSlug } from '@/lib/server/blog';
 
 type SeedPost = {
   title: string;

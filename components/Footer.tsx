@@ -61,7 +61,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             </svg>
           </a>
         </div>
-        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Co. Built with care in Chicago.</Body>
+        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Co. Built with care in Scottsdale.</Body>
         <nav className="footer-nav" aria-label="Footer">
           {footerLinks.map((link) => (
             <Link

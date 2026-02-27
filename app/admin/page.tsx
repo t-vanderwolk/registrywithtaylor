@@ -4,7 +4,7 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,16 +20,16 @@ export default async function AdminHome() {
       <AdminHeader
         eyebrow="Admin Portal"
         title="Welcome back."
-        subtitle="Manage drafts, cadence, and what ships next."
+        subtitle="Manage posts, cadence, and what ships next."
         actions={
           <AdminButton asChild variant="primary">
-            <Link href="/admin/blog/new">New Draft</Link>
+            <Link href="/admin/blog/new">New Post</Link>
           </AdminButton>
         }
       />
 
       <section className="admin-kpi-grid" aria-label="Admin metrics">
-        <AdminKpiCard label="Drafts" value={String(draftCount)} hint="Saved in Prisma." />
+        <AdminKpiCard label="Draft Posts" value={String(draftCount)} hint="Saved in Prisma." />
         <AdminKpiCard label="Published" value={String(publishedCount)} hint="Visible on public blog." />
         <AdminKpiCard label="Cadence" value="Ivory / Blush / Neutral" hint="Marketing visuals remain frozen." />
       </section>

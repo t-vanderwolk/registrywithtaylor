@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
-import RibbonDivider from '@/components/layout/RibbonDivider';
-import prisma from '@/lib/prisma';
+import FinalCTA from '@/components/layout/FinalCTA';
+import Hero from '@/components/ui/Hero';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -88,112 +90,115 @@ export default async function BlogPage() {
   return (
     <SiteShell currentPath="/blog">
       <main className="site-main">
-        <MarketingSection
-          tone="white"
-          spacing="spacious"
-          container="narrow"
-          className="relative overflow-visible bg-[linear-gradient(180deg,var(--color-ivory)_0%,#ffffff_100%)] !pt-20 md:!pt-24 !pb-20 md:!pb-24"
+        <Hero
+          showRibbon
+          ribbonClassName="translate-y-1 md:translate-y-2"
+          className="hero-home-radial hero-bottom-fade pb-20 md:pb-24 z-20"
+          contentClassName="max-w-2xl"
+          contentStyle={{
+            borderRadius: '32px',
+            padding: '3.5rem 3rem',
+          }}
+          image="/assets/hero/hero-04.jpg"
+          imageAlt="Soft editorial baby essentials for journal guidance"
         >
-          <div className="text-center space-y-6">
-            <h1 className="font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+          <div className="space-y-6">
+            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
               The Journal
             </h1>
-            <p className="text-lg text-neutral-700 leading-relaxed mx-auto max-w-2xl">
+            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
               Thoughtful guidance for modern parents preparing with intention.
             </p>
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-16 md:h-20 bg-white z-10" />
-          <div className="absolute left-1/2 -bottom-4 md:-bottom-6 w-screen -translate-x-1/2 z-20 pointer-events-none">
-            <RibbonDivider decorative className="opacity-90" />
-          </div>
-        </MarketingSection>
+        </Hero>
 
         {featuredPost && (
           <MarketingSection tone="white" spacing="default" container="default">
-            <div className="max-w-4xl mx-auto px-6 py-16">
-              <article className="group rounded-2xl border border-neutral-100 p-8 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-                {featuredPost.coverImage && (
-                  <div className="rounded-2xl overflow-hidden mb-10 shadow-sm">
-                    <img
-                      src={featuredPost.coverImage}
-                      alt={featuredPost.title}
-                      className="object-cover w-full aspect-[16/9] transition-transform duration-300 group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                {getPrimaryTag(featuredPost as MaybeTagged) && (
-                  <p className="inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
-                    {getPrimaryTag(featuredPost as MaybeTagged)}
+            <RevealOnScroll>
+              <div className="max-w-4xl mx-auto px-6 py-16">
+                <article className="group rounded-2xl border border-neutral-100 p-8 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                  {featuredPost.coverImage && (
+                    <div className="rounded-2xl overflow-hidden mb-10 shadow-sm">
+                      <img
+                        src={featuredPost.coverImage}
+                        alt={featuredPost.title}
+                        className="object-cover w-full aspect-[16/9] transition-transform duration-300 group-hover:scale-[1.02]"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  {getPrimaryTag(featuredPost as MaybeTagged) && (
+                    <p className="inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
+                      {getPrimaryTag(featuredPost as MaybeTagged)}
+                    </p>
+                  )}
+                  <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">
+                    Featured Article
                   </p>
-                )}
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">
-                  Featured Article
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
-                  {featuredPost.title}
-                </h2>
-                {toExcerpt(featuredPost.excerpt, featuredPost.content, 180) && (
-                  <p className="text-lg text-neutral-700 leading-relaxed">
-                    {toExcerpt(featuredPost.excerpt, featuredPost.content, 180)}
+                  <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
+                    {featuredPost.title}
+                  </h2>
+                  {toExcerpt(featuredPost.excerpt, featuredPost.content, 180) && (
+                    <p className="text-lg text-neutral-700 leading-relaxed">
+                      {toExcerpt(featuredPost.excerpt, featuredPost.content, 180)}
+                    </p>
+                  )}
+                  <p className="text-sm text-neutral-500">
+                    By Taylor Vanderwolk · {formatDate(featuredPost.createdAt)}
                   </p>
-                )}
-                <p className="text-sm text-neutral-500">
-                  By Taylor Vanderwolk · {formatDate(featuredPost.createdAt)}
-                </p>
-                <Link
-                  href={`/blog/${featuredPost.slug}`}
-                  className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
-                >
-                  Read Article -&gt;
-                </Link>
-              </article>
-            </div>
+                  <Link
+                    href={`/blog/${featuredPost.slug}`}
+                    className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
+                  >
+                    Read Article -&gt;
+                  </Link>
+                </article>
+              </div>
+            </RevealOnScroll>
           </MarketingSection>
         )}
 
         <MarketingSection tone="white" spacing="spacious" container="default" className="!py-16">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12">
-              {curatedPosts.map((post) => (
-                <article
-                  key={post.id}
-                  className="group rounded-2xl border border-neutral-100 p-8 transition-all duration-300 hover:shadow-md hover:-translate-y-1"
-                >
-                  {post.coverImage && (
-                    <div className="rounded-2xl overflow-hidden mb-10 shadow-sm">
-                      <img
-                        src={post.coverImage}
-                        alt={post.title}
-                        className="object-cover w-full aspect-[16/9] transition-transform duration-300 group-hover:scale-[1.02]"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
+              {curatedPosts.map((post, index) => (
+                <RevealOnScroll key={post.id} delayMs={index * 90}>
+                  <article className="group rounded-2xl border border-neutral-100 p-8 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                    {post.coverImage && (
+                      <div className="rounded-2xl overflow-hidden mb-10 shadow-sm">
+                        <img
+                          src={post.coverImage}
+                          alt={post.title}
+                          className="object-cover w-full aspect-[16/9] transition-transform duration-300 group-hover:scale-[1.02]"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
 
-                  <p className="text-sm text-neutral-400 mb-4">
-                    {formatDate(post.createdAt)}
-                  </p>
-
-                  <h3 className="font-serif text-2xl text-neutral-900 mb-3 leading-tight">
-                    <Link href={`/blog/${post.slug}`} className="hover:opacity-80 transition">
-                      {post.title}
-                    </Link>
-                  </h3>
-
-                  {toExcerpt(post.excerpt, post.content, 170) && (
-                    <p className="text-neutral-600 leading-relaxed mb-5">
-                      {toExcerpt(post.excerpt, post.content, 170)}
+                    <p className="text-sm text-neutral-400 mb-4">
+                      {formatDate(post.createdAt)}
                     </p>
-                  )}
 
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-xs uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
-                  >
-                    Read -&gt;
-                  </Link>
-                </article>
+                    <h3 className="font-serif text-2xl text-neutral-900 mb-3 leading-tight">
+                      <Link href={`/blog/${post.slug}`} className="hover:opacity-80 transition">
+                        {post.title}
+                      </Link>
+                    </h3>
+
+                    {toExcerpt(post.excerpt, post.content, 170) && (
+                      <p className="text-neutral-600 leading-relaxed mb-5">
+                        {toExcerpt(post.excerpt, post.content, 170)}
+                      </p>
+                    )}
+
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center text-xs uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
+                    >
+                      Read -&gt;
+                    </Link>
+                  </article>
+                </RevealOnScroll>
               ))}
             </div>
             {posts.length === 0 && (
@@ -204,21 +209,7 @@ export default async function BlogPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="ivoryWarm" spacing="spacious" container="narrow">
-          <div className="text-center space-y-6">
-            <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900">
-              Prefer guidance tailored to your home and timeline?
-            </h2>
-            <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-              Start with a complimentary consultation and get clear, practical direction for registry, nursery, and gear decisions.
-            </p>
-            <div>
-              <Link href="/contact" className="btn btn--primary">
-                Book a Free Consultation -&gt;
-              </Link>
-            </div>
-          </div>
-        </MarketingSection>
+        <FinalCTA />
       </main>
     </SiteShell>
   );

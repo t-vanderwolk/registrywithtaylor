@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 const normalizeEvent = (type: unknown) => {
   if (typeof type !== 'string') {

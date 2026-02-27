@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
-import { requireAdminSession } from '@/lib/server/session';
+import prisma from '@/lib/server/prisma';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -9,8 +8,6 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 
 export default async function AdminAnalyticsPage() {
-  await requireAdminSession();
-
   const [totalPosts, publishedPosts, viewsSum, mostViewedPost, postsByViews] = await Promise.all([
     prisma.post.count(),
     prisma.post.count({ where: { published: true } }),

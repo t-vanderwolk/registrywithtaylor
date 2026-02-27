@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-import { generateUniqueSlug } from '@/lib/blog';
-import { Roles } from '@/lib/auth';
-import prisma from '@/lib/prisma';
-
-const getSessionToken = async (req: NextRequest) =>
-  getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+import { generateUniqueSlug } from '@/lib/server/blog';
+import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 const asNullableText = (value: unknown) => {
@@ -26,8 +19,8 @@ const asStringArray = (value: unknown) => {
 };
 
 export async function GET(req: NextRequest) {
-  const token = await getSessionToken(req);
-  const where = token?.role === Roles.ADMIN ? undefined : { published: true };
+  const token = await getRequestToken(req);
+  const where = token?.role === 'ADMIN' ? undefined : { published: true };
 
   const posts = await prisma.post.findMany({
     where,
@@ -43,10 +36,10 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await getSessionToken(req);
+  const token = await requireAdmin(req);
 
-  if (token?.role !== Roles.ADMIN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!token?.id) {
+    return unauthorizedResponse();
   }
 
   const body = await req.json().catch(() => null);

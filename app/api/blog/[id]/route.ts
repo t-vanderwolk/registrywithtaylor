@@ -1,17 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-import { generateUniqueSlug } from '@/lib/blog';
-import { Roles } from '@/lib/auth';
-import prisma from '@/lib/prisma';
-
-const requireAdmin = async (req: NextRequest) => {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  if (token?.role !== Roles.ADMIN) {
-    return null;
-  }
-
-  return token;
-};
+import { generateUniqueSlug } from '@/lib/server/blog';
+import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 const asNullableText = (value: unknown) => {
@@ -64,7 +54,7 @@ export async function GET(
   context: { params: Promise<{ id: string }> },
 ) {
   const { id } = await context.params;
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getRequestToken(req);
   const post = await prisma.post.findUnique({
     where: { id },
     include: {
@@ -80,7 +70,7 @@ export async function GET(
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  if (token?.role !== Roles.ADMIN && !post.published) {
+  if (token?.role !== 'ADMIN' && !post.published) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
@@ -95,7 +85,7 @@ export async function PUT(
   const token = await requireAdmin(req);
 
   if (!token) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return unauthorizedResponse();
   }
 
   const body = await req.json().catch(() => null);
@@ -178,7 +168,7 @@ export async function DELETE(
   const token = await requireAdmin(req);
 
   if (!token) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return unauthorizedResponse();
   }
 
   await prisma.post.delete({ where: { id } });

@@ -16,7 +16,7 @@ type AffiliateOption = {
   network: AffiliateNetwork;
 };
 
-type Draft = {
+type PostRecord = {
   id: string;
   title: string;
   slug: string;
@@ -45,23 +45,23 @@ function getSavedText(saving: boolean, savedAt: number | null) {
   return 'Autosave is on. Changes save every few seconds.';
 }
 
-export default function BlogDraftEditor({
-  draftId,
-  initialDraft,
+export default function PostEditor({
+  postId,
+  initialPost,
   affiliateOptions,
 }: {
-  draftId: string;
-  initialDraft: Draft;
+  postId: string;
+  initialPost: PostRecord;
   affiliateOptions: AffiliateOption[];
 }) {
-  const [draft, setDraft] = useState<Draft>(initialDraft);
+  const [post, setPost] = useState<PostRecord>(initialPost);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const debounceRef = useRef<number | null>(null);
 
-  const apiUrl = useMemo(() => `/api/blog/${draftId}`, [draftId]);
+  const apiUrl = useMemo(() => `/api/blog/${postId}`, [postId]);
 
-  async function save(partial: Partial<Draft>) {
+  async function save(partial: Partial<PostRecord>) {
     setSaving(true);
     const res = await fetch(apiUrl, {
       method: 'PUT',
@@ -71,13 +71,13 @@ export default function BlogDraftEditor({
     const json = await res.json();
     setSaving(false);
     if (res.ok && json?.id) {
-      setDraft(json as Draft);
+      setPost(json as PostRecord);
       setSavedAt(Date.now());
     }
   }
 
-  function queueSave(partial: Partial<Draft>) {
-    setDraft((d) => ({ ...d, ...partial }));
+  function queueSave(partial: Partial<PostRecord>) {
+    setPost((currentPost) => ({ ...currentPost, ...partial }));
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => {
       void save(partial);
@@ -104,7 +104,7 @@ export default function BlogDraftEditor({
             <AdminButton variant="ghost" size="sm" disabled aria-disabled="true">
               Preview on site (coming soon)
             </AdminButton>
-            <AdminButton variant="primary" size="sm" onClick={() => void save(draft)}>
+            <AdminButton variant="primary" size="sm" onClick={() => void save(post)}>
               Save now
             </AdminButton>
           </div>
@@ -112,32 +112,32 @@ export default function BlogDraftEditor({
       </div>
 
       <AdminStack gap="lg" className="pb-2">
-        <AdminField label="Title" htmlFor="draft-title">
+        <AdminField label="Title" htmlFor="post-title">
           <AdminInput
-            id="draft-title"
-            value={draft.title ?? ''}
+            id="post-title"
+            value={post.title ?? ''}
             onChange={(event) => {
               const title = event.target.value;
-              const nextSlug = draft.slug && draft.slug.trim().length > 0 ? draft.slug : slugify(title);
+              const nextSlug = post.slug && post.slug.trim().length > 0 ? post.slug : slugify(title);
               queueSave({ title, slug: nextSlug });
             }}
             placeholder="The Art of the Registry"
           />
         </AdminField>
 
-        <AdminField label="Slug" htmlFor="draft-slug" help="If left empty, slug is generated from the title.">
+        <AdminField label="Slug" htmlFor="post-slug" help="If left empty, slug is generated from the title.">
           <AdminInput
-            id="draft-slug"
-            value={draft.slug ?? ''}
+            id="post-slug"
+            value={post.slug ?? ''}
             onChange={(event) => queueSave({ slug: event.target.value })}
             placeholder="auto-generated-if-empty"
           />
         </AdminField>
 
-        <AdminField label="Excerpt" htmlFor="draft-excerpt">
+        <AdminField label="Excerpt" htmlFor="post-excerpt">
           <AdminTextarea
-            id="draft-excerpt"
-            value={draft.excerpt ?? ''}
+            id="post-excerpt"
+            value={post.excerpt ?? ''}
             onChange={(event) => queueSave({ excerpt: event.target.value })}
             className="min-h-[130px]"
             placeholder="A calm, practical approach to building a registry that fits your real life."
@@ -146,23 +146,23 @@ export default function BlogDraftEditor({
 
         <AdminField
           label="Cover Image URL"
-          htmlFor="draft-cover-image"
+          htmlFor="post-cover-image"
           help="Use a hero-safe image without baked-in copy."
         >
           <AdminInput
-            id="draft-cover-image"
-            value={draft.coverImage ?? ''}
+            id="post-cover-image"
+            value={post.coverImage ?? ''}
             onChange={(event) => queueSave({ coverImage: event.target.value })}
             placeholder="/assets/blog/the-art-of-the-registry.jpg"
           />
         </AdminField>
 
-        <AdminField label="Publishing" htmlFor="draft-published" help="Published posts are visible on the public blog.">
-          <label className="admin-toggle" htmlFor="draft-published">
+        <AdminField label="Publishing" htmlFor="post-published" help="Published posts are visible on the public blog.">
+          <label className="admin-toggle" htmlFor="post-published">
             <input
-              id="draft-published"
+              id="post-published"
               type="checkbox"
-              checked={draft.published}
+              checked={post.published}
               onChange={(event) => queueSave({ published: event.target.checked })}
             />
             <span>Published</span>
@@ -171,14 +171,14 @@ export default function BlogDraftEditor({
 
         <AdminField
           label="Affiliate Partners"
-          htmlFor="draft-affiliates"
+          htmlFor="post-affiliates"
           help="Select all relevant active partners for this post."
         >
           <select
-            id="draft-affiliates"
+            id="post-affiliates"
             className="admin-select min-h-[180px]"
             multiple
-            value={draft.affiliateIds ?? []}
+            value={post.affiliateIds ?? []}
             onChange={(event) => {
               const affiliateIds = Array.from(event.target.selectedOptions).map((option) => option.value);
               queueSave({ affiliateIds });
@@ -192,10 +192,10 @@ export default function BlogDraftEditor({
           </select>
         </AdminField>
 
-        <AdminField label="Content" htmlFor="draft-content">
+        <AdminField label="Content" htmlFor="post-content">
           <AdminTextarea
-            id="draft-content"
-            value={draft.content ?? ''}
+            id="post-content"
+            value={post.content ?? ''}
             onChange={(event) => queueSave({ content: event.target.value })}
             className="min-h-[420px]"
             placeholder="Paste your draft here..."

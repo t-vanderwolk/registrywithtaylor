@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 import { slugify } from '@/lib/slugify';
 
 export async function generateUniqueSlug(baseTitle: string, excludeId?: string) {

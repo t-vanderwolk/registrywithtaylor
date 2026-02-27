@@ -1,5 +1,5 @@
 import { AffiliateNetwork, type AffiliatePartner } from '@prisma/client';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 const networkOrder: AffiliateNetwork[] = [
   AffiliateNetwork.CJ,

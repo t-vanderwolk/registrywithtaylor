@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { NextAuthOptions } from 'next-auth';
 import type { Role } from '@prisma/client';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/server/prisma';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, _req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
           return null;
         }

@@ -1,14 +1,14 @@
-import BlogDraftEditor from '@/components/admin/BlogDraftEditor';
+import PostEditor from '@/components/admin/PostEditor';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import { generateUniqueSlug } from '@/lib/blog';
-import prisma from '@/lib/prisma';
+import { generateUniqueSlug } from '@/lib/server/blog';
+import prisma from '@/lib/server/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
-export default async function NewDraftPage() {
+export default async function NewPostPage() {
   const session = await requireAdminSession();
   const slug = await generateUniqueSlug(`untitled-post-${Date.now()}`);
 
@@ -42,7 +42,7 @@ export default async function NewDraftPage() {
         subtitle="Start with confidence. Then refine with calm editorial cadence."
       />
       <AdminSurface>
-        <BlogDraftEditor draftId={post.id} initialDraft={{ ...post, affiliateIds: [] }} affiliateOptions={affiliateOptions} />
+        <PostEditor postId={post.id} initialPost={{ ...post, affiliateIds: [] }} affiliateOptions={affiliateOptions} />
       </AdminSurface>
     </AdminStack>
   );

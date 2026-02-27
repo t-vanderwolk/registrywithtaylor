@@ -1,13 +1,7 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-import prisma from '@/lib/prisma';
-import { Roles } from '@/lib/auth';
-
-const requireAdmin = async (req: NextRequest) => {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  return token?.role === Roles.ADMIN;
-};
+import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
@@ -44,9 +38,9 @@ const asCommissionType = (value: unknown): CommissionType | null => {
 };
 
 export async function GET(req: NextRequest) {
-  const isAdmin = await requireAdmin(req);
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const token = await requireAdmin(req);
+  if (!token) {
+    return unauthorizedResponse();
   }
 
   const partners = await prisma.affiliatePartner.findMany({
@@ -57,9 +51,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const isAdmin = await requireAdmin(req);
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const token = await requireAdmin(req);
+  if (!token) {
+    return unauthorizedResponse();
   }
 
   const body = await req.json().catch(() => null);

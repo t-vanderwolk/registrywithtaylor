@@ -23,6 +23,8 @@ export default function RibbonDivider({
         <img
           src="/assets/dividers/ribbon-divider.png"
           alt=""
+          aria-hidden="true"
+          role="presentation"
           className="relative z-10 block w-full h-auto drop-shadow-[0_28px_55px_rgba(0,0,0,0.18)]"
         />
       </div>
