@@ -8,6 +8,8 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
 import prisma from '@/lib/server/prisma';
 
+export const dynamic = 'force-dynamic';
+
 type InsightPreview = {
   id: string;
   title: string;
