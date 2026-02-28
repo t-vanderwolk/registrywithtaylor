@@ -24,8 +24,8 @@ const toneClassMap: Record<MarketingSectionTone, string> = {
 
 const containerClassMap: Record<MarketingSectionContainer, string> = {
   default: 'container',
-  narrow: 'mx-auto w-full max-w-3xl px-[var(--space-md)]',
-  wide: 'mx-auto w-full max-w-[1280px] px-[var(--space-md)]',
+  narrow: 'mx-auto w-full max-w-3xl px-6 md:px-10',
+  wide: 'mx-auto w-full max-w-[1280px] px-6 md:px-10',
 };
 
 const spacingClassMap: Record<MarketingSectionSpacing, string> = {

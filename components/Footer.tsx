@@ -42,19 +42,19 @@ export default function Footer({ currentPath = '' }: FooterProps) {
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <a
-            className="text-sm text-[var(--color-muted)] hover:opacity-70 transition"
-            href="mailto:registrywithtaylor@gmail.com"
+            className="inline-flex min-h-[44px] items-center text-sm text-[var(--color-muted)] hover:opacity-70 transition"
+            href="mailto:taylor@taylormadebabyco.com"
           >
-            registrywithtaylor@gmail.com
+            taylor@taylormadebabyco.com
           </a>
           <a
-            href="https://instagram.com/registrywithtaylor"
-            aria-label="Taylor-Made Baby Co. on Instagram"
+            href="https://instagram.com/taylormadebabyco"
+            aria-label="Taylor-Made Baby Co. on Instagram (@taylormadebabyco)"
             target="_blank"
             rel="noreferrer"
-            className="text-[var(--color-muted)] hover:opacity-70 transition"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[var(--color-muted)] hover:opacity-70 transition"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.75" />
               <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.75" />
               <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
@@ -66,7 +66,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
           {footerLinks.map((link) => (
             <Link
               key={link.href}
-              className="footer-nav__link focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="footer-nav__link inline-flex min-h-[44px] items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               href={link.href}
             >
               {link.label}

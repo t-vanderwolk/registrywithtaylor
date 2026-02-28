@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "AffiliateClick" ALTER COLUMN "id" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "AffiliateLink" ALTER COLUMN "id" DROP DEFAULT,
+ALTER COLUMN "updatedAt" DROP DEFAULT;

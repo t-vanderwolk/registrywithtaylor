@@ -29,6 +29,8 @@ type HeroProps = {
   staggerContent?: boolean;
   ribbonEnhanced?: boolean;
   ribbonClassName?: string;
+  footerContent?: ReactNode;
+  footerClassName?: string;
   children?: ReactNode;
 };
 
@@ -53,6 +55,8 @@ export default function Hero({
   staggerContent = false,
   ribbonEnhanced = false,
   ribbonClassName = '',
+  footerContent,
+  footerClassName = '',
   children,
 }: HeroProps) {
   const sectionClassName = [
@@ -79,9 +83,9 @@ export default function Hero({
   const hasCustomContent = children !== undefined && children !== null;
 
   return (
-    <section className={`${sectionClassName} min-h-[85vh]`}>
+    <section className={`${sectionClassName} w-full`}>
       {showImage && image && (
-        <div className="hero-media absolute inset-0">
+        <div className="hero-media absolute inset-0 w-full">
           <Image
             src={image}
             alt={imageAlt}
@@ -100,7 +104,7 @@ export default function Hero({
       {showRibbon && (
         <div
           className={`absolute left-0 w-full z-20 pointer-events-none ${
-            ribbonEnhanced ? 'bottom-[-42px] md:bottom-[-54px]' : 'bottom-[-10px]'
+            ribbonEnhanced ? 'bottom-[-28px] md:bottom-[-38px]' : 'bottom-[-4px] md:bottom-[-8px]'
           }`}
         >
           <RibbonDivider enhanced={ribbonEnhanced} className={ribbonClassName} decorative />
@@ -164,6 +168,12 @@ export default function Hero({
           )}
         </div>
       </div>
+
+      {footerContent && (
+        <div className={`hero-footer ${footerClassName}`.trim()}>
+          {footerContent}
+        </div>
+      )}
 
     </section>
   );

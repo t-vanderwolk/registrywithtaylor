@@ -10,7 +10,7 @@ export default function RibbonDivider({
   decorative: _decorative = true,
 }: RibbonDividerProps) {
   const wrapperClassName = [
-    'relative w-screen max-w-none flex justify-center pointer-events-none',
+    'relative w-full max-w-none flex justify-center pointer-events-none',
     className,
   ]
     .filter(Boolean)

@@ -68,43 +68,48 @@ export default async function HomePage() {
       <main className="site-main">
         <Hero
           showRibbon
-          ribbonClassName="translate-y-10 md:translate-y-12"
-          className="pt-4 md:pt-6 pb-24 md:pb-28"
-          contentClassName="max-w-xl"
+          ribbonClassName="translate-y-6 md:translate-y-14"
+          className="homepage-hero hero-home-radial hero-bottom-fade md:py-24 z-20"
+          contentClassName="marketing-hero-content home-hero-content"
           image="/assets/hero/hero-01.jpg"
           imageAlt=""
         >
-          <h1 className="hero-load-reveal text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.03] tracking-[-0.015em] text-neutral-900 mb-6">
+          <h1 className="hero-load-reveal text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.03] tracking-[-0.015em] text-neutral-900">
             Baby prep, simplified.
           </h1>
 
-          <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-2xl text-neutral-700 max-w-[40ch] leading-relaxed">
+          <p className="hero-load-reveal hero-load-reveal--1 mt-6 md:mt-8 text-lg md:text-2xl text-neutral-700 max-w-[40ch] leading-relaxed">
             Because parenthood should start with confidence, not confusion.
           </p>
 
-          <p className="hero-load-reveal hero-load-reveal--2 mt-5 mb-10 text-center text-sm uppercase tracking-[0.2em] text-charcoal/60">
-            Private baby planning · Registry strategy · Nursery & gear guidance · Brand-trained expertise
-          </p>
+          <div className="hero-load-reveal hero-load-reveal--2 mt-6 md:mt-8">
+            <p className="max-w-xs text-sm leading-relaxed tracking-wide text-charcoal/60 md:text-left">
+              Private baby planning · Registry strategy · Nursery & gear guidance · Brand-trained expertise
+            </p>
+          </div>
 
-          <div className="hero-load-reveal hero-load-reveal--3 flex flex-col sm:flex-row gap-4 mb-10">
+          <div className="hero-load-reveal hero-load-reveal--3 mt-10 md:mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row sm:items-center md:w-[45rem] md:max-w-full md:justify-center">
             <Link
               href="/contact"
-              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="order-2 btn btn--primary home-hero-cta h-[4.75rem] min-h-[4.75rem] w-full max-w-[22rem] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] sm:order-1 sm:w-[22rem]"
             >
               Schedule Your Private Consultation
             </Link>
 
             <Link
               href="/services"
-              className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="order-1 btn btn--secondary home-hero-cta h-[4.75rem] min-h-[4.75rem] w-full max-w-[22rem] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] sm:order-2 sm:w-[22rem]"
             >
               View Services
             </Link>
           </div>
 
-          <p className="text-[11px] md:text-xs uppercase tracking-[0.26em] text-neutral-500">
-            Private · Personalized · No pressure
-          </p>
+          <div className="hero-load-reveal relative z-30 mt-4 md:mt-6 w-full md:w-[45rem] md:max-w-full">
+            <p className="mx-auto text-center text-xs tracking-[0.2em] leading-relaxed text-neutral-500 md:inline-flex md:items-center md:justify-center md:rounded-lg md:border md:border-black/5 md:bg-white/72 md:px-3 md:py-1.5 md:shadow-[0_6px_14px_rgba(0,0,0,0.03)] md:backdrop-blur-[2px]">
+              Private · Personalized · No pressure
+            </p>
+          </div>
+
         </Hero>
 
         <MarketingSection
@@ -116,71 +121,80 @@ export default async function HomePage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:gap-14 md:items-start">
             {/* LEFT COLUMN */}
             <div>
-              <h2 className="text-3xl md:text-4xl font-serif mb-6">
-                There’s no shortage of advice.
-              </h2>
+              <div className="mx-auto max-w-xl text-left">
+                <h2 className="mb-6 text-center text-3xl font-serif md:text-left md:text-4xl">
+                  There’s no shortage of advice.
+                </h2>
 
-              <div className="mb-8 space-y-1">
-                <RevealOnScroll delayMs={0}>
-                  <p className="text-lg leading-relaxed mb-0">Most of it loud.</p>
-                </RevealOnScroll>
-                <RevealOnScroll delayMs={110}>
-                  <p className="text-lg leading-relaxed mb-0">Some of it helpful.</p>
-                </RevealOnScroll>
-                <RevealOnScroll delayMs={220}>
-                  <p className="text-lg leading-relaxed mb-0">Very little of it tailored to you.</p>
-                </RevealOnScroll>
-              </div>
+                <div className="mb-10 space-y-8 md:space-y-10">
+                  <RevealOnScroll delayMs={0}>
+                    <p className="text-lg leading-relaxed mb-0">Most of it loud.</p>
+                  </RevealOnScroll>
+                  <RevealOnScroll delayMs={110}>
+                    <p className="text-lg leading-relaxed mb-0">Some of it helpful.</p>
+                  </RevealOnScroll>
+                  <RevealOnScroll delayMs={220}>
+                    <p className="text-lg leading-relaxed mb-0">Very little of it tailored to you.</p>
+                  </RevealOnScroll>
+                </div>
 
-              <p className="text-lg leading-relaxed mb-8">
-                Between registry lists, social media trends, and well-meaning opinions, it’s easy to feel pressured to
-                buy everything immediately.
-              </p>
-
-              <p className="text-lg leading-relaxed mb-10">
-                Preparation shouldn’t feel reactive.
-                <br />
-                It should feel intentional.
-              </p>
-
-              <div className="mt-2 pt-8 border-t border-[var(--color-charcoal)]/10">
-                <p className="text-base md:text-lg italic leading-relaxed text-[var(--color-charcoal)]/80">
-                  So what does a baby planner actually do?
+                <p className="text-lg leading-relaxed mb-8">
+                  Between registry lists, social media trends, and well-meaning opinions, it’s easy to feel pressured to
+                  buy everything immediately.
                 </p>
+
+                <p className="text-lg leading-relaxed mb-10">
+                  Preparation shouldn’t feel reactive.
+                  <br />
+                  It should feel intentional.
+                </p>
+
+                <div className="mt-2 hidden border-t border-[var(--color-charcoal)]/10 pt-8 md:block">
+                  <p className="text-base md:text-lg italic leading-relaxed text-[var(--color-charcoal)]/80">
+                    So what does a baby planner actually do?
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* RIGHT COLUMN */}
-            <div className="bg-[linear-gradient(180deg,#f9f4ef_0%,#f4ece5_100%)] rounded-[1.75rem] border border-[rgba(0,0,0,0.05)] p-8 md:p-10 shadow-[0_20px_45px_rgba(0,0,0,0.05)]">
+            <div className="bg-[linear-gradient(180deg,#f9f4ef_0%,#f4ece5_100%)] rounded-[1.75rem] border border-[rgba(0,0,0,0.05)] p-8 md:p-10 shadow-[0_20px_45px_rgba(0,0,0,0.05)] text-center md:text-left">
               <h3 className="text-2xl font-serif mb-6">
                 This is for you if you want preparation to feel calm.
               </h3>
 
               <RevealOnScroll className="checklist-reveal">
-                <ul className="space-y-5 text-base">
-                  <li className="home-check-item home-check-item--1 flex items-start gap-3">
+                <ul className="mx-auto max-w-md space-y-6 leading-relaxed text-base text-left md:mx-0">
+                  <li className="home-check-item home-check-item--1 flex items-start gap-4">
                     <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
                     <span>You want clarity before you start buying</span>
                   </li>
-                  <li className="home-check-item home-check-item--2 flex items-start gap-3">
+                  <li className="home-check-item home-check-item--2 flex items-start gap-4">
                     <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
                     <span>You value thoughtful, design-aware decisions</span>
                   </li>
-                  <li className="home-check-item home-check-item--3 flex items-start gap-3">
+                  <li className="home-check-item home-check-item--3 flex items-start gap-4">
                     <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
                     <span>Guidance over guesswork</span>
                   </li>
-                  <li className="home-check-item home-check-item--4 flex items-start gap-3">
+                  <li className="home-check-item home-check-item--4 flex items-start gap-4">
                     <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
                     <span>Support without pressure</span>
                   </li>
-                  <li className="home-check-item home-check-item--5 flex items-start gap-3">
+                  <li className="home-check-item home-check-item--5 flex items-start gap-4">
                     <span className="text-[var(--color-blush-deep)]/80 mt-1">✓</span>
                     <span>Preparation that feels calm</span>
                   </li>
                 </ul>
               </RevealOnScroll>
+
             </div>
+          </div>
+
+          <div className="mt-8 border-t border-[var(--color-charcoal)]/10 pt-6 text-center md:hidden">
+            <p className="text-base italic leading-relaxed text-[var(--color-charcoal)]/80">
+              So what does a baby planner actually do?
+            </p>
           </div>
         </MarketingSection>
 
@@ -188,18 +202,18 @@ export default async function HomePage() {
           tone="ivory"
           container="default"
           spacing="default"
-          className="py-24 md:py-28"
+          className="py-20 md:py-24"
         >
           <div className="clarity-grid">
             <div className="clarity-left">
               <div className="space-y-8">
                 <RevealOnScroll>
-                  <div className="space-y-8">
+                  <div className="max-w-prose space-y-8">
                     <h2 className="font-serif text-4xl md:text-5xl text-neutral-900 tracking-tight">
                       What Is a Baby Planner?
                     </h2>
 
-                    <div className="space-y-6 text-lg leading-relaxed text-neutral-700">
+                    <div className="space-y-6 text-base md:text-lg leading-relaxed md:leading-loose text-neutral-700">
                       <p>
                         A baby planner is like a wedding planner for early parenthood:
                         a steady guide for the practical side of preparation.
@@ -222,7 +236,7 @@ export default async function HomePage() {
                   </div>
                 </RevealOnScroll>
 
-                <p className="text-lg leading-relaxed text-neutral-900 font-medium">
+                <p className="max-w-prose text-lg leading-relaxed md:leading-loose text-neutral-900 font-medium">
                   This isn’t about buying more.
                   <br />
                   It’s about choosing well.
@@ -253,169 +267,171 @@ export default async function HomePage() {
                 A Thoughtful Path to Preparation
               </h2>
 
-              <p className="text-lg text-muted-foreground max-w-[60ch]">
+              <p className="text-lg leading-relaxed text-muted-foreground max-w-[60ch]">
                 How Families Typically Work With Me
               </p>
             </div>
 
-            {/* -------- Pillar 01 -------- */}
-            <div className="group mb-20 transition-transform duration-300 hover:-translate-y-1">
-              <div className="grid md:grid-cols-2 gap-16 items-start">
-                {/* Text Column */}
-                <div>
-                  <RevealOnScroll>
-                    <p className="text-6xl font-serif text-[var(--color-blush)]/75 mb-5">
-                      01
-                    </p>
-                  </RevealOnScroll>
+            <div className="space-y-16 md:space-y-20">
+              {/* -------- Pillar 01 -------- */}
+              <div className="group transition-transform duration-300 hover:-translate-y-1">
+                <div className="grid md:grid-cols-2 gap-16 items-start">
+                  {/* Text Column */}
+                  <div>
+                    <RevealOnScroll>
+                      <p className="block text-sm md:text-6xl font-serif tracking-[0.25em] md:tracking-normal text-[var(--color-blush)]/75 mb-3 md:mb-5">
+                        01
+                      </p>
+                    </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={90}>
-                    <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
-                      Registry Clarity
-                    </h3>
-                  </RevealOnScroll>
+                    <RevealOnScroll delayMs={90}>
+                      <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
+                        Registry Clarity
+                      </h3>
+                    </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={170}>
-                    <p className="text-muted-foreground mb-6 max-w-[60ch]">
-                      We begin by refining what truly belongs on your registry — guided by brand-trained insight,
-                      lifestyle alignment, and long-term practicality.
-                    </p>
-                  </RevealOnScroll>
+                    <RevealOnScroll delayMs={170}>
+                      <p className="text-muted-foreground leading-relaxed mb-6 max-w-[60ch]">
+                        We begin by refining what truly belongs on your registry — guided by brand-trained insight,
+                        lifestyle alignment, and long-term practicality.
+                      </p>
+                    </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={250}>
-                    <ul className="space-y-3 text-muted-foreground mb-6">
-                      <li>• Brand-informed recommendations</li>
-                      <li>• Clear “buy now vs later” prioritization</li>
-                      <li>• Registry structure built around your real life</li>
-                    </ul>
-                  </RevealOnScroll>
-                </div>
-
-                {/* Image Column */}
-                <RevealOnScroll delayMs={330}>
-                  <div className="relative">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                      <Image
-                        src="/assets/editorial/registry.jpg"
-                        alt="Curated baby registry planning session"
-                        fill
-                        sizes="(min-width: 768px) 42vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
-                      />
-                    </div>
+                    <RevealOnScroll delayMs={250}>
+                      <ul className="space-y-4 leading-relaxed text-muted-foreground mb-6">
+                        <li>• Brand-informed recommendations</li>
+                        <li>• Clear “buy now vs later” prioritization</li>
+                        <li>• Registry structure built around your real life</li>
+                      </ul>
+                    </RevealOnScroll>
                   </div>
-                </RevealOnScroll>
-              </div>
-            </div>
 
-            <div className="border-t border-neutral-200 my-14" />
-
-            {/* -------- Pillar 02 -------- */}
-            <div className="group mb-20 transition-transform duration-300 hover:-translate-y-1">
-              <div className="grid md:grid-cols-2 gap-16 items-start">
-                {/* Image Column */}
-                <RevealOnScroll delayMs={330} className="order-2 md:order-1">
-                  <div className="relative">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                      <Image
-                        src="/assets/editorial/nursery.jpg"
-                        alt="Calm and functional nursery design"
-                        fill
-                        sizes="(min-width: 768px) 42vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
-                      />
+                  {/* Image Column */}
+                  <RevealOnScroll delayMs={330}>
+                    <div className="relative">
+                      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                        <Image
+                          src="/assets/editorial/registry.jpg"
+                          alt="Curated baby registry planning session"
+                          fill
+                          sizes="(min-width: 768px) 42vw, 100vw"
+                          className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </RevealOnScroll>
-
-                {/* Text Column */}
-                <div className="order-1 md:order-2">
-                  <RevealOnScroll>
-                    <p className="text-6xl font-serif text-[var(--color-blush)]/75 mb-5">
-                      02
-                    </p>
-                  </RevealOnScroll>
-
-                  <RevealOnScroll delayMs={90}>
-                    <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
-                      Home & Nursery Preparation
-                    </h3>
-                  </RevealOnScroll>
-
-                  <RevealOnScroll delayMs={170}>
-                    <p className="text-muted-foreground mb-6 max-w-[60ch]">
-                      Next, we translate your vision into a space that feels calm,
-                      functional, and ready for daily life with baby.
-                    </p>
-                  </RevealOnScroll>
-
-                  <RevealOnScroll delayMs={250}>
-                    <ul className="space-y-3 text-muted-foreground mb-6">
-                      <li>• Layout and furniture planning</li>
-                      <li>• Safety-focused recommendations</li>
-                      <li>• Sourcing and implementation guidance</li>
-                    </ul>
                   </RevealOnScroll>
                 </div>
               </div>
-            </div>
 
-            <div className="border-t border-neutral-200 my-14" />
+              <div className="border-t border-neutral-200" />
 
-            {/* -------- Pillar 03 -------- */}
-            <div className="group transition-transform duration-300 hover:-translate-y-1">
-              <div className="grid md:grid-cols-2 gap-16 items-start">
-                {/* Text Column */}
-                <div>
-                  <RevealOnScroll>
-                    <p className="text-6xl font-serif text-[var(--color-blush)]/75 mb-5">
-                      03
-                    </p>
+              {/* -------- Pillar 02 -------- */}
+              <div className="group transition-transform duration-300 hover:-translate-y-1">
+                <div className="grid md:grid-cols-2 gap-16 items-start">
+                  {/* Image Column */}
+                  <RevealOnScroll delayMs={330} className="order-2 md:order-1">
+                    <div className="relative">
+                      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                        <Image
+                          src="/assets/editorial/nursery.jpg"
+                          alt="Calm and functional nursery design"
+                          fill
+                          sizes="(min-width: 768px) 42vw, 100vw"
+                          className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
+                        />
+                      </div>
+                    </div>
                   </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={90}>
-                    <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
-                      Intentional Gear Planning
-                    </h3>
-                  </RevealOnScroll>
+                  {/* Text Column */}
+                  <div className="order-1 md:order-2">
+                    <RevealOnScroll>
+                      <p className="block text-sm md:text-6xl font-serif tracking-[0.25em] md:tracking-normal text-[var(--color-blush)]/75 mb-3 md:mb-5">
+                        02
+                      </p>
+                    </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={170}>
-                    <p className="text-muted-foreground mb-6 max-w-[60ch]">
-                      Finally, we design the daily systems — strollers, car seats, carriers —
-                      chosen with longevity, safety, and real routines in mind.
-                    </p>
-                  </RevealOnScroll>
+                    <RevealOnScroll delayMs={90}>
+                      <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
+                        Home & Nursery Preparation
+                      </h3>
+                    </RevealOnScroll>
 
-                  <RevealOnScroll delayMs={250}>
-                    <ul className="space-y-3 text-muted-foreground mb-6">
-                      <li>• Stroller + car seat strategy</li>
-                      <li>• Real-world usage planning</li>
-                      <li>• Streamlined daily systems</li>
-                    </ul>
+                    <RevealOnScroll delayMs={170}>
+                      <p className="text-muted-foreground leading-relaxed mb-6 max-w-[60ch]">
+                        Next, we translate your vision into a space that feels calm,
+                        functional, and ready for daily life with baby.
+                      </p>
+                    </RevealOnScroll>
+
+                    <RevealOnScroll delayMs={250}>
+                      <ul className="space-y-4 leading-relaxed text-muted-foreground mb-6">
+                        <li>• Layout and furniture planning</li>
+                        <li>• Safety-focused recommendations</li>
+                        <li>• Sourcing and implementation guidance</li>
+                      </ul>
+                    </RevealOnScroll>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-neutral-200" />
+
+              {/* -------- Pillar 03 -------- */}
+              <div className="group transition-transform duration-300 hover:-translate-y-1">
+                <div className="grid md:grid-cols-2 gap-16 items-start">
+                  {/* Text Column */}
+                  <div>
+                    <RevealOnScroll>
+                      <p className="block text-sm md:text-6xl font-serif tracking-[0.25em] md:tracking-normal text-[var(--color-blush)]/75 mb-3 md:mb-5">
+                        03
+                      </p>
+                    </RevealOnScroll>
+
+                    <RevealOnScroll delayMs={90}>
+                      <h3 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-4">
+                        Intentional Gear Planning
+                      </h3>
+                    </RevealOnScroll>
+
+                    <RevealOnScroll delayMs={170}>
+                      <p className="text-muted-foreground leading-relaxed mb-6 max-w-[60ch]">
+                        Finally, we design the daily systems — strollers, car seats, carriers —
+                        chosen with longevity, safety, and real routines in mind.
+                      </p>
+                    </RevealOnScroll>
+
+                    <RevealOnScroll delayMs={250}>
+                      <ul className="space-y-4 leading-relaxed text-muted-foreground mb-6">
+                        <li>• Stroller + car seat strategy</li>
+                        <li>• Real-world usage planning</li>
+                        <li>• Streamlined daily systems</li>
+                      </ul>
+                    </RevealOnScroll>
+                  </div>
+
+                  {/* Image Column */}
+                  <RevealOnScroll delayMs={330}>
+                    <div className="relative">
+                      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                        <Image
+                          src="/assets/editorial/gear.jpg"
+                          alt="Thoughtfully selected baby gear essentials"
+                          fill
+                          sizes="(min-width: 768px) 42vw, 100vw"
+                          className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
+                        />
+                      </div>
+                    </div>
                   </RevealOnScroll>
                 </div>
-
-                {/* Image Column */}
-                <RevealOnScroll delayMs={330}>
-                  <div className="relative">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                      <Image
-                        src="/assets/editorial/gear.jpg"
-                        alt="Thoughtfully selected baby gear essentials"
-                        fill
-                        sizes="(min-width: 768px) 42vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] md:group-hover:scale-[1.01]"
-                      />
-                    </div>
-                  </div>
-                </RevealOnScroll>
               </div>
             </div>
 
             <div className="mt-16 text-center">
               <Link
                 href="/services"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--secondary min-h-[48px] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 View Full Services <span aria-hidden>→</span>
               </Link>
@@ -429,8 +445,12 @@ export default async function HomePage() {
           spacing="default"
           className="relative overflow-visible py-24 md:py-28"
         >
-          <div className="rounded-2xl border border-[rgba(0,0,0,0.06)] bg-white shadow-[0_14px_30px_rgba(0,0,0,0.05)]">
-            <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+          <p className="mt-6 text-sm text-center leading-relaxed text-[#a68449] md:hidden">
+            Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
+          </p>
+
+          <div className="mt-6 hidden rounded-2xl border border-[rgba(0,0,0,0.06)] bg-white shadow-[0_14px_30px_rgba(0,0,0,0.05)] md:block">
+            <div className="hidden md:grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
               <p>Baby Gear Specialist</p>
               <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand Trained Expertise</p>
               <p>Private Planning for Modern Families</p>
@@ -451,7 +471,7 @@ export default async function HomePage() {
             </RevealOnScroll>
           </div>
 
-          <div className="mt-14 max-w-4xl mx-auto rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-ivory px-6 py-10 md:px-12 md:py-14 text-center">
+          <div className="mt-14 max-w-4xl mx-auto rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-[#F7F4EF] px-6 py-24 md:px-12 md:py-24 text-center">
             <h3 className="font-serif text-3xl md:text-4xl">
               A Personal Note from Taylor
             </h3>
@@ -478,14 +498,14 @@ export default async function HomePage() {
             <div className="mt-8">
               <Link
                 href="/about"
-                className="btn btn--primary btn-underline-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--primary btn-underline-subtle min-h-[48px] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Meet Taylor <span aria-hidden>→</span>
               </Link>
             </div>
           </div>
 
-          <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
+          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
             <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
           </div>
         </MarketingSection>
@@ -517,27 +537,27 @@ export default async function HomePage() {
 
             <Link
               href="/blog"
-              className="inline-flex items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide text-[var(--color-charcoal)] transition-colors duration-200 hover:border-neutral-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-neutral-300 px-8 py-3 text-sm tracking-wide text-[var(--color-charcoal)] transition-colors duration-200 hover:border-neutral-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:w-auto"
             >
               View All Articles →
             </Link>
           </div>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+          <div className="mt-12 flex flex-col space-y-12 md:grid md:grid-cols-3 md:gap-8 md:space-y-0">
             {insightPreviews.length > 0 ? (
               insightPreviews.map((post, index) => (
                 <RevealOnScroll key={post.id} delayMs={index * 90}>
-                  <article className="group rounded-2xl border border-[rgba(0,0,0,0.06)] bg-white p-6 shadow-[0_12px_26px_rgba(0,0,0,0.05)] transition-transform duration-300 hover:-translate-y-[2px]">
-                    <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-2">
+                  <article className="group rounded-2xl border border-[rgba(0,0,0,0.06)] bg-white p-8 shadow-[0_12px_26px_rgba(0,0,0,0.05)] transition-transform duration-300 hover:-translate-y-[2px]">
+                    <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-3">
                       {formatInsightDate(post.createdAt)}
                     </p>
-                    <h3 className="text-xl font-serif text-[var(--text-primary)] mb-2">{post.title}</h3>
-                    <p className="text-[var(--color-muted)] leading-relaxed mb-4">
+                    <h3 className="text-xl font-serif text-[var(--text-primary)] mb-3">{post.title}</h3>
+                    <p className="text-[var(--color-muted)] leading-relaxed mb-6">
                       {toInsightExcerpt(post.excerpt, post.content)}
                     </p>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-sm tracking-wide text-[var(--text-primary)] underline underline-offset-4 hover:opacity-70 transition"
+                      className="mt-6 inline-flex min-h-[44px] items-center text-sm tracking-wide text-[var(--text-primary)] underline underline-offset-4 hover:opacity-70 transition"
                     >
                       Read
                       <span
@@ -556,7 +576,7 @@ export default async function HomePage() {
           </div>
         </MarketingSection>
 
-        <FinalCTA />
+        <FinalCTA className="!pt-24 !pb-28 md:!py-20" />
       </main>
     </SiteShell>
   );

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import type { ReactNode } from 'react';
 import SiteShell from '@/components/SiteShell';
+import BookingSectionTracker from '@/components/analytics/BookingSectionTracker';
 import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
@@ -55,9 +56,9 @@ export default function HowItWorksPage() {
       <main className="site-main">
         <Hero
           showRibbon
-          ribbonClassName="translate-y-1 md:translate-y-2"
-          className="hero-home-radial hero-bottom-fade pb-20 md:pb-24 z-20"
-          contentClassName="max-w-2xl"
+          ribbonClassName="translate-y-0 md:translate-y-1"
+          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
+          contentClassName="marketing-hero-content marketing-hero-content--wide"
           contentStyle={{
             borderRadius: '32px',
             padding: '3.5rem 3rem',
@@ -75,7 +76,7 @@ export default function HowItWorksPage() {
               to a fully prepared home.
             </p>
 
-            <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-2xl text-center text-sm text-neutral-600 leading-relaxed">
+            <p className="hero-load-reveal hero-load-reveal--2 max-w-2xl text-sm text-neutral-600 leading-relaxed">
               Consultation through Target Baby Concierge, with private planning available beyond.
             </p>
 
@@ -97,11 +98,13 @@ export default function HowItWorksPage() {
           </div>
         </Hero>
 
-        <section className="bg-white border-t border-b border-charcoal/5">
-          <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
-            <p>Baby Gear Specialist</p>
-            <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
-            <p>Private Planning for Modern Families</p>
+        <section className="w-full bg-white border-t border-b border-charcoal/5">
+          <div className="max-w-7xl mx-auto px-6 md:px-10">
+            <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+              <p>Baby Gear Specialist</p>
+              <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
+              <p>Private Planning for Modern Families</p>
+            </div>
           </div>
         </section>
 
@@ -147,7 +150,12 @@ export default function HowItWorksPage() {
                 </RevealOnScroll>
 
                 <RevealOnScroll delayMs={120}>
-                  <div className="w-full h-full flex">
+                  <BookingSectionTracker
+                    id="booking-section"
+                    sourcePage="/how-it-works"
+                    service="complimentary-consultation"
+                    className="w-full h-full flex"
+                  >
                     <div className="w-full max-w-[620px] md:ml-auto h-full flex flex-col space-y-6 rounded-2xl border border-black/5 bg-[rgba(248,244,240,0.78)] shadow-sm p-6 md:p-8">
                     <div className="text-center space-y-3">
                       <Image
@@ -181,7 +189,7 @@ export default function HowItWorksPage() {
                       />
                     </div>
                   </div>
-                  </div>
+                  </BookingSectionTracker>
                 </RevealOnScroll>
               </div>
             </div>
@@ -318,7 +326,7 @@ export default function HowItWorksPage() {
             </div>
           </div>
 
-          <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
+          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
             <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
           </div>
         </MarketingSection>

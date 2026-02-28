@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 const asNullableText = (value: unknown) => {
+  const text = asText(value);
+  return text.length > 0 ? text : null;
+};
+const asNullableId = (value: unknown) => {
   const text = asText(value);
   return text.length > 0 ? text : null;
 };
@@ -53,6 +58,9 @@ export async function POST(req: NextRequest) {
   const excerpt = asNullableText(body.excerpt);
   const coverImage = asNullableText(body.coverImage);
   const content = asText(body.content);
+  const category = normalizeBlogCategory(body.category);
+  const featuredImageId = asNullableId(body.featuredImageId);
+  const mediaIds = Array.from(new Set(asStringArray(body.mediaIds)));
   const published = Boolean(body.published);
   const affiliateIds = Array.from(new Set(asStringArray(body.affiliateIds)));
 
@@ -66,9 +74,12 @@ export async function POST(req: NextRequest) {
       data: {
         title,
         slug,
+        category: category || DEFAULT_BLOG_CATEGORY,
         content: content || '',
         excerpt,
         coverImage,
+        featuredImageId,
+        media: mediaIds.length > 0 ? { connect: mediaIds.map((id) => ({ id })) } : undefined,
         published,
         authorId: token.id as string,
       },
@@ -87,6 +98,26 @@ export async function POST(req: NextRequest) {
     return tx.post.findUnique({
       where: { id: created.id },
       include: {
+        featuredImage: {
+          select: {
+            id: true,
+            url: true,
+            fileName: true,
+            fileType: true,
+            fileSize: true,
+            createdAt: true,
+          },
+        },
+        media: {
+          select: {
+            id: true,
+            url: true,
+            fileName: true,
+            fileType: true,
+            fileSize: true,
+            createdAt: true,
+          },
+        },
         affiliates: {
           select: {
             affiliateId: true,
@@ -103,6 +134,8 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       ...post,
+      featuredImageId: post.featuredImageId,
+      mediaIds: post.media.map((entry) => entry.id),
       affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
     },
     { status: 201 },

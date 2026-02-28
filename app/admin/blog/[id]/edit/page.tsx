@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import PostEditor from '@/components/admin/PostEditor';
+import { normalizeBlogCategory } from '@/lib/blogCategories';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
@@ -19,8 +20,30 @@ export default async function EditPostPage({ params }: EditPostProps) {
       id: true,
       title: true,
       slug: true,
+      category: true,
       excerpt: true,
       coverImage: true,
+      featuredImageId: true,
+      featuredImage: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
+      media: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
       content: true,
       published: true,
       affiliates: {
@@ -34,8 +57,7 @@ export default async function EditPostPage({ params }: EditPostProps) {
   });
 
   const affiliateOptions = await prisma.affiliatePartner.findMany({
-    where: { isActive: true },
-    orderBy: [{ network: 'asc' }, { name: 'asc' }],
+    orderBy: [{ name: 'asc' }],
     select: {
       id: true,
       name: true,
@@ -55,7 +77,12 @@ export default async function EditPostPage({ params }: EditPostProps) {
       <AdminSurface>
         <PostEditor
           postId={post.id}
-          initialPost={{ ...post, affiliateIds: post.affiliates.map((entry) => entry.affiliateId) }}
+          initialPost={{
+            ...post,
+            category: normalizeBlogCategory(post.category),
+            mediaIds: post.media.map((entry) => entry.id),
+            affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
+          }}
           affiliateOptions={affiliateOptions}
         />
       </AdminSurface>

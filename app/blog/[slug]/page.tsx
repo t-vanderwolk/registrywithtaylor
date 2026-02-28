@@ -1,11 +1,14 @@
-import Link from 'next/link';
 import type { AffiliateNetwork } from '@prisma/client';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import SiteShell from '@/components/SiteShell';
-import MarketingSection from '@/components/layout/MarketingSection';
-import FinalCTA from '@/components/layout/FinalCTA';
+import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
+import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import { type BlogCategory } from '@/lib/blogCategories';
+import { formatFileSize, isPdfMediaType } from '@/lib/media';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -14,17 +17,37 @@ type BlogPostParams = {
   params: Promise<{ slug: string }>;
 };
 
-type MaybeTagged = {
-  tags?: string[] | null;
+type DownloadableResource = {
+  title: string;
+  href: string;
+  description: string | null;
+  fileSize: string | null;
 };
 
 type BlogPostRecord = {
   id: string;
   title: string;
   slug: string;
+  category: BlogCategory;
   content: string;
   excerpt: string | null;
   coverImage: string | null;
+  featuredImage: {
+    id: string;
+    url: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    createdAt: Date;
+  } | null;
+  media: Array<{
+    id: string;
+    url: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    createdAt: Date;
+  }>;
   published: boolean;
   affiliates: Array<{
     affiliate: {
@@ -34,7 +57,22 @@ type BlogPostRecord = {
     };
   }>;
   createdAt: Date;
+  updatedAt: Date;
 };
+
+type ExtractedResourceResult = {
+  content: string;
+  resource: DownloadableResource | null;
+};
+
+const AUTHOR_NAME = 'Taylor Vanderwolk';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+const orderedListPattern = /^\d+\.\s+/;
+const markdownPdfLinePattern =
+  /^\s*(?:Resource\s*:\s*|Download(?:\s+PDF)?\s*:\s*)?\[([^\]]+)\]\(([^)\s]+\.pdf(?:\?[^)]*)?)\)(?:\s*(?:[-|·]\s*(.+))?)?\s*$/i;
+const plainPdfLinePattern =
+  /^\s*(?:Resource\s*:\s*|Download(?:\s+PDF)?\s*:\s*)?(https?:\/\/\S+\.pdf(?:\?\S+)?|\/\S+\.pdf(?:\?\S+)?)(?:\s*(?:[-|·]\s*(.+))?)?\s*$/i;
+const fileSizePattern = /\b\d+(?:\.\d+)?\s?(?:KB|MB|GB)\b/i;
 
 const formatDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
@@ -68,25 +106,129 @@ const toExcerpt = (excerpt: string | null, content: string, maxLength = 160) => 
   return clean.length > maxLength ? `${clean.slice(0, maxLength - 1)}...` : clean;
 };
 
-const getPrimaryTag = (post: MaybeTagged): string | null => {
-  if (!Array.isArray(post.tags) || post.tags.length === 0) {
-    return null;
-  }
-  return post.tags[0] || null;
+const toTitleCase = (value: string) =>
+  value.replace(/\b\w/g, (character) => character.toUpperCase());
+
+const titleFromHref = (href: string) => {
+  const normalizedHref = href.split('?')[0] ?? href;
+  const lastSegment = normalizedHref.split('/').filter(Boolean).pop() ?? 'downloadable-pdf';
+
+  return toTitleCase(lastSegment.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' '));
 };
 
-export default async function BlogPostPage({ params }: BlogPostParams) {
-  const { slug } = await params;
+const isBodyTextLine = (line: string) => {
+  const trimmed = line.trim();
 
-  const post = (await prisma.post.findUnique({
+  return (
+    Boolean(trimmed) &&
+    !trimmed.startsWith('#') &&
+    !trimmed.startsWith('- ') &&
+    !orderedListPattern.test(trimmed)
+  );
+};
+
+const extractDownloadableResource = (content: string): ExtractedResourceResult => {
+  const lines = content.split('\n');
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]?.trim() ?? '';
+    if (!line) {
+      continue;
+    }
+
+    const markdownMatch = line.match(markdownPdfLinePattern);
+    const plainMatch = line.match(plainPdfLinePattern);
+
+    if (!markdownMatch && !plainMatch) {
+      continue;
+    }
+
+    const href = markdownMatch?.[2] ?? plainMatch?.[1];
+    if (!href) {
+      continue;
+    }
+
+    const title = (markdownMatch?.[1] ?? titleFromHref(href)).trim();
+    const trailingCopy = (markdownMatch?.[3] ?? plainMatch?.[2] ?? '').trim();
+    const fileSize = trailingCopy.match(fileSizePattern)?.[0] ?? null;
+    const trailingDescription = trailingCopy
+      .replace(fileSizePattern, '')
+      .replace(/^[\s|·-]+|[\s|·-]+$/g, '')
+      .trim();
+
+    let description = trailingDescription || null;
+    let descriptionIndex: number | null = null;
+
+    if (!description) {
+      for (let lookahead = index + 1; lookahead < lines.length; lookahead += 1) {
+        const candidate = lines[lookahead]?.trim() ?? '';
+
+        if (!candidate) {
+          continue;
+        }
+
+        if (isBodyTextLine(candidate)) {
+          description = candidate;
+          descriptionIndex = lookahead;
+        }
+        break;
+      }
+    }
+
+    const cleanedContent = lines
+      .filter((_, candidateIndex) => candidateIndex !== index && candidateIndex !== descriptionIndex)
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+
+    return {
+      content: cleanedContent,
+      resource: {
+        title,
+        href,
+        description: description ?? 'A concise PDF companion to this article.',
+        fileSize,
+      },
+    };
+  }
+
+  return {
+    content,
+    resource: null,
+  };
+};
+
+const getBlogPost = cache(async (slug: string) =>
+  (await prisma.post.findUnique({
     where: { slug },
     select: {
       id: true,
       title: true,
       slug: true,
+      category: true,
       content: true,
       excerpt: true,
       coverImage: true,
+      featuredImage: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
+      media: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
       published: true,
       affiliates: {
         where: {
@@ -105,8 +247,75 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         },
       },
       createdAt: true,
+      updatedAt: true,
     },
-  })) as BlogPostRecord | null;
+  })) as BlogPostRecord | null);
+
+const toAbsoluteUrl = (pathOrUrl: string) => {
+  if (/^https?:\/\//i.test(pathOrUrl)) {
+    return pathOrUrl;
+  }
+
+  return new URL(pathOrUrl, SITE_URL).toString();
+};
+
+export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPost(slug);
+
+  if (!post || !post.published) {
+    return {};
+  }
+
+  const { content: articleContent } = extractDownloadableResource(post.content);
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const description = toExcerpt(post.excerpt, articleContent, 160);
+  const keywords = [
+    post.category,
+    'Taylor-Made Baby Co.',
+    'baby registry planning',
+    'nursery planning',
+    'baby gear guidance',
+  ];
+
+  return {
+    title: `${post.title} | Taylor-Made Baby Co.`,
+    description,
+    keywords,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description,
+      type: 'article',
+      url: `${SITE_URL}/blog/${post.slug}`,
+      publishedTime: post.createdAt.toISOString(),
+      modifiedTime: post.updatedAt.toISOString(),
+      authors: [AUTHOR_NAME],
+      tags: keywords,
+      images: featuredImageUrl
+        ? [
+            {
+              url: toAbsoluteUrl(featuredImageUrl),
+              alt: post.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: featuredImageUrl ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description,
+      images: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
+    },
+  };
+}
+
+export default async function BlogPostPage({ params }: BlogPostParams) {
+  const { slug } = await params;
+
+  const post = await getBlogPost(slug);
 
   if (!post || !post.published) {
     notFound();
@@ -125,74 +334,186 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       id: true,
       title: true,
       slug: true,
+      category: true,
       createdAt: true,
     },
   });
 
-  const headerExcerpt = toExcerpt(post.excerpt, post.content, 180);
-  const primaryTag = getPrimaryTag(post as MaybeTagged);
+  const { content: articleContent, resource } = extractDownloadableResource(post.content);
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const attachedPdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
+  const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
+  const isAffiliate = post.affiliates.length > 0;
+  const seoKeywords = [
+    post.category,
+    'Taylor-Made Baby Co.',
+    'baby registry planning',
+    'nursery planning',
+    'baby gear guidance',
+  ];
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: headerExcerpt,
+    articleSection: post.category,
+    keywords: seoKeywords,
+    datePublished: post.createdAt.toISOString(),
+    dateModified: post.updatedAt.toISOString(),
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    author: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Taylor-Made Baby Co.',
+      url: SITE_URL,
+    },
+    image: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
+    inLanguage: 'en-US',
+  };
 
   return (
     <SiteShell currentPath="/blog">
-      <main className="site-main">
-        <MarketingSection tone="white" spacing="spacious" container="default">
-          <article className="max-w-3xl mx-auto px-5 md:px-8 py-12 md:py-16">
-            {post.coverImage && (
+      <main className="site-main bg-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <section className="bg-white py-24">
+          <article className="max-w-3xl mx-auto px-6">
+            {featuredImageUrl && (
               <RevealOnScroll>
-                <div className="hero-load-reveal rounded-2xl overflow-hidden mb-10 shadow-sm">
+                <div className="mb-12 overflow-hidden rounded-2xl border border-black/5 shadow-sm">
                   <img
-                    src={post.coverImage}
+                    src={featuredImageUrl}
                     alt={post.title}
-                    className="object-cover w-full aspect-[16/9]"
+                    className="w-full aspect-[16/9] object-cover"
                   />
                 </div>
               </RevealOnScroll>
             )}
 
-            <RevealOnScroll delayMs={90}>
-              <header className="space-y-6">
-                {primaryTag && (
-                  <p className="hero-load-reveal inline-flex rounded-full border border-neutral-300 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-neutral-600">
-                    {primaryTag}
-                  </p>
-                )}
-                <p className="hero-load-reveal hero-load-reveal--1 text-sm uppercase tracking-[0.16em] text-neutral-500">
-                  By Taylor Vanderwolk · {formatDate(post.createdAt)}
-                </p>
-                <h1 className="hero-load-reveal hero-load-reveal--2 font-serif text-3xl md:text-5xl tracking-tight text-neutral-900 leading-tight">
-                  {post.title}
-                </h1>
-                {headerExcerpt && (
-                  <p className="hero-load-reveal hero-load-reveal--3 text-lg md:text-xl text-neutral-700 leading-relaxed">
-                    {headerExcerpt}
-                  </p>
-                )}
+            <RevealOnScroll>
+              <header className="space-y-8">
+                <div className="space-y-5">
+                  <h1 className="font-serif text-4xl md:text-5xl leading-[1.05] tracking-tight text-neutral-900">
+                    {post.title}
+                  </h1>
+                  <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
+                    {post.category}
+                  </span>
+                  {headerExcerpt && (
+                    <p className="max-w-[40ch] text-lg leading-relaxed text-charcoal/80">
+                      {headerExcerpt}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-4 pt-1">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-charcoal/60">
+                    <span className="font-medium text-charcoal/75">{AUTHOR_NAME}</span>
+                    <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                    <time dateTime={post.createdAt.toISOString()}>
+                      {formatDate(post.createdAt)}
+                    </time>
+                  </div>
+                  <div className="h-px w-20 bg-black/10" aria-hidden="true" />
+                </div>
               </header>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={160}>
-              <div className="mt-10 border-t border-neutral-200" />
+            {isAffiliate && (
+              <RevealOnScroll delayMs={90}>
+                <div className="mt-10 rounded-xl border border-black/5 bg-[#F7F4EF] p-6 text-sm leading-relaxed text-charcoal/70">
+                  This article includes affiliate relationships with select brand partners chosen for relevance to the
+                  topic. Recommendations remain editorial, and Taylor-Made Baby Co. may earn a commission if you
+                  decide to purchase through linked partners.
+                </div>
+              </RevealOnScroll>
+            )}
 
-              <div className="mt-10 max-w-3xl mx-auto">
-                <PostContent
-                  postId={post.id}
-                  content={post.content}
-                  className="prose prose-neutral max-w-none prose-headings:font-serif prose-h1:text-4xl prose-h1:md:text-5xl prose-h1:tracking-tight prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-14 prose-h2:mb-6 prose-p:leading-relaxed prose-p:text-[1.05rem] prose-ul:my-6 prose-li:leading-relaxed prose-strong:font-semibold prose-strong:text-neutral-900"
-                />
+            <RevealOnScroll delayMs={170}>
+              <div className="mt-14">
+                <PostContent postId={post.id} content={articleContent} className="mx-auto max-w-[72ch]" />
               </div>
             </RevealOnScroll>
 
+            {attachedPdfResources.length > 0 ? (
+              <RevealOnScroll delayMs={210}>
+                <div className="mt-16 space-y-4">
+                  {attachedPdfResources.map((media) => (
+                    <div
+                      key={media.id}
+                      className="rounded-2xl border border-black/5 bg-[#F7F4EF] p-8"
+                    >
+                      <h4 className="text-lg tracking-tight text-neutral-900">Downloadable Resource</h4>
+                      <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{media.fileName}</p>
+                      <p className="mt-2 text-xs uppercase tracking-[0.18em] text-charcoal/55">
+                        PDF · {formatFileSize(media.fileSize)}
+                      </p>
+                      <a
+                        href={media.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-block mt-4 text-sm underline underline-offset-4"
+                      >
+                        Download PDF →
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </RevealOnScroll>
+            ) : resource ? (
+              <RevealOnScroll delayMs={210}>
+                <div className="mt-16 rounded-2xl border border-black/5 bg-white p-8 shadow-sm">
+                  <div className="space-y-4">
+                    <p className="text-xs uppercase tracking-[0.24em] text-charcoal/60">
+                      Resource
+                    </p>
+                    <h2 className="font-serif text-2xl tracking-tight text-neutral-900">
+                      {resource.title}
+                    </h2>
+                    {resource.description && (
+                      <p className="text-sm leading-relaxed text-charcoal/70">
+                        {resource.description}
+                      </p>
+                    )}
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+                      <a
+                        href={resource.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 underline decoration-black/10 underline-offset-4 transition-colors duration-200 hover:text-neutral-900 hover:decoration-black/30"
+                      >
+                        Download PDF <span aria-hidden className="ml-1">→</span>
+                      </a>
+                      {resource.fileSize && (
+                        <span className="text-charcoal/55">{resource.fileSize}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            ) : null}
+
             {post.affiliates.length > 0 && (
-              <RevealOnScroll delayMs={220}>
-                <div className="mt-16 border-t border-neutral-100 pt-10">
-                  <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-neutral-900">
-                    Trusted Brands Featured in This Article
-                  </h2>
+              <RevealOnScroll delayMs={250}>
+                <div className="mt-16 border-t border-black/5 pt-10">
+                  <div className="space-y-4">
+                    <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-neutral-900">
+                      Referenced Brand Partners
+                    </h2>
+                    <p className="text-sm leading-relaxed text-charcoal/68">
+                      Mentioned for context and planning relevance within this article.
+                    </p>
+                  </div>
                   <div className="mt-5 flex flex-wrap gap-2.5">
                     {post.affiliates.map(({ affiliate }) => (
                       <span
                         key={affiliate.id}
-                        className="inline-flex rounded-full border border-neutral-200 px-4 py-2 text-sm text-neutral-700"
+                        className="inline-flex rounded-full border border-black/5 bg-[#F7F4EF] px-4 py-2 text-sm text-charcoal/75"
                       >
                         {affiliate.name}
                       </span>
@@ -202,44 +523,37 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               </RevealOnScroll>
             )}
           </article>
-        </MarketingSection>
+        </section>
 
         {relatedPosts.length > 0 && (
-          <MarketingSection tone="ivory" spacing="spacious" container="narrow">
-            <div className="space-y-8">
+          <section className="border-t border-black/5 bg-[#FBF8F4] py-24">
+            <div className="max-w-5xl mx-auto px-6">
               <RevealOnScroll>
-                <h2 className="font-serif text-3xl tracking-tight text-neutral-900 text-center">
-                  Next Reads
-                </h2>
+                <div className="mx-auto max-w-2xl space-y-4 text-center">
+                  <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
+                    Continue Reading
+                  </span>
+                  <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900">
+                    More from the Journal
+                  </h2>
+                </div>
               </RevealOnScroll>
-              <div className="border-t border-neutral-200">
+
+              <div className="mt-12 grid gap-10 md:grid-cols-3">
                 {relatedPosts.map((relatedPost, index) => (
-                  <RevealOnScroll key={relatedPost.id} delayMs={index * 90}>
-                    <article className="border-b border-neutral-200 py-5">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <div className="space-y-1">
-                          <h3 className="font-serif text-xl tracking-tight text-neutral-900">
-                            <Link href={`/blog/${relatedPost.slug}`} className="hover:opacity-80 transition">
-                              {relatedPost.title}
-                            </Link>
-                          </h3>
-                          <p className="text-sm text-neutral-500">
-                            {formatDate(relatedPost.createdAt)}
-                          </p>
-                        </div>
-                        <Link
-                          href={`/blog/${relatedPost.slug}`}
-                          className="text-xs uppercase tracking-[0.14em] text-neutral-800 hover:opacity-75 transition"
-                        >
-                          Read -&gt;
-                        </Link>
-                      </div>
-                    </article>
+                  <RevealOnScroll key={relatedPost.id} delayMs={index * 80}>
+                    <JournalCard
+                      title={relatedPost.title}
+                      slug={relatedPost.slug}
+                      category={relatedPost.category}
+                      dateLabel={formatDate(relatedPost.createdAt)}
+                      dateTime={relatedPost.createdAt.toISOString()}
+                    />
                   </RevealOnScroll>
                 ))}
               </div>
             </div>
-          </MarketingSection>
+          </section>
         )}
 
         <FinalCTA />

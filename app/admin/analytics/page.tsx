@@ -8,7 +8,19 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 
 export default async function AdminAnalyticsPage() {
-  const [totalPosts, publishedPosts, viewsSum, mostViewedPost, postsByViews] = await Promise.all([
+  const last7Days = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const last30Days = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+  const [
+    totalPosts,
+    publishedPosts,
+    viewsSum,
+    mostViewedPost,
+    postsByViews,
+    bookingEventTotals,
+    bookingEventsLast7Days,
+    bookingEventsLast30Days,
+  ] = await Promise.all([
     prisma.post.count(),
     prisma.post.count({ where: { published: true } }),
     prisma.post.aggregate({ _sum: { views: true } }),
@@ -26,7 +38,36 @@ export default async function AdminAnalyticsPage() {
         published: true,
       },
     }),
+    prisma.bookingEvent.groupBy({
+      by: ['type'],
+      _count: {
+        _all: true,
+      },
+    }),
+    prisma.bookingEvent.count({
+      where: {
+        createdAt: {
+          gte: last7Days,
+        },
+      },
+    }),
+    prisma.bookingEvent.count({
+      where: {
+        createdAt: {
+          gte: last30Days,
+        },
+      },
+    }),
   ]);
+
+  const bookingCountByType = bookingEventTotals.reduce<Record<string, number>>((acc, row) => {
+    acc[row.type] = row._count._all;
+    return acc;
+  }, {});
+
+  const sectionViewedCount = bookingCountByType.booking_section_viewed ?? 0;
+  const scrolledIntoViewCount = bookingCountByType.booking_scrolled_into_view ?? 0;
+  const interactionCount = bookingCountByType.booking_interaction ?? 0;
 
   return (
     <AdminStack gap="xl">
@@ -78,6 +119,41 @@ export default async function AdminAnalyticsPage() {
                 </span>
               </td>
               <td className="text-right text-admin">{post.views}</td>
+            </tr>
+          ))}
+        </AdminTable>
+      </AdminSurface>
+
+      <AdminHeader
+        eyebrow="Booking Funnel"
+        title="How It Works engagement"
+        subtitle="Track booking section visibility and interaction without iframe internals."
+      />
+
+      <section className="admin-kpi-grid" aria-label="Booking engagement metrics">
+        <AdminKpiCard label="Section loaded" value={sectionViewedCount.toLocaleString()} />
+        <AdminKpiCard label="Scrolled into view" value={scrolledIntoViewCount.toLocaleString()} />
+        <AdminKpiCard label="Interaction" value={interactionCount.toLocaleString()} />
+        <AdminKpiCard label="Last 7 days" value={bookingEventsLast7Days.toLocaleString()} />
+        <AdminKpiCard label="Last 30 days" value={bookingEventsLast30Days.toLocaleString()} />
+      </section>
+
+      <AdminSurface className="admin-stack">
+        <h2 className="admin-h2">Booking events by type</h2>
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'type', label: 'Event type' },
+            { key: 'count', label: 'Count', align: 'right' },
+          ]}
+          emptyState={<p className="admin-body p-6">No booking events yet.</p>}
+        >
+          {bookingEventTotals.map((row) => (
+            <tr key={row.type} className="admin-row">
+              <td className="text-admin">
+                <span className="admin-table-code">{row.type}</span>
+              </td>
+              <td className="text-right text-admin">{row._count._all}</td>
             </tr>
           ))}
         </AdminTable>

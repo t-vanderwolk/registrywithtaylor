@@ -21,29 +21,44 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <Hero
+          showRibbon
+          ribbonClassName="translate-y-0 md:translate-y-1"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Service consultation planning"
-          className="hero-home-radial hero-bottom-fade pb-20 md:pb-24 z-20"
-          contentClassName="max-w-2xl !animate-none"
-          showRibbon
-          ribbonClassName="translate-y-1 md:translate-y-2"
-          title="Private Planning Services"
-          subtitle="Structured support from registry clarity to full home preparation."
-          primaryCta={{
-            label: 'Begin with a Consultation →',
-            href: '/contact?service=consultation',
-          }}
+          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
+          contentClassName="marketing-hero-content marketing-hero-content--wide"
           contentStyle={{
             borderRadius: '32px',
             padding: '3.5rem 3rem',
           }}
-        />
+        >
+          <div className="space-y-6">
+            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+              Private Planning Services
+            </h1>
 
-        <section className="bg-white border-t border-b border-charcoal/5">
-          <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
-            <p>Baby Gear Specialist</p>
-            <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
-            <p>Private Planning for Modern Families</p>
+            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+              Structured support from registry clarity to full home preparation.
+            </p>
+
+            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/contact?service=consultation"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Begin with a Consultation →
+              </Link>
+            </div>
+          </div>
+        </Hero>
+
+        <section className="w-full bg-white border-t border-b border-charcoal/5">
+          <div className="max-w-7xl mx-auto px-6 md:px-10">
+            <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+              <p>Baby Gear Specialist</p>
+              <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
+              <p>Private Planning for Modern Families</p>
+            </div>
           </div>
         </section>
 
@@ -76,10 +91,10 @@ export default function ServicesPage() {
             
 
             
-              <div className="mt-16 services-packages-grid">
+              <div className="mt-16 grid gap-12 md:gap-16 services-packages-grid">
 
               {/* Focused Edit */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-10 md:p-12 shadow-sm hover:shadow-lg transition-shadow duration-300">
+              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-sm">
                 <h3 className="font-serif text-2xl mb-4">The Focused Edit</h3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   Ideal for one key decision.
@@ -114,7 +129,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Signature Plan */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-10 md:p-12 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-md">
                 <span className="mb-4 inline-block text-xs uppercase tracking-[0.25em] text-[color:var(--gold)] opacity-80">
                   Most Popular
                 </span>
@@ -152,7 +167,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Private Concierge */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-10 md:p-12 shadow-sm hover:shadow-lg transition-shadow duration-300">
+              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-sm">
                 <h3 className="font-serif text-2xl mb-4">The Private Concierge</h3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   For families who want ongoing, white-glove guidance.
@@ -189,11 +204,11 @@ export default function ServicesPage() {
               </div>
             
 
-            <p className="mt-12 text-center text-sm text-charcoal/60">
+            <p className="mt-12 mx-auto text-center text-sm text-charcoal/60">
               Trusted by families across Scottsdale and beyond.
             </p>
 
-            <p className="mt-10 text-center text-charcoal/70 leading-relaxed">
+            <p className="mt-16 border-t border-black/5 pt-10 text-center text-base font-medium text-charcoal/70 leading-relaxed">
               Not sure which option fits best?{' '}
               <a
                 href="/contact?service=consultation"
@@ -213,7 +228,7 @@ export default function ServicesPage() {
         >
           <div className="relative mx-auto max-w-6xl services-blueprint-split">
             
-              <div className="max-w-xl space-y-6 services-blueprint-content">
+              <div className="max-w-xl space-y-8 services-blueprint-content">
               <div className="services-blueprint-brand-lockup">
                 <div className="services-blueprint-partnership">
                   <span aria-hidden className="services-blueprint-partnership-line" />
@@ -248,7 +263,7 @@ export default function ServicesPage() {
               </p>
 
               <p className="services-blueprint-body">
-                You arrive ready to test and compare with purpose, while the in-store partner team supports a smooth
+                You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
                 in-store experience.
               </p>
 
@@ -262,7 +277,7 @@ export default function ServicesPage() {
             
 
             
-              <div className="services-blueprint-image-shell">
+              <div className="services-blueprint-image-shell mt-12 mb-12 md:my-0">
                 <Image
                   src="/assets/brand/albeebabystore.png"
                   alt="Albee Baby storefront in New York City"
@@ -288,16 +303,21 @@ export default function ServicesPage() {
                 <h3 className="mt-16 text-sm uppercase tracking-[0.2em] text-charcoal/60">
                   Optional Add-Ons
                 </h3>
+
+                {/* Section Divider */}
+                <div className="flex justify-center mt-12 mb-16">
+                  <div className="w-16 h-px bg-black/10" aria-hidden="true" />
+                </div>
               </div>
             
 
             <div className="category-grid">
               
                 <div className="service-category">
-                <h3 className="mt-20 text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
+                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Planning
                 </h3>
-                <div className="addon-grid !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-6 md:!gap-8">
+                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
                   <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
@@ -372,11 +392,12 @@ export default function ServicesPage() {
               
 
               
-                <div className="service-category">
-                <h3 className="mt-20 text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
+                <div className="service-category mt-20 md:mt-24">
+                <hr className="border-black/5 my-12" />
+                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Home &amp; Gear
                 </h3>
-                <div className="addon-grid !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-6 md:!gap-8">
+                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
                   <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
@@ -446,16 +467,47 @@ export default function ServicesPage() {
                       </li>
                     </ul>
                   </article>
+
+                  <article className="rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
+                      Safety &amp; Installation
+                    </span>
+
+                    <h3 className="mt-4 mb-4 text-2xl tracking-tight">
+                      CPST Car Seat Installation &amp; Safety Checks
+                    </h3>
+
+                    <p className="mt-4 text-charcoal/80 leading-relaxed">
+                      Certified car seat support provided in collaboration with Lani Car Seat Consulting, offering both in-person installation in Phoenix and virtual safety checks nationwide.
+                    </p>
+
+                    <ul className="mt-6 space-y-4 text-charcoal/80 leading-relaxed">
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Professional installation and hands-on harness education
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Virtual safety checks and compatibility review
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Ongoing fit guidance as your child grows
+                      </li>
+                    </ul>
+
+                  </article>
                 </div>
                 </div>
               
 
               
-                <div className="service-category">
-                <h3 className="mt-20 text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
+                <div className="service-category mt-20 md:mt-24">
+                <hr className="border-black/5 my-12" />
+                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Events &amp; Coordination
                 </h3>
-                <div className="addon-grid !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-6 md:!gap-8">
+                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
                   <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <h4 className="font-serif text-2xl leading-tight mb-4">
@@ -550,11 +602,48 @@ export default function ServicesPage() {
                   </article>
                 </div>
                 </div>
-              
+
+              <div className="service-category mt-20 md:mt-24">
+                <hr className="border-black/5 my-12" />
+                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
+                  Family &amp; Household Support
+                </h3>
+                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
+                  <article className="rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
+                      Family &amp; Household Support
+                    </span>
+
+                    <h3 className="mt-4 mb-4 text-2xl tracking-tight">
+                      Nanny Interview Preparation &amp; Guidance
+                    </h3>
+
+                    <p className="mt-4 text-charcoal/80 leading-relaxed">
+                      Structured support to help you confidently interview and evaluate caregivers for your growing family.
+                    </p>
+
+                    <ul className="mt-6 space-y-4 text-charcoal/80 leading-relaxed">
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Customized interview question framework
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Compatibility and experience evaluation guidance
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[#C6A75E]">✓</span>
+                        Post-interview clarity and decision support
+                      </li>
+                    </ul>
+
+                  </article>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="absolute left-1/2 w-screen -translate-x-1/2 z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
+          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
             <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
           </div>
         </section>
@@ -566,8 +655,8 @@ export default function ServicesPage() {
           className="!border-t-0 !py-28 md:!py-32"
         >
           
-            <div className="max-w-3xl mx-auto text-center space-y-8">
-              <p className="text-2xl font-serif leading-relaxed">
+            <div className="max-w-3xl mx-auto px-6 py-10 md:px-10 text-center space-y-8">
+              <p className="text-lg md:text-xl font-serif leading-relaxed">
                 “I walked into the baby store already knowing what we needed.
                 No panic. No second-guessing. Just clarity.”
               </p>
@@ -576,7 +665,7 @@ export default function ServicesPage() {
           
         </MarketingSection>
 
-        <FinalCTA />
+        <FinalCTA className="!pt-20 !pb-24 md:!py-20" />
       </main>
     </SiteShell>
   );

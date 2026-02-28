@@ -1,4 +1,5 @@
 import PostEditor from '@/components/admin/PostEditor';
+import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
@@ -16,8 +17,10 @@ export default async function NewPostPage() {
     data: {
       title: 'Untitled post',
       slug,
+      category: DEFAULT_BLOG_CATEGORY,
       excerpt: '',
       coverImage: '',
+      featuredImageId: null,
       content: 'Start writing...',
       published: false,
       authorId: session.user.id,
@@ -25,8 +28,7 @@ export default async function NewPostPage() {
   });
 
   const affiliateOptions = await prisma.affiliatePartner.findMany({
-    where: { isActive: true },
-    orderBy: [{ network: 'asc' }, { name: 'asc' }],
+    orderBy: [{ name: 'asc' }],
     select: {
       id: true,
       name: true,
@@ -42,7 +44,18 @@ export default async function NewPostPage() {
         subtitle="Start with confidence. Then refine with calm editorial cadence."
       />
       <AdminSurface>
-        <PostEditor postId={post.id} initialPost={{ ...post, affiliateIds: [] }} affiliateOptions={affiliateOptions} />
+        <PostEditor
+          postId={post.id}
+          initialPost={{
+            ...post,
+            category: normalizeBlogCategory(post.category),
+            featuredImage: null,
+            media: [],
+            mediaIds: [],
+            affiliateIds: [],
+          }}
+          affiliateOptions={affiliateOptions}
+        />
       </AdminSurface>
     </AdminStack>
   );

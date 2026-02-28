@@ -27,9 +27,13 @@ model Post {
   id          String         @id @default(cuid())
   title       String
   slug        String         @unique
+  category    String         @default("Registry Strategy")
   content     String
   excerpt     String?
   coverImage  String?
+  featuredImageId String?
+  featuredImage Media? @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
+  media       Media[] @relation("PostMedia")
   published   Boolean        @default(false)
   authorId    String
   author      User           @relation(fields: [authorId], references: [id])
@@ -39,6 +43,17 @@ model Post {
   affiliateLinks AffiliateLink[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
+}
+
+model Media {
+  id              String   @id @default(cuid())
+  url             String
+  fileName        String
+  fileType        String
+  fileSize        Int
+  createdAt       DateTime @default(now())
+  featuredInPosts Post[]   @relation("FeaturedPostMedia")
+  posts           Post[]   @relation("PostMedia")
 }
 
 model PostAnalytics {
@@ -126,4 +141,24 @@ model AffiliateClick {
 
   @@index([linkId, createdAt])
   @@index([createdAt])
+}
+
+model BookingEvent {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  type        String
+  sourcePage  String?
+
+  service     String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+
+  referrer    String?
+  userAgent   String?
+  ipHash      String?
+
+  @@index([createdAt])
+  @@index([type, createdAt])
 }

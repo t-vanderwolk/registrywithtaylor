@@ -17,6 +17,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       links={[
         { label: 'Dashboard', href: '/admin' },
         { label: 'Blog Posts', href: '/admin/blog' },
+        { label: 'Media', href: '/admin/media' },
         { label: 'Analytics', href: '/admin/analytics' },
         { label: 'Affiliates', href: '/admin/affiliates' },
         { label: 'Affiliate Links', href: '/admin/affiliate-links' },

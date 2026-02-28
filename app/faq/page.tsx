@@ -114,9 +114,9 @@ export default function FAQPage() {
       <main className="site-main">
         <Hero
           showRibbon
-          ribbonClassName="translate-y-1 md:translate-y-2"
-          className="hero-home-radial hero-bottom-fade pb-20 md:pb-24 z-20"
-          contentClassName="max-w-2xl"
+          ribbonClassName="translate-y-0 md:translate-y-1"
+          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
+          contentClassName="marketing-hero-content marketing-hero-content--wide"
           contentStyle={{
             borderRadius: '32px',
             padding: '3.5rem 3rem',

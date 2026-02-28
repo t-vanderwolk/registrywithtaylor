@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 const asNullableText = (value: unknown) => {
+  const text = asText(value);
+  return text.length > 0 ? text : null;
+};
+const asNullableId = (value: unknown) => {
   const text = asText(value);
   return text.length > 0 ? text : null;
 };
@@ -23,9 +28,27 @@ type PostWithAffiliateIds = {
   id: string;
   title: string;
   slug: string;
+  category: string;
   content: string;
   excerpt: string | null;
   coverImage: string | null;
+  featuredImageId: string | null;
+  featuredImage: {
+    id: string;
+    url: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    createdAt: Date;
+  } | null;
+  media: Array<{
+    id: string;
+    url: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    createdAt: Date;
+  }>;
   published: boolean;
   authorId: string;
   views: number;
@@ -38,9 +61,14 @@ const toResponsePost = (post: PostWithAffiliateIds) => ({
   id: post.id,
   title: post.title,
   slug: post.slug,
+  category: post.category,
   content: post.content,
   excerpt: post.excerpt,
   coverImage: post.coverImage,
+  featuredImageId: post.featuredImageId,
+  featuredImage: post.featuredImage,
+  mediaIds: post.media.map((entry) => entry.id),
+  media: post.media,
   published: post.published,
   authorId: post.authorId,
   views: post.views,
@@ -58,6 +86,26 @@ export async function GET(
   const post = await prisma.post.findUnique({
     where: { id },
     include: {
+      featuredImage: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
+      media: {
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          fileType: true,
+          fileSize: true,
+          createdAt: true,
+        },
+      },
       affiliates: {
         select: {
           affiliateId: true,
@@ -100,9 +148,16 @@ export async function PUT(
 
   const shouldUpdateSlug = hasOwn(body, 'slug') || hasOwn(body, 'title');
   const nextTitle = hasOwn(body, 'title') ? asText(body.title) || 'Untitled post' : existingPost.title;
+  const nextCategory = hasOwn(body, 'category') ? normalizeBlogCategory(body.category) : existingPost.category;
   const nextContent = hasOwn(body, 'content') ? asText(body.content) : existingPost.content;
   const nextExcerpt = hasOwn(body, 'excerpt') ? asNullableText(body.excerpt) : existingPost.excerpt;
   const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
+  const nextFeaturedImageId = hasOwn(body, 'featuredImageId')
+    ? asNullableId(body.featuredImageId)
+    : existingPost.featuredImageId;
+  const nextMediaIds = hasOwn(body, 'mediaIds')
+    ? Array.from(new Set(asStringArray(body.mediaIds)))
+    : null;
   const nextPublished = hasOwn(body, 'published') ? Boolean(body.published) : existingPost.published;
   const nextAffiliateIds = hasOwn(body, 'affiliateIds')
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
@@ -120,9 +175,12 @@ export async function PUT(
       data: {
         title: nextTitle,
         slug,
+        category: nextCategory,
         content: nextContent,
         excerpt: nextExcerpt,
         coverImage: nextCoverImage,
+        featuredImageId: nextFeaturedImageId,
+        media: nextMediaIds !== null ? { set: nextMediaIds.map((mediaId) => ({ id: mediaId })) } : undefined,
         published: nextPublished,
       },
     });
@@ -144,6 +202,26 @@ export async function PUT(
     return tx.post.findUnique({
       where: { id },
       include: {
+        featuredImage: {
+          select: {
+            id: true,
+            url: true,
+            fileName: true,
+            fileType: true,
+            fileSize: true,
+            createdAt: true,
+          },
+        },
+        media: {
+          select: {
+            id: true,
+            url: true,
+            fileName: true,
+            fileType: true,
+            fileSize: true,
+            createdAt: true,
+          },
+        },
         affiliates: {
           select: {
             affiliateId: true,

@@ -23,9 +23,9 @@ export default function AboutPage() {
         <Hero
           showRibbon
           ribbonEnhanced
-          ribbonClassName="translate-y-4 md:translate-y-6"
-          className="bg-paper hero-home-radial hero-bottom-fade pb-24 md:pb-28"
-          contentClassName="max-w-xl text-left"
+          ribbonClassName="translate-y-2 md:translate-y-3"
+          className="bg-paper hero-home-radial hero-bottom-fade md:pb-28"
+          contentClassName="marketing-hero-content marketing-hero-content--narrow"
           overlayStyle={{
             background:
               'linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 42%, rgba(255,255,255,0.42) 72%, rgba(255,255,255,0.08) 100%), linear-gradient(to bottom, rgba(255,255,255,0) 72%, #f6f1ec 100%)',
