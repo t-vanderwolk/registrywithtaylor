@@ -2,6 +2,8 @@ import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
+import { Body } from '@/components/ui/MarketingHeading';
+import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
 
@@ -58,22 +60,22 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
               Get in Touch
             </h1>
-            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
               Whether you're exploring services or have a specific question, I'm here to help guide your next step.
-            </p>
+            </Body>
           </div>
         </Hero>
 
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>
-            <div className="max-w-2xl mx-auto rounded-2xl bg-[var(--color-ivory)] p-10 md:p-12 space-y-6 shadow-[0_25px_60px_rgba(0,0,0,0.06)]">
+            <MarketingSurface className="mx-auto max-w-2xl space-y-6">
               <ContactInquiryForm
                 selectedService={selectedService || undefined}
                 selectedServiceLabel={config?.label ?? null}
                 selectedFields={selectedFields}
                 dueDateRequired={dueDateRequired}
               />
-            </div>
+            </MarketingSurface>
           </RevealOnScroll>
         </MarketingSection>
 

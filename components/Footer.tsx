@@ -25,7 +25,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
     <footer
       className={`site-footer ${
         isHome
-          ? '!border-t !border-[#e6d8cb] !bg-[#f6efe8] !py-10 md:!py-12'
+          ? '!border-t !border-[#e6d8cb] !bg-[#f6efe8]'
           : ''
       }`.trim()}
       role="contentinfo"
@@ -45,7 +45,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="inline-flex min-h-[44px] items-center text-sm text-[var(--color-muted)] hover:opacity-70 transition"
             href="mailto:taylor@taylormadebabyco.com"
           >
-            taylor@taylormadebabyco.com
+            <span className="link-underline">taylor@taylormadebabyco.com</span>
           </a>
           <a
             href="https://instagram.com/taylormadebabyco"
@@ -55,8 +55,8 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[var(--color-muted)] hover:opacity-70 transition"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.75" />
-              <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.75" />
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.5" />
               <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
             </svg>
           </a>
@@ -69,7 +69,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
               className="footer-nav__link inline-flex min-h-[44px] items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               href={link.href}
             >
-              {link.label}
+              <span className="link-underline">{link.label}</span>
             </Link>
           ))}
         </nav>

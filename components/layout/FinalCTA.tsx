@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import MarketingSection from '@/components/layout/MarketingSection';
+import { Body, H2 } from '@/components/ui/MarketingHeading';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 type FinalCTAProps = {
@@ -8,24 +9,24 @@ type FinalCTAProps = {
 
 export default function FinalCTA({ className = '' }: FinalCTAProps) {
   const sectionClassName = [
-    'relative z-10 border-t border-[rgba(0,0,0,0.06)] !pt-[clamp(4.5rem,7vw,6.5rem)]',
+    'relative z-10 border-t border-[rgba(0,0,0,0.06)]',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <MarketingSection tone="blush" container="narrow" spacing="tight" className={sectionClassName}>
+    <MarketingSection tone="blush" container="narrow" spacing="default" className={sectionClassName}>
       <div className="text-center space-y-8">
         <RevealOnScroll>
-          <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[var(--text-primary)]">
+          <H2 className="font-serif text-[var(--text-primary)]">
             Start with confidence.
-          </h2>
+          </H2>
         </RevealOnScroll>
 
-        <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
+        <Body className="mx-auto max-w-2xl text-[var(--color-muted)]">
           Clear, calm preparation starts with one thoughtful conversation.
-        </p>
+        </Body>
 
         <RevealOnScroll delayMs={120}>
           <div className="pt-4">

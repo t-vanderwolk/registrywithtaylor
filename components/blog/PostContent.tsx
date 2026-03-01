@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 
 type PostContentProps = {
   postId: string;
@@ -54,7 +55,7 @@ function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
           href={linkHref}
           target={opensNewTab(linkHref) ? '_blank' : undefined}
           rel={opensNewTab(linkHref) ? 'noreferrer' : undefined}
-          className="underline decoration-black/15 underline-offset-4 transition-colors duration-200 hover:text-neutral-900 hover:decoration-black/35"
+          className="link-underline transition-colors duration-200 hover:text-neutral-900"
         >
           {linkLabel}
         </a>,
@@ -134,12 +135,12 @@ export default function PostContent({ postId, content, className }: PostContentP
             }
 
             nodes.push(
-              <h2
+              <H2
                 key={`${postId}-h2-${i}`}
-                className="mt-16 mb-6 font-serif text-2xl md:text-3xl tracking-tight text-neutral-900"
+                className="mt-16 mb-6 font-serif text-neutral-900"
               >
                 {renderInlineContent(line.replace(/^##\s+/, ''), `${postId}-h2-inline-${i}`)}
-              </h2>,
+              </H2>,
             );
             h2Count += 1;
             i += 1;
@@ -148,12 +149,12 @@ export default function PostContent({ postId, content, className }: PostContentP
 
           if (line.startsWith('### ')) {
             nodes.push(
-              <h3
+              <H3
                 key={`${postId}-h3-${i}`}
-                className="mt-12 mb-4 font-serif text-xl md:text-2xl tracking-tight text-neutral-900"
+                className="mt-12 mb-4 font-serif tracking-tight text-neutral-900"
               >
                 {renderInlineContent(line.replace(/^###\s+/, ''), `${postId}-h3-inline-${i}`)}
-              </h3>,
+              </H3>,
             );
             i += 1;
             continue;
@@ -167,7 +168,7 @@ export default function PostContent({ postId, content, className }: PostContentP
                 <img
                   src={src}
                   alt={altText}
-                  className="w-full rounded-2xl border border-black/5 shadow-sm"
+                  className="w-full rounded-2xl shadow-sm"
                   loading="lazy"
                 />
                 {altText && (
@@ -255,16 +256,16 @@ export default function PostContent({ postId, content, className }: PostContentP
           if (paragraphLines.length > 0) {
             paragraphCount += 1;
             nodes.push(
-              <p
+              <Body
                 key={`${postId}-p-${i}`}
                 className={
                   paragraphCount === 1
-                    ? 'text-[1.05rem] leading-relaxed text-charcoal/85'
-                    : 'mt-6 text-[1.05rem] leading-relaxed text-charcoal/85'
+                    ? 'text-charcoal/85'
+                    : 'mt-6 text-charcoal/85'
                 }
               >
                 {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
-              </p>,
+              </Body>,
             );
           }
         }

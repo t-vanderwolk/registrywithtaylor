@@ -3,7 +3,13 @@ import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
+import AuthorityStrip from '@/components/ui/AuthorityStrip';
+import CheckIcon from '@/components/ui/CheckIcon';
 import Hero from '@/components/ui/Hero';
+import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import MarketingSurface from '@/components/ui/MarketingSurface';
+import QuoteMark from '@/components/ui/QuoteMark';
+import SectionDivider from '@/components/ui/SectionDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -14,6 +20,30 @@ export const metadata = buildMarketingMetadata({
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Service consultation planning',
 });
+
+type ServiceChecklistProps = {
+  items: string[];
+  className?: string;
+};
+
+const authorityItems = [
+  'Baby Gear Specialist',
+  'Brand-Trained Expertise',
+  'Private Planning for Modern Families',
+];
+
+function ServiceChecklist({ items, className = '' }: ServiceChecklistProps) {
+  return (
+    <ul className={['space-y-5 leading-relaxed', className].filter(Boolean).join(' ')}>
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-4">
+          <CheckIcon />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function ServicesPage() {
   return (
@@ -28,9 +58,9 @@ export default function ServicesPage() {
               Private Planning Services
             </h1>
 
-            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
               Structured support from registry clarity to full home preparation.
-            </p>
+            </Body>
 
             <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
               <Link
@@ -43,38 +73,32 @@ export default function ServicesPage() {
           </div>
         </Hero>
 
-        <section className="w-full bg-white border-t border-b border-charcoal/5">
-          <div className="max-w-7xl mx-auto px-6 md:px-10">
-            <p className="py-4 text-center text-[11px] leading-relaxed tracking-[0.14em] uppercase text-[#a68449] md:hidden">
-              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
-            </p>
-            <div className="hidden md:grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
-              <p>Baby Gear Specialist</p>
-              <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
-              <p>Private Planning for Modern Families</p>
-            </div>
+        <section className="border-y border-black/5 bg-white py-4">
+          <div className="container">
+            <AuthorityStrip items={authorityItems} className="mt-0 md:gap-8" />
           </div>
         </section>
 
-     
-
         <MarketingSection
           tone="white"
-          spacing="spacious"
+          spacing="default"
           container="default"
-          className="!py-28 md:!py-32"
         >
           <div className="max-w-6xl mx-auto">
-            
+          
               <div className="max-w-4xl mx-auto text-center mb-6">
-                <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-6">
-                  Support, structured around you.
-                </h2>
+                <div className="flex justify-center">
+                  <SectionDivider />
+                </div>
 
-                <p className="text-sm text-neutral-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                <H2 className="mb-6 font-serif leading-tight">
+                  Support, structured around you.
+                </H2>
+
+                <Body className="mx-auto mb-8 max-w-3xl text-neutral-600">
                   Led by a baby gear specialist experienced in guiding families through major purchasing decisions and
                   real-life setup planning.
-                </p>
+                </Body>
 
                 <div className="flex items-center justify-center gap-4 text-xs tracking-[0.25em] text-neutral-500 uppercase">
                   <span className="h-px w-10 bg-neutral-300" />
@@ -88,112 +112,93 @@ export default function ServicesPage() {
               <div className="mt-16 grid gap-12 md:gap-16 services-packages-grid">
 
               {/* Focused Edit */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-sm">
-                <h3 className="font-serif text-2xl mb-4">The Focused Edit</h3>
+              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+                <H3 className="mb-4 font-serif">The Focused Edit</H3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   Ideal for one key decision.
                 </p>
 
-                <p className="text-neutral-600 mb-6 leading-relaxed">
+                <Body className="mb-6 text-neutral-600">
                   One dedicated session to refine a key decision — registry, nursery layout, or gear shortlist.
-                </p>
+                </Body>
 
-                <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    1 Private Session
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Targeted Recommendations
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Written Follow-Up Notes
-                  </li>
-                </ul>
+                <ServiceChecklist
+                  items={[
+                    '1 Private Session',
+                    'Targeted Recommendations',
+                    'Written Follow-Up Notes',
+                  ]}
+                  className="mb-8 text-charcoal/80"
+                />
 
                 <Link
                   href="/contact?service=focused-edit"
-                  className="services-package-cta services-package-cta--secondary"
+                  className="btn btn--secondary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
-                  Reserve the Focused Edit
-                  <span className="cta-arrow ml-2">→</span>
+                  Reserve the Focused Edit <span aria-hidden className="ml-2">→</span>
                 </Link>
-              </div>
+              </MarketingSurface>
 
               {/* Signature Plan */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-md">
-                <span className="mb-4 inline-block text-xs uppercase tracking-[0.25em] text-[color:var(--gold)] opacity-80">
-                  Most Popular
-                </span>
-                <h3 className="font-serif text-2xl mb-4">The Signature Plan</h3>
+              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+                <div className="mb-4">
+                  <span className="inline-block rounded-full border border-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-black/70">
+                    Most Popular
+                  </span>
+                </div>
+                <H3 className="mb-4 font-serif">The Signature Plan</H3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   Best for full preparation from registry to nursery.
                 </p>
 
-                <p className="text-neutral-600 mb-6 leading-relaxed">
+                <Body className="mb-6 text-neutral-600">
                   A structured multi-session approach guiding you from registry decisions to nursery and home setup.
-                </p>
+                </Body>
 
-                <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    3 Planning Sessions
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Registry + Nursery Planning
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Implementation Roadmap
-                  </li>
-                </ul>
+                <ServiceChecklist
+                  items={[
+                    '3 Planning Sessions',
+                    'Registry + Nursery Planning',
+                    'Implementation Roadmap',
+                  ]}
+                  className="mb-8 text-charcoal/80"
+                />
 
                 <Link
                   href="/contact?service=signature-plan"
-                  className="services-package-cta services-package-cta--primary"
+                  className="btn btn--primary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
-                  Begin the Signature Plan
-                  <span className="cta-arrow ml-2">→</span>
+                  Begin the Signature Plan <span aria-hidden className="ml-2">→</span>
                 </Link>
-              </div>
+              </MarketingSurface>
 
               {/* Private Concierge */}
-              <div className="min-w-0 h-full flex flex-col rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-sm">
-                <h3 className="font-serif text-2xl mb-4">The Private Concierge</h3>
+              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+                <H3 className="mb-4 font-serif">The Private Concierge</H3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   For families who want ongoing, white-glove guidance.
                 </p>
 
-                <p className="text-neutral-600 mb-6 leading-relaxed">
+                <Body className="mb-6 text-neutral-600">
                   Ongoing, high-touch guidance with priority scheduling and direct support throughout your pregnancy.
-                </p>
+                </Body>
 
-                <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Ongoing Support
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Priority Scheduling
-                  </li>
-                  <li>
-                    <span className="services-package-check">✓</span>
-                    Direct Message Access
-                  </li>
-                </ul>
+                <ServiceChecklist
+                  items={[
+                    'Ongoing Support',
+                    'Priority Scheduling',
+                    'Direct Message Access',
+                  ]}
+                  className="mb-8 text-charcoal/80"
+                />
 
                 <Link
                   href="/contact?service=private-concierge"
-                  className="services-package-cta services-package-cta--secondary"
+                  className="btn btn--secondary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
-                  Explore Private Concierge
-                  <span className="cta-arrow ml-2">→</span>
+                  Explore Private Concierge <span aria-hidden className="ml-2">→</span>
                 </Link>
-              </div>
+              </MarketingSurface>
 
               </div>
             
@@ -206,7 +211,7 @@ export default function ServicesPage() {
               Not sure which option fits best?{' '}
               <a
                 href="/contact?service=consultation"
-                className="underline underline-offset-4 hover:text-charcoal transition-colors duration-200"
+                className="link-underline transition-colors duration-200 hover:text-charcoal"
               >
                 Begin with a complimentary consultation →
               </a>
@@ -214,15 +219,10 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="ivory"
-          spacing="spacious"
-          variant="wide"
-          className="relative overflow-hidden services-blueprint-section !py-28 md:!py-32"
-        >
+        <MarketingSection tone="ivory" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section">
           <div className="relative mx-auto max-w-6xl services-blueprint-split">
             
-              <div className="max-w-xl space-y-8 services-blueprint-content">
+              <MarketingSurface className="services-blueprint-content max-w-xl space-y-8">
               <div className="services-blueprint-brand-lockup">
                 <div className="services-blueprint-partnership">
                   <span aria-hidden className="services-blueprint-partnership-line" />
@@ -239,69 +239,71 @@ export default function ServicesPage() {
                 />
               </div>
 
-              <h2 className="services-blueprint-title">
-                NYC In-Store Blueprint
-              </h2>
+              <div>
+                <SectionDivider />
+                <H2 className="services-blueprint-title">
+                  NYC In-Store Blueprint
+                </H2>
+              </div>
 
-              <p className="text-sm text-neutral-600 leading-relaxed">
+              <Body className="text-neutral-600">
                 Designed for families planning an in-store visit in NYC.
-              </p>
+              </Body>
 
-              <p className="services-blueprint-kicker">
+              <H3 className="services-blueprint-kicker font-serif">
                 Walk in prepared and compare with confidence.
-              </p>
+              </H3>
 
-              <p className="services-blueprint-body">
+              <Body className="services-blueprint-body">
                 Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
                 shortlist tailored to your home.
-              </p>
+              </Body>
 
-              <p className="services-blueprint-body">
+              <Body className="services-blueprint-body">
                 You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
                 in-store experience.
-              </p>
+              </Body>
 
               <Link
                 href="/contact"
-                className="services-blueprint-cta focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Explore the NYC Blueprint
               </Link>
-              </div>
+              </MarketingSurface>
             
 
             
-              <div className="services-blueprint-image-shell mt-12 mb-12 md:my-0">
+              <div className="services-blueprint-image-shell mt-12 mb-12 overflow-hidden rounded-2xl md:my-0">
                 <Image
                   src="/assets/brand/albeebabystore.png"
                   alt="Albee Baby storefront in New York City"
                   width={900}
                   height={700}
-                  className="services-blueprint-image"
+                  className="services-blueprint-image rounded-2xl shadow-sm"
                 />
               </div>
             
           </div>
         </MarketingSection>
 
-        <section className="design-experience-wrapper relative overflow-visible !py-28 md:!py-32">
+        <section className="design-experience-wrapper section-base relative overflow-visible">
           <div className="design-experience-inner">
             
               <div className="text-center mb-16">
-                <h2 className="font-serif text-4xl mb-4">
+                <div className="flex justify-center">
+                  <SectionDivider />
+                </div>
+
+                <H2 className="mb-4 font-serif">
                   Design Your Experience
-                </h2>
-                <p className="max-w-2xl mx-auto text-neutral-600 leading-relaxed">
+                </H2>
+                <Body className="mx-auto max-w-2xl text-neutral-600">
                   Flexible add-ons that complement your core package — tailored to your registry, home, and milestones.
-                </p>
+                </Body>
                 <h3 className="mt-16 text-sm uppercase tracking-[0.2em] text-charcoal/60">
                   Optional Add-Ons
                 </h3>
-
-                {/* Section Divider */}
-                <div className="flex justify-center mt-12 mb-16">
-                  <div className="w-16 h-px bg-black/10" aria-hidden="true" />
-                </div>
               </div>
             
 
@@ -312,75 +314,57 @@ export default function ServicesPage() {
                   Planning
                 </h3>
                 <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
+                  <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Grandparents Planning Session
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Planning support for grandparents and extended family.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Family alignment guidance
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Registry gifting clarity
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Practical preparation plan
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Family alignment guidance',
+                        'Registry gifting clarity',
+                        'Practical preparation plan',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Surrogacy &amp; Adoption Planning Support
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Tailored planning for families growing through surrogacy or adoption.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Timeline and travel coordination
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Registry strategy alignment
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Newborn setup planning
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Timeline and travel coordination',
+                        'Registry strategy alignment',
+                        'Newborn setup planning',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Sibling &amp; Pet Preparation
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Safety-first transition planning for siblings and pets.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Introduction game plan
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Safety and routine guidance
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Adjustment support strategy
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Introduction game plan',
+                        'Safety and routine guidance',
+                        'Adjustment support strategy',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
                 </div>
                 </div>
               
@@ -392,105 +376,81 @@ export default function ServicesPage() {
                   Home &amp; Gear
                 </h3>
                 <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
+                  <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Postpartum Home Setup
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Recovery-focused setup for a calm, functional daily flow.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Recovery-first room planning
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Feeding and sleep station flow
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Essentials organization strategy
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Recovery-first room planning',
+                        'Feeding and sleep station flow',
+                        'Essentials organization strategy',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Gear Cleaning &amp; Reset Strategy
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Guidance for cleaning and preparing gear for safe reuse.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Sanitizing best practices
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Reuse readiness checklist
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Donation and resale prep
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Sanitizing best practices',
+                        'Reuse readiness checklist',
+                        'Donation and resale prep',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Gear Resale Strategy
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Support for reselling gear with confidence and clear strategy.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Platform and pricing strategy
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Listing and staging guidance
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Resale vs donation decisions
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Platform and pricing strategy',
+                        'Listing and staging guidance',
+                        'Resale vs donation decisions',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+                  <MarketingSurface className="marketing-card-hover h-full">
                     <span className="uppercase text-xs tracking-widest text-charcoal/60">
                       Safety &amp; Installation
                     </span>
 
-                    <h3 className="mt-4 mb-4 text-2xl tracking-tight">
+                    <H3 className="mt-4 mb-4 tracking-tight">
                       CPST Car Seat Installation &amp; Safety Checks
-                    </h3>
+                    </H3>
 
-                    <p className="mt-4 text-charcoal/80 leading-relaxed">
+                    <Body className="mt-4 text-charcoal/80">
                       Certified car seat support provided in collaboration with Lani Car Seat Consulting, offering both in-person installation in Phoenix and virtual safety checks nationwide.
-                    </p>
+                    </Body>
 
-                    <ul className="mt-6 space-y-4 text-charcoal/80 leading-relaxed">
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Professional installation and hands-on harness education
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Virtual safety checks and compatibility review
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Ongoing fit guidance as your child grows
-                      </li>
-                    </ul>
+                    <ServiceChecklist
+                      items={[
+                        'Professional installation and hands-on harness education',
+                        'Virtual safety checks and compatibility review',
+                        'Ongoing fit guidance as your child grows',
+                      ]}
+                      className="mt-6 text-charcoal/80"
+                    />
 
-                  </article>
+                  </MarketingSurface>
                 </div>
                 </div>
               
@@ -502,98 +462,74 @@ export default function ServicesPage() {
                   Events &amp; Coordination
                 </h3>
                 <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
+                  <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Shower Registry Coordination
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Registry support before invitations go out.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Registry audit and refinement
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Priority item sequencing
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Gift flow timing strategy
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Registry audit and refinement',
+                        'Priority item sequencing',
+                        'Gift flow timing strategy',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Gender Reveal Planning &amp; Coordination
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Personalized reveal planning with polished, low-stress coordination.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Reveal concept planning
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Vendor and timeline coordination
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Day-of setup guidance
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Reveal concept planning',
+                        'Vendor and timeline coordination',
+                        'Day-of setup guidance',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Welcome Box Registration Setup
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Support for retailer perks, welcome programs, and discounts.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Retailer perk mapping
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Completion discount tracking
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Enrollment setup support
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Retailer perk mapping',
+                        'Completion discount tracking',
+                        'Enrollment setup support',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
 
-                  <article className="addon-card p-8 md:p-10 !transition-shadow !duration-300 !transform-none hover:!transform-none">
-                    <h4 className="font-serif text-2xl leading-tight mb-4">
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <H3 className="mb-4 font-serif leading-tight">
                       Sip &amp; See Planning Support
-                    </h4>
-                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                    </H3>
+                    <Body className="mb-6 text-neutral-600">
                       Thoughtful support for a smooth post-arrival gathering.
-                    </p>
-                    <ul className="services-package-list space-y-4 leading-relaxed text-charcoal/80">
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Event timeline planning
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Registry update guidance
-                      </li>
-                      <li>
-                        <span className="services-package-check">✓</span>
-                        Gift coordination strategy
-                      </li>
-                    </ul>
-                  </article>
+                    </Body>
+                    <ServiceChecklist
+                      items={[
+                        'Event timeline planning',
+                        'Registry update guidance',
+                        'Gift coordination strategy',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
                 </div>
                 </div>
 
@@ -603,35 +539,29 @@ export default function ServicesPage() {
                   Family &amp; Household Support
                 </h3>
                 <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
-                  <article className="rounded-2xl border border-black/5 bg-white p-8 md:p-10 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+                  <MarketingSurface className="marketing-card-hover h-full">
                     <span className="uppercase text-xs tracking-widest text-charcoal/60">
                       Family &amp; Household Support
                     </span>
 
-                    <h3 className="mt-4 mb-4 text-2xl tracking-tight">
+                    <H3 className="mt-4 mb-4 tracking-tight">
                       Nanny Interview Preparation &amp; Guidance
-                    </h3>
+                    </H3>
 
-                    <p className="mt-4 text-charcoal/80 leading-relaxed">
+                    <Body className="mt-4 text-charcoal/80">
                       Structured support to help you confidently interview and evaluate caregivers for your growing family.
-                    </p>
+                    </Body>
 
-                    <ul className="mt-6 space-y-4 text-charcoal/80 leading-relaxed">
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Customized interview question framework
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Compatibility and experience evaluation guidance
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-[#C6A75E]">✓</span>
-                        Post-interview clarity and decision support
-                      </li>
-                    </ul>
+                    <ServiceChecklist
+                      items={[
+                        'Customized interview question framework',
+                        'Compatibility and experience evaluation guidance',
+                        'Post-interview clarity and decision support',
+                      ]}
+                      className="mt-6 text-charcoal/80"
+                    />
 
-                  </article>
+                  </MarketingSurface>
                 </div>
               </div>
             </div>
@@ -641,22 +571,25 @@ export default function ServicesPage() {
 
         <MarketingSection
           tone="ivoryWarm"
-          spacing="spacious"
+          spacing="default"
           container="default"
-          className="!border-t-0 !py-28 md:!py-32"
+          className="!border-t-0"
         >
           
-            <div className="max-w-3xl mx-auto px-6 py-10 md:px-10 text-center space-y-8">
-              <p className="text-lg md:text-xl font-serif leading-relaxed">
-                “I walked into the baby store already knowing what we needed.
-                No panic. No second-guessing. Just clarity.”
-              </p>
+            <div className="mx-auto max-w-3xl px-6 py-10 text-center space-y-8 md:px-10">
+              <div className="relative px-6 py-10 md:px-10">
+                <QuoteMark />
+                <p className="relative text-lg font-serif leading-relaxed md:text-xl">
+                  “I walked into the baby store already knowing what we needed.
+                  No panic. No second-guessing. Just clarity.”
+                </p>
+              </div>
               <p className="text-neutral-600">— TMBC Client, Scottsdale</p>
             </div>
           
         </MarketingSection>
 
-        <FinalCTA className="!pt-20 !pb-24 md:!py-20" />
+        <FinalCTA />
       </main>
     </SiteShell>
   );

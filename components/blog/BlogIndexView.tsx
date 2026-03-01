@@ -3,7 +3,10 @@
 import Link from 'next/link';
 import { startTransition, useState } from 'react';
 import JournalCard from '@/components/blog/JournalCard';
+import { Body, H2 } from '@/components/ui/MarketingHeading';
+import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import SectionDivider from '@/components/ui/SectionDivider';
 import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
 
 type BlogIndexPost = {
@@ -42,11 +45,11 @@ export default function BlogIndexView({
 
   return (
     <>
-      <section className="bg-white py-24">
+      <section className="section-base bg-white">
         <div className="max-w-5xl mx-auto px-6">
           {featuredPost && (
             <RevealOnScroll>
-              <article className="rounded-2xl border border-black/5 bg-[#FBF8F4] p-10 shadow-sm transition-shadow duration-300 hover:shadow-md md:p-12">
+              <MarketingSurface className="marketing-card-hover">
                 <div
                   className={
                     featuredPost.coverImage
@@ -65,14 +68,17 @@ export default function BlogIndexView({
                     </div>
 
                     <div className="space-y-5">
-                      <h2 className="font-serif text-4xl md:text-5xl leading-[1.05] tracking-tight text-neutral-900">
-                        {featuredPost.title}
-                      </h2>
+                      <div>
+                        <SectionDivider />
+                        <H2 className="leading-[1.05] text-neutral-900">
+                          {featuredPost.title}
+                        </H2>
+                      </div>
 
                       {featuredPost.excerpt && (
-                        <p className="text-lg leading-relaxed text-charcoal/80">
+                        <Body className="text-charcoal/80">
                           {featuredPost.excerpt}
-                        </p>
+                        </Body>
                       )}
                     </div>
 
@@ -82,25 +88,26 @@ export default function BlogIndexView({
 
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 underline decoration-black/10 underline-offset-4 transition-colors duration-200 hover:text-neutral-900 hover:decoration-black/30"
+                      className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
                     >
-                      Read Article <span aria-hidden className="ml-1">→</span>
+                      <span className="link-underline">Read Article</span>
+                      <span aria-hidden className="ml-1">→</span>
                     </Link>
                   </div>
 
                   {featuredPost.coverImage && (
-                    <div className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-2xl">
                       <img
                         src={featuredPost.coverImage}
                         alt=""
                         aria-hidden="true"
-                        className="w-full aspect-[4/5] object-cover"
+                        className="aspect-[4/5] w-full rounded-2xl object-cover shadow-sm"
                         loading="lazy"
                       />
                     </div>
                   )}
                 </div>
-              </article>
+              </MarketingSurface>
             </RevealOnScroll>
           )}
 
@@ -140,7 +147,7 @@ export default function BlogIndexView({
         </div>
       </section>
 
-      <section className="bg-white pb-24">
+      <section className="bg-white pb-20 md:pb-28">
         <div className="max-w-5xl mx-auto px-6">
           {filteredPosts.length > 0 ? (
             <div className="grid gap-10 md:grid-cols-2">
@@ -158,16 +165,16 @@ export default function BlogIndexView({
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-black/5 bg-[#FBF8F4] px-8 py-12 text-center shadow-sm">
+            <MarketingSurface className="text-center">
               <p className="text-sm uppercase tracking-[0.22em] text-charcoal/55">
                 {activeCategory ?? 'The Journal'}
               </p>
-              <p className="mt-4 leading-relaxed text-charcoal/72">
+              <Body className="mt-4 text-charcoal/72">
                 {activeCategory && featuredPost?.category === activeCategory
                   ? 'No additional articles are published in this focus yet.'
                   : 'No articles are published in this focus yet.'}
-              </p>
-            </div>
+              </Body>
+            </MarketingSurface>
           )}
         </div>
       </section>

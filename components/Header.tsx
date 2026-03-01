@@ -26,10 +26,10 @@ export default function Header({ currentPath }: HeaderProps) {
   const getLinkClassName = (href: string) => {
     const isActive = href === currentPath;
 
-    return `relative pb-1 text-sm tracking-[0.2em] uppercase transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current after:transition-all after:duration-200 ${
+    return `link-underline pb-1 text-sm tracking-[0.2em] uppercase transition-colors duration-200 ${
       isActive
-        ? 'text-charcoal after:w-full'
-        : 'text-charcoal/70 hover:text-charcoal after:w-0 hover:after:w-full'
+        ? 'text-charcoal underline decoration-black/15 underline-offset-8'
+        : 'text-charcoal/70 hover:text-charcoal'
     }`;
   };
 

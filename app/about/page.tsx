@@ -5,6 +5,8 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import CheckIcon from '@/components/ui/CheckIcon';
+import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -33,9 +35,9 @@ export default function AboutPage() {
               A Thoughtful Specialist in the Details of Early Parenthood
             </h1>
 
-            <p className="hero-load-reveal hero-load-reveal--2 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+            <Body className="hero-load-reveal hero-load-reveal--2 max-w-xl text-neutral-700">
               I guide families through registry, nursery, and gear decisions with clarity and care.
-            </p>
+            </Body>
 
             <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
               <Link
@@ -51,67 +53,67 @@ export default function AboutPage() {
         <MarketingSection tone="white" spacing="spacious" container="narrow">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <RevealOnScroll>
-              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+              <H2 className="font-serif text-neutral-900">
                 A Thoughtful Specialist in the Details
-              </h2>
+              </H2>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
-              <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
+              <Body className="mx-auto max-w-2xl text-neutral-700">
                 I am a Baby Gear Expert and Registry Consultant focused on practical clarity for modern families.
                 My work sits at the intersection of safety, design, and real-world usability.
-              </p>
+              </Body>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={170}>
-              <div className="max-w-2xl mx-auto space-y-6 text-lg text-neutral-700 leading-relaxed text-left">
-                <p>
+              <div className="mx-auto max-w-2xl space-y-6 text-left">
+                <Body className="text-neutral-700">
                   With hands-on experience across premium retail floors, national pilot programs, and private consulting,
                   I&apos;ve guided hundreds of families through the earliest decisions of parenthood - the ones that feel
                   small until you realize they&apos;re not.
-                </p>
+                </Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   From registry strategy to nursery planning to daily gear systems, my work lives at the intersection of
                   safety, design, and real-life functionality - the place where beautiful meets practical and trends meet
                   reality.
-                </p>
+                </Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   This kind of planning is nuanced. It&apos;s personal. And it&apos;s often unfolding during one of the most
                   tender, vulnerable seasons of someone&apos;s life.
-                </p>
+                </Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
                   trusting me with more than a checklist. You&apos;re trusting me with your story.
-                </p>
+                </Body>
 
-                <p>That&apos;s a responsibility I don&apos;t take lightly.</p>
+                <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   My role isn&apos;t to sell you more. It&apos;s to help you choose well. With clarity. With intention. With
                   confidence - because parenthood should start with confidence, not confusion.
-                </p>
+                </Body>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={260}>
-              <ul className="max-w-xl mx-auto text-left space-y-4 text-neutral-700">
-                <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-blush)]">✓</span>
+              <ul className="mx-auto max-w-xl space-y-5 text-left leading-relaxed text-neutral-700">
+                <li className="flex items-start gap-4">
+                  <CheckIcon />
                   <span>Strollers and car seats</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-blush)]">✓</span>
+                <li className="flex items-start gap-4">
+                  <CheckIcon />
                   <span>Nursery design and room flow</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-blush)]">✓</span>
+                <li className="flex items-start gap-4">
+                  <CheckIcon />
                   <span>Feeding essentials</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-blush)]">✓</span>
+                <li className="flex items-start gap-4">
+                  <CheckIcon />
                   <span>Registry strategy</span>
                 </li>
               </ul>
@@ -122,51 +124,51 @@ export default function AboutPage() {
         <MarketingSection tone="ivory" spacing="spacious" container="narrow">
           <div className="max-w-2xl mx-auto space-y-8">
             <RevealOnScroll>
-              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+              <H2 className="font-serif text-neutral-900">
                 The Taylor-Made Approach
-              </h2>
+              </H2>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
               <div className="space-y-1 pt-1">
-                <p className="font-serif text-2xl md:text-3xl text-neutral-900">Clarity over noise.</p>
-                <p className="font-serif text-2xl md:text-3xl text-neutral-900">Fit over features.</p>
-                <p className="font-serif text-2xl md:text-3xl text-neutral-900">Confidence over consumption.</p>
+                <H3 className="font-serif text-neutral-900">Clarity over noise.</H3>
+                <H3 className="font-serif text-neutral-900">Fit over features.</H3>
+                <H3 className="font-serif text-neutral-900">Confidence over consumption.</H3>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={170}>
-              <div className="space-y-6 text-lg text-neutral-700 leading-relaxed">
-                <p>
+              <div className="space-y-6">
+                <Body className="text-neutral-700">
                   Today&apos;s baby market offers endless options - and endless opinions. But more options don&apos;t create
                   better decisions. They create pressure.
-                </p>
+                </Body>
 
-                <p>The Taylor-Made approach is built on discernment.</p>
+                <Body className="text-neutral-700">The Taylor-Made approach is built on discernment.</Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   We slow the process down.
                   <br />
                   We look at how you actually live.
                   <br />
                   We consider your space, your routines, your budget, and your long-term plans.
-                </p>
+                </Body>
 
-                <p>Then we build from there.</p>
+                <Body className="text-neutral-700">Then we build from there.</Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   No panic buying.
                   <br />
                   No trend chasing.
                   <br />
                   No &quot;just in case&quot; overload.
-                </p>
+                </Body>
 
-                <p>Just thoughtful decisions that make sense for your real life.</p>
+                <Body className="text-neutral-700">Just thoughtful decisions that make sense for your real life.</Body>
 
-                <p>Because the goal isn&apos;t to have everything.</p>
+                <Body className="text-neutral-700">Because the goal isn&apos;t to have everything.</Body>
 
-                <p>It&apos;s to have what fits.</p>
+                <Body className="text-neutral-700">It&apos;s to have what fits.</Body>
               </div>
             </RevealOnScroll>
           </div>
@@ -175,17 +177,17 @@ export default function AboutPage() {
         <MarketingSection tone="white" spacing="spacious" container="narrow">
           <div className="max-w-2xl mx-auto space-y-7">
             <RevealOnScroll>
-              <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-neutral-900">
+              <H2 className="font-serif text-neutral-900">
                 What Makes This Different
-              </h2>
+              </H2>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
-              <div className="space-y-6 text-lg text-neutral-700 leading-relaxed">
-                <p className="text-xl text-neutral-900">Most baby guidance focuses on products.</p>
-                <p className="text-xl text-neutral-900">This focuses on people.</p>
+              <div className="space-y-6">
+                <H3 className="text-neutral-900">Most baby guidance focuses on products.</H3>
+                <H3 className="text-neutral-900">This focuses on people.</H3>
 
-                <p>
+                <Body className="text-neutral-700">
                   Your home.
                   <br />
                   Your routines.
@@ -193,27 +195,27 @@ export default function AboutPage() {
                   Your comfort level with risk, spending, and space.
                   <br />
                   Your decision-making style.
-                </p>
+                </Body>
 
-                <p>This isn&apos;t a template registry.</p>
-                <p>It isn&apos;t a sales floor disguised as advice.</p>
-                <p>And it isn&apos;t a checklist handed over and forgotten.</p>
+                <Body className="text-neutral-700">This isn&apos;t a template registry.</Body>
+                <Body className="text-neutral-700">It isn&apos;t a sales floor disguised as advice.</Body>
+                <Body className="text-neutral-700">And it isn&apos;t a checklist handed over and forgotten.</Body>
 
-                <p>It&apos;s structured, private planning support - designed to evolve with you.</p>
+                <Body className="text-neutral-700">It&apos;s structured, private planning support - designed to evolve with you.</Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   Baby prep is nuanced. Emotional. Sometimes overwhelming in ways no one talks about.
-                </p>
+                </Body>
 
-                <p>
+                <Body className="text-neutral-700">
                   What makes this different is the level of care and discernment applied to every recommendation,
                   every comparison, every pause before a purchase.
-                </p>
+                </Body>
 
-                <p className="text-xl text-neutral-900">Not louder.</p>
-                <p className="text-xl text-neutral-900">Just clearer.</p>
+                <H3 className="text-neutral-900">Not louder.</H3>
+                <H3 className="text-neutral-900">Just clearer.</H3>
 
-                <p>Because when preparation feels aligned, everything ahead feels lighter.</p>
+                <Body className="text-neutral-700">Because when preparation feels aligned, everything ahead feels lighter.</Body>
               </div>
             </RevealOnScroll>
           </div>

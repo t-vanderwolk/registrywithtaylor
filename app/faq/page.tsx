@@ -3,7 +3,9 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import Hero from '@/components/ui/Hero';
+import { Body, H2 } from '@/components/ui/MarketingHeading';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import SectionDivider from '@/components/ui/SectionDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -120,9 +122,9 @@ export default function FAQPage() {
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
               Frequently Asked Questions
             </h1>
-            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
               A little clarity before we begin.
-            </p>
+            </Body>
             <p className="hero-load-reveal hero-load-reveal--2 text-sm uppercase tracking-[0.2em] text-charcoal/60">
               Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
             </p>
@@ -138,9 +140,12 @@ export default function FAQPage() {
               {/* Complimentary Consultation */}
               <RevealOnScroll>
                 <div className="space-y-6">
-                  <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
-                    Complimentary Consultation
-                  </h2>
+                  <div>
+                    <SectionDivider />
+                    <H2 className="text-neutral-900">
+                      Complimentary Consultation
+                    </H2>
+                  </div>
 
                   <FAQAccordion items={complimentaryConsultationFaqs} />
                 </div>
@@ -149,9 +154,12 @@ export default function FAQPage() {
               {/* After the Consultation */}
               <RevealOnScroll delayMs={100}>
                 <div className="space-y-6">
-                  <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
-                    After the Consultation
-                  </h2>
+                  <div>
+                    <SectionDivider />
+                    <H2 className="text-neutral-900">
+                      After the Consultation
+                    </H2>
+                  </div>
 
                   <FAQAccordion items={afterConsultationFaqs} />
                 </div>
@@ -160,9 +168,12 @@ export default function FAQPage() {
               {/* Private Planning Services */}
               <RevealOnScroll delayMs={180}>
                 <div className="space-y-6">
-                  <h2 className="font-serif text-3xl tracking-tight text-neutral-900">
-                    Private Planning Services
-                  </h2>
+                  <div>
+                    <SectionDivider />
+                    <H2 className="text-neutral-900">
+                      Private Planning Services
+                    </H2>
+                  </div>
 
                   <FAQAccordion items={privatePlanningFaqs} />
                 </div>

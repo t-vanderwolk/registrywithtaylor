@@ -29,10 +29,9 @@ const containerClassMap: Record<MarketingSectionContainer, string> = {
 };
 
 const spacingClassMap: Record<MarketingSectionSpacing, string> = {
-  // Matches current homepage default rhythm via .section-base.
   default: 'section-base',
-  tight: '!pt-5 !pb-[clamp(4.5rem,7vw,6.5rem)]',
-  spacious: 'section-spacing',
+  tight: 'section-base',
+  spacious: 'section-base',
 };
 
 export default function MarketingSection({

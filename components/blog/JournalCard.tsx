@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { Body, H3 } from '@/components/ui/MarketingHeading';
+import MarketingSurface from '@/components/ui/MarketingSurface';
 
 type JournalCardProps = {
   title: string;
@@ -20,9 +22,9 @@ export default function JournalCard({
   className = '',
 }: JournalCardProps) {
   return (
-    <article
+    <MarketingSurface
       className={[
-        'flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-[#F5F2EE] p-10 shadow-sm transition-shadow duration-300 hover:shadow-md',
+        'marketing-card-hover flex h-full flex-col justify-between',
         className,
       ]
         .filter(Boolean)
@@ -37,23 +39,24 @@ export default function JournalCard({
           {category}
         </span>
 
-        <h3 className="font-serif text-2xl leading-tight tracking-tight text-neutral-900">
+        <H3 className="font-serif leading-tight tracking-tight text-neutral-900">
           <Link href={`/blog/${slug}`} className="transition-opacity duration-200 hover:opacity-80">
             {title}
           </Link>
-        </h3>
+        </H3>
 
-        {excerpt && <p className="leading-relaxed text-charcoal/72">{excerpt}</p>}
+        {excerpt && <Body className="text-charcoal/72">{excerpt}</Body>}
       </div>
 
       <div className="pt-8">
         <Link
           href={`/blog/${slug}`}
-          className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 underline decoration-black/10 underline-offset-4 transition-colors duration-200 hover:text-neutral-900 hover:decoration-black/30"
+          className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
         >
-          Read <span aria-hidden className="ml-1">→</span>
+          <span className="link-underline">Read</span>
+          <span aria-hidden className="ml-1">→</span>
         </Link>
       </div>
-    </article>
+    </MarketingSurface>
   );
 }

@@ -6,6 +6,8 @@ import SiteShell from '@/components/SiteShell';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import FinalCTA from '@/components/layout/FinalCTA';
+import { Body, H1, H2, H3 } from '@/components/ui/MarketingHeading';
+import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { type BlogCategory } from '@/lib/blogCategories';
 import { formatFileSize, isPdfMediaType } from '@/lib/media';
@@ -381,15 +383,15 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <section className="bg-white py-24">
+        <section className="section-base bg-white">
           <article className="max-w-3xl mx-auto px-6">
             {featuredImageUrl && (
               <RevealOnScroll>
-                <div className="mb-12 overflow-hidden rounded-2xl border border-black/5 shadow-sm">
+                <div className="mb-12 overflow-hidden rounded-2xl">
                   <img
                     src={featuredImageUrl}
                     alt={post.title}
-                    className="w-full aspect-[16/9] object-cover"
+                    className="aspect-[16/9] w-full rounded-2xl object-cover shadow-sm"
                   />
                 </div>
               </RevealOnScroll>
@@ -398,16 +400,16 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
             <RevealOnScroll>
               <header className="space-y-8">
                 <div className="space-y-5">
-                  <h1 className="font-serif text-4xl md:text-5xl leading-[1.05] tracking-tight text-neutral-900">
+                  <H1 className="font-serif leading-[1.05] text-neutral-900">
                     {post.title}
-                  </h1>
+                  </H1>
                   <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
                     {post.category}
                   </span>
                   {headerExcerpt && (
-                    <p className="max-w-[40ch] text-lg leading-relaxed text-charcoal/80">
+                    <Body className="max-w-[40ch] text-charcoal/80">
                       {headerExcerpt}
-                    </p>
+                    </Body>
                   )}
                 </div>
 
@@ -426,11 +428,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
             {isAffiliate && (
               <RevealOnScroll delayMs={90}>
-                <div className="mt-10 rounded-xl border border-black/5 bg-[#F7F4EF] p-6 text-sm leading-relaxed text-charcoal/70">
+                <MarketingSurface className="mt-10 bg-[#F7F4EF] p-6 text-sm leading-relaxed text-charcoal/70 md:p-6">
                   This article includes affiliate relationships with select brand partners chosen for relevance to the
                   topic. Recommendations remain editorial, and Taylor-Made Baby Co. may earn a commission if you
                   decide to purchase through linked partners.
-                </div>
+                </MarketingSurface>
               </RevealOnScroll>
             )}
 
@@ -444,11 +446,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               <RevealOnScroll delayMs={210}>
                 <div className="mt-16 space-y-4">
                   {attachedPdfResources.map((media) => (
-                    <div
+                    <MarketingSurface
                       key={media.id}
-                      className="rounded-2xl border border-black/5 bg-[#F7F4EF] p-8"
+                      className="bg-[#F7F4EF]"
                     >
-                      <h4 className="text-lg tracking-tight text-neutral-900">Downloadable Resource</h4>
+                      <H3 className="tracking-tight text-neutral-900">Downloadable Resource</H3>
                       <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{media.fileName}</p>
                       <p className="mt-2 text-xs uppercase tracking-[0.18em] text-charcoal/55">
                         PDF · {formatFileSize(media.fileSize)}
@@ -457,44 +459,45 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                         href={media.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-block mt-4 text-sm underline underline-offset-4"
+                        className="link-underline mt-4 inline-block text-sm"
                       >
                         Download PDF →
                       </a>
-                    </div>
+                    </MarketingSurface>
                   ))}
                 </div>
               </RevealOnScroll>
             ) : resource ? (
               <RevealOnScroll delayMs={210}>
-                <div className="mt-16 rounded-2xl border border-black/5 bg-white p-8 shadow-sm">
+                <MarketingSurface className="mt-16">
                   <div className="space-y-4">
                     <p className="text-xs uppercase tracking-[0.24em] text-charcoal/60">
                       Resource
                     </p>
-                    <h2 className="font-serif text-2xl tracking-tight text-neutral-900">
+                    <H2 className="font-serif text-neutral-900">
                       {resource.title}
-                    </h2>
+                    </H2>
                     {resource.description && (
-                      <p className="text-sm leading-relaxed text-charcoal/70">
+                      <Body className="text-charcoal/70">
                         {resource.description}
-                      </p>
+                      </Body>
                     )}
                     <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
                       <a
                         href={resource.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 underline decoration-black/10 underline-offset-4 transition-colors duration-200 hover:text-neutral-900 hover:decoration-black/30"
+                        className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
                       >
-                        Download PDF <span aria-hidden className="ml-1">→</span>
+                        <span className="link-underline">Download PDF</span>
+                        <span aria-hidden className="ml-1">→</span>
                       </a>
                       {resource.fileSize && (
                         <span className="text-charcoal/55">{resource.fileSize}</span>
                       )}
                     </div>
                   </div>
-                </div>
+                </MarketingSurface>
               </RevealOnScroll>
             ) : null}
 
@@ -502,12 +505,12 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               <RevealOnScroll delayMs={250}>
                 <div className="mt-16 border-t border-black/5 pt-10">
                   <div className="space-y-4">
-                    <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-neutral-900">
+                    <H2 className="font-serif text-neutral-900">
                       Referenced Brand Partners
-                    </h2>
-                    <p className="text-sm leading-relaxed text-charcoal/68">
+                    </H2>
+                    <Body className="text-charcoal/68">
                       Mentioned for context and planning relevance within this article.
-                    </p>
+                    </Body>
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2.5">
                     {post.affiliates.map(({ affiliate }) => (
@@ -526,16 +529,16 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         </section>
 
         {relatedPosts.length > 0 && (
-          <section className="border-t border-black/5 bg-[#FBF8F4] py-24">
+          <section className="section-base border-t border-black/5 bg-[#FBF8F4]">
             <div className="max-w-5xl mx-auto px-6">
               <RevealOnScroll>
                 <div className="mx-auto max-w-2xl space-y-4 text-center">
                   <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
                     Continue Reading
                   </span>
-                  <h2 className="font-serif text-3xl md:text-4xl tracking-tight text-neutral-900">
+                  <H2 className="font-serif text-neutral-900">
                     More from the Journal
-                  </h2>
+                  </H2>
                 </div>
               </RevealOnScroll>
 

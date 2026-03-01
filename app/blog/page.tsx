@@ -3,6 +3,7 @@ import SiteShell from '@/components/SiteShell';
 import BlogIndexView from '@/components/blog/BlogIndexView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
+import { Body } from '@/components/ui/MarketingHeading';
 import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
 import prisma from '@/lib/server/prisma';
 
@@ -126,9 +127,9 @@ export default async function BlogPage() {
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
               The Journal
             </h1>
-            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl leading-relaxed text-neutral-700 max-w-xl">
+            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
               Editorial notes on registry planning, nursery decisions, and preparing with clarity.
-            </p>
+            </Body>
           </div>
         </Hero>
 
