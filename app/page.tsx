@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import MarketingSection from '@/components/layout/MarketingSection';
-import EndBowDivider from '@/components/layout/EndBowDivider';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
 import prisma from '@/lib/server/prisma';
@@ -69,49 +68,42 @@ export default async function HomePage() {
     <SiteShell currentPath="/">
       <main className="site-main">
         <Hero
-          showRibbon
-          ribbonClassName="translate-y-6 md:translate-y-14"
-          className="homepage-hero hero-home-radial hero-bottom-fade md:py-24 z-20"
-          contentClassName="marketing-hero-content home-hero-content"
           image="/assets/hero/hero-01.jpg"
           imageAlt=""
         >
-          <h1 className="hero-load-reveal text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.03] tracking-[-0.015em] text-neutral-900">
-            Baby prep, simplified.
-          </h1>
+          <div className="space-y-6">
+            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+              Baby prep, simplified.
+            </h1>
 
-          <p className="hero-load-reveal hero-load-reveal--1 mt-6 md:mt-8 text-lg md:text-2xl text-neutral-700 max-w-[40ch] leading-relaxed">
-            Because parenthood should start with confidence, not confusion.
-          </p>
-
-          <div className="hero-load-reveal hero-load-reveal--2 mt-6 md:mt-8">
-            <p className="max-w-xs text-sm leading-relaxed tracking-wide text-charcoal/60 md:text-left">
-              Private baby planning · Registry strategy · Nursery & gear guidance · Brand-trained expertise
+            <p className="hero-load-reveal hero-load-reveal--1 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+              Because parenthood should start with confidence, not confusion.
             </p>
-          </div>
 
-          <div className="hero-load-reveal hero-load-reveal--3 mt-10 md:mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row sm:items-center md:w-[45rem] md:max-w-full md:justify-center">
-            <Link
-              href="/contact"
-              className="order-2 btn btn--primary home-hero-cta h-[4.75rem] min-h-[4.75rem] w-full max-w-[22rem] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] sm:order-1 sm:w-[22rem]"
-            >
-              Schedule Your Private Consultation
-            </Link>
+            <p className="hero-load-reveal hero-load-reveal--2 max-w-2xl text-sm text-neutral-600 leading-relaxed">
+              Private baby planning · Registry strategy · Nursery &amp; gear guidance · Brand-trained expertise
+            </p>
 
-            <Link
-              href="/services"
-              className="order-1 btn btn--secondary home-hero-cta h-[4.75rem] min-h-[4.75rem] w-full max-w-[22rem] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] sm:order-2 sm:w-[22rem]"
-            >
-              View Services
-            </Link>
-          </div>
+            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/contact"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Schedule Your Private Consultation
+              </Link>
 
-          <div className="hero-load-reveal relative z-30 mt-4 md:mt-6 w-full md:w-[45rem] md:max-w-full">
-            <p className="mx-auto text-center text-xs tracking-[0.2em] leading-relaxed text-neutral-500 md:inline-flex md:items-center md:justify-center md:rounded-lg md:border md:border-black/5 md:bg-white/72 md:px-3 md:py-1.5 md:shadow-[0_6px_14px_rgba(0,0,0,0.03)] md:backdrop-blur-[2px]">
+              <Link
+                href="/services"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                View Services
+              </Link>
+            </div>
+
+            <p className="hero-load-reveal hero-load-reveal--4 text-sm uppercase tracking-[0.2em] text-charcoal/60">
               Private · Personalized · No pressure
             </p>
           </div>
-
         </Hero>
 
         <MarketingSection
@@ -507,9 +499,6 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
-            <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
-          </div>
         </MarketingSection>
 
         {/* Journal Highlight */}

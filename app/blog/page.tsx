@@ -119,14 +119,6 @@ export default async function BlogPage() {
     <SiteShell currentPath="/blog">
       <main className="site-main bg-white">
         <Hero
-          showRibbon
-          ribbonClassName="translate-y-0 md:translate-y-1"
-          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
-          contentClassName="marketing-hero-content marketing-hero-content--wide"
-          contentStyle={{
-            borderRadius: '32px',
-            padding: '3.5rem 3rem',
-          }}
           image="/assets/hero/hero-04.jpg"
           imageAlt=""
         >

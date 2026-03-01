@@ -4,7 +4,6 @@ import Script from 'next/script';
 import type { ReactNode } from 'react';
 import SiteShell from '@/components/SiteShell';
 import BookingSectionTracker from '@/components/analytics/BookingSectionTracker';
-import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
@@ -55,14 +54,6 @@ export default function HowItWorksPage() {
     <SiteShell currentPath="/how-it-works">
       <main className="site-main">
         <Hero
-          showRibbon
-          ribbonClassName="translate-y-0 md:translate-y-1"
-          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
-          contentClassName="marketing-hero-content marketing-hero-content--wide"
-          contentStyle={{
-            borderRadius: '32px',
-            padding: '3.5rem 3rem',
-          }}
           image="/assets/hero/hero-02.jpg"
           imageAlt="How it works planning process"
         >
@@ -326,9 +317,6 @@ export default function HowItWorksPage() {
             </div>
           </div>
 
-          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
-            <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
-          </div>
         </MarketingSection>
 
         <MarketingSection

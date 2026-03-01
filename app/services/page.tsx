@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
-import EndBowDivider from '@/components/layout/EndBowDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
@@ -21,16 +20,8 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <Hero
-          showRibbon
-          ribbonClassName="translate-y-0 md:translate-y-1"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Service consultation planning"
-          className="hero-home-radial hero-bottom-fade md:pb-24 z-20"
-          contentClassName="marketing-hero-content marketing-hero-content--wide"
-          contentStyle={{
-            borderRadius: '32px',
-            padding: '3.5rem 3rem',
-          }}
         >
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
@@ -54,7 +45,10 @@ export default function ServicesPage() {
 
         <section className="w-full bg-white border-t border-b border-charcoal/5">
           <div className="max-w-7xl mx-auto px-6 md:px-10">
-            <div className="grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
+            <p className="py-4 text-center text-[11px] leading-relaxed tracking-[0.14em] uppercase text-[#a68449] md:hidden">
+              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
+            </p>
+            <div className="hidden md:grid grid-cols-3 items-center text-center py-4 md:py-5 text-[10px] md:text-xs tracking-[0.16em] uppercase text-[#a68449]">
               <p>Baby Gear Specialist</p>
               <p className="border-l border-r border-charcoal/10 px-2 md:px-6">Brand-Trained Expertise</p>
               <p>Private Planning for Modern Families</p>
@@ -643,9 +637,6 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <div className="absolute inset-x-0 w-full z-20 pointer-events-none bottom-[-128px] md:bottom-[-152px]">
-            <EndBowDivider className="scale-y-[0.68] md:scale-y-[0.72]" />
-          </div>
         </section>
 
         <MarketingSection

@@ -27,7 +27,6 @@ type HeroProps = {
   fullBleed?: boolean;
   showImage?: boolean;
   staggerContent?: boolean;
-  ribbonEnhanced?: boolean;
   ribbonClassName?: string;
   footerContent?: ReactNode;
   footerClassName?: string;
@@ -53,21 +52,32 @@ export default function Hero({
   fullBleed = true,
   showImage = true,
   staggerContent = false,
-  ribbonEnhanced = false,
   ribbonClassName = '',
   footerContent,
   footerClassName = '',
   children,
 }: HeroProps) {
+  const resolvedContentStyle: CSSProperties = {
+    borderRadius: '32px',
+    padding: '3.5rem 3rem',
+    ...contentStyle,
+  };
+
   const sectionClassName = [
     'hero-section',
     'relative',
     'overflow-visible',
+    'hero-home-radial',
+    'hero-bottom-fade',
+    'md:pb-24',
+    'z-20',
     fullBleed ? 'hero-section--full-bleed' : '',
     className,
   ]
     .filter(Boolean)
     .join(' ');
+
+  const resolvedRibbonClassName = ribbonClassName || 'translate-y-0 md:translate-y-1';
 
   const staggerClass = staggerContent
     ? 'motion-safe:opacity-0 motion-safe:animate-[heroFadeUp_0.62s_ease-out_forwards] motion-reduce:opacity-100 motion-reduce:animate-none'
@@ -102,19 +112,15 @@ export default function Hero({
       )}
 
       {showRibbon && (
-        <div
-          className={`absolute left-0 w-full z-20 pointer-events-none ${
-            ribbonEnhanced ? 'bottom-[-28px] md:bottom-[-38px]' : 'bottom-[-4px] md:bottom-[-8px]'
-          }`}
-        >
-          <RibbonDivider enhanced={ribbonEnhanced} className={ribbonClassName} decorative />
+        <div className="absolute left-0 w-full z-20 pointer-events-none bottom-[-4px] md:bottom-[-8px]">
+          <RibbonDivider className={resolvedRibbonClassName} />
         </div>
       )}
 
       <div className={`hero-inner relative z-10 ${innerClassName}`.trim()} style={innerStyle}>
         <div
-          className={`hero-content ${staggerContent ? '' : 'animate-hero-fade'} ${contentClassName}`.trim()}
-          style={contentStyle}
+          className={`hero-content ${staggerContent ? '' : 'animate-hero-fade'} marketing-hero-content ${contentClassName}`.trim()}
+          style={resolvedContentStyle}
         >
           {hasCustomContent ? (
             children

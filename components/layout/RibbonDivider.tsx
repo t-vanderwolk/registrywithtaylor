@@ -1,13 +1,9 @@
 type RibbonDividerProps = {
   className?: string;
-  enhanced?: boolean;
-  decorative?: boolean;
 };
 
 export default function RibbonDivider({
   className = '',
-  enhanced: _enhanced = false,
-  decorative: _decorative = true,
 }: RibbonDividerProps) {
   const wrapperClassName = [
     'relative w-full max-w-none flex justify-center pointer-events-none',

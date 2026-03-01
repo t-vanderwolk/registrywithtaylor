@@ -13,10 +13,10 @@
 
 | Path | Type | Render Mode | Wrapped By | Primary Components | Data Source | Auth Guard | Purpose |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `/` | page | Server dynamic (Prisma query) | Root layout + `SiteShell` | `Hero`, `MarketingSection`, `EndBowDivider` | Prisma (`Post` previews) + static | none | Marketing homepage with latest insight previews |
+| `/` | page | Server dynamic (Prisma query) | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Prisma (`Post` previews) + static | none | Marketing homepage with latest insight previews |
 | `/about` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static | none | About/brand page |
-| `/services` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection`, `EndBowDivider` | Static | none | Services and package details |
-| `/how-it-works` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection`, `EndBowDivider` | Static + external embed | none | Process overview and consultation flow |
+| `/services` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static | none | Services and package details |
+| `/how-it-works` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static + external embed | none | Process overview and consultation flow |
 | `/faq` | page | Static/server | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Static | none | FAQ content |
 | `/contact` | page | Static/server (uses search params) | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Static | none | Contact and service-intake form UI |
 | `/blog` | page | `force-dynamic` | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Prisma (`Post`) | none | Public blog index |

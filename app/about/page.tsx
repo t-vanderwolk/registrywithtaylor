@@ -21,37 +21,30 @@ export default function AboutPage() {
     <SiteShell currentPath="/about">
       <main className="site-main">
         <Hero
-          showRibbon
-          ribbonEnhanced
-          ribbonClassName="translate-y-2 md:translate-y-3"
-          className="bg-paper hero-home-radial hero-bottom-fade md:pb-28"
-          contentClassName="marketing-hero-content marketing-hero-content--narrow"
-          overlayStyle={{
-            background:
-              'linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 42%, rgba(255,255,255,0.42) 72%, rgba(255,255,255,0.08) 100%), linear-gradient(to bottom, rgba(255,255,255,0) 72%, #f6f1ec 100%)',
-          }}
           image="/assets/hero/hero-05.jpg"
           imageAlt="Soft baby essentials arranged for planning"
         >
-          <p className="hero-load-reveal text-xs uppercase tracking-[0.3em] text-neutral-600 mb-6">
-            Meet Taylor
-          </p>
+          <div className="space-y-6">
+            <p className="hero-load-reveal text-xs uppercase tracking-[0.3em] text-neutral-600">
+              Meet Taylor
+            </p>
 
-          <h1 className="hero-load-reveal hero-load-reveal--1 text-5xl md:text-6xl font-serif leading-[1.1] tracking-tight mb-6 text-neutral-900">
-            A Thoughtful Specialist in the Details of Early Parenthood
-          </h1>
+            <h1 className="hero-load-reveal hero-load-reveal--1 font-serif text-5xl md:text-6xl tracking-tight text-neutral-900 max-w-3xl">
+              A Thoughtful Specialist in the Details of Early Parenthood
+            </h1>
 
-          <p className="hero-load-reveal hero-load-reveal--2 text-lg md:text-xl text-neutral-600 leading-relaxed mb-10 max-w-xl">
-            I guide families through registry, nursery, and gear decisions with clarity and care.
-          </p>
+            <p className="hero-load-reveal hero-load-reveal--2 text-lg md:text-xl text-neutral-700 leading-relaxed max-w-xl">
+              I guide families through registry, nursery, and gear decisions with clarity and care.
+            </p>
 
-          <div className="hero-load-reveal hero-load-reveal--3">
-            <Link
-              href="/contact"
-              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-            >
-              Book a Complimentary Consultation
-            </Link>
+            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/contact"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Book a Complimentary Consultation
+              </Link>
+            </div>
           </div>
         </Hero>
 

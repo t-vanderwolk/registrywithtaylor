@@ -51,14 +51,6 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
     <SiteShell currentPath="/contact">
       <main className="site-main">
         <Hero
-          showRibbon
-          ribbonClassName="translate-y-0 md:translate-y-1"
-          className="hero-home-radial hero-bottom-fade md:pt-6 md:pb-28 z-20"
-          contentClassName="marketing-hero-content marketing-hero-content--wide"
-          contentStyle={{
-            borderRadius: '32px',
-            padding: '3.5rem 3rem',
-          }}
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact consultation workspace"
         >
