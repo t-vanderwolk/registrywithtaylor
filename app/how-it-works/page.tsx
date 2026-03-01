@@ -106,79 +106,79 @@ export default function HowItWorksPage() {
           spacing="default"
           container="default"
         >
-          <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-            <MarketingSurface className="bg-[rgba(255,255,255,0.72)]">
-              <div className="grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-12 md:gap-16 items-stretch">
+          <div className="mx-auto w-full max-w-6xl">
+            <MarketingSurface className="bg-[rgba(255,255,255,0.72)] p-5 sm:p-6 md:p-10">
+              <div className="grid items-stretch gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-16">
                 <RevealOnScroll>
-                  <div className="max-w-[560px] space-y-6">
-                  <H2 className="font-serif text-neutral-900">
-                    Start with Clarity
-                  </H2>
+                  <div className="space-y-6 md:max-w-[560px]">
+                    <H2 className="font-serif text-neutral-900">
+                      Start with Clarity
+                    </H2>
 
-                  <Body className="text-neutral-700">
-                    Your journey begins with a complimentary virtual consultation through Target&apos;s Baby Concierge
-                    program, where I serve as your dedicated specialist.
-                  </Body>
+                    <Body className="text-neutral-700">
+                      Your journey begins with a complimentary virtual consultation through Target&apos;s Baby Concierge
+                      program, where I serve as your dedicated specialist.
+                    </Body>
 
-                  <Body className="text-neutral-700">
-                    Whether you&apos;re just starting your registry or refining it, we begin with clarity around what
-                    fits your real lifestyle, space, and priorities.
-                  </Body>
+                    <Body className="text-neutral-700">
+                      Whether you&apos;re just starting your registry or refining it, we begin with clarity around what
+                      fits your real lifestyle, space, and priorities.
+                    </Body>
 
-                  <Checklist
-                    items={[
-                      'Review your registry and starting point',
-                      'Identify overbuying risks and gaps',
-                      'Align purchases with your real lifestyle and space',
-                    ]}
-                  />
+                    <Checklist
+                      items={[
+                        'Review your registry and starting point',
+                        'Identify overbuying risks and gaps',
+                        'Align purchases with your real lifestyle and space',
+                      ]}
+                    />
 
-                  <Body className="pt-4 font-medium text-neutral-900">
-                    This isn’t about adding more.
-                    It’s about choosing well from the start.
-                  </Body>
+                    <Body className="pt-4 font-medium text-neutral-900">
+                      This isn’t about adding more.
+                      It’s about choosing well from the start.
+                    </Body>
                   </div>
                 </RevealOnScroll>
 
-                <RevealOnScroll delayMs={120}>
+                <RevealOnScroll delayMs={120} className="min-w-0">
                   <BookingSectionTracker
                     id="booking-section"
                     sourcePage="/how-it-works"
                     service="complimentary-consultation"
-                    className="w-full h-full flex"
+                    className="flex h-full w-full min-w-0"
                   >
-                    <MarketingSurface className="w-full max-w-[620px] md:ml-auto h-full flex flex-col space-y-6 bg-[rgba(248,244,240,0.78)]">
-                    <div className="text-center space-y-3">
-                      <Image
-                        src="/assets/brand/totsquad.png"
-                        alt="Target Baby Concierge powered by Tot Squad"
-                        width={360}
-                        height={84}
-                        className="mx-auto h-auto max-h-14 w-auto max-w-[320px] object-contain opacity-75"
-                      />
-                      <p className="text-sm text-neutral-600">
-                        Consultation through Target Baby Concierge
-                      </p>
-                    </div>
+                    <MarketingSurface className="flex h-full w-full min-w-0 max-w-none flex-col space-y-6 bg-[rgba(248,244,240,0.78)] p-4 sm:p-5 md:ml-auto md:max-w-[620px] md:p-10">
+                      <div className="space-y-3 text-center">
+                        <Image
+                          src="/assets/brand/totsquad.png"
+                          alt="Target Baby Concierge powered by Tot Squad"
+                          width={360}
+                          height={84}
+                          className="mx-auto h-auto max-h-14 w-auto max-w-[320px] object-contain opacity-75"
+                        />
+                        <p className="text-sm text-neutral-600">
+                          Consultation through Target Baby Concierge
+                        </p>
+                      </div>
 
-                    <div className="rounded-2xl overflow-hidden border border-black/10 bg-white flex-1 min-h-[520px]">
-                      <div
-                        className="embedded-booking"
-                        data-url="https://babyconcierge.totsquad.com"
-                        data-query="&t=s&uuid=1ec6c642-8cf5-4096-a860-301523e75853"
-                        data-employee="taylor-vanderwolk"
-                        data-lang="en"
-                        data-autoresize="0"
-                        data-showsidebar="1"
-                        data-showservices="0"
-                        style={{ minWidth: 320, minHeight: 520, height: '100%' }}
-                      />
+                      <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-black/10 bg-white min-h-[520px]">
+                        <div
+                          className="embedded-booking min-w-0 w-full"
+                          data-url="https://babyconcierge.totsquad.com"
+                          data-query="&t=s&uuid=1ec6c642-8cf5-4096-a860-301523e75853"
+                          data-employee="taylor-vanderwolk"
+                          data-lang="en"
+                          data-autoresize="0"
+                          data-showsidebar="1"
+                          data-showservices="0"
+                          style={{ width: '100%', minWidth: 0, minHeight: 520, height: '100%' }}
+                        />
 
-                      <Script
-                        src="https://babyconcierge.totsquad.com/embed.js"
-                        strategy="afterInteractive"
-                      />
-                    </div>
+                        <Script
+                          src="https://babyconcierge.totsquad.com/embed.js"
+                          strategy="afterInteractive"
+                        />
+                      </div>
                     </MarketingSurface>
                   </BookingSectionTracker>
                 </RevealOnScroll>
