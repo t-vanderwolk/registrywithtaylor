@@ -113,7 +113,7 @@ export default function ServicesPage() {
                   real-life setup planning.
                 </Body>
 
-                <div className="flex items-center justify-center gap-4 text-xs tracking-[0.25em] text-neutral-500 uppercase">
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-2 text-center text-xs uppercase leading-relaxed tracking-[0.25em] text-neutral-500">
                   <span className="h-px w-10 bg-neutral-300" />
                   Choose Your Planning Experience
                   <span className="h-px w-10 bg-neutral-300" />
@@ -391,8 +391,8 @@ export default function ServicesPage() {
               
 
               
-                <div className="service-category mt-24 md:mt-28">
-                <hr className="border-black/5 my-14" />
+                <div className="service-category mt-20 md:mt-28">
+                <hr className="my-10 border-black/5 md:my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Home &amp; Gear
                 </h3>
@@ -477,8 +477,8 @@ export default function ServicesPage() {
               
 
               
-                <div className="service-category mt-24 md:mt-28">
-                <hr className="border-black/5 my-14" />
+                <div className="service-category mt-20 md:mt-28">
+                <hr className="my-10 border-black/5 md:my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Events &amp; Coordination
                 </h3>
@@ -554,8 +554,8 @@ export default function ServicesPage() {
                 </div>
                 </div>
 
-              <div className="service-category mt-24 md:mt-28">
-                <hr className="border-black/5 my-14" />
+              <div className="service-category mt-20 md:mt-28">
+                <hr className="my-10 border-black/5 md:my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Family &amp; Household Support
                 </h3>
