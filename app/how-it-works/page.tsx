@@ -60,7 +60,7 @@ export default function HowItWorksPage() {
       <main className="site-main">
         <Hero
           image="/assets/hero/hero-02.jpg"
-          imageAlt="How it works planning process"
+          imageAlt=""
         >
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
@@ -96,7 +96,10 @@ export default function HowItWorksPage() {
 
         <section className="border-y border-black/5 bg-white py-4">
           <div className="container">
-            <AuthorityStrip items={authorityItems} className="mt-0 md:gap-8" />
+            <p className="text-center text-sm uppercase tracking-[0.2em] text-black/60 md:hidden">
+              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
+            </p>
+            <AuthorityStrip items={authorityItems} className="hidden mt-0 md:flex md:gap-8" />
           </div>
         </section>
 
@@ -105,6 +108,7 @@ export default function HowItWorksPage() {
           tone="white"
           spacing="default"
           container="default"
+          className="how-it-works-section"
         >
           <div className="mx-auto w-full max-w-6xl">
             <MarketingSurface className="bg-[rgba(255,255,255,0.72)] p-5 sm:p-6 md:p-10">
@@ -116,8 +120,8 @@ export default function HowItWorksPage() {
                     </H2>
 
                     <Body className="text-neutral-700">
-                      Your journey begins with a complimentary virtual consultation through Target&apos;s Baby Concierge
-                      program, where I serve as your dedicated specialist.
+                      Your journey begins with a virtual consultation through Target&apos;s Baby Concierge program,
+                      where I serve as your dedicated specialist.
                     </Body>
 
                     <Body className="text-neutral-700">
@@ -154,7 +158,7 @@ export default function HowItWorksPage() {
                           alt="Target Baby Concierge powered by Tot Squad"
                           width={360}
                           height={84}
-                          className="mx-auto h-auto max-h-14 w-auto max-w-[320px] object-contain opacity-75"
+                          className="mx-auto h-auto max-h-14 w-full max-w-[240px] object-contain opacity-75 sm:max-w-[320px]"
                         />
                         <p className="text-sm text-neutral-600">
                           Consultation through Target Baby Concierge
@@ -191,6 +195,7 @@ export default function HowItWorksPage() {
           tone="ivory"
           spacing="default"
           container="default"
+          className="how-it-works-section"
         >
           <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
             <MarketingSurface className="bg-[rgba(255,255,255,0.62)]">
@@ -201,7 +206,8 @@ export default function HowItWorksPage() {
                       <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl">
                         <Image
                           src="/assets/editorial/step-2.png"
-                          alt="Planning notebook with curated registry guidance materials"
+                          alt=""
+                          aria-hidden="true"
                           fill
                           className="rounded-2xl object-cover shadow-sm transition-transform duration-500 ease-out group-hover:scale-[1.01]"
                           sizes="(max-width: 1024px) 100vw, 500px"
@@ -213,16 +219,16 @@ export default function HowItWorksPage() {
 
                 <RevealOnScroll delayMs={110}>
                   <div className="max-w-[540px] space-y-7">
-                    <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+                    <h2 className="text-xs tracking-[0.35em] uppercase text-neutral-500">
                       During Your Consultation
-                    </p>
+                    </h2>
 
-                    <H2 className="font-serif text-neutral-900">
+                    <h3 className="font-serif text-2xl tracking-tight text-neutral-900 md:text-3xl">
                       We Clarify What Actually Matters
-                    </H2>
+                    </h3>
 
                   <Body className="text-neutral-700">
-                    In 30 focused minutes, we concentrate on what actually matters.
+                    Most sessions are 30 minutes. We focus on what actually matters.
                   </Body>
 
                   <Body className="text-neutral-700">
@@ -257,20 +263,20 @@ export default function HowItWorksPage() {
           tone="white"
           spacing="default"
           container="default"
-          className="relative overflow-visible"
+          className="how-it-works-section relative overflow-visible"
         >
           <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
             <MarketingSurface className="bg-[rgba(255,255,255,0.74)]">
               <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <RevealOnScroll>
                   <div className="max-w-[540px] space-y-7">
-                    <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+                    <h2 className="text-xs tracking-[0.35em] uppercase text-neutral-500">
                       After Your Session
-                    </p>
+                    </h2>
 
-                    <H2 className="font-serif text-neutral-900">
+                    <h3 className="font-serif text-2xl tracking-tight text-neutral-900 md:text-3xl">
                       Move Forward With Confidence
-                    </H2>
+                    </h3>
 
                   <Body className="text-neutral-700">
                     You’ll walk away knowing exactly what to buy,
@@ -303,7 +309,8 @@ export default function HowItWorksPage() {
                       <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl">
                         <Image
                           src="/assets/editorial/step-3.png"
-                          alt="Curated baby products arranged for implementation planning"
+                          alt=""
+                          aria-hidden="true"
                           fill
                           className="rounded-2xl object-cover shadow-sm transition-transform duration-500 ease-out group-hover:scale-[1.01]"
                           sizes="(max-width: 1024px) 100vw, 500px"
@@ -322,17 +329,18 @@ export default function HowItWorksPage() {
           tone="ivory"
           spacing="default"
           container="narrow"
+          className="how-it-works-section"
         >
           <div className="mx-auto w-full max-w-5xl px-6 lg:px-8">
             <RevealOnScroll>
               <MarketingSurface className="bg-[rgba(255,255,255,0.72)] text-center space-y-6">
-                <p className="text-xs tracking-[0.35em] uppercase text-neutral-500">
+                <h2 className="text-xs tracking-[0.35em] uppercase text-neutral-500">
                   Beyond the Consultation
-                </p>
+                </h2>
 
-              <H2 className="font-serif text-neutral-900">
+              <h3 className="font-serif text-2xl tracking-tight text-neutral-900 md:text-3xl">
                 Taylor-Made Baby Co.
-              </H2>
+              </h3>
 
               <Body className="mx-auto max-w-2xl text-neutral-700">
                 For families who want continued support after their consultation, private planning offers deeper

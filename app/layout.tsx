@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
   description:
     'Bespoke baby planning services for modern families. Registry clarity, nursery strategy, and personalized gear guidance.',
+  icons: {
+    icon: '/assets/logo.svg',
+    shortcut: '/assets/logo.svg',
+  },
   openGraph: {
     title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
     description:

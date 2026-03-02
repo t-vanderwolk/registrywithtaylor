@@ -562,6 +562,58 @@ li {
   }
 }
 
+.section-base.homepage-section,
+.section-spacing.homepage-section {
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
+
+.section-base.homepage-post-bow-section,
+.section-spacing.homepage-post-bow-section {
+  padding-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section-base.homepage-section,
+  .section-spacing.homepage-section {
+    padding-top: 7.75rem;
+    padding-bottom: 7.75rem;
+  }
+
+  .section-base.homepage-post-bow-section,
+  .section-spacing.homepage-post-bow-section {
+    padding-top: 4rem;
+  }
+}
+
+.section-base.how-it-works-section,
+.section-spacing.how-it-works-section {
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-base.how-it-works-section,
+  .section-spacing.how-it-works-section {
+    padding-top: 7.75rem;
+    padding-bottom: 7.75rem;
+  }
+}
+
+.section-base.services-page-section,
+.section-spacing.services-page-section {
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-base.services-page-section,
+  .section-spacing.services-page-section {
+    padding-top: 7.75rem;
+    padding-bottom: 7.75rem;
+  }
+}
+
 /* Homepage combined authority section layout hooks. */
 .clarity-grid {
   display: grid;
@@ -2098,12 +2150,12 @@ li {
 .services-blueprint-split {
   display: grid;
   gap: clamp(2.5rem, 6vw, 4.5rem);
-  align-items: center;
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {
   .services-blueprint-split {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     gap: 5rem;
   }
 }
@@ -2178,6 +2230,12 @@ li {
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .services-blueprint-image {
+    height: 100%;
+  }
 }
 
 @media (max-width: 767px) {

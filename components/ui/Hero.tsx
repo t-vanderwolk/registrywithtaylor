@@ -100,6 +100,7 @@ export default function Hero({
             src={image}
             alt={imageAlt}
             aria-hidden={imageAlt ? undefined : true}
+            role={imageAlt ? undefined : 'presentation'}
             fill
             priority
             sizes="100vw"

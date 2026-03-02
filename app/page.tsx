@@ -11,9 +11,19 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata = buildMarketingMetadata({
+  title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
+  description:
+    'Bespoke baby planning services for modern families. Registry clarity, nursery strategy, and personalized gear guidance.',
+  path: '/',
+  imagePath: '/assets/hero/hero-01.jpg',
+  imageAlt: 'Taylor-Made Baby Co. hero image',
+});
 
 type InsightPreview = {
   id: string;
@@ -92,7 +102,7 @@ export default async function HomePage() {
               Because parenthood should start with confidence, not confusion.
             </Body>
 
-            <p className="hero-load-reveal hero-load-reveal--2 max-w-2xl text-sm text-neutral-600 leading-relaxed">
+            <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-sm leading-relaxed text-black/70 md:text-base md:text-left">
               Private baby planning · Registry strategy · Nursery &amp; gear guidance · Brand-trained expertise
             </p>
 
@@ -101,7 +111,7 @@ export default async function HomePage() {
                 href="/contact"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Schedule Your Private Consultation
+                Schedule Your Complimentary Consultation
               </Link>
 
               <Link
@@ -122,6 +132,7 @@ export default async function HomePage() {
           tone="white"
           container="default"
           spacing="default"
+          className="homepage-section"
         >
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:gap-14 md:items-start">
             {/* LEFT COLUMN */}
@@ -211,6 +222,7 @@ export default async function HomePage() {
           tone="ivory"
           container="default"
           spacing="default"
+          className="homepage-section homepage-post-bow-section"
         >
           <div className="clarity-grid">
             <div className="clarity-left">
@@ -456,7 +468,7 @@ export default async function HomePage() {
           tone="white"
           container="default"
           spacing="default"
-          className="relative overflow-visible"
+          className="homepage-section relative overflow-visible"
         >
           <AuthorityStrip items={authorityItems} className="mt-0 md:gap-8" />
 
@@ -518,6 +530,7 @@ export default async function HomePage() {
           tone="ivory"
           container="default"
           spacing="default"
+          className="homepage-section"
         >
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             {/* Left Editorial Intro */}
@@ -581,7 +594,7 @@ export default async function HomePage() {
           </div>
         </MarketingSection>
 
-        <FinalCTA />
+        <FinalCTA className="homepage-section" />
       </main>
     </SiteShell>
   );

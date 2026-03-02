@@ -11,6 +11,7 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
 import SectionDivider from '@/components/ui/SectionDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import type { ReactNode } from 'react';
 
 export const metadata = buildMarketingMetadata({
   title: 'Services — Taylor-Made Baby Co.',
@@ -34,14 +35,22 @@ const authorityItems = [
 
 function ServiceChecklist({ items, className = '' }: ServiceChecklistProps) {
   return (
-    <ul className={['space-y-5 leading-relaxed', className].filter(Boolean).join(' ')}>
+    <ul className={['space-y-6 leading-relaxed', className].filter(Boolean).join(' ')}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-4">
           <CheckIcon />
-          <span>{item}</span>
+          <span className="leading-relaxed">{item}</span>
         </li>
       ))}
     </ul>
+  );
+}
+
+function AddOnTitle({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return (
+    <h4 className={['text-xl md:text-2xl tracking-tight', className].filter(Boolean).join(' ')}>
+      {children}
+    </h4>
   );
 }
 
@@ -51,7 +60,7 @@ export default function ServicesPage() {
       <main className="site-main">
         <Hero
           image="/assets/hero/hero-03.jpg"
-          imageAlt="Service consultation planning"
+          imageAlt=""
         >
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
@@ -67,7 +76,7 @@ export default function ServicesPage() {
                 href="/contact?service=consultation"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Begin with a Consultation →
+                Schedule Your Complimentary Consultation
               </Link>
             </div>
           </div>
@@ -75,7 +84,10 @@ export default function ServicesPage() {
 
         <section className="border-y border-black/5 bg-white py-4">
           <div className="container">
-            <AuthorityStrip items={authorityItems} className="mt-0 md:gap-8" />
+            <p className="text-center text-sm uppercase tracking-[0.2em] text-black/60 md:hidden">
+              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
+            </p>
+            <AuthorityStrip items={authorityItems} className="hidden mt-0 md:flex md:gap-8" />
           </div>
         </section>
 
@@ -83,10 +95,11 @@ export default function ServicesPage() {
           tone="white"
           spacing="default"
           container="default"
+          className="services-page-section"
         >
           <div className="max-w-6xl mx-auto">
           
-              <div className="max-w-4xl mx-auto text-center mb-6">
+              <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
                 <div className="flex justify-center">
                   <SectionDivider />
                 </div>
@@ -109,10 +122,10 @@ export default function ServicesPage() {
             
 
             
-              <div className="mt-16 grid gap-12 md:gap-16 services-packages-grid">
+              <div className="mt-20 grid gap-14 md:mt-24 md:gap-20 services-packages-grid">
 
               {/* Focused Edit */}
-              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/60 transition-[transform,box-shadow] duration-300 hover:shadow-md">
                 <H3 className="mb-4 font-serif">The Focused Edit</H3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   Ideal for one key decision.
@@ -140,9 +153,9 @@ export default function ServicesPage() {
               </MarketingSurface>
 
               {/* Signature Plan */}
-              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/70 shadow-md transition-[transform,box-shadow] duration-300 hover:shadow-md">
                 <div className="mb-4">
-                  <span className="inline-block rounded-full border border-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-black/70">
+                  <span className="pointer-events-none inline-block rounded-full border border-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-black/70 select-none">
                     Most Popular
                   </span>
                 </div>
@@ -168,12 +181,12 @@ export default function ServicesPage() {
                   href="/contact?service=signature-plan"
                   className="btn btn--primary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                 >
-                  Begin the Signature Plan <span aria-hidden className="ml-2">→</span>
+                  Begin Your Signature Plan <span aria-hidden className="ml-2">→</span>
                 </Link>
               </MarketingSurface>
 
               {/* Private Concierge */}
-              <MarketingSurface className="marketing-card-hover min-w-0 h-full flex flex-col">
+              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/60 transition-[transform,box-shadow] duration-300 hover:shadow-md">
                 <H3 className="mb-4 font-serif">The Private Concierge</H3>
                 <p className="text-sm text-neutral-600 mt-2 mb-4">
                   For families who want ongoing, white-glove guidance.
@@ -203,26 +216,26 @@ export default function ServicesPage() {
               </div>
             
 
-            <p className="mt-12 mx-auto text-center text-sm text-charcoal/60">
+            <p className="mt-16 mx-auto text-center text-sm text-charcoal/60 md:mt-20">
               Trusted by families across Scottsdale and beyond.
             </p>
 
-            <p className="mt-16 border-t border-black/5 pt-10 text-center text-base font-medium text-charcoal/70 leading-relaxed">
+            <p className="mt-20 border-t border-black/5 pt-12 text-center text-base font-medium text-charcoal/70 leading-relaxed md:mt-24">
               Not sure which option fits best?{' '}
-              <a
+              <Link
                 href="/contact?service=consultation"
                 className="link-underline transition-colors duration-200 hover:text-charcoal"
               >
-                Begin with a complimentary consultation →
-              </a>
+                Schedule Your Complimentary Consultation
+              </Link>
             </p>
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section">
-          <div className="relative mx-auto max-w-6xl services-blueprint-split">
+        <MarketingSection tone="ivory" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section services-page-section">
+          <div className="relative mx-auto max-w-5xl services-blueprint-split">
             
-              <MarketingSurface className="services-blueprint-content max-w-xl space-y-8">
+              <MarketingSurface className="services-blueprint-content h-full max-w-none space-y-8">
               <div className="services-blueprint-brand-lockup">
                 <div className="services-blueprint-partnership">
                   <span aria-hidden className="services-blueprint-partnership-line" />
@@ -274,23 +287,25 @@ export default function ServicesPage() {
             
 
             
-              <div className="services-blueprint-image-shell mt-12 mb-12 overflow-hidden rounded-2xl md:my-0">
-                <Image
-                  src="/assets/brand/albeebabystore.png"
-                  alt="Albee Baby storefront in New York City"
-                  width={900}
-                  height={700}
-                  className="services-blueprint-image rounded-2xl shadow-sm"
-                />
+              <div className="services-blueprint-image-shell mt-12 md:my-0">
+                <div className="rounded-2xl border border-black/5 bg-white/40 p-2 shadow-sm md:h-full">
+                  <Image
+                    src="/assets/brand/albeebabystore.png"
+                    alt="Albee Baby storefront in New York City"
+                    width={900}
+                    height={700}
+                    className="services-blueprint-image rounded-xl"
+                  />
+                </div>
               </div>
             
           </div>
         </MarketingSection>
 
-        <section className="design-experience-wrapper section-base relative overflow-visible">
+        <section className="design-experience-wrapper section-base services-page-section relative overflow-visible">
           <div className="design-experience-inner">
             
-              <div className="text-center mb-16">
+              <div className="text-center mb-20 md:mb-24">
                 <div className="flex justify-center">
                   <SectionDivider />
                 </div>
@@ -301,9 +316,15 @@ export default function ServicesPage() {
                 <Body className="mx-auto max-w-2xl text-neutral-600">
                   Flexible add-ons that complement your core package — tailored to your registry, home, and milestones.
                 </Body>
-                <h3 className="mt-16 text-sm uppercase tracking-[0.2em] text-charcoal/60">
-                  Optional Add-Ons
-                </h3>
+                <div className="mt-16 flex justify-center">
+                  <p className="text-center text-sm uppercase tracking-[0.2em] text-charcoal/60">
+                    Optional Add-Ons
+                  </p>
+                </div>
+                <div className="mx-auto mt-12 h-px w-full max-w-5xl bg-black/5" aria-hidden="true" />
+                <div className="mt-10 flex justify-center">
+                  <SectionDivider />
+                </div>
               </div>
             
 
@@ -313,13 +334,13 @@ export default function ServicesPage() {
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Planning
                 </h3>
-                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Grandparents Planning Session
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Planning support for grandparents and extended family.
                     </Body>
                     <ServiceChecklist
@@ -333,10 +354,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Surrogacy &amp; Adoption Planning Support
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Tailored planning for families growing through surrogacy or adoption.
                     </Body>
                     <ServiceChecklist
@@ -350,10 +371,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Sibling &amp; Pet Preparation
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Safety-first transition planning for siblings and pets.
                     </Body>
                     <ServiceChecklist
@@ -370,18 +391,18 @@ export default function ServicesPage() {
               
 
               
-                <div className="service-category mt-20 md:mt-24">
-                <hr className="border-black/5 my-12" />
+                <div className="service-category mt-24 md:mt-28">
+                <hr className="border-black/5 my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Home &amp; Gear
                 </h3>
-                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Postpartum Home Setup
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Recovery-focused setup for a calm, functional daily flow.
                     </Body>
                     <ServiceChecklist
@@ -395,10 +416,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Gear Cleaning &amp; Reset Strategy
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Guidance for cleaning and preparing gear for safe reuse.
                     </Body>
                     <ServiceChecklist
@@ -412,10 +433,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Gear Resale Strategy
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Support for reselling gear with confidence and clear strategy.
                     </Body>
                     <ServiceChecklist
@@ -433,11 +454,11 @@ export default function ServicesPage() {
                       Safety &amp; Installation
                     </span>
 
-                    <H3 className="mt-4 mb-4 tracking-tight">
+                    <AddOnTitle className="mt-5 mb-5">
                       CPST Car Seat Installation &amp; Safety Checks
-                    </H3>
+                    </AddOnTitle>
 
-                    <Body className="mt-4 text-charcoal/80">
+                    <Body className="mt-4 mb-8 text-charcoal/80">
                       Certified car seat support provided in collaboration with Lani Car Seat Consulting, offering both in-person installation in Phoenix and virtual safety checks nationwide.
                     </Body>
 
@@ -456,18 +477,18 @@ export default function ServicesPage() {
               
 
               
-                <div className="service-category mt-20 md:mt-24">
-                <hr className="border-black/5 my-12" />
+                <div className="service-category mt-24 md:mt-28">
+                <hr className="border-black/5 my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Events &amp; Coordination
                 </h3>
-                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Shower Registry Coordination
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Registry support before invitations go out.
                     </Body>
                     <ServiceChecklist
@@ -481,10 +502,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Gender Reveal Planning &amp; Coordination
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Personalized reveal planning with polished, low-stress coordination.
                     </Body>
                     <ServiceChecklist
@@ -498,10 +519,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Welcome Box Registration Setup
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Support for retailer perks, welcome programs, and discounts.
                     </Body>
                     <ServiceChecklist
@@ -515,10 +536,10 @@ export default function ServicesPage() {
                   </MarketingSurface>
 
                   <MarketingSurface className="marketing-card-hover h-full">
-                    <H3 className="mb-4 font-serif leading-tight">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Sip &amp; See Planning Support
-                    </H3>
-                    <Body className="mb-6 text-neutral-600">
+                    </AddOnTitle>
+                    <Body className="mb-8 text-neutral-600">
                       Thoughtful support for a smooth post-arrival gathering.
                     </Body>
                     <ServiceChecklist
@@ -533,22 +554,18 @@ export default function ServicesPage() {
                 </div>
                 </div>
 
-              <div className="service-category mt-20 md:mt-24">
-                <hr className="border-black/5 my-12" />
+              <div className="service-category mt-24 md:mt-28">
+                <hr className="border-black/5 my-14" />
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Family &amp; Household Support
                 </h3>
-                <div className="addon-grid mt-10 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-10 md:!gap-12">
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
-                      Family &amp; Household Support
-                    </span>
-
-                    <H3 className="mt-4 mb-4 tracking-tight">
+                <div className="mt-12 flex justify-center">
+                  <MarketingSurface className="marketing-card-hover h-full w-full max-w-sm">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
                       Nanny Interview Preparation &amp; Guidance
-                    </H3>
+                    </AddOnTitle>
 
-                    <Body className="mt-4 text-charcoal/80">
+                    <Body className="mb-8 text-neutral-600">
                       Structured support to help you confidently interview and evaluate caregivers for your growing family.
                     </Body>
 
@@ -558,7 +575,7 @@ export default function ServicesPage() {
                         'Compatibility and experience evaluation guidance',
                         'Post-interview clarity and decision support',
                       ]}
-                      className="mt-6 text-charcoal/80"
+                      className="text-charcoal/80"
                     />
 
                   </MarketingSurface>
@@ -573,7 +590,7 @@ export default function ServicesPage() {
           tone="ivoryWarm"
           spacing="default"
           container="default"
-          className="!border-t-0"
+          className="services-page-section mt-6 !border-t-0 md:mt-8"
         >
           
             <div className="mx-auto max-w-3xl px-6 py-10 text-center space-y-8 md:px-10">
@@ -589,7 +606,7 @@ export default function ServicesPage() {
           
         </MarketingSection>
 
-        <FinalCTA />
+        <FinalCTA className="services-page-section mt-8 md:mt-10" />
       </main>
     </SiteShell>
   );
