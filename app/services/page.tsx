@@ -62,19 +62,19 @@ export default function ServicesPage() {
           image="/assets/hero/hero-03.jpg"
           imageAlt=""
         >
-          <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-6 text-center md:mx-0 md:max-w-none md:items-start md:text-left">
+            <h1 className="hero-load-reveal max-w-3xl font-serif text-5xl tracking-tight text-neutral-900 md:text-6xl">
               Private Planning Services
             </h1>
 
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
+            <Body className="hero-load-reveal hero-load-reveal--1 mx-auto max-w-xl text-neutral-700 md:mx-0">
               Structured support from registry clarity to full home preparation.
             </Body>
 
-            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+            <div className="hero-load-reveal hero-load-reveal--3 flex w-full flex-col items-center gap-4 pt-4 sm:flex-row sm:justify-center md:w-auto md:justify-start">
               <Link
                 href="/contact?service=consultation"
-                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Schedule Your Complimentary Consultation
               </Link>
