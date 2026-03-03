@@ -61,6 +61,7 @@ export default function ServicesPage() {
         <Hero
           image="/assets/hero/hero-03.jpg"
           imageAlt=""
+          className="services-hero"
         >
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">

@@ -958,6 +958,11 @@ li {
     min-height: clamp(42rem, 88svh, 50rem);
   }
 
+  .services-hero.hero-section {
+    height: 82svh;
+    min-height: clamp(38rem, 82svh, 45rem);
+  }
+
   .hero-inner {
     align-items: center;
     padding-top: 5.75rem;
