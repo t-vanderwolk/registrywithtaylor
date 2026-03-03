@@ -19,6 +19,21 @@ type AffiliateOption = {
   network: AffiliateNetwork;
 };
 
+type CtaButtonVariant = 'primary' | 'secondary';
+
+type CtaButtonBlock = {
+  type: 'ctaButton';
+  label: string;
+  url: string;
+  variant?: CtaButtonVariant;
+};
+
+type ParsedCtaButtonLine = {
+  lineIndex: number;
+  raw: string;
+  block: CtaButtonBlock;
+};
+
 type MediaRecord = {
   id: string;
   url: string;
@@ -46,6 +61,8 @@ type PostRecord = {
   updatedAt?: Date | string;
 };
 
+const CTA_BUTTON_PREFIX = '::cta-button ';
+
 function slugify(input: string) {
   return input
     .toLowerCase()
@@ -54,6 +71,14 @@ function slugify(input: string) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/-+/g, '-')
     .replace(/(^-|-$)/g, '');
+}
+
+function normalizeCtaVariant(value: unknown): CtaButtonVariant {
+  return value === 'secondary' ? 'secondary' : 'primary';
+}
+
+function isValidCtaUrl(value: string) {
+  return /^https?:\/\//i.test(value.trim());
 }
 
 function getSavedText(saving: boolean, savedAt: number | null) {
@@ -83,6 +108,125 @@ function toAltText(fileName: string) {
   return baseName || 'Image';
 }
 
+function isCtaButtonBlock(value: unknown): value is CtaButtonBlock {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+
+  const candidate = value as Partial<CtaButtonBlock>;
+  return candidate.type === 'ctaButton' && typeof candidate.label === 'string' && typeof candidate.url === 'string';
+}
+
+function serializeCtaButton(block: Omit<CtaButtonBlock, 'type'> | CtaButtonBlock) {
+  return `${CTA_BUTTON_PREFIX}${JSON.stringify({
+    type: 'ctaButton',
+    label: block.label,
+    url: block.url,
+    variant: normalizeCtaVariant(block.variant),
+  })}`;
+}
+
+function parseCtaButtonLine(line: string) {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith(CTA_BUTTON_PREFIX)) {
+    return null;
+  }
+
+  const rawPayload = trimmed.slice(CTA_BUTTON_PREFIX.length).trim();
+  if (!rawPayload) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(rawPayload) as unknown;
+    if (!isCtaButtonBlock(parsed)) {
+      return null;
+    }
+
+    return {
+      type: 'ctaButton',
+      label: parsed.label.trim(),
+      url: parsed.url.trim(),
+      variant: normalizeCtaVariant(parsed.variant),
+    } satisfies CtaButtonBlock;
+  } catch {
+    return null;
+  }
+}
+
+function collectCtaButtons(content: string) {
+  const buttons: ParsedCtaButtonLine[] = [];
+  const invalidLines: Array<{ lineIndex: number; raw: string }> = [];
+
+  content.split('\n').forEach((raw, lineIndex) => {
+    const trimmed = raw.trim();
+    if (!trimmed.startsWith(CTA_BUTTON_PREFIX)) {
+      return;
+    }
+
+    const block = parseCtaButtonLine(trimmed);
+    if (!block) {
+      invalidLines.push({ lineIndex, raw });
+      return;
+    }
+
+    buttons.push({ lineIndex, raw, block });
+  });
+
+  return { buttons, invalidLines };
+}
+
+function replaceCtaButtonLine(content: string, lineIndex: number, nextBlock: CtaButtonBlock | null) {
+  const lines = content.split('\n');
+  if (lineIndex < 0 || lineIndex >= lines.length) {
+    return content;
+  }
+
+  if (nextBlock) {
+    lines[lineIndex] = serializeCtaButton(nextBlock);
+  } else {
+    lines.splice(lineIndex, 1);
+  }
+
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n');
+}
+
+function insertCtaButtonAtSelection(
+  content: string,
+  selectionStart: number,
+  selectionEnd: number,
+  block: CtaButtonBlock,
+) {
+  const token = serializeCtaButton(block);
+  const prefix = selectionStart > 0 && content[selectionStart - 1] !== '\n' ? '\n\n' : '';
+  const suffix = selectionEnd < content.length && content[selectionEnd] !== '\n' ? '\n\n' : '\n\n';
+  const nextContent = content.slice(0, selectionStart) + prefix + token + suffix + content.slice(selectionEnd);
+  const nextCursorPosition = selectionStart + prefix.length + token.length + suffix.length;
+
+  return {
+    content: nextContent,
+    nextCursorPosition,
+  };
+}
+
+function validateCtaContent(content: string) {
+  const parsed = collectCtaButtons(content);
+
+  if (parsed.invalidLines.length > 0) {
+    return 'CTA button token is malformed.';
+  }
+
+  const invalidButton = parsed.buttons.find(
+    ({ block }) => !block.label.trim() || !block.url.trim() || !isValidCtaUrl(block.url),
+  );
+
+  if (invalidButton) {
+    return 'CTA buttons must include a valid http:// or https:// URL and label.';
+  }
+
+  return null;
+}
+
 export default function PostEditor({
   postId,
   initialPost,
@@ -95,9 +239,15 @@ export default function PostEditor({
   const [post, setPost] = useState<PostRecord>(initialPost);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [uploadingKind, setUploadingKind] = useState<'featured' | 'inline' | 'pdf' | null>(null);
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [newCtaButton, setNewCtaButton] = useState<Omit<CtaButtonBlock, 'type'>>({
+    label: 'Shop Now',
+    url: '',
+    variant: 'primary',
+  });
   const debounceRef = useRef<number | null>(null);
   const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const featuredInputRef = useRef<HTMLInputElement | null>(null);
@@ -107,23 +257,39 @@ export default function PostEditor({
   const apiUrl = useMemo(() => `/api/blog/${postId}`, [postId]);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
   const pdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
+  const ctaButtonContent = collectCtaButtons(post.content);
 
   async function save(partial: Partial<PostRecord>) {
+    const contentToValidate = typeof partial.content === 'string' ? partial.content : post.content;
+    const ctaError = validateCtaContent(contentToValidate);
+    if (ctaError) {
+      setSaveError(ctaError);
+      return;
+    }
+
     setSaving(true);
+    setSaveError(null);
     const res = await fetch(apiUrl, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(partial),
     });
-    const json = await res.json();
+    const json = await res.json().catch(() => null);
     setSaving(false);
-    if (res.ok && json?.id) {
+
+    if (!res.ok) {
+      setSaveError(typeof json?.error === 'string' ? json.error : 'Unable to save changes.');
+      return;
+    }
+
+    if (json?.id) {
       setPost(json as PostRecord);
       setSavedAt(Date.now());
     }
   }
 
   function queueSave(partial: Partial<PostRecord>) {
+    setSaveError(null);
     setPost((currentPost) => ({ ...currentPost, ...partial }));
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => {
@@ -153,6 +319,46 @@ export default function PostEditor({
     });
   }
 
+  function insertCtaButton() {
+    if (!newCtaButton.label.trim() || !isValidCtaUrl(newCtaButton.url)) {
+      setSaveError('CTA buttons must include a valid http:// or https:// URL and label.');
+      return;
+    }
+
+    const textarea = contentTextareaRef.current;
+    const start = textarea?.selectionStart ?? post.content.length;
+    const end = textarea?.selectionEnd ?? start;
+    const { content, nextCursorPosition } = insertCtaButtonAtSelection(post.content, start, end, {
+      type: 'ctaButton',
+      label: newCtaButton.label.trim(),
+      url: newCtaButton.url.trim(),
+      variant: newCtaButton.variant,
+    });
+
+    queueSave({ content });
+
+    requestAnimationFrame(() => {
+      if (!textarea) {
+        return;
+      }
+
+      textarea.focus();
+      textarea.setSelectionRange(nextCursorPosition, nextCursorPosition);
+    });
+  }
+
+  function updateCtaButton(lineIndex: number, nextBlock: CtaButtonBlock) {
+    queueSave({
+      content: replaceCtaButtonLine(post.content, lineIndex, nextBlock),
+    });
+  }
+
+  function removeCtaButton(lineIndex: number) {
+    queueSave({
+      content: replaceCtaButtonLine(post.content, lineIndex, null),
+    });
+  }
+
   async function uploadFile(file: File) {
     const formData = new FormData();
     formData.append('file', file);
@@ -166,7 +372,14 @@ export default function PostEditor({
       | ({ error?: string } & Partial<MediaRecord>)
       | null;
 
-    if (!response.ok || !payload?.id || !payload.url || !payload.fileName || !payload.fileType || typeof payload.fileSize !== 'number') {
+    if (
+      !response.ok ||
+      !payload?.id ||
+      !payload.url ||
+      !payload.fileName ||
+      !payload.fileType ||
+      typeof payload.fileSize !== 'number'
+    ) {
       throw new Error(payload?.error || 'Upload failed.');
     }
 
@@ -538,6 +751,144 @@ export default function PostEditor({
           </div>
         </AdminField>
 
+        <AdminField
+          label="CTA Buttons"
+          help="Add lightweight external CTA buttons for affiliate or partner URLs."
+        >
+          <div className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
+            <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_200px]">
+              <AdminField label="Button label" htmlFor="post-cta-button-label">
+                <AdminInput
+                  id="post-cta-button-label"
+                  value={newCtaButton.label}
+                  onChange={(event) =>
+                    setNewCtaButton((current) => ({
+                      ...current,
+                      label: event.target.value,
+                    }))
+                  }
+                  placeholder="Shop Now"
+                />
+              </AdminField>
+
+              <AdminField label="Destination URL" htmlFor="post-cta-button-url">
+                <AdminInput
+                  id="post-cta-button-url"
+                  type="url"
+                  value={newCtaButton.url}
+                  onChange={(event) =>
+                    setNewCtaButton((current) => ({
+                      ...current,
+                      url: event.target.value,
+                    }))
+                  }
+                  placeholder="https://partner.example.com/..."
+                />
+              </AdminField>
+
+              <AdminField label="Variant" htmlFor="post-cta-button-variant">
+                <AdminSelect
+                  id="post-cta-button-variant"
+                  value={newCtaButton.variant}
+                  onChange={(event) =>
+                    setNewCtaButton((current) => ({
+                      ...current,
+                      variant: event.target.value as CtaButtonVariant,
+                    }))
+                  }
+                >
+                  <option value="primary">Primary</option>
+                  <option value="secondary">Secondary</option>
+                </AdminSelect>
+              </AdminField>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <AdminButton type="button" variant="secondary" size="sm" onClick={insertCtaButton}>
+                + CTA Button
+              </AdminButton>
+              <p className="admin-micro">
+                Buttons open in a new tab with `rel=&quot;noopener noreferrer sponsored&quot;`.
+              </p>
+            </div>
+
+            {ctaButtonContent.invalidLines.length > 0 && (
+              <div className="rounded-2xl border border-[rgba(159,47,47,0.18)] bg-[rgba(159,47,47,0.05)] px-4 py-3 text-sm text-admin-danger">
+                {ctaButtonContent.invalidLines.length} malformed CTA token
+                {ctaButtonContent.invalidLines.length === 1 ? '' : 's'} found in the content field. Fix or remove
+                them before publishing.
+              </div>
+            )}
+
+            {ctaButtonContent.buttons.length > 0 ? (
+              <div className="space-y-3">
+                {ctaButtonContent.buttons.map(({ lineIndex, block }) => (
+                  <div
+                    key={`${lineIndex}-${block.url}`}
+                    className="space-y-3 rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] p-4"
+                  >
+                    <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_200px]">
+                      <AdminField label="Button label" htmlFor={`post-cta-existing-label-${lineIndex}`}>
+                        <AdminInput
+                          id={`post-cta-existing-label-${lineIndex}`}
+                          value={block.label}
+                          onChange={(event) =>
+                            updateCtaButton(lineIndex, {
+                              ...block,
+                              label: event.target.value,
+                            })
+                          }
+                          placeholder="Button label"
+                        />
+                      </AdminField>
+
+                      <AdminField label="Destination URL" htmlFor={`post-cta-existing-url-${lineIndex}`}>
+                        <AdminInput
+                          id={`post-cta-existing-url-${lineIndex}`}
+                          type="url"
+                          value={block.url}
+                          onChange={(event) =>
+                            updateCtaButton(lineIndex, {
+                              ...block,
+                              url: event.target.value,
+                            })
+                          }
+                          placeholder="Paste affiliate URL"
+                        />
+                      </AdminField>
+
+                      <AdminField label="Variant" htmlFor={`post-cta-existing-variant-${lineIndex}`}>
+                        <AdminSelect
+                          id={`post-cta-existing-variant-${lineIndex}`}
+                          value={block.variant ?? 'primary'}
+                          onChange={(event) =>
+                            updateCtaButton(lineIndex, {
+                              ...block,
+                              variant: event.target.value as CtaButtonVariant,
+                            })
+                          }
+                        >
+                          <option value="primary">Primary</option>
+                          <option value="secondary">Secondary</option>
+                        </AdminSelect>
+                      </AdminField>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <p className="admin-micro">This CTA renders wherever its structured token appears in the content.</p>
+                      <AdminButton type="button" variant="ghost" size="sm" onClick={() => removeCtaButton(lineIndex)}>
+                        Remove CTA
+                      </AdminButton>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="admin-micro">No CTA buttons inserted yet.</p>
+            )}
+          </div>
+        </AdminField>
+
         <AdminField label="Content" htmlFor="post-content">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -580,15 +931,15 @@ export default function PostEditor({
           </div>
         </AdminField>
 
-        {(uploadFeedback || uploadError) && (
+        {(uploadFeedback || uploadError || saveError) && (
           <div
             className={`rounded-2xl border px-4 py-3 text-sm ${
-              uploadError
+              uploadError || saveError
                 ? 'border-[rgba(159,47,47,0.18)] bg-[rgba(159,47,47,0.05)] text-admin-danger'
                 : 'border-[rgba(47,106,67,0.18)] bg-[rgba(47,106,67,0.05)] text-admin-success'
             }`}
           >
-            {uploadError ?? uploadFeedback}
+            {uploadError ?? saveError ?? uploadFeedback}
           </div>
         )}
       </AdminStack>

@@ -56,6 +56,19 @@ model Media {
   posts           Post[]   @relation("PostMedia")
 }
 
+model PrintableResource {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  category    String?
+  filePath    String?
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model PostAnalytics {
   id        String   @id @default(cuid())
   postId    String

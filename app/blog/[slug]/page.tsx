@@ -10,6 +10,7 @@ import { Body, H1, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { type BlogCategory } from '@/lib/blogCategories';
+import { SITE_URL } from '@/lib/marketing/metadata';
 import { formatFileSize, isPdfMediaType } from '@/lib/media';
 import prisma from '@/lib/server/prisma';
 
@@ -68,7 +69,6 @@ type ExtractedResourceResult = {
 };
 
 const AUTHOR_NAME = 'Taylor Vanderwolk';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 const orderedListPattern = /^\d+\.\s+/;
 const markdownPdfLinePattern =
   /^\s*(?:Resource\s*:\s*|Download(?:\s+PDF)?\s*:\s*)?\[([^\]]+)\]\(([^)\s]+\.pdf(?:\?[^)]*)?)\)(?:\s*(?:[-|·]\s*(.+))?)?\s*$/i;
@@ -438,7 +438,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
             <RevealOnScroll delayMs={170}>
               <div className="mt-14">
-                <PostContent postId={post.id} content={articleContent} className="mx-auto max-w-[72ch]" />
+                <PostContent
+                  postId={post.id}
+                  content={articleContent}
+                  className="mx-auto max-w-[72ch]"
+                />
               </div>
             </RevealOnScroll>
 

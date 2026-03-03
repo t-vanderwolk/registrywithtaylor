@@ -10,13 +10,66 @@ type PostContentProps = {
   className?: string;
 };
 
+type CtaButtonVariant = 'primary' | 'secondary';
+
+type CtaButtonBlock = {
+  type: 'ctaButton';
+  label: string;
+  url: string;
+  variant?: CtaButtonVariant;
+};
+
 const orderedListPattern = /^\d+\.\s+/;
 const imageLinePattern = /^!\[([^\]]*)\]\(([^)]+)\)$/;
 const inlineTokenPattern =
   /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
+const CTA_BUTTON_PREFIX = '::cta-button ';
+const CTA_BUTTON_FOCUS_CLASS =
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
 
 const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
 const opensNewTab = (href: string) => isExternalHref(href) || /\.pdf(?:[?#].*)?$/i.test(href);
+
+function normalizeCtaVariant(value: unknown): CtaButtonVariant {
+  return value === 'secondary' ? 'secondary' : 'primary';
+}
+
+function isCtaButtonBlock(value: unknown): value is CtaButtonBlock {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+
+  const candidate = value as Partial<CtaButtonBlock>;
+  return candidate.type === 'ctaButton' && typeof candidate.label === 'string' && typeof candidate.url === 'string';
+}
+
+function parseCtaButtonLine(line: string) {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith(CTA_BUTTON_PREFIX)) {
+    return null;
+  }
+
+  const rawPayload = trimmed.slice(CTA_BUTTON_PREFIX.length).trim();
+  if (!rawPayload) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(rawPayload) as unknown;
+    if (!isCtaButtonBlock(parsed)) {
+      return null;
+    }
+
+    return {
+      type: 'ctaButton',
+      label: parsed.label.trim(),
+      url: parsed.url.trim(),
+      variant: normalizeCtaVariant(parsed.variant),
+    } satisfies CtaButtonBlock;
+  } catch {
+    return null;
+  }
+}
 
 function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
   const nodes: ReactNode[] = [];
@@ -160,6 +213,30 @@ export default function PostContent({ postId, content, className }: PostContentP
             continue;
           }
 
+          const ctaButtonBlock = parseCtaButtonLine(line);
+          if (ctaButtonBlock) {
+            if (ctaButtonBlock.url) {
+              nodes.push(
+                <div key={`${postId}-cta-${i}`} className="my-8">
+                  <a
+                    href={ctaButtonBlock.url}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className={
+                      ctaButtonBlock.variant === 'secondary'
+                        ? `btn btn--secondary ${CTA_BUTTON_FOCUS_CLASS}`
+                        : `btn btn--primary ${CTA_BUTTON_FOCUS_CLASS}`
+                    }
+                  >
+                    {ctaButtonBlock.label}
+                  </a>
+                </div>,
+              );
+            }
+            i += 1;
+            continue;
+          }
+
           const imageLineMatch = line.match(imageLinePattern);
           if (imageLineMatch) {
             const [, altText, src] = imageLineMatch;
@@ -243,6 +320,7 @@ export default function PostContent({ postId, content, className }: PostContentP
               candidate.startsWith('# ') ||
               candidate.startsWith('## ') ||
               candidate.startsWith('### ') ||
+              Boolean(parseCtaButtonLine(candidate)) ||
               imageLinePattern.test(candidate) ||
               candidate.startsWith('- ') ||
               orderedListPattern.test(candidate)

@@ -17,12 +17,12 @@ import prisma from '@/lib/server/prisma';
 export const dynamic = 'force-dynamic';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
+  title: 'Taylor-Made Baby Co. | Calm, Personalized Baby Planning',
   description:
-    'Bespoke baby planning services for modern families. Registry clarity, nursery strategy, and personalized gear guidance.',
+    'Personalized registry and nursery planning for modern families. Thoughtful guidance, mentor support, and intentional preparation — so parenthood starts with confidence, not confusion.',
   path: '/',
-  imagePath: '/assets/hero/hero-01.jpg',
-  imageAlt: 'Taylor-Made Baby Co. hero image',
+  imagePath: '/og-home.jpg',
+  imageAlt: 'Taylor-Made Baby Co. – Start with confidence.',
 });
 
 type InsightPreview = {

@@ -50,74 +50,91 @@ export default function AboutPage() {
           </div>
         </Hero>
 
-        <MarketingSection tone="white" spacing="spacious" container="narrow">
-          <div className="max-w-3xl mx-auto text-center space-y-8">
-            <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">
-                A Thoughtful Specialist in the Details
-              </H2>
-            </RevealOnScroll>
+        <MarketingSection tone="white" spacing="spacious" container="default">
+          <div className="mx-auto max-w-6xl space-y-10">
+            <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+              <RevealOnScroll>
+                <div className="relative mx-auto w-full max-w-[420px] lg:mx-0">
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-black/5 shadow-sm">
+                    <Image
+                      src="/assets/editorial/taylor.png"
+                      alt="Taylor Vanderwolk, Founder of Taylor-Made Baby Co."
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 420px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </RevealOnScroll>
 
-            <RevealOnScroll delayMs={90}>
-              <Body className="mx-auto max-w-2xl text-neutral-700">
-                I am a Baby Gear Expert and Registry Consultant focused on practical clarity for modern families.
-                My work sits at the intersection of safety, design, and real-world usability.
-              </Body>
-            </RevealOnScroll>
+              <div className="space-y-8">
+                <RevealOnScroll delayMs={60}>
+                  <H2 className="font-serif text-neutral-900">
+                    A Thoughtful Specialist in the Details
+                  </H2>
+                </RevealOnScroll>
 
-            <RevealOnScroll delayMs={170}>
-              <div className="mx-auto max-w-2xl space-y-6 text-left">
-                <Body className="text-neutral-700">
-                  With hands-on experience across premium retail floors, national pilot programs, and private consulting,
-                  I&apos;ve guided hundreds of families through the earliest decisions of parenthood - the ones that feel
-                  small until you realize they&apos;re not.
-                </Body>
+                <RevealOnScroll delayMs={120}>
+                  <Body className="max-w-2xl text-neutral-700">
+                    I am a Baby Gear Expert and Registry Consultant focused on practical clarity for modern families.
+                    My work sits at the intersection of safety, design, and real-world usability.
+                  </Body>
+                </RevealOnScroll>
 
-                <Body className="text-neutral-700">
-                  From registry strategy to nursery planning to daily gear systems, my work lives at the intersection of
-                  safety, design, and real-life functionality - the place where beautiful meets practical and trends meet
-                  reality.
-                </Body>
+                <RevealOnScroll delayMs={180}>
+                  <div className="max-w-2xl space-y-6 text-left">
+                    <Body className="text-neutral-700">
+                      With hands-on experience across premium retail floors, national pilot programs, and private consulting,
+                      I&apos;ve guided hundreds of families through the earliest decisions of parenthood - the ones that feel
+                      small until you realize they&apos;re not.
+                    </Body>
 
-                <Body className="text-neutral-700">
-                  This kind of planning is nuanced. It&apos;s personal. And it&apos;s often unfolding during one of the most
-                  tender, vulnerable seasons of someone&apos;s life.
-                </Body>
+                    <Body className="text-neutral-700">
+                      From registry strategy to nursery planning to daily gear systems, my work lives at the intersection of
+                      safety, design, and real-life functionality - the place where beautiful meets practical and trends meet
+                      reality.
+                    </Body>
 
-                <Body className="text-neutral-700">
-                  When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
-                  trusting me with more than a checklist. You&apos;re trusting me with your story.
-                </Body>
+                    <Body className="text-neutral-700">
+                      This kind of planning is nuanced. It&apos;s personal. And it&apos;s often unfolding during one of the most
+                      tender, vulnerable seasons of someone&apos;s life.
+                    </Body>
 
-                <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
+                    <Body className="text-neutral-700">
+                      When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
+                      trusting me with more than a checklist. You&apos;re trusting me with your story.
+                    </Body>
 
-                <Body className="text-neutral-700">
-                  My role isn&apos;t to sell you more. It&apos;s to help you choose well. With clarity. With intention. With
-                  confidence - because parenthood should start with confidence, not confusion.
-                </Body>
+                    <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
+
+                    <Body className="text-neutral-700">
+                      My role isn&apos;t to sell you more. It&apos;s to help you choose well. With clarity. With intention. With
+                      confidence - because parenthood should start with confidence, not confusion.
+                    </Body>
+
+                    <ul className="space-y-5 pt-2 leading-relaxed text-neutral-700">
+                      <li className="flex items-start gap-4">
+                        <CheckIcon />
+                        <span>Strollers and car seats</span>
+                      </li>
+                      <li className="flex items-start gap-4">
+                        <CheckIcon />
+                        <span>Nursery design and room flow</span>
+                      </li>
+                      <li className="flex items-start gap-4">
+                        <CheckIcon />
+                        <span>Feeding essentials</span>
+                      </li>
+                      <li className="flex items-start gap-4">
+                        <CheckIcon />
+                        <span>Registry strategy</span>
+                      </li>
+                    </ul>
+                  </div>
+                </RevealOnScroll>
               </div>
-            </RevealOnScroll>
-
-            <RevealOnScroll delayMs={260}>
-              <ul className="mx-auto max-w-xl space-y-5 text-left leading-relaxed text-neutral-700">
-                <li className="flex items-start gap-4">
-                  <CheckIcon />
-                  <span>Strollers and car seats</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <CheckIcon />
-                  <span>Nursery design and room flow</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <CheckIcon />
-                  <span>Feeding essentials</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <CheckIcon />
-                  <span>Registry strategy</span>
-                </li>
-              </ul>
-            </RevealOnScroll>
+            </div>
           </div>
         </MarketingSection>
 

@@ -10,7 +10,10 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "db:bootstrap": "prisma migrate dev && prisma db seed"
+    "db:bootstrap": "prisma migrate dev && prisma db seed",
+    "seed:draft-posts": "tsx scripts/seedDraftBlogPosts.ts",
+    "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
+    "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts"
   },
   "prisma": {
     "seed": "node prisma/seed.cjs"

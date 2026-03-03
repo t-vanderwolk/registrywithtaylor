@@ -1,28 +1,50 @@
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import {
+  DEFAULT_OG_IMAGE_ALT,
+  DEFAULT_OG_IMAGE_PATH,
+  DEFAULT_SITE_DESCRIPTION,
+  DEFAULT_SITE_TITLE,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/marketing/metadata';
 import './globals.css';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
-  title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
-  description:
-    'Bespoke baby planning services for modern families. Registry clarity, nursery strategy, and personalized gear guidance.',
+  metadataBase: new URL(SITE_URL),
+  title: DEFAULT_SITE_TITLE,
+  description: DEFAULT_SITE_DESCRIPTION,
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: '/assets/logo.svg',
     shortcut: '/assets/logo.svg',
   },
   openGraph: {
-    title: 'Taylor-Made Baby Co. | Private Baby Planning & Registry Consulting',
+    title: DEFAULT_SITE_TITLE,
     description:
-      'Bespoke baby planning services for modern families. Registry clarity, nursery strategy, and personalized gear guidance.',
+      'Personalized registry and nursery planning for modern families. Thoughtful guidance and intentional preparation.',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: 'en_US',
+    type: 'website',
     images: [
       {
-        url: '/assets/hero/hero-01.jpg',
-        alt: 'Taylor-Made Baby Co. hero image',
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: DEFAULT_OG_IMAGE_ALT,
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_NAME,
+    description: 'Calm, personalized baby planning so parenthood starts with confidence.',
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
 };
 
