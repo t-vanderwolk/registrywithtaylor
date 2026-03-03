@@ -509,14 +509,16 @@ export default async function HomePage() {
               <div className="relative px-6 py-10 md:px-10">
                 <QuoteMark />
                 <p className="relative text-lg font-serif leading-relaxed text-neutral-900 md:text-xl">
-                  &ldquo;Taylor helped us feel calm, confident, and completely prepared. We invested in what mattered — and
-                  avoided what didn&rsquo;t.&rdquo;
+                  &ldquo;With four years between our kids, we quickly realized we were a little out of practice — and
+                  that baby gear had definitely evolved. Taylor helped us figure out what we could reuse, what was
+                  worth upgrading, and what we could skip entirely. It made the whole process feel calmer (and much
+                  less chaotic). Big shout-out to Taylor — we only wish we had known about her the first time.&rdquo;
                 </p>
               </div>
             </RevealOnScroll>
             <RevealOnScroll delayMs={100}>
               <p className="text-sm text-neutral-600">
-                — First-Time Parents
+                — Philip & Lucia V., Santa Fe, NM · Parents of Two
               </p>
             </RevealOnScroll>
           </div>

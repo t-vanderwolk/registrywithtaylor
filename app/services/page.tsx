@@ -598,11 +598,14 @@ export default function ServicesPage() {
               <div className="relative px-6 py-10 md:px-10">
                 <QuoteMark />
                 <p className="relative text-lg font-serif leading-relaxed md:text-xl">
-                  “I walked into the baby store already knowing what we needed.
-                  No panic. No second-guessing. Just clarity.”
+                  “As a single mom of three boys on a really tight budget, I was worried about how we were going
+                  to afford everything we needed. Taylor helped me figure out what was safe to buy secondhand,
+                  what to look for with open-box deals, and where to spend money wisely — all in a completely
+                  judgment-free way. I walked into the baby store knowing exactly what we needed — no panic, no
+                  second-guessing, just a plan.”
                 </p>
               </div>
-              <p className="text-neutral-600">— TMBC Client, Scottsdale</p>
+              <p className="text-neutral-600">— Cynthia C., Spokane, WA · Mother of Three</p>
             </div>
           
         </MarketingSection>
