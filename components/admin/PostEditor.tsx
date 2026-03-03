@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { requiresLiveContent, type PostStatusValue } from '@/lib/blog/postStatus';
+import { resolveBlogStage, type BlogStageValue } from '@/lib/blog/postStage';
 import { isPdfMediaType } from '@/lib/media';
 import {
   createCtaSlotToken,
@@ -25,6 +26,8 @@ import {
   type StyledBlockId,
 } from '@/lib/blog/styledBlocks';
 import PostEditorLayout, { type PostEditorTabId } from '@/components/admin/blog/PostEditorLayout';
+import InternalLinkInsertModal from '@/components/admin/blog/InternalLinkInsertModal';
+import PostHealthCard from '@/components/admin/blog/PostHealthCard';
 import PostContentPanel, { type ContentFormatAction } from '@/components/admin/blog/panels/PostContentPanel';
 import PostMediaPanel from '@/components/admin/blog/panels/PostMediaPanel';
 import PostSeoPanel from '@/components/admin/blog/panels/PostSeoPanel';
@@ -181,8 +184,13 @@ function toEditorState(post: PersistedPostRecord) {
       title: post.title,
       slug: post.slug,
       category: post.category,
+      stage: post.stage,
       deck: post.deck,
       excerpt: post.excerpt,
+      focusKeyword: post.focusKeyword,
+      seoTitle: post.seoTitle,
+      seoDescription: post.seoDescription,
+      canonicalUrl: post.canonicalUrl,
       coverImage: post.coverImage,
       featuredImageId: post.featuredImageId,
       featuredImage: post.featuredImage,
@@ -209,8 +217,13 @@ function toSavePayload(post: EditorPostState): PostSavePayload {
     title: post.title,
     slug: post.slug,
     category: post.category,
+    stage: post.stage,
     deck: post.deck,
     excerpt: post.excerpt,
+    focusKeyword: post.focusKeyword,
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    canonicalUrl: post.canonicalUrl,
     coverImage: post.coverImage,
     featuredImageId: post.featuredImageId,
     content: serializeCtaButtons(post.body, post.ctaButtons),
@@ -228,13 +241,19 @@ function mergeServerState(current: EditorPostState, server: EditorPostState) {
     id: server.id,
     createdAt: server.createdAt ?? current.createdAt,
     updatedAt: server.updatedAt ?? current.updatedAt,
+    status: server.status,
     publishedAt: server.publishedAt,
     archivedAt: server.archivedAt,
     scheduledFor: current.status === 'SCHEDULED' ? current.scheduledFor ?? server.scheduledFor : server.scheduledFor,
     slug: current.slug.trim() || server.slug,
     title: current.title.trim() || server.title,
+    stage: server.stage,
     deck: current.deck?.trim() ? current.deck : server.deck,
     excerpt: current.excerpt?.trim() ? current.excerpt : server.excerpt,
+    focusKeyword: current.focusKeyword?.trim() ? current.focusKeyword : server.focusKeyword,
+    seoTitle: current.seoTitle?.trim() ? current.seoTitle : server.seoTitle,
+    seoDescription: current.seoDescription?.trim() ? current.seoDescription : server.seoDescription,
+    canonicalUrl: current.canonicalUrl?.trim() ? current.canonicalUrl : server.canonicalUrl,
     coverImage: current.coverImage ?? server.coverImage,
     featuredImageId: current.featuredImageId ?? server.featuredImageId,
     featuredImage: current.featuredImage ?? server.featuredImage,
@@ -247,6 +266,10 @@ function mergeServerState(current: EditorPostState, server: EditorPostState) {
 function validateEditorState(post: EditorPostState) {
   if (requiresLiveContent(post.status) && !post.body.trim()) {
     return 'Content is required before publishing or scheduling.';
+  }
+
+  if (post.canonicalUrl?.trim() && !/^https?:\/\//i.test(post.canonicalUrl.trim())) {
+    return 'Canonical URL must start with http:// or https://.';
   }
 
   const scheduleError = getScheduleError(post.status, post.scheduledFor);
@@ -278,6 +301,7 @@ export default function PostEditor({
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [ctaMalformed, setCtaMalformed] = useState(initialEditor.malformedCta);
+  const [isInternalLinkModalOpen, setIsInternalLinkModalOpen] = useState(false);
   const [newCtaButton, setNewCtaButton] = useState<CtaButton>(createEmptyCtaButton(initialEditor.state.ctaButtons.length));
   const stateRef = useRef(post);
   const currentPostIdRef = useRef(currentPostId);
@@ -541,6 +565,7 @@ export default function PostEditor({
         (current) => ({
           ...current,
           status: nextStatus,
+          stage: resolveBlogStage({ stageInput: current.stage, status: nextStatus, fallback: current.stage }),
           published: false,
           publishedAt: null,
           archivedAt: null,
@@ -554,12 +579,31 @@ export default function PostEditor({
       (current) => ({
         ...current,
         status: nextStatus,
+        stage: resolveBlogStage({ stageInput: current.stage, status: nextStatus, fallback: current.stage }),
         scheduledFor: nextStatus === 'DRAFT' || nextStatus === 'PUBLISHED' || nextStatus === 'ARCHIVED' ? null : current.scheduledFor,
         archivedAt: nextStatus === 'ARCHIVED' ? current.archivedAt : null,
         publishedAt: nextStatus === 'DRAFT' ? null : current.publishedAt,
         published: nextStatus === 'PUBLISHED',
       }),
       'immediate',
+    );
+  }
+
+  function handleStageChange(nextStage: BlogStageValue) {
+    const nextStatus =
+      nextStage === 'PUBLISHED' ? 'PUBLISHED' : nextStage === 'ARCHIVED' ? 'ARCHIVED' : 'DRAFT';
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        stage: nextStage,
+        status: nextStatus,
+        scheduledFor: nextStatus === 'DRAFT' ? null : current.scheduledFor,
+        archivedAt: nextStatus === 'ARCHIVED' ? current.archivedAt : null,
+        publishedAt: nextStatus === 'PUBLISHED' ? current.publishedAt : nextStatus === 'DRAFT' ? null : current.publishedAt,
+        published: nextStatus === 'PUBLISHED',
+      }),
+      nextStatus === 'DRAFT' ? 'debounced' : 'immediate',
     );
   }
 
@@ -754,6 +798,10 @@ export default function PostEditor({
     insertBodyBlockAtCursor(snippet, 'debounced');
   }
 
+  function insertInternalLink(markdown: string) {
+    insertBodyAtCursor(markdown, 'debounced');
+  }
+
   function handleAddCtaButton(insertIntoBody = false) {
     if (!newCtaButton.label.trim() || !isValidCtaUrl(newCtaButton.url)) {
       setSaveError('CTA buttons must include a valid http:// or https:// URL and label.');
@@ -925,6 +973,10 @@ export default function PostEditor({
     activeTab === 'content' ? (
       <PostContentPanel
         title={post.title}
+        focusKeyword={post.focusKeyword ?? ''}
+        seoTitle={post.seoTitle ?? ''}
+        seoDescription={post.seoDescription ?? ''}
+        canonicalUrl={post.canonicalUrl ?? ''}
         deck={post.deck ?? ''}
         excerpt={post.excerpt ?? ''}
         body={post.body}
@@ -956,9 +1008,46 @@ export default function PostEditor({
             'debounced',
           )
         }
+        onFocusKeywordChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              focusKeyword: value,
+            }),
+            'debounced',
+          )
+        }
+        onSeoTitleChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              seoTitle: value,
+            }),
+            'debounced',
+          )
+        }
+        onSeoDescriptionChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              seoDescription: value,
+            }),
+            'debounced',
+          )
+        }
+        onCanonicalUrlChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              canonicalUrl: value,
+            }),
+            'debounced',
+          )
+        }
         onApplyFormat={applyMarkdownFormat}
         onInsertTemplate={insertContentTemplate}
         onInsertStyledBlock={insertStyledBlock}
+        onOpenInternalLinkModal={() => setIsInternalLinkModalOpen(true)}
         onOpenInlineImagePicker={() => inlineInputRef.current?.click()}
         inlineUploadLabel={uploadingKind === 'inline' ? 'Uploading...' : 'Upload image'}
         inlineUploadDisabled={uploadingKind === 'inline'}
@@ -989,7 +1078,48 @@ export default function PostEditor({
         onRemovePdfResource={removeAttachedMedia}
       />
     ) : (
-      <PostSeoPanel />
+      <PostSeoPanel
+        focusKeyword={post.focusKeyword ?? ''}
+        seoTitle={post.seoTitle ?? ''}
+        seoDescription={post.seoDescription ?? ''}
+        canonicalUrl={post.canonicalUrl ?? ''}
+        onFocusKeywordChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              focusKeyword: value,
+            }),
+            'debounced',
+          )
+        }
+        onSeoTitleChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              seoTitle: value,
+            }),
+            'debounced',
+          )
+        }
+        onSeoDescriptionChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              seoDescription: value,
+            }),
+            'debounced',
+          )
+        }
+        onCanonicalUrlChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              canonicalUrl: value,
+            }),
+            'debounced',
+          )
+        }
+      />
     );
 
   return (
@@ -1017,7 +1147,7 @@ export default function PostEditor({
         tabs={[
           { id: 'content', label: 'Content' },
           { id: 'media', label: 'Media' },
-          { id: 'seo', label: 'SEO', badge: 'Phase 3' },
+          { id: 'seo', label: 'SEO' },
         ]}
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -1027,6 +1157,7 @@ export default function PostEditor({
             <PostPublishPanel
               hasPersistedPost={hasPersistedPost}
               status={post.status}
+              stage={post.stage}
               publishedAt={post.publishedAt}
               scheduledFor={post.scheduledFor}
               archivedAt={post.archivedAt}
@@ -1036,9 +1167,18 @@ export default function PostEditor({
               canPreview={canPreview}
               scheduleError={scheduleError}
               onStatusChange={handleStatusChange}
+              onStageChange={handleStageChange}
               onScheduledForChange={handleScheduledForChange}
               onSave={() => void flushSave()}
               onOpenPreview={() => void openPreview()}
+            />
+
+            <PostHealthCard
+              body={post.body}
+              focusKeyword={post.focusKeyword}
+              seoTitle={post.seoTitle}
+              seoDescription={post.seoDescription}
+              featuredImageUrl={featuredImageUrl}
             />
 
             <PostMetaPanel
@@ -1146,6 +1286,13 @@ export default function PostEditor({
 
           await handlePdfUpload(file);
         }}
+      />
+
+      <InternalLinkInsertModal
+        isOpen={isInternalLinkModalOpen}
+        excludeId={currentPostId}
+        onClose={() => setIsInternalLinkModalOpen(false)}
+        onInsert={insertInternalLink}
       />
     </AdminStack>
   );

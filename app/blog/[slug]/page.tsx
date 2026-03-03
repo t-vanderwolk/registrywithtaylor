@@ -21,6 +21,13 @@ type BlogPostParams = {
 
 const AUTHOR_NAME = 'Taylor Vanderwolk';
 
+type BlogPostRecord = PostArticleRecord & {
+  focusKeyword: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  canonicalUrl: string | null;
+};
+
 const getBlogPost = cache(async (slug: string) =>
   (await prisma.post.findUnique({
     where: { slug },
@@ -73,10 +80,14 @@ const getBlogPost = cache(async (slug: string) =>
       publishedAt: true,
       scheduledFor: true,
       archivedAt: true,
+      focusKeyword: true,
+      seoTitle: true,
+      seoDescription: true,
+      canonicalUrl: true,
       createdAt: true,
       updatedAt: true,
     },
-  })) as PostArticleRecord | null);
+  })) as BlogPostRecord | null);
 
 const toAbsoluteUrl = (pathOrUrl: string) => {
   if (/^https?:\/\//i.test(pathOrUrl)) {
@@ -96,25 +107,28 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
 
   const { content: articleContent } = extractDownloadableResource(post.content);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
-  const description = toExcerpt(post.excerpt, articleContent, 160);
+  const description = post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
   const displayDate = getPostDisplayDate(post);
+  const metadataTitle = post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
+  const canonical = post.canonicalUrl?.trim() || `/blog/${post.slug}`;
   const keywords = [
+    post.focusKeyword,
     post.category,
     'Taylor-Made Baby Co.',
     'baby registry planning',
     'nursery planning',
     'baby gear guidance',
-  ];
+  ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
 
   return {
-    title: `${post.title} | Taylor-Made Baby Co.`,
+    title: metadataTitle,
     description,
     keywords,
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical,
     },
     openGraph: {
-      title: post.title,
+      title: post.seoTitle?.trim() || post.title,
       description,
       type: 'article',
       url: `${SITE_URL}/blog/${post.slug}`,
@@ -133,7 +147,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
     },
     twitter: {
       card: featuredImageUrl ? 'summary_large_image' : 'summary',
-      title: post.title,
+      title: post.seoTitle?.trim() || post.title,
       description,
       images: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
     },
@@ -173,22 +187,23 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
   const seoKeywords = [
+    post.focusKeyword,
     post.category,
     'Taylor-Made Baby Co.',
     'baby registry planning',
     'nursery planning',
     'baby gear guidance',
-  ];
+  ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: post.title,
-    description: headerExcerpt,
+    headline: post.seoTitle?.trim() || post.title,
+    description: post.seoDescription?.trim() || headerExcerpt,
     articleSection: post.category,
     keywords: seoKeywords,
     datePublished: displayDate.toISOString(),
     dateModified: post.updatedAt.toISOString(),
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: post.canonicalUrl?.trim() || `${SITE_URL}/blog/${post.slug}`,
     author: {
       '@type': 'Person',
       name: AUTHOR_NAME,

@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
-import { resolvePostLifecycle } from '@/lib/server/blogPostLifecycle';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -34,6 +34,10 @@ type PostWithAffiliateIds = {
   content: string;
   deck: string | null;
   excerpt: string | null;
+  focusKeyword: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  canonicalUrl: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
   featuredImage: {
@@ -53,6 +57,7 @@ type PostWithAffiliateIds = {
     createdAt: Date;
   }>;
   status: 'DRAFT' | 'SCHEDULED' | 'PUBLISHED' | 'ARCHIVED';
+  stage: 'IDEA' | 'OUTLINE' | 'DRAFT' | 'READY' | 'PUBLISHED' | 'ARCHIVED';
   publishedAt: Date | null;
   scheduledFor: Date | null;
   archivedAt: Date | null;
@@ -73,12 +78,17 @@ const toResponsePost = (post: PostWithAffiliateIds) => ({
   content: post.content,
   deck: post.deck,
   excerpt: post.excerpt,
+  focusKeyword: post.focusKeyword,
+  seoTitle: post.seoTitle,
+  seoDescription: post.seoDescription,
+  canonicalUrl: post.canonicalUrl,
   coverImage: post.coverImage,
   featuredImageId: post.featuredImageId,
   featuredImage: post.featuredImage,
   mediaIds: post.media.map((entry) => entry.id),
   media: post.media,
   status: post.status,
+  stage: post.stage,
   publishedAt: post.publishedAt,
   scheduledFor: post.scheduledFor,
   archivedAt: post.archivedAt,
@@ -169,6 +179,12 @@ export async function PUT(
   const nextContent = hasOwn(body, 'content') ? asText(body.content) : existingPost.content;
   const nextDeck = hasOwn(body, 'deck') ? asNullableText(body.deck) : existingPost.deck;
   const nextExcerpt = hasOwn(body, 'excerpt') ? asNullableText(body.excerpt) : existingPost.excerpt;
+  const nextFocusKeyword = hasOwn(body, 'focusKeyword') ? asNullableText(body.focusKeyword) : existingPost.focusKeyword;
+  const nextSeoTitle = hasOwn(body, 'seoTitle') ? asNullableText(body.seoTitle) : existingPost.seoTitle;
+  const nextSeoDescription = hasOwn(body, 'seoDescription')
+    ? asNullableText(body.seoDescription)
+    : existingPost.seoDescription;
+  const nextCanonicalUrl = hasOwn(body, 'canonicalUrl') ? asNullableText(body.canonicalUrl) : existingPost.canonicalUrl;
   const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
   const nextFeaturedImageId = hasOwn(body, 'featuredImageId')
     ? asNullableId(body.featuredImageId)
@@ -180,17 +196,19 @@ export async function PUT(
   const nextAffiliateIds = hasOwn(body, 'affiliateIds')
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
     : null;
-  const lifecycle = resolvePostLifecycle({
-    status: hasOwn(body, 'status') ? body.status : undefined,
-    published: hasOwn(body, 'published') ? body.published : undefined,
-    scheduledFor: hasOwn(body, 'scheduledFor') ? body.scheduledFor : undefined,
-    content: nextContent,
+  const lifecycle = deriveLifecycleAndStage({
     existing: {
       status: existingPost.status,
       publishedAt: existingPost.publishedAt,
       scheduledFor: existingPost.scheduledFor,
       archivedAt: existingPost.archivedAt,
+      stage: existingPost.stage,
     },
+    requestedStatus: hasOwn(body, 'status') ? body.status : undefined,
+    requestedPublished: hasOwn(body, 'published') ? body.published : undefined,
+    requestedScheduledFor: hasOwn(body, 'scheduledFor') ? body.scheduledFor : undefined,
+    requestedStage: hasOwn(body, 'stage') ? body.stage : undefined,
+    content: nextContent,
   });
 
   if (!lifecycle.ok) {
@@ -209,9 +227,14 @@ export async function PUT(
         content: nextContent,
         deck: nextDeck,
         excerpt: nextExcerpt,
+        focusKeyword: nextFocusKeyword,
+        seoTitle: nextSeoTitle,
+        seoDescription: nextSeoDescription,
+        canonicalUrl: nextCanonicalUrl,
         coverImage: nextCoverImage,
         featuredImageId: nextFeaturedImageId,
         media: nextMediaIds !== null ? { set: nextMediaIds.map((mediaId) => ({ id: mediaId })) } : undefined,
+        stage: lifecycle.stage,
         status: lifecycle.status,
         publishedAt: lifecycle.publishedAt,
         scheduledFor: lifecycle.scheduledFor,
@@ -271,6 +294,8 @@ export async function PUT(
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
+  revalidatePostPaths(post);
+
   return NextResponse.json(toResponsePost(post));
 }
 
@@ -285,6 +310,16 @@ export async function DELETE(
     return unauthorizedResponse();
   }
 
+  const existingPost = await prisma.post.findUnique({
+    where: { id },
+    select: { id: true, slug: true },
+  });
+
+  if (!existingPost) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   await prisma.post.delete({ where: { id } });
+  revalidatePostPaths(existingPost);
   return NextResponse.json({ ok: true });
 }

@@ -25,6 +25,10 @@ export type ContentFormatAction =
 
 export default function PostContentPanel({
   title,
+  focusKeyword,
+  seoTitle,
+  seoDescription,
+  canonicalUrl,
   deck,
   excerpt,
   body,
@@ -34,15 +38,24 @@ export default function PostContentPanel({
   onDeckChange,
   onExcerptChange,
   onBodyChange,
+  onFocusKeywordChange,
+  onSeoTitleChange,
+  onSeoDescriptionChange,
+  onCanonicalUrlChange,
   onApplyFormat,
   onInsertTemplate,
   onInsertStyledBlock,
+  onOpenInternalLinkModal,
   onOpenInlineImagePicker,
   inlineUploadLabel,
   inlineUploadDisabled,
   contentTextareaRef,
 }: {
   title: string;
+  focusKeyword: string;
+  seoTitle: string;
+  seoDescription: string;
+  canonicalUrl: string;
   deck: string;
   excerpt: string;
   body: string;
@@ -52,9 +65,14 @@ export default function PostContentPanel({
   onDeckChange: (value: string) => void;
   onExcerptChange: (value: string) => void;
   onBodyChange: (value: string) => void;
+  onFocusKeywordChange: (value: string) => void;
+  onSeoTitleChange: (value: string) => void;
+  onSeoDescriptionChange: (value: string) => void;
+  onCanonicalUrlChange: (value: string) => void;
   onApplyFormat: (action: ContentFormatAction) => void;
   onInsertTemplate: (templateId: ContentTemplateId) => void;
   onInsertStyledBlock: (blockId: StyledBlockId) => void;
+  onOpenInternalLinkModal: () => void;
   onOpenInlineImagePicker: () => void;
   inlineUploadLabel: string;
   inlineUploadDisabled: boolean;
@@ -70,6 +88,52 @@ export default function PostContentPanel({
           placeholder="The Art of the Registry"
         />
       </AdminField>
+
+      <div className="admin-stack gap-3 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+        <div className="admin-stack gap-1">
+          <p className="admin-eyebrow">SEO Essentials</p>
+          <p className="admin-micro">Keep keyword and metadata visible while writing.</p>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2">
+          <AdminField label="Focus keyword" htmlFor="post-focus-keyword">
+            <AdminInput
+              id="post-focus-keyword"
+              value={focusKeyword}
+              onChange={(event) => onFocusKeywordChange(event.target.value)}
+              placeholder="best baby stroller"
+            />
+          </AdminField>
+
+          <AdminField label="SEO title" htmlFor="post-seo-title">
+            <AdminInput
+              id="post-seo-title"
+              value={seoTitle}
+              onChange={(event) => onSeoTitleChange(event.target.value)}
+              placeholder="Best Baby Stroller for Everyday Use | Taylor-Made Baby Co."
+            />
+          </AdminField>
+        </div>
+
+        <AdminField label="Meta description" htmlFor="post-seo-description">
+          <AdminTextarea
+            id="post-seo-description"
+            value={seoDescription}
+            onChange={(event) => onSeoDescriptionChange(event.target.value)}
+            className="min-h-[120px]"
+            placeholder="A practical guide to choosing the right stroller for everyday life without overbuying or overthinking."
+          />
+        </AdminField>
+
+        <AdminField label="Canonical URL" htmlFor="post-canonical-url" help="Optional. Leave blank to use the public blog URL.">
+          <AdminInput
+            id="post-canonical-url"
+            value={canonicalUrl}
+            onChange={(event) => onCanonicalUrlChange(event.target.value)}
+            placeholder="https://www.taylormadebabyco.com/blog/post-slug"
+          />
+        </AdminField>
+      </div>
 
       <AdminField label="Deck" htmlFor="post-deck" help="Optional subtitle or article deck shown in editor and future layouts.">
         <AdminTextarea
@@ -179,6 +243,9 @@ export default function PostContentPanel({
             </AdminButton>
             <AdminButton type="button" variant="secondary" size="sm" onClick={() => onApplyFormat('divider')}>
               Divider
+            </AdminButton>
+            <AdminButton type="button" variant="secondary" size="sm" onClick={onOpenInternalLinkModal}>
+              Internal link
             </AdminButton>
             <AdminButton
               type="button"

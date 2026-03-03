@@ -449,6 +449,24 @@
     color: rgba(0, 0, 0, 0.7);
   }
 
+  .admin-chip--idea {
+    background: rgba(188, 125, 68, 0.11);
+    border-color: rgba(188, 125, 68, 0.22);
+    color: #8d5a22;
+  }
+
+  .admin-chip--outline {
+    background: rgba(138, 102, 176, 0.11);
+    border-color: rgba(138, 102, 176, 0.22);
+    color: #6f4e96;
+  }
+
+  .admin-chip--ready {
+    background: rgba(176, 118, 34, 0.12);
+    border-color: rgba(176, 118, 34, 0.24);
+    color: #8a5a18;
+  }
+
   .admin-chip--published {
     background: rgba(47, 106, 67, 0.11);
     border-color: rgba(47, 106, 67, 0.24);

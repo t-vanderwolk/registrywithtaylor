@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
-import { resolvePostLifecycle } from '@/lib/server/blogPostLifecycle';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -65,11 +65,23 @@ export async function POST(req: NextRequest) {
   const mediaIds = Array.from(new Set(asStringArray(body.mediaIds)));
   const affiliateIds = Array.from(new Set(asStringArray(body.affiliateIds)));
   const deck = asNullableText(body.deck);
+  const focusKeyword = asNullableText(body.focusKeyword);
+  const seoTitle = asNullableText(body.seoTitle);
+  const seoDescription = asNullableText(body.seoDescription);
+  const canonicalUrl = asNullableText(body.canonicalUrl);
   const featured = Boolean(body.featured);
-  const lifecycle = resolvePostLifecycle({
-    status: body.status,
-    published: body.published,
-    scheduledFor: body.scheduledFor,
+  const lifecycle = deriveLifecycleAndStage({
+    existing: {
+      status: 'DRAFT',
+      publishedAt: null,
+      scheduledFor: null,
+      archivedAt: null,
+      stage: 'DRAFT',
+    },
+    requestedStatus: body.status,
+    requestedPublished: body.published,
+    requestedScheduledFor: body.scheduledFor,
+    requestedStage: body.stage,
     content,
   });
 
@@ -87,9 +99,14 @@ export async function POST(req: NextRequest) {
         content: content || '',
         deck,
         excerpt,
+        focusKeyword,
+        seoTitle,
+        seoDescription,
+        canonicalUrl,
         coverImage,
         featuredImageId,
         media: mediaIds.length > 0 ? { connect: mediaIds.map((id) => ({ id })) } : undefined,
+        stage: lifecycle.stage,
         status: lifecycle.status,
         publishedAt: lifecycle.publishedAt,
         scheduledFor: lifecycle.scheduledFor,
@@ -146,10 +163,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
   }
 
+  revalidatePostPaths(post);
+
   return NextResponse.json(
     {
       ...post,
       deck: post.deck,
+      focusKeyword: post.focusKeyword,
+      seoTitle: post.seoTitle,
+      seoDescription: post.seoDescription,
+      canonicalUrl: post.canonicalUrl,
+      stage: post.stage,
       status: post.status,
       publishedAt: post.publishedAt,
       scheduledFor: post.scheduledFor,

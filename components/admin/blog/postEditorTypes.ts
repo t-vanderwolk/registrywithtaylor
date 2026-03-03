@@ -2,6 +2,7 @@ import type { AffiliateNetwork } from '@prisma/client';
 import type { BlogCategory } from '@/lib/blogCategories';
 import type { CtaButton } from '@/lib/blog/ctaButtons';
 import type { PostStatusValue } from '@/lib/blog/postStatus';
+import type { BlogStageValue } from '@/lib/blog/postStage';
 
 export type AffiliateOption = {
   id: string;
@@ -23,8 +24,13 @@ export type PersistedPostRecord = {
   title: string;
   slug: string;
   category: BlogCategory;
+  stage: BlogStageValue;
   deck: string | null;
   excerpt: string | null;
+  focusKeyword: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  canonicalUrl: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
   featuredImage: MediaRecord | null;
@@ -52,8 +58,13 @@ export type PostSavePayload = Pick<
   | 'title'
   | 'slug'
   | 'category'
+  | 'stage'
   | 'deck'
   | 'excerpt'
+  | 'focusKeyword'
+  | 'seoTitle'
+  | 'seoDescription'
+  | 'canonicalUrl'
   | 'coverImage'
   | 'featuredImageId'
   | 'mediaIds'

@@ -19,6 +19,8 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           label: 'Publish',
           links: [
             { label: 'Posts', href: '/admin/blog' },
+            { label: 'Planner', href: '/admin/blog/planner' },
+            { label: 'Categories', href: '/admin/blog/categories' },
             { label: 'Media', href: '/admin/media' },
           ],
         },

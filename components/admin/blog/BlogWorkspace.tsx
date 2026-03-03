@@ -1,52 +1,49 @@
 'use client';
 
 import Link from 'next/link';
-import { useDeferredValue, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { startTransition, useDeferredValue, useEffect, useMemo, useState, useTransition } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
-import AdminToolbar from '@/components/admin/patterns/AdminToolbar';
 import AdminButton from '@/components/admin/ui/AdminButton';
-import AdminInput from '@/components/admin/ui/AdminInput';
-import StatusPill from '@/components/admin/ui/StatusPill';
 import AdminTable from '@/components/admin/ui/AdminTable';
-import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
+import StatusPill from '@/components/admin/ui/StatusPill';
+import BulkActionsBar from '@/components/admin/blog/BulkActionsBar';
+import FilterBar from '@/components/admin/blog/FilterBar';
+import StageBadge from '@/components/admin/blog/StageBadge';
+import type { PostStatusValue } from '@/lib/blog/postStatus';
+import type { BlogStageValue } from '@/lib/blog/postStage';
 
 type BlogWorkspacePost = {
   id: string;
   title: string;
   slug: string;
-  deck: string | null;
-  excerpt: string | null;
   status: PostStatusValue;
-  publishedAt: string | null;
-  scheduledFor: string | null;
-  archivedAt: string | null;
-  featured: boolean;
-  published: boolean;
-  createdAt: string;
+  stage: BlogStageValue;
+  category: string;
+  focusKeyword: string | null;
+  excerpt: string | null;
   updatedAt: string;
+  publishedAt: string | null;
+  archivedAt: string | null;
+  scheduledFor: string | null;
+  featured: boolean;
   authorLabel: string;
 };
 
-type Notice = {
-  tone: 'error' | 'success';
-  message: string;
+type BlogWorkspaceFilters = {
+  search: string;
+  status: 'all' | PostStatusValue;
+  stage: 'all' | BlogStageValue;
+  category: string;
+  featured: 'all' | 'featured' | 'standard';
+  sort: 'updated' | 'publishedAt' | 'title';
+  page: number;
 };
 
-type StatusFilter = 'all' | PostStatusValue;
-
-type ActionState = {
-  key: string;
-  action: 'duplicate' | 'set-status' | 'bulk' | 'delete';
-} | null;
-
-const STATUS_OPTIONS: Array<{ value: StatusFilter; label: string }> = [
-  { value: 'all', label: 'All' },
-  { value: 'DRAFT', label: 'Draft' },
-  { value: 'SCHEDULED', label: 'Scheduled' },
-  { value: 'PUBLISHED', label: 'Published' },
-  { value: 'ARCHIVED', label: 'Archived' },
-];
+type Notice = {
+  tone: 'success' | 'error';
+  message: string;
+};
 
 const formatDateTime = (value?: string | null) => {
   if (!value) {
@@ -62,84 +59,116 @@ const formatDateTime = (value?: string | null) => {
   });
 };
 
-const toIsoFromLocalDateTime = (value: string) => {
-  if (!value) {
-    return null;
-  }
-
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return null;
-  }
-
-  return date.toISOString();
-};
-
-function mapApiPost(payload: Record<string, unknown>) {
+function mapApiPost(payload: Record<string, unknown>, fallbackAuthorLabel: string) {
   return {
     id: String(payload.id),
     title: typeof payload.title === 'string' ? payload.title : 'Untitled post',
     slug: typeof payload.slug === 'string' ? payload.slug : '',
-    deck: typeof payload.deck === 'string' ? payload.deck : null,
-    excerpt: typeof payload.excerpt === 'string' ? payload.excerpt : null,
     status: payload.status as PostStatusValue,
-    publishedAt: typeof payload.publishedAt === 'string' ? payload.publishedAt : null,
-    scheduledFor: typeof payload.scheduledFor === 'string' ? payload.scheduledFor : null,
-    archivedAt: typeof payload.archivedAt === 'string' ? payload.archivedAt : null,
-    featured: Boolean(payload.featured),
-    published: Boolean(payload.published),
-    createdAt: typeof payload.createdAt === 'string' ? payload.createdAt : new Date().toISOString(),
+    stage: payload.stage as BlogStageValue,
+    category: typeof payload.category === 'string' ? payload.category : 'Registry Strategy',
+    focusKeyword: typeof payload.focusKeyword === 'string' ? payload.focusKeyword : null,
+    excerpt: typeof payload.excerpt === 'string' ? payload.excerpt : null,
     updatedAt: typeof payload.updatedAt === 'string' ? payload.updatedAt : new Date().toISOString(),
-    authorLabel: typeof payload.authorLabel === 'string' ? payload.authorLabel : 'You',
+    publishedAt: typeof payload.publishedAt === 'string' ? payload.publishedAt : null,
+    archivedAt: typeof payload.archivedAt === 'string' ? payload.archivedAt : null,
+    scheduledFor: typeof payload.scheduledFor === 'string' ? payload.scheduledFor : null,
+    featured: Boolean(payload.featured),
+    authorLabel: typeof payload.authorLabel === 'string' ? payload.authorLabel : fallbackAuthorLabel,
   } satisfies BlogWorkspacePost;
 }
 
-export default function BlogWorkspace({ posts }: { posts: BlogWorkspacePost[] }) {
+export default function BlogWorkspace({
+  posts,
+  filters,
+  pagination,
+  categoryOptions,
+}: {
+  posts: BlogWorkspacePost[];
+  filters: BlogWorkspaceFilters;
+  pagination: {
+    page: number;
+    totalPages: number;
+    totalCount: number;
+  };
+  categoryOptions: string[];
+}) {
+  const pathname = usePathname();
   const router = useRouter();
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
-  const [searchValue, setSearchValue] = useState('');
+  const [isPending, startRouteTransition] = useTransition();
+  const [searchValue, setSearchValue] = useState(filters.search);
+  const deferredSearch = useDeferredValue(searchValue);
   const [rows, setRows] = useState(posts);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [bulkScheduleFor, setBulkScheduleFor] = useState('');
   const [notice, setNotice] = useState<Notice | null>(null);
-  const [actionState, setActionState] = useState<ActionState>(null);
-  const deferredSearch = useDeferredValue(searchValue);
+  const [busyKey, setBusyKey] = useState<string | null>(null);
 
-  const visiblePosts = useMemo(() => {
-    const query = deferredSearch.trim().toLowerCase();
+  useEffect(() => {
+    setRows(posts);
+  }, [posts]);
 
-    return rows.filter((post) => {
-      const matchesStatus = statusFilter === 'all' || post.status === statusFilter;
+  useEffect(() => {
+    setSearchValue(filters.search);
+  }, [filters.search]);
 
-      if (!matchesStatus) {
-        return false;
-      }
+  useEffect(() => {
+    if (deferredSearch === filters.search) {
+      return;
+    }
 
-      if (!query) {
-        return true;
-      }
+    updateFilters({ search: deferredSearch, page: 1 });
+  }, [deferredSearch]);
 
-      const haystack = [post.title, post.slug, post.deck ?? '', post.excerpt ?? '', post.authorLabel]
-        .join(' ')
-        .toLowerCase();
-      return haystack.includes(query);
+  const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const allVisibleSelected = rows.length > 0 && rows.every((row) => selectedSet.has(row.id));
+
+  function updateFilters(partial: Partial<BlogWorkspaceFilters>) {
+    const next = { ...filters, ...partial };
+    const params = new URLSearchParams();
+
+    if (next.search.trim()) {
+      params.set('search', next.search.trim());
+    }
+
+    if (next.status !== 'all') {
+      params.set('status', next.status);
+    }
+
+    if (next.stage !== 'all') {
+      params.set('stage', next.stage);
+    }
+
+    if (next.category !== 'all') {
+      params.set('category', next.category);
+    }
+
+    if (next.featured !== 'all') {
+      params.set('featured', next.featured);
+    }
+
+    if (next.sort !== 'updated') {
+      params.set('sort', next.sort);
+    }
+
+    if (next.page > 1) {
+      params.set('page', String(next.page));
+    }
+
+    startRouteTransition(() => {
+      router.replace(params.size > 0 ? `${pathname}?${params.toString()}` : pathname);
     });
-  }, [deferredSearch, rows, statusFilter]);
-
-  const allVisibleSelected = visiblePosts.length > 0 && visiblePosts.every((post) => selectedIds.includes(post.id));
-
-  function setRow(nextPost: BlogWorkspacePost) {
-    setRows((currentRows) => currentRows.map((post) => (post.id === nextPost.id ? nextPost : post)));
   }
 
-  async function updatePostStatus(postId: string, status: PostStatusValue, scheduledFor?: string | null) {
+  async function refreshWithNotice(nextNotice: Notice) {
+    setNotice(nextNotice);
+    startTransition(() => router.refresh());
+  }
+
+  async function updateSinglePost(postId: string, body: Record<string, unknown>) {
     const response = await fetch(`/api/blog/${postId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        status,
-        scheduledFor: status === 'SCHEDULED' ? scheduledFor : null,
-      }),
+      body: JSON.stringify(body),
     });
     const payload = (await response.json().catch(() => null)) as Record<string, unknown> | null;
 
@@ -147,308 +176,150 @@ export default function BlogWorkspace({ posts }: { posts: BlogWorkspacePost[] })
       throw new Error(typeof payload?.error === 'string' ? payload.error : 'Unable to update the post.');
     }
 
-    return mapApiPost({
-      ...payload,
-      authorLabel: rows.find((post) => post.id === String(payload.id))?.authorLabel ?? 'You',
-    });
+    const existing = rows.find((row) => row.id === postId);
+    const mapped = mapApiPost(payload, existing?.authorLabel ?? 'You');
+    setRows((currentRows) => currentRows.map((row) => (row.id === postId ? mapped : row)));
+    return mapped;
   }
 
-  async function duplicatePost(postId: string) {
-    setActionState({ key: postId, action: 'duplicate' });
+  async function runBulkAction(body: Record<string, unknown>, successMessage: string) {
+    if (selectedIds.length === 0) {
+      setNotice({ tone: 'error', message: 'Select at least one post first.' });
+      return;
+    }
+
+    setBusyKey(`bulk:${selectedIds.join(',')}`);
     setNotice(null);
 
     try {
-      const sourceRes = await fetch(`/api/blog/${postId}`);
-      const sourceJson = (await sourceRes.json().catch(() => null)) as Record<string, unknown> | null;
-
-      if (!sourceRes.ok || !sourceJson?.id) {
-        throw new Error(typeof sourceJson?.error === 'string' ? sourceJson.error : 'Unable to load the source post.');
-      }
-
-      const duplicateRes = await fetch('/api/blog', {
+      const response = await fetch('/api/blog/bulk', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title: `${typeof sourceJson.title === 'string' ? sourceJson.title : 'Untitled post'} (Copy)`,
-          slug: '',
-          category: sourceJson.category,
-          deck: sourceJson.deck,
-          excerpt: sourceJson.excerpt,
-          coverImage: sourceJson.coverImage,
-          featuredImageId: sourceJson.featuredImageId,
-          content: sourceJson.content,
-          mediaIds: sourceJson.mediaIds ?? [],
-          status: 'DRAFT',
-          featured: false,
-          affiliateIds: sourceJson.affiliateIds ?? [],
+          ids: selectedIds,
+          ...body,
         }),
       });
+      const payload = (await response.json().catch(() => null)) as Record<string, unknown> | null;
 
-      const duplicateJson = (await duplicateRes.json().catch(() => null)) as Record<string, unknown> | null;
-      if (!duplicateRes.ok || !duplicateJson?.id) {
-        throw new Error(typeof duplicateJson?.error === 'string' ? duplicateJson.error : 'Unable to duplicate the post.');
+      if (!response.ok) {
+        throw new Error(typeof payload?.error === 'string' ? payload.error : 'Unable to update the selected posts.');
       }
 
-      setRows((currentRows) => [
-        mapApiPost({
-          ...duplicateJson,
-          authorLabel: rows.find((post) => post.id === postId)?.authorLabel ?? 'You',
-        }),
-        ...currentRows,
-      ]);
-      setNotice({ tone: 'success', message: 'Draft duplicated. Opening the new copy.' });
-      router.push(`/admin/blog/${duplicateJson.id}/edit`);
+      setSelectedIds([]);
+      await refreshWithNotice({ tone: 'success', message: successMessage });
+    } catch (error) {
+      setNotice({
+        tone: 'error',
+        message: error instanceof Error ? error.message : 'Unable to update the selected posts.',
+      });
+    } finally {
+      setBusyKey(null);
+    }
+  }
+
+  async function duplicatePost(postId: string) {
+    setBusyKey(`duplicate:${postId}`);
+    setNotice(null);
+
+    try {
+      const response = await fetch(`/api/blog/${postId}/duplicate`, {
+        method: 'POST',
+      });
+      const payload = (await response.json().catch(() => null)) as Record<string, unknown> | null;
+
+      if (!response.ok || !payload?.id) {
+        throw new Error(typeof payload?.error === 'string' ? payload.error : 'Unable to duplicate the post.');
+      }
+
+      setNotice({ tone: 'success', message: 'Draft duplicated. Opening the copy.' });
+      router.push(`/admin/blog/${payload.id}/edit`);
     } catch (error) {
       setNotice({
         tone: 'error',
         message: error instanceof Error ? error.message : 'Unable to duplicate the post.',
       });
     } finally {
-      setActionState(null);
+      setBusyKey(null);
     }
   }
 
   async function deletePost(postId: string) {
-    const target = rows.find((post) => post.id === postId);
+    const target = rows.find((row) => row.id === postId);
     if (!target) {
       return;
     }
 
-    const confirmed = window.confirm(`Delete "${target.title}"? This cannot be undone.`);
-    if (!confirmed) {
+    if (!window.confirm(`Delete "${target.title}"? This cannot be undone.`)) {
       return;
     }
 
-    setActionState({ key: postId, action: 'delete' });
+    setBusyKey(`delete:${postId}`);
     setNotice(null);
 
     try {
-      const response = await fetch(`/api/blog/${postId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(`/api/blog/${postId}`, { method: 'DELETE' });
       const payload = (await response.json().catch(() => null)) as { error?: string } | null;
 
       if (!response.ok) {
         throw new Error(payload?.error || 'Unable to delete the post.');
       }
 
-      setRows((currentRows) => currentRows.filter((post) => post.id !== postId));
-      setSelectedIds((currentIds) => currentIds.filter((id) => id !== postId));
-      setNotice({ tone: 'success', message: 'Post deleted.' });
+      await refreshWithNotice({ tone: 'success', message: 'Post deleted.' });
     } catch (error) {
       setNotice({
         tone: 'error',
         message: error instanceof Error ? error.message : 'Unable to delete the post.',
       });
     } finally {
-      setActionState(null);
+      setBusyKey(null);
     }
-  }
-
-  async function handleRowStatusChange(postId: string, status: PostStatusValue) {
-    setActionState({ key: postId, action: 'set-status' });
-    setNotice(null);
-
-    try {
-      const nextPost = await updatePostStatus(postId, status, null);
-      setRow(nextPost);
-      setNotice({ tone: 'success', message: `Post moved to ${POST_STATUS_LABELS[status].toLowerCase()}.` });
-    } catch (error) {
-      setNotice({
-        tone: 'error',
-        message: error instanceof Error ? error.message : 'Unable to update the post.',
-      });
-    } finally {
-      setActionState(null);
-    }
-  }
-
-  async function handleBulkStatusChange(status: PostStatusValue) {
-    if (selectedIds.length === 0) {
-      setNotice({ tone: 'error', message: 'Select at least one post first.' });
-      return;
-    }
-
-    const scheduledFor = status === 'SCHEDULED' ? toIsoFromLocalDateTime(bulkScheduleFor) : null;
-    if (status === 'SCHEDULED' && !scheduledFor) {
-      setNotice({ tone: 'error', message: 'Choose a future schedule date and time for the selected posts.' });
-      return;
-    }
-
-    setActionState({ key: selectedIds.join(','), action: 'bulk' });
-    setNotice(null);
-
-    try {
-      const results = await Promise.all(
-        selectedIds.map(async (postId) => {
-          try {
-            const updated = await updatePostStatus(postId, status, scheduledFor);
-            return { ok: true as const, updated };
-          } catch (error) {
-            return { ok: false as const, error: error instanceof Error ? error.message : 'Unable to update post.' };
-          }
-        }),
-      );
-
-      const successes = results.filter((result) => result.ok).map((result) => result.updated);
-      const failures = results.filter((result) => !result.ok);
-
-      if (successes.length > 0) {
-        setRows((currentRows) =>
-          currentRows.map((post) => successes.find((updated) => updated.id === post.id) ?? post),
-        );
-      }
-
-      if (failures.length > 0) {
-        setNotice({
-          tone: 'error',
-          message: failures[0]?.error ?? 'Some posts could not be updated.',
-        });
-      } else {
-        setNotice({
-          tone: 'success',
-          message: `${successes.length} post${successes.length === 1 ? '' : 's'} moved to ${POST_STATUS_LABELS[status].toLowerCase()}.`,
-        });
-      }
-
-      setSelectedIds([]);
-      if (status === 'SCHEDULED') {
-        setBulkScheduleFor('');
-      }
-    } finally {
-      setActionState(null);
-    }
-  }
-
-  async function handleBulkDelete() {
-    if (selectedIds.length === 0) {
-      setNotice({ tone: 'error', message: 'Select at least one post first.' });
-      return;
-    }
-
-    const confirmed = window.confirm(`Delete ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}? This cannot be undone.`);
-    if (!confirmed) {
-      return;
-    }
-
-    setActionState({ key: selectedIds.join(','), action: 'bulk' });
-    setNotice(null);
-
-    try {
-      const results = await Promise.all(
-        selectedIds.map(async (postId) => {
-          const response = await fetch(`/api/blog/${postId}`, {
-            method: 'DELETE',
-          });
-          const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-
-          if (!response.ok) {
-            throw new Error(payload?.error || 'Unable to delete post.');
-          }
-
-          return postId;
-        }),
-      );
-
-      setRows((currentRows) => currentRows.filter((post) => !results.includes(post.id)));
-      setSelectedIds([]);
-      setNotice({
-        tone: 'success',
-        message: `${results.length} post${results.length === 1 ? '' : 's'} deleted.`,
-      });
-    } catch (error) {
-      setNotice({
-        tone: 'error',
-        message: error instanceof Error ? error.message : 'Unable to delete selected posts.',
-      });
-    } finally {
-      setActionState(null);
-    }
-  }
-
-  function toggleSelection(postId: string, checked: boolean) {
-    setSelectedIds((current) =>
-      checked ? Array.from(new Set([...current, postId])) : current.filter((id) => id !== postId),
-    );
-  }
-
-  function toggleSelectAllVisible(checked: boolean) {
-    if (!checked) {
-      setSelectedIds((current) => current.filter((id) => !visiblePosts.some((post) => post.id === id)));
-      return;
-    }
-
-    setSelectedIds((current) => Array.from(new Set([...current, ...visiblePosts.map((post) => post.id)])));
   }
 
   return (
     <div className="admin-stack gap-4">
-      <AdminToolbar
-        left={
-          <>
-            {STATUS_OPTIONS.map((status) => {
-              const isActive = statusFilter === status.value;
-              return (
-                <button
-                  key={status.value}
-                  type="button"
-                  onClick={() => setStatusFilter(status.value)}
-                  className={`admin-btn admin-btn--secondary admin-tab ${isActive ? 'is-active' : ''}`}
-                  aria-pressed={isActive}
-                >
-                  {status.label}
-                </button>
-              );
-            })}
-          </>
-        }
-        right={
-          <>
-            <AdminInput
-              value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
-              placeholder="Search title, slug, deck, excerpt, author"
-              aria-label="Search posts"
-              className="min-w-[18rem]"
-            />
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/blog/new">Create draft</Link>
-            </AdminButton>
-          </>
-        }
+      <FilterBar
+        search={searchValue}
+        status={filters.status}
+        stage={filters.stage}
+        category={filters.category}
+        featured={filters.featured}
+        sort={filters.sort}
+        categoryOptions={categoryOptions}
+        onSearchChange={setSearchValue}
+        onStatusChange={(value) => updateFilters({ status: value, page: 1 })}
+        onStageChange={(value) => updateFilters({ stage: value, page: 1 })}
+        onCategoryChange={(value) => updateFilters({ category: value, page: 1 })}
+        onFeaturedChange={(value) => updateFilters({ featured: value, page: 1 })}
+        onSortChange={(value) => updateFilters({ sort: value, page: 1 })}
       />
 
-      {selectedIds.length > 0 ? (
-        <div className="flex flex-col gap-3 rounded-[24px] border border-[var(--admin-color-border)] bg-white px-4 py-4 md:flex-row md:items-center md:justify-between">
-          <p className="admin-micro">
-            {selectedIds.length} selected. Apply a bulk status change to the current selection.
-          </p>
-          <div className="flex flex-wrap items-center gap-2">
-            <AdminButton size="sm" variant="secondary" onClick={() => void handleBulkStatusChange('PUBLISHED')} disabled={actionState?.action === 'bulk'}>
-              Publish
-            </AdminButton>
-            <AdminInput
-              type="datetime-local"
-              value={bulkScheduleFor}
-              onChange={(event) => setBulkScheduleFor(event.target.value)}
-              className="min-w-[14rem]"
-              aria-label="Bulk schedule date"
-            />
-            <AdminButton size="sm" variant="secondary" onClick={() => void handleBulkStatusChange('SCHEDULED')} disabled={actionState?.action === 'bulk'}>
-              Schedule
-            </AdminButton>
-            <AdminButton size="sm" variant="secondary" onClick={() => void handleBulkStatusChange('ARCHIVED')} disabled={actionState?.action === 'bulk'}>
-              Archive
-            </AdminButton>
-            <AdminButton size="sm" variant="ghost" onClick={() => void handleBulkStatusChange('DRAFT')} disabled={actionState?.action === 'bulk'}>
-              Move to Draft
-            </AdminButton>
-            <AdminButton size="sm" variant="danger" onClick={() => void handleBulkDelete()} disabled={actionState?.action === 'bulk'}>
-              Delete
-            </AdminButton>
-          </div>
-        </div>
-      ) : null}
+      <BulkActionsBar
+        selectedCount={selectedIds.length}
+        categoryOptions={categoryOptions}
+        onApplyStage={(value) => void runBulkAction({ action: 'set-stage', stage: value }, `Updated the stage on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
+        onApplyCategory={(value) => void runBulkAction({ action: 'set-category', category: value }, `Updated the category on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
+        onPublish={() => {
+          if (window.confirm(`Publish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+            void runBulkAction({ action: 'publish' }, `Published ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+          }
+        }}
+        onUnpublish={() => {
+          if (window.confirm(`Unpublish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+            void runBulkAction({ action: 'unpublish' }, `Moved ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'} back to draft.`);
+          }
+        }}
+        onArchive={() => {
+          if (window.confirm(`Archive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+            void runBulkAction({ action: 'archive' }, `Archived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+          }
+        }}
+        onUnarchive={() => {
+          if (window.confirm(`Unarchive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+            void runBulkAction({ action: 'unarchive' }, `Unarchived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+          }
+        }}
+      />
 
       {notice ? (
         <div
@@ -465,115 +336,183 @@ export default function BlogWorkspace({ posts }: { posts: BlogWorkspacePost[] })
       <AdminTable
         density="comfortable"
         columns={[
-          { key: 'select', label: '' },
+          { key: 'select', label: '', className: 'w-12' },
           { key: 'title', label: 'Title' },
-          { key: 'slug', label: 'Slug' },
           { key: 'status', label: 'Status' },
+          { key: 'stage', label: 'Stage' },
+          { key: 'category', label: 'Category' },
+          { key: 'keyword', label: 'Focus Keyword' },
           { key: 'updated', label: 'Updated' },
-          { key: 'published', label: 'Published' },
-          { key: 'scheduled', label: 'Scheduled' },
-          { key: 'author', label: 'Author' },
+          { key: 'publishedAt', label: 'Published At' },
+          { key: 'featured', label: 'Featured' },
+          { key: 'actions', label: 'Quick Actions', align: 'right' },
         ]}
         emptyState={
           <AdminEmptyState
-            title="No posts found"
-            hint="Start the workspace with a new draft."
+            title="No posts match filters"
+            hint="Try loosening filters or start a new post."
             action={
               <AdminButton asChild variant="primary" size="sm">
-                <Link href="/admin/blog/new">Create your first draft</Link>
+                <Link href="/admin/blog/new">New Post</Link>
               </AdminButton>
             }
           />
         }
       >
-        {visiblePosts.map((post) => {
-          const isDuplicating = actionState?.key === post.id && actionState.action === 'duplicate';
-          const isUpdating = actionState?.key === post.id && actionState.action === 'set-status';
-          const isDeleting = actionState?.key === post.id && actionState.action === 'delete';
-          const isSelected = selectedIds.includes(post.id);
-          const rowStatusAction = post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED';
+        {rows.map((post) => (
+          <tr key={post.id} className="admin-row">
+            <td>
+              <input
+                aria-label={`Select ${post.title}`}
+                type="checkbox"
+                checked={selectedSet.has(post.id)}
+                onChange={(event) =>
+                  setSelectedIds((current) =>
+                    event.target.checked ? Array.from(new Set([...current, post.id])) : current.filter((id) => id !== post.id),
+                  )
+                }
+                className="h-4 w-4 rounded border-[var(--admin-color-border)]"
+              />
+            </td>
+            <td>
+              <div className="admin-stack gap-1">
+                <p className="text-sm font-medium text-admin">{post.title}</p>
+                <p className="admin-table-code">{post.slug}</p>
+                {post.excerpt ? <p className="admin-micro max-w-[36ch]">{post.excerpt}</p> : null}
+                <p className="admin-micro">Author: {post.authorLabel}</p>
+              </div>
+            </td>
+            <td>
+              <StatusPill status={post.status} />
+            </td>
+            <td>
+              <StageBadge stage={post.stage} />
+            </td>
+            <td>{post.category}</td>
+            <td>{post.focusKeyword ?? '—'}</td>
+            <td className="admin-micro">{formatDateTime(post.updatedAt)}</td>
+            <td className="admin-micro">
+              {post.status === 'PUBLISHED' ? formatDateTime(post.publishedAt) : post.status === 'SCHEDULED' ? formatDateTime(post.scheduledFor) : post.status === 'ARCHIVED' ? formatDateTime(post.archivedAt) : '—'}
+            </td>
+            <td>{post.featured ? <span className="admin-chip admin-chip--published">Featured</span> : <span className="admin-chip">No</span>}</td>
+            <td>
+              <div className="flex flex-wrap justify-end gap-2">
+                <AdminButton asChild size="sm" variant="secondary">
+                  <Link href={`/admin/blog/${post.id}/edit`}>Edit</Link>
+                </AdminButton>
+                <AdminButton asChild size="sm" variant="secondary">
+                  <Link href={`/admin/blog/${post.id}/preview`}>Preview</Link>
+                </AdminButton>
+                <AdminButton
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => void duplicatePost(post.id)}
+                  disabled={busyKey === `duplicate:${post.id}` || isPending}
+                >
+                  Duplicate
+                </AdminButton>
+                <AdminButton
+                  size="sm"
+                  variant="ghost"
+                  onClick={() =>
+                    void updateSinglePost(post.id, {
+                      status: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
+                      stage: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
+                    }).then(async (updated) => {
+                      await refreshWithNotice({
+                        tone: 'success',
+                        message: updated.status === 'PUBLISHED' ? 'Post published.' : 'Post moved to draft.',
+                      });
+                    }).catch((error) =>
+                      setNotice({
+                        tone: 'error',
+                        message: error instanceof Error ? error.message : 'Unable to update the post.',
+                      }),
+                    )
+                  }
+                  disabled={busyKey !== null || isPending}
+                >
+                  {post.status === 'PUBLISHED' ? 'Unpublish' : 'Publish'}
+                </AdminButton>
+                <AdminButton
+                  size="sm"
+                  variant={post.status === 'ARCHIVED' ? 'secondary' : 'danger'}
+                  onClick={() => {
+                    const nextArchived = post.status !== 'ARCHIVED';
+                    if (!window.confirm(`${nextArchived ? 'Archive' : 'Unarchive'} "${post.title}"?`)) {
+                      return;
+                    }
 
-          return (
-            <tr key={post.id} className="admin-row">
-              <td>
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={(event) => toggleSelection(post.id, event.target.checked)}
-                  aria-label={`Select ${post.title}`}
-                  className="h-4 w-4 rounded border-[var(--admin-color-border)]"
-                />
-              </td>
-              <td>
-                <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Link href={`/admin/blog/${post.id}`} className="font-medium text-admin transition-opacity duration-200 hover:opacity-70">
-                      {post.title}
-                    </Link>
-                    {post.featured ? <span className="admin-chip">Featured</span> : null}
-                  </div>
-                  <p className="admin-micro">{post.deck?.trim() || post.excerpt?.trim() || 'No summary yet.'}</p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <AdminButton asChild variant="ghost" size="sm">
-                      <Link href={`/admin/blog/${post.id}`}>Edit</Link>
-                    </AdminButton>
-                    <AdminButton asChild variant="ghost" size="sm">
-                      <Link href={`/admin/blog/${post.id}/preview`}>Preview</Link>
-                    </AdminButton>
-                    <AdminButton
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => void duplicatePost(post.id)}
-                      disabled={isDuplicating || isUpdating || isDeleting}
-                    >
-                      {isDuplicating ? 'Duplicating...' : 'Duplicate'}
-                    </AdminButton>
-                    <AdminButton
-                      variant={post.status === 'PUBLISHED' ? 'secondary' : 'primary'}
-                      size="sm"
-                      onClick={() => void handleRowStatusChange(post.id, rowStatusAction)}
-                      disabled={isDuplicating || isUpdating || isDeleting}
-                    >
-                      {isUpdating ? 'Saving...' : rowStatusAction === 'PUBLISHED' ? 'Publish' : 'Move to Draft'}
-                    </AdminButton>
-                    <AdminButton
-                      variant="danger"
-                      size="sm"
-                      onClick={() => void deletePost(post.id)}
-                      disabled={isDuplicating || isUpdating || isDeleting}
-                    >
-                      {isDeleting ? 'Deleting...' : 'Delete'}
-                    </AdminButton>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <span className="admin-table-code">{post.slug}</span>
-              </td>
-              <td>
-                <StatusPill status={post.status} />
-              </td>
-              <td className="admin-micro">{formatDateTime(post.updatedAt)}</td>
-              <td className="admin-micro">{post.status === 'PUBLISHED' ? formatDateTime(post.publishedAt) : '—'}</td>
-              <td className="admin-micro">{post.status === 'SCHEDULED' ? formatDateTime(post.scheduledFor) : '—'}</td>
-              <td className="admin-micro">{post.authorLabel}</td>
-            </tr>
-          );
-        })}
+                    void updateSinglePost(post.id, {
+                      status: nextArchived ? 'ARCHIVED' : 'DRAFT',
+                      stage: nextArchived ? 'ARCHIVED' : 'DRAFT',
+                    }).then(async () => {
+                      await refreshWithNotice({
+                        tone: 'success',
+                        message: nextArchived ? 'Post archived.' : 'Post unarchived.',
+                      });
+                    }).catch((error) =>
+                      setNotice({
+                        tone: 'error',
+                        message: error instanceof Error ? error.message : 'Unable to update the post.',
+                      }),
+                    );
+                  }}
+                  disabled={busyKey !== null || isPending}
+                >
+                  {post.status === 'ARCHIVED' ? 'Unarchive' : 'Archive'}
+                </AdminButton>
+                <AdminButton
+                  size="sm"
+                  variant="danger"
+                  onClick={() => void deletePost(post.id)}
+                  disabled={busyKey === `delete:${post.id}` || isPending}
+                >
+                  Delete
+                </AdminButton>
+              </div>
+            </td>
+          </tr>
+        ))}
       </AdminTable>
 
-      {visiblePosts.length > 0 ? (
-        <div className="flex items-center justify-between gap-3">
-          <label className="flex items-center gap-2 text-sm text-admin-muted">
+      {rows.length > 0 ? (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <label className="flex items-center gap-2 text-sm text-admin">
             <input
               type="checkbox"
               checked={allVisibleSelected}
-              onChange={(event) => toggleSelectAllVisible(event.target.checked)}
+              onChange={(event) =>
+                setSelectedIds(event.target.checked ? rows.map((row) => row.id) : [])
+              }
               className="h-4 w-4 rounded border-[var(--admin-color-border)]"
             />
-            Select all visible posts
+            Select all visible
           </label>
-          <p className="admin-micro">{visiblePosts.length} post{visiblePosts.length === 1 ? '' : 's'} in view.</p>
+
+          <div className="flex items-center gap-3">
+            <p className="admin-micro">
+              Page {pagination.page} of {pagination.totalPages} • {pagination.totalCount} total posts
+            </p>
+            <div className="flex items-center gap-2">
+              <AdminButton
+                size="sm"
+                variant="secondary"
+                onClick={() => updateFilters({ page: pagination.page - 1 })}
+                disabled={pagination.page <= 1 || isPending}
+              >
+                Previous
+              </AdminButton>
+              <AdminButton
+                size="sm"
+                variant="secondary"
+                onClick={() => updateFilters({ page: pagination.page + 1 })}
+                disabled={pagination.page >= pagination.totalPages || isPending}
+              >
+                Next
+              </AdminButton>
+            </div>
+          </div>
         </div>
       ) : null}
     </div>

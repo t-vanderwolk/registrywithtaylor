@@ -5,6 +5,7 @@ import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminToast from '@/components/admin/ui/AdminToast';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
+import { BLOG_STAGE_LABELS, type BlogStageValue } from '@/lib/blog/postStage';
 
 const formatDateTime = (value?: Date | string | null) => {
   if (!value) {
@@ -48,6 +49,7 @@ const statusCopy: Record<PostStatusValue, string> = {
 export default function PostPublishPanel({
   hasPersistedPost,
   status,
+  stage,
   publishedAt,
   scheduledFor,
   archivedAt,
@@ -57,12 +59,14 @@ export default function PostPublishPanel({
   canPreview,
   scheduleError,
   onStatusChange,
+  onStageChange,
   onScheduledForChange,
   onSave,
   onOpenPreview,
 }: {
   hasPersistedPost: boolean;
   status: PostStatusValue;
+  stage: BlogStageValue;
   publishedAt?: Date | string | null;
   scheduledFor?: Date | string | null;
   archivedAt?: Date | string | null;
@@ -72,6 +76,7 @@ export default function PostPublishPanel({
   canPreview: boolean;
   scheduleError?: string;
   onStatusChange: (value: PostStatusValue) => void;
+  onStageChange: (value: BlogStageValue) => void;
   onScheduledForChange: (value: string) => void;
   onSave: () => void;
   onOpenPreview: () => void;
@@ -87,6 +92,16 @@ export default function PostPublishPanel({
       <AdminField label="Status" htmlFor="post-status">
         <AdminSelect id="post-status" value={status} onChange={(event) => onStatusChange(event.target.value as PostStatusValue)}>
           {Object.entries(POST_STATUS_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </AdminSelect>
+      </AdminField>
+
+      <AdminField label="Stage" htmlFor="post-stage" help="Use the editorial stage to track planning and readiness.">
+        <AdminSelect id="post-stage" value={stage} onChange={(event) => onStageChange(event.target.value as BlogStageValue)}>
+          {Object.entries(BLOG_STAGE_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
               {label}
             </option>

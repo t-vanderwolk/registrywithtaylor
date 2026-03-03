@@ -19,6 +19,15 @@ enum PostStatus {
   ARCHIVED
 }
 
+enum BlogStage {
+  IDEA
+  OUTLINE
+  DRAFT
+  READY
+  PUBLISHED
+  ARCHIVED
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -35,9 +44,14 @@ model Post {
   title       String
   slug        String         @unique
   category    String         @default("Registry Strategy")
+  stage       BlogStage      @default(DRAFT)
   content     String
   deck        String?
   excerpt     String?
+  focusKeyword String?
+  seoTitle    String?
+  seoDescription String?
+  canonicalUrl String?
   coverImage  String?
   featuredImageId String?
   featuredImage Media? @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])

@@ -20,8 +20,13 @@ export default async function EditPostPage({ params }: EditPostProps) {
       title: true,
       slug: true,
       category: true,
+      stage: true,
       deck: true,
       excerpt: true,
+      focusKeyword: true,
+      seoTitle: true,
+      seoDescription: true,
+      canonicalUrl: true,
       coverImage: true,
       featuredImageId: true,
       featuredImage: {
