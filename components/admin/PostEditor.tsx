@@ -61,6 +61,11 @@ type PostRecord = {
   updatedAt?: Date | string;
 };
 
+type PostSavePayload = Pick<
+  PostRecord,
+  'title' | 'slug' | 'category' | 'excerpt' | 'coverImage' | 'featuredImageId' | 'content' | 'mediaIds' | 'published' | 'affiliateIds'
+>;
+
 const CTA_BUTTON_PREFIX = '::cta-button ';
 
 function slugify(input: string) {
@@ -227,6 +232,21 @@ function validateCtaContent(content: string) {
   return null;
 }
 
+function toSavePayload(post: PostRecord): PostSavePayload {
+  return {
+    title: post.title,
+    slug: post.slug,
+    category: post.category,
+    excerpt: post.excerpt,
+    coverImage: post.coverImage,
+    featuredImageId: post.featuredImageId,
+    content: post.content,
+    mediaIds: post.mediaIds,
+    published: post.published,
+    affiliateIds: post.affiliateIds,
+  };
+}
+
 export default function PostEditor({
   postId,
   initialPost,
@@ -249,6 +269,7 @@ export default function PostEditor({
     variant: 'primary',
   });
   const debounceRef = useRef<number | null>(null);
+  const draftRef = useRef<PostRecord>(initialPost);
   const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const featuredInputRef = useRef<HTMLInputElement | null>(null);
   const inlineInputRef = useRef<HTMLInputElement | null>(null);
@@ -259,8 +280,8 @@ export default function PostEditor({
   const pdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
   const ctaButtonContent = collectCtaButtons(post.content);
 
-  async function save(partial: Partial<PostRecord>) {
-    const contentToValidate = typeof partial.content === 'string' ? partial.content : post.content;
+  async function save(payload: PostSavePayload) {
+    const contentToValidate = payload.content;
     const ctaError = validateCtaContent(contentToValidate);
     if (ctaError) {
       setSaveError(ctaError);
@@ -272,7 +293,7 @@ export default function PostEditor({
     const res = await fetch(apiUrl, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(partial),
+      body: JSON.stringify(payload),
     });
     const json = await res.json().catch(() => null);
     setSaving(false);
@@ -284,16 +305,20 @@ export default function PostEditor({
 
     if (json?.id) {
       setPost(json as PostRecord);
+      draftRef.current = json as PostRecord;
       setSavedAt(Date.now());
     }
   }
 
   function queueSave(partial: Partial<PostRecord>) {
     setSaveError(null);
-    setPost((currentPost) => ({ ...currentPost, ...partial }));
+    const nextPost = { ...draftRef.current, ...partial };
+    draftRef.current = nextPost;
+    setPost(nextPost);
+
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => {
-      void save(partial);
+      void save(toSavePayload(draftRef.current));
     }, 350);
   }
 
@@ -304,19 +329,12 @@ export default function PostEditor({
   }, []);
 
   function toggleAffiliate(affiliateId: string, checked: boolean) {
-    setPost((currentPost) => {
-      const currentAffiliateIds = currentPost.affiliateIds ?? [];
-      const nextAffiliateIds = checked
-        ? Array.from(new Set([...currentAffiliateIds, affiliateId]))
-        : currentAffiliateIds.filter((id) => id !== affiliateId);
+    const currentAffiliateIds = draftRef.current.affiliateIds ?? [];
+    const nextAffiliateIds = checked
+      ? Array.from(new Set([...currentAffiliateIds, affiliateId]))
+      : currentAffiliateIds.filter((id) => id !== affiliateId);
 
-      if (debounceRef.current) window.clearTimeout(debounceRef.current);
-      debounceRef.current = window.setTimeout(() => {
-        void save({ affiliateIds: nextAffiliateIds });
-      }, 350);
-
-      return { ...currentPost, affiliateIds: nextAffiliateIds };
-    });
+    queueSave({ affiliateIds: nextAffiliateIds });
   }
 
   function insertCtaButton() {
@@ -325,10 +343,11 @@ export default function PostEditor({
       return;
     }
 
+    const currentPost = draftRef.current;
     const textarea = contentTextareaRef.current;
-    const start = textarea?.selectionStart ?? post.content.length;
+    const start = textarea?.selectionStart ?? currentPost.content.length;
     const end = textarea?.selectionEnd ?? start;
-    const { content, nextCursorPosition } = insertCtaButtonAtSelection(post.content, start, end, {
+    const { content, nextCursorPosition } = insertCtaButtonAtSelection(currentPost.content, start, end, {
       type: 'ctaButton',
       label: newCtaButton.label.trim(),
       url: newCtaButton.url.trim(),
@@ -387,9 +406,11 @@ export default function PostEditor({
   }
 
   function attachMediaToPost(media: MediaRecord) {
+    const currentPost = draftRef.current;
+
     return {
-      media: dedupeMedia([...post.media, media]),
-      mediaIds: Array.from(new Set([...post.mediaIds, media.id])),
+      media: dedupeMedia([...currentPost.media, media]),
+      mediaIds: Array.from(new Set([...currentPost.mediaIds, media.id])),
     };
   }
 
@@ -420,11 +441,12 @@ export default function PostEditor({
 
     try {
       const media = await uploadFile(file);
+      const currentPost = draftRef.current;
       const textarea = contentTextareaRef.current;
-      const start = textarea?.selectionStart ?? post.content.length;
+      const start = textarea?.selectionStart ?? currentPost.content.length;
       const end = textarea?.selectionEnd ?? start;
       const markdown = `\n\n![${toAltText(media.fileName)}](${media.url})\n\n`;
-      const nextContent = `${post.content.slice(0, start)}${markdown}${post.content.slice(end)}`;
+      const nextContent = `${currentPost.content.slice(0, start)}${markdown}${currentPost.content.slice(end)}`;
       const nextCursorPosition = start + markdown.length;
       const mediaState = attachMediaToPost(media);
 
@@ -472,8 +494,9 @@ export default function PostEditor({
   }
 
   function removeAttachedMedia(mediaId: string) {
-    const nextMedia = post.media.filter((media) => media.id !== mediaId);
-    const nextMediaIds = post.mediaIds.filter((id) => id !== mediaId);
+    const currentPost = draftRef.current;
+    const nextMedia = currentPost.media.filter((media) => media.id !== mediaId);
+    const nextMediaIds = currentPost.mediaIds.filter((id) => id !== mediaId);
 
     queueSave({
       media: nextMedia,
@@ -495,7 +518,7 @@ export default function PostEditor({
             <AdminButton variant="ghost" size="sm" disabled aria-disabled="true">
               Preview on site (coming soon)
             </AdminButton>
-            <AdminButton variant="primary" size="sm" onClick={() => void save(post)}>
+            <AdminButton variant="primary" size="sm" onClick={() => void save(toSavePayload(draftRef.current))}>
               Save now
             </AdminButton>
           </div>

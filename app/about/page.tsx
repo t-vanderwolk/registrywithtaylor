@@ -60,7 +60,6 @@ export default function AboutPage() {
                       src="/assets/editorial/taylor.png"
                       alt="Taylor Vanderwolk, Founder of Taylor-Made Baby Co."
                       fill
-                      priority
                       sizes="(min-width: 1024px) 420px, 100vw"
                       className="object-cover"
                     />
