@@ -8,6 +8,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminButton from '@/components/admin/ui/AdminButton';
 
 type NavLink = { label: string; href: string };
+type NavSection = { label: string; links: NavLink[] };
 
 function isActive(pathname: string, href: string) {
   if (href === '/admin') {
@@ -19,11 +20,11 @@ function isActive(pathname: string, href: string) {
 export default function AdminShell({
   children,
   brand,
-  links,
+  sections,
 }: {
   children: ReactNode;
   brand: string;
-  links: NavLink[];
+  sections: NavSection[];
 }) {
   const pathname = usePathname() ?? '/admin';
 
@@ -36,6 +37,9 @@ export default function AdminShell({
             <p className="admin-h2">{brand}</p>
           </div>
           <div className="flex items-center gap-2">
+            <AdminButton asChild variant="primary">
+              <Link href="/admin/blog/new">New Post</Link>
+            </AdminButton>
             <AdminButton asChild variant="secondary">
               <Link href="/">View site</Link>
             </AdminButton>
@@ -46,18 +50,31 @@ export default function AdminShell({
           <aside className="lg:col-span-3">
             <AdminSurface variant="muted" className="admin-stack lg:sticky lg:top-6" >
               <p className="admin-eyebrow">Navigation</p>
-              <nav className="admin-stack gap-1.5" aria-label="Admin navigation">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`admin-nav-link ${isActive(pathname, link.href) ? 'is-active' : ''}`}
-                    aria-current={isActive(pathname, link.href) ? 'page' : undefined}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
+              <div className="admin-stack gap-4">
+                {sections.map((section) => {
+                  if (section.links.length === 0) {
+                    return null;
+                  }
+
+                  return (
+                    <div key={section.label} className="admin-stack gap-1.5">
+                      <p className="admin-eyebrow">{section.label}</p>
+                      <nav className="admin-stack gap-1.5" aria-label={`${section.label} navigation`}>
+                        {section.links.map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className={`admin-nav-link ${isActive(pathname, link.href) ? 'is-active' : ''}`}
+                            aria-current={isActive(pathname, link.href) ? 'page' : undefined}
+                          >
+                            {link.label}
+                          </Link>
+                        ))}
+                      </nav>
+                    </div>
+                  );
+                })}
+              </div>
               <div className="admin-divider" />
               <p className="admin-micro">
                 Blog content is managed in Prisma and published to the public journal.

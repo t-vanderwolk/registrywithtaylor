@@ -12,6 +12,13 @@ enum Role {
   ADMIN
 }
 
+enum PostStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -29,11 +36,18 @@ model Post {
   slug        String         @unique
   category    String         @default("Registry Strategy")
   content     String
+  deck        String?
   excerpt     String?
   coverImage  String?
   featuredImageId String?
   featuredImage Media? @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
   media       Media[] @relation("PostMedia")
+  status      PostStatus     @default(DRAFT)
+  publishedAt DateTime?
+  scheduledFor DateTime?
+  archivedAt  DateTime?
+  featured    Boolean        @default(false)
+  /// Deprecated: use `status` instead.
   published   Boolean        @default(false)
   authorId    String
   author      User           @relation(fields: [authorId], references: [id])

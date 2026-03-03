@@ -4,6 +4,7 @@ import BlogIndexView from '@/components/blog/BlogIndexView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
 import { Body } from '@/components/ui/MarketingHeading';
+import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
 import prisma from '@/lib/server/prisma';
 
@@ -27,12 +28,15 @@ type BlogPost = {
   title: string;
   slug: string;
   category: BlogCategory;
+  featured: boolean;
   excerpt: string | null;
   content: string;
   coverImage: string | null;
   featuredImage: {
     url: string;
   } | null;
+  publishedAt: Date | null;
+  scheduledFor: Date | null;
   createdAt: Date;
 };
 
@@ -47,7 +51,6 @@ type BlogIndexPost = {
   dateTime: string;
 };
 
-const FEATURED_POST_TITLE = 'The Art of the Registry';
 const AUTHOR_NAME = 'Taylor Vanderwolk';
 
 const formatDate = (value: Date) =>
@@ -83,14 +86,16 @@ const toExcerpt = (excerpt: string | null, content: string, maxLength = 160) => 
 };
 
 export default async function BlogPage() {
+  const now = new Date();
   const posts = (await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { createdAt: 'desc' },
+    where: getPublicPostWhere(now),
+    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
     select: {
       id: true,
       title: true,
       slug: true,
       category: true,
+      featured: true,
       excerpt: true,
       content: true,
       coverImage: true,
@@ -99,11 +104,13 @@ export default async function BlogPage() {
           url: true,
         },
       },
+      publishedAt: true,
+      scheduledFor: true,
       createdAt: true,
     },
   })) as BlogPost[];
 
-  const featuredPost = posts.find((post) => post.title === FEATURED_POST_TITLE) ?? posts[0];
+  const featuredPost = posts.find((post) => post.featured) ?? posts[0];
   const curatedPosts = featuredPost ? posts.filter((post) => post.id !== featuredPost.id) : [];
   const toViewPost = (post: BlogPost): BlogIndexPost => ({
     id: post.id,
@@ -112,8 +119,8 @@ export default async function BlogPage() {
     category: post.category,
     excerpt: toExcerpt(post.excerpt, post.content, 170),
     coverImage: post.featuredImage?.url ?? post.coverImage,
-    dateLabel: formatDate(post.createdAt),
-    dateTime: post.createdAt.toISOString(),
+    dateLabel: formatDate(getPostDisplayDate(post)),
+    dateTime: getPostDisplayDate(post).toISOString(),
   });
 
   return (

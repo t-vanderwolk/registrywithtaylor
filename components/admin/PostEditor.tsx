@@ -2,71 +2,46 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { AffiliateNetwork } from '@prisma/client';
-import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
-import { formatFileSize, isPdfMediaType } from '@/lib/media';
+import { useRouter } from 'next/navigation';
+import { requiresLiveContent, type PostStatusValue } from '@/lib/blog/postStatus';
+import { isPdfMediaType } from '@/lib/media';
+import {
+  createCtaSlotToken,
+  createEmptyCtaButton,
+  extractEditorCtaButtons,
+  isValidCtaUrl,
+  serializeCtaButtons,
+  validateCtaButtons,
+  type CtaButton,
+} from '@/lib/blog/ctaButtons';
 import AdminButton from '@/components/admin/ui/AdminButton';
-import AdminField from '@/components/admin/ui/AdminField';
-import AdminInput from '@/components/admin/ui/AdminInput';
-import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminStack from '@/components/admin/ui/AdminStack';
-import AdminTextarea from '@/components/admin/ui/AdminTextarea';
-import AdminToast from '@/components/admin/ui/AdminToast';
+import {
+  getContentTemplate,
+  type ContentTemplateId,
+} from '@/components/admin/blog/contentTemplates';
+import {
+  getStyledBlockSnippet,
+  type StyledBlockId,
+} from '@/lib/blog/styledBlocks';
+import PostEditorLayout, { type PostEditorTabId } from '@/components/admin/blog/PostEditorLayout';
+import PostContentPanel, { type ContentFormatAction } from '@/components/admin/blog/panels/PostContentPanel';
+import PostMediaPanel from '@/components/admin/blog/panels/PostMediaPanel';
+import PostSeoPanel from '@/components/admin/blog/panels/PostSeoPanel';
+import PostPublishPanel from '@/components/admin/blog/panels/PostPublishPanel';
+import PostAffiliatesPanel from '@/components/admin/blog/panels/PostAffiliatesPanel';
+import PostCtaButtonsPanel from '@/components/admin/blog/panels/PostCtaButtonsPanel';
+import PostMetaPanel from '@/components/admin/blog/panels/PostMetaPanel';
+import PostMiniPreviewCard from '@/components/admin/blog/panels/PostMiniPreviewCard';
+import type {
+  AffiliateOption,
+  EditorPostState,
+  MediaRecord,
+  PersistedPostRecord,
+  PostSavePayload,
+} from '@/components/admin/blog/postEditorTypes';
 
-type AffiliateOption = {
-  id: string;
-  name: string;
-  network: AffiliateNetwork;
-};
-
-type CtaButtonVariant = 'primary' | 'secondary';
-
-type CtaButtonBlock = {
-  type: 'ctaButton';
-  label: string;
-  url: string;
-  variant?: CtaButtonVariant;
-};
-
-type ParsedCtaButtonLine = {
-  lineIndex: number;
-  raw: string;
-  block: CtaButtonBlock;
-};
-
-type MediaRecord = {
-  id: string;
-  url: string;
-  fileName: string;
-  fileType: string;
-  fileSize: number;
-  createdAt?: Date | string;
-};
-
-type PostRecord = {
-  id: string;
-  title: string;
-  slug: string;
-  category: BlogCategory;
-  excerpt: string | null;
-  coverImage: string | null;
-  featuredImageId: string | null;
-  featuredImage: MediaRecord | null;
-  content: string;
-  mediaIds: string[];
-  media: MediaRecord[];
-  published: boolean;
-  affiliateIds: string[];
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-};
-
-type PostSavePayload = Pick<
-  PostRecord,
-  'title' | 'slug' | 'category' | 'excerpt' | 'coverImage' | 'featuredImageId' | 'content' | 'mediaIds' | 'published' | 'affiliateIds'
->;
-
-const CTA_BUTTON_PREFIX = '::cta-button ';
+type SaveMode = 'debounced' | 'immediate' | 'manual';
 
 function slugify(input: string) {
   return input
@@ -78,18 +53,32 @@ function slugify(input: string) {
     .replace(/(^-|-$)/g, '');
 }
 
-function normalizeCtaVariant(value: unknown): CtaButtonVariant {
-  return value === 'secondary' ? 'secondary' : 'primary';
-}
+function getSavedText({
+  hasPersistedPost,
+  isSaving,
+  isDirty,
+  hasScheduledSave,
+  savedAt,
+}: {
+  hasPersistedPost: boolean;
+  isSaving: boolean;
+  isDirty: boolean;
+  hasScheduledSave: boolean;
+  savedAt: number | null;
+}) {
+  if (isSaving) {
+    return hasPersistedPost ? 'Saving changes...' : 'Creating draft...';
+  }
 
-function isValidCtaUrl(value: string) {
-  return /^https?:\/\//i.test(value.trim());
-}
+  if (isDirty || hasScheduledSave) {
+    return 'Unsaved changes';
+  }
 
-function getSavedText(saving: boolean, savedAt: number | null) {
-  if (saving) return 'Saving changes...';
-  if (savedAt) return `Saved at ${new Date(savedAt).toLocaleTimeString()}`;
-  return 'Autosave is on. Changes save every few seconds.';
+  if (savedAt) {
+    return `Saved at ${new Date(savedAt).toLocaleTimeString()}`;
+  }
+
+  return hasPersistedPost ? 'Autosave is on.' : 'Create the draft on first save.';
 }
 
 function dedupeMedia(mediaItems: MediaRecord[]) {
@@ -113,269 +102,292 @@ function toAltText(fileName: string) {
   return baseName || 'Image';
 }
 
-function isCtaButtonBlock(value: unknown): value is CtaButtonBlock {
-  if (!value || typeof value !== 'object') {
+function needsLeadingSpacing(content: string, index: number) {
+  if (index <= 0) {
     return false;
   }
 
-  const candidate = value as Partial<CtaButtonBlock>;
-  return candidate.type === 'ctaButton' && typeof candidate.label === 'string' && typeof candidate.url === 'string';
+  return !/\n\s*\n\s*$/.test(content.slice(0, index));
 }
 
-function serializeCtaButton(block: Omit<CtaButtonBlock, 'type'> | CtaButtonBlock) {
-  return `${CTA_BUTTON_PREFIX}${JSON.stringify({
-    type: 'ctaButton',
-    label: block.label,
-    url: block.url,
-    variant: normalizeCtaVariant(block.variant),
-  })}`;
+function needsTrailingSpacing(content: string, index: number) {
+  if (index >= content.length) {
+    return false;
+  }
+
+  return !/^\s*\n\s*\n/.test(content.slice(index));
 }
 
-function parseCtaButtonLine(line: string) {
-  const trimmed = line.trim();
-  if (!trimmed.startsWith(CTA_BUTTON_PREFIX)) {
-    return null;
-  }
-
-  const rawPayload = trimmed.slice(CTA_BUTTON_PREFIX.length).trim();
-  if (!rawPayload) {
-    return null;
-  }
-
-  try {
-    const parsed = JSON.parse(rawPayload) as unknown;
-    if (!isCtaButtonBlock(parsed)) {
-      return null;
-    }
-
-    return {
-      type: 'ctaButton',
-      label: parsed.label.trim(),
-      url: parsed.url.trim(),
-      variant: normalizeCtaVariant(parsed.variant),
-    } satisfies CtaButtonBlock;
-  } catch {
-    return null;
-  }
-}
-
-function collectCtaButtons(content: string) {
-  const buttons: ParsedCtaButtonLine[] = [];
-  const invalidLines: Array<{ lineIndex: number; raw: string }> = [];
-
-  content.split('\n').forEach((raw, lineIndex) => {
-    const trimmed = raw.trim();
-    if (!trimmed.startsWith(CTA_BUTTON_PREFIX)) {
-      return;
-    }
-
-    const block = parseCtaButtonLine(trimmed);
-    if (!block) {
-      invalidLines.push({ lineIndex, raw });
-      return;
-    }
-
-    buttons.push({ lineIndex, raw, block });
-  });
-
-  return { buttons, invalidLines };
-}
-
-function replaceCtaButtonLine(content: string, lineIndex: number, nextBlock: CtaButtonBlock | null) {
-  const lines = content.split('\n');
-  if (lineIndex < 0 || lineIndex >= lines.length) {
-    return content;
-  }
-
-  if (nextBlock) {
-    lines[lineIndex] = serializeCtaButton(nextBlock);
-  } else {
-    lines.splice(lineIndex, 1);
-  }
-
-  return lines.join('\n').replace(/\n{3,}/g, '\n\n');
-}
-
-function insertCtaButtonAtSelection(
-  content: string,
-  selectionStart: number,
-  selectionEnd: number,
-  block: CtaButtonBlock,
-) {
-  const token = serializeCtaButton(block);
-  const prefix = selectionStart > 0 && content[selectionStart - 1] !== '\n' ? '\n\n' : '';
-  const suffix = selectionEnd < content.length && content[selectionEnd] !== '\n' ? '\n\n' : '\n\n';
-  const nextContent = content.slice(0, selectionStart) + prefix + token + suffix + content.slice(selectionEnd);
-  const nextCursorPosition = selectionStart + prefix.length + token.length + suffix.length;
-
+function insertAtSelection(content: string, selectionStart: number, selectionEnd: number, nextValue: string) {
+  const nextContent = `${content.slice(0, selectionStart)}${nextValue}${content.slice(selectionEnd)}`;
   return {
     content: nextContent,
-    nextCursorPosition,
+    nextCursorPosition: selectionStart + nextValue.length,
   };
 }
 
-function validateCtaContent(content: string) {
-  const parsed = collectCtaButtons(content);
-
-  if (parsed.invalidLines.length > 0) {
-    return 'CTA button token is malformed.';
-  }
-
-  const invalidButton = parsed.buttons.find(
-    ({ block }) => !block.label.trim() || !block.url.trim() || !isValidCtaUrl(block.url),
-  );
-
-  if (invalidButton) {
-    return 'CTA buttons must include a valid http:// or https:// URL and label.';
-  }
-
-  return null;
+function replaceSelection(
+  content: string,
+  selectionStart: number,
+  selectionEnd: number,
+  nextValue: string,
+  nextSelectionStart?: number,
+  nextSelectionEnd?: number,
+) {
+  const nextContent = `${content.slice(0, selectionStart)}${nextValue}${content.slice(selectionEnd)}`;
+  return {
+    content: nextContent,
+    nextSelectionStart: nextSelectionStart ?? selectionStart,
+    nextSelectionEnd: nextSelectionEnd ?? selectionStart + nextValue.length,
+  };
 }
 
-function toSavePayload(post: PostRecord): PostSavePayload {
+function toIsoFromLocalDateTime(value: string) {
+  if (!value) {
+    return null;
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date.toISOString();
+}
+
+function getScheduleError(status: PostStatusValue, scheduledFor?: Date | string | null) {
+  if (status !== 'SCHEDULED') {
+    return undefined;
+  }
+
+  if (!scheduledFor) {
+    return 'Choose a future date and time.';
+  }
+
+  const scheduledDate = new Date(scheduledFor);
+  if (Number.isNaN(scheduledDate.getTime()) || scheduledDate.getTime() <= Date.now()) {
+    return 'Scheduled posts must use a future date and time.';
+  }
+
+  return undefined;
+}
+
+function toEditorState(post: PersistedPostRecord) {
+  const parsed = extractEditorCtaButtons(post.content);
+
+  return {
+    state: {
+      id: post.id,
+      title: post.title,
+      slug: post.slug,
+      category: post.category,
+      deck: post.deck,
+      excerpt: post.excerpt,
+      coverImage: post.coverImage,
+      featuredImageId: post.featuredImageId,
+      featuredImage: post.featuredImage,
+      body: parsed.body,
+      ctaButtons: parsed.buttons,
+      mediaIds: post.mediaIds,
+      media: post.media,
+      status: post.status,
+      publishedAt: post.publishedAt,
+      scheduledFor: post.scheduledFor,
+      archivedAt: post.archivedAt,
+      featured: post.featured,
+      published: post.published,
+      affiliateIds: post.affiliateIds,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+    } satisfies EditorPostState,
+    malformedCta: parsed.malformed,
+  };
+}
+
+function toSavePayload(post: EditorPostState): PostSavePayload {
   return {
     title: post.title,
     slug: post.slug,
     category: post.category,
+    deck: post.deck,
     excerpt: post.excerpt,
     coverImage: post.coverImage,
     featuredImageId: post.featuredImageId,
-    content: post.content,
+    content: serializeCtaButtons(post.body, post.ctaButtons),
     mediaIds: post.mediaIds,
-    published: post.published,
+    status: post.status,
+    scheduledFor: post.scheduledFor,
+    featured: post.featured,
     affiliateIds: post.affiliateIds,
   };
 }
 
+function mergeServerState(current: EditorPostState, server: EditorPostState) {
+  return {
+    ...current,
+    id: server.id,
+    createdAt: server.createdAt ?? current.createdAt,
+    updatedAt: server.updatedAt ?? current.updatedAt,
+    publishedAt: server.publishedAt,
+    archivedAt: server.archivedAt,
+    scheduledFor: current.status === 'SCHEDULED' ? current.scheduledFor ?? server.scheduledFor : server.scheduledFor,
+    slug: current.slug.trim() || server.slug,
+    title: current.title.trim() || server.title,
+    deck: current.deck?.trim() ? current.deck : server.deck,
+    excerpt: current.excerpt?.trim() ? current.excerpt : server.excerpt,
+    coverImage: current.coverImage ?? server.coverImage,
+    featuredImageId: current.featuredImageId ?? server.featuredImageId,
+    featuredImage: current.featuredImage ?? server.featuredImage,
+    mediaIds: current.mediaIds.length > 0 ? current.mediaIds : server.mediaIds,
+    media: current.media.length > 0 ? current.media : server.media,
+    published: server.published,
+  } satisfies EditorPostState;
+}
+
+function validateEditorState(post: EditorPostState) {
+  if (requiresLiveContent(post.status) && !post.body.trim()) {
+    return 'Content is required before publishing or scheduling.';
+  }
+
+  const scheduleError = getScheduleError(post.status, post.scheduledFor);
+  if (scheduleError) {
+    return scheduleError;
+  }
+
+  return validateCtaButtons(post.ctaButtons);
+}
+
 export default function PostEditor({
-  postId,
   initialPost,
   affiliateOptions,
 }: {
-  postId: string;
-  initialPost: PostRecord;
+  initialPost: PersistedPostRecord;
   affiliateOptions: AffiliateOption[];
 }) {
-  const [post, setPost] = useState<PostRecord>(initialPost);
+  const router = useRouter();
+  const initialEditor = useMemo(() => toEditorState(initialPost), [initialPost]);
+  const [post, setPost] = useState<EditorPostState>(initialEditor.state);
+  const [currentPostId, setCurrentPostId] = useState<string | null>(initialEditor.state.id);
+  const [activeTab, setActiveTab] = useState<PostEditorTabId>('content');
   const [saving, setSaving] = useState(false);
+  const [hasScheduledSave, setHasScheduledSave] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [uploadingKind, setUploadingKind] = useState<'featured' | 'inline' | 'pdf' | null>(null);
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [newCtaButton, setNewCtaButton] = useState<Omit<CtaButtonBlock, 'type'>>({
-    label: 'Shop Now',
-    url: '',
-    variant: 'primary',
-  });
+  const [ctaMalformed, setCtaMalformed] = useState(initialEditor.malformedCta);
+  const [newCtaButton, setNewCtaButton] = useState<CtaButton>(createEmptyCtaButton(initialEditor.state.ctaButtons.length));
+  const stateRef = useRef(post);
+  const currentPostIdRef = useRef(currentPostId);
   const debounceRef = useRef<number | null>(null);
-  const draftRef = useRef<PostRecord>(initialPost);
+  const isSavingRef = useRef(false);
+  const queuedSaveRef = useRef(false);
+  const versionRef = useRef(0);
+  const flushSaveRef = useRef<() => Promise<boolean>>(async () => false);
+  const slugEditedRef = useRef(Boolean(initialEditor.state.id));
   const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const featuredInputRef = useRef<HTMLInputElement | null>(null);
   const inlineInputRef = useRef<HTMLInputElement | null>(null);
   const pdfInputRef = useRef<HTMLInputElement | null>(null);
 
-  const apiUrl = useMemo(() => `/api/blog/${postId}`, [postId]);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
   const pdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
-  const ctaButtonContent = collectCtaButtons(post.content);
+  const hasPersistedPost = Boolean(currentPostId);
+  const canPreview = Boolean(currentPostId || post.title.trim() || post.body.trim() || post.excerpt?.trim() || post.deck?.trim());
+  const scheduleError = getScheduleError(post.status, post.scheduledFor);
 
-  async function save(payload: PostSavePayload) {
-    const contentToValidate = payload.content;
-    const ctaError = validateCtaContent(contentToValidate);
-    if (ctaError) {
-      setSaveError(ctaError);
-      return;
-    }
+  const saveText = getSavedText({
+    hasPersistedPost,
+    isSaving: saving,
+    isDirty,
+    hasScheduledSave,
+    savedAt,
+  });
+  const saveTone = saving || isDirty || hasScheduledSave ? 'warning' : savedAt ? 'success' : 'default';
 
-    setSaving(true);
-    setSaveError(null);
-    const res = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const json = await res.json().catch(() => null);
-    setSaving(false);
+  useEffect(() => {
+    stateRef.current = post;
+  }, [post]);
 
-    if (!res.ok) {
-      setSaveError(typeof json?.error === 'string' ? json.error : 'Unable to save changes.');
-      return;
-    }
-
-    if (json?.id) {
-      setPost(json as PostRecord);
-      draftRef.current = json as PostRecord;
-      setSavedAt(Date.now());
-    }
-  }
-
-  function queueSave(partial: Partial<PostRecord>) {
-    setSaveError(null);
-    const nextPost = { ...draftRef.current, ...partial };
-    draftRef.current = nextPost;
-    setPost(nextPost);
-
-    if (debounceRef.current) window.clearTimeout(debounceRef.current);
-    debounceRef.current = window.setTimeout(() => {
-      void save(toSavePayload(draftRef.current));
-    }, 350);
-  }
+  useEffect(() => {
+    currentPostIdRef.current = currentPostId;
+  }, [currentPostId]);
 
   useEffect(() => {
     return () => {
-      if (debounceRef.current) window.clearTimeout(debounceRef.current);
+      if (debounceRef.current) {
+        window.clearTimeout(debounceRef.current);
+      }
     };
   }, []);
 
-  function toggleAffiliate(affiliateId: string, checked: boolean) {
-    const currentAffiliateIds = draftRef.current.affiliateIds ?? [];
-    const nextAffiliateIds = checked
-      ? Array.from(new Set([...currentAffiliateIds, affiliateId]))
-      : currentAffiliateIds.filter((id) => id !== affiliateId);
-
-    queueSave({ affiliateIds: nextAffiliateIds });
-  }
-
-  function insertCtaButton() {
-    if (!newCtaButton.label.trim() || !isValidCtaUrl(newCtaButton.url)) {
-      setSaveError('CTA buttons must include a valid http:// or https:// URL and label.');
-      return;
-    }
-
-    const currentPost = draftRef.current;
-    const textarea = contentTextareaRef.current;
-    const start = textarea?.selectionStart ?? currentPost.content.length;
-    const end = textarea?.selectionEnd ?? start;
-    const { content, nextCursorPosition } = insertCtaButtonAtSelection(currentPost.content, start, end, {
-      type: 'ctaButton',
-      label: newCtaButton.label.trim(),
-      url: newCtaButton.url.trim(),
-      variant: newCtaButton.variant,
-    });
-
-    queueSave({ content });
-
-    requestAnimationFrame(() => {
-      if (!textarea) {
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!isDirty && !saving && !hasScheduledSave) {
         return;
       }
 
-      textarea.focus();
-      textarea.setSelectionRange(nextCursorPosition, nextCursorPosition);
-    });
+      event.preventDefault();
+      event.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasScheduledSave, isDirty, saving]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        void flushSaveRef.current();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  function clearScheduledSave() {
+    if (debounceRef.current) {
+      window.clearTimeout(debounceRef.current);
+      debounceRef.current = null;
+    }
+    setHasScheduledSave(false);
   }
 
-  function updateCtaButton(lineIndex: number, nextBlock: CtaButtonBlock) {
-    queueSave({
-      content: replaceCtaButtonLine(post.content, lineIndex, nextBlock),
-    });
+  function scheduleSave() {
+    clearScheduledSave();
+    setHasScheduledSave(true);
+    debounceRef.current = window.setTimeout(() => {
+      debounceRef.current = null;
+      setHasScheduledSave(false);
+      void saveNow();
+    }, 1200);
   }
 
-  function removeCtaButton(lineIndex: number) {
-    queueSave({
-      content: replaceCtaButtonLine(post.content, lineIndex, null),
-    });
+  function applyPostUpdate(next: EditorPostState | ((current: EditorPostState) => EditorPostState), saveMode: SaveMode) {
+    setSaveError(null);
+    setUploadError(null);
+    versionRef.current += 1;
+    setIsDirty(true);
+    const updated = typeof next === 'function' ? next(stateRef.current) : next;
+    stateRef.current = updated;
+    setPost(updated);
+
+    if (saveMode === 'manual') {
+      clearScheduledSave();
+      return;
+    }
+
+    if (saveMode === 'immediate') {
+      clearScheduledSave();
+      void saveNow();
+      return;
+    }
+
+    scheduleSave();
   }
 
   async function uploadFile(file: File) {
@@ -406,12 +418,397 @@ export default function PostEditor({
   }
 
   function attachMediaToPost(media: MediaRecord) {
-    const currentPost = draftRef.current;
+    const currentPost = stateRef.current;
 
     return {
       media: dedupeMedia([...currentPost.media, media]),
       mediaIds: Array.from(new Set([...currentPost.mediaIds, media.id])),
     };
+  }
+
+  async function saveNow() {
+    if (!isDirty && !hasScheduledSave && currentPostIdRef.current) {
+      return true;
+    }
+
+    const validationError = validateEditorState(stateRef.current);
+    if (validationError) {
+      setSaveError(validationError);
+      return false;
+    }
+
+    if (isSavingRef.current) {
+      queuedSaveRef.current = true;
+      return false;
+    }
+
+    const versionAtSave = versionRef.current;
+    const payload = toSavePayload(stateRef.current);
+    const requestUrl = currentPostIdRef.current ? `/api/blog/${currentPostIdRef.current}` : '/api/blog';
+    const method = currentPostIdRef.current ? 'PUT' : 'POST';
+
+    isSavingRef.current = true;
+    setSaving(true);
+    setSaveError(null);
+
+    try {
+      const response = await fetch(requestUrl, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await response.json().catch(() => null);
+
+      if (!response.ok || !json?.id) {
+        setSaveError(typeof json?.error === 'string' ? json.error : 'Unable to save changes.');
+        return false;
+      }
+
+      const nextPersisted = json as PersistedPostRecord;
+      const parsed = toEditorState(nextPersisted);
+      const replaceAll = versionRef.current === versionAtSave;
+      const nextState = replaceAll ? parsed.state : mergeServerState(stateRef.current, parsed.state);
+
+      stateRef.current = nextState;
+      setPost(nextState);
+      setCurrentPostId(parsed.state.id);
+      setSavedAt(Date.now());
+      setCtaMalformed(false);
+
+      if (replaceAll) {
+        setIsDirty(false);
+      } else {
+        queuedSaveRef.current = true;
+      }
+
+      if (!currentPostIdRef.current && parsed.state.id) {
+        currentPostIdRef.current = parsed.state.id;
+        router.replace(`/admin/blog/${parsed.state.id}/edit`);
+      }
+
+      return true;
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Unable to save changes.');
+      return false;
+    } finally {
+      isSavingRef.current = false;
+      setSaving(false);
+
+      if (queuedSaveRef.current) {
+        queuedSaveRef.current = false;
+        void saveNow();
+      }
+    }
+  }
+
+  async function flushSave() {
+    clearScheduledSave();
+    return saveNow();
+  }
+
+  flushSaveRef.current = flushSave;
+
+  function handleTitleChange(value: string) {
+    applyPostUpdate((current) => {
+      const nextSlug = slugEditedRef.current ? current.slug : slugify(value);
+      return {
+        ...current,
+        title: value,
+        slug: nextSlug,
+      };
+    }, 'debounced');
+  }
+
+  function handleSlugChange(value: string) {
+    slugEditedRef.current = value.trim().length > 0;
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        slug: value,
+      }),
+      'debounced',
+    );
+  }
+
+  function handleStatusChange(nextStatus: PostStatusValue) {
+    if (nextStatus === 'PUBLISHED' && !stateRef.current.body.trim()) {
+      setSaveError('Content is required before publishing or scheduling.');
+      return;
+    }
+
+    if (nextStatus === 'SCHEDULED') {
+      applyPostUpdate(
+        (current) => ({
+          ...current,
+          status: nextStatus,
+          published: false,
+          publishedAt: null,
+          archivedAt: null,
+        }),
+        'manual',
+      );
+      return;
+    }
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        status: nextStatus,
+        scheduledFor: nextStatus === 'DRAFT' || nextStatus === 'PUBLISHED' || nextStatus === 'ARCHIVED' ? null : current.scheduledFor,
+        archivedAt: nextStatus === 'ARCHIVED' ? current.archivedAt : null,
+        publishedAt: nextStatus === 'DRAFT' ? null : current.publishedAt,
+        published: nextStatus === 'PUBLISHED',
+      }),
+      'immediate',
+    );
+  }
+
+  function handleScheduledForChange(value: string) {
+    const nextIso = toIsoFromLocalDateTime(value);
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        scheduledFor: nextIso,
+      }),
+      nextIso ? 'debounced' : 'manual',
+    );
+  }
+
+  function handleAffiliateToggle(affiliateId: string, checked: boolean) {
+    applyPostUpdate(
+      (current) => {
+        const nextAffiliateIds = checked
+          ? Array.from(new Set([...current.affiliateIds, affiliateId]))
+          : current.affiliateIds.filter((id) => id !== affiliateId);
+
+        return {
+          ...current,
+          affiliateIds: nextAffiliateIds,
+        };
+      },
+      'immediate',
+    );
+  }
+
+  function handleCtaDraftChange(partial: Partial<CtaButton>) {
+    setNewCtaButton((current) => ({ ...current, ...partial }));
+  }
+
+  function focusContentSelection(start: number, end: number) {
+    setActiveTab('content');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const textarea = contentTextareaRef.current;
+        if (!textarea) {
+          return;
+        }
+
+        textarea.focus();
+        textarea.setSelectionRange(start, end);
+      });
+    });
+  }
+
+  function insertBodyAtCursor(value: string, saveMode: SaveMode = 'debounced') {
+    const currentPost = stateRef.current;
+    const textarea = contentTextareaRef.current;
+    const start = textarea?.selectionStart ?? currentPost.body.length;
+    const end = textarea?.selectionEnd ?? start;
+    const insertion = insertAtSelection(currentPost.body, start, end, value);
+
+    applyPostUpdate(
+      {
+        ...currentPost,
+        body: insertion.content,
+      },
+      saveMode,
+    );
+
+    focusContentSelection(insertion.nextCursorPosition, insertion.nextCursorPosition);
+  }
+
+  function insertBodyBlockAtCursor(value: string, saveMode: SaveMode = 'debounced') {
+    const currentPost = stateRef.current;
+    const textarea = contentTextareaRef.current;
+    const start = textarea?.selectionStart ?? currentPost.body.length;
+    const end = textarea?.selectionEnd ?? start;
+    const block = value.trim();
+    const prefix = needsLeadingSpacing(currentPost.body, start) ? '\n\n' : '';
+    const suffix = needsTrailingSpacing(currentPost.body, end) ? '\n\n' : '';
+    const insertion = insertAtSelection(currentPost.body, start, end, `${prefix}${block}${suffix}`);
+
+    applyPostUpdate(
+      {
+        ...currentPost,
+        body: insertion.content,
+      },
+      saveMode,
+    );
+
+    focusContentSelection(insertion.nextCursorPosition, insertion.nextCursorPosition);
+  }
+
+  function applyMarkdownFormat(action: ContentFormatAction) {
+    const currentPost = stateRef.current;
+    const textarea = contentTextareaRef.current;
+    const start = textarea?.selectionStart ?? currentPost.body.length;
+    const end = textarea?.selectionEnd ?? start;
+    const selected = currentPost.body.slice(start, end);
+    const hasSelection = selected.length > 0;
+
+    const applyReplacement = (replacement: ReturnType<typeof replaceSelection>) => {
+      applyPostUpdate(
+        {
+          ...currentPost,
+          body: replacement.content,
+        },
+        'debounced',
+      );
+
+      focusContentSelection(replacement.nextSelectionStart, replacement.nextSelectionEnd);
+    };
+
+    if (action === 'bold') {
+      const text = hasSelection ? selected : 'bold text';
+      const replacement = `**${text}**`;
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement, start + 2, start + 2 + text.length));
+      return;
+    }
+
+    if (action === 'italic') {
+      const text = hasSelection ? selected : 'italic text';
+      const replacement = `*${text}*`;
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement, start + 1, start + 1 + text.length));
+      return;
+    }
+
+    if (action === 'h2' || action === 'h3') {
+      const prefix = action === 'h2' ? '## ' : '### ';
+      const text = hasSelection ? selected.replace(/\n+/g, ' ').trim() : action === 'h2' ? 'Section heading' : 'Subheading';
+      const block = `${prefix}${text}`;
+      const replacement = start === 0 ? `${block}\n\n` : `\n\n${block}\n\n`;
+      const nextStart = start + (start === 0 ? prefix.length : prefix.length + 2);
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement, nextStart, nextStart + text.length));
+      return;
+    }
+
+    if (action === 'bulletList' || action === 'numberedList') {
+      const lines = (hasSelection ? selected : action === 'bulletList' ? 'List item' : 'First item\nSecond item')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const replacement = lines
+        .map((line, index) => (action === 'bulletList' ? `- ${line}` : `${index + 1}. ${line}`))
+        .join('\n');
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement));
+      return;
+    }
+
+    if (action === 'quote') {
+      const lines = (hasSelection ? selected : 'Quoted note')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => `> ${line}`)
+        .join('\n');
+      applyReplacement(replaceSelection(currentPost.body, start, end, lines));
+      return;
+    }
+
+    if (action === 'divider') {
+      insertBodyAtCursor('\n\n---\n\n');
+      return;
+    }
+
+    if (action === 'link') {
+      const label = hasSelection ? selected : 'Link text';
+      const href = window.prompt('Enter the destination URL', 'https://');
+      if (!href) {
+        return;
+      }
+
+      const replacement = `[${label}](${href.trim()})`;
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement, start + 1, start + 1 + label.length));
+    }
+  }
+
+  function insertCtaIntoBody(buttonId: string) {
+    insertBodyAtCursor(createCtaSlotToken(buttonId), 'immediate');
+  }
+
+  function insertContentTemplate(templateId: ContentTemplateId) {
+    const template = getContentTemplate(templateId);
+    if (!template) {
+      return;
+    }
+
+    insertBodyBlockAtCursor(template.content, 'debounced');
+  }
+
+  function insertStyledBlock(blockId: StyledBlockId) {
+    const snippet = getStyledBlockSnippet(blockId);
+    if (!snippet) {
+      return;
+    }
+
+    insertBodyBlockAtCursor(snippet, 'debounced');
+  }
+
+  function handleAddCtaButton(insertIntoBody = false) {
+    if (!newCtaButton.label.trim() || !isValidCtaUrl(newCtaButton.url)) {
+      setSaveError('CTA buttons must include a valid http:// or https:// URL and label.');
+      return;
+    }
+
+    const normalizedButton = {
+      ...newCtaButton,
+      id: newCtaButton.id || `cta-${stateRef.current.ctaButtons.length + 1}`,
+      label: newCtaButton.label.trim(),
+      url: newCtaButton.url.trim(),
+      partnerId: newCtaButton.partnerId ?? null,
+    } satisfies CtaButton;
+    const textarea = contentTextareaRef.current;
+    const selectionStart = textarea?.selectionStart ?? stateRef.current.body.length;
+    const selectionEnd = textarea?.selectionEnd ?? selectionStart;
+    const insertion = insertIntoBody
+      ? insertAtSelection(stateRef.current.body, selectionStart, selectionEnd, createCtaSlotToken(normalizedButton.id))
+      : null;
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        body: insertion ? insertion.content : current.body,
+        ctaButtons: [...current.ctaButtons, normalizedButton],
+      }),
+      'immediate',
+    );
+    setNewCtaButton(createEmptyCtaButton(stateRef.current.ctaButtons.length));
+
+    if (insertion) {
+      focusContentSelection(insertion.nextCursorPosition, insertion.nextCursorPosition);
+    }
+  }
+
+  function handleCtaButtonChange(index: number, partial: Partial<CtaButton>, saveMode: 'debounced' | 'immediate') {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        ctaButtons: current.ctaButtons.map((button, buttonIndex) =>
+          buttonIndex === index ? { ...button, ...partial } : button,
+        ),
+      }),
+      saveMode,
+    );
+  }
+
+  function handleCtaButtonRemove(index: number) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        ctaButtons: current.ctaButtons.filter((_, buttonIndex) => buttonIndex !== index),
+      }),
+      'immediate',
+    );
   }
 
   async function handleFeaturedUpload(file: File) {
@@ -421,11 +818,15 @@ export default function PostEditor({
 
     try {
       const media = await uploadFile(file);
-      queueSave({
-        featuredImageId: media.id,
-        featuredImage: media,
-        coverImage: media.url,
-      });
+      applyPostUpdate(
+        (current) => ({
+          ...current,
+          featuredImageId: media.id,
+          featuredImage: media,
+          coverImage: media.url,
+        }),
+        'immediate',
+      );
       setUploadFeedback('Featured image uploaded.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload featured image.');
@@ -441,20 +842,23 @@ export default function PostEditor({
 
     try {
       const media = await uploadFile(file);
-      const currentPost = draftRef.current;
+      const currentPost = stateRef.current;
       const textarea = contentTextareaRef.current;
-      const start = textarea?.selectionStart ?? currentPost.content.length;
+      const start = textarea?.selectionStart ?? currentPost.body.length;
       const end = textarea?.selectionEnd ?? start;
       const markdown = `\n\n![${toAltText(media.fileName)}](${media.url})\n\n`;
-      const nextContent = `${currentPost.content.slice(0, start)}${markdown}${currentPost.content.slice(end)}`;
-      const nextCursorPosition = start + markdown.length;
+      const insertion = insertAtSelection(currentPost.body, start, end, markdown);
       const mediaState = attachMediaToPost(media);
 
-      queueSave({
-        content: nextContent,
-        media: mediaState.media,
-        mediaIds: mediaState.mediaIds,
-      });
+      applyPostUpdate(
+        {
+          ...currentPost,
+          body: insertion.content,
+          media: mediaState.media,
+          mediaIds: mediaState.mediaIds,
+        },
+        'debounced',
+      );
 
       requestAnimationFrame(() => {
         if (!textarea) {
@@ -462,10 +866,10 @@ export default function PostEditor({
         }
 
         textarea.focus();
-        textarea.setSelectionRange(nextCursorPosition, nextCursorPosition);
+        textarea.setSelectionRange(insertion.nextCursorPosition, insertion.nextCursorPosition);
       });
 
-      setUploadFeedback('Image uploaded and inserted into the post.');
+      setUploadFeedback('Image uploaded and inserted into the draft.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload inline image.');
     } finally {
@@ -481,11 +885,15 @@ export default function PostEditor({
     try {
       const media = await uploadFile(file);
       const mediaState = attachMediaToPost(media);
-      queueSave({
-        media: mediaState.media,
-        mediaIds: mediaState.mediaIds,
-      });
-      setUploadFeedback('PDF resource uploaded and attached to the post.');
+      applyPostUpdate(
+        (current) => ({
+          ...current,
+          media: mediaState.media,
+          mediaIds: mediaState.mediaIds,
+        }),
+        'immediate',
+      );
+      setUploadFeedback('PDF resource uploaded and attached.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload PDF resource.');
     } finally {
@@ -494,478 +902,251 @@ export default function PostEditor({
   }
 
   function removeAttachedMedia(mediaId: string) {
-    const currentPost = draftRef.current;
-    const nextMedia = currentPost.media.filter((media) => media.id !== mediaId);
-    const nextMediaIds = currentPost.mediaIds.filter((id) => id !== mediaId);
-
-    queueSave({
-      media: nextMedia,
-      mediaIds: nextMediaIds,
-    });
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        media: current.media.filter((media) => media.id !== mediaId),
+        mediaIds: current.mediaIds.filter((id) => id !== mediaId),
+      }),
+      'immediate',
+    );
   }
+
+  async function openPreview() {
+    const saved = await flushSave();
+    if (!saved || !currentPostIdRef.current) {
+      return;
+    }
+
+    router.push(`/admin/blog/${currentPostIdRef.current}/preview`);
+  }
+
+  const leftColumn =
+    activeTab === 'content' ? (
+      <PostContentPanel
+        title={post.title}
+        deck={post.deck ?? ''}
+        excerpt={post.excerpt ?? ''}
+        body={post.body}
+        onTitleChange={handleTitleChange}
+        onDeckChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              deck: value,
+            }),
+            'debounced',
+          )
+        }
+        onExcerptChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              excerpt: value,
+            }),
+            'debounced',
+          )
+        }
+        onBodyChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              body: value,
+            }),
+            'debounced',
+          )
+        }
+        onApplyFormat={applyMarkdownFormat}
+        onInsertTemplate={insertContentTemplate}
+        onInsertStyledBlock={insertStyledBlock}
+        onOpenInlineImagePicker={() => inlineInputRef.current?.click()}
+        inlineUploadLabel={uploadingKind === 'inline' ? 'Uploading...' : 'Upload image'}
+        inlineUploadDisabled={uploadingKind === 'inline'}
+        contentTextareaRef={contentTextareaRef}
+      />
+    ) : activeTab === 'media' ? (
+      <PostMediaPanel
+        title={post.title}
+        featuredImageUrl={featuredImageUrl}
+        featuredUploadLabel={uploadingKind === 'featured' ? 'Uploading...' : featuredImageUrl ? 'Replace image' : 'Upload image'}
+        featuredUploadDisabled={uploadingKind === 'featured'}
+        onOpenFeaturedPicker={() => featuredInputRef.current?.click()}
+        onRemoveFeaturedImage={() =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              featuredImageId: null,
+              featuredImage: null,
+              coverImage: null,
+            }),
+            'immediate',
+          )
+        }
+        pdfResources={pdfResources}
+        pdfUploadLabel={uploadingKind === 'pdf' ? 'Uploading...' : 'Upload PDF'}
+        pdfUploadDisabled={uploadingKind === 'pdf'}
+        onOpenPdfPicker={() => pdfInputRef.current?.click()}
+        onRemovePdfResource={removeAttachedMedia}
+      />
+    ) : (
+      <PostSeoPanel />
+    );
 
   return (
     <AdminStack gap="lg">
-      <div className="admin-surface-muted md:sticky md:top-4 md:z-20">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <AdminToast tone={saving ? 'warning' : 'success'}>{getSavedText(saving, savedAt)}</AdminToast>
-          <div className="flex flex-wrap items-center gap-2">
-            <AdminButton asChild variant="secondary" size="sm">
-              <Link href="/admin/blog" aria-label="Back to posts">
-                Back to posts
-              </Link>
-            </AdminButton>
-            <AdminButton variant="ghost" size="sm" disabled aria-disabled="true">
-              Preview on site (coming soon)
-            </AdminButton>
-            <AdminButton variant="primary" size="sm" onClick={() => void save(toSavePayload(draftRef.current))}>
-              Save now
-            </AdminButton>
-          </div>
-        </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <AdminButton asChild variant="secondary" size="sm">
+          <Link href="/admin/blog">Back to posts</Link>
+        </AdminButton>
+        <p className="admin-micro">Daily workspace: edit on the left, publish controls on the right.</p>
       </div>
 
-      <AdminStack gap="lg" className="pb-2">
-        <AdminField label="Title" htmlFor="post-title">
-          <AdminInput
-            id="post-title"
-            value={post.title ?? ''}
-            onChange={(event) => {
-              const title = event.target.value;
-              const nextSlug = post.slug && post.slug.trim().length > 0 ? post.slug : slugify(title);
-              queueSave({ title, slug: nextSlug });
-            }}
-            placeholder="The Art of the Registry"
-          />
-        </AdminField>
-
-        <AdminField label="Slug" htmlFor="post-slug" help="If left empty, slug is generated from the title.">
-          <AdminInput
-            id="post-slug"
-            value={post.slug ?? ''}
-            onChange={(event) => queueSave({ slug: event.target.value })}
-            placeholder="auto-generated-if-empty"
-          />
-        </AdminField>
-
-        <AdminField
-          label="Category"
-          htmlFor="post-category"
-          help="Choose one editorial focus for navigation and SEO."
+      {(saveError || uploadError || uploadFeedback) && (
+        <div
+          className={`rounded-2xl border px-4 py-3 text-sm ${
+            saveError || uploadError
+              ? 'border-[rgba(159,47,47,0.18)] bg-[rgba(159,47,47,0.05)] text-admin-danger'
+              : 'border-[rgba(47,106,67,0.18)] bg-[rgba(47,106,67,0.05)] text-admin-success'
+          }`}
         >
-          <AdminSelect
-            id="post-category"
-            value={post.category}
-            onChange={(event) => queueSave({ category: event.target.value as BlogCategory })}
-          >
-            {BLOG_CATEGORIES.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </AdminSelect>
-        </AdminField>
+          {saveError ?? uploadError ?? uploadFeedback}
+        </div>
+      )}
 
-        <AdminField
-          label="Featured Image"
-          htmlFor="post-featured-image-upload"
-          help="Upload a JPG, PNG, or WEBP image up to 10 MB."
-        >
-          <div className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
-            {featuredImageUrl ? (
-              <div className="space-y-4">
-                <div className="overflow-hidden rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.02)]">
-                  <img
-                    src={featuredImageUrl}
-                    alt={post.title || 'Featured image preview'}
-                    className="h-auto max-h-[320px] w-full object-cover"
-                  />
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <AdminButton
-                    type="button"
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => featuredInputRef.current?.click()}
-                    disabled={uploadingKind === 'featured'}
-                  >
-                    {uploadingKind === 'featured' ? 'Uploading...' : 'Replace image'}
-                  </AdminButton>
-                  <AdminButton
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      queueSave({
-                        featuredImageId: null,
-                        featuredImage: null,
-                        coverImage: null,
-                      })
-                    }
-                  >
-                    Remove image
-                  </AdminButton>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] px-4 py-5">
-                <div className="space-y-1">
-                  <p className="text-sm text-admin">Upload a featured image for the blog card and post header.</p>
-                  <p className="admin-micro">Direct upload only. External URLs are no longer required.</p>
-                </div>
-                <AdminButton
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => featuredInputRef.current?.click()}
-                  disabled={uploadingKind === 'featured'}
-                >
-                  {uploadingKind === 'featured' ? 'Uploading...' : 'Upload image'}
-                </AdminButton>
-              </div>
-            )}
-
-            <input
-              ref={featuredInputRef}
-              id="post-featured-image-upload"
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              className="sr-only"
-              onChange={async (event) => {
-                const file = event.target.files?.[0];
-                event.currentTarget.value = '';
-                if (!file) {
-                  return;
-                }
-
-                await handleFeaturedUpload(file);
-              }}
-            />
-          </div>
-        </AdminField>
-
-        <AdminField label="Excerpt" htmlFor="post-excerpt">
-          <AdminTextarea
-            id="post-excerpt"
-            value={post.excerpt ?? ''}
-            onChange={(event) => queueSave({ excerpt: event.target.value })}
-            className="min-h-[130px]"
-            placeholder="A calm, practical approach to building a registry that fits your real life."
-          />
-        </AdminField>
-
-        <AdminField
-          label="Downloadable Resource"
-          htmlFor="post-pdf-resource-upload"
-          help="Attach PDFs that should render as downloadable resources on the post."
-        >
-          <div className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-admin">
-                Upload PDF resources directly to storage and attach them to this article.
-              </p>
-              <AdminButton
-                type="button"
-                variant="secondary"
-                size="sm"
-                onClick={() => pdfInputRef.current?.click()}
-                disabled={uploadingKind === 'pdf'}
-              >
-                {uploadingKind === 'pdf' ? 'Uploading...' : 'Upload PDF'}
-              </AdminButton>
-            </div>
-
-            {pdfResources.length > 0 ? (
-              <div className="space-y-3">
-                {pdfResources.map((media) => (
-                  <div
-                    key={media.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] px-4 py-4 md:flex-row md:items-center md:justify-between"
-                  >
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium text-admin">{media.fileName}</p>
-                      <p className="admin-micro">
-                        PDF · {formatFileSize(media.fileSize)}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <AdminButton asChild variant="ghost" size="sm">
-                        <a href={media.url} target="_blank" rel="noreferrer">
-                          Open
-                        </a>
-                      </AdminButton>
-                      <AdminButton
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeAttachedMedia(media.id)}
-                      >
-                        Detach
-                      </AdminButton>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="admin-micro">No PDF resources attached yet.</p>
-            )}
-
-            <input
-              ref={pdfInputRef}
-              id="post-pdf-resource-upload"
-              type="file"
-              accept="application/pdf"
-              className="sr-only"
-              onChange={async (event) => {
-                const file = event.target.files?.[0];
-                event.currentTarget.value = '';
-                if (!file) {
-                  return;
-                }
-
-                await handlePdfUpload(file);
-              }}
-            />
-          </div>
-        </AdminField>
-
-        <AdminField label="Publishing" htmlFor="post-published" help="Published posts are visible on the public blog.">
-          <label className="admin-toggle" htmlFor="post-published">
-            <input
-              id="post-published"
-              type="checkbox"
-              checked={post.published}
-              onChange={(event) => queueSave({ published: event.target.checked })}
-            />
-            <span>Published</span>
-          </label>
-        </AdminField>
-
-        <AdminField
-          label="Affiliate Partners"
-          help="Optional: check any partner relevant to this post."
-        >
-          <div id="post-affiliates" className="rounded-2xl border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
-            {affiliateOptions.length === 0 ? (
-              <p className="admin-micro">No affiliate partners available.</p>
-            ) : (
-              <div className="space-y-3">
-                {affiliateOptions.map((partner) => {
-                  const checked = (post.affiliateIds ?? []).includes(partner.id);
-
-                  return (
-                    <label key={partner.id} className="flex cursor-pointer items-center gap-3 rounded-xl px-2 py-2 hover:bg-black/[0.02]">
-                      <input
-                        type="checkbox"
-                        name="affiliateIds"
-                        value={partner.id}
-                        checked={checked}
-                        onChange={(event) => toggleAffiliate(partner.id, event.target.checked)}
-                        className="h-4 w-4 rounded border-[var(--admin-color-border)]"
-                      />
-                      <span className="text-sm text-admin">
-                        {partner.name} <span className="text-admin-muted">({partner.network})</span>
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </AdminField>
-
-        <AdminField
-          label="CTA Buttons"
-          help="Add lightweight external CTA buttons for affiliate or partner URLs."
-        >
-          <div className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
-            <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_200px]">
-              <AdminField label="Button label" htmlFor="post-cta-button-label">
-                <AdminInput
-                  id="post-cta-button-label"
-                  value={newCtaButton.label}
-                  onChange={(event) =>
-                    setNewCtaButton((current) => ({
-                      ...current,
-                      label: event.target.value,
-                    }))
-                  }
-                  placeholder="Shop Now"
-                />
-              </AdminField>
-
-              <AdminField label="Destination URL" htmlFor="post-cta-button-url">
-                <AdminInput
-                  id="post-cta-button-url"
-                  type="url"
-                  value={newCtaButton.url}
-                  onChange={(event) =>
-                    setNewCtaButton((current) => ({
-                      ...current,
-                      url: event.target.value,
-                    }))
-                  }
-                  placeholder="https://partner.example.com/..."
-                />
-              </AdminField>
-
-              <AdminField label="Variant" htmlFor="post-cta-button-variant">
-                <AdminSelect
-                  id="post-cta-button-variant"
-                  value={newCtaButton.variant}
-                  onChange={(event) =>
-                    setNewCtaButton((current) => ({
-                      ...current,
-                      variant: event.target.value as CtaButtonVariant,
-                    }))
-                  }
-                >
-                  <option value="primary">Primary</option>
-                  <option value="secondary">Secondary</option>
-                </AdminSelect>
-              </AdminField>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <AdminButton type="button" variant="secondary" size="sm" onClick={insertCtaButton}>
-                + CTA Button
-              </AdminButton>
-              <p className="admin-micro">
-                Buttons open in a new tab with `rel=&quot;noopener noreferrer sponsored&quot;`.
-              </p>
-            </div>
-
-            {ctaButtonContent.invalidLines.length > 0 && (
-              <div className="rounded-2xl border border-[rgba(159,47,47,0.18)] bg-[rgba(159,47,47,0.05)] px-4 py-3 text-sm text-admin-danger">
-                {ctaButtonContent.invalidLines.length} malformed CTA token
-                {ctaButtonContent.invalidLines.length === 1 ? '' : 's'} found in the content field. Fix or remove
-                them before publishing.
-              </div>
-            )}
-
-            {ctaButtonContent.buttons.length > 0 ? (
-              <div className="space-y-3">
-                {ctaButtonContent.buttons.map(({ lineIndex, block }) => (
-                  <div
-                    key={`${lineIndex}-${block.url}`}
-                    className="space-y-3 rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] p-4"
-                  >
-                    <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_200px]">
-                      <AdminField label="Button label" htmlFor={`post-cta-existing-label-${lineIndex}`}>
-                        <AdminInput
-                          id={`post-cta-existing-label-${lineIndex}`}
-                          value={block.label}
-                          onChange={(event) =>
-                            updateCtaButton(lineIndex, {
-                              ...block,
-                              label: event.target.value,
-                            })
-                          }
-                          placeholder="Button label"
-                        />
-                      </AdminField>
-
-                      <AdminField label="Destination URL" htmlFor={`post-cta-existing-url-${lineIndex}`}>
-                        <AdminInput
-                          id={`post-cta-existing-url-${lineIndex}`}
-                          type="url"
-                          value={block.url}
-                          onChange={(event) =>
-                            updateCtaButton(lineIndex, {
-                              ...block,
-                              url: event.target.value,
-                            })
-                          }
-                          placeholder="Paste affiliate URL"
-                        />
-                      </AdminField>
-
-                      <AdminField label="Variant" htmlFor={`post-cta-existing-variant-${lineIndex}`}>
-                        <AdminSelect
-                          id={`post-cta-existing-variant-${lineIndex}`}
-                          value={block.variant ?? 'primary'}
-                          onChange={(event) =>
-                            updateCtaButton(lineIndex, {
-                              ...block,
-                              variant: event.target.value as CtaButtonVariant,
-                            })
-                          }
-                        >
-                          <option value="primary">Primary</option>
-                          <option value="secondary">Secondary</option>
-                        </AdminSelect>
-                      </AdminField>
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <p className="admin-micro">This CTA renders wherever its structured token appears in the content.</p>
-                      <AdminButton type="button" variant="ghost" size="sm" onClick={() => removeCtaButton(lineIndex)}>
-                        Remove CTA
-                      </AdminButton>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="admin-micro">No CTA buttons inserted yet.</p>
-            )}
-          </div>
-        </AdminField>
-
-        <AdminField label="Content" htmlFor="post-content">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <AdminButton
-                type="button"
-                variant="secondary"
-                size="sm"
-                onClick={() => inlineInputRef.current?.click()}
-                disabled={uploadingKind === 'inline'}
-              >
-                {uploadingKind === 'inline' ? 'Uploading...' : 'Upload image'}
-              </AdminButton>
-              <p className="admin-micro">Uploaded images are inserted into the markdown editor automatically.</p>
-            </div>
-
-            <AdminTextarea
-              ref={contentTextareaRef}
-              id="post-content"
-              value={post.content ?? ''}
-              onChange={(event) => queueSave({ content: event.target.value })}
-              className="min-h-[420px]"
-              placeholder="Paste your draft here..."
+      <PostEditorLayout
+        tabs={[
+          { id: 'content', label: 'Content' },
+          { id: 'media', label: 'Media' },
+          { id: 'seo', label: 'SEO', badge: 'Phase 3' },
+        ]}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        leftColumn={leftColumn}
+        rightColumn={
+          <>
+            <PostPublishPanel
+              hasPersistedPost={hasPersistedPost}
+              status={post.status}
+              publishedAt={post.publishedAt}
+              scheduledFor={post.scheduledFor}
+              archivedAt={post.archivedAt}
+              saveText={saveText}
+              saveTone={saveTone}
+              isSaving={saving}
+              canPreview={canPreview}
+              scheduleError={scheduleError}
+              onStatusChange={handleStatusChange}
+              onScheduledForChange={handleScheduledForChange}
+              onSave={() => void flushSave()}
+              onOpenPreview={() => void openPreview()}
             />
 
-            <input
-              ref={inlineInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              className="sr-only"
-              onChange={async (event) => {
-                const file = event.target.files?.[0];
-                event.currentTarget.value = '';
-                if (!file) {
-                  return;
-                }
-
-                await handleInlineUpload(file);
-              }}
+            <PostMetaPanel
+              slug={post.slug}
+              category={post.category}
+              featured={post.featured}
+              createdAt={post.createdAt}
+              updatedAt={post.updatedAt}
+              onSlugChange={handleSlugChange}
+              onCategoryChange={(value) =>
+                applyPostUpdate(
+                  (current) => ({
+                    ...current,
+                    category: value,
+                  }),
+                  'immediate',
+                )
+              }
+              onToggleFeatured={(value) =>
+                applyPostUpdate(
+                  (current) => ({
+                    ...current,
+                    featured: value,
+                  }),
+                  'immediate',
+                )
+              }
             />
-          </div>
-        </AdminField>
 
-        {(uploadFeedback || uploadError || saveError) && (
-          <div
-            className={`rounded-2xl border px-4 py-3 text-sm ${
-              uploadError || saveError
-                ? 'border-[rgba(159,47,47,0.18)] bg-[rgba(159,47,47,0.05)] text-admin-danger'
-                : 'border-[rgba(47,106,67,0.18)] bg-[rgba(47,106,67,0.05)] text-admin-success'
-            }`}
-          >
-            {uploadError ?? saveError ?? uploadFeedback}
-          </div>
-        )}
-      </AdminStack>
+            <PostAffiliatesPanel
+              affiliateOptions={affiliateOptions}
+              selectedAffiliateIds={post.affiliateIds}
+              onToggleAffiliate={handleAffiliateToggle}
+            />
+
+            <PostCtaButtonsPanel
+              draftButton={newCtaButton}
+              buttons={post.ctaButtons}
+              affiliateOptions={affiliateOptions}
+              malformed={ctaMalformed}
+              onDraftChange={handleCtaDraftChange}
+              onAddButton={() => handleAddCtaButton(false)}
+              onAddAndInsertButton={() => handleAddCtaButton(true)}
+              onUpdateButton={handleCtaButtonChange}
+              onRemoveButton={handleCtaButtonRemove}
+              onInsertButton={insertCtaIntoBody}
+            />
+
+            <PostMiniPreviewCard
+              title={post.title}
+              excerpt={post.deck?.trim() ? post.deck : post.excerpt}
+              slug={post.slug}
+              canPreview={canPreview}
+              onOpenPreview={() => void openPreview()}
+            />
+          </>
+        }
+      />
+
+      <input
+        ref={featuredInputRef}
+        id="post-featured-image-upload"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        className="sr-only"
+        onChange={async (event) => {
+          const file = event.target.files?.[0];
+          event.currentTarget.value = '';
+          if (!file) {
+            return;
+          }
+
+          await handleFeaturedUpload(file);
+        }}
+      />
+
+      <input
+        ref={inlineInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        className="sr-only"
+        onChange={async (event) => {
+          const file = event.target.files?.[0];
+          event.currentTarget.value = '';
+          if (!file) {
+            return;
+          }
+
+          await handleInlineUpload(file);
+        }}
+      />
+
+      <input
+        ref={pdfInputRef}
+        id="post-pdf-resource-upload"
+        type="file"
+        accept="application/pdf"
+        className="sr-only"
+        onChange={async (event) => {
+          const file = event.target.files?.[0];
+          event.currentTarget.value = '';
+          if (!file) {
+            return;
+          }
+
+          await handlePdfUpload(file);
+        }}
+      />
     </AdminStack>
   );
 }

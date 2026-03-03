@@ -3,7 +3,6 @@ import PostEditor from '@/components/admin/PostEditor';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
-import AdminSurface from '@/components/admin/ui/AdminSurface';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -21,6 +20,7 @@ export default async function EditPostPage({ params }: EditPostProps) {
       title: true,
       slug: true,
       category: true,
+      deck: true,
       excerpt: true,
       coverImage: true,
       featuredImageId: true,
@@ -45,6 +45,11 @@ export default async function EditPostPage({ params }: EditPostProps) {
         },
       },
       content: true,
+      status: true,
+      publishedAt: true,
+      scheduledFor: true,
+      archivedAt: true,
+      featured: true,
       published: true,
       affiliates: {
         select: {
@@ -70,22 +75,19 @@ export default async function EditPostPage({ params }: EditPostProps) {
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Blog"
+        eyebrow="Publish"
         title={post.title?.trim() ? post.title : 'Untitled post'}
-        subtitle="Autosave is enabled. Publish when you are ready."
+        subtitle="Autosave is enabled. Keep the draft moving without leaving the workspace."
       />
-      <AdminSurface>
-        <PostEditor
-          postId={post.id}
-          initialPost={{
-            ...post,
-            category: normalizeBlogCategory(post.category),
-            mediaIds: post.media.map((entry) => entry.id),
-            affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
-          }}
-          affiliateOptions={affiliateOptions}
-        />
-      </AdminSurface>
+      <PostEditor
+        initialPost={{
+          ...post,
+          category: normalizeBlogCategory(post.category),
+          mediaIds: post.media.map((entry) => entry.id),
+          affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
+        }}
+        affiliateOptions={affiliateOptions}
+      />
     </AdminStack>
   );
 }

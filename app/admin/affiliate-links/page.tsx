@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import prisma from '@/lib/server/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 import AffiliateLinkCopyButton from '@/components/admin/AffiliateLinkCopyButton';
+import AffiliatePartnerIdentity from '@/components/admin/AffiliatePartnerIdentity';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
 import AdminToolbar from '@/components/admin/patterns/AdminToolbar';
 import AdminButton from '@/components/admin/ui/AdminButton';
@@ -295,7 +296,13 @@ export default async function AdminAffiliateLinksPage({
                     ) : null}
                   </div>
                 </td>
-                <td>{link.partner?.name || '—'}</td>
+                <td>
+                  {link.partner ? (
+                    <AffiliatePartnerIdentity name={link.partner.name} network={link.partner.network} size="sm" />
+                  ) : (
+                    '—'
+                  )}
+                </td>
                 <td>{link.partner?.network || '—'}</td>
                 <td>{link.label || '—'}</td>
                 <td className="text-right">{link._count.clicks}</td>

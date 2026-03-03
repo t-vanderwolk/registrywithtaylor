@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
+import { resolvePostLifecycle } from '@/lib/server/blogPostLifecycle';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
@@ -25,7 +27,7 @@ const asStringArray = (value: unknown) => {
 
 export async function GET(req: NextRequest) {
   const token = await getRequestToken(req);
-  const where = token?.role === 'ADMIN' ? undefined : { published: true };
+  const where = token?.role === 'ADMIN' ? undefined : getPublicPostWhere();
 
   const posts = await prisma.post.findMany({
     where,
@@ -61,11 +63,18 @@ export async function POST(req: NextRequest) {
   const category = normalizeBlogCategory(body.category);
   const featuredImageId = asNullableId(body.featuredImageId);
   const mediaIds = Array.from(new Set(asStringArray(body.mediaIds)));
-  const published = Boolean(body.published);
   const affiliateIds = Array.from(new Set(asStringArray(body.affiliateIds)));
+  const deck = asNullableText(body.deck);
+  const featured = Boolean(body.featured);
+  const lifecycle = resolvePostLifecycle({
+    status: body.status,
+    published: body.published,
+    scheduledFor: body.scheduledFor,
+    content,
+  });
 
-  if (published && !content) {
-    return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
+  if (!lifecycle.ok) {
+    return NextResponse.json({ error: lifecycle.error }, { status: 400 });
   }
 
   const slug = await generateUniqueSlug(slugInput || title);
@@ -76,11 +85,17 @@ export async function POST(req: NextRequest) {
         slug,
         category: category || DEFAULT_BLOG_CATEGORY,
         content: content || '',
+        deck,
         excerpt,
         coverImage,
         featuredImageId,
         media: mediaIds.length > 0 ? { connect: mediaIds.map((id) => ({ id })) } : undefined,
-        published,
+        status: lifecycle.status,
+        publishedAt: lifecycle.publishedAt,
+        scheduledFor: lifecycle.scheduledFor,
+        archivedAt: lifecycle.archivedAt,
+        featured,
+        published: lifecycle.published,
         authorId: token.id as string,
       },
     });
@@ -134,6 +149,12 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       ...post,
+      deck: post.deck,
+      status: post.status,
+      publishedAt: post.publishedAt,
+      scheduledFor: post.scheduledFor,
+      archivedAt: post.archivedAt,
+      featured: post.featured,
       featuredImageId: post.featuredImageId,
       mediaIds: post.media.map((entry) => entry.id),
       affiliateIds: post.affiliates.map((entry) => entry.affiliateId),

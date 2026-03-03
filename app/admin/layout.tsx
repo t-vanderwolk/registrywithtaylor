@@ -14,13 +14,25 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   return (
     <AdminShell
       brand="Taylor-Made Baby Co."
-      links={[
-        { label: 'Dashboard', href: '/admin' },
-        { label: 'Blog Posts', href: '/admin/blog' },
-        { label: 'Media', href: '/admin/media' },
-        { label: 'Analytics', href: '/admin/analytics' },
-        { label: 'Affiliates', href: '/admin/affiliates' },
-        { label: 'Affiliate Links', href: '/admin/affiliate-links' },
+      sections={[
+        {
+          label: 'Publish',
+          links: [
+            { label: 'Posts', href: '/admin/blog' },
+            { label: 'Media', href: '/admin/media' },
+          ],
+        },
+        {
+          label: 'Monetize',
+          links: [
+            { label: 'Partners', href: '/admin/affiliates' },
+            { label: 'Short Links', href: '/admin/affiliate-links' },
+          ],
+        },
+        {
+          label: 'Measure',
+          links: [{ label: 'Analytics', href: '/admin/analytics' }],
+        },
       ]}
     >
       {children}

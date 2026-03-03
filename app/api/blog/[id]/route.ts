@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
+import { resolvePostLifecycle } from '@/lib/server/blogPostLifecycle';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
@@ -30,6 +32,7 @@ type PostWithAffiliateIds = {
   slug: string;
   category: string;
   content: string;
+  deck: string | null;
   excerpt: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
@@ -49,6 +52,11 @@ type PostWithAffiliateIds = {
     fileSize: number;
     createdAt: Date;
   }>;
+  status: 'DRAFT' | 'SCHEDULED' | 'PUBLISHED' | 'ARCHIVED';
+  publishedAt: Date | null;
+  scheduledFor: Date | null;
+  archivedAt: Date | null;
+  featured: boolean;
   published: boolean;
   authorId: string;
   views: number;
@@ -63,12 +71,18 @@ const toResponsePost = (post: PostWithAffiliateIds) => ({
   slug: post.slug,
   category: post.category,
   content: post.content,
+  deck: post.deck,
   excerpt: post.excerpt,
   coverImage: post.coverImage,
   featuredImageId: post.featuredImageId,
   featuredImage: post.featuredImage,
   mediaIds: post.media.map((entry) => entry.id),
   media: post.media,
+  status: post.status,
+  publishedAt: post.publishedAt,
+  scheduledFor: post.scheduledFor,
+  archivedAt: post.archivedAt,
+  featured: post.featured,
   published: post.published,
   authorId: post.authorId,
   views: post.views,
@@ -118,7 +132,10 @@ export async function GET(
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  if (token?.role !== 'ADMIN' && !post.published) {
+  if (
+    token?.role !== 'ADMIN' &&
+    !isPostPubliclyVisible(post.status, post.scheduledFor)
+  ) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
@@ -150,6 +167,7 @@ export async function PUT(
   const nextTitle = hasOwn(body, 'title') ? asText(body.title) || 'Untitled post' : existingPost.title;
   const nextCategory = hasOwn(body, 'category') ? normalizeBlogCategory(body.category) : existingPost.category;
   const nextContent = hasOwn(body, 'content') ? asText(body.content) : existingPost.content;
+  const nextDeck = hasOwn(body, 'deck') ? asNullableText(body.deck) : existingPost.deck;
   const nextExcerpt = hasOwn(body, 'excerpt') ? asNullableText(body.excerpt) : existingPost.excerpt;
   const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
   const nextFeaturedImageId = hasOwn(body, 'featuredImageId')
@@ -158,13 +176,25 @@ export async function PUT(
   const nextMediaIds = hasOwn(body, 'mediaIds')
     ? Array.from(new Set(asStringArray(body.mediaIds)))
     : null;
-  const nextPublished = hasOwn(body, 'published') ? Boolean(body.published) : existingPost.published;
+  const nextFeatured = hasOwn(body, 'featured') ? Boolean(body.featured) : existingPost.featured;
   const nextAffiliateIds = hasOwn(body, 'affiliateIds')
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
     : null;
+  const lifecycle = resolvePostLifecycle({
+    status: hasOwn(body, 'status') ? body.status : undefined,
+    published: hasOwn(body, 'published') ? body.published : undefined,
+    scheduledFor: hasOwn(body, 'scheduledFor') ? body.scheduledFor : undefined,
+    content: nextContent,
+    existing: {
+      status: existingPost.status,
+      publishedAt: existingPost.publishedAt,
+      scheduledFor: existingPost.scheduledFor,
+      archivedAt: existingPost.archivedAt,
+    },
+  });
 
-  if (nextPublished && !nextContent) {
-    return NextResponse.json({ error: 'Content is required before publishing' }, { status: 400 });
+  if (!lifecycle.ok) {
+    return NextResponse.json({ error: lifecycle.error }, { status: 400 });
   }
 
   const slugSeed = shouldUpdateSlug ? asText(body.slug) || nextTitle : existingPost.slug;
@@ -177,11 +207,17 @@ export async function PUT(
         slug,
         category: nextCategory,
         content: nextContent,
+        deck: nextDeck,
         excerpt: nextExcerpt,
         coverImage: nextCoverImage,
         featuredImageId: nextFeaturedImageId,
         media: nextMediaIds !== null ? { set: nextMediaIds.map((mediaId) => ({ id: mediaId })) } : undefined,
-        published: nextPublished,
+        status: lifecycle.status,
+        publishedAt: lifecycle.publishedAt,
+        scheduledFor: lifecycle.scheduledFor,
+        archivedAt: lifecycle.archivedAt,
+        featured: nextFeatured,
+        published: lifecycle.published,
       },
     });
 

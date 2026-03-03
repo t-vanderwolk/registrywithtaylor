@@ -1,4 +1,5 @@
 import type { AffiliateNetwork } from '@prisma/client';
+import AffiliatePartnerIdentity from '@/components/admin/AffiliatePartnerIdentity';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
@@ -59,7 +60,13 @@ export default async function AffiliateCanonPanel() {
             >
               {group.partners.map((partner) => (
                 <tr key={partner.id} className="admin-row">
-                  <td className="font-medium text-admin">{partner.name}</td>
+                  <td>
+                    <AffiliatePartnerIdentity
+                      name={partner.name}
+                      network={partner.network}
+                      meta={partner.isActive ? null : 'Inactive'}
+                    />
+                  </td>
                   <td>{NETWORK_LABEL[partner.network]}</td>
                   <td>{partner.commissionRate}</td>
                   <td>{formatEpc(partner.threeMonthEpc, partner.sevenDayEpc)}</td>

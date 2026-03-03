@@ -11,6 +11,7 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
+import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
 
@@ -31,6 +32,9 @@ type InsightPreview = {
   slug: string;
   excerpt: string | null;
   content: string;
+  featured: boolean;
+  publishedAt: Date | null;
+  scheduledFor: Date | null;
   createdAt: Date;
 };
 
@@ -72,19 +76,47 @@ const toInsightExcerpt = (excerpt: string | null, content: string, maxLength = 1
 };
 
 export default async function HomePage() {
-  const insightPreviews = (await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
+  const now = new Date();
+  const featuredInsight = (await prisma.post.findFirst({
+    where: {
+      status: 'PUBLISHED',
+      featured: true,
+    },
+    orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
     select: {
       id: true,
       title: true,
       slug: true,
       excerpt: true,
       content: true,
+      featured: true,
+      publishedAt: true,
+      scheduledFor: true,
+      createdAt: true,
+    },
+  })) as InsightPreview | null;
+
+  const insightCandidates = (await prisma.post.findMany({
+    where: getPublicPostWhere(now),
+    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
+    take: 4,
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      content: true,
+      featured: true,
+      publishedAt: true,
+      scheduledFor: true,
       createdAt: true,
     },
   })) as InsightPreview[];
+
+  const insightPreviews = [featuredInsight, ...insightCandidates]
+    .filter((post): post is InsightPreview => Boolean(post))
+    .filter((post, index, collection) => collection.findIndex((entry) => entry.id === post.id) === index)
+    .slice(0, 3);
 
   return (
     <SiteShell currentPath="/">
@@ -567,7 +599,7 @@ export default async function HomePage() {
                 <RevealOnScroll key={post.id} delayMs={index * 90}>
                   <MarketingSurface className="marketing-card-hover group h-full">
                     <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-3">
-                      {formatInsightDate(post.createdAt)}
+                      {formatInsightDate(getPostDisplayDate(post))}
                     </p>
                     <H3 className="mb-3 font-serif text-[var(--text-primary)]">{post.title}</H3>
                     <Body className="mb-6 text-[var(--color-muted)]">
