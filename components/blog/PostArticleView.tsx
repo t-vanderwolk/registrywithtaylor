@@ -4,7 +4,6 @@ import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus'
 import { formatFileSize, isPdfMediaType } from '@/lib/media';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
-import PostViewTracker from '@/components/blog/PostViewTracker';
 import { Body, H1, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
@@ -221,7 +220,6 @@ export default function PostArticleView({
 
   return (
     <>
-      {trackView ? <PostViewTracker postId={post.id} /> : null}
       <section className="section-base bg-white">
         <article className="max-w-3xl mx-auto px-6">
           {featuredImageUrl && (
@@ -281,6 +279,7 @@ export default function PostArticleView({
                 postId={post.id}
                 content={articleContent}
                 className="mx-auto max-w-[72ch]"
+                trackView={trackView}
               />
             </div>
           </RevealOnScroll>

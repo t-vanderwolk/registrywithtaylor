@@ -37,6 +37,8 @@ export default function RevealOnScroll({
 
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     const rect = node.getBoundingClientRect();
+    const nodeHeight = rect.height || node.offsetHeight || 0;
+    const effectiveThreshold = nodeHeight > viewportHeight ? Math.min(threshold, 0.01) : threshold;
     const initiallyVisible = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
     setIsVisible(initiallyVisible);
     setHydrated(true);
@@ -55,7 +57,7 @@ export default function RevealOnScroll({
         });
       },
       {
-        threshold,
+        threshold: effectiveThreshold,
         rootMargin: '0px 0px -8% 0px',
       },
     );
