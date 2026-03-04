@@ -11,7 +11,7 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:bootstrap": "prisma migrate dev && prisma db seed",
-    "seed:affiliates": "tsx scripts/seed-affiliates.ts",
+    "seed:affiliates": "node scripts/seed-affiliates.cjs",
     "seed:draft-posts": "tsx scripts/seedDraftBlogPosts.ts",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts"
