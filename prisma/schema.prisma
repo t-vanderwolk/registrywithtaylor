@@ -7,6 +7,164 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+}
+
+model Post {
+  id              String              @id @default(cuid())
+  title           String
+  slug            String              @unique
+  content         String
+  excerpt         String?
+  /// Deprecated: use `status` instead.
+  published       Boolean             @default(false)
+  authorId        String
+  views           Int                 @default(0)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  coverImage      String?
+  category        String              @default("Registry Strategy")
+  featuredImageId String?
+  archivedAt      DateTime?
+  deck            String?
+  featured        Boolean             @default(false)
+  publishedAt     DateTime?
+  scheduledFor    DateTime?
+  status          PostStatus          @default(DRAFT)
+  stage           BlogStage           @default(DRAFT)
+  focusKeyword    String?
+  seoTitle        String?
+  seoDescription  String?
+  canonicalUrl    String?
+  affiliateLinks  AffiliateLink[]
+  affiliates      BlogPostAffiliate[]
+  author          User                @relation(fields: [authorId], references: [id])
+  featuredImage   Media?              @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
+  analytics       PostAnalytics[]
+  media           Media[]             @relation("PostMedia")
+}
+
+model Media {
+  id              String   @id @default(cuid())
+  url             String
+  fileName        String
+  fileType        String
+  fileSize        Int
+  createdAt       DateTime @default(now())
+  featuredInPosts Post[]   @relation("FeaturedPostMedia")
+  posts           Post[]   @relation("PostMedia")
+}
+
+model PrintableResource {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String
+  category    String?
+  filePath    String?
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PostAnalytics {
+  id        String   @id @default(cuid())
+  postId    String
+  event     String
+  meta      Json?
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model AffiliatePartner {
+  id             String              @id @default(uuid())
+  name           String
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  network        AffiliateNetwork
+  advertiserId   String?
+  commissionType CommissionType
+  commissionRate String
+  category       String?
+  threeMonthEpc  Float?
+  sevenDayEpc    Float?
+  notes          String?
+  isActive       Boolean             @default(true)
+  allowedDomains String[]            @default([])
+  affiliateLinks AffiliateLink[]
+  blogPosts      BlogPostAffiliate[]
+
+  @@unique([name, network])
+}
+
+model BlogPostAffiliate {
+  id          String           @id @default(cuid())
+  blogPostId  String
+  affiliateId String
+  createdAt   DateTime         @default(now())
+  affiliate   AffiliatePartner @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  blogPost    Post             @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+
+  @@unique([blogPostId, affiliateId])
+}
+
+model AffiliateLink {
+  id             String            @id @default(uuid())
+  partnerId      String?
+  destinationUrl String
+  code           String            @unique
+  label          String?
+  blogPostId     String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  clicks         AffiliateClick[]
+  blogPost       Post?             @relation(fields: [blogPostId], references: [id])
+  partner        AffiliatePartner? @relation(fields: [partnerId], references: [id])
+
+  @@index([partnerId])
+  @@index([createdAt])
+  @@index([blogPostId])
+}
+
+model AffiliateClick {
+  id        String        @id @default(uuid())
+  linkId    String
+  ipHash    String?
+  userAgent String?
+  referrer  String?
+  createdAt DateTime      @default(now())
+  path      String?
+  link      AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId, createdAt])
+  @@index([createdAt])
+}
+
+model BookingEvent {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  type        String
+  sourcePage  String?
+  service     String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  referrer    String?
+  userAgent   String?
+  ipHash      String?
+
+  @@index([createdAt])
+  @@index([type, createdAt])
+}
+
 enum Role {
   USER
   ADMIN
@@ -28,84 +186,6 @@ enum BlogStage {
   ARCHIVED
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  posts     Post[]
-}
-
-model Post {
-  id          String         @id @default(cuid())
-  title       String
-  slug        String         @unique
-  category    String         @default("Registry Strategy")
-  stage       BlogStage      @default(DRAFT)
-  content     String
-  deck        String?
-  excerpt     String?
-  focusKeyword String?
-  seoTitle    String?
-  seoDescription String?
-  canonicalUrl String?
-  coverImage  String?
-  featuredImageId String?
-  featuredImage Media? @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
-  media       Media[] @relation("PostMedia")
-  status      PostStatus     @default(DRAFT)
-  publishedAt DateTime?
-  scheduledFor DateTime?
-  archivedAt  DateTime?
-  featured    Boolean        @default(false)
-  /// Deprecated: use `status` instead.
-  published   Boolean        @default(false)
-  authorId    String
-  author      User           @relation(fields: [authorId], references: [id])
-  views       Int            @default(0)
-  analytics   PostAnalytics[]
-  affiliates  BlogPostAffiliate[]
-  affiliateLinks AffiliateLink[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-}
-
-model Media {
-  id              String   @id @default(cuid())
-  url             String
-  fileName        String
-  fileType        String
-  fileSize        Int
-  createdAt       DateTime @default(now())
-  featuredInPosts Post[]   @relation("FeaturedPostMedia")
-  posts           Post[]   @relation("PostMedia")
-}
-
-model PrintableResource {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  description String
-  category    String?
-  filePath    String?
-  isPublished Boolean  @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model PostAnalytics {
-  id        String   @id @default(cuid())
-  postId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  event     String
-  meta      Json?
-  createdAt DateTime @default(now())
-}
-
 enum AffiliateNetwork {
   CJ
   IMPACT
@@ -118,88 +198,4 @@ enum CommissionType {
   CPL
   FLAT_FEE
   VARIABLE
-}
-
-model AffiliatePartner {
-  id             String           @id @default(uuid())
-  name           String
-  network        AffiliateNetwork
-  advertiserId   String?
-  allowedDomains String[]         @default([])
-  commissionType CommissionType
-  commissionRate String
-  category       String?
-  threeMonthEpc  Float?
-  sevenDayEpc    Float?
-  notes          String?
-  isActive       Boolean          @default(true)
-  blogPosts      BlogPostAffiliate[]
-  affiliateLinks AffiliateLink[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-
-  @@unique([name, network])
-}
-
-model BlogPostAffiliate {
-  id          String           @id @default(cuid())
-  blogPostId  String
-  affiliateId String
-  blogPost    Post             @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
-  affiliate   AffiliatePartner @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
-  createdAt   DateTime         @default(now())
-
-  @@unique([blogPostId, affiliateId])
-}
-
-model AffiliateLink {
-  id             String           @id @default(uuid())
-  code           String           @unique
-  label          String?
-  destinationUrl String
-  partnerId      String?
-  blogPostId     String?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  partner        AffiliatePartner? @relation(fields: [partnerId], references: [id], onDelete: SetNull)
-  blogPost       Post?            @relation(fields: [blogPostId], references: [id], onDelete: SetNull)
-  clicks         AffiliateClick[]
-
-  @@index([partnerId])
-  @@index([createdAt])
-  @@index([blogPostId])
-}
-
-model AffiliateClick {
-  id              String        @id @default(uuid())
-  linkId          String
-  ipHash          String?
-  userAgent       String?
-  referrer        String?
-  path            String?
-  createdAt       DateTime      @default(now())
-  link            AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
-
-  @@index([linkId, createdAt])
-  @@index([createdAt])
-}
-
-model BookingEvent {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-
-  type        String
-  sourcePage  String?
-
-  service     String?
-  utmSource   String?
-  utmMedium   String?
-  utmCampaign String?
-
-  referrer    String?
-  userAgent   String?
-  ipHash      String?
-
-  @@index([createdAt])
-  @@index([type, createdAt])
 }

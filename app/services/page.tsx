@@ -250,12 +250,12 @@ export default function ServicesPage() {
                     rel="sponsored noopener noreferrer"
                     className="inline-flex w-full items-center justify-center"
                   >
-                    <img
-                      src="https://www.tqlkg.com/image-101548494-15518289"
-                      width="48"
-                      height="48"
+                    <Image
+                      src="/assets/brand/albeebaby.png"
+                      width={574}
+                      height={108}
                       alt="Shop AlbeeBaby.com"
-                      className="h-auto w-full max-w-[48px] object-contain"
+                      className="h-auto w-full max-w-[9rem] object-contain"
                     />
                   </a>
                 </div>
