@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { requiresLiveContent, type PostStatusValue } from '@/lib/blog/postStatus';
 import { resolveBlogStage, type BlogStageValue } from '@/lib/blog/postStage';
-import { isPdfMediaType } from '@/lib/media';
+import { isImageMediaType, isPdfMediaType } from '@/lib/media';
 import {
   createCtaSlotToken,
   createEmptyCtaButton,
@@ -297,7 +297,7 @@ export default function PostEditor({
   const [isDirty, setIsDirty] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [uploadingKind, setUploadingKind] = useState<'featured' | 'inline' | 'pdf' | null>(null);
+  const [uploadingKind, setUploadingKind] = useState<'featured' | 'gallery' | 'inline' | 'pdf' | null>(null);
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [ctaMalformed, setCtaMalformed] = useState(initialEditor.malformedCta);
@@ -313,10 +313,12 @@ export default function PostEditor({
   const slugEditedRef = useRef(Boolean(initialEditor.state.id));
   const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const featuredInputRef = useRef<HTMLInputElement | null>(null);
+  const galleryInputRef = useRef<HTMLInputElement | null>(null);
   const inlineInputRef = useRef<HTMLInputElement | null>(null);
   const pdfInputRef = useRef<HTMLInputElement | null>(null);
 
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const imageAssets = post.media.filter((media) => isImageMediaType(media.fileType));
   const pdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
   const hasPersistedPost = Boolean(currentPostId);
   const canPreview = Boolean(currentPostId || post.title.trim() || post.body.trim() || post.excerpt?.trim() || post.deck?.trim());
@@ -338,6 +340,28 @@ export default function PostEditor({
   useEffect(() => {
     currentPostIdRef.current = currentPostId;
   }, [currentPostId]);
+
+  useEffect(() => {
+    clearScheduledSave();
+    stateRef.current = initialEditor.state;
+    currentPostIdRef.current = initialEditor.state.id;
+    setPost(initialEditor.state);
+    setCurrentPostId(initialEditor.state.id);
+    setActiveTab('content');
+    setSaving(false);
+    isSavingRef.current = false;
+    queuedSaveRef.current = false;
+    setHasScheduledSave(false);
+    setIsDirty(false);
+    setSavedAt(null);
+    setSaveError(null);
+    setUploadFeedback(null);
+    setUploadError(null);
+    setCtaMalformed(initialEditor.malformedCta);
+    setIsInternalLinkModalOpen(false);
+    setNewCtaButton(createEmptyCtaButton(initialEditor.state.ctaButtons.length));
+    slugEditedRef.current = Boolean(initialEditor.state.slug.trim());
+  }, [initialEditor]);
 
   useEffect(() => {
     return () => {
@@ -447,6 +471,15 @@ export default function PostEditor({
     return {
       media: dedupeMedia([...currentPost.media, media]),
       mediaIds: Array.from(new Set([...currentPost.mediaIds, media.id])),
+    };
+  }
+
+  function attachMediaBatchToPost(mediaItems: MediaRecord[]) {
+    const currentPost = stateRef.current;
+
+    return {
+      media: dedupeMedia([...currentPost.media, ...mediaItems]),
+      mediaIds: Array.from(new Set([...currentPost.mediaIds, ...mediaItems.map((media) => media.id)])),
     };
   }
 
@@ -866,18 +899,57 @@ export default function PostEditor({
 
     try {
       const media = await uploadFile(file);
+      const mediaState = attachMediaToPost(media);
       applyPostUpdate(
         (current) => ({
           ...current,
           featuredImageId: media.id,
           featuredImage: media,
           coverImage: media.url,
+          media: mediaState.media,
+          mediaIds: mediaState.mediaIds,
         }),
         'immediate',
       );
       setUploadFeedback('Featured image uploaded.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload featured image.');
+    } finally {
+      setUploadingKind(null);
+    }
+  }
+
+  async function handleGalleryUpload(files: FileList | File[]) {
+    const uploads = Array.from(files);
+    if (uploads.length === 0) {
+      return;
+    }
+
+    setUploadingKind('gallery');
+    setUploadError(null);
+    setUploadFeedback(null);
+
+    try {
+      const mediaItems: MediaRecord[] = [];
+
+      for (const file of uploads) {
+        mediaItems.push(await uploadFile(file));
+      }
+
+      const mediaState = attachMediaBatchToPost(mediaItems);
+      applyPostUpdate(
+        (current) => ({
+          ...current,
+          media: mediaState.media,
+          mediaIds: mediaState.mediaIds,
+        }),
+        'immediate',
+      );
+      setUploadFeedback(
+        mediaItems.length === 1 ? 'Image uploaded to the post library.' : `${mediaItems.length} images uploaded to the post library.`,
+      );
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Unable to upload images.');
     } finally {
       setUploadingKind(null);
     }
@@ -955,9 +1027,31 @@ export default function PostEditor({
         ...current,
         media: current.media.filter((media) => media.id !== mediaId),
         mediaIds: current.mediaIds.filter((id) => id !== mediaId),
+        featuredImageId: current.featuredImageId === mediaId ? null : current.featuredImageId,
+        featuredImage: current.featuredImageId === mediaId ? null : current.featuredImage,
+        coverImage: current.featuredImageId === mediaId ? null : current.coverImage,
       }),
       'immediate',
     );
+  }
+
+  function handleInsertImageFromLibrary(media: MediaRecord) {
+    const markdown = `\n\n![${toAltText(media.fileName)}](${media.url})\n\n`;
+    insertBodyAtCursor(markdown, 'debounced');
+    setUploadFeedback('Image inserted into the draft.');
+  }
+
+  function handleSetFeaturedImageFromLibrary(media: MediaRecord) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        featuredImageId: media.id,
+        featuredImage: media,
+        coverImage: media.url,
+      }),
+      'immediate',
+    );
+    setUploadFeedback('Featured image updated from the library.');
   }
 
   async function openPreview() {
@@ -1057,6 +1151,7 @@ export default function PostEditor({
       <PostMediaPanel
         title={post.title}
         featuredImageUrl={featuredImageUrl}
+        featuredImageId={post.featuredImageId}
         featuredUploadLabel={uploadingKind === 'featured' ? 'Uploading...' : featuredImageUrl ? 'Replace image' : 'Upload image'}
         featuredUploadDisabled={uploadingKind === 'featured'}
         onOpenFeaturedPicker={() => featuredInputRef.current?.click()}
@@ -1071,6 +1166,13 @@ export default function PostEditor({
             'immediate',
           )
         }
+        imageAssets={imageAssets}
+        imageUploadLabel={uploadingKind === 'gallery' ? 'Uploading...' : 'Upload images'}
+        imageUploadDisabled={uploadingKind === 'gallery'}
+        onOpenImagePicker={() => galleryInputRef.current?.click()}
+        onInsertImage={handleInsertImageFromLibrary}
+        onSetFeaturedImage={handleSetFeaturedImageFromLibrary}
+        onRemoveImage={removeAttachedMedia}
         pdfResources={pdfResources}
         pdfUploadLabel={uploadingKind === 'pdf' ? 'Uploading...' : 'Upload PDF'}
         pdfUploadDisabled={uploadingKind === 'pdf'}
@@ -1268,6 +1370,24 @@ export default function PostEditor({
           }
 
           await handleInlineUpload(file);
+        }}
+      />
+
+      <input
+        ref={galleryInputRef}
+        id="post-image-library-upload"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        multiple
+        className="sr-only"
+        onChange={async (event) => {
+          const files = event.target.files;
+          event.currentTarget.value = '';
+          if (!files || files.length === 0) {
+            return;
+          }
+
+          await handleGalleryUpload(files);
         }}
       />
 

@@ -25,6 +25,7 @@ export default async function NewPostPage() {
       />
 
       <PostEditor
+        key="new-post-editor"
         initialPost={{
           id: null,
           title: '',

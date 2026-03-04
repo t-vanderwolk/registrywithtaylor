@@ -234,72 +234,79 @@ export default function ServicesPage() {
         </MarketingSection>
 
         <MarketingSection tone="ivory" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section services-page-section">
-          <div className="relative mx-auto max-w-5xl services-blueprint-split">
-            
-              <MarketingSurface className="services-blueprint-content h-full max-w-none space-y-8">
-              <div className="services-blueprint-brand-lockup">
-                <div className="services-blueprint-partnership">
-                  <span aria-hidden className="services-blueprint-partnership-line" />
-                  <span>In partnership with</span>
-                  <span aria-hidden className="services-blueprint-partnership-line" />
+          <div className="services-blueprint-frame">
+            <div className="services-blueprint-shell">
+              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-6 p-5 md:p-6">
+                <div className="services-blueprint-brand-lockup">
+                  <div className="services-blueprint-partnership">
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                    <span>In partnership with</span>
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                  </div>
+
+                  <a
+                    href="https://www.dpbolvw.net/click-101548494-15518289"
+                    target="_top"
+                    rel="sponsored noopener noreferrer"
+                    className="inline-flex w-full items-center justify-center"
+                  >
+                    <img
+                      src="https://www.tqlkg.com/image-101548494-15518289"
+                      width="48"
+                      height="48"
+                      alt="Shop AlbeeBaby.com"
+                      className="h-auto w-full max-w-[48px] object-contain"
+                    />
+                  </a>
                 </div>
 
+                <div className="mt-1 flex flex-col items-start">
+                  <div className="flex w-full justify-center">
+                    <SectionDivider />
+                  </div>
+                  <H2 className="services-blueprint-title">
+                    NYC In-Store Blueprint
+                  </H2>
+                </div>
+
+                <Body className="text-neutral-600">
+                  Designed for families planning an in-store visit in NYC.
+                </Body>
+
+                <H3 className="services-blueprint-kicker font-serif">
+                  Walk in prepared and compare with confidence.
+                </H3>
+
+                <Body className="services-blueprint-body">
+                  Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
+                  shortlist tailored to your home.
+                </Body>
+
+                <Body className="services-blueprint-body">
+                  You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
+                  in-store experience.
+                </Body>
+
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                  <Link
+                    href="/contact"
+                    className="btn btn--secondary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  >
+                    Explore the NYC Blueprint
+                  </Link>
+                </div>
+              </MarketingSurface>
+
+              <div className="services-blueprint-visual" aria-hidden="true">
                 <Image
-                  src="/assets/brand/albeebaby.png"
-                  alt="Albee Baby"
-                  width={180}
-                  height={48}
-                  className="services-blueprint-logo"
+                  src="/assets/brand/albeebabystore.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 66vw, 100vw"
+                  className="services-blueprint-visual-image"
                 />
               </div>
-
-              <div>
-                <SectionDivider />
-                <H2 className="services-blueprint-title">
-                  NYC In-Store Blueprint
-                </H2>
-              </div>
-
-              <Body className="text-neutral-600">
-                Designed for families planning an in-store visit in NYC.
-              </Body>
-
-              <H3 className="services-blueprint-kicker font-serif">
-                Walk in prepared and compare with confidence.
-              </H3>
-
-              <Body className="services-blueprint-body">
-                Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
-                shortlist tailored to your home.
-              </Body>
-
-              <Body className="services-blueprint-body">
-                You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
-                in-store experience.
-              </Body>
-
-              <Link
-                href="/contact"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                Explore the NYC Blueprint
-              </Link>
-              </MarketingSurface>
-            
-
-            
-              <div className="services-blueprint-image-shell mt-12 md:my-0">
-                <div className="rounded-2xl border border-black/5 bg-white/40 p-2 shadow-sm md:h-full">
-                  <Image
-                    src="/assets/brand/albeebabystore.png"
-                    alt="Albee Baby storefront in New York City"
-                    width={900}
-                    height={700}
-                    className="services-blueprint-image rounded-xl"
-                  />
-                </div>
-              </div>
-            
+            </div>
           </div>
         </MarketingSection>
 

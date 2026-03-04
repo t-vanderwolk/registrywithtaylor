@@ -85,6 +85,7 @@ export default async function EditPostPage({ params }: EditPostProps) {
         subtitle="Autosave is enabled. Keep the draft moving without leaving the workspace."
       />
       <PostEditor
+        key={post.id}
         initialPost={{
           ...post,
           category: normalizeBlogCategory(post.category),
