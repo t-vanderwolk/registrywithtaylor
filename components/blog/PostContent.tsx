@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import {
@@ -15,10 +12,9 @@ import {
 } from '@/lib/blog/styledBlocks';
 
 type PostContentProps = {
-  postId: string;
+  postId?: string;
   content: string;
   className?: string;
-  trackView?: boolean;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -284,292 +280,289 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
   return null;
 }
 
-export default function PostContent({ postId, content, className, trackView = true }: PostContentProps) {
-  useEffect(() => {
-    if (!trackView) {
-      return undefined;
-    }
+function renderPlainTextFallback(content: string, postId: string) {
+  return content
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+    .map((segment, index) => (
+      <Body key={`${postId}-fallback-${index}`} className={index === 0 ? 'text-charcoal/85' : 'mt-6 text-charcoal/85'}>
+        {segment}
+      </Body>
+    ));
+}
 
-    const controller = new AbortController();
-
-    fetch(`/api/blog/${postId}/track`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ type: 'view' }),
-      signal: controller.signal,
-    }).catch(() => {
-      // silently ignore tracking failures
-    });
-
-    return () => controller.abort();
-  }, [postId, trackView]);
-
+function renderContentNodes(content: string, postId: string) {
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
   const articleContent = storedButtons.body;
+  const nodes: ReactNode[] = [];
+  const lines = articleContent.split('\n');
+  let i = 0;
+  let paragraphCount = 0;
+  let h2Count = 0;
+  let insertedStoredButtons = false;
+  const slottedButtonIds = new Set<string>();
 
-  return (
-    <div className={className ?? 'body-copy'}>
-      {(() => {
-        const nodes: ReactNode[] = [];
-        const lines = articleContent.split('\n');
-        let i = 0;
-        let paragraphCount = 0;
-        let h2Count = 0;
-        let insertedStoredButtons = false;
-        const slottedButtonIds = new Set<string>();
+  while (i < lines.length) {
+    const line = lines[i]?.trim() ?? '';
 
-        while (i < lines.length) {
-          const line = lines[i]?.trim() ?? '';
+    if (!line) {
+      i += 1;
+      continue;
+    }
 
-          if (!line) {
-            i += 1;
-            continue;
-          }
+    if (line.startsWith('## ')) {
+      if (h2Count > 0) {
+        nodes.push(
+          <div
+            key={`${postId}-divider-${i}`}
+            className="my-16 border-t border-black/10"
+          />,
+        );
+      }
 
-          if (line.startsWith('## ')) {
-            if (h2Count > 0) {
-              nodes.push(
-                <div
-                  key={`${postId}-divider-${i}`}
-                  className="my-16 border-t border-black/10"
-                />,
-              );
+      nodes.push(
+        <H2
+          key={`${postId}-h2-${i}`}
+          className="mt-16 mb-6 font-serif text-neutral-900"
+        >
+          {renderInlineContent(line.replace(/^##\s+/, ''), `${postId}-h2-inline-${i}`)}
+        </H2>,
+      );
+      h2Count += 1;
+      i += 1;
+      continue;
+    }
+
+    if (line.startsWith('### ')) {
+      nodes.push(
+        <H3
+          key={`${postId}-h3-${i}`}
+          className="mt-12 mb-4 font-serif tracking-tight text-neutral-900"
+        >
+          {renderInlineContent(line.replace(/^###\s+/, ''), `${postId}-h3-inline-${i}`)}
+        </H3>,
+      );
+      i += 1;
+      continue;
+    }
+
+    const styledBlock = parseStyledBlock(lines, i);
+    if (styledBlock) {
+      nodes.push(renderStyledBlock(styledBlock.block, postId, i));
+      i = styledBlock.nextIndex;
+      continue;
+    }
+
+    if (isDividerLine(line)) {
+      nodes.push(<div key={`${postId}-rule-${i}`} className="my-12 border-t border-black/10" />);
+      i += 1;
+      continue;
+    }
+
+    const ctaSlotId = parseCtaSlotLine(line);
+    if (ctaSlotId) {
+      const button = storedButtonMap.get(ctaSlotId);
+      if (button) {
+        nodes.push(renderStoredCtaButtons([button], `${postId}-stored-slot-${i}`));
+        slottedButtonIds.add(button.id);
+      }
+      i += 1;
+      continue;
+    }
+
+    const legacyCtaButton = parseLegacyCtaButtonLine(line);
+    if (legacyCtaButton) {
+      nodes.push(
+        <div key={`${postId}-legacy-cta-${i}`} className="my-8">
+          <a
+            href={legacyCtaButton.url}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className={
+              legacyCtaButton.variant === 'secondary'
+                ? `btn btn--secondary ${CTA_BUTTON_FOCUS_CLASS}`
+                : legacyCtaButton.variant === 'text'
+                  ? 'link-underline text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900'
+                  : `btn btn--primary ${CTA_BUTTON_FOCUS_CLASS}`
             }
+          >
+            {legacyCtaButton.label}
+          </a>
+        </div>,
+      );
+      i += 1;
+      continue;
+    }
 
-            nodes.push(
-              <H2
-                key={`${postId}-h2-${i}`}
-                className="mt-16 mb-6 font-serif text-neutral-900"
-              >
-                {renderInlineContent(line.replace(/^##\s+/, ''), `${postId}-h2-inline-${i}`)}
-              </H2>,
-            );
-            h2Count += 1;
-            i += 1;
-            continue;
-          }
+    if (isQuoteLine(line)) {
+      const quoteLines: string[] = [];
 
-          if (line.startsWith('### ')) {
-            nodes.push(
-              <H3
-                key={`${postId}-h3-${i}`}
-                className="mt-12 mb-4 font-serif tracking-tight text-neutral-900"
-              >
-                {renderInlineContent(line.replace(/^###\s+/, ''), `${postId}-h3-inline-${i}`)}
-              </H3>,
-            );
-            i += 1;
-            continue;
-          }
-
-          const styledBlock = parseStyledBlock(lines, i);
-          if (styledBlock) {
-            nodes.push(renderStyledBlock(styledBlock.block, postId, i));
-            i = styledBlock.nextIndex;
-            continue;
-          }
-
-          if (isDividerLine(line)) {
-            nodes.push(<div key={`${postId}-rule-${i}`} className="my-12 border-t border-black/10" />);
-            i += 1;
-            continue;
-          }
-
-          const ctaSlotId = parseCtaSlotLine(line);
-          if (ctaSlotId) {
-            const button = storedButtonMap.get(ctaSlotId);
-            if (button) {
-              nodes.push(renderStoredCtaButtons([button], `${postId}-stored-slot-${i}`));
-              slottedButtonIds.add(button.id);
-            }
-            i += 1;
-            continue;
-          }
-
-          const legacyCtaButton = parseLegacyCtaButtonLine(line);
-          if (legacyCtaButton) {
-            nodes.push(
-              <div key={`${postId}-legacy-cta-${i}`} className="my-8">
-                <a
-                  href={legacyCtaButton.url}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
-                  className={
-                    legacyCtaButton.variant === 'secondary'
-                      ? `btn btn--secondary ${CTA_BUTTON_FOCUS_CLASS}`
-                      : legacyCtaButton.variant === 'text'
-                        ? 'link-underline text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900'
-                        : `btn btn--primary ${CTA_BUTTON_FOCUS_CLASS}`
-                  }
-                >
-                  {legacyCtaButton.label}
-                </a>
-              </div>,
-            );
-            i += 1;
-            continue;
-          }
-
-          if (isQuoteLine(line)) {
-            const quoteLines: string[] = [];
-
-            while (i < lines.length) {
-              const candidate = lines[i]?.trim() ?? '';
-              if (!isQuoteLine(candidate)) {
-                break;
-              }
-
-              quoteLines.push(candidate.replace(/^>\s?/, ''));
-              i += 1;
-            }
-
-            nodes.push(
-              <blockquote
-                key={`${postId}-quote-${i}`}
-                className="mt-8 rounded-r-[24px] border-l-4 border-neutral-900/70 bg-black/[0.03] px-5 py-4"
-              >
-                <Body className="text-charcoal/80 italic">
-                  {renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
-                </Body>
-              </blockquote>,
-            );
-            continue;
-          }
-
-          const imageLineMatch = line.match(imageLinePattern);
-          if (imageLineMatch) {
-            const [, altText, src] = imageLineMatch;
-            nodes.push(
-              <figure key={`${postId}-img-${i}`} className="mt-10 space-y-3">
-                <img
-                  src={src}
-                  alt={altText}
-                  className="w-full rounded-2xl shadow-sm"
-                  loading="lazy"
-                />
-                {altText && (
-                  <figcaption className="text-sm leading-relaxed text-charcoal/60">
-                    {altText}
-                  </figcaption>
-                )}
-              </figure>,
-            );
-            i += 1;
-            continue;
-          }
-
-          if (line.startsWith('# ')) {
-            i += 1;
-            continue;
-          }
-
-          if (line.startsWith('- ')) {
-            const items: string[] = [];
-            while (i < lines.length) {
-              const candidate = lines[i]?.trim() ?? '';
-              if (!candidate.startsWith('- ')) break;
-              items.push(candidate.replace(/^-+\s+/, ''));
-              i += 1;
-            }
-
-            nodes.push(
-              <ul
-                key={`${postId}-ul-${i}`}
-                className="mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
-              >
-                {items.map((item, index) => (
-                  <li key={`${postId}-ul-${i}-${index}`} className="pl-1">
-                    {renderInlineContent(item, `${postId}-ul-inline-${i}-${index}`)}
-                  </li>
-                ))}
-              </ul>,
-            );
-            continue;
-          }
-
-          if (orderedListPattern.test(line)) {
-            const items: string[] = [];
-            while (i < lines.length) {
-              const candidate = lines[i]?.trim() ?? '';
-              if (!orderedListPattern.test(candidate)) break;
-              items.push(candidate.replace(/^\d+\.\s+/, ''));
-              i += 1;
-            }
-
-            nodes.push(
-              <ol
-                key={`${postId}-ol-${i}`}
-                className="mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
-              >
-                {items.map((item, index) => (
-                  <li key={`${postId}-ol-${i}-${index}`} className="pl-1">
-                    {renderInlineContent(item, `${postId}-ol-inline-${i}-${index}`)}
-                  </li>
-                ))}
-              </ol>,
-            );
-            continue;
-          }
-
-          const paragraphLines: string[] = [];
-          while (i < lines.length) {
-            const candidate = lines[i]?.trim() ?? '';
-            if (
-              !candidate ||
-              candidate.startsWith('# ') ||
-              candidate.startsWith('## ') ||
-              candidate.startsWith('### ') ||
-              isStyledBlockStart(candidate) ||
-              isDividerLine(candidate) ||
-              isQuoteLine(candidate) ||
-              Boolean(parseLegacyCtaButtonLine(candidate)) ||
-              imageLinePattern.test(candidate) ||
-              candidate.startsWith('- ') ||
-              orderedListPattern.test(candidate)
-            ) {
-              break;
-            }
-            paragraphLines.push(candidate);
-            i += 1;
-          }
-
-          if (paragraphLines.length > 0) {
-            paragraphCount += 1;
-            nodes.push(
-              <Body
-                key={`${postId}-p-${i}`}
-                className={
-                  paragraphCount === 1
-                    ? 'text-charcoal/85'
-                    : 'mt-6 text-charcoal/85'
-                }
-              >
-                {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
-              </Body>,
-            );
-
-            if (!insertedStoredButtons && storedButtons.buttons.length > 0 && paragraphCount === 1) {
-              const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
-              if (remainingButtons.length > 0) {
-                nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-inline`));
-                insertedStoredButtons = true;
-              }
-            }
-          }
+      while (i < lines.length) {
+        const candidate = lines[i]?.trim() ?? '';
+        if (!isQuoteLine(candidate)) {
+          break;
         }
 
-        if (!insertedStoredButtons && storedButtons.buttons.length > 0) {
-          const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
-          if (remainingButtons.length > 0) {
-            nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-end`));
-          }
-        }
+        quoteLines.push(candidate.replace(/^>\s?/, ''));
+        i += 1;
+      }
 
-        return nodes;
-      })()}
-    </div>
-  );
+      nodes.push(
+        <blockquote
+          key={`${postId}-quote-${i}`}
+          className="mt-8 rounded-r-[24px] border-l-4 border-neutral-900/70 bg-black/[0.03] px-5 py-4"
+        >
+          <Body className="text-charcoal/80 italic">
+            {renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
+          </Body>
+        </blockquote>,
+      );
+      continue;
+    }
+
+    const imageLineMatch = line.match(imageLinePattern);
+    if (imageLineMatch) {
+      const [, altText, src] = imageLineMatch;
+      nodes.push(
+        <figure key={`${postId}-img-${i}`} className="mt-10 space-y-3">
+          <img
+            src={src}
+            alt={altText}
+            className="w-full rounded-2xl shadow-sm"
+            loading="lazy"
+          />
+          {altText && (
+            <figcaption className="text-sm leading-relaxed text-charcoal/60">
+              {altText}
+            </figcaption>
+          )}
+        </figure>,
+      );
+      i += 1;
+      continue;
+    }
+
+    if (line.startsWith('# ')) {
+      i += 1;
+      continue;
+    }
+
+    if (line.startsWith('- ')) {
+      const items: string[] = [];
+      while (i < lines.length) {
+        const candidate = lines[i]?.trim() ?? '';
+        if (!candidate.startsWith('- ')) break;
+        items.push(candidate.replace(/^-+\s+/, ''));
+        i += 1;
+      }
+
+      nodes.push(
+        <ul
+          key={`${postId}-ul-${i}`}
+          className="mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
+        >
+          {items.map((item, index) => (
+            <li key={`${postId}-ul-${i}-${index}`} className="pl-1">
+              {renderInlineContent(item, `${postId}-ul-inline-${i}-${index}`)}
+            </li>
+          ))}
+        </ul>,
+      );
+      continue;
+    }
+
+    if (orderedListPattern.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length) {
+        const candidate = lines[i]?.trim() ?? '';
+        if (!orderedListPattern.test(candidate)) break;
+        items.push(candidate.replace(/^\d+\.\s+/, ''));
+        i += 1;
+      }
+
+      nodes.push(
+        <ol
+          key={`${postId}-ol-${i}`}
+          className="mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
+        >
+          {items.map((item, index) => (
+            <li key={`${postId}-ol-${i}-${index}`} className="pl-1">
+              {renderInlineContent(item, `${postId}-ol-inline-${i}-${index}`)}
+            </li>
+          ))}
+        </ol>,
+      );
+      continue;
+    }
+
+    const paragraphLines: string[] = [];
+    while (i < lines.length) {
+      const candidate = lines[i]?.trim() ?? '';
+      if (
+        !candidate ||
+        candidate.startsWith('# ') ||
+        candidate.startsWith('## ') ||
+        candidate.startsWith('### ') ||
+        isStyledBlockStart(candidate) ||
+        isDividerLine(candidate) ||
+        isQuoteLine(candidate) ||
+        Boolean(parseLegacyCtaButtonLine(candidate)) ||
+        imageLinePattern.test(candidate) ||
+        candidate.startsWith('- ') ||
+        orderedListPattern.test(candidate)
+      ) {
+        break;
+      }
+
+      paragraphLines.push(candidate);
+      i += 1;
+    }
+
+    if (paragraphLines.length > 0) {
+      paragraphCount += 1;
+      nodes.push(
+        <Body
+          key={`${postId}-p-${i}`}
+          className={paragraphCount === 1 ? 'text-charcoal/85' : 'mt-6 text-charcoal/85'}
+        >
+          {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
+        </Body>,
+      );
+
+      if (!insertedStoredButtons && storedButtons.buttons.length > 0 && paragraphCount === 1) {
+        const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
+        if (remainingButtons.length > 0) {
+          nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-inline`));
+          insertedStoredButtons = true;
+        }
+      }
+    }
+  }
+
+  if (!insertedStoredButtons && storedButtons.buttons.length > 0) {
+    const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
+    if (remainingButtons.length > 0) {
+      nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-end`));
+    }
+  }
+
+  return {
+    articleContent,
+    nodes,
+  };
+}
+
+export default function PostContent({ postId = 'post', content, className }: PostContentProps) {
+  let renderedNodes: ReactNode[];
+
+  try {
+    const { articleContent, nodes } = renderContentNodes(content, postId);
+    renderedNodes = nodes.length > 0 || !articleContent.trim() ? nodes : renderPlainTextFallback(articleContent, postId);
+  } catch {
+    renderedNodes = content.trim() ? renderPlainTextFallback(content, postId) : [];
+  }
+
+  return <div className={className ?? 'body-copy'}>{renderedNodes}</div>;
 }
