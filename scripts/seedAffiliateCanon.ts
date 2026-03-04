@@ -1,5 +1,6 @@
 import prisma from '@/lib/server/prisma';
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
+import { slugify } from '@/lib/slugify';
 
 type AffiliateSeed = {
   name: string;
@@ -349,6 +350,10 @@ async function main() {
   await prisma.affiliatePartner.createMany({
     data: affiliateCanon.map((partner) => ({
       ...partner,
+      slug: slugify(partner.name) || 'partner',
+      logoUrl: null,
+      website: null,
+      affiliateLink: null,
       advertiserId: partner.advertiserId ?? null,
       category: partner.category ?? null,
       threeMonthEpc: partner.threeMonthEpc ?? null,

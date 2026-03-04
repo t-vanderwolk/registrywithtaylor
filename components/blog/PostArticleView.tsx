@@ -1,6 +1,7 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import type { BlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
+import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
@@ -56,7 +57,11 @@ export type PostArticleRecord = {
     affiliate: {
       id: string;
       name: string;
+      slug: string;
       network: AffiliateNetwork;
+      logoUrl: string | null;
+      website: string | null;
+      affiliateLink: string | null;
     };
   }>;
   status: PostStatusValue;
@@ -400,15 +405,47 @@ export default function PostArticleView({
                     Mentioned for context and planning relevance within this article.
                   </Body>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2.5">
-                  {post.affiliates.map(({ affiliate }) => (
-                    <span
-                      key={affiliate.id}
-                      className="inline-flex rounded-full border border-black/5 bg-[#F7F4EF] px-4 py-2 text-sm text-charcoal/75"
-                    >
-                      {affiliate.name}
-                    </span>
-                  ))}
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                  {post.affiliates.map(({ affiliate }) => {
+                    const fallbackLogo = getAffiliatePartnerLogo(affiliate.name);
+                    const logoSrc = affiliate.logoUrl?.trim() || fallbackLogo.src;
+                    const href = affiliate.affiliateLink?.trim() || affiliate.website?.trim();
+
+                    if (!href) {
+                      return (
+                        <span
+                          key={affiliate.id}
+                          className="inline-flex h-16 items-center justify-center rounded-2xl border border-black/10 bg-white px-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)]"
+                          title={affiliate.name}
+                        >
+                          <img
+                            src={logoSrc}
+                            alt={affiliate.name}
+                            className="max-h-10 w-auto object-contain grayscale"
+                            loading="lazy"
+                          />
+                        </span>
+                      );
+                    }
+
+                    return (
+                      <a
+                        key={affiliate.id}
+                        href={href}
+                        target="_blank"
+                        rel="sponsored nofollow noopener noreferrer"
+                        className="group inline-flex h-16 items-center justify-center rounded-2xl border border-black/10 bg-white px-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_14px_28px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                        aria-label={`Visit ${affiliate.name}`}
+                      >
+                        <img
+                          src={logoSrc}
+                          alt={affiliate.name}
+                          className="max-h-10 w-auto object-contain grayscale transition group-hover:grayscale-0"
+                          loading="lazy"
+                        />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </RevealOnScroll>

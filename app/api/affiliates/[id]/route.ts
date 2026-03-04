@@ -1,6 +1,7 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -84,6 +85,11 @@ export async function PUT(
     ? asCommissionType(body.commissionType)
     : existing.commissionType;
   const nextCommissionRate = hasOwn(body, 'commissionRate') ? asText(body.commissionRate) : existing.commissionRate;
+  const slugInput = hasOwn(body, 'slug') ? asText(body.slug) : existing.slug;
+
+  if (hasOwn(body, 'slug') && !slugInput) {
+    return NextResponse.json({ error: 'slug cannot be empty' }, { status: 400 });
+  }
 
   if (!nextName || !nextNetwork || !nextCommissionType || !nextCommissionRate) {
     return NextResponse.json(
@@ -96,12 +102,16 @@ export async function PUT(
     where: { id },
     data: {
       name: nextName,
+      slug: await generateUniqueAffiliateSlug(slugInput || nextName, id),
       network: nextNetwork,
       advertiserId: hasOwn(body, 'advertiserId')
         ? asNullableText(body.advertiserId)
         : existing.advertiserId,
       commissionType: nextCommissionType,
       commissionRate: nextCommissionRate,
+      logoUrl: hasOwn(body, 'logoUrl') ? asNullableText(body.logoUrl) : existing.logoUrl,
+      website: hasOwn(body, 'website') ? asNullableText(body.website) : existing.website,
+      affiliateLink: hasOwn(body, 'affiliateLink') ? asNullableText(body.affiliateLink) : existing.affiliateLink,
       category: hasOwn(body, 'category') ? asNullableText(body.category) : existing.category,
       threeMonthEpc: hasOwn(body, 'threeMonthEpc')
         ? asNullableFloat(body.threeMonthEpc)

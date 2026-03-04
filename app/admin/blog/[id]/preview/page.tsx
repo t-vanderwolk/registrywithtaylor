@@ -69,7 +69,11 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
             select: {
               id: true,
               name: true,
+              slug: true,
               network: true,
+              logoUrl: true,
+              website: true,
+              affiliateLink: true,
             },
           },
         },

@@ -1,6 +1,7 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -65,6 +66,7 @@ export async function POST(req: NextRequest) {
   const network = asNetwork(body.network);
   const commissionType = asCommissionType(body.commissionType);
   const commissionRate = asText(body.commissionRate);
+  const slugInput = asText(body.slug);
 
   if (!name || !network || !commissionType || !commissionRate) {
     return NextResponse.json(
@@ -76,10 +78,14 @@ export async function POST(req: NextRequest) {
   const partner = await prisma.affiliatePartner.create({
     data: {
       name,
+      slug: await generateUniqueAffiliateSlug(slugInput || name),
       network,
       advertiserId: asNullableText(body.advertiserId),
       commissionType,
       commissionRate,
+      logoUrl: asNullableText(body.logoUrl),
+      website: asNullableText(body.website),
+      affiliateLink: asNullableText(body.affiliateLink),
       category: asNullableText(body.category),
       threeMonthEpc: asNullableFloat(body.threeMonthEpc),
       sevenDayEpc: asNullableFloat(body.sevenDayEpc),

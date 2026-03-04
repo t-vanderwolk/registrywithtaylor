@@ -81,7 +81,11 @@ const getBlogPost = cache(async (slug: string) =>
             select: {
               id: true,
               name: true,
+              slug: true,
               network: true,
+              logoUrl: true,
+              website: true,
+              affiliateLink: true,
             },
           },
         },
