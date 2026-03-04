@@ -73,9 +73,9 @@ export default function PostContentPanel({
   onInsertTemplate: (templateId: ContentTemplateId) => void;
   onInsertStyledBlock: (blockId: StyledBlockId) => void;
   onOpenInternalLinkModal: () => void;
-  onOpenInlineImagePicker: () => void;
-  inlineUploadLabel: string;
-  inlineUploadDisabled: boolean;
+  onOpenInlineImagePicker?: (() => void) | null;
+  inlineUploadLabel?: string;
+  inlineUploadDisabled?: boolean;
   contentTextareaRef: RefObject<HTMLTextAreaElement | null>;
 }) {
   return (
@@ -212,7 +212,7 @@ export default function PostContentPanel({
       <AdminField
         label="Body"
         htmlFor="post-content"
-        help="Write in markdown. Inline images are inserted at the current cursor position."
+        help="Write in markdown. Insert images with standard markdown syntax: ![Alt text](https://image-url)."
         error={bodyError}
       >
         <div className="admin-stack gap-3">
@@ -247,15 +247,17 @@ export default function PostContentPanel({
             <AdminButton type="button" variant="secondary" size="sm" onClick={onOpenInternalLinkModal}>
               Internal link
             </AdminButton>
-            <AdminButton
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={onOpenInlineImagePicker}
-              disabled={inlineUploadDisabled}
-            >
-              {inlineUploadLabel}
-            </AdminButton>
+            {onOpenInlineImagePicker ? (
+              <AdminButton
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={onOpenInlineImagePicker}
+                disabled={inlineUploadDisabled}
+              >
+                {inlineUploadLabel ?? 'Insert image'}
+              </AdminButton>
+            ) : null}
             <p className="admin-micro">Add CTA buttons in the right rail, then insert them at the cursor inside the draft.</p>
           </div>
 

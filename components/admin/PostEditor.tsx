@@ -1233,9 +1233,6 @@ export default function PostEditor({
         onInsertTemplate={insertContentTemplate}
         onInsertStyledBlock={insertStyledBlock}
         onOpenInternalLinkModal={() => setIsInternalLinkModalOpen(true)}
-        onOpenInlineImagePicker={() => inlineInputRef.current?.click()}
-        inlineUploadLabel={uploadingKind === 'inline' ? 'Uploading...' : 'Upload image'}
-        inlineUploadDisabled={uploadingKind === 'inline'}
         contentTextareaRef={contentTextareaRef}
       />
     ) : activeTab === 'media' ? (
@@ -1243,10 +1240,6 @@ export default function PostEditor({
         title={post.title}
         featuredImageUrl={featuredImageUrl}
         featuredImageUrlInput={post.featuredImageUrl ?? ''}
-        featuredImageId={post.featuredImageId}
-        featuredUploadLabel={uploadingKind === 'featured' ? 'Uploading...' : featuredImageUrl ? 'Replace image' : 'Upload image'}
-        featuredUploadDisabled={uploadingKind === 'featured'}
-        onOpenFeaturedPicker={() => featuredInputRef.current?.click()}
         onFeaturedImageUrlChange={(value) =>
           applyPostUpdate(
             (current) => ({
@@ -1267,13 +1260,6 @@ export default function PostEditor({
             'immediate',
           )
         }
-        imageAssets={imageAssets}
-        imageUploadLabel={uploadingKind === 'gallery' ? 'Uploading...' : 'Upload images'}
-        imageUploadDisabled={uploadingKind === 'gallery'}
-        onOpenImagePicker={() => galleryInputRef.current?.click()}
-        onInsertImage={handleInsertImageFromLibrary}
-        onSetFeaturedImage={handleSetFeaturedImageFromLibrary}
-        onRemoveImage={removeAttachedMedia}
         galleryImages={post.images}
         newGalleryImageUrl={newGalleryImageUrl}
         newGalleryImageAlt={newGalleryImageAlt}
@@ -1282,11 +1268,6 @@ export default function PostEditor({
         onAddGalleryImage={addGalleryImageFromUrl}
         onUpdateGalleryImage={updateGalleryImage}
         onRemoveGalleryImage={removeGalleryImage}
-        pdfResources={pdfResources}
-        pdfUploadLabel={uploadingKind === 'pdf' ? 'Uploading...' : 'Upload PDF'}
-        pdfUploadDisabled={uploadingKind === 'pdf'}
-        onOpenPdfPicker={() => pdfInputRef.current?.click()}
-        onRemovePdfResource={removeAttachedMedia}
       />
     ) : (
       <PostSeoPanel
@@ -1447,74 +1428,6 @@ export default function PostEditor({
             />
           </>
         }
-      />
-
-      <input
-        ref={featuredInputRef}
-        id="post-featured-image-upload"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        className="sr-only"
-        onChange={async (event) => {
-          const file = event.target.files?.[0];
-          event.currentTarget.value = '';
-          if (!file) {
-            return;
-          }
-
-          await handleFeaturedUpload(file);
-        }}
-      />
-
-      <input
-        ref={inlineInputRef}
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        className="sr-only"
-        onChange={async (event) => {
-          const file = event.target.files?.[0];
-          event.currentTarget.value = '';
-          if (!file) {
-            return;
-          }
-
-          await handleInlineUpload(file);
-        }}
-      />
-
-      <input
-        ref={galleryInputRef}
-        id="post-image-library-upload"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        multiple
-        className="sr-only"
-        onChange={async (event) => {
-          const files = event.target.files;
-          event.currentTarget.value = '';
-          if (!files || files.length === 0) {
-            return;
-          }
-
-          await handleGalleryUpload(files);
-        }}
-      />
-
-      <input
-        ref={pdfInputRef}
-        id="post-pdf-resource-upload"
-        type="file"
-        accept="application/pdf"
-        className="sr-only"
-        onChange={async (event) => {
-          const file = event.target.files?.[0];
-          event.currentTarget.value = '';
-          if (!file) {
-            return;
-          }
-
-          await handlePdfUpload(file);
-        }}
       />
 
       <InternalLinkInsertModal
