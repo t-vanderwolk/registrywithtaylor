@@ -26,6 +26,36 @@ const asStringArray = (value: unknown) => {
     .filter((entry) => entry.length > 0);
 };
 
+type ImageInput = {
+  url: string;
+  alt: string | null;
+};
+
+const isValidImageUrl = (value: string) => /^https?:\/\//i.test(value) || value.startsWith('/');
+
+const asImageArray = (value: unknown): ImageInput[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .flatMap((entry) => {
+      if (!entry || typeof entry !== 'object') {
+        return [];
+      }
+
+      const candidate = entry as { url?: unknown; alt?: unknown };
+      const url = asText(candidate.url);
+      if (!url || !isValidImageUrl(url)) {
+        return [];
+      }
+
+      const alt = asNullableText(candidate.alt);
+      return [{ url, alt }];
+    })
+    .filter((entry, index, collection) => collection.findIndex((candidate) => candidate.url === entry.url) === index);
+};
+
 type PostWithAffiliateIds = {
   id: string;
   title: string;
@@ -38,6 +68,7 @@ type PostWithAffiliateIds = {
   seoTitle: string | null;
   seoDescription: string | null;
   canonicalUrl: string | null;
+  featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
   featuredImage: {
@@ -54,6 +85,12 @@ type PostWithAffiliateIds = {
     fileName: string;
     fileType: string;
     fileSize: number;
+    createdAt: Date;
+  }>;
+  images: Array<{
+    id: number;
+    url: string;
+    alt: string | null;
     createdAt: Date;
   }>;
   status: 'DRAFT' | 'SCHEDULED' | 'PUBLISHED' | 'ARCHIVED';
@@ -82,11 +119,13 @@ const toResponsePost = (post: PostWithAffiliateIds) => ({
   seoTitle: post.seoTitle,
   seoDescription: post.seoDescription,
   canonicalUrl: post.canonicalUrl,
+  featuredImageUrl: post.featuredImageUrl,
   coverImage: post.coverImage,
   featuredImageId: post.featuredImageId,
   featuredImage: post.featuredImage,
   mediaIds: post.media.map((entry) => entry.id),
   media: post.media,
+  images: post.images,
   status: post.status,
   stage: post.stage,
   publishedAt: post.publishedAt,
@@ -129,6 +168,15 @@ export async function GET(
           fileSize: true,
           createdAt: true,
         },
+      },
+      images: {
+        select: {
+          id: true,
+          url: true,
+          alt: true,
+          createdAt: true,
+        },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
       affiliates: {
         select: {
@@ -185,6 +233,9 @@ export async function PUT(
     ? asNullableText(body.seoDescription)
     : existingPost.seoDescription;
   const nextCanonicalUrl = hasOwn(body, 'canonicalUrl') ? asNullableText(body.canonicalUrl) : existingPost.canonicalUrl;
+  const nextFeaturedImageUrl = hasOwn(body, 'featuredImageUrl')
+    ? asNullableText(body.featuredImageUrl)
+    : existingPost.featuredImageUrl;
   const nextCoverImage = hasOwn(body, 'coverImage') ? asNullableText(body.coverImage) : existingPost.coverImage;
   const nextFeaturedImageId = hasOwn(body, 'featuredImageId')
     ? asNullableId(body.featuredImageId)
@@ -196,6 +247,7 @@ export async function PUT(
   const nextAffiliateIds = hasOwn(body, 'affiliateIds')
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
     : null;
+  const nextImages = hasOwn(body, 'images') ? asImageArray(body.images) : null;
   const lifecycle = deriveLifecycleAndStage({
     existing: {
       status: existingPost.status,
@@ -231,6 +283,7 @@ export async function PUT(
         seoTitle: nextSeoTitle,
         seoDescription: nextSeoDescription,
         canonicalUrl: nextCanonicalUrl,
+        featuredImageUrl: nextFeaturedImageUrl,
         coverImage: nextCoverImage,
         featuredImageId: nextFeaturedImageId,
         media: nextMediaIds !== null ? { set: nextMediaIds.map((mediaId) => ({ id: mediaId })) } : undefined,
@@ -258,6 +311,19 @@ export async function PUT(
       }
     }
 
+    if (nextImages !== null) {
+      await tx.postImage.deleteMany({ where: { postId: id } });
+      if (nextImages.length > 0) {
+        await tx.postImage.createMany({
+          data: nextImages.map((image) => ({
+            postId: id,
+            url: image.url,
+            alt: image.alt,
+          })),
+        });
+      }
+    }
+
     return tx.post.findUnique({
       where: { id },
       include: {
@@ -280,6 +346,15 @@ export async function PUT(
             fileSize: true,
             createdAt: true,
           },
+        },
+        images: {
+          select: {
+            id: true,
+            url: true,
+            alt: true,
+            createdAt: true,
+          },
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
         },
         affiliates: {
           select: {

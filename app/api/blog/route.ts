@@ -25,6 +25,36 @@ const asStringArray = (value: unknown) => {
     .filter((entry) => entry.length > 0);
 };
 
+type ImageInput = {
+  url: string;
+  alt: string | null;
+};
+
+const isValidImageUrl = (value: string) => /^https?:\/\//i.test(value) || value.startsWith('/');
+
+const asImageArray = (value: unknown): ImageInput[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .flatMap((entry) => {
+      if (!entry || typeof entry !== 'object') {
+        return [];
+      }
+
+      const candidate = entry as { url?: unknown; alt?: unknown };
+      const url = asText(candidate.url);
+      if (!url || !isValidImageUrl(url)) {
+        return [];
+      }
+
+      const alt = asNullableText(candidate.alt);
+      return [{ url, alt }];
+    })
+    .filter((entry, index, collection) => collection.findIndex((candidate) => candidate.url === entry.url) === index);
+};
+
 export async function GET(req: NextRequest) {
   const token = await getRequestToken(req);
   const where = token?.role === 'ADMIN' ? undefined : getPublicPostWhere();
@@ -69,7 +99,9 @@ export async function POST(req: NextRequest) {
   const seoTitle = asNullableText(body.seoTitle);
   const seoDescription = asNullableText(body.seoDescription);
   const canonicalUrl = asNullableText(body.canonicalUrl);
+  const featuredImageUrl = asNullableText(body.featuredImageUrl);
   const featured = Boolean(body.featured);
+  const images = asImageArray(body.images);
   const lifecycle = deriveLifecycleAndStage({
     existing: {
       status: 'DRAFT',
@@ -103,9 +135,11 @@ export async function POST(req: NextRequest) {
         seoTitle,
         seoDescription,
         canonicalUrl,
+        featuredImageUrl,
         coverImage,
         featuredImageId,
         media: mediaIds.length > 0 ? { connect: mediaIds.map((id) => ({ id })) } : undefined,
+        images: images.length > 0 ? { create: images } : undefined,
         stage: lifecycle.stage,
         status: lifecycle.status,
         publishedAt: lifecycle.publishedAt,
@@ -150,6 +184,15 @@ export async function POST(req: NextRequest) {
             createdAt: true,
           },
         },
+        images: {
+          select: {
+            id: true,
+            url: true,
+            alt: true,
+            createdAt: true,
+          },
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+        },
         affiliates: {
           select: {
             affiliateId: true,
@@ -173,6 +216,7 @@ export async function POST(req: NextRequest) {
       seoTitle: post.seoTitle,
       seoDescription: post.seoDescription,
       canonicalUrl: post.canonicalUrl,
+      featuredImageUrl: post.featuredImageUrl,
       stage: post.stage,
       status: post.status,
       publishedAt: post.publishedAt,
@@ -181,6 +225,7 @@ export async function POST(req: NextRequest) {
       featured: post.featured,
       featuredImageId: post.featuredImageId,
       mediaIds: post.media.map((entry) => entry.id),
+      images: post.images,
       affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
     },
     { status: 201 },

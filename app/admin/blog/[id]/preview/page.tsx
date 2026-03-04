@@ -27,6 +27,7 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       content: true,
       deck: true,
       excerpt: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -47,6 +48,15 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
           fileSize: true,
           createdAt: true,
         },
+      },
+      images: {
+        select: {
+          id: true,
+          url: true,
+          alt: true,
+          createdAt: true,
+        },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
       affiliates: {
         where: {

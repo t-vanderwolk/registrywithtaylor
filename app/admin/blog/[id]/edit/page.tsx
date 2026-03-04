@@ -27,6 +27,7 @@ export default async function EditPostPage({ params }: EditPostProps) {
       seoTitle: true,
       seoDescription: true,
       canonicalUrl: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImageId: true,
       featuredImage: {
@@ -48,6 +49,15 @@ export default async function EditPostPage({ params }: EditPostProps) {
           fileSize: true,
           createdAt: true,
         },
+      },
+      images: {
+        select: {
+          id: true,
+          url: true,
+          alt: true,
+          createdAt: true,
+        },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
       content: true,
       status: true,

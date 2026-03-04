@@ -1,7 +1,7 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import type { BlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
-import { formatFileSize, isPdfMediaType } from '@/lib/media';
+import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import { Body, H1, H2, H3 } from '@/components/ui/MarketingHeading';
@@ -28,6 +28,7 @@ export type PostArticleRecord = {
   content: string;
   deck: string | null;
   excerpt: string | null;
+  featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
     id: string;
@@ -43,6 +44,12 @@ export type PostArticleRecord = {
     fileName: string;
     fileType: string;
     fileSize: number;
+    createdAt: Date;
+  }>;
+  images: Array<{
+    id: number;
+    url: string;
+    alt: string | null;
     createdAt: Date;
   }>;
   affiliates: Array<{
@@ -212,8 +219,19 @@ export default function PostArticleView({
   trackView?: boolean;
 }) {
   const { content: articleContent, resource } = extractDownloadableResource(post.content);
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const attachedPdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
+  const mediaGalleryImages = post.media
+    .filter((media) => isImageMediaType(media.fileType))
+    .map((media) => ({
+      id: media.id,
+      url: media.url,
+      alt: null as string | null,
+    }));
+  const galleryImages = (post.images.length > 0 ? post.images : mediaGalleryImages).filter(
+    (image, index, collection) =>
+      image.url !== featuredImageUrl && collection.findIndex((candidate) => candidate.url === image.url) === index,
+  );
   const headerExcerpt = post.deck?.trim() || toExcerpt(post.excerpt, articleContent, 180);
   const isAffiliate = post.affiliates.length > 0;
   const displayDate = getPostDisplayDate(post);
@@ -283,6 +301,34 @@ export default function PostArticleView({
               />
             </div>
           </RevealOnScroll>
+
+          {galleryImages.length > 0 ? (
+            <RevealOnScroll delayMs={190}>
+              <div className="mt-16 space-y-4">
+                <H3 className="tracking-tight text-neutral-900">Image Gallery</H3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {galleryImages.map((image) => (
+                    <figure
+                      key={`gallery-${image.id}-${image.url}`}
+                      className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
+                    >
+                      <img
+                        src={image.url}
+                        alt={image.alt || post.title}
+                        className="aspect-[4/3] w-full object-cover"
+                        loading="lazy"
+                      />
+                      {image.alt ? (
+                        <figcaption className="px-4 py-3 text-sm leading-relaxed text-charcoal/65">
+                          {image.alt}
+                        </figcaption>
+                      ) : null}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            </RevealOnScroll>
+          ) : null}
 
           {attachedPdfResources.length > 0 ? (
             <RevealOnScroll delayMs={210}>

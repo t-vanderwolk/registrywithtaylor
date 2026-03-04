@@ -158,6 +158,10 @@ function toIsoFromLocalDateTime(value: string) {
   return date.toISOString();
 }
 
+function isValidImageUrl(value: string) {
+  return /^https?:\/\//i.test(value.trim()) || value.trim().startsWith('/');
+}
+
 function getScheduleError(status: PostStatusValue, scheduledFor?: Date | string | null) {
   if (status !== 'SCHEDULED') {
     return undefined;
@@ -191,6 +195,7 @@ function toEditorState(post: PersistedPostRecord) {
       seoTitle: post.seoTitle,
       seoDescription: post.seoDescription,
       canonicalUrl: post.canonicalUrl,
+      featuredImageUrl: post.featuredImageUrl,
       coverImage: post.coverImage,
       featuredImageId: post.featuredImageId,
       featuredImage: post.featuredImage,
@@ -198,6 +203,7 @@ function toEditorState(post: PersistedPostRecord) {
       ctaButtons: parsed.buttons,
       mediaIds: post.mediaIds,
       media: post.media,
+      images: post.images,
       status: post.status,
       publishedAt: post.publishedAt,
       scheduledFor: post.scheduledFor,
@@ -224,10 +230,15 @@ function toSavePayload(post: EditorPostState): PostSavePayload {
     seoTitle: post.seoTitle,
     seoDescription: post.seoDescription,
     canonicalUrl: post.canonicalUrl,
+    featuredImageUrl: post.featuredImageUrl,
     coverImage: post.coverImage,
     featuredImageId: post.featuredImageId,
     content: serializeCtaButtons(post.body, post.ctaButtons),
     mediaIds: post.mediaIds,
+    images: post.images.map((image) => ({
+      url: image.url,
+      alt: image.alt,
+    })),
     status: post.status,
     scheduledFor: post.scheduledFor,
     featured: post.featured,
@@ -254,11 +265,13 @@ function mergeServerState(current: EditorPostState, server: EditorPostState) {
     seoTitle: current.seoTitle?.trim() ? current.seoTitle : server.seoTitle,
     seoDescription: current.seoDescription?.trim() ? current.seoDescription : server.seoDescription,
     canonicalUrl: current.canonicalUrl?.trim() ? current.canonicalUrl : server.canonicalUrl,
+    featuredImageUrl: current.featuredImageUrl?.trim() ? current.featuredImageUrl : server.featuredImageUrl,
     coverImage: current.coverImage ?? server.coverImage,
     featuredImageId: current.featuredImageId ?? server.featuredImageId,
     featuredImage: current.featuredImage ?? server.featuredImage,
     mediaIds: current.mediaIds.length > 0 ? current.mediaIds : server.mediaIds,
     media: current.media.length > 0 ? current.media : server.media,
+    images: current.images,
     published: server.published,
   } satisfies EditorPostState;
 }
@@ -270,6 +283,16 @@ function validateEditorState(post: EditorPostState) {
 
   if (post.canonicalUrl?.trim() && !/^https?:\/\//i.test(post.canonicalUrl.trim())) {
     return 'Canonical URL must start with http:// or https://.';
+  }
+
+  if (post.featuredImageUrl?.trim() && !isValidImageUrl(post.featuredImageUrl.trim())) {
+    return 'Featured image URL must start with http://, https://, or /.';
+  }
+
+  for (const image of post.images) {
+    if (!isValidImageUrl(image.url)) {
+      return 'Gallery images must use http://, https://, or root-relative paths.';
+    }
   }
 
   const scheduleError = getScheduleError(post.status, post.scheduledFor);
@@ -303,6 +326,8 @@ export default function PostEditor({
   const [ctaMalformed, setCtaMalformed] = useState(initialEditor.malformedCta);
   const [isInternalLinkModalOpen, setIsInternalLinkModalOpen] = useState(false);
   const [newCtaButton, setNewCtaButton] = useState<CtaButton>(createEmptyCtaButton(initialEditor.state.ctaButtons.length));
+  const [newGalleryImageUrl, setNewGalleryImageUrl] = useState('');
+  const [newGalleryImageAlt, setNewGalleryImageAlt] = useState('');
   const stateRef = useRef(post);
   const currentPostIdRef = useRef(currentPostId);
   const debounceRef = useRef<number | null>(null);
@@ -316,8 +341,9 @@ export default function PostEditor({
   const galleryInputRef = useRef<HTMLInputElement | null>(null);
   const inlineInputRef = useRef<HTMLInputElement | null>(null);
   const pdfInputRef = useRef<HTMLInputElement | null>(null);
+  const tempImageIdRef = useRef(-1);
 
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const imageAssets = post.media.filter((media) => isImageMediaType(media.fileType));
   const pdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
   const hasPersistedPost = Boolean(currentPostId);
@@ -360,6 +386,9 @@ export default function PostEditor({
     setCtaMalformed(initialEditor.malformedCta);
     setIsInternalLinkModalOpen(false);
     setNewCtaButton(createEmptyCtaButton(initialEditor.state.ctaButtons.length));
+    setNewGalleryImageUrl('');
+    setNewGalleryImageAlt('');
+    tempImageIdRef.current = -1;
     slugEditedRef.current = Boolean(initialEditor.state.slug.trim());
   }, [initialEditor]);
 
@@ -892,6 +921,66 @@ export default function PostEditor({
     );
   }
 
+  function addGalleryImageFromUrl() {
+    const url = newGalleryImageUrl.trim();
+    if (!url) {
+      setUploadError('Add an image URL before saving to the gallery.');
+      return;
+    }
+
+    if (!isValidImageUrl(url)) {
+      setUploadError('Gallery image URLs must start with http://, https://, or /.');
+      return;
+    }
+
+    const alt = newGalleryImageAlt.trim();
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        images: [
+          ...current.images.filter((image) => image.url !== url),
+          {
+            id: tempImageIdRef.current--,
+            url,
+            alt: alt.length > 0 ? alt : null,
+          },
+        ],
+      }),
+      'immediate',
+    );
+    setNewGalleryImageUrl('');
+    setNewGalleryImageAlt('');
+    setUploadError(null);
+    setUploadFeedback('Gallery image added.');
+  }
+
+  function updateGalleryImage(index: number, partial: { alt?: string }) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        images: current.images.map((image, imageIndex) =>
+          imageIndex === index
+            ? {
+                ...image,
+                alt: partial.alt !== undefined ? (partial.alt.trim().length > 0 ? partial.alt : null) : image.alt,
+              }
+            : image,
+        ),
+      }),
+      'debounced',
+    );
+  }
+
+  function removeGalleryImage(index: number) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        images: current.images.filter((_, imageIndex) => imageIndex !== index),
+      }),
+      'immediate',
+    );
+  }
+
   async function handleFeaturedUpload(file: File) {
     setUploadingKind('featured');
     setUploadError(null);
@@ -905,6 +994,7 @@ export default function PostEditor({
           ...current,
           featuredImageId: media.id,
           featuredImage: media,
+          featuredImageUrl: null,
           coverImage: media.url,
           media: mediaState.media,
           mediaIds: mediaState.mediaIds,
@@ -1047,6 +1137,7 @@ export default function PostEditor({
         ...current,
         featuredImageId: media.id,
         featuredImage: media,
+        featuredImageUrl: null,
         coverImage: media.url,
       }),
       'immediate',
@@ -1151,10 +1242,20 @@ export default function PostEditor({
       <PostMediaPanel
         title={post.title}
         featuredImageUrl={featuredImageUrl}
+        featuredImageUrlInput={post.featuredImageUrl ?? ''}
         featuredImageId={post.featuredImageId}
         featuredUploadLabel={uploadingKind === 'featured' ? 'Uploading...' : featuredImageUrl ? 'Replace image' : 'Upload image'}
         featuredUploadDisabled={uploadingKind === 'featured'}
         onOpenFeaturedPicker={() => featuredInputRef.current?.click()}
+        onFeaturedImageUrlChange={(value) =>
+          applyPostUpdate(
+            (current) => ({
+              ...current,
+              featuredImageUrl: value,
+            }),
+            'debounced',
+          )
+        }
         onRemoveFeaturedImage={() =>
           applyPostUpdate(
             (current) => ({
@@ -1173,6 +1274,14 @@ export default function PostEditor({
         onInsertImage={handleInsertImageFromLibrary}
         onSetFeaturedImage={handleSetFeaturedImageFromLibrary}
         onRemoveImage={removeAttachedMedia}
+        galleryImages={post.images}
+        newGalleryImageUrl={newGalleryImageUrl}
+        newGalleryImageAlt={newGalleryImageAlt}
+        onNewGalleryImageUrlChange={setNewGalleryImageUrl}
+        onNewGalleryImageAltChange={setNewGalleryImageAlt}
+        onAddGalleryImage={addGalleryImageFromUrl}
+        onUpdateGalleryImage={updateGalleryImage}
+        onRemoveGalleryImage={removeGalleryImage}
         pdfResources={pdfResources}
         pdfUploadLabel={uploadingKind === 'pdf' ? 'Uploading...' : 'Upload PDF'}
         pdfUploadDisabled={uploadingKind === 'pdf'}

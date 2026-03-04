@@ -19,6 +19,13 @@ export type MediaRecord = {
   createdAt?: Date | string;
 };
 
+export type PostImageRecord = {
+  id: number;
+  url: string;
+  alt: string | null;
+  createdAt?: Date | string;
+};
+
 export type PersistedPostRecord = {
   id: string | null;
   title: string;
@@ -31,12 +38,14 @@ export type PersistedPostRecord = {
   seoTitle: string | null;
   seoDescription: string | null;
   canonicalUrl: string | null;
+  featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
   featuredImage: MediaRecord | null;
   content: string;
   mediaIds: string[];
   media: MediaRecord[];
+  images: PostImageRecord[];
   status: PostStatusValue;
   publishedAt: Date | string | null;
   scheduledFor: Date | string | null;
@@ -65,6 +74,7 @@ export type PostSavePayload = Pick<
   | 'seoTitle'
   | 'seoDescription'
   | 'canonicalUrl'
+  | 'featuredImageUrl'
   | 'coverImage'
   | 'featuredImageId'
   | 'mediaIds'
@@ -74,4 +84,8 @@ export type PostSavePayload = Pick<
   | 'affiliateIds'
 > & {
   content: string;
+  images: Array<{
+    url: string;
+    alt: string | null;
+  }>;
 };

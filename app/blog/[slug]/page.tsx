@@ -39,6 +39,7 @@ const getBlogPost = cache(async (slug: string) =>
       content: true,
       deck: true,
       excerpt: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -59,6 +60,15 @@ const getBlogPost = cache(async (slug: string) =>
           fileSize: true,
           createdAt: true,
         },
+      },
+      images: {
+        select: {
+          id: true,
+          url: true,
+          alt: true,
+          createdAt: true,
+        },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
       affiliates: {
         where: {
@@ -106,7 +116,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
   }
 
   const { content: articleContent } = extractDownloadableResource(post.content);
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const description = post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
   const displayDate = getPostDisplayDate(post);
   const metadataTitle = post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
@@ -183,7 +193,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   });
 
   const { content: articleContent } = extractDownloadableResource(post.content);
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage;
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
   const seoKeywords = [

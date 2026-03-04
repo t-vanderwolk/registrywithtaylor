@@ -1,15 +1,18 @@
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminField from '@/components/admin/ui/AdminField';
+import AdminInput from '@/components/admin/ui/AdminInput';
 import { formatFileSize } from '@/lib/media';
-import type { MediaRecord } from '@/components/admin/blog/postEditorTypes';
+import type { MediaRecord, PostImageRecord } from '@/components/admin/blog/postEditorTypes';
 
 export default function PostMediaPanel({
   title,
   featuredImageUrl,
+  featuredImageUrlInput,
   featuredImageId,
   featuredUploadLabel,
   featuredUploadDisabled,
   onOpenFeaturedPicker,
+  onFeaturedImageUrlChange,
   onRemoveFeaturedImage,
   imageAssets,
   imageUploadLabel,
@@ -18,6 +21,14 @@ export default function PostMediaPanel({
   onInsertImage,
   onSetFeaturedImage,
   onRemoveImage,
+  galleryImages,
+  newGalleryImageUrl,
+  newGalleryImageAlt,
+  onNewGalleryImageUrlChange,
+  onNewGalleryImageAltChange,
+  onAddGalleryImage,
+  onUpdateGalleryImage,
+  onRemoveGalleryImage,
   pdfResources,
   pdfUploadLabel,
   pdfUploadDisabled,
@@ -26,10 +37,12 @@ export default function PostMediaPanel({
 }: {
   title: string;
   featuredImageUrl: string | null;
+  featuredImageUrlInput: string;
   featuredImageId?: string | null;
   featuredUploadLabel: string;
   featuredUploadDisabled: boolean;
   onOpenFeaturedPicker: () => void;
+  onFeaturedImageUrlChange: (value: string) => void;
   onRemoveFeaturedImage: () => void;
   imageAssets: MediaRecord[];
   imageUploadLabel: string;
@@ -38,6 +51,14 @@ export default function PostMediaPanel({
   onInsertImage: (media: MediaRecord) => void;
   onSetFeaturedImage: (media: MediaRecord) => void;
   onRemoveImage: (mediaId: string) => void;
+  galleryImages: PostImageRecord[];
+  newGalleryImageUrl: string;
+  newGalleryImageAlt: string;
+  onNewGalleryImageUrlChange: (value: string) => void;
+  onNewGalleryImageAltChange: (value: string) => void;
+  onAddGalleryImage: () => void;
+  onUpdateGalleryImage: (index: number, partial: { alt?: string }) => void;
+  onRemoveGalleryImage: (index: number) => void;
   pdfResources: MediaRecord[];
   pdfUploadLabel: string;
   pdfUploadDisabled: boolean;
@@ -93,6 +114,16 @@ export default function PostMediaPanel({
               </AdminButton>
             </div>
           )}
+
+          <div className="space-y-2 rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] px-4 py-4">
+            <p className="text-sm text-admin">Or paste a direct featured image URL.</p>
+            <AdminInput
+              value={featuredImageUrlInput}
+              onChange={(event) => onFeaturedImageUrlChange(event.target.value)}
+              placeholder="https://cdn.example.com/featured-image.jpg"
+            />
+            <p className="admin-micro">Optional fallback for external or legacy hosted images.</p>
+          </div>
         </div>
       </AdminField>
 
@@ -180,6 +211,63 @@ export default function PostMediaPanel({
               <p className="text-sm text-admin">No images attached yet.</p>
               <p className="admin-micro">Upload JPG, PNG, or WEBP files to build an image library for this post.</p>
             </div>
+          )}
+        </div>
+      </AdminField>
+
+      <AdminField
+        label="Gallery URLs"
+        htmlFor="post-gallery-image-url"
+        help="Add additional gallery images that render automatically below the article body."
+      >
+        <div className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 md:p-5">
+          <div className="grid gap-3 md:grid-cols-[2fr_1.2fr_auto] md:items-end">
+            <AdminInput
+              id="post-gallery-image-url"
+              value={newGalleryImageUrl}
+              onChange={(event) => onNewGalleryImageUrlChange(event.target.value)}
+              placeholder="https://cdn.example.com/gallery-image.jpg"
+            />
+            <AdminInput
+              value={newGalleryImageAlt}
+              onChange={(event) => onNewGalleryImageAltChange(event.target.value)}
+              placeholder="Alt text (optional)"
+            />
+            <AdminButton type="button" variant="secondary" size="sm" onClick={onAddGalleryImage}>
+              Add image
+            </AdminButton>
+          </div>
+
+          {galleryImages.length > 0 ? (
+            <div className="space-y-3">
+              {galleryImages.map((image, index) => (
+                <div
+                  key={`${image.id}-${image.url}`}
+                  className="space-y-3 rounded-2xl border border-[var(--admin-color-border)] bg-[rgba(0,0,0,0.015)] px-4 py-4"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <a
+                      href={image.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-admin underline decoration-[rgba(0,0,0,0.2)] underline-offset-4"
+                    >
+                      {image.url}
+                    </a>
+                    <AdminButton type="button" variant="ghost" size="sm" onClick={() => onRemoveGalleryImage(index)}>
+                      Remove
+                    </AdminButton>
+                  </div>
+                  <AdminInput
+                    value={image.alt ?? ''}
+                    onChange={(event) => onUpdateGalleryImage(index, { alt: event.target.value })}
+                    placeholder="Alt text (optional)"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="admin-micro">No gallery URLs added yet.</p>
           )}
         </div>
       </AdminField>
