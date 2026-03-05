@@ -826,6 +826,19 @@ export default function PostEditor({
       return;
     }
 
+    if (action === 'image') {
+      const selectedAlt = hasSelection ? selected.replace(/\n+/g, ' ').trim() : '';
+      const altText = selectedAlt || window.prompt('Enter alt text (optional)', '')?.trim() || '';
+      const href = window.prompt('Enter the image URL', 'https://');
+      if (!href) {
+        return;
+      }
+
+      const replacement = `![${altText}](${href.trim()})`;
+      applyReplacement(replaceSelection(currentPost.body, start, end, replacement));
+      return;
+    }
+
     if (action === 'link') {
       const label = hasSelection ? selected : 'Link text';
       const href = window.prompt('Enter the destination URL', 'https://');
@@ -1233,6 +1246,9 @@ export default function PostEditor({
         onInsertTemplate={insertContentTemplate}
         onInsertStyledBlock={insertStyledBlock}
         onOpenInternalLinkModal={() => setIsInternalLinkModalOpen(true)}
+        onOpenInlineImagePicker={() => inlineInputRef.current?.click()}
+        inlineUploadLabel={uploadingKind === 'inline' ? 'Uploading image...' : 'Insert image'}
+        inlineUploadDisabled={uploadingKind !== null}
         contentTextareaRef={contentTextareaRef}
       />
     ) : activeTab === 'media' ? (
@@ -1435,6 +1451,22 @@ export default function PostEditor({
         excludeId={currentPostId}
         onClose={() => setIsInternalLinkModalOpen(false)}
         onInsert={insertInternalLink}
+      />
+
+      <input
+        ref={inlineInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          event.currentTarget.value = '';
+          if (!file) {
+            return;
+          }
+
+          void handleInlineUpload(file);
+        }}
       />
     </AdminStack>
   );

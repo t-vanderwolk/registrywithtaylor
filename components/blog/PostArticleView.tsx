@@ -248,11 +248,11 @@ export default function PostArticleView({
         <article className="max-w-3xl mx-auto px-6">
           {featuredImageUrl && (
             <RevealOnScroll>
-              <div className="mb-12 overflow-hidden rounded-2xl">
+              <div className="mb-12">
                 <img
                   src={featuredImageUrl}
                   alt={post.title}
-                  className="aspect-[16/9] w-full rounded-2xl object-cover shadow-sm"
+                  className="h-auto w-full"
                 />
               </div>
             </RevealOnScroll>
@@ -314,18 +314,15 @@ export default function PostArticleView({
                 <H3 className="tracking-tight text-neutral-900">Image Gallery</H3>
                 <div className="grid gap-4 md:grid-cols-2">
                   {galleryImages.map((image) => (
-                    <figure
-                      key={`gallery-${image.id}-${image.url}`}
-                      className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
-                    >
+                    <figure key={`gallery-${image.id}-${image.url}`}>
                       <img
                         src={image.url}
                         alt={image.alt || post.title}
-                        className="aspect-[4/3] w-full object-cover"
+                        className="h-auto w-full"
                         loading="lazy"
                       />
                       {image.alt ? (
-                        <figcaption className="px-4 py-3 text-sm leading-relaxed text-charcoal/65">
+                        <figcaption>
                           {image.alt}
                         </figcaption>
                       ) : null}

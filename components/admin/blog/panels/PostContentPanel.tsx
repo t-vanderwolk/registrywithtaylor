@@ -21,6 +21,7 @@ export type ContentFormatAction =
   | 'numberedList'
   | 'quote'
   | 'divider'
+  | 'image'
   | 'link';
 
 export default function PostContentPanel({
@@ -237,6 +238,9 @@ export default function PostContentPanel({
             </AdminButton>
             <AdminButton type="button" variant="secondary" size="sm" onClick={() => onApplyFormat('quote')}>
               Quote
+            </AdminButton>
+            <AdminButton type="button" variant="secondary" size="sm" onClick={() => onApplyFormat('image')}>
+              Image
             </AdminButton>
             <AdminButton type="button" variant="secondary" size="sm" onClick={() => onApplyFormat('link')}>
               Link

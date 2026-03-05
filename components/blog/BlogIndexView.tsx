@@ -96,12 +96,12 @@ export default function BlogIndexView({
                   </div>
 
                   {featuredPost.coverImage && (
-                    <div className="overflow-hidden rounded-2xl">
+                    <div>
                       <img
                         src={featuredPost.coverImage}
                         alt=""
                         aria-hidden="true"
-                        className="aspect-[4/5] w-full rounded-2xl object-cover shadow-sm"
+                        className="h-auto w-full"
                         loading="lazy"
                       />
                     </div>

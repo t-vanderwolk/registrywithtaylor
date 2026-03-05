@@ -31,7 +31,7 @@ type LegacyCtaButtonBlock = {
 };
 
 const orderedListPattern = /^\d+\.\s+/;
-const imageLinePattern = /^!\[([^\]]*)\]\(([^)]+)\)$/;
+const imageLinePattern = /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/;
 const inlineTokenPattern =
   /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
 const CTA_BUTTON_PREFIX = '::cta-button ';
@@ -441,18 +441,18 @@ export default function PostContent({ postId, content, className, trackView = tr
 
           const imageLineMatch = line.match(imageLinePattern);
           if (imageLineMatch) {
-            const [, altText, src] = imageLineMatch;
+            const [, altText, src, title] = imageLineMatch;
+            const imageDescription = altText || title || '';
             nodes.push(
-              <figure key={`${postId}-img-${i}`} className="mt-10 space-y-3">
+              <figure key={`${postId}-img-${i}`}>
                 <img
                   src={src}
-                  alt={altText}
-                  className="w-full rounded-2xl shadow-sm"
+                  alt={imageDescription}
                   loading="lazy"
                 />
-                {altText && (
-                  <figcaption className="text-sm leading-relaxed text-charcoal/60">
-                    {altText}
+                {imageDescription && (
+                  <figcaption>
+                    {imageDescription}
                   </figcaption>
                 )}
               </figure>,

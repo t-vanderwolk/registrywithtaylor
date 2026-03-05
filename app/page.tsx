@@ -618,17 +618,15 @@ export default async function HomePage() {
                 <RevealOnScroll key={post.id} delayMs={index * 90}>
                   <MarketingSurface className="marketing-card-hover group flex h-full flex-col transition-[transform,box-shadow] duration-300 hover:shadow-md">
                     <Link href={`/blog/${post.slug}`} className="block">
-                      <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-sm">
-                        <Image
-                          src={resolveBlogCoverImage(post.featuredImage?.url ?? post.coverImage)}
-                          alt={post.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.02]"
-                          loading="lazy"
-                          unoptimized
-                        />
-                      </div>
+                      <Image
+                        src={resolveBlogCoverImage(post.featuredImage?.url ?? post.coverImage)}
+                        alt={post.title}
+                        width={1200}
+                        height={675}
+                        className="h-auto w-full"
+                        loading="lazy"
+                        unoptimized
+                      />
                     </Link>
 
                     <p className="mt-6 text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
