@@ -105,6 +105,7 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       title: true,
       slug: true,
       category: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -146,7 +147,7 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
           title: relatedPost.title,
           slug: relatedPost.slug,
           category: normalizeBlogCategory(relatedPost.category),
-          coverImage: relatedPost.featuredImage?.url ?? relatedPost.coverImage,
+          coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,
           publishedAt: relatedPost.publishedAt,
           scheduledFor: relatedPost.scheduledFor,
           createdAt: relatedPost.createdAt,

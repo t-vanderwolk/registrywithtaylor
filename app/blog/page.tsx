@@ -31,6 +31,7 @@ type BlogPost = {
   featured: boolean;
   excerpt: string | null;
   content: string;
+  featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
     url: string;
@@ -98,6 +99,7 @@ export default async function BlogPage() {
       featured: true,
       excerpt: true,
       content: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -118,7 +120,7 @@ export default async function BlogPage() {
     slug: post.slug,
     category: post.category,
     excerpt: toExcerpt(post.excerpt, post.content, 170),
-    coverImage: post.featuredImage?.url ?? post.coverImage,
+    coverImage: post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
     dateLabel: formatDate(getPostDisplayDate(post)),
     dateTime: getPostDisplayDate(post).toISOString(),
   });

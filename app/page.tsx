@@ -34,6 +34,7 @@ type InsightPreview = {
   excerpt: string | null;
   content: string;
   featured: boolean;
+  featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
     url: string;
@@ -95,6 +96,7 @@ export default async function HomePage() {
       excerpt: true,
       content: true,
       featured: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -118,6 +120,7 @@ export default async function HomePage() {
       excerpt: true,
       content: true,
       featured: true,
+      featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
         select: {
@@ -619,7 +622,9 @@ export default async function HomePage() {
                   <MarketingSurface className="marketing-card-hover group flex h-full flex-col transition-[transform,box-shadow] duration-300 hover:shadow-md">
                     <Link href={`/blog/${post.slug}`} className="block">
                       <Image
-                        src={resolveBlogCoverImage(post.featuredImage?.url ?? post.coverImage)}
+                        src={resolveBlogCoverImage(
+                          post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
+                        )}
                         alt={post.title}
                         width={1200}
                         height={675}
