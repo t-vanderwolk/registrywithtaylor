@@ -18,39 +18,39 @@ model User {
 }
 
 model Post {
-  id              String              @id @default(cuid())
-  title           String
-  slug            String              @unique
-  content         String
-  excerpt         String?
+  id               String              @id @default(cuid())
+  title            String
+  slug             String              @unique
+  content          String
+  excerpt          String?
   /// Deprecated: use `status` instead.
-  published       Boolean             @default(false)
-  authorId        String
-  views           Int                 @default(0)
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
-  coverImage      String?
-  category        String              @default("Registry Strategy")
-  featuredImageId String?
-  archivedAt      DateTime?
-  deck            String?
-  featured        Boolean             @default(false)
-  publishedAt     DateTime?
-  scheduledFor    DateTime?
-  status          PostStatus          @default(DRAFT)
-  stage           BlogStage           @default(DRAFT)
-  focusKeyword    String?
-  seoTitle        String?
-  seoDescription  String?
-  canonicalUrl    String?
+  published        Boolean             @default(false)
+  authorId         String
+  views            Int                 @default(0)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  coverImage       String?
+  category         String              @default("Registry Strategy")
+  featuredImageId  String?
+  archivedAt       DateTime?
+  deck             String?
+  featured         Boolean             @default(false)
+  publishedAt      DateTime?
+  scheduledFor     DateTime?
+  status           PostStatus          @default(DRAFT)
+  stage            BlogStage           @default(DRAFT)
+  focusKeyword     String?
+  seoTitle         String?
+  seoDescription   String?
+  canonicalUrl     String?
   featuredImageUrl String?             @map("featuredImage")
-  affiliateLinks  AffiliateLink[]
-  affiliates      BlogPostAffiliate[]
-  author          User                @relation(fields: [authorId], references: [id])
-  featuredImage   Media?              @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
-  analytics       PostAnalytics[]
-  media           Media[]             @relation("PostMedia")
-  images          PostImage[]
+  affiliateLinks   AffiliateLink[]
+  affiliates       BlogPostAffiliate[]
+  author           User                @relation(fields: [authorId], references: [id])
+  featuredImage    Media?              @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
+  analytics        PostAnalytics[]
+  images           PostImage[]
+  media            Media[]             @relation("PostMedia")
 }
 
 model PostImage {
@@ -58,8 +58,8 @@ model PostImage {
   url       String
   alt       String?
   postId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([postId, createdAt])
 }
@@ -100,10 +100,6 @@ model PostAnalytics {
 model AffiliatePartner {
   id             String              @id @default(uuid())
   name           String
-  slug           String              @unique
-  logoUrl        String?
-  website        String?
-  affiliateLink  String?
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
   network        AffiliateNetwork
@@ -116,6 +112,10 @@ model AffiliatePartner {
   notes          String?
   isActive       Boolean             @default(true)
   allowedDomains String[]            @default([])
+  slug           String              @unique
+  logoUrl        String?
+  website        String?
+  affiliateLink  String?
   affiliateLinks AffiliateLink[]
   blogPosts      BlogPostAffiliate[]
 

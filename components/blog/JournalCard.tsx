@@ -1,11 +1,14 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Body, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { resolveBlogCoverImage } from '@/lib/blog/images';
 
 type JournalCardProps = {
   title: string;
   slug: string;
   category: string;
+  coverImage?: string | null;
   excerpt?: string | null;
   dateLabel: string;
   dateTime?: string;
@@ -16,36 +19,55 @@ export default function JournalCard({
   title,
   slug,
   category,
+  coverImage,
   excerpt,
   dateLabel,
   dateTime,
   className = '',
 }: JournalCardProps) {
+  const coverImageSrc = resolveBlogCoverImage(coverImage);
+
   return (
     <MarketingSurface
       className={[
-        'marketing-card-hover flex h-full flex-col justify-between',
+        'group marketing-card-hover flex h-full flex-col justify-between transition-[transform,box-shadow] duration-300 hover:shadow-md',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="space-y-5">
-        <p className="text-sm text-charcoal/55">
-          {dateTime ? <time dateTime={dateTime}>{dateLabel}</time> : dateLabel}
-        </p>
+      <div className="space-y-6">
+        <Link href={`/blog/${slug}`} className="block">
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-sm">
+            <Image
+              src={coverImageSrc}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.02]"
+              loading="lazy"
+              unoptimized
+            />
+          </div>
+        </Link>
 
-        <span className="block text-xs uppercase tracking-[0.2em] text-charcoal/50">
-          {category}
-        </span>
+        <div className="space-y-5">
+          <p className="text-sm text-charcoal/55">
+            {dateTime ? <time dateTime={dateTime}>{dateLabel}</time> : dateLabel}
+          </p>
 
-        <H3 className="font-serif leading-tight tracking-tight text-neutral-900">
-          <Link href={`/blog/${slug}`} className="transition-opacity duration-200 hover:opacity-80">
-            {title}
-          </Link>
-        </H3>
+          <span className="block text-xs uppercase tracking-[0.2em] text-charcoal/50">
+            {category}
+          </span>
 
-        {excerpt && <Body className="text-charcoal/72">{excerpt}</Body>}
+          <H3 className="font-serif leading-tight tracking-tight text-neutral-900">
+            <Link href={`/blog/${slug}`} className="transition-opacity duration-200 hover:opacity-80">
+              {title}
+            </Link>
+          </H3>
+
+          {excerpt && <Body className="text-charcoal/72">{excerpt}</Body>}
+        </div>
       </div>
 
       <div className="pt-8">
@@ -53,7 +75,7 @@ export default function JournalCard({
           href={`/blog/${slug}`}
           className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
         >
-          <span className="link-underline">Read</span>
+          <span className="link-underline">Read More</span>
           <span aria-hidden className="ml-1">→</span>
         </Link>
       </div>

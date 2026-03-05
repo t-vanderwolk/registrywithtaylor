@@ -105,6 +105,12 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       title: true,
       slug: true,
       category: true,
+      coverImage: true,
+      featuredImage: {
+        select: {
+          url: true,
+        },
+      },
       publishedAt: true,
       scheduledFor: true,
       createdAt: true,
@@ -136,8 +142,14 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       <PostArticleView
         post={post as PostArticleRecord}
         relatedPosts={relatedPosts.map((relatedPost) => ({
-          ...relatedPost,
+          id: relatedPost.id,
+          title: relatedPost.title,
+          slug: relatedPost.slug,
           category: normalizeBlogCategory(relatedPost.category),
+          coverImage: relatedPost.featuredImage?.url ?? relatedPost.coverImage,
+          publishedAt: relatedPost.publishedAt,
+          scheduledFor: relatedPost.scheduledFor,
+          createdAt: relatedPost.createdAt,
         }))}
         trackView={false}
       />

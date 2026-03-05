@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Blog image placeholder</title>
+  <desc id="desc">Neutral placeholder used when a blog cover image is unavailable.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="675" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7F4EF"/>
+      <stop offset="1" stop-color="#EEE7DE"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect x="360" y="200" width="480" height="275" rx="22" fill="#FFFFFF" fill-opacity="0.65"/>
+  <rect x="410" y="270" width="380" height="14" rx="7" fill="#D8CEC2"/>
+  <rect x="410" y="302" width="300" height="14" rx="7" fill="#D8CEC2"/>
+  <rect x="410" y="334" width="240" height="14" rx="7" fill="#D8CEC2"/>
+  <rect x="410" y="386" width="140" height="28" rx="14" fill="#CDBEAE"/>
+</svg>

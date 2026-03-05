@@ -11,6 +11,7 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
+import { resolveBlogCoverImage } from '@/lib/blog/images';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
@@ -33,6 +34,10 @@ type InsightPreview = {
   excerpt: string | null;
   content: string;
   featured: boolean;
+  coverImage: string | null;
+  featuredImage: {
+    url: string;
+  } | null;
   publishedAt: Date | null;
   scheduledFor: Date | null;
   createdAt: Date;
@@ -90,6 +95,12 @@ export default async function HomePage() {
       excerpt: true,
       content: true,
       featured: true,
+      coverImage: true,
+      featuredImage: {
+        select: {
+          url: true,
+        },
+      },
       publishedAt: true,
       scheduledFor: true,
       createdAt: true,
@@ -107,6 +118,12 @@ export default async function HomePage() {
       excerpt: true,
       content: true,
       featured: true,
+      coverImage: true,
+      featuredImage: {
+        select: {
+          url: true,
+        },
+      },
       publishedAt: true,
       scheduledFor: true,
       createdAt: true,
@@ -599,19 +616,36 @@ export default async function HomePage() {
             {insightPreviews.length > 0 ? (
               insightPreviews.map((post, index) => (
                 <RevealOnScroll key={post.id} delayMs={index * 90}>
-                  <MarketingSurface className="marketing-card-hover group h-full">
-                    <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)] mb-3">
+                  <MarketingSurface className="marketing-card-hover group flex h-full flex-col transition-[transform,box-shadow] duration-300 hover:shadow-md">
+                    <Link href={`/blog/${post.slug}`} className="block">
+                      <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-sm">
+                        <Image
+                          src={resolveBlogCoverImage(post.featuredImage?.url ?? post.coverImage)}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.02]"
+                          loading="lazy"
+                          unoptimized
+                        />
+                      </div>
+                    </Link>
+
+                    <p className="mt-6 text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
                       {formatInsightDate(getPostDisplayDate(post))}
                     </p>
-                    <H3 className="mb-3 font-serif text-[var(--text-primary)]">{post.title}</H3>
-                    <Body className="mb-6 text-[var(--color-muted)]">
+
+                    <H3 className="mt-3 font-serif text-[var(--text-primary)]">{post.title}</H3>
+
+                    <Body className="mt-3 text-[var(--color-muted)]">
                       {toInsightExcerpt(post.excerpt, post.content)}
                     </Body>
+
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="mt-6 inline-flex min-h-[44px] items-center text-sm tracking-wide text-[var(--text-primary)] transition hover:opacity-70"
+                      className="mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm tracking-wide text-[var(--text-primary)] transition hover:opacity-70"
                     >
-                      <span className="link-underline">Read</span>
+                      <span className="link-underline">Read More</span>
                       <span
                         aria-hidden
                         className="ml-1 inline-block transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[3px]"

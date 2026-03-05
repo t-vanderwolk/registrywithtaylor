@@ -156,6 +156,7 @@ export default function BlogIndexView({
                   <JournalCard
                     title={post.title}
                     slug={post.slug}
+                    coverImage={post.coverImage}
                     excerpt={post.excerpt}
                     dateLabel={post.dateLabel}
                     dateTime={post.dateTime}

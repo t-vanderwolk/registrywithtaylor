@@ -77,6 +77,7 @@ export type PostArticleRelatedPost = {
   title: string;
   slug: string;
   category: BlogCategory;
+  coverImage: string | null;
   publishedAt: Date | null;
   scheduledFor: Date | null;
   createdAt: Date;
@@ -473,6 +474,7 @@ export default function PostArticleView({
                   <JournalCard
                     title={relatedPost.title}
                     slug={relatedPost.slug}
+                    coverImage={relatedPost.coverImage}
                     category={relatedPost.category}
                     dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
                     dateTime={getPostDisplayDate(relatedPost).toISOString()}
