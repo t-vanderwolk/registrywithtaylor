@@ -582,15 +582,9 @@ export default function ServicesPage() {
                 </H3>
 
                 <Body className="services-blueprint-body">
-                  Families who register with Target can access the Baby Concierge program powered by Tot Squad, with
-                  free virtual sessions led by trained Baby Specialists.
-                </Body>
-
-                <Body className="services-blueprint-body">
-                  Sessions can help you compare strollers, car seats, and nursery essentials, understand what you truly
-                  need, and build or refine your Target registry with confidence. Appointments are available virtually
-                  nationwide, making this a helpful supporting resource for families who want additional registry
-                  guidance.
+                  Families who register with Target can access free virtual Baby Concierge sessions powered by Tot
+                  Squad. Specialists help compare key gear, understand what you truly need, and build or refine your
+                  Target registry with confidence.
                 </Body>
 
                 <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
