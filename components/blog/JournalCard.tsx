@@ -37,13 +37,13 @@ export default function JournalCard({
         .join(' ')}
     >
       <div className="space-y-6">
-        <Link href={`/blog/${slug}`} className="block">
+        <Link href={`/blog/${slug}`} className="relative block h-56 w-full overflow-hidden rounded-[22px] md:h-60">
           <Image
             src={coverImageSrc}
             alt={title}
-            width={1200}
-            height={675}
-            className="h-auto w-full"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
             loading="lazy"
             unoptimized
           />

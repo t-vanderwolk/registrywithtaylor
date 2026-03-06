@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { startTransition, useState } from 'react';
 import JournalCard from '@/components/blog/JournalCard';
@@ -96,13 +97,15 @@ export default function BlogIndexView({
                   </div>
 
                   {featuredPost.coverImage && (
-                    <div>
-                      <img
+                    <div className="relative h-72 w-full overflow-hidden rounded-[22px] md:h-full md:min-h-[360px]">
+                      <Image
                         src={featuredPost.coverImage}
                         alt=""
-                        aria-hidden="true"
-                        className="h-auto w-full"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 42vw"
+                        className="object-cover"
                         loading="lazy"
+                        unoptimized
                       />
                     </div>
                   )}

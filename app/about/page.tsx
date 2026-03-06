@@ -248,13 +248,6 @@ export default function AboutPage() {
             <RevealOnScroll delayMs={100}>
               <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
                 <Image
-                  src="/assets/brand/totsquad.png"
-                  alt="Tot Squad"
-                  width={210}
-                  height={70}
-                  className="h-9 md:h-10 w-auto opacity-70 grayscale"
-                />
-                <Image
                   src="/assets/brand/albeebaby.png"
                   alt="Albee Baby"
                   width={190}

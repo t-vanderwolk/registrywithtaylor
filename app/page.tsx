@@ -11,7 +11,7 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
-import { resolveBlogCoverImage } from '@/lib/blog/images';
+import JournalCard from '@/components/blog/JournalCard';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
@@ -31,6 +31,7 @@ type InsightPreview = {
   id: string;
   title: string;
   slug: string;
+  category: string;
   excerpt: string | null;
   content: string;
   featured: boolean;
@@ -52,8 +53,9 @@ const authorityItems = [
 
 const formatInsightDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
-    month: 'long',
     year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 
 const stripMarkdown = (value: string) =>
@@ -93,6 +95,7 @@ export default async function HomePage() {
       id: true,
       title: true,
       slug: true,
+      category: true,
       excerpt: true,
       content: true,
       featured: true,
@@ -117,6 +120,7 @@ export default async function HomePage() {
       id: true,
       title: true,
       slug: true,
+      category: true,
       excerpt: true,
       content: true,
       featured: true,
@@ -136,7 +140,7 @@ export default async function HomePage() {
   const insightPreviews = [featuredInsight, ...insightCandidates]
     .filter((post): post is InsightPreview => Boolean(post))
     .filter((post, index, collection) => collection.findIndex((entry) => entry.id === post.id) === index)
-    .slice(0, 3);
+    .slice(0, 2);
 
   return (
     <SiteShell currentPath="/">
@@ -615,48 +619,19 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-col space-y-12 md:grid md:grid-cols-3 md:gap-8 md:space-y-0">
+          <div className="mt-12 flex flex-col space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
             {insightPreviews.length > 0 ? (
               insightPreviews.map((post, index) => (
                 <RevealOnScroll key={post.id} delayMs={index * 90}>
-                  <MarketingSurface className="marketing-card-hover group flex h-full flex-col transition-[transform,box-shadow] duration-300 hover:shadow-md">
-                    <Link href={`/blog/${post.slug}`} className="block">
-                      <Image
-                        src={resolveBlogCoverImage(
-                          post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
-                        )}
-                        alt={post.title}
-                        width={1200}
-                        height={675}
-                        className="h-auto w-full"
-                        loading="lazy"
-                        unoptimized
-                      />
-                    </Link>
-
-                    <p className="mt-6 text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
-                      {formatInsightDate(getPostDisplayDate(post))}
-                    </p>
-
-                    <H3 className="mt-3 font-serif text-[var(--text-primary)]">{post.title}</H3>
-
-                    <Body className="mt-3 text-[var(--color-muted)]">
-                      {toInsightExcerpt(post.excerpt, post.content)}
-                    </Body>
-
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm tracking-wide text-[var(--text-primary)] transition hover:opacity-70"
-                    >
-                      <span className="link-underline">Read More</span>
-                      <span
-                        aria-hidden
-                        className="ml-1 inline-block transition-transform duration-300 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[3px]"
-                      >
-                        →
-                      </span>
-                    </Link>
-                  </MarketingSurface>
+                  <JournalCard
+                    title={post.title}
+                    slug={post.slug}
+                    category={post.category}
+                    coverImage={post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage}
+                    excerpt={toInsightExcerpt(post.excerpt, post.content, 170)}
+                    dateLabel={formatInsightDate(getPostDisplayDate(post))}
+                    dateTime={getPostDisplayDate(post).toISOString()}
+                  />
                 </RevealOnScroll>
               ))
             ) : (

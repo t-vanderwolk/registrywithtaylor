@@ -21,16 +21,16 @@ const complimentaryConsultationFaqs: FAQEntry[] = [
   {
     question: 'Is the consultation really complimentary?',
     answer:
-      "Yes. The virtual consultation is offered through the Target Baby Concierge program powered by Tot Squad. There is no cost to book the session.",
+      'Yes. The personal 1:1 video consultation is free. There is no cost to submit a request.',
   },
   {
-    question: 'Do I need to register at Target first?',
+    question: 'Do I need to register anywhere first?',
     answer:
-      "Yes. The consultation is part of the Target Baby Concierge experience. Once your registry is created, you can schedule your session and I'll serve as your dedicated Baby Specialist through Tot Squad.",
+      'No. You can submit a consultation request directly and we can begin from wherever you are in the process.',
   },
   {
     question: 'Will I be meeting with you directly?',
-    answer: "Yes. When you book through the Tot Squad platform, you'll meet with me personally for your consultation.",
+    answer: 'Yes. You will meet with me personally for your consultation.',
   },
   {
     question: 'What happens during the session?',
@@ -55,7 +55,7 @@ const complimentaryConsultationFaqs: FAQEntry[] = [
   {
     question: 'What retailers can we use?',
     answer:
-      'Target is a great foundation, and we can compare across other retailers when it makes sense for your needs.',
+      'We can evaluate any retailer and compare options based on what best fits your needs.',
   },
 ];
 
@@ -71,9 +71,9 @@ const afterConsultationFaqs: FAQEntry[] = [
       'No. The complimentary consultation stands on its own. If you\'d like additional support - nursery planning, registry refinement, gear strategy, or ongoing guidance - those services are available separately through Taylor-Made Baby Co.',
   },
   {
-    question: 'What\'s the difference between Tot Squad and Taylor-Made Baby Co.?',
+    question: 'What is the difference between the free consultation and private planning?',
     answer:
-      'Tot Squad powers the Target Baby Concierge program, which provides complimentary registry consultations. Taylor-Made Baby Co. offers private, personalized planning services for families who want continued guidance beyond that initial session.',
+      'The free consultation is a fit and clarity session. Private planning provides deeper, ongoing support tailored to your home, registry, and purchasing decisions.',
   },
 ];
 

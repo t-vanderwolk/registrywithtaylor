@@ -183,15 +183,15 @@ model BookingEvent {
 }
 
 model ConsultationRequest {
-  id         Int      @id @default(autoincrement())
+  id         Int                   @id @default(autoincrement())
   name       String
   email      String
-  dueDate    DateTime?
+  dueDate    DateTime?             @db.Timestamp(6)
   city       String?
   babyNumber String?
   message    String?
-  status     String   @default("new")
-  createdAt  DateTime @default(now())
+  status     String?               @default("new")
+  createdAt  DateTime?             @default(now()) @db.Timestamp(6)
   response   ConsultationResponse?
 }
 
@@ -200,17 +200,17 @@ model ConsultationResponse {
   consultationId Int                 @unique
   adminMessage   String
   meetingLink    String?
-  scheduledTime  DateTime?
-  createdAt      DateTime            @default(now())
-  consultation   ConsultationRequest @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  scheduledTime  DateTime?           @db.Timestamp(6)
+  createdAt      DateTime?           @default(now()) @db.Timestamp(6)
+  consultation   ConsultationRequest @relation(fields: [consultationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model ContactInquiry {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   fullName       String
   email          String
   service        String?
-  dueDate        DateTime?
+  dueDate        DateTime? @db.Timestamp(6)
   registryLink   String?
   homeType       String?
   budgetRange    String?
@@ -222,8 +222,8 @@ model ContactInquiry {
   notes          String?
   referrer       String?
   sourceUrl      String?
-  status         String   @default("new")
-  createdAt      DateTime @default(now())
+  status         String?   @default("new")
+  createdAt      DateTime? @default(now()) @db.Timestamp(6)
 }
 
 enum Role {

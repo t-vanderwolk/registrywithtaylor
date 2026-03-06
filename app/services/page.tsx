@@ -233,83 +233,6 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section services-page-section">
-          <div className="services-blueprint-frame">
-            <div className="services-blueprint-shell">
-              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-6 p-5 md:p-6">
-                <div className="services-blueprint-brand-lockup">
-                  <div className="services-blueprint-partnership">
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                    <span>In partnership with</span>
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                  </div>
-
-                  <a
-                    href="https://www.dpbolvw.net/click-101548494-15518289"
-                    target="_top"
-                    rel="sponsored noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center"
-                  >
-                    <Image
-                      src="/assets/brand/albeebaby.png"
-                      width={574}
-                      height={108}
-                      alt="Shop AlbeeBaby.com"
-                      className="h-auto w-full max-w-[9rem] object-contain"
-                    />
-                  </a>
-                </div>
-
-                <div className="mt-1 flex flex-col items-start">
-                  <div className="flex w-full justify-center">
-                    <SectionDivider />
-                  </div>
-                  <H2 className="services-blueprint-title">
-                    NYC In-Store Blueprint
-                  </H2>
-                </div>
-
-                <Body className="text-neutral-600">
-                  Designed for families planning an in-store visit in NYC.
-                </Body>
-
-                <H3 className="services-blueprint-kicker font-serif">
-                  Walk in prepared and compare with confidence.
-                </H3>
-
-                <Body className="services-blueprint-body">
-                  Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
-                  shortlist tailored to your home.
-                </Body>
-
-                <Body className="services-blueprint-body">
-                  You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
-                  in-store experience.
-                </Body>
-
-                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-                  <Link
-                    href="/contact"
-                    className="btn btn--secondary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                  >
-                    Explore the NYC Blueprint
-                  </Link>
-                </div>
-              </MarketingSurface>
-
-              <div className="services-blueprint-visual" aria-hidden="true">
-                <Image
-                  src="/assets/brand/albeebabystore.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 66vw, 100vw"
-                  className="services-blueprint-visual-image"
-                />
-              </div>
-            </div>
-          </div>
-        </MarketingSection>
-
         <section className="design-experience-wrapper section-base services-page-section relative overflow-visible">
           <div className="design-experience-inner">
             
@@ -342,7 +265,7 @@ export default function ServicesPage() {
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Planning
                 </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <AddOnTitle className="mb-5 font-serif leading-tight">
@@ -404,7 +327,7 @@ export default function ServicesPage() {
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Home &amp; Gear
                 </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <AddOnTitle className="mb-5 font-serif leading-tight">
@@ -435,23 +358,6 @@ export default function ServicesPage() {
                         'Sanitizing best practices',
                         'Reuse readiness checklist',
                         'Donation and resale prep',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Gear Resale Strategy
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Support for reselling gear with confidence and clear strategy.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Platform and pricing strategy',
-                        'Listing and staging guidance',
-                        'Resale vs donation decisions',
                       ]}
                       className="text-charcoal/80"
                     />
@@ -490,7 +396,7 @@ export default function ServicesPage() {
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Events &amp; Coordination
                 </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-3 !gap-12 md:!gap-14 xl:!gap-16">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
                     <AddOnTitle className="mb-5 font-serif leading-tight">
@@ -567,8 +473,8 @@ export default function ServicesPage() {
                 <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
                   Family &amp; Household Support
                 </h3>
-                <div className="mt-12 flex justify-center">
-                  <MarketingSurface className="marketing-card-hover h-full w-full max-w-sm">
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
+                  <MarketingSurface className="marketing-card-hover h-full w-full">
                     <AddOnTitle className="mb-5 font-serif leading-tight">
                       Nanny Interview Preparation &amp; Guidance
                     </AddOnTitle>
@@ -594,6 +500,170 @@ export default function ServicesPage() {
 
         </section>
 
+
+        <section className="services-page-section bg-white pb-6 pt-2 md:pb-8 md:pt-4">
+          <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
+            <div className="flex justify-center">
+              <SectionDivider />
+            </div>
+            <H2 className="mt-4 font-serif">Store Partnerships</H2>
+          </div>
+        </section>
+
+        <MarketingSection
+          id="target-baby-concierge"
+          tone="white"
+          spacing="default"
+          variant="wide"
+          className="relative overflow-hidden services-blueprint-section services-page-section"
+        >
+          <div className="services-blueprint-frame">
+            <div className="services-blueprint-shell">
+              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-5 p-5 md:p-6">
+                <div className="services-blueprint-brand-lockup">
+                  <div className="services-blueprint-partnership">
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                    <span>In partnership with</span>
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                  </div>
+
+                  <div className="inline-flex w-full flex-col items-center justify-center gap-1">
+                    <Image
+                      src="/assets/brand/totsquad.png"
+                      width={360}
+                      height={84}
+                      alt="Tot Squad"
+                      className="h-auto w-full max-w-[9rem] object-contain opacity-85"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-1 flex flex-col items-start">
+                  <div className="flex w-full justify-center">
+                    <SectionDivider />
+                  </div>
+                  <H2 className="services-blueprint-title">
+                    Baby Concierge Support Through Target
+                  </H2>
+                </div>
+
+                <H3 className="services-blueprint-kicker font-serif">
+                  Free one-on-one support as you build your registry.
+                </H3>
+
+                <Body className="services-blueprint-body">
+                  Families who register with Target can access the Baby Concierge program powered by Tot Squad, with
+                  free virtual sessions led by trained Baby Specialists.
+                </Body>
+
+                <Body className="services-blueprint-body">
+                  Sessions can help you compare strollers, car seats, and nursery essentials, understand what you truly
+                  need, and build or refine your Target registry with confidence. Appointments are available virtually
+                  nationwide, making this a helpful supporting resource for families who want additional registry
+                  guidance.
+                </Body>
+
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                  <a
+                    href="https://babyconcierge.totsquad.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--primary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  >
+                    Book Target Baby Concierge
+                  </a>
+                </div>
+              </MarketingSurface>
+
+              <div className="services-blueprint-visual" aria-hidden="true">
+                <Image
+                  src="/assets/editorial/targetinstore.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 66vw, 100vw"
+                  className="services-blueprint-visual-image"
+                />
+              </div>
+            </div>
+          </div>
+        </MarketingSection>
+
+        <MarketingSection tone="white" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section services-page-section">
+          <div className="services-blueprint-frame">
+            <div className="services-blueprint-shell">
+              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-5 p-5 md:p-6">
+                <div className="services-blueprint-brand-lockup">
+                  <div className="services-blueprint-partnership">
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                    <span>In partnership with</span>
+                    <span aria-hidden className="services-blueprint-partnership-line" />
+                  </div>
+
+                  <a
+                    href="https://www.dpbolvw.net/click-101548494-15518289"
+                    target="_top"
+                    rel="sponsored noopener noreferrer"
+                    className="inline-flex w-full items-center justify-center"
+                  >
+                    <Image
+                      src="/assets/logos/albeebaby-round.png"
+                      width={200}
+                      height={200}
+                      alt="Shop AlbeeBaby.com"
+                      className="h-[31px] w-auto object-contain opacity-85"
+                    />
+                  </a>
+                </div>
+
+                <div className="mt-1 flex flex-col items-start">
+                  <div className="flex w-full justify-center">
+                    <SectionDivider />
+                  </div>
+                  <H2 className="services-blueprint-title">
+                    NYC In-Store Blueprint
+                  </H2>
+                </div>
+
+                <Body className="text-neutral-600">
+                  Designed for families planning an in-store visit in NYC.
+                </Body>
+
+                <H3 className="services-blueprint-kicker font-serif">
+                  Walk in prepared and compare with confidence.
+                </H3>
+
+                <Body className="services-blueprint-body">
+                  Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
+                  shortlist tailored to your home.
+                </Body>
+
+                <Body className="services-blueprint-body">
+                  You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
+                  in-store experience.
+                </Body>
+
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                  <Link
+                    href="/contact"
+                    className="btn btn--secondary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  >
+                    Explore the NYC Blueprint
+                  </Link>
+                </div>
+              </MarketingSurface>
+
+              <div className="services-blueprint-visual" aria-hidden="true">
+                <Image
+                  src="/assets/brand/albeebabystore.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 66vw, 100vw"
+                  className="services-blueprint-visual-image"
+                />
+              </div>
+            </div>
+          </div>
+        </MarketingSection>
         <MarketingSection
           tone="ivoryWarm"
           spacing="default"

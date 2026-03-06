@@ -2049,6 +2049,18 @@ li {
   gap: 3rem;
 }
 
+.addon-grid > .marketing-card-hover {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .addon-grid > .marketing-card-hover {
+    min-height: 24rem;
+  }
+}
+
 .services-extended-column {
   min-width: 0;
 }
