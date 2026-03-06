@@ -37,19 +37,21 @@ const formatDate = (value?: Date | null) => {
   });
 };
 
-const toLabel = (status: string) => {
-  if (status === 'new') return 'New';
-  if (status === 'responded') return 'Responded';
-  if (status === 'scheduled') return 'Scheduled';
-  if (status === 'completed') return 'Completed';
-  return status;
+const toLabel = (status: string | null) => {
+  const normalizedStatus = status?.trim() || 'new';
+  if (normalizedStatus === 'new') return 'New';
+  if (normalizedStatus === 'responded') return 'Responded';
+  if (normalizedStatus === 'scheduled') return 'Scheduled';
+  if (normalizedStatus === 'completed') return 'Completed';
+  return normalizedStatus;
 };
 
-const toChipClassName = (status: string) => {
-  if (status === 'new') return 'admin-chip admin-chip--draft';
-  if (status === 'responded') return 'admin-chip admin-chip--ready';
-  if (status === 'scheduled') return 'admin-chip admin-chip--scheduled';
-  if (status === 'completed') return 'admin-chip admin-chip--published';
+const toChipClassName = (status: string | null) => {
+  const normalizedStatus = status?.trim() || 'new';
+  if (normalizedStatus === 'new') return 'admin-chip admin-chip--draft';
+  if (normalizedStatus === 'responded') return 'admin-chip admin-chip--ready';
+  if (normalizedStatus === 'scheduled') return 'admin-chip admin-chip--scheduled';
+  if (normalizedStatus === 'completed') return 'admin-chip admin-chip--published';
   return 'admin-chip admin-chip--archived';
 };
 
@@ -93,7 +95,8 @@ export default async function AdminConsultationsPage({ searchParams }: { searchP
   ]);
 
   const countByStatus = statusCounts.reduce<Record<string, number>>((acc, row) => {
-    acc[row.status] = row._count._all;
+    const key = row.status?.trim() || 'new';
+    acc[key] = row._count._all;
     return acc;
   }, {});
 

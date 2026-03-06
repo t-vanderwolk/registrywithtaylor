@@ -44,17 +44,19 @@ const formatDate = (value?: Date | null) => {
   });
 };
 
-const toStatusLabel = (status: string) => {
-  if (status === 'new') return 'New';
-  if (status === 'reviewed') return 'Reviewed';
-  if (status === 'completed') return 'Completed';
-  return status;
+const toStatusLabel = (status: string | null) => {
+  const normalizedStatus = status?.trim() || 'new';
+  if (normalizedStatus === 'new') return 'New';
+  if (normalizedStatus === 'reviewed') return 'Reviewed';
+  if (normalizedStatus === 'completed') return 'Completed';
+  return normalizedStatus;
 };
 
-const toStatusChipClassName = (status: string) => {
-  if (status === 'new') return 'admin-chip admin-chip--draft';
-  if (status === 'reviewed') return 'admin-chip admin-chip--ready';
-  if (status === 'completed') return 'admin-chip admin-chip--published';
+const toStatusChipClassName = (status: string | null) => {
+  const normalizedStatus = status?.trim() || 'new';
+  if (normalizedStatus === 'new') return 'admin-chip admin-chip--draft';
+  if (normalizedStatus === 'reviewed') return 'admin-chip admin-chip--ready';
+  if (normalizedStatus === 'completed') return 'admin-chip admin-chip--published';
   return 'admin-chip admin-chip--archived';
 };
 
@@ -103,7 +105,8 @@ export default async function AdminInquiriesPage({ searchParams }: { searchParam
   ]);
 
   const countByStatus = statusCounts.reduce<Record<string, number>>((acc, row) => {
-    acc[row.status] = row._count._all;
+    const key = row.status?.trim() || 'new';
+    acc[key] = row._count._all;
     return acc;
   }, {});
 

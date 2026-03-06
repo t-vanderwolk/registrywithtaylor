@@ -26,11 +26,13 @@ export default async function AdminDashboardPage() {
   ]);
 
   const consultationCountByStatus = consultationStatusCounts.reduce<Record<string, number>>((acc, row) => {
-    acc[row.status] = row._count._all;
+    const key = row.status?.trim() || 'new';
+    acc[key] = row._count._all;
     return acc;
   }, {});
   const inquiryCountByStatus = inquiryStatusCounts.reduce<Record<string, number>>((acc, row) => {
-    acc[row.status] = row._count._all;
+    const key = row.status?.trim() || 'new';
+    acc[key] = row._count._all;
     return acc;
   }, {});
 

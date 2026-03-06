@@ -49,11 +49,12 @@ const toServiceLabel = (service: string | null) => {
   return SERVICE_LABELS[service] ?? service;
 };
 
-const toStatusLabel = (status: string) => {
-  if (status === 'new') return 'New';
-  if (status === 'reviewed') return 'Reviewed';
-  if (status === 'completed') return 'Completed';
-  return status;
+const toStatusLabel = (status: string | null) => {
+  const normalizedStatus = status?.trim() || 'new';
+  if (normalizedStatus === 'new') return 'New';
+  if (normalizedStatus === 'reviewed') return 'Reviewed';
+  if (normalizedStatus === 'completed') return 'Completed';
+  return normalizedStatus;
 };
 
 async function updateInquiryStatusAction(formData: FormData) {

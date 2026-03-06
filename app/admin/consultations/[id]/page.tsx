@@ -187,7 +187,8 @@ export default async function AdminConsultationDetailPage({
     notFound();
   }
 
-  const statusLabel = consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1);
+  const statusValue = consultation.status?.trim() || 'new';
+  const statusLabel = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
 
   return (
     <AdminStack gap="xl">
