@@ -28,7 +28,6 @@ type BlogPost = {
   title: string;
   slug: string;
   category: BlogCategory;
-  featured: boolean;
   excerpt: string | null;
   content: string;
   featuredImageUrl: string | null;
@@ -94,7 +93,6 @@ export default async function BlogPage() {
       title: true,
       slug: true,
       category: true,
-      featured: true,
       excerpt: true,
       content: true,
       featuredImageUrl: true,
@@ -110,8 +108,6 @@ export default async function BlogPage() {
     },
   })) as BlogPost[];
 
-  const featuredPost = posts.find((post) => post.featured) ?? posts[0];
-  const curatedPosts = featuredPost ? posts.filter((post) => post.id !== featuredPost.id) : [];
   const toViewPost = (post: BlogPost): BlogIndexPost => ({
     id: post.id,
     title: post.title,
@@ -140,10 +136,7 @@ export default async function BlogPage() {
           </div>
         </Hero>
 
-        <BlogIndexView
-          featuredPost={featuredPost ? toViewPost(featuredPost) : null}
-          posts={curatedPosts.map(toViewPost)}
-        />
+        <BlogIndexView posts={posts.map(toViewPost)} />
 
         <FinalCTA />
       </main>

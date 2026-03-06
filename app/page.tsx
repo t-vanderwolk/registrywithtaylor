@@ -140,7 +140,7 @@ export default async function HomePage() {
   const insightPreviews = [featuredInsight, ...insightCandidates]
     .filter((post): post is InsightPreview => Boolean(post))
     .filter((post, index, collection) => collection.findIndex((entry) => entry.id === post.id) === index)
-    .slice(0, 2);
+    .slice(0, 3);
 
   return (
     <SiteShell currentPath="/">
@@ -619,10 +619,10 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-col space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
+          <div className="mt-12 mx-auto flex max-w-[1500px] flex-col space-y-12 md:grid md:auto-rows-fr md:grid-cols-3 md:gap-10 md:space-y-0">
             {insightPreviews.length > 0 ? (
               insightPreviews.map((post, index) => (
-                <RevealOnScroll key={post.id} delayMs={index * 90}>
+                <RevealOnScroll key={post.id} delayMs={index * 90} className="h-full">
                   <JournalCard
                     title={post.title}
                     slug={post.slug}

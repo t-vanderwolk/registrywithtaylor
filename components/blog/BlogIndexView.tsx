@@ -19,12 +19,10 @@ type BlogIndexPost = {
 };
 
 type BlogIndexViewProps = {
-  featuredPost: BlogIndexPost | null;
   posts: BlogIndexPost[];
 };
 
 export default function BlogIndexView({
-  featuredPost,
   posts,
 }: BlogIndexViewProps) {
   const [activeCategory, setActiveCategory] = useState<BlogCategory | null>(null);
@@ -43,22 +41,8 @@ export default function BlogIndexView({
     <>
       <section className="section-base bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          {featuredPost && (
-            <RevealOnScroll>
-              <JournalCard
-                title={featuredPost.title}
-                slug={featuredPost.slug}
-                coverImage={featuredPost.coverImage}
-                excerpt={featuredPost.excerpt}
-                dateLabel={featuredPost.dateLabel}
-                dateTime={featuredPost.dateTime}
-                category={featuredPost.category}
-              />
-            </RevealOnScroll>
-          )}
-
-          {(posts.length > 0 || featuredPost) && (
-            <div className="mt-20">
+          {posts.length > 0 && (
+            <div className="mt-8 md:mt-12">
               <div className="flex flex-wrap justify-center gap-6">
                 <button
                   type="button"
@@ -117,9 +101,7 @@ export default function BlogIndexView({
                 {activeCategory ?? 'The Journal'}
               </p>
               <Body className="mt-4 text-charcoal/72">
-                {activeCategory && featuredPost?.category === activeCategory
-                  ? 'No additional articles are published in this focus yet.'
-                  : 'No articles are published in this focus yet.'}
+                No articles are published in this focus yet.
               </Body>
             </MarketingSurface>
           )}
