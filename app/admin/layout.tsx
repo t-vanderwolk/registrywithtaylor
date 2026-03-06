@@ -16,6 +16,17 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       brand="Taylor-Made Baby Co."
       sections={[
         {
+          label: 'Overview',
+          links: [{ label: 'Dashboard', href: '/admin' }],
+        },
+        {
+          label: 'Consult',
+          links: [
+            { label: 'Consultations', href: '/admin/consultations' },
+            { label: 'Inquiries', href: '/admin/inquiries' },
+          ],
+        },
+        {
           label: 'Publish',
           links: [
             { label: 'Posts', href: '/admin/blog' },

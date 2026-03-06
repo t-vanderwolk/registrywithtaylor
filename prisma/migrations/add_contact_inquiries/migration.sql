@@ -1,0 +1,20 @@
+CREATE TABLE "ContactInquiry" (
+  "id" SERIAL PRIMARY KEY,
+  "fullName" TEXT NOT NULL,
+  "email" TEXT NOT NULL,
+  "service" TEXT,
+  "dueDate" TIMESTAMP,
+  "registryLink" TEXT,
+  "homeType" TEXT,
+  "budgetRange" TEXT,
+  "topConcerns" TEXT,
+  "biggestStress" TEXT,
+  "location" TEXT,
+  "levelOfSupport" TEXT,
+  "timeline" TEXT,
+  "notes" TEXT,
+  "referrer" TEXT,
+  "sourceUrl" TEXT,
+  "status" TEXT DEFAULT 'new',
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

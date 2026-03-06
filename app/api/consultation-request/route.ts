@@ -11,6 +11,8 @@ const asOptionalText = (value: FormDataEntryValue | null) => {
   return text.length > 0 ? text : null;
 };
 
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
 const asOptionalDate = (value: FormDataEntryValue | null) => {
   const text = asText(value);
   if (!text) {
@@ -24,8 +26,6 @@ const asOptionalDate = (value: FormDataEntryValue | null) => {
 
   return { value: parsed, error: false } as const;
 };
-
-const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 const getRequestIp = (req: NextRequest) => {
   const forwardedFor = req.headers.get('x-forwarded-for');
@@ -44,73 +44,64 @@ const getRequestIp = (req: NextRequest) => {
   return null;
 };
 
+const redirectToConsultation = (req: NextRequest, search = '') =>
+  NextResponse.redirect(new URL(`/consultation${search}`, req.url), { status: 303 });
+
+const redirectToConfirmation = (req: NextRequest) =>
+  NextResponse.redirect(new URL('/consultation/confirmation', req.url), { status: 303 });
+
 export async function POST(req: NextRequest) {
   const ip = getRequestIp(req);
   const rateLimit = consumeRateLimit({
-    route: '/api/contact',
+    route: '/api/consultation-request',
     ip: ip ?? 'unknown',
     limit: 6,
     windowMs: 10 * 60_000,
   });
 
   if (!rateLimit.allowed) {
-    return NextResponse.json(
-      { error: 'Too many inquiries submitted. Please try again shortly.' },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': String(rateLimit.retryAfterSeconds),
-        },
-      },
-    );
+    return redirectToConsultation(req, '?error=rate-limit');
   }
 
   const formData = await req.formData().catch(() => null);
   if (!formData) {
-    return NextResponse.json({ error: 'Invalid form submission.' }, { status: 400 });
+    return redirectToConsultation(req, '?error=invalid-form');
   }
 
   // Honeypot field for basic spam filtering.
   if (asText(formData.get('company')).length > 0) {
-    return NextResponse.json({ success: true });
+    return redirectToConfirmation(req);
   }
 
-  const fullName = asText(formData.get('fullName'));
+  const name = asText(formData.get('name'));
   const email = asText(formData.get('email'));
+  const city = asOptionalText(formData.get('city'));
+  const babyNumber = asOptionalText(formData.get('babyNumber'));
+  const message = asOptionalText(formData.get('message'));
   const dueDate = asOptionalDate(formData.get('dueDate'));
 
-  if (!fullName || !email) {
-    return NextResponse.json({ error: 'Full name and email are required.' }, { status: 400 });
+  if (!name || !email) {
+    return redirectToConsultation(req, '?error=required');
   }
 
   if (!isValidEmail(email)) {
-    return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    return redirectToConsultation(req, '?error=invalid-email');
   }
 
   if (dueDate.error) {
-    return NextResponse.json({ error: 'Please provide a valid due date.' }, { status: 400 });
+    return redirectToConsultation(req, '?error=invalid-date');
   }
 
-  const inquiry = await prisma.contactInquiry.create({
+  await prisma.consultationRequest.create({
     data: {
-      fullName,
+      name,
       email,
-      service: asOptionalText(formData.get('service')),
       dueDate: dueDate.value,
-      registryLink: asOptionalText(formData.get('registryLink')),
-      homeType: asOptionalText(formData.get('homeType')),
-      budgetRange: asOptionalText(formData.get('budgetRange')),
-      topConcerns: asOptionalText(formData.get('topConcerns')),
-      biggestStress: asOptionalText(formData.get('biggestStress')),
-      location: asOptionalText(formData.get('location')),
-      levelOfSupport: asOptionalText(formData.get('levelOfSupport')),
-      timeline: asOptionalText(formData.get('timeline')),
-      notes: asOptionalText(formData.get('notes')),
-      referrer: asOptionalText(formData.get('referrer')),
-      sourceUrl: asOptionalText(formData.get('sourceUrl')),
+      city,
+      babyNumber,
+      message,
     },
-    select: { id: true },
   });
 
-  return NextResponse.json({ success: true, inquiryId: inquiry.id });
+  return redirectToConfirmation(req);
 }

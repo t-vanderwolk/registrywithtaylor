@@ -50,38 +50,18 @@ export default function ContactInquiryForm({
       });
 
       const payload = (await response.json().catch(() => null)) as
-        | { error?: string; delivery?: string; mailtoUrl?: string }
+        | { error?: string; inquiryId?: number }
         | null;
 
       if (!response.ok) {
-        if (payload?.mailtoUrl) {
-          window.location.href = payload.mailtoUrl;
-          setSubmitState({
-            type: 'success',
-            message:
-              'Your email app is opening with your inquiry details. If it does not open, email taylor@taylormadebabyco.com directly.',
-          });
-          return;
-        }
-
         throw new Error(payload?.error || 'Something went wrong. Please try again.');
       }
 
       form.reset();
 
-      if (payload?.delivery === 'mailto' && payload.mailtoUrl) {
-        window.location.href = payload.mailtoUrl;
-        setSubmitState({
-          type: 'success',
-          message:
-            'Your email app is opening with your inquiry details. If it does not open, email taylor@taylormadebabyco.com directly.',
-        });
-        return;
-      }
-
       setSubmitState({
         type: 'success',
-        message: 'Thank you. Your inquiry has been sent.',
+        message: 'Thank you. Your inquiry has been received.',
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';

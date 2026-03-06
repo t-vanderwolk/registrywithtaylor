@@ -182,6 +182,52 @@ model BookingEvent {
   @@index([type, createdAt])
 }
 
+model ConsultationRequest {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  dueDate    DateTime?
+  city       String?
+  babyNumber String?
+  message    String?
+  status     String   @default("new")
+  createdAt  DateTime @default(now())
+
+  response ConsultationResponse?
+}
+
+model ConsultationResponse {
+  id             Int      @id @default(autoincrement())
+  consultationId Int      @unique
+  adminMessage   String
+  meetingLink    String?
+  scheduledTime  DateTime?
+  createdAt      DateTime @default(now())
+
+  consultation ConsultationRequest @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+}
+
+model ContactInquiry {
+  id             Int      @id @default(autoincrement())
+  fullName       String
+  email          String
+  service        String?
+  dueDate        DateTime?
+  registryLink   String?
+  homeType       String?
+  budgetRange    String?
+  topConcerns    String?
+  biggestStress  String?
+  location       String?
+  levelOfSupport String?
+  timeline       String?
+  notes          String?
+  referrer       String?
+  sourceUrl      String?
+  status         String   @default("new")
+  createdAt      DateTime @default(now())
+}
+
 enum Role {
   USER
   ADMIN
