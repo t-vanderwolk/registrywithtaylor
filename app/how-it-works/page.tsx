@@ -188,7 +188,7 @@ export default function HowItWorksPage() {
                     <div className="w-full max-w-[500px]">
                       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
                         <Image
-                          src="/assets/editorial/step-2.png"
+                          src="/assets/editorial/howitworksstep2.png"
                           alt=""
                           aria-hidden="true"
                           fill
@@ -286,7 +286,7 @@ export default function HowItWorksPage() {
                     <div className="w-full max-w-[500px]">
                       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
                         <Image
-                          src="/assets/editorial/step-3.png"
+                          src="/assets/editorial/moveforward.png"
                           alt=""
                           aria-hidden="true"
                           fill
