@@ -1,13 +1,10 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import { startTransition, useState } from 'react';
 import JournalCard from '@/components/blog/JournalCard';
-import { Body, H2 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
-import SectionDivider from '@/components/ui/SectionDivider';
+import { Body } from '@/components/ui/MarketingHeading';
 import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
 
 type BlogIndexPost = {
@@ -24,13 +21,11 @@ type BlogIndexPost = {
 type BlogIndexViewProps = {
   featuredPost: BlogIndexPost | null;
   posts: BlogIndexPost[];
-  authorName: string;
 };
 
 export default function BlogIndexView({
   featuredPost,
   posts,
-  authorName,
 }: BlogIndexViewProps) {
   const [activeCategory, setActiveCategory] = useState<BlogCategory | null>(null);
 
@@ -50,67 +45,15 @@ export default function BlogIndexView({
         <div className="max-w-5xl mx-auto px-6">
           {featuredPost && (
             <RevealOnScroll>
-              <MarketingSurface className="marketing-card-hover">
-                <div
-                  className={
-                    featuredPost.coverImage
-                      ? 'grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] md:items-start'
-                      : 'space-y-6'
-                  }
-                >
-                  <div className="space-y-6">
-                    <div className="space-y-3">
-                      <p className="text-xs uppercase tracking-[0.3em] text-charcoal/55">
-                        Featured Article
-                      </p>
-                      <span className="block text-xs uppercase tracking-[0.2em] text-charcoal/50">
-                        {featuredPost.category}
-                      </span>
-                    </div>
-
-                    <div className="space-y-5">
-                      <div>
-                        <SectionDivider />
-                        <H2 className="leading-[1.05] text-neutral-900">
-                          {featuredPost.title}
-                        </H2>
-                      </div>
-
-                      {featuredPost.excerpt && (
-                        <Body className="text-charcoal/80">
-                          {featuredPost.excerpt}
-                        </Body>
-                      )}
-                    </div>
-
-                    <p className="text-sm text-charcoal/55">
-                      {authorName} · <time dateTime={featuredPost.dateTime}>{featuredPost.dateLabel}</time>
-                    </p>
-
-                    <Link
-                      href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
-                    >
-                      <span className="link-underline">Read Article</span>
-                      <span aria-hidden className="ml-1">→</span>
-                    </Link>
-                  </div>
-
-                  {featuredPost.coverImage && (
-                    <div className="relative h-72 w-full overflow-hidden rounded-[22px] md:h-full md:min-h-[360px]">
-                      <Image
-                        src={featuredPost.coverImage}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 100vw, 42vw"
-                        className="object-cover"
-                        loading="lazy"
-                        unoptimized
-                      />
-                    </div>
-                  )}
-                </div>
-              </MarketingSurface>
+              <JournalCard
+                title={featuredPost.title}
+                slug={featuredPost.slug}
+                coverImage={featuredPost.coverImage}
+                excerpt={featuredPost.excerpt}
+                dateLabel={featuredPost.dateLabel}
+                dateTime={featuredPost.dateTime}
+                category={featuredPost.category}
+              />
             </RevealOnScroll>
           )}
 

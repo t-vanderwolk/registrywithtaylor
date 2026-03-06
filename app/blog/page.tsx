@@ -52,8 +52,6 @@ type BlogIndexPost = {
   dateTime: string;
 };
 
-const AUTHOR_NAME = 'Taylor Vanderwolk';
-
 const formatDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -145,7 +143,6 @@ export default async function BlogPage() {
         <BlogIndexView
           featuredPost={featuredPost ? toViewPost(featuredPost) : null}
           posts={curatedPosts.map(toViewPost)}
-          authorName={AUTHOR_NAME}
         />
 
         <FinalCTA />
