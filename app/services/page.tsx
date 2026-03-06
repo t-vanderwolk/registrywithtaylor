@@ -317,6 +317,25 @@ export default function ServicesPage() {
                       className="text-charcoal/80"
                     />
                   </MarketingSurface>
+
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <AddOnTitle className="mb-5 font-serif leading-tight">
+                      Nanny Interview Preparation &amp; Guidance
+                    </AddOnTitle>
+
+                    <Body className="mb-8 text-neutral-600">
+                      Structured support to help you confidently interview and evaluate caregivers for your growing family.
+                    </Body>
+
+                    <ServiceChecklist
+                      items={[
+                        'Customized interview question framework',
+                        'Compatibility and experience evaluation guidance',
+                        'Post-interview clarity and decision support',
+                      ]}
+                      className="text-charcoal/80"
+                    />
+                  </MarketingSurface>
                 </div>
                 </div>
               
@@ -363,6 +382,17 @@ export default function ServicesPage() {
                     />
                   </MarketingSurface>
 
+                </div>
+                </div>
+              
+
+              
+                <div className="service-category mt-20 md:mt-28">
+                <hr className="my-10 border-black/5 md:my-14" />
+                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
+                  Safety
+                </h3>
+                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
                   <MarketingSurface className="marketing-card-hover h-full">
                     <span className="uppercase text-xs tracking-widest text-charcoal/60">
                       Safety &amp; Installation
@@ -386,9 +416,36 @@ export default function ServicesPage() {
                     />
 
                   </MarketingSurface>
+
+                  <MarketingSurface className="marketing-card-hover h-full">
+                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
+                      SAFETY &amp; INSTALLATION
+                    </span>
+
+                    <AddOnTitle className="mt-5 mb-5">
+                      In-Home Baby &amp; Toddler Proofing Installation
+                    </AddOnTitle>
+
+                    <Body className="mt-4 mb-8 text-charcoal/80">
+                      Professional home safety assessments and childproofing installation provided in collaboration with
+                      Dustin Dastrup of Arizona Childproofers, the only IACS Certified Professional Childproofer in
+                      Arizona. This service helps families prepare their home before babies begin rolling, crawling,
+                      climbing, and exploring.
+                    </Body>
+
+                    <ServiceChecklist
+                      items={[
+                        'In-home childproofing safety assessment',
+                        'Professional installation of gates, locks, and safety devices',
+                        'Pool barrier and hazard risk guidance',
+                        'Personalized safety recommendations as your child grows',
+                      ]}
+                      className="mt-6 text-charcoal/80"
+                    />
+
+                  </MarketingSurface>
                 </div>
                 </div>
-              
 
               
                 <div className="service-category mt-20 md:mt-28">
@@ -468,33 +525,6 @@ export default function ServicesPage() {
                 </div>
                 </div>
 
-              <div className="service-category mt-20 md:mt-28">
-                <hr className="my-10 border-black/5 md:my-14" />
-                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
-                  Family &amp; Household Support
-                </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
-                  <MarketingSurface className="marketing-card-hover h-full w-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Nanny Interview Preparation &amp; Guidance
-                    </AddOnTitle>
-
-                    <Body className="mb-8 text-neutral-600">
-                      Structured support to help you confidently interview and evaluate caregivers for your growing family.
-                    </Body>
-
-                    <ServiceChecklist
-                      items={[
-                        'Customized interview question framework',
-                        'Compatibility and experience evaluation guidance',
-                        'Post-interview clarity and decision support',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-
-                  </MarketingSurface>
-                </div>
-              </div>
             </div>
           </div>
 
