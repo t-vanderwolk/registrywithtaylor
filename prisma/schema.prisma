@@ -192,19 +192,17 @@ model ConsultationRequest {
   message    String?
   status     String   @default("new")
   createdAt  DateTime @default(now())
-
-  response ConsultationResponse?
+  response   ConsultationResponse?
 }
 
 model ConsultationResponse {
-  id             Int      @id @default(autoincrement())
-  consultationId Int      @unique
+  id             Int                 @id @default(autoincrement())
+  consultationId Int                 @unique
   adminMessage   String
   meetingLink    String?
   scheduledTime  DateTime?
-  createdAt      DateTime @default(now())
-
-  consultation ConsultationRequest @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime            @default(now())
+  consultation   ConsultationRequest @relation(fields: [consultationId], references: [id], onDelete: Cascade)
 }
 
 model ContactInquiry {
