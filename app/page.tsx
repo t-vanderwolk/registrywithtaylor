@@ -252,8 +252,7 @@ export default async function HomePage() {
             </h1>
 
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Here&apos;s the tea: baby gear gets confusing fast. I help families figure out what to buy, what to skip,
-              and what can wait.
+              Because parenthood should start with confidence, not confusion.
             </Body>
 
             <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-sm leading-relaxed text-black/70 md:text-base md:text-left">
