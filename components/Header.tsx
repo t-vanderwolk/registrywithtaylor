@@ -11,7 +11,7 @@ const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Services', href: '/services' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Guides', href: '/blog' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ];

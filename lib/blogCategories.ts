@@ -6,6 +6,9 @@ export const BLOG_CATEGORIES = [
   'Planning & Events',
 ] as const;
 
+export const BLOG_GUIDES_TITLE = 'Baby Prep Guides';
+export const BLOG_NAV_LABEL = 'Guides';
+
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
 export const DEFAULT_BLOG_CATEGORY: BlogCategory = BLOG_CATEGORIES[0];
@@ -21,4 +24,12 @@ export function normalizeBlogCategory(value: unknown): BlogCategory {
 
   const normalized = value.trim();
   return isBlogCategory(normalized) ? normalized : DEFAULT_BLOG_CATEGORY;
+}
+
+export function getBlogCategoryLabel(value: BlogCategory | string) {
+  if (value === 'Planning & Events') {
+    return 'Planning & Preparation';
+  }
+
+  return value;
 }

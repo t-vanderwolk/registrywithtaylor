@@ -20,71 +20,59 @@
 @keyframes heroFadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes luxuryFadeUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 .hero-load-reveal {
   opacity: 0;
-  animation: luxuryFadeUp 700ms cubic-bezier(.16, 1, .3, 1) forwards;
+  animation: luxuryFadeUp 320ms ease-out forwards;
 }
 
 .hero-load-reveal--1 {
-  animation-delay: 150ms;
+  animation-delay: 90ms;
 }
 
 .hero-load-reveal--2 {
-  animation-delay: 300ms;
+  animation-delay: 160ms;
 }
 
 .hero-load-reveal--3 {
-  animation-delay: 450ms;
+  animation-delay: 230ms;
 }
 
 .hero-load-reveal--4 {
-  animation-delay: 600ms;
+  animation-delay: 300ms;
 }
 
 .motion-reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 700ms cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0ms),
-    transform 700ms cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  transition: opacity 240ms ease-out var(--reveal-delay, 0ms);
+  will-change: opacity;
 }
 
 .motion-reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .checklist-reveal .home-check-item {
   opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 620ms cubic-bezier(.16, 1, .3, 1),
-    transform 620ms cubic-bezier(.16, 1, .3, 1);
+  transition: opacity 220ms ease-out;
 }
 
 .checklist-reveal.is-visible .home-check-item {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .checklist-reveal.is-visible .home-check-item--1 { transition-delay: 0ms; }
@@ -1993,74 +1981,6 @@ li {
   align-items: stretch;
 }
 
-/* ===========================
-   DESIGN YOUR EXPERIENCE PANEL
-=========================== */
-
-.design-experience-wrapper {
-  background: #ffffff;
-}
-
-.design-experience-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 5rem 3rem;
-  background: linear-gradient(
-    180deg,
-    #fdfbfa 0%,
-    #faf7f5 100%
-  );
-  border-radius: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.category-grid {
-  display: grid;
-  gap: 0;
-}
-
-.service-category {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.category-title {
-  font-family: serif;
-  font-size: 1.75rem;
-  text-align: center;
-  color: #3a3a3a;
-  position: relative;
-}
-
-.category-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 1px;
-  background: rgba(215, 161, 175, 0.5);
-  margin: 12px auto 0;
-}
-
-.addon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-auto-rows: 1fr;
-  gap: 3rem;
-}
-
-.addon-grid > .marketing-card-hover {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 768px) {
-  .addon-grid > .marketing-card-hover {
-    min-height: 24rem;
-  }
-}
-
 .services-extended-column {
   min-width: 0;
 }
@@ -2154,13 +2074,6 @@ li {
   .services-extended-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 3rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .design-experience-inner {
-    border-radius: 28px;
-    padding: 3rem 1.5rem;
   }
 }
 
@@ -2404,12 +2317,6 @@ li {
     line-height: 1.65;
   }
 
-  .service-category {
-    scroll-margin-top: 5rem;
-  }
-}
-
-@media (min-width: 768px) {
   .section-base.services-blueprint-section,
   .section-spacing.services-blueprint-section {
     padding-top: 5.5rem;

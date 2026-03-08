@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 
 export const SITE_NAME = 'Taylor-Made Baby Co.';
 export const SITE_URL = 'https://www.taylormadebabyco.com';
-export const DEFAULT_SITE_TITLE = 'Taylor-Made Baby Co. | Calm, Personalized Baby Planning';
+export const DEFAULT_SITE_TITLE = 'Taylor-Made Baby Co. | Baby Gear & Registry Guidance';
 export const DEFAULT_SITE_DESCRIPTION =
-  'Personalized registry and nursery planning for modern families. Thoughtful guidance, mentor support, and intentional preparation — so parenthood starts with confidence, not confusion.';
+  'Personalized help with registries, strollers, car seats, nursery planning, and home prep. Expert guidance on what to buy, what to skip, and what can wait.';
 export const DEFAULT_OG_IMAGE_PATH = '/og-home.jpg';
-export const DEFAULT_OG_IMAGE_ALT = 'Taylor-Made Baby Co. – Start with confidence.';
+export const DEFAULT_OG_IMAGE_ALT = 'Taylor-Made Baby Co. - Baby gear and registry guidance.';
 
 type BuildMarketingMetadataInput = {
   title: string;

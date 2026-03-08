@@ -5,7 +5,7 @@ import JournalCard from '@/components/blog/JournalCard';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { Body } from '@/components/ui/MarketingHeading';
-import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
+import { BLOG_CATEGORIES, BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 
 type BlogIndexPost = {
   id: string;
@@ -54,7 +54,7 @@ export default function BlogIndexView({
                       : 'text-charcoal/70 hover:text-charcoal'
                   }`}
                 >
-                  All Articles
+                  All Guides
                 </button>
                 {BLOG_CATEGORIES.map((category) => (
                   <button
@@ -68,7 +68,7 @@ export default function BlogIndexView({
                         : 'text-charcoal/70 hover:text-charcoal'
                     }`}
                   >
-                    {category}
+                    {getBlogCategoryLabel(category)}
                   </button>
                 ))}
               </div>
@@ -80,10 +80,11 @@ export default function BlogIndexView({
       <section className="bg-white pb-20 md:pb-28">
         <div className="max-w-5xl mx-auto px-6">
           {filteredPosts.length > 0 ? (
-            <div className="grid gap-10 md:grid-cols-2">
-              {filteredPosts.map((post, index) => (
-                <RevealOnScroll key={post.id} delayMs={index * 90}>
+            <RevealOnScroll>
+              <div className="grid gap-10 md:grid-cols-2">
+                {filteredPosts.map((post) => (
                   <JournalCard
+                    key={post.id}
                     title={post.title}
                     slug={post.slug}
                     coverImage={post.coverImage}
@@ -92,16 +93,16 @@ export default function BlogIndexView({
                     dateTime={post.dateTime}
                     category={post.category}
                   />
-                </RevealOnScroll>
-              ))}
-            </div>
+                ))}
+              </div>
+            </RevealOnScroll>
           ) : (
             <MarketingSurface className="text-center">
               <p className="text-sm uppercase tracking-[0.22em] text-charcoal/55">
-                {activeCategory ?? 'The Journal'}
+                {activeCategory ? getBlogCategoryLabel(activeCategory) : BLOG_GUIDES_TITLE}
               </p>
               <Body className="mt-4 text-charcoal/72">
-                No articles are published in this focus yet.
+                No guides are published in this focus yet.
               </Body>
             </MarketingSurface>
           )}

@@ -14,9 +14,9 @@ type AdminInquiryDetailPageProps = {
 
 const SERVICE_LABELS: Record<string, string> = {
   consultation: 'Complimentary Consultation',
-  'focused-edit': 'The Focused Edit',
-  'signature-plan': 'The Signature Plan',
-  'private-concierge': 'The Private Concierge',
+  'focused-edit': 'Focused Session',
+  'signature-plan': 'Signature Planning Experience',
+  'private-concierge': 'Private Concierge Planning',
 };
 
 const asText = (value: FormDataEntryValue | null) => (typeof value === 'string' ? value.trim() : '');

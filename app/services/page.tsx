@@ -2,21 +2,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
+import AddonServiceGroup from '@/components/services/AddonServiceGroup';
+import PlanningPackageCards from '@/components/services/PlanningPackageCards';
 import FinalCTA from '@/components/layout/FinalCTA';
-import AuthorityStrip from '@/components/ui/AuthorityStrip';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import Hero from '@/components/ui/Hero';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
 import SectionDivider from '@/components/ui/SectionDivider';
+import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
+import { serviceAddonGroups } from '@/data/serviceAddons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import type { ReactNode } from 'react';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Services — Taylor-Made Baby Co.',
+  title: 'Baby Prep Services — Taylor-Made Baby Co.',
   description:
-    'Bespoke baby planning services from Taylor-Made Baby Co. covering registries, nursery design, events, and ongoing support.',
+    'Registry, gear, nursery, and home-prep support from Taylor-Made Baby Co. Get expert help choosing what to buy, what to skip, and what can wait.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Service consultation planning',
@@ -27,15 +30,117 @@ type ServiceChecklistProps = {
   className?: string;
 };
 
-const authorityItems = [
-  'Baby Gear Specialist',
-  'Brand-Trained Expertise',
-  'Private Planning for Modern Families',
+const packageIncludes = [
+  {
+    title: 'Stroller & Car Seat Decisions',
+    description:
+      'Narrow the options down to what fits your car, your routine, and how often you actually move through the day with baby.',
+  },
+  {
+    title: 'Registry Strategy',
+    description:
+      'Build a registry that reflects real life, with better decisions on what belongs on the list, what can wait, and what is not worth the clutter.',
+  },
+  {
+    title: 'Nursery Layout Planning',
+    description:
+      'Map sleep, feeding, diapering, and storage around how your space works so the room feels useful from day one.',
+  },
+  {
+    title: 'Babyproofing Preparation',
+    description:
+      'Get clear on which safety steps matter before arrival and which updates make more sense later as baby grows.',
+  },
+  {
+    title: 'Gear Purchasing Timeline',
+    description:
+      'Prioritize what to buy now, what to watch for on sale, what can be borrowed, and what is better held until later.',
+  },
+  {
+    title: 'Store Visit Prep',
+    description:
+      'Walk into a retailer with a shortlist, better questions, and a clearer plan so in-store time leads to real decisions.',
+  },
+];
+
+const testimonials = [
+  {
+    label: 'Gear decisions',
+    quote:
+      'With four years between our kids, we quickly realized we were a little out of practice - and that baby gear had definitely evolved. Taylor helped us figure out what we could reuse, what was worth upgrading, and what we could skip entirely. It made the whole process feel calmer and much less chaotic. We only wish we had known about her the first time.',
+    attribution: 'Philip & Lucia V., Santa Fe, NM · Parents of Two',
+  },
+  {
+    label: 'Budget strategy',
+    quote:
+      'As a single mom of three boys on a really tight budget, I was worried about how we were going to afford everything we needed. Taylor helped me figure out what was safe to buy secondhand, what to look for with open-box deals, and where to spend money wisely - all in a completely judgment-free way. I walked into the baby store knowing exactly what we needed, with no panic and no second-guessing.',
+    attribution: 'Cynthia C., Spokane, WA · Mother of Three',
+  },
+];
+
+const allAddOnServices = serviceAddonGroups.flatMap((group) => group.services);
+
+const pickAddOnServices = (titles: string[]) =>
+  titles.flatMap((title) => {
+    const service = allAddOnServices.find((entry) => entry.title === title);
+    return service ? [service] : [];
+  });
+
+const addOnSupportGroups = [
+  {
+    title: 'Preparation Support',
+    description:
+      'Extra help for registry structure, gear comparisons, and the timing of what to buy once the big categories start coming into focus.',
+    icon: 'planning' as const,
+    services: pickAddOnServices([
+      'Registry Clarity',
+      'Intentional Gear Planning',
+      'Intentional Purchasing Timeline',
+      'Shower Registry Support',
+      'Welcome Box Registration Setup',
+    ]),
+  },
+  {
+    title: 'Home & Safety',
+    description:
+      'Support for nursery flow, safer setup, car seat help, and the home details that make life with baby feel more workable.',
+    icon: 'homeSafety' as const,
+    services: pickAddOnServices([
+      'Home & Nursery Preparation',
+      'Gear Cleaning & Reset Strategy',
+      'CPST Car Seat Installation & Safety Checks',
+      'In-Home Baby & Toddler Proofing Installation',
+    ]),
+  },
+  {
+    title: 'Family & Caregiver Preparation',
+    description:
+      'Practical planning for grandparents, siblings, pets, caregivers, and families moving through a unique path to bringing baby home.',
+    icon: 'familySupport' as const,
+    services: pickAddOnServices([
+      'Grandparents Planning Session',
+      'Surrogacy & Adoption Planning Support',
+      'Sibling & Pet Preparation',
+      'Nanny Interview Preparation & Guidance',
+    ]),
+  },
+  {
+    title: 'Community & Events',
+    description:
+      'For families who want community connection or light celebration support around baby without making events the center of the work.',
+    icon: 'celebrations' as const,
+    services: pickAddOnServices([
+      'Virtual Parent Community Sessions',
+      'Phoenix Parent Circles',
+      'Gender Reveal Support',
+      'Post-Baby Gathering Support',
+    ]),
+  },
 ];
 
 function ServiceChecklist({ items, className = '' }: ServiceChecklistProps) {
   return (
-    <ul className={['space-y-6 leading-relaxed', className].filter(Boolean).join(' ')}>
+    <ul className={['space-y-4 leading-relaxed', className].filter(Boolean).join(' ')}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-4">
           <CheckIcon />
@@ -46,51 +151,278 @@ function ServiceChecklist({ items, className = '' }: ServiceChecklistProps) {
   );
 }
 
-function AddOnTitle({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return (
-    <h4 className={['text-xl md:text-2xl tracking-tight', className].filter(Boolean).join(' ')}>
-      {children}
-    </h4>
-  );
-}
-
 export default function ServicesPage() {
   return (
     <SiteShell currentPath="/services">
       <main className="site-main">
-        <Hero
-          image="/assets/hero/hero-03.jpg"
-          imageAlt=""
-          className="services-hero"
-        >
+        <Hero image="/assets/hero/hero-03.jpg" imageAlt="" className="services-hero">
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
-              Private Planning Services
+              Baby Planning Support
             </h1>
 
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Structured support from registry clarity to full home preparation.
+            <Body className="hero-load-reveal hero-load-reveal--1 max-w-2xl text-neutral-700">
+              Choose the level of guidance that fits your family, from a focused baby gear consultation to complete
+              registry, nursery, and home-preparation support.
             </Body>
 
-            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+            <p className="hero-load-reveal hero-load-reveal--2 max-w-2xl text-sm leading-relaxed text-black/70 md:text-base">
+              Strollers, car seats, sleep spaces, feeding gear, nursery setup, registry structure, travel gear, and
+              babyproofing.
+            </p>
+
+            <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/contact?service=consultation"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Schedule Your Complimentary Consultation
               </Link>
+
+              <Link
+                href="#choose-support"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Compare Support Options
+              </Link>
             </div>
           </div>
         </Hero>
 
-        <section className="border-y border-black/5 bg-white py-4">
-          <div className="container">
-            <p className="text-center text-sm uppercase tracking-[0.2em] text-black/60 md:hidden">
-              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
-            </p>
-            <AuthorityStrip items={authorityItems} className="hidden mt-0 md:flex md:gap-8" />
+        <MarketingSection
+          id="choose-support"
+          tone="white"
+          spacing="default"
+          container="default"
+          className="services-page-section"
+        >
+          <RevealOnScroll>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
+
+              <H2 className="mb-6 font-serif leading-tight">
+                Choose Your Support
+              </H2>
+
+              <Body className="mx-auto max-w-3xl text-neutral-600">
+                Here&apos;s the tea: you do not need to sort every registry and gear decision on your own. These three
+                packages are built to meet families at different levels of support, while keeping the work practical and
+                focused on what actually fits.
+              </Body>
+            </div>
+          </RevealOnScroll>
+
+          <PlanningPackageCards className="mt-16" />
+
+          <p className="mt-16 border-t border-black/5 pt-12 text-center text-base font-medium leading-relaxed text-charcoal/70 md:mt-20">
+            Not sure which option fits best?{' '}
+            <Link
+              href="/contact?service=consultation"
+              className="link-underline transition-colors duration-200 hover:text-charcoal"
+            >
+              Start with the complimentary consultation
+            </Link>
+            .
+          </p>
+        </MarketingSection>
+
+        <MarketingSection
+          tone="ivory"
+          spacing="default"
+          container="default"
+          className="services-page-section"
+        >
+          <RevealOnScroll>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
+
+              <H2 className="mb-6 font-serif leading-tight">
+                What Each Package Includes
+              </H2>
+
+              <Body className="mx-auto max-w-3xl text-neutral-600">
+                Every package is tailored, but the work stays grounded in real baby-prep outcomes: clearer decisions,
+                fewer unnecessary purchases, and a home setup that feels more ready for daily life.
+              </Body>
+            </div>
+          </RevealOnScroll>
+
+          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {packageIncludes.map((item) => (
+              <MarketingSurface key={item.title} className="h-full bg-white/90">
+                <H3 className="font-serif text-neutral-900">
+                  {item.title}
+                </H3>
+                <Body className="mt-4 text-neutral-600">
+                  {item.description}
+                </Body>
+              </MarketingSurface>
+            ))}
+          </div>
+        </MarketingSection>
+
+        <section
+          aria-labelledby="addon-support-services-heading"
+          className="services-page-section bg-white"
+        >
+          <div className="mx-auto max-w-6xl px-6 pb-24 md:px-8 lg:px-0">
+            <RevealOnScroll>
+              <div className="mx-auto mb-16 max-w-3xl text-center">
+                <div className="flex justify-center">
+                  <SectionDivider />
+                </div>
+
+                <p className="mt-8 text-sm uppercase tracking-[0.2em] text-charcoal/60">
+                  Optional Add-On Support
+                </p>
+
+                <h2
+                  id="addon-support-services-heading"
+                  className="mt-5 font-serif text-3xl tracking-tight text-black md:text-4xl"
+                >
+                  Add-On Support by Situation
+                </h2>
+
+                <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-neutral-700">
+                  Some families want extra help beyond the core package.
+                </p>
+                <p className="mx-auto mt-3 max-w-3xl text-center text-base leading-relaxed text-neutral-600">
+                  These add-ons layer in support for preparation, safety, caregivers, and community without taking over
+                  the main plan.
+                </p>
+              </div>
+            </RevealOnScroll>
+
+            <div>
+              {addOnSupportGroups.map((group, index) => (
+                <AddonServiceGroup
+                  key={group.title}
+                  headingId={`addon-group-${index}`}
+                  isFirst={index === 0}
+                  {...group}
+                />
+              ))}
+            </div>
           </div>
         </section>
+
+        <MarketingSection
+          tone="ivoryWarm"
+          spacing="default"
+          container="default"
+          className="services-page-section"
+        >
+          <RevealOnScroll>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
+
+              <p className="mt-8 text-sm uppercase tracking-[0.2em] text-charcoal/60">
+                Retailer Expertise
+              </p>
+
+              <H2 className="mt-5 font-serif">
+                Retailer Expertise &amp; Partnerships
+              </H2>
+
+              <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
+                Retail support is not the main service. It is one more way I help families prepare before they shop,
+                identify the right products, and use store appointments more efficiently.
+              </Body>
+            </div>
+          </RevealOnScroll>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+            <MarketingSurface className="flex h-full flex-col rounded-2xl p-8 md:p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                In partnership with Tot Squad
+              </p>
+
+              <div className="mt-6 flex h-16 items-center">
+                <Image
+                  src="/assets/brand/totsquad.png"
+                  width={220}
+                  height={52}
+                  alt="Tot Squad"
+                  className="h-auto w-auto max-w-[9rem] object-contain opacity-85"
+                />
+              </div>
+
+              <H3 className="mt-6 font-serif">
+                Target Baby Concierge
+              </H3>
+
+              <Body className="mt-4 text-neutral-600">
+                Families using Target Baby Concierge can access free one-on-one help for registry and gear decisions.
+                I help you show up with a shortlist, clearer questions, and a better sense of what actually fits.
+              </Body>
+
+              <ServiceChecklist
+                items={[
+                  'Prep before the appointment',
+                  'Shortlist strollers, car seats, and feeding gear',
+                  'Use store time to compare the right products',
+                ]}
+                className="mt-8 text-charcoal/80"
+              />
+
+              <a
+                href="https://babyconcierge.totsquad.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--primary mt-10 w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Book Target Baby Concierge
+              </a>
+            </MarketingSurface>
+
+            <MarketingSurface className="flex h-full flex-col rounded-2xl p-8 md:p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                Retailer expertise with Albee Baby
+              </p>
+
+              <div className="mt-6 flex h-16 items-center">
+                <Image
+                  src="/assets/logos/albeebaby-round.png"
+                  width={120}
+                  height={120}
+                  alt="Albee Baby"
+                  className="h-[31px] w-auto object-contain opacity-85"
+                />
+              </div>
+
+              <H3 className="mt-6 font-serif">
+                NYC Store Visit Prep
+              </H3>
+
+              <Body className="mt-4 text-neutral-600">
+                If you are planning an in-store visit in NYC, I help you sort registry priorities, budget guardrails,
+                and which big-ticket items are worth testing in person before you walk in.
+              </Body>
+
+              <ServiceChecklist
+                items={[
+                  'Know what to test before you go',
+                  'Compare the right gear in store',
+                  'Leave with clearer next steps',
+                ]}
+                className="mt-8 text-charcoal/80"
+              />
+
+              <Link
+                href="/contact"
+                className="btn btn--secondary mt-10 w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Ask About Store Visit Prep
+              </Link>
+            </MarketingSurface>
+          </div>
+        </MarketingSection>
 
         <MarketingSection
           tone="white"
@@ -98,620 +430,50 @@ export default function ServicesPage() {
           container="default"
           className="services-page-section"
         >
-          <div className="max-w-6xl mx-auto">
-          
-              <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
-                <div className="flex justify-center">
-                  <SectionDivider />
-                </div>
-
-                <H2 className="mb-6 font-serif leading-tight">
-                  Support, structured around you.
-                </H2>
-
-                <Body className="mx-auto mb-8 max-w-3xl text-neutral-600">
-                  Led by a baby gear specialist experienced in guiding families through major purchasing decisions and
-                  real-life setup planning.
-                </Body>
-
-                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-2 text-center text-xs uppercase leading-relaxed tracking-[0.25em] text-neutral-500">
-                  <span className="h-px w-10 bg-neutral-300" />
-                  Choose Your Planning Experience
-                  <span className="h-px w-10 bg-neutral-300" />
-                </div>
+          <RevealOnScroll>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
+                <SectionDivider />
               </div>
-            
 
-            
-              <div className="mt-20 grid gap-14 md:mt-24 md:gap-20 services-packages-grid">
+              <H2 className="mt-5 font-serif">
+                What Families Say
+              </H2>
 
-              {/* Focused Edit */}
-              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/60 transition-[transform,box-shadow] duration-300 hover:shadow-md">
-                <H3 className="mb-4 font-serif">The Focused Edit</H3>
-                <p className="text-sm text-neutral-600 mt-2 mb-4">
-                  Ideal for one key decision.
+              <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
+                Families usually come away with clearer gear decisions, less registry guesswork, better spending
+                choices, and a setup that feels much more ready for real life.
+              </Body>
+            </div>
+          </RevealOnScroll>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+            {testimonials.map((testimonial) => (
+              <MarketingSurface key={testimonial.attribution} className="h-full rounded-2xl bg-[#F7F4EF] p-8 md:p-10">
+                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                  {testimonial.label}
                 </p>
 
-                <Body className="mb-6 text-neutral-600">
-                  One dedicated session to refine a key decision — registry, nursery layout, or gear shortlist.
-                </Body>
-
-                <ServiceChecklist
-                  items={[
-                    '1 Private Session',
-                    'Targeted Recommendations',
-                    'Written Follow-Up Notes',
-                  ]}
-                  className="mb-8 text-charcoal/80"
-                />
-
-                <Link
-                  href="/contact?service=focused-edit"
-                  className="btn btn--secondary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  Reserve the Focused Edit <span aria-hidden className="ml-2">→</span>
-                </Link>
-              </MarketingSurface>
-
-              {/* Signature Plan */}
-              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/70 shadow-md transition-[transform,box-shadow] duration-300 hover:shadow-md">
-                <div className="mb-4">
-                  <span className="pointer-events-none inline-block rounded-full border border-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-black/70 select-none">
-                    Most Popular
-                  </span>
-                </div>
-                <H3 className="mb-4 font-serif">The Signature Plan</H3>
-                <p className="text-sm text-neutral-600 mt-2 mb-4">
-                  Best for full preparation from registry to nursery.
-                </p>
-
-                <Body className="mb-6 text-neutral-600">
-                  A structured multi-session approach guiding you from registry decisions to nursery and home setup.
-                </Body>
-
-                <ServiceChecklist
-                  items={[
-                    '3 Planning Sessions',
-                    'Registry + Nursery Planning',
-                    'Implementation Roadmap',
-                  ]}
-                  className="mb-8 text-charcoal/80"
-                />
-
-                <Link
-                  href="/contact?service=signature-plan"
-                  className="btn btn--primary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  Begin Your Signature Plan <span aria-hidden className="ml-2">→</span>
-                </Link>
-              </MarketingSurface>
-
-              {/* Private Concierge */}
-              <MarketingSurface className="marketing-card-hover min-h-0 h-full flex flex-col bg-white/60 transition-[transform,box-shadow] duration-300 hover:shadow-md">
-                <H3 className="mb-4 font-serif">The Private Concierge</H3>
-                <p className="text-sm text-neutral-600 mt-2 mb-4">
-                  For families who want ongoing, white-glove guidance.
-                </p>
-
-                <Body className="mb-6 text-neutral-600">
-                  Ongoing, high-touch guidance with priority scheduling and direct support throughout your pregnancy.
-                </Body>
-
-                <ServiceChecklist
-                  items={[
-                    'Ongoing Support',
-                    'Priority Scheduling',
-                    'Direct Message Access',
-                  ]}
-                  className="mb-8 text-charcoal/80"
-                />
-
-                <Link
-                  href="/contact?service=private-concierge"
-                  className="btn btn--secondary mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  Explore Private Concierge <span aria-hidden className="ml-2">→</span>
-                </Link>
-              </MarketingSurface>
-
-              </div>
-            
-
-            <p className="mt-16 mx-auto text-center text-sm text-charcoal/60 md:mt-20">
-              Trusted by families across Scottsdale and beyond.
-            </p>
-
-            <p className="mt-20 border-t border-black/5 pt-12 text-center text-base font-medium text-charcoal/70 leading-relaxed md:mt-24">
-              Not sure which option fits best?{' '}
-              <Link
-                href="/contact?service=consultation"
-                className="link-underline transition-colors duration-200 hover:text-charcoal"
-              >
-                Schedule Your Complimentary Consultation
-              </Link>
-            </p>
-          </div>
-        </MarketingSection>
-
-        <section className="design-experience-wrapper section-base services-page-section relative overflow-visible">
-          <div className="design-experience-inner">
-            
-              <div className="text-center mb-20 md:mb-24">
-                <div className="flex justify-center">
-                  <SectionDivider />
-                </div>
-
-                <H2 className="mb-4 font-serif">
-                  Design Your Experience
-                </H2>
-                <Body className="mx-auto max-w-2xl text-neutral-600">
-                  Flexible add-ons that complement your core package — tailored to your registry, home, and milestones.
-                </Body>
-                <div className="mt-16 flex justify-center">
-                  <p className="text-center text-sm uppercase tracking-[0.2em] text-charcoal/60">
-                    Optional Add-Ons
+                <div className="relative mt-6">
+                  <QuoteMark />
+                  <p className="relative text-lg font-serif leading-relaxed text-neutral-900 md:text-xl">
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </div>
-                <div className="mx-auto mt-12 h-px w-full max-w-5xl bg-black/5" aria-hidden="true" />
-                <div className="mt-10 flex justify-center">
-                  <SectionDivider />
-                </div>
-              </div>
-            
 
-            <div className="category-grid">
-              
-                <div className="service-category">
-                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
-                  Planning
-                </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Grandparents Planning Session
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Planning support for grandparents and extended family.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Family alignment guidance',
-                        'Registry gifting clarity',
-                        'Practical preparation plan',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Surrogacy &amp; Adoption Planning Support
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Tailored planning for families growing through surrogacy or adoption.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Timeline and travel coordination',
-                        'Registry strategy alignment',
-                        'Newborn setup planning',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Sibling &amp; Pet Preparation
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Safety-first transition planning for siblings and pets.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Introduction game plan',
-                        'Safety and routine guidance',
-                        'Adjustment support strategy',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Nanny Interview Preparation &amp; Guidance
-                    </AddOnTitle>
-
-                    <Body className="mb-8 text-neutral-600">
-                      Structured support to help you confidently interview and evaluate caregivers for your growing family.
-                    </Body>
-
-                    <ServiceChecklist
-                      items={[
-                        'Customized interview question framework',
-                        'Compatibility and experience evaluation guidance',
-                        'Post-interview clarity and decision support',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-                </div>
-                </div>
-              
-
-              
-                <div className="service-category mt-20 md:mt-28">
-                <hr className="my-10 border-black/5 md:my-14" />
-                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
-                  Home &amp; Gear
-                </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Postpartum Home Setup
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Recovery-focused setup for a calm, functional daily flow.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Recovery-first room planning',
-                        'Feeding and sleep station flow',
-                        'Essentials organization strategy',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Gear Cleaning &amp; Reset Strategy
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Guidance for cleaning and preparing gear for safe reuse.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Sanitizing best practices',
-                        'Reuse readiness checklist',
-                        'Donation and resale prep',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                </div>
-                </div>
-              
-
-              
-                <div className="service-category mt-20 md:mt-28">
-                <hr className="my-10 border-black/5 md:my-14" />
-                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
-                  Safety
-                </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
-                      Safety &amp; Installation
-                    </span>
-
-                    <AddOnTitle className="mt-5 mb-5">
-                      CPST Car Seat Installation &amp; Safety Checks
-                    </AddOnTitle>
-
-                    <Body className="mt-4 mb-8 text-charcoal/80">
-                      Certified car seat support provided in collaboration with Lani Car Seat Consulting, offering both in-person installation in Phoenix and virtual safety checks nationwide.
-                    </Body>
-
-                    <ServiceChecklist
-                      items={[
-                        'Professional installation and hands-on harness education',
-                        'Virtual safety checks and compatibility review',
-                        'Ongoing fit guidance as your child grows',
-                      ]}
-                      className="mt-6 text-charcoal/80"
-                    />
-
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <span className="uppercase text-xs tracking-widest text-charcoal/60">
-                      SAFETY &amp; INSTALLATION
-                    </span>
-
-                    <AddOnTitle className="mt-5 mb-5">
-                      In-Home Baby &amp; Toddler Proofing Installation
-                    </AddOnTitle>
-
-                    <Body className="mt-4 mb-8 text-charcoal/80">
-                      Professional home safety assessments and childproofing installation provided in collaboration with
-                      Dustin Dastrup of Arizona Childproofers, the only IACS Certified Professional Childproofer in
-                      Arizona. This service helps families prepare their home before babies begin rolling, crawling,
-                      climbing, and exploring.
-                    </Body>
-
-                    <ServiceChecklist
-                      items={[
-                        'In-home childproofing safety assessment',
-                        'Professional installation of gates, locks, and safety devices',
-                        'Pool barrier and hazard risk guidance',
-                        'Personalized safety recommendations as your child grows',
-                      ]}
-                      className="mt-6 text-charcoal/80"
-                    />
-
-                  </MarketingSurface>
-                </div>
-                </div>
-
-              
-                <div className="service-category mt-20 md:mt-28">
-                <hr className="my-10 border-black/5 md:my-14" />
-                <h3 className="text-sm uppercase tracking-[0.2em] text-charcoal/60 text-center mb-4">
-                  Events &amp; Coordination
-                </h3>
-                <div className="addon-grid mt-12 !grid-cols-1 md:!grid-cols-2 xl:!grid-cols-2 !gap-12 md:!gap-14 xl:!gap-16">
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <p className="text-xs uppercase tracking-wide text-neutral-500 mb-4">Frequently Requested</p>
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Shower Registry Coordination
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Registry support before invitations go out.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Registry audit and refinement',
-                        'Priority item sequencing',
-                        'Gift flow timing strategy',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Gender Reveal Planning &amp; Coordination
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Personalized reveal planning with polished, low-stress coordination.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Reveal concept planning',
-                        'Vendor and timeline coordination',
-                        'Day-of setup guidance',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Welcome Box Registration Setup
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Support for retailer perks, welcome programs, and discounts.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Retailer perk mapping',
-                        'Completion discount tracking',
-                        'Enrollment setup support',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-
-                  <MarketingSurface className="marketing-card-hover h-full">
-                    <AddOnTitle className="mb-5 font-serif leading-tight">
-                      Sip &amp; See Planning Support
-                    </AddOnTitle>
-                    <Body className="mb-8 text-neutral-600">
-                      Thoughtful support for a smooth post-arrival gathering.
-                    </Body>
-                    <ServiceChecklist
-                      items={[
-                        'Event timeline planning',
-                        'Registry update guidance',
-                        'Gift coordination strategy',
-                      ]}
-                      className="text-charcoal/80"
-                    />
-                  </MarketingSurface>
-                </div>
-                </div>
-
-            </div>
-          </div>
-
-        </section>
-
-
-        <section className="services-page-section bg-white pb-6 pt-2 md:pb-8 md:pt-4">
-          <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
-            <div className="flex justify-center">
-              <SectionDivider />
-            </div>
-            <H2 className="mt-4 font-serif">Store Partnerships</H2>
-          </div>
-        </section>
-
-        <MarketingSection
-          id="target-baby-concierge"
-          tone="white"
-          spacing="default"
-          variant="wide"
-          className="relative overflow-hidden services-blueprint-section services-page-section"
-        >
-          <div className="services-blueprint-frame">
-            <div className="services-blueprint-shell">
-              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-5 p-5 md:p-6">
-                <div className="services-blueprint-brand-lockup">
-                  <div className="services-blueprint-partnership">
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                    <span>In partnership with</span>
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                  </div>
-
-                  <div className="inline-flex w-full flex-col items-center justify-center gap-1">
-                    <Image
-                      src="/assets/brand/totsquad.png"
-                      width={360}
-                      height={84}
-                      alt="Tot Squad"
-                      className="h-auto w-full max-w-[9rem] object-contain opacity-85"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-1 flex flex-col items-start">
-                  <div className="flex w-full justify-center">
-                    <SectionDivider />
-                  </div>
-                  <H2 className="services-blueprint-title">
-                    Baby Concierge Support Through Target
-                  </H2>
-                </div>
-
-                <H3 className="services-blueprint-kicker font-serif">
-                  Free one-on-one support as you build your registry.
-                </H3>
-
-                <Body className="services-blueprint-body">
-                  Families who register with Target can access free virtual Baby Concierge sessions powered by Tot
-                  Squad. Specialists help compare key gear, understand what you truly need, and build or refine your
-                  Target registry with confidence.
-                </Body>
-
-                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-                  <a
-                    href="https://babyconcierge.totsquad.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--primary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                  >
-                    Book Target Baby Concierge
-                  </a>
-                </div>
-              </MarketingSurface>
-
-              <div className="services-blueprint-visual" aria-hidden="true">
-                <Image
-                  src="/assets/editorial/targetinstore.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 66vw, 100vw"
-                  className="services-blueprint-visual-image"
-                />
-              </div>
-            </div>
-          </div>
-        </MarketingSection>
-
-        <MarketingSection tone="white" spacing="default" variant="wide" className="relative overflow-hidden services-blueprint-section services-page-section">
-          <div className="services-blueprint-frame">
-            <div className="services-blueprint-shell">
-              <MarketingSurface className="services-blueprint-content services-blueprint-surface w-full space-y-5 p-5 md:p-6">
-                <div className="services-blueprint-brand-lockup">
-                  <div className="services-blueprint-partnership">
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                    <span>In partnership with</span>
-                    <span aria-hidden className="services-blueprint-partnership-line" />
-                  </div>
-
-                  <a
-                    href="https://www.dpbolvw.net/click-101548494-15518289"
-                    target="_top"
-                    rel="sponsored noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center"
-                  >
-                    <Image
-                      src="/assets/logos/albeebaby-round.png"
-                      width={200}
-                      height={200}
-                      alt="Shop AlbeeBaby.com"
-                      className="h-[31px] w-auto object-contain opacity-85"
-                    />
-                  </a>
-                </div>
-
-                <div className="mt-1 flex flex-col items-start">
-                  <div className="flex w-full justify-center">
-                    <SectionDivider />
-                  </div>
-                  <H2 className="services-blueprint-title">
-                    NYC In-Store Blueprint
-                  </H2>
-                </div>
-
-                <Body className="text-neutral-600">
-                  Designed for families planning an in-store visit in NYC.
-                </Body>
-
-                <H3 className="services-blueprint-kicker font-serif">
-                  Walk in prepared and compare with confidence.
-                </H3>
-
-                <Body className="services-blueprint-body">
-                  Before your appointment, I handle the planning — registry priorities, budget guardrails, and a gear
-                  shortlist tailored to your home.
-                </Body>
-
-                <Body className="services-blueprint-body">
-                  You arrive ready to test and compare with purpose, while the Albeebaby team supports a smooth
-                  in-store experience.
-                </Body>
-
-                <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-                  <Link
-                    href="/contact"
-                    className="btn btn--secondary w-full justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                  >
-                    Explore the NYC Blueprint
-                  </Link>
-                </div>
-              </MarketingSurface>
-
-              <div className="services-blueprint-visual" aria-hidden="true">
-                <Image
-                  src="/assets/brand/albeebabystore.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 66vw, 100vw"
-                  className="services-blueprint-visual-image"
-                />
-              </div>
-            </div>
-          </div>
-        </MarketingSection>
-        <MarketingSection
-          tone="ivoryWarm"
-          spacing="default"
-          container="default"
-          className="services-page-section mt-6 !border-t-0 md:mt-8"
-        >
-          
-            <div className="mx-auto max-w-3xl px-6 py-10 text-center space-y-8 md:px-10">
-              <div className="relative px-6 py-10 md:px-10">
-                <QuoteMark />
-                <p className="relative text-lg font-serif leading-relaxed md:text-xl">
-                  “As a single mom of three boys on a really tight budget, I was worried about how we were going
-                  to afford everything we needed. Taylor helped me figure out what was safe to buy secondhand,
-                  what to look for with open-box deals, and where to spend money wisely — all in a completely
-                  judgment-free way. I walked into the baby store knowing exactly what we needed — no panic, no
-                  second-guessing, just a plan.”
+                <p className="mt-8 text-sm text-neutral-600">
+                  - {testimonial.attribution}
                 </p>
-              </div>
-              <p className="text-neutral-600">— Cynthia C., Spokane, WA · Mother of Three</p>
-            </div>
-          
+              </MarketingSurface>
+            ))}
+          </div>
         </MarketingSection>
 
-        <FinalCTA className="services-page-section mt-8 md:mt-10" />
+        <FinalCTA
+          className="services-page-section mt-8 md:mt-10"
+          title="Start your baby preparation with confidence."
+          description="Book a consultation and get clear guidance on registry decisions, gear choices, nursery setup, and the preparation ahead."
+        />
       </main>
     </SiteShell>
   );

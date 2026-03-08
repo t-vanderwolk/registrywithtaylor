@@ -20,13 +20,13 @@ export default function BlogSoftCTA({ className = '' }: BlogSoftCTAProps) {
       <RevealOnScroll>
         <div className="mx-auto max-w-2xl space-y-6">
           <span className="block text-xs uppercase tracking-[0.28em] text-charcoal/55">
-            Thoughtful Support
+            Baby Prep Support
           </span>
           <H2 className="font-serif leading-tight text-neutral-900">
-            Start with confidence.
+            Still sorting registry and gear decisions?
           </H2>
           <Body className="mx-auto text-charcoal/75">
-            Clear, calm preparation begins with one thoughtful conversation.
+            I help families figure out what to buy, what to skip, and what can wait.
           </Body>
           <div className="pt-2">
             <Link

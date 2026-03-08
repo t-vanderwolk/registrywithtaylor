@@ -5,18 +5,19 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
 import { Body } from '@/components/ui/MarketingHeading';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
-import { BLOG_CATEGORIES, type BlogCategory } from '@/lib/blogCategories';
+import { BLOG_GUIDES_TITLE, type BlogCategory } from '@/lib/blogCategories';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Blog — Taylor-Made Baby Co.',
+  title: 'Baby Prep Guides — Taylor-Made Baby Co.',
   description:
-    'Notes on thoughtful registry planning, nursery design, and calm preparation from Taylor-Made Baby Co.',
+    'Practical guides on baby gear, registry strategy, nursery setup, and what actually belongs on the list.',
   keywords: [
-    ...BLOG_CATEGORIES,
+    'baby prep guides',
     'baby registry planning',
+    'stroller and car seat guidance',
     'nursery planning',
     'baby gear guidance',
     'Taylor-Made Baby Co.',
@@ -128,10 +129,10 @@ export default async function BlogPage() {
         >
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
-              The Journal
+              {BLOG_GUIDES_TITLE}
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Editorial notes on registry planning, nursery decisions, and preparing with clarity.
+              Practical guidance on baby gear, registry strategy, nursery setup, and what actually belongs on the list.
             </Body>
           </div>
         </Hero>

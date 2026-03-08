@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: DEFAULT_SITE_TITLE,
     description:
-      'Personalized registry and nursery planning for modern families. Thoughtful guidance and intentional preparation.',
+      'Personalized help with registries, strollers, car seats, nursery planning, and home prep.',
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: 'en_US',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_NAME,
-    description: 'Calm, personalized baby planning so parenthood starts with confidence.',
+    description: 'Baby gear, registry, and nursery guidance for families who want to buy with purpose.',
     images: [DEFAULT_OG_IMAGE_PATH],
   },
 };

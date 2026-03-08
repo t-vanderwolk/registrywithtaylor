@@ -225,7 +225,7 @@ export default function ContactInquiryForm({
               <option value="strategic-guidance">Strategic guidance</option>
               <option value="nursery-planning">Nursery planning</option>
               <option value="full-purchasing-oversight">Full purchasing oversight</option>
-              <option value="ongoing-concierge">Ongoing concierge</option>
+              <option value="ongoing-concierge">Ongoing planning support</option>
             </select>
           </div>
         )}

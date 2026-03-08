@@ -1,5 +1,5 @@
 import type { AffiliateNetwork } from '@prisma/client';
-import type { BlogCategory } from '@/lib/blogCategories';
+import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
@@ -265,7 +265,7 @@ export default function PostArticleView({
                   {post.title}
                 </H1>
                 <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
-                  {post.category}
+                  {getBlogCategoryLabel(post.category)}
                 </span>
                 {headerExcerpt && (
                   <Body className="max-w-[40ch] text-charcoal/80">
@@ -291,7 +291,7 @@ export default function PostArticleView({
             <RevealOnScroll delayMs={90}>
               <MarketingSurface className="mt-10 bg-[#F7F4EF] p-6 text-sm leading-relaxed text-charcoal/70 md:p-6">
                 This article includes affiliate relationships with select brand partners chosen for relevance to the
-                topic. Recommendations remain editorial, and Taylor-Made Baby Co. may earn a commission if you
+                topic. Recommendations stay practical and independently selected, and Taylor-Made Baby Co. may earn a commission if you
                 decide to purchase through linked partners.
               </MarketingSurface>
             </RevealOnScroll>
@@ -400,7 +400,7 @@ export default function PostArticleView({
                     Referenced Brand Partners
                   </H2>
                   <Body className="text-charcoal/68">
-                    Mentioned for context and planning relevance within this article.
+                    Mentioned because they are relevant to the decisions covered in this guide.
                   </Body>
                 </div>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -460,7 +460,7 @@ export default function PostArticleView({
                   Continue Reading
                 </span>
                 <H2 className="font-serif text-neutral-900">
-                  More from the Journal
+                  More {BLOG_GUIDES_TITLE}
                 </H2>
               </div>
             </RevealOnScroll>

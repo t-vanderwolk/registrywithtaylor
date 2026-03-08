@@ -16,9 +16,9 @@ const STATUS_FILTERS: StatusFilter[] = ['all', 'new', 'reviewed', 'completed'];
 
 const SERVICE_LABELS: Record<string, string> = {
   consultation: 'Complimentary Consultation',
-  'focused-edit': 'The Focused Edit',
-  'signature-plan': 'The Signature Plan',
-  'private-concierge': 'The Private Concierge',
+  'focused-edit': 'Focused Session',
+  'signature-plan': 'Signature Planning Experience',
+  'private-concierge': 'Private Concierge Planning',
 };
 
 const normalizeStatusFilter = (value?: string): StatusFilter =>

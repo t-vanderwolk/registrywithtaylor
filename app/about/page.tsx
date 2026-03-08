@@ -7,12 +7,16 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import {
+  WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS,
+  WHAT_I_HELP_FAMILIES_CHOOSE_TITLE,
+} from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
   title: 'About — Taylor-Made Baby Co.',
   description:
-    'Learn about Taylor-Made Baby Co. and the thoughtful, practical approach behind calm baby preparation.',
+    'Learn how Taylor-Made Baby Co. helps families sort baby gear, registries, nurseries, and home prep with practical expert guidance.',
   path: '/about',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'About Taylor-Made Baby Co.',
@@ -32,11 +36,11 @@ export default function AboutPage() {
             </p>
 
             <h1 className="hero-load-reveal hero-load-reveal--1 font-serif text-5xl md:text-6xl tracking-tight text-neutral-900 max-w-3xl">
-              A Thoughtful Specialist in the Details of Early Parenthood
+              A Baby Gear Expert for the Real-Life Details of Early Parenthood
             </h1>
 
             <Body className="hero-load-reveal hero-load-reveal--2 max-w-xl text-neutral-700">
-              I guide families through registry, nursery, and gear decisions with clarity and care.
+              I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast.
             </Body>
 
             <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
@@ -70,34 +74,33 @@ export default function AboutPage() {
               <div className="space-y-8">
                 <RevealOnScroll delayMs={60}>
                   <H2 className="font-serif text-neutral-900">
-                    A Thoughtful Specialist in the Details
+                    A Baby Gear Expert in the Details
                   </H2>
                 </RevealOnScroll>
 
                 <RevealOnScroll delayMs={120}>
                   <Body className="max-w-2xl text-neutral-700">
-                    I am a Baby Gear Expert and Registry Consultant focused on practical clarity for modern families.
-                    My work sits at the intersection of safety, design, and real-world usability.
+                    I am a Baby Gear Expert and Registry Consultant who helps families figure out what to buy, what to
+                    skip, and what can wait.
                   </Body>
                 </RevealOnScroll>
 
                 <RevealOnScroll delayMs={180}>
                   <div className="max-w-2xl space-y-6 text-left">
                     <Body className="text-neutral-700">
-                      With hands-on experience across premium retail floors, national pilot programs, and private consulting,
-                      I&apos;ve guided hundreds of families through the earliest decisions of parenthood - the ones that feel
-                      small until you realize they&apos;re not.
+                      Here&apos;s the tea: baby gear gets confusing fast, and the early decisions matter more than they
+                      look at first.
                     </Body>
 
                     <Body className="text-neutral-700">
-                      From registry strategy to nursery planning to daily gear systems, my work lives at the intersection of
-                      safety, design, and real-life functionality - the place where beautiful meets practical and trends meet
-                      reality.
+                      With hands-on experience across premium retail floors, national pilot programs, and private
+                      consulting, I&apos;ve guided hundreds of families through the early decisions that shape day-to-day
+                      life with a baby.
                     </Body>
 
                     <Body className="text-neutral-700">
-                      This kind of planning is nuanced. It&apos;s personal. And it&apos;s often unfolding during one of the most
-                      tender, vulnerable seasons of someone&apos;s life.
+                      From registry structure to stroller and car seat strategy to feeding gear, sleep space, and
+                      nursery flow, my work lives at the intersection of safety, design, and real-life functionality.
                     </Body>
 
                     <Body className="text-neutral-700">
@@ -108,27 +111,19 @@ export default function AboutPage() {
                     <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
 
                     <Body className="text-neutral-700">
-                      My role isn&apos;t to sell you more. It&apos;s to help you choose well. With clarity. With intention. With
-                      confidence - because parenthood should start with confidence, not confusion.
+                      My role isn&apos;t to sell you more. It&apos;s to help you build a baby setup that works in your actual
+                      home and routine.
                     </Body>
 
+                    <Body className="font-medium text-neutral-900">{WHAT_I_HELP_FAMILIES_CHOOSE_TITLE}</Body>
+
                     <ul className="space-y-5 pt-2 leading-relaxed text-neutral-700">
-                      <li className="flex items-start gap-4">
-                        <CheckIcon />
-                        <span>Strollers and car seats</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <CheckIcon />
-                        <span>Nursery design and room flow</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <CheckIcon />
-                        <span>Feeding essentials</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <CheckIcon />
-                        <span>Registry strategy</span>
-                      </li>
+                      {WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS.map((item) => (
+                        <li key={item} className="flex items-start gap-4">
+                          <CheckIcon />
+                          <span>{item}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </RevealOnScroll>
@@ -147,9 +142,9 @@ export default function AboutPage() {
 
             <RevealOnScroll delayMs={90}>
               <div className="space-y-1 pt-1">
-                <H3 className="font-serif text-neutral-900">Clarity over noise.</H3>
+                <H3 className="font-serif text-neutral-900">Real life over registry noise.</H3>
                 <H3 className="font-serif text-neutral-900">Fit over features.</H3>
-                <H3 className="font-serif text-neutral-900">Confidence over consumption.</H3>
+                <H3 className="font-serif text-neutral-900">Buy with purpose, not pressure.</H3>
               </div>
             </RevealOnScroll>
 
@@ -160,7 +155,7 @@ export default function AboutPage() {
                   better decisions. They create pressure.
                 </Body>
 
-                <Body className="text-neutral-700">The Taylor-Made approach is built on discernment.</Body>
+                <Body className="text-neutral-700">The Taylor-Made approach is built on real-life fit.</Body>
 
                 <Body className="text-neutral-700">
                   We slow the process down.
@@ -170,7 +165,7 @@ export default function AboutPage() {
                   We consider your space, your routines, your budget, and your long-term plans.
                 </Body>
 
-                <Body className="text-neutral-700">Then we build from there.</Body>
+                <Body className="text-neutral-700">Then we figure out what to buy, what to skip, and what can wait.</Body>
 
                 <Body className="text-neutral-700">
                   No panic buying.
@@ -180,7 +175,7 @@ export default function AboutPage() {
                   No &quot;just in case&quot; overload.
                 </Body>
 
-                <Body className="text-neutral-700">Just thoughtful decisions that make sense for your real life.</Body>
+                <Body className="text-neutral-700">Just practical decisions that make sense for your real life.</Body>
 
                 <Body className="text-neutral-700">Because the goal isn&apos;t to have everything.</Body>
 
@@ -200,8 +195,8 @@ export default function AboutPage() {
 
             <RevealOnScroll delayMs={90}>
               <div className="space-y-6">
-                <H3 className="text-neutral-900">Most baby guidance focuses on products.</H3>
-                <H3 className="text-neutral-900">This focuses on people.</H3>
+                <H3 className="text-neutral-900">Most baby guidance starts with products.</H3>
+                <H3 className="text-neutral-900">This starts with how you actually live.</H3>
 
                 <Body className="text-neutral-700">
                   Your home.
@@ -217,7 +212,7 @@ export default function AboutPage() {
                 <Body className="text-neutral-700">It isn&apos;t a sales floor disguised as advice.</Body>
                 <Body className="text-neutral-700">And it isn&apos;t a checklist handed over and forgotten.</Body>
 
-                <Body className="text-neutral-700">It&apos;s structured, private planning support - designed to evolve with you.</Body>
+                <Body className="text-neutral-700">It&apos;s structured support for registry decisions, gear comparisons, nursery setup, and the daily details around getting ready for baby.</Body>
 
                 <Body className="text-neutral-700">
                   Baby prep is nuanced. Emotional. Sometimes overwhelming in ways no one talks about.
@@ -229,9 +224,9 @@ export default function AboutPage() {
                 </Body>
 
                 <H3 className="text-neutral-900">Not louder.</H3>
-                <H3 className="text-neutral-900">Just clearer.</H3>
+                <H3 className="text-neutral-900">Just more useful.</H3>
 
-                <Body className="text-neutral-700">Because when preparation feels aligned, everything ahead feels lighter.</Body>
+                <Body className="text-neutral-700">Because when baby prep fits your real life, the next season feels a whole lot steadier.</Body>
               </div>
             </RevealOnScroll>
           </div>
@@ -241,7 +236,7 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto text-center space-y-10">
             <RevealOnScroll>
               <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">
-                Only partners with the best.
+                Trusted retail and service partners.
               </p>
             </RevealOnScroll>
 

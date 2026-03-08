@@ -10,23 +10,23 @@ import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
 export const metadata = {
   title: 'Get in Touch | Taylor-Made Baby Co.',
   description:
-    'Have a question about registry planning, nursery design, or private concierge services? Get in touch for personalized guidance.',
+    'Have a question about baby gear, registry strategy, nursery planning, or home prep? Get in touch for personalized guidance.',
 };
 
 const serviceConfig = {
   'focused-edit': {
-    label: 'The Focused Edit',
-    intro: 'A refined review of your registry or planning decisions.',
+    label: 'Focused Session',
+    intro: 'A practical review of your registry, gear shortlist, or one baby-prep decision.',
     fields: ['registryLink', 'dueDate', 'topConcerns'],
   },
   'signature-plan': {
-    label: 'The Signature Plan',
-    intro: 'Full planning support across registry, nursery, and gear.',
+    label: 'Signature Prep Support',
+    intro: 'Hands-on support across registry strategy, nursery setup, and gear decisions.',
     fields: ['dueDate', 'homeType', 'budgetRange', 'biggestStress'],
   },
   'private-concierge': {
-    label: 'The Private Concierge',
-    intro: 'White-glove planning with ongoing, high-touch support.',
+    label: 'Ongoing Planning Support',
+    intro: 'Continued expert help as you sort registry, gear, and home-prep details.',
     fields: ['dueDate', 'location', 'levelOfSupport', 'timeline'],
   },
 } as const;
@@ -61,7 +61,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
               Get in Touch
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Whether you're exploring services or have a specific question, I'm here to help guide your next step.
+              Whether you need help with a registry, gear decision, nursery setup, or home prep, I&apos;m here to help you sort the next step.
             </Body>
           </div>
         </Hero>

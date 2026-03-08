@@ -8,7 +8,7 @@ const footerLinks = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Guides', href: '/blog' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -38,7 +38,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
           />
         )}
         <p className="text-sm text-[var(--color-muted)] body-copy--full">
-          Private, personalized baby planning for modern families.
+          Private baby gear, registry, and nursery support for modern families.
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <a

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Body, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { resolveBlogCoverImage } from '@/lib/blog/images';
+import { getBlogCategoryLabel } from '@/lib/blogCategories';
 
 type JournalCardProps = {
   title: string;
@@ -55,7 +56,7 @@ export default function JournalCard({
           </p>
 
           <span className="block text-xs uppercase tracking-[0.2em] text-charcoal/50">
-            {category}
+            {getBlogCategoryLabel(category)}
           </span>
 
           <H3 className="font-serif leading-tight tracking-tight text-neutral-900">
@@ -73,7 +74,7 @@ export default function JournalCard({
           href={`/blog/${slug}`}
           className="inline-flex items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
         >
-          <span className="link-underline">Read More</span>
+          <span className="link-underline">Read Guide</span>
           <span aria-hidden className="ml-1">→</span>
         </Link>
       </div>
