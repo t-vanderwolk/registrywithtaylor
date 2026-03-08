@@ -33,10 +33,10 @@ export default function FinalCTA({
             {description}
           </Body>
 
-          <div className="pt-4">
+          <div className="flex justify-center pt-4">
             <Link
               href="/contact"
-              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             >
               Schedule Your Complimentary Consultation
             </Link>

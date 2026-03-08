@@ -521,8 +521,8 @@ li {
 }
 
 .section-base {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .section-ivory {
@@ -552,8 +552,8 @@ li {
 
 .section-base.homepage-section,
 .section-spacing.homepage-section {
-  padding-top: 5.5rem;
-  padding-bottom: 5.5rem;
+  padding-top: 4.25rem;
+  padding-bottom: 4.25rem;
 }
 
 .section-base.homepage-post-bow-section,
@@ -576,8 +576,8 @@ li {
 
 .section-base.how-it-works-section,
 .section-spacing.how-it-works-section {
-  padding-top: 5.5rem;
-  padding-bottom: 5.5rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 @media (min-width: 768px) {
@@ -590,8 +590,8 @@ li {
 
 .section-base.services-page-section,
 .section-spacing.services-page-section {
-  padding-top: 5.5rem;
-  padding-bottom: 5.5rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 @media (min-width: 768px) {
@@ -942,19 +942,19 @@ li {
 
 @media (max-width: 767px) {
   .hero-section {
-    height: 88svh;
-    min-height: clamp(42rem, 88svh, 50rem);
+    height: auto;
+    min-height: clamp(34rem, 72svh, 40rem);
   }
 
   .services-hero.hero-section {
-    height: 82svh;
-    min-height: clamp(38rem, 82svh, 45rem);
+    height: auto;
+    min-height: clamp(32rem, 68svh, 37rem);
   }
 
   .hero-inner {
     align-items: center;
-    padding-top: 5.75rem;
-    padding-bottom: 7.5rem;
+    padding-top: 4.75rem;
+    padding-bottom: 5.5rem;
   }
 
   .hero-content.marketing-hero-content {
@@ -989,6 +989,7 @@ li {
   }
 
   .hero-cta-group .btn {
+    width: 100%;
     max-width: 100%;
     text-align: center;
     white-space: normal;

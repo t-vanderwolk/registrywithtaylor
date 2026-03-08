@@ -59,9 +59,9 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={() => setIsOpen((value) => !value)}
-          className="flex w-full items-start justify-between gap-6 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+          className="flex w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
         >
-          <span className="text-base md:text-lg font-medium leading-relaxed">
+          <span className="text-[0.98rem] font-medium leading-relaxed sm:text-base md:text-lg">
             {item.question}
           </span>
           <span aria-hidden className="shrink-0 pt-1 text-black/60">
@@ -93,7 +93,7 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
           opacity: isOpen ? 1 : 0,
         }}
       >
-        <div ref={contentRef} className="pt-4 pr-8 md:pr-10">
+        <div ref={contentRef} className="pt-4 pr-0 sm:pr-8 md:pr-10">
           <p className="text-sm md:text-base leading-relaxed text-neutral-700">
             {item.answer}
           </p>
@@ -108,7 +108,7 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
 
   return (
     <div className={['overflow-hidden rounded-2xl bg-white/30 shadow-sm', className].join(' ')}>
-      <div className="px-6 md:px-8">
+      <div className="px-4 sm:px-6 md:px-8">
         {items.map((item, index) => (
           <FAQAccordionItem key={item.question} item={item} index={index} total={items.length} groupId={groupId} />
         ))}

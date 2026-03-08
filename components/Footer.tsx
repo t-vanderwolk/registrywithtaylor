@@ -37,10 +37,10 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="mb-1 h-px w-full bg-gradient-to-r from-transparent via-[#d9c8ba] to-transparent"
           />
         )}
-        <p className="text-sm text-[var(--color-muted)] body-copy--full">
+        <p className="body-copy--full text-center text-sm text-[var(--color-muted)] sm:text-left">
           Private baby gear, registry, and nursery support for modern families.
         </p>
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start">
           <a
             className="inline-flex min-h-[44px] items-center text-sm text-[var(--color-muted)] hover:opacity-70 transition"
             href="mailto:taylor@taylormadebabyco.com"
@@ -61,8 +61,8 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             </svg>
           </a>
         </div>
-        <Body className="body-copy--full">© {currentYear} Taylor-Made Baby Co. Built with care in Scottsdale.</Body>
-        <nav className="footer-nav" aria-label="Footer">
+        <Body className="body-copy--full text-center sm:text-left">© {currentYear} Taylor-Made Baby Co. Built with care in Scottsdale.</Body>
+        <nav className="footer-nav justify-center sm:justify-start" aria-label="Footer">
           {footerLinks.map((link) => (
             <Link
               key={link.href}

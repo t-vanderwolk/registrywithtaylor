@@ -56,7 +56,7 @@ export default function HowItWorksPage() {
       <main className="site-main">
         <Hero image="/assets/hero/hero-02.jpg" imageAlt="How it works planning process">
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl tracking-tight text-neutral-900 md:text-6xl">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               How It Works
             </h1>
 
@@ -71,14 +71,14 @@ export default function HowItWorksPage() {
             <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="#step-1-form"
-                className={`${primaryCtaClass} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]`}
+                className={`${primaryCtaClass} w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]`}
               >
                 Start Your Free Consultation
               </Link>
 
               <Link
                 href="/services"
-                className={`${secondaryCtaClass} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]`}
+                className={`${secondaryCtaClass} w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]`}
               >
                 View Services
               </Link>
@@ -88,7 +88,7 @@ export default function HowItWorksPage() {
 
         <section className="border-y border-black/5 bg-white py-4">
           <div className="container">
-            <p className="text-center text-sm uppercase tracking-[0.2em] text-black/60 md:hidden">
+            <p className="text-center text-[0.72rem] uppercase tracking-[0.14em] leading-relaxed text-black/60 md:hidden">
               Baby Gear Specialist | Brand-Trained Expertise | Private Planning for Modern Families
             </p>
             <AuthorityStrip items={authorityItems} className="mt-0 hidden md:flex md:gap-8" />

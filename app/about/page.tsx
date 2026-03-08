@@ -35,7 +35,7 @@ export default function AboutPage() {
               Meet Taylor
             </p>
 
-            <h1 className="hero-load-reveal hero-load-reveal--1 font-serif text-5xl md:text-6xl tracking-tight text-neutral-900 max-w-3xl">
+            <h1 className="hero-load-reveal hero-load-reveal--1 max-w-3xl font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               A Baby Gear Expert for the Real-Life Details of Early Parenthood
             </h1>
 
@@ -43,10 +43,10 @@ export default function AboutPage() {
               I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast.
             </Body>
 
-            <div className="hero-load-reveal hero-load-reveal--3 pt-4 flex flex-col sm:flex-row gap-4">
+            <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Book a Complimentary Consultation
               </Link>

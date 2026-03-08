@@ -39,7 +39,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
       <main className="site-main">
         <Hero image="/assets/hero/hero-06.jpg" imageAlt="Consultation planning form">
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               Book Your Free 45-Minute Consultation
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-2xl text-neutral-700">

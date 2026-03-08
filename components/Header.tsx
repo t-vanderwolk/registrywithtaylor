@@ -23,28 +23,30 @@ type HeaderProps = {
 export default function Header({ currentPath }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
-  const getLinkClassName = (href: string) => {
+  const getLinkClassName = (href: string, isMobile = false) => {
     const isActive = href === currentPath;
 
-    return `link-underline pb-1 text-sm tracking-[0.2em] uppercase transition-colors duration-200 ${
+    return `link-underline pb-1 uppercase transition-colors duration-200 ${
+      isMobile ? 'text-base tracking-[0.14em]' : 'text-sm tracking-[0.2em]'
+    } ${
       isActive
-        ? 'text-charcoal underline decoration-black/15 underline-offset-8'
+        ? `text-charcoal underline decoration-black/15 ${isMobile ? 'underline-offset-4' : 'underline-offset-8'}`
         : 'text-charcoal/70 hover:text-charcoal'
     }`;
   };
 
   return (
     <header className="site-header w-full border-b border-black/5 bg-[#F7F4EF]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 md:px-10 md:py-5">
         <Link
           href="/"
-          className="font-serif text-lg tracking-wide text-charcoal transition-colors duration-200 hover:text-charcoal/80"
+          className="max-w-[13.5rem] font-serif text-base leading-tight tracking-[0.01em] text-charcoal transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none sm:text-lg"
           onClick={() => setOpen(false)}
         >
           Taylor-Made Baby Co.
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
           {navLinks.map((link) => {
             return (
               <Link
@@ -62,7 +64,7 @@ export default function Header({ currentPath }: HeaderProps) {
         <button
           type="button"
           onClick={() => setOpen((currentOpen) => !currentOpen)}
-          className="flex flex-col gap-1 text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-charcoal md:hidden"
+          className="flex flex-col gap-1 p-1 text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-charcoal md:hidden"
           aria-expanded={open}
           aria-controls="mobile-navigation"
           aria-label="Toggle menu"
@@ -86,14 +88,14 @@ export default function Header({ currentPath }: HeaderProps) {
       <div
         className={`overflow-hidden bg-[#F7F4EF] transition-all duration-300 md:hidden ${
           open
-            ? 'max-h-96 border-t border-black/5 opacity-100'
+            ? 'max-h-[80svh] border-t border-black/5 opacity-100'
             : 'max-h-0 border-t border-transparent opacity-0 pointer-events-none'
         }`}
         aria-hidden={!open}
       >
         <nav
           id="mobile-navigation"
-          className="flex flex-col gap-6 px-6 py-6"
+          className="flex flex-col gap-4 overflow-y-auto px-4 py-5 sm:px-6"
           aria-label="Mobile navigation"
         >
           {navLinks.map((link) => (
@@ -101,7 +103,7 @@ export default function Header({ currentPath }: HeaderProps) {
               key={link.href}
               href={link.href}
               aria-current={link.href === currentPath ? 'page' : undefined}
-              className={getLinkClassName(link.href)}
+              className={getLinkClassName(link.href, true)}
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >

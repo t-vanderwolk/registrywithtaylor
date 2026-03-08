@@ -28,10 +28,10 @@ export default function BlogSoftCTA({ className = '' }: BlogSoftCTAProps) {
           <Body className="mx-auto text-charcoal/75">
             I help families figure out what to buy, what to skip, and what can wait.
           </Body>
-          <div className="pt-2">
+          <div className="flex justify-center pt-2">
             <Link
               href="/contact"
-              className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             >
               Schedule a Consultation
             </Link>

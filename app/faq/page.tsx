@@ -119,13 +119,13 @@ export default function FAQPage() {
           imageAlt=""
         >
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               Frequently Asked Questions
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
               A little clarity before we begin.
             </Body>
-            <p className="hero-load-reveal hero-load-reveal--2 text-sm uppercase tracking-[0.2em] text-charcoal/60">
+            <p className="hero-load-reveal hero-load-reveal--2 text-[0.72rem] uppercase tracking-[0.14em] leading-relaxed text-charcoal/60 sm:text-sm sm:tracking-[0.2em]">
               Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
             </p>
           </div>

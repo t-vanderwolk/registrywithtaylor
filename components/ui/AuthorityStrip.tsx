@@ -8,7 +8,7 @@ export default function AuthorityStrip({
   return (
     <div
       className={[
-        'mt-6 space-y-2 text-center text-sm uppercase tracking-[0.2em] text-black/60 md:flex md:justify-center md:gap-6 md:space-y-0',
+        'mt-6 grid justify-items-center gap-3 text-center text-[0.72rem] uppercase tracking-[0.14em] text-black/60 sm:text-sm sm:tracking-[0.18em] md:flex md:justify-center md:gap-6 md:space-y-0 md:tracking-[0.2em]',
         className,
       ]
         .filter(Boolean)

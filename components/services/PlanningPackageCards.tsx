@@ -67,7 +67,7 @@ const planningPackages: PlanningPackage[] = [
 
 function ServiceChecklist({ items, className = '' }: { items: string[]; className?: string }) {
   return (
-    <ul className={['space-y-4 leading-relaxed', className].filter(Boolean).join(' ')}>
+    <ul className={['space-y-3 leading-relaxed sm:space-y-4', className].filter(Boolean).join(' ')}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-4">
           <CheckIcon />
@@ -80,12 +80,12 @@ function ServiceChecklist({ items, className = '' }: { items: string[]; classNam
 
 export default function PlanningPackageCards({ className = '' }: { className?: string }) {
   return (
-    <div className={['grid grid-cols-1 items-stretch gap-8 md:grid-cols-3', className].filter(Boolean).join(' ')}>
+    <div className={['grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:gap-8', className].filter(Boolean).join(' ')}>
       {planningPackages.map((pkg) => {
         const isFeatured = Boolean(pkg.featured);
 
         return (
-          <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-6">
+          <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-5 sm:pt-6">
             {pkg.badge ? (
               <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 select-none" aria-hidden="true">
                 <span className="inline-flex rounded-full border border-neutral-300/80 bg-white/85 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-black/45 shadow-sm">
@@ -96,7 +96,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
 
             <MarketingSurface
               className={[
-                'flex h-full flex-col items-center rounded-2xl p-8 text-center shadow-sm md:p-8',
+                'flex h-full flex-col items-center rounded-2xl p-6 text-center shadow-sm sm:p-8',
                 isFeatured ? 'border-[var(--color-accent)] shadow-lg' : '',
               ]
                 .filter(Boolean)
@@ -123,7 +123,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
               <Link
                 href={`/contact?service=${pkg.serviceKey}`}
                 className={[
-                  'mt-auto self-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]',
+                  'mt-auto w-full self-center justify-center sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]',
                   isFeatured ? 'btn btn--primary' : 'btn btn--secondary',
                 ]
                   .filter(Boolean)

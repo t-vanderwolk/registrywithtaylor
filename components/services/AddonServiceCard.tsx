@@ -31,31 +31,31 @@ export default function AddonServiceCard({
   return (
     <MarketingSurface
       className={[
-        'flex min-h-[29rem] min-w-0 flex-col rounded-2xl p-8 shadow-sm transition-shadow duration-200 hover:shadow-lg md:p-8',
+        'flex min-h-[24.5rem] min-w-0 flex-col rounded-2xl p-6 shadow-sm transition-shadow duration-200 hover:shadow-lg sm:min-h-[26rem] sm:p-8 md:min-h-[29rem]',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
     >
       <div className="flex h-full flex-1 flex-col">
-        <div className="mb-8 rounded-[1.75rem] border border-black/5 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] px-6 py-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
-          <div className="flex min-h-[10rem] items-center justify-center">
+        <div className="mx-auto mb-8 flex aspect-square w-full max-w-[13.25rem] items-center justify-center rounded-[1.75rem] border border-black/12 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
+          <div className="flex h-full w-full items-center justify-center p-6">
             <ServiceIconBadge
               src={iconSrc ?? '/assets/icons/buildregistry.png'}
               size="addon"
-              className="h-[7.1rem] w-[7.1rem] self-center"
+              className="h-[7.45rem] w-[7.45rem] self-center"
               imageClassName="drop-shadow-[0_10px_18px_rgba(184,160,129,0.18)]"
             />
           </div>
         </div>
 
-        <h3 className="max-w-[20ch] font-serif text-xl tracking-tight text-neutral-900 md:text-2xl">
+        <h3 className="max-w-none font-serif text-xl tracking-tight text-neutral-900 sm:max-w-[20ch] md:text-2xl">
           {title}
         </h3>
 
         <span className="mt-3 text-xs uppercase tracking-[0.25em] text-black/45">{label}</span>
 
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-neutral-700">
+        <p className="mt-4 max-w-none text-sm leading-relaxed text-neutral-700 sm:max-w-md">
           {description}
         </p>
 

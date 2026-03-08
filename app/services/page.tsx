@@ -197,7 +197,7 @@ export default function ServicesPage() {
       <main className="site-main">
         <Hero image="/assets/hero/hero-03.jpg" imageAlt="" className="services-hero">
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               Baby Planning Support
             </h1>
 
@@ -214,14 +214,14 @@ export default function ServicesPage() {
             <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/contact?service=consultation"
-                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Schedule Your Complimentary Consultation
               </Link>
 
               <Link
                 href="#choose-support"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Compare Support Options
               </Link>

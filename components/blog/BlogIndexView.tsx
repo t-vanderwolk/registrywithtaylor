@@ -43,12 +43,12 @@ export default function BlogIndexView({
         <div className="max-w-5xl mx-auto px-6">
           {posts.length > 0 && (
             <div className="mt-8 md:mt-12">
-              <div className="flex flex-wrap justify-center gap-6">
+              <div className="-mx-6 flex gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0">
                 <button
                   type="button"
                   onClick={() => setCategory(null)}
                   aria-pressed={activeCategory === null}
-                  className={`text-sm tracking-wide transition-colors duration-200 ${
+                  className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                     activeCategory === null
                       ? 'text-charcoal underline decoration-black/20 underline-offset-8'
                       : 'text-charcoal/70 hover:text-charcoal'
@@ -62,7 +62,7 @@ export default function BlogIndexView({
                     type="button"
                     onClick={() => setCategory(category)}
                     aria-pressed={activeCategory === category}
-                    className={`text-sm tracking-wide transition-colors duration-200 ${
+                    className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                       activeCategory === category
                         ? 'text-charcoal underline decoration-black/20 underline-offset-8'
                         : 'text-charcoal/70 hover:text-charcoal'
@@ -81,7 +81,7 @@ export default function BlogIndexView({
         <div className="max-w-5xl mx-auto px-6">
           {filteredPosts.length > 0 ? (
             <RevealOnScroll>
-              <div className="grid gap-10 md:grid-cols-2">
+              <div className="grid gap-8 md:grid-cols-2 md:gap-10">
                 {filteredPosts.map((post) => (
                   <JournalCard
                     key={post.id}

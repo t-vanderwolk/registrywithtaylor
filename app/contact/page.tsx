@@ -57,7 +57,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           imageAlt="Contact consultation workspace"
         >
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               Get in Touch
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">

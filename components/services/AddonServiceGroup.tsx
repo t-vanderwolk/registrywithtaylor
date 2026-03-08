@@ -24,13 +24,13 @@ export default function AddonServiceGroup({
     <section
       aria-labelledby={headingId}
       className={[
-        'space-y-8 py-16',
-        isFirst ? 'pt-0' : 'mt-20 border-t border-neutral-200/80 pt-20',
+        'space-y-8 py-12 md:py-16',
+        isFirst ? 'pt-0' : 'mt-16 border-t border-neutral-200/80 pt-16 md:mt-20 md:pt-20',
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-start lg:gap-14">
+      <div className="grid max-w-5xl gap-4 md:gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-start lg:gap-14">
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.22em] text-black/45">Support Focus</p>
 

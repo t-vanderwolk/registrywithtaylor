@@ -72,7 +72,7 @@ export default function ContactInquiryForm({
   return (
     <>
       {selectedServiceLabel && (
-        <div className="inline-block px-4 py-1 text-xs uppercase tracking-wide bg-[var(--color-blush)]/10 text-[var(--color-blush)] rounded-full">
+        <div className="inline-flex w-full justify-center rounded-full bg-[var(--color-blush)]/10 px-4 py-2 text-center text-xs uppercase tracking-wide text-[var(--color-blush)] sm:w-auto">
           Selected Service: {selectedServiceLabel}
         </div>
       )}

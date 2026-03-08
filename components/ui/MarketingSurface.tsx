@@ -12,7 +12,7 @@ export default function MarketingSurface({
   return (
     <div
       className={[
-        'rounded-2xl border border-black/5 bg-white p-8 shadow-sm md:p-10',
+        'rounded-2xl border border-black/5 bg-white p-6 shadow-sm sm:p-8 md:p-10',
         className,
       ]
         .filter(Boolean)

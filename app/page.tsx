@@ -241,7 +241,7 @@ export default async function HomePage() {
       <main className="site-main">
         <Hero image="/assets/hero/hero-01.jpg" imageAlt="">
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-5xl md:text-6xl tracking-tight text-neutral-900">
+            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
               Baby prep, simplified.
             </h1>
 
@@ -256,14 +256,14 @@ export default async function HomePage() {
             <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 Schedule Your Complimentary Consultation
               </Link>
 
               <Link
                 href="/services"
-                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
                 View Services
               </Link>
@@ -353,11 +353,11 @@ export default async function HomePage() {
                   key={item.title}
                   className="flex h-full min-h-[28rem] flex-col rounded-2xl bg-white/95 p-8 shadow-sm transition-shadow duration-200 hover:shadow-lg md:p-8"
                 >
-                  <div className="mb-8 rounded-[1.5rem] border border-black/5 bg-[linear-gradient(180deg,#fcf8f4_0%,#f6efe7_100%)] px-6 py-7">
+                  <div className="mx-auto mb-8 flex aspect-square w-full max-w-[13.25rem] items-center justify-center rounded-[1.75rem] border border-black/12 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
                     <ServiceIconBadge
                       src={item.iconSrc}
                       size="addon"
-                      className="self-center"
+                      className="h-[6.95rem] w-[6.95rem] self-center"
                     />
                   </div>
 
