@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import AuthorityStrip from '@/components/ui/AuthorityStrip';
+import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
@@ -56,24 +57,6 @@ const authorityItems = [
   'Nursery & Home Setup',
 ];
 
-const authorityProofCards = [
-  {
-    title: 'Premium baby retail perspective',
-    description:
-      "Taylor has helped hundreds of families sort through strollers, car seats, registry planning, and nursery setup without the sales-floor overwhelm.",
-  },
-  {
-    title: 'Brand-trained product knowledge',
-    description:
-      'Years across premium retailers and product training programs mean you get category-by-category guidance grounded in how the gear actually works.',
-  },
-  {
-    title: 'Advice built for real life',
-    description:
-      'Recommendations are shaped around your space, budget, routines, and timeline, so the final plan feels usable once baby is home.',
-  },
-];
-
 const decisionCategories = [
   {
     title: 'Strollers',
@@ -82,7 +65,7 @@ const decisionCategories = [
   },
   {
     title: 'Car Seats',
-    iconSrc: '/assets/icons/carseat.png',
+    iconSrc: '/assets/icons/carseats.png',
     description: 'Figure out infant seat versus convertible strategy, travel-system fit, and what makes sense for your car.',
   },
   {
@@ -144,6 +127,17 @@ const scenarioCards = [
     outcome: 'You buy with purpose instead of panic.',
   },
 ];
+
+const adviceChecklistItems = [
+  'You want guidance without pressure',
+  'You prefer practical decisions over trend-driven lists',
+  'You want a registry that reflects your real life',
+  'You are trying to figure out what to buy now, what to skip, and what can wait',
+  'You want gear decisions grounded in your space, budget, and routine',
+];
+
+const splitSectionGridClass =
+  'grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-start lg:gap-16';
 
 const testimonial = {
   quote:
@@ -287,37 +281,44 @@ export default async function HomePage() {
           spacing="default"
           className="homepage-section"
         >
-          <RevealOnScroll>
-            <div className="mx-auto max-w-3xl text-center">
-              <SectionDivider />
-              <H2 className="font-serif text-neutral-900">
-                Trusted Baby Gear Guidance
-              </H2>
-              <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                Taylor has helped hundreds of families navigate the overwhelming world of baby gear, registry planning,
-                and nursery setup. With hands-on experience across premium baby retailers, product training programs,
-                and private consultations, she helps parents make practical decisions about what actually works.
-              </Body>
-            </div>
-          </RevealOnScroll>
-
-          <AuthorityStrip items={authorityItems} className="mt-8 md:gap-8" />
+          <AuthorityStrip items={authorityItems} className="md:gap-8" />
 
           <RevealOnScroll delayMs={90}>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {authorityProofCards.map((item) => (
-                <MarketingSurface key={item.title} className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)]">
-                  <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                    Authority Proof
-                  </p>
-                  <H3 className="mt-4 font-serif text-neutral-900">
-                    {item.title}
-                  </H3>
-                  <Body className="mt-4 text-neutral-600">
-                    {item.description}
-                  </Body>
-                </MarketingSurface>
-              ))}
+            <div className={['mt-12', splitSectionGridClass].join(' ')}>
+              <div className="max-w-2xl">
+                <SectionDivider />
+                <H2 className="font-serif text-neutral-900">
+                  There&apos;s a lot of advice out there.
+                </H2>
+                <Body className="mt-6 text-neutral-700">
+                  Most of it loud. Some of it helpful. Very little of it tailored to your actual home, budget, and
+                  routine.
+                </Body>
+                <Body className="mt-4 text-neutral-700">
+                  Between registry lists, social media trends, and well-meaning opinions, it gets very easy to feel
+                  like every decision is urgent.
+                </Body>
+                <Body className="mt-4 text-neutral-700">
+                  When everything feels urgent, nothing feels clear. That is where practical baby gear guidance makes a
+                  difference.
+                </Body>
+              </div>
+
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)]">
+                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                  This is for you if...
+                </p>
+                <div className="mt-6 space-y-4">
+                  {adviceChecklistItems.map((item) => (
+                    <div key={item} className="flex items-start gap-4">
+                      <CheckIcon />
+                      <Body className="text-neutral-700">
+                        {item}
+                      </Body>
+                    </div>
+                  ))}
+                </div>
+              </MarketingSurface>
             </div>
           </RevealOnScroll>
         </MarketingSection>
@@ -330,7 +331,9 @@ export default async function HomePage() {
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
-              <SectionDivider />
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
               <H2 className="font-serif text-neutral-900">
                 {WHAT_I_HELP_FAMILIES_CHOOSE_TITLE}
               </H2>
@@ -344,14 +347,24 @@ export default async function HomePage() {
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-12 grid items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
               {decisionCategories.map((item) => (
-                <MarketingSurface key={item.title} className="h-full bg-white/90">
-                  <ServiceIconBadge src={item.iconSrc} size="card" className="mb-8 self-center" />
-                  <H3 className="font-serif text-neutral-900">
+                <MarketingSurface
+                  key={item.title}
+                  className="flex h-full min-h-[28rem] flex-col rounded-2xl bg-white/95 p-8 shadow-sm transition-shadow duration-200 hover:shadow-lg md:p-8"
+                >
+                  <div className="mb-8 rounded-[1.5rem] border border-black/5 bg-[linear-gradient(180deg,#fcf8f4_0%,#f6efe7_100%)] px-6 py-7">
+                    <ServiceIconBadge
+                      src={item.iconSrc}
+                      size="addon"
+                      className="self-center"
+                    />
+                  </div>
+
+                  <H3 className="max-w-[18ch] font-serif text-xl tracking-tight text-neutral-900 md:text-2xl">
                     {item.title}
                   </H3>
-                  <Body className="mt-4 text-neutral-600">
+                  <Body className="mt-4 max-w-md text-neutral-600">
                     {item.description}
                   </Body>
                 </MarketingSurface>
@@ -368,7 +381,9 @@ export default async function HomePage() {
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
-              <SectionDivider />
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
               <H2 className="font-serif text-neutral-900">
                 Real Baby Gear Decisions
               </H2>
@@ -423,7 +438,9 @@ export default async function HomePage() {
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
-              <SectionDivider />
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
               <H2 className="font-serif text-neutral-900">
                 Choose Your Support
               </H2>
@@ -446,7 +463,9 @@ export default async function HomePage() {
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
-              <SectionDivider />
+              <div className="flex justify-center">
+                <SectionDivider />
+              </div>
               <H2 className="font-serif text-neutral-900">
                 What Families Say
               </H2>
@@ -474,7 +493,7 @@ export default async function HomePage() {
           spacing="default"
           className="homepage-section"
         >
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
+          <div className={splitSectionGridClass}>
             <RevealOnScroll>
               <div className="max-w-2xl">
                 <SectionDivider />

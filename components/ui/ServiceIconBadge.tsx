@@ -5,16 +5,18 @@ type ServiceIconBadgeProps = {
   alt?: string;
   className?: string;
   imageClassName?: string;
-  size?: 'default' | 'card';
+  size?: 'default' | 'addon' | 'card';
 };
 
 const sizeClasses = {
   default: 'h-[4.4rem] w-[4.4rem]',
+  addon: 'h-[6.25rem] w-[6.25rem]',
   card: 'h-[8.8rem] w-[8.8rem]',
 } as const;
 
 const imageSizes = {
   default: '70px',
+  addon: '100px',
   card: '141px',
 } as const;
 

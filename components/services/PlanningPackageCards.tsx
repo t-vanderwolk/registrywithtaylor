@@ -2,7 +2,6 @@ import Link from 'next/link';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
 
 type PlanningPackage = {
   serviceKey: 'focused-edit' | 'signature-plan' | 'private-concierge';
@@ -11,7 +10,6 @@ type PlanningPackage = {
   summary: string;
   description: string;
   features: string[];
-  iconSrc: string;
   ctaLabel: string;
   featured?: boolean;
   badge?: string;
@@ -21,52 +19,49 @@ const planningPackages: PlanningPackage[] = [
   {
     serviceKey: 'focused-edit',
     eyebrow: 'One Priority',
-    title: 'Focused Baby Gear Consultation',
+    title: 'A Focused Session',
     summary: 'For one decision that needs expert help now.',
     description:
       'Use this session for a stroller and car seat comparison, a registry cleanup, a sleep-space question, or a nursery layout decision that needs a practical answer.',
-    iconSrc: '/assets/icons/buildregistry.png',
     features: [
       'Stroller and car seat guidance',
       'Registry review for one priority area',
       'Written recommendations and next steps',
       'Buy-now versus later direction',
     ],
-    ctaLabel: 'Book a Focused Consultation',
+    ctaLabel: 'Book Focused',
   },
   {
     serviceKey: 'signature-plan',
     eyebrow: 'Full Prep Support',
-    title: 'Complete Registry & Gear Plan',
+    title: 'The Signature Package',
     summary: 'For families who want help across the full baby-prep picture.',
     description:
       'This package covers the big categories together, from registry structure and gear choices to nursery planning and a practical purchase timeline.',
-    iconSrc: '/assets/icons/calender.png',
     features: [
       'Registry structure and product selection',
       'Stroller, car seat, sleep, and feeding gear guidance',
       'Nursery planning recommendations',
       'Personalized gear purchasing timeline',
     ],
-    ctaLabel: 'Start the Complete Plan',
+    ctaLabel: 'Start Signature',
     featured: true,
     badge: 'Most Popular',
   },
   {
     serviceKey: 'private-concierge',
     eyebrow: 'Ongoing Support',
-    title: 'Private Baby Planning Support',
+    title: 'The Concierge Experience',
     summary: 'For families who want an expert in the mix while details keep moving.',
     description:
       'Ongoing support for families who want help as decisions stack up, store visits get scheduled, and home-prep details keep changing in real time.',
-    iconSrc: '/assets/icons/private.png',
     features: [
       'Ongoing gear and registry support',
       'Nursery and home-prep guidance',
       'Prep for store visits and product comparisons',
       'Follow-up as priorities shift',
     ],
-    ctaLabel: 'Explore Private Support',
+    ctaLabel: 'Explore Concierge',
   },
 ];
 
@@ -85,60 +80,59 @@ function ServiceChecklist({ items, className = '' }: { items: string[]; classNam
 
 export default function PlanningPackageCards({ className = '' }: { className?: string }) {
   return (
-    <div className={['grid grid-cols-1 gap-8 md:grid-cols-3', className].filter(Boolean).join(' ')}>
+    <div className={['grid grid-cols-1 items-stretch gap-8 md:grid-cols-3', className].filter(Boolean).join(' ')}>
       {planningPackages.map((pkg) => {
         const isFeatured = Boolean(pkg.featured);
 
         return (
-          <MarketingSurface
-            key={pkg.serviceKey}
-            className={[
-              'flex h-full flex-col rounded-2xl p-8 shadow-sm md:p-8',
-              isFeatured ? 'border-[var(--color-accent)] shadow-lg' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <ServiceIconBadge src={pkg.iconSrc} size="card" className="mb-8 self-center" />
-
+          <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-6">
             {pkg.badge ? (
-              <div className="mb-5">
-                <span className="pointer-events-none inline-flex rounded-full border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/10 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[var(--color-accent-dark)] select-none">
+              <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 select-none" aria-hidden="true">
+                <span className="inline-flex rounded-full border border-neutral-300/80 bg-white/85 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-black/45 shadow-sm">
                   {pkg.badge}
                 </span>
               </div>
             ) : null}
 
-            <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-              {pkg.eyebrow}
-            </p>
-
-            <H3 className="mt-4 font-serif leading-tight">
-              {pkg.title}
-            </H3>
-
-            <p className="mt-3 text-sm text-neutral-600">
-              {pkg.summary}
-            </p>
-
-            <Body className="mt-6 mb-8 text-neutral-600">
-              {pkg.description}
-            </Body>
-
-            <ServiceChecklist items={pkg.features} className="mb-10 text-charcoal/80" />
-
-            <Link
-              href={`/contact?service=${pkg.serviceKey}`}
+            <MarketingSurface
               className={[
-                'mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]',
-                isFeatured ? 'btn btn--primary' : 'btn btn--secondary',
+                'flex h-full flex-col items-center rounded-2xl p-8 text-center shadow-sm md:p-8',
+                isFeatured ? 'border-[var(--color-accent)] shadow-lg' : '',
               ]
                 .filter(Boolean)
                 .join(' ')}
             >
-              {pkg.ctaLabel} <span aria-hidden className="ml-2">→</span>
-            </Link>
-          </MarketingSurface>
+              <p className="pt-1 text-center text-xs uppercase tracking-[0.2em] text-black/45">
+                {pkg.eyebrow}
+              </p>
+
+              <H3 className="mt-4 text-center font-serif leading-tight">
+                {pkg.title}
+              </H3>
+
+              <p className="mt-3 text-center text-sm text-neutral-600">
+                {pkg.summary}
+              </p>
+
+              <Body className="mt-6 mb-8 text-center text-neutral-600">
+                {pkg.description}
+              </Body>
+
+              <ServiceChecklist items={pkg.features} className="mx-auto mb-10 max-w-md text-left text-charcoal/80" />
+
+              <Link
+                href={`/contact?service=${pkg.serviceKey}`}
+                className={[
+                  'mt-auto self-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]',
+                  isFeatured ? 'btn btn--primary' : 'btn btn--secondary',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {pkg.ctaLabel} <span aria-hidden className="ml-2">→</span>
+              </Link>
+            </MarketingSurface>
+          </div>
         );
       })}
     </div>

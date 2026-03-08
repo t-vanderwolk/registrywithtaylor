@@ -1,8 +1,7 @@
 import AddonServiceShowcase from '@/components/services/AddonServiceShowcase';
 import type { AddonServiceCardData } from '@/components/services/AddonServiceCard';
-import { getServiceGroupIconAsset, type ServiceGroupIconName } from '@/components/services/ServiceGroupIcon';
+import type { ServiceGroupIconName } from '@/components/services/ServiceGroupIcon';
 import { Body } from '@/components/ui/MarketingHeading';
-import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
 
 type AddonServiceGroupProps = {
   title: string;
@@ -16,7 +15,7 @@ type AddonServiceGroupProps = {
 export default function AddonServiceGroup({
   title,
   description,
-  icon,
+  icon: _icon,
   services,
   isFirst = false,
   headingId,
@@ -25,26 +24,22 @@ export default function AddonServiceGroup({
     <section
       aria-labelledby={headingId}
       className={[
-        'space-y-10 py-20',
-        isFirst ? 'pt-0' : 'mt-24 border-t border-neutral-200 pt-24',
+        'space-y-8 py-16',
+        isFirst ? 'pt-0' : 'mt-20 border-t border-neutral-200/80 pt-20',
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-end lg:gap-16">
-        <div className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-black/45">Service Group</p>
+      <div className="grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-start lg:gap-14">
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.22em] text-black/45">Support Focus</p>
 
-          <div className="flex items-center gap-4">
-            <ServiceIconBadge src={getServiceGroupIconAsset(icon)} />
-
-            <h3 id={headingId} className="font-serif text-2xl font-semibold tracking-tight text-black md:text-3xl">
-              {title}
-            </h3>
-          </div>
+          <h3 id={headingId} className="font-serif text-2xl font-semibold tracking-tight text-black md:text-3xl">
+            {title}
+          </h3>
         </div>
 
-        <Body className="max-w-xl text-neutral-600">{description}</Body>
+        <Body className="max-w-2xl text-neutral-600">{description}</Body>
       </div>
 
       <AddonServiceShowcase services={services} />
