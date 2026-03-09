@@ -37,10 +37,10 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             className="mb-1 h-px w-full bg-gradient-to-r from-transparent via-[#d9c8ba] to-transparent"
           />
         )}
-        <p className="body-copy--full text-center text-sm text-[var(--color-muted)] sm:text-left">
+        <p className="body-copy--full text-center text-sm leading-relaxed text-[var(--color-muted)] sm:text-left">
           Private baby gear, registry, and nursery support for modern families.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start sm:gap-4">
           <a
             className="inline-flex min-h-[44px] items-center text-sm text-[var(--color-muted)] hover:opacity-70 transition"
             href="mailto:taylor@taylormadebabyco.com"

@@ -37,8 +37,8 @@ export default function JournalCard({
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="space-y-6">
-        <Link href={`/blog/${slug}`} className="relative block h-48 w-full overflow-hidden rounded-[22px] sm:h-56 md:h-60">
+      <div className="space-y-5 sm:space-y-6">
+        <Link href={`/blog/${slug}`} className="relative block h-44 w-full overflow-hidden rounded-[22px] sm:h-56 md:h-60">
           <Image
             src={coverImageSrc}
             alt={title}
@@ -50,7 +50,7 @@ export default function JournalCard({
           />
         </Link>
 
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           <p className="text-sm text-charcoal/55">
             {dateTime ? <time dateTime={dateTime}>{dateLabel}</time> : dateLabel}
           </p>
@@ -69,7 +69,7 @@ export default function JournalCard({
         </div>
       </div>
 
-      <div className="pt-8">
+      <div className="pt-6 sm:pt-8">
         <Link
           href={`/blog/${slug}`}
           className="inline-flex min-h-[44px] items-center text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"

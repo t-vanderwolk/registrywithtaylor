@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
@@ -7,18 +8,14 @@ import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
 import SectionDivider from '@/components/ui/SectionDivider';
-import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
 import JournalCard from '@/components/blog/JournalCard';
 import PlanningPackageCards from '@/components/services/PlanningPackageCards';
+import AddonServiceShowcase from '@/components/services/AddonServiceShowcase';
+import type { AddonServiceCardData } from '@/components/services/AddonServiceCard';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
-import {
-  WHAT_I_HELP_FAMILIES_CHOOSE_BLURB,
-  WHAT_I_HELP_FAMILIES_CHOOSE_SUPPORTING,
-  WHAT_I_HELP_FAMILIES_CHOOSE_TITLE,
-} from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
 
@@ -57,77 +54,6 @@ const authorityItems = [
   'Nursery & Home Setup',
 ];
 
-const decisionCategories = [
-  {
-    title: 'Strollers',
-    iconSrc: '/assets/icons/gear-plan.png',
-    description: 'Compare daily-use, compact, and travel-friendly options based on your routine, storage, and terrain.',
-  },
-  {
-    title: 'Car Seats',
-    iconSrc: '/assets/icons/carseats.png',
-    description: 'Figure out infant seat versus convertible strategy, travel-system fit, and what makes sense for your car.',
-  },
-  {
-    title: 'Sleep Spaces',
-    iconSrc: '/assets/icons/nursery.png',
-    description: 'Sort bassinets, mini cribs, full cribs, and room setup with safety and longevity in mind.',
-  },
-  {
-    title: 'Nursery Layout',
-    iconSrc: '/assets/icons/blueprint.png',
-    description: 'Plan a room flow that supports sleep, feeding, diaper changes, storage, and daily ease.',
-  },
-  {
-    title: 'Feeding Gear',
-    iconSrc: '/assets/icons/feed.png',
-    description: 'Choose bottles, prep tools, and feeding essentials without piling on things you may never use.',
-  },
-  {
-    title: 'Registry Strategy',
-    iconSrc: '/assets/icons/buildregistry.png',
-    description: 'Build a registry around what belongs on the list now, what can wait, and what is better off-list.',
-  },
-  {
-    title: 'Travel Gear',
-    iconSrc: '/assets/icons/travel.png',
-    description: 'Narrow down carriers, travel strollers, and on-the-go setups that fit how often you actually leave the house.',
-  },
-  {
-    title: 'Babyproofing',
-    iconSrc: '/assets/icons/babyproof.png',
-    description: 'Map what needs attention before baby arrives and what can realistically wait until later stages.',
-  },
-];
-
-const scenarioCards = [
-  {
-    problem: 'Small apartment nursery planning',
-    decision: 'Choose a sleep setup, storage pieces, and gear footprint that work in tight quarters.',
-    outcome: 'You end up with a room that feels functional instead of crowded.',
-  },
-  {
-    problem: 'Second baby: reuse versus upgrade',
-    decision: 'Sort what is still safe and useful, what no longer fits, and where an upgrade is actually worth it.',
-    outcome: 'You save money, skip duplicate gear, and replace only what matters.',
-  },
-  {
-    problem: 'Travel-heavy family stroller strategy',
-    decision: 'Compare whether one stroller can do it all or if daily use and travel need separate answers.',
-    outcome: 'Your stroller setup works at the airport, in the trunk, and on everyday errands.',
-  },
-  {
-    problem: 'First-time parent registry decisions',
-    decision: 'Organize the registry by daily routines, budget, and what is genuinely helpful in the first months.',
-    outcome: 'The list feels useful, giftable, and far less random.',
-  },
-  {
-    problem: 'Budget-conscious gear planning',
-    decision: 'Prioritize the categories worth spending on and push lower-value purchases later.',
-    outcome: 'You buy with purpose instead of panic.',
-  },
-];
-
 const adviceChecklistItems = [
   'You want guidance without pressure',
   'You prefer practical decisions over trend-driven lists',
@@ -136,14 +62,152 @@ const adviceChecklistItems = [
   'You want gear decisions grounded in your space, budget, and routine',
 ];
 
-const splitSectionGridClass =
-  'grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-start lg:gap-16';
+const methodCards = [
+  {
+    step: '01',
+    title: 'Start with the decisions that matter most',
+    description:
+      'We begin with the categories that shape everyday life fastest: stroller, car seat, registry priorities, sleep setup, and home flow.',
+  },
+  {
+    step: '02',
+    title: 'Build the plan around real life',
+    description:
+      'Recommendations are shaped around your space, budget, routines, travel needs, and the way your family will actually use the gear.',
+  },
+  {
+    step: '03',
+    title: 'Leave with clear next steps',
+    description:
+      'You know what to buy now, what to compare in person, what to skip, and what can wait until later.',
+  },
+];
 
-const testimonial = {
-  quote:
-    'With four years between our kids, we quickly realized we were a little out of practice - and that baby gear had definitely evolved. Taylor helped us figure out what we could reuse, what was worth upgrading, and what we could skip entirely. It made the whole process feel calmer and much less chaotic. We only wish we had known about her the first time.',
-  attribution: 'Philip & Lucia V., Santa Fe, NM · Parents of Two',
-};
+const servicePillars: AddonServiceCardData[] = [
+  {
+    title: 'Intentional Gear Planning',
+    iconSrc: '/assets/icons/gear-plan.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Compare daily-use, compact, and travel-friendly options',
+      'Sort what fits your routine, storage, and terrain',
+      'Choose a stroller strategy that works now and later',
+    ],
+  },
+  {
+    title: 'CPST Car Seat Installation & Safety Checks',
+    iconSrc: '/assets/icons/cpst.png',
+    partnerLabel: 'In partnership with',
+    partnerLogoSrc: '/assets/logos/lanicarseat.png',
+    partnerLogoAlt: 'Lani Car Seat Consulting',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Figure out infant seat versus convertible strategy',
+      'Compare compatibility, installation, and daily ease',
+      'Narrow down what makes sense for your car and routine',
+    ],
+  },
+  {
+    title: 'Home & Nursery Preparation',
+    iconSrc: '/assets/icons/nursery.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Plan room flow for sleep, feeding, diapering, and storage',
+      'Make the space feel functional instead of crowded',
+      'Set up the nursery around real daily use',
+    ],
+  },
+  {
+    title: 'In-Home Baby & Toddler Proofing Installation',
+    iconSrc: '/assets/icons/babyproof.png',
+    partnerLabel: 'In partnership with',
+    partnerLogoSrc: '/assets/logos/azchildproof.png',
+    partnerLogoAlt: 'Arizona Childproofers',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Map what needs attention before baby arrives',
+      'Prioritize safety updates by stage and by space',
+      'Focus on what matters first instead of overdoing it',
+    ],
+  },
+  {
+    title: 'Intentional Purchasing Timeline',
+    iconSrc: '/assets/icons/calender.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Build a buying roadmap around your actual timeline',
+      'Plan what to purchase now, later, and during sales',
+      'Use rewards, discounts, and completion perks more intentionally',
+    ],
+  },
+  {
+    title: 'Surrogacy & Adoption Planning Support',
+    iconSrc: '/assets/icons/surrogacy.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Shape prep around your family’s timeline and transition home',
+      'Align registry and gear decisions with travel and logistics',
+      'Create a newborn setup plan that feels clear and workable',
+    ],
+  },
+  {
+    title: 'Virtual Parent Community Sessions',
+    iconSrc: '/assets/icons/virtual.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Join live monthly sessions from anywhere',
+      'Ask questions about baby gear, registries, and preparation',
+      'Learn in a supportive setting with other families',
+    ],
+  },
+  {
+    title: 'Baby Shower Support',
+    iconSrc: '/assets/icons/giftbox.png',
+    accordionVariant: 'stacked',
+    cardVariant: 'pillar',
+    features: [
+      'Refine the registry before invitations go out',
+      'Prioritize the items that matter most for gifting',
+      'Keep the list useful, organized, and aligned with real needs',
+    ],
+  },
+];
+
+const homepageTestimonials = [
+  {
+    quote: 'Taylor helped us cut through the noise and make registry decisions that actually fit our life.',
+    attribution: 'Maya & Jordan R., Denver, CO · First-Time Parents',
+  },
+  {
+    quote: 'We finally knew what to buy now, what to skip, and what could wait.',
+    attribution: 'Nina B., Portland, OR · First-Time Mom',
+  },
+];
+
+const aboutPartnerLogos = [
+  {
+    src: '/assets/logos/strolleria.png',
+    alt: 'Strolleria',
+    widthClassName: 'w-[10.5rem]',
+  },
+  {
+    src: '/assets/logos/potterparn.png',
+    alt: 'Pottery Barn Kids',
+    widthClassName: 'w-[11.5rem]',
+  },
+  {
+    src: '/assets/brand/totsquad.png',
+    alt: 'Tot Squad',
+    widthClassName: 'w-[9.75rem]',
+  },
+] as const;
 
 const formatInsightDate = (value: Date) =>
   value.toLocaleDateString('en-US', {
@@ -239,10 +303,10 @@ export default async function HomePage() {
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
-        <Hero image="/assets/hero/hero-01.jpg" imageAlt="">
+        <Hero image="/assets/hero/hero-01.jpg" imageAlt="" innerStyle={{ paddingTop: 'clamp(7rem, 14vh, 11rem)' }}>
           <div className="space-y-6">
             <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
-              Baby prep, simplified.
+              Baby Planning &amp; Registry Guidance for Growing Families
             </h1>
 
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
@@ -250,7 +314,7 @@ export default async function HomePage() {
             </Body>
 
             <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-sm leading-relaxed text-black/70 md:text-base md:text-left">
-              Registry strategy · Strollers, car seats, and sleep space · Nursery &amp; home setup
+              Strollers · Car seats · Registry strategy · Nursery &amp; home preparation
             </p>
 
             <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
@@ -258,7 +322,7 @@ export default async function HomePage() {
                 href="/contact"
                 className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Schedule Your Complimentary Consultation
+                Request a Consultation
               </Link>
 
               <Link
@@ -270,7 +334,7 @@ export default async function HomePage() {
             </div>
 
             <p className="hero-load-reveal hero-load-reveal--4 text-sm uppercase tracking-[0.2em] text-charcoal/60">
-              Private · Personalized · No pressure
+              Practical guidance · Clear next steps · No pressure
             </p>
           </div>
         </Hero>
@@ -279,17 +343,38 @@ export default async function HomePage() {
           tone="white"
           container="default"
           spacing="default"
-          className="homepage-section"
+          className="homepage-section homepage-post-bow-section"
         >
-          <AuthorityStrip items={authorityItems} className="md:gap-8" />
-
-          <RevealOnScroll delayMs={90}>
-            <div className={['mt-12', splitSectionGridClass].join(' ')}>
-              <div className="max-w-2xl">
+          <RevealOnScroll>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
                 <SectionDivider />
-                <H2 className="font-serif text-neutral-900">
-                  There&apos;s a lot of advice out there.
-                </H2>
+              </div>
+
+              <p className="mt-8 text-xs uppercase tracking-[0.24em] text-black/45">The Problem</p>
+
+              <H2 className="mt-5 font-serif leading-tight md:text-[3.1rem] md:leading-[1.02]">
+                Why Preparing for a Baby Feels Overwhelming
+              </H2>
+
+              <Body className="mx-auto mt-6 max-w-3xl text-[1.04rem] leading-relaxed text-neutral-700">
+                Parents today face thousands of products, conflicting advice, and endless registry lists. Preparation
+                quickly becomes reactive.
+              </Body>
+
+              <Body className="mx-auto mt-4 max-w-3xl text-[1.04rem] leading-relaxed text-neutral-700">
+                Taylor-Made Baby Co. exists to replace that noise with a thoughtful plan.
+              </Body>
+            </div>
+          </RevealOnScroll>
+
+          <AuthorityStrip items={authorityItems} className="mt-12 md:gap-8" />
+
+          <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-start lg:gap-20">
+            <RevealOnScroll>
+              <div className="max-w-2xl pr-0 lg:pr-4">
+                <SectionDivider />
+                <H2 className="font-serif text-neutral-900">There&apos;s a lot of advice out there.</H2>
                 <Body className="mt-6 text-neutral-700">
                   Most of it loud. Some of it helpful. Very little of it tailored to your actual home, budget, and
                   routine.
@@ -302,32 +387,33 @@ export default async function HomePage() {
                   When everything feels urgent, nothing feels clear. That is where practical baby gear guidance makes a
                   difference.
                 </Body>
+                <Body className="mt-7 max-w-xl text-neutral-900">
+                  The goal is not more input. It is a calmer plan for what matters first.
+                </Body>
               </div>
+            </RevealOnScroll>
 
-              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)]">
-                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                  This is for you if...
-                </p>
+            <RevealOnScroll delayMs={90}>
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)] md:p-10">
+                <p className="text-xs uppercase tracking-[0.2em] text-black/45">This is for you if...</p>
                 <div className="mt-6 space-y-4">
                   {adviceChecklistItems.map((item) => (
                     <div key={item} className="flex items-start gap-4">
                       <CheckIcon />
-                      <Body className="text-neutral-700">
-                        {item}
-                      </Body>
+                      <Body className="text-neutral-700">{item}</Body>
                     </div>
                   ))}
                 </div>
               </MarketingSurface>
-            </div>
-          </RevealOnScroll>
+            </RevealOnScroll>
+          </div>
         </MarketingSection>
 
         <MarketingSection
           tone="ivory"
           container="default"
           spacing="default"
-          className="homepage-section"
+          className="homepage-section homepage-support-section"
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
@@ -335,49 +421,36 @@ export default async function HomePage() {
                 <SectionDivider />
               </div>
               <H2 className="font-serif text-neutral-900">
-                {WHAT_I_HELP_FAMILIES_CHOOSE_TITLE}
+                How Taylor-Made Baby Co. Supports Families
               </H2>
               <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                {WHAT_I_HELP_FAMILIES_CHOOSE_BLURB}
-              </Body>
-              <Body className="mx-auto mt-4 max-w-2xl text-neutral-700">
-                {WHAT_I_HELP_FAMILIES_CHOOSE_SUPPORTING}
+                Support can be focused on one category or stretch across the full baby-prep picture. These are the
+                areas families most often want help sorting.
               </Body>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <div className="mt-12 grid items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
-              {decisionCategories.map((item) => (
-                <MarketingSurface
-                  key={item.title}
-                  className="flex h-full min-h-[28rem] flex-col rounded-2xl bg-white/95 p-8 shadow-sm transition-shadow duration-200 hover:shadow-lg md:p-8"
-                >
-                  <div className="mx-auto mb-8 flex aspect-square w-full max-w-[13.25rem] items-center justify-center rounded-[1.75rem] border border-black/12 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
-                    <ServiceIconBadge
-                      src={item.iconSrc}
-                      size="addon"
-                      className="h-[6.95rem] w-[6.95rem] self-center"
-                    />
-                  </div>
-
-                  <H3 className="max-w-[18ch] font-serif text-xl tracking-tight text-neutral-900 md:text-2xl">
-                    {item.title}
-                  </H3>
-                  <Body className="mt-4 max-w-md text-neutral-600">
-                    {item.description}
-                  </Body>
-                </MarketingSurface>
-              ))}
+            <div className="mt-12">
+              <AddonServiceShowcase services={servicePillars} gridClassName="xl:grid-cols-4" equalHeight />
             </div>
           </RevealOnScroll>
+
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/services"
+              className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            >
+              View All Services
+            </Link>
+          </div>
         </MarketingSection>
 
         <MarketingSection
-          tone="white"
+          tone="ivory"
           container="default"
           spacing="default"
-          className="homepage-section"
+          className="homepage-section homepage-method-section"
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
@@ -385,45 +458,26 @@ export default async function HomePage() {
                 <SectionDivider />
               </div>
               <H2 className="font-serif text-neutral-900">
-                Real Baby Gear Decisions
+                The Taylor-Made Method
               </H2>
               <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                This is the practical side of baby prep: real homes, real budgets, real routines, and the gear decisions
-                that need an actual answer.
+                The goal is not to hand you a longer list. It is to turn a long list of decisions into a plan that
+                makes sense for your family.
               </Body>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {scenarioCards.map((item) => (
-                <MarketingSurface key={item.problem} className="h-full">
-                  <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                    Problem
-                  </p>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {methodCards.map((item) => (
+                <MarketingSurface key={item.title} className="h-full">
+                  <p className="text-xs uppercase tracking-[0.2em] text-black/45">{item.step}</p>
                   <H3 className="mt-4 font-serif text-neutral-900">
-                    {item.problem}
+                    {item.title}
                   </H3>
-
-                  <div className="mt-8 space-y-6 text-sm leading-relaxed text-neutral-600">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                        Decision
-                      </p>
-                      <p className="mt-2">
-                        {item.decision}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                        Outcome
-                      </p>
-                      <p className="mt-2">
-                        {item.outcome}
-                      </p>
-                    </div>
-                  </div>
+                  <Body className="mt-6 text-neutral-700">
+                    {item.description}
+                  </Body>
                 </MarketingSurface>
               ))}
             </div>
@@ -445,7 +499,8 @@ export default async function HomePage() {
                 Choose Your Support
               </H2>
               <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                Whether you need help with one decision or the full baby-prep picture, there is a clear place to start.
+                Whether you need help with one decision or the full baby-prep picture, there is a clear place to
+                start.
               </Body>
             </div>
           </RevealOnScroll>
@@ -457,33 +512,43 @@ export default async function HomePage() {
 
         <MarketingSection
           tone="ivory"
-          container="narrow"
+          container="default"
           spacing="default"
-          className="homepage-section"
+          className="homepage-section homepage-testimonials-section"
         >
           <RevealOnScroll>
             <div className="mx-auto max-w-3xl text-center">
               <div className="flex justify-center">
                 <SectionDivider />
               </div>
-              <H2 className="font-serif text-neutral-900">
+              <p className="mt-6 text-xs uppercase tracking-[0.24em] text-black/45">From Families</p>
+              <H2 className="mt-4 font-serif text-neutral-900">
                 What Families Say
               </H2>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <MarketingSurface className="mx-auto mt-10 max-w-4xl bg-[#F7F4EF] text-center md:px-12">
-              <div className="relative px-4 py-2 md:px-6">
-                <QuoteMark />
-                <p className="relative text-lg font-serif leading-relaxed text-neutral-900 md:text-xl">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-              </div>
-              <p className="mt-6 text-sm text-neutral-600">
-                - {testimonial.attribution}
-              </p>
-            </MarketingSurface>
+            <div className="mx-auto mt-12 grid max-w-5xl items-start gap-6 md:grid-cols-2">
+              {homepageTestimonials.map((item) => (
+                <MarketingSurface
+                  key={item.attribution}
+                  className="relative self-start overflow-hidden border-black/8 bg-white shadow-[0_18px_40px_rgba(0,0,0,0.05)] md:p-8"
+                >
+                  <div className="relative rounded-[1.75rem] border border-white/60 bg-white/55 px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] md:px-6">
+                    <div className="relative px-2 py-1 md:px-3">
+                      <QuoteMark />
+                      <p className="relative text-lg font-serif leading-relaxed text-neutral-900 md:text-[1.35rem] md:leading-[1.38]">
+                        &ldquo;{item.quote}&rdquo;
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-5 border-t border-black/6 pt-4">
+                    <p className="text-sm text-neutral-600">{item.attribution}</p>
+                  </div>
+                </MarketingSurface>
+              ))}
+            </div>
           </RevealOnScroll>
         </MarketingSection>
 
@@ -493,7 +558,7 @@ export default async function HomePage() {
           spacing="default"
           className="homepage-section"
         >
-          <div className={splitSectionGridClass}>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
             <RevealOnScroll>
               <div className="max-w-2xl">
                 <SectionDivider />
@@ -511,6 +576,17 @@ export default async function HomePage() {
                 <Body className="mt-4 text-neutral-700">
                   The goal is not to buy more. It is to build a baby setup that works in your actual home and routine.
                 </Body>
+
+                <div className="mt-10 space-y-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-black/45">Experience includes</p>
+                  <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+                    {aboutPartnerLogos.map((logo) => (
+                      <div key={logo.alt} className={`relative h-10 ${logo.widthClassName}`}>
+                        <Image src={logo.src} alt={logo.alt} fill sizes="184px" className="object-contain object-left" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                 <div className="mt-8">
                   <Link
@@ -593,7 +669,7 @@ export default async function HomePage() {
               href="/blog"
               className="btn btn--secondary w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:w-auto"
             >
-              View All Guides →
+              Explore the Blog →
             </Link>
           </div>
 
@@ -624,8 +700,9 @@ export default async function HomePage() {
 
         <FinalCTA
           className="homepage-section"
-          title="Start your baby preparation with a plan that fits."
-          description="If you are sorting strollers, car seats, registry picks, or nursery setup, one conversation can make the next steps a lot clearer."
+          title="Start Your Baby Preparation with Confidence"
+          description="Whether you are building your registry, designing your nursery, or preparing your home for a new arrival, Taylor-Made Baby Co. offers thoughtful guidance every step of the way."
+          ctaLabel="Request Your Consultation"
         />
       </main>
     </SiteShell>

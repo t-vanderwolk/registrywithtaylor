@@ -16,7 +16,7 @@ type SubmitState =
   | { type: 'error'; message: string };
 
 const inputClassName =
-  'w-full rounded-md border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-blush)]';
+  'w-full rounded-md border border-neutral-300 px-4 py-3 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-blush)]';
 
 const labelClassName = 'block text-sm font-medium text-neutral-900';
 

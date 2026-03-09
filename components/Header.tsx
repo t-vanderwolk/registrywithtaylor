@@ -27,7 +27,7 @@ export default function Header({ currentPath }: HeaderProps) {
     const isActive = href === currentPath;
 
     return `link-underline pb-1 uppercase transition-colors duration-200 ${
-      isMobile ? 'text-base tracking-[0.14em]' : 'text-sm tracking-[0.2em]'
+      isMobile ? 'inline-flex min-h-[44px] items-center text-[0.95rem] tracking-[0.12em]' : 'text-sm tracking-[0.2em]'
     } ${
       isActive
         ? `text-charcoal underline decoration-black/15 ${isMobile ? 'underline-offset-4' : 'underline-offset-8'}`
@@ -37,10 +37,10 @@ export default function Header({ currentPath }: HeaderProps) {
 
   return (
     <header className="site-header w-full border-b border-black/5 bg-[#F7F4EF]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 md:px-10 md:py-5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 md:px-10 md:py-5">
         <Link
           href="/"
-          className="max-w-[13.5rem] font-serif text-base leading-tight tracking-[0.01em] text-charcoal transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none sm:text-lg"
+          className="max-w-[11.5rem] font-serif text-[0.98rem] leading-tight tracking-[0.01em] text-charcoal transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none sm:text-lg"
           onClick={() => setOpen(false)}
         >
           Taylor-Made Baby Co.
@@ -95,7 +95,7 @@ export default function Header({ currentPath }: HeaderProps) {
       >
         <nav
           id="mobile-navigation"
-          className="flex flex-col gap-4 overflow-y-auto px-4 py-5 sm:px-6"
+          className="flex flex-col gap-2 overflow-y-auto px-4 py-4 sm:px-6"
           aria-label="Mobile navigation"
         >
           {navLinks.map((link) => (

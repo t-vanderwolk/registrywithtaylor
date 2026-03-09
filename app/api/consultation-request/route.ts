@@ -13,6 +13,15 @@ const asOptionalText = (value: FormDataEntryValue | null) => {
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+const asInternalPath = (value: FormDataEntryValue | null, fallback: string) => {
+  const text = asText(value);
+  if (!text || !text.startsWith('/') || text.startsWith('//')) {
+    return fallback;
+  }
+
+  return text;
+};
+
 const asOptionalDate = (value: FormDataEntryValue | null) => {
   const text = asText(value);
   if (!text) {
@@ -44,13 +53,24 @@ const getRequestIp = (req: NextRequest) => {
   return null;
 };
 
-const redirectToConsultation = (req: NextRequest, search = '') =>
-  NextResponse.redirect(new URL(`/consultation${search}`, req.url), { status: 303 });
+const redirectToPath = (req: NextRequest, path: string, error?: string) => {
+  const url = new URL(path, req.url);
+  if (error) {
+    url.searchParams.set('error', error);
+  }
 
-const redirectToConfirmation = (req: NextRequest) =>
-  NextResponse.redirect(new URL('/consultation/confirmation', req.url), { status: 303 });
+  return NextResponse.redirect(url, { status: 303 });
+};
 
 export async function POST(req: NextRequest) {
+  const formData = await req.formData().catch(() => null);
+  if (!formData) {
+    return redirectToPath(req, '/consultation', 'invalid-form');
+  }
+
+  const returnPath = asInternalPath(formData.get('returnPath'), '/consultation');
+  const successPath = asInternalPath(formData.get('successPath'), '/consultation/confirmation');
+
   const ip = getRequestIp(req);
   const rateLimit = consumeRateLimit({
     route: '/api/consultation-request',
@@ -60,17 +80,12 @@ export async function POST(req: NextRequest) {
   });
 
   if (!rateLimit.allowed) {
-    return redirectToConsultation(req, '?error=rate-limit');
-  }
-
-  const formData = await req.formData().catch(() => null);
-  if (!formData) {
-    return redirectToConsultation(req, '?error=invalid-form');
+    return redirectToPath(req, returnPath, 'rate-limit');
   }
 
   // Honeypot field for basic spam filtering.
   if (asText(formData.get('company')).length > 0) {
-    return redirectToConfirmation(req);
+    return redirectToPath(req, successPath);
   }
 
   const name = asText(formData.get('name'));
@@ -81,15 +96,15 @@ export async function POST(req: NextRequest) {
   const dueDate = asOptionalDate(formData.get('dueDate'));
 
   if (!name || !email) {
-    return redirectToConsultation(req, '?error=required');
+    return redirectToPath(req, returnPath, 'required');
   }
 
   if (!isValidEmail(email)) {
-    return redirectToConsultation(req, '?error=invalid-email');
+    return redirectToPath(req, returnPath, 'invalid-email');
   }
 
   if (dueDate.error) {
-    return redirectToConsultation(req, '?error=invalid-date');
+    return redirectToPath(req, returnPath, 'invalid-date');
   }
 
   await prisma.consultationRequest.create({
@@ -103,5 +118,5 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return redirectToConfirmation(req);
+  return redirectToPath(req, successPath);
 }

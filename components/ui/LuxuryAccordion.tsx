@@ -2,8 +2,10 @@
 
 import { useId, useState } from 'react';
 
+type LuxuryAccordionItem = string | { label: string; content: string };
+
 type LuxuryAccordionProps = {
-  items: string[];
+  items: LuxuryAccordionItem[];
   className?: string;
   panelClassName?: string;
   defaultOpen?: boolean;
@@ -11,7 +13,13 @@ type LuxuryAccordionProps = {
   onToggle?: () => void;
   closedLabel?: string;
   openLabel?: string;
+  contentVariant?: 'checklist' | 'stacked' | 'labeled';
+  panelHeading?: string;
 };
+
+function isLabeledItem(item: LuxuryAccordionItem): item is { label: string; content: string } {
+  return typeof item !== 'string';
+}
 
 function CheckCircleIcon() {
   return (
@@ -62,6 +70,8 @@ export default function LuxuryAccordion({
   onToggle,
   closedLabel = 'Learn more',
   openLabel = 'Show less',
+  contentVariant = 'checklist',
+  panelHeading,
 }: LuxuryAccordionProps) {
   const [uncontrolledIsOpen, setUncontrolledIsOpen] = useState(defaultOpen);
   const accordionId = useId().replace(/:/g, '');
@@ -117,16 +127,62 @@ export default function LuxuryAccordion({
               .filter(Boolean)
               .join(' ')}
           >
-            <ul className="max-w-md space-y-3">
-              {items.map((item) => (
-                <li key={item}>
-                  <div className="flex items-start gap-3">
-                    <CheckCircleIcon />
-                    <span className="max-w-md text-sm leading-relaxed text-neutral-700">{item}</span>
+            {panelHeading ? (
+              <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/45">{panelHeading}</p>
+            ) : null}
+
+            {contentVariant === 'labeled' ? (
+              <div className={['space-y-5', panelHeading ? 'mt-4' : ''].filter(Boolean).join(' ')}>
+                {items.map((item, index) => (
+                  <div
+                    key={typeof item === 'string' ? item : `${item.label}-${item.content}`}
+                    className={[
+                      index < items.length - 1 ? 'border-b border-black/6 pb-5' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    {isLabeledItem(item) ? (
+                      <>
+                        <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/45">{item.label}</p>
+                        <p className="mt-2 text-sm leading-relaxed text-neutral-700">{item.content}</p>
+                      </>
+                    ) : (
+                      <p className="text-sm leading-relaxed text-neutral-700">{item}</p>
+                    )}
                   </div>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            ) : contentVariant === 'stacked' ? (
+              <div className={['space-y-4', panelHeading ? 'mt-4' : ''].filter(Boolean).join(' ')}>
+                {items.map((item, index) => (
+                  <div
+                    key={typeof item === 'string' ? item : `${item.label}-${item.content}`}
+                    className={[
+                      'text-sm leading-relaxed text-neutral-700',
+                      index < items.length - 1 ? 'border-b border-black/6 pb-4' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    {typeof item === 'string' ? item : item.content}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ul className={['max-w-md space-y-3', panelHeading ? 'mt-4' : ''].filter(Boolean).join(' ')}>
+                {items.map((item) => (
+                  <li key={typeof item === 'string' ? item : `${item.label}-${item.content}`}>
+                    <div className="flex items-start gap-3">
+                      <CheckCircleIcon />
+                      <span className="max-w-md text-sm leading-relaxed text-neutral-700">
+                        {typeof item === 'string' ? item : item.content}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

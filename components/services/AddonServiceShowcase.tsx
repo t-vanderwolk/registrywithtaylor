@@ -6,17 +6,29 @@ import AddonServiceCard, { type AddonServiceCardData } from '@/components/servic
 
 type AddonServiceShowcaseProps = {
   services: AddonServiceCardData[];
+  gridClassName?: string;
+  equalHeight?: boolean;
 };
 
 export default function AddonServiceShowcase({
   services,
+  gridClassName = '',
+  equalHeight = false,
 }: AddonServiceShowcaseProps) {
   const [openTitle, setOpenTitle] = useState<string | null>(null);
 
   return (
     services.length ? (
       <div>
-        <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div
+          className={[
+            'grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3',
+            equalHeight ? 'items-stretch' : 'items-start',
+            gridClassName,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {services.map((service) => (
             <AddonServiceCard
               key={service.title}

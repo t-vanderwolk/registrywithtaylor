@@ -11,6 +11,8 @@ export type ServiceAddonGroup = {
 const serviceIcons = {
   babyShower: '/assets/icons/giftbox.png',
   babyproof: '/assets/icons/babyproof.png',
+  birthAnnouncement: '/assets/icons/birthannouncment.png',
+  birthday: '/assets/icons/birthday.png',
   calendar: '/assets/icons/calender.png',
   carSeat: '/assets/icons/cpst.png',
   cleaningReset: '/assets/icons/cleaningreset.png',
@@ -266,6 +268,30 @@ export const serviceAddonGroups: ServiceAddonGroup[] = [
           'Retailer perk mapping',
           'Completion discount tracking',
           'Enrollment setup support',
+        ],
+      },
+      {
+        label: 'OPTIONAL CELEBRATION SUPPORT',
+        title: 'Birth Announcements',
+        iconSrc: serviceIcons.birthAnnouncement,
+        description:
+          'Light support for announcement timing, wording, and rollout when you want the details to feel simple and polished.',
+        features: [
+          'Timing and rollout guidance',
+          'Wording and format support',
+          'Simple next-step planning',
+        ],
+      },
+      {
+        label: 'OPTIONAL CELEBRATION SUPPORT',
+        title: 'Birthday Parties',
+        iconSrc: serviceIcons.birthday,
+        description:
+          'Thoughtful planning help for first birthdays and early milestone parties without turning them into a full production.',
+        features: [
+          'Party scope and timing guidance',
+          'Simple hosting plan',
+          'Milestone celebration checklist',
         ],
       },
     ],

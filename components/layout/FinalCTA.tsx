@@ -7,12 +7,14 @@ type FinalCTAProps = {
   className?: string;
   title?: string;
   description?: string;
+  ctaLabel?: string;
 };
 
 export default function FinalCTA({
   className = '',
   title = 'Figure out what actually fits.',
   description = 'One conversation can help you sort registry picks, gear decisions, nursery setup, and what can wait.',
+  ctaLabel = 'Schedule Your Complimentary Consultation',
 }: FinalCTAProps) {
   const sectionClassName = [
     'relative z-10 border-t border-[rgba(0,0,0,0.06)]',
@@ -38,7 +40,7 @@ export default function FinalCTA({
               href="/contact"
               className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             >
-              Schedule Your Complimentary Consultation
+              {ctaLabel}
             </Link>
           </div>
         </div>

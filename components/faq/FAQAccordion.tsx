@@ -51,7 +51,7 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
   }, [isOpen]);
 
   return (
-    <div className={[index < total - 1 ? 'border-b border-black/5' : '', 'py-6'].filter(Boolean).join(' ')}>
+    <div className={[index < total - 1 ? 'border-b border-black/5' : '', 'py-5 sm:py-6'].filter(Boolean).join(' ')}>
       <h3>
         <button
           id={buttonId}
@@ -59,7 +59,7 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={() => setIsOpen((value) => !value)}
-          className="flex w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
+          className="flex min-h-[44px] w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
         >
           <span className="text-[0.98rem] font-medium leading-relaxed sm:text-base md:text-lg">
             {item.question}

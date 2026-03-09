@@ -80,12 +80,12 @@ function ServiceChecklist({ items, className = '' }: { items: string[]; classNam
 
 export default function PlanningPackageCards({ className = '' }: { className?: string }) {
   return (
-    <div className={['grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:gap-8', className].filter(Boolean).join(' ')}>
+    <div className={['grid grid-cols-1 items-stretch gap-5 md:grid-cols-3 md:gap-8', className].filter(Boolean).join(' ')}>
       {planningPackages.map((pkg) => {
         const isFeatured = Boolean(pkg.featured);
 
         return (
-          <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-5 sm:pt-6">
+          <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-4 sm:pt-6">
             {pkg.badge ? (
               <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 select-none" aria-hidden="true">
                 <span className="inline-flex rounded-full border border-neutral-300/80 bg-white/85 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-black/45 shadow-sm">
@@ -97,6 +97,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
             <MarketingSurface
               className={[
                 'flex h-full flex-col items-center rounded-2xl p-6 text-center shadow-sm sm:p-8',
+                'min-h-[auto]',
                 isFeatured ? 'border-[var(--color-accent)] shadow-lg' : '',
               ]
                 .filter(Boolean)
@@ -114,11 +115,11 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 {pkg.summary}
               </p>
 
-              <Body className="mt-6 mb-8 text-center text-neutral-600">
+              <Body className="mt-5 mb-7 text-center text-neutral-600 sm:mt-6 sm:mb-8">
                 {pkg.description}
               </Body>
 
-              <ServiceChecklist items={pkg.features} className="mx-auto mb-10 max-w-md text-left text-charcoal/80" />
+              <ServiceChecklist items={pkg.features} className="mx-auto mb-8 max-w-md text-left text-charcoal/80 sm:mb-10" />
 
               <Link
                 href={`/contact?service=${pkg.serviceKey}`}
