@@ -4,10 +4,19 @@ import type { CtaButton } from '@/lib/blog/ctaButtons';
 import type { PostStatusValue } from '@/lib/blog/postStatus';
 import type { BlogStageValue } from '@/lib/blog/postStage';
 
-export type AffiliateOption = {
+export type AffiliatePartnerOption = {
   id: string;
   name: string;
   network: AffiliateNetwork;
+  logoUrl?: string | null;
+};
+
+export type AffiliateBrandOption = {
+  id: string;
+  name: string;
+  logoUrl?: string | null;
+  website?: string | null;
+  networks: AffiliateNetwork[];
 };
 
 export type MediaRecord = {
@@ -52,7 +61,7 @@ export type PersistedPostRecord = {
   archivedAt: Date | string | null;
   featured: boolean;
   published: boolean;
-  affiliateIds: string[];
+  affiliateBrandIds: string[];
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -81,7 +90,7 @@ export type PostSavePayload = Pick<
   | 'status'
   | 'scheduledFor'
   | 'featured'
-  | 'affiliateIds'
+  | 'affiliateBrandIds'
 > & {
   content: string;
   images: Array<{

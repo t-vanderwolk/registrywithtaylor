@@ -3,7 +3,7 @@ import AdminField from '@/components/admin/ui/AdminField';
 import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
-import type { AffiliateOption } from '@/components/admin/blog/postEditorTypes';
+import type { AffiliatePartnerOption } from '@/components/admin/blog/postEditorTypes';
 import type { CtaButton } from '@/lib/blog/ctaButtons';
 
 type SaveMode = 'debounced' | 'immediate';
@@ -11,7 +11,7 @@ type SaveMode = 'debounced' | 'immediate';
 export default function PostCtaButtonsPanel({
   draftButton,
   buttons,
-  affiliateOptions,
+  affiliatePartnerOptions,
   malformed,
   onDraftChange,
   onAddButton,
@@ -22,7 +22,7 @@ export default function PostCtaButtonsPanel({
 }: {
   draftButton: CtaButton;
   buttons: CtaButton[];
-  affiliateOptions: AffiliateOption[];
+  affiliatePartnerOptions: AffiliatePartnerOption[];
   malformed: boolean;
   onDraftChange: (partial: Partial<CtaButton>) => void;
   onAddButton: () => void;
@@ -80,7 +80,7 @@ export default function PostCtaButtonsPanel({
                 onChange={(event) => onDraftChange({ partnerId: event.target.value || null })}
               >
                 <option value="">None</option>
-                {affiliateOptions.map((partner) => (
+                {affiliatePartnerOptions.map((partner) => (
                   <option key={partner.id} value={partner.id}>
                     {partner.name}
                   </option>
@@ -158,7 +158,7 @@ export default function PostCtaButtonsPanel({
                       onChange={(event) => onUpdateButton(index, { partnerId: event.target.value || null }, 'immediate')}
                     >
                       <option value="">None</option>
-                      {affiliateOptions.map((partner) => (
+                      {affiliatePartnerOptions.map((partner) => (
                         <option key={partner.id} value={partner.id}>
                           {partner.name}
                         </option>

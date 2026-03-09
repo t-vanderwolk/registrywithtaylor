@@ -14,6 +14,7 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
+import { listAffiliateLinkOptions } from '@/lib/server/affiliateBrands';
 
 type SearchParams = Promise<{ sort?: string; created?: string }> | undefined;
 type SortMode = 'recent' | 'clicks';
@@ -76,11 +77,31 @@ async function createAffiliateLink(formData: FormData) {
   await requireAdminSession();
 
   const partnerId = asText(formData.get('partnerId'));
+  const sourceLinkId = asText(formData.get('sourceLinkId'));
   const destinationUrl = asText(formData.get('destinationUrl'));
   const label = asText(formData.get('context'));
   const blogPostId = asText(formData.get('blogPostId'));
 
-  if (!partnerId || !destinationUrl) {
+  const sourceLink = sourceLinkId
+    ? await prisma.affiliateLink.findUnique({
+        where: { id: sourceLinkId },
+        select: {
+          id: true,
+          partnerId: true,
+          programId: true,
+          name: true,
+          url: true,
+          destinationUrl: true,
+        },
+      })
+    : null;
+
+  const resolvedDestinationUrl = sourceLink
+    ? sourceLink.url?.trim() || sourceLink.destinationUrl?.trim() || ''
+    : destinationUrl;
+  const resolvedPartnerId = sourceLink?.partnerId ?? partnerId;
+
+  if (!resolvedDestinationUrl || (!resolvedPartnerId && !sourceLink?.programId)) {
     redirect('/admin/affiliate-links');
   }
 
@@ -88,8 +109,11 @@ async function createAffiliateLink(formData: FormData) {
 
   await prisma.affiliateLink.create({
     data: {
-      partnerId,
-      destinationUrl,
+      partnerId: resolvedPartnerId || null,
+      programId: sourceLink?.programId ?? null,
+      name: sourceLink?.name ?? null,
+      url: sourceLink ? resolvedDestinationUrl : destinationUrl,
+      destinationUrl: resolvedDestinationUrl,
       code: shortCode,
       label: label || null,
       blogPostId: blogPostId || null,
@@ -110,7 +134,7 @@ export default async function AdminAffiliateLinksPage({
   const sort = normalizeSort(params?.sort);
   const createdCode = params?.created ? params.created.trim() : '';
 
-  const [affiliateOptions, blogPosts, links] = await Promise.all([
+  const [affiliateOptions, savedLinkOptions, blogPosts, links] = await Promise.all([
     prisma.affiliatePartner.findMany({
       where: { isActive: true },
       orderBy: [{ network: 'asc' }, { name: 'asc' }],
@@ -120,6 +144,7 @@ export default async function AdminAffiliateLinksPage({
         network: true,
       },
     }),
+    listAffiliateLinkOptions(),
     prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
       select: {
@@ -129,6 +154,11 @@ export default async function AdminAffiliateLinksPage({
       },
     }),
     prisma.affiliateLink.findMany({
+      where: {
+        code: {
+          not: null,
+        },
+      },
       orderBy: { createdAt: 'desc' },
       include: {
         partner: {
@@ -136,6 +166,18 @@ export default async function AdminAffiliateLinksPage({
             id: true,
             name: true,
             network: true,
+          },
+        },
+        program: {
+          select: {
+            id: true,
+            network: true,
+            brand: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
         blogPost: {
@@ -182,8 +224,19 @@ export default async function AdminAffiliateLinksPage({
 
         <form action={createAffiliateLink} className="admin-stack gap-3.5">
           <div className="grid gap-3 md:grid-cols-2">
+            <AdminField label="Saved affiliate link (optional)" htmlFor="affiliate-link-source">
+              <select id="affiliate-link-source" name="sourceLinkId" className="admin-select">
+                <option value="">Paste a destination manually</option>
+                {savedLinkOptions.map((link) => (
+                  <option key={link.id} value={link.id}>
+                    {link.label}
+                  </option>
+                ))}
+              </select>
+            </AdminField>
+
             <AdminField label="Affiliate partner" htmlFor="affiliate-link-partner">
-              <select id="affiliate-link-partner" name="partnerId" className="admin-select" required>
+              <select id="affiliate-link-partner" name="partnerId" className="admin-select">
                 <option value="">Select active partner</option>
                 {affiliateOptions.map((partner) => (
                   <option key={partner.id} value={partner.id}>
@@ -209,8 +262,7 @@ export default async function AdminAffiliateLinksPage({
             <AdminInput
               id="affiliate-link-destination"
               name="destinationUrl"
-              required
-              placeholder="https://partner.example.com/product?aff_id=..."
+              placeholder="Leave blank when using a saved affiliate link"
             />
           </AdminField>
 
@@ -275,7 +327,7 @@ export default async function AdminAffiliateLinksPage({
           }
         >
           {sortedLinks.map((link) => {
-            const shortUrl = `${siteOrigin}/r/${link.code}`;
+            const shortUrl = `${siteOrigin}/r/${link.code!}`;
             const lastClickedAt = link.clicks[0]?.createdAt ?? null;
 
             return (
@@ -285,7 +337,7 @@ export default async function AdminAffiliateLinksPage({
                     <Link href={shortUrl} target="_blank" className="admin-table-code hover:opacity-80">
                       {shortUrl}
                     </Link>
-                    <p className="admin-micro truncate">→ {link.destinationUrl}</p>
+                    <p className="admin-micro truncate">→ {link.destinationUrl ?? link.url ?? '—'}</p>
                     {link.blogPost ? (
                       <p className="admin-micro">
                         Post:{' '}
@@ -300,10 +352,16 @@ export default async function AdminAffiliateLinksPage({
                   {link.partner ? (
                     <AffiliatePartnerIdentity name={link.partner.name} network={link.partner.network} size="sm" />
                   ) : (
-                    '—'
+                    link.program ? (
+                      <AffiliatePartnerIdentity
+                        name={link.program.brand.name}
+                        network={link.program.network}
+                        size="sm"
+                      />
+                    ) : '—'
                   )}
                 </td>
-                <td>{link.partner?.network || '—'}</td>
+                <td>{link.partner?.network || link.program?.network || '—'}</td>
                 <td>{link.label || '—'}</td>
                 <td className="text-right">{link._count.clicks}</td>
                 <td className="text-right admin-micro">{formatDateTime(lastClickedAt)}</td>

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { AffiliateNetwork } from '@prisma/client';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 
@@ -34,17 +33,20 @@ const sizeClasses: Record<
 export default function AffiliatePartnerIdentity({
   name,
   network,
+  logoUrl,
   size = 'md',
   showNetwork = false,
   meta,
 }: {
   name: string;
   network?: AffiliateNetwork;
+  logoUrl?: string | null;
   size?: Size;
   showNetwork?: boolean;
   meta?: string | null;
 }) {
-  const logo = getAffiliatePartnerLogo(name);
+  const fallbackLogo = getAffiliatePartnerLogo(name);
+  const logoSrc = logoUrl?.trim() || fallbackLogo.src;
   const classes = sizeClasses[size];
 
   return (
@@ -52,12 +54,10 @@ export default function AffiliatePartnerIdentity({
       <div
         className={`relative shrink-0 overflow-hidden border border-[var(--admin-color-border)] bg-white shadow-[0_10px_24px_rgba(0,0,0,0.04)] ${classes.frame}`}
       >
-        <Image
-          src={logo.src}
+        <img
+          src={logoSrc}
           alt={`${name} logo`}
-          fill
-          sizes={size === 'sm' ? '40px' : '48px'}
-          className={`object-contain ${classes.imagePadding}`}
+          className={`h-full w-full object-contain ${classes.imagePadding}`}
         />
       </div>
 
@@ -70,7 +70,7 @@ export default function AffiliatePartnerIdentity({
           </p>
         ) : meta ? (
           <p className="admin-micro truncate">{meta}</p>
-        ) : logo.isFallback ? (
+        ) : fallbackLogo.isFallback ? (
           <p className="admin-micro truncate">Generic mark attached</p>
         ) : null}
       </div>

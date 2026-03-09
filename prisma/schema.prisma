@@ -46,6 +46,7 @@ model Post {
   featuredImageUrl String?             @map("featuredImage")
   affiliateLinks   AffiliateLink[]
   affiliates       BlogPostAffiliate[]
+  affiliateBrands  Brand[]             @relation("PostAffiliateBrands")
   author           User                @relation(fields: [authorId], references: [id])
   featuredImage    Media?              @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
   analytics        PostAnalytics[]
@@ -97,9 +98,40 @@ model PostAnalytics {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
+model Brand {
+  id             String             @id @default(cuid())
+  name           String             @unique
+  website        String?
+  logoUrl        String?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  programs       AffiliateProgram[]
+  legacyPartners AffiliatePartner[]
+  posts          Post[]             @relation("PostAffiliateBrands")
+}
+
+model AffiliateProgram {
+  id             String             @id @default(cuid())
+  brandId        String
+  network        AffiliateNetwork
+  campaignId     String?            @unique
+  commission     String?
+  cookieLength   String?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  brand          Brand              @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  legacyPartners AffiliatePartner[]
+  links          AffiliateLink[]
+
+  @@unique([brandId, network])
+  @@index([brandId])
+}
+
 model AffiliatePartner {
   id             String              @id @default(uuid())
   name           String
+  brandId        String?
+  programId      String?
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
   network        AffiliateNetwork
@@ -116,10 +148,14 @@ model AffiliatePartner {
   logoUrl        String?
   website        String?
   affiliateLink  String?
+  brand          Brand?              @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  program        AffiliateProgram?   @relation(fields: [programId], references: [id], onDelete: SetNull)
   affiliateLinks AffiliateLink[]
   blogPosts      BlogPostAffiliate[]
 
   @@unique([name, network])
+  @@index([brandId])
+  @@index([programId])
 }
 
 model BlogPostAffiliate {
@@ -135,17 +171,22 @@ model BlogPostAffiliate {
 
 model AffiliateLink {
   id             String            @id @default(uuid())
+  programId      String?
   partnerId      String?
-  destinationUrl String
-  code           String            @unique
+  name           String?
+  url            String?
+  destinationUrl String?
+  code           String?           @unique
   label          String?
   blogPostId     String?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   clicks         AffiliateClick[]
   blogPost       Post?             @relation(fields: [blogPostId], references: [id])
+  program        AffiliateProgram? @relation(fields: [programId], references: [id], onDelete: SetNull)
   partner        AffiliatePartner? @relation(fields: [partnerId], references: [id])
 
+  @@index([programId])
   @@index([partnerId])
   @@index([createdAt])
   @@index([blogPostId])

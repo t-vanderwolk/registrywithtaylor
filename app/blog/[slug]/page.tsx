@@ -11,6 +11,11 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import { getPostDisplayDate, getPublicPostWhere, isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { SITE_URL } from '@/lib/marketing/metadata';
+import {
+  affiliateBrandSelect,
+  legacyPostAffiliateSelect,
+  normalizePostAffiliateBrands,
+} from '@/lib/server/affiliateBrands';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -21,15 +26,8 @@ type BlogPostParams = {
 
 const AUTHOR_NAME = 'Taylor Vanderwolk';
 
-type BlogPostRecord = PostArticleRecord & {
-  focusKeyword: string | null;
-  seoTitle: string | null;
-  seoDescription: string | null;
-  canonicalUrl: string | null;
-};
-
 const getBlogPost = cache(async (slug: string) =>
-  (await prisma.post.findUnique({
+  prisma.post.findUnique({
     where: { slug },
     select: {
       id: true,
@@ -70,25 +68,16 @@ const getBlogPost = cache(async (slug: string) =>
         },
         orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
+      affiliateBrands: {
+        select: affiliateBrandSelect,
+      },
       affiliates: {
         where: {
           affiliate: {
             isActive: true,
           },
         },
-        select: {
-          affiliate: {
-            select: {
-              id: true,
-              name: true,
-              slug: true,
-              network: true,
-              logoUrl: true,
-              website: true,
-              affiliateLink: true,
-            },
-          },
-        },
+        select: legacyPostAffiliateSelect,
       },
       status: true,
       publishedAt: true,
@@ -101,7 +90,7 @@ const getBlogPost = cache(async (slug: string) =>
       createdAt: true,
       updatedAt: true,
     },
-  })) as BlogPostRecord | null);
+  }));
 
 const toAbsoluteUrl = (pathOrUrl: string) => {
   if (/^https?:\/\//i.test(pathOrUrl)) {
@@ -176,6 +165,14 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     notFound();
   }
 
+  const articlePost = {
+    ...post,
+    affiliateBrands: normalizePostAffiliateBrands({
+      affiliateBrands: post.affiliateBrands,
+      legacyAffiliates: post.affiliates,
+    }),
+  } as PostArticleRecord;
+
   const relatedPosts = await prisma.post.findMany({
     where: {
       ...getPublicPostWhere(),
@@ -204,7 +201,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   });
 
   const { content: articleContent } = extractDownloadableResource(post.content);
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
+  const featuredImageUrl = articlePost.featuredImage?.url ?? articlePost.coverImage ?? articlePost.featuredImageUrl;
   const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
   const seoKeywords = [
@@ -246,11 +243,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        <PostArticleView
-          post={post}
-          relatedPosts={relatedPosts.map((relatedPost) => ({
-            id: relatedPost.id,
-            title: relatedPost.title,
+      <PostArticleView
+        post={articlePost}
+        relatedPosts={relatedPosts.map((relatedPost) => ({
+          id: relatedPost.id,
+          title: relatedPost.title,
             slug: relatedPost.slug,
             category: normalizeBlogCategory(relatedPost.category),
             coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,

@@ -37,7 +37,8 @@ import PostCtaButtonsPanel from '@/components/admin/blog/panels/PostCtaButtonsPa
 import PostMetaPanel from '@/components/admin/blog/panels/PostMetaPanel';
 import PostMiniPreviewCard from '@/components/admin/blog/panels/PostMiniPreviewCard';
 import type {
-  AffiliateOption,
+  AffiliateBrandOption,
+  AffiliatePartnerOption,
   EditorPostState,
   MediaRecord,
   PersistedPostRecord,
@@ -210,7 +211,7 @@ function toEditorState(post: PersistedPostRecord) {
       archivedAt: post.archivedAt,
       featured: post.featured,
       published: post.published,
-      affiliateIds: post.affiliateIds,
+      affiliateBrandIds: post.affiliateBrandIds,
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
     } satisfies EditorPostState,
@@ -242,7 +243,7 @@ function toSavePayload(post: EditorPostState): PostSavePayload {
     status: post.status,
     scheduledFor: post.scheduledFor,
     featured: post.featured,
-    affiliateIds: post.affiliateIds,
+    affiliateBrandIds: post.affiliateBrandIds,
   };
 }
 
@@ -305,10 +306,12 @@ function validateEditorState(post: EditorPostState) {
 
 export default function PostEditor({
   initialPost,
-  affiliateOptions,
+  affiliateBrandOptions,
+  affiliatePartnerOptions,
 }: {
   initialPost: PersistedPostRecord;
-  affiliateOptions: AffiliateOption[];
+  affiliateBrandOptions: AffiliateBrandOption[];
+  affiliatePartnerOptions: AffiliatePartnerOption[];
 }) {
   const router = useRouter();
   const initialEditor = useMemo(() => toEditorState(initialPost), [initialPost]);
@@ -680,16 +683,16 @@ export default function PostEditor({
     );
   }
 
-  function handleAffiliateToggle(affiliateId: string, checked: boolean) {
+  function handleAffiliateBrandToggle(brandId: string, checked: boolean) {
     applyPostUpdate(
       (current) => {
-        const nextAffiliateIds = checked
-          ? Array.from(new Set([...current.affiliateIds, affiliateId]))
-          : current.affiliateIds.filter((id) => id !== affiliateId);
+        const nextAffiliateBrandIds = checked
+          ? Array.from(new Set([...current.affiliateBrandIds, brandId]))
+          : current.affiliateBrandIds.filter((id) => id !== brandId);
 
         return {
           ...current,
-          affiliateIds: nextAffiliateIds,
+          affiliateBrandIds: nextAffiliateBrandIds,
         };
       },
       'immediate',
@@ -1417,15 +1420,15 @@ export default function PostEditor({
             />
 
             <PostAffiliatesPanel
-              affiliateOptions={affiliateOptions}
-              selectedAffiliateIds={post.affiliateIds}
-              onToggleAffiliate={handleAffiliateToggle}
+              affiliateBrandOptions={affiliateBrandOptions}
+              selectedAffiliateBrandIds={post.affiliateBrandIds}
+              onToggleAffiliateBrand={handleAffiliateBrandToggle}
             />
 
             <PostCtaButtonsPanel
               draftButton={newCtaButton}
               buttons={post.ctaButtons}
-              affiliateOptions={affiliateOptions}
+              affiliatePartnerOptions={affiliatePartnerOptions}
               malformed={ctaMalformed}
               onDraftChange={handleCtaDraftChange}
               onAddButton={() => handleAddCtaButton(false)}

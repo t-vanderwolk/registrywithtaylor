@@ -1,4 +1,5 @@
-import type { AffiliateNetwork } from '@prisma/client';
+import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
+import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
@@ -53,17 +54,7 @@ export type PostArticleRecord = {
     alt: string | null;
     createdAt: Date;
   }>;
-  affiliates: Array<{
-    affiliate: {
-      id: string;
-      name: string;
-      slug: string;
-      network: AffiliateNetwork;
-      logoUrl: string | null;
-      website: string | null;
-      affiliateLink: string | null;
-    };
-  }>;
+  affiliateBrands: AffiliateBrandCard[];
   status: PostStatusValue;
   publishedAt: Date | null;
   scheduledFor: Date | null;
@@ -239,7 +230,7 @@ export default function PostArticleView({
       image.url !== featuredImageUrl && collection.findIndex((candidate) => candidate.url === image.url) === index,
   );
   const headerExcerpt = post.deck?.trim() || toExcerpt(post.excerpt, articleContent, 180);
-  const isAffiliate = post.affiliates.length > 0;
+  const isAffiliate = post.affiliateBrands.length > 0;
   const displayDate = getPostDisplayDate(post);
 
   return (
@@ -392,7 +383,7 @@ export default function PostArticleView({
             </RevealOnScroll>
           ) : null}
 
-          {post.affiliates.length > 0 && (
+          {post.affiliateBrands.length > 0 && (
             <RevealOnScroll delayMs={250}>
               <div className="mt-16 border-t border-black/5 pt-10">
                 <div className="space-y-4">
@@ -403,45 +394,53 @@ export default function PostArticleView({
                     Mentioned because they are relevant to the decisions covered in this guide.
                   </Body>
                 </div>
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                  {post.affiliates.map(({ affiliate }) => {
-                    const fallbackLogo = getAffiliatePartnerLogo(affiliate.name);
-                    const logoSrc = affiliate.logoUrl?.trim() || fallbackLogo.src;
-                    const href = affiliate.affiliateLink?.trim() || affiliate.website?.trim();
-
-                    if (!href) {
-                      return (
-                        <span
-                          key={affiliate.id}
-                          className="inline-flex h-16 items-center justify-center rounded-2xl border border-black/10 bg-white px-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)]"
-                          title={affiliate.name}
-                        >
-                          <img
-                            src={logoSrc}
-                            alt={affiliate.name}
-                            className="max-h-10 w-auto object-contain grayscale"
-                            loading="lazy"
-                          />
-                        </span>
-                      );
-                    }
+                <div className="mt-8 grid gap-4 md:grid-cols-2">
+                  {post.affiliateBrands.map((brand) => {
+                    const fallbackLogo = getAffiliatePartnerLogo(brand.name);
+                    const logoSrc = brand.logoUrl?.trim() || fallbackLogo.src;
+                    const href = brand.shopUrl?.trim() || brand.website?.trim();
+                    const networkLabel = formatAffiliateNetworks(brand.networks);
 
                     return (
-                      <a
-                        key={affiliate.id}
-                        href={href}
-                        target="_blank"
-                        rel="sponsored nofollow noopener noreferrer"
-                        className="group inline-flex h-16 items-center justify-center rounded-2xl border border-black/10 bg-white px-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_14px_28px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
-                        aria-label={`Visit ${affiliate.name}`}
+                      <div
+                        key={brand.id}
+                        className="rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_12px_28px_rgba(0,0,0,0.05)]"
                       >
-                        <img
-                          src={logoSrc}
-                          alt={affiliate.name}
-                          className="max-h-10 w-auto object-contain grayscale transition group-hover:grayscale-0"
-                          loading="lazy"
-                        />
-                      </a>
+                        <div className="flex items-start gap-4">
+                          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-[#F8F5F0] p-3">
+                            <img
+                              src={logoSrc}
+                              alt={brand.name}
+                              className="max-h-10 w-auto object-contain"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-base font-medium text-neutral-900">{brand.name}</p>
+                            {networkLabel ? (
+                              <p className="mt-1 text-xs uppercase tracking-[0.16em] text-charcoal/55">
+                                {networkLabel}
+                              </p>
+                            ) : null}
+                            <Body className="mt-2 text-sm text-charcoal/68">
+                              Selected for relevance to the guidance in this article.
+                            </Body>
+                          </div>
+                        </div>
+                        {href ? (
+                          <div className="mt-5">
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="sponsored nofollow noopener noreferrer"
+                              className="inline-flex items-center rounded-full border border-black/12 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-900 transition hover:border-black/20 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                              aria-label={`Shop ${brand.name}`}
+                            >
+                              Shop {brand.name}
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
                     );
                   })}
                 </div>

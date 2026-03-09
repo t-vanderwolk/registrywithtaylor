@@ -3,6 +3,10 @@ import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  resolveAffiliateBrandIdsFromLegacyAffiliateIds,
+  resolveLegacyAffiliateIdsFromBrandIds,
+} from '@/lib/server/affiliateBrands';
 import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
 import prisma from '@/lib/server/prisma';
 
@@ -93,6 +97,7 @@ export async function POST(req: NextRequest) {
   const category = normalizeBlogCategory(body.category);
   const featuredImageId = asNullableId(body.featuredImageId);
   const mediaIds = Array.from(new Set(asStringArray(body.mediaIds)));
+  const requestedAffiliateBrandIds = Array.from(new Set(asStringArray(body.affiliateBrandIds)));
   const affiliateIds = Array.from(new Set(asStringArray(body.affiliateIds)));
   const deck = asNullableText(body.deck);
   const focusKeyword = asNullableText(body.focusKeyword);
@@ -122,6 +127,12 @@ export async function POST(req: NextRequest) {
   }
 
   const slug = await generateUniqueSlug(slugInput || title);
+  const affiliateBrandIds =
+    requestedAffiliateBrandIds.length > 0
+      ? requestedAffiliateBrandIds
+      : await resolveAffiliateBrandIdsFromLegacyAffiliateIds(affiliateIds);
+  const legacyAffiliateIds =
+    affiliateIds.length > 0 ? affiliateIds : await resolveLegacyAffiliateIdsFromBrandIds(affiliateBrandIds);
   const post = await prisma.$transaction(async (tx) => {
     const created = await tx.post.create({
       data: {
@@ -140,6 +151,12 @@ export async function POST(req: NextRequest) {
         featuredImageId,
         media: mediaIds.length > 0 ? { connect: mediaIds.map((id) => ({ id })) } : undefined,
         images: images.length > 0 ? { create: images } : undefined,
+        affiliateBrands:
+          affiliateBrandIds.length > 0
+            ? {
+                connect: affiliateBrandIds.map((id) => ({ id })),
+              }
+            : undefined,
         stage: lifecycle.stage,
         status: lifecycle.status,
         publishedAt: lifecycle.publishedAt,
@@ -151,9 +168,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (affiliateIds.length > 0) {
+    if (legacyAffiliateIds.length > 0) {
       await tx.blogPostAffiliate.createMany({
-        data: affiliateIds.map((affiliateId) => ({
+        data: legacyAffiliateIds.map((affiliateId) => ({
           blogPostId: created.id,
           affiliateId,
         })),
@@ -198,6 +215,11 @@ export async function POST(req: NextRequest) {
             affiliateId: true,
           },
         },
+        affiliateBrands: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   });
@@ -226,6 +248,7 @@ export async function POST(req: NextRequest) {
       featuredImageId: post.featuredImageId,
       mediaIds: post.media.map((entry) => entry.id),
       images: post.images,
+      affiliateBrandIds: post.affiliateBrands.map((entry) => entry.id),
       affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
     },
     { status: 201 },

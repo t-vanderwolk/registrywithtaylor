@@ -3,6 +3,10 @@ import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  resolveAffiliateBrandIdsFromLegacyAffiliateIds,
+  resolveLegacyAffiliateIdsFromBrandIds,
+} from '@/lib/server/affiliateBrands';
 import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
 import prisma from '@/lib/server/prisma';
 
@@ -104,6 +108,7 @@ type PostWithAffiliateIds = {
   views: number;
   createdAt: Date;
   updatedAt: Date;
+  affiliateBrands: Array<{ id: string }>;
   affiliates: Array<{ affiliateId: string }>;
 };
 
@@ -137,6 +142,7 @@ const toResponsePost = (post: PostWithAffiliateIds) => ({
   views: post.views,
   createdAt: post.createdAt,
   updatedAt: post.updatedAt,
+  affiliateBrandIds: post.affiliateBrands.map((entry) => entry.id),
   affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
 });
 
@@ -181,6 +187,11 @@ export async function GET(
       affiliates: {
         select: {
           affiliateId: true,
+        },
+      },
+      affiliateBrands: {
+        select: {
+          id: true,
         },
       },
     },
@@ -244,6 +255,9 @@ export async function PUT(
     ? Array.from(new Set(asStringArray(body.mediaIds)))
     : null;
   const nextFeatured = hasOwn(body, 'featured') ? Boolean(body.featured) : existingPost.featured;
+  const requestedAffiliateBrandIds = hasOwn(body, 'affiliateBrandIds')
+    ? Array.from(new Set(asStringArray(body.affiliateBrandIds)))
+    : null;
   const nextAffiliateIds = hasOwn(body, 'affiliateIds')
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
     : null;
@@ -269,6 +283,18 @@ export async function PUT(
 
   const slugSeed = shouldUpdateSlug ? asText(body.slug) || nextTitle : existingPost.slug;
   const slug = shouldUpdateSlug ? await generateUniqueSlug(slugSeed, id) : existingPost.slug;
+  const nextResolvedAffiliateBrandIds =
+    requestedAffiliateBrandIds !== null
+      ? requestedAffiliateBrandIds
+      : nextAffiliateIds !== null
+        ? await resolveAffiliateBrandIdsFromLegacyAffiliateIds(nextAffiliateIds)
+        : null;
+  const nextResolvedLegacyAffiliateIds =
+    nextAffiliateIds !== null
+      ? nextAffiliateIds
+      : nextResolvedAffiliateBrandIds !== null
+        ? await resolveLegacyAffiliateIdsFromBrandIds(nextResolvedAffiliateBrandIds)
+        : null;
   const post = await prisma.$transaction(async (tx) => {
     await tx.post.update({
       where: { id },
@@ -287,6 +313,10 @@ export async function PUT(
         coverImage: nextCoverImage,
         featuredImageId: nextFeaturedImageId,
         media: nextMediaIds !== null ? { set: nextMediaIds.map((mediaId) => ({ id: mediaId })) } : undefined,
+        affiliateBrands:
+          nextResolvedAffiliateBrandIds !== null
+            ? { set: nextResolvedAffiliateBrandIds.map((brandId) => ({ id: brandId })) }
+            : undefined,
         stage: lifecycle.stage,
         status: lifecycle.status,
         publishedAt: lifecycle.publishedAt,
@@ -297,12 +327,12 @@ export async function PUT(
       },
     });
 
-    if (nextAffiliateIds !== null) {
+    if (nextResolvedLegacyAffiliateIds !== null) {
       await tx.blogPostAffiliate.deleteMany({ where: { blogPostId: id } });
 
-      if (nextAffiliateIds.length > 0) {
+      if (nextResolvedLegacyAffiliateIds.length > 0) {
         await tx.blogPostAffiliate.createMany({
-          data: nextAffiliateIds.map((affiliateId) => ({
+          data: nextResolvedLegacyAffiliateIds.map((affiliateId) => ({
             blogPostId: id,
             affiliateId,
           })),
@@ -359,6 +389,11 @@ export async function PUT(
         affiliates: {
           select: {
             affiliateId: true,
+          },
+        },
+        affiliateBrands: {
+          select: {
+            id: true,
           },
         },
       },

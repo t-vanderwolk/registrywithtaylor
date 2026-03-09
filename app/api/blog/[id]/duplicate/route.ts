@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateUniqueSlug } from '@/lib/server/blog';
+import { resolveAffiliateBrandIdsFromLegacyAffiliateIds } from '@/lib/server/affiliateBrands';
 import { revalidatePostPaths } from '@/lib/server/blogMutation';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
@@ -24,6 +25,9 @@ export async function POST(
       affiliates: {
         select: { affiliateId: true },
       },
+      affiliateBrands: {
+        select: { id: true },
+      },
     },
   });
 
@@ -33,6 +37,10 @@ export async function POST(
 
   const title = `${source.title} (Copy)`;
   const slug = await generateUniqueSlug(title);
+  const affiliateBrandIds =
+    source.affiliateBrands.length > 0
+      ? source.affiliateBrands.map((entry) => entry.id)
+      : await resolveAffiliateBrandIdsFromLegacyAffiliateIds(source.affiliates.map((entry) => entry.affiliateId));
 
   const duplicated = await prisma.$transaction(async (tx) => {
     const created = await tx.post.create({
@@ -51,6 +59,12 @@ export async function POST(
         coverImage: source.coverImage,
         featuredImageId: source.featuredImageId,
         media: source.media.length > 0 ? { connect: source.media.map((entry) => ({ id: entry.id })) } : undefined,
+        affiliateBrands:
+          affiliateBrandIds.length > 0
+            ? {
+                connect: affiliateBrandIds.map((brandId) => ({ id: brandId })),
+              }
+            : undefined,
         status: 'DRAFT',
         publishedAt: null,
         scheduledFor: null,

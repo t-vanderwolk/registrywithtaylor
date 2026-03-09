@@ -81,11 +81,24 @@ export async function GET(
         id: true,
         code: true,
         destinationUrl: true,
+        url: true,
         partnerId: true,
+        programId: true,
         partner: {
           select: {
             id: true,
             allowedDomains: true,
+          },
+        },
+        program: {
+          select: {
+            id: true,
+            brand: {
+              select: {
+                id: true,
+                website: true,
+              },
+            },
           },
         },
       },
@@ -95,35 +108,55 @@ export async function GET(
       return fallbackRedirect(request);
     }
 
-    const hostname = getHostname(link.destinationUrl);
+    const resolvedDestinationUrl = link.destinationUrl?.trim() || link.url?.trim() || '';
+    if (!resolvedDestinationUrl) {
+      logger.warn('affiliate_redirect_missing_destination', {
+        requestId,
+        code: link.code,
+        partnerId: link.partnerId,
+        programId: link.programId,
+      });
+      return fallbackRedirect(request);
+    }
+
+    const hostname = getHostname(resolvedDestinationUrl);
     if (!hostname) {
       logger.warn('affiliate_redirect_invalid_url', {
         requestId,
         code: link.code,
         partnerId: link.partnerId,
-        destinationUrl: link.destinationUrl,
+        programId: link.programId,
+        destinationUrl: resolvedDestinationUrl,
       });
       return fallbackRedirect(request);
     }
 
-    if (!isHttps(link.destinationUrl)) {
+    if (!isHttps(resolvedDestinationUrl)) {
       logger.warn('affiliate_redirect_blocked_protocol', {
         requestId,
         code: link.code,
         partnerId: link.partnerId,
-        destinationUrl: link.destinationUrl,
-        protocol: new URL(link.destinationUrl).protocol,
+        programId: link.programId,
+        destinationUrl: resolvedDestinationUrl,
+        protocol: new URL(resolvedDestinationUrl).protocol,
       });
       return fallbackRedirect(request);
     }
 
-    const allowedDomains = link.partner?.allowedDomains ?? [];
+    const allowedDomains = [
+      ...(link.partner?.allowedDomains ?? []),
+      ...((() => {
+        const brandHostname = getHostname(link.program?.brand.website ?? '');
+        return brandHostname ? [brandHostname] : [];
+      })()),
+    ];
     if (!isDomainAllowed(hostname, allowedDomains)) {
       logger.warn('affiliate_redirect_blocked_domain', {
         requestId,
         code: link.code,
         partnerId: link.partnerId,
-        destinationUrl: link.destinationUrl,
+        programId: link.programId,
+        destinationUrl: resolvedDestinationUrl,
         hostname,
         allowedDomains,
       });
@@ -134,7 +167,8 @@ export async function GET(
       requestId,
       code: link.code,
       partnerId: link.partnerId,
-      destinationUrl: link.destinationUrl,
+      programId: link.programId,
+      destinationUrl: resolvedDestinationUrl,
     });
 
     const userAgent = request.headers.get('user-agent');
@@ -143,8 +177,9 @@ export async function GET(
         requestId,
         code: link.code,
         partnerId: link.partnerId,
+        programId: link.programId,
       });
-      return NextResponse.redirect(link.destinationUrl, { status: 302 });
+      return NextResponse.redirect(resolvedDestinationUrl, { status: 302 });
     }
 
     const referrer = request.headers.get('referer');
@@ -164,11 +199,12 @@ export async function GET(
         requestId,
         code: link.code,
         partnerId: link.partnerId,
+        programId: link.programId,
         error: error instanceof Error ? error.message : 'unknown_error',
       });
     }
 
-    return NextResponse.redirect(link.destinationUrl, { status: 302 });
+    return NextResponse.redirect(resolvedDestinationUrl, { status: 302 });
   } catch (error) {
     logger.error('affiliate_redirect_internal_error', {
       requestId,

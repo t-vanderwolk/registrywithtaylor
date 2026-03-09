@@ -6,6 +6,11 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import PostArticleView, { type PostArticleRecord } from '@/components/blog/PostArticleView';
 import { getPublicPostWhere, isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
+import {
+  affiliateBrandSelect,
+  legacyPostAffiliateSelect,
+  normalizePostAffiliateBrands,
+} from '@/lib/server/affiliateBrands';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -58,25 +63,16 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
         },
         orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       },
+      affiliateBrands: {
+        select: affiliateBrandSelect,
+      },
       affiliates: {
         where: {
           affiliate: {
             isActive: true,
           },
         },
-        select: {
-          affiliate: {
-            select: {
-              id: true,
-              name: true,
-              slug: true,
-              network: true,
-              logoUrl: true,
-              website: true,
-              affiliateLink: true,
-            },
-          },
-        },
+        select: legacyPostAffiliateSelect,
       },
       status: true,
       publishedAt: true,
@@ -90,6 +86,14 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
   if (!post) {
     notFound();
   }
+
+  const articlePost = {
+    ...post,
+    affiliateBrands: normalizePostAffiliateBrands({
+      affiliateBrands: post.affiliateBrands,
+      legacyAffiliates: post.affiliates,
+    }),
+  } as PostArticleRecord;
 
   const relatedPosts = await prisma.post.findMany({
     where: {
@@ -141,7 +145,7 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       />
 
       <PostArticleView
-        post={post as PostArticleRecord}
+        post={articlePost}
         relatedPosts={relatedPosts.map((relatedPost) => ({
           id: relatedPost.id,
           title: relatedPost.title,
