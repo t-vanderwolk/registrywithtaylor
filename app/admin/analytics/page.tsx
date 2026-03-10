@@ -2,6 +2,7 @@ import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
+import { BookingAnalyticsEvents } from '@/lib/analytics/events';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
@@ -128,9 +129,9 @@ export default async function AdminAnalyticsPage() {
     return acc;
   }, {});
 
-  const sectionViewedCount = bookingCountByType.booking_section_viewed ?? 0;
-  const scrolledIntoViewCount = bookingCountByType.booking_scrolled_into_view ?? 0;
-  const interactionCount = bookingCountByType.booking_interaction ?? 0;
+  const sectionViewedCount = bookingCountByType[BookingAnalyticsEvents.SECTION_VIEWED] ?? 0;
+  const scrolledIntoViewCount = bookingCountByType[BookingAnalyticsEvents.SECTION_IN_VIEW] ?? 0;
+  const interactionCount = bookingCountByType[BookingAnalyticsEvents.INTERACTION] ?? 0;
   const revenueLeaderRows = revenueAnalytics.posts.slice(0, 12);
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
@@ -279,7 +280,7 @@ export default async function AdminAnalyticsPage() {
       <AdminHeader
         eyebrow="Booking Funnel"
         title="How It Works engagement"
-        subtitle="Track booking section visibility and interaction without iframe internals."
+        subtitle="Track consultation section visibility and interaction on How It Works without relying on calendar embeds."
       />
 
       <section className="admin-kpi-grid" aria-label="Booking engagement metrics">

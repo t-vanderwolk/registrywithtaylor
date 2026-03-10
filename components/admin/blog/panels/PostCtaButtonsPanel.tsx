@@ -50,7 +50,7 @@ export default function PostCtaButtonsPanel({
       <div className="admin-stack gap-1.5">
         <p className="admin-eyebrow">CTA Buttons</p>
         <h2 className="admin-h2">Paste final URLs</h2>
-        <p className="admin-body">Buttons are stored schema-neutrally inside the post content and rendered consistently on the public article.</p>
+        <p className="admin-body">Buttons are stored schema-neutrally and only render when you insert a CTA slot into the draft.</p>
       </div>
 
       <div className="admin-stack gap-3 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
@@ -98,7 +98,7 @@ export default function PostCtaButtonsPanel({
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="admin-micro">Add a CTA here, then insert it into the markdown at the current cursor position.</p>
+          <p className="admin-micro">Stored CTAs stay hidden until you insert them at the cursor position.</p>
           <div className="flex flex-wrap items-center gap-2">
             <AdminButton type="button" variant="secondary" size="sm" onClick={onAddButton}>
               Add CTA

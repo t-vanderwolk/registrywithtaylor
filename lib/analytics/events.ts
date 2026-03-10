@@ -7,3 +7,12 @@ export const AnalyticsEvents = {
 } as const;
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents];
+
+export const BookingAnalyticsEvents = {
+  SECTION_VIEWED: 'booking_section_viewed',
+  SECTION_IN_VIEW: 'booking_scrolled_into_view',
+  INTERACTION: 'booking_interaction',
+} as const;
+
+export type BookingAnalyticsEventName =
+  (typeof BookingAnalyticsEvents)[keyof typeof BookingAnalyticsEvents];

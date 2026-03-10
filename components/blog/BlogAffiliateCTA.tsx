@@ -1,6 +1,7 @@
 'use client';
 
 import type { AffiliateNetwork } from '@prisma/client';
+import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import { trackEvent } from '@/lib/analytics';
 import { buildBlogAffiliateAnalyticsMeta } from '@/lib/adminAnalytics.service';
@@ -84,8 +85,8 @@ export default function BlogAffiliateCTA({
       rel="sponsored nofollow noopener noreferrer"
       className={
         variant === 'secondary'
-          ? 'btn btn--secondary inline-flex items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
-          : 'btn btn--primary inline-flex items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
+          ? 'btn btn--secondary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
+          : 'btn btn--primary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
       }
       data-affiliate-partner={partner?.slug ?? ''}
       data-affiliate-network={partner?.network ?? ''}
@@ -94,9 +95,7 @@ export default function BlogAffiliateCTA({
       aria-label={partner ? `${ctaText} with ${partner.name}` : ctaText}
     >
       {partner?.logoUrl ? (
-        <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full border border-black/10 bg-white/85 p-1.5">
-          <img src={partner.logoUrl} alt="" aria-hidden="true" className="max-h-full w-auto object-contain" />
-        </span>
+        <AffiliateLogoBadge src={partner.logoUrl} size="button" syncWithGroup />
       ) : null}
       <span>{ctaText}</span>
     </a>

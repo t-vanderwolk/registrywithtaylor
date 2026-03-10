@@ -65,6 +65,7 @@ export default function ConsultationRequestForm({
       action="/api/consultation-request"
       method="post"
       className="space-y-6"
+      data-booking-context="consultation_request"
       onFocusCapture={handleFocusCapture}
       onSubmit={handleSubmit}
     >

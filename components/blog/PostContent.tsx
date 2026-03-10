@@ -355,7 +355,6 @@ export default function PostContent({
         let i = 0;
         let paragraphCount = 0;
         let h2Count = 0;
-        let insertedStoredButtons = false;
         const slottedButtonIds = new Set<string>();
 
         while (i < lines.length) {
@@ -556,21 +555,6 @@ export default function PostContent({
                 {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
               </p>,
             );
-
-            if (!insertedStoredButtons && storedButtons.buttons.length > 0 && paragraphCount === 1) {
-              const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
-              if (remainingButtons.length > 0) {
-                nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-inline`, postId, ctaPartners));
-                insertedStoredButtons = true;
-              }
-            }
-          }
-        }
-
-        if (!insertedStoredButtons && storedButtons.buttons.length > 0) {
-          const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
-          if (remainingButtons.length > 0) {
-            nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-end`, postId, ctaPartners));
           }
         }
 

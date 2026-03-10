@@ -1,4 +1,5 @@
 import type { AffiliateNetwork } from '@prisma/client';
+import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 
 const NETWORK_LABEL: Record<AffiliateNetwork, string> = {
@@ -13,19 +14,16 @@ type Size = 'sm' | 'md';
 const sizeClasses: Record<
   Size,
   {
-    frame: string;
-    imagePadding: string;
+    badge: 'compact' | 'button';
     title: string;
   }
 > = {
   sm: {
-    frame: 'h-10 w-10 rounded-[16px]',
-    imagePadding: 'p-2',
+    badge: 'compact',
     title: 'text-sm',
   },
   md: {
-    frame: 'h-12 w-12 rounded-[18px]',
-    imagePadding: 'p-2.5',
+    badge: 'button',
     title: 'text-sm',
   },
 };
@@ -51,15 +49,7 @@ export default function AffiliatePartnerIdentity({
 
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <div
-        className={`relative shrink-0 overflow-hidden border border-[var(--admin-color-border)] bg-white shadow-[0_10px_24px_rgba(0,0,0,0.04)] ${classes.frame}`}
-      >
-        <img
-          src={logoSrc}
-          alt={`${name} logo`}
-          className={`h-full w-full object-contain ${classes.imagePadding}`}
-        />
-      </div>
+      <AffiliateLogoBadge src={logoSrc} alt="" size={classes.badge} interactive={false} />
 
       <div className="min-w-0">
         <p className={`truncate font-medium text-admin ${classes.title}`}>{name}</p>

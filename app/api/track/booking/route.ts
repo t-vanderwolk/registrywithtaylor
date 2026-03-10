@@ -1,13 +1,12 @@
 import crypto from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
+import { BookingAnalyticsEvents, type BookingAnalyticsEventName } from '@/lib/analytics/events';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 
-const allowedTypes = new Set([
-  'booking_section_viewed',
-  'booking_scrolled_into_view',
-  'booking_interaction',
-]);
+const allowedTypes = Object.values(BookingAnalyticsEvents);
+const isAllowedType = (value: string): value is BookingAnalyticsEventName =>
+  allowedTypes.includes(value as BookingAnalyticsEventName);
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 const asNullableText = (value: unknown) => {
@@ -59,7 +58,7 @@ export async function POST(req: NextRequest) {
   }
 
   const type = asText((body as Record<string, unknown>).type);
-  if (!allowedTypes.has(type)) {
+  if (!isAllowedType(type)) {
     return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
   }
 

@@ -16,6 +16,7 @@ import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 
 export type DownloadableResource = {
@@ -404,12 +405,10 @@ export default async function PostArticleView({
                 return (
                   <div
                     key={brand.id}
-                    className="tmbc-blog-soft-card p-5"
+                    className="group tmbc-blog-soft-card p-5"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-[#F8F5F0] p-3">
-                        <img src={logoSrc} alt={brand.name} className="max-h-10 w-auto object-contain" loading="lazy" />
-                      </div>
+                      <AffiliateLogoBadge src={logoSrc} alt="" size="card" syncWithGroup className="shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p className="text-base font-medium text-neutral-900">{brand.name}</p>
                         {networkLabel ? <p className="mt-1 text-xs uppercase tracking-[0.16em] text-charcoal/55">{networkLabel}</p> : null}
