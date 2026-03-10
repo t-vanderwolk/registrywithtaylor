@@ -59,43 +59,47 @@ export default function TMBCBlogTemplate({
       <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <article className="mx-auto max-w-4xl px-6">
           <header className="tmbc-blog-hero">
-            <div className="flex justify-center">
-              <CategoryTag label={categoryLabel} />
-            </div>
-            <div className="mt-5 space-y-0">
-              <h1 className="text-[var(--tmbc-blog-charcoal)]">{title}</h1>
-              {subtitle ? <p className="excerpt mx-auto max-w-[34ch]">{subtitle}</p> : null}
-            </div>
+            <div className="tmbc-blog-hero__inner">
+              <div className="tmbc-blog-hero__eyebrow">
+                <CategoryTag label={categoryLabel} />
+              </div>
+              <div className="tmbc-blog-hero__copy">
+                <h1 className="text-[var(--tmbc-blog-charcoal)]">{title}</h1>
+                {subtitle ? <p className="excerpt">{subtitle}</p> : null}
+              </div>
 
-            <div className="meta tmbc-blog-meta">
-              {primaryAuthor ? (
-                primaryAuthor.slug ? (
-                  <a
-                    href={`/blog/author/${primaryAuthor.slug}`}
-                    className="font-medium text-[var(--tmbc-blog-rose)] underline underline-offset-4"
-                  >
-                    {primaryAuthor.name}
-                  </a>
-                ) : (
-                  <span className="font-medium text-[var(--tmbc-blog-rose)]">{primaryAuthor.name}</span>
-                )
-              ) : null}
-              <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-              <time dateTime={publishDateIso}>{publishDateLabel}</time>
-              {readingTime ? (
-                <>
-                  <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                  <span>{readingTime} min read</span>
-                </>
-              ) : null}
-              {contributors.length > 0 ? (
-                <>
-                  <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                  <span>with contributions from {contributors.map((author) => author.name).join(', ')}</span>
-                </>
-              ) : null}
+              <div className="meta tmbc-blog-meta">
+                {primaryAuthor ? (
+                  primaryAuthor.slug ? (
+                    <a
+                      href={`/blog/author/${primaryAuthor.slug}`}
+                      className="font-medium text-[var(--tmbc-blog-rose)] underline underline-offset-4"
+                    >
+                      {primaryAuthor.name}
+                    </a>
+                  ) : (
+                    <span className="font-medium text-[var(--tmbc-blog-rose)]">{primaryAuthor.name}</span>
+                  )
+                ) : null}
+                <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                <time dateTime={publishDateIso}>{publishDateLabel}</time>
+                {readingTime ? (
+                  <>
+                    <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                    <span>{readingTime} min read</span>
+                  </>
+                ) : null}
+                {contributors.length > 0 ? (
+                  <>
+                    <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                    <span>with contributions from {contributors.map((author) => author.name).join(', ')}</span>
+                  </>
+                ) : null}
+              </div>
+              <div className="tmbc-blog-hero__divider">
+                <BlogDivider />
+              </div>
             </div>
-            <BlogDivider />
           </header>
 
           {featuredImageUrl ? (

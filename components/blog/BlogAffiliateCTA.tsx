@@ -95,7 +95,12 @@ export default function BlogAffiliateCTA({
       aria-label={partner ? `${ctaText} with ${partner.name}` : ctaText}
     >
       {partner?.logoUrl ? (
-        <AffiliateLogoBadge src={partner.logoUrl} size="button" syncWithGroup />
+        <AffiliateLogoBadge
+          src={partner.logoUrl}
+          size="cta"
+          syncWithGroup
+          className="shrink-0"
+        />
       ) : null}
       <span>{ctaText}</span>
     </a>

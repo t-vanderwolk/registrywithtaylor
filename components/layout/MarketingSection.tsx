@@ -30,8 +30,8 @@ const containerClassMap: Record<MarketingSectionContainer, string> = {
 
 const spacingClassMap: Record<MarketingSectionSpacing, string> = {
   default: 'section-base',
-  tight: 'section-base',
-  spacious: 'section-base',
+  tight: 'section-tight',
+  spacious: 'section-spacious',
 };
 
 export default function MarketingSection({

@@ -16,6 +16,7 @@ type LuxuryAccordionProps = {
   openLabel?: string;
   contentVariant?: 'checklist' | 'stacked' | 'labeled';
   panelHeading?: string;
+  buttonAlign?: 'center' | 'start';
 };
 
 function isLabeledItem(item: LuxuryAccordionItem): item is { label: string; content: string } {
@@ -77,6 +78,7 @@ export default function LuxuryAccordion({
   openLabel = 'Show less',
   contentVariant = 'checklist',
   panelHeading,
+  buttonAlign = 'center',
 }: LuxuryAccordionProps) {
   const [uncontrolledIsOpen, setUncontrolledIsOpen] = useState(defaultOpen);
   const accordionId = useId().replace(/:/g, '');
@@ -100,14 +102,21 @@ export default function LuxuryAccordion({
 
   return (
     <div className={['flex flex-col', className].filter(Boolean).join(' ')}>
-      <div className="order-2 mt-6 flex justify-center">
+      <div
+        className={[
+          'order-2 mt-6 flex',
+          buttonAlign === 'start' ? 'justify-start' : 'justify-center',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
         <button
           id={buttonId}
           type="button"
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={handleToggle}
-          className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-black/10 bg-[#F7F4EF] px-5 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-800 transition-all duration-300 ease-in-out hover:border-black/15 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+          className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[rgba(232,154,174,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(248,228,232,0.68)_100%)] px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-800 shadow-[0_12px_24px_rgba(184,116,138,0.08)] transition-all duration-300 ease-in-out hover:border-[rgba(232,154,174,0.34)] hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
         >
           <span>{isOpen ? openLabel : closedLabel}</span>
           <ChevronIcon isOpen={isOpen} />
@@ -126,7 +135,7 @@ export default function LuxuryAccordion({
         <div className="overflow-hidden">
           <div
             className={[
-              'rounded-xl bg-neutral-50 p-6',
+              'rounded-[1.25rem] border border-black/5 bg-[linear-gradient(180deg,#fcfaf9_0%,#f8f2f1_100%)] p-6',
               panelClassName,
             ]
               .filter(Boolean)

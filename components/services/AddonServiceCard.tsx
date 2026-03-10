@@ -56,18 +56,24 @@ export default function AddonServiceCard({
     <MarketingSurface
       className={[
         isPillarCard
-          ? 'flex min-h-[18rem] min-w-0 flex-col rounded-2xl p-5 shadow-sm transition-shadow duration-200 hover:shadow-lg sm:min-h-[22rem] sm:p-8 md:min-h-[23rem]'
-          : 'flex min-h-[21.5rem] min-w-0 flex-col rounded-2xl p-5 shadow-sm transition-shadow duration-200 hover:shadow-lg sm:min-h-[26rem] sm:p-8 md:min-h-[29rem]',
+          ? 'flex min-h-[19rem] min-w-0 flex-col p-6 sm:min-h-[22rem] sm:p-8 md:min-h-[23rem]'
+          : 'flex min-h-[21.5rem] min-w-0 flex-col p-6 sm:min-h-[26rem] sm:p-8 md:min-h-[29rem]',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
     >
       <div className="flex h-full flex-1 flex-col">
+        {label ? (
+          <span className="inline-flex w-fit rounded-full border border-[rgba(232,154,174,0.18)] bg-[rgba(248,228,232,0.5)] px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/75">
+            {label}
+          </span>
+        ) : null}
+
         <div
           className={[
-            'mx-auto flex w-full items-center justify-center',
-            isPillarCard ? 'mb-5 max-w-[10rem] sm:mb-6 sm:max-w-[11.5rem]' : 'mb-6 max-w-[11rem] sm:mb-8 sm:max-w-[13.25rem]',
+            'flex w-full items-center justify-start',
+            isPillarCard ? 'mb-5 mt-6 max-w-[10rem] sm:mb-6 sm:max-w-[11.5rem]' : 'mb-6 mt-6 max-w-[11rem] sm:mb-8 sm:max-w-[13.25rem]',
           ]
             .filter(Boolean)
             .join(' ')}
@@ -87,8 +93,8 @@ export default function AddonServiceCard({
 
         <h3
           className={[
-            'max-w-none text-center font-serif font-semibold leading-[1.14] tracking-[-0.03em] text-neutral-900',
-            isPillarCard ? 'text-[1.75rem] sm:max-w-[16ch] md:text-[1.95rem]' : 'text-xl sm:max-w-[20ch] md:text-[1.85rem]',
+            'max-w-none font-serif font-semibold leading-[1.12] tracking-[-0.03em] text-neutral-900',
+            isPillarCard ? 'text-[1.7rem] sm:max-w-[14ch] md:text-[1.9rem]' : 'text-[1.45rem] sm:max-w-[18ch] md:text-[1.8rem]',
           ]
             .filter(Boolean)
             .join(' ')}
@@ -97,22 +103,18 @@ export default function AddonServiceCard({
         </h3>
 
         {partnerLogoSrc ? (
-          <div className="mt-4 flex flex-col items-center gap-2 text-center">
-            <p className="text-[0.65rem] uppercase tracking-[0.22em] text-black/45">
+          <div className="mt-4 flex flex-col items-start gap-2 text-left">
+            <p className="text-[0.68rem] uppercase tracking-[0.24em] text-black/45">
               {partnerLabel ?? 'In partnership with'}
             </p>
           </div>
-        ) : null}
-
-        {label ? (
-          <span className="mt-3 text-xs uppercase tracking-[0.25em] text-[var(--color-accent-dark)]/70">{label}</span>
         ) : null}
 
         {description ? (
           <p
             className={[
               'mt-4 max-w-none text-neutral-700',
-              isPillarCard ? 'text-[1.02rem] leading-8 sm:max-w-[18rem]' : 'text-base leading-8 sm:max-w-md md:text-lg',
+              isPillarCard ? 'text-[1rem] leading-7 sm:max-w-[20rem]' : 'text-base leading-7 sm:max-w-md md:text-[1.05rem]',
             ]
               .filter(Boolean)
               .join(' ')}
@@ -128,6 +130,7 @@ export default function AddonServiceCard({
             onToggle={onToggle}
             contentVariant={accordionVariant}
             panelHeading={accordionHeading}
+            buttonAlign="start"
           />
         </div>
       </div>

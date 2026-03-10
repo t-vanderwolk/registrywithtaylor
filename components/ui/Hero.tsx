@@ -18,6 +18,7 @@ type HeroProps = {
   image?: string;
   imageAlt?: string;
   className?: string;
+  sectionStyle?: CSSProperties;
   overlayStyle?: CSSProperties;
   contentStyle?: CSSProperties;
   contentClassName?: string;
@@ -43,6 +44,7 @@ export default function Hero({
   image,
   imageAlt = '',
   className = '',
+  sectionStyle,
   overlayStyle,
   contentStyle,
   contentClassName = '',
@@ -93,7 +95,7 @@ export default function Hero({
   const hasCustomContent = children !== undefined && children !== null;
 
   return (
-    <section className={`${sectionClassName} w-full`}>
+    <section className={`${sectionClassName} w-full`} style={sectionStyle}>
       {showImage && image && (
         <div className="hero-media absolute inset-0 w-full">
           <Image

@@ -1,8 +1,14 @@
-export default function QuoteMark() {
+type QuoteMarkProps = {
+  className?: string;
+};
+
+export default function QuoteMark({
+  className = 'absolute left-0 top-0 select-none text-[88px] leading-[0.8] text-[var(--tmbc-rose)]/12 md:text-[104px]',
+}: QuoteMarkProps) {
   return (
     <span
       aria-hidden="true"
-      className="absolute -left-2 -top-6 select-none text-[120px] leading-none text-[var(--tmbc-rose)]/10"
+      className={className}
     >
       “
     </span>

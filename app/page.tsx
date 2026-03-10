@@ -4,10 +4,11 @@ import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import AuthorityStrip from '@/components/ui/AuthorityStrip';
 import CheckIcon from '@/components/ui/CheckIcon';
-import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import { Body, Eyebrow, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
-import SectionDivider from '@/components/ui/SectionDivider';
+import SectionIntro from '@/components/ui/SectionIntro';
+import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import SiteShell from '@/components/SiteShell';
@@ -24,7 +25,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Co. | Baby Gear & Registry Guidance',
   description:
-    'Personalized help with registries, strollers, car seats, nursery planning, and home prep. Expert guidance on what to buy, what to skip, and what can wait.',
+    'Consultation-first baby planning guidance for registries, gear, nursery setup, and home preparation.',
   path: '/',
   imagePath: '/og-home.jpg',
   imageAlt: 'Taylor-Made Baby Co. - Baby gear and registry guidance.',
@@ -48,38 +49,129 @@ type InsightPreview = {
   createdAt: Date;
 };
 
-const authorityItems = [
-  'Hands-On Retail Experience',
+type TrustMoment = {
+  iconSrc: string;
+  title: string;
+  description: string;
+};
+
+type ProcessPreviewStep = {
+  step: string;
+  title: string;
+  description: string;
+  iconSrc: string;
+};
+
+type MethodCard = {
+  step: string;
+  title: string;
+  description: string;
+};
+
+const heroServiceChips = [
   'Registry Strategy',
-  'Nursery & Home Setup',
+  'Gear Planning',
+  'Nursery & Home Prep',
+  'Consultation-First Support',
+];
+
+const heroHighlights = [
+  {
+    title: 'Complimentary 45-minute consultation',
+    description: 'Bring the biggest questions first, before purchases start stacking up.',
+  },
+  {
+    title: 'Support matched to your season',
+    description: 'Choose focused, signature, or concierge guidance once the right fit is clear.',
+  },
+  {
+    title: 'Recommendations built for real life',
+    description: 'Every next step is shaped around your home, budget, routines, and long-term use.',
+  },
+];
+
+const trustMoments: TrustMoment[] = [
+  {
+    iconSrc: '/assets/icons/buildregistry.png',
+    title: 'Premium retail expertise',
+    description: 'Hands-on experience with the baby gear categories families compare most.',
+  },
+  {
+    iconSrc: '/assets/icons/cpst.png',
+    title: 'Partner-backed safety support',
+    description: 'Trusted guidance for car seat strategy, installation, and home readiness.',
+  },
+  {
+    iconSrc: '/assets/icons/private.png',
+    title: 'Warm concierge guidance',
+    description: 'Calmer recommendations, thoughtful follow-up, and clear next steps.',
+  },
+];
+
+const problemDrivers = [
+  {
+    title: 'Too many products',
+    description: 'The list gets long before you know what your daily routine really needs.',
+  },
+  {
+    title: 'Too many opinions',
+    description: 'Advice from social media, friends, and stores rarely accounts for your real home.',
+  },
+  {
+    title: 'Too little context',
+    description: 'The details that matter most only become clear when they are fitted to your life.',
+  },
 ];
 
 const adviceChecklistItems = [
-  'You want guidance without pressure',
-  'You prefer practical decisions over trend-driven lists',
-  'You want a registry that reflects your real life',
-  'You are trying to figure out what to buy now, what to skip, and what can wait',
-  'You want gear decisions grounded in your space, budget, and routine',
+  'You want guidance without pressure or trend chasing.',
+  'You want to know what to buy now, what to skip, and what can wait.',
+  'You want your registry and gear choices matched to your space, budget, and routine.',
+  'You want a calmer plan before the decisions start multiplying.',
 ];
 
-const methodCards = [
+const processPreviewSteps: ProcessPreviewStep[] = [
   {
     step: '01',
-    title: 'Start with the decisions that matter most',
+    title: 'Start with a consultation',
     description:
-      'We begin with the categories that shape everyday life fastest: stroller, car seat, registry priorities, sleep setup, and home flow.',
+      'Bring the questions that feel most urgent right now, from registry categories to stroller and car seat comparisons.',
+    iconSrc: '/assets/icons/virtual.png',
   },
   {
     step: '02',
-    title: 'Build the plan around real life',
+    title: 'Choose your level of support',
     description:
-      'Recommendations are shaped around your space, budget, routines, travel needs, and the way your family will actually use the gear.',
+      'Decide whether you need one focused session, a signature planning package, or ongoing concierge guidance.',
+    iconSrc: '/assets/icons/private.png',
   },
   {
     step: '03',
-    title: 'Leave with clear next steps',
+    title: 'Build your plan with confidence',
     description:
-      'You know what to buy now, what to compare in person, what to skip, and what can wait until later.',
+      'Leave with a clearer registry, smarter purchase timing, and next steps tailored to daily life.',
+    iconSrc: '/assets/icons/blueprint.png',
+  },
+];
+
+const methodCards: MethodCard[] = [
+  {
+    step: '01',
+    title: 'Filter the noise first',
+    description:
+      'We focus on the categories that shape daily life fastest so the planning process feels immediately lighter.',
+  },
+  {
+    step: '02',
+    title: 'Fit every recommendation to real life',
+    description:
+      'Suggestions are shaped around your space, routines, budget, travel needs, and comfort level with the options.',
+  },
+  {
+    step: '03',
+    title: 'Turn decisions into a plan',
+    description:
+      'You leave knowing what deserves attention now, what to compare in person, and what can wait until later.',
   },
 ];
 
@@ -198,6 +290,13 @@ const servicePillars: AddonServiceCardData[] = [
   },
 ];
 
+const featuredServicePillars: AddonServiceCardData[] = [
+  { ...servicePillars[0], label: 'Registry & Gear' },
+  { ...servicePillars[1], label: 'Safety Support' },
+  { ...servicePillars[2], label: 'Nursery & Home' },
+  { ...servicePillars[4], label: 'Buying Timeline' },
+];
+
 const homepageTestimonials = [
   {
     quote: 'Taylor helped us cut through the noise and make registry decisions that actually fit our life.',
@@ -209,21 +308,30 @@ const homepageTestimonials = [
   },
 ];
 
+const founderTrustPoints = [
+  'Registry, stroller, and car seat guidance translated into plain language',
+  'Recommendations grounded in space, routine, budget, and long-term fit',
+  'Partner access for installation, safety, and childproofing support when needed',
+];
+
 const aboutPartnerLogos = [
   {
     src: '/assets/logos/strolleria.png',
     alt: 'Strolleria',
     widthClassName: 'w-[10.5rem]',
+    imageClassName: 'object-contain object-left',
   },
   {
     src: '/assets/logos/potterparn.png',
     alt: 'Pottery Barn Kids',
     widthClassName: 'w-[11.5rem]',
+    imageClassName: 'origin-left scale-[1.5] object-contain object-left',
   },
   {
     src: '/assets/brand/totsquad.png',
     alt: 'Tot Squad',
     widthClassName: 'w-[9.75rem]',
+    imageClassName: 'object-contain object-left',
   },
 ] as const;
 
@@ -258,6 +366,72 @@ const toInsightExcerpt = (excerpt: string | null, content: string, maxLength = 1
 
   return clean.length > maxLength ? `${clean.slice(0, maxLength - 1)}...` : clean;
 };
+
+function TrustMomentCard({ iconSrc, title, description }: TrustMoment) {
+  return (
+    <div className="h-full rounded-[1.5rem] border border-black/5 bg-white/84 p-5 shadow-[0_16px_32px_rgba(43,38,40,0.05)] md:p-6">
+      <ServiceIconBadge src={iconSrc} size="default" />
+      <H3 className="mt-4 max-w-[11ch] text-[1.2rem] leading-[1.08] md:text-[1.45rem]">{title}</H3>
+      <Body className="mt-3 max-w-none text-[0.96rem] leading-7 text-neutral-600">
+        {description}
+      </Body>
+    </div>
+  );
+}
+
+function ProcessPreviewCard({ step, title, description, iconSrc }: ProcessPreviewStep) {
+  return (
+    <MarketingSurface className="flex h-full flex-col">
+      <div className="flex items-center justify-between gap-4">
+        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(232,154,174,0.14)] text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
+          {step}
+        </span>
+        <ServiceIconBadge src={iconSrc} size="default" />
+      </div>
+
+      <H3 className="mt-8 max-w-[14ch]">{title}</H3>
+      <Body className="mt-4 max-w-none text-neutral-600">{description}</Body>
+    </MarketingSurface>
+  );
+}
+
+function MethodCardItem({ step, title, description }: MethodCard) {
+  return (
+    <MarketingSurface className="flex h-full items-start gap-5 p-6 md:p-7">
+      <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[rgba(232,154,174,0.14)] text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
+        {step}
+      </span>
+      <div className="min-w-0">
+        <H3 className="text-[1.4rem] md:text-[1.65rem]">{title}</H3>
+        <Body className="mt-3 max-w-none text-neutral-600">{description}</Body>
+      </div>
+    </MarketingSurface>
+  );
+}
+
+function TestimonialCard({
+  quote,
+  attribution,
+}: {
+  quote: string;
+  attribution: string;
+}) {
+  return (
+    <MarketingSurface className="relative overflow-hidden bg-white">
+      <div className="relative min-h-[13rem] px-1 pt-2 md:min-h-[14rem]">
+        <div className="relative pl-12 pr-3 pt-4 md:pl-16 md:pr-5 md:pt-5">
+          <QuoteMark className="absolute left-0 top-0 select-none text-[74px] leading-[0.78] text-[var(--tmbc-rose)]/14 md:text-[88px]" />
+          <p className="relative z-[1] max-w-[21ch] font-serif text-[1.78rem] leading-[1.24] tracking-[-0.03em] text-neutral-900 md:text-[2.05rem]">
+            &ldquo;{quote}&rdquo;
+          </p>
+        </div>
+      </div>
+      <div className="mt-3 border-t border-black/6 pt-5">
+        <p className="max-w-none text-sm leading-6 text-neutral-600">{attribution}</p>
+      </div>
+    </MarketingSurface>
+  );
+}
 
 export default async function HomePage() {
   const now = new Date();
@@ -321,286 +495,434 @@ export default async function HomePage() {
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
-        <Hero image="/assets/hero/hero-01.jpg" imageAlt="" innerStyle={{ paddingTop: 'clamp(7rem, 14vh, 11rem)' }}>
-          <div className="space-y-6">
-            <h1 className="marketing-hero-headline hero-load-reveal">
-              Baby Planning &amp; Registry Guidance for Growing Families
-            </h1>
+        <Hero
+          showImage={false}
+          sectionStyle={{
+            height: 'auto',
+            minHeight: 'unset',
+            background: 'linear-gradient(180deg,#fdf9f7 0%,#fbf4f2 52%,#f6efeb 100%)',
+          }}
+          innerStyle={{
+            paddingTop: 'clamp(4.8rem,7vw,6.4rem)',
+            paddingBottom: 'clamp(4rem,6vw,5.4rem)',
+          }}
+          contentStyle={{
+            maxWidth: 'none',
+            padding: '0',
+            borderRadius: '0',
+          }}
+        >
+          <div className="relative">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-[-3rem] top-[-2rem] h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(244,194,194,0.22)_0%,rgba(244,194,194,0)_72%)] blur-2xl"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-[-2rem] right-[8%] h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.8)_0%,rgba(255,255,255,0)_72%)] blur-3xl"
+            />
 
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Because parenthood should start with confidence, not confusion.
-            </Body>
+            <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:items-start lg:gap-12 xl:gap-16">
+              <div className="max-w-[41rem] lg:pt-6">
+                <Eyebrow className="hero-load-reveal">Taylor-Made Baby Co.</Eyebrow>
 
-            <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-base leading-relaxed text-black/70 md:text-left md:text-lg">
-              Strollers · Car seats · Registry strategy · Nursery &amp; home preparation
-            </p>
+                <h1 className="marketing-hero-headline hero-load-reveal hero-load-reveal--1 max-w-[12.2ch] text-[clamp(2.85rem,4.9vw,4.6rem)] leading-[0.92]">
+                  Baby planning guidance that makes the next decisions feel clear.
+                </h1>
 
-            <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
-              <Link
-                href="/contact"
-                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                Request a Consultation
-              </Link>
+                <p className="marketing-hero-copy hero-load-reveal hero-load-reveal--2 max-w-[35rem] text-neutral-700">
+                  Taylor-Made Baby Co. helps growing families sort registry strategy, gear choices, nursery flow, and
+                  home preparation with expert guidance grounded in real life.
+                </p>
 
-              <Link
-                href="/services"
-                className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                View Services
-              </Link>
+                <AuthorityStrip
+                  items={heroServiceChips}
+                  className="hero-load-reveal hero-load-reveal--3 max-w-[42rem] justify-start text-left"
+                  itemClassName="border-black/[0.05] bg-white/72 shadow-none"
+                />
+
+                <div className="hero-load-reveal hero-load-reveal--4 flex flex-col gap-4 pt-7 sm:flex-row">
+                  <Link
+                    href="/consultation"
+                    className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  >
+                    Request Consultation
+                  </Link>
+
+                  <Link
+                    href="/services"
+                    className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                  >
+                    Explore Services
+                  </Link>
+                </div>
+
+                <p className="hero-load-reveal hero-load-reveal--5 mt-5 max-w-[30rem] text-[0.72rem] uppercase tracking-[0.24em] text-charcoal/60">
+                  Complimentary consultation · Thoughtful guidance · Clear next steps
+                </p>
+              </div>
+
+              <div className="hero-load-reveal hero-load-reveal--3 relative lg:justify-self-end lg:pt-2">
+                <div className="relative ml-auto max-w-[31.5rem]">
+                  <div className="relative aspect-[4/4.95] overflow-hidden rounded-[2.25rem] border border-black/10 bg-white shadow-[0_28px_72px_rgba(43,38,40,0.16)]">
+                    <Image
+                      src="/assets/hero/hero-baby-editorial-v2.jpg"
+                      alt="Baby essentials arranged in a calm editorial nursery scene"
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 36rem, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,38,40,0.02)_0%,rgba(43,38,40,0.36)_100%)]" />
+                    <div className="absolute left-5 top-5">
+                      <span className="inline-flex rounded-full border border-white/28 bg-white/16 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-white/88 backdrop-blur-sm">
+                        Consultation-first support
+                      </span>
+                    </div>
+                  </div>
+
+                  <MarketingSurface className="relative -mt-10 ml-auto w-[84%] border-[rgba(232,154,174,0.2)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(252,245,246,0.96)_100%)] p-5 shadow-[0_24px_54px_rgba(184,116,138,0.12)] md:-mt-14 md:p-6">
+                    <Eyebrow>Start Here</Eyebrow>
+                    <H3 className="mt-3 max-w-[13ch] text-[1.65rem] leading-[1.06] md:text-[2rem]">
+                      Request a complimentary consultation.
+                    </H3>
+
+                    <div className="mt-5 space-y-3.5">
+                      {heroHighlights.map((item) => (
+                        <div
+                          key={item.title}
+                          className="rounded-[1.15rem] border border-black/5 bg-white/76 p-3.5 md:p-4"
+                        >
+                          <p className="max-w-none text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/74">
+                            {item.title}
+                          </p>
+                          <p className="mt-2 max-w-none text-sm leading-6 text-neutral-600">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </MarketingSurface>
+                </div>
+              </div>
             </div>
-
-            <p className="hero-load-reveal hero-load-reveal--4 text-sm uppercase tracking-[0.2em] text-charcoal/60">
-              Practical guidance · Clear next steps · No pressure
-            </p>
           </div>
         </Hero>
 
-        <MarketingSection
-          tone="white"
-          container="default"
-          spacing="default"
-          className="homepage-section homepage-post-bow-section"
-        >
+        <MarketingSection tone="white" spacing="tight" className="border-b border-black/[0.04]">
           <RevealOnScroll>
-            <div className="mx-auto max-w-4xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
+            <div className="rounded-[2rem] border border-black/[0.05] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f6_100%)] px-6 py-8 shadow-[0_22px_50px_rgba(43,38,40,0.06)] md:px-10 md:py-10">
+              <SectionIntro
+                align="left"
+                eyebrow="You're in capable hands"
+                title="Trusted support for the details families second-guess most."
+                description="Taylor brings hands-on product knowledge, concierge-level planning, and partner-backed safety expertise to the decisions that tend to feel the most overwhelming."
+                contentWidthClassName="max-w-3xl"
+                titleClassName="max-w-[17ch] text-[clamp(2.4rem,4vw,4rem)] leading-[1]"
+                descriptionClassName="max-w-[44rem]"
+              />
+
+              <div className="mt-10 grid gap-4 md:grid-cols-3">
+                {trustMoments.map((item) => (
+                  <TrustMomentCard key={item.title} {...item} />
+                ))}
               </div>
-
-              <p className="mt-8 text-xs uppercase tracking-[0.24em] text-black/45">The Problem</p>
-
-              <H2 className="mt-5 font-serif leading-tight md:text-[3.1rem] md:leading-[1.02]">
-                Why Preparing for a Baby Feels Overwhelming
-              </H2>
-
-              <Body className="mx-auto mt-6 max-w-3xl text-[1.04rem] leading-relaxed text-neutral-700">
-                Parents today face thousands of products, conflicting advice, and endless registry lists. Preparation
-                quickly becomes reactive.
-              </Body>
-
-              <Body className="mx-auto mt-4 max-w-3xl text-[1.04rem] leading-relaxed text-neutral-700">
-                Taylor-Made Baby Co. exists to replace that noise with a thoughtful plan.
-              </Body>
             </div>
           </RevealOnScroll>
+        </MarketingSection>
 
-          <AuthorityStrip items={authorityItems} className="mt-12 md:gap-8" />
-
-          <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-start lg:gap-20">
+        <MarketingSection tone="ivory" spacing="spacious">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start lg:gap-16">
             <RevealOnScroll>
-              <div className="max-w-2xl pr-0 lg:pr-4">
-                <SectionDivider />
-                <H2 className="font-serif text-neutral-900">There&apos;s a lot of advice out there.</H2>
-                <Body className="mt-6 text-neutral-700">
-                  Most of it loud. Some of it helpful. Very little of it tailored to your actual home, budget, and
-                  routine.
-                </Body>
-                <Body className="mt-4 text-neutral-700">
-                  Between registry lists, social media trends, and well-meaning opinions, it gets very easy to feel
-                  like every decision is urgent.
-                </Body>
-                <Body className="mt-4 text-neutral-700">
-                  When everything feels urgent, nothing feels clear. That is where practical baby gear guidance makes a
-                  difference.
-                </Body>
-                <Body className="mt-7 max-w-xl text-neutral-900">
-                  The goal is not more input. It is a calmer plan for what matters first.
-                </Body>
+              <div>
+                <SectionIntro
+                  align="left"
+                  eyebrow="The problem"
+                  title="The registry is not the hard part. Making confident decisions is."
+                  description="Families today are sorting thousands of products, conflicting opinions, and endless checklists before they have a plan for what actually fits."
+                  contentWidthClassName="max-w-2xl"
+                />
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                  {problemDrivers.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-[1.4rem] border border-black/5 bg-white/72 p-5 shadow-[0_16px_32px_rgba(43,38,40,0.04)]"
+                    >
+                      <p className="max-w-none text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/74">
+                        {item.title}
+                      </p>
+                      <p className="mt-3 max-w-none text-sm leading-6 text-neutral-600">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
-              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)] md:p-10">
-                <p className="text-xs uppercase tracking-[0.2em] text-black/45">This is for you if...</p>
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fffdfa_0%,#f8f0ee_100%)]">
+                <Eyebrow>This is for you if</Eyebrow>
+
                 <div className="mt-6 space-y-4">
                   {adviceChecklistItems.map((item) => (
                     <div key={item} className="flex items-start gap-4">
                       <CheckIcon />
-                      <Body className="text-neutral-700">{item}</Body>
+                      <Body className="max-w-none text-neutral-700">{item}</Body>
                     </div>
                   ))}
+                </div>
+
+                <div className="mt-8 border-t border-black/6 pt-6">
+                  <p className="max-w-none font-serif text-[1.55rem] leading-[1.22] tracking-[-0.03em] text-neutral-900">
+                    The goal is not more input. It is a calmer plan for what matters first.
+                  </p>
                 </div>
               </MarketingSurface>
             </RevealOnScroll>
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="ivory"
-          container="default"
-          spacing="default"
-          className="homepage-section homepage-support-section"
-        >
+        <MarketingSection tone="white" spacing="spacious">
           <RevealOnScroll>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
+            <SectionIntro
+              eyebrow="How it works"
+              title="A clear path from the first conversation to a more confident plan."
+              description="The homepage version is simple: start with consultation, choose the support that fits, and move forward with clarity."
+            />
+          </RevealOnScroll>
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {processPreviewSteps.map((step, index) => (
+              <RevealOnScroll key={step.title} delayMs={index * 80}>
+                <ProcessPreviewCard {...step} />
+              </RevealOnScroll>
+            ))}
+          </div>
+
+          <RevealOnScroll delayMs={120}>
+            <div className="mt-10 flex flex-col items-center gap-4 text-center">
+              <Link
+                href="/how-it-works"
+                className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                View How It Works
+              </Link>
+              <p className="max-w-none text-sm text-neutral-600">
+                Every support path begins with a complimentary consultation.
+              </p>
+            </div>
+          </RevealOnScroll>
+        </MarketingSection>
+
+        <MarketingSection tone="ivory" spacing="spacious">
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <RevealOnScroll>
+              <SectionIntro
+                align="left"
+                eyebrow="Services preview"
+                title="Curated support for registries, gear, safety, and home prep."
+                description="Get focused help for one category or build support around the full baby-prep picture. The homepage preview keeps it to the services families ask for most."
+                contentWidthClassName="max-w-2xl"
+              />
+            </RevealOnScroll>
+
+            <RevealOnScroll delayMs={80}>
+              <Link
+                href="/services"
+                className="btn btn--secondary w-full md:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Explore Services
+              </Link>
+            </RevealOnScroll>
+          </div>
+
+          <RevealOnScroll delayMs={110}>
+            <div className="mt-14">
+              <AddonServiceShowcase services={featuredServicePillars} gridClassName="xl:grid-cols-4" equalHeight />
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll delayMs={140}>
+            <p className="mt-6 max-w-none text-sm text-neutral-600">
+              Additional support is available for adoption, surrogacy, community sessions, baby shower preparation, and
+              more.
+            </p>
+          </RevealOnScroll>
+        </MarketingSection>
+
+        <MarketingSection tone="blush" spacing="spacious">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-14">
+            <RevealOnScroll>
+              <div className="max-w-xl">
+                <SectionIntro
+                  align="left"
+                  eyebrow="The Taylor-Made Method"
+                  title="Not louder. Just more useful."
+                  description="Taylor's approach is built to bring discernment to the categories families usually feel pressured to rush."
+                  contentWidthClassName="max-w-xl"
+                />
+
+                <div className="relative mt-8 overflow-hidden rounded-[1.9rem] border border-black/5 bg-white/80 p-6 shadow-[0_22px_50px_rgba(43,38,40,0.06)] md:p-8">
+                  <QuoteMark className="absolute left-5 top-4 select-none text-[70px] leading-none text-[var(--tmbc-rose)]/14 md:text-[82px]" />
+                  <div className="relative pl-10">
+                    <p className="max-w-none font-serif text-[1.7rem] leading-[1.16] tracking-[-0.03em] text-neutral-900 md:text-[2rem]">
+                      The goal is not to hand you a longer list. It is to help you know what fits.
+                    </p>
+                    <Body className="mt-4 max-w-none text-neutral-600">
+                      Recommendations are designed to reduce pressure, respect your real life, and keep the planning
+                      process grounded in what will actually be useful once baby is here.
+                    </Body>
+                  </div>
+                </div>
               </div>
-              <H2 className="font-serif text-neutral-900">
-                How Taylor-Made Baby Co. Supports Families
-              </H2>
-              <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                Support can be focused on one category or stretch across the full baby-prep picture. These are the
-                areas families most often want help sorting.
-              </Body>
-            </div>
-          </RevealOnScroll>
+            </RevealOnScroll>
 
-          <RevealOnScroll delayMs={90}>
-            <div className="mt-12">
-              <AddonServiceShowcase services={servicePillars} gridClassName="xl:grid-cols-4" equalHeight />
+            <div className="space-y-5">
+              {methodCards.map((item, index) => (
+                <RevealOnScroll key={item.title} delayMs={index * 90}>
+                  <MethodCardItem {...item} />
+                </RevealOnScroll>
+              ))}
             </div>
-          </RevealOnScroll>
-
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/services"
-              className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-            >
-              View All Services
-            </Link>
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="ivory"
-          container="default"
-          spacing="default"
-          className="homepage-section homepage-method-section"
-        >
+        <MarketingSection tone="white" spacing="spacious">
           <RevealOnScroll>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
-              </div>
-              <H2 className="font-serif text-neutral-900">
-                The Taylor-Made Method
-              </H2>
-              <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                The goal is not to hand you a longer list. It is to turn a long list of decisions into a plan that
-                makes sense for your family.
-              </Body>
-            </div>
+            <SectionIntro
+              eyebrow="Support levels"
+              title="Choose the level of planning support that fits."
+              description={
+                <>
+                  Every package begins with a complimentary consultation, then moves into the level of guidance that
+                  makes sense for your family.
+                </>
+              }
+            />
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {methodCards.map((item) => (
-                <MarketingSurface key={item.title} className="h-full">
-                  <p className="text-xs uppercase tracking-[0.2em] text-black/45">{item.step}</p>
-                  <H3 className="mt-4 font-serif text-neutral-900">
-                    {item.title}
-                  </H3>
-                  <Body className="mt-6 text-neutral-700">
-                    {item.description}
-                  </Body>
-                </MarketingSurface>
-              ))}
-            </div>
+            <PlanningPackageCards className="mt-14" />
+          </RevealOnScroll>
+
+          <RevealOnScroll delayMs={130}>
+            <p className="mt-8 max-w-none text-center text-sm text-neutral-600">
+              Not sure which level fits best?{' '}
+              <Link href="/consultation" className="link-underline">
+                Start with a consultation
+              </Link>
+              .
+            </p>
           </RevealOnScroll>
         </MarketingSection>
 
-        <MarketingSection
-          tone="white"
-          container="default"
-          spacing="default"
-          className="homepage-section"
-        >
-          <RevealOnScroll>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
-              </div>
-              <H2 className="font-serif text-neutral-900">
-                Choose Your Support
-              </H2>
-              <Body className="mx-auto mt-6 max-w-2xl text-neutral-700">
-                Whether you need help with one decision or the full baby-prep picture, there is a clear place to
-                start.
-              </Body>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delayMs={90}>
-            <PlanningPackageCards className="mt-12" />
-          </RevealOnScroll>
-        </MarketingSection>
-
-        <MarketingSection
-          tone="ivory"
-          container="default"
-          spacing="default"
-          className="homepage-section homepage-testimonials-section"
-        >
-          <RevealOnScroll>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
-              </div>
-              <p className="mt-6 text-xs uppercase tracking-[0.24em] text-black/45">From Families</p>
-              <H2 className="mt-4 font-serif text-neutral-900">
-                What Families Say
-              </H2>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delayMs={90}>
-            <div className="mx-auto mt-12 grid max-w-5xl items-start gap-6 md:grid-cols-2">
-              {homepageTestimonials.map((item) => (
-                <MarketingSurface
-                  key={item.attribution}
-                  className="relative self-start overflow-hidden border-black/8 bg-white shadow-[0_18px_40px_rgba(0,0,0,0.05)] md:p-8"
-                >
-                  <div className="relative rounded-[1.75rem] border border-white/60 bg-white/55 px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] md:px-6">
-                    <div className="relative px-2 py-1 md:px-3">
-                      <QuoteMark />
-                      <p className="relative text-lg font-serif leading-relaxed text-neutral-900 md:text-[1.35rem] md:leading-[1.38]">
-                        &ldquo;{item.quote}&rdquo;
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-5 border-t border-black/6 pt-4">
-                    <p className="text-sm text-neutral-600">{item.attribution}</p>
-                  </div>
-                </MarketingSurface>
-              ))}
-            </div>
-          </RevealOnScroll>
-        </MarketingSection>
-
-        <MarketingSection
-          tone="white"
-          container="default"
-          spacing="default"
-          className="homepage-section"
-        >
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
+        <MarketingSection tone="ivory" spacing="spacious">
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <RevealOnScroll>
-              <div className="max-w-2xl">
-                <SectionDivider />
-                <H2 className="font-serif text-neutral-900">
-                  About Taylor
-                </H2>
-                <Body className="mt-6 text-neutral-700">
+              <SectionIntro
+                align="left"
+                eyebrow="From the Journal"
+                title="Educational guidance that reinforces expertise between consultations."
+                description="Featured articles keep the brand grounded in practical education around baby gear, registry planning, and home preparation."
+                contentWidthClassName="max-w-2xl"
+              />
+            </RevealOnScroll>
+
+            <RevealOnScroll delayMs={80}>
+              <Link
+                href="/blog"
+                className="btn btn--secondary w-full md:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Browse the Journal
+              </Link>
+            </RevealOnScroll>
+          </div>
+
+          <div className="mt-14 grid gap-8 md:grid-cols-3">
+            {insightPreviews.length > 0 ? (
+              insightPreviews.map((post, index) => (
+                <RevealOnScroll key={post.id} delayMs={index * 80}>
+                  <JournalCard
+                    className="h-full"
+                    title={post.title}
+                    slug={post.slug}
+                    category={post.category}
+                    coverImage={post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage}
+                    excerpt={toInsightExcerpt(post.excerpt, post.content, 170)}
+                    dateLabel={formatInsightDate(getPostDisplayDate(post))}
+                    dateTime={getPostDisplayDate(post).toISOString()}
+                  />
+                </RevealOnScroll>
+              ))
+            ) : (
+              <p className="max-w-none text-[var(--color-muted)]">No guides published yet.</p>
+            )}
+          </div>
+        </MarketingSection>
+
+        <MarketingSection tone="white" spacing="spacious">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start lg:gap-14">
+            <div>
+              <RevealOnScroll>
+                <SectionIntro
+                  align="left"
+                  eyebrow="From families"
+                  title="What families say once the process starts feeling clear."
+                  description="The outcome is calmer decision-making, clearer priorities, and far less second-guessing."
+                  contentWidthClassName="max-w-2xl"
+                />
+              </RevealOnScroll>
+
+              <div className="mt-12 grid gap-6">
+                {homepageTestimonials.map((item, index) => (
+                  <RevealOnScroll key={item.attribution} delayMs={index * 90}>
+                    <TestimonialCard {...item} />
+                  </RevealOnScroll>
+                ))}
+              </div>
+            </div>
+
+            <RevealOnScroll delayMs={110}>
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fffdfa_0%,#f8f0ee_100%)]">
+                <div className="flex items-center gap-4">
+                  <div className="relative h-20 w-20 overflow-hidden rounded-full border border-black/8 bg-white shadow-[0_16px_28px_rgba(43,38,40,0.08)]">
+                    <Image
+                      src="/assets/editorial/taylor.png"
+                      alt="Taylor Vanderwolk"
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="min-w-0">
+                    <Eyebrow>Meet Taylor</Eyebrow>
+                    <H3 className="mt-3 text-[1.55rem] md:text-[1.9rem]">
+                      Warm, expert guidance for the early decisions that shape daily life.
+                    </H3>
+                  </div>
+                </div>
+
+                <Body className="mt-6 max-w-none text-neutral-600">
                   Taylor is a baby gear expert and registry consultant with hands-on experience across premium retail
                   floors, national pilot programs, and private family consultations.
                 </Body>
-                <Body className="mt-4 text-neutral-700">
-                  She helps families sort strollers, car seats, sleep space, feeding gear, nursery flow, travel gear,
-                  and the everyday prep questions that do not come with one obvious answer.
-                </Body>
-                <Body className="mt-4 text-neutral-700">
-                  The goal is not to buy more. It is to build a baby setup that works in your actual home and routine.
-                </Body>
 
-                <div className="mt-10 space-y-4">
-                  <p className="text-xs uppercase tracking-[0.24em] text-black/45">Experience includes</p>
-                  <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+                <div className="mt-6 space-y-4">
+                  {founderTrustPoints.map((item) => (
+                    <div key={item} className="flex items-start gap-4">
+                      <CheckIcon />
+                      <Body className="max-w-none text-neutral-700">{item}</Body>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 border-t border-black/6 pt-6">
+                  <p className="max-w-none text-[0.72rem] uppercase tracking-[0.24em] text-black/45">
+                    Experience includes
+                  </p>
+                  <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-5">
                     {aboutPartnerLogos.map((logo) => (
                       <div key={logo.alt} className={`relative h-10 ${logo.widthClassName}`}>
-                        <Image src={logo.src} alt={logo.alt} fill sizes="184px" className="object-contain object-left" />
+                        <Image src={logo.src} alt={logo.alt} fill sizes="184px" className={logo.imageClassName} />
                       </div>
                     ))}
                   </div>
@@ -609,118 +931,23 @@ export default async function HomePage() {
                 <div className="mt-8">
                   <Link
                     href="/about"
-                    className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                    className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                   >
-                    Meet Taylor <span aria-hidden>→</span>
+                    Meet Taylor
                   </Link>
-                </div>
-              </div>
-            </RevealOnScroll>
-
-            <RevealOnScroll delayMs={90}>
-              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)]">
-                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                  Expertise Snapshot
-                </p>
-                <div className="mt-6 space-y-6">
-                  <div>
-                    <H3 className="font-serif text-neutral-900">
-                      Retail floor expertise
-                    </H3>
-                    <Body className="mt-3 text-neutral-600">
-                      Deep familiarity with the products parents compare most when the options start to feel endless.
-                    </Body>
-                  </div>
-
-                  <div>
-                    <H3 className="font-serif text-neutral-900">
-                      Product knowledge that translates
-                    </H3>
-                    <Body className="mt-3 text-neutral-600">
-                      Taylor turns product details into practical answers for registry picks, gear strategy, and home
-                      setup.
-                    </Body>
-                  </div>
-
-                  <div>
-                    <H3 className="font-serif text-neutral-900">
-                      Real-life decision support
-                    </H3>
-                    <Body className="mt-3 text-neutral-600">
-                      Advice is always grounded in how your family lives day to day, not in trend pressure or oversized
-                      checklists.
-                    </Body>
-                  </div>
                 </div>
               </MarketingSurface>
             </RevealOnScroll>
           </div>
         </MarketingSection>
 
-        <MarketingSection
-          tone="ivory"
-          container="default"
-          spacing="default"
-          className="homepage-section"
-        >
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <RevealOnScroll>
-              <div className="space-y-6 md:max-w-2xl">
-                <p className="mb-4 text-xs uppercase tracking-[0.3em] text-neutral-500">
-                  Baby Prep Guides
-                </p>
-
-                <div>
-                  <SectionDivider />
-                  <H2 className="font-serif text-neutral-900">
-                    Baby Prep Guides
-                  </H2>
-                </div>
-
-                <Body className="text-neutral-600">
-                  Practical guidance on baby gear, registry picks, nursery setup, and the decisions that pile up fast.
-                </Body>
-              </div>
-            </RevealOnScroll>
-
-            <Link
-              href="/blog"
-              className="btn btn--secondary w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:w-auto"
-            >
-              Explore the Blog →
-            </Link>
-          </div>
-
-          <RevealOnScroll delayMs={90}>
-            <div className="mx-auto mt-12 flex max-w-[1500px] flex-col space-y-12 md:grid md:auto-rows-fr md:grid-cols-3 md:gap-10 md:space-y-0">
-              {insightPreviews.length > 0 ? (
-                insightPreviews.map((post) => (
-                  <div key={post.id} className="h-full">
-                    <JournalCard
-                      title={post.title}
-                      slug={post.slug}
-                      category={post.category}
-                      coverImage={post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage}
-                      excerpt={toInsightExcerpt(post.excerpt, post.content, 170)}
-                      dateLabel={formatInsightDate(getPostDisplayDate(post))}
-                      dateTime={getPostDisplayDate(post).toISOString()}
-                    />
-                  </div>
-                ))
-              ) : (
-                <p className="text-[var(--color-muted)]">
-                  No guides published yet.
-                </p>
-              )}
-            </div>
-          </RevealOnScroll>
-        </MarketingSection>
-
         <FinalCTA
-          className="homepage-section"
-          title="Start Your Baby Preparation with Confidence"
-          description="Whether you are building your registry, designing your nursery, or preparing your home for a new arrival, Taylor-Made Baby Co. offers thoughtful guidance every step of the way."
-          ctaLabel="Request Your Consultation"
+          eyebrow="Ready when you are"
+          title="Request your consultation before the list gets louder."
+          description="If you want a clearer plan for your registry, gear, nursery, or home prep, the next step is a complimentary conversation with Taylor."
+          ctaLabel="Request Consultation"
+          note="Complimentary 45-minute consultation"
+          ctaAnalyticsLabel="Homepage Final CTA"
         />
       </main>
     </SiteShell>
