@@ -1,14 +1,17 @@
-const { PrismaClient, Role } = require("@prisma/client");
-const bcrypt = require("bcryptjs");
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
+const { PrismaClient, Role } = require('@prisma/client');
+const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
+const projectRoot = path.resolve(__dirname, '..');
 
 const posts = [
   {
-    title: "The Art of the Registry",
-    category: "Registry Strategy",
+    title: 'The Art of the Registry',
+    category: 'Registry Strategy',
     excerpt:
-      "How to prepare for baby without overbuying, overspending, or feeling overwhelmed.",
+      'How to prepare for baby without overbuying, overspending, or feeling overwhelmed.',
     content: `# The Art of the Registry
 
 Baby prep can feel loud, fast, and full of pressure. A thoughtful registry brings the process back to what matters most: real needs, real routines, and real confidence.
@@ -48,10 +51,10 @@ A calm registry can be built in three steps:
 You do not need everything. You need what fits your family well. When the decisions are thoughtful, preparation feels lighter and parenthood starts from confidence, not confusion.`,
   },
   {
-    title: "Nursery Setup That Actually Works",
-    category: "Nursery & Home",
+    title: 'Nursery Setup That Actually Works',
+    category: 'Nursery & Home',
     excerpt:
-      "A practical framework for building a calm nursery flow around real daily routines.",
+      'A practical framework for building a calm nursery flow around real daily routines.',
     content: `# Nursery Setup That Actually Works
 
 A beautiful nursery is wonderful. A functional nursery is life-changing. The goal is not just a polished room, but a space that supports your real rhythm once baby arrives.
@@ -91,10 +94,10 @@ Future-proofing does not mean buying more. It means choosing smarter from the st
 The best nursery is not the one that photographs perfectly. It is the one that makes everyday care easier, safer, and more peaceful for your family.`,
   },
   {
-    title: "Gear Decisions Without Guesswork",
-    category: "Gear & Safety",
+    title: 'Gear Decisions Without Guesswork',
+    category: 'Gear & Safety',
     excerpt:
-      "A clearer way to evaluate strollers, car seats, and everyday systems with confidence.",
+      'A clearer way to evaluate strollers, car seats, and everyday systems with confidence.',
     content: `# Gear Decisions Without Guesswork
 
 Gear decisions feel high-stakes because they are tied to safety, budget, and daily quality of life. The right framework makes those decisions clear and manageable.
@@ -139,11 +142,11 @@ Prepared families are not the ones with the most products. They are the ones wit
 function slugify(input) {
   return input
     .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\w\s-]/g, "")
+    .normalize('NFKD')
+    .replace(/[^\w\s-]/g, '')
     .trim()
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 async function generateUniqueSlug(title) {
@@ -159,30 +162,69 @@ async function generateUniqueSlug(title) {
   return slug;
 }
 
-async function main() {
-  const email = process.env.ADMIN_EMAIL;
-  const password = process.env.ADMIN_PASSWORD;
-
-  if (!email || !password) {
-    throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set to seed the admin user.");
-  }
-
-  const hashed = await bcrypt.hash(password, 10);
-
-  const admin = await prisma.user.upsert({
-    where: { email },
-    update: {
-      password: hashed,
-      role: Role.ADMIN,
-    },
-    create: {
-      email,
-      password: hashed,
-      role: Role.ADMIN,
-    },
-    select: { id: true, email: true },
+function runTsxScript(relativePath) {
+  const command = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+  const scriptPath = path.join(projectRoot, relativePath);
+  const result = spawnSync(command, ['tsx', scriptPath], {
+    cwd: projectRoot,
+    env: process.env,
+    stdio: 'inherit',
   });
 
+  if (result.error) {
+    throw result.error;
+  }
+
+  if (result.status !== 0) {
+    throw new Error(`${relativePath} failed with exit code ${result.status}`);
+  }
+}
+
+async function resolveSeedAuthor() {
+  const email = process.env.ADMIN_EMAIL?.trim();
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (email && password) {
+    const hashed = await bcrypt.hash(password, 10);
+
+    return prisma.user.upsert({
+      where: { email },
+      update: {
+        password: hashed,
+        role: Role.ADMIN,
+      },
+      create: {
+        email,
+        password: hashed,
+        role: Role.ADMIN,
+      },
+      select: { id: true, email: true, role: true },
+    });
+  }
+
+  const fallbackUser =
+    (await prisma.user.findFirst({
+      where: { role: Role.ADMIN },
+      select: { id: true, email: true, role: true },
+      orderBy: { createdAt: 'asc' },
+    })) ??
+    (await prisma.user.findFirst({
+      select: { id: true, email: true, role: true },
+      orderBy: { createdAt: 'asc' },
+    }));
+
+  if (!fallbackUser) {
+    console.warn(
+      'Skipping admin and starter-post seed because ADMIN_EMAIL/ADMIN_PASSWORD are not set and no users exist yet.',
+    );
+    return null;
+  }
+
+  console.log(`Using existing seed author: ${fallbackUser.email}`);
+  return fallbackUser;
+}
+
+async function seedStarterPosts(authorId) {
   const createdTitles = [];
 
   for (const post of posts) {
@@ -206,7 +248,7 @@ async function main() {
         excerpt: post.excerpt,
         content: post.content,
         published: true,
-        authorId: admin.id,
+        authorId,
       },
       select: { title: true },
     });
@@ -214,22 +256,35 @@ async function main() {
     createdTitles.push(created.title);
   }
 
-  console.log(`Admin ready: ${admin.email}`);
-
   if (createdTitles.length === 0) {
-    console.log("No new blog posts created.");
+    console.log('No new blog posts created.');
     return;
   }
 
-  console.log("Created blog posts:");
+  console.log('Created blog posts:');
   for (const title of createdTitles) {
     console.log(`- ${title}`);
   }
 }
 
+async function main() {
+  console.log('🌱 Starting TMBC seed…');
+
+  const author = await resolveSeedAuthor();
+  if (author) {
+    console.log(`Seed author ready: ${author.email}`);
+    await seedStarterPosts(author.id);
+  }
+
+  console.log('🌸 Seeding direct affiliate partners…');
+  runTsxScript('prisma/seed/affiliatePartners.ts');
+
+  console.log('✨ TMBC seed complete.');
+}
+
 main()
   .catch((error) => {
-    console.error(error);
+    console.error('❌ Seed failed', error);
     process.exitCode = 1;
   })
   .finally(async () => {
