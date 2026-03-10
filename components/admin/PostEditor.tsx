@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { normalizeAuthorAssignments, type PostAuthorAssignment } from '@/lib/blog/authors';
 import { requiresLiveContent, type PostStatusValue } from '@/lib/blog/postStatus';
 import { resolveBlogStage, type BlogStageValue } from '@/lib/blog/postStage';
+import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { isImageMediaType, isPdfMediaType } from '@/lib/media';
 import {
   createCtaSlotToken,
@@ -31,14 +33,17 @@ import PostHealthCard from '@/components/admin/blog/PostHealthCard';
 import PostContentPanel, { type ContentFormatAction } from '@/components/admin/blog/panels/PostContentPanel';
 import PostMediaPanel from '@/components/admin/blog/panels/PostMediaPanel';
 import PostSeoPanel from '@/components/admin/blog/panels/PostSeoPanel';
+import PostAuthorsPanel from '@/components/admin/blog/panels/PostAuthorsPanel';
 import PostPublishPanel from '@/components/admin/blog/panels/PostPublishPanel';
 import PostAffiliatesPanel from '@/components/admin/blog/panels/PostAffiliatesPanel';
 import PostCtaButtonsPanel from '@/components/admin/blog/panels/PostCtaButtonsPanel';
+import PostSharingPanel from '@/components/admin/blog/panels/PostSharingPanel';
 import PostMetaPanel from '@/components/admin/blog/panels/PostMetaPanel';
 import PostMiniPreviewCard from '@/components/admin/blog/panels/PostMiniPreviewCard';
 import type {
   AffiliateBrandOption,
   AffiliatePartnerOption,
+  AuthorOption,
   EditorPostState,
   MediaRecord,
   PersistedPostRecord,
@@ -196,6 +201,9 @@ function toEditorState(post: PersistedPostRecord) {
       seoTitle: post.seoTitle,
       seoDescription: post.seoDescription,
       canonicalUrl: post.canonicalUrl,
+      readingTime: post.readingTime,
+      shareTitle: post.shareTitle,
+      shareDescription: post.shareDescription,
       featuredImageUrl: post.featuredImageUrl,
       coverImage: post.coverImage,
       featuredImageId: post.featuredImageId,
@@ -212,6 +220,7 @@ function toEditorState(post: PersistedPostRecord) {
       featured: post.featured,
       published: post.published,
       affiliateBrandIds: post.affiliateBrandIds,
+      authors: post.authors,
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
     } satisfies EditorPostState,
@@ -231,6 +240,8 @@ function toSavePayload(post: EditorPostState): PostSavePayload {
     seoTitle: post.seoTitle,
     seoDescription: post.seoDescription,
     canonicalUrl: post.canonicalUrl,
+    shareTitle: post.shareTitle,
+    shareDescription: post.shareDescription,
     featuredImageUrl: post.featuredImageUrl,
     coverImage: post.coverImage,
     featuredImageId: post.featuredImageId,
@@ -244,6 +255,7 @@ function toSavePayload(post: EditorPostState): PostSavePayload {
     scheduledFor: post.scheduledFor,
     featured: post.featured,
     affiliateBrandIds: post.affiliateBrandIds,
+    authors: post.authors,
   };
 }
 
@@ -266,6 +278,9 @@ function mergeServerState(current: EditorPostState, server: EditorPostState) {
     seoTitle: current.seoTitle?.trim() ? current.seoTitle : server.seoTitle,
     seoDescription: current.seoDescription?.trim() ? current.seoDescription : server.seoDescription,
     canonicalUrl: current.canonicalUrl?.trim() ? current.canonicalUrl : server.canonicalUrl,
+    readingTime: server.readingTime ?? current.readingTime,
+    shareTitle: current.shareTitle?.trim() ? current.shareTitle : server.shareTitle,
+    shareDescription: current.shareDescription?.trim() ? current.shareDescription : server.shareDescription,
     featuredImageUrl: current.featuredImageUrl?.trim() ? current.featuredImageUrl : server.featuredImageUrl,
     coverImage: current.coverImage ?? server.coverImage,
     featuredImageId: current.featuredImageId ?? server.featuredImageId,
@@ -274,6 +289,7 @@ function mergeServerState(current: EditorPostState, server: EditorPostState) {
     media: current.media.length > 0 ? current.media : server.media,
     images: current.images,
     published: server.published,
+    authors: current.authors.length > 0 ? current.authors : server.authors,
   } satisfies EditorPostState;
 }
 
@@ -288,6 +304,10 @@ function validateEditorState(post: EditorPostState) {
 
   if (post.featuredImageUrl?.trim() && !isValidImageUrl(post.featuredImageUrl.trim())) {
     return 'Featured image URL must start with http://, https://, or /.';
+  }
+
+  if (post.authors.length === 0) {
+    return 'Assign at least one author before saving.';
   }
 
   for (const image of post.images) {
@@ -308,10 +328,12 @@ export default function PostEditor({
   initialPost,
   affiliateBrandOptions,
   affiliatePartnerOptions,
+  authorOptions,
 }: {
   initialPost: PersistedPostRecord;
   affiliateBrandOptions: AffiliateBrandOption[];
   affiliatePartnerOptions: AffiliatePartnerOption[];
+  authorOptions: AuthorOption[];
 }) {
   const router = useRouter();
   const initialEditor = useMemo(() => toEditorState(initialPost), [initialPost]);
@@ -352,6 +374,7 @@ export default function PostEditor({
   const hasPersistedPost = Boolean(currentPostId);
   const canPreview = Boolean(currentPostId || post.title.trim() || post.body.trim() || post.excerpt?.trim() || post.deck?.trim());
   const scheduleError = getScheduleError(post.status, post.scheduledFor);
+  const estimatedReadingTime = estimateReadingTimeFromContent(post.body);
 
   const saveText = getSavedText({
     hasPersistedPost,
@@ -695,6 +718,92 @@ export default function PostEditor({
           affiliateBrandIds: nextAffiliateBrandIds,
         };
       },
+      'immediate',
+    );
+  }
+
+  function handleShareTitleChange(value: string) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        shareTitle: value,
+      }),
+      'debounced',
+    );
+  }
+
+  function handleShareDescriptionChange(value: string) {
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        shareDescription: value,
+      }),
+      'debounced',
+    );
+  }
+
+  function handleAddAuthor() {
+    const selectedAuthorIds = new Set(stateRef.current.authors.map((author) => author.userId));
+    const nextAuthor = authorOptions.find((option) => !selectedAuthorIds.has(option.id));
+
+    if (!nextAuthor) {
+      setSaveError('All available authors are already assigned to this post.');
+      return;
+    }
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        authors: normalizeAuthorAssignments(
+          [...current.authors, { userId: nextAuthor.id, role: 'Contributor' }],
+          current.authors[0]?.userId ?? nextAuthor.id,
+        ),
+      }),
+      'immediate',
+    );
+  }
+
+  function handleAuthorUpdate(index: number, next: Partial<PostAuthorAssignment>) {
+    const currentAuthors = stateRef.current.authors;
+    const existing = currentAuthors[index];
+    if (!existing) {
+      return;
+    }
+
+    const nextUserId = next.userId ?? existing.userId;
+    if (next.userId && currentAuthors.some((author, authorIndex) => author.userId === next.userId && authorIndex !== index)) {
+      setSaveError('Each author can only be assigned once.');
+      return;
+    }
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        authors: normalizeAuthorAssignments(
+          current.authors.map((author, authorIndex) =>
+            authorIndex === index ? { ...author, userId: nextUserId, role: next.role ?? author.role } : author,
+          ),
+          current.authors[0]?.userId ?? nextUserId,
+        ),
+      }),
+      'immediate',
+    );
+  }
+
+  function handleAuthorRemove(index: number) {
+    if (stateRef.current.authors.length === 1) {
+      setSaveError('Keep at least one author assigned to the post.');
+      return;
+    }
+
+    applyPostUpdate(
+      (current) => ({
+        ...current,
+        authors: normalizeAuthorAssignments(
+          current.authors.filter((_, authorIndex) => authorIndex !== index),
+          current.authors.find((_, authorIndex) => authorIndex !== index)?.userId ?? null,
+        ),
+      }),
       'immediate',
     );
   }
@@ -1288,7 +1397,7 @@ export default function PostEditor({
         onUpdateGalleryImage={updateGalleryImage}
         onRemoveGalleryImage={removeGalleryImage}
       />
-    ) : (
+    ) : activeTab === 'seo' ? (
       <PostSeoPanel
         focusKeyword={post.focusKeyword ?? ''}
         seoTitle={post.seoTitle ?? ''}
@@ -1331,6 +1440,28 @@ export default function PostEditor({
           )
         }
       />
+    ) : (
+      <AdminStack gap="lg">
+        <PostSharingPanel
+          title={post.title}
+          excerpt={post.excerpt ?? post.deck ?? ''}
+          category={post.category}
+          body={post.body}
+          shareTitle={post.shareTitle ?? ''}
+          shareDescription={post.shareDescription ?? ''}
+          onShareTitleChange={handleShareTitleChange}
+          onShareDescriptionChange={handleShareDescriptionChange}
+        />
+
+        <PostAuthorsPanel
+          authorOptions={authorOptions}
+          authors={post.authors}
+          readingTime={estimatedReadingTime}
+          onAddAuthor={handleAddAuthor}
+          onUpdateAuthor={handleAuthorUpdate}
+          onRemoveAuthor={handleAuthorRemove}
+        />
+      </AdminStack>
     );
 
   return (
@@ -1359,6 +1490,7 @@ export default function PostEditor({
           { id: 'content', label: 'Content' },
           { id: 'media', label: 'Media' },
           { id: 'seo', label: 'SEO' },
+          { id: 'editorial', label: 'Editorial' },
         ]}
         activeTab={activeTab}
         onTabChange={setActiveTab}

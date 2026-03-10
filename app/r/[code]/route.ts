@@ -82,6 +82,7 @@ export async function GET(
         code: true,
         destinationUrl: true,
         url: true,
+        blogPostId: true,
         partnerId: true,
         programId: true,
         partner: {
@@ -188,6 +189,7 @@ export async function GET(
       await prisma.affiliateClick.create({
         data: {
           linkId: link.id,
+          postId: link.blogPostId ?? null,
           ipHash: ipAddress === 'unknown' ? null : hashIp(ipAddress),
           userAgent,
           referrer,

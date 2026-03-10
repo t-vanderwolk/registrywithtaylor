@@ -35,7 +35,7 @@ export default function AboutPage() {
               Meet Taylor
             </p>
 
-            <h1 className="hero-load-reveal hero-load-reveal--1 max-w-3xl font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+            <h1 className="marketing-hero-headline hero-load-reveal hero-load-reveal--1">
               A Baby Gear Expert for the Real-Life Details of Early Parenthood
             </h1>
 

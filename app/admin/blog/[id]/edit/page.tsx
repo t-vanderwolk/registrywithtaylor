@@ -7,6 +7,9 @@ import {
   listAffiliateBrandOptions,
   resolveAffiliateBrandIdsFromLegacyAffiliateIds,
 } from '@/lib/server/affiliateBrands';
+import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
+import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
+import { postEditorSelect, toPostEditorRecord } from '@/lib/server/postEditorRecord';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -19,92 +22,18 @@ export default async function EditPostPage({ params }: EditPostProps) {
   const { id } = await params;
   const post = await prisma.post.findUnique({
     where: { id },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      stage: true,
-      deck: true,
-      excerpt: true,
-      focusKeyword: true,
-      seoTitle: true,
-      seoDescription: true,
-      canonicalUrl: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImageId: true,
-      featuredImage: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      media: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      images: {
-        select: {
-          id: true,
-          url: true,
-          alt: true,
-          createdAt: true,
-        },
-        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-      },
-      content: true,
-      status: true,
-      publishedAt: true,
-      scheduledFor: true,
-      archivedAt: true,
-      featured: true,
-      published: true,
-      affiliates: {
-        select: {
-          affiliate: {
-            select: {
-              id: true,
-              brandId: true,
-            },
-          },
-        },
-      },
-      affiliateBrands: {
-        select: {
-          id: true,
-        },
-      },
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: postEditorSelect,
   });
 
   if (!post) notFound();
 
-  const [affiliateBrandOptions, affiliatePartnerOptions, fallbackAffiliateBrandIds] = await Promise.all([
+  const [affiliateBrandOptions, affiliatePartnerOptions, fallbackAffiliateBrandIds, authorOptions] = await Promise.all([
     listAffiliateBrandOptions(),
-    prisma.affiliatePartner.findMany({
-      orderBy: [{ name: 'asc' }],
-      select: {
-        id: true,
-        name: true,
-        network: true,
-        logoUrl: true,
-      },
-    }),
-    resolveAffiliateBrandIdsFromLegacyAffiliateIds(post.affiliates.map((entry) => entry.affiliate.id)),
+    listAffiliatePartnerOptions(),
+    resolveAffiliateBrandIdsFromLegacyAffiliateIds(post.affiliates.map((entry) => entry.affiliateId)),
+    listBlogAuthorOptions(),
   ]);
+  const editorPost = toPostEditorRecord(post);
 
   return (
     <AdminStack gap="xl">
@@ -116,16 +45,13 @@ export default async function EditPostPage({ params }: EditPostProps) {
       <PostEditor
         key={post.id}
         initialPost={{
-          ...post,
-          category: normalizeBlogCategory(post.category),
-          mediaIds: post.media.map((entry) => entry.id),
-          affiliateBrandIds:
-            post.affiliateBrands.length > 0
-              ? post.affiliateBrands.map((entry) => entry.id)
-              : fallbackAffiliateBrandIds,
+          ...editorPost,
+          category: normalizeBlogCategory(editorPost.category),
+          affiliateBrandIds: editorPost.affiliateBrandIds.length > 0 ? editorPost.affiliateBrandIds : fallbackAffiliateBrandIds,
         }}
         affiliateBrandOptions={affiliateBrandOptions}
         affiliatePartnerOptions={affiliatePartnerOptions}
+        authorOptions={authorOptions}
       />
     </AdminStack>
   );

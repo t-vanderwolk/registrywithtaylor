@@ -12,6 +12,7 @@
     "db:seed": "prisma db seed",
     "db:bootstrap": "prisma migrate deploy && prisma db seed",
     "seed:affiliates": "node scripts/seed-affiliates.cjs",
+    "seed:affiliate-partners": "tsx prisma/seed/affiliatePartners.ts",
     "seed:affiliate-programs": "tsx scripts/seedAffiliatePrograms.ts",
     "seed:draft-posts": "tsx scripts/seedDraftBlogPosts.ts",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
@@ -27,7 +28,8 @@
     "next": "16.1.6",
     "next-auth": "^4.22.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "recharts": "^3.8.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

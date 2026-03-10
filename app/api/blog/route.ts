@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeAuthorAssignments } from '@/lib/blog/authors';
+import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
@@ -8,6 +10,7 @@ import {
   resolveLegacyAffiliateIdsFromBrandIds,
 } from '@/lib/server/affiliateBrands';
 import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
+import { postEditorSelect, toPostEditorRecord } from '@/lib/server/postEditorRecord';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -104,9 +107,17 @@ export async function POST(req: NextRequest) {
   const seoTitle = asNullableText(body.seoTitle);
   const seoDescription = asNullableText(body.seoDescription);
   const canonicalUrl = asNullableText(body.canonicalUrl);
+  const shareTitle = asNullableText(body.shareTitle);
+  const shareDescription = asNullableText(body.shareDescription);
   const featuredImageUrl = asNullableText(body.featuredImageUrl);
   const featured = Boolean(body.featured);
   const images = asImageArray(body.images);
+  const authors = normalizeAuthorAssignments(
+    Array.isArray(body.authors) ? (body.authors as Array<{ userId?: string | null; role?: unknown }>) : [],
+    token.id as string,
+  );
+  const primaryAuthorId = authors.find((author) => author.role === 'Primary Author')?.userId ?? (token.id as string);
+  const readingTime = estimateReadingTimeFromContent(content);
   const lifecycle = deriveLifecycleAndStage({
     existing: {
       status: 'DRAFT',
@@ -146,6 +157,9 @@ export async function POST(req: NextRequest) {
         seoTitle,
         seoDescription,
         canonicalUrl,
+        readingTime,
+        shareTitle,
+        shareDescription,
         featuredImageUrl,
         coverImage,
         featuredImageId,
@@ -164,8 +178,17 @@ export async function POST(req: NextRequest) {
         archivedAt: lifecycle.archivedAt,
         featured,
         published: lifecycle.published,
-        authorId: token.id as string,
+        authorId: primaryAuthorId,
       },
+    });
+
+    await tx.postAuthor.createMany({
+      data: authors.map((author) => ({
+        postId: created.id,
+        userId: author.userId,
+        role: author.role,
+      })),
+      skipDuplicates: true,
     });
 
     if (legacyAffiliateIds.length > 0) {
@@ -180,47 +203,7 @@ export async function POST(req: NextRequest) {
 
     return tx.post.findUnique({
       where: { id: created.id },
-      include: {
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            fileName: true,
-            fileType: true,
-            fileSize: true,
-            createdAt: true,
-          },
-        },
-        media: {
-          select: {
-            id: true,
-            url: true,
-            fileName: true,
-            fileType: true,
-            fileSize: true,
-            createdAt: true,
-          },
-        },
-        images: {
-          select: {
-            id: true,
-            url: true,
-            alt: true,
-            createdAt: true,
-          },
-          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-        },
-        affiliates: {
-          select: {
-            affiliateId: true,
-          },
-        },
-        affiliateBrands: {
-          select: {
-            id: true,
-          },
-        },
-      },
+      select: postEditorSelect,
     });
   });
 
@@ -229,28 +212,5 @@ export async function POST(req: NextRequest) {
   }
 
   revalidatePostPaths(post);
-
-  return NextResponse.json(
-    {
-      ...post,
-      deck: post.deck,
-      focusKeyword: post.focusKeyword,
-      seoTitle: post.seoTitle,
-      seoDescription: post.seoDescription,
-      canonicalUrl: post.canonicalUrl,
-      featuredImageUrl: post.featuredImageUrl,
-      stage: post.stage,
-      status: post.status,
-      publishedAt: post.publishedAt,
-      scheduledFor: post.scheduledFor,
-      archivedAt: post.archivedAt,
-      featured: post.featured,
-      featuredImageId: post.featuredImageId,
-      mediaIds: post.media.map((entry) => entry.id),
-      images: post.images,
-      affiliateBrandIds: post.affiliateBrands.map((entry) => entry.id),
-      affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
-    },
-    { status: 201 },
-  );
+  return NextResponse.json(toPostEditorRecord(post), { status: 201 });
 }

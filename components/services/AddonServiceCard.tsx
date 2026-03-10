@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import LuxuryAccordion from '@/components/ui/LuxuryAccordion';
+import PartnerBrandMark from '@/components/ui/PartnerBrandMark';
 import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
 
 export type AddonServiceCardData = {
@@ -14,6 +14,7 @@ export type AddonServiceCardData = {
   partnerLabel?: string;
   partnerLogoSrc?: string;
   partnerLogoAlt?: string;
+  partnerBadgeLines?: string[];
   accordionVariant?: 'checklist' | 'stacked' | 'labeled';
   accordionHeading?: string;
   cardVariant?: 'default' | 'pillar';
@@ -34,6 +35,7 @@ export default function AddonServiceCard({
   partnerLabel,
   partnerLogoSrc,
   partnerLogoAlt,
+  partnerBadgeLines,
   accordionVariant,
   accordionHeading,
   cardVariant = 'default',
@@ -42,6 +44,13 @@ export default function AddonServiceCard({
   onToggle,
 }: AddonServiceCardProps) {
   const isPillarCard = cardVariant === 'pillar';
+  const hasPartnerBrand = Boolean(partnerLogoSrc?.trim());
+  const hasPartnerBadge = Boolean(partnerBadgeLines?.length);
+  const iconSurfaceSrc = hasPartnerBrand ? partnerLogoSrc! : iconSrc ?? '/assets/icons/buildregistry.png';
+  const iconSurfaceAlt = hasPartnerBrand ? partnerLogoAlt ?? partnerLabel ?? title : '';
+  const iconSurfaceImageClassName = hasPartnerBrand
+    ? 'luxury-icon-object--partner scale-[0.84] md:scale-[0.9]'
+    : 'drop-shadow-[0_10px_18px_rgba(184,160,129,0.18)]';
 
   return (
     <MarketingSurface
@@ -57,23 +66,33 @@ export default function AddonServiceCard({
       <div className="flex h-full flex-1 flex-col">
         <div
           className={[
-            'mx-auto flex aspect-square w-full items-center justify-center rounded-[1.75rem] border border-black/12 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]',
+            'mx-auto flex w-full items-center justify-center',
             isPillarCard ? 'mb-5 max-w-[10rem] sm:mb-6 sm:max-w-[11.5rem]' : 'mb-6 max-w-[11rem] sm:mb-8 sm:max-w-[13.25rem]',
           ]
             .filter(Boolean)
             .join(' ')}
         >
-          <div className={['flex h-full w-full items-center justify-center', isPillarCard ? 'p-4 sm:p-5' : 'p-5 sm:p-6'].join(' ')}>
+          {hasPartnerBadge ? (
+            <PartnerBrandMark lines={partnerBadgeLines ?? []} size="addon" className="self-center" />
+          ) : (
             <ServiceIconBadge
-              src={iconSrc ?? '/assets/icons/buildregistry.png'}
+              src={iconSurfaceSrc}
+              alt={iconSurfaceAlt}
               size="addon"
-              className={isPillarCard ? 'h-[5.8rem] w-[5.8rem] self-center sm:h-[6.8rem] sm:w-[6.8rem]' : 'h-[6.35rem] w-[6.35rem] self-center sm:h-[7.45rem] sm:w-[7.45rem]'}
-              imageClassName="drop-shadow-[0_10px_18px_rgba(184,160,129,0.18)]"
+              className="self-center"
+              imageClassName={iconSurfaceImageClassName}
             />
-          </div>
+          )}
         </div>
 
-        <h3 className="max-w-none text-center font-serif text-[1.35rem] tracking-tight text-neutral-900 sm:max-w-[20ch] md:text-2xl">
+        <h3
+          className={[
+            'max-w-none text-center font-serif font-semibold leading-[1.14] tracking-[-0.03em] text-neutral-900',
+            isPillarCard ? 'text-[1.75rem] sm:max-w-[16ch] md:text-[1.95rem]' : 'text-xl sm:max-w-[20ch] md:text-[1.85rem]',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {title}
         </h3>
 
@@ -82,24 +101,22 @@ export default function AddonServiceCard({
             <p className="text-[0.65rem] uppercase tracking-[0.22em] text-black/45">
               {partnerLabel ?? 'In partnership with'}
             </p>
-            <div className="relative h-9 w-full max-w-[9.5rem]">
-              <Image
-                src={partnerLogoSrc}
-                alt={partnerLogoAlt ?? title}
-                fill
-                sizes="152px"
-                className="object-contain"
-              />
-            </div>
           </div>
         ) : null}
 
         {label ? (
-          <span className="mt-3 text-xs uppercase tracking-[0.25em] text-black/45">{label}</span>
+          <span className="mt-3 text-xs uppercase tracking-[0.25em] text-[var(--color-accent-dark)]/70">{label}</span>
         ) : null}
 
         {description ? (
-          <p className="mt-4 max-w-none text-sm leading-relaxed text-neutral-700 sm:max-w-md">
+          <p
+            className={[
+              'mt-4 max-w-none text-neutral-700',
+              isPillarCard ? 'text-[1.02rem] leading-8 sm:max-w-[18rem]' : 'text-base leading-8 sm:max-w-md md:text-lg',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
             {description}
           </p>
         ) : null}

@@ -3,15 +3,13 @@ import { notFound } from 'next/navigation';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
-import PostArticleView, { type PostArticleRecord } from '@/components/blog/PostArticleView';
+import PostArticleView from '@/components/blog/PostArticleView';
 import { getPublicPostWhere, isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
-import {
-  affiliateBrandSelect,
-  legacyPostAffiliateSelect,
-  normalizePostAffiliateBrands,
-} from '@/lib/server/affiliateBrands';
+import { postArticleSelect, toPostArticleRecord } from '@/lib/server/postArticleRecord';
+import { blogTokenStyles } from '@/styles/tmbcBlogTokens';
 import prisma from '@/lib/server/prisma';
+import '../../../../../styles/blog.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,76 +22,14 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
 
   const post = await prisma.post.findUnique({
     where: { id },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      content: true,
-      deck: true,
-      excerpt: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      media: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      images: {
-        select: {
-          id: true,
-          url: true,
-          alt: true,
-          createdAt: true,
-        },
-        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-      },
-      affiliateBrands: {
-        select: affiliateBrandSelect,
-      },
-      affiliates: {
-        where: {
-          affiliate: {
-            isActive: true,
-          },
-        },
-        select: legacyPostAffiliateSelect,
-      },
-      status: true,
-      publishedAt: true,
-      scheduledFor: true,
-      archivedAt: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: postArticleSelect,
   });
 
   if (!post) {
     notFound();
   }
 
-  const articlePost = {
-    ...post,
-    affiliateBrands: normalizePostAffiliateBrands({
-      affiliateBrands: post.affiliateBrands,
-      legacyAffiliates: post.affiliates,
-    }),
-  } as PostArticleRecord;
+  const articlePost = toPostArticleRecord(post);
 
   const relatedPosts = await prisma.post.findMany({
     where: {
@@ -109,6 +45,7 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
       title: true,
       slug: true,
       category: true,
+      readingTime: true,
       featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
@@ -144,20 +81,22 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
         }
       />
 
-      <PostArticleView
-        post={articlePost}
-        relatedPosts={relatedPosts.map((relatedPost) => ({
-          id: relatedPost.id,
-          title: relatedPost.title,
-          slug: relatedPost.slug,
-          category: normalizeBlogCategory(relatedPost.category),
-          coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,
-          publishedAt: relatedPost.publishedAt,
-          scheduledFor: relatedPost.scheduledFor,
-          createdAt: relatedPost.createdAt,
-        }))}
-        trackView={false}
-      />
+      <div style={blogTokenStyles}>
+        <PostArticleView
+          post={articlePost}
+          relatedPosts={relatedPosts.map((relatedPost) => ({
+            id: relatedPost.id,
+            title: relatedPost.title,
+            slug: relatedPost.slug,
+            category: normalizeBlogCategory(relatedPost.category),
+            coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,
+            publishedAt: relatedPost.publishedAt,
+            scheduledFor: relatedPost.scheduledFor,
+            createdAt: relatedPost.createdAt,
+          }))}
+          trackView={false}
+        />
+      </div>
     </AdminStack>
   );
 }

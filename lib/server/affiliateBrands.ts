@@ -1,4 +1,5 @@
 import { type Prisma } from '@prisma/client';
+import { getAffiliateNetworkPriority } from '@/lib/affiliatePartners';
 import { formatAffiliateNetworks, sortAffiliateNetworks, type AffiliateBrandCard } from '@/lib/affiliateBrands';
 import prisma from '@/lib/server/prisma';
 
@@ -13,13 +14,14 @@ const affiliateBrandSelect = {
   logoUrl: true,
   website: true,
   programs: {
-    orderBy: [{ network: 'asc' }, { createdAt: 'asc' }],
+    orderBy: [{ createdAt: 'asc' }],
     select: {
       id: true,
       network: true,
       campaignId: true,
       commission: true,
       cookieLength: true,
+      createdAt: true,
       links: {
         orderBy: [{ createdAt: 'asc' }],
         select: {
@@ -33,11 +35,12 @@ const affiliateBrandSelect = {
   },
   legacyPartners: {
     where: { isActive: true },
-    orderBy: [{ updatedAt: 'desc' }],
+    orderBy: [{ routingPriority: 'asc' }, { updatedAt: 'desc' }],
     select: {
       id: true,
       name: true,
       network: true,
+      routingPriority: true,
       logoUrl: true,
       website: true,
       affiliateLink: true,
@@ -63,13 +66,24 @@ type AffiliateBrandRecord = Prisma.BrandGetPayload<{ select: typeof affiliateBra
 type LegacyPostAffiliateRecord = Prisma.BlogPostAffiliateGetPayload<{ select: typeof legacyPostAffiliateSelect }>;
 
 function buildBrandCard(brand: AffiliateBrandRecord): AffiliateBrandCard {
-  const primaryProgram = brand.programs.find((program) =>
-    program.links.some((link) => cleanText(link.url) || cleanText(link.destinationUrl)),
-  );
+  const primaryProgram =
+    [...brand.programs]
+      .sort(
+        (left, right) =>
+          getAffiliateNetworkPriority(left.network) - getAffiliateNetworkPriority(right.network) ||
+          left.createdAt.getTime() - right.createdAt.getTime(),
+      )
+      .find((program) => program.links.some((link) => cleanText(link.url) || cleanText(link.destinationUrl))) ?? null;
   const primaryLink = primaryProgram?.links.find((link) => cleanText(link.url) || cleanText(link.destinationUrl)) ?? null;
+  const rankedLegacyPartners = [...brand.legacyPartners].sort(
+    (left, right) =>
+      left.routingPriority - right.routingPriority ||
+      getAffiliateNetworkPriority(left.network) - getAffiliateNetworkPriority(right.network) ||
+      left.name.localeCompare(right.name),
+  );
   const legacyPartnerWithLink =
-    brand.legacyPartners.find((partner) => cleanText(partner.affiliateLink)) ??
-    brand.legacyPartners.find((partner) => cleanText(partner.website)) ??
+    rankedLegacyPartners.find((partner) => cleanText(partner.affiliateLink)) ??
+    rankedLegacyPartners.find((partner) => cleanText(partner.website)) ??
     null;
   const networks = sortAffiliateNetworks(
     Array.from(
@@ -247,6 +261,7 @@ export async function resolveLegacyAffiliateIdsFromBrandIds(brandIds: string[]) 
       brandId: true,
       network: true,
       isActive: true,
+      routingPriority: true,
       affiliateLink: true,
       website: true,
     },
@@ -268,10 +283,14 @@ export async function resolveLegacyAffiliateIdsFromBrandIds(brandIds: string[]) 
     const options = byBrand.get(brandId) ?? [];
     const sorted = [...options].sort((left, right) => {
       const leftScore =
+        (left.routingPriority ?? 99) +
+        getAffiliateNetworkPriority(left.network) * 10 +
         (left.isActive ? 0 : 100) +
         (cleanText(left.affiliateLink) ? 0 : 10) +
         (cleanText(left.website) ? 0 : 5);
       const rightScore =
+        (right.routingPriority ?? 99) +
+        getAffiliateNetworkPriority(right.network) * 10 +
         (right.isActive ? 0 : 100) +
         (cleanText(right.affiliateLink) ? 0 : 10) +
         (cleanText(right.website) ? 0 : 5);

@@ -170,7 +170,7 @@ export default function ServicesPage() {
       <main className="site-main">
         <Hero image="/assets/hero/hero-03.jpg" imageAlt="" className="services-hero">
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+            <h1 className="marketing-hero-headline hero-load-reveal">
               Thoughtful Support for Every Stage of Baby Preparation
             </h1>
 

@@ -5,17 +5,13 @@ import SiteShell from '@/components/SiteShell';
 import PostArticleView, {
   extractDownloadableResource,
   toExcerpt,
-  type PostArticleRecord,
 } from '@/components/blog/PostArticleView';
 import FinalCTA from '@/components/layout/FinalCTA';
+import { extractFaqEntries } from '@/lib/blog/contentText';
 import { getPostDisplayDate, getPublicPostWhere, isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { SITE_URL } from '@/lib/marketing/metadata';
-import {
-  affiliateBrandSelect,
-  legacyPostAffiliateSelect,
-  normalizePostAffiliateBrands,
-} from '@/lib/server/affiliateBrands';
+import { postArticleSelect, toPostArticleRecord } from '@/lib/server/postArticleRecord';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -24,72 +20,10 @@ type BlogPostParams = {
   params: Promise<{ slug: string }>;
 };
 
-const AUTHOR_NAME = 'Taylor Vanderwolk';
-
 const getBlogPost = cache(async (slug: string) =>
   prisma.post.findUnique({
     where: { slug },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      content: true,
-      deck: true,
-      excerpt: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      media: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      images: {
-        select: {
-          id: true,
-          url: true,
-          alt: true,
-          createdAt: true,
-        },
-        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-      },
-      affiliateBrands: {
-        select: affiliateBrandSelect,
-      },
-      affiliates: {
-        where: {
-          affiliate: {
-            isActive: true,
-          },
-        },
-        select: legacyPostAffiliateSelect,
-      },
-      status: true,
-      publishedAt: true,
-      scheduledFor: true,
-      archivedAt: true,
-      focusKeyword: true,
-      seoTitle: true,
-      seoDescription: true,
-      canonicalUrl: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: postArticleSelect,
   }));
 
 const toAbsoluteUrl = (pathOrUrl: string) => {
@@ -108,11 +42,13 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
     return {};
   }
 
-  const { content: articleContent } = extractDownloadableResource(post.content);
+  const articlePost = toPostArticleRecord(post);
+  const { content: articleContent } = extractDownloadableResource(articlePost.content);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
-  const description = post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
+  const description =
+    articlePost.shareDescription?.trim() || post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
   const displayDate = getPostDisplayDate(post);
-  const metadataTitle = post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
+  const metadataTitle = articlePost.shareTitle?.trim() || post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
   const canonical = post.canonicalUrl?.trim() || `/blog/${post.slug}`;
   const keywords = [
     post.focusKeyword,
@@ -137,7 +73,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
       url: `${SITE_URL}/blog/${post.slug}`,
       publishedTime: displayDate.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
-      authors: [AUTHOR_NAME],
+      authors: articlePost.authors.map((author) => author.name),
       tags: keywords,
       images: featuredImageUrl
         ? [
@@ -150,9 +86,12 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
     },
     twitter: {
       card: featuredImageUrl ? 'summary_large_image' : 'summary',
-      title: post.seoTitle?.trim() || post.title,
+      title: articlePost.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
       description,
       images: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
+    },
+    other: {
+      'pinterest-rich-pin': 'true',
     },
   };
 }
@@ -165,13 +104,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     notFound();
   }
 
-  const articlePost = {
-    ...post,
-    affiliateBrands: normalizePostAffiliateBrands({
-      affiliateBrands: post.affiliateBrands,
-      legacyAffiliates: post.affiliates,
-    }),
-  } as PostArticleRecord;
+  const articlePost = toPostArticleRecord(post);
 
   const relatedPosts = await prisma.post.findMany({
     where: {
@@ -187,6 +120,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       title: true,
       slug: true,
       category: true,
+      readingTime: true,
       featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
@@ -204,6 +138,8 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   const featuredImageUrl = articlePost.featuredImage?.url ?? articlePost.coverImage ?? articlePost.featuredImageUrl;
   const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
+  const faqEntries = extractFaqEntries(articleContent);
+  const canonicalUrl = post.canonicalUrl?.trim() ? toAbsoluteUrl(post.canonicalUrl) : `${SITE_URL}/blog/${post.slug}`;
   const seoKeywords = [
     post.focusKeyword,
     post.category,
@@ -212,42 +148,66 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     'nursery planning',
     'baby gear guidance',
   ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
+  const authorSchemas = articlePost.authors.map((author) => ({
+    '@type': 'Person',
+    '@id': author.slug ? `${SITE_URL}/blog/author/${author.slug}` : `${canonicalUrl}#author-${author.id}`,
+    name: author.name,
+    description: author.bio ?? undefined,
+    url: author.slug ? `${SITE_URL}/blog/author/${author.slug}` : undefined,
+    knowsAbout: author.expertiseAreas.length > 0 ? author.expertiseAreas : undefined,
+  }));
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.seoTitle?.trim() || post.title,
-    description: post.seoDescription?.trim() || headerExcerpt,
-    articleSection: post.category,
-    keywords: seoKeywords,
-    datePublished: displayDate.toISOString(),
-    dateModified: post.updatedAt.toISOString(),
-    mainEntityOfPage: post.canonicalUrl?.trim() || `${SITE_URL}/blog/${post.slug}`,
-    author: {
-      '@type': 'Person',
-      name: AUTHOR_NAME,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Taylor-Made Baby Co.',
-      url: SITE_URL,
-    },
-    image: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
-    inLanguage: 'en-US',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        headline: articlePost.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
+        description: articlePost.shareDescription?.trim() || post.seoDescription?.trim() || headerExcerpt,
+        articleSection: post.category,
+        keywords: seoKeywords,
+        datePublished: displayDate.toISOString(),
+        dateModified: post.updatedAt.toISOString(),
+        mainEntityOfPage: canonicalUrl,
+        author: authorSchemas.map((author) => ({ '@id': author['@id'] })),
+        publisher: {
+          '@type': 'Organization',
+          name: 'Taylor-Made Baby Co.',
+          url: SITE_URL,
+        },
+        image: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
+        inLanguage: 'en-US',
+      },
+      ...authorSchemas,
+      ...(faqEntries.length > 0
+        ? [
+            {
+              '@type': 'FAQPage',
+              mainEntity: faqEntries.map((entry) => ({
+                '@type': 'Question',
+                name: entry.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: entry.answer,
+                },
+              })),
+            },
+          ]
+        : []),
+    ],
   };
 
   return (
     <SiteShell currentPath="/blog">
-      <main className="site-main bg-white">
+      <main className="site-main" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-
-      <PostArticleView
-        post={articlePost}
-        relatedPosts={relatedPosts.map((relatedPost) => ({
-          id: relatedPost.id,
-          title: relatedPost.title,
+        <PostArticleView
+          post={articlePost}
+          relatedPosts={relatedPosts.map((relatedPost) => ({
+            id: relatedPost.id,
+            title: relatedPost.title,
             slug: relatedPost.slug,
             category: normalizeBlogCategory(relatedPost.category),
             coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,

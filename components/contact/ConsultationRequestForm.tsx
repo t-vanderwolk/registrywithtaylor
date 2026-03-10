@@ -1,3 +1,10 @@
+'use client';
+
+import { useRef } from 'react';
+import type { FocusEvent, FormEvent } from 'react';
+import { trackEvent } from '@/lib/analytics';
+import { AnalyticsEvents } from '@/lib/analytics/events';
+
 type ConsultationRequestFormProps = {
   errorCode?: string | null;
   returnPath?: string;
@@ -32,9 +39,35 @@ export default function ConsultationRequestForm({
   submitLabel = 'Submit Consultation Request',
 }: ConsultationRequestFormProps) {
   const error = getConsultationRequestErrorMessage(errorCode);
+  const formStartedRef = useRef(false);
+
+  const handleFocusCapture = (_event: FocusEvent<HTMLFormElement>) => {
+    if (formStartedRef.current) {
+      return;
+    }
+
+    formStartedRef.current = true;
+    trackEvent(AnalyticsEvents.CONSULTATION_STARTED, {
+      page: window.location.pathname,
+      form: 'consultation_request',
+    });
+  };
+
+  const handleSubmit = (_event: FormEvent<HTMLFormElement>) => {
+    trackEvent(AnalyticsEvents.CONSULTATION_SUBMITTED, {
+      page: window.location.pathname,
+      form: 'consultation_request',
+    });
+  };
 
   return (
-    <form action="/api/consultation-request" method="post" className="space-y-6">
+    <form
+      action="/api/consultation-request"
+      method="post"
+      className="space-y-6"
+      onFocusCapture={handleFocusCapture}
+      onSubmit={handleSubmit}
+    >
       <input type="hidden" name="company" value="" tabIndex={-1} autoComplete="off" />
       <input type="hidden" name="returnPath" value={returnPath} />
       <input type="hidden" name="successPath" value={successPath} />

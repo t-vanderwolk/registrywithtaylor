@@ -119,7 +119,7 @@ export default function FAQPage() {
           imageAlt=""
         >
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+            <h1 className="marketing-hero-headline hero-load-reveal">
               Frequently Asked Questions
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">

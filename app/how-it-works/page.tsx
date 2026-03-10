@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
-import BookingSectionTracker from '@/components/analytics/BookingSectionTracker';
+import HowItWorksAnalytics from '@/components/analytics/HowItWorksAnalytics';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
@@ -136,30 +136,37 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
 
   return (
     <SiteShell currentPath="/how-it-works">
-      <main className="site-main">
-        <Hero image="/assets/hero/hero-02.jpg" imageAlt="How it works planning process">
-          <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
-              How Baby Planning with Taylor-Made Baby Co. Works
-            </h1>
+      <HowItWorksAnalytics>
+        <main className="site-main">
+          <Hero image="/assets/hero/hero-02.jpg" imageAlt="How it works planning process">
+            <div className="space-y-6">
+              <h1 className="marketing-hero-headline hero-load-reveal">
+                How Baby Planning with Taylor-Made Baby Co. Works
+              </h1>
 
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Preparation does not start with a shopping list. It starts with clarity.
-            </Body>
+              <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
+                Preparation does not start with a shopping list. It starts with clarity.
+              </Body>
 
-            <div className="hero-load-reveal hero-load-reveal--2 flex flex-col gap-4 pt-4 sm:flex-row">
-              <Link
-                href="#free-consultation"
-                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                Schedule Your Complimentary Consultation
-              </Link>
+              <div className="hero-load-reveal hero-load-reveal--2 flex flex-col gap-4 pt-4 sm:flex-row">
+                <Link
+                  href="#free-consultation"
+                  data-analytics-consultation-cta="Schedule Your Complimentary Consultation"
+                  className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                >
+                  Schedule Your Complimentary Consultation
+                </Link>
+              </div>
             </div>
-          </div>
-        </Hero>
+          </Hero>
 
-        <MarketingSection tone="white" spacing="default" container="default" className="how-it-works-section">
-          <BookingSectionTracker sourcePage="/how-it-works" id="free-consultation">
+          <MarketingSection
+            tone="white"
+            spacing="default"
+            container="default"
+            className="how-it-works-section"
+            id="free-consultation"
+          >
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] lg:items-start lg:gap-14">
               <RevealOnScroll>
                 <div className="max-w-2xl">
@@ -205,98 +212,100 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
                 </MarketingSurface>
               </RevealOnScroll>
             </div>
-          </BookingSectionTracker>
-        </MarketingSection>
+          </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="default" container="default" className="how-it-works-section">
-          <RevealOnScroll>
-            <div className="mx-auto max-w-4xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
-              </div>
-
-              <H2 className="mt-5 font-serif leading-tight">A Calm, Guided Path</H2>
-
-              <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
-                The process works best when it moves in order: start with clarity, shape the plan around real life, and
-                prepare without rushing the decisions that matter most.
-              </Body>
-            </div>
-          </RevealOnScroll>
-
-          <div className="mt-16 grid gap-8 xl:grid-cols-3">
-            {processSteps.map((step) => (
-              <MarketingSurface key={step.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 md:p-10">
-                <div className="mx-auto mb-8 flex aspect-square w-full max-w-[13.25rem] items-center justify-center rounded-[1.75rem] border border-black/12 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
-                  <ServiceIconBadge src={step.iconSrc} size="addon" className="h-[6.95rem] w-[6.95rem]" />
+          <MarketingSection tone="ivory" spacing="default" container="default" className="how-it-works-section">
+            <RevealOnScroll>
+              <div className="mx-auto max-w-4xl text-center">
+                <div className="flex justify-center">
+                  <SectionDivider />
                 </div>
 
-                <p className="text-center text-xs uppercase tracking-[0.24em] text-black/45">{step.step}</p>
-                <H3 className="mt-4 text-center font-serif text-neutral-900">{step.title}</H3>
+                <H2 className="mt-5 font-serif leading-tight">A Calm, Guided Path</H2>
 
-                <Body className="mt-5 text-neutral-700">{step.description}</Body>
+                <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
+                  The process works best when it moves in order: start with clarity, shape the plan around real life,
+                  and prepare without rushing the decisions that matter most.
+                </Body>
+              </div>
+            </RevealOnScroll>
 
-                <Checklist items={step.bullets} />
-
-                {step.ctaLabel ? (
-                  <div className="mt-auto pt-8">
-                    <Link
-                      href="#free-consultation"
-                      className="btn btn--primary w-full justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                    >
-                      {step.ctaLabel}
-                    </Link>
+            <div className="mt-16 grid gap-8 xl:grid-cols-3">
+              {processSteps.map((step) => (
+                <MarketingSurface key={step.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 md:p-10">
+                  <div className="mx-auto mb-8 flex w-full items-center justify-center">
+                    <ServiceIconBadge src={step.iconSrc} size="addon" />
                   </div>
-                ) : null}
-              </MarketingSurface>
-            ))}
-          </div>
-        </MarketingSection>
 
-        <MarketingSection tone="white" spacing="default" container="default" className="how-it-works-section">
-          <RevealOnScroll>
-            <div className="mx-auto max-w-4xl text-center">
-              <div className="flex justify-center">
-                <SectionDivider />
-              </div>
+                  <p className="text-center text-xs uppercase tracking-[0.24em] text-black/45">{step.step}</p>
+                  <H3 className="mt-4 text-center font-serif text-neutral-900">{step.title}</H3>
 
-              <H2 className="mt-5 font-serif leading-tight">What Families Gain from the Process</H2>
+                  <Body className="mt-5 text-neutral-700">{step.description}</Body>
 
-              <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
-                The outcome is not just a better list. It is a preparation plan that feels calmer, more intentional,
-                and easier to act on.
-              </Body>
+                  <Checklist items={step.bullets} />
+
+                  {step.ctaLabel ? (
+                    <div className="mt-auto pt-8">
+                      <Link
+                        href="#free-consultation"
+                        data-analytics-consultation-cta={step.ctaLabel}
+                        className="btn btn--primary w-full justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                      >
+                        {step.ctaLabel}
+                      </Link>
+                    </div>
+                  ) : null}
+                </MarketingSurface>
+              ))}
             </div>
-          </RevealOnScroll>
+          </MarketingSection>
 
-          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
-            {benefitCards.map((card) => (
-              <MarketingSurface key={card.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 text-center">
-                <div className="mx-auto mb-6 flex aspect-square w-full max-w-[10rem] items-center justify-center rounded-[1.5rem] border border-black/10 bg-[linear-gradient(180deg,#fcf8f4_0%,#f3ebe3_100%)]">
-                  <ServiceIconBadge src={card.iconSrc} size="default" className="h-[5.1rem] w-[5.1rem]" />
+          <MarketingSection tone="white" spacing="default" container="default" className="how-it-works-section">
+            <RevealOnScroll>
+              <div className="mx-auto max-w-4xl text-center">
+                <div className="flex justify-center">
+                  <SectionDivider />
                 </div>
 
-                <H3 className="font-serif text-neutral-900">{card.title}</H3>
+                <H2 className="mt-5 font-serif leading-tight">What Families Gain from the Process</H2>
 
-                <div className="mt-auto pt-6">
-                  <LuxuryAccordion
-                    items={[card.description]}
-                    contentVariant="stacked"
-                    panelClassName="text-left"
-                  />
-                </div>
-              </MarketingSurface>
-            ))}
-          </div>
-        </MarketingSection>
+                <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
+                  The outcome is not just a better list. It is a preparation plan that feels calmer, more intentional,
+                  and easier to act on.
+                </Body>
+              </div>
+            </RevealOnScroll>
 
-        <FinalCTA
-          className="how-it-works-section"
-          title="Start Your Baby Planning Journey"
-          description="Clear preparation often begins with a single thoughtful conversation."
-          ctaLabel="Schedule Your Consultation"
-        />
-      </main>
+            <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+              {benefitCards.map((card) => (
+                <MarketingSurface key={card.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 text-center">
+                  <div className="mx-auto mb-6 flex w-full items-center justify-center">
+                    <ServiceIconBadge src={card.iconSrc} size="default" />
+                  </div>
+
+                  <H3 className="font-serif text-neutral-900">{card.title}</H3>
+
+                  <div className="mt-auto pt-6">
+                    <LuxuryAccordion
+                      items={[card.description]}
+                      contentVariant="stacked"
+                      panelClassName="text-left"
+                    />
+                  </div>
+                </MarketingSurface>
+              ))}
+            </div>
+          </MarketingSection>
+
+          <FinalCTA
+            className="how-it-works-section"
+            title="Start Your Baby Planning Journey"
+            description="Clear preparation often begins with a single thoughtful conversation."
+            ctaLabel="Schedule Your Consultation"
+            ctaAnalyticsLabel="Schedule Your Consultation"
+          />
+        </main>
+      </HowItWorksAnalytics>
     </SiteShell>
   );
 }

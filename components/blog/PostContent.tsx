@@ -1,8 +1,14 @@
 'use client';
 
+import type { AffiliateNetwork } from '@prisma/client';
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
+import BlogContent from '@/components/blog/BlogContent';
+import BlogDivider from '@/components/blog/BlogDivider';
+import ProductRecommendationCard from '@/components/blog/ProductRecommendationCard';
+import PullQuote from '@/components/blog/PullQuote';
+import { Body } from '@/components/ui/MarketingHeading';
 import {
   extractStoredCtaButtons,
   parseCtaSlotLine,
@@ -19,6 +25,18 @@ type PostContentProps = {
   content: string;
   className?: string;
   trackView?: boolean;
+  ctaPartners?: Record<
+    string,
+    {
+      id: string;
+      slug: string;
+      name: string;
+      network: AffiliateNetwork;
+      logoUrl: string | null;
+      baseUrl: string | null;
+      affiliatePid: string | null;
+    }
+  >;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -35,8 +53,6 @@ const imageLinePattern = /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/;
 const inlineTokenPattern =
   /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
 const CTA_BUTTON_PREFIX = '::cta-button ';
-const CTA_BUTTON_FOCUS_CLASS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
 
 const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
 const opensNewTab = (href: string) => isExternalHref(href) || /\.pdf(?:[?#].*)?$/i.test(href);
@@ -159,44 +175,28 @@ function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
   return nodes;
 }
 
-function renderStoredCtaButtons(buttons: StoredCtaButton[], keyPrefix: string) {
+function renderStoredCtaButtons(
+  buttons: StoredCtaButton[],
+  keyPrefix: string,
+  postId: string,
+  ctaPartners: PostContentProps['ctaPartners'],
+) {
   if (buttons.length === 0) {
     return null;
   }
 
   return (
     <div key={keyPrefix} className="my-8 flex flex-wrap items-center gap-3">
-      {buttons.map((button, index) => {
-        if (button.variant === 'text') {
-          return (
-            <a
-              key={`${keyPrefix}-${button.id}-${index}`}
-              href={button.url}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="link-underline text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
-            >
-              {button.label}
-            </a>
-          );
-        }
-
-        return (
-          <a
-            key={`${keyPrefix}-${button.id}-${index}`}
-            href={button.url}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className={
-              button.variant === 'secondary'
-                ? `btn btn--secondary ${CTA_BUTTON_FOCUS_CLASS}`
-                : `btn btn--primary ${CTA_BUTTON_FOCUS_CLASS}`
-            }
-          >
-            {button.label}
-          </a>
-        );
-      })}
+      {buttons.map((button, index) => (
+        <BlogAffiliateCTA
+          key={`${keyPrefix}-${button.id}-${index}`}
+          postId={postId}
+          ctaText={button.label}
+          destinationUrl={button.url}
+          variant={button.variant}
+          partner={(button.partnerId ? ctaPartners?.[button.partnerId] : null) ?? null}
+        />
+      ))}
     </div>
   );
 }
@@ -206,22 +206,34 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <div
         key={`${postId}-callout-${index}`}
-        className="my-10 rounded-[28px] border border-black/10 bg-[rgba(17,17,17,0.03)] px-6 py-5"
+        className="blog-section-soft my-10 px-6 py-5"
       >
         {block.title ? (
-          <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-neutral-700">{block.title}</p>
+          <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
         ) : null}
         <Body className="text-charcoal/85">{renderInlineContent(block.body, `${postId}-callout-inline-${index}`)}</Body>
       </div>
     );
   }
 
+  if (block.type === 'advice') {
+    return (
+      <div
+        key={`${postId}-advice-${index}`}
+        className="tmbc-blog-soft-card my-10 border-l-4 border-l-[var(--tmbc-blog-blush)] px-6 py-5"
+      >
+        {block.title ? (
+          <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
+        ) : null}
+        <Body className="text-charcoal/85">{renderInlineContent(block.body, `${postId}-advice-inline-${index}`)}</Body>
+      </div>
+    );
+  }
+
   if (block.type === 'pullquote') {
     return (
-      <figure key={`${postId}-pullquote-${index}`} className="my-12 rounded-[32px] border border-black/10 bg-black/[0.02] px-6 py-8 text-center">
-        <blockquote className="mx-auto max-w-3xl font-serif text-[1.55rem] leading-tight tracking-[-0.02em] text-neutral-900 md:text-[2rem]">
-          “{block.quote}”
-        </blockquote>
+      <figure key={`${postId}-pullquote-${index}`} className="my-12">
+        <PullQuote>“{block.quote}”</PullQuote>
         {block.attribution ? (
           <figcaption className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-neutral-600">
             {block.attribution}
@@ -238,13 +250,13 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         key={`${postId}-${block.type}-${index}`}
         className={`my-10 rounded-[28px] border px-6 py-5 ${
           isPros
-            ? 'border-[rgba(47,106,67,0.16)] bg-[rgba(47,106,67,0.06)]'
-            : 'border-[rgba(159,47,47,0.14)] bg-[rgba(159,47,47,0.05)]'
+            ? 'border-[rgba(184,116,138,0.2)] bg-[rgba(243,227,232,0.6)]'
+            : 'border-[rgba(107,103,104,0.18)] bg-white'
         }`}
       >
         <p
           className={`mb-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] ${
-            isPros ? 'text-[rgba(47,106,67,0.9)]' : 'text-[rgba(159,47,47,0.9)]'
+            isPros ? 'text-[var(--tmbc-blog-rose)]' : 'text-[var(--tmbc-blog-soft-text)]'
           }`}
         >
           {block.title}
@@ -263,13 +275,16 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
 
   if (block.type === 'comparison') {
     return (
-      <section key={`${postId}-comparison-${index}`} className="my-10 rounded-[28px] border border-black/10 bg-white px-6 py-5 shadow-[0_14px_32px_rgba(0,0,0,0.05)]">
+      <section key={`${postId}-comparison-${index}`} className="tmbc-blog-soft-card my-10 px-6 py-5">
         <h3 className="font-serif text-[1.45rem] tracking-[-0.02em] text-neutral-900">{block.title}</h3>
         {block.rows.length > 0 ? (
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {block.rows.map((row, rowIndex) => (
-              <div key={`${postId}-comparison-row-${index}-${rowIndex}`} className="rounded-[22px] border border-black/10 bg-black/[0.02] px-4 py-3">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-neutral-600">{row.label}</p>
+              <div
+                key={`${postId}-comparison-row-${index}-${rowIndex}`}
+                className="rounded-[22px] border border-[rgba(215,161,175,0.2)] bg-white px-4 py-3"
+              >
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{row.label}</p>
                 <Body className="mt-2 text-charcoal/85">
                   {renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`)}
                 </Body>
@@ -281,10 +296,32 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     );
   }
 
+  if (block.type === 'product') {
+    return (
+      <div key={`${postId}-product-${index}`} className="my-10">
+        <ProductRecommendationCard
+          brand={block.brand}
+          productName={block.productName}
+          shortReview={block.shortReview}
+          pros={block.pros}
+          bestFor={block.bestFor}
+          standout={block.standout}
+          affiliateLinks={block.affiliateLinks}
+        />
+      </div>
+    );
+  }
+
   return null;
 }
 
-export default function PostContent({ postId, content, className, trackView = true }: PostContentProps) {
+export default function PostContent({
+  postId,
+  content,
+  className,
+  trackView = true,
+  ctaPartners = {},
+}: PostContentProps) {
   useEffect(() => {
     if (!trackView) {
       return undefined;
@@ -311,7 +348,7 @@ export default function PostContent({ postId, content, className, trackView = tr
   const articleContent = storedButtons.body;
 
   return (
-    <div className={className ?? 'body-copy'}>
+    <BlogContent className={className ?? ''}>
       {(() => {
         const nodes: ReactNode[] = [];
         const lines = articleContent.split('\n');
@@ -331,21 +368,13 @@ export default function PostContent({ postId, content, className, trackView = tr
 
           if (line.startsWith('## ')) {
             if (h2Count > 0) {
-              nodes.push(
-                <div
-                  key={`${postId}-divider-${i}`}
-                  className="my-16 border-t border-black/10"
-                />,
-              );
+              nodes.push(<BlogDivider key={`${postId}-divider-${i}`} />);
             }
 
             nodes.push(
-              <H2
-                key={`${postId}-h2-${i}`}
-                className="mt-16 mb-6 font-serif text-neutral-900"
-              >
+              <h2 key={`${postId}-h2-${i}`} className="text-[var(--tmbc-blog-charcoal)]">
                 {renderInlineContent(line.replace(/^##\s+/, ''), `${postId}-h2-inline-${i}`)}
-              </H2>,
+              </h2>,
             );
             h2Count += 1;
             i += 1;
@@ -354,12 +383,9 @@ export default function PostContent({ postId, content, className, trackView = tr
 
           if (line.startsWith('### ')) {
             nodes.push(
-              <H3
-                key={`${postId}-h3-${i}`}
-                className="mt-12 mb-4 font-serif tracking-tight text-neutral-900"
-              >
+              <h3 key={`${postId}-h3-${i}`} className="text-[var(--tmbc-blog-charcoal)]">
                 {renderInlineContent(line.replace(/^###\s+/, ''), `${postId}-h3-inline-${i}`)}
-              </H3>,
+              </h3>,
             );
             i += 1;
             continue;
@@ -373,7 +399,7 @@ export default function PostContent({ postId, content, className, trackView = tr
           }
 
           if (isDividerLine(line)) {
-            nodes.push(<div key={`${postId}-rule-${i}`} className="my-12 border-t border-black/10" />);
+            nodes.push(<BlogDivider key={`${postId}-rule-${i}`} />);
             i += 1;
             continue;
           }
@@ -382,7 +408,7 @@ export default function PostContent({ postId, content, className, trackView = tr
           if (ctaSlotId) {
             const button = storedButtonMap.get(ctaSlotId);
             if (button) {
-              nodes.push(renderStoredCtaButtons([button], `${postId}-stored-slot-${i}`));
+              nodes.push(renderStoredCtaButtons([button], `${postId}-stored-slot-${i}`, postId, ctaPartners));
               slottedButtonIds.add(button.id);
             }
             i += 1;
@@ -393,20 +419,12 @@ export default function PostContent({ postId, content, className, trackView = tr
           if (legacyCtaButton) {
             nodes.push(
               <div key={`${postId}-legacy-cta-${i}`} className="my-8">
-                <a
-                  href={legacyCtaButton.url}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
-                  className={
-                    legacyCtaButton.variant === 'secondary'
-                      ? `btn btn--secondary ${CTA_BUTTON_FOCUS_CLASS}`
-                      : legacyCtaButton.variant === 'text'
-                        ? 'link-underline text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900'
-                        : `btn btn--primary ${CTA_BUTTON_FOCUS_CLASS}`
-                  }
-                >
-                  {legacyCtaButton.label}
-                </a>
+                <BlogAffiliateCTA
+                  postId={postId}
+                  ctaText={legacyCtaButton.label}
+                  destinationUrl={legacyCtaButton.url}
+                  variant={legacyCtaButton.variant}
+                />
               </div>,
             );
             i += 1;
@@ -427,14 +445,9 @@ export default function PostContent({ postId, content, className, trackView = tr
             }
 
             nodes.push(
-              <blockquote
-                key={`${postId}-quote-${i}`}
-                className="mt-8 rounded-r-[24px] border-l-4 border-neutral-900/70 bg-black/[0.03] px-5 py-4"
-              >
-                <Body className="text-charcoal/80 italic">
-                  {renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
-                </Body>
-              </blockquote>,
+              <PullQuote key={`${postId}-quote-${i}`}>
+                {renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
+              </PullQuote>,
             );
             continue;
           }
@@ -539,22 +552,15 @@ export default function PostContent({ postId, content, className, trackView = tr
           if (paragraphLines.length > 0) {
             paragraphCount += 1;
             nodes.push(
-              <Body
-                key={`${postId}-p-${i}`}
-                className={
-                  paragraphCount === 1
-                    ? 'text-charcoal/85'
-                    : 'mt-6 text-charcoal/85'
-                }
-              >
+              <p key={`${postId}-p-${i}`} className={paragraphCount === 1 ? 'text-charcoal/85' : 'text-charcoal/85'}>
                 {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
-              </Body>,
+              </p>,
             );
 
             if (!insertedStoredButtons && storedButtons.buttons.length > 0 && paragraphCount === 1) {
               const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
               if (remainingButtons.length > 0) {
-                nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-inline`));
+                nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-inline`, postId, ctaPartners));
                 insertedStoredButtons = true;
               }
             }
@@ -564,12 +570,12 @@ export default function PostContent({ postId, content, className, trackView = tr
         if (!insertedStoredButtons && storedButtons.buttons.length > 0) {
           const remainingButtons = storedButtons.buttons.filter((button) => !slottedButtonIds.has(button.id));
           if (remainingButtons.length > 0) {
-            nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-end`));
+            nodes.push(renderStoredCtaButtons(remainingButtons, `${postId}-stored-cta-end`, postId, ctaPartners));
           }
         }
 
         return nodes;
       })()}
-    </div>
+    </BlogContent>
   );
 }

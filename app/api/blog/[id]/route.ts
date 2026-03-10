@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeAuthorAssignments } from '@/lib/blog/authors';
+import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
@@ -8,6 +10,7 @@ import {
   resolveLegacyAffiliateIdsFromBrandIds,
 } from '@/lib/server/affiliateBrands';
 import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
+import { postEditorSelect, toPostEditorRecord } from '@/lib/server/postEditorRecord';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -60,92 +63,6 @@ const asImageArray = (value: unknown): ImageInput[] => {
     .filter((entry, index, collection) => collection.findIndex((candidate) => candidate.url === entry.url) === index);
 };
 
-type PostWithAffiliateIds = {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  content: string;
-  deck: string | null;
-  excerpt: string | null;
-  focusKeyword: string | null;
-  seoTitle: string | null;
-  seoDescription: string | null;
-  canonicalUrl: string | null;
-  featuredImageUrl: string | null;
-  coverImage: string | null;
-  featuredImageId: string | null;
-  featuredImage: {
-    id: string;
-    url: string;
-    fileName: string;
-    fileType: string;
-    fileSize: number;
-    createdAt: Date;
-  } | null;
-  media: Array<{
-    id: string;
-    url: string;
-    fileName: string;
-    fileType: string;
-    fileSize: number;
-    createdAt: Date;
-  }>;
-  images: Array<{
-    id: number;
-    url: string;
-    alt: string | null;
-    createdAt: Date;
-  }>;
-  status: 'DRAFT' | 'SCHEDULED' | 'PUBLISHED' | 'ARCHIVED';
-  stage: 'IDEA' | 'OUTLINE' | 'DRAFT' | 'READY' | 'PUBLISHED' | 'ARCHIVED';
-  publishedAt: Date | null;
-  scheduledFor: Date | null;
-  archivedAt: Date | null;
-  featured: boolean;
-  published: boolean;
-  authorId: string;
-  views: number;
-  createdAt: Date;
-  updatedAt: Date;
-  affiliateBrands: Array<{ id: string }>;
-  affiliates: Array<{ affiliateId: string }>;
-};
-
-const toResponsePost = (post: PostWithAffiliateIds) => ({
-  id: post.id,
-  title: post.title,
-  slug: post.slug,
-  category: post.category,
-  content: post.content,
-  deck: post.deck,
-  excerpt: post.excerpt,
-  focusKeyword: post.focusKeyword,
-  seoTitle: post.seoTitle,
-  seoDescription: post.seoDescription,
-  canonicalUrl: post.canonicalUrl,
-  featuredImageUrl: post.featuredImageUrl,
-  coverImage: post.coverImage,
-  featuredImageId: post.featuredImageId,
-  featuredImage: post.featuredImage,
-  mediaIds: post.media.map((entry) => entry.id),
-  media: post.media,
-  images: post.images,
-  status: post.status,
-  stage: post.stage,
-  publishedAt: post.publishedAt,
-  scheduledFor: post.scheduledFor,
-  archivedAt: post.archivedAt,
-  featured: post.featured,
-  published: post.published,
-  authorId: post.authorId,
-  views: post.views,
-  createdAt: post.createdAt,
-  updatedAt: post.updatedAt,
-  affiliateBrandIds: post.affiliateBrands.map((entry) => entry.id),
-  affiliateIds: post.affiliates.map((entry) => entry.affiliateId),
-});
-
 export async function GET(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
@@ -154,47 +71,7 @@ export async function GET(
   const token = await getRequestToken(req);
   const post = await prisma.post.findUnique({
     where: { id },
-    include: {
-      featuredImage: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      media: {
-        select: {
-          id: true,
-          url: true,
-          fileName: true,
-          fileType: true,
-          fileSize: true,
-          createdAt: true,
-        },
-      },
-      images: {
-        select: {
-          id: true,
-          url: true,
-          alt: true,
-          createdAt: true,
-        },
-        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-      },
-      affiliates: {
-        select: {
-          affiliateId: true,
-        },
-      },
-      affiliateBrands: {
-        select: {
-          id: true,
-        },
-      },
-    },
+    select: postEditorSelect,
   });
 
   if (!post) {
@@ -208,7 +85,7 @@ export async function GET(
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  return NextResponse.json(toResponsePost(post));
+  return NextResponse.json(toPostEditorRecord(post));
 }
 
 export async function PUT(
@@ -227,7 +104,7 @@ export async function PUT(
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const existingPost = await prisma.post.findUnique({ where: { id } });
+  const existingPost = await prisma.post.findUnique({ where: { id }, select: postEditorSelect });
   if (!existingPost) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
@@ -244,6 +121,10 @@ export async function PUT(
     ? asNullableText(body.seoDescription)
     : existingPost.seoDescription;
   const nextCanonicalUrl = hasOwn(body, 'canonicalUrl') ? asNullableText(body.canonicalUrl) : existingPost.canonicalUrl;
+  const nextShareTitle = hasOwn(body, 'shareTitle') ? asNullableText(body.shareTitle) : existingPost.shareTitle;
+  const nextShareDescription = hasOwn(body, 'shareDescription')
+    ? asNullableText(body.shareDescription)
+    : existingPost.shareDescription;
   const nextFeaturedImageUrl = hasOwn(body, 'featuredImageUrl')
     ? asNullableText(body.featuredImageUrl)
     : existingPost.featuredImageUrl;
@@ -262,6 +143,15 @@ export async function PUT(
     ? Array.from(new Set(asStringArray(body.affiliateIds)))
     : null;
   const nextImages = hasOwn(body, 'images') ? asImageArray(body.images) : null;
+  const nextAuthors = hasOwn(body, 'authors')
+    ? normalizeAuthorAssignments(
+        Array.isArray(body.authors) ? (body.authors as Array<{ userId?: string | null; role?: unknown }>) : [],
+        existingPost.authorId,
+      )
+    : normalizeAuthorAssignments(existingPost.authorships, existingPost.authorId);
+  const nextPrimaryAuthorId =
+    nextAuthors.find((author) => author.role === 'Primary Author')?.userId ?? existingPost.authorId;
+  const nextReadingTime = estimateReadingTimeFromContent(nextContent);
   const lifecycle = deriveLifecycleAndStage({
     existing: {
       status: existingPost.status,
@@ -309,6 +199,9 @@ export async function PUT(
         seoTitle: nextSeoTitle,
         seoDescription: nextSeoDescription,
         canonicalUrl: nextCanonicalUrl,
+        readingTime: nextReadingTime,
+        shareTitle: nextShareTitle,
+        shareDescription: nextShareDescription,
         featuredImageUrl: nextFeaturedImageUrl,
         coverImage: nextCoverImage,
         featuredImageId: nextFeaturedImageId,
@@ -324,8 +217,23 @@ export async function PUT(
         archivedAt: lifecycle.archivedAt,
         featured: nextFeatured,
         published: lifecycle.published,
+        authorId: nextPrimaryAuthorId,
       },
     });
+
+    if (hasOwn(body, 'authors')) {
+      await tx.postAuthor.deleteMany({ where: { postId: id } });
+      if (nextAuthors.length > 0) {
+        await tx.postAuthor.createMany({
+          data: nextAuthors.map((author) => ({
+            postId: id,
+            userId: author.userId,
+            role: author.role,
+          })),
+          skipDuplicates: true,
+        });
+      }
+    }
 
     if (nextResolvedLegacyAffiliateIds !== null) {
       await tx.blogPostAffiliate.deleteMany({ where: { blogPostId: id } });
@@ -356,47 +264,7 @@ export async function PUT(
 
     return tx.post.findUnique({
       where: { id },
-      include: {
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            fileName: true,
-            fileType: true,
-            fileSize: true,
-            createdAt: true,
-          },
-        },
-        media: {
-          select: {
-            id: true,
-            url: true,
-            fileName: true,
-            fileType: true,
-            fileSize: true,
-            createdAt: true,
-          },
-        },
-        images: {
-          select: {
-            id: true,
-            url: true,
-            alt: true,
-            createdAt: true,
-          },
-          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-        },
-        affiliates: {
-          select: {
-            affiliateId: true,
-          },
-        },
-        affiliateBrands: {
-          select: {
-            id: true,
-          },
-        },
-      },
+      select: postEditorSelect,
     });
   });
 
@@ -406,7 +274,7 @@ export async function PUT(
 
   revalidatePostPaths(post);
 
-  return NextResponse.json(toResponsePost(post));
+  return NextResponse.json(toPostEditorRecord(post));
 }
 
 export async function DELETE(

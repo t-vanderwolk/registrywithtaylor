@@ -1,5 +1,6 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeAffiliateContexts } from '@/lib/affiliatePartners';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
@@ -36,6 +37,19 @@ const asCommissionType = (value: unknown): CommissionType | null => {
   return Object.values(CommissionType).includes(value as CommissionType)
     ? (value as CommissionType)
     : null;
+};
+
+const asRoutingPriority = (value: unknown) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return Math.max(0, Math.trunc(value));
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isFinite(parsed) ? Math.max(0, parsed) : 99;
+  }
+
+  return 99;
 };
 
 const hasOwn = (obj: object, key: string) => Object.prototype.hasOwnProperty.call(obj, key);
@@ -107,8 +121,13 @@ export async function PUT(
       advertiserId: hasOwn(body, 'advertiserId')
         ? asNullableText(body.advertiserId)
         : existing.advertiserId,
+      partnerType: hasOwn(body, 'partnerType') ? asText(body.partnerType) || 'retailer' : existing.partnerType,
+      affiliatePid: hasOwn(body, 'affiliatePid') ? asNullableText(body.affiliatePid) : existing.affiliatePid,
       commissionType: nextCommissionType,
       commissionRate: nextCommissionRate,
+      baseUrl: hasOwn(body, 'baseUrl')
+        ? asText(body.baseUrl) || asText(body.website)
+        : existing.baseUrl,
       logoUrl: hasOwn(body, 'logoUrl') ? asNullableText(body.logoUrl) : existing.logoUrl,
       website: hasOwn(body, 'website') ? asNullableText(body.website) : existing.website,
       affiliateLink: hasOwn(body, 'affiliateLink') ? asNullableText(body.affiliateLink) : existing.affiliateLink,
@@ -120,6 +139,10 @@ export async function PUT(
         ? asNullableFloat(body.sevenDayEpc)
         : existing.sevenDayEpc,
       notes: hasOwn(body, 'notes') ? asNullableText(body.notes) : existing.notes,
+      routingPriority: hasOwn(body, 'routingPriority') ? asRoutingPriority(body.routingPriority) : existing.routingPriority,
+      allowedContexts: hasOwn(body, 'allowedContexts')
+        ? normalizeAffiliateContexts(body.allowedContexts)
+        : normalizeAffiliateContexts(existing.allowedContexts),
       isActive: hasOwn(body, 'isActive') && typeof body.isActive === 'boolean'
         ? body.isActive
         : existing.isActive,

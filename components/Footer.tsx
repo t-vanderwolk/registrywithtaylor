@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Body } from '@/components/Typography';
+import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
 
 const footerLinks = [
   { label: 'Home', href: '/' },
@@ -52,13 +53,15 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             aria-label="Taylor-Made Baby Co. on Instagram (@taylormadebabyco)"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[var(--color-muted)] hover:opacity-70 transition"
+            className="group inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[var(--color-muted)] transition hover:opacity-70"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-            </svg>
+            <LuxuryIconFrame size="micro" className="text-[var(--color-accent-dark)]" syncWithGroup>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+              </svg>
+            </LuxuryIconFrame>
           </a>
         </div>
         <Body className="body-copy--full text-center sm:text-left">© {currentYear} Taylor-Made Baby Co. Built with care in Scottsdale.</Body>

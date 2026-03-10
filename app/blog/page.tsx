@@ -31,6 +31,7 @@ type BlogPost = {
   category: BlogCategory;
   excerpt: string | null;
   content: string;
+  readingTime: number | null;
   featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
@@ -50,6 +51,7 @@ type BlogIndexPost = {
   coverImage: string | null;
   dateLabel: string;
   dateTime: string;
+  readingTime: number | null;
 };
 
 const formatDate = (value: Date) =>
@@ -96,6 +98,7 @@ export default async function BlogPage() {
       category: true,
       excerpt: true,
       content: true,
+      readingTime: true,
       featuredImageUrl: true,
       coverImage: true,
       featuredImage: {
@@ -118,17 +121,18 @@ export default async function BlogPage() {
     coverImage: post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
     dateLabel: formatDate(getPostDisplayDate(post)),
     dateTime: getPostDisplayDate(post).toISOString(),
+    readingTime: post.readingTime,
   });
 
   return (
     <SiteShell currentPath="/blog">
-      <main className="site-main bg-white">
+      <main className="site-main" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <Hero
           image="/assets/hero/hero-04.jpg"
           imageAlt=""
         >
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+            <h1 className="marketing-hero-headline hero-load-reveal">
               {BLOG_GUIDES_TITLE}
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">

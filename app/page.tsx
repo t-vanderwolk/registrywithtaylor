@@ -87,6 +87,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Intentional Gear Planning',
     iconSrc: '/assets/icons/gear-plan.png',
+    description:
+      'Compare the daily-use gear that matters most around your routine, storage, and long-term fit.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -98,9 +100,12 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'CPST Car Seat Installation & Safety Checks',
     iconSrc: '/assets/icons/cpst.png',
+    description:
+      'Car seat guidance built around installation, compatibility, and how the setup works in real life.',
     partnerLabel: 'In partnership with',
     partnerLogoSrc: '/assets/logos/lanicarseat.png',
     partnerLogoAlt: 'Lani Car Seat Consulting',
+    partnerBadgeLines: ['Lani', 'Car Seat'],
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -112,6 +117,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Home & Nursery Preparation',
     iconSrc: '/assets/icons/nursery.png',
+    description:
+      'Shape the nursery, storage, and room flow so the space feels calm, functional, and ready to use.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -123,9 +130,12 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'In-Home Baby & Toddler Proofing Installation',
     iconSrc: '/assets/icons/babyproof.png',
+    description:
+      'Prioritize the safety updates that matter first before little ones begin rolling, crawling, and climbing.',
     partnerLabel: 'In partnership with',
     partnerLogoSrc: '/assets/logos/azchildproof.png',
     partnerLogoAlt: 'Arizona Childproofers',
+    partnerBadgeLines: ['Arizona', 'Child', 'Proofers'],
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -137,6 +147,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Intentional Purchasing Timeline',
     iconSrc: '/assets/icons/calender.png',
+    description:
+      'Build a smarter buying roadmap around timing, discounts, and what actually needs to happen now.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -148,6 +160,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Surrogacy & Adoption Planning Support',
     iconSrc: '/assets/icons/surrogacy.png',
+    description:
+      'Tailor registry and home-prep decisions around your timeline, travel logistics, and transition home.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -159,6 +173,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Virtual Parent Community Sessions',
     iconSrc: '/assets/icons/virtual.png',
+    description:
+      'Join live monthly sessions for practical baby-prep questions, calmer decisions, and shared perspective.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -170,6 +186,8 @@ const servicePillars: AddonServiceCardData[] = [
   {
     title: 'Baby Shower Support',
     iconSrc: '/assets/icons/giftbox.png',
+    description:
+      'Refine the registry and gifting plan before invitations go out so the list stays useful and intentional.',
     accordionVariant: 'stacked',
     cardVariant: 'pillar',
     features: [
@@ -305,7 +323,7 @@ export default async function HomePage() {
       <main className="site-main">
         <Hero image="/assets/hero/hero-01.jpg" imageAlt="" innerStyle={{ paddingTop: 'clamp(7rem, 14vh, 11rem)' }}>
           <div className="space-y-6">
-            <h1 className="hero-load-reveal font-serif text-4xl tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+            <h1 className="marketing-hero-headline hero-load-reveal">
               Baby Planning &amp; Registry Guidance for Growing Families
             </h1>
 
@@ -313,7 +331,7 @@ export default async function HomePage() {
               Because parenthood should start with confidence, not confusion.
             </Body>
 
-            <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-sm leading-relaxed text-black/70 md:text-base md:text-left">
+            <p className="hero-load-reveal hero-load-reveal--2 mx-auto max-w-lg text-center text-base leading-relaxed text-black/70 md:text-left md:text-lg">
               Strollers · Car seats · Registry strategy · Nursery &amp; home preparation
             </p>
 

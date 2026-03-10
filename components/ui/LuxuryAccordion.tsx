@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
+import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
 
 type LuxuryAccordionItem = string | { label: string; content: string };
 
@@ -23,41 +24,45 @@ function isLabeledItem(item: LuxuryAccordionItem): item is { label: string; cont
 
 function CheckCircleIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-5 w-5 flex-shrink-0 text-blush"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="m8.5 12.3 2.3 2.3 4.8-5.1" />
-    </svg>
+    <LuxuryIconFrame size="micro" className="mt-0.5" interactive={false} syncWithGroup>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5 flex-shrink-0 text-[var(--color-accent-dark)]"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8.5 12.3 2.3 2.3 4.8-5.1" />
+      </svg>
+    </LuxuryIconFrame>
   );
 }
 
 function ChevronIcon({ isOpen }: { isOpen: boolean }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={[
-        'h-5 w-5 flex-shrink-0 text-black/45 transition-all duration-300 ease-in-out',
-        isOpen ? 'rotate-180' : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      aria-hidden="true"
-    >
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
+    <LuxuryIconFrame size="micro" interactive={false} syncWithGroup glow={false}>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={[
+          'h-5 w-5 flex-shrink-0 text-[var(--color-accent-dark)] transition-all duration-300 ease-in-out',
+          isOpen ? 'rotate-180' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </LuxuryIconFrame>
   );
 }
 
@@ -102,7 +107,7 @@ export default function LuxuryAccordion({
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={handleToggle}
-          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-black/10 bg-[#F7F4EF] px-5 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-800 transition-all duration-300 ease-in-out hover:border-black/15 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+          className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-black/10 bg-[#F7F4EF] px-5 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-800 transition-all duration-300 ease-in-out hover:border-black/15 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
         >
           <span>{isOpen ? openLabel : closedLabel}</span>
           <ChevronIcon isOpen={isOpen} />

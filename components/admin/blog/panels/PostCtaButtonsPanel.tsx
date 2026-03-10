@@ -3,7 +3,9 @@ import AdminField from '@/components/admin/ui/AdminField';
 import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
+import AffiliatePartnerSelect from '@/components/admin/blog/AffiliatePartnerSelect';
 import type { AffiliatePartnerOption } from '@/components/admin/blog/postEditorTypes';
+import { buildDefaultAffiliateCtaText } from '@/lib/affiliatePartners';
 import type { CtaButton } from '@/lib/blog/ctaButtons';
 
 type SaveMode = 'debounced' | 'immediate';
@@ -31,6 +33,18 @@ export default function PostCtaButtonsPanel({
   onRemoveButton: (index: number) => void;
   onInsertButton: (buttonId: string) => void;
 }) {
+  const resolvePartnerDefaults = (partner: AffiliatePartnerOption | null, current: CtaButton) => {
+    if (!partner) {
+      return { partnerId: null };
+    }
+
+    return {
+      partnerId: partner.id,
+      label: current.label.trim() ? current.label : buildDefaultAffiliateCtaText(partner),
+      url: current.url.trim() ? current.url : partner.defaultDestinationUrl ?? partner.baseUrl ?? partner.website ?? '',
+    } satisfies Partial<CtaButton>;
+  };
+
   return (
     <AdminSurface className="admin-stack gap-4">
       <div className="admin-stack gap-1.5">
@@ -73,20 +87,13 @@ export default function PostCtaButtonsPanel({
               </AdminSelect>
             </AdminField>
 
-            <AdminField label="Partner (optional)" htmlFor="post-cta-draft-partner">
-              <AdminSelect
-                id="post-cta-draft-partner"
-                value={draftButton.partnerId ?? ''}
-                onChange={(event) => onDraftChange({ partnerId: event.target.value || null })}
-              >
-                <option value="">None</option>
-                {affiliatePartnerOptions.map((partner) => (
-                  <option key={partner.id} value={partner.id}>
-                    {partner.name}
-                  </option>
-                ))}
-              </AdminSelect>
-            </AdminField>
+            <AffiliatePartnerSelect
+              id="post-cta-draft-partner"
+              label="Affiliate partner"
+              options={affiliatePartnerOptions}
+              value={draftButton.partnerId ?? null}
+              onChange={(partnerId, partner) => onDraftChange(partnerId ? resolvePartnerDefaults(partner, draftButton) : { partnerId: null })}
+            />
           </div>
         </div>
 
@@ -151,20 +158,19 @@ export default function PostCtaButtonsPanel({
                     </AdminSelect>
                   </AdminField>
 
-                  <AdminField label="Partner (optional)" htmlFor={`post-cta-partner-${button.id}`}>
-                    <AdminSelect
-                      id={`post-cta-partner-${button.id}`}
-                      value={button.partnerId ?? ''}
-                      onChange={(event) => onUpdateButton(index, { partnerId: event.target.value || null }, 'immediate')}
-                    >
-                      <option value="">None</option>
-                      {affiliatePartnerOptions.map((partner) => (
-                        <option key={partner.id} value={partner.id}>
-                          {partner.name}
-                        </option>
-                      ))}
-                    </AdminSelect>
-                  </AdminField>
+                  <AffiliatePartnerSelect
+                    id={`post-cta-partner-${button.id}`}
+                    label="Affiliate partner"
+                    options={affiliatePartnerOptions}
+                    value={button.partnerId ?? null}
+                    onChange={(partnerId, partner) =>
+                      onUpdateButton(
+                        index,
+                        partnerId ? resolvePartnerDefaults(partner, button) : { partnerId: null },
+                        'immediate',
+                      )
+                    }
+                  />
                 </div>
               </div>
 

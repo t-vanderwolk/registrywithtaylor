@@ -15,6 +15,7 @@ type BlogIndexPost = {
   coverImage: string | null;
   dateLabel: string;
   dateTime: string;
+  readingTime: number | null;
   category: BlogCategory;
 };
 
@@ -50,8 +51,8 @@ export default function BlogIndexView({
                   aria-pressed={activeCategory === null}
                   className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                     activeCategory === null
-                      ? 'text-charcoal underline decoration-black/20 underline-offset-8'
-                      : 'text-charcoal/70 hover:text-charcoal'
+                      ? 'text-[var(--tmbc-blog-rose)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-8'
+                      : 'text-[var(--tmbc-blog-soft-text)] hover:text-[var(--tmbc-blog-charcoal)]'
                   }`}
                 >
                   All Guides
@@ -64,8 +65,8 @@ export default function BlogIndexView({
                     aria-pressed={activeCategory === category}
                     className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                       activeCategory === category
-                        ? 'text-charcoal underline decoration-black/20 underline-offset-8'
-                        : 'text-charcoal/70 hover:text-charcoal'
+                        ? 'text-[var(--tmbc-blog-rose)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-8'
+                        : 'text-[var(--tmbc-blog-soft-text)] hover:text-[var(--tmbc-blog-charcoal)]'
                     }`}
                   >
                     {getBlogCategoryLabel(category)}
@@ -77,11 +78,11 @@ export default function BlogIndexView({
         </div>
       </section>
 
-      <section className="bg-white pb-20 md:pb-28">
+      <section className="pb-20 md:pb-28" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <div className="max-w-5xl mx-auto px-6">
           {filteredPosts.length > 0 ? (
             <RevealOnScroll>
-              <div className="grid gap-8 md:grid-cols-2 md:gap-10">
+              <div className="blog-section-soft grid gap-8 px-6 py-8 md:grid-cols-2 md:gap-10 md:px-8">
                 {filteredPosts.map((post) => (
                   <JournalCard
                     key={post.id}
@@ -91,6 +92,7 @@ export default function BlogIndexView({
                     excerpt={post.excerpt}
                     dateLabel={post.dateLabel}
                     dateTime={post.dateTime}
+                    readingTime={post.readingTime}
                     category={post.category}
                   />
                 ))}

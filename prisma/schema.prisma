@@ -8,13 +8,19 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  posts     Post[]
+  id            String       @id @default(cuid())
+  email         String       @unique
+  password      String
+  name          String?
+  slug          String?      @unique
+  bio           String?
+  expertiseAreas String[]    @default([])
+  avatarUrl     String?
+  role          Role         @default(USER)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  posts         Post[]       @relation("PrimaryPostAuthor")
+  authoredPosts PostAuthor[]
 }
 
 model Post {
@@ -43,15 +49,34 @@ model Post {
   seoTitle         String?
   seoDescription   String?
   canonicalUrl     String?
+  readingTime      Int?
+  shareTitle       String?
+  shareDescription String?
   featuredImageUrl String?             @map("featuredImage")
   affiliateLinks   AffiliateLink[]
   affiliates       BlogPostAffiliate[]
-  affiliateBrands  Brand[]             @relation("PostAffiliateBrands")
-  author           User                @relation(fields: [authorId], references: [id])
+  author           User                @relation("PrimaryPostAuthor", fields: [authorId], references: [id])
+  authorships      PostAuthor[]
   featuredImage    Media?              @relation("FeaturedPostMedia", fields: [featuredImageId], references: [id])
   analytics        PostAnalytics[]
+  affiliateClicks  AffiliateClick[]
   images           PostImage[]
+  affiliateBrands  Brand[]             @relation("PostAffiliateBrands")
   media            Media[]             @relation("PostMedia")
+}
+
+model PostAuthor {
+  id        String   @id @default(cuid())
+  postId     String
+  userId     String
+  role       String
+  createdAt  DateTime @default(now())
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@index([postId])
+  @@index([userId])
 }
 
 model PostImage {
@@ -96,6 +121,8 @@ model PostAnalytics {
   meta      Json?
   createdAt DateTime @default(now())
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId], map: "idx_postanalytics_postid")
 }
 
 model Brand {
@@ -104,9 +131,9 @@ model Brand {
   website        String?
   logoUrl        String?
   createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-  programs       AffiliateProgram[]
+  updatedAt      DateTime           @default(now()) @updatedAt
   legacyPartners AffiliatePartner[]
+  programs       AffiliateProgram[]
   posts          Post[]             @relation("PostAffiliateBrands")
 }
 
@@ -116,12 +143,14 @@ model AffiliateProgram {
   network        AffiliateNetwork
   campaignId     String?            @unique
   commission     String?
+  averageOrderValue Float?
+  commissionRate Float?
   cookieLength   String?
   createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-  brand          Brand              @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  legacyPartners AffiliatePartner[]
+  updatedAt      DateTime           @default(now()) @updatedAt
   links          AffiliateLink[]
+  legacyPartners AffiliatePartner[]
+  brand          Brand              @relation(fields: [brandId], references: [id], onDelete: Cascade)
 
   @@unique([brandId, network])
   @@index([brandId])
@@ -130,27 +159,32 @@ model AffiliateProgram {
 model AffiliatePartner {
   id             String              @id @default(uuid())
   name           String
-  brandId        String?
-  programId      String?
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
   network        AffiliateNetwork
+  partnerType    String              @default("retailer")
+  affiliatePid   String?
   advertiserId   String?
   commissionType CommissionType
   commissionRate String
+  baseUrl        String              @default("")
   category       String?
   threeMonthEpc  Float?
   sevenDayEpc    Float?
   notes          String?
+  routingPriority Int                @default(99)
+  allowedContexts Json               @default("[\"blog\"]")
   isActive       Boolean             @default(true)
   allowedDomains String[]            @default([])
   slug           String              @unique
   logoUrl        String?
   website        String?
   affiliateLink  String?
-  brand          Brand?              @relation(fields: [brandId], references: [id], onDelete: SetNull)
-  program        AffiliateProgram?   @relation(fields: [programId], references: [id], onDelete: SetNull)
+  brandId        String?
+  programId      String?
   affiliateLinks AffiliateLink[]
+  brand          Brand?              @relation(fields: [brandId], references: [id])
+  program        AffiliateProgram?   @relation(fields: [programId], references: [id])
   blogPosts      BlogPostAffiliate[]
 
   @@unique([name, network])
@@ -171,20 +205,20 @@ model BlogPostAffiliate {
 
 model AffiliateLink {
   id             String            @id @default(uuid())
-  programId      String?
   partnerId      String?
-  name           String?
-  url            String?
   destinationUrl String?
   code           String?           @unique
   label          String?
   blogPostId     String?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
+  programId      String?
+  name           String?
+  url            String?
   clicks         AffiliateClick[]
   blogPost       Post?             @relation(fields: [blogPostId], references: [id])
-  program        AffiliateProgram? @relation(fields: [programId], references: [id], onDelete: SetNull)
   partner        AffiliatePartner? @relation(fields: [partnerId], references: [id])
+  program        AffiliateProgram? @relation(fields: [programId], references: [id])
 
   @@index([programId])
   @@index([partnerId])
@@ -195,14 +229,17 @@ model AffiliateLink {
 model AffiliateClick {
   id        String        @id @default(uuid())
   linkId    String
+  postId    String?
   ipHash    String?
   userAgent String?
   referrer  String?
   createdAt DateTime      @default(now())
   path      String?
   link      AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  post      Post?         @relation(fields: [postId], references: [id], onDelete: SetNull)
 
   @@index([linkId, createdAt])
+  @@index([postId], map: "idx_affiliateclick_postid")
   @@index([createdAt])
 }
 

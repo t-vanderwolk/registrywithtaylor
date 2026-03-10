@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
 
 type ServiceIconBadgeProps = {
   src: string;
@@ -9,9 +10,15 @@ type ServiceIconBadgeProps = {
 };
 
 const sizeClasses = {
-  default: 'h-[4.4rem] w-[4.4rem]',
-  addon: 'h-[6.6rem] w-[6.6rem]',
-  card: 'h-[8.8rem] w-[8.8rem]',
+  default: 'h-[3rem] w-[3rem] md:h-[3.25rem] md:w-[3.25rem]',
+  addon: 'h-[4.4rem] w-[4.4rem] md:h-[4.75rem] md:w-[4.75rem]',
+  card: 'h-[5.8rem] w-[5.8rem] md:h-[6.2rem] md:w-[6.2rem]',
+} as const;
+
+const frameSizeMap = {
+  default: 'lg',
+  addon: 'hero',
+  card: 'jumbo',
 } as const;
 
 const imageSizes = {
@@ -28,24 +35,20 @@ export default function ServiceIconBadge({
   size = 'default',
 }: ServiceIconBadgeProps) {
   return (
-    <div
-      className={[
-        'flex items-center justify-center',
-        sizeClasses[size],
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+    <LuxuryIconFrame
+      size={frameSizeMap[size]}
+      className={className}
+      innerClassName={['relative', sizeClasses[size]].join(' ')}
+      interactive
+      syncWithGroup
     >
-      <div className={['relative', sizeClasses[size]].join(' ')}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={imageSizes[size]}
-          className={['object-contain', imageClassName].filter(Boolean).join(' ')}
-        />
-      </div>
-    </div>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={imageSizes[size]}
+        className={['object-contain luxury-icon-object', imageClassName].filter(Boolean).join(' ')}
+      />
+    </LuxuryIconFrame>
   );
 }

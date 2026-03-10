@@ -1,6 +1,7 @@
 import type { AffiliateNetwork } from '@prisma/client';
+import { AFFILIATE_ROUTING_ORDER, getAffiliateNetworkPriority } from '@/lib/affiliatePartners';
 
-export const AFFILIATE_NETWORK_ORDER: AffiliateNetwork[] = ['CJ', 'IMPACT', 'AWIN', 'DIRECT'];
+export const AFFILIATE_NETWORK_ORDER: AffiliateNetwork[] = AFFILIATE_ROUTING_ORDER;
 
 export const AFFILIATE_NETWORK_LABELS: Record<AffiliateNetwork, string> = {
   CJ: 'CJ',
@@ -30,8 +31,7 @@ export type AffiliateBrandCard = {
 
 export function sortAffiliateNetworks(networks: AffiliateNetwork[]) {
   return [...networks].sort(
-    (left, right) =>
-      AFFILIATE_NETWORK_ORDER.indexOf(left) - AFFILIATE_NETWORK_ORDER.indexOf(right) || left.localeCompare(right),
+    (left, right) => getAffiliateNetworkPriority(left) - getAffiliateNetworkPriority(right) || left.localeCompare(right),
   );
 }
 

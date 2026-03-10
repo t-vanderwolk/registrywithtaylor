@@ -18,7 +18,7 @@ export default function ConsultationConfirmationPage() {
       <main className="site-main">
         <MarketingSection tone="white" spacing="default" container="narrow">
           <MarketingSurface className="mx-auto max-w-2xl space-y-6 text-center">
-            <h1 className="font-serif text-4xl tracking-tight text-neutral-900 md:text-5xl">
+            <h1 className="marketing-hero-headline">
               Request Received
             </h1>
             <p className="text-lg leading-relaxed text-neutral-700">

@@ -25,6 +25,16 @@ const asNullableText = (value: FormDataEntryValue | null) => {
   return text || null;
 };
 
+const asNullableFloat = (value: FormDataEntryValue | null) => {
+  const text = asText(value);
+  if (!text) {
+    return null;
+  }
+
+  const parsed = Number.parseFloat(text);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
 const normalizeNetwork = (value: FormDataEntryValue | null) => {
   const text = asText(value).toUpperCase();
   return NETWORK_OPTIONS.find((network) => network === text) ?? null;
@@ -105,6 +115,8 @@ async function createAffiliateProgram(formData: FormData) {
   const network = normalizeNetwork(formData.get('network'));
   const campaignId = asNullableText(formData.get('campaignId'));
   const commission = asNullableText(formData.get('commission'));
+  const averageOrderValue = asNullableFloat(formData.get('averageOrderValue'));
+  const commissionRate = asNullableFloat(formData.get('commissionRate'));
   const cookieLength = asNullableText(formData.get('cookieLength'));
 
   if (!brandId || !network) {
@@ -134,6 +146,8 @@ async function createAffiliateProgram(formData: FormData) {
           network,
           campaignId,
           commission,
+          averageOrderValue,
+          commissionRate,
           cookieLength,
         },
       })
@@ -143,6 +157,8 @@ async function createAffiliateProgram(formData: FormData) {
           network,
           campaignId,
           commission,
+          averageOrderValue,
+          commissionRate,
           cookieLength,
         },
       });
@@ -220,6 +236,26 @@ const formatDateTime = (value: Date | null | undefined) => {
     day: 'numeric',
     year: 'numeric',
   });
+};
+
+const formatCurrency = (value: number | null | undefined) => {
+  if (typeof value !== 'number') {
+    return null;
+  }
+
+  return value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  });
+};
+
+const formatCommissionRate = (value: number | null | undefined) => {
+  if (typeof value !== 'number') {
+    return null;
+  }
+
+  return `${(value * 100).toFixed(value < 0.1 ? 1 : 0)}%`;
 };
 
 export default async function AffiliateCanonPanel() {
@@ -387,6 +423,32 @@ export default async function AffiliateCanonPanel() {
               </AdminField>
             </div>
 
+            <div className="grid gap-3 md:grid-cols-2">
+              <AdminField label="Average order value" htmlFor="affiliate-program-aov">
+                <AdminInput
+                  id="affiliate-program-aov"
+                  name="averageOrderValue"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  placeholder="1100"
+                />
+              </AdminField>
+
+              <AdminField label="Commission rate (decimal)" htmlFor="affiliate-program-commission-rate">
+                <AdminInput
+                  id="affiliate-program-commission-rate"
+                  name="commissionRate"
+                  type="number"
+                  step="0.001"
+                  min="0"
+                  placeholder="0.07"
+                />
+              </AdminField>
+            </div>
+
+            <p className="admin-micro">Use decimal commission assumptions, for example `0.07` for 7%.</p>
+
             <div>
               <AdminButton type="submit" variant="primary">
                 Save program
@@ -504,6 +566,12 @@ export default async function AffiliateCanonPanel() {
                               {program.commission ?? 'Commission pending'}
                               {program.cookieLength ? ` • ${program.cookieLength}` : ''}
                             </p>
+                            {program.averageOrderValue || program.commissionRate ? (
+                              <p className="admin-micro">
+                                {formatCurrency(program.averageOrderValue) ?? 'AOV pending'}
+                                {program.commissionRate ? ` • ${formatCommissionRate(program.commissionRate)}` : ''}
+                              </p>
+                            ) : null}
                           </div>
                         ))
                       )}

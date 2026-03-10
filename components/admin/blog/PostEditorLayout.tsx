@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 
-export type PostEditorTabId = 'content' | 'media' | 'seo';
+export type PostEditorTabId = 'content' | 'media' | 'seo' | 'editorial';
 
 type TabConfig = {
   id: PostEditorTabId;

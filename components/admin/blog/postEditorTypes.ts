@@ -1,14 +1,23 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import type { BlogCategory } from '@/lib/blogCategories';
+import type { PostAuthorAssignment } from '@/lib/blog/authors';
 import type { CtaButton } from '@/lib/blog/ctaButtons';
 import type { PostStatusValue } from '@/lib/blog/postStatus';
 import type { BlogStageValue } from '@/lib/blog/postStage';
 
 export type AffiliatePartnerOption = {
   id: string;
+  slug: string;
   name: string;
   network: AffiliateNetwork;
+  partnerType: string;
   logoUrl?: string | null;
+  baseUrl?: string | null;
+  website?: string | null;
+  affiliatePid?: string | null;
+  defaultDestinationUrl?: string | null;
+  routingPriority: number;
+  allowedContexts: string[];
 };
 
 export type AffiliateBrandOption = {
@@ -35,6 +44,16 @@ export type PostImageRecord = {
   createdAt?: Date | string;
 };
 
+export type AuthorOption = {
+  id: string;
+  email: string;
+  name: string;
+  slug?: string | null;
+  bio?: string | null;
+  expertiseAreas: string[];
+  avatarUrl?: string | null;
+};
+
 export type PersistedPostRecord = {
   id: string | null;
   title: string;
@@ -47,6 +66,9 @@ export type PersistedPostRecord = {
   seoTitle: string | null;
   seoDescription: string | null;
   canonicalUrl: string | null;
+  readingTime: number | null;
+  shareTitle: string | null;
+  shareDescription: string | null;
   featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImageId: string | null;
@@ -62,6 +84,7 @@ export type PersistedPostRecord = {
   featured: boolean;
   published: boolean;
   affiliateBrandIds: string[];
+  authors: PostAuthorAssignment[];
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -83,6 +106,8 @@ export type PostSavePayload = Pick<
   | 'seoTitle'
   | 'seoDescription'
   | 'canonicalUrl'
+  | 'shareTitle'
+  | 'shareDescription'
   | 'featuredImageUrl'
   | 'coverImage'
   | 'featuredImageId'
@@ -93,6 +118,7 @@ export type PostSavePayload = Pick<
   | 'affiliateBrandIds'
 > & {
   content: string;
+  authors: PostAuthorAssignment[];
   images: Array<{
     url: string;
     alt: string | null;

@@ -1,11 +1,12 @@
 import { AffiliateNetwork, type AffiliatePartner } from '@prisma/client';
+import { getAffiliateNetworkPriority } from '@/lib/affiliatePartners';
 import prisma from '@/lib/server/prisma';
 
 const networkOrder: AffiliateNetwork[] = [
-  AffiliateNetwork.CJ,
+  AffiliateNetwork.DIRECT,
   AffiliateNetwork.IMPACT,
   AffiliateNetwork.AWIN,
-  AffiliateNetwork.DIRECT,
+  AffiliateNetwork.CJ,
 ];
 
 const extractSortValue = (value: string) => {
@@ -18,6 +19,16 @@ const extractSortValue = (value: string) => {
 };
 
 const sortByCommissionDescending = (a: AffiliatePartner, b: AffiliatePartner) => {
+  const priorityDelta = a.routingPriority - b.routingPriority;
+  if (priorityDelta !== 0) {
+    return priorityDelta;
+  }
+
+  const networkDelta = getAffiliateNetworkPriority(a.network) - getAffiliateNetworkPriority(b.network);
+  if (networkDelta !== 0) {
+    return networkDelta;
+  }
+
   const aScore = extractSortValue(a.commissionRate);
   const bScore = extractSortValue(b.commissionRate);
   if (aScore !== bScore) {

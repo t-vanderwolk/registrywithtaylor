@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { resolveAffiliateBrandIdsFromLegacyAffiliateIds } from '@/lib/server/affiliateBrands';
 import { revalidatePostPaths } from '@/lib/server/blogMutation';
@@ -28,6 +29,13 @@ export async function POST(
       affiliateBrands: {
         select: { id: true },
       },
+      authorships: {
+        select: {
+          userId: true,
+          role: true,
+        },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+      },
     },
   });
 
@@ -56,6 +64,9 @@ export async function POST(
         seoTitle: source.seoTitle,
         seoDescription: source.seoDescription,
         canonicalUrl: source.canonicalUrl,
+        readingTime: estimateReadingTimeFromContent(source.content),
+        shareTitle: source.shareTitle,
+        shareDescription: source.shareDescription,
         coverImage: source.coverImage,
         featuredImageId: source.featuredImageId,
         media: source.media.length > 0 ? { connect: source.media.map((entry) => ({ id: entry.id })) } : undefined,
@@ -71,8 +82,26 @@ export async function POST(
         archivedAt: null,
         featured: false,
         published: false,
-        authorId: token.id as string,
+        authorId: source.authorId,
       },
+    });
+
+    await tx.postAuthor.createMany({
+      data:
+        source.authorships.length > 0
+          ? source.authorships.map((authorship) => ({
+              postId: created.id,
+              userId: authorship.userId,
+              role: authorship.role,
+            }))
+          : [
+              {
+                postId: created.id,
+                userId: source.authorId,
+                role: 'Primary Author',
+              },
+            ],
+      skipDuplicates: true,
     });
 
     if (source.affiliates.length > 0) {

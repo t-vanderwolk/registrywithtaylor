@@ -191,6 +191,7 @@ export async function listAdminPosts(params: AdminBlogListParams) {
           featured: true,
           author: {
             select: {
+              name: true,
               email: true,
             },
           },
@@ -243,7 +244,7 @@ export async function listAdminPosts(params: AdminBlogListParams) {
           archivedAt: post.archivedAt?.toISOString() ?? null,
           scheduledFor: post.scheduledFor?.toISOString() ?? null,
           featured: post.featured,
-          authorLabel: post.author.email,
+          authorLabel: post.author.name?.trim() || post.author.email,
         }) satisfies AdminBlogListItem,
     ),
     pagination: {

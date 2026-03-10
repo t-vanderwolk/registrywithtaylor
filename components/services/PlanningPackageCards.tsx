@@ -88,7 +88,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
           <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-4 sm:pt-6">
             {pkg.badge ? (
               <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 select-none" aria-hidden="true">
-                <span className="inline-flex rounded-full border border-neutral-300/80 bg-white/85 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-black/45 shadow-sm">
+                <span className="inline-flex rounded-full border border-[rgba(232,154,174,0.28)] bg-white/90 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/70 shadow-sm">
                   {pkg.badge}
                 </span>
               </div>
@@ -103,7 +103,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 .filter(Boolean)
                 .join(' ')}
             >
-              <p className="pt-1 text-center text-xs uppercase tracking-[0.2em] text-black/45">
+              <p className="pt-1 text-center text-xs uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/70">
                 {pkg.eyebrow}
               </p>
 
@@ -111,7 +111,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 {pkg.title}
               </H3>
 
-              <p className="mt-3 text-center text-sm text-neutral-600">
+              <p className="mt-3 text-center text-base leading-relaxed text-neutral-600">
                 {pkg.summary}
               </p>
 

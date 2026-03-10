@@ -12,7 +12,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        blush: '#CFA6A0',
+        tmbcBlush: 'var(--tmbc-blush)',
+        tmbcRose: 'var(--tmbc-rose)',
+        tmbcSoftPink: 'var(--tmbc-soft-pink)',
+        blush: 'var(--tmbc-blush)',
         linenNav: 'var(--color-linen-nav)',
         ivory: 'var(--color-ivory)',
         softBlush: 'var(--color-soft-blush)',
@@ -23,7 +26,14 @@ module.exports = {
         taupe: '#d6bfb7',
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
+        serif: ['var(--font-serif)', 'ui-serif', 'Georgia', 'serif'],
+        accent: ['var(--font-accent)', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'body-lg': ['1.125rem', { lineHeight: '1.9rem' }],
+        'section-title': ['clamp(1.9rem, 3.8vw, 2.8rem)', { lineHeight: '1.08', letterSpacing: '-0.03em' }],
+        'hero-display': ['clamp(3rem, 6vw, 4.5rem)', { lineHeight: '0.98', letterSpacing: '-0.04em' }],
       },
       boxShadow: {
         card: '0 12px 30px rgba(0, 0, 0, 0.04)',

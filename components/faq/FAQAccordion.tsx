@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId, useRef, useState } from 'react';
+import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
 
 export type FAQEntry = {
   question: string;
@@ -59,26 +60,28 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={() => setIsOpen((value) => !value)}
-          className="flex min-h-[44px] w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
+          className="group flex min-h-[44px] w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
         >
           <span className="text-[0.98rem] font-medium leading-relaxed sm:text-base md:text-lg">
             {item.question}
           </span>
-          <span aria-hidden className="shrink-0 pt-1 text-black/60">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={`transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
-            >
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
+          <span aria-hidden className="shrink-0 pt-1">
+            <LuxuryIconFrame size="micro" interactive={false} syncWithGroup glow={false}>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`h-4.5 w-4.5 text-[var(--color-accent-dark)] transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </LuxuryIconFrame>
           </span>
         </button>
       </h3>

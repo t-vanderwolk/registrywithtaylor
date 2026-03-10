@@ -1,14 +1,22 @@
 import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
 import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
+import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
 import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
+import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
+import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
+import { SITE_URL } from '@/lib/marketing/metadata';
+import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
+import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
+import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
+import BlogShareBar from '@/components/blog/BlogShareBar';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
-import { Body, H1, H2, H3 } from '@/components/ui/MarketingHeading';
+import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
+import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 export type DownloadableResource = {
   title: string;
@@ -30,6 +38,9 @@ export type PostArticleRecord = {
   content: string;
   deck: string | null;
   excerpt: string | null;
+  focusKeyword?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
@@ -59,6 +70,11 @@ export type PostArticleRecord = {
   publishedAt: Date | null;
   scheduledFor: Date | null;
   archivedAt: Date | null;
+  canonicalUrl: string | null;
+  readingTime: number | null;
+  shareTitle: string | null;
+  shareDescription: string | null;
+  authors: BlogAuthorProfile[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -74,7 +90,6 @@ export type PostArticleRelatedPost = {
   createdAt: Date;
 };
 
-const AUTHOR_NAME = 'Taylor Vanderwolk';
 const orderedListPattern = /^\d+\.\s+/;
 const markdownPdfLinePattern =
   /^\s*(?:Resource\s*:\s*|Download(?:\s+PDF)?\s*:\s*)?\[([^\]]+)\]\(([^)\s]+\.pdf(?:\?[^)]*)?)\)(?:\s*(?:[-|·]\s*(.+))?)?\s*$/i;
@@ -206,7 +221,7 @@ export const extractDownloadableResource = (content: string): ExtractedResourceR
   };
 };
 
-export default function PostArticleView({
+export default async function PostArticleView({
   post,
   relatedPosts = [],
   trackView = true,
@@ -215,7 +230,14 @@ export default function PostArticleView({
   relatedPosts?: PostArticleRelatedPost[];
   trackView?: boolean;
 }) {
-  const { content: articleContent, resource } = extractDownloadableResource(post.content);
+  const categoryLabel = getBlogCategoryLabel(post.category);
+  const normalizedContent = sanitizeLegacyArticleContent(post.content, {
+    title: post.title,
+    authors: post.authors.map((author) => author.name).filter(Boolean),
+    categoryLabel,
+  });
+  const storedCtas = extractStoredCtaButtons(normalizedContent);
+  const { content: articleContent, resource } = extractDownloadableResource(normalizedContent);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const attachedPdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
   const mediaGalleryImages = post.media
@@ -229,258 +251,203 @@ export default function PostArticleView({
     (image, index, collection) =>
       image.url !== featuredImageUrl && collection.findIndex((candidate) => candidate.url === image.url) === index,
   );
-  const headerExcerpt = post.deck?.trim() || toExcerpt(post.excerpt, articleContent, 180);
+  const subtitle = post.deck?.trim() || toExcerpt(post.excerpt, articleContent, 180);
   const isAffiliate = post.affiliateBrands.length > 0;
+  const ctaPartnerIds = Array.from(
+    new Set(storedCtas.buttons.flatMap((button) => (button.partnerId ? [button.partnerId] : []))),
+  );
+  const ctaPartnerLookup = await getAffiliatePartnerLookup(ctaPartnerIds);
+  const serializedCtaPartners = Object.fromEntries(
+    Array.from(ctaPartnerLookup.entries()).map(([partnerId, partner]) => [
+      partnerId,
+      {
+        id: partner.id,
+        slug: partner.slug,
+        name: partner.name,
+        network: partner.network,
+        logoUrl: partner.logoUrl,
+        baseUrl: partner.baseUrl,
+        affiliatePid: partner.affiliatePid,
+      },
+    ]),
+  );
+  const hasAffiliateDisclosure = isAffiliate || storedCtas.buttons.some((button) => Boolean(button.partnerId));
   const displayDate = getPostDisplayDate(post);
+  const shareUrl = post.canonicalUrl?.trim()
+    ? /^https?:\/\//i.test(post.canonicalUrl)
+      ? post.canonicalUrl
+      : new URL(post.canonicalUrl, SITE_URL).toString()
+    : `${SITE_URL}/blog/${post.slug}`;
+  const socialSnippets = generateSocialSnippets({
+    title: post.title,
+    excerpt: post.excerpt ?? post.deck,
+    shareTitle: post.shareTitle,
+    shareDescription: post.shareDescription,
+    category: categoryLabel,
+    content: articleContent,
+  });
+  const relatedPostsSection =
+    relatedPosts.length > 0 ? (
+      <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mx-auto max-w-2xl space-y-4 text-center">
+            <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
+            <H2 className="font-serif text-neutral-900">More {BLOG_GUIDES_TITLE}</H2>
+          </div>
+
+          <div className="mt-12 grid gap-10 md:grid-cols-3">
+            {relatedPosts.map((relatedPost) => (
+              <JournalCard
+                key={relatedPost.id}
+                title={relatedPost.title}
+                slug={relatedPost.slug}
+                coverImage={relatedPost.coverImage}
+                category={relatedPost.category}
+                dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
+                dateTime={getPostDisplayDate(relatedPost).toISOString()}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    ) : null;
 
   return (
-    <>
-      <section className="section-base bg-white">
-        <article className="max-w-3xl mx-auto px-6">
-          {featuredImageUrl && (
-            <RevealOnScroll>
-              <div className="mb-12">
-                <img
-                  src={featuredImageUrl}
-                  alt={post.title}
-                  className="h-auto w-full"
-                />
-              </div>
-            </RevealOnScroll>
-          )}
-
-          <RevealOnScroll>
-            <header className="space-y-8">
-              <div className="space-y-5">
-                <H1 className="font-serif leading-[1.05] text-neutral-900">
-                  {post.title}
-                </H1>
-                <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
-                  {getBlogCategoryLabel(post.category)}
-                </span>
-                {headerExcerpt && (
-                  <Body className="max-w-[40ch] text-charcoal/80">
-                    {headerExcerpt}
-                  </Body>
-                )}
-              </div>
-
-              <div className="space-y-4 pt-1">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-charcoal/60">
-                  <span className="font-medium text-charcoal/75">{AUTHOR_NAME}</span>
-                  <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                  <time dateTime={displayDate.toISOString()}>
-                    {formatArticleDate(displayDate)}
-                  </time>
-                </div>
-                <div className="h-px w-20 bg-black/10" aria-hidden="true" />
-              </div>
-            </header>
-          </RevealOnScroll>
-
-          {isAffiliate && (
-            <RevealOnScroll delayMs={90}>
-              <MarketingSurface className="mt-10 bg-[#F7F4EF] p-6 text-sm leading-relaxed text-charcoal/70 md:p-6">
-                This article includes affiliate relationships with select brand partners chosen for relevance to the
-                topic. Recommendations stay practical and independently selected, and Taylor-Made Baby Co. may earn a commission if you
-                decide to purchase through linked partners.
+    <TMBCBlogTemplate
+      featuredImageUrl={featuredImageUrl}
+      title={post.title}
+      categoryLabel={categoryLabel}
+      subtitle={subtitle}
+      authors={post.authors}
+      publishDateLabel={formatArticleDate(displayDate)}
+      publishDateIso={displayDate.toISOString()}
+      readingTime={post.readingTime}
+      affiliateDisclosure={
+        hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
+      }
+      body={
+        <PostContent
+          postId={post.id}
+          content={articleContent}
+          className="mx-auto max-w-[72ch]"
+          trackView={trackView}
+          ctaPartners={serializedCtaPartners}
+        />
+      }
+      resources={
+        attachedPdfResources.length > 0 ? (
+          <div className="mt-16 space-y-4">
+            {attachedPdfResources.map((media) => (
+              <MarketingSurface key={media.id} className="tmbc-blog-soft-card">
+                <H3 className="tracking-tight text-neutral-900">Downloadable Resource</H3>
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{media.fileName}</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.18em] text-charcoal/55">
+                  PDF · {formatFileSize(media.fileSize)}
+                </p>
+                <a href={media.url} target="_blank" rel="noreferrer" className="link-underline mt-4 inline-block text-sm">
+                  Download PDF →
+                </a>
               </MarketingSurface>
-            </RevealOnScroll>
-          )}
-
-          <RevealOnScroll delayMs={170}>
-            <div className="mt-14">
-              <PostContent
-                postId={post.id}
-                content={articleContent}
-                className="mx-auto max-w-[72ch]"
-                trackView={trackView}
-              />
+            ))}
+          </div>
+        ) : resource ? (
+          <MarketingSurface className="tmbc-blog-soft-card mt-16">
+            <div className="space-y-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-charcoal/60">Resource</p>
+              <H2 className="font-serif text-neutral-900">{resource.title}</H2>
+              {resource.description ? <Body className="text-charcoal/70">{resource.description}</Body> : null}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+                <a
+                  href={resource.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
+                >
+                  <span className="link-underline">Download PDF</span>
+                  <span aria-hidden className="ml-1">→</span>
+                </a>
+                {resource.fileSize ? <span className="text-charcoal/55">{resource.fileSize}</span> : null}
+              </div>
             </div>
-          </RevealOnScroll>
-
-          {galleryImages.length > 0 ? (
-            <RevealOnScroll delayMs={190}>
-              <div className="mt-16 space-y-4">
-                <H3 className="tracking-tight text-neutral-900">Image Gallery</H3>
-                <div className="grid gap-4 md:grid-cols-2">
-                  {galleryImages.map((image) => (
-                    <figure key={`gallery-${image.id}-${image.url}`}>
-                      <img
-                        src={image.url}
-                        alt={image.alt || post.title}
-                        className="h-auto w-full"
-                        loading="lazy"
-                      />
-                      {image.alt ? (
-                        <figcaption>
-                          {image.alt}
-                        </figcaption>
-                      ) : null}
-                    </figure>
-                  ))}
-                </div>
-              </div>
-            </RevealOnScroll>
-          ) : null}
-
-          {attachedPdfResources.length > 0 ? (
-            <RevealOnScroll delayMs={210}>
-              <div className="mt-16 space-y-4">
-                {attachedPdfResources.map((media) => (
-                  <MarketingSurface
-                    key={media.id}
-                    className="bg-[#F7F4EF]"
-                  >
-                    <H3 className="tracking-tight text-neutral-900">Downloadable Resource</H3>
-                    <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{media.fileName}</p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.18em] text-charcoal/55">
-                      PDF · {formatFileSize(media.fileSize)}
-                    </p>
-                    <a
-                      href={media.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link-underline mt-4 inline-block text-sm"
-                    >
-                      Download PDF →
-                    </a>
-                  </MarketingSurface>
-                ))}
-              </div>
-            </RevealOnScroll>
-          ) : resource ? (
-            <RevealOnScroll delayMs={210}>
-              <MarketingSurface className="mt-16">
-                <div className="space-y-4">
-                  <p className="text-xs uppercase tracking-[0.24em] text-charcoal/60">
-                    Resource
-                  </p>
-                  <H2 className="font-serif text-neutral-900">
-                    {resource.title}
-                  </H2>
-                  {resource.description && (
-                    <Body className="text-charcoal/70">
-                      {resource.description}
-                    </Body>
-                  )}
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-                    <a
-                      href={resource.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
-                    >
-                      <span className="link-underline">Download PDF</span>
-                      <span aria-hidden className="ml-1">→</span>
-                    </a>
-                    {resource.fileSize && (
-                      <span className="text-charcoal/55">{resource.fileSize}</span>
-                    )}
-                  </div>
-                </div>
-              </MarketingSurface>
-            </RevealOnScroll>
-          ) : null}
-
-          {post.affiliateBrands.length > 0 && (
-            <RevealOnScroll delayMs={250}>
-              <div className="mt-16 border-t border-black/5 pt-10">
-                <div className="space-y-4">
-                  <H2 className="font-serif text-neutral-900">
-                    Referenced Brand Partners
-                  </H2>
-                  <Body className="text-charcoal/68">
-                    Mentioned because they are relevant to the decisions covered in this guide.
-                  </Body>
-                </div>
-                <div className="mt-8 grid gap-4 md:grid-cols-2">
-                  {post.affiliateBrands.map((brand) => {
-                    const fallbackLogo = getAffiliatePartnerLogo(brand.name);
-                    const logoSrc = brand.logoUrl?.trim() || fallbackLogo.src;
-                    const href = brand.shopUrl?.trim() || brand.website?.trim();
-                    const networkLabel = formatAffiliateNetworks(brand.networks);
-
-                    return (
-                      <div
-                        key={brand.id}
-                        className="rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_12px_28px_rgba(0,0,0,0.05)]"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-[#F8F5F0] p-3">
-                            <img
-                              src={logoSrc}
-                              alt={brand.name}
-                              className="max-h-10 w-auto object-contain"
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-base font-medium text-neutral-900">{brand.name}</p>
-                            {networkLabel ? (
-                              <p className="mt-1 text-xs uppercase tracking-[0.16em] text-charcoal/55">
-                                {networkLabel}
-                              </p>
-                            ) : null}
-                            <Body className="mt-2 text-sm text-charcoal/68">
-                              Selected for relevance to the guidance in this article.
-                            </Body>
-                          </div>
-                        </div>
-                        {href ? (
-                          <div className="mt-5">
-                            <a
-                              href={href}
-                              target="_blank"
-                              rel="sponsored nofollow noopener noreferrer"
-                              className="inline-flex items-center rounded-full border border-black/12 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-900 transition hover:border-black/20 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
-                              aria-label={`Shop ${brand.name}`}
-                            >
-                              Shop {brand.name}
-                            </a>
-                          </div>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </RevealOnScroll>
-          )}
-        </article>
-      </section>
-
-      {relatedPosts.length > 0 && (
-        <section className="section-base border-t border-black/5 bg-[#FBF8F4]">
-          <div className="max-w-5xl mx-auto px-6">
-            <RevealOnScroll>
-              <div className="mx-auto max-w-2xl space-y-4 text-center">
-                <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">
-                  Continue Reading
-                </span>
-                <H2 className="font-serif text-neutral-900">
-                  More {BLOG_GUIDES_TITLE}
-                </H2>
-              </div>
-            </RevealOnScroll>
-
-            <div className="mt-12 grid gap-10 md:grid-cols-3">
-              {relatedPosts.map((relatedPost, index) => (
-                <RevealOnScroll key={relatedPost.id} delayMs={index * 80}>
-                  <JournalCard
-                    title={relatedPost.title}
-                    slug={relatedPost.slug}
-                    coverImage={relatedPost.coverImage}
-                    category={relatedPost.category}
-                    dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
-                    dateTime={getPostDisplayDate(relatedPost).toISOString()}
-                  />
-                </RevealOnScroll>
+          </MarketingSurface>
+        ) : undefined
+      }
+      gallery={
+        galleryImages.length > 0 ? (
+          <div className="mt-16 space-y-4">
+            <H3 className="tracking-tight text-neutral-900">Image Gallery</H3>
+            <div className="grid gap-4 md:grid-cols-2">
+              {galleryImages.map((image) => (
+                <figure key={`gallery-${image.id}-${image.url}`}>
+                  <img src={image.url} alt={image.alt || post.title} className="h-auto w-full" loading="lazy" />
+                  {image.alt ? <figcaption>{image.alt}</figcaption> : null}
+                </figure>
               ))}
             </div>
           </div>
-        </section>
-      )}
-    </>
+        ) : undefined
+      }
+      affiliateCta={
+        post.affiliateBrands.length > 0 ? (
+          <div className="blog-section-soft mt-16 px-6">
+            <div className="space-y-4">
+              <H2 className="font-serif text-neutral-900">Gear Picks / Brand Partners</H2>
+              <Body className="text-charcoal/68">Mentioned because they are relevant to the decisions covered in this guide.</Body>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {post.affiliateBrands.map((brand) => {
+                const fallbackLogo = getAffiliatePartnerLogo(brand.name);
+                const logoSrc = brand.logoUrl?.trim() || fallbackLogo.src;
+                const href = brand.shopUrl?.trim() || brand.website?.trim();
+                const networkLabel = formatAffiliateNetworks(brand.networks);
+
+                return (
+                  <div
+                    key={brand.id}
+                    className="tmbc-blog-soft-card p-5"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-[#F8F5F0] p-3">
+                        <img src={logoSrc} alt={brand.name} className="max-h-10 w-auto object-contain" loading="lazy" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-base font-medium text-neutral-900">{brand.name}</p>
+                        {networkLabel ? <p className="mt-1 text-xs uppercase tracking-[0.16em] text-charcoal/55">{networkLabel}</p> : null}
+                        <Body className="mt-2 text-sm text-charcoal/68">Selected for relevance to the guidance in this article.</Body>
+                      </div>
+                    </div>
+                    {href ? (
+                      <div className="mt-5">
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="sponsored nofollow noopener noreferrer"
+                          className="inline-flex items-center rounded-full border border-black/12 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-900 transition hover:border-black/20 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                          aria-label={`Shop ${brand.name}`}
+                        >
+                          Shop {brand.name}
+                        </a>
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : undefined
+      }
+      shareSection={
+        <BlogShareBar
+          title={post.shareTitle?.trim() || post.title}
+          description={post.shareDescription?.trim() || subtitle || ''}
+          url={shareUrl}
+          imageUrl={featuredImageUrl}
+          pinterestDescription={socialSnippets.pinterestDescription}
+          instagramCaption={socialSnippets.instagramCaption}
+          redditSummary={socialSnippets.redditSummary}
+        />
+      }
+      relatedPosts={relatedPostsSection}
+    />
   );
 }

@@ -1,5 +1,6 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeAffiliateContexts } from '@/lib/affiliatePartners';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
@@ -38,6 +39,19 @@ const asCommissionType = (value: unknown): CommissionType | null => {
     : null;
 };
 
+const asRoutingPriority = (value: unknown) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return Math.max(0, Math.trunc(value));
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isFinite(parsed) ? Math.max(0, parsed) : 99;
+  }
+
+  return 99;
+};
+
 export async function GET(req: NextRequest) {
   const token = await requireAdmin(req);
   if (!token) {
@@ -45,7 +59,7 @@ export async function GET(req: NextRequest) {
   }
 
   const partners = await prisma.affiliatePartner.findMany({
-    orderBy: [{ network: 'asc' }, { name: 'asc' }],
+    orderBy: [{ routingPriority: 'asc' }, { name: 'asc' }],
   });
 
   return NextResponse.json(partners);
@@ -81,8 +95,11 @@ export async function POST(req: NextRequest) {
       slug: await generateUniqueAffiliateSlug(slugInput || name),
       network,
       advertiserId: asNullableText(body.advertiserId),
+      partnerType: asText(body.partnerType) || 'retailer',
+      affiliatePid: asNullableText(body.affiliatePid),
       commissionType,
       commissionRate,
+      baseUrl: asText(body.baseUrl) || asText(body.website),
       logoUrl: asNullableText(body.logoUrl),
       website: asNullableText(body.website),
       affiliateLink: asNullableText(body.affiliateLink),
@@ -90,6 +107,8 @@ export async function POST(req: NextRequest) {
       threeMonthEpc: asNullableFloat(body.threeMonthEpc),
       sevenDayEpc: asNullableFloat(body.sevenDayEpc),
       notes: asNullableText(body.notes),
+      routingPriority: asRoutingPriority(body.routingPriority),
+      allowedContexts: normalizeAffiliateContexts(body.allowedContexts),
       isActive: typeof body.isActive === 'boolean' ? body.isActive : true,
     },
   });
