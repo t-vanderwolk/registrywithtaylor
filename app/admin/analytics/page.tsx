@@ -153,9 +153,14 @@ export default async function AdminAnalyticsPage() {
         title="Blog performance overview"
         subtitle="Track output volume, status mix, and post-level readership at a glance."
         actions={
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/blog">Manage blog</Link>
-          </AdminButton>
+          <>
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/guides/analytics">Guide analytics</Link>
+            </AdminButton>
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/blog">Manage blog</Link>
+            </AdminButton>
+          </>
         }
       />
 

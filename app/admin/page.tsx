@@ -5,11 +5,12 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
+import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  const [consultationStatusCounts, inquiryStatusCounts, totalPosts] = await Promise.all([
+  const [consultationStatusCounts, inquiryStatusCounts, totalPosts, totalGuides] = await Promise.all([
     prisma.consultationRequest.groupBy({
       by: ['status'],
       _count: {
@@ -23,6 +24,13 @@ export default async function AdminDashboardPage() {
       },
     }),
     prisma.post.count(),
+    prisma.guide.count().catch((error) => {
+      if (isGuideStorageUnavailableError(error)) {
+        return 0;
+      }
+
+      throw error;
+    }),
   ]);
 
   const consultationCountByStatus = consultationStatusCounts.reduce<Record<string, number>>((acc, row) => {
@@ -74,8 +82,14 @@ export default async function AdminDashboardPage() {
 
       <AdminSurface variant="muted" className="admin-stack gap-3">
         <p className="admin-eyebrow">Quick links</p>
-        <p className="admin-body">Blog posts in system: {totalPosts}</p>
+        <p className="admin-body">Guides in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="flex flex-wrap items-center gap-2">
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/guides">Manage guides</Link>
+          </AdminButton>
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/guides/analytics">Guide analytics</Link>
+          </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/blog">Manage blog</Link>
           </AdminButton>

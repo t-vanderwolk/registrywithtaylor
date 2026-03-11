@@ -3,22 +3,22 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 
 export type PostEditorTabId = 'content' | 'media' | 'seo' | 'editorial';
 
-type TabConfig = {
-  id: PostEditorTabId;
+type TabConfig<TTabId extends string> = {
+  id: TTabId;
   label: string;
   badge?: string;
 };
 
-export default function PostEditorLayout({
+export default function PostEditorLayout<TTabId extends string>({
   tabs,
   activeTab,
   onTabChange,
   leftColumn,
   rightColumn,
 }: {
-  tabs: TabConfig[];
-  activeTab: PostEditorTabId;
-  onTabChange: (tabId: PostEditorTabId) => void;
+  tabs: TabConfig<TTabId>[];
+  activeTab: TTabId;
+  onTabChange: (tabId: TTabId) => void;
   leftColumn: ReactNode;
   rightColumn: ReactNode;
 }) {

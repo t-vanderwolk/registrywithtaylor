@@ -38,6 +38,9 @@ export default function AdminShell({
           </div>
           <div className="flex items-center gap-2">
             <AdminButton asChild variant="primary">
+              <Link href="/admin/guides/new">New Guide</Link>
+            </AdminButton>
+            <AdminButton asChild variant="secondary">
               <Link href="/admin/blog/new">New Post</Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
@@ -77,7 +80,7 @@ export default function AdminShell({
               </div>
               <div className="admin-divider" />
               <p className="admin-micro">
-                Blog content is managed in Prisma and published to the public journal.
+                Guides publish to the public authority layer while posts continue through the journal flow.
               </p>
             </AdminSurface>
           </aside>

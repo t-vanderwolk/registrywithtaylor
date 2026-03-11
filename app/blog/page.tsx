@@ -11,11 +11,11 @@ import prisma from '@/lib/server/prisma';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Baby Prep Guides — Taylor-Made Baby Co.',
+  title: 'Baby Gear Journal — Taylor-Made Baby Co.',
   description:
-    'Practical guides on baby gear, registry strategy, nursery setup, and what actually belongs on the list.',
+    'Editorial baby gear guidance, registry strategy, nursery setup, and calmer preparation advice from Taylor-Made Baby Co.',
   keywords: [
-    'baby prep guides',
+    'baby gear journal',
     'baby registry planning',
     'stroller and car seat guidance',
     'nursery planning',
@@ -133,10 +133,10 @@ export default async function BlogPage() {
         >
           <div className="space-y-6">
             <h1 className="marketing-hero-headline hero-load-reveal">
-              {BLOG_GUIDES_TITLE}
+              Baby Gear Journal
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Practical guidance on baby gear, registry strategy, nursery setup, and what actually belongs on the list.
+              Editorial guidance on baby gear, registry strategy, nursery setup, and the product decisions parents tend to second-guess most.
             </Body>
           </div>
         </Hero>

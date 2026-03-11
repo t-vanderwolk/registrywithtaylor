@@ -19,21 +19,26 @@ export default function BlogSoftCTA({ className = '' }: BlogSoftCTAProps) {
     >
       <RevealOnScroll>
         <div className="mx-auto max-w-2xl space-y-6">
-          <span className="block text-xs uppercase tracking-[0.28em] text-charcoal/55">
-            Baby Prep Support
-          </span>
+          <span className="block text-xs uppercase tracking-[0.28em] text-charcoal/55">Need expert guidance?</span>
           <H2 className="font-serif leading-tight text-neutral-900">
-            Still sorting registry and gear decisions?
+            Bring your baby gear questions to Taylor when the guide gets you close, but not all the way there.
           </H2>
           <Body className="mx-auto text-charcoal/75">
-            I help families figure out what to buy, what to skip, and what can wait.
+            The journal builds clarity. The consultation applies that clarity to your stroller, car seat, registry,
+            nursery, and purchase-timing decisions.
           </Body>
-          <div className="flex justify-center pt-2">
+          <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row">
             <Link
-              href="/contact"
+              href="/consultation"
               className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             >
-              Schedule a Consultation
+              Book a Consultation
+            </Link>
+            <Link
+              href="/guides"
+              className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            >
+              Explore the Guides
             </Link>
           </div>
         </div>

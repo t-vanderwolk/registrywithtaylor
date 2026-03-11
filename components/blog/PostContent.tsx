@@ -9,6 +9,7 @@ import BlogDivider from '@/components/blog/BlogDivider';
 import ProductRecommendationCard from '@/components/blog/ProductRecommendationCard';
 import PullQuote from '@/components/blog/PullQuote';
 import { Body } from '@/components/ui/MarketingHeading';
+import { slugify } from '@/lib/slugify';
 import {
   extractStoredCtaButtons,
   parseCtaSlotLine,
@@ -58,6 +59,14 @@ const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
 const opensNewTab = (href: string) => isExternalHref(href) || /\.pdf(?:[?#].*)?$/i.test(href);
 const isDividerLine = (line: string) => line === '---' || line === '***';
 const isQuoteLine = (line: string) => line.startsWith('>');
+
+function stripMarkdownFormatting(value: string) {
+  return value
+    .replace(/[*_`>#-]/g, ' ')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
 function normalizeCtaVariant(value: unknown): CtaButtonVariant {
   if (value === 'secondary' || value === 'text') {
@@ -356,6 +365,7 @@ export default function PostContent({
         let paragraphCount = 0;
         let h2Count = 0;
         const slottedButtonIds = new Set<string>();
+        const headingIdCounts = new Map<string, number>();
 
         while (i < lines.length) {
           const line = lines[i]?.trim() ?? '';
@@ -370,9 +380,15 @@ export default function PostContent({
               nodes.push(<BlogDivider key={`${postId}-divider-${i}`} />);
             }
 
+            const headingText = line.replace(/^##\s+/, '');
+            const baseHeadingId = slugify(stripMarkdownFormatting(headingText)) || 'section';
+            const nextHeadingCount = headingIdCounts.get(baseHeadingId) ?? 0;
+            headingIdCounts.set(baseHeadingId, nextHeadingCount + 1);
+            const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
+
             nodes.push(
-              <h2 key={`${postId}-h2-${i}`} className="text-[var(--tmbc-blog-charcoal)]">
-                {renderInlineContent(line.replace(/^##\s+/, ''), `${postId}-h2-inline-${i}`)}
+              <h2 key={`${postId}-h2-${i}`} id={headingId} className="scroll-mt-24 text-[var(--tmbc-blog-charcoal)]">
+                {renderInlineContent(headingText, `${postId}-h2-inline-${i}`)}
               </h2>,
             );
             h2Count += 1;
@@ -381,9 +397,15 @@ export default function PostContent({
           }
 
           if (line.startsWith('### ')) {
+            const headingText = line.replace(/^###\s+/, '');
+            const baseHeadingId = slugify(stripMarkdownFormatting(headingText)) || 'section';
+            const nextHeadingCount = headingIdCounts.get(baseHeadingId) ?? 0;
+            headingIdCounts.set(baseHeadingId, nextHeadingCount + 1);
+            const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
+
             nodes.push(
-              <h3 key={`${postId}-h3-${i}`} className="text-[var(--tmbc-blog-charcoal)]">
-                {renderInlineContent(line.replace(/^###\s+/, ''), `${postId}-h3-inline-${i}`)}
+              <h3 key={`${postId}-h3-${i}`} id={headingId} className="scroll-mt-24 text-[var(--tmbc-blog-charcoal)]">
+                {renderInlineContent(headingText, `${postId}-h3-inline-${i}`)}
               </h3>,
             );
             i += 1;

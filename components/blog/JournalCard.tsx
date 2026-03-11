@@ -9,6 +9,7 @@ type JournalCardProps = {
   dateLabel: string;
   dateTime?: string;
   readingTime?: number | null;
+  authorName?: string;
   className?: string;
 };
 

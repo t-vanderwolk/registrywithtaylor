@@ -1,23 +1,21 @@
-import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import HowItWorksAnalytics from '@/components/analytics/HowItWorksAnalytics';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
+import CTASection from '@/components/marketing/CTASection';
+import ServiceCards from '@/components/marketing/ServiceCards';
+import TrustStrip from '@/components/marketing/TrustStrip';
 import MarketingSection from '@/components/layout/MarketingSection';
-import FinalCTA from '@/components/layout/FinalCTA';
 import CheckIcon from '@/components/ui/CheckIcon';
 import Hero from '@/components/ui/Hero';
-import LuxuryAccordion from '@/components/ui/LuxuryAccordion';
-import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import RevealOnScroll from '@/components/ui/RevealOnScroll';
-import SectionDivider from '@/components/ui/SectionDivider';
-import ServiceIconBadge from '@/components/ui/ServiceIconBadge';
+import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { servicePackages, trustStripItems } from '@/lib/marketing/siteContent';
 
 export const metadata = buildMarketingMetadata({
-  title: 'How It Works - Taylor-Made Baby Co.',
+  title: 'How It Works | Taylor-Made Baby Co.',
   description:
-    'Understand the guided baby planning process at Taylor-Made Baby Co., from your consultation to confident preparation.',
+    'See how Taylor-Made Baby Co. helps expecting parents move from overwhelmed to clear on baby gear, registry decisions, nursery setup, and what to do next.',
   path: '/how-it-works',
   imagePath: '/assets/hero/hero-02.jpg',
   imageAlt: 'How it works planning process',
@@ -27,15 +25,12 @@ type ProcessStep = {
   step: string;
   title: string;
   description: string;
-  iconSrc: string;
   bullets: string[];
-  ctaLabel?: string;
 };
 
-type BenefitCard = {
+type OutcomeCard = {
   title: string;
   description: string;
-  iconSrc: string;
 };
 
 type SearchParams = Promise<{ error?: string }> | undefined;
@@ -43,78 +38,65 @@ type SearchParams = Promise<{ error?: string }> | undefined;
 const processSteps: ProcessStep[] = [
   {
     step: 'Step One',
-    title: 'Start with a Conversation',
+    title: 'Start with your real questions',
     description:
-      'Before families begin buying baby gear, we start with clarity. Through the Target Baby Concierge program, I offer complimentary consultations designed to help parents sort the early decisions before the list gets too loud.',
-    iconSrc: '/assets/icons/virtual.png',
+      'This is where the noise starts to settle. Bring the registry questions, the stroller confusion, the nursery thoughts, and the feeling that everything suddenly sounds urgent.',
     bullets: [
-      'Registry structure',
-      'Early gear priorities',
-      'Nursery planning questions',
-      'Purchasing timeline',
+      'Sort what feels most overwhelming right now',
+      'Figure out which categories deserve attention first',
+      'Get direction on gear, registry, nursery, and timing decisions',
+      'Leave with a clearer next step',
     ],
-    ctaLabel: 'Book Your Consultation',
   },
   {
     step: 'Step Two',
-    title: 'Design Your Plan',
+    title: 'Build a plan that fits your life',
     description:
-      'Once the foundation is clear, we refine the details. Every family’s home, lifestyle, and routines are different, so the baby plan should be too.',
-    iconSrc: '/assets/icons/stragity.png',
+      'Once the priorities are clear, the decisions get more practical. Your car, storage, layout, routines, budget, and daily life should shape the plan. Not someone else’s nursery reveal.',
     bullets: [
-      'Registry refinement',
-      'Nursery layout guidance',
-      'Gear strategy',
-      'Stroller and car seat planning',
+      'Narrow the shortlist',
+      'Match recommendations to your home and routine',
+      'Refine the registry without the clutter',
+      'Make stroller and car seat decisions with real context',
     ],
   },
   {
     step: 'Step Three',
-    title: 'Prepare with Confidence',
+    title: 'Move forward with more confidence',
     description:
-      'By the time baby arrives, nothing feels rushed. The decisions have a clear reason behind them, and the setup feels ready for real daily life.',
-    iconSrc: '/assets/icons/gear-plan.png',
+      'By the time baby arrives, the goal is not perfection. It is feeling prepared, knowing why you chose what you chose, and not panic-buying three things at 11:47 PM.',
     bullets: [
-      'A refined registry',
-      'A clear purchasing plan',
-      'A nursery designed for daily life',
-      'Confidence in major gear decisions',
+      'A registry that makes more sense',
+      'A clearer purchasing timeline',
+      'A nursery built for daily life',
+      'More confidence in the big-ticket decisions',
     ],
   },
 ];
 
-const benefitCards: BenefitCard[] = [
+const outcomeCards: OutcomeCard[] = [
   {
-    title: 'Registry clarity',
-    description: 'Know what belongs on the list now, what can wait, and what is not worth adding.',
-    iconSrc: '/assets/icons/buildregistry.png',
+    title: 'A registry with less filler',
+    description: 'Know what belongs on the list, what can wait, and what never needed to be there in the first place.',
   },
   {
-    title: 'Thoughtful purchasing decisions',
-    description: 'Buy with a plan instead of reacting to every recommendation and sale.',
-    iconSrc: '/assets/icons/calender.png',
+    title: 'Smarter buying decisions',
+    description: 'Buy with a plan instead of reacting to every roundup, recommendation, or sale countdown.',
   },
   {
-    title: 'A calm nursery layout',
-    description: 'Shape the room around real routines so the setup feels functional from day one.',
-    iconSrc: '/assets/icons/nursery.png',
+    title: 'A nursery that works',
+    description: 'It does not need to look like Pinterest. It needs to work at 2:14 AM.',
   },
   {
-    title: 'Confidence in baby gear',
+    title: 'More confidence in baby gear',
     description: 'Make stroller, car seat, and everyday gear decisions with far less second-guessing.',
-    iconSrc: '/assets/icons/carseats.png',
-  },
-  {
-    title: 'Preparation that fits your life',
-    description: 'The plan reflects your space, your routines, your budget, and the way you actually live.',
-    iconSrc: '/assets/icons/family.png',
   },
 ];
 
 const consultationHighlights = [
-  'Ask the biggest registry and gear questions before the list gets longer',
-  'Get direction on stroller, car seat, nursery, and purchase-timing decisions',
-  'Figure out what deserves attention first and what can wait',
+  'Bring the questions that keep reopening the same six tabs',
+  'Get direction on stroller, car seat, nursery, registry, and timing decisions',
+  'Figure out what deserves attention now and what can wait',
   'Leave with a calmer sense of what the next step should be',
 ];
 
@@ -138,171 +120,143 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
     <SiteShell currentPath="/how-it-works">
       <HowItWorksAnalytics>
         <main className="site-main">
-          <Hero image="/assets/hero/hero-02.jpg" imageAlt="How it works planning process">
-            <div className="space-y-6">
-              <h1 className="marketing-hero-headline hero-load-reveal">
-                How Baby Planning with Taylor-Made Baby Co. Works
-              </h1>
+          <Hero
+            eyebrow="How It Works"
+            title="A calmer way to make baby decisions."
+            subtitle="The process is simple: start with your real questions, sort what actually matters, and move forward with a plan that fits your life."
+            primaryCta={{ label: 'Book a Consultation', href: '#consultation-request' }}
+            secondaryCta={{ label: 'Explore the Guides', href: '/guides' }}
+            tagline="No 47-tab research sprint required."
+            image="/assets/hero/hero-02.jpg"
+            imageAlt="How it works planning process"
+            staggerContent
+          />
 
-              <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-                Preparation does not start with a shopping list. It starts with clarity.
-              </Body>
+          <TrustStrip
+            items={trustStripItems}
+            title="The process feels simple because the guidance behind it is not."
+            description="Taylor brings hands-on baby gear experience, concierge support, nursery planning perspective, and private consultation work to the questions that tend to spiral fastest."
+          />
 
-              <div className="hero-load-reveal hero-load-reveal--2 flex flex-col gap-4 pt-4 sm:flex-row">
-                <Link
-                  href="#free-consultation"
-                  data-analytics-consultation-cta="Schedule Your Complimentary Consultation"
-                  className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                >
-                  Schedule Your Complimentary Consultation
-                </Link>
-              </div>
+          <MarketingSection tone="ivory" spacing="spacious">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start lg:gap-14">
+              <SectionIntro
+                align="left"
+                eyebrow="The process"
+                title="Start with your real questions. Then build a plan around real life."
+                description="You do not need a finished registry or strong opinions about travel systems before you reach out. Most parents do not. The goal is to reduce noise, not add homework."
+                contentWidthClassName="max-w-2xl"
+              />
+
+              <MarketingSurface className="bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
+                <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/45">What this should feel like</p>
+                <p className="mt-6 max-w-none font-serif text-[1.7rem] leading-[1.2] tracking-[-0.03em] text-neutral-900">
+                  Less second-guessing. Fewer expensive detours. A much clearer next step.
+                </p>
+                <p className="mt-5 max-w-none text-sm leading-7 text-neutral-700">
+                  Baby prep does not need to look perfect. It needs to make sense when you are tired, busy, and trying
+                  to choose what actually fits your home and routine.
+                </p>
+              </MarketingSurface>
             </div>
-          </Hero>
 
-          <MarketingSection
-            tone="white"
-            spacing="default"
-            container="default"
-            className="how-it-works-section"
-            id="free-consultation"
-          >
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] lg:items-start lg:gap-14">
-              <RevealOnScroll>
-                <div className="max-w-2xl">
-                  <SectionDivider />
-                  <p className="mt-6 text-xs uppercase tracking-[0.24em] text-black/45">Complimentary Consultation</p>
-                  <H2 className="mt-4 font-serif leading-tight">Free 1:1 Consultation (30 Minutes)</H2>
-
-                  <Body className="mt-6 text-neutral-700">
-                    This is where families get out of research mode and into a clear plan. The first conversation is
-                    designed to sort the questions, categories, and next steps that matter most right now.
-                  </Body>
-
-                  <Body className="mt-4 text-neutral-700">
-                    You do not need to have every product decision figured out before reaching out. The call is there
-                    to help you narrow what deserves attention first.
-                  </Body>
-
-                  <Checklist items={consultationHighlights} />
-
-                  <Body className="mt-8 text-neutral-600">
-                    If it makes sense to keep going, Taylor can recommend the right next layer of support after the
-                    call. If not, you still leave with clearer direction than you had before.
-                  </Body>
-                </div>
-              </RevealOnScroll>
-
-              <RevealOnScroll delayMs={90}>
-                <MarketingSurface className="rounded-[2rem] bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)] p-8 shadow-[0_24px_48px_rgba(0,0,0,0.06)] md:p-10">
-                  <p className="text-xs uppercase tracking-[0.24em] text-black/45">Start Here</p>
-                  <H3 className="mt-4 font-serif text-neutral-900">Request your consultation</H3>
-                  <Body className="mt-4 text-neutral-700">
-                    Share a few basics and Taylor will follow up directly with next steps for your complimentary
-                    session.
-                  </Body>
-
-                  <div className="mt-8">
-                    <ConsultationRequestForm
-                      errorCode={params?.error ?? null}
-                      returnPath="/how-it-works#free-consultation"
-                      successPath="/consultation/confirmation"
-                    />
-                  </div>
-                </MarketingSurface>
-              </RevealOnScroll>
-            </div>
-          </MarketingSection>
-
-          <MarketingSection tone="ivory" spacing="default" container="default" className="how-it-works-section">
-            <RevealOnScroll>
-              <div className="mx-auto max-w-4xl text-center">
-                <div className="flex justify-center">
-                  <SectionDivider />
-                </div>
-
-                <H2 className="mt-5 font-serif leading-tight">A Calm, Guided Path</H2>
-
-                <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
-                  The process works best when it moves in order: start with clarity, shape the plan around real life,
-                  and prepare without rushing the decisions that matter most.
-                </Body>
-              </div>
-            </RevealOnScroll>
-
-            <div className="mt-16 grid gap-8 xl:grid-cols-3">
+            <div className="mt-10 grid gap-6 xl:grid-cols-3">
               {processSteps.map((step) => (
-                <MarketingSurface key={step.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 md:p-10">
-                  <div className="mx-auto mb-8 flex w-full items-center justify-center">
-                    <ServiceIconBadge src={step.iconSrc} size="addon" />
+                <MarketingSurface
+                  key={step.title}
+                  className="flex h-full flex-col bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f8_100%)]"
+                >
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/80">
+                    {step.step}
+                  </p>
+                  <h3 className="mt-4 font-serif text-[1.75rem] leading-[1.08] tracking-[-0.035em] text-neutral-900">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{step.description}</p>
+
+                  <div className="mt-6 rounded-[1.4rem] border border-[rgba(0,0,0,0.06)] bg-white/88 p-5">
+                    <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">What this looks like</p>
+                    <Checklist items={step.bullets} />
                   </div>
-
-                  <p className="text-center text-xs uppercase tracking-[0.24em] text-black/45">{step.step}</p>
-                  <H3 className="mt-4 text-center font-serif text-neutral-900">{step.title}</H3>
-
-                  <Body className="mt-5 text-neutral-700">{step.description}</Body>
-
-                  <Checklist items={step.bullets} />
-
-                  {step.ctaLabel ? (
-                    <div className="mt-auto pt-8">
-                      <Link
-                        href="#free-consultation"
-                        data-analytics-consultation-cta={step.ctaLabel}
-                        className="btn btn--primary w-full justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                      >
-                        {step.ctaLabel}
-                      </Link>
-                    </div>
-                  ) : null}
                 </MarketingSurface>
               ))}
             </div>
           </MarketingSection>
 
-          <MarketingSection tone="white" spacing="default" container="default" className="how-it-works-section">
-            <RevealOnScroll>
-              <div className="mx-auto max-w-4xl text-center">
-                <div className="flex justify-center">
-                  <SectionDivider />
-                </div>
+          <MarketingSection tone="white" spacing="spacious" id="consultation-request">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] lg:items-start lg:gap-14">
+              <div>
+                <SectionIntro
+                  align="left"
+                  eyebrow="Start here"
+                  title="The first step is a real conversation."
+                  description="This is where families get out of research mode and into a clearer plan. Bring the questions, the half-formed shortlist, and the categories that keep reopening the same six tabs."
+                  contentWidthClassName="max-w-2xl"
+                />
 
-                <H2 className="mt-5 font-serif leading-tight">What Families Gain from the Process</H2>
+                <Checklist items={consultationHighlights} />
 
-                <Body className="mx-auto mt-6 max-w-3xl text-neutral-600">
-                  The outcome is not just a better list. It is a preparation plan that feels calmer, more intentional,
-                  and easier to act on.
-                </Body>
+                <p className="mt-8 max-w-2xl text-sm leading-7 text-neutral-600">
+                  If it makes sense to keep going, Taylor can recommend the right next layer of support after the call.
+                  If not, you still leave with more clarity than you had before.
+                </p>
               </div>
-            </RevealOnScroll>
 
-            <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
-              {benefitCards.map((card) => (
-                <MarketingSurface key={card.title} className="flex h-full flex-col rounded-2xl bg-white/90 p-8 text-center">
-                  <div className="mx-auto mb-6 flex w-full items-center justify-center">
-                    <ServiceIconBadge src={card.iconSrc} size="default" />
-                  </div>
+              <MarketingSurface className="rounded-[2rem] bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)] p-8 shadow-[0_24px_48px_rgba(0,0,0,0.06)] md:p-10">
+                <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/45">Request a consultation</p>
+                <h3 className="mt-4 font-serif text-[1.9rem] leading-[1.05] tracking-[-0.035em] text-neutral-900">
+                  Share what you want help with most.
+                </h3>
+                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">
+                  A few basics is enough. Taylor will follow up directly with next steps for your complimentary
+                  session.
+                </p>
 
-                  <H3 className="font-serif text-neutral-900">{card.title}</H3>
+                <div className="mt-8">
+                  <ConsultationRequestForm
+                    errorCode={params?.error ?? null}
+                    returnPath="/how-it-works#consultation-request"
+                    successPath="/consultation/confirmation"
+                  />
+                </div>
+              </MarketingSurface>
+            </div>
+          </MarketingSection>
 
-                  <div className="mt-auto pt-6">
-                    <LuxuryAccordion
-                      items={[card.description]}
-                      contentVariant="stacked"
-                      panelClassName="text-left"
-                    />
-                  </div>
+          <ServiceCards
+            packages={servicePackages}
+            eyebrow="Ways to Keep Going"
+            title="If you want support beyond the first conversation, there is a next step for that."
+            description="Some families need one clear answer. Some want a steadier plan for the full baby-prep picture. Both are normal."
+          />
+
+          <MarketingSection tone="white" spacing="spacious">
+            <SectionIntro
+              eyebrow="What families usually leave with"
+              title="Usually not a longer shopping list."
+              description="Usually a shorter one, a steadier timeline, and a much clearer sense of what to do next."
+              contentWidthClassName="max-w-4xl"
+            />
+
+            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {outcomeCards.map((card) => (
+                <MarketingSurface key={card.title} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/78">
+                    Outcome
+                  </p>
+                  <h3 className="mt-4 font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                    {card.title}
+                  </h3>
+                  <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{card.description}</p>
                 </MarketingSurface>
               ))}
             </div>
           </MarketingSection>
 
-          <FinalCTA
-            className="how-it-works-section"
-            title="Start Your Baby Planning Journey"
-            description="Clear preparation often begins with a single thoughtful conversation."
-            ctaLabel="Schedule Your Consultation"
-            ctaAnalyticsLabel="Schedule Your Consultation"
+          <CTASection
+            title="Start with a conversation that makes the next decisions easier."
+            description="Baby prep does not need to feel like guesswork. Start with clarity, then build from there."
+            note="Start with confidence."
           />
         </main>
       </HowItWorksAnalytics>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import SiteShell from '@/components/SiteShell';
@@ -7,9 +8,11 @@ import { Body, H1, H2 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
 import { toExcerpt } from '@/components/blog/PostArticleView';
+import { toBlogAuthorProfile } from '@/lib/server/blogAuthors';
 
 type AuthorPageProps = {
   params: Promise<{ slug: string }>;
@@ -78,9 +81,10 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
     return {};
   }
 
-  const name = data.author.name?.trim() || data.author.email;
+  const authorProfile = toBlogAuthorProfile(data.author, 'Author');
+  const name = authorProfile.name;
   const description =
-    data.author.bio?.trim() || `${name} writes practical baby planning guidance for Taylor-Made Baby Co.`;
+    authorProfile.bio?.trim() || `${name} writes practical baby planning guidance for Taylor-Made Baby Co.`;
 
   return {
     title: `${name} | Taylor-Made Baby Co.`,
@@ -93,7 +97,7 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
       description,
       type: 'profile',
       url: `${SITE_URL}/blog/author/${slug}`,
-      images: data.author.avatarUrl ? [{ url: data.author.avatarUrl, alt: name }] : undefined,
+      images: authorProfile.avatarUrl ? [{ url: authorProfile.avatarUrl, alt: name }] : undefined,
     },
   };
 }
@@ -106,7 +110,9 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
     notFound();
   }
 
-  const authorName = data.author.name?.trim() || data.author.email;
+  const authorProfile = toBlogAuthorProfile(data.author, 'Author');
+  const authorName = authorProfile.name;
+  const shouldSkipAvatarOptimization = isRemoteImageUrl(authorProfile.avatarUrl);
 
   return (
     <SiteShell currentPath="/blog">
@@ -115,12 +121,17 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
           <div className="mx-auto max-w-5xl px-6">
             <div className="grid gap-8 md:grid-cols-[240px,1fr] md:items-start">
               <div className="flex justify-center md:justify-start">
-                {data.author.avatarUrl ? (
-                  <img
-                    src={data.author.avatarUrl}
-                    alt={authorName}
-                    className="h-40 w-40 rounded-[30px] object-cover shadow-[0_18px_36px_rgba(0,0,0,0.08)]"
-                  />
+                {authorProfile.avatarUrl ? (
+                  <div className="relative h-40 w-40 overflow-hidden rounded-[30px] shadow-[0_18px_36px_rgba(0,0,0,0.08)]">
+                    <Image
+                      src={authorProfile.avatarUrl}
+                      alt={authorName}
+                      fill
+                      sizes="160px"
+                      className="object-cover"
+                      unoptimized={shouldSkipAvatarOptimization}
+                    />
+                  </div>
                 ) : (
                   <div className="flex h-40 w-40 items-center justify-center rounded-[30px] bg-black/[0.04] font-serif text-5xl text-neutral-900">
                     {authorName.charAt(0)}
@@ -132,12 +143,13 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
                 <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Author</span>
                 <H1 className="font-serif text-neutral-900">{authorName}</H1>
                 <Body className="max-w-[60ch] text-charcoal/75">
-                  {data.author.bio?.trim() || 'Practical guidance for baby registry planning, gear decisions, and calmer prep.'}
+                  {authorProfile.bio?.trim() ||
+                    'Practical guidance for baby registry planning, gear decisions, and calmer prep.'}
                 </Body>
 
-                {data.author.expertiseAreas.length > 0 ? (
+                {authorProfile.expertiseAreas.length > 0 ? (
                   <div className="flex flex-wrap gap-3">
-                    {data.author.expertiseAreas.map((area) => (
+                    {authorProfile.expertiseAreas.map((area) => (
                       <span
                         key={area}
                         className="rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-charcoal/75"
@@ -172,6 +184,7 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
                     dateTime={getPostDisplayDate(post).toISOString()}
                     readingTime={post.readingTime}
                     category={normalizeBlogCategory(post.category)}
+                    authorName={authorName}
                   />
                 ))}
               </div>

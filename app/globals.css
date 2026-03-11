@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;500;600;700;800&family=Great+Vibes&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,10 +11,35 @@
   100% { transform: translateY(0px); }
 }
 
+@keyframes ribbonFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .ribbon-float {
   animation: ribbonFloat 8s ease-in-out infinite;
   filter: drop-shadow(0px 12px 18px rgba(0,0,0,0.06));
   will-change: transform;
+}
+
+.ribbon-divider__entrance {
+  opacity: 0;
+  animation: ribbonFadeIn 700ms ease-out 260ms forwards;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-divider__entrance {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }
 
 @keyframes heroFadeIn {
@@ -176,6 +201,7 @@ a:hover .link-underline::after {
   --ivory: #fbf7f4;
   --soft-blush: var(--tmbc-soft-pink);
   --warm-neutral: #f6efeb;
+  --color-linen: #f5eee7;
   --color-white: #ffffff;
   --color-linen-nav: var(--nav-linen);
   --color-ivory: var(--ivory);
@@ -187,6 +213,7 @@ a:hover .link-underline::after {
   --color-card-border: #efcad1;
   --color-charcoal: #2f2a2c;
   --gold: #C6A75E;
+  --color-gold-soft: #c49c5e;
   --color-blush: var(--tmbc-blush);
   --color-taupe: #d6bfb7;
   --color-paper: #fdf8f7;
@@ -198,7 +225,8 @@ a:hover .link-underline::after {
   --color-accent-dark: #d47b91;
   --font-serif: "Playfair Display", ui-serif, Georgia, serif;
   --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-script: "Great Vibes", cursive;
   --text-primary: #2b2628;
   --text-secondary: #625a60;
   --radius-lg: 1.25rem;
@@ -310,6 +338,10 @@ p {
 
 .body-copy--full {
   max-width: none;
+}
+
+.font-script {
+  font-family: var(--font-script);
 }
 
 li {
@@ -748,57 +780,67 @@ li {
 }
 
 .section-base.homepage-section,
-.section-spacing.homepage-section {
+.section-spacing.homepage-section,
+.section-spacious.homepage-section {
   padding-top: 3.75rem;
   padding-bottom: 3.75rem;
 }
 
 .section-base.homepage-support-section,
-.section-spacing.homepage-support-section {
+.section-spacing.homepage-support-section,
+.section-spacious.homepage-support-section {
   padding-bottom: 2.75rem;
 }
 
 .section-base.homepage-method-section,
-.section-spacing.homepage-method-section {
+.section-spacing.homepage-method-section,
+.section-spacious.homepage-method-section {
   padding-top: 2.75rem;
   padding-bottom: 2.25rem;
 }
 
 .section-base.homepage-testimonials-section,
-.section-spacing.homepage-testimonials-section {
+.section-spacing.homepage-testimonials-section,
+.section-spacious.homepage-testimonials-section {
   padding-top: 2.25rem;
 }
 
 .section-base.homepage-post-bow-section,
-.section-spacing.homepage-post-bow-section {
+.section-spacing.homepage-post-bow-section,
+.section-spacious.homepage-post-bow-section {
   padding-top: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .section-base.homepage-section,
-  .section-spacing.homepage-section {
+  .section-spacing.homepage-section,
+  .section-spacious.homepage-section {
     padding-top: 7.75rem;
     padding-bottom: 7.75rem;
   }
 
   .section-base.homepage-support-section,
-  .section-spacing.homepage-support-section {
+  .section-spacing.homepage-support-section,
+  .section-spacious.homepage-support-section {
     padding-bottom: 4.75rem;
   }
 
   .section-base.homepage-method-section,
-  .section-spacing.homepage-method-section {
+  .section-spacing.homepage-method-section,
+  .section-spacious.homepage-method-section {
     padding-top: 4.75rem;
     padding-bottom: 4rem;
   }
 
   .section-base.homepage-testimonials-section,
-  .section-spacing.homepage-testimonials-section {
+  .section-spacing.homepage-testimonials-section,
+  .section-spacious.homepage-testimonials-section {
     padding-top: 4.25rem;
   }
 
   .section-base.homepage-post-bow-section,
-  .section-spacing.homepage-post-bow-section {
+  .section-spacing.homepage-post-bow-section,
+  .section-spacious.homepage-post-bow-section {
     padding-top: 2.75rem;
   }
 }
@@ -1076,6 +1118,24 @@ li {
   padding-bottom: clamp(6rem, 9vw, 7.5rem);
 }
 
+.homepage-hero .hero-inner {
+  padding-top: clamp(7.5rem, 14vh, 11rem);
+}
+
+.homepage-hero-content {
+  max-width: 58rem !important;
+}
+
+.homepage-hero-content .hero-title {
+  font-size: clamp(2.85rem, 5.3vw, 4.85rem);
+  line-height: 0.94;
+  max-width: 15.5ch;
+}
+
+.homepage-hero-content .hero-subhead {
+  max-width: 34rem;
+}
+
 @media (max-width: 767px) {
   .hero-content {
     max-width: 32rem;
@@ -1087,6 +1147,14 @@ li {
     top: -1.5rem;
     bottom: -2rem;
     filter: blur(6px);
+  }
+
+  .homepage-hero .hero-inner {
+    padding-top: 5.25rem;
+  }
+
+  .homepage-hero-content .hero-title {
+    max-width: 9.5ch;
   }
 }
 

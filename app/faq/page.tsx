@@ -126,7 +126,7 @@ export default function FAQPage() {
               A little clarity before we begin.
             </Body>
             <p className="hero-load-reveal hero-load-reveal--2 text-[0.72rem] uppercase tracking-[0.14em] leading-relaxed text-charcoal/60 sm:text-sm sm:tracking-[0.2em]">
-              Baby Gear Specialist · Brand-Trained Expertise · Private Planning for Modern Families
+              Baby Gear Guidance · Registry Strategy · Calm Preparation for Modern Families
             </p>
           </div>
         </Hero>

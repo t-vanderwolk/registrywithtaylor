@@ -23,6 +23,17 @@ export type BlogAuthorProfile = {
 
 export type BlogAuthorOption = Omit<BlogAuthorProfile, 'role'>;
 
+const BRAND_AUTHOR_NAME = 'Taylor Vanderwolk';
+const BRAND_AUTHOR_BIO =
+  'Founder of Taylor-Made Baby Co. and baby gear advisor for parents sorting registry, stroller, car seat, nursery, and preparation decisions with more clarity.';
+const BRAND_AUTHOR_EXPERTISE = [
+  'Baby Gear Guidance',
+  'Registry Planning',
+  'Nursery Preparation',
+  'Target Baby Concierge',
+];
+const BRAND_AUTHOR_AVATAR = '/assets/editorial/taylor.png';
+
 const fallbackNameFromEmail = (email: string) =>
   email
     .split('@')[0]
@@ -31,15 +42,26 @@ const fallbackNameFromEmail = (email: string) =>
     .trim()
     .replace(/\b\w/g, (character) => character.toUpperCase());
 
+const isBrandFallbackAuthor = (author: AuthorLike) => {
+  const normalizedName = author.name?.trim().toLowerCase() ?? '';
+  const normalizedEmail = author.email.trim().toLowerCase();
+  const normalizedSlug = author.slug?.trim().toLowerCase() ?? '';
+
+  return normalizedName === 'admin' || normalizedEmail.startsWith('admin@') || normalizedSlug === 'admin';
+};
+
 export function toBlogAuthorProfile(author: AuthorLike, role = 'Contributor'): BlogAuthorProfile {
+  const useBrandFallback = isBrandFallbackAuthor(author);
+
   return {
     id: author.id,
     email: author.email,
-    name: author.name?.trim() || fallbackNameFromEmail(author.email),
+    name: useBrandFallback ? BRAND_AUTHOR_NAME : author.name?.trim() || fallbackNameFromEmail(author.email),
     slug: author.slug?.trim() || null,
-    bio: author.bio?.trim() || null,
-    expertiseAreas: author.expertiseAreas,
-    avatarUrl: author.avatarUrl?.trim() || null,
+    bio: useBrandFallback ? author.bio?.trim() || BRAND_AUTHOR_BIO : author.bio?.trim() || null,
+    expertiseAreas:
+      useBrandFallback && author.expertiseAreas.length === 0 ? [...BRAND_AUTHOR_EXPERTISE] : author.expertiseAreas,
+    avatarUrl: useBrandFallback ? author.avatarUrl?.trim() || BRAND_AUTHOR_AVATAR : author.avatarUrl?.trim() || null,
     role,
   };
 }

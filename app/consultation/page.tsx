@@ -9,9 +9,9 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Book Your Free Consultation - Taylor-Made Baby Co.',
+  title: 'Book a Consultation - Taylor-Made Baby Co.',
   description:
-    'Request your free 45-minute video consultation with Taylor to plan your registry with clarity.',
+    'Request a consultation with Taylor for expert baby gear, registry, and baby-preparation guidance.',
   path: '/consultation',
   imagePath: '/assets/hero/hero-06.jpg',
   imageAlt: 'Free consultation request form',
@@ -28,10 +28,11 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
         <Hero image="/assets/hero/hero-06.jpg" imageAlt="Consultation planning form">
           <div className="space-y-6">
             <h1 className="marketing-hero-headline hero-load-reveal">
-              Book Your Free 45-Minute Consultation
+              Book a Consultation
             </h1>
             <Body className="hero-load-reveal hero-load-reveal--1 max-w-2xl text-neutral-700">
-              Submit your request and Taylor will follow up directly to begin your Learn + Plan process.
+              Submit your request and Taylor will follow up directly to begin a calmer, more expert-guided baby gear
+              planning process.
             </Body>
           </div>
         </Hero>

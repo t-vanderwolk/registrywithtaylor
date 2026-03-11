@@ -1,7 +1,7 @@
 import type { AffiliateNetwork } from '@prisma/client';
 
 export const AFFILIATE_ROUTING_ORDER: AffiliateNetwork[] = ['DIRECT', 'IMPACT', 'AWIN', 'CJ'];
-export const AFFILIATE_CONTEXT_OPTIONS = ['blog', 'registry', 'academy'] as const;
+export const AFFILIATE_CONTEXT_OPTIONS = ['blog', 'guide', 'registry', 'academy'] as const;
 
 export type AffiliateUsageContext = (typeof AFFILIATE_CONTEXT_OPTIONS)[number];
 

@@ -5,7 +5,7 @@ import JournalCard from '@/components/blog/JournalCard';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { Body } from '@/components/ui/MarketingHeading';
-import { BLOG_CATEGORIES, BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
+import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 
 type BlogIndexPost = {
   id: string;
@@ -31,6 +31,7 @@ export default function BlogIndexView({
   const filteredPosts = activeCategory
     ? posts.filter((post) => post.category === activeCategory)
     : posts;
+  const categories = Array.from(new Set(posts.map((post) => post.category)));
 
   const setCategory = (category: BlogCategory | null) => {
     startTransition(() => {
@@ -55,9 +56,9 @@ export default function BlogIndexView({
                       : 'text-[var(--tmbc-blog-soft-text)] hover:text-[var(--tmbc-blog-charcoal)]'
                   }`}
                 >
-                  All Guides
+                  All Journal Posts
                 </button>
-                {BLOG_CATEGORIES.map((category) => (
+                {categories.map((category) => (
                   <button
                     key={category}
                     type="button"
@@ -101,7 +102,7 @@ export default function BlogIndexView({
           ) : (
             <MarketingSurface className="text-center">
               <p className="text-sm uppercase tracking-[0.22em] text-charcoal/55">
-                {activeCategory ? getBlogCategoryLabel(activeCategory) : BLOG_GUIDES_TITLE}
+                {activeCategory ? getBlogCategoryLabel(activeCategory) : 'Baby Gear Journal'}
               </p>
               <Body className="mt-4 text-charcoal/72">
                 No guides are published in this focus yet.

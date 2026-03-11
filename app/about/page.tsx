@@ -45,10 +45,10 @@ export default function AboutPage() {
 
             <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
-                href="/contact"
+                href="/consultation"
                 className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                Book a Complimentary Consultation
+                Book a Consultation
               </Link>
             </div>
           </div>

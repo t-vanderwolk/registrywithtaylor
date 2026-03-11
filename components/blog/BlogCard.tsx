@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BlogCardActions from '@/components/blog/BlogCardActions';
 import CategoryTag from '@/components/blog/CategoryTag';
-import { resolveBlogCoverImage } from '@/lib/blog/images';
+import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
 import { getBlogCategoryLabel } from '@/lib/blogCategories';
 
 type BlogCardProps = {
@@ -14,6 +14,7 @@ type BlogCardProps = {
   dateLabel: string;
   dateTime?: string;
   readingTime?: number | null;
+  authorName?: string;
   className?: string;
 };
 
@@ -26,9 +27,11 @@ export default function BlogCard({
   dateLabel,
   dateTime,
   readingTime,
+  authorName = 'Taylor Vanderwolk',
   className = '',
 }: BlogCardProps) {
-  const coverImageSrc = resolveBlogCoverImage(coverImage);
+  const coverImageSrc = resolveBlogCoverImage(coverImage, category);
+  const shouldSkipOptimization = isRemoteImageUrl(coverImageSrc);
 
   return (
     <article className={['tmbc-blog-card group flex h-full flex-col', className].filter(Boolean).join(' ')}>
@@ -40,13 +43,17 @@ export default function BlogCard({
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
           loading="lazy"
-          unoptimized
+          unoptimized={shouldSkipOptimization}
         />
       </Link>
 
       <div className="card-content flex h-full flex-col">
         <div className="flex flex-wrap items-center gap-2.5 text-[11px] uppercase tracking-[0.16em] text-[var(--tmbc-blog-soft-text)]">
           <CategoryTag label={getBlogCategoryLabel(category)} />
+          <span aria-hidden className="text-black/25">
+            ·
+          </span>
+          <span>By {authorName}</span>
           {readingTime ? (
             <>
               <span aria-hidden className="text-black/25">

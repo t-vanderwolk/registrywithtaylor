@@ -8,16 +8,20 @@ import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus'
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
 import { SITE_URL } from '@/lib/marketing/metadata';
+import { getGuideLinksForBlogCategory } from '@/lib/marketing/siteContent';
 import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
 import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
 import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
 import BlogShareBar from '@/components/blog/BlogShareBar';
+import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
+import GuideGrid from '@/components/marketing/GuideGrid';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { getBlogCategoryFallbackImage } from '@/lib/blog/images';
 
 export type DownloadableResource = {
   title: string;
@@ -239,7 +243,8 @@ export default async function PostArticleView({
   });
   const storedCtas = extractStoredCtaButtons(normalizedContent);
   const { content: articleContent, resource } = extractDownloadableResource(normalizedContent);
-  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
+  const featuredImageUrl =
+    post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl ?? getBlogCategoryFallbackImage(post.category);
   const attachedPdfResources = post.media.filter((media) => isPdfMediaType(media.fileType));
   const mediaGalleryImages = post.media
     .filter((media) => isImageMediaType(media.fileType))
@@ -287,13 +292,25 @@ export default async function PostArticleView({
     category: categoryLabel,
     content: articleContent,
   });
+  const relatedGuides = getGuideLinksForBlogCategory(post.category);
+  const relatedGuidesSection =
+    relatedGuides.length > 0 ? (
+      <GuideGrid
+        guides={relatedGuides}
+        compact
+        eyebrow="Keep exploring"
+        title="Explore the guide pillars behind the decisions this article touches."
+        description="These links connect fresh editorial reads back to the evergreen baby gear and baby-preparation hub."
+        className="border-t border-black/5"
+      />
+    ) : null;
   const relatedPostsSection =
     relatedPosts.length > 0 ? (
       <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="mx-auto max-w-2xl space-y-4 text-center">
             <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
-            <H2 className="font-serif text-neutral-900">More {BLOG_GUIDES_TITLE}</H2>
+            <H2 className="font-serif text-neutral-900">More from the Journal</H2>
           </div>
 
           <div className="mt-12 grid gap-10 md:grid-cols-3">
@@ -435,6 +452,7 @@ export default async function PostArticleView({
           </div>
         ) : undefined
       }
+      conversionCta={<BlogSoftCTA />}
       shareSection={
         <BlogShareBar
           title={post.shareTitle?.trim() || post.title}
@@ -446,7 +464,12 @@ export default async function PostArticleView({
           redditSummary={socialSnippets.redditSummary}
         />
       }
-      relatedPosts={relatedPostsSection}
+      relatedPosts={
+        <>
+          {relatedGuidesSection}
+          {relatedPostsSection}
+        </>
+      }
     />
   );
 }

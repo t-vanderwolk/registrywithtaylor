@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 
 type TMBCBlogTemplateProps = {
   featuredImageUrl: string | null;
@@ -17,6 +19,7 @@ type TMBCBlogTemplateProps = {
   resources?: ReactNode;
   gallery?: ReactNode;
   affiliateCta?: ReactNode;
+  conversionCta?: ReactNode;
   shareSection: ReactNode;
   relatedPosts?: ReactNode;
 };
@@ -48,11 +51,13 @@ export default function TMBCBlogTemplate({
   resources,
   gallery,
   affiliateCta,
+  conversionCta,
   shareSection,
   relatedPosts,
 }: TMBCBlogTemplateProps) {
   const primaryAuthor = authors[0] ?? null;
   const contributors = authors.slice(1);
+  const shouldSkipFeaturedImageOptimization = isRemoteImageUrl(featuredImageUrl);
 
   return (
     <>
@@ -103,8 +108,16 @@ export default function TMBCBlogTemplate({
           </header>
 
           {featuredImageUrl ? (
-            <div className="mb-12 overflow-hidden rounded-[34px]">
-              <img src={featuredImageUrl} alt={title} className="h-auto w-full" />
+            <div className="relative mb-12 aspect-[16/10] overflow-hidden rounded-[34px]">
+              <Image
+                src={featuredImageUrl}
+                alt={title}
+                fill
+                priority
+                sizes="(min-width: 1024px) 896px, 100vw"
+                className="object-cover"
+                unoptimized={shouldSkipFeaturedImageOptimization}
+              />
             </div>
           ) : null}
 
@@ -114,6 +127,7 @@ export default function TMBCBlogTemplate({
           {resources}
           {gallery}
           {affiliateCta}
+          {conversionCta ? <div className="mt-16">{conversionCta}</div> : null}
 
           <section className="blog-section-soft mt-16 px-6">
             <p className="text-xs uppercase tracking-[0.24em] text-[var(--tmbc-blog-soft-text)]">Share This Guide</p>

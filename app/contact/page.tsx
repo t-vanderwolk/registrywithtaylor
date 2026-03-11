@@ -6,12 +6,16 @@ import { Body } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
+import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const metadata = {
-  title: 'Get in Touch | Taylor-Made Baby Co.',
+export const metadata = buildMarketingMetadata({
+  title: 'Contact Taylor-Made Baby Co.',
   description:
-    'Have a question about baby gear, registry strategy, nursery planning, or home prep? Get in touch for personalized guidance.',
-};
+    'Reach out with questions about baby gear guidance, registry strategy, nursery planning, or consultation support.',
+  path: '/contact',
+  imagePath: '/assets/editorial/gear.jpg',
+  imageAlt: 'Contact Taylor-Made Baby Co.',
+});
 
 const serviceConfig = {
   'focused-edit': {

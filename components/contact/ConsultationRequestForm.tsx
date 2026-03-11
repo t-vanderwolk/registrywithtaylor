@@ -36,7 +36,7 @@ export default function ConsultationRequestForm({
   errorCode,
   returnPath = '/consultation',
   successPath = '/consultation/confirmation',
-  submitLabel = 'Submit Consultation Request',
+  submitLabel = 'Book a Consultation',
 }: ConsultationRequestFormProps) {
   const error = getConsultationRequestErrorMessage(errorCode);
   const formStartedRef = useRef(false);
