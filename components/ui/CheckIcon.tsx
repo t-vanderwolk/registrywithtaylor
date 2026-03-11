@@ -1,4 +1,4 @@
-import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
+import IconFrame from '@/components/ui/IconFrame';
 
 type CheckIconProps = {
   frameClassName?: string;
@@ -7,7 +7,7 @@ type CheckIconProps = {
 
 export default function CheckIcon({ frameClassName = 'mt-1', iconClassName = '' }: CheckIconProps) {
   return (
-    <LuxuryIconFrame size="inline" className={frameClassName} syncWithGroup>
+    <IconFrame size="inline" className={frameClassName} syncWithGroup>
       <svg
         width="24"
         height="24"
@@ -22,6 +22,6 @@ export default function CheckIcon({ frameClassName = 'mt-1', iconClassName = '' 
       >
         <path d="M20 6L9 17l-5-5" />
       </svg>
-    </LuxuryIconFrame>
+    </IconFrame>
   );
 }

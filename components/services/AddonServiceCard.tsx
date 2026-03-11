@@ -65,7 +65,7 @@ export default function AddonServiceCard({
     >
       <div className="flex h-full flex-1 flex-col">
         {label ? (
-          <span className="inline-flex w-fit rounded-full border border-[rgba(232,154,174,0.18)] bg-[rgba(248,228,232,0.5)] px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/75">
+          <span className="inline-flex w-fit rounded-full border border-rose-100 bg-rose-50 px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/75">
             {label}
           </span>
         ) : null}

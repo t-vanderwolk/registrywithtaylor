@@ -32,23 +32,33 @@ export default function BlogCard({
 
   return (
     <article className={['tmbc-blog-card group flex h-full flex-col', className].filter(Boolean).join(' ')}>
-      <Link href={`/blog/${slug}`} className="tmbc-blog-card__media relative block w-full overflow-hidden">
+      <Link href={`/blog/${slug}`} className="tmbc-blog-card__media relative block w-full overflow-hidden rounded-xl">
         <Image
           src={coverImageSrc}
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
           loading="lazy"
           unoptimized
         />
       </Link>
 
       <div className="card-content flex h-full flex-col">
-        <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-[var(--tmbc-blog-soft-text)]">
+        <div className="flex flex-wrap items-center gap-2.5 text-[11px] uppercase tracking-[0.16em] text-[var(--tmbc-blog-soft-text)]">
           <CategoryTag label={getBlogCategoryLabel(category)} />
+          {readingTime ? (
+            <>
+              <span aria-hidden className="text-black/25">
+                ·
+              </span>
+              <span>{readingTime} min read</span>
+            </>
+          ) : null}
+          <span aria-hidden className="text-black/25">
+            ·
+          </span>
           <span>{dateTime ? <time dateTime={dateTime}>{dateLabel}</time> : dateLabel}</span>
-          {readingTime ? <span>{readingTime} min read</span> : null}
         </div>
 
         <h3 className="text-[var(--tmbc-blog-charcoal)]">

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
+import IconFrame from '@/components/ui/IconFrame';
 
 type ServiceIconBadgeProps = {
   src: string;
@@ -35,7 +35,7 @@ export default function ServiceIconBadge({
   size = 'default',
 }: ServiceIconBadgeProps) {
   return (
-    <LuxuryIconFrame
+    <IconFrame
       size={frameSizeMap[size]}
       className={className}
       innerClassName={['relative', sizeClasses[size]].join(' ')}
@@ -49,6 +49,6 @@ export default function ServiceIconBadge({
         sizes={imageSizes[size]}
         className={['object-contain luxury-icon-object', imageClassName].filter(Boolean).join(' ')}
       />
-    </LuxuryIconFrame>
+    </IconFrame>
   );
 }

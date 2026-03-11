@@ -20,7 +20,7 @@ export default function AuthorityStrip({
         <span
           key={i}
           className={[
-            'inline-flex min-h-[38px] items-center rounded-full border border-[rgba(232,154,174,0.18)] bg-white/82 px-3.5 py-1.5 shadow-[0_12px_24px_rgba(184,116,138,0.07)] backdrop-blur-sm',
+            'inline-flex min-h-[38px] items-center rounded-full border border-rose-100 bg-white/88 px-4 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.03)] backdrop-blur-sm transition duration-300 ease-out',
             itemClassName,
           ]
             .filter(Boolean)

@@ -27,7 +27,7 @@ export default function Header({ currentPath }: HeaderProps) {
     const isActive = href === currentPath;
 
     return `link-underline pb-1 uppercase transition-colors duration-200 ${
-      isMobile ? 'inline-flex min-h-[44px] items-center text-[0.95rem] tracking-[0.12em]' : 'text-sm tracking-[0.2em]'
+      isMobile ? 'inline-flex min-h-[44px] items-center text-[0.95rem] tracking-[0.12em]' : 'text-[0.72rem] tracking-[0.18em]'
     } ${
       isActive
         ? `text-charcoal underline decoration-black/15 ${isMobile ? 'underline-offset-4' : 'underline-offset-8'}`
@@ -36,17 +36,17 @@ export default function Header({ currentPath }: HeaderProps) {
   };
 
   return (
-    <header className="site-header w-full border-b border-black/5 bg-[#F7F4EF]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 md:px-10 md:py-5">
+    <header className="site-header w-full border-b border-black/5 bg-[#f7f4ef]/92 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-md supports-[backdrop-filter]:bg-[#f7f4ef]/84">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 md:px-10 md:py-4">
         <Link
           href="/"
-          className="max-w-[11.5rem] font-serif text-[0.98rem] leading-tight tracking-[0.01em] text-charcoal transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none sm:text-lg"
+          className="max-w-[11.5rem] font-serif text-[1rem] leading-tight tracking-[0.012em] text-charcoal transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none sm:text-[1.28rem]"
           onClick={() => setOpen(false)}
         >
           Taylor-Made Baby Co.
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-7 lg:gap-8 md:flex" aria-label="Primary navigation">
           {navLinks.map((link) => {
             return (
               <Link
@@ -86,7 +86,7 @@ export default function Header({ currentPath }: HeaderProps) {
       </div>
 
       <div
-        className={`overflow-hidden bg-[#F7F4EF] transition-all duration-300 md:hidden ${
+        className={`overflow-hidden bg-[#f7f4ef]/96 backdrop-blur-md transition-all duration-300 md:hidden ${
           open
             ? 'max-h-[80svh] border-t border-black/5 opacity-100'
             : 'max-h-0 border-t border-transparent opacity-0 pointer-events-none'

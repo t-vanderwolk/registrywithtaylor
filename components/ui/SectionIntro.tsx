@@ -50,7 +50,7 @@ export default function SectionIntro({
       {description ? (
         <Body
           className={[
-            'mt-5 max-w-none text-neutral-600',
+            'mt-4 max-w-none text-neutral-600',
             descriptionClassName,
           ]
             .filter(Boolean)

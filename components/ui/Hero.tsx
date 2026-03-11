@@ -31,6 +31,7 @@ type HeroProps = {
   ribbonClassName?: string;
   footerContent?: ReactNode;
   footerClassName?: string;
+  flushBottom?: boolean;
   children?: ReactNode;
 };
 
@@ -57,6 +58,7 @@ export default function Hero({
   ribbonClassName = '',
   footerContent,
   footerClassName = '',
+  flushBottom = false,
   children,
 }: HeroProps) {
   const resolvedContentStyle: CSSProperties = {
@@ -71,7 +73,7 @@ export default function Hero({
     'overflow-visible',
     'hero-home-radial',
     'hero-bottom-fade',
-    'md:pb-24',
+    flushBottom ? '' : 'md:pb-24',
     'z-20',
     fullBleed ? 'hero-section--full-bleed' : '',
     className,

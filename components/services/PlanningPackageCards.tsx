@@ -88,7 +88,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
           <div key={pkg.serviceKey} className="relative flex h-full flex-col pt-4 sm:pt-6">
             {pkg.badge ? (
               <div className="pointer-events-none absolute left-6 top-0 select-none" aria-hidden="true">
-                <span className="inline-flex rounded-full border border-[rgba(232,154,174,0.28)] bg-white/95 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/72 shadow-[0_14px_26px_rgba(184,116,138,0.12)]">
+                <span className="inline-flex rounded-full border border-rose-100 bg-white/95 px-3 py-1 text-[9px] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/72 shadow-[0_12px_24px_rgba(0,0,0,0.06)]">
                   {pkg.badge}
                 </span>
               </div>
@@ -99,7 +99,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 'flex h-full flex-col p-7 text-left sm:p-8',
                 'min-h-[auto]',
                 isFeatured
-                  ? 'border-[rgba(232,154,174,0.38)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(248,228,232,0.78)_100%)] shadow-[0_34px_72px_rgba(184,116,138,0.18)]'
+                  ? 'border-rose-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(255,246,248,0.94)_100%)] shadow-[0_20px_60px_rgba(220,160,180,0.18)]'
                   : '',
               ]
                 .filter(Boolean)
@@ -121,7 +121,7 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 {pkg.description}
               </Body>
 
-              <div className="mb-8 rounded-[1.35rem] border border-black/5 bg-white/72 p-5 sm:mb-10">
+              <div className="mb-8 rounded-[1.1rem] border border-rose-100 bg-rose-50/35 p-5 sm:mb-10">
                 <ServiceChecklist items={pkg.features} className="max-w-md text-left text-charcoal/80" />
               </div>
 

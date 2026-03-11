@@ -4,7 +4,7 @@ import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import AuthorityStrip from '@/components/ui/AuthorityStrip';
 import CheckIcon from '@/components/ui/CheckIcon';
-import { Body, Eyebrow, H3 } from '@/components/ui/MarketingHeading';
+import { Body, Eyebrow, H1, H3 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import QuoteMark from '@/components/ui/QuoteMark';
 import SectionIntro from '@/components/ui/SectionIntro';
@@ -73,21 +73,6 @@ const heroServiceChips = [
   'Gear Planning',
   'Nursery & Home Prep',
   'Consultation-First Support',
-];
-
-const heroHighlights = [
-  {
-    title: 'Complimentary 45-minute consultation',
-    description: 'Bring the biggest questions first, before purchases start stacking up.',
-  },
-  {
-    title: 'Support matched to your season',
-    description: 'Choose focused, signature, or concierge guidance once the right fit is clear.',
-  },
-  {
-    title: 'Recommendations built for real life',
-    description: 'Every next step is shaped around your home, budget, routines, and long-term use.',
-  },
 ];
 
 const trustMoments: TrustMoment[] = [
@@ -367,15 +352,21 @@ const toInsightExcerpt = (excerpt: string | null, content: string, maxLength = 1
   return clean.length > maxLength ? `${clean.slice(0, maxLength - 1)}...` : clean;
 };
 
+const estimateReadingTime = (content: string) => {
+  const clean = stripMarkdown(content);
+  const wordCount = clean ? clean.split(/\s+/).length : 0;
+  return Math.max(1, Math.ceil(wordCount / 180));
+};
+
 function TrustMomentCard({ iconSrc, title, description }: TrustMoment) {
   return (
-    <div className="h-full rounded-[1.5rem] border border-black/5 bg-white/84 p-5 shadow-[0_16px_32px_rgba(43,38,40,0.05)] md:p-6">
+    <MarketingSurface className="h-full p-6">
       <ServiceIconBadge src={iconSrc} size="default" />
-      <H3 className="mt-4 max-w-[11ch] text-[1.2rem] leading-[1.08] md:text-[1.45rem]">{title}</H3>
+      <H3 className="mt-5 max-w-[11ch] text-[1.28rem] leading-[1.04] md:text-[1.55rem]">{title}</H3>
       <Body className="mt-3 max-w-none text-[0.96rem] leading-7 text-neutral-600">
         {description}
       </Body>
-    </div>
+    </MarketingSurface>
   );
 }
 
@@ -383,7 +374,7 @@ function ProcessPreviewCard({ step, title, description, iconSrc }: ProcessPrevie
   return (
     <MarketingSurface className="flex h-full flex-col">
       <div className="flex items-center justify-between gap-4">
-        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(232,154,174,0.14)] text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
+        <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50/80 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
           {step}
         </span>
         <ServiceIconBadge src={iconSrc} size="default" />
@@ -397,8 +388,8 @@ function ProcessPreviewCard({ step, title, description, iconSrc }: ProcessPrevie
 
 function MethodCardItem({ step, title, description }: MethodCard) {
   return (
-    <MarketingSurface className="flex h-full items-start gap-5 p-6 md:p-7">
-      <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[rgba(232,154,174,0.14)] text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
+    <MarketingSurface className="flex h-full items-start gap-5 p-6 md:p-8">
+      <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50/80 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
         {step}
       </span>
       <div className="min-w-0">
@@ -496,131 +487,76 @@ export default async function HomePage() {
     <SiteShell currentPath="/">
       <main className="site-main">
         <Hero
-          showImage={false}
+          className="hero-cta-buffer"
+          image="/assets/hero/hero-baby-editorial-v2.jpg"
+          imageAlt="Baby essentials arranged in a calm editorial nursery scene"
           sectionStyle={{
-            height: 'auto',
-            minHeight: 'unset',
-            background: 'linear-gradient(180deg,#fdf9f7 0%,#fbf4f2 52%,#f6efeb 100%)',
+            minHeight: 'clamp(45rem, 86vh, 60rem)',
           }}
           innerStyle={{
-            paddingTop: 'clamp(4.8rem,7vw,6.4rem)',
-            paddingBottom: 'clamp(4rem,6vw,5.4rem)',
+            paddingTop: 'clamp(7rem, 14vh, 11rem)',
+            paddingBottom: 'clamp(5.5rem, 9vw, 8rem)',
           }}
-          contentStyle={{
-            maxWidth: 'none',
-            padding: '0',
-            borderRadius: '0',
+          overlayStyle={{
+            background:
+              'linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.72) 34%, rgba(255,255,255,0.22) 60%, rgba(255,255,255,0.04) 100%), linear-gradient(to bottom, rgba(255,255,255,0.04) 58%, #f6f1ec 100%)',
           }}
+          ribbonClassName="translate-y-8 scale-y-[0.84] origin-bottom md:translate-y-10"
         >
-          <div className="relative">
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute left-[-3rem] top-[-2rem] h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(244,194,194,0.22)_0%,rgba(244,194,194,0)_72%)] blur-2xl"
+          <div className="space-y-6">
+            <Eyebrow className="hero-load-reveal">Taylor-Made Baby Co.</Eyebrow>
+
+            <H1 className="marketing-hero-headline hero-load-reveal hero-load-reveal--1 max-w-[13ch] text-[44px] leading-[0.92] tracking-[-0.055em] md:text-[52px] lg:text-[64px]">
+              Baby planning guidance that makes the next decisions feel clear.
+            </H1>
+
+            <Body className="hero-load-reveal hero-load-reveal--2 max-w-[36rem] text-neutral-700">
+              Taylor-Made Baby Co. helps growing families sort registry strategy, gear choices, nursery flow, and home
+              preparation with expert guidance grounded in real life.
+            </Body>
+
+            <AuthorityStrip
+              items={heroServiceChips}
+              className="hero-load-reveal hero-load-reveal--3 max-w-[42rem] justify-start text-left"
+              itemClassName="border-white/55 bg-white/24 text-charcoal shadow-[0_12px_24px_rgba(43,38,40,0.08)] backdrop-blur-md"
             />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-[-2rem] right-[8%] h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.8)_0%,rgba(255,255,255,0)_72%)] blur-3xl"
-            />
 
-            <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:items-start lg:gap-12 xl:gap-16">
-              <div className="max-w-[41rem] lg:pt-6">
-                <Eyebrow className="hero-load-reveal">Taylor-Made Baby Co.</Eyebrow>
+            <div className="hero-load-reveal hero-load-reveal--4 flex flex-col gap-4 pt-4 sm:flex-row">
+              <Link
+                href="/consultation"
+                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Request Consultation
+              </Link>
 
-                <h1 className="marketing-hero-headline hero-load-reveal hero-load-reveal--1 max-w-[12.2ch] text-[clamp(2.85rem,4.9vw,4.6rem)] leading-[0.92]">
-                  Baby planning guidance that makes the next decisions feel clear.
-                </h1>
-
-                <p className="marketing-hero-copy hero-load-reveal hero-load-reveal--2 max-w-[35rem] text-neutral-700">
-                  Taylor-Made Baby Co. helps growing families sort registry strategy, gear choices, nursery flow, and
-                  home preparation with expert guidance grounded in real life.
-                </p>
-
-                <AuthorityStrip
-                  items={heroServiceChips}
-                  className="hero-load-reveal hero-load-reveal--3 max-w-[42rem] justify-start text-left"
-                  itemClassName="border-black/[0.05] bg-white/72 shadow-none"
-                />
-
-                <div className="hero-load-reveal hero-load-reveal--4 flex flex-col gap-4 pt-7 sm:flex-row">
-                  <Link
-                    href="/consultation"
-                    className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                  >
-                    Request Consultation
-                  </Link>
-
-                  <Link
-                    href="/services"
-                    className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-                  >
-                    Explore Services
-                  </Link>
-                </div>
-
-                <p className="hero-load-reveal hero-load-reveal--5 mt-5 max-w-[30rem] text-[0.72rem] uppercase tracking-[0.24em] text-charcoal/60">
-                  Complimentary consultation · Thoughtful guidance · Clear next steps
-                </p>
-              </div>
-
-              <div className="hero-load-reveal hero-load-reveal--3 relative lg:justify-self-end lg:pt-2">
-                <div className="relative ml-auto max-w-[31.5rem]">
-                  <div className="relative aspect-[4/4.95] overflow-hidden rounded-[2.25rem] border border-black/10 bg-white shadow-[0_28px_72px_rgba(43,38,40,0.16)]">
-                    <Image
-                      src="/assets/hero/hero-baby-editorial-v2.jpg"
-                      alt="Baby essentials arranged in a calm editorial nursery scene"
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 36rem, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,38,40,0.02)_0%,rgba(43,38,40,0.36)_100%)]" />
-                    <div className="absolute left-5 top-5">
-                      <span className="inline-flex rounded-full border border-white/28 bg-white/16 px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-white/88 backdrop-blur-sm">
-                        Consultation-first support
-                      </span>
-                    </div>
-                  </div>
-
-                  <MarketingSurface className="relative -mt-10 ml-auto w-[84%] border-[rgba(232,154,174,0.2)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(252,245,246,0.96)_100%)] p-5 shadow-[0_24px_54px_rgba(184,116,138,0.12)] md:-mt-14 md:p-6">
-                    <Eyebrow>Start Here</Eyebrow>
-                    <H3 className="mt-3 max-w-[13ch] text-[1.65rem] leading-[1.06] md:text-[2rem]">
-                      Request a complimentary consultation.
-                    </H3>
-
-                    <div className="mt-5 space-y-3.5">
-                      {heroHighlights.map((item) => (
-                        <div
-                          key={item.title}
-                          className="rounded-[1.15rem] border border-black/5 bg-white/76 p-3.5 md:p-4"
-                        >
-                          <p className="max-w-none text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/74">
-                            {item.title}
-                          </p>
-                          <p className="mt-2 max-w-none text-sm leading-6 text-neutral-600">{item.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </MarketingSurface>
-                </div>
-              </div>
+              <Link
+                href="/services"
+                className="btn btn--secondary w-full bg-white/75 sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Explore Services
+              </Link>
             </div>
+
+            <p className="hero-load-reveal hero-load-reveal--5 text-[0.72rem] uppercase tracking-[0.22em] text-charcoal/60">
+              Complimentary consultation · Thoughtful guidance · Clear next steps
+            </p>
           </div>
         </Hero>
 
         <MarketingSection tone="white" spacing="tight" className="border-b border-black/[0.04]">
           <RevealOnScroll>
-            <div className="rounded-[2rem] border border-black/[0.05] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f6_100%)] px-6 py-8 shadow-[0_22px_50px_rgba(43,38,40,0.06)] md:px-10 md:py-10">
+            <div className="relative rounded-[2rem] border border-rose-100 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f6_100%)] px-6 py-8 shadow-[0_18px_46px_rgba(0,0,0,0.05)] md:-mt-10 md:px-10 md:py-10">
               <SectionIntro
                 align="left"
                 eyebrow="You're in capable hands"
                 title="Trusted support for the details families second-guess most."
                 description="Taylor brings hands-on product knowledge, concierge-level planning, and partner-backed safety expertise to the decisions that tend to feel the most overwhelming."
                 contentWidthClassName="max-w-3xl"
-                titleClassName="max-w-[17ch] text-[clamp(2.4rem,4vw,4rem)] leading-[1]"
+                titleClassName="max-w-[17ch]"
                 descriptionClassName="max-w-[44rem]"
               />
 
-              <div className="mt-10 grid gap-4 md:grid-cols-3">
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
                 {trustMoments.map((item) => (
                   <TrustMomentCard key={item.title} {...item} />
                 ))}
@@ -629,7 +565,7 @@ export default async function HomePage() {
           </RevealOnScroll>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="spacious">
+        <MarketingSection tone="ivory" spacing="default" className="bg-[#faf7f6]">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start lg:gap-16">
             <RevealOnScroll>
               <div>
@@ -643,22 +579,19 @@ export default async function HomePage() {
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-3">
                   {problemDrivers.map((item) => (
-                    <div
-                      key={item.title}
-                      className="rounded-[1.4rem] border border-black/5 bg-white/72 p-5 shadow-[0_16px_32px_rgba(43,38,40,0.04)]"
-                    >
+                    <MarketingSurface key={item.title} className="p-5">
                       <p className="max-w-none text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/74">
                         {item.title}
                       </p>
                       <p className="mt-3 max-w-none text-sm leading-6 text-neutral-600">{item.description}</p>
-                    </div>
+                    </MarketingSurface>
                   ))}
                 </div>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
-              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fffdfa_0%,#f8f0ee_100%)]">
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf8f7_100%)]">
                 <Eyebrow>This is for you if</Eyebrow>
 
                 <div className="mt-6 space-y-4">
@@ -680,7 +613,7 @@ export default async function HomePage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="white" spacing="spacious">
+        <MarketingSection tone="white" spacing="default">
           <RevealOnScroll>
             <SectionIntro
               eyebrow="How it works"
@@ -689,7 +622,7 @@ export default async function HomePage() {
             />
           </RevealOnScroll>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:mt-10 lg:grid-cols-3">
             {processPreviewSteps.map((step, index) => (
               <RevealOnScroll key={step.title} delayMs={index * 80}>
                 <ProcessPreviewCard {...step} />
@@ -698,7 +631,7 @@ export default async function HomePage() {
           </div>
 
           <RevealOnScroll delayMs={120}>
-            <div className="mt-10 flex flex-col items-center gap-4 text-center">
+            <div className="mt-8 flex flex-col items-center gap-4 text-center">
               <Link
                 href="/how-it-works"
                 className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
@@ -712,7 +645,7 @@ export default async function HomePage() {
           </RevealOnScroll>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="spacious">
+        <MarketingSection tone="ivory" spacing="default" className="bg-[#faf7f6]">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <RevealOnScroll>
               <SectionIntro
@@ -735,7 +668,7 @@ export default async function HomePage() {
           </div>
 
           <RevealOnScroll delayMs={110}>
-            <div className="mt-14">
+            <div className="mt-8 md:mt-10">
               <AddonServiceShowcase services={featuredServicePillars} gridClassName="xl:grid-cols-4" equalHeight />
             </div>
           </RevealOnScroll>
@@ -748,7 +681,7 @@ export default async function HomePage() {
           </RevealOnScroll>
         </MarketingSection>
 
-        <MarketingSection tone="blush" spacing="spacious">
+        <MarketingSection tone="blush" spacing="default" className="bg-rose-50">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-14">
             <RevealOnScroll>
               <div className="max-w-xl">
@@ -760,7 +693,7 @@ export default async function HomePage() {
                   contentWidthClassName="max-w-xl"
                 />
 
-                <div className="relative mt-8 overflow-hidden rounded-[1.9rem] border border-black/5 bg-white/80 p-6 shadow-[0_22px_50px_rgba(43,38,40,0.06)] md:p-8">
+                <div className="relative mt-8 overflow-hidden rounded-[1.7rem] border border-rose-100 bg-white/92 p-6 shadow-[0_18px_42px_rgba(0,0,0,0.05)] md:p-8">
                   <QuoteMark className="absolute left-5 top-4 select-none text-[70px] leading-none text-[var(--tmbc-rose)]/14 md:text-[82px]" />
                   <div className="relative pl-10">
                     <p className="max-w-none font-serif text-[1.7rem] leading-[1.16] tracking-[-0.03em] text-neutral-900 md:text-[2rem]">
@@ -785,7 +718,7 @@ export default async function HomePage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="white" spacing="spacious">
+        <MarketingSection tone="white" spacing="default">
           <RevealOnScroll>
             <SectionIntro
               eyebrow="Support levels"
@@ -800,7 +733,7 @@ export default async function HomePage() {
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={90}>
-            <PlanningPackageCards className="mt-14" />
+            <PlanningPackageCards className="mt-8 md:mt-10" />
           </RevealOnScroll>
 
           <RevealOnScroll delayMs={130}>
@@ -814,7 +747,7 @@ export default async function HomePage() {
           </RevealOnScroll>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="spacious">
+        <MarketingSection tone="ivory" spacing="default" className="bg-[#faf7f6]">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <RevealOnScroll>
               <SectionIntro
@@ -836,7 +769,7 @@ export default async function HomePage() {
             </RevealOnScroll>
           </div>
 
-          <div className="mt-14 grid gap-8 md:grid-cols-3">
+          <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-3">
             {insightPreviews.length > 0 ? (
               insightPreviews.map((post, index) => (
                 <RevealOnScroll key={post.id} delayMs={index * 80}>
@@ -849,6 +782,7 @@ export default async function HomePage() {
                     excerpt={toInsightExcerpt(post.excerpt, post.content, 170)}
                     dateLabel={formatInsightDate(getPostDisplayDate(post))}
                     dateTime={getPostDisplayDate(post).toISOString()}
+                    readingTime={estimateReadingTime(post.content)}
                   />
                 </RevealOnScroll>
               ))
@@ -858,7 +792,7 @@ export default async function HomePage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="white" spacing="spacious">
+        <MarketingSection tone="white" spacing="default">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start lg:gap-14">
             <div>
               <RevealOnScroll>
@@ -871,7 +805,7 @@ export default async function HomePage() {
                 />
               </RevealOnScroll>
 
-              <div className="mt-12 grid gap-6">
+              <div className="mt-8 grid gap-6 md:mt-10">
                 {homepageTestimonials.map((item, index) => (
                   <RevealOnScroll key={item.attribution} delayMs={index * 90}>
                     <TestimonialCard {...item} />
@@ -881,9 +815,9 @@ export default async function HomePage() {
             </div>
 
             <RevealOnScroll delayMs={110}>
-              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#fffdfa_0%,#f8f0ee_100%)]">
+              <MarketingSurface className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf8f7_100%)]">
                 <div className="flex items-center gap-4">
-                  <div className="relative h-20 w-20 overflow-hidden rounded-full border border-black/8 bg-white shadow-[0_16px_28px_rgba(43,38,40,0.08)]">
+                  <div className="relative h-20 w-20 overflow-hidden rounded-full border border-rose-100 bg-white shadow-[0_14px_28px_rgba(0,0,0,0.08)]">
                     <Image
                       src="/assets/editorial/taylor.png"
                       alt="Taylor Vanderwolk"

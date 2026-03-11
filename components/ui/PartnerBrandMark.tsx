@@ -1,6 +1,6 @@
 'use client';
 
-import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
+import IconFrame from '@/components/ui/IconFrame';
 
 type PartnerBrandMarkProps = {
   lines: string[];
@@ -44,7 +44,7 @@ export default function PartnerBrandMark({
   const [primary, ...rest] = normalizedLines;
 
   return (
-    <LuxuryIconFrame
+    <IconFrame
       size={frameSizeMap[size]}
       className={className}
       innerClassName="h-full w-full"
@@ -88,6 +88,6 @@ export default function PartnerBrandMark({
           </span>
         ))}
       </div>
-    </LuxuryIconFrame>
+    </IconFrame>
   );
 }
