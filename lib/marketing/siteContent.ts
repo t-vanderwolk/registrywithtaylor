@@ -245,7 +245,7 @@ export const servicePackages: ServicePackage[] = [
   {
     key: 'signature-planning',
     eyebrow: 'Full Baby Prep',
-    title: 'Signature Planning',
+    title: 'Signature Package',
     summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
     description:
       'This package is for families who want a calm framework for the full prep picture, not just one answer in isolation.',

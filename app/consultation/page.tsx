@@ -41,7 +41,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
               <ConsultationRequestForm errorCode={params?.error ?? null} />
 
               <p className="text-center text-sm text-neutral-600">
-                Prefer to read the process first? <Link href="/how-it-works" className="link-underline">View How It Works</Link>
+                Prefer to read the process first? <Link href="/#journey" className="link-underline">View the Journey</Link>
               </p>
             </MarketingSurface>
           </RevealOnScroll>

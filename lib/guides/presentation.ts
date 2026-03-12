@@ -20,6 +20,16 @@ const CATEGORY_FALLBACK_SLUGS: Record<string, string> = {
 
 const DEFAULT_GUIDE_IMAGE = '/assets/editorial/gear.jpg';
 const DEFAULT_GUIDE_ALT = 'Editorial baby gear planning scene';
+const CONDENSED_GUIDE_CARD_TITLES: Record<string, string> = {
+  'best-strollers': 'Strollers',
+  'best-infant-car-seats': 'Car Seats',
+  'minimalist-baby-registry': 'Registry',
+  'travel-with-baby': 'Travel',
+};
+
+export function toCondensedGuideCardTitle(slug: string, title: string) {
+  return CONDENSED_GUIDE_CARD_TITLES[slug] ?? title;
+}
 
 export function getGuideEyebrow(category?: string | null) {
   switch (category?.trim()) {

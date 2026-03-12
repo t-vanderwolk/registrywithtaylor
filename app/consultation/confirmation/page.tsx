@@ -25,8 +25,8 @@ export default function ConsultationConfirmationPage() {
               Your consultation request has been received. Taylor will respond shortly.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href="/how-it-works" className="btn btn--secondary">
-                Back to How It Works
+              <Link href="/#journey" className="btn btn--secondary">
+                Back to the Journey
               </Link>
               <Link href="/" className="btn btn--primary">
                 Return Home

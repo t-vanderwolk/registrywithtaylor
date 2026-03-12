@@ -5,7 +5,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
-import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
+import { toCondensedGuideCardTitle, toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { guidePillars } from '@/lib/marketing/siteContent';
@@ -38,13 +38,6 @@ const learnPrinciples = [
     description: 'Each guide should leave parents knowing what to compare, what to skip, and when expert support would help.',
   },
 ] as const;
-
-const guidePageTitleOverrides: Record<string, string> = {
-  'best-strollers': 'Strollers',
-  'best-infant-car-seats': 'Car Seats',
-  'minimalist-baby-registry': 'Registry',
-  'travel-with-baby': 'Travel',
-};
 
 export default async function GuidesIndexPage() {
   let publishedGuides: Array<{
@@ -90,7 +83,7 @@ export default async function GuidesIndexPage() {
 
   const guideCards = [...guideCardMap.values()].map((guide) => ({
     ...guide,
-    title: guidePageTitleOverrides[guide.slug] ?? guide.title,
+    title: toCondensedGuideCardTitle(guide.slug, guide.title),
   }));
 
   return (

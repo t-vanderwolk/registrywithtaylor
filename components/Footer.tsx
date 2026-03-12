@@ -10,7 +10,7 @@ const footerLinks = [
   { label: 'Journal', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'How It Works', href: '/how-it-works' },
+  { label: 'How It Works', href: '/#journey' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
   { label: 'Consultation', href: '/consultation' },

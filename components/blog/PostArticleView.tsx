@@ -3,6 +3,7 @@ import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
 import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
+import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
@@ -292,7 +293,10 @@ export default async function PostArticleView({
     category: categoryLabel,
     content: articleContent,
   });
-  const relatedGuides = getGuideLinksForBlogCategory(post.category);
+  const relatedGuides = getGuideLinksForBlogCategory(post.category).map((guide) => ({
+    ...guide,
+    title: toCondensedGuideCardTitle(guide.slug, guide.title),
+  }));
   const relatedGuidesSection =
     relatedGuides.length > 0 ? (
       <GuideGrid
@@ -302,6 +306,8 @@ export default async function PostArticleView({
         title="Explore the guide pillars behind the decisions this article touches."
         description="These links connect fresh editorial reads back to the evergreen baby gear and baby-preparation hub."
         className="border-t border-black/5"
+        showCardEyebrows={false}
+        cardTextAlign="center"
       />
     ) : null;
   const relatedPostsSection =

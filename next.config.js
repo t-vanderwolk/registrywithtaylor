@@ -6,12 +6,17 @@ const nextConfig = {
     return [
       {
         source: '/book',
-        destination: '/how-it-works#step-1',
+        destination: '/#journey',
         permanent: true,
       },
       {
         source: '/howitworks',
-        destination: '/how-it-works#step-1',
+        destination: '/#journey',
+        permanent: true,
+      },
+      {
+        source: '/how-it-works',
+        destination: '/',
         permanent: true,
       },
     ];

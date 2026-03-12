@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
+import HomeServicesSection from '@/components/home/HomeServicesSection';
 import BlogPreview from '@/components/marketing/BlogPreview';
-import ServiceCards from '@/components/marketing/ServiceCards';
 import CheckIcon from '@/components/ui/CheckIcon';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -10,7 +10,7 @@ import SectionIntro from '@/components/ui/SectionIntro';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { guidePillars, servicePackages, trustStripItems } from '@/lib/marketing/siteContent';
+import { guidePillars } from '@/lib/marketing/siteContent';
 import { isTransientPrismaConnectionError } from '@/lib/server/prismaConnection';
 import prisma from '@/lib/server/prisma';
 
@@ -49,6 +49,12 @@ type TimelineStep = {
   description: string;
   emphasis?: string;
   bullets?: string[];
+};
+
+type JourneyStep = {
+  stepLabel: string;
+  title: string;
+  description: string;
 };
 
 type FeaturedGuide = {
@@ -113,29 +119,33 @@ const timelineSteps: TimelineStep[] = [
   },
 ];
 
-const tmbcApproachSteps = [
+const journeySteps: JourneyStep[] = [
   {
+    stepLabel: 'Step 1',
     title: 'Learn',
-    description: 'Understand the categories and options.',
+    description: 'Explore baby gear categories and preparation guidance before the registry starts filling itself in.',
   },
   {
+    stepLabel: 'Step 2',
     title: 'Plan',
-    description: 'Create a thoughtful registry strategy.',
+    description: 'Work with Taylor to shape your registry, priorities, and preparation timeline around real life.',
   },
   {
+    stepLabel: 'Step 3',
     title: 'Try',
-    description: 'Experience the gear when possible.',
+    description: 'Test products in store or through trusted partners so the shortlist feels grounded.',
   },
   {
+    stepLabel: 'Step 4',
     title: 'Buy',
-    description: 'Purchase intentionally and confidently.',
+    description: 'Make confident purchases using registry perks, discounts, and better timing.',
   },
-] as const;
+];
 
 const featuredGuides: FeaturedGuide[] = [
   {
     ...guidePillars[0],
-    title: 'Best Strollers of the Year',
+    title: 'Best Strollers',
   },
   {
     ...guidePillars[1],
@@ -143,90 +153,13 @@ const featuredGuides: FeaturedGuide[] = [
   },
   {
     ...guidePillars[2],
-    title: 'Minimalist Baby Registry',
+    title: 'Minimalist Registry',
   },
   {
     ...guidePillars[3],
-    title: 'Nursery Planning Guide',
+    title: 'Nursery Setup Guide',
   },
 ];
-
-const authorityCards = [
-  {
-    ...trustStripItems[0],
-    logos: [
-      {
-        src: '/assets/logos/strolleria.png',
-        alt: 'Strolleria logo',
-        label: 'Strolleria',
-        width: 1844,
-        height: 457,
-      },
-    ],
-  },
-  {
-    ...trustStripItems[1],
-    logos: [
-      {
-        src: '/assets/brand/potterybarnkids.png',
-        alt: 'Pottery Barn Kids logo',
-        label: 'Pottery Barn Kids',
-        width: 1101,
-        height: 152,
-      },
-    ],
-  },
-  {
-    ...trustStripItems[2],
-    logos: [
-      {
-        src: '/assets/brand/totsquad.png',
-        alt: 'Tot Squad logo',
-        label: 'Tot Squad',
-        width: 1065,
-        height: 228,
-      },
-    ],
-  },
-  {
-    title: 'Albee Baby Partnership',
-    description:
-      'Retail partnership insight that keeps Taylor close to premium gear assortments, comparison points, and what families are actually evaluating.',
-    logos: [
-      {
-        src: '/assets/brand/albeebaby.png',
-        alt: 'Albee Baby logo',
-        label: 'Albee Baby',
-        width: 574,
-        height: 108,
-      },
-    ],
-  },
-  {
-    ...trustStripItems[3],
-    logos: [
-      {
-        src: '/assets/brand/tot-squad.png',
-        alt: 'Tot Squad logo',
-        label: 'Tot Squad',
-        width: 1334,
-        height: 345,
-      },
-    ],
-  },
-] as const;
-
-const authorityLogoClassName = (label: string) => {
-  if (label === 'Lani Car Seat' || label === 'AZ Childproofers') {
-    return 'max-h-10';
-  }
-
-  if (label === 'Albee Baby') {
-    return 'max-h-7';
-  }
-
-  return 'max-h-8';
-};
 
 const advisorFocusAreas = [
   {
@@ -458,7 +391,7 @@ export default async function HomePage() {
           staggerContent
         />
 
-        <section className="bg-white py-12 md:py-20">
+        <section className="bg-white py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start lg:gap-12 xl:gap-16">
               <div className="space-y-7 lg:pr-4">
@@ -498,7 +431,7 @@ export default async function HomePage() {
                 </div>
 
                 <div className="relative z-[1] flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
-                  <Link href="/consultation" className="btn btn--primary w-full sm:w-auto">
+                  <Link href="/contact" className="btn btn--primary w-full sm:w-auto">
                     Book a Consultation
                   </Link>
                   <Link
@@ -550,89 +483,10 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
-
-            <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1fr)_7rem] xl:items-start xl:gap-4">
-              <SectionIntro
-                eyebrow="Why Taylor-Made Baby Co"
-                title="Real experience. Clear guidance. Much less guessing."
-                description="Taylor's perspective comes from baby gear retail, nursery planning, concierge support, and private consultations. In other words, this is not advice built from one long night of scrolling."
-                contentWidthClassName="max-w-4xl"
-              />
-
-              <div className="relative flex justify-center xl:justify-end xl:pt-3">
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.12)_0%,rgba(232,154,174,0.04)_42%,transparent_72%)] blur-2xl"
-                />
-                <Image
-                  src="/assets/editorial/tmbc-seal.png"
-                  alt="Taylor-Made Baby Co. seal"
-                  width={320}
-                  height={304}
-                  sizes="(min-width: 1280px) 7rem, 22vw"
-                  className="relative h-auto w-[5.75rem] object-contain opacity-[0.88] drop-shadow-[0_10px_18px_rgba(177,145,124,0.14)] sm:w-[6.25rem] xl:w-[7rem]"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-              {authorityCards.map((item) => (
-                <MarketingSurface
-                  key={item.title}
-                  className="flex h-full flex-col items-center text-center bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f8_100%)] xl:min-h-[18rem] xl:p-6"
-                >
-                  <div className="flex min-h-[8.5rem] items-center justify-center xl:min-h-[8.75rem]">
-                    <h3 className="mx-auto max-w-[12rem] font-serif text-[1.28rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 xl:text-[1.16rem]">
-                      {item.title}
-                    </h3>
-                  </div>
-                  {item.logos.length ? (
-                    <div className="mt-auto flex w-full flex-wrap items-center justify-center gap-3 pt-3 xl:pb-1">
-                      {item.logos.map((logo) => (
-                        <div
-                          key={logo.label}
-                          className="flex min-h-[3.6rem] min-w-[6.5rem] items-center justify-center rounded-[1rem] border border-[rgba(0,0,0,0.06)] bg-white/92 px-3 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] xl:min-h-[3.35rem] xl:min-w-[6rem]"
-                        >
-                          <Image
-                            src={logo.src}
-                            alt={logo.alt}
-                            width={logo.width}
-                            height={logo.height}
-                            sizes="(min-width: 1280px) 8rem, 32vw"
-                            className={['h-auto w-auto object-contain', authorityLogoClassName(logo.label)].join(' ')}
-                            loading="lazy"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </MarketingSurface>
-              ))}
-            </div>
           </div>
         </section>
 
-        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionIntro
-              align="left"
-              title="Why this helps"
-              description="Most parents are told to just start a registry. But thoughtful preparation means understanding when to register, where to register, and how to take advantage of the perks most families do not know exist."
-              contentWidthClassName="max-w-4xl"
-              titleClassName="max-w-[12ch]"
-              descriptionClassName="max-w-[44rem]"
-            />
-
-            <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {timelineSteps.map((step) => (
-                <TimelineStepCard key={step.stepLabel} {...step} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-white py-20 md:py-28">
+        <section className="bg-white py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid gap-12 lg:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] lg:items-center">
               <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] p-6 shadow-[0_20px_55px_rgba(0,0,0,0.06)] sm:p-8">
@@ -681,22 +535,41 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="bg-white py-20 md:py-28">
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
           <div className="mx-auto max-w-6xl px-6">
             <SectionIntro
-              title="The Taylor-Made Approach"
-              description="Clear guidance. Thoughtful preparation."
-              contentWidthClassName="max-w-3xl"
+              align="left"
+              title="Why this helps"
+              description="Most parents are told to just start a registry. But thoughtful preparation means understanding when to register, where to register, and how to take advantage of the perks most families do not know exist."
+              contentWidthClassName="max-w-4xl"
+              titleClassName="max-w-[12ch]"
+              descriptionClassName="max-w-[44rem]"
             />
 
             <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {tmbcApproachSteps.map((step, index) => (
+              {timelineSteps.map((step) => (
+                <TimelineStepCard key={step.stepLabel} {...step} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="journey" className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <SectionIntro
+              title="The Taylor-Made Method"
+              description="A calmer baby-prep process starts with education, moves into planning, and ends with purchases that actually make sense for your life."
+              contentWidthClassName="max-w-4xl"
+            />
+
+            <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+              {journeySteps.map((step) => (
                 <MarketingSurface
-                  key={step.title}
+                  key={step.stepLabel}
                   className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]"
                 >
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                    0{index + 1}
+                    {step.stepLabel}
                   </p>
                   <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                     {step.title}
@@ -705,8 +578,38 @@ export default async function HomePage() {
                 </MarketingSurface>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="mt-16 overflow-hidden rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_22px_55px_rgba(0,0,0,0.06)]">
+        <section className="bg-[#f7f2ee] py-24">
+          <div className="mx-auto max-w-4xl px-6 text-center">
+            <h2 className="mb-6 font-serif text-3xl text-neutral-900 md:text-4xl">
+              Ready to Start With Confidence?
+            </h2>
+
+            <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-neutral-600">
+              Parents do not need more product lists. They need a clear plan. If you want help sorting your registry,
+              narrowing your gear decisions, or preparing your home for baby, we can start with a focused conversation.
+            </p>
+
+            <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
+              <Link
+                href="/services"
+                className="rounded-full bg-[#d6a6ad] px-8 py-4 text-white transition hover:opacity-90"
+              >
+                Book a Consultation
+              </Link>
+
+              <Link href="/learn" className="text-neutral-700 underline underline-offset-4">
+                Explore the Learning Hub
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="overflow-hidden rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_22px_55px_rgba(0,0,0,0.06)]">
               <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] lg:items-center">
                 <div className="px-6 py-8 sm:px-8 md:py-10">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
@@ -742,11 +645,11 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-28">
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
           <div className="mx-auto max-w-6xl px-6">
             <SectionIntro
-              title="Explore the Guides"
-              description="Our guides break down the most important baby gear decisions with clear explanations, thoughtful comparisons, and real-world advice."
+              title="The Baby Gear Decision Library"
+              description="Clear guidance for the baby gear decisions parents research most."
               contentWidthClassName="max-w-4xl"
             />
 
@@ -757,25 +660,16 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link href="/guides" className="btn btn--primary">
-                View All Guides
+              <Link href="/blog" className="btn btn--primary">
+                Explore the Guides
               </Link>
             </div>
           </div>
         </section>
 
-        <ServiceCards
-          className="homepage-section"
-          container="wide"
-          packages={servicePackages}
-          eyebrow=""
-          title="Services"
-          description="Focused guidance for families who want expert support before they buy."
-          ctaHref="/contact"
-          ctaLabel="Start a Consultation"
-        />
+        <HomeServicesSection />
 
-        <section className="bg-white py-20 md:py-28">
+        <section className="bg-white py-28">
           <div className="mx-auto max-w-6xl px-6">
             <SectionIntro
               title="Trusted Preparation Partners"
@@ -813,7 +707,7 @@ export default async function HomePage() {
           }))}
         />
 
-        <section className="bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] py-20 md:py-28">
+        <section className="bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-white/92 px-6 py-10 text-center shadow-[0_20px_55px_rgba(0,0,0,0.06)] md:px-10 md:py-12">
               <div className="absolute left-1/2 top-[-3.25rem] h-32 w-32 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.2)_0%,rgba(232,154,174,0)_74%)]" />
