@@ -3,7 +3,6 @@ import SiteShell from '@/components/SiteShell';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
-import { Body } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -25,17 +24,16 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
   return (
     <SiteShell currentPath="/consultation">
       <main className="site-main">
-        <Hero image="/assets/hero/hero-06.jpg" imageAlt="Consultation planning form">
-          <div className="space-y-6">
-            <h1 className="marketing-hero-headline hero-load-reveal">
-              Book a Consultation
-            </h1>
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-2xl text-neutral-700">
-              Submit your request and Taylor will follow up directly to begin a calmer, more expert-guided baby gear
-              planning process.
-            </Body>
-          </div>
-        </Hero>
+        <Hero
+          className="homepage-hero"
+          eyebrow="Consultation"
+          title="Book a Consultation"
+          subtitle="Submit your request and Taylor will follow up directly to begin a calmer, more expert-guided baby gear planning process."
+          image="/assets/hero/hero-06.jpg"
+          imageAlt="Consultation planning form"
+          contentClassName="homepage-hero-content"
+          staggerContent
+        />
 
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>

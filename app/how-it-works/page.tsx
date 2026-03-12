@@ -121,6 +121,7 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
       <HowItWorksAnalytics>
         <main className="site-main">
           <Hero
+            className="homepage-hero"
             eyebrow="How It Works"
             title="A calmer way to make baby decisions."
             subtitle="The process is simple: start with your real questions, sort what actually matters, and move forward with a plan that fits your life."
@@ -129,6 +130,7 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
             tagline="No 47-tab research sprint required."
             image="/assets/hero/hero-02.jpg"
             imageAlt="How it works planning process"
+            contentClassName="homepage-hero-content"
             staggerContent
           />
 

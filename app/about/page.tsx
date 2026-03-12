@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
@@ -27,32 +26,16 @@ export default function AboutPage() {
     <SiteShell currentPath="/about">
       <main className="site-main">
         <Hero
+          className="homepage-hero"
+          eyebrow="Meet Taylor"
+          title="A Baby Gear Expert for the Real-Life Details of Early Parenthood"
+          subtitle="I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast."
+          primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
           image="/assets/hero/hero-05.jpg"
           imageAlt="Soft baby essentials arranged for planning"
-        >
-          <div className="space-y-6">
-            <p className="hero-load-reveal text-xs uppercase tracking-[0.3em] text-neutral-600">
-              Meet Taylor
-            </p>
-
-            <h1 className="marketing-hero-headline hero-load-reveal hero-load-reveal--1">
-              A Baby Gear Expert for the Real-Life Details of Early Parenthood
-            </h1>
-
-            <Body className="hero-load-reveal hero-load-reveal--2 max-w-xl text-neutral-700">
-              I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast.
-            </Body>
-
-            <div className="hero-load-reveal hero-load-reveal--3 flex flex-col gap-4 pt-4 sm:flex-row">
-              <Link
-                href="/consultation"
-                className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              >
-                Book a Consultation
-              </Link>
-            </div>
-          </div>
-        </Hero>
+          contentClassName="homepage-hero-content"
+          staggerContent
+        />
 
         <MarketingSection tone="white" spacing="spacious" container="default">
           <div className="mx-auto max-w-6xl space-y-10">

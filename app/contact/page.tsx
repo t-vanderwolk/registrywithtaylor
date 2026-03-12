@@ -2,7 +2,6 @@ import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
-import { Body } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
@@ -57,18 +56,15 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
     <SiteShell currentPath="/contact">
       <main className="site-main">
         <Hero
+          className="homepage-hero"
+          eyebrow="Contact"
+          title="Get in Touch"
+          subtitle="Whether you need help with a registry, gear decision, nursery setup, or home prep, I'm here to help you sort the next step."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact consultation workspace"
-        >
-          <div className="space-y-6">
-            <h1 className="marketing-hero-headline hero-load-reveal">
-              Get in Touch
-            </h1>
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Whether you need help with a registry, gear decision, nursery setup, or home prep, I&apos;m here to help you sort the next step.
-            </Body>
-          </div>
-        </Hero>
+          contentClassName="homepage-hero-content"
+          staggerContent
+        />
 
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>

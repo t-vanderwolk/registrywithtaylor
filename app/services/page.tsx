@@ -76,7 +76,7 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <Hero
-          className="services-hero"
+          className="homepage-hero"
           eyebrow="Advisory Services"
           title="Premium Baby Gear Guidance, Built Around Real-Life Fit"
           subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."
@@ -85,6 +85,7 @@ export default function ServicesPage() {
           tagline="Registry Planning • Strollers • Infant Car Seats • Nursery Setup"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Baby registry and gear planning scene"
+          contentClassName="homepage-hero-content"
           staggerContent
         />
 

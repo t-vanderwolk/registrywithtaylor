@@ -24,6 +24,7 @@ export default function BlogPreview({
   title = 'Fresh thinking, product perspective, and decision guidance from Taylor.',
   description = 'Insights, guidance, and honest perspective from Taylor.',
   linkLabel = 'Visit the Journal',
+  linkHref = '/blog',
   emptyMessage = 'Fresh editorial posts will appear here as the journal grows.',
   className = '',
 }: {
@@ -32,6 +33,7 @@ export default function BlogPreview({
   title?: string;
   description?: string;
   linkLabel?: string;
+  linkHref?: string;
   emptyMessage?: string;
   className?: string;
 }) {
@@ -47,7 +49,7 @@ export default function BlogPreview({
         />
 
         <Link
-          href="/blog"
+          href={linkHref}
           className="inline-flex min-h-[44px] items-center md:justify-self-end text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)] transition-opacity duration-200 hover:opacity-75"
         >
           {linkLabel}

@@ -277,6 +277,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
     <SiteShell currentPath={`/guides/${pillar.slug}`}>
       <main className="site-main">
         <Hero
+          className="homepage-hero"
           eyebrow={pillar.eyebrow}
           title={pillar.title}
           subtitle={pillar.overview}
@@ -285,6 +286,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           tagline={pillar.shortTitle}
           image={fallbackGuideHeroImage}
           imageAlt={pillar.imageAlt}
+          contentClassName="homepage-hero-content"
           staggerContent
         />
 

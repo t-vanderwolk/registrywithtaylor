@@ -84,14 +84,16 @@ export default async function GuidesIndexPage() {
     <SiteShell currentPath="/guides">
       <main className="site-main">
         <Hero
+          className="homepage-hero"
           eyebrow="Baby Gear Guides"
-          title="An editorial knowledge hub for the baby gear decisions parents second-guess most."
-          subtitle="Use the guide hub to compare categories, understand tradeoffs, and build a calmer plan for what fits your life before you buy."
+          title="Learn what matters, in the right order."
+          subtitle="Use the guide hub to understand the categories, compare what fits your life, and make baby gear decisions with a lot less guesswork."
           primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Explore the Guides', href: '#guide-hub' }}
           tagline="Best Strollers • Infant Car Seats • Registry Planning • Travel With Baby"
           image="/assets/hero/hero-baby-editorial.jpg"
           imageAlt="Editorial baby registry and product planning scene"
+          contentClassName="homepage-hero-content"
           staggerContent
         />
 

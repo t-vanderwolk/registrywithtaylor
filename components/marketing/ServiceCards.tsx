@@ -11,6 +11,8 @@ export default function ServiceCards({
   description = 'Services are positioned as advisor support, not generic consulting. Every option is designed to move families from too much input to a clearer plan.',
   className = '',
   container = 'default',
+  ctaHref = '/consultation',
+  ctaLabel = 'Book a Consultation',
 }: {
   packages: ServicePackage[];
   eyebrow?: string;
@@ -18,6 +20,8 @@ export default function ServiceCards({
   description?: string;
   className?: string;
   container?: 'default' | 'narrow' | 'wide';
+  ctaHref?: string;
+  ctaLabel?: string;
 }) {
   return (
     <MarketingSection tone="ivory" spacing="spacious" container={container} className={className}>
@@ -78,8 +82,8 @@ export default function ServiceCards({
 
             <div className="mt-auto pt-6">
               <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/45">When you want clearer next steps</p>
-              <Link href="/consultation" className="btn btn--primary mt-4 w-full justify-center pt-0">
-                Book a Consultation
+              <Link href={ctaHref} className="btn btn--primary mt-4 w-full justify-center pt-0">
+                {ctaLabel}
               </Link>
             </div>
           </article>

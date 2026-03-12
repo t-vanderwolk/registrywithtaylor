@@ -3,7 +3,6 @@ import SiteShell from '@/components/SiteShell';
 import BlogIndexView from '@/components/blog/BlogIndexView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
-import { Body } from '@/components/ui/MarketingHeading';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { BLOG_GUIDES_TITLE, type BlogCategory } from '@/lib/blogCategories';
 import prisma from '@/lib/server/prisma';
@@ -128,18 +127,15 @@ export default async function BlogPage() {
     <SiteShell currentPath="/blog">
       <main className="site-main" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <Hero
+          className="homepage-hero"
+          eyebrow="Journal"
+          title="Baby Gear Journal"
+          subtitle="Editorial guidance on baby gear, registry strategy, nursery setup, and the product decisions parents tend to second-guess most."
           image="/assets/hero/hero-04.jpg"
           imageAlt=""
-        >
-          <div className="space-y-6">
-            <h1 className="marketing-hero-headline hero-load-reveal">
-              Baby Gear Journal
-            </h1>
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              Editorial guidance on baby gear, registry strategy, nursery setup, and the product decisions parents tend to second-guess most.
-            </Body>
-          </div>
-        </Hero>
+          contentClassName="homepage-hero-content"
+          staggerContent
+        />
 
         <BlogIndexView posts={posts.map(toViewPost)} />
 

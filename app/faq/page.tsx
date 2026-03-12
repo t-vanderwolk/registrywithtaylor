@@ -3,7 +3,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import Hero from '@/components/ui/Hero';
-import { Body, H2 } from '@/components/ui/MarketingHeading';
+import { H2 } from '@/components/ui/MarketingHeading';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionDivider from '@/components/ui/SectionDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -115,21 +115,16 @@ export default function FAQPage() {
     <SiteShell currentPath="/faq">
       <main className="site-main">
         <Hero
+          className="homepage-hero"
+          eyebrow="FAQ"
+          title="Frequently Asked Questions"
+          subtitle="A little clarity before we begin."
+          tagline="Baby Gear Guidance • Registry Strategy • Calm Preparation for Modern Families"
           image="/assets/hero/hero-05.jpg"
           imageAlt=""
-        >
-          <div className="space-y-6">
-            <h1 className="marketing-hero-headline hero-load-reveal">
-              Frequently Asked Questions
-            </h1>
-            <Body className="hero-load-reveal hero-load-reveal--1 max-w-xl text-neutral-700">
-              A little clarity before we begin.
-            </Body>
-            <p className="hero-load-reveal hero-load-reveal--2 text-[0.72rem] uppercase tracking-[0.14em] leading-relaxed text-charcoal/60 sm:text-sm sm:tracking-[0.2em]">
-              Baby Gear Guidance · Registry Strategy · Calm Preparation for Modern Families
-            </p>
-          </div>
-        </Hero>
+          contentClassName="homepage-hero-content"
+          staggerContent
+        />
 
         <MarketingSection tone="white" spacing="default" container="default">
           <div className="max-w-3xl mx-auto space-y-12">
