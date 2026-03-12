@@ -52,26 +52,43 @@ type InsightPreview = {
   readingTime: number | null;
 };
 
-const problemMoments = [
+const preparationPartnerCards = [
   {
-    title: 'Too much noise',
-    description: 'Every product page sounds essential. They cannot all be essential.',
+    title: 'CPST car seat installations and checks',
+    partner: 'with Lani Car Seat',
+    description:
+      'For families who want expert eyes on installation, fit, compatibility, and the details that are easy to second-guess on your own.',
+    logo: {
+      src: '/assets/logos/lanicarseat.png',
+      alt: 'Lani Car Seat logo',
+      width: 490,
+      height: 490,
+      label: 'Lani Car Seat',
+    },
+    bullets: [
+      'Virtual car seat checks and fit guidance',
+      'Installation support before baby arrives',
+      'Calmer answers when safety questions feel high-stakes',
+    ],
   },
   {
-    title: 'Too little context',
-    description: 'The right choice depends on your car, storage, budget, routine, and how you plan to move through the day.',
+    title: 'In-home baby and child proofing',
+    partner: 'with AZ Childproofers',
+    description:
+      'Support for families who want their home to feel safer, steadier, and more practical before baby starts moving through it.',
+    logo: {
+      src: '/assets/logos/azchildproof.png',
+      alt: 'AZ Childproofers logo',
+      width: 201,
+      height: 201,
+      label: 'AZ Childproofers',
+    },
+    bullets: [
+      'In-home safety walkthroughs',
+      'Room-by-room childproofing recommendations',
+      'Guidance that works for real homes, not perfect ones',
+    ],
   },
-  {
-    title: 'Too much pressure',
-    description: 'A lot of parents feel like they need to get everything right before baby arrives. You do not. You need a steadier plan.',
-  },
-] as const;
-
-const preparationSupportItems = [
-  'CPST car seat installation guidance',
-  'Virtual car seat checks with Lani Car Seats',
-  'Home safety walkthroughs with AZ Childproofers',
-  'Nursery and home preparation planning',
 ] as const;
 
 const tmbcApproachSteps = [
@@ -161,25 +178,44 @@ const authorityCards = [
     ],
   },
   {
+    title: 'Albee Baby Partnership',
+    description:
+      'Retail partnership insight that keeps Taylor close to premium gear assortments, comparison points, and what families are actually evaluating.',
+    logos: [
+      {
+        src: '/assets/brand/albeebaby.png',
+        alt: 'Albee Baby logo',
+        label: 'Albee Baby',
+        width: 574,
+        height: 108,
+      },
+    ],
+  },
+  {
     ...trustStripItems[3],
     logos: [
       {
-        src: '/assets/logos/lanicarseat.png',
-        alt: 'Lani Car Seat logo',
-        label: 'Lani Car Seat',
-        width: 490,
-        height: 490,
-      },
-      {
-        src: '/assets/logos/azchildproof.png',
-        alt: 'AZ Childproofers logo',
-        label: 'AZ Childproofers',
-        width: 201,
-        height: 201,
+        src: '/assets/brand/tot-squad.png',
+        alt: 'Tot Squad logo',
+        label: 'Tot Squad',
+        width: 1334,
+        height: 345,
       },
     ],
   },
 ] as const;
+
+const authorityLogoClassName = (label: string) => {
+  if (label === 'Lani Car Seat' || label === 'AZ Childproofers') {
+    return 'max-h-10';
+  }
+
+  if (label === 'Albee Baby') {
+    return 'max-h-7';
+  }
+
+  return 'max-h-8';
+};
 
 const advisorFocusAreas = [
   {
@@ -188,27 +224,31 @@ const advisorFocusAreas = [
     iconAlt: 'Baby gear planning illustration',
     width: 1155,
     height: 864,
+    iconClassName: 'max-h-[9.25rem] sm:max-h-[9.8rem]',
   },
   {
-    title: 'Car Seat Fit',
-    iconSrc: '/assets/icons/carseat.png',
-    iconAlt: 'Car seat illustration',
+    title: 'CPST car seat checks and installs',
+    iconSrc: '/assets/icons/cpst.png',
+    iconAlt: 'CPST car seat checks and installs illustration',
     width: 264,
-    height: 175,
+    height: 202,
+    iconClassName: 'max-h-[8.9rem] sm:max-h-[9.4rem]',
   },
   {
-    title: 'Registry Planning',
-    iconSrc: '/assets/icons/buildregistry.png',
-    iconAlt: 'Registry planning illustration',
-    width: 195,
-    height: 116,
+    title: 'Registry Strategy',
+    iconSrc: '/assets/icons/stragity.png',
+    iconAlt: 'Registry strategy illustration',
+    width: 1116,
+    height: 770,
+    iconClassName: 'max-h-[8.35rem] sm:max-h-[8.9rem]',
   },
   {
     title: 'Nursery Setup',
-    iconSrc: '/assets/icons/nursery.png',
-    iconAlt: 'Nursery illustration',
-    width: 286,
-    height: 170,
+    iconSrc: '/assets/icons/nurserysetup.png',
+    iconAlt: 'Nursery setup illustration',
+    width: 378,
+    height: 216,
+    iconClassName: 'max-h-[8.15rem] sm:max-h-[8.7rem]',
   },
 ] as const;
 
@@ -290,18 +330,21 @@ export default async function HomePage() {
 
         <MarketingSection tone="white" spacing="spacious" className="homepage-post-bow-section">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start lg:gap-12 xl:gap-16">
-            <div className="space-y-7 lg:pr-4">
-              <div className="max-w-[38rem]">
+            <div className="group relative space-y-7 pb-24 lg:pr-4 xl:pb-28">
+              <div className="relative z-[1] max-w-[40rem]">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                 <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
                   Meet Your Baby Gear Advisor
                 </h2>
                 <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
-                  Taylor helps expecting parents sort strollers, car seats, registries, nurseries, and timing decisions without turning the process into a second full-time job.
+                  I have spent years helping families sort strollers, car seats, registries, and nursery decisions in real life, not just in theory. I know how fast baby gear can go from exciting to weirdly overwhelming.
+                </p>
+                <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
+                  My approach is calm, practical, and built around what actually fits your home, your routines, and your budget. Your registry does not need to impress the internet. It just needs to work when life gets real.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
+              <div className="relative z-[1] flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
                 <Link href="/consultation" className="btn btn--primary w-full sm:w-auto">
                   Book a Consultation
                 </Link>
@@ -313,50 +356,62 @@ export default async function HomePage() {
                   <span aria-hidden className="ml-2">→</span>
                 </Link>
               </div>
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-[-9.75rem] left-[-1rem] z-0 sm:bottom-[-10.5rem] sm:left-[-0.5rem] lg:bottom-[-12rem] lg:left-[-1.25rem] xl:bottom-[-13.5rem] xl:left-[-2rem]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+                />
+                <Image
+                  src="/assets/editorial/babystuff.png"
+                  alt=""
+                  width={1443}
+                  height={600}
+                  sizes="(min-width: 1280px) 24rem, (min-width: 640px) 20rem, 16rem"
+                  className="relative h-auto w-[16rem] origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)] sm:w-[20rem] xl:w-[24rem]"
+                />
+              </div>
             </div>
 
-            <div className="space-y-5">
+            <div>
               <div className="rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-7">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">What Taylor helps you sort</p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   {advisorFocusAreas.map((item) => (
                     <div
                       key={item.title}
-                      className="rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-white/88 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]"
+                      className="rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] p-5 text-center shadow-[0_10px_24px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.78)] sm:p-6"
                     >
-                      <div className="flex min-h-[4rem] items-center">
+                      <div className="mx-auto flex h-[10.5rem] w-full items-center justify-center sm:h-[11rem]">
                         <Image
                           src={item.iconSrc}
                           alt={item.iconAlt}
                           width={item.width}
                           height={item.height}
-                          sizes="(min-width: 1280px) 5rem, 20vw"
-                          className="h-auto max-h-12 w-auto object-contain"
+                          sizes="(min-width: 1280px) 12rem, 34vw"
+                          className={[
+                            'h-auto w-auto object-contain drop-shadow-[0_16px_24px_rgba(43,38,40,0.10)]',
+                            item.iconClassName,
+                          ].join(' ')}
                         />
                       </div>
-                      <div className="mt-4 flex items-start justify-between gap-3">
-                        <p className="max-w-none text-[0.98rem] font-medium leading-7 text-neutral-800">{item.title}</p>
-                        <CheckIcon frameClassName="mt-0.5 shrink-0" />
+                      <p className="mx-auto mt-2 max-w-[12rem] bg-transparent text-[0.98rem] font-medium leading-[1.35] text-neutral-800 selection:bg-transparent selection:text-neutral-800">
+                        {item.title}
+                      </p>
+                      <div className="mt-4 flex justify-center">
+                        <CheckIcon frameClassName="mt-0" />
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-
-              <div className="flex justify-center lg:justify-end">
-                <Image
-                  src="/assets/editorial/tmbc-seal.png"
-                  alt="Taylor-Made Baby Co. seal"
-                  width={320}
-                  height={304}
-                  sizes="(min-width: 1280px) 10rem, 28vw"
-                  className="h-auto w-[8.5rem] object-contain opacity-90 sm:w-[9.5rem] xl:w-[10rem]"
-                />
-              </div>
             </div>
           </div>
 
-          <div className="mt-16">
+          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1fr)_7rem] xl:items-start xl:gap-4">
             <SectionIntro
               eyebrow="Why Taylor-Made Baby Co"
               title="Real experience. Clear guidance. Much less guessing."
@@ -364,19 +419,43 @@ export default async function HomePage() {
               contentWidthClassName="max-w-4xl"
             />
 
-            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {authorityCards.map((item) => (
-                <MarketingSurface key={item.title} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f8_100%)]">
-                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/80">
-                    Experience
-                  </p>
-                  <h3 className="mt-4 font-serif text-[1.45rem] leading-[1.1] text-neutral-900">{item.title}</h3>
-                  <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{item.description}</p>
-                  <div className="mt-5 flex flex-wrap items-center gap-3">
+            <div className="relative flex justify-center xl:justify-end xl:pt-3">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.12)_0%,rgba(232,154,174,0.04)_42%,transparent_72%)] blur-2xl"
+              />
+              <Image
+                src="/assets/editorial/tmbc-seal.png"
+                alt="Taylor-Made Baby Co. seal"
+                width={320}
+                height={304}
+                sizes="(min-width: 1280px) 7rem, 22vw"
+                className="relative h-auto w-[5.75rem] object-contain opacity-[0.88] drop-shadow-[0_10px_18px_rgba(177,145,124,0.14)] sm:w-[6.25rem] xl:w-[7rem]"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {authorityCards.map((item) => (
+              <MarketingSurface
+                key={item.title}
+                className="flex h-full flex-col bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f8_100%)] xl:aspect-square xl:p-6"
+              >
+                <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/80">
+                  Experience
+                </p>
+                <h3 className="mt-4 font-serif text-[1.28rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 xl:text-[1.22rem]">
+                  {item.title}
+                </h3>
+                <p className="mt-4 max-w-none text-sm leading-[1.75] text-neutral-700 xl:text-[0.92rem] xl:leading-[1.7]">
+                  {item.description}
+                </p>
+                {item.logos.length ? (
+                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-4">
                     {item.logos.map((logo) => (
                       <div
                         key={logo.label}
-                        className="flex min-h-[4.25rem] min-w-[7.25rem] items-center justify-center rounded-[1.05rem] border border-[rgba(0,0,0,0.06)] bg-white px-3 py-3"
+                        className="flex min-h-[3.6rem] min-w-[6.5rem] items-center justify-center rounded-[1rem] border border-[rgba(0,0,0,0.06)] bg-white/92 px-3 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] xl:min-h-[3.35rem] xl:min-w-[6rem]"
                       >
                         <Image
                           src={logo.src}
@@ -384,17 +463,14 @@ export default async function HomePage() {
                           width={logo.width}
                           height={logo.height}
                           sizes="(min-width: 1280px) 8rem, 32vw"
-                          className={[
-                            'h-auto w-auto object-contain',
-                            logo.label === 'Lani Car Seat' || logo.label === 'AZ Childproofers' ? 'max-h-10' : 'max-h-8',
-                          ].join(' ')}
+                          className={['h-auto w-auto object-contain', authorityLogoClassName(logo.label)].join(' ')}
                         />
                       </div>
                     ))}
                   </div>
-                </MarketingSurface>
-              ))}
-            </div>
+                ) : null}
+              </MarketingSurface>
+            ))}
           </div>
         </MarketingSection>
 
@@ -427,38 +503,25 @@ export default async function HomePage() {
           </div>
 
           <div
-            className="mt-6 flex justify-center motion-safe:opacity-0 motion-safe:animate-[fadeUpSoft_900ms_ease-out_forwards] motion-reduce:opacity-100 motion-reduce:animate-none"
+            className="group mt-6 flex justify-center xl:justify-start motion-safe:opacity-0 motion-safe:animate-[fadeUpSoft_900ms_ease-out_forwards] motion-reduce:opacity-100 motion-reduce:animate-none"
             style={{ animationDelay: '120ms' }}
           >
-            <div className="relative w-full max-w-[44rem] overflow-visible rounded-[2rem] bg-[#f7f5f3]">
+            <div className="relative w-full max-w-[42rem] overflow-visible rounded-[2rem] bg-[#f7f5f3] xl:ml-0">
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-[14%] bottom-[6%] top-[22%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0)_74%)] blur-3xl"
+                className="pointer-events-none absolute inset-x-[14%] bottom-[6%] top-[22%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0)_74%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
               />
               <Image
-                src="/assets/editorial/babystuff.png"
-                alt="Curated baby essentials arranged to reflect a minimalist baby registry philosophy."
-                width={1443}
-                height={600}
-                sizes="(min-width: 1280px) 44rem, 92vw"
-                className="relative z-[1] h-auto w-full origin-left -translate-x-4 scale-[1.12] object-contain drop-shadow-[0_22px_40px_rgba(216,137,160,0.12)] sm:-translate-x-6"
+                src="/assets/editorial/bunny-gift.png"
+                alt="Gifted bunny toy illustration arranged as a soft editorial accent."
+                width={754}
+                height={729}
+                sizes="(min-width: 1280px) 24rem, 72vw"
+                className="relative z-[1] mx-auto h-auto w-[72%] max-w-[26rem] scale-[1.03] object-contain drop-shadow-[0_22px_40px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.06] group-hover:drop-shadow-[0_28px_48px_rgba(216,137,160,0.22)] xl:mx-0 xl:w-[60%] xl:max-w-[24rem]"
               />
             </div>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3 xl:mt-10">
-            {problemMoments.map((moment) => (
-              <MarketingSurface
-                key={moment.title}
-                className="h-full rounded-[1.75rem] p-6 md:min-h-[13.5rem] md:p-7"
-              >
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
-                  {moment.title}
-                </p>
-                <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{moment.description}</p>
-              </MarketingSurface>
-            ))}
-          </div>
         </MarketingSection>
 
         <MarketingSection tone="white" spacing="spacious" className="homepage-section">
@@ -524,24 +587,52 @@ export default async function HomePage() {
 
         <MarketingSection tone="ivoryWarm" spacing="spacious" className="homepage-section">
           <SectionIntro
-            eyebrow="Safety & Preparation"
+            eyebrow="Trusted Preparation Partners"
             title="Preparation goes beyond the registry."
-            description="Taylor-Made Baby Co connects families with trusted safety specialists to help prepare their homes and vehicles before baby arrives."
+            description="Taylor-Made Baby Co connects families with trusted specialists for car seat support and in-home childproofing when preparation needs to go beyond the shopping list."
             contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {preparationSupportItems.map((item) => (
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            {preparationPartnerCards.map((item) => (
               <MarketingSurface
-                key={item}
-                className="h-full rounded-[1.75rem] bg-white/95 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.05)]"
+                key={item.title}
+                className="h-full rounded-[1.9rem] bg-white/95 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.05)] sm:p-7"
               >
-                <div className="flex items-start gap-4">
-                  <CheckIcon frameClassName="mt-0.5" />
-                  <div>
+                <div className="flex items-start justify-between gap-5">
+                  <div className="max-w-[32rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/45">Trusted support</p>
-                    <p className="mt-3 max-w-none text-[1rem] leading-8 text-neutral-700">{item}</p>
+                    <h3 className="mt-4 font-serif text-[1.75rem] leading-[1.05] tracking-[-0.03em] text-neutral-900">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+                      {item.partner}
+                    </p>
                   </div>
+                  <div className="flex min-h-[4.75rem] min-w-[7.25rem] items-center justify-center rounded-[1.05rem] border border-[rgba(0,0,0,0.06)] bg-white px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                    <Image
+                      src={item.logo.src}
+                      alt={item.logo.alt}
+                      width={item.logo.width}
+                      height={item.logo.height}
+                      sizes="(min-width: 1024px) 8rem, 30vw"
+                      className={[
+                        'h-auto w-auto object-contain',
+                        item.logo.label === 'Lani Car Seat' ? 'max-h-12' : 'max-h-10',
+                      ].join(' ')}
+                    />
+                  </div>
+                </div>
+
+                <p className="mt-6 max-w-none text-[1rem] leading-8 text-neutral-700">{item.description}</p>
+
+                <div className="mt-6 grid gap-4">
+                  {item.bullets.map((bullet) => (
+                    <div key={bullet} className="flex items-start gap-4">
+                      <CheckIcon frameClassName="mt-0.5" />
+                      <p className="max-w-none text-[0.98rem] leading-8 text-neutral-700">{bullet}</p>
+                    </div>
+                  ))}
                 </div>
               </MarketingSurface>
             ))}
