@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import MarketingSection from '@/components/layout/MarketingSection';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
@@ -5,7 +6,26 @@ import SectionIntro from '@/components/ui/SectionIntro';
 type TrustStripItem = {
   title: string;
   description: string;
+  logos?: readonly {
+    src: string;
+    alt: string;
+    label: string;
+    width: number;
+    height: number;
+  }[];
 };
+
+function authorityLogoClassName(label: string) {
+  if (label === 'Lani Car Seat' || label === 'AZ Childproofers') {
+    return 'max-h-10';
+  }
+
+  if (label === 'Albee Baby') {
+    return 'max-h-7';
+  }
+
+  return 'max-h-8';
+}
 
 export default function TrustStrip({
   items,
@@ -43,6 +63,26 @@ export default function TrustStrip({
             <p className="mt-auto max-w-none text-sm leading-[1.75] text-neutral-700 xl:text-[0.92rem] xl:leading-[1.7]">
               {item.description}
             </p>
+            {item.logos?.length ? (
+              <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-3 xl:pb-1">
+                {item.logos.map((logo) => (
+                  <div
+                    key={logo.label}
+                    className="flex min-h-[3.6rem] min-w-[6.5rem] items-center justify-center rounded-[1rem] border border-[rgba(0,0,0,0.06)] bg-white/92 px-3 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] xl:min-h-[3.35rem] xl:min-w-[6rem]"
+                  >
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={logo.height}
+                      sizes="(min-width: 1280px) 8rem, 32vw"
+                      className={['h-auto w-auto object-contain', authorityLogoClassName(logo.label)].join(' ')}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </MarketingSurface>
         ))}
       </div>

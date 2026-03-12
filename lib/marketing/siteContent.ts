@@ -162,18 +162,54 @@ export const trustStripItems = [
   {
     title: 'Former Strolleria Baby Gear Specialist',
     description: 'Real product knowledge from helping families compare gear in the real world, not just on a screen.',
+    logos: [
+      {
+        src: '/assets/logos/strolleria.png',
+        alt: 'Strolleria logo',
+        label: 'Strolleria',
+        width: 1844,
+        height: 457,
+      },
+    ],
   },
   {
     title: 'Nursery Planning Experience (Pottery Barn Kids)',
     description: 'Because the right nursery is not just pretty. It needs to work when you are tired and holding a baby.',
+    logos: [
+      {
+        src: '/assets/brand/potterybarnkids.png',
+        alt: 'Pottery Barn Kids logo',
+        label: 'Pottery Barn Kids',
+        width: 1101,
+        height: 152,
+      },
+    ],
   },
   {
     title: 'Target Baby Concierge Consultant',
     description: 'Experience helping parents sort big decisions before they end up comparing everything at once.',
+    logos: [
+      {
+        src: '/assets/brand/totsquad.png',
+        alt: 'Tot Squad logo',
+        label: 'Tot Squad',
+        width: 1065,
+        height: 228,
+      },
+    ],
   },
   {
     title: 'Private Baby Planning Advisor',
     description: 'Advice shaped by actual homes, routines, budgets, cars, and all the variables roundups tend to ignore.',
+    logos: [
+      {
+        src: '/assets/brand/tot-squad.png',
+        alt: 'Tot Squad logo',
+        label: 'Tot Squad',
+        width: 1334,
+        height: 345,
+      },
+    ],
   },
 ] as const;
 

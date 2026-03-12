@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import SiteShell from '@/components/SiteShell';
 import HowItWorksAnalytics from '@/components/analytics/HowItWorksAnalytics';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
@@ -202,6 +203,24 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
                   If it makes sense to keep going, Taylor can recommend the right next layer of support after the call.
                   If not, you still leave with more clarity than you had before.
                 </p>
+
+                <div className="mt-8 max-w-2xl overflow-hidden rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)] shadow-[0_18px_42px_rgba(0,0,0,0.05)]">
+                  <div className="group relative px-6 py-8 sm:px-8 sm:py-10">
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-[10%] bottom-[18%] top-[22%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.34)_0%,rgba(232,154,174,0.16)_46%,transparent_78%)] blur-[68px] transition duration-300 ease-out group-hover:scale-[1.05] group-hover:opacity-100"
+                    />
+                    <Image
+                      src="/assets/editorial/welcome.png"
+                      alt="Warm editorial image introducing the consultation conversation and next-step planning."
+                      width={1386}
+                      height={814}
+                      sizes="(min-width: 1024px) 40rem, 100vw"
+                      className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_24px_40px_rgba(216,137,160,0.24)] saturate-[1.06] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_32px_52px_rgba(216,137,160,0.3)]"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
               </div>
 
               <MarketingSurface className="rounded-[2rem] bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f1ea_100%)] p-8 shadow-[0_24px_48px_rgba(0,0,0,0.06)] md:p-10">
@@ -242,11 +261,11 @@ export default async function HowItWorksPage({ searchParams }: { searchParams?: 
 
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {outcomeCards.map((card) => (
-                <MarketingSurface key={card.title} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
-                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/78">
-                    Outcome
-                  </p>
-                  <h3 className="mt-4 font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                <MarketingSurface
+                  key={card.title}
+                  className="flex h-full flex-col items-center text-center bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]"
+                >
+                  <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                     {card.title}
                   </h3>
                   <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{card.description}</p>

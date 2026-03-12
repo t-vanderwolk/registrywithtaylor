@@ -54,8 +54,18 @@ export default function ServiceCards({
               ) : null}
             </div>
 
-            <div className="mt-4 rounded-[1.45rem] border border-white/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:p-5">
-              <h3 className="font-serif text-[1.65rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]">
+            <div
+              className={[
+                'mt-4 rounded-[1.45rem] border border-white/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:p-5',
+                pkg.key === 'signature-planning' ? 'text-center' : '',
+              ].join(' ')}
+            >
+              <h3
+                className={[
+                  'font-serif text-[1.65rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]',
+                  pkg.key === 'signature-planning' ? 'mx-auto max-w-[14rem]' : '',
+                ].join(' ')}
+              >
                 {pkg.title}
               </h3>
               <p className="mt-3 max-w-none text-[0.98rem] leading-7 text-neutral-700">{pkg.summary}</p>

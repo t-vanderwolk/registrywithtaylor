@@ -26,6 +26,8 @@ type GuideGridProps = {
   columns?: 'three' | 'five';
   className?: string;
   compact?: boolean;
+  showCardEyebrows?: boolean;
+  cardTextAlign?: 'left' | 'center';
   id?: string;
 };
 
@@ -43,6 +45,8 @@ export default function GuideGrid({
   columns = 'five',
   className = '',
   compact = false,
+  showCardEyebrows = true,
+  cardTextAlign = 'left',
   id,
 }: GuideGridProps) {
   const gridClassName =
@@ -76,7 +80,9 @@ export default function GuideGrid({
       <div className={gridClassName}>
         {guides.map((guide) => (
           <div key={guide.slug} className="flex h-full flex-col">
-            <p className="mb-3 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48">{guide.eyebrow}</p>
+            {showCardEyebrows ? (
+              <p className="mb-3 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48">{guide.eyebrow}</p>
+            ) : null}
             <article className="group flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_18px_40px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(0,0,0,0.08)]">
               <Link href={`/guides/${guide.slug}`} className="relative block aspect-[4/3] overflow-hidden">
                 <Image
@@ -89,8 +95,18 @@ export default function GuideGrid({
                 />
               </Link>
 
-              <div className="flex h-full flex-col p-6">
-                <h3 className="font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+              <div
+                className={[
+                  'flex h-full flex-col p-6',
+                  cardTextAlign === 'center' ? 'items-center text-center' : '',
+                ].join(' ')}
+              >
+                <h3
+                  className={[
+                    'font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900',
+                    cardTextAlign === 'center' ? 'mx-auto max-w-[12rem]' : '',
+                  ].join(' ')}
+                >
                   <Link href={`/guides/${guide.slug}`} className="transition-opacity duration-200 hover:opacity-80">
                     {guide.title}
                   </Link>
@@ -98,7 +114,10 @@ export default function GuideGrid({
                 <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{guide.description}</p>
                 <Link
                   href={`/guides/${guide.slug}`}
-                  className="mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]"
+                  className={[
+                    'mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]',
+                    cardTextAlign === 'center' ? 'justify-center' : '',
+                  ].join(' ')}
                 >
                   Explore the Guide
                   <span aria-hidden className="ml-2">→</span>

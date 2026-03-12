@@ -9,6 +9,7 @@ import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guide
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { guidePillars } from '@/lib/marketing/siteContent';
+import { isTransientPrismaConnectionError } from '@/lib/server/prismaConnection';
 import prisma from '@/lib/server/prisma';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 
@@ -38,6 +39,13 @@ const learnPrinciples = [
   },
 ] as const;
 
+const guidePageTitleOverrides: Record<string, string> = {
+  'best-strollers': 'Strollers',
+  'best-infant-car-seats': 'Car Seats',
+  'minimalist-baby-registry': 'Registry',
+  'travel-with-baby': 'Travel',
+};
+
 export default async function GuidesIndexPage() {
   let publishedGuides: Array<{
     slug: string;
@@ -61,7 +69,9 @@ export default async function GuidesIndexPage() {
       },
     });
   } catch (error) {
-    if (!isGuideStorageUnavailableError(error)) {
+    if (isTransientPrismaConnectionError(error)) {
+      console.error('Guide hub database preview unavailable because the database could not be reached.', error);
+    } else if (!isGuideStorageUnavailableError(error)) {
       throw error;
     }
   }
@@ -78,7 +88,10 @@ export default async function GuidesIndexPage() {
     guideCardMap.set(card.slug, card);
   }
 
-  const guideCards = [...guideCardMap.values()];
+  const guideCards = [...guideCardMap.values()].map((guide) => ({
+    ...guide,
+    title: guidePageTitleOverrides[guide.slug] ?? guide.title,
+  }));
 
   return (
     <SiteShell currentPath="/guides">
@@ -123,6 +136,8 @@ export default async function GuidesIndexPage() {
           eyebrow="Guide hub"
           title="Five entry points for the baby gear and baby preparation decisions that shape the first season."
           description="These pillar guides are designed to support search, build authority, and give parents a more useful place to begin than generic checklists."
+          showCardEyebrows={false}
+          cardTextAlign="center"
         />
 
         <CTASection

@@ -5,7 +5,7 @@ import {
   normalizeAffiliateContexts,
   resolveAffiliateDestinationUrl,
 } from '@/lib/affiliatePartners';
-import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
+import { resolveAffiliatePartnerLogoUrl } from '@/lib/affiliatePartnerLogos';
 import prisma from '@/lib/server/prisma';
 
 export type AffiliatePartnerOptionRecord = {
@@ -50,8 +50,6 @@ export async function listAffiliatePartnerOptions() {
   });
 
   return partners.map((partner) => {
-    const fallbackLogo = getAffiliatePartnerLogo(partner.name);
-
     return {
       id: partner.id,
       slug: partner.slug,
@@ -60,7 +58,7 @@ export async function listAffiliatePartnerOptions() {
       partnerType: partner.partnerType,
       baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
       website: cleanText(partner.website),
-      logoUrl: cleanText(partner.logoUrl) ?? fallbackLogo.src,
+      logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
       affiliatePid: cleanText(partner.affiliatePid),
       defaultDestinationUrl: resolveAffiliateDestinationUrl({
         baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
@@ -100,8 +98,6 @@ export async function getAffiliatePartnerLookup(partnerIds: string[]) {
 
   return new Map(
     partners.map((partner) => {
-      const fallbackLogo = getAffiliatePartnerLogo(partner.name);
-
       return [
         partner.id,
         {
@@ -112,7 +108,7 @@ export async function getAffiliatePartnerLookup(partnerIds: string[]) {
           partnerType: partner.partnerType,
           baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
           website: cleanText(partner.website),
-          logoUrl: cleanText(partner.logoUrl) ?? fallbackLogo.src,
+          logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
           affiliatePid: cleanText(partner.affiliatePid),
           defaultDestinationUrl: resolveAffiliateDestinationUrl({
             baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
@@ -150,7 +146,7 @@ export async function listAdminAffiliatePartners() {
   return partners.map((partner) => ({
     ...partner,
     baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
-    logoUrl: cleanText(partner.logoUrl) ?? getAffiliatePartnerLogo(partner.name).src,
+    logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
     allowedContexts: normalizeAffiliateContexts(partner.allowedContexts),
     suggestedCta: buildDefaultAffiliateCtaText({
       name: partner.name,

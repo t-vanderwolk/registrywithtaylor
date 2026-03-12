@@ -11,6 +11,7 @@ import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { guidePillars, servicePackages, trustStripItems } from '@/lib/marketing/siteContent';
+import { isTransientPrismaConnectionError } from '@/lib/server/prismaConnection';
 import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -321,6 +322,42 @@ const formatInsightDate = (value: Date) =>
     day: 'numeric',
   });
 
+async function loadHomepageInsightPreviews(now: Date) {
+  try {
+    return (await prisma.post.findMany({
+      where: getPublicPostWhere(now),
+      orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
+      take: 3,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        category: true,
+        excerpt: true,
+        content: true,
+        readingTime: true,
+        featuredImageUrl: true,
+        coverImage: true,
+        featuredImage: {
+          select: {
+            url: true,
+          },
+        },
+        publishedAt: true,
+        scheduledFor: true,
+        createdAt: true,
+      },
+    })) as InsightPreview[];
+  } catch (error) {
+    if (!isTransientPrismaConnectionError(error)) {
+      throw error;
+    }
+
+    console.error('Homepage journal preview unavailable because the database could not be reached.', error);
+    return [];
+  }
+}
+
 function TimelineStepCard({ stepLabel, title, description, emphasis, bullets }: TimelineStep) {
   return (
     <MarketingSurface className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]">
@@ -403,30 +440,7 @@ function PreparationPartnerCard({ partner }: { partner: PreparationPartner }) {
 
 export default async function HomePage() {
   const now = new Date();
-  const insightPreviews = (await prisma.post.findMany({
-    where: getPublicPostWhere(now),
-    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-    take: 3,
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      excerpt: true,
-      content: true,
-      readingTime: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          url: true,
-        },
-      },
-      publishedAt: true,
-      scheduledFor: true,
-      createdAt: true,
-    },
-  })) as InsightPreview[];
+  const insightPreviews = await loadHomepageInsightPreviews(now);
 
   return (
     <SiteShell currentPath="/">
@@ -465,6 +479,24 @@ export default async function HomePage() {
                   </p>
                 </div>
 
+                <div className="max-w-[40rem] overflow-hidden rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)] shadow-[0_18px_42px_rgba(0,0,0,0.05)]">
+                  <div className="group relative px-6 py-8 sm:px-8 sm:py-10">
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-[10%] bottom-[18%] top-[22%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.34)_0%,rgba(232,154,174,0.16)_46%,transparent_78%)] blur-[68px] transition duration-300 ease-out group-hover:scale-[1.05] group-hover:opacity-100"
+                    />
+                    <Image
+                      src="/assets/editorial/babystuff.png"
+                      alt="Editorial baby gear arrangement used as a soft transition into the Taylor-Made Baby Co story."
+                      width={1443}
+                      height={600}
+                      sizes="(min-width: 1024px) 40rem, 100vw"
+                      className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_24px_40px_rgba(216,137,160,0.24)] saturate-[1.06] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_32px_52px_rgba(216,137,160,0.3)]"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
                 <div className="relative z-[1] flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
                   <Link href="/consultation" className="btn btn--primary w-full sm:w-auto">
                     Book a Consultation
@@ -478,24 +510,6 @@ export default async function HomePage() {
                       →
                     </span>
                   </Link>
-                </div>
-              </div>
-
-              <div className="flex justify-center lg:hidden">
-                <div className="group relative w-full max-w-[16rem] sm:max-w-[20rem]">
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
-                  />
-                  <Image
-                    src="/assets/editorial/babystuff.png"
-                    alt="Editorial baby gear arrangement used as a soft transition into the Taylor-Made Baby Co story."
-                    width={1443}
-                    height={600}
-                    sizes="(min-width: 640px) 20rem, 16rem"
-                    className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)]"
-                    loading="lazy"
-                  />
                 </div>
               </div>
 
@@ -534,24 +548,6 @@ export default async function HomePage() {
                     ))}
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="mt-12 hidden justify-center lg:flex xl:justify-start">
-              <div className="group relative w-full max-w-[16rem] sm:max-w-[20rem] xl:max-w-[24rem]">
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
-                />
-                <Image
-                  src="/assets/editorial/babystuff.png"
-                  alt="Editorial baby gear arrangement used as a soft transition into the Taylor-Made Baby Co story."
-                  width={1443}
-                  height={600}
-                  sizes="(min-width: 1280px) 24rem, (min-width: 640px) 20rem, 16rem"
-                  className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)]"
-                  loading="lazy"
-                />
               </div>
             </div>
 

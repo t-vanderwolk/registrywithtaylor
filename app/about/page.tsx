@@ -6,6 +6,7 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import { FALLBACK_AFFILIATE_PARTNER_LOGO_SRC } from '@/lib/affiliatePartnerLogos';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
   WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS,
@@ -23,12 +24,10 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'About Taylor-Made Baby Co.',
 });
 
-const PARTNER_FALLBACK_LOGO = '/assets/logos/partnericon.png';
-
 export default async function AboutPage() {
   const affiliatePartners = await listAffiliatePartnerOptions();
   const partnersWithLogos = affiliatePartners.filter(
-    (partner) => partner.logoUrl && partner.logoUrl !== PARTNER_FALLBACK_LOGO,
+    (partner) => partner.logoUrl && partner.logoUrl !== FALLBACK_AFFILIATE_PARTNER_LOGO_SRC,
   );
 
   return (
@@ -237,7 +236,7 @@ export default async function AboutPage() {
                 {partnersWithLogos.map((partner) => (
                   <Image
                     key={partner.id}
-                    src={partner.logoUrl ?? PARTNER_FALLBACK_LOGO}
+                    src={partner.logoUrl ?? FALLBACK_AFFILIATE_PARTNER_LOGO_SRC}
                     alt={partner.name}
                     width={190}
                     height={52}

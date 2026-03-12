@@ -3,7 +3,7 @@ export type AffiliatePartnerLogo = {
   isFallback: boolean;
 };
 
-const FALLBACK_LOGO_SRC = '/assets/logos/partnericon.png';
+export const FALLBACK_AFFILIATE_PARTNER_LOGO_SRC = '/assets/logos/partnericon.png';
 
 const SCANNED_LOGO_SOURCES = [
   '/assets/brand/albeebaby.png',
@@ -132,5 +132,14 @@ export function getAffiliatePartnerLogo(name: string): AffiliatePartnerLogo {
     }
   }
 
-  return { src: FALLBACK_LOGO_SRC, isFallback: true };
+  return { src: FALLBACK_AFFILIATE_PARTNER_LOGO_SRC, isFallback: true };
+}
+
+export function resolveAffiliatePartnerLogoUrl(name: string, logoUrl: string | null | undefined) {
+  const cleanedLogoUrl = logoUrl?.trim() || null;
+  if (cleanedLogoUrl && cleanedLogoUrl !== FALLBACK_AFFILIATE_PARTNER_LOGO_SRC) {
+    return cleanedLogoUrl;
+  }
+
+  return getAffiliatePartnerLogo(name).src;
 }
