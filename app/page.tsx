@@ -447,7 +447,7 @@ export default async function HomePage() {
         <section className="bg-white py-12 md:py-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start lg:gap-12 xl:gap-16">
-              <div className="group relative space-y-7 pb-24 lg:pr-4 xl:pb-28">
+              <div className="space-y-7 lg:pr-4">
                 <div className="relative z-[1] max-w-[40rem]">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                   <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
@@ -478,24 +478,6 @@ export default async function HomePage() {
                       →
                     </span>
                   </Link>
-                </div>
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute bottom-[-9.75rem] left-[-1rem] z-0 sm:bottom-[-10.5rem] sm:left-[-0.5rem] lg:bottom-[-12rem] lg:left-[-1.25rem] xl:bottom-[-13.5rem] xl:left-[-2rem]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
-                  />
-                  <Image
-                    src="/assets/editorial/babystuff.png"
-                    alt=""
-                    width={1443}
-                    height={600}
-                    sizes="(min-width: 1280px) 24rem, (min-width: 640px) 20rem, 16rem"
-                    className="relative h-auto w-[16rem] origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)] sm:w-[20rem] xl:w-[24rem]"
-                  />
                 </div>
               </div>
 
@@ -534,6 +516,24 @@ export default async function HomePage() {
                     ))}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-12 flex justify-center xl:justify-start">
+              <div className="group relative w-full max-w-[16rem] sm:max-w-[20rem] xl:max-w-[24rem]">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+                />
+                <Image
+                  src="/assets/editorial/babystuff.png"
+                  alt="Editorial baby gear arrangement used as a soft transition into the Taylor-Made Baby Co story."
+                  width={1443}
+                  height={600}
+                  sizes="(min-width: 1280px) 24rem, (min-width: 640px) 20rem, 16rem"
+                  className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)]"
+                  loading="lazy"
+                />
               </div>
             </div>
 
