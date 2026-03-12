@@ -6,11 +6,13 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
   WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS,
   WHAT_I_HELP_FAMILIES_CHOOSE_TITLE,
 } from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 
 export const metadata = buildMarketingMetadata({
   title: 'About — Taylor-Made Baby Co.',
@@ -21,7 +23,14 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'About Taylor-Made Baby Co.',
 });
 
-export default function AboutPage() {
+const PARTNER_FALLBACK_LOGO = '/assets/logos/partnericon.png';
+
+export default async function AboutPage() {
+  const affiliatePartners = await listAffiliatePartnerOptions();
+  const partnersWithLogos = affiliatePartners.filter(
+    (partner) => partner.logoUrl && partner.logoUrl !== PARTNER_FALLBACK_LOGO,
+  );
+
   return (
     <SiteShell currentPath="/about">
       <main className="site-main">
@@ -225,13 +234,18 @@ export default function AboutPage() {
 
             <RevealOnScroll delayMs={100}>
               <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
-                <Image
-                  src="/assets/brand/albeebaby.png"
-                  alt="Albee Baby"
-                  width={190}
-                  height={52}
-                  className="h-8 md:h-9 w-auto opacity-70 grayscale"
-                />
+                {partnersWithLogos.map((partner) => (
+                  <Image
+                    key={partner.id}
+                    src={partner.logoUrl ?? PARTNER_FALLBACK_LOGO}
+                    alt={partner.name}
+                    width={190}
+                    height={52}
+                    className="h-8 w-auto opacity-70 grayscale md:h-9"
+                    loading="lazy"
+                    unoptimized={isRemoteImageUrl(partner.logoUrl)}
+                  />
+                ))}
               </div>
             </RevealOnScroll>
           </div>

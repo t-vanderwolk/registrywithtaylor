@@ -481,6 +481,24 @@ export default async function HomePage() {
                 </div>
               </div>
 
+              <div className="flex justify-center lg:hidden">
+                <div className="group relative w-full max-w-[16rem] sm:max-w-[20rem]">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-[10%] bottom-[14%] top-[18%] rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.24)_0%,rgba(232,154,174,0.08)_48%,transparent_76%)] blur-3xl transition duration-300 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+                  />
+                  <Image
+                    src="/assets/editorial/babystuff.png"
+                    alt="Editorial baby gear arrangement used as a soft transition into the Taylor-Made Baby Co story."
+                    width={1443}
+                    height={600}
+                    sizes="(min-width: 640px) 20rem, 16rem"
+                    className="relative mx-auto h-auto w-full origin-bottom-left scale-[1.04] object-contain drop-shadow-[0_18px_30px_rgba(216,137,160,0.16)] saturate-[1.04] contrast-[1.05] transition duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.07] group-hover:drop-shadow-[0_24px_42px_rgba(216,137,160,0.22)]"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
               <div>
                 <div className="rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-7">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">
@@ -519,7 +537,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="mt-12 flex justify-center xl:justify-start">
+            <div className="mt-12 hidden justify-center lg:flex xl:justify-start">
               <div className="group relative w-full max-w-[16rem] sm:max-w-[20rem] xl:max-w-[24rem]">
                 <span
                   aria-hidden="true"
