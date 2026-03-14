@@ -3,7 +3,11 @@ import prisma from '@/lib/server/prisma';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import { getGuideAnalyticsCountsByGuide } from '@/lib/server/guideAnalytics';
 import { normalizeGuideStatus, type GuideStatusValue } from '@/lib/guides/status';
-import { GUIDE_STORAGE_UNAVAILABLE_MESSAGE, isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import {
+  GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
+  isGuideStorageUnavailableError,
+  logGuideStorageUnavailable,
+} from '@/lib/server/guideStorage';
 
 export const ADMIN_GUIDE_PAGE_SIZE = 25;
 
@@ -268,6 +272,8 @@ export async function listAdminGuidesSafe(params: AdminGuideListParams) {
     if (!isGuideStorageUnavailableError(error)) {
       throw error;
     }
+
+    logGuideStorageUnavailable('listAdminGuidesSafe', error);
 
     return {
       guides: [] as AdminGuideListItem[],

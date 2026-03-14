@@ -1,7 +1,11 @@
 import { Prisma } from '@prisma/client';
 import prisma from '@/lib/server/prisma';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
-import { GUIDE_STORAGE_UNAVAILABLE_MESSAGE, isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import {
+  GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
+  isGuideStorageUnavailableError,
+  logGuideStorageUnavailable,
+} from '@/lib/server/guideStorage';
 
 type GuideEventInput = {
   guideId: string;
@@ -96,6 +100,7 @@ export async function getGuideAnalyticsCountsByGuide(guideIds: string[], since?:
     ]);
   } catch (error) {
     if (isGuideStorageUnavailableError(error)) {
+      logGuideStorageUnavailable('getGuideAnalyticsCountsByGuide', error);
       return countsMap;
     }
 
@@ -256,6 +261,8 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
     if (!isGuideStorageUnavailableError(error)) {
       throw error;
     }
+
+    logGuideStorageUnavailable('getGuideAnalyticsDashboard', error);
 
     return {
       storageReady: false,

@@ -1,7 +1,7 @@
 import prisma from '@/lib/server/prisma';
 import { slugify } from '@/lib/slugify';
 import { normalizeGuideStatus } from '@/lib/guides/status';
-import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import { isGuideStorageUnavailableError, logGuideStorageUnavailable } from '@/lib/server/guideStorage';
 
 export async function generateUniqueGuideSlug(baseTitle: string, excludeId?: string) {
   const baseSlug = slugify(baseTitle);
@@ -17,6 +17,7 @@ export async function generateUniqueGuideSlug(baseTitle: string, excludeId?: str
       });
     } catch (error) {
       if (isGuideStorageUnavailableError(error)) {
+        logGuideStorageUnavailable('generateUniqueGuideSlug', error);
         return candidate;
       }
 
@@ -54,6 +55,7 @@ export async function listGuideRelationOptions(excludeId?: string) {
     });
   } catch (error) {
     if (isGuideStorageUnavailableError(error)) {
+      logGuideStorageUnavailable('listGuideRelationOptions', error);
       return [];
     }
 
@@ -75,6 +77,7 @@ export async function isGuideStorageReady() {
     return true;
   } catch (error) {
     if (isGuideStorageUnavailableError(error)) {
+      logGuideStorageUnavailable('isGuideStorageReady', error);
       return false;
     }
 
