@@ -24,6 +24,7 @@ const CONDENSED_GUIDE_CARD_TITLES: Record<string, string> = {
   'best-strollers': 'Strollers',
   'best-infant-car-seats': 'Car Seats',
   'minimalist-baby-registry': 'Registry',
+  'nursery-setup-guide': 'Nursery',
   'travel-with-baby': 'Travel',
 };
 

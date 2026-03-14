@@ -127,54 +127,45 @@ export default function FAQPage() {
         />
 
         <MarketingSection tone="white" spacing="default" container="default">
-          <div className="max-w-3xl mx-auto space-y-12">
-
-            {/* FAQ Groups */}
-            <div className="space-y-12">
-
-              {/* Complimentary Consultation */}
-              <RevealOnScroll>
-                <div className="space-y-6">
-                  <div>
-                    <SectionDivider />
-                    <H2 className="text-neutral-900">
-                      Complimentary Consultation
-                    </H2>
-                  </div>
-
-                  <FAQAccordion items={complimentaryConsultationFaqs} />
+          <div className="mx-auto max-w-3xl space-y-12">
+            <RevealOnScroll>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">
+                    Complimentary Consultation
+                  </H2>
                 </div>
-              </RevealOnScroll>
 
-              {/* After the Consultation */}
-              <RevealOnScroll delayMs={100}>
-                <div className="space-y-6">
-                  <div>
-                    <SectionDivider />
-                    <H2 className="text-neutral-900">
-                      After the Consultation
-                    </H2>
-                  </div>
+                <FAQAccordion items={complimentaryConsultationFaqs} />
+              </div>
+            </RevealOnScroll>
 
-                  <FAQAccordion items={afterConsultationFaqs} />
+            <RevealOnScroll delayMs={100}>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">
+                    After the Consultation
+                  </H2>
                 </div>
-              </RevealOnScroll>
 
-              {/* Private Planning Services */}
-              <RevealOnScroll delayMs={180}>
-                <div className="space-y-6">
-                  <div>
-                    <SectionDivider />
-                    <H2 className="text-neutral-900">
-                      Private Planning Services
-                    </H2>
-                  </div>
+                <FAQAccordion items={afterConsultationFaqs} />
+              </div>
+            </RevealOnScroll>
 
-                  <FAQAccordion items={privatePlanningFaqs} />
+            <RevealOnScroll delayMs={180}>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">
+                    Private Planning Services
+                  </H2>
                 </div>
-              </RevealOnScroll>
 
-            </div>
+                <FAQAccordion items={privatePlanningFaqs} />
+              </div>
+            </RevealOnScroll>
           </div>
         </MarketingSection>
 

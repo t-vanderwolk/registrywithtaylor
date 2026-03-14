@@ -10,7 +10,9 @@ import { GUIDE_STORAGE_UNAVAILABLE_MESSAGE, isGuideStorageUnavailableError } fro
 const allowedEvents = new Set<string>([
   GuideAnalyticsEvents.VIEW,
   GuideAnalyticsEvents.AFFILIATE_CLICK,
-  GuideAnalyticsEvents.CONSULTATION_CTA_CLICK,
+  GuideAnalyticsEvents.TO_CONSULTATION_CLICK,
+  GuideAnalyticsEvents.TO_CONTACT_CLICK,
+  GuideAnalyticsEvents.TO_SERVICES_CLICK,
   GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK,
 ]);
 

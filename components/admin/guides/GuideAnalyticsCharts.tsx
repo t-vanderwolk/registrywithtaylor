@@ -38,7 +38,7 @@ const formatTooltipMetric = (
 
   return [
     Number.isFinite(numericValue) ? numericValue.toLocaleString() : '0',
-    key === 'consultationClicks' ? 'Consultation clicks' : 'Views',
+    key === 'consultationClicks' ? 'Book clicks' : 'Views',
   ] as const;
 };
 
@@ -61,7 +61,7 @@ export default function GuideAnalyticsCharts({
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
           <p className="admin-eyebrow">Top Performing Guides</p>
-          <h2 className="admin-h2">Views by guide</h2>
+          <h2 className="admin-h2">Guide views</h2>
         </div>
 
         {topGuideData.length === 0 ? (
@@ -99,7 +99,7 @@ export default function GuideAnalyticsCharts({
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
           <p className="admin-eyebrow">Category Performance</p>
-          <h2 className="admin-h2">Views by guide category</h2>
+          <h2 className="admin-h2">Guide views by category</h2>
         </div>
 
         {categoryData.length === 0 ? (

@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import type { FocusEvent, FormEvent } from 'react';
-import { trackEvent } from '@/lib/analytics';
+import { getClientPageAnalyticsContext, trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 
 type ConsultationRequestFormProps = {
@@ -47,15 +47,26 @@ export default function ConsultationRequestForm({
     }
 
     formStartedRef.current = true;
-    trackEvent(AnalyticsEvents.CONSULTATION_STARTED, {
-      page: window.location.pathname,
+    trackEvent(AnalyticsEvents.CONSULTATION_FORM_OPEN, {
+      ...(getClientPageAnalyticsContext() ?? {
+        path: window.location.pathname,
+        pageType: 'book' as const,
+        referrer: null,
+        referrerPageType: null,
+      }),
       form: 'consultation_request',
     });
   };
 
   const handleSubmit = (_event: FormEvent<HTMLFormElement>) => {
+    const pageContext = getClientPageAnalyticsContext();
     trackEvent(AnalyticsEvents.CONSULTATION_SUBMITTED, {
-      page: window.location.pathname,
+      ...(pageContext ?? {
+        path: window.location.pathname,
+        pageType: 'book' as const,
+        referrer: null,
+        referrerPageType: null,
+      }),
       form: 'consultation_request',
     });
   };

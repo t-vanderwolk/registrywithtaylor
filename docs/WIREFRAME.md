@@ -16,7 +16,7 @@
 | `/` | page | Server dynamic (Prisma query) | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Prisma (`Post` previews) + static | none | Marketing homepage with latest insight previews |
 | `/about` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static | none | About/brand page |
 | `/services` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static | none | Services and package details |
-| `/how-it-works` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static + external embed | none | Process overview and consultation flow |
+| `/#journey` | page | Static/server | Root layout + `SiteShell` | `Hero`, `MarketingSection` | Static + external embed | none | Process overview and consultation flow |
 | `/faq` | page | Static/server | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Static | none | FAQ content |
 | `/contact` | page | Static/server (uses search params) | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Static | none | Contact and service-intake form UI |
 | `/blog` | page | `force-dynamic` | Root layout + `SiteShell` | `MarketingSection`, `RibbonDivider` | Prisma (`Post`) | none | Public blog index |
@@ -96,7 +96,7 @@ Frozen marketing routes in this mode (no UI or copy changes):
 - `/`
 - `/about`
 - `/services`
-- `/how-it-works`
+- `/#journey`
 - `/faq`
 - `/contact`
 

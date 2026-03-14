@@ -42,7 +42,7 @@ export default function BlogIndexView({
   return (
     <>
       <section className="section-base bg-white">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6">
           {posts.length > 0 && (
             <div className="mt-8 md:mt-12">
               <div className="-mx-6 flex gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0">
@@ -50,7 +50,7 @@ export default function BlogIndexView({
                   type="button"
                   onClick={() => setCategory(null)}
                   aria-pressed={activeCategory === null}
-                  className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
+                  className={`inline-flex min-h-[44px] shrink-0 items-center whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                     activeCategory === null
                       ? 'text-[var(--tmbc-blog-rose)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-8'
                       : 'text-[var(--tmbc-blog-soft-text)] hover:text-[var(--tmbc-blog-charcoal)]'
@@ -64,7 +64,7 @@ export default function BlogIndexView({
                     type="button"
                     onClick={() => setCategory(category)}
                     aria-pressed={activeCategory === category}
-                    className={`shrink-0 whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
+                    className={`inline-flex min-h-[44px] shrink-0 items-center whitespace-nowrap text-sm tracking-wide transition-colors duration-200 ${
                       activeCategory === category
                         ? 'text-[var(--tmbc-blog-rose)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-8'
                         : 'text-[var(--tmbc-blog-soft-text)] hover:text-[var(--tmbc-blog-charcoal)]'
@@ -80,10 +80,10 @@ export default function BlogIndexView({
       </section>
 
       <section className="pb-20 md:pb-28" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6">
           {filteredPosts.length > 0 ? (
             <RevealOnScroll>
-              <div className="blog-section-soft grid gap-8 px-6 py-8 md:grid-cols-2 md:gap-10 md:px-8">
+              <div className="blog-section-soft grid gap-6 px-4 py-6 sm:px-6 sm:py-8 md:grid-cols-2 md:gap-10 md:px-8">
                 {filteredPosts.map((post) => (
                   <JournalCard
                     key={post.id}
@@ -105,7 +105,7 @@ export default function BlogIndexView({
                 {activeCategory ? getBlogCategoryLabel(activeCategory) : 'Baby Gear Journal'}
               </p>
               <Body className="mt-4 text-charcoal/72">
-                No guides are published in this focus yet.
+                No journal posts are published in this focus yet.
               </Body>
             </MarketingSurface>
           )}

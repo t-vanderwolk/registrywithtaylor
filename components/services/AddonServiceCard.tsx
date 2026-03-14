@@ -49,8 +49,8 @@ export default function AddonServiceCard({
   const iconSurfaceSrc = hasPartnerBrand ? partnerLogoSrc! : iconSrc ?? '/assets/icons/buildregistry.png';
   const iconSurfaceAlt = hasPartnerBrand ? partnerLogoAlt ?? partnerLabel ?? title : '';
   const iconSurfaceImageClassName = hasPartnerBrand
-    ? 'luxury-icon-object--partner scale-[0.84] md:scale-[0.9]'
-    : 'drop-shadow-[0_10px_18px_rgba(184,160,129,0.18)]';
+    ? 'scale-[0.9] opacity-[0.8] saturate-[0.92] contrast-[0.96] md:scale-[0.94]'
+    : 'scale-[0.98]';
 
   return (
     <MarketingSurface

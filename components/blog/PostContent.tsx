@@ -1,7 +1,6 @@
 'use client';
 
 import type { AffiliateNetwork } from '@prisma/client';
-import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
@@ -25,7 +24,6 @@ type PostContentProps = {
   postId: string;
   content: string;
   className?: string;
-  trackView?: boolean;
   ctaPartners?: Record<
     string,
     {
@@ -215,7 +213,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <div
         key={`${postId}-callout-${index}`}
-        className="blog-section-soft my-10 px-6 py-5"
+        className="blog-section-soft my-10 px-5 py-4 sm:px-6 sm:py-5"
       >
         {block.title ? (
           <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
@@ -229,7 +227,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <div
         key={`${postId}-advice-${index}`}
-        className="tmbc-blog-soft-card my-10 border-l-4 border-l-[var(--tmbc-blog-blush)] px-6 py-5"
+        className="tmbc-blog-soft-card my-10 border-l-4 border-l-[var(--tmbc-blog-blush)] px-5 py-4 sm:px-6 sm:py-5"
       >
         {block.title ? (
           <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
@@ -257,7 +255,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <section
         key={`${postId}-${block.type}-${index}`}
-        className={`my-10 rounded-[28px] border px-6 py-5 ${
+        className={`my-10 rounded-[24px] border px-5 py-4 sm:rounded-[28px] sm:px-6 sm:py-5 ${
           isPros
             ? 'border-[rgba(184,116,138,0.2)] bg-[rgba(243,227,232,0.6)]'
             : 'border-[rgba(107,103,104,0.18)] bg-white'
@@ -284,7 +282,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
 
   if (block.type === 'comparison') {
     return (
-      <section key={`${postId}-comparison-${index}`} className="tmbc-blog-soft-card my-10 px-6 py-5">
+      <section key={`${postId}-comparison-${index}`} className="tmbc-blog-soft-card my-10 px-5 py-4 sm:px-6 sm:py-5">
         <h3 className="font-serif text-[1.45rem] tracking-[-0.02em] text-neutral-900">{block.title}</h3>
         {block.rows.length > 0 ? (
           <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -328,30 +326,8 @@ export default function PostContent({
   postId,
   content,
   className,
-  trackView = true,
   ctaPartners = {},
 }: PostContentProps) {
-  useEffect(() => {
-    if (!trackView) {
-      return undefined;
-    }
-
-    const controller = new AbortController();
-
-    fetch(`/api/blog/${postId}/track`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ type: 'view' }),
-      signal: controller.signal,
-    }).catch(() => {
-      // silently ignore tracking failures
-    });
-
-    return () => controller.abort();
-  }, [postId, trackView]);
-
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
   const articleContent = storedButtons.body;

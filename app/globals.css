@@ -60,6 +60,33 @@
   }
 }
 
+@keyframes editorialFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 7px, 0);
+  }
+}
+
+@keyframes editorialFloatReverse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes editorialDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(6px, -5px, 0);
+  }
+}
+
 .hero-load-reveal {
   opacity: 0;
   animation: luxuryFadeUp 320ms ease-out forwards;
@@ -87,6 +114,21 @@
 
 .hero-load-reveal--6 {
   animation-delay: 440ms;
+}
+
+.editorial-float {
+  animation: editorialFloat 15s ease-in-out infinite;
+  will-change: transform;
+}
+
+.editorial-float--reverse {
+  animation: editorialFloatReverse 17s ease-in-out infinite;
+  will-change: transform;
+}
+
+.editorial-drift {
+  animation: editorialDrift 19s ease-in-out infinite;
+  will-change: transform;
 }
 
 .motion-reveal {
@@ -147,6 +189,11 @@ a:hover .link-underline::after {
   box-shadow: 0 18px 40px rgba(232, 154, 174, 0.14);
 }
 
+.sort-grid-card {
+  padding: 1.75rem;
+  gap: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ribbon-float {
     animation: none !important;
@@ -155,6 +202,13 @@ a:hover .link-underline::after {
   .hero-load-reveal {
     opacity: 1 !important;
     animation: none !important;
+  }
+
+  .editorial-float,
+  .editorial-float--reverse,
+  .editorial-drift {
+    animation: none !important;
+    transform: none !important;
   }
 
   .motion-reveal,
@@ -808,7 +862,8 @@ li {
 .section-base.homepage-post-bow-section,
 .section-spacing.homepage-post-bow-section,
 .section-spacious.homepage-post-bow-section {
-  padding-top: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 2.75rem;
 }
 
 @media (min-width: 768px) {
@@ -841,19 +896,20 @@ li {
   .section-base.homepage-post-bow-section,
   .section-spacing.homepage-post-bow-section,
   .section-spacious.homepage-post-bow-section {
-    padding-top: 2.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 4rem;
   }
 }
 
-.section-base.how-it-works-section,
-.section-spacing.how-it-works-section {
+.section-base.journey-section,
+.section-spacing.journey-section {
   padding-top: 4.5rem;
   padding-bottom: 4.5rem;
 }
 
 @media (min-width: 768px) {
-  .section-base.how-it-works-section,
-  .section-spacing.how-it-works-section {
+  .section-base.journey-section,
+  .section-spacing.journey-section {
     padding-top: 7.75rem;
     padding-bottom: 7.75rem;
   }
@@ -1234,22 +1290,22 @@ li {
 @media (max-width: 767px) {
   .hero-section {
     height: auto;
-    min-height: clamp(34rem, 72svh, 40rem);
+    min-height: clamp(32rem, 68svh, 38rem);
   }
 
   .services-hero.hero-section {
     height: auto;
-    min-height: clamp(32rem, 68svh, 37rem);
+    min-height: clamp(30rem, 64svh, 35rem);
   }
 
   .hero-inner {
     align-items: center;
     padding-top: 4.75rem;
-    padding-bottom: 5.5rem;
+    padding-bottom: 4.75rem;
   }
 
   .hero-content.marketing-hero-content {
-    max-width: min(100%, 25rem);
+    max-width: min(100%, 24rem);
     margin: 0 auto;
     align-items: center;
     text-align: center;
@@ -1292,6 +1348,10 @@ li {
 
   .hero-subhead {
     margin-top: 1rem;
+  }
+
+  .hero-tagline {
+    line-height: 1.7;
   }
 }
 
@@ -1432,14 +1492,14 @@ li {
   justify-content: space-between;
 }
 
-.how-it-works-section .how-it-works-grid {
+.journey-section .journey-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
 }
 
 @media (min-width: 768px) {
-  .how-it-works-section .how-it-works-grid {
+  .journey-section .journey-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -2153,7 +2213,7 @@ li {
   box-shadow: 0 20px 44px rgba(232, 154, 174, 0.12);
 }
 
-/* How It Works bridge section after TotSquad. */
+/* Journey bridge section after TotSquad. */
 .bridge-section {
   background: #ffffff;
   padding-top: clamp(9.5rem, 13vw, 12rem);

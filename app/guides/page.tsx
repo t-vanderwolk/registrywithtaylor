@@ -1,3 +1,4 @@
+import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import CTASection from '@/components/marketing/CTASection';
 import GuideGrid from '@/components/marketing/GuideGrid';
@@ -89,6 +90,8 @@ export default async function GuidesIndexPage() {
   return (
     <SiteShell currentPath="/guides">
       <main className="site-main">
+        <PageViewTracker path="/guides" pageType="guide" />
+
         <Hero
           className="homepage-hero"
           eyebrow="Baby Gear Guides"

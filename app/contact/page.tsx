@@ -1,3 +1,4 @@
+import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
@@ -12,7 +13,7 @@ export const metadata = buildMarketingMetadata({
   description:
     'Reach out with questions about baby gear guidance, registry strategy, nursery planning, or consultation support.',
   path: '/contact',
-  imagePath: '/assets/editorial/gear.jpg',
+  imagePath: '/assets/hero/hero-06.jpg',
   imageAlt: 'Contact Taylor-Made Baby Co.',
 });
 
@@ -55,6 +56,8 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
   return (
     <SiteShell currentPath="/contact">
       <main className="site-main">
+        <PageViewTracker path="/contact" pageType="contact" />
+
         <Hero
           className="homepage-hero"
           eyebrow="Contact"

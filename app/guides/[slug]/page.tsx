@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       articleGuide.intro?.trim() ||
       'Expert baby gear and baby preparation guidance from Taylor-Made Baby Co.';
     const canonical = guide.canonicalUrl?.trim() || `/guides/${guide.slug}`;
-    const imageUrl = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || '/assets/editorial/gear.jpg';
+    const imageUrl = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
     const keywords = [
       guide.targetKeyword,
       ...guide.secondaryKeywords,

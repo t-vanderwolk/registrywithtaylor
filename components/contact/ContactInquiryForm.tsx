@@ -1,6 +1,8 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FocusEvent, FormEvent, useMemo, useRef, useState } from 'react';
+import { getClientPageAnalyticsContext, trackEvent } from '@/lib/analytics';
+import { AnalyticsEvents } from '@/lib/analytics/events';
 
 type ContactInquiryFormProps = {
   selectedService?: string;
@@ -27,11 +29,30 @@ export default function ContactInquiryForm({
   dueDateRequired,
 }: ContactInquiryFormProps) {
   const [submitState, setSubmitState] = useState<SubmitState>({ type: 'idle' });
+  const openedRef = useRef(false);
 
   const hasField = useMemo(
     () => (field: string) => selectedFields.includes(field),
     [selectedFields],
   );
+
+  const handleFocusCapture = (_event: FocusEvent<HTMLFormElement>) => {
+    if (openedRef.current) {
+      return;
+    }
+
+    openedRef.current = true;
+    trackEvent(AnalyticsEvents.CONTACT_FORM_OPEN, {
+      ...(getClientPageAnalyticsContext() ?? {
+        path: window.location.pathname,
+        pageType: 'contact' as const,
+        referrer: null,
+        referrerPageType: null,
+      }),
+      form: 'contact_inquiry',
+      service: selectedService ?? undefined,
+    });
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,6 +63,16 @@ export default function ContactInquiryForm({
     formData.set('sourceUrl', window.location.href);
 
     setSubmitState({ type: 'submitting' });
+    trackEvent(AnalyticsEvents.CONTACT_FORM_SUBMITTED, {
+      ...(getClientPageAnalyticsContext() ?? {
+        path: window.location.pathname,
+        pageType: 'contact' as const,
+        referrer: null,
+        referrerPageType: null,
+      }),
+      form: 'contact_inquiry',
+      service: selectedService ?? undefined,
+    });
 
     try {
       const response = await fetch('/api/contact', {
@@ -77,7 +108,7 @@ export default function ContactInquiryForm({
         </div>
       )}
 
-      <form className="space-y-6" noValidate onSubmit={handleSubmit}>
+      <form className="space-y-6" noValidate onFocusCapture={handleFocusCapture} onSubmit={handleSubmit}>
         {selectedService && <input type="hidden" name="service" value={selectedService} />}
         <input type="hidden" name="company" value="" tabIndex={-1} autoComplete="off" />
 

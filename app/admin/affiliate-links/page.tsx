@@ -21,9 +21,10 @@ type SortMode = 'recent' | 'clicks';
 
 const CONTEXT_OPTIONS = [
   'blog',
+  'guides',
   'services',
   'homepage',
-  'how-it-works',
+  'book',
   'contact',
   'faq',
   'about',

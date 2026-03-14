@@ -2,8 +2,8 @@ import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
-import { BookingAnalyticsEvents } from '@/lib/analytics/events';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
+import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -62,9 +62,6 @@ const getLifecycleLabel = (
 };
 
 export default async function AdminAnalyticsPage() {
-  const last7Days = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-  const last30Days = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-
   const [
     totalPosts,
     postsByStatus,
@@ -72,9 +69,7 @@ export default async function AdminAnalyticsPage() {
     mostViewedPost,
     postsByViews,
     revenueAnalytics,
-    bookingEventTotals,
-    bookingEventsLast7Days,
-    bookingEventsLast30Days,
+    guideAnalytics,
   ] = await Promise.all([
     prisma.post.count(),
     prisma.post.groupBy({
@@ -102,37 +97,13 @@ export default async function AdminAnalyticsPage() {
       },
     }),
     getBlogRevenueAnalytics(),
-    prisma.bookingEvent.groupBy({
-      by: ['type'],
-      _count: {
-        _all: true,
-      },
-    }),
-    prisma.bookingEvent.count({
-      where: {
-        createdAt: {
-          gte: last7Days,
-        },
-      },
-    }),
-    prisma.bookingEvent.count({
-      where: {
-        createdAt: {
-          gte: last30Days,
-        },
-      },
-    }),
+    getGuideAnalyticsDashboard(),
   ]);
-
-  const bookingCountByType = bookingEventTotals.reduce<Record<string, number>>((acc, row) => {
-    acc[row.type] = row._count._all;
-    return acc;
-  }, {});
-
-  const sectionViewedCount = bookingCountByType[BookingAnalyticsEvents.SECTION_VIEWED] ?? 0;
-  const scrolledIntoViewCount = bookingCountByType[BookingAnalyticsEvents.SECTION_IN_VIEW] ?? 0;
-  const interactionCount = bookingCountByType[BookingAnalyticsEvents.INTERACTION] ?? 0;
   const revenueLeaderRows = revenueAnalytics.posts.slice(0, 12);
+  const guideToConsultationConversion =
+    guideAnalytics.summary.totalViews > 0
+      ? `${((guideAnalytics.summary.totalConsultationClicks / guideAnalytics.summary.totalViews) * 100).toFixed(1)}%`
+      : '0.0%';
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -283,35 +254,47 @@ export default async function AdminAnalyticsPage() {
       </AdminSurface>
 
       <AdminHeader
-        eyebrow="Booking Funnel"
-        title="How It Works engagement"
-        subtitle="Track consultation section visibility and interaction on How It Works without relying on calendar embeds."
+        eyebrow="Guide Engagement"
+        title="Guide views and consultation conversion"
+        subtitle="The funnel now runs through content. Use guide views, guide engagement, and guide-to-book clicks to measure what moves readers toward action."
       />
 
-      <section className="admin-kpi-grid" aria-label="Booking engagement metrics">
-        <AdminKpiCard label="Section loaded" value={sectionViewedCount.toLocaleString()} />
-        <AdminKpiCard label="Scrolled into view" value={scrolledIntoViewCount.toLocaleString()} />
-        <AdminKpiCard label="Interaction" value={interactionCount.toLocaleString()} />
-        <AdminKpiCard label="Last 7 days" value={bookingEventsLast7Days.toLocaleString()} />
-        <AdminKpiCard label="Last 30 days" value={bookingEventsLast30Days.toLocaleString()} />
+      <section className="admin-kpi-grid" aria-label="Guide engagement metrics">
+        <AdminKpiCard label="Guide views" value={guideAnalytics.summary.totalViews.toLocaleString()} />
+        <AdminKpiCard label="Guide engagement" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
+        <AdminKpiCard label="Guide to book" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
+        <AdminKpiCard label="Guide to book rate" value={guideToConsultationConversion} />
+        <AdminKpiCard label="Guide to contact" value={guideAnalytics.summary.totalContactClicks.toLocaleString()} />
+        <AdminKpiCard label="Guide to services" value={guideAnalytics.summary.totalServicesClicks.toLocaleString()} />
       </section>
 
       <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Booking events by type</h2>
+        <h2 className="admin-h2">Top guide conversion sources</h2>
         <AdminTable
           density="compact"
           columns={[
-            { key: 'type', label: 'Event type' },
-            { key: 'count', label: 'Count', align: 'right' },
+            { key: 'guide', label: 'Guide' },
+            { key: 'views', label: 'Views', align: 'right' },
+            { key: 'book', label: 'Book Clicks', align: 'right' },
+            { key: 'contact', label: 'Contact Clicks', align: 'right' },
+            { key: 'services', label: 'Services Clicks', align: 'right' },
           ]}
-          emptyState={<p className="admin-body p-6">No booking events yet.</p>}
+          emptyState={<p className="admin-body p-6">No guide conversion data yet.</p>}
         >
-          {bookingEventTotals.map((row) => (
-            <tr key={row.type} className="admin-row">
-              <td className="text-admin">
-                <span className="admin-table-code">{row.type}</span>
+          {guideAnalytics.topGuides.slice(0, 8).map((guide) => (
+            <tr key={guide.guideId} className="admin-row">
+              <td>
+                <div className="admin-stack gap-1">
+                  <p className="text-admin">{guide.title}</p>
+                  <Link href={`/guides/${guide.slug}`} target="_blank" className="admin-micro underline underline-offset-2">
+                    /guides/{guide.slug}
+                  </Link>
+                </div>
               </td>
-              <td className="text-right text-admin">{row._count._all}</td>
+              <td className="text-right text-admin">{guide.views.toLocaleString()}</td>
+              <td className="text-right text-admin">{guide.consultationClicks.toLocaleString()}</td>
+              <td className="text-right text-admin">{guide.contactClicks.toLocaleString()}</td>
+              <td className="text-right text-admin">{guide.servicesClicks.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>

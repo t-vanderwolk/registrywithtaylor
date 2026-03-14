@@ -46,89 +46,73 @@ export default async function AboutPage() {
         />
 
         <MarketingSection tone="white" spacing="spacious" container="default">
-          <div className="mx-auto max-w-6xl space-y-10">
-            <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-              <RevealOnScroll>
-                <div className="relative mx-auto w-full max-w-[420px] lg:mx-0">
-                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-black/5 shadow-sm">
-                    <Image
-                      src="/assets/editorial/taylor.png"
-                      alt="Taylor Vanderwolk, Founder of Taylor-Made Baby Co."
-                      fill
-                      sizes="(min-width: 1024px) 420px, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-              </RevealOnScroll>
+          <div className="mx-auto max-w-3xl space-y-8">
+            <RevealOnScroll>
+              <H2 className="font-serif text-neutral-900">
+                A Baby Gear Expert in the Details
+              </H2>
+            </RevealOnScroll>
 
-              <div className="space-y-8">
-                <RevealOnScroll delayMs={60}>
-                  <H2 className="font-serif text-neutral-900">
-                    A Baby Gear Expert in the Details
-                  </H2>
-                </RevealOnScroll>
+            <RevealOnScroll delayMs={60}>
+              <Body className="text-neutral-700">
+                I am a Baby Gear Expert and Registry Consultant who helps families figure out what to buy, what to
+                skip, and what can wait.
+              </Body>
+            </RevealOnScroll>
 
-                <RevealOnScroll delayMs={120}>
-                  <Body className="max-w-2xl text-neutral-700">
-                    I am a Baby Gear Expert and Registry Consultant who helps families figure out what to buy, what to
-                    skip, and what can wait.
-                  </Body>
-                </RevealOnScroll>
+            <RevealOnScroll delayMs={120}>
+              <div className="space-y-6 text-left">
+                <Body className="text-neutral-700">
+                  Here&apos;s the tea: baby gear gets confusing fast, and the early decisions matter more than they
+                  look at first.
+                </Body>
 
-                <RevealOnScroll delayMs={180}>
-                  <div className="max-w-2xl space-y-6 text-left">
-                    <Body className="text-neutral-700">
-                      Here&apos;s the tea: baby gear gets confusing fast, and the early decisions matter more than they
-                      look at first.
-                    </Body>
+                <Body className="text-neutral-700">
+                  With hands-on experience across premium retail floors, national pilot programs, and private
+                  consulting, I&apos;ve guided hundreds of families through the early decisions that shape day-to-day
+                  life with a baby.
+                </Body>
 
-                    <Body className="text-neutral-700">
-                      With hands-on experience across premium retail floors, national pilot programs, and private
-                      consulting, I&apos;ve guided hundreds of families through the early decisions that shape day-to-day
-                      life with a baby.
-                    </Body>
+                <Body className="text-neutral-700">
+                  From registry structure to stroller and car seat strategy to feeding gear, sleep space, and
+                  nursery flow, my work lives at the intersection of safety, design, and real-life functionality.
+                </Body>
 
-                    <Body className="text-neutral-700">
-                      From registry structure to stroller and car seat strategy to feeding gear, sleep space, and
-                      nursery flow, my work lives at the intersection of safety, design, and real-life functionality.
-                    </Body>
+                <Body className="text-neutral-700">
+                  When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
+                  trusting me with more than a checklist. You&apos;re trusting me with your story.
+                </Body>
 
-                    <Body className="text-neutral-700">
-                      When you invite me into that space - into your home, your routines, your questions at 10 p.m. - you&apos;re
-                      trusting me with more than a checklist. You&apos;re trusting me with your story.
-                    </Body>
+                <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
 
-                    <Body className="text-neutral-700">That&apos;s a responsibility I don&apos;t take lightly.</Body>
+                <Body className="text-neutral-700">
+                  My role isn&apos;t to sell you more. It&apos;s to help you build a baby setup that works in your actual
+                  home and routine.
+                </Body>
 
-                    <Body className="text-neutral-700">
-                      My role isn&apos;t to sell you more. It&apos;s to help you build a baby setup that works in your actual
-                      home and routine.
-                    </Body>
+                <Body className="font-medium text-neutral-900">{WHAT_I_HELP_FAMILIES_CHOOSE_TITLE}</Body>
 
-                    <Body className="font-medium text-neutral-900">{WHAT_I_HELP_FAMILIES_CHOOSE_TITLE}</Body>
-
-                    <ul className="space-y-5 pt-2 leading-relaxed text-neutral-700">
-                      {WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS.map((item) => (
-                        <li key={item} className="flex items-start gap-4">
-                          <CheckIcon />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </RevealOnScroll>
+                <ul className="space-y-5 pt-2 leading-relaxed text-neutral-700">
+                  {WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS.map((item) => (
+                    <li key={item} className="flex items-start gap-4">
+                      <CheckIcon />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            </RevealOnScroll>
           </div>
         </MarketingSection>
 
         <MarketingSection tone="ivory" spacing="spacious" container="narrow">
-          <div className="max-w-2xl mx-auto space-y-8">
+          <div className="mx-auto max-w-2xl space-y-8">
             <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">
-                The Taylor-Made Approach
-              </H2>
+              <div>
+                <H2 className="font-serif text-neutral-900">
+                  The Taylor-Made Approach
+                </H2>
+              </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
@@ -177,11 +161,13 @@ export default async function AboutPage() {
         </MarketingSection>
 
         <MarketingSection tone="white" spacing="spacious" container="narrow">
-          <div className="max-w-2xl mx-auto space-y-7">
+          <div className="mx-auto max-w-2xl space-y-7">
             <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">
-                What Makes This Different
-              </H2>
+              <div>
+                <H2 className="font-serif text-neutral-900">
+                  What Makes This Different
+                </H2>
+              </div>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={90}>
@@ -233,18 +219,43 @@ export default async function AboutPage() {
 
             <RevealOnScroll delayMs={100}>
               <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
-                {partnersWithLogos.map((partner) => (
-                  <Image
-                    key={partner.id}
-                    src={partner.logoUrl ?? FALLBACK_AFFILIATE_PARTNER_LOGO_SRC}
-                    alt={partner.name}
-                    width={190}
-                    height={52}
-                    className="h-8 w-auto opacity-70 grayscale md:h-9"
-                    loading="lazy"
-                    unoptimized={isRemoteImageUrl(partner.logoUrl)}
-                  />
-                ))}
+                {partnersWithLogos.map((partner) => {
+                  const href = partner.defaultDestinationUrl ?? partner.website;
+                  const logo = (
+                    <div className="flex min-h-[4.75rem] min-w-[10.5rem] items-center justify-center px-4 py-3 md:min-h-[5.25rem] md:min-w-[11.5rem]">
+                      <Image
+                        src={partner.logoUrl ?? FALLBACK_AFFILIATE_PARTNER_LOGO_SRC}
+                        alt={partner.name}
+                        width={220}
+                        height={72}
+                        className="h-auto max-h-10 w-auto max-w-[9.5rem] object-contain opacity-90 transition duration-200 group-hover:opacity-100 md:max-h-12 md:max-w-[10.5rem]"
+                        loading="lazy"
+                        unoptimized={isRemoteImageUrl(partner.logoUrl)}
+                      />
+                    </div>
+                  );
+
+                  if (!href) {
+                    return (
+                      <div key={partner.id} className="inline-flex items-center justify-center">
+                        {logo}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <a
+                      key={partner.id}
+                      href={href}
+                      target="_blank"
+                      rel="sponsored nofollow noopener noreferrer"
+                      className="group inline-flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                      aria-label={`Visit ${partner.name}`}
+                    >
+                      {logo}
+                    </a>
+                  );
+                })}
               </div>
             </RevealOnScroll>
           </div>

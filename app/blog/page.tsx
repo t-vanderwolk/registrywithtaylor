@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import BlogIndexView from '@/components/blog/BlogIndexView';
 import FinalCTA from '@/components/layout/FinalCTA';
@@ -126,6 +127,8 @@ export default async function BlogPage() {
   return (
     <SiteShell currentPath="/blog">
       <main className="site-main" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
+        <PageViewTracker path="/blog" pageType="blog" />
+
         <Hero
           className="homepage-hero"
           eyebrow="Journal"

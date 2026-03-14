@@ -2,7 +2,7 @@
 
 Audit basis:
 - Source scan across the public app router, shared layout, navigation, footer, global styles, blog template stack, service components, forms, and metadata helpers.
-- Key sources: [app/layout.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/layout.tsx), [components/Header.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/Header.tsx), [components/Footer.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/Footer.tsx), [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx), [app/services/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/services/page.tsx), [app/how-it-works/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/how-it-works/page.tsx), [app/blog/[slug]/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/blog/[slug]/page.tsx), [components/blog/PostArticleView.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/blog/PostArticleView.tsx), [app/globals.css](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/globals.css), [styles/blog.css](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/styles/blog.css).
+- Key sources: [app/layout.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/layout.tsx), [components/Header.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/Header.tsx), [components/Footer.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/Footer.tsx), [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx), [app/services/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/services/page.tsx), [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx), [app/blog/[slug]/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/blog/[slug]/page.tsx), [components/blog/PostArticleView.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/blog/PostArticleView.tsx), [app/globals.css](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/globals.css), [styles/blog.css](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/styles/blog.css).
 - Live content check via local Prisma query on March 11, 2026: 3 published public blog posts, all in `Registry Strategy`; 1 public author slug, `admin`.
 - This is a current-state documentation pass only. No redesign or refactor was performed.
 
@@ -31,24 +31,24 @@ Audit basis:
   Relationship to funnel: middle-of-funnel service exploration page; strongest package-detail page.
   Source: [app/services/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/services/page.tsx)
 
-- `/how-it-works`
+- `/#journey`
   Page purpose: process explanation plus embedded consultation request.
   Primary audience intent: understand what happens first and submit a request without leaving the page.
   Primary CTA: `Schedule Your Complimentary Consultation`.
   Relationship to funnel: clearest explanation-to-conversion handoff; strongest embedded form page.
-  Source: [app/how-it-works/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/how-it-works/page.tsx)
+  Source: [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx)
 
 - `/consultation`
   Page purpose: dedicated standalone consultation request page.
   Primary audience intent: submit a consultation form directly.
   Primary CTA: `Submit Consultation Request`.
-  Relationship to funnel: direct conversion page, but partially redundant with `/how-it-works`.
+  Relationship to funnel: direct conversion page, but partially redundant with `/#journey`.
   Source: [app/consultation/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/consultation/page.tsx)
 
 - `/consultation/confirmation`
   Page purpose: post-submit confirmation state.
   Primary audience intent: confirm form receipt and choose where to go next.
-  Primary CTA: `Return Home`; secondary CTA is `Back to How It Works`.
+  Primary CTA: `Return Home`; secondary CTA is `Back to Journey`.
   Relationship to funnel: utility endpoint after consultation submission.
   Source: [app/consultation/confirmation/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/consultation/confirmation/page.tsx)
 
@@ -145,11 +145,11 @@ Current positioning role: primary brand and funnel hub.
 Primary CTA: `Request Consultation`.
 Secondary CTA: `Explore Services`.
 Visual tone: editorial, soft-luxury, blush/ivory, full-bleed hero with ribbon divider and soft trust cards.
-Observed issues / notes: strongest page structurally; still mixes authority language with service-selling; repeats service/process content that later reappears on `/services` and `/how-it-works`.
+Observed issues / notes: strongest page structurally; still mixes authority language with service-selling; repeats service/process content that later reappears on `/services` and `/#journey`.
 
 Section order:
 1. Header / nav
-   Visible copy hierarchy: brand wordmark; `Home`, `How It Works`, `Services`, `Guides`, `FAQ`, `Contact`.
+   Visible copy hierarchy: brand wordmark; `Home`, `Journey`, `Services`, `Guides`, `FAQ`, `Contact`.
    Approximate role in funnel: orientation.
    Type: navigation / trust.
    Repeated component patterns: global sticky header.
@@ -181,12 +181,12 @@ Section order:
    Assessment: essential; good bridge from authority to need state.
 
 5. Process preview
-   Visible copy hierarchy: `How it works`, title `A clear path from the first conversation to a more confident plan.`, three process cards, CTA to `/how-it-works`.
+   Visible copy hierarchy: `Journey`, title `A clear path from the first conversation to a more confident plan.`, three process cards, CTA to `/#journey`.
    Approximate role in funnel: process simplification.
    Type: educational / conversion.
    Repeated component patterns: numbered cards on `MarketingSurface`.
    Likely source component/file: inline in [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx).
-   Assessment: useful, but conceptually overlaps the dedicated `/how-it-works` page.
+   Assessment: useful, but conceptually overlaps the dedicated `/#journey` page.
 
 6. Services preview
    Visible copy hierarchy: `Services preview`, title `Curated support for registries, gear, safety, and home prep.`, CTA to `/services`, four pillar cards.
@@ -366,7 +366,7 @@ Section order:
    Type: educational / conversion support.
    Pattern: numbered 3-card grid.
    Source: [app/services/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/services/page.tsx).
-   Assessment: useful, but overlaps homepage and `/how-it-works`.
+   Assessment: useful, but overlaps homepage and `/#journey`.
 
 7. Optional Add-On Support intro
    Visible copy hierarchy: eyebrow and H2 both `Optional Add-On Support`, body copy.
@@ -424,9 +424,9 @@ Section order:
    Pattern: global footer.
    Assessment: essential.
 
-## PAGE: /how-it-works
+## PAGE: /#journey
 
-Source: [app/how-it-works/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/how-it-works/page.tsx)
+Source: [app/page.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/app/page.tsx)
 
 Purpose: explain the process and capture consultation requests.
 Current positioning role: process page with strongest in-page conversion.
@@ -488,9 +488,9 @@ Source: [app/consultation/page.tsx](/Users/taylorvanderwolk/Desktop/code/registr
 Purpose: dedicated consultation intake page.
 Current positioning role: direct-response conversion page.
 Primary CTA: `Submit Consultation Request`.
-Secondary CTA: inline text link to `/how-it-works`.
+Secondary CTA: inline text link to `/#journey`.
 Visual tone: stripped-down, direct, minimal.
-Observed issues / notes: useful as a direct endpoint, but materially duplicates the embedded form flow on `/how-it-works`.
+Observed issues / notes: useful as a direct endpoint, but materially duplicates the embedded form flow on `/#journey`.
 
 Section order:
 1. Header / nav
@@ -502,10 +502,10 @@ Section order:
    Funnel role: conversion framing.
    Type: conversion.
    Pattern: Hero.
-   Assessment: essential; duration here is 45 minutes, while `/how-it-works` says 30 minutes.
+   Assessment: essential; duration here is 45 minutes, while `/#journey` says 30 minutes.
 
 3. Form surface
-   Visible copy hierarchy: consultation form, note `Prefer to read the process first? View How It Works`.
+   Visible copy hierarchy: consultation form, note `Prefer to read the process first? View Journey`.
    Funnel role: direct conversion.
    Type: conversion.
    Pattern: `ConsultationRequestForm` inside `MarketingSurface`.
@@ -522,7 +522,7 @@ Source: [app/consultation/confirmation/page.tsx](/Users/taylorvanderwolk/Desktop
 Purpose: confirmation after consultation request submission.
 Current positioning role: utility state.
 Primary CTA: `Return Home`.
-Secondary CTA: `Back to How It Works`.
+Secondary CTA: `Back to Journey`.
 Visual tone: minimal and functional.
 Observed issues / notes: useful, but thin; no next-step expectation-setting beyond "Taylor will respond shortly."
 
@@ -840,14 +840,14 @@ Section order:
   Source: [components/layout/MarketingSection.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/layout/MarketingSection.tsx)
 
 - Final CTA
-  Where it appears: homepage, about, services, how-it-works, contact, faq, blog index, blog article, author page.
+  Where it appears: homepage, about, services, journey, contact, faq, blog index, blog article, author page.
   Variants: 1 base component with copy overrides.
   What it is trying to do: close most pages with the same consultation ask.
   Likely unification need later: yes; active everywhere, but overused enough that it becomes generic.
   Source: [components/layout/FinalCTA.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/layout/FinalCTA.tsx)
 
 - SectionIntro + SectionDivider
-  Where it appears: heavily on homepage and services/how-it-works.
+  Where it appears: heavily on homepage and services/#journey.
   Variants: alignment and width variants.
   What it is trying to do: provide a consistent section-heading system.
   Likely unification need later: keep as a foundation; it is one of the most reusable patterns already.
@@ -889,7 +889,7 @@ Section order:
   Source: [components/faq/FAQAccordion.tsx](/Users/taylorvanderwolk/Desktop/code/registrywithtaylor/components/faq/FAQAccordion.tsx)
 
 - ConsultationRequestForm
-  Where it appears: `/how-it-works` and `/consultation`.
+  Where it appears: `/#journey` and `/consultation`.
   Variants: same form, customizable return/success paths.
   What it is trying to do: convert intent into a consultation request.
   Likely unification need later: yes; decide whether a standalone page, embedded page, or both are necessary.
@@ -965,7 +965,7 @@ How it reads today:
 
 Which pages are strongest:
 - `/` because it does the best job combining authority, pain framing, services, trust, and multiple next steps.
-- `/how-it-works` because it clearly explains the process and embeds the form directly in-context.
+- `/#journey` because it clearly explains the process and embeds the form directly in-context.
 - `/about` because it gives the founder voice and rationale behind the service.
 
 Which pages dilute the positioning:
@@ -974,7 +974,7 @@ Which pages dilute the positioning:
 - `/blog/author/admin` because the live author identity is generic rather than brand-credible.
 
 Where the message changes or becomes inconsistent:
-- Consultation duration changes from 30 minutes on `/how-it-works` to 45 minutes on `/consultation`.
+- Consultation duration changes from 30 minutes on `/#journey` to 45 minutes on `/consultation`.
 - CTAs split between `/consultation` and `/contact`, depending on page and component.
 - Positioning nouns vary across the site: `baby planning guidance`, `baby gear expert`, `registry consultant`, `private planning`, `concierge guidance`, `Target Baby Concierge`.
 - Service scope ranges from core advisor territory to broader event and family-support territory.
@@ -993,7 +993,7 @@ Specific assessment of the current flow:
 
 - Spacing rhythm
   Current standard spacing is systemized in CSS: `section-tight` at 3rem mobile / 5rem desktop, `section-base` at 4.25rem mobile / 7rem desktop, and `section-spacious` at 5.25rem mobile / 8.5rem desktop.
-  Result: consistent vertical rhythm across most pages, especially homepage, services, and how-it-works.
+  Result: consistent vertical rhythm across most pages, especially homepage, services, and journey.
 
 - Background alternation
   The marketing site alternates primarily between white, ivory, and blush sections.
@@ -1056,7 +1056,7 @@ Strongest current conversion paths:
 - `/` -> `/consultation`
   Strong because the homepage hero leads directly there and the page closes with the same ask.
 
-- `/how-it-works` -> embedded consultation form -> `/consultation/confirmation`
+- `/#journey` -> embedded consultation form -> `/consultation/confirmation`
   Strong because explanation and form are on the same page.
 
 - `/` -> `/services` -> `/contact?service=...`
@@ -1137,7 +1137,7 @@ Places where authority should be doing more work:
 - Current likely keyword targets
   Homepage: baby gear and registry guidance.
   Services: baby prep services, registry and nursery help.
-  How it works: process / consultation framing.
+  Journey: process / consultation framing.
   Blog index: baby prep guides.
   Articles: registry strategy and adjacent prep questions.
 
@@ -1165,10 +1165,10 @@ Places where authority should be doing more work:
 
 - Duplicate sections
   `PlanningPackageCards` appears on both `/` and `/services`.
-  Process-step sections appear on `/`, `/how-it-works`, and `/services`.
+  Process-step sections appear on `/`, `/#journey`, and `/services`.
   Founder philosophy language appears on both `/` and `/about`.
   FAQ exists as a dedicated page and a services-page subsection.
-  Consultation form exists on `/how-it-works` and `/consultation`.
+  Consultation form exists on `/#journey` and `/consultation`.
 
 - Overlapping messaging
   `what to buy, what to skip, and what can wait`
@@ -1204,7 +1204,7 @@ Places where authority should be doing more work:
   They support services well, but do not deeply reinforce the advisor/educator role.
 
 - Pages that should likely be merged, simplified, or elevated later
-  `/consultation` and the embedded consultation flow on `/how-it-works` should likely be rationalized.
+  `/consultation` and the embedded consultation flow on `/#journey` should likely be rationalized.
   `/contact` and `/consultation` currently represent two separate intake systems.
   Long-tail service add-ons in celebration and broader family support should likely be reconsidered against the future positioning.
 
@@ -1220,7 +1220,7 @@ Places where authority should be doing more work:
 
 What the marketing site is doing well right now:
 - It has a coherent visual system with a distinct editorial-luxury tone.
-- The homepage and `/how-it-works` are structurally solid and clearly communicate the service promise.
+- The homepage and `/#journey` are structurally solid and clearly communicate the service promise.
 - The component system is more mature than the content system. Shared wrappers, cards, package components, FAQs, and the blog template are already reasonably systemized.
 
 What type of brand it currently feels like:

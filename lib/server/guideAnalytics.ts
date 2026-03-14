@@ -16,6 +16,8 @@ export type GuideAnalyticsCounts = {
   uniqueVisitors: number;
   affiliateClicks: number;
   consultationClicks: number;
+  contactClicks: number;
+  servicesClicks: number;
   newsletterClicks: number;
 };
 
@@ -24,6 +26,8 @@ const emptyCounts = (): GuideAnalyticsCounts => ({
   uniqueVisitors: 0,
   affiliateClicks: 0,
   consultationClicks: 0,
+  contactClicks: 0,
+  servicesClicks: 0,
   newsletterClicks: 0,
 });
 
@@ -113,8 +117,16 @@ export async function getGuideAnalyticsCountsByGuide(guideIds: string[], since?:
       bucket.affiliateClicks = row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.CONSULTATION_CTA_CLICK) {
+    if (row.event === GuideAnalyticsEvents.TO_CONSULTATION_CLICK) {
       bucket.consultationClicks = row._count._all;
+    }
+
+    if (row.event === GuideAnalyticsEvents.TO_CONTACT_CLICK) {
+      bucket.contactClicks = row._count._all;
+    }
+
+    if (row.event === GuideAnalyticsEvents.TO_SERVICES_CLICK) {
+      bucket.servicesClicks = row._count._all;
     }
 
     if (row.event === GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK) {
@@ -143,7 +155,10 @@ type GuideAnalyticsDashboard = {
     totalUniqueVisitors: number;
     totalAffiliateClicks: number;
     totalConsultationClicks: number;
+    totalContactClicks: number;
+    totalServicesClicks: number;
     totalNewsletterClicks: number;
+    totalEngagement: number;
   };
   topGuides: Array<{
     guideId: string;
@@ -154,6 +169,8 @@ type GuideAnalyticsDashboard = {
     uniqueVisitors: number;
     affiliateClicks: number;
     consultationClicks: number;
+    contactClicks: number;
+    servicesClicks: number;
     newsletterClicks: number;
     publishedAt: Date | null;
   }>;
@@ -167,6 +184,8 @@ type GuideAnalyticsDashboard = {
     guideCount: number;
     views: number;
     consultationClicks: number;
+    contactClicks: number;
+    servicesClicks: number;
     newsletterClicks: number;
     affiliateClicks: number;
   }>;
@@ -178,6 +197,8 @@ type GuideAnalyticsDashboard = {
     publishedAt: Date | null;
     views: number;
     consultationClicks: number;
+    contactClicks: number;
+    servicesClicks: number;
     newsletterClicks: number;
     affiliateClicks: number;
   }>;
@@ -247,6 +268,9 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
         totalAffiliateClicks: 0,
         totalConsultationClicks: 0,
         totalNewsletterClicks: 0,
+        totalContactClicks: 0,
+        totalServicesClicks: 0,
+        totalEngagement: 0,
       },
       topGuides: [],
       topAffiliateSections: [],
@@ -271,6 +295,8 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
         uniqueVisitors: counts.uniqueVisitors,
         affiliateClicks: counts.affiliateClicks,
         consultationClicks: counts.consultationClicks,
+        contactClicks: counts.contactClicks,
+        servicesClicks: counts.servicesClicks,
         newsletterClicks: counts.newsletterClicks,
         publishedAt: guide.publishedAt,
       };
@@ -309,6 +335,8 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
       guideCount: number;
       views: number;
       consultationClicks: number;
+      contactClicks: number;
+      servicesClicks: number;
       newsletterClicks: number;
       affiliateClicks: number;
     }
@@ -320,6 +348,8 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
       guideCount: 0,
       views: 0,
       consultationClicks: 0,
+      contactClicks: 0,
+      servicesClicks: 0,
       newsletterClicks: 0,
       affiliateClicks: 0,
     };
@@ -328,10 +358,20 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
     bucket.guideCount += 1;
     bucket.views += counts.views;
     bucket.consultationClicks += counts.consultationClicks;
+    bucket.contactClicks += counts.contactClicks;
+    bucket.servicesClicks += counts.servicesClicks;
     bucket.newsletterClicks += counts.newsletterClicks;
     bucket.affiliateClicks += counts.affiliateClicks;
     categoryBuckets.set(guide.category, bucket);
   }
+
+  const totalViews = topGuides.reduce((sum, guide) => sum + guide.views, 0);
+  const totalUniqueVisitors = topGuides.reduce((sum, guide) => sum + guide.uniqueVisitors, 0);
+  const totalAffiliateClicks = topGuides.reduce((sum, guide) => sum + guide.affiliateClicks, 0);
+  const totalConsultationClicks = topGuides.reduce((sum, guide) => sum + guide.consultationClicks, 0);
+  const totalContactClicks = topGuides.reduce((sum, guide) => sum + guide.contactClicks, 0);
+  const totalServicesClicks = topGuides.reduce((sum, guide) => sum + guide.servicesClicks, 0);
+  const totalNewsletterClicks = topGuides.reduce((sum, guide) => sum + guide.newsletterClicks, 0);
 
   return {
     storageReady: true,
@@ -339,11 +379,19 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
     summary: {
       totalGuides: guides.length,
       publishedGuides: publishedGuides.length,
-      totalViews: topGuides.reduce((sum, guide) => sum + guide.views, 0),
-      totalUniqueVisitors: topGuides.reduce((sum, guide) => sum + guide.uniqueVisitors, 0),
-      totalAffiliateClicks: topGuides.reduce((sum, guide) => sum + guide.affiliateClicks, 0),
-      totalConsultationClicks: topGuides.reduce((sum, guide) => sum + guide.consultationClicks, 0),
-      totalNewsletterClicks: topGuides.reduce((sum, guide) => sum + guide.newsletterClicks, 0),
+      totalViews,
+      totalUniqueVisitors,
+      totalAffiliateClicks,
+      totalConsultationClicks,
+      totalContactClicks,
+      totalServicesClicks,
+      totalNewsletterClicks,
+      totalEngagement:
+        totalAffiliateClicks +
+        totalConsultationClicks +
+        totalContactClicks +
+        totalServicesClicks +
+        totalNewsletterClicks,
     },
     topGuides: topGuides.slice(0, 12),
     topAffiliateSections,
@@ -369,6 +417,8 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
           publishedAt: guide.publishedAt,
           views: counts.views,
           consultationClicks: counts.consultationClicks,
+          contactClicks: counts.contactClicks,
+          servicesClicks: counts.servicesClicks,
           newsletterClicks: counts.newsletterClicks,
           affiliateClicks: counts.affiliateClicks,
         };

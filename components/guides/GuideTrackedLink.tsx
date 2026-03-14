@@ -2,6 +2,13 @@
 
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import {
+  getAnalyticsPageType,
+  getClientPageAnalyticsContext,
+  getInternalPathFromHref,
+  trackEvent,
+  type AnalyticsPayload,
+} from '@/lib/analytics';
 import type { GuideAnalyticsEventName } from '@/lib/guides/events';
 import { sendGuideTrackingEvent } from '@/lib/guides/clientTracking';
 
@@ -10,7 +17,7 @@ type GuideTrackedLinkProps = {
   href: string;
   event: GuideAnalyticsEventName;
   sourceRoute: string;
-  meta?: Record<string, unknown>;
+  meta?: AnalyticsPayload;
   className?: string;
   children: ReactNode;
   track?: boolean;
@@ -39,11 +46,30 @@ export default function GuideTrackedLink({
       return;
     }
 
+    const pageContext = getClientPageAnalyticsContext(sourceRoute);
+    const destinationPath = getInternalPathFromHref(href);
+    const destination = destinationPath ?? href;
+    const destinationPageType = destinationPath ? getAnalyticsPageType(destinationPath) : 'external';
+    const payload = {
+      ...(pageContext ?? {
+        path: sourceRoute,
+        pageType: 'guide' as const,
+        referrer: null,
+        referrerPageType: null,
+      }),
+      guideId,
+      destination,
+      destinationPageType,
+      ...meta,
+    };
+
+    trackEvent(event, payload);
+
     sendGuideTrackingEvent({
       guideId,
       type: event,
       sourceRoute,
-      meta,
+      meta: payload,
     });
   };
 

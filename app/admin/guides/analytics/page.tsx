@@ -27,13 +27,17 @@ export const dynamic = 'force-dynamic';
 
 export default async function AdminGuideAnalyticsPage() {
   const analytics = await getGuideAnalyticsDashboard();
+  const guideToConsultationConversion =
+    analytics.summary.totalViews > 0
+      ? `${((analytics.summary.totalConsultationClicks / analytics.summary.totalViews) * 100).toFixed(1)}%`
+      : '0.0%';
 
   return (
     <AdminStack gap="xl">
       <AdminHeader
         eyebrow="Guide Analytics"
         title="Guide performance overview"
-        subtitle="Track evergreen traffic, conversion signals, affiliate clicks, and category-level performance without leaving the guide system."
+        subtitle="Track guide views, engagement, and the next-step clicks that move readers toward booking, contact, or services."
         actions={
           <AdminButton asChild variant="secondary">
             <Link href="/admin/guides">Manage guides</Link>
@@ -47,8 +51,10 @@ export default async function AdminGuideAnalyticsPage() {
             <AdminKpiCard label="Total guides" value={String(analytics.summary.totalGuides)} />
             <AdminKpiCard label="Published guides" value={String(analytics.summary.publishedGuides)} />
             <AdminKpiCard label="Guide views" value={analytics.summary.totalViews.toLocaleString()} />
-            <AdminKpiCard label="Unique visitors" value={analytics.summary.totalUniqueVisitors.toLocaleString()} />
-            <AdminKpiCard label="Consult clicks" value={analytics.summary.totalConsultationClicks.toLocaleString()} />
+            <AdminKpiCard label="Guide engagement" value={analytics.summary.totalEngagement.toLocaleString()} />
+            <AdminKpiCard label="Guide to book" value={analytics.summary.totalConsultationClicks.toLocaleString()} />
+            <AdminKpiCard label="Guide to book rate" value={guideToConsultationConversion} />
+            <AdminKpiCard label="Guide to contact" value={analytics.summary.totalContactClicks.toLocaleString()} />
             <AdminKpiCard label="Affiliate clicks" value={analytics.summary.totalAffiliateClicks.toLocaleString()} />
           </section>
 
@@ -73,9 +79,10 @@ export default async function AdminGuideAnalyticsPage() {
                 { key: 'guide', label: 'Guide' },
                 { key: 'category', label: 'Category' },
                 { key: 'views', label: 'Views', align: 'right' },
-                { key: 'consult', label: 'Consult Clicks', align: 'right' },
+                { key: 'book', label: 'Book Clicks', align: 'right' },
+                { key: 'contact', label: 'Contact Clicks', align: 'right' },
+                { key: 'services', label: 'Services Clicks', align: 'right' },
                 { key: 'affiliate', label: 'Affiliate Clicks', align: 'right' },
-                { key: 'newsletter', label: 'Newsletter Clicks', align: 'right' },
               ]}
               emptyState={<p className="admin-body p-6">No guide analytics yet.</p>}
             >
@@ -92,8 +99,9 @@ export default async function AdminGuideAnalyticsPage() {
                   <td className="admin-micro">{guide.category}</td>
                   <td className="text-right text-admin">{guide.views.toLocaleString()}</td>
                   <td className="text-right text-admin">{guide.consultationClicks.toLocaleString()}</td>
+                  <td className="text-right text-admin">{guide.contactClicks.toLocaleString()}</td>
+                  <td className="text-right text-admin">{guide.servicesClicks.toLocaleString()}</td>
                   <td className="text-right text-admin">{guide.affiliateClicks.toLocaleString()}</td>
-                  <td className="text-right text-admin">{guide.newsletterClicks.toLocaleString()}</td>
                 </tr>
               ))}
             </AdminTable>
@@ -129,19 +137,21 @@ export default async function AdminGuideAnalyticsPage() {
                   { key: 'category', label: 'Category' },
                   { key: 'guides', label: 'Guides', align: 'right' },
                   { key: 'views', label: 'Views', align: 'right' },
-                  { key: 'consult', label: 'Consult Clicks', align: 'right' },
+                  { key: 'book', label: 'Book Clicks', align: 'right' },
+                  { key: 'contact', label: 'Contact Clicks', align: 'right' },
                 ]}
                 emptyState={<p className="admin-body p-6">No category performance data yet.</p>}
               >
                 {analytics.categoryPerformance.map((entry) => (
                   <tr key={entry.category} className="admin-row">
-                    <td className="text-admin">{entry.category}</td>
-                    <td className="text-right text-admin">{entry.guideCount.toLocaleString()}</td>
-                    <td className="text-right text-admin">{entry.views.toLocaleString()}</td>
-                    <td className="text-right text-admin">{entry.consultationClicks.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </AdminTable>
+                  <td className="text-admin">{entry.category}</td>
+                  <td className="text-right text-admin">{entry.guideCount.toLocaleString()}</td>
+                  <td className="text-right text-admin">{entry.views.toLocaleString()}</td>
+                  <td className="text-right text-admin">{entry.consultationClicks.toLocaleString()}</td>
+                  <td className="text-right text-admin">{entry.contactClicks.toLocaleString()}</td>
+                </tr>
+              ))}
+            </AdminTable>
             </AdminSurface>
           </div>
 
@@ -153,8 +163,9 @@ export default async function AdminGuideAnalyticsPage() {
                 { key: 'guide', label: 'Guide' },
                 { key: 'published', label: 'Published' },
                 { key: 'views', label: 'Views', align: 'right' },
-                { key: 'consult', label: 'Consult Clicks', align: 'right' },
-                { key: 'newsletter', label: 'Newsletter Clicks', align: 'right' },
+                { key: 'book', label: 'Book Clicks', align: 'right' },
+                { key: 'contact', label: 'Contact Clicks', align: 'right' },
+                { key: 'services', label: 'Services Clicks', align: 'right' },
                 { key: 'affiliate', label: 'Affiliate Clicks', align: 'right' },
               ]}
               emptyState={<p className="admin-body p-6">No published guides yet.</p>}
@@ -170,7 +181,8 @@ export default async function AdminGuideAnalyticsPage() {
                   <td className="admin-micro">{formatDateTime(guide.publishedAt)}</td>
                   <td className="text-right text-admin">{guide.views.toLocaleString()}</td>
                   <td className="text-right text-admin">{guide.consultationClicks.toLocaleString()}</td>
-                  <td className="text-right text-admin">{guide.newsletterClicks.toLocaleString()}</td>
+                  <td className="text-right text-admin">{guide.contactClicks.toLocaleString()}</td>
+                  <td className="text-right text-admin">{guide.servicesClicks.toLocaleString()}</td>
                   <td className="text-right text-admin">{guide.affiliateClicks.toLocaleString()}</td>
                 </tr>
               ))}

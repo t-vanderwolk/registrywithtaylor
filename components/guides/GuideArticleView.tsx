@@ -4,7 +4,8 @@ import PostContent from '@/components/blog/PostContent';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
+import { getAnalyticsPageType } from '@/lib/analytics';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuideDisplayDate } from '@/lib/guides/status';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
@@ -125,19 +126,27 @@ export default function GuideArticleView({
   const showDisclosureBeforeAffiliates =
     guide.affiliateDisclosureEnabled &&
     (!guide.affiliateDisclosurePlacement || guide.affiliateDisclosurePlacement === 'before_affiliates');
+  const nextStepEvent = guide.nextStepCtaHref ? getGuideDestinationEvent(guide.nextStepCtaHref) : null;
+  const nextStepDestinationPageType = guide.nextStepCtaHref ? getAnalyticsPageType(guide.nextStepCtaHref) : null;
 
   return (
     <>
-      <GuideViewTracker guideId={guide.id} sourceRoute={sourceRoute} enabled={!preview} />
+      <GuideViewTracker
+        guideId={guide.id}
+        sourceRoute={sourceRoute}
+        slug={guide.slug}
+        title={guide.title}
+        enabled={!preview}
+      />
 
       <section className="border-b border-black/5 bg-[linear-gradient(180deg,#fbf7f2_0%,#f5eee5_100%)]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:px-10 lg:py-18">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-10 lg:px-10 lg:py-18">
           <div className="space-y-6">
             <div className="space-y-3">
               <p className="text-[0.76rem] uppercase tracking-[0.26em] text-[var(--color-accent-dark)]/80">
                 {guide.category}
               </p>
-              <h1 className="max-w-[14ch] font-serif text-[2.8rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:text-[3.4rem] lg:text-[4.4rem]">
+              <h1 className="max-w-[13ch] font-serif text-[2.35rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:max-w-[14ch] sm:text-[3.4rem] lg:text-[4.4rem]">
                 {guide.title}
               </h1>
               {guide.excerpt ? (
@@ -178,9 +187,9 @@ export default function GuideArticleView({
       </section>
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 sm:px-8 lg:grid-cols-[minmax(15rem,0.36fr)_minmax(0,0.64fr)] lg:items-start lg:gap-14 lg:px-10 lg:py-16">
-          <aside className="space-y-5 lg:sticky lg:top-6">
-            <MarketingSurface className="rounded-[1.8rem] border border-black/6 bg-white/92 p-6">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(15rem,0.36fr)_minmax(0,0.64fr)] lg:items-start lg:gap-14 lg:px-10 lg:py-16">
+          <aside className="order-2 space-y-5 lg:order-1 lg:sticky lg:top-6">
+            <MarketingSurface className="rounded-[1.6rem] border border-black/6 bg-white/92 p-5 sm:rounded-[1.8rem] sm:p-6">
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Guide snapshot</p>
               <div className="mt-4 space-y-3 text-sm leading-7 text-neutral-700">
                 <p>Category: {guide.category}</p>
@@ -193,7 +202,7 @@ export default function GuideArticleView({
             </MarketingSurface>
 
             {tocItems.length > 0 ? (
-              <MarketingSurface className="rounded-[1.8rem] border border-black/6 bg-white/92 p-6">
+              <MarketingSurface className="rounded-[1.6rem] border border-black/6 bg-white/92 p-5 sm:rounded-[1.8rem] sm:p-6">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">On this page</p>
                 <nav className="mt-4 space-y-2" aria-label="Guide table of contents">
                   {tocItems.map((item) => (
@@ -212,7 +221,7 @@ export default function GuideArticleView({
             ) : null}
 
             {guide.consultationCtaEnabled ? (
-              <MarketingSurface className="rounded-[1.8rem] border border-[rgba(196,156,94,0.22)] bg-[linear-gradient(180deg,#fff7f6_0%,#fbf7f2_100%)] p-6">
+              <MarketingSurface className="rounded-[1.6rem] border border-[rgba(196,156,94,0.22)] bg-[linear-gradient(180deg,#fff7f6_0%,#fbf7f2_100%)] p-5 sm:rounded-[1.8rem] sm:p-6">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
                   Need tailored advice?
                 </p>
@@ -221,14 +230,16 @@ export default function GuideArticleView({
                 </p>
                 <GuideTrackedLink
                   guideId={guide.id}
-                  href="/consultation"
-                  event={GuideAnalyticsEvents.CONSULTATION_CTA_CLICK}
+                  href="/book"
+                  event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
                   sourceRoute={sourceRoute}
                   className="btn btn--primary mt-5 w-full justify-center"
                   track={!preview}
                   meta={{
                     ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
                     placement: 'sidebar',
+                    slug: guide.slug,
+                    title: guide.title,
                   }}
                 >
                   {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
@@ -237,11 +248,11 @@ export default function GuideArticleView({
             ) : null}
           </aside>
 
-          <div className="space-y-8">
+          <div className="order-1 space-y-8 lg:order-2">
             {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
 
-            <div className="rounded-[2rem] border border-black/6 bg-white/94 px-6 py-8 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:px-8 md:py-10">
-              <PostContent postId={guide.id} content={articleContent} trackView={false} className="guide-post-content" />
+            <div className="rounded-[1.75rem] border border-black/6 bg-white/94 px-5 py-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:rounded-[2rem] md:px-8 md:py-10">
+              <PostContent postId={guide.id} content={articleContent} className="guide-post-content" />
             </div>
 
             {showDisclosureBeforeConclusion ? <DisclosureCard text={disclosureText} /> : null}
@@ -369,14 +380,16 @@ export default function GuideArticleView({
                   {guide.consultationCtaEnabled ? (
                     <GuideTrackedLink
                       guideId={guide.id}
-                      href="/consultation"
-                      event={GuideAnalyticsEvents.CONSULTATION_CTA_CLICK}
+                      href="/book"
+                      event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
                       sourceRoute={sourceRoute}
                       className="btn btn--primary w-full sm:w-auto"
                       track={!preview}
                       meta={{
                         ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
                         placement: 'bottom_band',
+                        slug: guide.slug,
+                        title: guide.title,
                       }}
                     >
                       {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
@@ -404,10 +417,17 @@ export default function GuideArticleView({
                     <GuideTrackedLink
                       guideId={guide.id}
                       href={guide.nextStepCtaHref}
-                      event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
+                      event={nextStepEvent ?? GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
                       sourceRoute={sourceRoute}
                       className="btn btn--secondary w-full sm:w-auto"
-                      track={false}
+                      track={!preview && Boolean(nextStepEvent)}
+                      meta={{
+                        ctaLabel: guide.nextStepCtaLabel?.trim() || 'Explore related guides',
+                        placement: 'bottom_band',
+                        slug: guide.slug,
+                        title: guide.title,
+                        destinationPageType: nextStepDestinationPageType,
+                      }}
                     >
                       {guide.nextStepCtaLabel?.trim() || 'Explore related guides'}
                     </GuideTrackedLink>

@@ -62,7 +62,7 @@ export default function TMBCBlogTemplate({
   return (
     <>
       <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
-        <article className="mx-auto max-w-4xl px-6">
+        <article className="mx-auto max-w-4xl px-5 sm:px-6">
           <header className="tmbc-blog-hero">
             <div className="tmbc-blog-hero__inner">
               <div className="tmbc-blog-hero__eyebrow">
@@ -108,7 +108,7 @@ export default function TMBCBlogTemplate({
           </header>
 
           {featuredImageUrl ? (
-            <div className="relative mb-12 aspect-[16/10] overflow-hidden rounded-[34px]">
+            <div className="relative mb-10 aspect-[16/10] overflow-hidden rounded-[24px] sm:mb-12 sm:rounded-[34px]">
               <Image
                 src={featuredImageUrl}
                 alt={title}
@@ -129,7 +129,7 @@ export default function TMBCBlogTemplate({
           {affiliateCta}
           {conversionCta ? <div className="mt-16">{conversionCta}</div> : null}
 
-          <section className="blog-section-soft mt-16 px-6">
+          <section className="blog-section-soft mt-16 px-4 sm:px-6">
             <p className="text-xs uppercase tracking-[0.24em] text-[var(--tmbc-blog-soft-text)]">Share This Guide</p>
             <div className="mt-5">{shareSection}</div>
           </section>

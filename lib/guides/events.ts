@@ -1,7 +1,11 @@
+import { getAnalyticsPageType } from '@/lib/analytics';
+
 export const GuideAnalyticsEvents = {
   VIEW: 'guide_view',
   AFFILIATE_CLICK: 'guide_affiliate_click',
-  CONSULTATION_CTA_CLICK: 'guide_consultation_cta_click',
+  TO_CONSULTATION_CLICK: 'guide_to_consultation_click',
+  TO_CONTACT_CLICK: 'guide_to_contact_click',
+  TO_SERVICES_CLICK: 'guide_to_services_click',
   NEWSLETTER_CTA_CLICK: 'guide_newsletter_cta_click',
   GUIDE_CREATED: 'guide_created',
   GUIDE_UPDATED: 'guide_updated',
@@ -19,7 +23,9 @@ export type GuideAnalyticsEventName =
 export const GUIDE_PUBLIC_EVENT_NAMES = [
   GuideAnalyticsEvents.VIEW,
   GuideAnalyticsEvents.AFFILIATE_CLICK,
-  GuideAnalyticsEvents.CONSULTATION_CTA_CLICK,
+  GuideAnalyticsEvents.TO_CONSULTATION_CLICK,
+  GuideAnalyticsEvents.TO_CONTACT_CLICK,
+  GuideAnalyticsEvents.TO_SERVICES_CLICK,
   GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK,
 ] as const;
 
@@ -34,3 +40,20 @@ export const GUIDE_ADMIN_EVENT_NAMES = [
   GuideAnalyticsEvents.GUIDE_ARCHIVED,
 ] as const;
 
+export function getGuideDestinationEvent(href: string) {
+  const pageType = getAnalyticsPageType(href);
+
+  if (pageType === 'book') {
+    return GuideAnalyticsEvents.TO_CONSULTATION_CLICK;
+  }
+
+  if (pageType === 'contact') {
+    return GuideAnalyticsEvents.TO_CONTACT_CLICK;
+  }
+
+  if (pageType === 'services') {
+    return GuideAnalyticsEvents.TO_SERVICES_CLICK;
+  }
+
+  return null;
+}

@@ -1,3 +1,4 @@
+import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import CTASection from '@/components/marketing/CTASection';
 import ServiceCards from '@/components/marketing/ServiceCards';
@@ -48,6 +49,33 @@ const engagementPrinciples = [
   },
 ] as const;
 
+const optionalAddOns = [
+  {
+    title: 'Nursery Layout Planning',
+    description: 'Furniture placement, room flow, and sleep environment guidance.',
+  },
+  {
+    title: 'Registry Refresh',
+    description: 'Review and refine your registry after your baby shower or later in pregnancy.',
+  },
+  {
+    title: 'Baby Gear Troubleshooting',
+    description: 'Help with strollers, carriers, monitors, feeding gear, and everyday gear questions.',
+  },
+  {
+    title: 'Travel With Baby Planning',
+    description: 'Guidance on travel strollers, car seats, and flying with an infant.',
+  },
+  {
+    title: 'Postpartum Preparation',
+    description: 'Support planning feeding stations, recovery supplies, and home organization.',
+  },
+  {
+    title: 'Sibling and Animal Introduction Prep',
+    description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
+  },
+] as const;
+
 const serviceFaqs: FAQEntry[] = [
   {
     question: 'Where should I start if I am not sure which package fits?',
@@ -75,6 +103,8 @@ export default function ServicesPage() {
   return (
     <SiteShell currentPath="/services">
       <main className="site-main">
+        <PageViewTracker path="/services" pageType="services" />
+
         <Hero
           className="homepage-hero"
           eyebrow="Advisory Services"
@@ -86,6 +116,7 @@ export default function ServicesPage() {
           image="/assets/hero/hero-03.jpg"
           imageAlt="Baby registry and gear planning scene"
           contentClassName="homepage-hero-content"
+          ribbonClassName="translate-y-6 md:translate-y-8"
           staggerContent
         />
 
@@ -116,6 +147,29 @@ export default function ServicesPage() {
           description="The packages are designed around how much judgment and planning support you want in the mix, from one focused decision to full baby-preparation guidance."
         />
 
+        <MarketingSection tone="ivory" spacing="spacious">
+          <SectionIntro
+            eyebrow="Optional Add-Ons"
+            title="Additional support for the preparation areas that need a little more attention."
+            description="These add-ons are available when you want help with one specific layer of planning without turning it into a larger engagement."
+            contentWidthClassName="max-w-4xl"
+          />
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {optionalAddOns.map((addOn) => (
+              <MarketingSurface
+                key={addOn.title}
+                className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]"
+              >
+                <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                  {addOn.title}
+                </h3>
+                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{addOn.description}</p>
+              </MarketingSurface>
+            ))}
+          </div>
+        </MarketingSection>
+
         <MarketingSection tone="white" spacing="spacious">
           <SectionIntro
             eyebrow="Why it works"
@@ -139,15 +193,15 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="spacious" container="narrow">
+        <MarketingSection tone="ivory" spacing="spacious">
           <SectionIntro
             eyebrow="Common questions"
             title="A few answers before you book."
             description="A little clarity now makes the next step easier."
-            contentWidthClassName="max-w-3xl"
+            contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mt-10">
+          <div className="mx-auto mt-10 max-w-4xl">
             <FAQAccordion items={serviceFaqs} className="bg-[#f7f2eb]" />
           </div>
         </MarketingSection>

@@ -13,7 +13,6 @@ type HomeServiceCard = {
   key: HomeServiceKey;
   eyebrow: string;
   title: string;
-  price: string;
   subtitle: string;
   description: string;
   detailGroups: ServiceDetailGroup[];
@@ -22,17 +21,11 @@ type HomeServiceCard = {
   featured?: boolean;
 };
 
-type AddOnService = {
-  title: string;
-  description: string;
-};
-
 const homeServiceCards: HomeServiceCard[] = [
   {
     key: 'focused-edit',
     eyebrow: 'One Decision',
     title: 'Focused Edit',
-    price: '$300',
     subtitle: '90-minute private consultation',
     description:
       'Perfect for families who need clarity around a few key baby gear or registry decisions.',
@@ -62,7 +55,6 @@ const homeServiceCards: HomeServiceCard[] = [
     key: 'signature-plan',
     eyebrow: 'Full Baby Prep',
     title: 'Signature Edit',
-    price: '$1,500',
     subtitle: 'Complete baby planning experience',
     description:
       'A guided planning process designed to help families prepare their registry, nursery, and home with clarity.',
@@ -86,7 +78,6 @@ const homeServiceCards: HomeServiceCard[] = [
     key: 'private-concierge',
     eyebrow: 'Ongoing Support',
     title: 'Private Concierge',
-    price: '$3,000',
     subtitle: 'Ongoing planning support',
     description:
       'Designed for families who want hands-on support throughout pregnancy and early parenthood.',
@@ -109,33 +100,6 @@ const homeServiceCards: HomeServiceCard[] = [
   },
 ];
 
-const optionalAddOns: AddOnService[] = [
-  {
-    title: 'Nursery Layout Planning',
-    description: 'Furniture placement, room flow, and sleep environment guidance.',
-  },
-  {
-    title: 'Registry Refresh',
-    description: 'Review and refine your registry after your baby shower or later in pregnancy.',
-  },
-  {
-    title: 'Baby Gear Troubleshooting',
-    description: 'Help with strollers, carriers, monitors, feeding gear, and everyday gear questions.',
-  },
-  {
-    title: 'Travel With Baby Planning',
-    description: 'Guidance on travel strollers, car seats, and flying with an infant.',
-  },
-  {
-    title: 'Postpartum Preparation',
-    description: 'Support planning feeding stations, recovery supplies, and home organization.',
-  },
-  {
-    title: 'Sibling and Animal Introduction Prep',
-    description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
-  },
-];
-
 function ServiceDetailCard({ title, items }: ServiceDetailGroup) {
   return (
     <div className="rounded-2xl border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-4">
@@ -152,42 +116,32 @@ function ServiceDetailCard({ title, items }: ServiceDetailGroup) {
   );
 }
 
-function OptionalAddOnCard({ title, description }: AddOnService) {
-  return (
-    <article className="h-full rounded-2xl border border-[rgba(0,0,0,0.06)] bg-white p-6 shadow-sm sm:p-7">
-      <h3 className="font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-        {title}
-      </h3>
-      <p className="mt-4 max-w-none text-[0.98rem] leading-7 text-neutral-700">{description}</p>
-    </article>
-  );
-}
-
 export default function HomeServicesSection() {
   return (
-    <section className="bg-[linear-gradient(180deg,#fff8f6_0%,#fbf6f1_100%)] py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="bg-[linear-gradient(180deg,#fff8f6_0%,#fbf6f1_100%)] py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <SectionIntro
+          spacing="tight"
           title="Services"
           description="All consultations are available virtually or in person."
           contentWidthClassName="max-w-4xl"
         />
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 sm:mt-12 sm:gap-6 lg:grid-cols-3">
           {homeServiceCards.map((service) => (
             <article
               key={service.key}
               className={[
-                'flex h-full flex-col rounded-2xl border bg-white p-6 shadow-sm sm:p-7',
+                'flex h-full flex-col rounded-[1.75rem] border bg-white p-5 shadow-sm sm:rounded-2xl sm:p-7',
                 service.featured ? 'border-[rgba(216,137,160,0.34)]' : 'border-[rgba(0,0,0,0.06)]',
               ].join(' ')}
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
                   {service.eyebrow}
                 </p>
                 {service.badge ? (
-                  <span className="rounded-full border border-[rgba(196,156,94,0.28)] bg-white px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+                  <span className="self-start rounded-full border border-[rgba(196,156,94,0.28)] bg-white px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
                     {service.badge}
                   </span>
                 ) : null}
@@ -195,12 +149,11 @@ export default function HomeServicesSection() {
 
               <div
                 className={[
-                  'mt-4 rounded-2xl border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]',
+                  'mt-4 rounded-[1.4rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-5',
                   service.featured ? 'bg-[linear-gradient(180deg,#ffffff_0%,#fff1f4_100%)] text-center' : '',
                 ].join(' ')}
               >
-                <p className="mb-1 font-serif text-sm text-neutral-500">{service.price}</p>
-                <h3 className="font-serif text-[1.65rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]">
+                <h3 className="font-serif text-[1.5rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]">
                   {service.title}
                 </h3>
                 <p className="mt-2 max-w-none text-[0.95rem] leading-7 text-neutral-600">{service.subtitle}</p>
@@ -222,20 +175,6 @@ export default function HomeServicesSection() {
               </div>
             </article>
           ))}
-        </div>
-
-        <div className="mt-24">
-          <SectionIntro
-            title="Optional Add-Ons"
-            description="Additional support for families who want help with specific preparation areas."
-            contentWidthClassName="max-w-4xl"
-          />
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {optionalAddOns.map((addOn) => (
-              <OptionalAddOnCard key={addOn.title} {...addOn} />
-            ))}
-          </div>
         </div>
       </div>
     </section>

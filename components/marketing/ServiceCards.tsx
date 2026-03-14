@@ -32,23 +32,23 @@ export default function ServiceCards({
         contentWidthClassName="max-w-4xl"
       />
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-3">
         {packages.map((pkg) => (
           <article
             key={pkg.key}
             className={[
-              'relative flex h-full flex-col overflow-hidden rounded-[2rem] border bg-white p-6 shadow-[0_18px_45px_rgba(0,0,0,0.05)] sm:p-7',
+              'relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border bg-white p-5 shadow-[0_18px_45px_rgba(0,0,0,0.05)] sm:rounded-[2rem] sm:p-7',
               pkg.featured
                 ? 'border-[rgba(216,137,160,0.34)] bg-[linear-gradient(180deg,#ffffff_0%,#fff4f6_100%)] shadow-[0_24px_56px_rgba(216,137,160,0.10)]'
                 : 'border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf8f4_100%)]',
             ].join(' ')}
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
                 {pkg.eyebrow}
               </p>
               {pkg.featured ? (
-                <span className="rounded-full border border-[rgba(196,156,94,0.28)] bg-white/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+                <span className="self-start rounded-full border border-[rgba(196,156,94,0.28)] bg-white/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
                   Most Popular
                 </span>
               ) : null}
@@ -56,13 +56,13 @@ export default function ServiceCards({
 
             <div
               className={[
-                'mt-4 rounded-[1.45rem] border border-white/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:p-5',
+                'mt-4 rounded-[1.35rem] border border-white/70 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:rounded-[1.45rem] sm:p-5',
                 pkg.key === 'signature-planning' ? 'text-center' : '',
               ].join(' ')}
             >
               <h3
                 className={[
-                  'font-serif text-[1.65rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]',
+                  'font-serif text-[1.5rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]',
                   pkg.key === 'signature-planning' ? 'mx-auto max-w-[14rem]' : '',
                 ].join(' ')}
               >
@@ -73,12 +73,12 @@ export default function ServiceCards({
 
             <p className="mt-5 max-w-none text-[0.95rem] leading-7 text-neutral-600">{pkg.description}</p>
 
-            <div className="mt-5 rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-4">
+            <div className="mt-5 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-4 sm:rounded-[1.35rem]">
               <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">Best for</p>
               <p className="mt-2 max-w-none text-[0.95rem] leading-7 text-neutral-700">{pkg.bestFor}</p>
             </div>
 
-            <div className="mt-5 rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-white/88 p-4">
+            <div className="mt-5 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-white/88 p-4 sm:rounded-[1.35rem]">
               <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">What this includes</p>
               <div className="mt-4 space-y-3">
                 {pkg.bullets.map((bullet) => (

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -24,6 +25,8 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
   return (
     <SiteShell currentPath="/consultation">
       <main className="site-main">
+        <PageViewTracker path="/consultation" pageType="book" />
+
         <Hero
           className="homepage-hero"
           eyebrow="Consultation"

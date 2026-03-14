@@ -52,7 +52,7 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
   }, [isOpen]);
 
   return (
-    <div className={[index < total - 1 ? 'border-b border-black/5' : '', 'py-5 sm:py-6'].filter(Boolean).join(' ')}>
+    <div className={[index < total - 1 ? 'border-b border-black/5' : '', 'py-4 sm:py-5 md:py-6'].filter(Boolean).join(' ')}>
       <h3>
         <button
           id={buttonId}
@@ -60,9 +60,9 @@ function FAQAccordionItem({ item, index, total, groupId }: FAQAccordionItemProps
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={() => setIsOpen((value) => !value)}
-          className="group flex min-h-[44px] w-full items-start justify-between gap-4 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] md:gap-6"
+          className="group flex min-h-[44px] w-full items-start justify-between gap-3 text-left text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] sm:gap-4 md:gap-6"
         >
-          <span className="text-[0.98rem] font-medium leading-relaxed sm:text-base md:text-lg">
+          <span className="text-[0.95rem] font-medium leading-relaxed sm:text-base md:text-lg">
             {item.question}
           </span>
           <span aria-hidden className="shrink-0 pt-1">
@@ -111,7 +111,7 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
 
   return (
     <div className={['overflow-hidden rounded-2xl bg-white/30 shadow-sm', className].join(' ')}>
-      <div className="px-4 sm:px-6 md:px-8">
+      <div className="px-4 sm:px-5 md:px-8">
         {items.map((item, index) => (
           <FAQAccordionItem key={item.question} item={item} index={index} total={items.length} groupId={groupId} />
         ))}

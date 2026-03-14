@@ -15,6 +15,7 @@ import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
 import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
 import BlogShareBar from '@/components/blog/BlogShareBar';
 import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
+import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
@@ -337,7 +338,10 @@ export default async function PostArticleView({
     ) : null;
 
   return (
-    <TMBCBlogTemplate
+    <>
+      <BlogViewTracker postId={post.id} slug={post.slug} title={post.title} enabled={trackView} />
+
+      <TMBCBlogTemplate
       featuredImageUrl={featuredImageUrl}
       title={post.title}
       categoryLabel={categoryLabel}
@@ -354,7 +358,6 @@ export default async function PostArticleView({
           postId={post.id}
           content={articleContent}
           className="mx-auto max-w-[72ch]"
-          trackView={trackView}
           ctaPartners={serializedCtaPartners}
         />
       }
@@ -458,7 +461,7 @@ export default async function PostArticleView({
           </div>
         ) : undefined
       }
-      conversionCta={<BlogSoftCTA />}
+      conversionCta={<BlogSoftCTA postId={post.id} postSlug={post.slug} postTitle={post.title} />}
       shareSection={
         <BlogShareBar
           title={post.shareTitle?.trim() || post.title}
@@ -476,6 +479,7 @@ export default async function PostArticleView({
           {relatedPostsSection}
         </>
       }
-    />
+      />
+    </>
   );
 }

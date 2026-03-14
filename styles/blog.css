@@ -275,7 +275,7 @@
   }
 
   .tmbc-blog-hero {
-    margin: 48px auto 36px;
+    margin: 36px auto 28px;
   }
 
   .tmbc-blog-hero__inner {
@@ -303,11 +303,24 @@
   }
 
   .blog-section-soft {
-    padding: 40px 0;
+    padding: 28px 0;
+    border-radius: 18px;
   }
 
   .tmbc-blog-hero__divider .tmbc-divider {
     margin-top: 28px;
     width: 84px;
+  }
+
+  .tmbc-blog-card__media {
+    margin: 14px 14px 0;
+  }
+
+  .tmbc-blog-card .card-content {
+    padding: 20px 18px 24px;
+  }
+
+  .tmbc-blog-meta {
+    gap: 8px;
   }
 }

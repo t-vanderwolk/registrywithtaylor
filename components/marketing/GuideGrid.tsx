@@ -50,7 +50,9 @@ export default function GuideGrid({
   id,
 }: GuideGridProps) {
   const gridClassName =
-    columns === 'three' ? 'mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3' : 'mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5';
+    columns === 'three'
+      ? 'mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3'
+      : 'mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5';
 
   return (
     <MarketingSection id={id} tone="white" spacing={compact ? 'default' : 'spacious'} className={className}>
@@ -81,9 +83,9 @@ export default function GuideGrid({
         {guides.map((guide) => (
           <div key={guide.slug} className="flex h-full flex-col">
             {showCardEyebrows ? (
-              <p className="mb-3 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48">{guide.eyebrow}</p>
+              <p className="mb-2 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48 sm:mb-3">{guide.eyebrow}</p>
             ) : null}
-            <article className="group flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_18px_40px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(0,0,0,0.08)]">
+            <article className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_18px_40px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(0,0,0,0.08)] sm:rounded-[1.8rem]">
               <Link href={`/guides/${guide.slug}`} className="relative block aspect-[4/3] overflow-hidden">
                 <Image
                   src={guide.imageSrc}
@@ -97,13 +99,13 @@ export default function GuideGrid({
 
               <div
                 className={[
-                  'flex h-full flex-col p-6',
+                  'flex h-full flex-col p-5 sm:p-6',
                   cardTextAlign === 'center' ? 'items-center text-center' : '',
                 ].join(' ')}
               >
                 <h3
                   className={[
-                    'font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900',
+                    'font-serif text-[1.4rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]',
                     cardTextAlign === 'center' ? 'mx-auto max-w-[12rem]' : '',
                   ].join(' ')}
                 >
@@ -132,7 +134,7 @@ export default function GuideGrid({
         <div className="mx-auto mt-10 max-w-3xl text-center">
           <p className="text-[0.98rem] leading-8 text-neutral-700">{footerNote}</p>
           {footerCtaHref && footerCtaLabel ? (
-            <Link href={footerCtaHref} className="btn btn--primary mt-6">
+            <Link href={footerCtaHref} className="btn btn--primary mt-6 w-full sm:w-auto">
               {footerCtaLabel}
             </Link>
           ) : null}

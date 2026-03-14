@@ -7,6 +7,7 @@ type SectionIntroProps = {
   title: ReactNode;
   description?: ReactNode;
   align?: 'left' | 'center';
+  spacing?: 'default' | 'tight';
   className?: string;
   titleClassName?: string;
   descriptionClassName?: string;
@@ -19,6 +20,7 @@ export default function SectionIntro({
   title,
   description,
   align = 'center',
+  spacing = 'default',
   className = '',
   titleClassName = '',
   descriptionClassName = '',
@@ -26,6 +28,9 @@ export default function SectionIntro({
   dividerClassName = '',
 }: SectionIntroProps) {
   const isCentered = align === 'center';
+  const eyebrowSpacingClassName = spacing === 'tight' ? 'mt-2' : 'mt-3';
+  const titleSpacingClassName = spacing === 'tight' ? 'mt-2' : 'mt-4';
+  const descriptionSpacingClassName = spacing === 'tight' ? 'mt-3' : 'mt-4';
 
   return (
     <div
@@ -41,16 +46,17 @@ export default function SectionIntro({
         <SectionDivider className={dividerClassName} />
       </div>
 
-      {eyebrow ? <Eyebrow className="mt-3">{eyebrow}</Eyebrow> : null}
+      {eyebrow ? <Eyebrow className={eyebrowSpacingClassName}>{eyebrow}</Eyebrow> : null}
 
-      <H2 className={['mt-4 text-neutral-900', titleClassName].filter(Boolean).join(' ')}>
+      <H2 className={[titleSpacingClassName, 'text-neutral-900', titleClassName].filter(Boolean).join(' ')}>
         {title}
       </H2>
 
       {description ? (
         <Body
           className={[
-            'mt-4 max-w-none text-neutral-600',
+            descriptionSpacingClassName,
+            'max-w-none text-neutral-600',
             descriptionClassName,
           ]
             .filter(Boolean)
