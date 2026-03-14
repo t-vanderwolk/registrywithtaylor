@@ -87,6 +87,7 @@ export default function BlogSoftCTA({
             <Link
               href="/book"
               className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              data-analytics-managed="true"
               onClick={() => trackBlogCta('/book', 'Book a Consultation')}
             >
               Book a Consultation
@@ -94,6 +95,7 @@ export default function BlogSoftCTA({
             <Link
               href="/contact"
               className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              data-analytics-managed="true"
               onClick={() => trackBlogCta('/contact', 'Contact Taylor')}
             >
               Contact Taylor

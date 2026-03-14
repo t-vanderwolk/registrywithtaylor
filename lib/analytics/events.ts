@@ -3,6 +3,8 @@ export const AnalyticsEvents = {
   BLOG_VIEW: 'blog_view',
   CONSULTATION_CLICK: 'consultation_cta_click',
   CONTACT_CLICK: 'contact_cta_click',
+  GUIDE_DOWNLOAD: 'guide_download',
+  AFFILIATE_OUTBOUND_CLICK: 'affiliate_outbound_click',
   CONSULTATION_FORM_OPEN: 'consultation_form_open',
   CONSULTATION_SUBMITTED: 'consultation_request_submitted',
   CONTACT_FORM_OPEN: 'contact_form_open',

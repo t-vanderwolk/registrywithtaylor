@@ -31,6 +31,8 @@ export default function BlogViewTracker({
       pageType: 'blog' as const,
       slug,
       title,
+      category: 'blog',
+      label: slug,
     };
 
     trackPageView(payload);

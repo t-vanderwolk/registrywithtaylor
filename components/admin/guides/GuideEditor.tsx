@@ -22,6 +22,14 @@ import {
   type RelatedGuideOption,
 } from '@/components/admin/guides/guideEditorTypes';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
+import {
+  GUIDE_SECTION_SNIPPETS,
+  GUIDE_SECTION_SNIPPET_OPTIONS,
+  GUIDE_TEMPLATES,
+  GUIDE_TEMPLATE_OPTIONS,
+  type GuideSectionSnippetId,
+  type GuideTemplateId,
+} from '@/lib/guides/guideTemplates';
 import { sanitizeGuideAffiliateModules, sanitizeGuideFaqItems, sanitizeStringList } from '@/lib/guides/types';
 import { GUIDE_STATUS_LABELS, requiresLiveGuideContent, type GuideStatusValue } from '@/lib/guides/status';
 import { buildDefaultAffiliateCtaText } from '@/lib/affiliatePartners';
@@ -30,6 +38,11 @@ import { slugify } from '@/lib/slugify';
 type SaveMode = 'debounced' | 'immediate' | 'manual';
 
 type GuideState = PersistedGuideRecord;
+type TemplateSelectValue = 'blank' | GuideTemplateId;
+type HelperNotice = {
+  tone: 'success' | 'warning';
+  message: string;
+};
 
 const placementOptions = [
   { value: 'before_affiliates', label: 'Before affiliate modules' },
@@ -142,6 +155,46 @@ function getScheduleError(status: GuideStatusValue, scheduledFor?: Date | string
   return undefined;
 }
 
+function combineGuideContent(guide: Pick<GuideState, 'intro' | 'content' | 'conclusion'>) {
+  return [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
+}
+
+function stripMarkdownForWordCount(value: string) {
+  return value
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_~>#|[\]()!-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function countWords(value: string) {
+  const normalized = stripMarkdownForWordCount(value);
+  return normalized ? normalized.split(/\s+/).length : 0;
+}
+
+function getReadingTimeMinutes(wordCount: number) {
+  return wordCount === 0 ? 0 : Math.ceil(wordCount / 200);
+}
+
+function buildInsertedContent(currentContent: string, snippet: string, selectionStart?: number, selectionEnd?: number) {
+  const start = selectionStart ?? currentContent.length;
+  const end = selectionEnd ?? currentContent.length;
+  const before = currentContent.slice(0, start);
+  const after = currentContent.slice(end);
+  const trimmedSnippet = snippet.trim();
+  const prefix = before.length === 0 ? '' : before.endsWith('\n\n') ? '' : before.endsWith('\n') ? '\n' : '\n\n';
+  const suffix = after.length === 0 ? '' : after.startsWith('\n\n') ? '' : after.startsWith('\n') ? '\n' : '\n\n';
+  const inserted = `${prefix}${trimmedSnippet}${suffix}`;
+
+  return {
+    nextContent: `${before}${inserted}${after}`,
+    cursorPosition: before.length + inserted.length,
+  };
+}
+
 function toGuideState(guide: PersistedGuideRecord): GuideState {
   return {
     ...guide,
@@ -169,7 +222,7 @@ function mergeServerState(current: GuideState, server: GuideState) {
 }
 
 function validateGuideState(guide: GuideState) {
-  const combinedContent = [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
+  const combinedContent = combineGuideContent(guide);
 
   if (requiresLiveGuideContent(guide.status) && !combinedContent.trim()) {
     return 'Intro, body, or conclusion content is required before publishing or scheduling.';
@@ -308,6 +361,9 @@ export default function GuideEditor({
   const [uploadingKind, setUploadingKind] = useState<'hero' | 'og' | null>(null);
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [helperNotice, setHelperNotice] = useState<HelperNotice | null>(null);
+  const [pendingTemplateId, setPendingTemplateId] = useState<GuideTemplateId | null>(null);
+  const [templateSelection, setTemplateSelection] = useState<TemplateSelectValue>('blank');
   const stateRef = useRef(guide);
   const currentGuideIdRef = useRef(currentGuideId);
   const debounceRef = useRef<number | null>(null);
@@ -318,11 +374,17 @@ export default function GuideEditor({
   const slugEditedRef = useRef(Boolean(initialState.id));
   const heroInputRef = useRef<HTMLInputElement | null>(null);
   const ogInputRef = useRef<HTMLInputElement | null>(null);
+  const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const hasPersistedGuide = Boolean(currentGuideId);
-  const canPreview = Boolean(
-    currentGuideId || guide.title.trim() || guide.content.trim() || guide.intro?.trim() || guide.excerpt?.trim(),
-  );
+  const guideDraftContent = combineGuideContent(guide);
+  const wordCount = countWords(guideDraftContent);
+  const readingTimeMinutes = getReadingTimeMinutes(wordCount);
+  const readingTimeLabel = `${readingTimeMinutes} min read`;
+  const wordCountToneClass =
+    wordCount >= 4000 ? 'text-admin-success' : wordCount >= 2000 ? 'text-admin-warning' : 'text-admin-micro';
+  const hasTemplateContent = Boolean(guide.intro?.trim() || guide.content.trim() || guide.conclusion?.trim());
+  const canPreview = Boolean(currentGuideId || guide.title.trim() || guideDraftContent.trim() || guide.excerpt?.trim());
   const scheduleError = getScheduleError(guide.status, guide.scheduledFor);
   const saveText = getSavedText({
     hasPersistedGuide,
@@ -359,6 +421,9 @@ export default function GuideEditor({
     setSaveError(null);
     setUploadFeedback(null);
     setUploadError(null);
+    setHelperNotice(null);
+    setPendingTemplateId(null);
+    setTemplateSelection('blank');
     slugEditedRef.current = Boolean(next.slug.trim());
   }, [initialGuide]);
 
@@ -418,6 +483,7 @@ export default function GuideEditor({
   function applyGuideUpdate(next: GuideState | ((current: GuideState) => GuideState), saveMode: SaveMode) {
     setSaveError(null);
     setUploadError(null);
+    setHelperNotice(null);
     versionRef.current += 1;
     setIsDirty(true);
     const updated = typeof next === 'function' ? next(stateRef.current) : next;
@@ -562,7 +628,7 @@ export default function GuideEditor({
   }
 
   function handleStatusChange(nextStatus: GuideStatusValue) {
-    if (nextStatus === 'PUBLISHED' && ![guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n').trim()) {
+    if (nextStatus === 'PUBLISHED' && !combineGuideContent(guide).trim()) {
       setSaveError('Add guide content before publishing.');
       return;
     }
@@ -714,14 +780,165 @@ export default function GuideEditor({
     }
   }
 
-  async function openPreview() {
-    const saved = await flushSave();
-    if (!saved || !currentGuideIdRef.current) {
+  function closeTemplateModal() {
+    setPendingTemplateId(null);
+    setTemplateSelection('blank');
+  }
+
+  function handleTemplateSelection(value: TemplateSelectValue) {
+    setTemplateSelection(value);
+
+    if (value === 'blank') {
+      setPendingTemplateId(null);
       return;
     }
 
-    router.push(`/admin/guides/${currentGuideIdRef.current}/preview`);
+    if (hasTemplateContent) {
+      setHelperNotice({
+        tone: 'warning',
+        message: 'Template content only inserts into a blank guide. Clear intro, guide body, and conclusion first.',
+      });
+      setTemplateSelection('blank');
+      return;
+    }
+
+    setPendingTemplateId(value);
   }
+
+  function confirmTemplateInsertion() {
+    if (!pendingTemplateId) {
+      return;
+    }
+
+    const template = GUIDE_TEMPLATES[pendingTemplateId];
+    const currentGuide = stateRef.current;
+
+    if (combineGuideContent(currentGuide).trim()) {
+      setHelperNotice({
+        tone: 'warning',
+        message: 'Template content only inserts into a blank guide. Clear intro, guide body, and conclusion first.',
+      });
+      closeTemplateModal();
+      return;
+    }
+
+    applyGuideUpdate(
+      (current) => ({
+        ...current,
+        intro: template.intro,
+        content: template.content,
+        conclusion: template.conclusion,
+      }),
+      'debounced',
+    );
+    setActiveTab('structure');
+    setHelperNotice({
+      tone: 'success',
+      message: `${template.name} inserted. Edit the copy so it matches the category you are covering.`,
+    });
+    closeTemplateModal();
+  }
+
+  function insertSectionSnippet(snippetId: GuideSectionSnippetId) {
+    const snippet = GUIDE_SECTION_SNIPPETS[snippetId];
+    const textarea = contentTextareaRef.current;
+    const { nextContent, cursorPosition } = buildInsertedContent(
+      stateRef.current.content,
+      snippet.content,
+      textarea?.selectionStart,
+      textarea?.selectionEnd,
+    );
+
+    applyGuideUpdate(
+      (current) => ({
+        ...current,
+        content: nextContent,
+      }),
+      'debounced',
+    );
+    setHelperNotice({
+      tone: 'success',
+      message: `${snippet.name} inserted into the guide body.`,
+    });
+
+    window.requestAnimationFrame(() => {
+      if (!contentTextareaRef.current) {
+        return;
+      }
+
+      contentTextareaRef.current.focus();
+      contentTextareaRef.current.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  }
+
+  async function openPreview() {
+    const previewWindow = window.open('', '_blank');
+    const saved = await flushSave();
+    if (!saved || !currentGuideIdRef.current) {
+      previewWindow?.close();
+      return;
+    }
+
+    const previewUrl = `/admin/guides/${currentGuideIdRef.current}/preview`;
+    if (previewWindow) {
+      previewWindow.location.href = previewUrl;
+      return;
+    }
+
+    window.open(previewUrl, '_blank') ?? router.push(previewUrl);
+  }
+
+  const editorUtilitySurface = (
+    <AdminSurface className="admin-stack gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Guide Start</p>
+          <h2 className="admin-h2">Start From Template</h2>
+          <p className="admin-body">Load a TMBC guide framework into the intro, guide body, and conclusion before you start drafting.</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <AdminButton variant="secondary" size="sm" onClick={() => void openPreview()} disabled={!canPreview || saving}>
+            Preview Guide
+          </AdminButton>
+        </div>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div className="admin-stack gap-2">
+          <AdminField
+            label="Start From Template"
+            htmlFor="guide-template-select"
+            help="Templates only insert into blank intro, guide body, and conclusion fields."
+          >
+            <AdminSelect
+              id="guide-template-select"
+              value={templateSelection}
+              onChange={(event) => handleTemplateSelection(event.target.value as TemplateSelectValue)}
+            >
+              <option value="blank">Blank Guide</option>
+              {GUIDE_TEMPLATE_OPTIONS.map((template) => (
+                <option key={template.id} value={template.id}>
+                  {template.label}
+                </option>
+              ))}
+            </AdminSelect>
+          </AdminField>
+
+          {helperNotice ? <AdminToast tone={helperNotice.tone}>{helperNotice.message}</AdminToast> : null}
+        </div>
+
+        <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+          <p className="admin-label">Authority Goal</p>
+          <p className={`text-sm font-semibold uppercase tracking-[0.12em] ${wordCountToneClass}`}>
+            Word Count: {wordCount.toLocaleString()}
+          </p>
+          <p className="admin-micro">Target: Minimum 4000 words</p>
+          <p className="admin-micro">Estimated reading time: {readingTimeLabel}</p>
+        </div>
+      </div>
+    </AdminSurface>
+  );
 
   const publishSurface = (
     <AdminSurface className="admin-stack gap-4">
@@ -769,9 +986,6 @@ export default function GuideEditor({
       <div className="flex flex-wrap items-center gap-2">
         <AdminButton variant="primary" size="sm" onClick={() => void flushSave()} disabled={saving}>
           {hasPersistedGuide ? (saving ? 'Saving...' : 'Save now') : saving ? 'Creating...' : 'Create draft'}
-        </AdminButton>
-        <AdminButton variant="secondary" size="sm" onClick={() => void openPreview()} disabled={!canPreview || saving}>
-          Preview
         </AdminButton>
       </div>
 
@@ -901,7 +1115,11 @@ export default function GuideEditor({
             <p className="admin-body">Set the core editorial framing before filling in the long-form sections.</p>
           </div>
 
-          <AdminField label="Title" htmlFor="guide-title">
+          <AdminField
+            label="Title"
+            htmlFor="guide-title"
+            help={`Slug auto-generates from the title until you edit it manually. Estimated reading time: ${readingTimeLabel}.`}
+          >
             <AdminInput
               id="guide-title"
               value={guide.title}
@@ -1232,6 +1450,10 @@ export default function GuideEditor({
             <p className="admin-eyebrow">Guide Structure</p>
             <h2 className="admin-h2">Long-form content</h2>
             <p className="admin-body">Shape the guide as an evergreen editorial resource with a clear opening, core body, and finish.</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <p className={`admin-micro ${wordCountToneClass}`}>Word Count: {wordCount.toLocaleString()}</p>
+              <p className="admin-micro">Target: Minimum 4000 words</p>
+            </div>
           </div>
 
           <label className="admin-toggle" htmlFor="guide-toc-enabled">
@@ -1271,21 +1493,43 @@ export default function GuideEditor({
           </AdminField>
 
           <AdminField label="Guide body" htmlFor="guide-content" help="Write in markdown with clear H2/H3 structure.">
-            <AdminTextarea
-              id="guide-content"
-              value={guide.content}
-              onChange={(event) =>
-                applyGuideUpdate(
-                  (current) => ({
-                    ...current,
-                    content: event.target.value,
-                  }),
-                  'debounced',
-                )
-              }
-              className="min-h-[420px]"
-              placeholder="## What to look for&#10;&#10;Long-form guide content..."
-            />
+            <div className="admin-stack gap-3">
+              <div className="admin-stack gap-1">
+                <p className="admin-eyebrow">Insert Section</p>
+                <p className="admin-micro">Drop a ready-made TMBC section into the guide body at the current cursor position.</p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {GUIDE_SECTION_SNIPPET_OPTIONS.map((snippet) => (
+                  <AdminButton
+                    key={snippet.id}
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => insertSectionSnippet(snippet.id)}
+                  >
+                    {snippet.label}
+                  </AdminButton>
+                ))}
+              </div>
+
+              <AdminTextarea
+                ref={contentTextareaRef}
+                id="guide-content"
+                value={guide.content}
+                onChange={(event) =>
+                  applyGuideUpdate(
+                    (current) => ({
+                      ...current,
+                      content: event.target.value,
+                    }),
+                    'debounced',
+                  )
+                }
+                className="min-h-[420px]"
+                placeholder="## What to look for&#10;&#10;Long-form guide content..."
+              />
+            </div>
           </AdminField>
 
           <AdminField label="Conclusion / wrap-up" htmlFor="guide-conclusion">
@@ -1762,6 +2006,8 @@ export default function GuideEditor({
         </div>
       )}
 
+      {editorUtilitySurface}
+
       <PostEditorLayout
         tabs={[
           { id: 'core', label: 'Core' },
@@ -1781,6 +2027,35 @@ export default function GuideEditor({
           </>
         }
       />
+
+      {pendingTemplateId ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4" role="presentation">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="guide-template-dialog-title"
+            className="w-full max-w-xl rounded-[28px] border border-[var(--admin-color-border)] bg-[var(--admin-color-background)] p-6 shadow-[var(--admin-shadow-popover)]"
+          >
+            <div className="admin-stack gap-2">
+              <p className="admin-eyebrow">Insert template content?</p>
+              <h2 id="guide-template-dialog-title" className="admin-h2">Insert template content?</h2>
+              <p className="admin-body">
+                This will populate the intro, guide body, and conclusion with the{' '}
+                {GUIDE_TEMPLATES[pendingTemplateId].name.toLowerCase()} starter structure.
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-end gap-2">
+              <AdminButton variant="secondary" size="sm" onClick={closeTemplateModal}>
+                Cancel
+              </AdminButton>
+              <AdminButton variant="primary" size="sm" onClick={confirmTemplateInsertion}>
+                Insert template
+              </AdminButton>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <input
         ref={heroInputRef}

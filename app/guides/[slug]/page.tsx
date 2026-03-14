@@ -128,6 +128,12 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
   if (guide && isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
     const fallbackPillar = getGuidePillar(slug);
     const articleGuide = toGuideArticleRecord(guide);
+    const articleDescription =
+      guide.seoDescription?.trim() ||
+      guide.excerpt?.trim() ||
+      articleGuide.intro?.trim() ||
+      guide.title;
+    const articleImage = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
     const relatedGuides = guide.relatedGuideIds.length
       ? await prisma.guide.findMany({
           where: {
@@ -209,7 +215,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         {
           '@type': 'Article',
           headline: guide.seoTitle?.trim() || guide.title,
-          description: guide.seoDescription?.trim() || guide.excerpt?.trim() || articleGuide.intro?.trim() || guide.title,
+          description: articleDescription,
           articleSection: guide.category,
           keywords: [
             guide.targetKeyword,
@@ -232,7 +238,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             name: 'Taylor-Made Baby Co.',
             url: SITE_URL,
           },
-          image: guide.heroImageUrl ? [toAbsoluteUrl(guide.heroImageUrl)] : undefined,
+          image: articleImage ? [toAbsoluteUrl(articleImage)] : undefined,
           inLanguage: 'en-US',
         },
         ...(articleGuide.faqItems.length > 0

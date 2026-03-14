@@ -84,6 +84,7 @@ export default function CTASection({
           <Link
             href={primaryHref}
             className="btn btn--primary w-full sm:w-auto"
+            data-analytics-managed="true"
             onClick={() => trackCtaClick(primaryHref, primaryAnalyticsLabel ?? primaryLabel)}
           >
             {primaryLabel}
@@ -91,6 +92,7 @@ export default function CTASection({
           <Link
             href={secondaryHref}
             className="btn btn--secondary w-full sm:w-auto"
+            data-analytics-managed="true"
             onClick={() => trackCtaClick(secondaryHref, secondaryAnalyticsLabel ?? secondaryLabel)}
           >
             {secondaryLabel}

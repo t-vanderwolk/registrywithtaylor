@@ -80,6 +80,7 @@ export default function GuideTrackedLink({
         target={target ?? '_blank'}
         rel={rel ?? 'sponsored nofollow noopener noreferrer'}
         className={className}
+        data-analytics-managed="true"
         onClick={handleTrack}
       >
         {children}
@@ -88,7 +89,14 @@ export default function GuideTrackedLink({
   }
 
   return (
-    <Link href={href} className={className} target={target} rel={rel} onClick={handleTrack}>
+    <Link
+      href={href}
+      className={className}
+      target={target}
+      rel={rel}
+      data-analytics-managed="true"
+      onClick={handleTrack}
+    >
       {children}
     </Link>
   );

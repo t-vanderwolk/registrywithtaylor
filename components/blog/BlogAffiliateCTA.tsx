@@ -68,6 +68,7 @@ export default function BlogAffiliateCTA({
         target="_blank"
         rel="sponsored nofollow noopener noreferrer"
         className="link-underline text-sm uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+        data-analytics-managed="true"
         data-affiliate-partner={partner?.slug ?? ''}
         data-affiliate-network={partner?.network ?? ''}
         data-affiliate-context="blog"
@@ -88,6 +89,7 @@ export default function BlogAffiliateCTA({
           ? 'btn btn--secondary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
           : 'btn btn--primary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
       }
+      data-analytics-managed="true"
       data-affiliate-partner={partner?.slug ?? ''}
       data-affiliate-network={partner?.network ?? ''}
       data-affiliate-context="blog"

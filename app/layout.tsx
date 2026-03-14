@@ -1,6 +1,8 @@
 import Script from 'next/script';
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
+import AnalyticsClickTracker from '@/components/analytics/AnalyticsClickTracker';
+import AnalyticsRouteTracker from '@/components/analytics/AnalyticsRouteTracker';
 import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_PATH,
@@ -11,6 +13,9 @@ import {
 } from '@/lib/marketing/metadata';
 import './globals.css';
 import Providers from './providers';
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID?.trim();
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -46,6 +51,11 @@ export const metadata: Metadata = {
     description: 'Baby gear, registry, and nursery guidance for families who want to buy with purpose.',
     images: [DEFAULT_OG_IMAGE_PATH],
   },
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : undefined,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -53,6 +63,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="min-h-screen bg-gradient-primary text-charcoal font-sans antialiased">
         <Providers>{children}</Providers>
+        {googleAnalyticsId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${googleAnalyticsId}', { send_page_view: false });
+              `}
+            </Script>
+          </>
+        ) : null}
+        <Suspense fallback={null}>
+          <AnalyticsRouteTracker />
+          <AnalyticsClickTracker />
+        </Suspense>
         <Script src="/scripts/main.js" strategy="lazyOnload" />
       </body>
     </html>

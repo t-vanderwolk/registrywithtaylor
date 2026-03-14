@@ -31,6 +31,8 @@ export default function GuideViewTracker({
       pageType: 'guide' as const,
       slug,
       title,
+      category: 'guides',
+      label: slug,
     };
 
     trackPageView(payload);
