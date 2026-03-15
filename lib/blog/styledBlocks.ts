@@ -1,4 +1,14 @@
-export type StyledBlockId = 'callout' | 'advice' | 'pullquote' | 'pros' | 'cons' | 'comparison' | 'product';
+export type StyledBlockId =
+  | 'callout'
+  | 'advice'
+  | 'pullquote'
+  | 'pros'
+  | 'cons'
+  | 'comparison'
+  | 'product'
+  | 'faq'
+  | 'decision'
+  | 'takeaways';
 
 export type StyledBlockDefinition = {
   id: StyledBlockId;
@@ -24,7 +34,7 @@ export type ParsedStyledBlock =
       attribution: string | null;
     }
   | {
-      type: 'pros' | 'cons';
+      type: 'pros' | 'cons' | 'takeaways';
       title: string;
       items: string[];
     }
@@ -42,47 +52,87 @@ export type ParsedStyledBlock =
       bestFor: string;
       standout: string | null;
       affiliateLinks: Array<{ label: string; url: string }>;
+      imageUrl: string | null;
+      imageAlt: string | null;
+    }
+  | {
+      type: 'faq';
+      question: string;
+      answer: string;
+    }
+  | {
+      type: 'decision';
+      question: string;
+      option: string;
+      result: string;
     };
 
-const STYLED_BLOCK_OPEN_PATTERN = /^:::(callout|advice|pullquote|quote|pros|cons|comparison|product)\s*$/i;
+const STYLED_BLOCK_OPEN_PATTERN =
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|product|faq|decision|takeaways)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
   return lines.map((line) => line.trim()).filter(Boolean);
 }
 
+function normalizeBlockType(rawType: string) {
+  return (rawType.toLowerCase() === 'quote' ? 'pullquote' : rawType.toLowerCase()) as StyledBlockId;
+}
+
+function parseKeyValueLine(line: string) {
+  const separatorIndex = line.indexOf(':');
+  if (separatorIndex === -1) {
+    return null;
+  }
+
+  const label = line.slice(0, separatorIndex).trim();
+  const value = line.slice(separatorIndex + 1).trim();
+  if (!label || !value) {
+    return null;
+  }
+
+  return {
+    label,
+    normalizedLabel: label.toLowerCase(),
+    value,
+  };
+}
+
+function parseListItems(lines: string[]) {
+  return lines.map((line) => line.replace(/^[-*]\s+/, '')).filter(Boolean);
+}
+
 export const STYLED_BLOCKS: StyledBlockDefinition[] = [
   {
     id: 'callout',
-    label: 'Intro Block',
-    description: 'A highlighted opening note for the warm, calm thesis at the top of the post.',
+    label: 'Callout',
+    description: 'A highlighted note for framing the real decision or the main shift in the guide.',
     snippet: `:::callout
-Relatable observation
-Lead with the human observation that frames the rest of the article.
+Lead with the warm, grounded observation that helps the reader understand what actually matters here.
 :::`,
   },
   {
     id: 'advice',
-    label: 'Advice Block',
-    description: 'A practical guidance box for calm authority and direct recommendations.',
+    label: 'Advice',
+    description: 'A practical recommendation block for direct editorial guidance.',
     snippet: `:::advice
-Expert insight
+Taylor's take
 Name the clearest recommendation and the real-world reasoning behind it.
 :::`,
   },
   {
     id: 'pullquote',
-    label: 'Quote Block',
-    description: 'A large serif quote block to spotlight one memorable line.',
+    label: 'Pull Quote',
+    description: 'A large serif quote to spotlight the most memorable line in the section.',
     snippet: `:::pullquote
-The stroller you use every day beats the stroller with the longest feature list.
-— Taylor-Made Baby
+The product you can use half asleep usually beats the product with the longest spec sheet.
+— Taylor-Made Baby Co.
 :::`,
   },
   {
     id: 'pros',
-    label: 'Pros Block',
-    description: 'A visual list of strengths for a product, service, or recommendation.',
+    label: 'Pros',
+    description: 'A visual strengths list for a product, option, or recommendation.',
     snippet: `:::pros
 - Easy everyday use
 - Clear standout feature
@@ -91,8 +141,8 @@ The stroller you use every day beats the stroller with the longest feature list.
   },
   {
     id: 'cons',
-    label: 'Cons Block',
-    description: 'A visual list of tradeoffs or watchouts.',
+    label: 'Cons',
+    description: 'A visual tradeoff list for caveats, compromises, or watchouts.',
     snippet: `:::cons
 - Higher price point
 - Takes more trunk space
@@ -101,19 +151,19 @@ The stroller you use every day beats the stroller with the longest feature list.
   },
   {
     id: 'comparison',
-    label: 'Comparison Block',
-    description: 'A compact profile card for an option inside a roundup or comparison post.',
+    label: 'Comparison',
+    description: 'A responsive comparison card for side-by-side option framing.',
     snippet: `:::comparison
-Title: Option name
-Best for: Busy families who want the simplest daily setup
+Title: Everyday fit snapshot
+Best for: Families who want the simplest daily setup
 Standout: Name the strongest reason to choose it
-Watchout: Name the main tradeoff or caveat
+Watchout: Name the main tradeoff honestly
 :::`,
   },
   {
     id: 'product',
-    label: 'Product Recommendation',
-    description: 'A structured product card with pros, best-for guidance, and one or more affiliate links.',
+    label: 'Product',
+    description: 'A product card with review copy, pros, and CTA links.',
     snippet: `:::product
 Brand: Bugaboo
 Product: Fox 5
@@ -123,6 +173,35 @@ Standout: Suspension + smooth maneuverability
 Pros: Easy push | Large basket | Feels sturdy
 Link: Shop at Albee Baby | https://example.com/bugaboo
 Link: Shop at Amazon | https://example.com/amazon-bugaboo
+:::`,
+  },
+  {
+    id: 'faq',
+    label: 'FAQ',
+    description: 'A structured FAQ block that also feeds FAQ schema.',
+    snippet: `:::faq
+Question: What actually matters most here?
+Answer: Focus on how the product fits your daily routine, not how impressive it sounds in the product description.
+:::`,
+  },
+  {
+    id: 'decision',
+    label: 'Decision Helper',
+    description: 'A quick question-option-result card for simplifying one decision point.',
+    snippet: `:::decision
+Question: Do you need the lightest option or the one with the smoothest push?
+Option: Choose the lighter model if you will lift it into the car constantly.
+Result: Day-to-day convenience usually matters more than one premium feature you rarely use.
+:::`,
+  },
+  {
+    id: 'takeaways',
+    label: 'Takeaways',
+    description: 'A concise takeaways block for skimmable wrap-ups and summary sections.',
+    snippet: `:::takeaways
+- Start with the routine, not the brand.
+- Pick the option that removes the most friction.
+- Skip features that sound impressive but change very little.
 :::`,
   },
 ];
@@ -146,8 +225,7 @@ export function parseStyledBlock(
     return null;
   }
 
-  const rawType = match[1].toLowerCase();
-  const type = (rawType === 'quote' ? 'pullquote' : rawType) as StyledBlockId;
+  const type = normalizeBlockType(match[1]);
   const bodyLines: string[] = [];
   let cursor = startIndex + 1;
 
@@ -209,14 +287,98 @@ export function parseStyledBlock(
     };
   }
 
-  if (type === 'pros' || type === 'cons') {
-    const items = contentLines.map((line) => line.replace(/^[-*]\s+/, '')).filter(Boolean);
-
+  if (type === 'pros' || type === 'cons' || type === 'takeaways') {
     return {
       block: {
         type,
-        title: type === 'pros' ? 'Pros' : 'Cons',
-        items,
+        title: type === 'pros' ? 'Pros' : type === 'cons' ? 'Cons' : 'Key takeaways',
+        items: parseListItems(contentLines),
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'faq') {
+    let question = '';
+    const answerLines: string[] = [];
+    let activeField: 'question' | 'answer' | null = null;
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+
+      if (!parsedLine) {
+        if (activeField === 'answer') {
+          answerLines.push(line);
+        } else if (!question) {
+          question = line;
+        } else {
+          answerLines.push(line);
+        }
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'question') {
+        question = parsedLine.value;
+        activeField = 'question';
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'answer') {
+        answerLines.push(parsedLine.value);
+        activeField = 'answer';
+      }
+    });
+
+    return {
+      block: {
+        type: 'faq',
+        question: question || 'Frequently asked question',
+        answer: answerLines.join(' '),
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'decision') {
+    let question = '';
+    let option = '';
+    const resultLines: string[] = [];
+    let activeField: 'question' | 'option' | 'result' | null = null;
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+
+      if (!parsedLine) {
+        if (activeField === 'result') {
+          resultLines.push(line);
+        }
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'question') {
+        question = parsedLine.value;
+        activeField = 'question';
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'option') {
+        option = option ? `${option} ${parsedLine.value}` : parsedLine.value;
+        activeField = 'option';
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'result') {
+        resultLines.push(parsedLine.value);
+        activeField = 'result';
+      }
+    });
+
+    return {
+      block: {
+        type: 'decision',
+        question: question || 'What is the real decision here?',
+        option: option || 'Choose the option that reduces the most friction in daily life.',
+        result: resultLines.join(' ') || 'The better fit is usually the easier one to live with consistently.',
       },
       nextIndex: cursor,
     };
@@ -228,49 +390,54 @@ export function parseStyledBlock(
     let shortReview = 'A practical recommendation chosen for this guide.';
     let bestFor = 'Parents who want the clearest fit for this category.';
     let standout: string | null = null;
+    let imageUrl: string | null = null;
+    let imageAlt: string | null = null;
     const pros: string[] = [];
     const affiliateLinks: Array<{ label: string; url: string }> = [];
 
     contentLines.forEach((line) => {
-      const separatorIndex = line.indexOf(':');
-      if (separatorIndex === -1) {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) {
         return;
       }
 
-      const label = line.slice(0, separatorIndex).trim().toLowerCase();
-      const value = line.slice(separatorIndex + 1).trim();
-
-      if (!value) {
+      if (parsedLine.normalizedLabel === 'brand') {
+        brand = parsedLine.value;
         return;
       }
 
-      if (label === 'brand') {
-        brand = value;
+      if (parsedLine.normalizedLabel === 'product' || parsedLine.normalizedLabel === 'product name' || parsedLine.normalizedLabel === 'title') {
+        productName = parsedLine.value;
         return;
       }
 
-      if (label === 'product' || label === 'product name' || label === 'title') {
-        productName = value;
+      if (parsedLine.normalizedLabel === 'review' || parsedLine.normalizedLabel === 'short review') {
+        shortReview = parsedLine.value;
         return;
       }
 
-      if (label === 'review' || label === 'short review') {
-        shortReview = value;
+      if (parsedLine.normalizedLabel === 'best for') {
+        bestFor = parsedLine.value;
         return;
       }
 
-      if (label === 'best for') {
-        bestFor = value;
+      if (parsedLine.normalizedLabel === 'standout') {
+        standout = parsedLine.value;
         return;
       }
 
-      if (label === 'standout') {
-        standout = value;
+      if (parsedLine.normalizedLabel === 'image') {
+        imageUrl = parsedLine.value;
         return;
       }
 
-      if (label === 'pros' || label === 'pro') {
-        value
+      if (parsedLine.normalizedLabel === 'image alt') {
+        imageAlt = parsedLine.value;
+        return;
+      }
+
+      if (parsedLine.normalizedLabel === 'pros' || parsedLine.normalizedLabel === 'pro') {
+        parsedLine.value
           .split('|')
           .map((entry) => entry.trim())
           .filter(Boolean)
@@ -278,8 +445,8 @@ export function parseStyledBlock(
         return;
       }
 
-      if (label === 'link' || label === 'affiliate link' || label === 'shop') {
-        const [linkLabel, linkUrl] = value.split('|').map((entry) => entry.trim());
+      if (parsedLine.normalizedLabel === 'link' || parsedLine.normalizedLabel === 'affiliate link' || parsedLine.normalizedLabel === 'shop') {
+        const [linkLabel, linkUrl] = parsedLine.value.split('|').map((entry) => entry.trim());
         if (!linkUrl && /^(https?:\/\/|\/)/i.test(linkLabel)) {
           affiliateLinks.push({ label: 'Shop now', url: linkLabel });
           return;
@@ -301,6 +468,8 @@ export function parseStyledBlock(
         bestFor,
         standout,
         affiliateLinks,
+        imageUrl,
+        imageAlt,
       },
       nextIndex: cursor,
     };
@@ -310,8 +479,8 @@ export function parseStyledBlock(
   let title = 'Comparison card';
 
   contentLines.forEach((line) => {
-    const separatorIndex = line.indexOf(':');
-    if (separatorIndex === -1) {
+    const parsedLine = parseKeyValueLine(line);
+    if (!parsedLine) {
       if (title === 'Comparison card') {
         title = line;
       } else {
@@ -320,19 +489,12 @@ export function parseStyledBlock(
       return;
     }
 
-    const label = line.slice(0, separatorIndex).trim();
-    const value = line.slice(separatorIndex + 1).trim();
-
-    if (!label || !value) {
+    if (parsedLine.normalizedLabel === 'title') {
+      title = parsedLine.value;
       return;
     }
 
-    if (label.toLowerCase() === 'title') {
-      title = value;
-      return;
-    }
-
-    rows.push({ label, value });
+    rows.push({ label: parsedLine.label, value: parsedLine.value });
   });
 
   return {
@@ -343,4 +505,39 @@ export function parseStyledBlock(
     },
     nextIndex: cursor,
   };
+}
+
+export function extractStyledBlocks(content: string) {
+  const blocks: ParsedStyledBlock[] = [];
+  const lines = content.split('\n');
+
+  for (let index = 0; index < lines.length;) {
+    const line = lines[index]?.trim() ?? '';
+
+    if (!line || !isStyledBlockStart(line)) {
+      index += 1;
+      continue;
+    }
+
+    const parsed = parseStyledBlock(lines, index);
+    if (!parsed) {
+      index += 1;
+      continue;
+    }
+
+    blocks.push(parsed.block);
+    index = parsed.nextIndex;
+  }
+
+  return blocks;
+}
+
+export function extractWidgetFaqEntries(content: string) {
+  return extractStyledBlocks(content)
+    .filter((block): block is Extract<ParsedStyledBlock, { type: 'faq' }> => block.type === 'faq')
+    .map((block) => ({
+      question: block.question.trim(),
+      answer: block.answer.trim(),
+    }))
+    .filter((entry) => entry.question && entry.answer);
 }

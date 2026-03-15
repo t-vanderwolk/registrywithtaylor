@@ -106,6 +106,7 @@ export async function POST(req: NextRequest) {
   const relatedGuideIds = asStringArray(body.relatedGuideIds);
   const authorId = asText(body.authorId) || (token.id as string);
   const sourceRoute = asNullableText(body.sourceRoute) ?? '/admin/guides/new';
+  const combinedContent = [intro, content, conclusion].filter(Boolean).join('\n\n');
 
   const lifecycle = deriveGuideLifecycle({
     existing: {
@@ -117,7 +118,7 @@ export async function POST(req: NextRequest) {
     requestedStatus: body.status,
     requestedPublished: body.published,
     requestedScheduledFor: body.scheduledFor,
-    content: [intro, content, conclusion].filter(Boolean).join('\n\n'),
+    content: combinedContent,
   });
 
   if (!lifecycle.ok) {
@@ -131,9 +132,9 @@ export async function POST(req: NextRequest) {
       title,
       slug,
       excerpt,
-      intro,
-      content,
-      conclusion,
+      intro: null,
+      content: combinedContent,
+      conclusion: null,
       heroImageUrl,
       heroImageAlt,
       authorId,

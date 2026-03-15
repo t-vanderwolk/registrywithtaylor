@@ -5,9 +5,16 @@ import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
-import ProductRecommendationCard from '@/components/blog/ProductRecommendationCard';
-import PullQuote from '@/components/blog/PullQuote';
-import { Body } from '@/components/ui/MarketingHeading';
+import Advice from '@/components/content-widgets/Advice';
+import Callout from '@/components/content-widgets/Callout';
+import Comparison from '@/components/content-widgets/Comparison';
+import Cons from '@/components/content-widgets/Cons';
+import DecisionHelper from '@/components/content-widgets/DecisionHelper';
+import FAQ from '@/components/content-widgets/FAQ';
+import ProductCard from '@/components/content-widgets/ProductCard';
+import Pros from '@/components/content-widgets/Pros';
+import ContentPullQuote from '@/components/content-widgets/PullQuote';
+import Takeaways from '@/components/content-widgets/Takeaways';
 import { slugify } from '@/lib/slugify';
 import {
   extractStoredCtaButtons,
@@ -211,111 +218,122 @@ function renderStoredCtaButtons(
 function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: number) {
   if (block.type === 'callout') {
     return (
-      <div
+      <Callout
         key={`${postId}-callout-${index}`}
-        className="blog-section-soft my-10 px-5 py-4 sm:px-6 sm:py-5"
+        title={block.title ? renderInlineContent(block.title, `${postId}-callout-title-${index}`) : undefined}
       >
-        {block.title ? (
-          <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
-        ) : null}
-        <Body className="text-charcoal/85">{renderInlineContent(block.body, `${postId}-callout-inline-${index}`)}</Body>
-      </div>
+        {renderInlineContent(block.body, `${postId}-callout-inline-${index}`)}
+      </Callout>
     );
   }
 
   if (block.type === 'advice') {
     return (
-      <div
+      <Advice
         key={`${postId}-advice-${index}`}
-        className="tmbc-blog-soft-card my-10 border-l-4 border-l-[var(--tmbc-blog-blush)] px-5 py-4 sm:px-6 sm:py-5"
+        title={block.title ? renderInlineContent(block.title, `${postId}-advice-title-${index}`) : undefined}
       >
-        {block.title ? (
-          <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{block.title}</p>
-        ) : null}
-        <Body className="text-charcoal/85">{renderInlineContent(block.body, `${postId}-advice-inline-${index}`)}</Body>
-      </div>
+        {renderInlineContent(block.body, `${postId}-advice-inline-${index}`)}
+      </Advice>
     );
   }
 
   if (block.type === 'pullquote') {
     return (
-      <figure key={`${postId}-pullquote-${index}`} className="my-12">
-        <PullQuote>“{block.quote}”</PullQuote>
-        {block.attribution ? (
-          <figcaption className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-neutral-600">
-            {block.attribution}
-          </figcaption>
-        ) : null}
-      </figure>
+      <ContentPullQuote
+        key={`${postId}-pullquote-${index}`}
+        quote={renderInlineContent(`“${block.quote}”`, `${postId}-pullquote-inline-${index}`)}
+        attribution={
+          block.attribution ? renderInlineContent(block.attribution, `${postId}-pullquote-attribution-${index}`) : undefined
+        }
+      />
     );
   }
 
-  if (block.type === 'pros' || block.type === 'cons') {
-    const isPros = block.type === 'pros';
+  if (block.type === 'pros') {
     return (
-      <section
-        key={`${postId}-${block.type}-${index}`}
-        className={`my-10 rounded-[24px] border px-5 py-4 sm:rounded-[28px] sm:px-6 sm:py-5 ${
-          isPros
-            ? 'border-[rgba(184,116,138,0.2)] bg-[rgba(243,227,232,0.6)]'
-            : 'border-[rgba(107,103,104,0.18)] bg-white'
-        }`}
-      >
-        <p
-          className={`mb-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] ${
-            isPros ? 'text-[var(--tmbc-blog-rose)]' : 'text-[var(--tmbc-blog-soft-text)]'
-          }`}
-        >
-          {block.title}
-        </p>
-        <ul className="space-y-3 text-[1.02rem] leading-relaxed text-charcoal/85">
-          {block.items.map((item, itemIndex) => (
-            <li key={`${postId}-${block.type}-${index}-${itemIndex}`} className="flex items-start gap-3">
-              <span className="mt-1 text-sm text-neutral-900">{isPros ? '+' : '−'}</span>
-              <span>{renderInlineContent(item, `${postId}-${block.type}-inline-${index}-${itemIndex}`)}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Pros
+        key={`${postId}-pros-${index}`}
+        title={renderInlineContent(block.title, `${postId}-pros-title-${index}`)}
+        items={block.items.map((item, itemIndex) =>
+          renderInlineContent(item, `${postId}-pros-inline-${index}-${itemIndex}`),
+        )}
+      />
+    );
+  }
+
+  if (block.type === 'cons') {
+    return (
+      <Cons
+        key={`${postId}-cons-${index}`}
+        title={renderInlineContent(block.title, `${postId}-cons-title-${index}`)}
+        items={block.items.map((item, itemIndex) =>
+          renderInlineContent(item, `${postId}-cons-inline-${index}-${itemIndex}`),
+        )}
+      />
+    );
+  }
+
+  if (block.type === 'takeaways') {
+    return (
+      <Takeaways
+        key={`${postId}-takeaways-${index}`}
+        title={renderInlineContent(block.title, `${postId}-takeaways-title-${index}`)}
+        items={block.items.map((item, itemIndex) =>
+          renderInlineContent(item, `${postId}-takeaways-inline-${index}-${itemIndex}`),
+        )}
+      />
     );
   }
 
   if (block.type === 'comparison') {
     return (
-      <section key={`${postId}-comparison-${index}`} className="tmbc-blog-soft-card my-10 px-5 py-4 sm:px-6 sm:py-5">
-        <h3 className="font-serif text-[1.45rem] tracking-[-0.02em] text-neutral-900">{block.title}</h3>
-        {block.rows.length > 0 ? (
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {block.rows.map((row, rowIndex) => (
-              <div
-                key={`${postId}-comparison-row-${index}-${rowIndex}`}
-                className="rounded-[22px] border border-[rgba(215,161,175,0.2)] bg-white px-4 py-3"
-              >
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">{row.label}</p>
-                <Body className="mt-2 text-charcoal/85">
-                  {renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`)}
-                </Body>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </section>
+      <Comparison
+        key={`${postId}-comparison-${index}`}
+        title={renderInlineContent(block.title, `${postId}-comparison-title-${index}`)}
+        rows={block.rows.map((row, rowIndex) => ({
+          label: renderInlineContent(row.label, `${postId}-comparison-label-${index}-${rowIndex}`),
+          value: renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`),
+        }))}
+      />
     );
   }
 
   if (block.type === 'product') {
     return (
-      <div key={`${postId}-product-${index}`} className="my-10">
-        <ProductRecommendationCard
-          brand={block.brand}
-          productName={block.productName}
-          shortReview={block.shortReview}
-          pros={block.pros}
-          bestFor={block.bestFor}
-          standout={block.standout}
-          affiliateLinks={block.affiliateLinks}
-        />
-      </div>
+      <ProductCard
+        key={`${postId}-product-${index}`}
+        brand={block.brand}
+        productName={block.productName}
+        review={renderInlineContent(block.shortReview, `${postId}-product-review-${index}`)}
+        bestFor={renderInlineContent(block.bestFor, `${postId}-product-bestfor-${index}`)}
+        standout={block.standout ? renderInlineContent(block.standout, `${postId}-product-standout-${index}`) : undefined}
+        pros={block.pros.map((pro, proIndex) => renderInlineContent(pro, `${postId}-product-pro-${index}-${proIndex}`))}
+        affiliateLinks={block.affiliateLinks}
+        imageUrl={block.imageUrl}
+        imageAlt={block.imageAlt}
+      />
+    );
+  }
+
+  if (block.type === 'faq') {
+    return (
+      <FAQ
+        key={`${postId}-faq-widget-${index}`}
+        question={renderInlineContent(block.question, `${postId}-faq-question-${index}`)}
+        answer={renderInlineContent(block.answer, `${postId}-faq-answer-${index}`)}
+      />
+    );
+  }
+
+  if (block.type === 'decision') {
+    return (
+      <DecisionHelper
+        key={`${postId}-decision-${index}`}
+        question={renderInlineContent(block.question, `${postId}-decision-question-${index}`)}
+        option={renderInlineContent(block.option, `${postId}-decision-option-${index}`)}
+        result={renderInlineContent(block.result, `${postId}-decision-result-${index}`)}
+      />
     );
   }
 
@@ -442,9 +460,10 @@ export default function PostContent({
             }
 
             nodes.push(
-              <PullQuote key={`${postId}-quote-${i}`}>
-                {renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
-              </PullQuote>,
+              <ContentPullQuote
+                key={`${postId}-quote-${i}`}
+                quote={renderInlineContent(quoteLines.join(' '), `${postId}-quote-inline-${i}`)}
+              />,
             );
             continue;
           }

@@ -155,6 +155,7 @@ export async function PUT(
     : existingGuide.founderSignatureText;
   const nextRelatedGuideIds = hasOwn(body, 'relatedGuideIds') ? asStringArray(body.relatedGuideIds) : existingGuide.relatedGuideIds;
   const sourceRoute = asNullableText(body.sourceRoute) ?? `/admin/guides/${id}/edit`;
+  const combinedContent = [nextIntro, nextContent, nextConclusion].filter(Boolean).join('\n\n');
 
   const lifecycle = deriveGuideLifecycle({
     existing: {
@@ -166,7 +167,7 @@ export async function PUT(
     requestedStatus: hasOwn(body, 'status') ? body.status : undefined,
     requestedPublished: hasOwn(body, 'published') ? body.published : undefined,
     requestedScheduledFor: hasOwn(body, 'scheduledFor') ? body.scheduledFor : undefined,
-    content: [nextIntro, nextContent, nextConclusion].filter(Boolean).join('\n\n'),
+    content: combinedContent,
   });
 
   if (!lifecycle.ok) {
@@ -182,9 +183,9 @@ export async function PUT(
       title: nextTitle,
       slug: nextSlug,
       excerpt: nextExcerpt,
-      intro: nextIntro,
-      content: nextContent,
-      conclusion: nextConclusion,
+      intro: null,
+      content: combinedContent,
+      conclusion: null,
       heroImageUrl: nextHeroImageUrl,
       heroImageAlt: nextHeroImageAlt,
       authorId: nextAuthorId,

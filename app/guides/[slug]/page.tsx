@@ -12,9 +12,10 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { getGuidePillar, getRelatedGuidePillars } from '@/lib/marketing/siteContent';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
+import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getGuideDisplayDate, isGuidePubliclyVisible } from '@/lib/guides/status';
-import { guideArticleSelect, toGuideArticleRecord } from '@/lib/server/guideArticleRecord';
+import { guideArticleSelect, toGuideArticleRecord, type GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 import prisma from '@/lib/server/prisma';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import '../../../styles/blog.css';
@@ -51,6 +52,13 @@ const toAbsoluteUrl = (pathOrUrl: string) => {
   return new URL(pathOrUrl, SITE_URL).toString();
 };
 
+function getGuideDescriptionFallback(guide: GuideArticleRecord) {
+  const combinedContent = [guide.intro, guide.content, guide.conclusion].filter(Boolean).join(' ');
+  const plainText = stripMarkdown(combinedContent);
+
+  return plainText ? plainText.slice(0, 180).trim() : null;
+}
+
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { slug } = await params;
   const guide = await getGuide(slug);
@@ -61,7 +69,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
     const description =
       guide.seoDescription?.trim() ||
       guide.excerpt?.trim() ||
-      articleGuide.intro?.trim() ||
+      getGuideDescriptionFallback(articleGuide) ||
       'Expert baby gear and baby preparation guidance from Taylor-Made Baby Co.';
     const canonical = guide.canonicalUrl?.trim() || `/guides/${guide.slug}`;
     const imageUrl = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
@@ -128,12 +136,27 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
   if (guide && isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
     const fallbackPillar = getGuidePillar(slug);
     const articleGuide = toGuideArticleRecord(guide);
+    const articleContent = [articleGuide.intro, articleGuide.content, articleGuide.conclusion].filter(Boolean).join('\n\n');
     const articleDescription =
       guide.seoDescription?.trim() ||
       guide.excerpt?.trim() ||
-      articleGuide.intro?.trim() ||
+      getGuideDescriptionFallback(articleGuide) ||
       guide.title;
     const articleImage = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
+    const faqEntries = [
+      ...articleGuide.faqItems.map((entry) => ({
+        question: entry.question,
+        answer: entry.answer,
+      })),
+      ...extractFaqEntries(articleContent),
+    ].filter(
+      (entry, index, collection) =>
+        collection.findIndex(
+          (candidate) =>
+            candidate.question.toLowerCase() === entry.question.toLowerCase() &&
+            candidate.answer.toLowerCase() === entry.answer.toLowerCase(),
+        ) === index,
+    );
     const relatedGuides = guide.relatedGuideIds.length
       ? await prisma.guide.findMany({
           where: {
@@ -241,11 +264,11 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           image: articleImage ? [toAbsoluteUrl(articleImage)] : undefined,
           inLanguage: 'en-US',
         },
-        ...(articleGuide.faqItems.length > 0
+        ...(faqEntries.length > 0
           ? [
               {
                 '@type': 'FAQPage',
-                mainEntity: articleGuide.faqItems.map((entry) => ({
+                mainEntity: faqEntries.map((entry) => ({
                   '@type': 'Question',
                   name: entry.question,
                   acceptedAnswer: {

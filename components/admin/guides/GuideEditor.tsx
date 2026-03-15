@@ -32,10 +32,22 @@ import {
 } from '@/lib/guides/guideTemplates';
 import { sanitizeGuideAffiliateModules, sanitizeGuideFaqItems, sanitizeStringList } from '@/lib/guides/types';
 import { GUIDE_STATUS_LABELS, requiresLiveGuideContent, type GuideStatusValue } from '@/lib/guides/status';
+import { STYLED_BLOCKS, getStyledBlockSnippet, type StyledBlockId } from '@/lib/blog/styledBlocks';
 import { buildDefaultAffiliateCtaText } from '@/lib/affiliatePartners';
 import { slugify } from '@/lib/slugify';
 
 type SaveMode = 'debounced' | 'immediate' | 'manual';
+type GuideContentFormatAction =
+  | 'h2'
+  | 'h3'
+  | 'bold'
+  | 'italic'
+  | 'bulletList'
+  | 'numberedList'
+  | 'quote'
+  | 'divider'
+  | 'image'
+  | 'link';
 
 type GuideState = PersistedGuideRecord;
 type TemplateSelectValue = 'blank' | GuideTemplateId;
@@ -195,9 +207,30 @@ function buildInsertedContent(currentContent: string, snippet: string, selection
   };
 }
 
+function replaceSelection(
+  content: string,
+  selectionStart: number,
+  selectionEnd: number,
+  nextValue: string,
+  nextSelectionStart?: number,
+  nextSelectionEnd?: number,
+) {
+  const nextContent = `${content.slice(0, selectionStart)}${nextValue}${content.slice(selectionEnd)}`;
+  return {
+    content: nextContent,
+    nextSelectionStart: nextSelectionStart ?? selectionStart,
+    nextSelectionEnd: nextSelectionEnd ?? selectionStart + nextValue.length,
+  };
+}
+
 function toGuideState(guide: PersistedGuideRecord): GuideState {
+  const combinedContent = combineGuideContent(guide);
+
   return {
     ...guide,
+    intro: null,
+    content: combinedContent,
+    conclusion: null,
     secondaryKeywords: sanitizeStringList(guide.secondaryKeywords),
     faqItems: sanitizeGuideFaqItems(guide.faqItems),
     affiliateModules: sanitizeGuideAffiliateModules(guide.affiliateModules),
@@ -225,7 +258,7 @@ function validateGuideState(guide: GuideState) {
   const combinedContent = combineGuideContent(guide);
 
   if (requiresLiveGuideContent(guide.status) && !combinedContent.trim()) {
-    return 'Intro, body, or conclusion content is required before publishing or scheduling.';
+    return 'Guide content is required before publishing or scheduling.';
   }
 
   if (!guide.authorId) {
@@ -294,9 +327,9 @@ function toSavePayload(guide: GuideState, sourceRoute: string): GuideSavePayload
     title: guide.title,
     slug: guide.slug,
     excerpt: guide.excerpt,
-    intro: guide.intro,
+    intro: null,
     content: guide.content,
-    conclusion: guide.conclusion,
+    conclusion: null,
     heroImageUrl: guide.heroImageUrl,
     heroImageAlt: guide.heroImageAlt,
     authorId: guide.authorId,
@@ -383,7 +416,7 @@ export default function GuideEditor({
   const readingTimeLabel = `${readingTimeMinutes} min read`;
   const wordCountToneClass =
     wordCount >= 4000 ? 'text-admin-success' : wordCount >= 2000 ? 'text-admin-warning' : 'text-admin-micro';
-  const hasTemplateContent = Boolean(guide.intro?.trim() || guide.content.trim() || guide.conclusion?.trim());
+  const hasTemplateContent = Boolean(guide.content.trim());
   const canPreview = Boolean(currentGuideId || guide.title.trim() || guideDraftContent.trim() || guide.excerpt?.trim());
   const scheduleError = getScheduleError(guide.status, guide.scheduledFor);
   const saveText = getSavedText({
@@ -395,6 +428,12 @@ export default function GuideEditor({
   });
   const saveTone = saving || isDirty || hasScheduledSave ? 'warning' : savedAt ? 'success' : 'default';
   const relatedOptions = relatedGuideOptions.filter((entry) => entry.id !== currentGuideId);
+  const guideTemplateOptions = GUIDE_TEMPLATE_OPTIONS.filter((template) => template.source === 'guide');
+  const blogTemplateOptions = GUIDE_TEMPLATE_OPTIONS.filter((template) => template.source === 'blog');
+  const selectedTemplateOption =
+    templateSelection === 'blank'
+      ? null
+      : GUIDE_TEMPLATE_OPTIONS.find((template) => template.id === templateSelection) ?? null;
 
   useEffect(() => {
     stateRef.current = guide;
@@ -796,7 +835,7 @@ export default function GuideEditor({
     if (hasTemplateContent) {
       setHelperNotice({
         tone: 'warning',
-        message: 'Template content only inserts into a blank guide. Clear intro, guide body, and conclusion first.',
+        message: 'Template content only inserts into a blank guide. Clear the current guide draft first.',
       });
       setTemplateSelection('blank');
       return;
@@ -816,7 +855,7 @@ export default function GuideEditor({
     if (combineGuideContent(currentGuide).trim()) {
       setHelperNotice({
         tone: 'warning',
-        message: 'Template content only inserts into a blank guide. Clear intro, guide body, and conclusion first.',
+        message: 'Template content only inserts into a blank guide. Clear the current guide draft first.',
       });
       closeTemplateModal();
       return;
@@ -825,9 +864,9 @@ export default function GuideEditor({
     applyGuideUpdate(
       (current) => ({
         ...current,
-        intro: template.intro,
-        content: template.content,
-        conclusion: template.conclusion,
+        intro: null,
+        content: [template.intro, template.content, template.conclusion].filter(Boolean).join('\n\n'),
+        conclusion: null,
       }),
       'debounced',
     );
@@ -839,12 +878,27 @@ export default function GuideEditor({
     closeTemplateModal();
   }
 
-  function insertSectionSnippet(snippetId: GuideSectionSnippetId) {
-    const snippet = GUIDE_SECTION_SNIPPETS[snippetId];
+  function focusGuideContentSelection(start: number, end: number) {
+    setActiveTab('structure');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const textarea = contentTextareaRef.current;
+        if (!textarea) {
+          return;
+        }
+
+        textarea.focus();
+        textarea.setSelectionRange(start, end);
+      });
+    });
+  }
+
+  function insertGuideContentBlockAtCursor(value: string, saveMode: SaveMode = 'debounced') {
+    const currentGuide = stateRef.current;
     const textarea = contentTextareaRef.current;
-    const { nextContent, cursorPosition } = buildInsertedContent(
-      stateRef.current.content,
-      snippet.content,
+    const insertion = buildInsertedContent(
+      currentGuide.content,
+      value,
       textarea?.selectionStart,
       textarea?.selectionEnd,
     );
@@ -852,23 +906,134 @@ export default function GuideEditor({
     applyGuideUpdate(
       (current) => ({
         ...current,
-        content: nextContent,
+        content: insertion.nextContent,
       }),
-      'debounced',
+      saveMode,
     );
-    setHelperNotice({
-      tone: 'success',
-      message: `${snippet.name} inserted into the guide body.`,
-    });
 
-    window.requestAnimationFrame(() => {
-      if (!contentTextareaRef.current) {
+    focusGuideContentSelection(insertion.cursorPosition, insertion.cursorPosition);
+  }
+
+  function applyGuideMarkdownFormat(action: GuideContentFormatAction) {
+    const currentGuide = stateRef.current;
+    const textarea = contentTextareaRef.current;
+    const start = textarea?.selectionStart ?? currentGuide.content.length;
+    const end = textarea?.selectionEnd ?? start;
+    const selected = currentGuide.content.slice(start, end);
+    const hasSelection = selected.length > 0;
+
+    const applyReplacement = (replacement: ReturnType<typeof replaceSelection>) => {
+      applyGuideUpdate(
+        (current) => ({
+          ...current,
+          content: replacement.content,
+        }),
+        'debounced',
+      );
+
+      focusGuideContentSelection(replacement.nextSelectionStart, replacement.nextSelectionEnd);
+    };
+
+    if (action === 'bold') {
+      const text = hasSelection ? selected : 'bold text';
+      const replacement = `**${text}**`;
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement, start + 2, start + 2 + text.length));
+      return;
+    }
+
+    if (action === 'italic') {
+      const text = hasSelection ? selected : 'italic text';
+      const replacement = `*${text}*`;
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement, start + 1, start + 1 + text.length));
+      return;
+    }
+
+    if (action === 'h2' || action === 'h3') {
+      const prefix = action === 'h2' ? '## ' : '### ';
+      const text = hasSelection ? selected.replace(/\n+/g, ' ').trim() : action === 'h2' ? 'Section heading' : 'Subheading';
+      const block = `${prefix}${text}`;
+      const replacement = start === 0 ? `${block}\n\n` : `\n\n${block}\n\n`;
+      const nextStart = start + (start === 0 ? prefix.length : prefix.length + 2);
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement, nextStart, nextStart + text.length));
+      return;
+    }
+
+    if (action === 'bulletList' || action === 'numberedList') {
+      const lines = (hasSelection ? selected : action === 'bulletList' ? 'List item' : 'First item\nSecond item')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const replacement = lines
+        .map((line, index) => (action === 'bulletList' ? `- ${line}` : `${index + 1}. ${line}`))
+        .join('\n');
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement));
+      return;
+    }
+
+    if (action === 'quote') {
+      const lines = (hasSelection ? selected : 'Quoted note')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => `> ${line}`)
+        .join('\n');
+      applyReplacement(replaceSelection(currentGuide.content, start, end, lines));
+      return;
+    }
+
+    if (action === 'divider') {
+      insertGuideContentBlockAtCursor('---');
+      return;
+    }
+
+    if (action === 'image') {
+      const selectedAlt = hasSelection ? selected.replace(/\n+/g, ' ').trim() : '';
+      const altText = selectedAlt || window.prompt('Enter alt text (optional)', '')?.trim() || '';
+      const href = window.prompt('Enter the image URL', 'https://');
+      if (!href) {
         return;
       }
 
-      contentTextareaRef.current.focus();
-      contentTextareaRef.current.setSelectionRange(cursorPosition, cursorPosition);
+      const replacement = `![${altText}](${href.trim()})`;
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement));
+      return;
+    }
+
+    if (action === 'link') {
+      const label = hasSelection ? selected : 'Link text';
+      const href = window.prompt('Enter the destination URL', 'https://');
+      if (!href) {
+        return;
+      }
+
+      const replacement = `[${label}](${href.trim()})`;
+      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement, start + 1, start + 1 + label.length));
+    }
+  }
+
+  function insertSectionSnippet(snippetId: GuideSectionSnippetId) {
+    const snippet = GUIDE_SECTION_SNIPPETS[snippetId];
+    insertGuideContentBlockAtCursor(snippet.content, 'debounced');
+    setHelperNotice({
+      tone: 'success',
+      message: `${snippet.name} inserted into the guide draft.`,
     });
+  }
+
+  function insertStyledBlock(blockId: StyledBlockId) {
+    const snippet = getStyledBlockSnippet(blockId);
+    if (!snippet) {
+      return;
+    }
+
+    insertGuideContentBlockAtCursor(snippet, 'debounced');
+    const block = STYLED_BLOCKS.find((entry) => entry.id === blockId);
+    if (block) {
+      setHelperNotice({
+        tone: 'success',
+        message: `${block.label} inserted into the guide draft.`,
+      });
+    }
   }
 
   async function openPreview() {
@@ -894,7 +1059,7 @@ export default function GuideEditor({
         <div className="admin-stack gap-1.5">
           <p className="admin-eyebrow">Guide Start</p>
           <h2 className="admin-h2">Start From Template</h2>
-          <p className="admin-body">Load a TMBC guide framework into the intro, guide body, and conclusion before you start drafting.</p>
+          <p className="admin-body">Load either a guide framework or one of the blog editor starters into the draft before you refine it for search and authority.</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -909,7 +1074,7 @@ export default function GuideEditor({
           <AdminField
             label="Start From Template"
             htmlFor="guide-template-select"
-            help="Templates only insert into blank intro, guide body, and conclusion fields."
+            help="Templates only insert into a blank guide draft. Blog editor starters are included here too."
           >
             <AdminSelect
               id="guide-template-select"
@@ -917,13 +1082,33 @@ export default function GuideEditor({
               onChange={(event) => handleTemplateSelection(event.target.value as TemplateSelectValue)}
             >
               <option value="blank">Blank Guide</option>
-              {GUIDE_TEMPLATE_OPTIONS.map((template) => (
-                <option key={template.id} value={template.id}>
-                  {template.label}
-                </option>
-              ))}
+              <optgroup label="Guide templates">
+                {guideTemplateOptions.map((template) => (
+                  <option key={template.id} value={template.id}>
+                    {template.label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Blog editor templates">
+                {blogTemplateOptions.map((template) => (
+                  <option key={template.id} value={template.id}>
+                    {template.label}
+                  </option>
+                ))}
+              </optgroup>
             </AdminSelect>
           </AdminField>
+
+          {selectedTemplateOption ? (
+            <div className="rounded-[20px] border border-[var(--admin-color-border)] bg-white p-4">
+              <p className="admin-label">
+                {selectedTemplateOption.source === 'blog' ? 'Blog editor template' : 'Guide template'}
+              </p>
+              {selectedTemplateOption.description ? (
+                <p className="admin-micro mt-2">{selectedTemplateOption.description}</p>
+              ) : null}
+            </div>
+          ) : null}
 
           {helperNotice ? <AdminToast tone={helperNotice.tone}>{helperNotice.message}</AdminToast> : null}
         </div>
@@ -1449,7 +1634,7 @@ export default function GuideEditor({
           <div className="admin-stack gap-1.5">
             <p className="admin-eyebrow">Guide Structure</p>
             <h2 className="admin-h2">Long-form content</h2>
-            <p className="admin-body">Shape the guide as an evergreen editorial resource with a clear opening, core body, and finish.</p>
+            <p className="admin-body">Write the full guide in one continuous field. Use markdown headings to create structure where it actually helps the reader.</p>
             <div className="flex flex-wrap items-center gap-3">
               <p className={`admin-micro ${wordCountToneClass}`}>Word Count: {wordCount.toLocaleString()}</p>
               <p className="admin-micro">Target: Minimum 4000 words</p>
@@ -1474,29 +1659,49 @@ export default function GuideEditor({
             <span>{guide.tableOfContentsEnabled ? 'Table of contents enabled' : 'Table of contents hidden'}</span>
           </label>
 
-          <AdminField label="Intro" htmlFor="guide-intro">
-            <AdminTextarea
-              id="guide-intro"
-              value={guide.intro ?? ''}
-              onChange={(event) =>
-                applyGuideUpdate(
-                  (current) => ({
-                    ...current,
-                    intro: event.target.value,
-                  }),
-                  'debounced',
-                )
-              }
-              className="min-h-[150px]"
-              placeholder="Set context for the guide, what this page covers, and who it is for."
-            />
-          </AdminField>
-
-          <AdminField label="Guide body" htmlFor="guide-content" help="Write in markdown with clear H2/H3 structure.">
+          <AdminField label="Guide content" htmlFor="guide-content" help="Write in markdown with clear H2 and H3 structure where needed.">
             <div className="admin-stack gap-3">
               <div className="admin-stack gap-1">
+                <p className="admin-eyebrow">Formatting Tools</p>
+                <p className="admin-micro">Add headings, lists, quotes, links, dividers, and inline images without hand-writing the markdown each time.</p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('h2')}>
+                  H2
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('h3')}>
+                  H3
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('bold')}>
+                  Bold
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('italic')}>
+                  Italic
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('bulletList')}>
+                  Bullets
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('numberedList')}>
+                  Numbers
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('quote')}>
+                  Quote
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('link')}>
+                  Link
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('image')}>
+                  Image
+                </AdminButton>
+                <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('divider')}>
+                  Divider
+                </AdminButton>
+              </div>
+
+              <div className="admin-stack gap-1">
                 <p className="admin-eyebrow">Insert Section</p>
-                <p className="admin-micro">Drop a ready-made TMBC section into the guide body at the current cursor position.</p>
+                <p className="admin-micro">Drop a ready-made TMBC section into the guide draft at the current cursor position.</p>
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
@@ -1513,6 +1718,31 @@ export default function GuideEditor({
                 ))}
               </div>
 
+              <div className="admin-stack gap-1">
+                <p className="admin-eyebrow">Guide Widgets</p>
+                <p className="admin-micro">Insert richer content blocks that render as visual guide widgets on the public page.</p>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {STYLED_BLOCKS.map((block) => (
+                  <div
+                    key={block.id}
+                    className="admin-stack justify-between gap-3 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4"
+                  >
+                    <div className="admin-stack gap-1.5">
+                      <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-admin">{block.label}</h3>
+                      <p className="admin-micro">{block.description}</p>
+                    </div>
+
+                    <div className="flex justify-start">
+                      <AdminButton type="button" variant="secondary" size="sm" onClick={() => insertStyledBlock(block.id)}>
+                        Insert widget
+                      </AdminButton>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <AdminTextarea
                 ref={contentTextareaRef}
                 id="guide-content"
@@ -1526,28 +1756,10 @@ export default function GuideEditor({
                     'debounced',
                   )
                 }
-                className="min-h-[420px]"
-                placeholder="## What to look for&#10;&#10;Long-form guide content..."
+                className="min-h-[720px]"
+                placeholder="## Introduction&#10;&#10;Start the guide here...&#10;&#10;## What to look for&#10;&#10;Build the rest of the guide in one continuous draft."
               />
             </div>
-          </AdminField>
-
-          <AdminField label="Conclusion / wrap-up" htmlFor="guide-conclusion">
-            <AdminTextarea
-              id="guide-conclusion"
-              value={guide.conclusion ?? ''}
-              onChange={(event) =>
-                applyGuideUpdate(
-                  (current) => ({
-                    ...current,
-                    conclusion: event.target.value,
-                  }),
-                  'debounced',
-                )
-              }
-              className="min-h-[150px]"
-              placeholder="Summarize the recommendation logic and next step."
-            />
           </AdminField>
 
           <label className="admin-toggle" htmlFor="guide-founder-signature-enabled">
@@ -2040,7 +2252,7 @@ export default function GuideEditor({
               <p className="admin-eyebrow">Insert template content?</p>
               <h2 id="guide-template-dialog-title" className="admin-h2">Insert template content?</h2>
               <p className="admin-body">
-                This will populate the intro, guide body, and conclusion with the{' '}
+                This will populate the guide draft with the{' '}
                 {GUIDE_TEMPLATES[pendingTemplateId].name.toLowerCase()} starter structure.
               </p>
             </div>

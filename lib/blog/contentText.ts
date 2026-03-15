@@ -1,8 +1,11 @@
+import { extractWidgetFaqEntries } from '@/lib/blog/styledBlocks';
+
 const markdownCodeFencePattern = /```[\s\S]*?```/g;
 const markdownCodePattern = /`[^`]*`/g;
 const markdownImagePattern = /!\[[^\]]*\]\([^)]+\)/g;
 const markdownLinkPattern = /\[([^\]]+)\]\([^)]+\)/g;
 const markdownHeadingPattern = /^#{1,6}\s+/gm;
+const markdownWidgetFencePattern = /^:::[a-zA-Z]+\s*$|^:::\s*$/gm;
 const markdownDecoratorsPattern = /[*_~>#]/g;
 const orderedListPattern = /^\d+\.\s+/;
 const monthPattern =
@@ -25,6 +28,7 @@ export function stripMarkdown(value: string) {
     .replace(markdownImagePattern, ' ')
     .replace(markdownLinkPattern, '$1')
     .replace(markdownHeadingPattern, '')
+    .replace(markdownWidgetFencePattern, ' ')
     .replace(markdownDecoratorsPattern, '')
     .replace(/\r?\n+/g, ' ')
     .replace(/\s+/g, ' ')
@@ -180,6 +184,7 @@ export type FaqEntry = {
 };
 
 export function extractFaqEntries(content: string) {
+  const widgetFaqs = extractWidgetFaqEntries(content);
   const lines = content.split('\n');
   const faqs: FaqEntry[] = [];
   let inFaqSection = false;
@@ -230,5 +235,13 @@ export function extractFaqEntries(content: string) {
   }
 
   flushCurrent();
-  return faqs;
+
+  return [...widgetFaqs, ...faqs].filter(
+    (entry, index, collection) =>
+      collection.findIndex(
+        (candidate) =>
+          candidate.question.toLowerCase() === entry.question.toLowerCase() &&
+          candidate.answer.toLowerCase() === entry.answer.toLowerCase(),
+      ) === index,
+  );
 }

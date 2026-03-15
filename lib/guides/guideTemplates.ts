@@ -1,22 +1,101 @@
+import { STARTER_TEMPLATES, type StarterTemplateId } from '@/components/admin/blog/starterTemplates';
+
 const TMBC_SIGNATURE = `Start with confidence.
 
 XOXO
 Taylor`;
 
+const GUIDE_WIDGET_PLAYGROUND = `## Widget-Ready Sections
+
+:::callout
+Quick read
+Use this block to frame the real decision before the reader gets buried in specs, reviews, or feature lists.
+:::
+
+:::advice
+What most parents do not realize
+The easiest product to live with every day usually beats the product with the longest feature list.
+:::
+
+:::pullquote
+The goal is not a more impressive setup. It is a calmer one.
+— Taylor-Made Baby Co.
+:::
+
+:::comparison
+Title: Best fit snapshot
+Best for: Families who want the clearest everyday use case
+Standout: Name the strongest real-life reason this option works
+Watchout: Name the tradeoff honestly
+:::
+
+:::pros
+- Easy to skim
+- Adds visual rhythm to long-form content
+- Helps parents compare without reading every paragraph
+:::
+
+:::faq
+Question: What actually matters most here?
+Answer: Focus on the option that fits your daily life best instead of the one with the most dramatic product page.
+:::
+
+:::decision
+Question: Is the easier everyday option the better pick for your family?
+Option: Choose the version you can manage quickly, store easily, and use without extra friction.
+Result: The calmer daily fit usually ends up being the smarter long-term choice.
+:::
+
+:::takeaways
+- Start with the routine, not the brand.
+- Choose the option that removes the most friction.
+- Let clarity beat feature overload.
+:::`;
+
 export type GuideTemplate = {
   name: string;
+  description?: string;
+  source?: 'guide' | 'blog';
   intro: string;
   content: string;
   conclusion: string;
 };
 
+function withGuideWidgets(content: string) {
+  return `${content}\n\n${GUIDE_WIDGET_PLAYGROUND}`;
+}
+
+function getBlogStarterTemplate(templateId: StarterTemplateId) {
+  const template = STARTER_TEMPLATES.find((entry) => entry.id === templateId);
+  if (!template) {
+    throw new Error(`Missing blog starter template: ${templateId}`);
+  }
+
+  return template;
+}
+
+function createBlogGuideTemplate(templateId: StarterTemplateId): GuideTemplate {
+  const template = getBlogStarterTemplate(templateId);
+
+  return {
+    name: `Blog Starter: ${template.label}`,
+    description: template.description,
+    source: 'blog',
+    intro: '',
+    content: withGuideWidgets(template.content),
+    conclusion: '',
+  };
+}
+
 export const GUIDE_TEMPLATES = {
   completeGuide: {
     name: 'Complete Category Guide',
+    description: 'A full-length category guide with context, criteria, tradeoffs, and a grounded close.',
+    source: 'guide',
     intro: `This category tends to overwhelm parents quickly. The product names sound similar, the feature lists are longer than they need to be, and nearly every brand promises to make life dramatically easier.
 
 What most parents need here is not more product information. They need better guidance. At Taylor-Made Baby Co., the goal is to slow the decision down, understand how this category fits real daily life, and separate practical value from marketing noise.`,
-    content: `## Why This Category Feels Overwhelming
+    content: withGuideWidgets(`## Why This Category Feels Overwhelming
 
 This category usually comes with too many opinions and not enough context. Parents hear retailer recommendations, social media favorites, registry advice from friends, and brand messaging that makes every version sound essential.
 
@@ -89,6 +168,7 @@ This section should help families feel permission to buy with intention instead 
 At Taylor-Made Baby Co., the goal is not to help parents collect more gear. It is to help them understand what fits their life, their home, and the way they actually plan to move through early parenthood.
 
 Learning before buying leads to better decisions. Better decisions lead to calmer preparation. And calmer preparation usually means less waste, less second-guessing, and more confidence.`,
+),
     conclusion: `The best decision in this category usually feels less dramatic than parents expect. It is often the option that fits daily life well, solves a real problem, and does not ask too much from your space, routine, or budget.
 
 Use this guide as a starting point, then refine the choice around your actual life. That is where clarity begins.
@@ -97,10 +177,12 @@ ${TMBC_SIGNATURE}`,
   },
   comparisonGuide: {
     name: 'Comparison Guide',
+    description: 'A calmer side-by-side framework for comparing two solid options without adding noise.',
+    source: 'guide',
     intro: `Comparison guides are useful because parents are rarely choosing between a perfect option and a bad one. More often, they are deciding between two products that both seem reasonable on the surface.
 
 The TMBC approach is to step back from brand marketing and compare how each option performs in real life. Parents do not need a louder winner. They need a calmer way to understand the tradeoffs.`,
-    content: `## What Parents Are Really Comparing
+    content: withGuideWidgets(`## What Parents Are Really Comparing
 
 Name the real decision underneath the comparison. Most parents are not simply comparing two products. They are comparing convenience, longevity, footprint, price, ease of use, or flexibility.
 
@@ -145,6 +227,7 @@ Point out the features or promises that sound impressive during research but ten
 ## The Taylor-Made Perspective
 
 The right comparison should leave parents feeling clearer, not more pressured. The goal is not to crown a universal winner. It is to identify which option fits a specific family more naturally.`,
+),
     conclusion: `A good comparison should narrow the choice without creating more noise. When you focus on daily use, space, and long-term fit, the better option usually becomes much easier to see.
 
 If both options still seem close, return to the question of which one works harder for your real life. That is usually the better answer.
@@ -153,10 +236,12 @@ ${TMBC_SIGNATURE}`,
   },
   decisionFrameworkGuide: {
     name: 'Decision Framework Guide',
+    description: 'A framework-first guide for helping parents define the decision before they compare products.',
+    source: 'guide',
     intro: `Some baby gear decisions feel hard because parents are trying to make them in the wrong order. They start with brands, reviews, or viral recommendations before they have built a clear framework for the decision itself.
 
 Taylor-Made Baby Co. approaches these moments differently. Before shopping, define the real constraints, the real routine, and the real role this product needs to play.`,
-    content: `## The Decision Behind the Product
+    content: withGuideWidgets(`## The Decision Behind the Product
 
 Clarify what parents are actually deciding. Is the question about convenience, safety, mobility, multi-stage use, ease of setup, or simplifying a crowded category?
 
@@ -192,6 +277,7 @@ A good decision does not have to feel flashy. It usually feels practical, compat
 ## The Taylor-Made Perspective
 
 Parents make better choices when they understand the decision before they evaluate the product. That shift alone reduces overwhelm and makes it easier to choose with confidence instead of urgency.`,
+),
     conclusion: `Framework first. Product second. That order solves more confusion than most parents realize.
 
 When the decision is clear, the buying process tends to get quieter, simpler, and far more useful.
@@ -200,10 +286,12 @@ ${TMBC_SIGNATURE}`,
   },
   minimalistGuide: {
     name: 'Minimalist Guide',
+    description: 'A practical guide for stripping a category down to what actually earns a place in the home.',
+    source: 'guide',
     intro: `Minimalist guides are not about buying the fewest products possible. They are about buying with more intention, less pressure, and a better understanding of what actually earns a place in your home.
 
 At TMBC, minimalism means practical clarity. Parents do not need a sparse setup for the sake of aesthetics. They need a setup that works well without creating more clutter, more cost, or more decision fatigue.`,
-    content: `## Why Minimalism Gets Misunderstood
+    content: withGuideWidgets(`## Why Minimalism Gets Misunderstood
 
 In baby gear, minimalism is often framed as either unrealistic or trendy. In reality, it is simply a way to evaluate what truly supports daily life and what mostly takes up space.
 
@@ -233,21 +321,103 @@ More gear can mean more to clean, more to store, more to move, and more to secon
 ## The Taylor-Made Perspective
 
 Minimalism is not deprivation. It is decision quality. When parents understand what matters, they can build a calmer setup that feels lighter, more useful, and easier to live with.`,
+),
     conclusion: `A minimalist setup works best when it is shaped by real life, not by pressure to buy everything at once or pressure to own almost nothing.
 
 Keep what helps. Skip what adds noise. That is usually the smarter kind of preparation.
 
 ${TMBC_SIGNATURE}`,
   },
+  blogTmbcEditorial: createBlogGuideTemplate('tmbcEditorial'),
+  blogGuide: createBlogGuideTemplate('guide'),
+  blogComparison: createBlogGuideTemplate('comparison'),
+  blogFaq: createBlogGuideTemplate('faq'),
+  blogChecklist: createBlogGuideTemplate('checklist'),
+  blogRegistryGuide: createBlogGuideTemplate('registryGuide'),
+  blogProductReview: createBlogGuideTemplate('productReview'),
+  blogBestOf: createBlogGuideTemplate('bestOf'),
 } as const satisfies Record<string, GuideTemplate>;
 
 export type GuideTemplateId = keyof typeof GUIDE_TEMPLATES;
 
-export const GUIDE_TEMPLATE_OPTIONS: Array<{ id: GuideTemplateId; label: string }> = [
-  { id: 'completeGuide', label: GUIDE_TEMPLATES.completeGuide.name },
-  { id: 'comparisonGuide', label: GUIDE_TEMPLATES.comparisonGuide.name },
-  { id: 'decisionFrameworkGuide', label: GUIDE_TEMPLATES.decisionFrameworkGuide.name },
-  { id: 'minimalistGuide', label: GUIDE_TEMPLATES.minimalistGuide.name },
+export const GUIDE_TEMPLATE_OPTIONS: Array<{
+  id: GuideTemplateId;
+  label: string;
+  description?: string;
+  source: 'guide' | 'blog';
+}> = [
+  {
+    id: 'completeGuide',
+    label: GUIDE_TEMPLATES.completeGuide.name,
+    description: GUIDE_TEMPLATES.completeGuide.description,
+    source: 'guide',
+  },
+  {
+    id: 'comparisonGuide',
+    label: GUIDE_TEMPLATES.comparisonGuide.name,
+    description: GUIDE_TEMPLATES.comparisonGuide.description,
+    source: 'guide',
+  },
+  {
+    id: 'decisionFrameworkGuide',
+    label: GUIDE_TEMPLATES.decisionFrameworkGuide.name,
+    description: GUIDE_TEMPLATES.decisionFrameworkGuide.description,
+    source: 'guide',
+  },
+  {
+    id: 'minimalistGuide',
+    label: GUIDE_TEMPLATES.minimalistGuide.name,
+    description: GUIDE_TEMPLATES.minimalistGuide.description,
+    source: 'guide',
+  },
+  {
+    id: 'blogTmbcEditorial',
+    label: 'TMBC Editorial',
+    description: GUIDE_TEMPLATES.blogTmbcEditorial.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogGuide',
+    label: 'Guide',
+    description: GUIDE_TEMPLATES.blogGuide.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogComparison',
+    label: 'Comparison',
+    description: GUIDE_TEMPLATES.blogComparison.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogFaq',
+    label: 'FAQ',
+    description: GUIDE_TEMPLATES.blogFaq.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogChecklist',
+    label: 'Checklist',
+    description: GUIDE_TEMPLATES.blogChecklist.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogRegistryGuide',
+    label: 'Registry Guide',
+    description: GUIDE_TEMPLATES.blogRegistryGuide.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogProductReview',
+    label: 'Product Review',
+    description: GUIDE_TEMPLATES.blogProductReview.description,
+    source: 'blog',
+  },
+  {
+    id: 'blogBestOf',
+    label: 'Best Of',
+    description: GUIDE_TEMPLATES.blogBestOf.description,
+    source: 'blog',
+  },
 ];
 
 export const GUIDE_SECTION_SNIPPETS = {

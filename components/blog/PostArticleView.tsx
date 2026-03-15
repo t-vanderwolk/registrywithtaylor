@@ -118,6 +118,7 @@ const stripMarkdown = (value: string) =>
     .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^:::[a-zA-Z]+\s*$|^:::\s*$/gm, ' ')
     .replace(/[*_~>#]/g, '')
     .replace(/\r?\n+/g, ' ')
     .replace(/\s+/g, ' ')

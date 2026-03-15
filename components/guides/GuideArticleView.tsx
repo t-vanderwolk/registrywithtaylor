@@ -128,6 +128,15 @@ export default function GuideArticleView({
     (!guide.affiliateDisclosurePlacement || guide.affiliateDisclosurePlacement === 'before_affiliates');
   const nextStepEvent = guide.nextStepCtaHref ? getGuideDestinationEvent(guide.nextStepCtaHref) : null;
   const nextStepDestinationPageType = guide.nextStepCtaHref ? getAnalyticsPageType(guide.nextStepCtaHref) : null;
+  const wordCount = stripMarkdown(articleContent).split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.max(3, Math.round(wordCount / 190));
+  const primarySectionCount = tocItems.filter((item) => item.level === 2).length || tocItems.length || 1;
+  const snapshotItems = [
+    { label: 'Category', value: guide.category },
+    { label: 'Published', value: formatArticleDate(displayDate) },
+    { label: 'Read time', value: `${readingTime} min` },
+    { label: 'Sections', value: String(primarySectionCount) },
+  ];
 
   return (
     <>
@@ -187,72 +196,62 @@ export default function GuideArticleView({
       </section>
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(15rem,0.36fr)_minmax(0,0.64fr)] lg:items-start lg:gap-14 lg:px-10 lg:py-16">
-          <aside className="order-2 space-y-5 lg:order-1 lg:sticky lg:top-6">
-            <MarketingSurface className="rounded-[1.6rem] border border-black/6 bg-white/92 p-5 sm:rounded-[1.8rem] sm:p-6">
-              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Guide snapshot</p>
-              <div className="mt-4 space-y-3 text-sm leading-7 text-neutral-700">
-                <p>Category: {guide.category}</p>
-                {guide.targetKeyword ? <p>Target keyword: {guide.targetKeyword}</p> : null}
-                {guide.secondaryKeywords.length > 0 ? (
-                  <p>Secondary keywords: {guide.secondaryKeywords.slice(0, 3).join(', ')}</p>
+        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-16">
+          <div className="space-y-8">
+            <MarketingSurface className="rounded-[1.5rem] border border-black/6 bg-white/82 p-4 shadow-[0_12px_34px_rgba(0,0,0,0.04)] sm:p-5">
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-2.5">
+                  {snapshotItems.map((item) => (
+                    <div
+                      key={item.label}
+                      className="inline-flex min-h-[40px] items-center gap-2 rounded-full border border-black/6 bg-[rgba(248,243,238,0.9)] px-4 py-2 text-sm text-neutral-700"
+                    >
+                      <span className="text-[0.66rem] uppercase tracking-[0.18em] text-black/42">{item.label}</span>
+                      <span className="text-neutral-900">{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {tocItems.length > 0 ? (
+                  <details className="rounded-[1.1rem] border border-black/6 bg-[rgba(252,247,242,0.76)] px-4 py-3">
+                    <summary className="cursor-pointer list-none text-sm font-medium text-neutral-800">
+                      Jump to a section
+                    </summary>
+                    <nav className="mt-4 grid gap-2 sm:grid-cols-2" aria-label="Guide table of contents">
+                      {tocItems.map((item, index) => (
+                        <a
+                          key={item.id}
+                          href={`#${item.id}`}
+                          className={`rounded-[0.95rem] border border-transparent px-3 py-2 text-sm leading-6 text-neutral-700 transition hover:border-[rgba(196,156,94,0.18)] hover:bg-white/72 hover:text-neutral-900 ${
+                            item.level === 3 ? 'pl-5 text-black/58' : 'bg-white/56'
+                          }`}
+                        >
+                          <span className="mr-2 text-[0.68rem] uppercase tracking-[0.12em] text-[var(--color-accent-dark)]/70">
+                            {index + 1}
+                          </span>
+                          {item.label}
+                        </a>
+                      ))}
+                    </nav>
+                  </details>
                 ) : null}
-                {guide.author.bio ? <p>{guide.author.bio}</p> : null}
               </div>
             </MarketingSurface>
 
-            {tocItems.length > 0 ? (
-              <MarketingSurface className="rounded-[1.6rem] border border-black/6 bg-white/92 p-5 sm:rounded-[1.8rem] sm:p-6">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">On this page</p>
-                <nav className="mt-4 space-y-2" aria-label="Guide table of contents">
-                  {tocItems.map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className={`block text-sm leading-7 text-neutral-700 transition hover:text-neutral-900 ${
-                        item.level === 3 ? 'pl-4' : ''
-                      }`}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </nav>
-              </MarketingSurface>
-            ) : null}
-
-            {guide.consultationCtaEnabled ? (
-              <MarketingSurface className="rounded-[1.6rem] border border-[rgba(196,156,94,0.22)] bg-[linear-gradient(180deg,#fff7f6_0%,#fbf7f2_100%)] p-5 sm:rounded-[1.8rem] sm:p-6">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                  Need tailored advice?
-                </p>
-                <p className="mt-3 text-sm leading-7 text-neutral-700">
-                  Bring your shortlist, registry, stroller, car seat, or nursery questions to Taylor when you want an expert recommendation matched to your life.
-                </p>
-                <GuideTrackedLink
-                  guideId={guide.id}
-                  href="/book"
-                  event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
-                  sourceRoute={sourceRoute}
-                  className="btn btn--primary mt-5 w-full justify-center"
-                  track={!preview}
-                  meta={{
-                    ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
-                    placement: 'sidebar',
-                    slug: guide.slug,
-                    title: guide.title,
-                  }}
-                >
-                  {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
-                </GuideTrackedLink>
-              </MarketingSurface>
-            ) : null}
-          </aside>
-
-          <div className="order-1 space-y-8 lg:order-2">
             {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
 
-            <div className="rounded-[1.75rem] border border-black/6 bg-white/94 px-5 py-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:rounded-[2rem] md:px-8 md:py-10">
-              <PostContent postId={guide.id} content={articleContent} className="guide-post-content" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-10">
+              <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
+              <div className="relative">
+                <div className="mb-8 border-b border-black/6 pb-5">
+                  <p className="text-sm leading-7 text-neutral-600">
+                    Published {formatArticleDate(displayDate)} · {readingTime} minute read · {primarySectionCount}{' '}
+                    sections
+                  </p>
+                </div>
+
+                <PostContent postId={guide.id} content={articleContent} className="guide-post-content" />
+              </div>
             </div>
 
             {showDisclosureBeforeConclusion ? <DisclosureCard text={disclosureText} /> : null}
