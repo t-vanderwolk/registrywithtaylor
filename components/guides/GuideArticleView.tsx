@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
@@ -108,10 +109,12 @@ function AuthorAvatar({ guide }: { guide: GuideArticleRecord }) {
 export default function GuideArticleView({
   guide,
   relatedGuides = [],
+  categoryGuides = [],
   preview = false,
 }: {
   guide: GuideArticleRecord;
   relatedGuides?: GuideCardItem[];
+  categoryGuides?: GuideCardItem[];
   preview?: boolean;
 }) {
   const displayDate = getGuideDisplayDate(guide);
@@ -140,6 +143,8 @@ export default function GuideArticleView({
     { label: 'Read time', value: `${readingTime} min` },
     { label: 'Sections', value: String(primarySectionCount) },
   ];
+  const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
+  const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
 
   return (
     <>
@@ -241,9 +246,86 @@ export default function GuideArticleView({
               </div>
             </MarketingSurface>
 
+            {showCategoryMenu ? (
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start">
+                <MarketingSurface className="rounded-[2rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fffdf9_0%,#fbf1eb_100%)] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-8">
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                    Start here
+                  </p>
+                  <h2 className="mt-4 font-serif text-[2.15rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 sm:text-[2.45rem]">
+                    Begin with the full stroller guide.
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-[1.02rem] leading-8 text-neutral-700">
+                    If strollers still feel like one very large category, start with the pillar guide first. It gives you the full landscape, explains the tradeoffs, and makes the category guides below much easier to use.
+                  </p>
+
+                  {pillarPreviewTopics.length > 0 ? (
+                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                      {pillarPreviewTopics.map((item, index) => (
+                        <div
+                          key={item.id}
+                          className="rounded-[1.25rem] border border-black/6 bg-white/78 px-4 py-4 shadow-[0_10px_24px_rgba(0,0,0,0.03)]"
+                        >
+                          <p className="text-[0.66rem] uppercase tracking-[0.16em] text-black/42">Inside the pillar guide {index + 1}</p>
+                          <p className="mt-2 text-sm leading-7 text-neutral-800">{item.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <a href="#pillar-guide-content" className="btn btn--primary w-full sm:w-auto">
+                      Begin with the Pillar Guide
+                    </a>
+                    <p className="text-sm leading-7 text-neutral-600">
+                      Already know the stroller type you are narrowing? Jump straight to a category guide.
+                    </p>
+                  </div>
+                </MarketingSurface>
+
+                <MarketingSurface className="rounded-[2rem] border border-black/6 bg-white/92 p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] md:p-8">
+                  <div className="space-y-2">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Category guides</p>
+                    <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900">
+                      Or jump to the stroller type you are comparing.
+                    </h2>
+                    <p className="text-sm leading-7 text-neutral-700">
+                      These shorter category guides are useful when you already know the lane and want faster decision help.
+                    </p>
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    {categoryGuides.map((categoryGuide, index) => (
+                      <Link
+                        key={categoryGuide.slug}
+                        href={categoryGuide.href}
+                        className="group block rounded-[1.35rem] border border-black/6 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] px-4 py-4 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.06)]"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0">
+                            <p className="text-[0.66rem] uppercase tracking-[0.16em] text-black/42">Category guide {index + 1}</p>
+                            <h3 className="mt-2 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                              {categoryGuide.title}
+                            </h3>
+                            <p className="mt-3 text-sm leading-7 text-neutral-700">{categoryGuide.description}</p>
+                          </div>
+                          <span className="pt-1 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]">
+                            Open
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </MarketingSurface>
+              </div>
+            ) : null}
+
             {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-10">
+            <div
+              id="pillar-guide-content"
+              className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-10"
+            >
               <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
               <div className="relative">
                 <div className="mb-8 border-b border-black/6 pb-5">

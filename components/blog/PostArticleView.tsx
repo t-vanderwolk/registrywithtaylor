@@ -355,12 +355,14 @@ export default async function PostArticleView({
         hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
       }
       body={
-        <PostContent
-          postId={post.id}
-          content={articleContent}
-          className="mx-auto max-w-[72ch]"
-          ctaPartners={serializedCtaPartners}
-        />
+        <div className="tmbc-editorial-article-shell">
+          <PostContent
+            postId={post.id}
+            content={articleContent}
+            className="tmbc-blog-post-content mx-auto max-w-[72ch]"
+            ctaPartners={serializedCtaPartners}
+          />
+        </div>
       }
       resources={
         attachedPdfResources.length > 0 ? (
@@ -402,12 +404,18 @@ export default async function PostArticleView({
       }
       gallery={
         galleryImages.length > 0 ? (
-          <div className="mt-16 space-y-4">
+          <div className="tmbc-blog-gallery mt-16 space-y-4">
             <H3 className="tracking-tight text-neutral-900">Image Gallery</H3>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="tmbc-blog-gallery__grid grid gap-4 md:grid-cols-2">
               {galleryImages.map((image) => (
-                <figure key={`gallery-${image.id}-${image.url}`}>
-                  <img src={image.url} alt={image.alt || post.title} className="h-auto w-full" loading="lazy" />
+                <figure key={`gallery-${image.id}-${image.url}`} className="tmbc-blog-gallery__item">
+                  <img
+                    src={image.url}
+                    alt={image.alt || post.title}
+                    className="tmbc-blog-gallery__image"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   {image.alt ? <figcaption>{image.alt}</figcaption> : null}
                 </figure>
               ))}

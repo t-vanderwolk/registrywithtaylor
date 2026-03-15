@@ -27,6 +27,11 @@ import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import '../../styles/blog.css';
 
 const fallbackGuideHeroImage = '/assets/hero/hero-baby-editorial-v2.jpg' as const;
+const strollerGuideMenuOrder = new Map(
+  ['full-size-modular-strollers', 'compact-lightweight-strollers', 'travel-strollers', 'jogging-all-terrain-strollers', 'double-strollers'].map(
+    (slug, index) => [slug, index],
+  ),
+);
 
 const getGuide = cache(async (slug: string) => {
   try {
@@ -264,15 +269,31 @@ export async function renderGuideRoute({
           throw error;
         });
 
-    const relatedCards = [
-      ...relatedGuides.map((entry) => toGuideCardItemFromGuide(entry)),
-      ...(fallbackPillar
-        ? getRelatedGuidePillars(fallbackPillar.slug).map((entry) => toGuideCardItemFromPillar(entry))
-        : []),
-    ].filter(
-      (entry, index, collection) =>
-        entry.slug !== guide.slug && collection.findIndex((candidate) => candidate.slug === entry.slug) === index,
-    );
+    const strollerCategoryCards =
+      guide.slug === 'best-strollers'
+        ? relatedGuides
+            .filter((entry) => getGuideParentSlug({ slug: entry.slug, topicCluster: entry.topicCluster }) === guide.slug)
+            .sort(
+              (left, right) =>
+                (strollerGuideMenuOrder.get(left.slug) ?? Number.MAX_SAFE_INTEGER) -
+                  (strollerGuideMenuOrder.get(right.slug) ?? Number.MAX_SAFE_INTEGER) ||
+                left.title.localeCompare(right.title),
+            )
+            .map((entry) => toGuideCardItemFromGuide(entry))
+        : [];
+
+    const relatedCards =
+      guide.slug === 'best-strollers'
+        ? (fallbackPillar ? getRelatedGuidePillars(fallbackPillar.slug).map((entry) => toGuideCardItemFromPillar(entry)) : [])
+        : [
+            ...relatedGuides.map((entry) => toGuideCardItemFromGuide(entry)),
+            ...(fallbackPillar
+              ? getRelatedGuidePillars(fallbackPillar.slug).map((entry) => toGuideCardItemFromPillar(entry))
+              : []),
+          ].filter(
+            (entry, index, collection) =>
+              entry.slug !== guide.slug && collection.findIndex((candidate) => candidate.slug === entry.slug) === index,
+          );
     const displayDate = getGuideDisplayDate(guide);
     const structuredData = {
       '@context': 'https://schema.org',
@@ -329,7 +350,11 @@ export async function renderGuideRoute({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
           />
-          <GuideArticleView guide={articleGuide} relatedGuides={relatedCards.slice(0, 3)} />
+          <GuideArticleView
+            guide={articleGuide}
+            relatedGuides={relatedCards.slice(0, 3)}
+            categoryGuides={strollerCategoryCards}
+          />
         </main>
       </SiteShell>
     );

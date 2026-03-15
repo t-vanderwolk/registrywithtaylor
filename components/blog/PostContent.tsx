@@ -477,18 +477,19 @@ export default function PostContent({
             nodes.push(
               <figure
                 key={`${postId}-img-${i}`}
-                className={`guide-inline-image${isPlaceholderImage ? ' guide-inline-image--placeholder' : ''}`}
+                className={`tmbc-inline-image guide-inline-image${isPlaceholderImage ? ' tmbc-inline-image--placeholder guide-inline-image--placeholder' : ''}`}
               >
                 <img
                   src={src}
                   alt={imageDescription}
                   loading="lazy"
-                  className={`guide-inline-image__asset${isPlaceholderImage ? ' guide-inline-image__asset--placeholder' : ''}`}
+                  decoding="async"
+                  className={`tmbc-inline-image__asset guide-inline-image__asset${isPlaceholderImage ? ' tmbc-inline-image__asset--placeholder guide-inline-image__asset--placeholder' : ''}`}
                 />
                 {imageDescription && (
                   <figcaption
-                    className={`guide-inline-image__caption${
-                      isPlaceholderImage ? ' guide-inline-image__caption--placeholder' : ''
+                    className={`tmbc-inline-image__caption guide-inline-image__caption${
+                      isPlaceholderImage ? ' tmbc-inline-image__caption--placeholder guide-inline-image__caption--placeholder' : ''
                     }`}
                   >
                     {imageDescription}

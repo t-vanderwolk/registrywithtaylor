@@ -62,7 +62,7 @@ export default function TMBCBlogTemplate({
   return (
     <>
       <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
-        <article className="mx-auto max-w-4xl px-5 sm:px-6">
+        <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 sm:px-6">
           <header className="tmbc-blog-hero">
             <div className="tmbc-blog-hero__inner">
               <div className="tmbc-blog-hero__eyebrow">
@@ -78,12 +78,12 @@ export default function TMBCBlogTemplate({
                   primaryAuthor.slug ? (
                     <a
                       href={`/blog/author/${primaryAuthor.slug}`}
-                      className="font-medium text-[var(--tmbc-blog-rose)] underline underline-offset-4"
+                      className="font-medium text-[var(--tmbc-blog-charcoal)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-4"
                     >
                       {primaryAuthor.name}
                     </a>
                   ) : (
-                    <span className="font-medium text-[var(--tmbc-blog-rose)]">{primaryAuthor.name}</span>
+                    <span className="font-medium text-[var(--tmbc-blog-charcoal)]">{primaryAuthor.name}</span>
                   )
                 ) : null}
                 <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
@@ -108,7 +108,7 @@ export default function TMBCBlogTemplate({
           </header>
 
           {featuredImageUrl ? (
-            <div className="relative mb-10 aspect-[16/10] overflow-hidden rounded-[24px] sm:mb-12 sm:rounded-[34px]">
+            <div className="tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden sm:mb-12">
               <Image
                 src={featuredImageUrl}
                 alt={title}
