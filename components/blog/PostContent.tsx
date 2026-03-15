@@ -414,8 +414,26 @@ export default function PostContent({
           }
 
           if (isDividerLine(line)) {
-            nodes.push(<BlogDivider key={`${postId}-rule-${i}`} />);
+            const dividerIndex = i;
             i += 1;
+
+            // Collapse repeated divider markers into a single visual rule.
+            while (i < lines.length) {
+              const candidate = lines[i]?.trim() ?? '';
+
+              if (!candidate) {
+                i += 1;
+                continue;
+              }
+
+              if (!isDividerLine(candidate)) {
+                break;
+              }
+
+              i += 1;
+            }
+
+            nodes.push(<BlogDivider key={`${postId}-rule-${dividerIndex}`} />);
             continue;
           }
 

@@ -2,10 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
+import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
+import { getGuideHubConfig } from '@/lib/guides/hubs';
 import { getGuidePath } from '@/lib/guides/routing';
 import { getAnalyticsPageType } from '@/lib/analytics';
 import { isRemoteImageUrl } from '@/lib/blog/images';
@@ -149,6 +151,33 @@ export default function GuideArticleView({
   ];
   const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
   const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
+  const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
+
+  if (hubConfig) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <GuideHubLayout
+          guide={guide}
+          relatedGuides={relatedGuides}
+          preview={preview}
+          sourceRoute={sourceRoute}
+          displayDate={displayDate}
+          readingTime={readingTime}
+          disclosureText={disclosureText}
+          nextStepEvent={nextStepEvent}
+          nextStepDestinationPageType={nextStepDestinationPageType}
+        />
+      </>
+    );
+  }
 
   return (
     <>

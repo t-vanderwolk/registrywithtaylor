@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { resolveProductCardImage } from '@/lib/blog/productCardImages';
 
 type ProductLink = {
   label: string;
@@ -26,17 +27,34 @@ export default function ProductCard({
   imageUrl?: string | null;
   imageAlt?: string | null;
 }) {
+  const resolvedImage = resolveProductCardImage({
+    brand,
+    productName,
+    imageUrl,
+    imageAlt,
+  });
+
   return (
     <article className="content-widget my-10 overflow-hidden rounded-[20px] border border-[rgba(232,154,174,0.28)] bg-[linear-gradient(180deg,#ffffff_0%,#fdf2f6_100%)] shadow-[0_18px_48px_rgba(0,0,0,0.06)]">
       <div className="grid gap-0 md:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)]">
         <div className="min-h-[240px] border-b border-[rgba(232,154,174,0.2)] bg-[linear-gradient(180deg,#fbf3f6_0%,#f4e2e8_100%)] md:min-h-full md:border-b-0 md:border-r">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={imageAlt?.trim() || productName}
-              className="h-full w-full object-contain bg-[rgba(255,255,255,0.72)] p-5"
-              loading="lazy"
-            />
+          {resolvedImage ? (
+            <div className="relative h-full min-h-[240px]">
+              <img
+                src={resolvedImage.src}
+                alt={resolvedImage.alt}
+                className={`h-full w-full bg-[rgba(255,255,255,0.72)] ${resolvedImage.objectClassName} ${
+                  resolvedImage.isFallback ? '' : 'p-5'
+                }`}
+                loading="lazy"
+              />
+              {resolvedImage.isFallback ? (
+                <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(18,18,18,0)_0%,rgba(18,18,18,0.72)_100%)] p-5 text-white">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white/82">{brand}</p>
+                  <p className="mt-2 font-serif text-[1.55rem] leading-[1.05] tracking-[-0.03em]">{productName}</p>
+                </div>
+              ) : null}
+            </div>
           ) : (
             <div className="flex h-full min-h-[240px] flex-col justify-end p-6">
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[var(--tmbc-blog-rose)]">{brand}</p>
