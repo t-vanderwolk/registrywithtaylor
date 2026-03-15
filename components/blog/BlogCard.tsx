@@ -36,15 +36,19 @@ export default function BlogCard({
   return (
     <article className={['tmbc-blog-card group flex h-full flex-col', className].filter(Boolean).join(' ')}>
       <Link href={`/blog/${slug}`} className="tmbc-blog-card__media relative block w-full overflow-hidden rounded-xl">
-        <Image
-          src={coverImageSrc}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
-          loading="lazy"
-          unoptimized={shouldSkipOptimization}
-        />
+        <div className="h-full w-full bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(251,246,242,0.98)_100%)] p-3">
+          <div className="relative h-full w-full">
+            <Image
+              src={coverImageSrc}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+              loading="lazy"
+              unoptimized={shouldSkipOptimization}
+            />
+          </div>
+        </div>
       </Link>
 
       <div className="card-content flex h-full flex-col">

@@ -108,16 +108,18 @@ export default function TMBCBlogTemplate({
           </header>
 
           {featuredImageUrl ? (
-            <div className="tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden sm:mb-12">
-              <Image
-                src={featuredImageUrl}
-                alt={title}
-                fill
-                priority
-                sizes="(min-width: 1024px) 896px, 100vw"
-                className="object-cover"
-                unoptimized={shouldSkipFeaturedImageOptimization}
-              />
+            <div className="tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
+              <div className="relative h-full w-full">
+                <Image
+                  src={featuredImageUrl}
+                  alt={title}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 896px, 100vw"
+                  className="object-contain"
+                  unoptimized={shouldSkipFeaturedImageOptimization}
+                />
+              </div>
             </div>
           ) : null}
 

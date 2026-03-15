@@ -9,14 +9,14 @@ export default function Advice({
   children: ReactNode;
 }) {
   return (
-    <section className="content-widget my-10 rounded-[20px] border border-[rgba(215,161,175,0.22)] bg-white px-5 py-5 shadow-[0_14px_36px_rgba(0,0,0,0.05)] sm:px-6 sm:py-6">
-      <div className="border-l-4 border-l-[var(--tmbc-blog-blush)] pl-4 sm:pl-5">
+    <section className="content-widget my-10 rounded-[20px] border border-[rgba(232,154,174,0.28)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf3f6_100%)] px-5 py-5 shadow-[0_14px_36px_rgba(0,0,0,0.05)] sm:px-6 sm:py-6">
+      <div className="tmbc-advice-divider pl-4 sm:pl-5">
         {title ? (
-          <p className="mb-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
+          <p className="tmbc-widget-title mb-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em]">
             {title}
           </p>
         ) : null}
-        <Body className="text-charcoal/85">{children}</Body>
+        <Body className="tmbc-widget-copy">{children}</Body>
       </div>
     </section>
   );
