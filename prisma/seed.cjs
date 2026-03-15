@@ -162,10 +162,10 @@ async function generateUniqueSlug(title) {
   return slug;
 }
 
-function runTsxScript(relativePath) {
+function runTsxScript(relativePath, args = []) {
   const command = process.platform === 'win32' ? 'npx.cmd' : 'npx';
   const scriptPath = path.join(projectRoot, relativePath);
-  const result = spawnSync(command, ['tsx', scriptPath], {
+  const result = spawnSync(command, ['tsx', scriptPath, ...args], {
     cwd: projectRoot,
     env: process.env,
     stdio: 'inherit',
@@ -278,6 +278,12 @@ async function main() {
 
   console.log('🌸 Seeding direct affiliate partners…');
   runTsxScript('prisma/seed/affiliatePartners.ts');
+
+  console.log('📚 Seeding pillar guides…');
+  runTsxScript('scripts/seedPillarGuides.ts', ['--publish']);
+
+  console.log('🛞 Seeding stroller category guides…');
+  runTsxScript('scripts/seedStrollerCategoryGuides.ts', ['--publish']);
 
   console.log('✨ TMBC seed complete.');
 }
