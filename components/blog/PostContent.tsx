@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
+import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
 import Advice from '@/components/content-widgets/Advice';
 import Callout from '@/components/content-widgets/Callout';
 import Comparison from '@/components/content-widgets/Comparison';
@@ -116,6 +117,39 @@ function parseLegacyCtaButtonLine(line: string) {
   } catch {
     return null;
   }
+}
+
+function parseGuideSignatureBlock(lines: string[], startIndex: number) {
+  const currentLine = lines[startIndex]?.trim() ?? '';
+  if (!/^xoxo$/i.test(currentLine)) {
+    return null;
+  }
+
+  let index = startIndex + 1;
+  while (index < lines.length && !(lines[index]?.trim() ?? '')) {
+    index += 1;
+  }
+
+  const nameLine = lines[index]?.trim() ?? '';
+  if (!/^(?:-|—)\s*taylor$/i.test(nameLine) && !/^taylor$/i.test(nameLine)) {
+    return null;
+  }
+  const normalizedName = nameLine.replace(/^(?:-|—)\s*/, '').trim();
+
+  index += 1;
+  while (index < lines.length && !(lines[index]?.trim() ?? '')) {
+    index += 1;
+  }
+
+  const titleLine = lines[index]?.trim() ?? '';
+  const hasTitle = /^founder,\s*taylor-made baby co\.?$/i.test(titleLine);
+
+  return {
+    xoxo: 'XOXO',
+    name: normalizedName,
+    title: hasTitle ? titleLine : null,
+    nextIndex: hasTitle ? index + 1 : index,
+  };
 }
 
 function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
@@ -461,6 +495,21 @@ export default function PostContent({
               </div>,
             );
             i += 1;
+            continue;
+          }
+
+          const guideSignature = parseGuideSignatureBlock(lines, i);
+          if (guideSignature) {
+            nodes.push(
+              <div key={`${postId}-signature-${i}`} className="guide-signoff">
+                <div className="guide-signoff__ink" aria-hidden="true">
+                  <GuideSignoffMark className="guide-signoff__mark" />
+                </div>
+                <span className="sr-only">{`${guideSignature.xoxo} - T`}</span>
+                {guideSignature.title ? <p className="guide-signoff__title">{guideSignature.title}</p> : null}
+              </div>,
+            );
+            i = guideSignature.nextIndex;
             continue;
           }
 

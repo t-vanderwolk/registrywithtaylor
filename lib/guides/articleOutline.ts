@@ -13,6 +13,12 @@ export type GuideSection = {
   content: string;
 };
 
+export type GuideSectionSubsection = {
+  id: string;
+  title: string;
+  content: string;
+};
+
 export type GuideOutline = {
   preface: string;
   sections: GuideSection[];
@@ -148,4 +154,68 @@ export function stripFaqBlocks(content: string) {
   }
 
   return keptLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+export function splitGuideSectionContent(content: string) {
+  const lines = content.split('\n');
+  const introLines: string[] = [];
+  const subsections: GuideSectionSubsection[] = [];
+  let currentSubsectionTitle: string | null = null;
+  let currentSubsectionLines: string[] = [];
+
+  const flushSubsection = () => {
+    if (!currentSubsectionTitle) {
+      return;
+    }
+
+    const subsectionContent = currentSubsectionLines.join('\n').trim();
+    if (subsectionContent) {
+      subsections.push({
+        id: slugify(currentSubsectionTitle) || 'section',
+        title: currentSubsectionTitle,
+        content: subsectionContent,
+      });
+    }
+
+    currentSubsectionTitle = null;
+    currentSubsectionLines = [];
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    if (line.startsWith('### ')) {
+      flushSubsection();
+      currentSubsectionTitle = stripMarkdown(line.replace(/^###\s+/, '')).trim();
+      currentSubsectionLines = [rawLine];
+      continue;
+    }
+
+    if (currentSubsectionTitle) {
+      currentSubsectionLines.push(rawLine);
+    } else {
+      introLines.push(rawLine);
+    }
+  }
+
+  flushSubsection();
+
+  return {
+    introContent: introLines.join('\n').trim(),
+    subsections,
+  };
+}
+
+export function stripLeadingGuideHeading(content: string) {
+  const lines = content.split('\n');
+  if (lines.length === 0) {
+    return content.trim();
+  }
+
+  const firstLine = lines[0]?.trim() ?? '';
+  if (firstLine.startsWith('## ') || firstLine.startsWith('### ')) {
+    return lines.slice(1).join('\n').trim();
+  }
+
+  return content.trim();
 }

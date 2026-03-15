@@ -15,10 +15,12 @@ export default function GuideTableOfContents({
   currentPath,
   items,
   mode = 'responsive',
+  layout = 'sidebar',
 }: {
   currentPath: string;
   items: GuideTocItem[];
   mode?: 'mobile' | 'desktop' | 'responsive';
+  layout?: 'sidebar' | 'band';
 }) {
   if (items.length === 0) {
     return null;
@@ -65,16 +67,44 @@ export default function GuideTableOfContents({
 
       {showDesktop ? (
         <aside className="hidden lg:block">
-          <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-auto rounded-[1.6rem] border border-black/6 bg-white/90 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)]">
-            <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">On this page</p>
-            <nav className="mt-4 space-y-2" aria-label="Guide table of contents">
+          <div
+            className={
+              layout === 'band'
+                ? 'sticky top-24 z-20 rounded-[1.85rem] border border-[rgba(196,156,94,0.18)] bg-white/88 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.05)] backdrop-blur-[6px] xl:p-5'
+                : 'sticky top-28 max-h-[calc(100vh-8rem)] overflow-auto rounded-[1.6rem] border border-black/6 bg-white/90 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)]'
+            }
+          >
+            <div className={layout === 'band' ? 'flex items-center justify-between gap-4' : ''}>
+              <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">On this page</p>
+              {layout === 'band' ? (
+                <p className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/72">
+                  Jump through the guide
+                </p>
+              ) : null}
+            </div>
+            <nav
+              className={
+                layout === 'band'
+                  ? 'mt-4 flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+                  : 'mt-4 space-y-2'
+              }
+              aria-label="Guide table of contents"
+            >
               {items.map((item) => (
                 <a
                   key={item.id}
                   href={`${currentPath}#${item.id}`}
-                  className={`block rounded-[1rem] px-3 py-2 text-sm leading-6 text-neutral-700 transition hover:bg-[rgba(248,243,238,0.9)] hover:text-neutral-900 ${
-                    item.level === 3 ? 'pl-6 text-black/58' : 'bg-[rgba(252,247,242,0.72)]'
-                  }`}
+                  className={
+                    layout === 'band'
+                      ? `shrink-0 rounded-full border px-4 py-2.5 text-sm leading-6 text-neutral-700 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.28)] hover:bg-white hover:text-neutral-900 ${
+                          item.level === 3
+                            ? 'border-black/6 bg-[rgba(252,247,242,0.66)] text-black/58'
+                            : 'border-[rgba(196,156,94,0.18)] bg-[rgba(255,251,247,0.96)]'
+                        }`
+                      : `block rounded-[1rem] px-3 py-2 text-sm leading-6 text-neutral-700 transition hover:bg-[rgba(248,243,238,0.9)] hover:text-neutral-900 ${
+                          item.level === 3 ? 'pl-6 text-black/58' : 'bg-[rgba(252,247,242,0.72)]'
+                        }`
+                  }
                 >
                   {item.label}
                 </a>

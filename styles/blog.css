@@ -528,6 +528,10 @@
   text-wrap: pretty;
 }
 
+.stroller-guide-content {
+  max-width: 48rem;
+}
+
 .guide-post-content h2 {
   font-size: clamp(2rem, 3.6vw, 3.15rem);
   line-height: 1.02;
@@ -578,6 +582,26 @@
   font-size: clamp(3.2rem, 6vw, 4.4rem);
   line-height: 0.88;
   color: var(--color-accent-dark);
+}
+
+.guide-post-content--subsection h3:first-child {
+  margin-top: 0;
+}
+
+.guide-post-content--subsection > p:first-of-type {
+  font-size: clamp(1.04rem, 1.15vw, 1.18rem);
+  line-height: 1.94;
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 88%, white 12%);
+}
+
+.guide-post-content--subsection > p:first-of-type::first-letter {
+  float: none;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 .guide-post-content ul,
@@ -731,6 +755,55 @@
   box-shadow: 0 12px 28px rgba(232, 154, 174, 0.18);
 }
 
+.guide-post-content .guide-signoff,
+.tmbc-blog-post-content .guide-signoff {
+  margin: 56px 0 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.guide-post-content .guide-signoff__ink,
+.tmbc-blog-post-content .guide-signoff__ink {
+  display: inline-block;
+  color: #d986a2;
+  filter: drop-shadow(0 10px 22px rgba(217, 134, 162, 0.14));
+}
+
+.guide-post-content .guide-signoff__mark,
+.tmbc-blog-post-content .guide-signoff__mark {
+  display: block;
+  width: clamp(16rem, 36vw, 30rem);
+  height: auto;
+  overflow: visible;
+}
+
+.guide-post-content .guide-signoff__title,
+.tmbc-blog-post-content .guide-signoff__title {
+  margin: 0.2rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 62%, white 38%);
+}
+
+.stroller-guide-content .guide-signoff {
+  width: fit-content;
+  max-width: min(100%, 32rem);
+  margin-left: auto;
+  align-items: flex-end;
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .stroller-guide-content .guide-signoff {
+    position: relative;
+    left: clamp(2.5rem, 7vw, 7.5rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .content-widget,
   .guide-post-content .blog-section-soft,
@@ -739,6 +812,11 @@
   .guide-post-content > section,
   .guide-post-content article.tmbc-blog-soft-card {
     animation: none;
+  }
+
+  .guide-post-content .guide-signoff__ink,
+  .tmbc-blog-post-content .guide-signoff__ink {
+    filter: none;
   }
 }
 

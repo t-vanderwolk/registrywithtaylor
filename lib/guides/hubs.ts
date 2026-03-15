@@ -29,6 +29,8 @@ export type GuideHubLink = {
   description: string;
   href: string;
   icon: GuideHubIconKey;
+  imageSrc?: string;
+  imageAlt?: string;
   showPlaceholder?: boolean;
 };
 
@@ -137,42 +139,48 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
           description: 'For daily walks, better baskets, smoother handling, and a stroller that does more of the heavy lifting.',
           href: PILLAR_PATHS.fullSizeStrollers,
           icon: 'stroller',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/fullsize.png',
+          imageAlt: 'Illustration of a full-size stroller category.',
         },
         {
           title: 'Compact Strollers',
           description: 'For families who want something lighter and easier to store without giving up everyday usefulness.',
           href: PILLAR_PATHS.compactStrollers,
           icon: 'compact',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/compact.png',
+          imageAlt: 'Illustration of a compact stroller category.',
         },
         {
           title: 'Travel Strollers',
           description: 'For flights, quick errands, small trunks, and families who prefer less bulk in the first place.',
           href: PILLAR_PATHS.travelStrollers,
           icon: 'plane',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/travel.png',
+          imageAlt: 'Illustration of a travel stroller category.',
         },
         {
           title: 'Jogging & All-Terrain',
           description: 'For rough sidewalks, gravel paths, longer walks, and parents who actually mean it when they say trail.',
           href: PILLAR_PATHS.joggingStrollers,
           icon: 'terrain',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/jogging.png',
+          imageAlt: 'Illustration of a jogging and all-terrain stroller category.',
         },
         {
           title: 'Convertible Strollers',
           description: 'For future-sibling planning, modular seating, and honest math around single-to-double life.',
           href: anchor(currentPath, 'double-and-convertible-strollers'),
           icon: 'layers',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/convertable.png',
+          imageAlt: 'Illustration of a convertible stroller category.',
         },
         {
           title: 'Double Strollers',
           description: 'For parents planning around siblings, width, configuration tradeoffs, and everyday manageability.',
           href: PILLAR_PATHS.doubleStrollers,
           icon: 'double',
-          showPlaceholder: true,
+          imageSrc: '/assets/strollers/double.png',
+          imageAlt: 'Illustration of a double stroller category.',
         },
       ],
       decisionHelperTitle: 'A quicker way to narrow the lane',
