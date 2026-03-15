@@ -61,15 +61,13 @@ export default function GuideCategoryCards({
               >
                 {isStrollerHub ? (
                   <div className="flex h-48 items-center justify-center md:h-52">
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={card.imageSrc}
-                        alt={card.imageAlt?.trim() || card.title}
-                        fill
-                        sizes="(min-width: 1280px) 24vw, (min-width: 768px) 42vw, 100vw"
-                        className="object-contain object-center"
-                      />
-                    </div>
+                    <img
+                      src={card.imageSrc}
+                      alt={card.imageAlt?.trim() || card.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-contain object-center"
+                    />
                   </div>
                 ) : (
                   <>
