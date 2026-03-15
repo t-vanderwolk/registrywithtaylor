@@ -11,7 +11,12 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
-import { getGuidePath, getGuideParentSlug } from '@/lib/guides/routing';
+import {
+  getGuideParentSlug,
+  getGuidePath,
+  getGuideRouteSegment,
+  resolveGuideSlugFromRouteSegment,
+} from '@/lib/guides/routing';
 import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getGuideDisplayDate, isGuidePubliclyVisible } from '@/lib/guides/status';
 import { getGuidePillar, getRelatedGuidePillars } from '@/lib/marketing/siteContent';
@@ -55,18 +60,21 @@ function getGuideDescriptionFallback(guide: GuideArticleRecord) {
 
 type GuideRouteOptions = {
   slug: string;
-  parentSlug?: string | null;
+  subSlug?: string | null;
 };
 
 export async function getGuidePageMetadata({
   slug,
-  parentSlug = null,
+  subSlug = null,
 }: GuideRouteOptions): Promise<Metadata> {
-  const guide = await getGuide(slug);
+  const internalGuideSlug = resolveGuideSlugFromRouteSegment(subSlug ?? slug);
+  const guide = await getGuide(internalGuideSlug);
 
   if (guide && isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
     const resolvedParentSlug = getGuideParentSlug({ slug: guide.slug, topicCluster: guide.topicCluster });
-    if (parentSlug && resolvedParentSlug !== parentSlug) {
+    const expectedParentSegment = resolvedParentSlug ? getGuideRouteSegment(resolvedParentSlug) : null;
+
+    if (subSlug && expectedParentSegment !== slug) {
       return {};
     }
 
@@ -78,7 +86,6 @@ export async function getGuidePageMetadata({
       guide.excerpt?.trim() ||
       getGuideDescriptionFallback(articleGuide) ||
       'Expert baby gear and baby preparation guidance from Taylor-Made Baby Co.';
-    const canonical = guide.canonicalUrl?.trim() || guidePath;
     const imageUrl = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
     const keywords = [
       guide.targetKeyword,
@@ -93,7 +100,7 @@ export async function getGuidePageMetadata({
       description,
       keywords,
       alternates: {
-        canonical,
+        canonical: guidePath,
       },
       openGraph: {
         title: guide.ogTitle?.trim() || guide.seoTitle?.trim() || guide.title,
@@ -122,11 +129,12 @@ export async function getGuidePageMetadata({
     };
   }
 
-  if (parentSlug) {
+  if (subSlug) {
     return {};
   }
 
-  const pillar = getGuidePillar(slug);
+  const internalPillarSlug = resolveGuideSlugFromRouteSegment(slug);
+  const pillar = getGuidePillar(internalPillarSlug);
   if (!pillar) {
     return {};
   }
@@ -134,7 +142,7 @@ export async function getGuidePageMetadata({
   return buildMarketingMetadata({
     title: pillar.seoTitle,
     description: pillar.seoDescription,
-    path: `/guides/${pillar.slug}`,
+    path: getGuidePath({ slug: pillar.slug }),
     imagePath: fallbackGuideHeroImage,
     imageAlt: pillar.imageAlt,
   });
@@ -142,23 +150,30 @@ export async function getGuidePageMetadata({
 
 export async function renderGuideRoute({
   slug,
-  parentSlug = null,
+  subSlug = null,
 }: GuideRouteOptions) {
-  const guide = await getGuide(slug);
+  const internalGuideSlug = resolveGuideSlugFromRouteSegment(subSlug ?? slug);
+  const guide = await getGuide(internalGuideSlug);
 
   if (guide && isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
     const resolvedParentSlug = getGuideParentSlug({ slug: guide.slug, topicCluster: guide.topicCluster });
+    const expectedParentSegment = resolvedParentSlug ? getGuideRouteSegment(resolvedParentSlug) : null;
+    const expectedGuideSegment = getGuideRouteSegment(guide.slug);
     const guidePath = getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster });
 
-    if (parentSlug) {
-      if (resolvedParentSlug !== parentSlug) {
+    if (subSlug) {
+      if (!expectedParentSegment) {
         notFound();
       }
-    } else if (resolvedParentSlug) {
+
+      if (slug !== expectedParentSegment || subSlug !== expectedGuideSegment) {
+        redirect(guidePath);
+      }
+    } else if (expectedParentSegment || slug !== expectedGuideSegment) {
       redirect(guidePath);
     }
 
-    const fallbackPillar = getGuidePillar(resolvedParentSlug ?? slug);
+    const fallbackPillar = getGuidePillar(resolvedParentSlug ?? guide.slug);
     const articleGuide = toGuideArticleRecord(guide);
     const articleContent = [articleGuide.intro, articleGuide.content, articleGuide.conclusion].filter(Boolean).join('\n\n');
     const articleDescription =
@@ -276,7 +291,7 @@ export async function renderGuideRoute({
           ].filter(Boolean),
           datePublished: displayDate.toISOString(),
           dateModified: guide.updatedAt.toISOString(),
-          mainEntityOfPage: guide.canonicalUrl?.trim() ? toAbsoluteUrl(guide.canonicalUrl) : toAbsoluteUrl(guidePath),
+          mainEntityOfPage: toAbsoluteUrl(guidePath),
           author: {
             '@type': 'Person',
             name: articleGuide.author.name,
@@ -320,19 +335,25 @@ export async function renderGuideRoute({
     );
   }
 
-  if (parentSlug) {
+  if (subSlug) {
     notFound();
   }
 
-  const pillar = getGuidePillar(slug);
+  const internalPillarSlug = resolveGuideSlugFromRouteSegment(slug);
+  const pillar = getGuidePillar(internalPillarSlug);
   if (!pillar) {
     notFound();
+  }
+
+  const pillarPath = getGuidePath({ slug: pillar.slug });
+  if (slug !== getGuideRouteSegment(pillar.slug)) {
+    redirect(pillarPath);
   }
 
   const relatedGuides = getRelatedGuidePillars(pillar.slug);
 
   return (
-    <SiteShell currentPath={`/guides/${pillar.slug}`}>
+    <SiteShell currentPath={pillarPath}>
       <main className="site-main">
         <Hero
           className="homepage-hero"

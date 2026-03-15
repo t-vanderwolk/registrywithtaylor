@@ -10,6 +10,28 @@ const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
   'double-strollers': 'best-strollers',
 };
 
+const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
+  'best-strollers': 'strollers',
+  'best-infant-car-seats': 'car-seats',
+  'minimalist-baby-registry': 'baby-registry',
+  'nursery-setup-guide': 'nursery',
+  'travel-with-baby': 'travel-with-baby',
+  'jogging-all-terrain-strollers': 'jogging-strollers',
+};
+
+const GUIDE_SLUG_BY_ROUTE_SEGMENT = Object.fromEntries(
+  Object.entries(GUIDE_ROUTE_SEGMENT_BY_SLUG).map(([slug, routeSegment]) => [routeSegment, slug]),
+);
+
+export function resolveGuideSlugFromRouteSegment(routeSegment: string) {
+  return GUIDE_SLUG_BY_ROUTE_SEGMENT[routeSegment] ?? routeSegment;
+}
+
+export function getGuideRouteSegment(slug: string) {
+  const resolvedSlug = resolveGuideSlugFromRouteSegment(slug);
+  return GUIDE_ROUTE_SEGMENT_BY_SLUG[resolvedSlug] ?? resolvedSlug;
+}
+
 export function getGuideParentSlug({
   slug,
   topicCluster,
@@ -17,7 +39,8 @@ export function getGuideParentSlug({
   slug: string;
   topicCluster?: string | null;
 }) {
-  const bySlug = GUIDE_PARENT_BY_SLUG[slug];
+  const resolvedSlug = resolveGuideSlugFromRouteSegment(slug);
+  const bySlug = GUIDE_PARENT_BY_SLUG[resolvedSlug];
   if (bySlug) {
     return bySlug;
   }
@@ -48,11 +71,12 @@ export function getGuidePath({
 }: {
   slug: string;
   topicCluster?: string | null;
-}) {
-  const parentSlug = getGuideParentSlug({ slug, topicCluster });
+}): `/${string}` {
+  const resolvedSlug = resolveGuideSlugFromRouteSegment(slug);
+  const parentSlug = getGuideParentSlug({ slug: resolvedSlug, topicCluster });
   if (parentSlug) {
-    return `/guides/${parentSlug}/${slug}`;
+    return `/guides/${getGuideRouteSegment(parentSlug)}/${getGuideRouteSegment(resolvedSlug)}`;
   }
 
-  return `/guides/${slug}`;
+  return `/guides/${getGuideRouteSegment(resolvedSlug)}`;
 }

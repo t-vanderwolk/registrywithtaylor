@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { PostStatus, Prisma } from '@prisma/client';
 import { extractFaqEntries, extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
+import { getGuidePath } from '@/lib/guides/routing';
 import prisma from '@/lib/server/prisma';
 
 type StrollerGuideSeed = {
@@ -199,7 +200,7 @@ async function main() {
       ogDescription: guide.seoDescription,
       ogImageUrl: STROLLER_GUIDE_IMAGE,
       ogImageAlt: guide.heroImageAlt,
-      canonicalUrl: `/guides/best-strollers/${guide.slug}`,
+      canonicalUrl: getGuidePath({ slug: guide.slug, topicCluster: GUIDE_TOPIC_CLUSTER }),
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: guide.secondaryKeywords,
       internalLinkNotes:
@@ -217,7 +218,7 @@ async function main() {
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
       nextStepCtaLabel: 'Read the Main Stroller Guide',
-      nextStepCtaHref: '/guides/best-strollers',
+      nextStepCtaHref: getGuidePath({ slug: 'best-strollers' }),
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };

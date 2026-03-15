@@ -61,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const pillarEntries = guidePillars.map((pillar) => ({
-    url: buildUrl(`/guides/${pillar.slug}`),
+    url: buildUrl(getGuidePath({ slug: pillar.slug })),
   }));
 
   return Array.from(

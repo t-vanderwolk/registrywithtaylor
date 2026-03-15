@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { PostStatus, Prisma } from '@prisma/client';
 import { extractFaqEntries, extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
 import { GUIDE_CATEGORIES, type GuideCategory } from '@/lib/guides/categories';
+import { getGuidePath } from '@/lib/guides/routing';
 import { getGuidePillar } from '@/lib/marketing/siteContent';
 import prisma from '@/lib/server/prisma';
 
@@ -132,7 +133,7 @@ async function readGuideSeed(definition: GuideSeedDefinition) {
     heroImageAlt: pillar.imageAlt,
     ogImageUrl: pillar.imageSrc,
     ogImageAlt: pillar.imageAlt,
-    canonicalUrl: `/guides/${definition.slug}`,
+    canonicalUrl: getGuidePath({ slug: definition.slug }),
     internalLinkNotes:
       'Seeded from content/guides. Review internal blog link placeholders and add real product destination URLs before merchandising updates.',
     relatedSlugs: pillar.relatedSlugs.filter((slug) => guideSeeds.some((entry) => entry.slug === slug)),

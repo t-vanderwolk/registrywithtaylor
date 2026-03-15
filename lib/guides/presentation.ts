@@ -73,7 +73,7 @@ export function getGuideFallbackPillar({
 export function toGuideCardItemFromPillar(pillar: GuidePillar): GuideCardItem {
   return {
     slug: pillar.slug,
-    href: `/guides/${pillar.slug}`,
+    href: getGuidePath({ slug: pillar.slug }),
     title: pillar.title,
     description: pillar.description,
     imageSrc: pillar.imageSrc,

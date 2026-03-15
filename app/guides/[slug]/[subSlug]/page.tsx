@@ -3,15 +3,15 @@ import { getGuidePageMetadata, renderGuideRoute } from '../../guideRoute';
 export const dynamic = 'force-dynamic';
 
 type NestedGuidePageProps = {
-  params: Promise<{ pillarSlug: string; slug: string }>;
+  params: Promise<{ slug: string; subSlug: string }>;
 };
 
 export async function generateMetadata({ params }: NestedGuidePageProps) {
-  const { pillarSlug, slug } = await params;
-  return getGuidePageMetadata({ slug, parentSlug: pillarSlug });
+  const { slug, subSlug } = await params;
+  return getGuidePageMetadata({ slug, subSlug });
 }
 
 export default async function NestedGuideDetailPage({ params }: NestedGuidePageProps) {
-  const { pillarSlug, slug } = await params;
-  return renderGuideRoute({ slug, parentSlug: pillarSlug });
+  const { slug, subSlug } = await params;
+  return renderGuideRoute({ slug, subSlug });
 }
