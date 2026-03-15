@@ -405,6 +405,8 @@ export default function GuideHubLayout({
                 const innerClassName = isStrollerHub ? 'mx-auto max-w-3xl' : '';
                 const realityCheck = isStrollerHub ? getStrollerRealityCheck(section.title) : null;
                 const editorialImage = isStrollerHub ? getStrollerEditorialImage(section.title) : null;
+                const sectionCategoryVisual = isStrollerHub ? getStrollerCategoryVisual(section.title) : null;
+                const sectionDecisionStrip = isStrollerHub ? getStrollerDecisionStrip(section.title) : null;
 
                 return (
                   <div key={section.id} className={isStrollerHub ? 'space-y-8' : 'space-y-6'}>
@@ -461,6 +463,26 @@ export default function GuideHubLayout({
                           );
                         })}
                       </>
+                    ) : sectionCategoryVisual ? (
+                      <div className="space-y-5">
+                        <GuideCategoryFeatureRow
+                          id={section.id}
+                          title={section.title}
+                          content={stripLeadingGuideHeading(section.content)}
+                          postId={`${guide.id}-${section.id}`}
+                          imageSrc={sectionCategoryVisual.imageSrc}
+                          imageAlt={sectionCategoryVisual.imageAlt}
+                        />
+                        {sectionDecisionStrip ? (
+                          <GuideDecisionStrip
+                            title={sectionDecisionStrip.title}
+                            bullets={sectionDecisionStrip.bullets}
+                            href={sectionDecisionStrip.href}
+                            ctaLabel={sectionDecisionStrip.ctaLabel}
+                            icon={sectionDecisionStrip.icon}
+                          />
+                        ) : null}
+                      </div>
                     ) : (
                       <GuidePostSurface
                         postId={`${guide.id}-${section.id}`}

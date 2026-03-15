@@ -31,7 +31,7 @@ type StrollerEditorialImage = {
 };
 
 export type StrollerDecisionStrip = {
-  matchTitle: string;
+  matchTitles: string[];
   title: string;
   bullets: string[];
   href: string;
@@ -119,7 +119,7 @@ const STROLLER_EDITORIAL_IMAGES: StrollerEditorialImage[] = [
 
 export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
   {
-    matchTitle: 'Full-size everyday strollers',
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers'],
     title: 'Best fit if you:',
     bullets: ['walk most days', 'want smoother suspension', 'care about comfort and basket space'],
     href: STROLLER_PATHS.fullSize,
@@ -127,7 +127,7 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     icon: 'stroller',
   },
   {
-    matchTitle: 'Lightweight and travel strollers',
+    matchTitles: ['Lightweight and travel strollers', 'Travel Strollers'],
     title: 'Best fit if you:',
     bullets: ['lift the stroller often', 'want a faster fold', 'travel or store gear in smaller spaces'],
     href: STROLLER_PATHS.travel,
@@ -135,7 +135,7 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     icon: 'plane',
   },
   {
-    matchTitle: 'Modular strollers',
+    matchTitles: ['Modular strollers', 'Modular Strollers'],
     title: 'Best fit if you:',
     bullets: ['want multiple seating modes', 'care about newborn flexibility', 'prefer one stronger everyday system'],
     href: STROLLER_PATHS.fullSize,
@@ -143,7 +143,7 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     icon: 'layers',
   },
   {
-    matchTitle: 'Jogging and all-terrain strollers',
+    matchTitles: ['Jogging and all-terrain strollers', 'Jogging and All-Terrain Strollers', 'Jogging & All-Terrain'],
     title: 'Best fit if you:',
     bullets: ['walk on rougher ground', 'run or hike regularly', 'need bigger wheels and stronger suspension'],
     href: STROLLER_PATHS.jogging,
@@ -151,7 +151,7 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     icon: 'terrain',
   },
   {
-    matchTitle: 'Double and convertible strollers',
+    matchTitles: ['Double and convertible strollers', 'Convertible Single-to-Double Strollers', 'Convertible Strollers', 'Double Strollers'],
     title: 'Best fit if you:',
     bullets: ['are planning around siblings', 'need to compare width and flexibility', 'want to know when single-to-double math actually makes sense'],
     href: STROLLER_PATHS.double,
@@ -183,7 +183,7 @@ export const STROLLER_COMPARISON_CARDS: GuideHubLink[] = [
 
 const STROLLER_CATEGORY_VISUALS = [
   {
-    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers'],
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers'],
     imageSrc: '/assets/strollers/fullsize.png',
     imageAlt: 'Illustration representing the full-size stroller category.',
   },
@@ -193,12 +193,12 @@ const STROLLER_CATEGORY_VISUALS = [
     imageAlt: 'Illustration representing the compact stroller category.',
   },
   {
-    matchTitles: ['Lightweight and travel strollers', 'Travel Strollers'],
+    matchTitles: ['Lightweight and travel strollers', 'Travel Strollers', 'Travel Systems'],
     imageSrc: '/assets/strollers/travel.png',
     imageAlt: 'Illustration representing the travel stroller category.',
   },
   {
-    matchTitles: ['Jogging and all-terrain strollers', 'Jogging and All-Terrain Strollers'],
+    matchTitles: ['Jogging and all-terrain strollers', 'Jogging and All-Terrain Strollers', 'Jogging & All-Terrain'],
     imageSrc: '/assets/strollers/jogging.png',
     imageAlt: 'Illustration representing the jogging and all-terrain stroller category.',
   },
@@ -208,11 +208,19 @@ const STROLLER_CATEGORY_VISUALS = [
     imageAlt: 'Illustration representing the convertible stroller category.',
   },
   {
-    matchTitles: ['Double Strollers'],
+    matchTitles: ['Double Strollers', 'Side-by-Side Double Strollers'],
     imageSrc: '/assets/strollers/double.png',
     imageAlt: 'Illustration representing the double stroller category.',
   },
 ] as const;
+
+function normalizeStrollerTitle(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
 
 export function getStrollerVisibleTocItems(tocItems: GuideTocItem[]) {
   return STROLLER_VISIBLE_TOC_MATCHES.flatMap((item) => {
@@ -234,9 +242,15 @@ export function getStrollerEditorialImage(sectionTitle: string) {
 }
 
 export function getStrollerDecisionStrip(subsectionTitle: string) {
-  return STROLLER_DECISION_STRIPS.find((item) => item.matchTitle === subsectionTitle) ?? null;
+  const normalizedTitle = normalizeStrollerTitle(subsectionTitle);
+  return STROLLER_DECISION_STRIPS.find((item) =>
+    item.matchTitles.some((title) => normalizeStrollerTitle(title) === normalizedTitle),
+  ) ?? null;
 }
 
 export function getStrollerCategoryVisual(subsectionTitle: string) {
-  return STROLLER_CATEGORY_VISUALS.find((item) => item.matchTitles.some((title) => title === subsectionTitle)) ?? null;
+  const normalizedTitle = normalizeStrollerTitle(subsectionTitle);
+  return STROLLER_CATEGORY_VISUALS.find((item) =>
+    item.matchTitles.some((title) => normalizeStrollerTitle(title) === normalizedTitle),
+  ) ?? null;
 }
