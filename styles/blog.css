@@ -532,6 +532,78 @@
   max-width: 48rem;
 }
 
+.guide-post-content.stroller-guide-content h1 {
+  display: none;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content p {
+  font-size: clamp(1rem, 1.02vw, 1.08rem);
+  line-height: 1.88;
+  margin-bottom: 24px;
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 84%, white 16%);
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content > p:first-of-type {
+  font-size: clamp(1.05rem, 1.12vw, 1.14rem);
+  line-height: 1.82;
+  letter-spacing: -0.006em;
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 90%, white 10%);
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content > p:first-of-type::first-letter {
+  float: none;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content h2 {
+  font-size: clamp(1.85rem, 2.6vw, 2.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  margin-top: 60px;
+  margin-bottom: 16px;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content h2::after {
+  width: 64px;
+  height: 3px;
+  margin-top: 14px;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content h3 {
+  font-size: clamp(1.24rem, 1.55vw, 1.5rem);
+  line-height: 1.16;
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content ul,
+.stroller-hub-shell .guide-post-content.stroller-guide-content ol {
+  margin: 24px 0 28px;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content ul li,
+.stroller-hub-shell .guide-post-content.stroller-guide-content ol li {
+  margin-bottom: 12px;
+  line-height: 1.76;
+}
+
+.stroller-guide-content--lead {
+  max-width: 42rem;
+}
+
+.stroller-hub-shell .guide-post-content.stroller-guide-content.stroller-guide-content--lead > p:first-of-type {
+  font-size: clamp(1.12rem, 1.25vw, 1.24rem);
+  line-height: 1.84;
+}
+
+.stroller-guide-content--hub {
+  max-width: 44rem;
+}
+
 .guide-post-content h2 {
   font-size: clamp(2rem, 3.6vw, 3.15rem);
   line-height: 1.02;
@@ -919,6 +991,27 @@
   .guide-post-content > p:first-of-type::first-letter {
     margin-top: 0.04em;
     font-size: 3rem;
+  }
+
+  .stroller-guide-content p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+
+  .stroller-guide-content > p:first-of-type {
+    font-size: 1.06rem;
+    line-height: 1.76;
+  }
+
+  .stroller-guide-content h2 {
+    margin-top: 44px;
+    font-size: 28px;
+  }
+
+  .stroller-guide-content h3 {
+    font-size: 21px;
+    margin-top: 24px;
   }
 
   .tmbc-editorial-article-shell {

@@ -1,21 +1,14 @@
 import Image from 'next/image';
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
-import GuideCategoryFeatureRow from '@/components/guides/GuideCategoryFeatureRow';
-import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
-import GuideDecisionStrip from '@/components/guides/GuideDecisionStrip';
-import GuideEditorialImage from '@/components/guides/GuideEditorialImage';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
-import GuideKeywordDefinition from '@/components/guides/GuideKeywordDefinition';
-import GuideRealityCheck from '@/components/guides/GuideRealityCheck';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
-import GuideStartHere from '@/components/guides/GuideStartHere';
+import GuideStrollerHub from '@/components/guides/GuideStrollerHub';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
-import GuideTravelSystemFinder from '@/components/guides/GuideTravelSystemFinder';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { extractFaqEntries } from '@/lib/blog/contentText';
@@ -23,9 +16,7 @@ import type { AnalyticsPageType } from '@/lib/analytics';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
   buildGuideOutline,
-  splitGuideSectionContent,
   stripFaqBlocks,
-  stripLeadingGuideHeading,
 } from '@/lib/guides/articleOutline';
 import {
   getGuideContinueExploringBlock,
@@ -34,15 +25,6 @@ import {
   getGuideNextGuideItems,
 } from '@/lib/guides/hubs';
 import { GuideAnalyticsEvents, type GuideAnalyticsEventName } from '@/lib/guides/events';
-import {
-  getStrollerDecisionStrip,
-  getStrollerEditorialImage,
-  getStrollerRealityCheck,
-  getStrollerCategoryVisual,
-  getStrollerVisibleTocItems,
-  STROLLER_COMPARISON_CARDS,
-  STROLLER_START_HERE_ITEMS,
-} from '@/lib/guides/strollerHub';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
@@ -313,15 +295,19 @@ export default function GuideHubLayout({
   const contentWithoutInlineFaqs = stripFaqBlocks(articleContent);
   const outline = buildGuideOutline(contentWithoutInlineFaqs);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
+  const isStrollerHub = guide.slug === 'best-strollers';
   const heroJumpLinks = getGuideHeroJumpLinks({
     currentPath: sourceRoute,
     tocItems: outline.tocItems,
   });
+  const strollerHeroJumpLinks = [
+    { label: 'Choose a category', href: `${sourceRoute}#stroller-category-navigator` },
+    { label: 'Category previews', href: `${sourceRoute}#stroller-categories` },
+    { label: 'Decision helper', href: `${sourceRoute}#stroller-decision-helper` },
+    { label: 'Continue the series', href: `${sourceRoute}#stroller-series` },
+  ];
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
   const nextGuideItems = getGuideNextGuideItems(guide.slug);
-  const isStrollerHub = guide.slug === 'best-strollers';
-  const mobileTocItems = isStrollerHub ? getStrollerVisibleTocItems(outline.tocItems) : outline.tocItems;
-  const nextGuideNavItems = isStrollerHub ? nextGuideItems.filter((item) => !item.current) : nextGuideItems;
   const showDisclosureAfterIntro =
     guide.affiliateDisclosureEnabled && guide.affiliateDisclosurePlacement === 'after_intro';
   const showDisclosureBeforeConclusion =
@@ -330,7 +316,7 @@ export default function GuideHubLayout({
     guide.affiliateDisclosureEnabled &&
     (!guide.affiliateDisclosurePlacement || guide.affiliateDisclosurePlacement === 'before_affiliates');
 
-  if (!hubConfig) {
+  if (!hubConfig && !isStrollerHub) {
     return null;
   }
 
@@ -348,219 +334,16 @@ export default function GuideHubLayout({
         readTime={`${readingTime} min`}
         publishedLabel={formatArticleDate(displayDate)}
         sectionCount={outline.sections.length}
-        jumpLinks={heroJumpLinks}
+        jumpLinks={isStrollerHub ? strollerHeroJumpLinks : heroJumpLinks}
         imageSrc={guide.heroImageUrl}
         imageAlt={guide.heroImageAlt}
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div
-          className={`mx-auto ${
-            isStrollerHub ? 'max-w-[92rem] px-6 sm:px-8 lg:px-8 xl:px-10' : 'max-w-7xl px-5 sm:px-8 lg:px-10'
-          } ${
-            isStrollerHub ? 'py-16 lg:py-20' : 'py-10 lg:py-16'
-          }`}
-        >
-          {isStrollerHub ? (
-            <div className="pb-10 lg:pb-12">
-              <GuideStartHere
-                description="Three faster ways into the stroller decision, depending on what is most true for your week."
-                items={STROLLER_START_HERE_ITEMS}
-              />
-            </div>
-          ) : null}
-
-          <div className={isStrollerHub ? 'space-y-10' : 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_18.5rem] lg:gap-10'}>
-            <div className={isStrollerHub ? 'space-y-10' : 'space-y-8'}>
-              <GuideTableOfContents currentPath={sourceRoute} items={mobileTocItems} mode="mobile" />
-              {isStrollerHub ? (
-                <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" layout="band" />
-              ) : null}
-
-              {outline.preface ? (
-                <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-8">
-                  <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
-                  <div className={`relative ${isStrollerHub ? 'mx-auto max-w-3xl' : ''}`}>
-                    <PostContent
-                      postId={`${guide.id}-preface`}
-                      content={outline.preface}
-                      className={isStrollerHub ? 'guide-post-content stroller-guide-content' : 'guide-post-content'}
-                    />
-                  </div>
-                </div>
-              ) : null}
-
-              {outline.sections.map((section, index) => {
-                const continueExploringBlock = getGuideContinueExploringBlock({
-                  slug: guide.slug,
-                  currentPath: sourceRoute,
-                  sectionTitle: section.title,
-                  relatedGuides,
-                });
-                const isIntroduction = index === 0;
-                const isFinalSection = index === outline.sections.length - 1;
-                const sectionBreakdown = isStrollerHub ? splitGuideSectionContent(section.content) : null;
-                const contentClassName = isStrollerHub ? 'guide-post-content stroller-guide-content' : 'guide-post-content';
-                const subsectionClassName = `${contentClassName} guide-post-content--subsection`;
-                const innerClassName = isStrollerHub ? 'mx-auto max-w-3xl' : '';
-                const realityCheck = isStrollerHub ? getStrollerRealityCheck(section.title) : null;
-                const editorialImage = isStrollerHub ? getStrollerEditorialImage(section.title) : null;
-                const sectionCategoryVisual = isStrollerHub ? getStrollerCategoryVisual(section.title) : null;
-                const sectionDecisionStrip = isStrollerHub ? getStrollerDecisionStrip(section.title) : null;
-
-                return (
-                  <div key={section.id} className={isStrollerHub ? 'space-y-8' : 'space-y-6'}>
-                    {isStrollerHub && sectionBreakdown && sectionBreakdown.subsections.length > 0 ? (
-                      <>
-                        {sectionBreakdown.introContent ? (
-                          <GuidePostSurface
-                            postId={`${guide.id}-${section.id}`}
-                            content={sectionBreakdown.introContent}
-                            contentClassName={contentClassName}
-                            innerClassName={innerClassName}
-                          />
-                        ) : null}
-
-                        {sectionBreakdown.subsections.map((subsection) => {
-                          const decisionStrip =
-                            section.title === 'Major Types and Categories'
-                              ? getStrollerDecisionStrip(subsection.title)
-                              : null;
-                          const strollerCategoryVisual =
-                            isStrollerHub && getStrollerCategoryVisual(subsection.title);
-
-                          return (
-                            <div key={subsection.id} className="space-y-5">
-                              {strollerCategoryVisual ? (
-                                <GuideCategoryFeatureRow
-                                  id={subsection.id}
-                                  title={subsection.title}
-                                  content={stripLeadingGuideHeading(subsection.content)}
-                                  postId={`${guide.id}-${section.id}-${subsection.id}`}
-                                  imageSrc={strollerCategoryVisual.imageSrc}
-                                  imageAlt={strollerCategoryVisual.imageAlt}
-                                />
-                              ) : (
-                                <GuidePostSurface
-                                  postId={`${guide.id}-${section.id}-${subsection.id}`}
-                                  content={subsection.content}
-                                  contentClassName={subsectionClassName}
-                                  compact
-                                  innerClassName={innerClassName}
-                                />
-                              )}
-
-                              {decisionStrip ? (
-                                <GuideDecisionStrip
-                                  title={decisionStrip.title}
-                                  bullets={decisionStrip.bullets}
-                                  href={decisionStrip.href}
-                                  ctaLabel={decisionStrip.ctaLabel}
-                                  icon={decisionStrip.icon}
-                                />
-                              ) : null}
-                            </div>
-                          );
-                        })}
-                      </>
-                    ) : sectionCategoryVisual ? (
-                      <div className="space-y-5">
-                        <GuideCategoryFeatureRow
-                          id={section.id}
-                          title={section.title}
-                          content={stripLeadingGuideHeading(section.content)}
-                          postId={`${guide.id}-${section.id}`}
-                          imageSrc={sectionCategoryVisual.imageSrc}
-                          imageAlt={sectionCategoryVisual.imageAlt}
-                        />
-                        {sectionDecisionStrip ? (
-                          <GuideDecisionStrip
-                            title={sectionDecisionStrip.title}
-                            bullets={sectionDecisionStrip.bullets}
-                            href={sectionDecisionStrip.href}
-                            ctaLabel={sectionDecisionStrip.ctaLabel}
-                            icon={sectionDecisionStrip.icon}
-                          />
-                        ) : null}
-                      </div>
-                    ) : (
-                      <GuidePostSurface
-                        postId={`${guide.id}-${section.id}`}
-                        content={section.content}
-                        contentClassName={contentClassName}
-                        innerClassName={innerClassName}
-                      />
-                    )}
-
-                    {isIntroduction ? (
-                      <>
-                        {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
-                        <GuideCategoryCards
-                          title={hubConfig.cardsTitle}
-                          description={hubConfig.cardsDescription}
-                          cards={hubConfig.cards}
-                          variant={isStrollerHub ? 'stroller-hub' : 'default'}
-                        />
-                        <GuideDecisionHelper
-                          title={hubConfig.decisionHelperTitle}
-                          description={hubConfig.decisionHelperDescription}
-                          items={hubConfig.decisionItems}
-                        />
-                        {isStrollerHub ? (
-                          <>
-                            <GuideKeywordDefinition
-                              term="Travel system"
-                              definition="A travel system simply means putting an infant car seat onto a stroller frame."
-                              icon="carseat"
-                            />
-                            <GuideTravelSystemFinder />
-                          </>
-                        ) : null}
-                      </>
-                    ) : null}
-
-                    {realityCheck ? <GuideRealityCheck text={realityCheck.text} icon={realityCheck.icon} /> : null}
-
-                    {!isIntroduction && !isFinalSection && continueExploringBlock ? (
-                      <GuideContinueExploring
-                        title={continueExploringBlock.title}
-                        description={continueExploringBlock.description}
-                        links={continueExploringBlock.links}
-                      />
-                    ) : null}
-
-                    {showDisclosureBeforeConclusion && section.title === 'Planning Tips' ? (
-                      <DisclosureCard text={disclosureText} />
-                    ) : null}
-
-                    {editorialImage ? (
-                      <GuideEditorialImage
-                        eyebrow={editorialImage.eyebrow}
-                        src={editorialImage.src}
-                        alt={editorialImage.alt}
-                        caption={editorialImage.caption}
-                      />
-                    ) : null}
-
-                    {isStrollerHub && section.title === 'Planning Tips' ? (
-                      <GuideComparisonCards
-                        title="Popular stroller comparisons"
-                        description="When the shortlist gets close, these are the faster comparison reads that usually answer the next real question."
-                        cards={STROLLER_COMPARISON_CARDS}
-                      />
-                    ) : null}
-                  </div>
-                );
-              })}
-
-              <GuideFaqAccordion items={faqEntries} />
-
-              {guide.founderSignatureEnabled && guide.founderSignatureText ? (
-                <MarketingSurface className="rounded-[2rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 md:p-8">
-                  <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
-                  <p className="mt-4 text-sm leading-7 text-neutral-700">{guide.founderSignatureText}</p>
-                </MarketingSurface>
-              ) : null}
+        {isStrollerHub ? (
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
+            <div className="space-y-10 md:space-y-16">
+              <GuideStrollerHub guide={guide} outline={outline} />
 
               {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
 
@@ -573,13 +356,96 @@ export default function GuideHubLayout({
                 nextStepEvent={nextStepEvent}
                 nextStepDestinationPageType={nextStepDestinationPageType}
               />
-
-              <GuideNextGuides title={isStrollerHub ? 'Read next' : undefined} items={nextGuideNavItems} />
             </div>
-
-            {!isStrollerHub ? <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" /> : null}
           </div>
-        </div>
+        ) : (
+          <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-16">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18.5rem] lg:gap-10">
+              <div className="space-y-8">
+                <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="mobile" />
+
+                {outline.preface ? (
+                  <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-8">
+                    <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
+                    <div className="relative">
+                      <PostContent postId={`${guide.id}-preface`} content={outline.preface} className="guide-post-content" />
+                    </div>
+                  </div>
+                ) : null}
+
+                {outline.sections.map((section, index) => {
+                  const continueExploringBlock = getGuideContinueExploringBlock({
+                    slug: guide.slug,
+                    currentPath: sourceRoute,
+                    sectionTitle: section.title,
+                    relatedGuides,
+                  });
+                  const isIntroduction = index === 0;
+                  const isFinalSection = index === outline.sections.length - 1;
+
+                  return (
+                    <div key={section.id} className="space-y-6">
+                      <GuidePostSurface postId={`${guide.id}-${section.id}`} content={section.content} contentClassName="guide-post-content" />
+
+                      {isIntroduction ? (
+                        <>
+                          {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
+                          <GuideCategoryCards
+                            title={hubConfig!.cardsTitle}
+                            description={hubConfig!.cardsDescription}
+                            cards={hubConfig!.cards}
+                          />
+                          <GuideDecisionHelper
+                            title={hubConfig!.decisionHelperTitle}
+                            description={hubConfig!.decisionHelperDescription}
+                            items={hubConfig!.decisionItems}
+                          />
+                        </>
+                      ) : null}
+
+                      {!isIntroduction && !isFinalSection && continueExploringBlock ? (
+                        <GuideContinueExploring
+                          title={continueExploringBlock.title}
+                          description={continueExploringBlock.description}
+                          links={continueExploringBlock.links}
+                        />
+                      ) : null}
+
+                      {showDisclosureBeforeConclusion && section.title === 'Planning Tips' ? (
+                        <DisclosureCard text={disclosureText} />
+                      ) : null}
+                    </div>
+                  );
+                })}
+
+                <GuideFaqAccordion items={faqEntries} />
+
+                {guide.founderSignatureEnabled && guide.founderSignatureText ? (
+                  <MarketingSurface className="rounded-[2rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 md:p-8">
+                    <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
+                    <p className="mt-4 text-sm leading-7 text-neutral-700">{guide.founderSignatureText}</p>
+                  </MarketingSurface>
+                ) : null}
+
+                {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
+
+                <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
+
+                <NextStepBand
+                  guide={guide}
+                  preview={preview}
+                  sourceRoute={sourceRoute}
+                  nextStepEvent={nextStepEvent}
+                  nextStepDestinationPageType={nextStepDestinationPageType}
+                />
+
+                <GuideNextGuides items={nextGuideItems} />
+              </div>
+
+              <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" />
+            </div>
+          </div>
+        )}
       </section>
     </>
   );

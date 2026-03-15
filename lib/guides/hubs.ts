@@ -163,7 +163,7 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
           description: 'For rough sidewalks, gravel paths, longer walks, and parents who actually mean it when they say trail.',
           href: PILLAR_PATHS.joggingStrollers,
           icon: 'terrain',
-          imageSrc: '/assets/strollers/jogging.png',
+          imageSrc: '/assets/strollers/alterrian.png',
           imageAlt: 'Illustration of a jogging and all-terrain stroller category.',
         },
         {

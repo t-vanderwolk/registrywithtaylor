@@ -19,8 +19,8 @@ model User {
   bio            String?
   expertiseAreas String[]     @default([])
   avatarUrl      String?
-  posts          Post[]       @relation("PrimaryPostAuthor")
   guides         Guide[]      @relation("PrimaryGuideAuthor")
+  posts          Post[]       @relation("PrimaryPostAuthor")
   authoredPosts  PostAuthor[]
 }
 
@@ -127,54 +127,54 @@ model PostAnalytics {
 }
 
 model Guide {
-  id                         String           @id @default(cuid())
-  title                      String
-  slug                       String           @unique
-  excerpt                    String?
-  intro                      String?
-  content                    String
-  conclusion                 String?
-  heroImageUrl               String?
-  heroImageAlt               String?
-  authorId                   String
-  category                   String           @default("Strollers")
-  topicCluster               String?
-  status                     PostStatus       @default(DRAFT)
-  publishedAt                DateTime?
-  scheduledFor               DateTime?
-  archivedAt                 DateTime?
-  seoTitle                   String?
-  seoDescription             String?
-  ogTitle                    String?
-  ogDescription              String?
-  ogImageUrl                 String?
-  ogImageAlt                 String?
-  canonicalUrl               String?
-  targetKeyword              String?
-  secondaryKeywords          String[]         @default([])
-  internalLinkNotes          String?
-  tableOfContentsEnabled     Boolean          @default(true)
-  faqItems                   Json             @default("[]")
-  affiliateDisclosureEnabled Boolean          @default(true)
-  affiliateDisclosureText    String?
-  affiliateDisclosurePlacement String?        @default("before_affiliates")
-  affiliateModules           Json             @default("[]")
-  consultationCtaEnabled     Boolean          @default(true)
-  consultationCtaLabel       String?
-  newsletterCtaEnabled       Boolean          @default(false)
-  newsletterCtaLabel         String?
-  newsletterCtaDescription   String?
-  newsletterCtaHref          String?
-  nextStepCtaLabel           String?
-  nextStepCtaHref            String?
-  founderSignatureEnabled    Boolean          @default(false)
-  founderSignatureText       String?
-  relatedGuideIds            String[]         @default([])
-  views                      Int              @default(0)
-  createdAt                  DateTime         @default(now())
-  updatedAt                  DateTime         @updatedAt
-  author                     User             @relation("PrimaryGuideAuthor", fields: [authorId], references: [id])
-  analytics                  GuideAnalytics[]
+  id                           String           @id @default(cuid())
+  title                        String
+  slug                         String           @unique
+  excerpt                      String?
+  intro                        String?
+  content                      String
+  conclusion                   String?
+  heroImageUrl                 String?
+  heroImageAlt                 String?
+  authorId                     String
+  category                     String           @default("Strollers")
+  topicCluster                 String?
+  status                       PostStatus       @default(DRAFT)
+  publishedAt                  DateTime?
+  scheduledFor                 DateTime?
+  archivedAt                   DateTime?
+  seoTitle                     String?
+  seoDescription               String?
+  ogTitle                      String?
+  ogDescription                String?
+  ogImageUrl                   String?
+  ogImageAlt                   String?
+  canonicalUrl                 String?
+  targetKeyword                String?
+  secondaryKeywords            String[]         @default([])
+  internalLinkNotes            String?
+  tableOfContentsEnabled       Boolean          @default(true)
+  faqItems                     Json             @default("[]")
+  affiliateDisclosureEnabled   Boolean          @default(true)
+  affiliateDisclosureText      String?
+  affiliateDisclosurePlacement String?          @default("before_affiliates")
+  affiliateModules             Json             @default("[]")
+  consultationCtaEnabled       Boolean          @default(true)
+  consultationCtaLabel         String?
+  newsletterCtaEnabled         Boolean          @default(false)
+  newsletterCtaLabel           String?
+  newsletterCtaDescription     String?
+  newsletterCtaHref            String?
+  nextStepCtaLabel             String?
+  nextStepCtaHref              String?
+  founderSignatureEnabled      Boolean          @default(false)
+  founderSignatureText         String?
+  relatedGuideIds              String[]         @default([])
+  views                        Int              @default(0)
+  createdAt                    DateTime         @default(now())
+  updatedAt                    DateTime         @updatedAt
+  author                       User             @relation("PrimaryGuideAuthor", fields: [authorId], references: [id])
+  analytics                    GuideAnalytics[]
 }
 
 model GuideAnalytics {
@@ -185,7 +185,7 @@ model GuideAnalytics {
   visitorHash String?
   meta        Json?
   createdAt   DateTime @default(now())
-  guide       Guide     @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  guide       Guide    @relation(fields: [guideId], references: [id], onDelete: Cascade)
 
   @@index([guideId])
   @@index([guideId, event, createdAt])

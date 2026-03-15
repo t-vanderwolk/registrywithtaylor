@@ -4,15 +4,21 @@ import type { GuideHubLink } from '@/lib/guides/hubs';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 
 export default function GuideCategoryCards({
+  id,
   title,
   description,
   cards,
   variant = 'default',
+  eyebrow,
+  ctaLabel,
 }: {
+  id?: string;
   title: string;
   description?: string;
   cards: GuideHubLink[];
   variant?: 'default' | 'stroller-hub';
+  eyebrow?: string;
+  ctaLabel?: string;
 }) {
   if (cards.length === 0) {
     return null;
@@ -22,6 +28,7 @@ export default function GuideCategoryCards({
 
   return (
     <section
+      id={id}
       className={
         isStrollerHub
           ? 'space-y-6 rounded-[2rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f8f2ec_100%)] p-6 shadow-[0_20px_48px_rgba(0,0,0,0.04)] md:space-y-7 md:p-8 xl:p-10'
@@ -30,7 +37,7 @@ export default function GuideCategoryCards({
     >
       <div className="space-y-2">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-          {isStrollerHub ? 'Stroller categories' : 'Sub-guides'}
+          {eyebrow ?? (isStrollerHub ? 'Stroller categories' : 'Sub-guides')}
         </p>
         <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.25rem]">{title}</h2>
         {description ? (
@@ -60,13 +67,14 @@ export default function GuideCategoryCards({
                 }
               >
                 {isStrollerHub ? (
-                  <div className="flex h-48 items-center justify-center md:h-52">
-                    <img
+                  <div className="relative h-48 md:h-52">
+                    <Image
                       src={card.imageSrc}
                       alt={card.imageAlt?.trim() || card.title}
+                      fill
+                      sizes="(min-width: 1280px) 20rem, (min-width: 768px) 45vw, 100vw"
+                      className="object-contain object-center p-3"
                       loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-contain object-center"
                     />
                   </div>
                 ) : (
@@ -117,7 +125,7 @@ export default function GuideCategoryCards({
                 <GuideGlyph icon={card.icon} />
               </div>
               <span className="text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
-                {isStrollerHub ? 'Explore guide' : 'Open guide'}
+                {ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}
               </span>
             </div>
             <h3 className={`${isStrollerHub ? 'mt-5 font-serif text-[1.38rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 md:text-[1.5rem]' : 'mt-5 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900'}`}>
@@ -128,7 +136,7 @@ export default function GuideCategoryCards({
             </p>
 
             <div className="mt-auto pt-6 text-sm font-semibold text-neutral-900">
-              <span>{isStrollerHub ? 'Explore guide' : 'Open guide'}</span>
+              <span>{ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}</span>
               <span aria-hidden="true" className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
                 -&gt;
               </span>

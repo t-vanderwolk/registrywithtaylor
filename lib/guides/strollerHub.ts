@@ -2,12 +2,17 @@ import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import type { GuideHubDecisionItem, GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
 import { getGuidePath } from '@/lib/guides/routing';
 
+function withAnchor(path: string, id: string) {
+  return `${path}#${id}`;
+}
+
 const STROLLER_PATHS = {
   fullSize: getGuidePath({ slug: 'full-size-modular-strollers' }),
   compact: getGuidePath({ slug: 'compact-lightweight-strollers' }),
   travel: getGuidePath({ slug: 'travel-strollers' }),
   jogging: getGuidePath({ slug: 'jogging-all-terrain-strollers' }),
   double: getGuidePath({ slug: 'double-strollers' }),
+  convertible: withAnchor(getGuidePath({ slug: 'double-strollers' }), 'convertible-single-to-double'),
 } as const;
 
 const BLOG_PATHS = {
@@ -39,6 +44,19 @@ export type StrollerDecisionStrip = {
   icon: GuideHubIconKey;
 };
 
+export type StrollerPreviewExample = {
+  name: string;
+  imageSrc: string;
+  imageAlt: string;
+};
+
+export type StrollerCategoryPreview = {
+  matchTitles: string[];
+  href: string;
+  ctaLabel: string;
+  examples: StrollerPreviewExample[];
+};
+
 export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
   {
     title: 'I need one stroller for everyday life',
@@ -55,8 +73,149 @@ export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
   {
     title: "I'm planning for two children",
     description: 'Use the double-stroller path to compare footprint, configuration, and whether future flexibility is truly worth it.',
+    href: STROLLER_PATHS.convertible,
+    icon: 'double',
+  },
+];
+
+export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
+  {
+    title: 'Full Size Strollers',
+    description: 'The strongest everyday option when comfort, handling, basket space, and regular neighborhood use matter most.',
+    href: STROLLER_PATHS.fullSize,
+    icon: 'stroller',
+    imageSrc: '/assets/strollers/fullsize.png',
+    imageAlt: 'Illustration representing the full-size stroller category.',
+  },
+  {
+    title: 'Compact Strollers',
+    description: 'A lighter everyday lane for tighter trunks, smaller homes, city errands, and parents who want less bulk.',
+    href: STROLLER_PATHS.compact,
+    icon: 'compact',
+    imageSrc: '/assets/strollers/compact.png',
+    imageAlt: 'Illustration representing the compact stroller category.',
+  },
+  {
+    title: 'Travel Strollers',
+    description: 'Made for faster folds, lighter carrying, and the version of parent life that involves trunks, airports, and quick transitions.',
+    href: STROLLER_PATHS.travel,
+    icon: 'plane',
+    imageSrc: '/assets/strollers/travel.png',
+    imageAlt: 'Illustration representing the travel stroller category.',
+  },
+  {
+    title: 'Convertible Strollers',
+    description: 'For families thinking ahead to siblings and deciding whether single-to-double flexibility is actually worth the size.',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
+    imageSrc: '/assets/strollers/convertable.png',
+    imageAlt: 'Illustration representing the convertible stroller category.',
+  },
+  {
+    title: 'Jogging Strollers',
+    description: 'Best for runners, rougher terrain, and families who need bigger wheels and stronger suspension for daily routes.',
+    href: STROLLER_PATHS.jogging,
+    icon: 'terrain',
+    imageSrc: '/assets/strollers/alterrian.png',
+    imageAlt: 'Illustration representing the jogging stroller category.',
+  },
+  {
+    title: 'Double Strollers',
+    description: 'Built for twins or two small children when you know the everyday job is carrying both riders at once.',
     href: STROLLER_PATHS.double,
     icon: 'double',
+    imageSrc: '/assets/strollers/inditwin.png',
+    imageAlt: 'Illustration representing the double stroller category.',
+  },
+];
+
+export const STROLLER_HUB_DECISION_ITEMS: GuideHubDecisionItem[] = [
+  {
+    title: 'I want the easiest everyday stroller',
+    description: 'Start with the full-size guide if daily comfort, handling, and basket space matter more than the smallest fold.',
+    href: STROLLER_PATHS.fullSize,
+    icon: 'stroller',
+  },
+  {
+    title: 'I live in a city or walk a lot',
+    description: 'Compact strollers usually make the most sense when tighter spaces and lighter everyday handling are part of the routine.',
+    href: STROLLER_PATHS.compact,
+    icon: 'compact',
+  },
+  {
+    title: 'I want one stroller that can grow with my family',
+    description: 'Use the convertible path when sibling planning is part of the decision and you need the real tradeoffs spelled out.',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
+  },
+  {
+    title: 'I run or spend time on trails',
+    description: 'Head straight to jogging strollers if bigger wheels, stronger suspension, and rougher ground are part of real life.',
+    href: STROLLER_PATHS.jogging,
+    icon: 'terrain',
+  },
+  {
+    title: 'I need something small for travel',
+    description: 'Travel strollers help most when carrying, folding, and overhead-bin thinking are part of the conversation.',
+    href: STROLLER_PATHS.travel,
+    icon: 'plane',
+  },
+  {
+    title: 'I have twins or two small children',
+    description: 'The double stroller guide helps narrow width, layout, and whether a dedicated double solves the actual problem faster.',
+    href: STROLLER_PATHS.double,
+    icon: 'double',
+  },
+];
+
+export const STROLLER_SERIES_CARDS: GuideHubLink[] = [
+  {
+    title: 'Full Size Stroller Guide',
+    description: 'A better place to compare baskets, suspension, seat versatility, and what matters in a primary stroller.',
+    href: STROLLER_PATHS.fullSize,
+    icon: 'stroller',
+    imageSrc: '/assets/strollers/fullsize.png',
+    imageAlt: 'Illustration representing the full-size stroller guide.',
+  },
+  {
+    title: 'Compact Stroller Guide',
+    description: 'Sort lighter everyday options around fold size, carry weight, and whether compact still feels good daily.',
+    href: STROLLER_PATHS.compact,
+    icon: 'compact',
+    imageSrc: '/assets/strollers/compact.png',
+    imageAlt: 'Illustration representing the compact stroller guide.',
+  },
+  {
+    title: 'Travel Stroller Guide',
+    description: 'Go deeper on the small-fold options parents compare once portability becomes the deciding factor.',
+    href: STROLLER_PATHS.travel,
+    icon: 'plane',
+    imageSrc: '/assets/strollers/travel.png',
+    imageAlt: 'Illustration representing the travel stroller guide.',
+  },
+  {
+    title: 'Convertible Stroller Guide',
+    description: 'Follow the single-to-double lane if future sibling planning is shaping the decision today.',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
+    imageSrc: '/assets/strollers/convertable.png',
+    imageAlt: 'Illustration representing the convertible stroller guide.',
+  },
+  {
+    title: 'Jogging Stroller Guide',
+    description: 'Useful when the stroller needs to handle trails, uneven terrain, and faster movement without drama.',
+    href: STROLLER_PATHS.jogging,
+    icon: 'terrain',
+    imageSrc: '/assets/strollers/alterrian.png',
+    imageAlt: 'Illustration representing the jogging stroller guide.',
+  },
+  {
+    title: 'Double Stroller Guide',
+    description: 'Compare side-by-side, tandem, and when a dedicated two-child setup is easier than forcing flexibility.',
+    href: STROLLER_PATHS.double,
+    icon: 'double',
+    imageSrc: '/assets/strollers/inditwin.png',
+    imageAlt: 'Illustration representing the double stroller guide.',
   },
 ];
 
@@ -125,6 +284,14 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     href: STROLLER_PATHS.fullSize,
     ctaLabel: 'Read the Full-Size Stroller Guide',
     icon: 'stroller',
+  },
+  {
+    matchTitles: ['Compact strollers', 'Compact Strollers', 'Compact and lightweight strollers', 'Compact & Lightweight Strollers'],
+    title: 'Best fit if you:',
+    bullets: ['want a lighter everyday option', 'need easier trunk or closet storage', 'still want more comfort than a true travel stroller'],
+    href: STROLLER_PATHS.compact,
+    ctaLabel: 'Read the Compact Stroller Guide',
+    icon: 'compact',
   },
   {
     matchTitles: ['Lightweight and travel strollers', 'Travel Strollers'],
@@ -199,7 +366,7 @@ const STROLLER_CATEGORY_VISUALS = [
   },
   {
     matchTitles: ['Jogging and all-terrain strollers', 'Jogging and All-Terrain Strollers', 'Jogging & All-Terrain'],
-    imageSrc: '/assets/strollers/jogging.png',
+    imageSrc: '/assets/strollers/alterrian.png',
     imageAlt: 'Illustration representing the jogging and all-terrain stroller category.',
   },
   {
@@ -209,10 +376,145 @@ const STROLLER_CATEGORY_VISUALS = [
   },
   {
     matchTitles: ['Double Strollers', 'Side-by-Side Double Strollers'],
-    imageSrc: '/assets/strollers/double.png',
+    imageSrc: '/assets/strollers/inditwin.png',
     imageAlt: 'Illustration representing the double stroller category.',
   },
 ] as const;
+
+const STROLLER_CATEGORY_PREVIEWS: StrollerCategoryPreview[] = [
+  {
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers'],
+    href: STROLLER_PATHS.fullSize,
+    ctaLabel: 'Explore the Full-Size Stroller Guide',
+    examples: [
+      {
+        name: 'Bugaboo Fox 5',
+        imageSrc: '/assets/strollers/fox5.png',
+        imageAlt: 'Bugaboo Fox 5 stroller.',
+      },
+      {
+        name: 'Nuna MIXX Next',
+        imageSrc: '/assets/strollers/mixx.png',
+        imageAlt: 'Nuna MIXX Next stroller.',
+      },
+      {
+        name: 'Silver Cross Reef 2',
+        imageSrc: '/assets/strollers/reef.png',
+        imageAlt: 'Silver Cross Reef 2 stroller.',
+      },
+    ],
+  },
+  {
+    matchTitles: ['Compact strollers', 'Compact Strollers'],
+    href: STROLLER_PATHS.compact,
+    ctaLabel: 'Explore the Compact Stroller Guide',
+    examples: [
+      {
+        name: 'Bugaboo Dragonfly',
+        imageSrc: '/assets/strollers/compact.png',
+        imageAlt: 'Bugaboo Dragonfly stroller.',
+      },
+      {
+        name: 'Nuna TRIV',
+        imageSrc: '/assets/strollers/triv.png',
+        imageAlt: 'Nuna TRIV stroller.',
+      },
+      {
+        name: 'Cybex Mios',
+        imageSrc: '/assets/strollers/mios.png',
+        imageAlt: 'Cybex Mios stroller.',
+      },
+    ],
+  },
+  {
+    matchTitles: ['Lightweight and travel strollers', 'Travel Strollers'],
+    href: STROLLER_PATHS.travel,
+    ctaLabel: 'Explore the Travel Stroller Guide',
+    examples: [
+      {
+        name: 'Bugaboo Butterfly',
+        imageSrc: '/assets/strollers/butterfly.png',
+        imageAlt: 'Bugaboo Butterfly stroller.',
+      },
+      {
+        name: 'Nuna TRVL lx',
+        imageSrc: '/assets/strollers/trvllx.png',
+        imageAlt: 'Nuna TRVL lx stroller.',
+      },
+      {
+        name: 'Joolz Aer+',
+        imageSrc: '/assets/strollers/joolz.png',
+        imageAlt: 'Joolz Aer+ stroller.',
+      },
+    ],
+  },
+  {
+    matchTitles: ['Jogging and all-terrain strollers', 'Jogging and All-Terrain Strollers', 'Jogging & All-Terrain'],
+    href: STROLLER_PATHS.jogging,
+    ctaLabel: 'Explore the Jogging Stroller Guide',
+    examples: [
+      {
+        name: 'UPPAbaby Ridge',
+        imageSrc: '/assets/strollers/ridge.png',
+        imageAlt: 'UPPAbaby Ridge stroller.',
+      },
+      {
+        name: 'Thule Urban Glide',
+        imageSrc: '/assets/strollers/urbnglide.png',
+        imageAlt: 'Thule Urban Glide stroller.',
+      },
+      {
+        name: 'BOB Alterrian',
+        imageSrc: '/assets/strollers/alterrian.png',
+        imageAlt: 'BOB Alterrian stroller.',
+      },
+    ],
+  },
+  {
+    matchTitles: ['Double and convertible strollers', 'Convertible Single-to-Double Strollers', 'Convertible Strollers'],
+    href: STROLLER_PATHS.convertible,
+    ctaLabel: 'Explore the Convertible Stroller Guide',
+    examples: [
+      {
+        name: 'Bugaboo Donkey 6',
+        imageSrc: '/assets/strollers/donkey.png',
+        imageAlt: 'Bugaboo Donkey 6 stroller.',
+      },
+      {
+        name: 'Silver Cross Wave 3',
+        imageSrc: '/assets/strollers/wave.png',
+        imageAlt: 'Silver Cross Wave 3 stroller.',
+      },
+      {
+        name: 'CYBEX Gazelle S',
+        imageSrc: '/assets/strollers/gazelle.png',
+        imageAlt: 'CYBEX Gazelle S stroller.',
+      },
+    ],
+  },
+  {
+    matchTitles: ['Double Strollers', 'Side-by-Side Double Strollers'],
+    href: STROLLER_PATHS.double,
+    ctaLabel: 'Explore the Double Stroller Guide',
+    examples: [
+      {
+        name: 'Bumbleride Indie Twin',
+        imageSrc: '/assets/strollers/inditwin.png',
+        imageAlt: 'Bumbleride Indie Twin stroller.',
+      },
+      {
+        name: 'BOB Revolution Flex Duallie',
+        imageSrc: '/assets/strollers/revolution.png',
+        imageAlt: 'BOB Revolution Flex Duallie stroller.',
+      },
+      {
+        name: 'UPPAbaby Minu Duo',
+        imageSrc: '/assets/strollers/minuduo.png',
+        imageAlt: 'UPPAbaby Minu Duo stroller.',
+      },
+    ],
+  },
+];
 
 function normalizeStrollerTitle(value: string) {
   return value
@@ -251,6 +553,13 @@ export function getStrollerDecisionStrip(subsectionTitle: string) {
 export function getStrollerCategoryVisual(subsectionTitle: string) {
   const normalizedTitle = normalizeStrollerTitle(subsectionTitle);
   return STROLLER_CATEGORY_VISUALS.find((item) =>
+    item.matchTitles.some((title) => normalizeStrollerTitle(title) === normalizedTitle),
+  ) ?? null;
+}
+
+export function getStrollerCategoryPreview(subsectionTitle: string) {
+  const normalizedTitle = normalizeStrollerTitle(subsectionTitle);
+  return STROLLER_CATEGORY_PREVIEWS.find((item) =>
     item.matchTitles.some((title) => normalizeStrollerTitle(title) === normalizedTitle),
   ) ?? null;
 }

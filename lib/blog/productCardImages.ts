@@ -10,9 +10,15 @@ const NURSERY_IMAGE = '/assets/editorial/nursery.jpg' as const;
 const REGISTRY_IMAGE = '/assets/editorial/registry.jpg' as const;
 const STROLLER_PRODUCT_IMAGES = {
   butterfly: '/assets/strollers/butterfly.png',
+  donkey: '/assets/strollers/donkey.png',
   fox5: '/assets/strollers/fox5.png',
+  gazelle: '/assets/strollers/gazelle.png',
   mixx: '/assets/strollers/mixx.png',
   reef: '/assets/strollers/reef.png',
+  ridge: '/assets/strollers/ridge.png',
+  triv: '/assets/strollers/triv.png',
+  trvllx: '/assets/strollers/trvllx.png',
+  wave: '/assets/strollers/wave.png',
 } as const;
 
 function normalizeValue(value: string | null | undefined) {
@@ -74,9 +80,63 @@ export function resolveProductCardImage({
     };
   }
 
+  if (includesAny(normalizedKey, ['triv'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.triv,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['trvl lx', 'trvl-lx', 'trvllx'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.trvllx,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
   if (includesAny(normalizedKey, ['reef 2', 'reef'])) {
     return {
       src: STROLLER_PRODUCT_IMAGES.reef,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['donkey 6', 'donkey 5', 'donkey'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.donkey,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['gazelle s', 'gazelle'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.gazelle,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['wave 3', 'wave'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.wave,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['ridge'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.ridge,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,

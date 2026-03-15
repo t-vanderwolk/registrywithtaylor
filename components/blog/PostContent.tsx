@@ -32,6 +32,7 @@ type PostContentProps = {
   postId: string;
   content: string;
   className?: string;
+  variant?: 'default' | 'plain';
   ctaPartners?: Record<
     string,
     {
@@ -378,6 +379,7 @@ export default function PostContent({
   postId,
   content,
   className,
+  variant = 'default',
   ctaPartners = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
@@ -385,7 +387,7 @@ export default function PostContent({
   const articleContent = storedButtons.body;
 
   return (
-    <BlogContent className={className ?? ''}>
+    <BlogContent className={className ?? ''} variant={variant}>
       {(() => {
         const nodes: ReactNode[] = [];
         const lines = articleContent.split('\n');

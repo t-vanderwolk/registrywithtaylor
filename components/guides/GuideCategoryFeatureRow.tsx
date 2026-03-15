@@ -32,22 +32,23 @@ export default function GuideCategoryFeatureRow({
               postId={postId}
               content={content}
               className="guide-post-content stroller-guide-content guide-post-content--subsection"
+              variant="plain"
             />
           </div>
 
-            <div className="md:sticky md:top-36">
-              <div className="rounded-[1.7rem] border border-stone-200/70 bg-[linear-gradient(180deg,#f6efe8_0%,#fdfbf8_100%)] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.04)]">
-                <div className="flex h-56 items-center justify-center md:h-64">
-                  <img
-                    src={imageSrc}
-                    alt={imageAlt}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-contain object-center"
-                  />
-                </div>
+          <div className="md:sticky md:top-36">
+            <div className="rounded-[1.7rem] border border-stone-200/70 bg-[linear-gradient(180deg,#f6efe8_0%,#fdfbf8_100%)] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.04)]">
+              <div className="flex h-56 items-center justify-center md:h-64">
+                <img
+                  src={imageSrc}
+                  alt={imageAlt}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-contain object-center"
+                />
               </div>
             </div>
+          </div>
         </div>
       </div>
     </MarketingSurface>
