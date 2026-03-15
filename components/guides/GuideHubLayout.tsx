@@ -10,10 +10,12 @@ import GuideEditorialImage from '@/components/guides/GuideEditorialImage';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
+import GuideKeywordDefinition from '@/components/guides/GuideKeywordDefinition';
 import GuideRealityCheck from '@/components/guides/GuideRealityCheck';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
 import GuideStartHere from '@/components/guides/GuideStartHere';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
+import GuideTravelSystemFinder from '@/components/guides/GuideTravelSystemFinder';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { extractFaqEntries } from '@/lib/blog/contentText';
@@ -482,6 +484,16 @@ export default function GuideHubLayout({
                           description={hubConfig.decisionHelperDescription}
                           items={hubConfig.decisionItems}
                         />
+                        {isStrollerHub ? (
+                          <>
+                            <GuideKeywordDefinition
+                              term="Travel system"
+                              definition="A travel system simply means putting an infant car seat onto a stroller frame."
+                              icon="carseat"
+                            />
+                            <GuideTravelSystemFinder />
+                          </>
+                        ) : null}
                       </>
                     ) : null}
 
