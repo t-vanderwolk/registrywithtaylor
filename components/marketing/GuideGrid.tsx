@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SectionIntro from '@/components/ui/SectionIntro';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 
 export type GuideGridItem = {
   slug: string;
@@ -83,6 +84,7 @@ export default function GuideGrid({
       <div className={gridClassName}>
         {guides.map((guide) => {
           const guideHref = guide.href ?? `/guides/${guide.slug}`;
+          const shouldSkipImageOptimization = isRemoteImageUrl(guide.imageSrc);
 
           return (
             <div key={guide.slug} className="flex h-full flex-col">
@@ -98,6 +100,7 @@ export default function GuideGrid({
                     sizes="(min-width: 1280px) 18vw, (min-width: 768px) 42vw, 100vw"
                     className="object-cover transition duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
+                    unoptimized={shouldSkipImageOptimization}
                   />
                 </Link>
 

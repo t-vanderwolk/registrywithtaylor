@@ -8,6 +8,7 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
 import { getGuidePath } from '@/lib/guides/routing';
 import { getAnalyticsPageType } from '@/lib/analytics';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuideDisplayDate } from '@/lib/guides/status';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
@@ -82,6 +83,7 @@ function DisclosureCard({ text }: { text: string }) {
 
 function AuthorAvatar({ guide }: { guide: GuideArticleRecord }) {
   const authorName = guide.author.name.trim();
+  const shouldSkipAvatarOptimization = isRemoteImageUrl(guide.author.avatarUrl);
 
   if (guide.author.avatarUrl) {
     return (
@@ -91,6 +93,7 @@ function AuthorAvatar({ guide }: { guide: GuideArticleRecord }) {
         width={56}
         height={56}
         className="h-14 w-14 rounded-full object-cover"
+        unoptimized={shouldSkipAvatarOptimization}
       />
     );
   }
@@ -125,6 +128,7 @@ export default function GuideArticleView({
     : getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster });
   const heroImage = guide.heroImageUrl?.trim() || null;
   const heroAlt = guide.heroImageAlt?.trim() || guide.title;
+  const shouldSkipHeroImageOptimization = isRemoteImageUrl(heroImage);
   const disclosureText = getDisclosureText(guide);
   const showDisclosureAfterIntro = guide.affiliateDisclosureEnabled && guide.affiliateDisclosurePlacement === 'after_intro';
   const showDisclosureBeforeConclusion =
@@ -196,6 +200,7 @@ export default function GuideArticleView({
                   priority={!preview}
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover"
+                  unoptimized={shouldSkipHeroImageOptimization}
                 />
               </div>
             </div>
@@ -380,6 +385,7 @@ export default function GuideArticleView({
                                   sizes="(min-width: 768px) 24vw, 100vw"
                                   className="object-cover"
                                   loading="lazy"
+                                  unoptimized={isRemoteImageUrl(module.imageUrl)}
                                 />
                               </div>
                             ) : null}
