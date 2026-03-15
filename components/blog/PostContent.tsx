@@ -472,15 +472,25 @@ export default function PostContent({
           if (imageLineMatch) {
             const [, altText, src, title] = imageLineMatch;
             const imageDescription = altText || title || '';
+            const isPlaceholderImage =
+              src.includes('/assets/placeholders/') || /^temporary placeholder image:/i.test(imageDescription);
             nodes.push(
-              <figure key={`${postId}-img-${i}`}>
+              <figure
+                key={`${postId}-img-${i}`}
+                className={`guide-inline-image${isPlaceholderImage ? ' guide-inline-image--placeholder' : ''}`}
+              >
                 <img
                   src={src}
                   alt={imageDescription}
                   loading="lazy"
+                  className={`guide-inline-image__asset${isPlaceholderImage ? ' guide-inline-image__asset--placeholder' : ''}`}
                 />
                 {imageDescription && (
-                  <figcaption>
+                  <figcaption
+                    className={`guide-inline-image__caption${
+                      isPlaceholderImage ? ' guide-inline-image__caption--placeholder' : ''
+                    }`}
+                  >
                     {imageDescription}
                   </figcaption>
                 )}

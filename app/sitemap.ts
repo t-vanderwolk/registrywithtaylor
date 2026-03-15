@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getPublicPostWhere } from '@/lib/blog/postStatus';
+import { getGuidePath } from '@/lib/guides/routing';
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { guidePillars } from '@/lib/marketing/siteContent';
 import { SITE_URL } from '@/lib/marketing/metadata';
@@ -26,12 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       orderBy: [{ updatedAt: 'desc' }, { publishedAt: 'desc' }],
       select: {
         slug: true,
+        topicCluster: true,
         updatedAt: true,
       },
     });
 
     guideEntries = guides.map((guide) => ({
-      url: buildUrl(`/guides/${guide.slug}`),
+      url: buildUrl(getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })),
       lastModified: guide.updatedAt,
     }));
   } catch (error) {

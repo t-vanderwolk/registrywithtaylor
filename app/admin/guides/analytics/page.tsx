@@ -7,6 +7,7 @@ import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
+import { getGuidePath } from '@/lib/guides/routing';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 
 const formatDateTime = (value?: Date | null) => {
@@ -91,8 +92,12 @@ export default async function AdminGuideAnalyticsPage() {
                   <td>
                     <div className="admin-stack gap-1">
                       <p className="text-admin">{guide.title}</p>
-                      <Link href={`/guides/${guide.slug}`} target="_blank" className="admin-micro underline underline-offset-2">
-                        /guides/{guide.slug}
+                      <Link
+                        href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
+                        target="_blank"
+                        className="admin-micro underline underline-offset-2"
+                      >
+                        {getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
                       </Link>
                     </div>
                   </td>

@@ -199,7 +199,7 @@ async function main() {
       ogDescription: guide.seoDescription,
       ogImageUrl: STROLLER_GUIDE_IMAGE,
       ogImageAlt: guide.heroImageAlt,
-      canonicalUrl: `/guides/${guide.slug}`,
+      canonicalUrl: `/guides/best-strollers/${guide.slug}`,
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: guide.secondaryKeywords,
       internalLinkNotes:

@@ -30,6 +30,7 @@ import {
   type GuideSectionSnippetId,
   type GuideTemplateId,
 } from '@/lib/guides/guideTemplates';
+import { getGuidePath } from '@/lib/guides/routing';
 import { sanitizeGuideAffiliateModules, sanitizeGuideFaqItems, sanitizeStringList } from '@/lib/guides/types';
 import { GUIDE_STATUS_LABELS, requiresLiveGuideContent, type GuideStatusValue } from '@/lib/guides/status';
 import { STYLED_BLOCKS, getStyledBlockSnippet, type StyledBlockId } from '@/lib/blog/styledBlocks';
@@ -1272,7 +1273,9 @@ export default function GuideEditor({
       </div>
 
       <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
-        <p className="admin-micro">Public route: {guide.slug ? `/guides/${guide.slug}` : 'Not generated yet'}</p>
+        <p className="admin-micro">
+          Public route: {guide.slug ? getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster }) : 'Not generated yet'}
+        </p>
         <p className="admin-micro">Target keyword: {guide.targetKeyword || 'Not set'}</p>
         <p className="admin-micro">Related guides: {guide.relatedGuideIds.length}</p>
         <p className="admin-micro">Affiliate modules: {guide.affiliateModules.length}</p>
@@ -1281,7 +1284,7 @@ export default function GuideEditor({
       {hasPersistedGuide && guide.slug ? (
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="secondary" size="sm">
-            <Link href={`/guides/${guide.slug}`} target="_blank">
+            <Link href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })} target="_blank">
               View public guide
             </Link>
           </AdminButton>

@@ -5,6 +5,7 @@ import SectionIntro from '@/components/ui/SectionIntro';
 
 export type GuideGridItem = {
   slug: string;
+  href?: string;
   title: string;
   description: string;
   imageSrc: string;
@@ -80,54 +81,58 @@ export default function GuideGrid({
       ) : null}
 
       <div className={gridClassName}>
-        {guides.map((guide) => (
-          <div key={guide.slug} className="flex h-full flex-col">
-            {showCardEyebrows ? (
-              <p className="mb-2 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48 sm:mb-3">{guide.eyebrow}</p>
-            ) : null}
-            <article className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_18px_40px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(0,0,0,0.08)] sm:rounded-[1.8rem]">
-              <Link href={`/guides/${guide.slug}`} className="relative block aspect-[4/3] overflow-hidden">
-                <Image
-                  src={guide.imageSrc}
-                  alt={guide.imageAlt}
-                  fill
-                  sizes="(min-width: 1280px) 18vw, (min-width: 768px) 42vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
-              </Link>
+        {guides.map((guide) => {
+          const guideHref = guide.href ?? `/guides/${guide.slug}`;
 
-              <div
-                className={[
-                  'flex h-full flex-col p-5 sm:p-6',
-                  cardTextAlign === 'center' ? 'items-center text-center' : '',
-                ].join(' ')}
-              >
-                <h3
-                  className={[
-                    'font-serif text-[1.4rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]',
-                    cardTextAlign === 'center' ? 'mx-auto max-w-[12rem]' : '',
-                  ].join(' ')}
-                >
-                  <Link href={`/guides/${guide.slug}`} className="transition-opacity duration-200 hover:opacity-80">
-                    {guide.title}
-                  </Link>
-                </h3>
-                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{guide.description}</p>
-                <Link
-                  href={`/guides/${guide.slug}`}
-                  className={[
-                    'mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]',
-                    cardTextAlign === 'center' ? 'justify-center' : '',
-                  ].join(' ')}
-                >
-                  Explore the Guide
-                  <span aria-hidden className="ml-2">→</span>
+          return (
+            <div key={guide.slug} className="flex h-full flex-col">
+              {showCardEyebrows ? (
+                <p className="mb-2 px-1 text-[0.72rem] uppercase tracking-[0.2em] text-black/48 sm:mb-3">{guide.eyebrow}</p>
+              ) : null}
+              <article className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_18px_40px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(0,0,0,0.08)] sm:rounded-[1.8rem]">
+                <Link href={guideHref} className="relative block aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={guide.imageSrc}
+                    alt={guide.imageAlt}
+                    fill
+                    sizes="(min-width: 1280px) 18vw, (min-width: 768px) 42vw, 100vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
                 </Link>
-              </div>
-            </article>
-          </div>
-        ))}
+
+                <div
+                  className={[
+                    'flex h-full flex-col p-5 sm:p-6',
+                    cardTextAlign === 'center' ? 'items-center text-center' : '',
+                  ].join(' ')}
+                >
+                  <h3
+                    className={[
+                      'font-serif text-[1.4rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]',
+                      cardTextAlign === 'center' ? 'mx-auto max-w-[12rem]' : '',
+                    ].join(' ')}
+                  >
+                    <Link href={guideHref} className="transition-opacity duration-200 hover:opacity-80">
+                      {guide.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{guide.description}</p>
+                  <Link
+                    href={guideHref}
+                    className={[
+                      'mt-auto inline-flex min-h-[44px] items-center pt-6 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]',
+                      cardTextAlign === 'center' ? 'justify-center' : '',
+                    ].join(' ')}
+                  >
+                    Explore the Guide
+                    <span aria-hidden className="ml-2">→</span>
+                  </Link>
+                </div>
+              </article>
+            </div>
+          );
+        })}
       </div>
 
       {footerNote ? (

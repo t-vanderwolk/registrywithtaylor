@@ -170,6 +170,7 @@ type GuideAnalyticsDashboard = {
     title: string;
     slug: string;
     category: string;
+    topicCluster: string | null;
     views: number;
     uniqueVisitors: number;
     affiliateClicks: number;
@@ -242,6 +243,7 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
           title: true,
           slug: true,
           category: true,
+          topicCluster: true,
           status: true,
           publishedAt: true,
         },
@@ -298,6 +300,7 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
         title: guide.title,
         slug: guide.slug,
         category: guide.category,
+        topicCluster: guide.topicCluster,
         views: counts.views,
         uniqueVisitors: counts.uniqueVisitors,
         affiliateClicks: counts.affiliateClicks,

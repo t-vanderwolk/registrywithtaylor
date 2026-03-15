@@ -25,6 +25,8 @@ Parents often feel pressure to make every decision up front. In reality, some nu
 
 [Read the full comparison ->](/blog/nursery-layout-guide)
 
+![Temporary placeholder image: calm nursery layout showing crib, dresser, and feeding chair flow.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Nursery planning feels overwhelming because it is one of the few baby categories where practical needs and visual expectations collide constantly. Parents are told to think about cribs, dressers, lighting, sound, monitors, gliders, storage, textiles, changing setups, blackout curtains, humidifiers, organization bins, and decor. The result can feel like designing a boutique hotel room for a person who currently mostly needs safe sleep and clean pajamas.
@@ -218,6 +220,8 @@ Result: You usually end up with a room that feels both calmer and more beautiful
 :::
 
 Sixth, give yourself permission to stop before the room is overly finished. A nursery with good furniture, clear flow, and simple warmth is more successful than a nursery that is visually dense and emotionally stressful to maintain.
+
+![Temporary placeholder image: nursery storage and changing setup detail with organized daily essentials.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

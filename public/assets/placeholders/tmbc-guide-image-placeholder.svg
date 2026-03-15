@@ -1,0 +1,23 @@
+<svg width="1600" height="960" viewBox="0 0 1600 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="960" fill="#FBF7F2"/>
+  <rect x="56" y="56" width="1488" height="848" rx="40" fill="url(#bg)" stroke="#D7A1AF" stroke-width="4" stroke-dasharray="18 18"/>
+  <rect x="112" y="112" width="1376" height="736" rx="28" fill="#FFFDFC" stroke="#E7D7C9" stroke-width="2"/>
+  <circle cx="240" cy="228" r="52" fill="#F4E3E8"/>
+  <circle cx="1360" cy="732" r="84" fill="#F8EFE5"/>
+  <path d="M300 670L566.667 430L750 596.5L927 471.5L1162 670H300Z" fill="#E7D7C9"/>
+  <rect x="300" y="314" width="1000" height="16" rx="8" fill="#C49C5E" fill-opacity="0.55"/>
+  <rect x="300" y="352" width="782" height="16" rx="8" fill="#D7A1AF" fill-opacity="0.45"/>
+  <rect x="300" y="390" width="688" height="16" rx="8" fill="#E7D7C9"/>
+  <text x="800" y="194" text-anchor="middle" fill="#5A463B" font-family="Georgia, serif" font-size="54" letter-spacing="-1.2">
+    TMBC Guide Image Placeholder
+  </text>
+  <text x="800" y="802" text-anchor="middle" fill="#8A6B5C" font-family="Arial, sans-serif" font-size="26" letter-spacing="3.5">
+    REPLACE WITH FINAL EDITORIAL IMAGE
+  </text>
+  <defs>
+    <linearGradient id="bg" x1="800" y1="56" x2="800" y2="904" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDFC"/>
+      <stop offset="1" stop-color="#F7EFE8"/>
+    </linearGradient>
+  </defs>
+</svg>

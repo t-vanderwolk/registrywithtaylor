@@ -25,6 +25,8 @@ The TMBC approach to travel is grounded, not dramatic. We are looking for practi
 
 [Read the full comparison ->](/blog/travel-with-baby-checklist)
 
+![Temporary placeholder image: airport-ready baby travel setup with compact stroller, diaper bag, and baby carrier.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Travel with a baby feels overwhelming because it combines all the normal baby logistics with a temporary environment. The baby still needs sleep, food, diaper changes, and comfort. You just have less space, less control, and more movement while meeting those needs.
@@ -221,6 +223,8 @@ Result: The rest of the trip usually becomes more manageable because your bigges
 :::
 
 Sixth, lower the bar in a productive way. Travel with a baby does not need to feel seamless to count as successful. A good trip is often one where the family gets where it is going, recovers between transitions, and still enjoys parts of the day.
+
+![Temporary placeholder image: family travel gear arrangement showing stroller fold, carry setup, and destination essentials.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

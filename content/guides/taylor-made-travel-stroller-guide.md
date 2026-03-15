@@ -19,6 +19,8 @@ The category is crowded because it solves a very real problem. Parents want some
 
 [Read the full comparison ->](/blog/best-travel-strollers)
 
+![Temporary placeholder image: travel stroller folded at an airport gate with carry-on luggage.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 The confusion usually starts because every travel stroller promises to be compact and convenient. That is true, but not specific enough to help. Parents still need to know:
@@ -87,6 +89,8 @@ The right travel stroller should make you feel more mobile, not more delicate ar
 - Some models feel too minimal for longer destination days
 - Chasing the tiniest fold can create new compromises
 :::
+
+![Temporary placeholder image: compact travel stroller moving through a city destination with a diaper bag.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

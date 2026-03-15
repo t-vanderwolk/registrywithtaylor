@@ -1,7 +1,9 @@
+import { getGuidePath } from '@/lib/guides/routing';
 import { getGuidePillar, type GuidePillar } from '@/lib/marketing/siteContent';
 
 export type GuideCardItem = {
   slug: string;
+  href: string;
   title: string;
   description: string;
   imageSrc: string;
@@ -71,6 +73,7 @@ export function getGuideFallbackPillar({
 export function toGuideCardItemFromPillar(pillar: GuidePillar): GuideCardItem {
   return {
     slug: pillar.slug,
+    href: `/guides/${pillar.slug}`,
     title: pillar.title,
     description: pillar.description,
     imageSrc: pillar.imageSrc,
@@ -84,6 +87,7 @@ export function toGuideCardItemFromGuide(guide: {
   title: string;
   excerpt?: string | null;
   category?: string | null;
+  topicCluster?: string | null;
   heroImageUrl?: string | null;
   heroImageAlt?: string | null;
 }): GuideCardItem {
@@ -94,6 +98,7 @@ export function toGuideCardItemFromGuide(guide: {
 
   return {
     slug: guide.slug,
+    href: getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster }),
     title: guide.title,
     description:
       guide.excerpt?.trim() ||

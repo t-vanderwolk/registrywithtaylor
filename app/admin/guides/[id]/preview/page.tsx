@@ -5,6 +5,7 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
 import GuideArticleView from '@/components/guides/GuideArticleView';
+import { getGuidePath } from '@/lib/guides/routing';
 import { toGuideCardItemFromGuide } from '@/lib/guides/presentation';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { isGuidePubliclyVisible } from '@/lib/guides/status';
@@ -76,6 +77,7 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
     title: string;
     excerpt: string | null;
     category: string;
+    topicCluster: string | null;
     heroImageUrl: string | null;
     heroImageAlt: string | null;
   }> = [];
@@ -93,6 +95,7 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
           title: true,
           excerpt: true,
           category: true,
+          topicCluster: true,
           heroImageUrl: true,
           heroImageAlt: true,
         },
@@ -117,7 +120,7 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
             </AdminButton>
             {isGuidePubliclyVisible(guide.status, guide.scheduledFor) ? (
               <AdminButton asChild variant="ghost">
-                <Link href={`/guides/${guide.slug}`} target="_blank">
+                <Link href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })} target="_blank">
                   View public guide
                 </Link>
               </AdminButton>

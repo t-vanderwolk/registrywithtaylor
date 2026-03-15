@@ -29,6 +29,8 @@ If you remember one thing from this entire guide, let it be this: stroller categ
 
 [Read the full comparison ->](/blog/stroller-comparisons)
 
+![Temporary placeholder image: editorial lineup showing full-size, compact, and travel stroller types for category comparison.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Strollers feel overwhelming because brands often describe them in the same broad language. Every stroller is smooth. Every stroller folds beautifully. Every stroller is thoughtfully designed for modern families. By the third product page, you could be forgiven for thinking every engineering team attended the same copywriting retreat.
@@ -262,6 +264,8 @@ Result: Parents are usually happier with a clear primary use case than with a co
 Fifth, test with honesty. Use the most tired version of yourself as the decision-maker. Could that version of you fold this stroller, lift it, steer it one-handed, and access the basket without a small internal monologue? If yes, you are getting closer.
 
 Sixth, remember that baby comfort and parent comfort are connected. A stroller that is easier to use tends to get used more. A stroller that gets used more often becomes part of your routine instead of a thing you work around.
+
+![Temporary placeholder image: premium stroller comparison scene with stroller frames, wheel details, and seat configurations.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

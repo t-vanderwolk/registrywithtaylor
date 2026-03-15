@@ -2,6 +2,7 @@ import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
+import { getGuidePath } from '@/lib/guides/routing';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
@@ -286,8 +287,12 @@ export default async function AdminAnalyticsPage() {
               <td>
                 <div className="admin-stack gap-1">
                   <p className="text-admin">{guide.title}</p>
-                  <Link href={`/guides/${guide.slug}`} target="_blank" className="admin-micro underline underline-offset-2">
-                    /guides/{guide.slug}
+                  <Link
+                    href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
+                    target="_blank"
+                    className="admin-micro underline underline-offset-2"
+                  >
+                    {getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
                   </Link>
                 </div>
               </td>

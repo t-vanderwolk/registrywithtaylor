@@ -21,7 +21,7 @@ export default function DecisionHelper({
         </div>
 
         <div className="rounded-[18px] border border-[rgba(215,161,175,0.22)] bg-[rgba(243,227,232,0.45)] px-4 py-4">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">Result</p>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">Result</p>
           <div className="mt-2 text-sm leading-relaxed text-neutral-700">{result}</div>
         </div>
       </div>

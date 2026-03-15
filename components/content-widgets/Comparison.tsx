@@ -23,7 +23,7 @@ export default function Comparison({
               key={`comparison-row-${index}`}
               className="rounded-[20px] border border-[rgba(215,161,175,0.2)] bg-white px-4 py-4"
             >
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--tmbc-blog-rose)]">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
                 {row.label}
               </p>
               <Body className="mt-2 text-charcoal/85">{row.value}</Body>

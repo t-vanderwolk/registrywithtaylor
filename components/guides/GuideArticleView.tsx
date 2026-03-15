@@ -5,6 +5,7 @@ import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
+import { getGuidePath } from '@/lib/guides/routing';
 import { getAnalyticsPageType } from '@/lib/analytics';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuideDisplayDate } from '@/lib/guides/status';
@@ -116,7 +117,9 @@ export default function GuideArticleView({
   const displayDate = getGuideDisplayDate(guide);
   const articleContent = [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
   const tocItems = guide.tableOfContentsEnabled ? extractTocItems(articleContent) : [];
-  const sourceRoute = preview ? `/admin/guides/${guide.id}/preview` : `/guides/${guide.slug}`;
+  const sourceRoute = preview
+    ? `/admin/guides/${guide.id}/preview`
+    : getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster });
   const heroImage = guide.heroImageUrl?.trim() || null;
   const heroAlt = guide.heroImageAlt?.trim() || guide.title;
   const disclosureText = getDisclosureText(guide);

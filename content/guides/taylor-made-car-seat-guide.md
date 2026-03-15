@@ -25,6 +25,8 @@ Parents are often deciding between an infant car seat and a convertible as the s
 
 [Read the full comparison ->](/blog/best-infant-car-seats)
 
+![Temporary placeholder image: infant car seat and convertible car seat lineup in a neutral vehicle setup.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Car seats feel overwhelming because the language around them is technical, safety is emotionally loaded, and product pages are packed with features that can be hard to rank. Anti-rebound bars, load legs, rigid LATCH, belt path design, no-rethread harnesses, flame-retardant-free fabrics, European belt routing, side-impact claims, FAA labels, harness height, shell depth, recline indicators. It is a lot.
@@ -221,6 +223,8 @@ Result: The more usable seat often becomes the safer real-life choice because it
 :::
 
 Sixth, keep perspective. Many parents feel pressure to uncover a hidden "best" answer. Usually there are a few strong answers. Your job is not to decode the internet. It is to select the strong answer that fits your baby, your car, and your life.
+
+![Temporary placeholder image: close-up comparison of premium infant car seat features, bases, and newborn fit details.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

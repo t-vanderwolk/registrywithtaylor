@@ -9,6 +9,7 @@ import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import StatusPill from '@/components/admin/ui/StatusPill';
+import { getGuidePath } from '@/lib/guides/routing';
 import type { GuideStatusValue } from '@/lib/guides/status';
 
 type AdminGuideRow = {
@@ -361,6 +362,7 @@ export default function GuideWorkspace({
         {rows.map((guide) => {
           const isPublished = guide.status === 'PUBLISHED';
           const isArchived = guide.status === 'ARCHIVED';
+          const publicRoute = getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster });
 
           return (
             <tr key={guide.id} className="admin-row">
@@ -369,7 +371,7 @@ export default function GuideWorkspace({
                   <Link href={`/admin/guides/${guide.id}/edit`} className="text-admin transition hover:opacity-75">
                     {guide.title}
                   </Link>
-                  <span className="admin-table-code">/guides/{guide.slug}</span>
+                  <span className="admin-table-code">{publicRoute}</span>
                   {guide.excerpt ? <p className="admin-micro line-clamp-2">{guide.excerpt}</p> : null}
                   {guide.targetKeyword ? (
                     <p className="admin-micro">Target keyword: {guide.targetKeyword}</p>

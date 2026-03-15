@@ -19,6 +19,8 @@ Parents often start here because they are expecting a close age gap, planning ah
 
 [Read the full comparison ->](/guides/best-strollers)
 
+![Temporary placeholder image: double stroller configurations with single-to-double and side-by-side formats.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Double strollers are overwhelming because you are not just buying for one child. You are buying for sibling spacing, seat combinations, storage, width, home access, trunk fit, and sometimes infant seat compatibility all at once.
@@ -85,6 +87,8 @@ Buy a double stroller because the sibling logistics make it useful, not because 
 - Easy to buy too early
 - Not every family with two kids needs one full time
 :::
+
+![Temporary placeholder image: sibling stroller in an everyday outing setting with a two-seat layout.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

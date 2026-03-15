@@ -25,6 +25,8 @@ That is why the TMBC method starts with category, not product. Once you know wha
 
 [Read the full comparison ->](/blog/how-to-build-a-baby-registry)
 
+![Temporary placeholder image: curated baby registry flat lay with essentials grouped by category.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Registry planning feels overwhelming because it combines too many roles at once. You are making household decisions, gift decisions, budget decisions, and baby-gear decisions while also trying to imagine life in a stage you have not lived yet. It is a lot of future forecasting for one browser session.
@@ -234,6 +236,8 @@ Result: Sometimes the stroller or car seat is the right investment. Sometimes th
 :::
 
 Sixth, if loved ones want to go in together on a major item, let them. Premium items from Bugaboo, Nuna, UPPAbaby, Cybex, or Silver Cross can make sense when they genuinely match your life. The key is to choose them with intention rather than because the registry feels more official with a luxury anchor.
+
+![Temporary placeholder image: registry planning desk with stroller, car seat, and nursery anchor items arranged for selection.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

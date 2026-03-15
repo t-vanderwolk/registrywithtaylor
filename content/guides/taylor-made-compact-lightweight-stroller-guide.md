@@ -21,6 +21,8 @@ Parents often arrive here after feeling disappointed by larger stroller systems.
 
 [Read the full comparison ->](/guides/best-strollers)
 
+![Temporary placeholder image: compact stroller folded beside a car trunk and apartment entry.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 The compact and lightweight category is crowded because nearly every major brand now wants a stake in it. Nuna, UPPAbaby, Bugaboo, Cybex, and Silver Cross all have options that promise easier movement without giving up too much comfort. The differences are often in fold feel, carry weight, canopy coverage, basket utility, and how "compact" the stroller truly feels in real life.
@@ -89,6 +91,8 @@ Where parents get into trouble is assuming the smallest possible stroller must b
 Taylor's take
 In this category, I would rather see parents buy the easiest stroller they will actually use than the more impressive stroller they quietly resent.
 :::
+
+![Temporary placeholder image: lightweight stroller being carried one-handed in an everyday errand setting.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

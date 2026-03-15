@@ -21,6 +21,8 @@ The tradeoff is obvious once you see the category in person: these strollers are
 
 [Read the full comparison ->](/guides/best-strollers)
 
+![Temporary placeholder image: all-terrain stroller on park path and uneven sidewalk comparison.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Parents often hear "jogging stroller" and assume the category is only for runners. That is not really true. Many families buy all-terrain or jogging-style strollers primarily because their environment is rougher, not because they are training for anything.
@@ -86,6 +88,8 @@ Choose this category when the terrain is the problem you are solving. If the ter
 - Often too large for families who mostly drive and do short outings
 - Can be unnecessary if your routes are mostly smooth
 :::
+
+![Temporary placeholder image: large-wheel stroller detail showing suspension and outdoor performance.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

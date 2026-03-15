@@ -21,6 +21,8 @@ Families who take long walks, use the stroller several times a week, or want one
 
 [Read the full comparison ->](/guides/best-strollers)
 
+![Temporary placeholder image: full-size modular stroller in a neighborhood walking setting with parent-facing and world-facing seat options.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+
 ## Why This Category Feels Overwhelming
 
 Full-size and modular strollers are where premium brand positioning becomes especially loud. Bugaboo, Nuna, UPPAbaby, Cybex, and Silver Cross all make compelling models, and each one has a slightly different angle: better all-terrain feel, refined fold, more polished seat design, stronger conversion story, or a more premium visual finish.
@@ -96,6 +98,8 @@ Where this category can disappoint is the trunk routine. A stroller can feel per
 Taylor's take
 If you are paying for a full-size stroller, make sure you are paying for daily ease, not just category prestige.
 :::
+
+![Temporary placeholder image: modular stroller seat, bassinet, and storage configuration comparison.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 

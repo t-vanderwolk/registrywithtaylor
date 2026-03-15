@@ -6,6 +6,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
+import { isGuideSubguide } from '@/lib/guides/routing';
 import { toCondensedGuideCardTitle, toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -46,6 +47,7 @@ export default async function GuidesIndexPage() {
     title: string;
     excerpt: string | null;
     category: string;
+    topicCluster: string | null;
     heroImageUrl: string | null;
     heroImageAlt: string | null;
   }> = [];
@@ -58,6 +60,7 @@ export default async function GuidesIndexPage() {
         title: true,
         excerpt: true,
         category: true,
+        topicCluster: true,
         heroImageUrl: true,
         heroImageAlt: true,
       },
@@ -78,6 +81,10 @@ export default async function GuidesIndexPage() {
   );
 
   for (const guide of publishedGuides) {
+    if (isGuideSubguide({ slug: guide.slug, topicCluster: guide.topicCluster })) {
+      continue;
+    }
+
     const card = toGuideCardItemFromGuide(guide);
     guideCardMap.set(card.slug, card);
   }
