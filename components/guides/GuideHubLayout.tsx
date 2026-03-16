@@ -337,6 +337,7 @@ export default function GuideHubLayout({
         jumpLinks={isStrollerHub ? strollerHeroJumpLinks : heroJumpLinks}
         imageSrc={guide.heroImageUrl}
         imageAlt={guide.heroImageAlt}
+        variant={isStrollerHub ? 'stroller-hub' : 'default'}
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
