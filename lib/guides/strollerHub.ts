@@ -66,9 +66,15 @@ export type StrollerLifestyleMatch = {
 };
 
 export type StrollerRealityCheckCard = {
-  title: string;
+  brand: string;
+  productName: string;
+  category: string;
+  review: string;
+  bestFor: string;
+  standout: string;
   pros: string[];
-  tradeoff: string;
+  imageUrl?: string;
+  imageAlt?: string;
 };
 
 export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
@@ -299,19 +305,37 @@ export const STROLLER_LIFESTYLE_MATCHES: StrollerLifestyleMatch[] = [
 
 export const STROLLER_REALITY_CHECK_CARDS: StrollerRealityCheckCard[] = [
   {
-    title: 'Compact Stroller',
-    pros: ['lightweight', 'easy trunk storage'],
-    tradeoff: 'Smaller storage basket and a lighter everyday feel.',
+    brand: 'Silver Cross',
+    productName: 'Reef 2',
+    category: 'Compact Lightweight',
+    review: 'At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-in-class maneuverability and enhanced suspension. Suitable from newborn to 55 lbs, it features a no-rethread harness with magnetic Genius™ buckle, multi-recline positions, and a large 22 lbs basket.',
+    bestFor: 'Parents seeking premium quality and storage in a manageable 26.5 lb package.',
+    standout: 'Premium British craftsmanship at 26.5 lbs',
+    pros: ['Premium materials and finish', 'Best-in-class maneuverability', 'No-rethread harness system', '22 lbs basket capacity', 'One-handed fold', 'Suitable newborn to 55 lbs'],
+    imageUrl: '/assets/strollers/reef.png',
+    imageAlt: 'Silver Cross Reef 2 stroller.',
   },
   {
-    title: 'Full Size Stroller',
-    pros: ['smoother ride', 'better basket space and comfort'],
-    tradeoff: 'Heavier to lift and a larger fold to store.',
+    brand: 'Bugaboo',
+    productName: 'Dragonfly',
+    category: 'Compact',
+    review: 'Weighing 21.8 lbs, the Dragonfly (42" L x 20.5" W x 41" H unfolded, 14.2" L x 20.5" W x 35.4" H folded) is suitable for 6 months to 4 years (up to 50 lbs) with 22 lbs underseat basket and 5.5 lbs rear pocket capacity.',
+    bestFor: 'Parents who want premium comfort and sustainability in an ultra-lightweight stroller.',
+    standout: 'Ultra-lightweight at 21.8 lbs with premium features',
+    pros: ['21.8 lbs with compact fold', 'Suitable 6 months to 50 lbs', '22 lbs underseat + 5.5 lbs rear basket', 'One-hand self-standing fold', 'Full suspension system', 'Sustainable materials'],
+    imageUrl: '/assets/strollers/compact.png',
+    imageAlt: 'Bugaboo Dragonfly stroller.',
   },
   {
-    title: 'Convertible Stroller',
-    pros: ['grows with siblings', 'more flexible seating path'],
-    tradeoff: 'Bulkier and heavier while still being used as a single stroller.',
+    brand: 'UPPAbaby',
+    productName: 'Vista V2',
+    category: 'Full Size Convertible',
+    review: 'At 27 lbs, the Vista V2 features all-weather comfort seat, Enhanced FlexRide suspension, and quick-secure harness. With 30 lbs basket capacity, UPF 50+ canopy, and ability to transport up to three children, it\'s GREENGUARD® Gold certified.',
+    bestFor: 'Growing families who need a stroller that converts to double configuration with excellent storage.',
+    standout: 'Highly versatile convertible at 27 lbs with premium features',
+    pros: ['All-weather comfort seat', 'Enhanced FlexRide suspension', '30 lbs basket capacity', 'UPF 50+ canopy', 'Transports up to 3 children', 'GREENGUARD® Gold certified', 'Never flat tires', 'One-handed fold'],
+    imageUrl: '/assets/strollers/convertable.png',
+    imageAlt: 'UPPAbaby Vista V2 stroller.',
   },
 ];
 
