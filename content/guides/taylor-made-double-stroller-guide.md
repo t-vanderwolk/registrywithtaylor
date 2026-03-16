@@ -95,10 +95,10 @@ Buy a double stroller because the sibling logistics make it useful, not because 
 :::product
 Brand: UPPAbaby
 Product: Vista V2
-Review: A widely discussed convertible stroller that shows both the appeal and the tradeoff of planning for two children within one larger system.
-Best for: Families who genuinely want single-to-double flexibility and are comfortable with the larger footprint.
-Standout: Broad configuration options
-Pros: Flexible system | Strong basket | Well-known conversion path
+Review: At 27 lbs, the Vista V2 features all-weather comfort seat, Enhanced FlexRide suspension, and quick-secure harness. With 30 lbs basket capacity, UPF 50+ canopy, and ability to transport up to three children, it's GREENGUARD® Gold certified.
+Best for: Growing families who need a stroller that converts to double configuration with excellent storage.
+Standout: Highly versatile convertible at 27 lbs with premium features
+Pros: All-weather comfort seat | Enhanced FlexRide suspension | 30 lbs basket capacity | UPF 50+ canopy | Transports up to 3 children | GREENGUARD® Gold certified | Never flat tires | One-handed fold
 Link: Shop at Albee Baby | https://example.com/uppababy-vista-v2
 Link: Shop at Amazon | https://example.com/amazon-uppababy-vista-v2
 :::
@@ -114,7 +114,7 @@ Link: Shop at Albee Baby | https://example.com/bugaboo-donkey-5
 Link: Shop at Amazon | https://example.com/amazon-bugaboo-donkey-5
 :::
 
-The Cybex Gazelle S and Silver Cross Wave 3 also matter in this category because they give parents slightly different versions of the same long-term planning question: how much future flexibility is truly worth the everyday footprint?
+The Bugaboo Donkey 5 and Cybex Gazelle S also matter in this category because they give parents slightly different versions of the same long-term planning question: how much future flexibility is truly worth the everyday footprint?
 
 :::comparison
 Title: Convertible double vs purpose-built double

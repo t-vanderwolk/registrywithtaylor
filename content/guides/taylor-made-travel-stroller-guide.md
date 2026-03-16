@@ -96,27 +96,16 @@ The right travel stroller should make you feel more mobile, not more delicate ar
 
 :::product
 Brand: Bugaboo
-Product: Butterfly
-Review: A polished travel stroller that stands out for folding compactly while still feeling more comfortable and refined than many ultra-small competitors.
-Best for: Families who want a travel stroller that can also feel good on repeated everyday outings.
-Standout: Compact fold with strong all-around polish
-Pros: Fast fold | Good seat comfort | Strong travel usability
-Link: Shop at Albee Baby | https://example.com/bugaboo-butterfly
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-butterfly
+Product: Dragonfly
+Review: Weighing 21.8 lbs, the Dragonfly (42" L x 20.5" W x 41" H unfolded, 14.2" L x 20.5" W x 35.4" H folded) is suitable for 6 months to 4 years (up to 50 lbs) with 22 lbs underseat basket and 5.5 lbs rear pocket capacity.
+Best for: Parents who want premium comfort and sustainability in an ultra-lightweight stroller.
+Standout: Ultra-lightweight at 21.8 lbs with premium features
+Pros: 21.8 lbs with compact fold | Suitable 6 months to 50 lbs | 22 lbs underseat + 5.5 lbs rear basket | One-hand self-standing fold | Full suspension system | Sustainable materials
+Link: Shop at Albee Baby | https://example.com/bugaboo-dragonfly
+Link: Shop at Amazon | https://example.com/amazon-bugaboo-dragonfly
 :::
 
-:::product
-Brand: Nuna
-Product: TRVL lx
-Review: A strong travel-first option for parents who want a lighter-feeling setup and a stroller that moves easily through transit-heavy routines.
-Best for: Frequent flyers and parents who care deeply about quick fold convenience.
-Standout: Travel-first simplicity
-Pros: Light carry | Easy fold | Great for transit-heavy days
-Link: Shop at Albee Baby | https://example.com/nuna-trvl-lx
-Link: Shop at Amazon | https://example.com/amazon-nuna-trvl-lx
-:::
-
-The UPPAbaby Minu V2, Cybex Libelle, and Silver Cross Jet 5 all belong in the same broader comparison set. Each leans slightly differently into portability, comfort, and how much the stroller wants to be used beyond the actual trip.
+The Bugaboo Butterfly, Nuna TRVL lx, and UPPAbaby Minu V2 all belong in the same broader comparison set. Each leans slightly differently into portability, comfort, and how much the stroller wants to be used beyond the actual trip.
 
 :::comparison
 Title: Travel stroller comparison lens

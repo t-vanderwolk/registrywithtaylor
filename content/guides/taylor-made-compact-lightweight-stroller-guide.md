@@ -97,28 +97,28 @@ In this category, I would rather see parents buy the easiest stroller they will 
 ## Product Examples
 
 :::product
-Brand: UPPAbaby
-Product: Minu V2
-Review: A compact stroller that balances everyday usefulness with a manageable fold, making it a strong bridge between portability and practical comfort.
-Best for: Families who want a compact stroller that can handle frequent errands and still feel substantial enough for regular use.
-Standout: Good balance between compactness and usability
-Pros: Useful basket | Easy fold | Strong everyday flexibility
-Link: Shop at Albee Baby | https://example.com/uppababy-minu-v2
-Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-v2
+Brand: Silver Cross
+Product: Reef 2
+Review: At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-in-class maneuverability and enhanced suspension. Suitable from newborn to 55 lbs, it features a no-rethread harness with magnetic Genius™ buckle, multi-recline positions, and a large 22 lbs basket.
+Best for: Parents seeking premium quality and storage in a manageable 26.5 lb package.
+Standout: Premium British craftsmanship at 26.5 lbs
+Pros: Premium materials and finish | Best-in-class maneuverability | No-rethread harness system | 22 lbs basket capacity | One-handed fold | Suitable newborn to 55 lbs
+Link: Shop at Albee Baby | https://example.com/silver-cross-reef-2
+Link: Shop at Amazon | https://example.com/amazon-silver-cross-reef-2
 :::
 
 :::product
-Brand: Cybex
-Product: Eezy S Twist 2
-Review: A useful example of a compact stroller category choice that emphasizes urban convenience and easier movement in tighter spaces.
-Best for: Parents who want something smaller and city-friendly without stepping all the way into the tiniest travel category.
-Standout: Compact urban convenience
-Pros: Smaller footprint | City-friendly design | Easier daily storage
-Link: Shop at Albee Baby | https://example.com/cybex-eezy-s-twist
-Link: Shop at Amazon | https://example.com/amazon-cybex-eezy-s-twist
+Brand: Bugaboo
+Product: Dragonfly
+Review: Weighing 21.8 lbs, the Dragonfly (42" L x 20.5" W x 41" H unfolded, 14.2" L x 20.5" W x 35.4" H folded) is suitable for 6 months to 4 years (up to 50 lbs) with 22 lbs underseat basket and 5.5 lbs rear pocket capacity.
+Best for: Parents who want premium comfort and sustainability in an ultra-lightweight stroller.
+Standout: Ultra-lightweight at 21.8 lbs with premium features
+Pros: 21.8 lbs with compact fold | Suitable 6 months to 50 lbs | 22 lbs underseat + 5.5 lbs rear basket | One-hand self-standing fold | Full suspension system | Sustainable materials
+Link: Shop at Albee Baby | https://example.com/bugaboo-dragonfly
+Link: Shop at Amazon | https://example.com/amazon-bugaboo-dragonfly
 :::
 
-Models like the Nuna TRVL lx, Bugaboo Butterfly, and Silver Cross Jet 5 also live close to this conversation, especially for parents whose definition of everyday ease overlaps heavily with travel readiness.
+Models like the UPPAbaby Minu V2, Cybex Eezy S Twist 2, and Nuna TRVL lx also live close to this conversation, especially for parents whose definition of everyday ease overlaps heavily with travel readiness.
 
 :::comparison
 Title: Slightly larger compact vs ultra-light compact

@@ -104,18 +104,7 @@ Link: Shop at Albee Baby | https://example.com/bob-flex-3
 Link: Shop at Amazon | https://example.com/amazon-bob-flex-3
 :::
 
-:::product
-Brand: Bugaboo
-Product: Fox 5
-Review: Not a true jogging stroller, but a strong example of how some premium full-size strollers can cover mixed-terrain family life without stepping into full running-focused bulk.
-Best for: Families who want stronger everyday terrain performance but not a dedicated jogging setup.
-Standout: Everyday all-terrain versatility
-Pros: Smooth suspension | Great maneuverability | Less specialized than a true jogging stroller
-Link: Shop at Albee Baby | https://example.com/bugaboo-fox-5
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-fox-5
-:::
-
-Some parents comparing this category also look at Cybex or Silver Cross models with more capable wheel systems, but the true decision is often between a dedicated jogging stroller and a very capable everyday all-terrain stroller.
+Some parents comparing this category also look at Bugaboo Fox 5 or Silver Cross Reef 2 models with more capable wheel systems, but the true decision is often between a dedicated jogging stroller and a very capable everyday all-terrain stroller.
 
 :::comparison
 Title: Dedicated jogging stroller vs capable all-terrain everyday stroller

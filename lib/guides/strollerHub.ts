@@ -307,7 +307,7 @@ export const STROLLER_REALITY_CHECK_CARDS: StrollerRealityCheckCard[] = [
   {
     brand: 'Silver Cross',
     productName: 'Reef 2',
-    category: 'Compact Lightweight',
+    category: 'Full Size',
     review: 'At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-in-class maneuverability and enhanced suspension. Suitable from newborn to 55 lbs, it features a no-rethread harness with magnetic Genius™ buckle, multi-recline positions, and a large 22 lbs basket.',
     bestFor: 'Parents seeking premium quality and storage in a manageable 26.5 lb package.',
     standout: 'Premium British craftsmanship at 26.5 lbs',

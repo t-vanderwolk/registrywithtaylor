@@ -104,28 +104,17 @@ If you are paying for a full-size stroller, make sure you are paying for daily e
 ## Product Examples
 
 :::product
-Brand: Bugaboo
-Product: Fox 5
-Review: A premium full-size stroller with excellent suspension and a polished everyday feel that makes mixed terrain and longer walks feel notably smoother.
-Best for: Families who want a premium primary stroller and expect to walk often.
-Standout: Ride quality and maneuverability
-Pros: Excellent suspension | Large basket | Comfortable toddler seat
-Link: Shop at Albee Baby | https://example.com/bugaboo-fox-5
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-fox-5
+Brand: Silver Cross
+Product: Reef 2
+Review: At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-in-class maneuverability and enhanced suspension. Suitable from newborn to 55 lbs, it features a no-rethread harness with magnetic Genius™ buckle, multi-recline positions, and a large 22 lbs basket.
+Best for: Parents seeking premium quality and storage in a manageable 26.5 lb package.
+Standout: Premium British craftsmanship at 26.5 lbs
+Pros: Premium materials and finish | Best-in-class maneuverability | No-rethread harness system | 22 lbs basket capacity | One-handed fold | Suitable newborn to 55 lbs
+Link: Shop at Albee Baby | https://example.com/silver-cross-reef-2
+Link: Shop at Amazon | https://example.com/amazon-silver-cross-reef-2
 :::
 
-:::product
-Brand: Nuna
-Product: Mixx Next
-Review: A strong example of a daily-use modular stroller that feels refined without becoming as large as some convertible systems.
-Best for: Parents who want a substantial stroller that still feels manageable for suburban or city errands.
-Standout: Balanced full-size usability
-Pros: Smooth push | Practical basket | Strong modular flexibility
-Link: Shop at Albee Baby | https://example.com/nuna-mixx-next
-Link: Shop at Amazon | https://example.com/amazon-nuna-mixx-next
-:::
-
-Models like the UPPAbaby Cruz V2, Cybex Balios S Lux, and Silver Cross Reef 2 are also worth understanding here. They all occupy slightly different versions of the same conversation: how much everyday stroller performance do you want, and how much size are you willing to live with in exchange?
+Models like the Bugaboo Fox 5, Nuna Mixx Next, and UPPAbaby Vista V2 are also worth understanding here. They all occupy slightly different versions of the same conversation: how much everyday stroller performance do you want, and how much size are you willing to live with in exchange?
 
 :::comparison
 Title: Premium daily stroller lens
