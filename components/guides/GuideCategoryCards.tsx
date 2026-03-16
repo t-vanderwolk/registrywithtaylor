@@ -39,9 +39,9 @@ export default function GuideCategoryCards({
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
           {eyebrow ?? (isStrollerHub ? 'Stroller categories' : 'Sub-guides')}
         </p>
-        <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.25rem]">{title}</h2>
+        <h2 className="font-serif text-3xl leading-[1.02] tracking-tight text-neutral-900 md:text-4xl">{title}</h2>
         {description ? (
-          <p className={`${isStrollerHub ? 'max-w-4xl text-[0.98rem] leading-7 text-neutral-700' : 'max-w-3xl text-sm leading-7 text-neutral-700'}`}>
+          <p className={`${isStrollerHub ? 'max-w-[70ch] text-[0.98rem] leading-relaxed text-neutral-700' : 'max-w-3xl text-sm leading-7 text-neutral-700'}`}>
             {description}
           </p>
         ) : null}
@@ -54,7 +54,7 @@ export default function GuideCategoryCards({
             href={card.href}
             className={
               isStrollerHub
-                ? 'group flex h-full flex-col rounded-3xl border border-stone-200/70 bg-[#fcfaf7] p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.28)] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] md:p-6'
+                ? 'group flex h-full flex-col rounded-3xl border border-stone-200/70 bg-[#fcfaf7] p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#D7A1AF] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] md:p-6'
                 : 'group flex h-full flex-col rounded-xl border border-black/6 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_14px_34px_rgba(0,0,0,0.05)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fcf7f4]'
             }
           >
@@ -67,7 +67,7 @@ export default function GuideCategoryCards({
                 }
               >
                 {isStrollerHub ? (
-                  <div className="relative h-48 md:h-52">
+                  <div className="relative h-48 md:h-[220px]">
                     <Image
                       src={card.imageSrc}
                       alt={card.imageAlt?.trim() || card.title}

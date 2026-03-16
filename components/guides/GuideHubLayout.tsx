@@ -341,21 +341,9 @@ export default function GuideHubLayout({
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
         {isStrollerHub ? (
-          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
+          <div className="mx-auto max-w-[1300px] px-6 py-10 lg:px-8 lg:py-16">
             <div className="space-y-10 md:space-y-16">
               <GuideStrollerHub guide={guide} outline={outline} />
-
-              {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
-
-              <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
-
-              <NextStepBand
-                guide={guide}
-                preview={preview}
-                sourceRoute={sourceRoute}
-                nextStepEvent={nextStepEvent}
-                nextStepDestinationPageType={nextStepDestinationPageType}
-              />
             </div>
           </div>
         ) : (

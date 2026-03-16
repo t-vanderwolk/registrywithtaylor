@@ -57,6 +57,20 @@ export type StrollerCategoryPreview = {
   examples: StrollerPreviewExample[];
 };
 
+export type StrollerLifestyleMatch = {
+  title: string;
+  description: string;
+  recommendation: string;
+  href: string;
+  icon: GuideHubIconKey;
+};
+
+export type StrollerRealityCheckCard = {
+  title: string;
+  pros: string[];
+  tradeoff: string;
+};
+
 export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
   {
     title: 'I need one stroller for everyday life',
@@ -81,7 +95,7 @@ export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
 export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   {
     title: 'Full Size Strollers',
-    description: 'The strongest everyday option when comfort, handling, basket space, and regular neighborhood use matter most.',
+    description: 'The everyday workhorse when comfort, basket space, and neighborhood miles matter most.',
     href: STROLLER_PATHS.fullSize,
     icon: 'stroller',
     imageSrc: '/assets/strollers/fullsize.png',
@@ -89,7 +103,7 @@ export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   },
   {
     title: 'Compact Strollers',
-    description: 'A lighter everyday lane for tighter trunks, smaller homes, city errands, and parents who want less bulk.',
+    description: 'Lighter everyday strollers that work well in cities, smaller homes, and tighter trunks.',
     href: STROLLER_PATHS.compact,
     icon: 'compact',
     imageSrc: '/assets/strollers/compact.png',
@@ -97,7 +111,7 @@ export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   },
   {
     title: 'Travel Strollers',
-    description: 'Made for faster folds, lighter carrying, and the version of parent life that involves trunks, airports, and quick transitions.',
+    description: 'Small-fold strollers for airports, ride shares, errands, and less bulk overall.',
     href: STROLLER_PATHS.travel,
     icon: 'plane',
     imageSrc: '/assets/strollers/travel.png',
@@ -105,7 +119,7 @@ export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   },
   {
     title: 'Convertible Strollers',
-    description: 'For families thinking ahead to siblings and deciding whether single-to-double flexibility is actually worth the size.',
+    description: 'Single-to-double systems built for families planning ahead to a second child.',
     href: STROLLER_PATHS.convertible,
     icon: 'convertible',
     imageSrc: '/assets/strollers/convertable.png',
@@ -113,7 +127,7 @@ export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   },
   {
     title: 'Jogging Strollers',
-    description: 'Best for runners, rougher terrain, and families who need bigger wheels and stronger suspension for daily routes.',
+    description: 'Bigger wheels and stronger suspension for rougher routes, longer walks, and parents who move faster.',
     href: STROLLER_PATHS.jogging,
     icon: 'terrain',
     imageSrc: '/assets/strollers/alterrian.png',
@@ -121,7 +135,7 @@ export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   },
   {
     title: 'Double Strollers',
-    description: 'Built for twins or two small children when you know the everyday job is carrying both riders at once.',
+    description: 'A dedicated two-seat lane for twins or two small children when fitting both riders is the whole job.',
     href: STROLLER_PATHS.double,
     icon: 'double',
     imageSrc: '/assets/strollers/inditwin.png',
@@ -170,52 +184,134 @@ export const STROLLER_HUB_DECISION_ITEMS: GuideHubDecisionItem[] = [
 
 export const STROLLER_SERIES_CARDS: GuideHubLink[] = [
   {
-    title: 'Full Size Stroller Guide',
-    description: 'A better place to compare baskets, suspension, seat versatility, and what matters in a primary stroller.',
+    title: 'Full Size Strollers',
+    description:
+      'Full size strollers are usually the easiest everyday place to start. They tend to offer better ride comfort, larger baskets, and a smoother experience for daily walks.',
     href: STROLLER_PATHS.fullSize,
     icon: 'stroller',
     imageSrc: '/assets/strollers/fullsize.png',
     imageAlt: 'Illustration representing the full-size stroller guide.',
   },
   {
-    title: 'Compact Stroller Guide',
-    description: 'Sort lighter everyday options around fold size, carry weight, and whether compact still feels good daily.',
+    title: 'Compact Strollers',
+    description:
+      'Compact strollers sit between a full-size stroller and a true travel stroller. They are useful when you want lighter handling without giving up every everyday convenience.',
     href: STROLLER_PATHS.compact,
     icon: 'compact',
     imageSrc: '/assets/strollers/compact.png',
     imageAlt: 'Illustration representing the compact stroller guide.',
   },
   {
-    title: 'Travel Stroller Guide',
-    description: 'Go deeper on the small-fold options parents compare once portability becomes the deciding factor.',
+    title: 'Travel Strollers',
+    description:
+      'Travel strollers prioritize portability, smaller folds, and quicker carrying. They tend to work best for flights, quick errands, and families that want less stroller overall.',
     href: STROLLER_PATHS.travel,
     icon: 'plane',
     imageSrc: '/assets/strollers/travel.png',
     imageAlt: 'Illustration representing the travel stroller guide.',
   },
   {
-    title: 'Convertible Stroller Guide',
-    description: 'Follow the single-to-double lane if future sibling planning is shaping the decision today.',
+    title: 'Convertible Strollers',
+    description:
+      'Convertible strollers begin as a single stroller and can expand into a double configuration. They make the most sense when future sibling planning is part of today’s decision.',
     href: STROLLER_PATHS.convertible,
     icon: 'convertible',
     imageSrc: '/assets/strollers/convertable.png',
     imageAlt: 'Illustration representing the convertible stroller guide.',
   },
   {
-    title: 'Jogging Stroller Guide',
-    description: 'Useful when the stroller needs to handle trails, uneven terrain, and faster movement without drama.',
+    title: 'Jogging Strollers',
+    description:
+      'Jogging strollers are designed for rougher ground, bigger wheels, and stronger suspension. They are not just for runners. They also help on gravel paths, broken sidewalks, and longer outdoor routes.',
     href: STROLLER_PATHS.jogging,
     icon: 'terrain',
     imageSrc: '/assets/strollers/alterrian.png',
     imageAlt: 'Illustration representing the jogging stroller guide.',
   },
   {
-    title: 'Double Stroller Guide',
-    description: 'Compare side-by-side, tandem, and when a dedicated two-child setup is easier than forcing flexibility.',
+    title: 'Double Strollers',
+    description:
+      'Double strollers are built for twins or two small children from the start. They help you compare side-by-side width, tandem layouts, and what daily maneuvering actually feels like.',
     href: STROLLER_PATHS.double,
     icon: 'double',
     imageSrc: '/assets/strollers/inditwin.png',
     imageAlt: 'Illustration representing the double stroller guide.',
+  },
+];
+
+export const STROLLER_INSIGHT_PANEL_PARAGRAPHS = [
+  'The stroller industry is filled with dozens of brands, feature lists, and strong opinions.',
+  'Many parents try to choose a stroller by comparing features, but the real decision usually comes down to lifestyle.',
+  'Where you walk. How often you travel. How much storage space you have.',
+  'Understanding the categories first is what makes the final decision feel simple.',
+] as const;
+
+export const STROLLER_LIFESTYLE_MATCHES: StrollerLifestyleMatch[] = [
+  {
+    title: 'Urban Living',
+    description:
+      'If elevators, narrower aisles, tighter storage, and everyday walking are part of the routine, lighter frames usually feel easier fast.',
+    recommendation: 'Compact Strollers',
+    href: STROLLER_PATHS.compact,
+    icon: 'small-space',
+  },
+  {
+    title: 'Suburban Errands',
+    description:
+      'If the stroller lives in the car, handles store runs, and comes out most days, comfort and basket space often matter more than the tiniest fold.',
+    recommendation: 'Full Size Strollers',
+    href: STROLLER_PATHS.fullSize,
+    icon: 'home',
+  },
+  {
+    title: 'Frequent Travel',
+    description:
+      'If you are regularly navigating airports, ride shares, or quick trunk transfers, a smaller fold saves a surprising amount of energy.',
+    recommendation: 'Travel Strollers',
+    href: STROLLER_PATHS.travel,
+    icon: 'plane',
+  },
+  {
+    title: 'Active Parents',
+    description:
+      'If your routes include uneven sidewalks, gravel, trails, or actual running, bigger wheels and stronger suspension pull their weight.',
+    recommendation: 'Jogging Strollers',
+    href: STROLLER_PATHS.jogging,
+    icon: 'terrain',
+  },
+  {
+    title: 'Growing Families',
+    description:
+      'If a second child is part of the plan, it helps to decide early whether single-to-double flexibility is worth the added size.',
+    recommendation: 'Convertible Strollers',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
+  },
+  {
+    title: 'Minimalist Gear',
+    description:
+      'If you want less bulk at home, the smartest stroller is usually the one you can store, lift, and use without negotiating with it.',
+    recommendation: 'Compact Strollers',
+    href: STROLLER_PATHS.compact,
+    icon: 'bag',
+  },
+];
+
+export const STROLLER_REALITY_CHECK_CARDS: StrollerRealityCheckCard[] = [
+  {
+    title: 'Compact Stroller',
+    pros: ['lightweight', 'easy trunk storage'],
+    tradeoff: 'Smaller storage basket and a lighter everyday feel.',
+  },
+  {
+    title: 'Full Size Stroller',
+    pros: ['smoother ride', 'better basket space and comfort'],
+    tradeoff: 'Heavier to lift and a larger fold to store.',
+  },
+  {
+    title: 'Convertible Stroller',
+    pros: ['grows with siblings', 'more flexible seating path'],
+    tradeoff: 'Bulkier and heavier while still being used as a single stroller.',
   },
 ];
 
