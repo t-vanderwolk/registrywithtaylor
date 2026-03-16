@@ -369,7 +369,7 @@ export default function GuideArticleView({
                   </p>
                 </div>
 
-                <PostContent postId={guide.id} content={articleContent} className="guide-post-content" />
+                <PostContent postId={guide.id} content={articleContent} className="guide-post-content" highlightBrandWordmark={guide.category === 'Strollers'} />
               </div>
             </div>
 

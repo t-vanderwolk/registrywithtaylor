@@ -41,6 +41,7 @@ export default function GuideCategoryPreviewSection({
               content={content}
               className="guide-post-content stroller-guide-content guide-post-content--subsection"
               variant="plain"
+              highlightBrandWordmark={true}
             />
           </div>
         </div>

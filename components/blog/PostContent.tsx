@@ -6,6 +6,7 @@ import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
 import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
+import { renderBrandWordmarkText } from '@/components/ui/BrandWordmark';
 import Advice from '@/components/content-widgets/Advice';
 import Callout from '@/components/content-widgets/Callout';
 import Comparison from '@/components/content-widgets/Comparison';
@@ -33,6 +34,7 @@ type PostContentProps = {
   content: string;
   className?: string;
   variant?: 'default' | 'plain';
+  highlightBrandWordmark?: boolean;
   ctaPartners?: Record<
     string,
     {
@@ -153,21 +155,34 @@ function parseGuideSignatureBlock(lines: string[], startIndex: number) {
   };
 }
 
-function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
+function renderInlineContent(text: string, keyPrefix: string, highlightBrandWordmark = false): ReactNode[] {
   const nodes: ReactNode[] = [];
   let remaining = text;
   let tokenIndex = 0;
+
+  const pushText = (value: string, suffix: string) => {
+    if (!value) {
+      return;
+    }
+
+    if (highlightBrandWordmark) {
+      nodes.push(...renderBrandWordmarkText(value, `${keyPrefix}-${suffix}`));
+      return;
+    }
+
+    nodes.push(value);
+  };
 
   while (remaining.length > 0) {
     const match = remaining.match(inlineTokenPattern);
 
     if (!match || match.index === undefined) {
-      nodes.push(remaining);
+      pushText(remaining, `tail-${tokenIndex}`);
       break;
     }
 
     if (match.index > 0) {
-      nodes.push(remaining.slice(0, match.index));
+      pushText(remaining.slice(0, match.index), `lead-${tokenIndex}`);
     }
 
     const [
@@ -192,13 +207,13 @@ function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
           rel={opensNewTab(linkHref) ? 'noreferrer' : undefined}
           className="link-underline transition-colors duration-200 hover:text-neutral-900"
         >
-          {linkLabel}
+          {highlightBrandWordmark ? renderBrandWordmarkText(linkLabel, `${key}-link`) : linkLabel}
         </a>,
       );
     } else if (strongA || strongB) {
       nodes.push(
         <strong key={key} className="font-semibold text-neutral-900">
-          {strongA ?? strongB}
+          {highlightBrandWordmark ? renderBrandWordmarkText(strongA ?? strongB ?? '', `${key}-strong`) : (strongA ?? strongB)}
         </strong>,
       );
     } else if (code) {
@@ -210,11 +225,11 @@ function renderInlineContent(text: string, keyPrefix: string): ReactNode[] {
     } else if (emphasisA || emphasisB) {
       nodes.push(
         <em key={key} className="italic text-charcoal/80">
-          {emphasisA ?? emphasisB}
+          {highlightBrandWordmark ? renderBrandWordmarkText(emphasisA ?? emphasisB ?? '', `${key}-em`) : (emphasisA ?? emphasisB)}
         </em>,
       );
     } else {
-      nodes.push(fullMatch);
+      pushText(fullMatch, `match-${tokenIndex}`);
     }
 
     remaining = remaining.slice(match.index + fullMatch.length);
@@ -250,14 +265,14 @@ function renderStoredCtaButtons(
   );
 }
 
-function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: number) {
+function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: number, highlightBrandWordmark = false) {
   if (block.type === 'callout') {
     return (
       <Callout
         key={`${postId}-callout-${index}`}
-        title={block.title ? renderInlineContent(block.title, `${postId}-callout-title-${index}`) : undefined}
+        title={block.title ? renderInlineContent(block.title, `${postId}-callout-title-${index}`, highlightBrandWordmark) : undefined}
       >
-        {renderInlineContent(block.body, `${postId}-callout-inline-${index}`)}
+        {renderInlineContent(block.body, `${postId}-callout-inline-${index}`, highlightBrandWordmark)}
       </Callout>
     );
   }
@@ -266,9 +281,9 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <Advice
         key={`${postId}-advice-${index}`}
-        title={block.title ? renderInlineContent(block.title, `${postId}-advice-title-${index}`) : undefined}
+        title={block.title ? renderInlineContent(block.title, `${postId}-advice-title-${index}`, highlightBrandWordmark) : undefined}
       >
-        {renderInlineContent(block.body, `${postId}-advice-inline-${index}`)}
+        {renderInlineContent(block.body, `${postId}-advice-inline-${index}`, highlightBrandWordmark)}
       </Advice>
     );
   }
@@ -277,9 +292,11 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <ContentPullQuote
         key={`${postId}-pullquote-${index}`}
-        quote={renderInlineContent(`“${block.quote}”`, `${postId}-pullquote-inline-${index}`)}
+        quote={renderInlineContent(`“${block.quote}”`, `${postId}-pullquote-inline-${index}`, highlightBrandWordmark)}
         attribution={
-          block.attribution ? renderInlineContent(block.attribution, `${postId}-pullquote-attribution-${index}`) : undefined
+          block.attribution
+            ? renderInlineContent(block.attribution, `${postId}-pullquote-attribution-${index}`, highlightBrandWordmark)
+            : undefined
         }
       />
     );
@@ -289,9 +306,9 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <Pros
         key={`${postId}-pros-${index}`}
-        title={renderInlineContent(block.title, `${postId}-pros-title-${index}`)}
+        title={renderInlineContent(block.title, `${postId}-pros-title-${index}`, highlightBrandWordmark)}
         items={block.items.map((item, itemIndex) =>
-          renderInlineContent(item, `${postId}-pros-inline-${index}-${itemIndex}`),
+          renderInlineContent(item, `${postId}-pros-inline-${index}-${itemIndex}`, highlightBrandWordmark),
         )}
       />
     );
@@ -301,9 +318,9 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <Cons
         key={`${postId}-cons-${index}`}
-        title={renderInlineContent(block.title, `${postId}-cons-title-${index}`)}
+        title={renderInlineContent(block.title, `${postId}-cons-title-${index}`, highlightBrandWordmark)}
         items={block.items.map((item, itemIndex) =>
-          renderInlineContent(item, `${postId}-cons-inline-${index}-${itemIndex}`),
+          renderInlineContent(item, `${postId}-cons-inline-${index}-${itemIndex}`, highlightBrandWordmark),
         )}
       />
     );
@@ -313,9 +330,9 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <Takeaways
         key={`${postId}-takeaways-${index}`}
-        title={renderInlineContent(block.title, `${postId}-takeaways-title-${index}`)}
+        title={renderInlineContent(block.title, `${postId}-takeaways-title-${index}`, highlightBrandWordmark)}
         items={block.items.map((item, itemIndex) =>
-          renderInlineContent(item, `${postId}-takeaways-inline-${index}-${itemIndex}`),
+          renderInlineContent(item, `${postId}-takeaways-inline-${index}-${itemIndex}`, highlightBrandWordmark),
         )}
       />
     );
@@ -325,10 +342,10 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <Comparison
         key={`${postId}-comparison-${index}`}
-        title={renderInlineContent(block.title, `${postId}-comparison-title-${index}`)}
+        title={renderInlineContent(block.title, `${postId}-comparison-title-${index}`, highlightBrandWordmark)}
         rows={block.rows.map((row, rowIndex) => ({
-          label: renderInlineContent(row.label, `${postId}-comparison-label-${index}-${rowIndex}`),
-          value: renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`),
+          label: renderInlineContent(row.label, `${postId}-comparison-label-${index}-${rowIndex}`, highlightBrandWordmark),
+          value: renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`, highlightBrandWordmark),
         }))}
       />
     );
@@ -340,10 +357,12 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         key={`${postId}-product-${index}`}
         brand={block.brand}
         productName={block.productName}
-        review={renderInlineContent(block.shortReview, `${postId}-product-review-${index}`)}
-        bestFor={renderInlineContent(block.bestFor, `${postId}-product-bestfor-${index}`)}
-        standout={block.standout ? renderInlineContent(block.standout, `${postId}-product-standout-${index}`) : undefined}
-        pros={block.pros.map((pro, proIndex) => renderInlineContent(pro, `${postId}-product-pro-${index}-${proIndex}`))}
+        review={renderInlineContent(block.shortReview, `${postId}-product-review-${index}`, highlightBrandWordmark)}
+        bestFor={renderInlineContent(block.bestFor, `${postId}-product-bestfor-${index}`, highlightBrandWordmark)}
+        standout={
+          block.standout ? renderInlineContent(block.standout, `${postId}-product-standout-${index}`, highlightBrandWordmark) : undefined
+        }
+        pros={block.pros.map((pro, proIndex) => renderInlineContent(pro, `${postId}-product-pro-${index}-${proIndex}`, highlightBrandWordmark))}
         affiliateLinks={block.affiliateLinks}
         imageUrl={block.imageUrl}
         imageAlt={block.imageAlt}
@@ -355,8 +374,8 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <FAQ
         key={`${postId}-faq-widget-${index}`}
-        question={renderInlineContent(block.question, `${postId}-faq-question-${index}`)}
-        answer={renderInlineContent(block.answer, `${postId}-faq-answer-${index}`)}
+        question={renderInlineContent(block.question, `${postId}-faq-question-${index}`, highlightBrandWordmark)}
+        answer={renderInlineContent(block.answer, `${postId}-faq-answer-${index}`, highlightBrandWordmark)}
       />
     );
   }
@@ -365,9 +384,9 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
     return (
       <DecisionHelper
         key={`${postId}-decision-${index}`}
-        question={renderInlineContent(block.question, `${postId}-decision-question-${index}`)}
-        option={renderInlineContent(block.option, `${postId}-decision-option-${index}`)}
-        result={renderInlineContent(block.result, `${postId}-decision-result-${index}`)}
+        question={renderInlineContent(block.question, `${postId}-decision-question-${index}`, highlightBrandWordmark)}
+        option={renderInlineContent(block.option, `${postId}-decision-option-${index}`, highlightBrandWordmark)}
+        result={renderInlineContent(block.result, `${postId}-decision-result-${index}`, highlightBrandWordmark)}
       />
     );
   }
@@ -380,6 +399,7 @@ export default function PostContent({
   content,
   className,
   variant = 'default',
+  highlightBrandWordmark = false,
   ctaPartners = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);

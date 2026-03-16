@@ -1,3 +1,4 @@
+import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideCategoryPreviewSection from '@/components/guides/GuideCategoryPreviewSection';
@@ -108,6 +109,7 @@ export default function GuideStrollerHub({
               content={leadParagraph}
               className="guide-post-content stroller-guide-content stroller-guide-content--lead"
               variant="plain"
+              highlightBrandWordmark={true}
             />
           </div>
         ) : null}
@@ -118,6 +120,7 @@ export default function GuideStrollerHub({
             content={remainingPreface}
             className="guide-post-content stroller-guide-content stroller-guide-content--hub"
             variant="plain"
+            highlightBrandWordmark={true}
           />
         ) : null}
       </section>
@@ -214,6 +217,17 @@ export default function GuideStrollerHub({
         href="/services"
         ctaLabel="Learn about Taylor-Made Baby Planning"
       />
+
+      <section className="mx-auto max-w-3xl">
+        <div className="guide-post-content stroller-guide-content">
+          <div className="guide-signoff">
+            <div className="guide-signoff__ink" aria-hidden="true">
+              <GuideSignoffMark className="guide-signoff__mark" />
+            </div>
+            <span className="sr-only">XOXO - T</span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

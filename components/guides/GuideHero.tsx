@@ -27,6 +27,7 @@ export default function GuideHero({
 }) {
   const shouldSkipImageOptimization = imageSrc ? isRemoteImageUrl(imageSrc) : false;
   const isStrollerHub = variant === 'stroller-hub';
+  const displayTitle = isStrollerHub ? 'The Taylor-Made Stroller Guide' : title;
   const stats = [
     { label: 'Estimated read', value: readTime },
     ...(publishedLabel ? [{ label: 'Published', value: publishedLabel }] : []),
@@ -36,14 +37,14 @@ export default function GuideHero({
   return (
     <section className="border-b border-black/5 bg-[linear-gradient(180deg,#fbf7f2_0%,#f4ede3_100%)]">
       <div
-        className={`mx-auto grid gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-10 lg:py-16 ${
-          isStrollerHub ? 'max-w-[1300px] lg:px-8' : 'max-w-7xl lg:px-10'
+        className={`mx-auto gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:py-16 ${
+          isStrollerHub ? 'max-w-[1300px] lg:px-8' : 'grid max-w-7xl lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-10 lg:px-10'
         }`}
       >
         <div
           className={
             isStrollerHub
-              ? 'space-y-5 rounded-[1.75rem] border border-black/6 bg-white/78 p-5 shadow-[0_20px_48px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:space-y-6 sm:p-6 lg:rounded-[2rem] lg:p-8'
+              ? 'space-y-5 rounded-[1.75rem] border border-black/6 bg-white/78 p-5 text-center shadow-[0_20px_48px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:space-y-6 sm:p-6 lg:rounded-[2rem] lg:p-8'
               : 'space-y-5 sm:space-y-6'
           }
         >
@@ -52,15 +53,17 @@ export default function GuideHero({
             <h1
               className={`font-serif leading-[0.95] tracking-[-0.05em] text-neutral-900 ${
                 isStrollerHub
-                  ? 'max-w-[13ch] text-[2.05rem] sm:max-w-[12ch] sm:text-[3.2rem] lg:text-[4.35rem]'
+                  ? 'mx-auto max-w-[13ch] text-[2.05rem] sm:max-w-[12ch] sm:text-[3.2rem] lg:max-w-[10.5ch] lg:text-[4.35rem]'
                   : 'max-w-[12ch] text-[2.15rem] sm:max-w-[13ch] sm:text-[3.4rem] lg:text-[4.35rem]'
               }`}
             >
-              {title}
+              {displayTitle}
             </h1>
             <p
               className={`max-w-[44rem] text-neutral-700 ${
-                isStrollerHub ? 'text-[0.96rem] leading-6 sm:text-[1.04rem] sm:leading-8' : 'text-[0.98rem] leading-7 md:text-[1.08rem] md:leading-8'
+                isStrollerHub
+                  ? 'mx-auto text-[0.96rem] leading-6 sm:text-[1.04rem] sm:leading-8'
+                  : 'text-[0.98rem] leading-7 md:text-[1.08rem] md:leading-8'
               }`}
             >
               {description}
@@ -68,7 +71,7 @@ export default function GuideHero({
           </div>
 
           {isStrollerHub ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+            <div className="grid grid-cols-2 gap-2.5 sm:mx-auto sm:flex sm:w-fit sm:flex-wrap sm:justify-center sm:gap-3">
               {stats.map((stat, index) => (
                 <div
                   key={`${stat.label}-${stat.value}`}
@@ -107,7 +110,7 @@ export default function GuideHero({
               <div
                 className={`mt-4 ${
                   isStrollerHub
-                    ? 'grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3'
+                    ? 'grid grid-cols-2 gap-2.5 sm:mx-auto sm:flex sm:w-fit sm:flex-wrap sm:justify-center sm:gap-3'
                     : 'flex gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:gap-3 sm:overflow-visible sm:pb-0'
                 }`}
               >
@@ -130,16 +133,24 @@ export default function GuideHero({
         {imageSrc ? (
           <div
             className={`relative overflow-hidden border border-white/70 bg-white/80 shadow-[0_24px_70px_rgba(0,0,0,0.08)] ${
-              isStrollerHub ? 'rounded-[1.75rem] p-2 sm:rounded-[2rem] sm:p-3' : 'rounded-[1.7rem] sm:rounded-[2rem]'
+              isStrollerHub
+                ? 'mt-6 rounded-[1.75rem] p-2 sm:mt-8 sm:rounded-[2rem] sm:p-3 lg:-mx-8 lg:mt-10 lg:rounded-none lg:border-x-0 lg:border-b-0 lg:p-0'
+                : 'rounded-[1.7rem] sm:rounded-[2rem]'
             }`}
           >
-            <div className={`relative overflow-hidden ${isStrollerHub ? 'aspect-[4/3.1] rounded-[1.25rem] sm:rounded-[1.5rem]' : 'aspect-[4/3.65]'}`}>
+            <div
+              className={`relative overflow-hidden ${
+                isStrollerHub
+                  ? 'aspect-[4/3.1] rounded-[1.25rem] sm:rounded-[1.5rem] lg:aspect-[16/6.4] lg:rounded-none'
+                  : 'aspect-[4/3.65]'
+              }`}
+            >
               <Image
                 src={imageSrc}
                 alt={imageAlt?.trim() || title}
                 fill
                 priority
-                sizes={isStrollerHub ? '(min-width: 1024px) 42vw, 100vw' : '(min-width: 1024px) 40vw, 100vw'}
+                sizes={isStrollerHub ? '(min-width: 1024px) 1300px, 100vw' : '(min-width: 1024px) 40vw, 100vw'}
                 className="object-cover"
                 unoptimized={shouldSkipImageOptimization}
               />
