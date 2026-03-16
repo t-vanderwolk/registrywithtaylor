@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Suspense, type ReactNode } from 'react';
 import AnalyticsClickTracker from '@/components/analytics/AnalyticsClickTracker';
 import AnalyticsRouteTracker from '@/components/analytics/AnalyticsRouteTracker';
+import Analytics from '@/components/Analytics';
 import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_PATH,
@@ -14,7 +15,7 @@ import {
 import './globals.css';
 import Providers from './providers';
 
-const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID?.trim();
+const googleAnalyticsId = 'G-57M7FFGXKC';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 export const metadata: Metadata = {
@@ -89,6 +90,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </>
         ) : null}
         <Suspense fallback={null}>
+          <Analytics />
           <AnalyticsRouteTracker />
           <AnalyticsClickTracker />
         </Suspense>
