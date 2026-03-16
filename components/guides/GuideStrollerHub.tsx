@@ -99,8 +99,8 @@ export default function GuideStrollerHub({
   const previewSubsections = sortStrollerSubsections(categoryBreakdown?.subsections ?? []);
 
   return (
-    <div className="stroller-hub-shell space-y-10 md:space-y-16">
-      <section className="mx-auto max-w-3xl space-y-6">
+    <div className="stroller-hub-shell space-y-8 md:space-y-16">
+      <section className="mx-auto max-w-3xl space-y-5 md:space-y-6">
         {leadParagraph ? (
           <div className="text-[1.02rem] leading-relaxed text-neutral-700 md:text-[1.08rem]">
             <PostContent
@@ -148,7 +148,7 @@ export default function GuideStrollerHub({
         <>
           <GuideSectionDivider />
 
-          <div className="space-y-8 md:space-y-10">
+          <div className="space-y-6 md:space-y-10">
             {previewSubsections.map((subsection) => {
               const preview = getStrollerCategoryPreview(subsection.title);
               const visual = getStrollerCategoryVisual(subsection.title);

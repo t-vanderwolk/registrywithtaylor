@@ -17,20 +17,20 @@ export default function StrollerRealityCheck({
     <section id={id} className="space-y-6">
       <div className="space-y-3">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Reality check</p>
-        <h2 className="font-serif text-3xl tracking-tight text-neutral-900 md:text-4xl">{title}</h2>
-        <p className="max-w-[70ch] leading-relaxed text-neutral-700">
+        <h2 className="font-serif text-[1.85rem] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">{title}</h2>
+        <p className="max-w-[70ch] text-[0.98rem] leading-relaxed text-neutral-700">
           The size decision is usually where stroller shopping stops being theoretical. A stroller can sound efficient online and still feel
           like too much once it lives in your trunk or hallway.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3">
         {cards.map((card) => (
           <article
             key={card.title}
-            className="rounded-xl border border-stone-200/80 bg-white p-6 text-center shadow-[0_12px_30px_rgba(0,0,0,0.03)]"
+            className="rounded-xl border border-stone-200/80 bg-white p-5 text-center shadow-[0_12px_30px_rgba(0,0,0,0.03)] sm:p-6"
           >
-            <h3 className="font-serif text-[1.55rem] leading-tight tracking-tight text-neutral-900">{card.title}</h3>
+            <h3 className="font-serif text-[1.32rem] leading-tight tracking-tight text-neutral-900 sm:text-[1.55rem]">{card.title}</h3>
 
             <div className="mt-5 space-y-3">
               <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/80">Pros</p>

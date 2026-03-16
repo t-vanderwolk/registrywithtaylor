@@ -341,8 +341,8 @@ export default function GuideHubLayout({
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
         {isStrollerHub ? (
-          <div className="mx-auto max-w-[1300px] px-6 py-10 lg:px-8 lg:py-16">
-            <div className="space-y-10 md:space-y-16">
+          <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
+            <div className="space-y-8 md:space-y-16">
               <GuideStrollerHub guide={guide} outline={outline} />
             </div>
           </div>
