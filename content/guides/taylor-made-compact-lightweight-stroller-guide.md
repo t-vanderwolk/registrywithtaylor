@@ -97,14 +97,14 @@ In this category, I would rather see parents buy the easiest stroller they will 
 ## Product Examples
 
 :::product
-Brand: Silver Cross
-Product: Reef 2
-Review: At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-in-class maneuverability and enhanced suspension. Suitable from newborn to 55 lbs, it features a no-rethread harness with magnetic Genius™ buckle, multi-recline positions, and a large 22 lbs basket.
-Best for: Parents seeking premium quality and storage in a manageable 26.5 lb package.
-Standout: Premium British craftsmanship at 26.5 lbs
-Pros: Premium materials and finish | Best-in-class maneuverability | No-rethread harness system | 22 lbs basket capacity | One-handed fold | Suitable newborn to 55 lbs
-Link: Shop at Albee Baby | https://example.com/silver-cross-reef-2
-Link: Shop at Amazon | https://example.com/amazon-silver-cross-reef-2
+Brand: UPPAbaby
+Product: Minu V2
+Review: A compact stroller that balances everyday usefulness with a manageable fold, making it a strong bridge between portability and practical comfort.
+Best for: Families who want a compact stroller that can handle frequent errands and still feel substantial enough for regular use.
+Standout: Good balance between compactness and usability
+Pros: Useful basket | Easy fold | Strong everyday flexibility
+Link: Shop at Albee Baby | https://example.com/uppababy-minu-v2
+Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-v2
 :::
 
 :::product
@@ -118,7 +118,7 @@ Link: Shop at Albee Baby | https://example.com/bugaboo-dragonfly
 Link: Shop at Amazon | https://example.com/amazon-bugaboo-dragonfly
 :::
 
-Models like the UPPAbaby Minu V2, Cybex Eezy S Twist 2, and Nuna TRVL lx also live close to this conversation, especially for parents whose definition of everyday ease overlaps heavily with travel readiness.
+Models like the Cybex Eezy S Twist 2, Nuna TRVL lx, Silver Cross Jet 5, and Bugaboo Butterfly also live close to this conversation, especially for parents whose definition of everyday ease overlaps heavily with travel readiness.
 
 :::comparison
 Title: Slightly larger compact vs ultra-light compact

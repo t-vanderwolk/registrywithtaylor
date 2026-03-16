@@ -95,17 +95,28 @@ The right travel stroller should make you feel more mobile, not more delicate ar
 ## Product Examples
 
 :::product
-Brand: Bugaboo
-Product: Dragonfly
-Review: Weighing 21.8 lbs, the Dragonfly (42" L x 20.5" W x 41" H unfolded, 14.2" L x 20.5" W x 35.4" H folded) is suitable for 6 months to 4 years (up to 50 lbs) with 22 lbs underseat basket and 5.5 lbs rear pocket capacity.
-Best for: Parents who want premium comfort and sustainability in an ultra-lightweight stroller.
-Standout: Ultra-lightweight at 21.8 lbs with premium features
-Pros: 21.8 lbs with compact fold | Suitable 6 months to 50 lbs | 22 lbs underseat + 5.5 lbs rear basket | One-hand self-standing fold | Full suspension system | Sustainable materials
-Link: Shop at Albee Baby | https://example.com/bugaboo-dragonfly
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-dragonfly
+Brand: UPPAbaby
+Product: Minu V2
+Review: A compact stroller that balances everyday usefulness with a manageable fold, making it a strong bridge between portability and practical comfort.
+Best for: Families who want a compact stroller that can handle frequent errands and still feel substantial enough for regular use.
+Standout: Good balance between compactness and usability
+Pros: Useful basket | Easy fold | Strong everyday flexibility
+Link: Shop at Albee Baby | https://example.com/uppababy-minu-v2
+Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-v2
 :::
 
-The Bugaboo Butterfly, Nuna TRVL lx, and UPPAbaby Minu V2 all belong in the same broader comparison set. Each leans slightly differently into portability, comfort, and how much the stroller wants to be used beyond the actual trip.
+:::product
+Brand: Cybex
+Product: Eezy S Twist 2
+Review: A useful example of a travel stroller category choice that emphasizes urban convenience and easier movement in tighter spaces.
+Best for: Parents who want something smaller and city-friendly without stepping all the way into the tiniest travel category.
+Standout: Compact urban convenience
+Pros: Smaller footprint | City-friendly design | Easier daily storage
+Link: Shop at Albee Baby | https://example.com/cybex-eezy-s-twist
+Link: Shop at Amazon | https://example.com/amazon-cybex-eezy-s-twist
+:::
+
+The Bugaboo Butterfly, Nuna TRVL lx, and Silver Cross Jet 5 all belong in the same broader comparison set. Each leans slightly differently into portability, comfort, and how much the stroller wants to be used beyond the actual trip.
 
 :::comparison
 Title: Travel stroller comparison lens
