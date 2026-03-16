@@ -7,7 +7,7 @@ export default function BlogContent({
 }: {
   children: ReactNode;
   className?: string;
-  variant?: 'default' | 'plain';
+  variant?: 'default' | 'plain' | 'guide';
 }) {
   return <article className={[variant === 'default' ? 'tmbc-blog' : '', className].filter(Boolean).join(' ')}>{children}</article>;
 }

@@ -356,36 +356,191 @@ export default function GuideArticleView({
 
             {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
 
+            {/* Quick Decision Card */}
+            <div className="mb-10 rounded-2xl bg-white p-8 shadow-sm border border-rose-100">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-rose-400 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-serif text-charcoal">Quick Assessment: Full-Size vs Compact</h2>
+              </div>
+              <p className="text-neutral-700 mb-6">Answer these questions to determine if a full-size stroller fits your lifestyle:</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-charcoal mb-3 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-rose-400 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                    Choose Full-Size If:
+                  </h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">You walk frequently with outings longer than 2 hours</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">You need stronger suspension for rough terrain</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">Storage capacity is a priority for your lifestyle</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-charcoal mb-3 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-neutral-400 flex items-center justify-center text-white text-xs font-bold">✗</span>
+                    Consider Compact If:
+                  </h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-neutral-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">You live in a small apartment or have limited storage</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-neutral-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">Public transit or frequent travel is part of your routine</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-2 h-2 bg-neutral-400 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="text-sm text-neutral-700">Easy storage and carrying is essential</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-rose-50 rounded-lg border border-rose-200">
+                <p className="text-sm text-neutral-700">
+                  <strong className="text-charcoal">Pro tip:</strong> Full-size strollers excel at comfort and capacity but require more storage space. 
+                  If you're still unsure, read through the guide sections below to understand the trade-offs.
+                </p>
+              </div>
+            </div>
+
             <div
               id="pillar-guide-content"
               className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-10"
             >
               <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
               <div className="relative">
-                <div className="mb-8 border-b border-black/6 pb-5">
-                  <p className="text-sm leading-7 text-neutral-600">
-                    Published {formatArticleDate(displayDate)} · {readingTime} minute read · {primarySectionCount}{' '}
-                    sections
-                  </p>
+                {/* Learning Path */}
+                <div className="mb-8 rounded-2xl bg-white p-6 border border-neutral-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-neutral-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-charcoal">Guide Structure</h3>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-rose-400 flex items-center justify-center text-white text-xs font-bold">1</span>
+                      <span className="text-sm text-neutral-700">What Defines a Full-Size Stroller</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-rose-400 flex items-center justify-center text-white text-xs font-bold">2</span>
+                      <span className="text-sm text-neutral-700">Key Features & Benefits</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-rose-400 flex items-center justify-center text-white text-xs font-bold">3</span>
+                      <span className="text-sm text-neutral-700">When Full-Size Makes Sense</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-rose-400 flex items-center justify-center text-white text-xs font-bold">4</span>
+                      <span className="text-sm text-neutral-700">Top Recommended Models</span>
+                    </div>
+                  </div>
                 </div>
 
-                <PostContent postId={guide.id} content={articleContent} className="guide-post-content" highlightBrandWordmark={guide.category === 'Strollers'} />
+                <PostContent postId={guide.id} content={articleContent} className="guide-post-content" variant="guide" highlightBrandWordmark={guide.category === 'Strollers'} />
+
+                {/* Knowledge Check */}
+                <div className="mt-12 mb-8 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-charcoal">Knowledge Check</h3>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-sm text-neutral-700 mb-4">Before moving to product recommendations, confirm you understand:</p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" className="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
+                        <span className="text-sm text-neutral-700">Full-size strollers prioritize comfort and capacity over portability</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" className="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
+                        <span className="text-sm text-neutral-700">Storage space and terrain type are key decision factors</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" className="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
+                        <span className="text-sm text-neutral-700">Budget ranges from $500-$1500+ depending on features</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" className="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
+                        <span className="text-sm text-neutral-700">Different models excel at different use cases</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {showDisclosureBeforeConclusion ? <DisclosureCard text={disclosureText} /> : null}
+            {/* Learning Summary */}
+            <div className="mb-8 rounded-2xl bg-gradient-to-r from-emerald-50 to-green-50 p-6 border border-emerald-200">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-charcoal">What You Learned</h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-charcoal mb-2">Full-Size Stroller Characteristics:</h4>
+                  <ul className="space-y-1 text-sm text-neutral-700">
+                    <li>• Larger footprint with more storage</li>
+                    <li>• Superior suspension for rough terrain</li>
+                    <li>• Better for longer outings</li>
+                    <li>• More stable for heavier loads</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-charcoal mb-2">Decision Factors:</h4>
+                  <ul className="space-y-1 text-sm text-neutral-700">
+                    <li>• Lifestyle and activity patterns</li>
+                    <li>• Storage space availability</li>
+                    <li>• Budget and feature priorities</li>
+                    <li>• Terrain and usage scenarios</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-white/50 rounded-lg">
+                <p className="text-sm text-neutral-700">
+                  <strong className="text-charcoal">Next Steps:</strong> Review the recommended models below and consider your specific needs. 
+                  If you're still unsure, our consultation service can help you make the perfect choice for your family.
+                </p>
+              </div>
+            </div>
 
             {guide.affiliateModules.length > 0 ? (
               <div className="space-y-5">
-                {showDisclosureBeforeAffiliates ? <DisclosureCard text={disclosureText} /> : null}
                 <MarketingSurface className="rounded-[2rem] border border-black/6 bg-white/94 p-6 md:p-8">
                   <div className="space-y-2">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Product recommendations
+                      Recommended Products
                     </p>
                     <h2 className="font-serif text-[2rem] leading-[1] tracking-[-0.04em] text-neutral-900">
-                      Editorial picks inside this guide
+                      Top Full-Size Stroller Picks
                     </h2>
+                    <p className="text-sm leading-7 text-neutral-700">
+                      Based on real parent feedback and expert analysis, these models consistently rank highest for full-size stroller performance.
+                    </p>
                   </div>
 
                   <div className="mt-8 space-y-5">

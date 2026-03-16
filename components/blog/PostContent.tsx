@@ -33,7 +33,7 @@ type PostContentProps = {
   postId: string;
   content: string;
   className?: string;
-  variant?: 'default' | 'plain';
+  variant?: 'default' | 'plain' | 'guide';
   highlightBrandWordmark?: boolean;
   ctaPartners?: Record<
     string,
@@ -407,7 +407,7 @@ export default function PostContent({
   const articleContent = storedButtons.body;
 
   return (
-    <BlogContent className={className ?? ''} variant={variant}>
+    <BlogContent className={`${className ?? ''} ${variant === 'guide' ? 'guide-content-wrapper' : ''}`} variant={variant}>
       {(() => {
         const nodes: ReactNode[] = [];
         const lines = articleContent.split('\n');
@@ -437,7 +437,7 @@ export default function PostContent({
             const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
 
             nodes.push(
-              <h2 key={`${postId}-h2-${i}`} id={headingId} className="scroll-mt-24 text-[var(--tmbc-blog-charcoal)]">
+              <h2 key={`${postId}-h2-${i}`} id={headingId} className={`scroll-mt-24 ${variant === 'guide' ? 'text-3xl font-serif text-charcoal mb-6' : 'text-[var(--tmbc-blog-charcoal)]'}`}>
                 {renderInlineContent(headingText, `${postId}-h2-inline-${i}`)}
               </h2>,
             );
@@ -454,7 +454,7 @@ export default function PostContent({
             const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
 
             nodes.push(
-              <h3 key={`${postId}-h3-${i}`} id={headingId} className="scroll-mt-24 text-[var(--tmbc-blog-charcoal)]">
+              <h3 key={`${postId}-h3-${i}`} id={headingId} className={`scroll-mt-24 ${variant === 'guide' ? 'text-xl font-semibold text-charcoal mt-6 mb-4' : 'text-[var(--tmbc-blog-charcoal)]'}`}>
                 {renderInlineContent(headingText, `${postId}-h3-inline-${i}`)}
               </h3>,
             );
@@ -566,7 +566,7 @@ export default function PostContent({
             nodes.push(
               <figure
                 key={`${postId}-img-${i}`}
-                className={`tmbc-inline-image guide-inline-image${isPlaceholderImage ? ' tmbc-inline-image--placeholder guide-inline-image--placeholder' : ''}`}
+                className={`tmbc-inline-image guide-inline-image${variant === 'guide' ? ' relative rounded-2xl overflow-hidden shadow-md' : ''}${isPlaceholderImage ? ' tmbc-inline-image--placeholder guide-inline-image--placeholder' : ''}`}
               >
                 <img
                   src={src}
@@ -607,7 +607,7 @@ export default function PostContent({
             nodes.push(
               <ul
                 key={`${postId}-ul-${i}`}
-                className="mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
+                className={variant === 'guide' ? 'mt-6 ml-6 list-disc space-y-2 text-neutral-700' : 'mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'}
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ul-${i}-${index}`} className="pl-1">
@@ -631,7 +631,7 @@ export default function PostContent({
             nodes.push(
               <ol
                 key={`${postId}-ol-${i}`}
-                className="mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85"
+                className={variant === 'guide' ? 'mt-6 ml-6 list-decimal space-y-2 text-neutral-700' : 'mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'}
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ol-${i}-${index}`} className="pl-1">
@@ -668,7 +668,7 @@ export default function PostContent({
           if (paragraphLines.length > 0) {
             paragraphCount += 1;
             nodes.push(
-              <p key={`${postId}-p-${i}`} className={paragraphCount === 1 ? 'text-charcoal/85' : 'text-charcoal/85'}>
+              <p key={`${postId}-p-${i}`} className={variant === 'guide' ? 'text-neutral-700 leading-relaxed mb-4' : (paragraphCount === 1 ? 'text-charcoal/85' : 'text-charcoal/85')}>
                 {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
               </p>,
             );
