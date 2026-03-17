@@ -48,7 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_NAME,
-    description: 'Baby gear, registry, and nursery guidance for families who want to buy with purpose.',
+    description:
+      'Baby gear, registry, and nursery guidance for families who want to buy with purpose.',
     images: [DEFAULT_OG_IMAGE_PATH],
   },
   verification: googleSiteVerification
@@ -62,36 +63,51 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap"
           rel="stylesheet"
         />
-      </head>
-      <body className="min-h-screen bg-gradient-primary text-charcoal font-sans antialiased">
-        <Providers>{children}</Providers>
+
+        {/* Google Analytics */}
         {googleAnalyticsId ? (
           <>
             <Script
-              async
               src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
               strategy="afterInteractive"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+
+            <Script id="google-analytics-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
                 gtag('js', new Date());
-                gtag('config', '${googleAnalyticsId}');
+                gtag('config', '${googleAnalyticsId}', {
+                  send_page_view: false
+                });
               `}
             </Script>
           </>
         ) : null}
+      </head>
+
+      <body className="min-h-screen bg-gradient-primary text-charcoal font-sans antialiased">
+        <Providers>{children}</Providers>
+
+        {/* Analytics Trackers */}
         <Suspense fallback={null}>
           <AnalyticsRouteTracker />
           <AnalyticsClickTracker />
         </Suspense>
+
+        {/* Optional global script */}
         <Script src="/scripts/main.js" strategy="lazyOnload" />
       </body>
     </html>

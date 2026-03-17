@@ -23,8 +23,7 @@ declare global {
   }
 }
 
-export const GA_ID = 'G-57M7FFGXKC';
-
+export const GA_ID = 'G-DCP4CSKL6L';
 const normalizePagePath = (value: string) => {
   if (!value.trim()) {
     return '/';
