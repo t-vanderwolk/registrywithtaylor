@@ -14,7 +14,7 @@ import {
 import './globals.css';
 import Providers from './providers';
 
-const googleAnalyticsId = 'G-57M7FFGXKC';
+const googleAnalyticsId = 'G-DCP4CSKL6L';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 export const metadata: Metadata = {
