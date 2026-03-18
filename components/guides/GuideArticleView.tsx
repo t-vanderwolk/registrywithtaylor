@@ -4,9 +4,9 @@ import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
 import GuideCompactLiveLayout from '@/components/guides/GuideCompactLiveLayout';
 import GuideFullSizeLiveLayout from '@/components/guides/GuideFullSizeLiveLayout';
+import GuideStrollerCategoryLiveLayout from '@/components/guides/GuideStrollerCategoryLiveLayout';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
-import GuideStrollerCategoryLayout from '@/components/guides/GuideStrollerCategoryLayout';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -160,10 +160,10 @@ export default async function GuideArticleView({
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
   const useFullSizeLiveLayout = guide.slug === 'full-size-modular-strollers';
   const useCompactLiveLayout = guide.slug === 'compact-lightweight-strollers';
-  const useStrollerCategoryLayout =
+  const useStrollerCategoryLiveLayout =
     isStrollerCategoryGuideSlug(guide.slug) && !useFullSizeLiveLayout && !useCompactLiveLayout;
   const strollerJournalLinks =
-    guide.slug === 'best-strollers' || useStrollerCategoryLayout || useFullSizeLiveLayout || useCompactLiveLayout
+    guide.slug === 'best-strollers' || useStrollerCategoryLiveLayout || useFullSizeLiveLayout || useCompactLiveLayout
       ? await getPublishedStrollerJournalLinks(guide.slug)
       : [];
 
@@ -236,7 +236,7 @@ export default async function GuideArticleView({
     );
   }
 
-  if (useStrollerCategoryLayout) {
+  if (useStrollerCategoryLiveLayout) {
     return (
       <>
         <GuideViewTracker
@@ -247,12 +247,11 @@ export default async function GuideArticleView({
           enabled={!preview}
         />
 
-        <GuideStrollerCategoryLayout
+        <GuideStrollerCategoryLiveLayout
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}
           sourceRoute={sourceRoute}
-          strollerJournalLinks={strollerJournalLinks}
         />
       </>
     );
