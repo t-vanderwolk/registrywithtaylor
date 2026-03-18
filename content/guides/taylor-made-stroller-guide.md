@@ -53,29 +53,30 @@ Most strollers fall into a small number of clear categories.
 
 Understanding these categories helps parents focus on the strollers that actually fit their routines rather than trying to compare every stroller on the market.
 
-### Full-Size Strollers
+### Full-Size & Modular Strollers
 
-Full-size strollers are the everyday workhorses of the stroller world.
+Full-size and modular strollers are the everyday workhorses of the stroller world.
 
-They are designed for daily life and tend to provide the most comfort for both baby and parent.
+They are designed for daily life and tend to provide the most comfort, storage, and all-around capability for both baby and parent.
 
 Common features often include:
 
-• larger wheels
-• smoother suspension
-• generous storage baskets
-• reversible toddler seats
-• compatibility with infant car seats
+- larger wheels
+- smoother suspension
+- generous storage baskets
+- reversible toddler seats
+- compatibility with infant car seats
+- bassinet and seat flexibility in modular systems
 
-Families who take regular walks, visit parks frequently, or plan to use their stroller daily often appreciate the stability and ride quality of a full-size stroller.
+Families who take regular walks, visit parks frequently, or plan to use their stroller most days often appreciate the stability, ride quality, and stage flexibility this category can offer.
 
 :::advice
-If you expect to use your stroller most days, a full-size stroller is often the easiest place to start.
+If you expect to use your stroller most days, full-size and modular options are often the clearest place to start.
 :::
 
 Continue exploring:
 
--> The Taylor-Made Guide to Full-Size Strollers
+-> The Taylor-Made Guide to Full-Size & Modular Strollers
 
 ### Compact Strollers
 
@@ -224,7 +225,7 @@ The best stroller decision usually feels simple once the category becomes clear.
 
 If you're still deciding where to begin, start with the stroller category that most closely matches your daily routine.
 
-Walk often -> Full-Size Strollers
+Walk often -> Full-Size & Modular Strollers
 Travel frequently -> Travel Strollers
 Live in a smaller space -> Compact Strollers
 Run or hike -> Jogging Strollers

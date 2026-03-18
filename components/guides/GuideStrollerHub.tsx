@@ -61,6 +61,7 @@ function isStrollerCategorySection(section: GuideSection) {
 }
 
 const STROLLER_SECTION_ORDER = new Map([
+  ['full size and modular strollers', 0],
   ['full size strollers', 0],
   ['full size everyday strollers', 0],
   ['compact strollers', 1],

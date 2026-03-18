@@ -135,7 +135,7 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
       cardsDescription: 'Start with the stroller lane that matches your week, not the one that simply looks best in a parking-lot demo.',
       cards: [
         {
-          title: 'Full-Size Strollers',
+          title: 'Full-Size & Modular Strollers',
           description: 'For daily walks, better baskets, smoother handling, and a stroller that does more of the heavy lifting.',
           href: PILLAR_PATHS.fullSizeStrollers,
           icon: 'stroller',

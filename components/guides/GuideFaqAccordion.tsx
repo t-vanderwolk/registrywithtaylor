@@ -4,10 +4,12 @@ export type GuideFaqAccordionItem = {
 };
 
 export default function GuideFaqAccordion({
+  id = 'guide-faq',
   title = 'Questions parents still have',
   description = 'The guide covers the framework. These are the quick answers that usually come right after.',
   items,
 }: {
+  id?: string;
   title?: string;
   description?: string;
   items: GuideFaqAccordionItem[];
@@ -18,7 +20,7 @@ export default function GuideFaqAccordion({
 
   return (
     <section
-      id="guide-faq"
+      id={id}
       className="scroll-mt-24 rounded-[2rem] border border-black/6 bg-white/94 p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] md:p-8"
     >
       <div className="space-y-2">

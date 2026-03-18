@@ -100,7 +100,7 @@ export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
 
 export const STROLLER_NAVIGATOR_CARDS: GuideHubLink[] = [
   {
-    title: 'Full Size Strollers',
+    title: 'Full-Size & Modular Strollers',
     description: 'The everyday workhorse when comfort, basket space, and neighborhood miles matter most.',
     href: STROLLER_PATHS.fullSize,
     icon: 'stroller',
@@ -190,7 +190,7 @@ export const STROLLER_HUB_DECISION_ITEMS: GuideHubDecisionItem[] = [
 
 export const STROLLER_SERIES_CARDS: GuideHubLink[] = [
   {
-    title: 'Full Size Strollers',
+    title: 'Full-Size & Modular Strollers',
     description:
       'Full size strollers are usually the easiest everyday place to start. They tend to offer better ride comfort, larger baskets, and a smoother experience for daily walks.',
     href: STROLLER_PATHS.fullSize,
@@ -265,7 +265,7 @@ export const STROLLER_LIFESTYLE_MATCHES: StrollerLifestyleMatch[] = [
     title: 'Suburban Errands',
     description:
       'If the stroller lives in the car, handles store runs, and comes out most days, comfort and basket space often matter more than the tiniest fold.',
-    recommendation: 'Full Size Strollers',
+    recommendation: 'Full-Size & Modular Strollers',
     href: STROLLER_PATHS.fullSize,
     icon: 'home',
   },
@@ -398,11 +398,11 @@ const STROLLER_EDITORIAL_IMAGES: StrollerEditorialImage[] = [
 
 export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
   {
-    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers'],
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full-Size & Modular Strollers'],
     title: 'Best fit if you:',
     bullets: ['walk most days', 'want smoother suspension', 'care about comfort and basket space'],
     href: STROLLER_PATHS.fullSize,
-    ctaLabel: 'Read the Full-Size Stroller Guide',
+    ctaLabel: 'Read the Full-Size & Modular Guide',
     icon: 'stroller',
   },
   {
@@ -426,7 +426,7 @@ export const STROLLER_DECISION_STRIPS: StrollerDecisionStrip[] = [
     title: 'Best fit if you:',
     bullets: ['want multiple seating modes', 'care about newborn flexibility', 'prefer one stronger everyday system'],
     href: STROLLER_PATHS.fullSize,
-    ctaLabel: 'Read the Full-Size Stroller Guide',
+    ctaLabel: 'Read the Full-Size & Modular Guide',
     icon: 'layers',
   },
   {
@@ -470,7 +470,7 @@ export const STROLLER_COMPARISON_CARDS: GuideHubLink[] = [
 
 const STROLLER_CATEGORY_VISUALS = [
   {
-    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers'],
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers', 'Full-Size & Modular Strollers'],
     imageSrc: '/assets/strollers/fullsize.png',
     imageAlt: 'Illustration representing the full-size stroller category.',
   },
@@ -503,9 +503,9 @@ const STROLLER_CATEGORY_VISUALS = [
 
 const STROLLER_CATEGORY_PREVIEWS: StrollerCategoryPreview[] = [
   {
-    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers'],
+    matchTitles: ['Full-size everyday strollers', 'Full-Size Strollers', 'Full Size Strollers', 'Full-Size & Modular Strollers'],
     href: STROLLER_PATHS.fullSize,
-    ctaLabel: 'Explore the Full-Size Stroller Guide',
+    ctaLabel: 'Explore the Full-Size & Modular Guide',
     examples: [
       {
         name: 'Bugaboo Fox 5',

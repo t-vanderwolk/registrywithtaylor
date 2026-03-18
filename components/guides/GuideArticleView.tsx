@@ -4,6 +4,7 @@ import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
+import GuideStrollerCategoryLayout from '@/components/guides/GuideStrollerCategoryLayout';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -153,6 +154,7 @@ export default function GuideArticleView({
   const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
   const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
+  const useStrollerCategoryLayout = guide.slug === 'full-size-modular-strollers';
 
   if (hubConfig) {
     return (
@@ -175,6 +177,27 @@ export default function GuideArticleView({
           disclosureText={disclosureText}
           nextStepEvent={nextStepEvent}
           nextStepDestinationPageType={nextStepDestinationPageType}
+        />
+      </>
+    );
+  }
+
+  if (useStrollerCategoryLayout) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <GuideStrollerCategoryLayout
+          guide={guide}
+          displayDate={displayDate}
+          readingTime={readingTime}
+          sourceRoute={sourceRoute}
         />
       </>
     );
