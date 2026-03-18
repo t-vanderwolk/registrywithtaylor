@@ -943,6 +943,7 @@ export default function GuideFullSizeInteractivePlanner({
                                 affiliateLinks={product.affiliateLinks}
                                 imageUrl={product.imageUrl}
                                 imageAlt={product.imageAlt}
+                                variant="homepage"
                               />
                             </div>
                           ))}

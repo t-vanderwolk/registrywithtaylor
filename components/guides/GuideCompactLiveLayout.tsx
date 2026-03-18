@@ -23,13 +23,9 @@ const STROLLER_GUIDE_PATH = getGuidePath({ slug: 'best-strollers' });
 const COMPACT_GUIDE_PATH = getGuidePath({ slug: 'compact-lightweight-strollers' });
 const TRAVEL_GUIDE_PATH = getGuidePath({ slug: 'travel-strollers' });
 
-const COMPACT_COMPARE_CARDS = STROLLER_SERIES_CARDS.filter((card) =>
-  ['Full-Size & Modular Strollers', 'Travel Strollers', 'Double Strollers'].includes(card.title),
-);
-
 const COMPACT_SERIES_CARDS = STROLLER_SERIES_CARDS.filter((card) => card.href !== COMPACT_GUIDE_PATH);
 
-const COMPACT_CONTINUE_LINKS: GuideHubLink[] = COMPACT_COMPARE_CARDS.filter((card) =>
+const COMPACT_CONTINUE_LINKS: GuideHubLink[] = COMPACT_SERIES_CARDS.filter((card) =>
   ['Full-Size & Modular Strollers', 'Travel Strollers'].includes(card.title),
 ).map((card) => ({
   title: card.title,
@@ -507,18 +503,6 @@ export default function GuideCompactLiveLayout({
               items={buildDecisionItems(sourceRoute)}
               variant="stroller-hub"
               ctaLabel="Open guide"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              id="compact-category-compare"
-              eyebrow="Compare nearby categories"
-              title="Still deciding between compact and the categories around it?"
-              description="These are the stroller categories parents usually compare right before they realize the real decision is convenience versus comfort versus true travel portability."
-              cards={COMPACT_COMPARE_CARDS}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
             />
 
             <GuideSectionDivider />

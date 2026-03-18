@@ -23,13 +23,11 @@ const STROLLER_GUIDE_PATH = getGuidePath({ slug: 'best-strollers' });
 const COMPACT_GUIDE_PATH = getGuidePath({ slug: 'compact-lightweight-strollers' });
 const DOUBLE_GUIDE_PATH = getGuidePath({ slug: 'double-strollers' });
 
-const FULL_SIZE_COMPARE_CARDS = STROLLER_SERIES_CARDS.filter((card) =>
-  ['Compact Strollers', 'Travel Strollers'].includes(card.title),
-);
-
 const FULL_SIZE_SERIES_CARDS = STROLLER_SERIES_CARDS.filter((card) => card.href !== FULL_SIZE_GUIDE_PATH);
 
-const FULL_SIZE_CONTINUE_LINKS: GuideHubLink[] = FULL_SIZE_COMPARE_CARDS.map((card) => ({
+const FULL_SIZE_CONTINUE_LINKS: GuideHubLink[] = FULL_SIZE_SERIES_CARDS.filter((card) =>
+  ['Compact Strollers', 'Travel Strollers'].includes(card.title),
+).map((card) => ({
   title: card.title,
   description: card.description,
   href: card.href,
@@ -501,18 +499,6 @@ export default function GuideFullSizeLiveLayout({
               items={buildDecisionItems(sourceRoute)}
               variant="stroller-hub"
               ctaLabel="Open guide"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              id="full-size-category-compare"
-              eyebrow="Compare nearby categories"
-              title="Still deciding between full-size and something lighter?"
-              description="These are the stroller categories parents usually compare right before they realize the real decision is comfort versus convenience, not premium versus basic."
-              cards={FULL_SIZE_COMPARE_CARDS}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
             />
 
             <GuideSectionDivider />

@@ -946,6 +946,7 @@ export default function GuideCompactInteractivePlanner({
                                 affiliateLinks={product.affiliateLinks}
                                 imageUrl={product.imageUrl}
                                 imageAlt={product.imageAlt}
+                                variant="homepage"
                               />
                             </div>
                           ))}

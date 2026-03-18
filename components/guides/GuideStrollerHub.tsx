@@ -1,12 +1,18 @@
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
+import GuideCategoryPreviewSection from '@/components/guides/GuideCategoryPreviewSection';
 import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
 import GuideLifestyleSelector from '@/components/guides/GuideLifestyleSelector';
 import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import type { GuideOutline } from '@/lib/guides/articleOutline';
+import {
+  splitGuideSectionContent,
+  stripLeadingGuideHeading,
+  type GuideOutline,
+  type GuideSection,
+} from '@/lib/guides/articleOutline';
 import {
   getStrollerHubCategoryCards,
   STROLLER_HUB_COMMON_MISTAKES,
@@ -14,6 +20,7 @@ import {
   STROLLER_SELECTOR_ITEMS,
 } from '@/lib/guides/strollerCluster';
 import type { GuideHubLink } from '@/lib/guides/hubs';
+import { getStrollerCategoryPreview, getStrollerCategoryVisual } from '@/lib/guides/strollerHub';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 function stripLeadingTopHeading(content: string) {
@@ -42,6 +49,45 @@ function splitPreface(content: string) {
     leadParagraph,
     remainingPreface: remainingParagraphs.join('\n\n'),
   };
+}
+
+function normalizeHeading(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function isStrollerCategorySection(section: GuideSection) {
+  return normalizeHeading(section.title).includes('stroller categories');
+}
+
+const STROLLER_SECTION_ORDER = new Map([
+  ['full size strollers', 0],
+  ['full size everyday strollers', 0],
+  ['full size modular strollers', 0],
+  ['compact strollers', 1],
+  ['travel strollers', 2],
+  ['lightweight and travel strollers', 2],
+  ['jogging and all terrain strollers', 3],
+  ['jogging all terrain strollers', 3],
+  ['convertible single to double strollers', 4],
+  ['convertible strollers', 4],
+  ['double strollers', 5],
+  ['side by side double strollers', 5],
+]);
+
+function sortStrollerSubsections<T extends { title: string }>(items: T[]) {
+  return [...items].sort((left, right) => {
+    const leftOrder = STROLLER_SECTION_ORDER.get(normalizeHeading(left.title)) ?? Number.MAX_SAFE_INTEGER;
+    const rightOrder = STROLLER_SECTION_ORDER.get(normalizeHeading(right.title)) ?? Number.MAX_SAFE_INTEGER;
+
+    if (leftOrder !== rightOrder) {
+      return leftOrder - rightOrder;
+    }
+
+    return left.title.localeCompare(right.title);
+  });
 }
 
 function CommonMistakesGrid() {
@@ -88,6 +134,9 @@ export default function GuideStrollerHub({
   nextStepLinks?: GuideHubLink[];
 }) {
   const { leadParagraph, remainingPreface } = splitPreface(outline.preface);
+  const categorySection = outline.sections.find(isStrollerCategorySection) ?? null;
+  const categoryBreakdown = categorySection ? splitGuideSectionContent(categorySection.content) : null;
+  const previewSubsections = sortStrollerSubsections(categoryBreakdown?.subsections ?? []);
 
   return (
     <div className="stroller-hub-shell space-y-8 md:space-y-16">
@@ -142,6 +191,38 @@ export default function GuideStrollerHub({
         variant="stroller-hub"
         ctaLabel="Explore guide"
       />
+
+      {previewSubsections.length > 0 ? (
+        <>
+          <GuideSectionDivider />
+
+          <div className="space-y-8 md:space-y-10">
+            {previewSubsections.map((subsection) => {
+              const preview = getStrollerCategoryPreview(subsection.title);
+              const visual = getStrollerCategoryVisual(subsection.title);
+
+              if (!preview || !visual) {
+                return null;
+              }
+
+              return (
+                <GuideCategoryPreviewSection
+                  key={subsection.id}
+                  id={subsection.id}
+                  title={subsection.title}
+                  content={stripLeadingGuideHeading(subsection.content)}
+                  postId={`${guide.id}-${subsection.id}-preview`}
+                  imageSrc={visual.imageSrc}
+                  imageAlt={visual.imageAlt}
+                  examples={preview.examples}
+                  href={preview.href}
+                  ctaLabel={preview.ctaLabel}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : null}
 
       <GuideSectionDivider />
 

@@ -41,8 +41,6 @@ type CategoryLayoutConfig = {
   }>;
   decisionHelperTitle: string;
   decisionHelperDescription: string;
-  compareTitle: string;
-  compareDescription: string;
   seriesDescription: string;
   softCtaDescription: string;
   heroLabels: Record<string, string>;
@@ -83,9 +81,6 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
     decisionHelperTitle: 'Is travel really the job?',
     decisionHelperDescription:
       'If the hardest part is airports, ride shares, and smaller storage, the travel lane usually makes sense fast. If the harder part is the destination, the answer can change.',
-    compareTitle: 'Still deciding whether travel is really the lane?',
-    compareDescription:
-      'Travel strollers get mixed up with compact and full-size options constantly. These are the adjacent categories worth comparing before you chase the tiniest fold on principle.',
     seriesDescription:
       'If travel sounds close but not quite right, the answer is usually in one of the surrounding stroller categories, not in another airline-bin rumor.',
     softCtaDescription:
@@ -313,9 +308,6 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
     decisionHelperTitle: 'Is terrain truly the problem?',
     decisionHelperDescription:
       'If the ground itself keeps making stroller life harder, bigger wheels and stronger suspension can be worth the bulk. If not, the size tradeoff gets old fast.',
-    compareTitle: 'Still deciding whether jogging is actually your lane?',
-    compareDescription:
-      'This category often gets confused with strong everyday strollers. These are the nearby paths worth comparing before you commit to the bigger fold.',
     seriesDescription:
       'If jogging and all-terrain feels close but maybe too specialized, the broader stroller guide usually makes the next answer easier to see.',
     softCtaDescription:
@@ -543,9 +535,6 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
     decisionHelperTitle: 'Is double really the job right now?',
     decisionHelperDescription:
       'The double lane earns its size when two riders truly need it. If the second seat is mostly theoretical, the smarter answer is often a stronger single stroller.',
-    compareTitle: 'Still deciding whether double is actually the right move?',
-    compareDescription:
-      'Double strollers overlap with modular and compact decisions more than most parents expect. These are the nearby categories worth comparing before you size up.',
     seriesDescription:
       'If double feels close but maybe too much for right now, the rest of the stroller guide can help you decide whether a single stroller solves today\'s job better.',
     softCtaDescription:
@@ -1214,18 +1203,6 @@ export default function GuideStrollerCategoryLiveLayout({
               items={decisionItems}
               variant="stroller-hub"
               ctaLabel="Open guide"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              id={`${guide.slug}-category-compare`}
-              eyebrow="Compare nearby categories"
-              title={config.compareTitle}
-              description={config.compareDescription}
-              cards={relatedGuideCards}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
             />
 
             <GuideSectionDivider />
