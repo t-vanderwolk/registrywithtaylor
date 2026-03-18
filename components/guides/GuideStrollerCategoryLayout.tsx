@@ -206,7 +206,7 @@ function buildPlannerTopics({
   showDisclosureBeforeConclusion: boolean;
   showDisclosureBeforeAffiliates: boolean;
 }): FullSizePlannerTopic[] {
-  const topics = sectionOrder.map((section) => {
+  const topics: FullSizePlannerTopic[] = sectionOrder.map((section) => {
     const trimmedContent = stripLeadingGuideHeading(section.content);
     const { introContent, subsections } = splitGuideSectionContent(trimmedContent);
     const overviewContent = stripLeadingGuideHeading(introContent);
