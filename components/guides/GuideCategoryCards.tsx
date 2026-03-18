@@ -31,8 +31,8 @@ export default function GuideCategoryCards({
       id={id}
       className={
         isStrollerHub
-          ? 'space-y-5 rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f8f2ec_100%)] p-4 shadow-[0_20px_48px_rgba(0,0,0,0.04)] sm:space-y-6 sm:p-6 md:space-y-7 md:rounded-[2rem] md:p-8 xl:p-10'
-          : 'space-y-5'
+          ? 'min-w-0 space-y-5 rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f8f2ec_100%)] p-4 shadow-[0_20px_48px_rgba(0,0,0,0.04)] sm:space-y-6 sm:p-6 md:space-y-7 md:rounded-[2rem] md:p-8 xl:p-10'
+          : 'min-w-0 space-y-5'
       }
     >
       <div className="space-y-2">
@@ -47,15 +47,15 @@ export default function GuideCategoryCards({
         ) : null}
       </div>
 
-      <div className={`grid grid-cols-1 ${isStrollerHub ? 'gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
+      <div className={`grid min-w-0 grid-cols-1 ${isStrollerHub ? 'gap-4 sm:gap-5 md:grid-cols-2 2xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
         {cards.map((card) => (
           <Link
             key={`${card.href}-${card.title}`}
             href={card.href}
             className={
               isStrollerHub
-                ? 'group flex h-full flex-col rounded-[1.6rem] border border-stone-200/70 bg-[#fcfaf7] p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#D7A1AF] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] sm:rounded-3xl sm:p-5 md:p-6'
-                : 'group flex h-full flex-col rounded-xl border border-black/6 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_14px_34px_rgba(0,0,0,0.05)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fcf7f4]'
+                ? 'group flex min-w-0 h-full flex-col rounded-[1.6rem] border border-stone-200/70 bg-[#fcfaf7] p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#D7A1AF] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] sm:rounded-3xl sm:p-5 md:p-6'
+                : 'group flex min-w-0 h-full flex-col rounded-xl border border-black/6 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_14px_34px_rgba(0,0,0,0.05)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fcf7f4]'
             }
           >
             {card.imageSrc ? (
@@ -134,6 +134,18 @@ export default function GuideCategoryCards({
             <p className={`${isStrollerHub ? 'mt-3 text-sm leading-6 text-neutral-700 sm:leading-7' : 'mt-3 text-sm leading-7 text-neutral-700'}`}>
               {card.description}
             </p>
+            {card.bestFor ? (
+              <p
+                className={`mt-3 rounded-[1rem] border border-stone-200/70 bg-white/90 px-3 py-3 text-sm leading-6 text-neutral-700 ${
+                  isStrollerHub ? 'sm:leading-7' : ''
+                }`}
+              >
+                <span className="mr-2 text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/82">
+                  Best for
+                </span>
+                <span>{card.bestFor}</span>
+              </p>
+            ) : null}
 
             <div className="mt-auto pt-5 text-sm font-semibold text-neutral-900 sm:pt-6">
               <span>{ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}</span>

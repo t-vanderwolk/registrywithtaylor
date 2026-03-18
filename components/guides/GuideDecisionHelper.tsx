@@ -30,8 +30,8 @@ export default function GuideDecisionHelper({
       id={id}
       className={
         isStrollerHub
-          ? 'rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#fbf1eb_100%)] p-4 sm:p-6 md:rounded-[2rem] md:p-8'
-          : 'rounded-[2rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fffdf9_0%,#fbf1eb_100%)] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-8'
+          ? 'min-w-0 rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#fbf1eb_100%)] p-4 sm:p-6 md:rounded-[2rem] md:p-8'
+          : 'min-w-0 rounded-[2rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fffdf9_0%,#fbf1eb_100%)] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-8'
       }
     >
       <div className="space-y-2">
@@ -42,15 +42,15 @@ export default function GuideDecisionHelper({
         {description ? <p className="max-w-[70ch] text-[0.96rem] leading-relaxed text-neutral-700 sm:text-sm sm:leading-7">{description}</p> : null}
       </div>
 
-      <div className={`mt-5 grid gap-4 sm:mt-6 ${isStrollerHub ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2'}`}>
+      <div className={`mt-5 grid min-w-0 gap-4 sm:mt-6 ${isStrollerHub ? 'md:grid-cols-2 2xl:grid-cols-3' : 'md:grid-cols-2'}`}>
         {items.map((item) => (
           <Link
             key={`${item.href}-${item.title}`}
             href={item.href}
             className={
               isStrollerHub
-                ? 'group flex h-full flex-col rounded-[1.35rem] border border-stone-200/70 bg-white/92 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbf1eb] sm:rounded-[1.6rem] sm:p-5'
-                : 'group rounded-[1.4rem] border border-black/6 bg-white/88 p-5 shadow-[0_12px_28px_rgba(0,0,0,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.06)]'
+                ? 'group flex min-w-0 h-full flex-col rounded-[1.35rem] border border-stone-200/70 bg-white/92 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbf1eb] sm:rounded-[1.6rem] sm:p-5'
+                : 'group min-w-0 rounded-[1.4rem] border border-black/6 bg-white/88 p-5 shadow-[0_12px_28px_rgba(0,0,0,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.06)]'
             }
           >
             <div className="flex items-center gap-3">

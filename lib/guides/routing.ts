@@ -16,6 +16,7 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'minimalist-baby-registry': 'baby-registry',
   'nursery-setup-guide': 'nursery',
   'travel-with-baby': 'travel-with-baby',
+  'compact-lightweight-strollers': 'compact-strollers',
   'jogging-all-terrain-strollers': 'jogging-strollers',
 };
 

@@ -27,6 +27,7 @@ export type GuideHubIconKey =
 export type GuideHubLink = {
   title: string;
   description: string;
+  bestFor?: string;
   href: string;
   icon: GuideHubIconKey;
   imageSrc?: string;

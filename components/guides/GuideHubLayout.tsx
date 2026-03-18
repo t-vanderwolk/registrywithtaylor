@@ -24,6 +24,7 @@ import {
   getGuideHubConfig,
   getGuideNextGuideItems,
 } from '@/lib/guides/hubs';
+import type { GuideHubLink } from '@/lib/guides/hubs';
 import { GuideAnalyticsEvents, type GuideAnalyticsEventName } from '@/lib/guides/events';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
@@ -273,6 +274,7 @@ function NextStepBand({
 export default function GuideHubLayout({
   guide,
   relatedGuides,
+  strollerJournalLinks = [],
   preview = false,
   sourceRoute,
   displayDate,
@@ -283,6 +285,7 @@ export default function GuideHubLayout({
 }: {
   guide: GuideArticleRecord;
   relatedGuides: GuideCardItem[];
+  strollerJournalLinks?: GuideHubLink[];
   preview?: boolean;
   sourceRoute: string;
   displayDate: Date;
@@ -301,10 +304,13 @@ export default function GuideHubLayout({
     tocItems: outline.tocItems,
   });
   const strollerHeroJumpLinks = [
-    { label: 'Choose a category', href: `${sourceRoute}#stroller-category-navigator` },
-    { label: 'Category previews', href: `${sourceRoute}#stroller-categories` },
     { label: 'Decision helper', href: `${sourceRoute}#stroller-decision-helper` },
-    { label: 'Continue the series', href: `${sourceRoute}#stroller-series` },
+    { label: 'Category guides', href: `${sourceRoute}#stroller-category-navigator` },
+    { label: 'Find your type', href: `${sourceRoute}#find-your-stroller-type` },
+    { label: 'Common mistakes', href: `${sourceRoute}#common-stroller-mistakes` },
+    ...(strollerJournalLinks.length > 0
+      ? [{ label: 'Next reads', href: `${sourceRoute}#stroller-next-reads` }]
+      : []),
   ];
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
   const nextGuideItems = getGuideNextGuideItems(guide.slug);
@@ -344,7 +350,7 @@ export default function GuideHubLayout({
         {isStrollerHub ? (
           <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
             <div className="space-y-8 md:space-y-16">
-              <GuideStrollerHub guide={guide} outline={outline} />
+              <GuideStrollerHub guide={guide} outline={outline} nextStepLinks={strollerJournalLinks} />
             </div>
           </div>
         ) : (

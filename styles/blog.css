@@ -615,6 +615,15 @@
   max-width: 48rem;
 }
 
+.guide-post-content.stroller-guide-content.stroller-guide-content--wide {
+  max-width: none;
+  margin: 0;
+}
+
+.stroller-guide-content--wide.stroller-guide-content--lead {
+  max-width: none;
+}
+
 .guide-post-content.stroller-guide-content h1 {
   display: none;
 }
@@ -802,7 +811,7 @@
 .guide-post-content.guide-hub-card-content ul,
 .guide-post-content.guide-hub-card-content ol {
   margin: 18px 0 22px;
-  padding-left: 0;
+  padding-left: 1.2rem;
 }
 
 .guide-post-content.guide-hub-card-content li {
@@ -811,28 +820,22 @@
 }
 
 .guide-post-content.guide-hub-card-content ul {
-  list-style: none;
+  list-style: disc;
+  list-style-position: outside;
 }
 
 .guide-post-content.guide-hub-card-content ul li {
-  position: relative;
-  padding-left: 18px;
+  display: list-item;
+  padding-left: 0;
 }
 
 .guide-post-content.guide-hub-card-content ul li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.72rem;
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(196, 156, 94, 0.9);
-  box-shadow: none;
+  display: none;
 }
 
 .guide-post-content.guide-hub-card-content ol {
-  padding-left: 22px;
+  list-style: decimal;
+  list-style-position: outside;
 }
 
 .guide-post-content.guide-hub-card-content a {
@@ -870,6 +873,25 @@
 .guide-post-content.guide-hub-card-content .content-widget .tmbc-widget-copy,
 .guide-post-content.guide-hub-card-content .content-widget :where(p, li, span, a, strong, em) {
   color: inherit;
+}
+
+.guide-post-content.guide-hub-card-content .content-widget ul {
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 1.2rem;
+}
+
+.guide-post-content.guide-hub-card-content .content-widget ul li {
+  display: list-item;
+  padding-left: 0;
+}
+
+.guide-post-content.guide-hub-card-content .content-widget ul li::before {
+  display: none;
+}
+
+.guide-post-content.guide-hub-card-content .content-widget ul li > span:first-child {
+  display: none;
 }
 
 .guide-post-content.guide-hub-card-content .content-widget :where(p[class*="tracking"], p[class*="uppercase"]) {

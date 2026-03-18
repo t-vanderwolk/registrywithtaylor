@@ -103,6 +103,55 @@ If you are paying for a full-size stroller, make sure you are paying for daily e
 
 ## Product Examples
 
+These examples help because each one represents a slightly different version of what parents are usually trying to buy in this category.
+
+:::comparison
+Title: Full-size product example snapshot
+Bugaboo Fox 5: Best when smooth push, suspension, and everyday walking comfort matter most
+Nuna MIXX Next: Best when you want full-size function without the biggest or heaviest system feel
+UPPAbaby Cruz V2: Best when you want a polished everyday full-size stroller without the bigger Vista expansion story
+Silver Cross Reef 2: Best when premium finish and maneuverability matter, but you still want a more manageable package
+:::
+
+:::product
+Brand: Bugaboo
+Product: Fox 5
+Review: The Fox 5 is the polished, premium end of this category. It tends to make the most sense for families who really do walk often and will notice the smoother push, stronger suspension, and more composed everyday ride.
+Best for: Families taking frequent walks who want the most elevated everyday push feel.
+Standout: Ride quality that earns itself on repeated daily use
+Pros: Excellent suspension | Smooth everyday push | Spacious seat | Parent-facing flexibility | Premium build quality
+Image: /assets/strollers/fox5.png
+Image Alt: Bugaboo Fox 5 stroller.
+Link: Shop at Albee Baby | https://example.com/bugaboo-fox-5
+Link: Shop at Amazon | https://example.com/amazon-bugaboo-fox-5
+:::
+
+:::product
+Brand: Nuna
+Product: MIXX Next
+Review: The MIXX Next is often the balanced answer in this lane. It keeps the full-size benefits parents actually use while feeling a little easier to live with than the biggest modular systems.
+Best for: Parents who want a refined full-size stroller without committing to the bulkiest system.
+Standout: A more manageable full-size option with strong everyday flexibility
+Pros: Refined fold | Good everyday push | Newborn-to-toddler flexibility | Strong car seat compatibility story | Premium feel without the biggest footprint
+Image: /assets/strollers/mixxnext.png
+Image Alt: Nuna MIXX Next stroller.
+Link: Shop at Albee Baby | https://example.com/nuna-mixx-next
+Link: Shop at Amazon | https://example.com/amazon-nuna-mixx-next
+:::
+
+:::product
+Brand: UPPAbaby
+Product: Cruz V2
+Review: The Cruz V2 is often the cleaner UPPAbaby answer for families who want a polished full-size stroller without moving all the way into the Vista's larger single-to-double system. It keeps the everyday push, basket access, and premium feel while staying more straightforward.
+Best for: Parents who want a premium everyday full-size stroller for one child without paying for extra conversion complexity.
+Standout: The simpler UPPAbaby full-size choice when daily ease matters more than expansion
+Pros: Smooth everyday push | Strong basket access | Familiar UPPAbaby ecosystem | More manageable than Vista | Great for straightforward daily use
+Image: /assets/strollers/cruz.png
+Image Alt: UPPAbaby Cruz V2 stroller.
+Link: Shop at Albee Baby | https://example.com/uppababy-cruz-v2
+Link: Shop at Amazon | https://example.com/amazon-uppababy-cruz-v2
+:::
+
 :::product
 Brand: Silver Cross
 Product: Reef 2
@@ -110,17 +159,20 @@ Review: At 26.5 lbs, the Reef 2 offers premium British craftsmanship with best-i
 Best for: Parents seeking premium quality and storage in a manageable 26.5 lb package.
 Standout: Premium British craftsmanship at 26.5 lbs
 Pros: Premium materials and finish | Best-in-class maneuverability | No-rethread harness system | 22 lbs basket capacity | One-handed fold | Suitable newborn to 55 lbs
+Image: /assets/strollers/reef.png
+Image Alt: Silver Cross Reef 2 stroller.
 Link: Shop at Albee Baby | https://example.com/silver-cross-reef-2
 Link: Shop at Amazon | https://example.com/amazon-silver-cross-reef-2
 :::
 
-Models like the Bugaboo Fox 5, Nuna Mixx Next, and UPPAbaby Vista V2 are also worth understanding here. They all occupy slightly different versions of the same conversation: how much everyday stroller performance do you want, and how much size are you willing to live with in exchange?
+The useful comparison is not which stroller sounds the most premium. It is which version of full-size living actually matches your week.
 
 :::comparison
 Title: Premium daily stroller lens
-Best for: Parents comparing Bugaboo, Nuna, UPPAbaby, Cybex, and Silver Cross
-Standout: The best choice usually comes down to your walking frequency, fold tolerance, and how much modularity you will actually use
-Watchout: Paying for every configuration option is not necessary if your routine is straightforward
+Walking-first families: Usually notice ride quality and suspension faster than they expect
+Car-heavy routines: Usually care more about fold feel and lift weight than showroom polish
+Future sibling planning: Only worth paying for when expansion is genuinely part of the near-term plan
+Straightforward routines: Often do best with the least complicated full-size model, not the most configurable one
 :::
 
 ## Common Mistakes Parents Make

@@ -67,7 +67,7 @@ type PlannerTopicCompanion =
       cards: GuideHubLink[];
     };
 
-export type FullSizePlannerTopic = {
+export type CompactPlannerTopic = {
   id: string;
   label: string;
   title: string;
@@ -79,88 +79,87 @@ export type FullSizePlannerTopic = {
   faqItems?: GuideFaqAccordionItem[];
 };
 
-const BEST_FULL_SIZE_BLOG_PATH = '/blog/best-full-size-strollers-2026';
-const COMPACT_GUIDE_PATH = getGuidePath({ slug: 'compact-lightweight-strollers' });
+const BEST_COMPACT_BLOG_PATH = '/blog/best-compact-strollers';
+const FULL_SIZE_GUIDE_PATH = getGuidePath({ slug: 'full-size-modular-strollers' });
 const TRAVEL_GUIDE_PATH = getGuidePath({ slug: 'travel-strollers' });
-const DOUBLE_GUIDE_PATH = getGuidePath({ slug: 'double-strollers' });
 
 function buildPlannerScenarios(sourceRoute: string): PlannerScenario[] {
   return [
     {
-      id: 'daily-walker',
-      label: 'We walk most days',
-      icon: 'stroller',
-      fitLabel: 'Strong full-size fit',
+      id: 'car-heavy',
+      label: 'We are in and out of the car all day',
+      icon: 'compact',
+      fitLabel: 'Strong compact fit',
       fitTone: 'yes',
       summary:
-        'When the stroller is part of ordinary neighborhood life, stronger suspension, basket space, and a better seat usually earn their footprint pretty fast.',
+        'When the stroller keeps getting folded, lifted, parked, and reopened, compact convenience usually earns its place very quickly.',
       signals: [
-        'Longer walks are normal, not occasional.',
-        'You want the stroller to feel stable on rough sidewalks.',
-        'A larger basket would actually get used.',
+        'Load-in and load-out happen constantly.',
+        'Most outings are quick errands, appointments, and short stops.',
+        'The fold matters almost as much as the push.',
       ],
-      priorities: ['Ride quality', 'Basket access', 'Seat comfort'],
+      priorities: ['Fold ease', 'Lift weight', 'Storage shape'],
       primaryHref: `${sourceRoute}#real-life-fit`,
       primaryLabel: 'Jump to Real-Life Fit',
-      secondaryHref: BEST_FULL_SIZE_BLOG_PATH,
-      secondaryLabel: 'Read the 2026 shortlist',
+      secondaryHref: BEST_COMPACT_BLOG_PATH,
+      secondaryLabel: 'Read the compact shortlist',
     },
     {
-      id: 'trunk-routine',
-      label: 'It mostly lives in the trunk',
-      icon: 'compact',
+      id: 'long-walks',
+      label: 'We take longer neighborhood walks',
+      icon: 'road',
       fitLabel: 'Proceed carefully',
       fitTone: 'maybe',
       summary:
-        'A full-size stroller can still work here, but only if the daily comfort is worth the folding, lifting, and storage routine you will repeat every time you leave the house.',
+        'Compact can still work here, but this is where parents often realize the smoother push and deeper comfort of full-size strollers matter more than the lighter fold.',
       signals: [
-        'You load and unload the stroller constantly.',
-        'Parking lots matter more than long walks.',
-        'You want less resistance on quick errands.',
+        'Walks are a real part of the week, not an occasional bonus.',
+        'Rougher sidewalks or longer routes already feel important.',
+        'You want the stroller to feel pleasant after a longer outing too.',
       ],
-      priorities: ['Fold shape', 'Lift weight', 'Trunk space'],
-      primaryHref: COMPACT_GUIDE_PATH,
-      primaryLabel: 'Compare compact strollers',
-      secondaryHref: TRAVEL_GUIDE_PATH,
-      secondaryLabel: 'See travel-first options',
+      priorities: ['Ride comfort', 'Seat comfort', 'Everyday ease'],
+      primaryHref: FULL_SIZE_GUIDE_PATH,
+      primaryLabel: 'Compare full-size strollers',
+      secondaryHref: `${sourceRoute}#compact-vs-travel-strollers`,
+      secondaryLabel: 'See the compact vs travel section',
     },
     {
-      id: 'future-siblings',
-      label: 'We are thinking about two children',
-      icon: 'double',
-      fitLabel: 'Depends on the timing',
+      id: 'airport-heavy',
+      label: 'We travel often',
+      icon: 'plane',
+      fitLabel: 'Sometimes you need the travel lane instead',
       fitTone: 'maybe',
       summary:
-        'This is where modularity sounds especially smart. The question is whether you need real expansion now or whether you are about to buy width and weight for a future you may not use yet.',
+        'Compact and travel overlap, but they are not the same conversation. If flights, transit, and the smallest possible fold keep showing up, true travel-first design may win.',
       signals: [
-        'Sibling planning is influencing the stroller choice.',
-        'You are comparing single-to-double flexibility.',
-        'Storage and maneuvering still matter right now.',
+        'Airport or transit movement is part of normal life.',
+        'You care about the smallest possible fold.',
+        'You are weighing carry ease more than everyday seat comfort.',
       ],
-      priorities: ['Seat configurations', 'Future flexibility', 'Current footprint'],
-      primaryHref: DOUBLE_GUIDE_PATH,
-      primaryLabel: 'Compare double options',
-      secondaryHref: `${sourceRoute}#product-examples`,
-      secondaryLabel: 'Jump to product examples',
+      priorities: ['Carry ease', 'Fold size', 'Travel readiness'],
+      primaryHref: TRAVEL_GUIDE_PATH,
+      primaryLabel: 'Compare travel strollers',
+      secondaryHref: `${sourceRoute}#compact-vs-travel-strollers`,
+      secondaryLabel: 'Review compact vs travel',
     },
     {
-      id: 'storage-tight',
-      label: 'Storage is already tight',
+      id: 'small-space',
+      label: 'Storage is tight and caregivers share the stroller',
       icon: 'storage',
-      fitLabel: 'Usually not the easiest lane',
-      fitTone: 'no',
+      fitLabel: 'Another strong compact signal',
+      fitTone: 'yes',
       summary:
-        'If the stroller has to earn its place in a small entryway, closet, or vehicle, full-size models often stop feeling impressive and start feeling large.',
+        'Compact strollers often shine here because the easiest stroller to live with is usually the one everyone in the house can lift, store, and use without extra negotiation.',
       signals: [
-        'Closet or entry storage is limited.',
-        'You need a stroller that disappears faster.',
-        'The fold matters as much as the ride.',
+        'Closet, entry, or trunk space is limited.',
+        'Grandparents or other caregivers use the stroller too.',
+        'You want less bulk without going fully travel-first.',
       ],
-      priorities: ['Footprint', 'Fold speed', 'Everyday storage'],
-      primaryHref: COMPACT_GUIDE_PATH,
-      primaryLabel: 'Open the compact guide',
-      secondaryHref: TRAVEL_GUIDE_PATH,
-      secondaryLabel: 'See lighter travel options',
+      priorities: ['Storage footprint', 'Shared ease', 'Daily convenience'],
+      primaryHref: `${sourceRoute}#real-life-fit`,
+      primaryLabel: 'See who this category helps',
+      secondaryHref: BEST_COMPACT_BLOG_PATH,
+      secondaryLabel: 'Read the compact shortlist',
     },
   ];
 }
@@ -168,69 +167,69 @@ function buildPlannerScenarios(sourceRoute: string): PlannerScenario[] {
 function buildPriorityLenses(sourceRoute: string): PriorityLens[] {
   return [
     {
-      id: 'ride-quality',
-      label: 'Ride quality',
-      icon: 'terrain',
-      verdict: 'A real full-size advantage',
+      id: 'fold-lift',
+      label: 'Fold + lift feel',
+      icon: 'compact',
+      verdict: 'Usually the main compact advantage',
       tone: 'yes',
       summary:
-        'This is where full-size strollers tend to justify themselves. Better wheels, stronger suspension, and a calmer push are not theoretical if you walk often.',
-      helpsWhen: 'Neighborhood walks, park loops, rough sidewalks, and longer stroller days are part of your week.',
-      watchout: 'If those outings are rare, you may be paying for performance that mostly sits folded.',
+        'This category tends to justify itself here first. If the stroller is annoying to lift, store, or reset, compact design can remove more friction than one premium feature ever will.',
+      helpsWhen: 'Your stroller gets folded and loaded constantly through the week.',
+      watchout: 'Do not mistake a lighter spec sheet for an actually easier fold.',
       href: `${sourceRoute}#real-life-fit`,
       ctaLabel: 'See the real-life fit section',
     },
     {
-      id: 'fold-trunk',
-      label: 'Fold + trunk life',
-      icon: 'compact',
-      verdict: 'The biggest friction point',
-      tone: 'no',
-      summary:
-        'This is usually where full-size strollers lose the argument. A beautiful push can still be irritating if the folded routine is the part you repeat most.',
-      helpsWhen: 'Your errands are short and the stroller spends more time getting lifted than rolling.',
-      watchout: 'Do not evaluate a stroller only in motion. The parking-lot fold counts too.',
-      href: COMPACT_GUIDE_PATH,
-      ctaLabel: 'Compare lighter categories',
-    },
-    {
-      id: 'basket-space',
-      label: 'Basket space',
-      icon: 'bag',
-      verdict: 'Often worth it',
+      id: 'storage-shape',
+      label: 'Storage footprint',
+      icon: 'storage',
+      verdict: 'One of the clearest compact wins',
       tone: 'yes',
       summary:
-        'Parents tend to underestimate basket usefulness until the stroller becomes the place for diapers, layers, snacks, and the bag they do not want on their shoulder.',
-      helpsWhen: 'Errands, longer outings, or all-day baby gear hauling are part of the plan.',
-      watchout: 'A giant basket matters less if most outings are quick, car-heavy, and short.',
-      href: `${sourceRoute}#what-full-size-and-modular-really-mean`,
-      ctaLabel: 'Review what this category solves',
+        'What matters is not just folded size. It is how the stroller fits the trunk, closet, hallway, and the person who has to move it.',
+      helpsWhen: 'Home storage is limited or multiple caregivers need an easy setup.',
+      watchout: 'A stroller can fold small and still be awkwardly shaped.',
+      href: `${sourceRoute}#what-defines-a-compact-or-lightweight-stroller`,
+      ctaLabel: 'Review what compact actually means',
     },
     {
-      id: 'modularity',
-      label: 'Modularity',
-      icon: 'layers',
-      verdict: 'Helpful, but easy to overbuy',
+      id: 'daily-comfort',
+      label: 'Everyday comfort',
+      icon: 'road',
+      verdict: 'Important, but not unlimited',
       tone: 'maybe',
       summary:
-        'Bassinet use, parent-facing seats, and multi-stage configurations can be genuinely useful. They are just not automatically valuable because they exist.',
-      helpsWhen: 'You know you will use bassinet, reversible seating, or a specific early-stage setup.',
-      watchout: 'Do not pay for every seating mode if your routine is actually straightforward.',
-      href: BEST_FULL_SIZE_BLOG_PATH,
-      ctaLabel: 'Read the 2026 model shortlist',
+        'The best compact strollers still need to feel pleasant enough for normal use. The category only stops making sense when comfort has been trimmed so far that you notice it every day.',
+      helpsWhen: 'You want a compact stroller that can still handle regular errands and shorter walks comfortably.',
+      watchout: 'If long walks or rough routes are constant, compact can start feeling too minimal.',
+      href: FULL_SIZE_GUIDE_PATH,
+      ctaLabel: 'Compare full-size comfort',
     },
     {
-      id: 'future-flexibility',
-      label: 'Planning ahead',
-      icon: 'calendar',
-      verdict: 'Useful only if the math is real',
+      id: 'travel-overlap',
+      label: 'Travel overlap',
+      icon: 'plane',
+      verdict: 'Related, but not identical',
       tone: 'maybe',
       summary:
-        'Future-sibling planning should sharpen the choice, not automatically push you toward the heaviest stroller with the longest configuration chart.',
-      helpsWhen: 'You are close enough to a second-child timeline that expansion has actual value now.',
-      watchout: 'Many families do better with the right single stroller today and a different solution later.',
-      href: DOUBLE_GUIDE_PATH,
-      ctaLabel: 'Compare double and convertible paths',
+        'Many parents bounce between compact and travel because both sound small. The difference is whether you need easier everyday use or true airport-first portability.',
+      helpsWhen: 'Flights, transit, or frequent travel are part of the stroller decision.',
+      watchout: 'Do not buy a travel-first stroller if your real issue is ordinary daily convenience.',
+      href: `${sourceRoute}#compact-vs-travel-strollers`,
+      ctaLabel: 'Review compact vs travel',
+    },
+    {
+      id: 'rougher-routes',
+      label: 'Rougher routes',
+      icon: 'terrain',
+      verdict: 'Usually not the compact strong suit',
+      tone: 'no',
+      summary:
+        'Compact strollers can absolutely handle normal daily life. They just stop feeling ideal when the route itself is rough enough that bigger wheels and deeper suspension would help more.',
+      helpsWhen: 'The stroller mostly handles smooth sidewalks, stores, and quick local stops.',
+      watchout: 'If gravel, broken sidewalks, and longer walks dominate the week, full-size usually feels calmer.',
+      href: FULL_SIZE_GUIDE_PATH,
+      ctaLabel: 'Compare full-size options',
     },
   ];
 }
@@ -250,13 +249,17 @@ function toneClasses(tone: 'yes' | 'maybe' | 'no') {
 function getTopicIcon(topicId: string): GuideHubIconKey {
   switch (topicId) {
     case 'introduction':
-      return 'stroller';
+      return 'compact';
     case 'why-this-category-feels-overwhelming':
       return 'strategy';
-    case 'what-full-size-and-modular-really-mean':
-      return 'layers';
+    case 'what-defines-a-compact-or-lightweight-stroller':
+      return 'bag';
+    case 'compact-vs-travel-strollers':
+      return 'plane';
     case 'real-life-fit':
       return 'road';
+    case 'expert-advice':
+      return 'book';
     case 'product-examples':
       return 'bag';
     case 'common-mistakes-parents-make':
@@ -418,7 +421,7 @@ function TopicNavigatorCard({
   buttonId,
   panelId,
 }: {
-  topic: FullSizePlannerTopic;
+  topic: CompactPlannerTopic;
   index: number;
   isActive: boolean;
   onSelect: () => void;
@@ -484,12 +487,12 @@ function TopicNavigatorCard({
   );
 }
 
-export default function GuideFullSizeInteractivePlanner({
+export default function GuideCompactInteractivePlanner({
   sourceRoute,
   topics,
 }: {
   sourceRoute: string;
-  topics: FullSizePlannerTopic[];
+  topics: CompactPlannerTopic[];
 }) {
   const scenarioBaseId = useId().replace(/:/g, '');
   const priorityBaseId = useId().replace(/:/g, '');
@@ -591,7 +594,7 @@ export default function GuideFullSizeInteractivePlanner({
       <div className="space-y-3">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Interactive planner</p>
         <h2 className="font-serif text-[1.95rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">
-          Test whether the full-size and modular lane actually fits your week
+          Test whether the compact lane actually fits your week
         </h2>
         <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">
           Start with your routine, then test the tradeoff that matters most. Then open the exact section of the guide that answers the next question.
@@ -601,7 +604,7 @@ export default function GuideFullSizeInteractivePlanner({
       <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div>
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Choose the routine that sounds most like your week</p>
-          <div role="tablist" aria-label="Full-size and modular stroller routine planner" className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div role="tablist" aria-label="Compact stroller routine planner" className="mt-4 grid gap-3 sm:grid-cols-2">
             {plannerScenarios.map((scenario) => {
               const isActive = scenario.id === activeScenario.id;
               const buttonId = `${scenarioBaseId}-${scenario.id}-tab`;
@@ -1033,17 +1036,17 @@ export default function GuideFullSizeInteractivePlanner({
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
             <h3 className="font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-              Read the best full-size stroller shortlist next
+              Read the best compact stroller shortlist next
             </h3>
             <p className="mt-2 text-sm leading-7 text-neutral-700">
               Once you know this category fits your life, the best next move is the actual model shortlist, not another hour comparing marketing language.
             </p>
           </div>
           <Link
-            href={BEST_FULL_SIZE_BLOG_PATH}
+            href={BEST_COMPACT_BLOG_PATH}
             className="inline-flex items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)]"
           >
-            <span>Open /blog/best-full-size-strollers-2026</span>
+            <span>Open /blog/best-compact-strollers</span>
             <span aria-hidden="true" className="ml-2">
               -&gt;
             </span>

@@ -3,13 +3,13 @@ import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
 import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
+import { getGuideLinksForBlogPost } from '@/lib/guides/blogLinks';
 import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import { formatFileSize, isImageMediaType, isPdfMediaType } from '@/lib/media';
 import { SITE_URL } from '@/lib/marketing/metadata';
-import { getGuideLinksForBlogCategory } from '@/lib/marketing/siteContent';
 import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
 import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
 import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
@@ -295,7 +295,12 @@ export default async function PostArticleView({
     category: categoryLabel,
     content: articleContent,
   });
-  const relatedGuides = getGuideLinksForBlogCategory(post.category).map((guide) => ({
+  const relatedGuides = getGuideLinksForBlogPost({
+    category: post.category,
+    slug: post.slug,
+    title: post.title,
+    content: articleContent,
+  }).map((guide) => ({
     ...guide,
     title: toCondensedGuideCardTitle(guide.slug, guide.title),
   }));

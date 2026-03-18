@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
+import GuideCompactLiveLayout from '@/components/guides/GuideCompactLiveLayout';
+import GuideFullSizeLiveLayout from '@/components/guides/GuideFullSizeLiveLayout';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
 import GuideStrollerCategoryLayout from '@/components/guides/GuideStrollerCategoryLayout';
@@ -11,11 +13,13 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
 import { getGuideHubConfig } from '@/lib/guides/hubs';
 import { getGuidePath } from '@/lib/guides/routing';
+import { isStrollerCategoryGuideSlug } from '@/lib/guides/strollerCluster';
 import { getAnalyticsPageType } from '@/lib/analytics';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuideDisplayDate } from '@/lib/guides/status';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
+import { getPublishedStrollerJournalLinks } from '@/lib/server/strollerJournal';
 import { slugify } from '@/lib/slugify';
 
 type TocItem = {
@@ -113,7 +117,7 @@ function AuthorAvatar({ guide }: { guide: GuideArticleRecord }) {
   );
 }
 
-export default function GuideArticleView({
+export default async function GuideArticleView({
   guide,
   relatedGuides = [],
   categoryGuides = [],
@@ -154,7 +158,14 @@ export default function GuideArticleView({
   const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
   const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
-  const useStrollerCategoryLayout = guide.slug === 'full-size-modular-strollers';
+  const useFullSizeLiveLayout = guide.slug === 'full-size-modular-strollers';
+  const useCompactLiveLayout = guide.slug === 'compact-lightweight-strollers';
+  const useStrollerCategoryLayout =
+    isStrollerCategoryGuideSlug(guide.slug) && !useFullSizeLiveLayout && !useCompactLiveLayout;
+  const strollerJournalLinks =
+    guide.slug === 'best-strollers' || useStrollerCategoryLayout || useFullSizeLiveLayout || useCompactLiveLayout
+      ? await getPublishedStrollerJournalLinks(guide.slug)
+      : [];
 
   if (hubConfig) {
     return (
@@ -170,6 +181,7 @@ export default function GuideArticleView({
         <GuideHubLayout
           guide={guide}
           relatedGuides={relatedGuides}
+          strollerJournalLinks={strollerJournalLinks}
           preview={preview}
           sourceRoute={sourceRoute}
           displayDate={displayDate}
@@ -177,6 +189,48 @@ export default function GuideArticleView({
           disclosureText={disclosureText}
           nextStepEvent={nextStepEvent}
           nextStepDestinationPageType={nextStepDestinationPageType}
+        />
+      </>
+    );
+  }
+
+  if (useFullSizeLiveLayout) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <GuideFullSizeLiveLayout
+          guide={guide}
+          displayDate={displayDate}
+          readingTime={readingTime}
+          sourceRoute={sourceRoute}
+        />
+      </>
+    );
+  }
+
+  if (useCompactLiveLayout) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <GuideCompactLiveLayout
+          guide={guide}
+          displayDate={displayDate}
+          readingTime={readingTime}
+          sourceRoute={sourceRoute}
         />
       </>
     );
@@ -198,6 +252,7 @@ export default function GuideArticleView({
           displayDate={displayDate}
           readingTime={readingTime}
           sourceRoute={sourceRoute}
+          strollerJournalLinks={strollerJournalLinks}
         />
       </>
     );

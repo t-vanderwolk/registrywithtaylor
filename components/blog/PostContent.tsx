@@ -59,6 +59,7 @@ type LegacyCtaButtonBlock = {
 };
 
 const orderedListPattern = /^\d+\.\s+/;
+const unorderedListPattern = /^(?:[-•])\s+/;
 const imageLinePattern = /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/;
 const inlineTokenPattern =
   /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
@@ -68,6 +69,7 @@ const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
 const opensNewTab = (href: string) => isExternalHref(href) || /\.pdf(?:[?#].*)?$/i.test(href);
 const isDividerLine = (line: string) => line === '---' || line === '***';
 const isQuoteLine = (line: string) => line.startsWith('>');
+const isUnorderedListLine = (line: string) => unorderedListPattern.test(line);
 
 function stripMarkdownFormatting(value: string) {
   return value
@@ -595,12 +597,12 @@ export default function PostContent({
             continue;
           }
 
-          if (line.startsWith('- ')) {
+          if (isUnorderedListLine(line)) {
             const items: string[] = [];
             while (i < lines.length) {
               const candidate = lines[i]?.trim() ?? '';
-              if (!candidate.startsWith('- ')) break;
-              items.push(candidate.replace(/^-+\s+/, ''));
+              if (!isUnorderedListLine(candidate)) break;
+              items.push(candidate.replace(unorderedListPattern, ''));
               i += 1;
             }
 
@@ -656,7 +658,7 @@ export default function PostContent({
               isQuoteLine(candidate) ||
               Boolean(parseLegacyCtaButtonLine(candidate)) ||
               imageLinePattern.test(candidate) ||
-              candidate.startsWith('- ') ||
+              isUnorderedListLine(candidate) ||
               orderedListPattern.test(candidate)
             ) {
               break;

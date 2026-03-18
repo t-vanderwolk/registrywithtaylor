@@ -10,14 +10,18 @@ const NURSERY_IMAGE = '/assets/editorial/nursery.jpg' as const;
 const REGISTRY_IMAGE = '/assets/editorial/registry.jpg' as const;
 const STROLLER_PRODUCT_IMAGES = {
   butterfly: '/assets/strollers/butterfly.png',
+  cruz: '/assets/strollers/cruz.png',
+  dragonfly: '/assets/strollers/compact.png',
   donkey: '/assets/strollers/donkey.png',
   fox5: '/assets/strollers/fox5.png',
   gazelle: '/assets/strollers/gazelle.png',
   mixx: '/assets/strollers/mixx.png',
+  mios: '/assets/strollers/mios.png',
   reef: '/assets/strollers/reef.png',
   ridge: '/assets/strollers/ridge.png',
   triv: '/assets/strollers/triv.png',
   trvllx: '/assets/strollers/trvllx.png',
+  vista: '/assets/strollers/convertable.png',
   wave: '/assets/strollers/wave.png',
 } as const;
 
@@ -71,6 +75,15 @@ export function resolveProductCardImage({
     };
   }
 
+  if (includesAny(normalizedKey, ['cruz v2', 'cruz'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.cruz,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
   if (includesAny(normalizedKey, ['butterfly'])) {
     return {
       src: STROLLER_PRODUCT_IMAGES.butterfly,
@@ -80,9 +93,27 @@ export function resolveProductCardImage({
     };
   }
 
+  if (includesAny(normalizedKey, ['dragonfly'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.dragonfly,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
   if (includesAny(normalizedKey, ['triv'])) {
     return {
       src: STROLLER_PRODUCT_IMAGES.triv,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['mios'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.mios,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,
@@ -101,6 +132,15 @@ export function resolveProductCardImage({
   if (includesAny(normalizedKey, ['reef 2', 'reef'])) {
     return {
       src: STROLLER_PRODUCT_IMAGES.reef,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['vista v2', 'vista'])) {
+    return {
+      src: STROLLER_PRODUCT_IMAGES.vista,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,

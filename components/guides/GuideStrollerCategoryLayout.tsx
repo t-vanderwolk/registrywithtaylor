@@ -1,71 +1,29 @@
+import type { ReactNode } from 'react';
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
+import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
-import GuideFullSizeInteractivePlanner, { type FullSizePlannerTopic } from '@/components/guides/GuideFullSizeInteractivePlanner';
+import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
-import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
+import { extractFaqEntries } from '@/lib/blog/contentText';
+import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
+import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
-import type { GuideHeroJumpLink, GuideHubDecisionItem, GuideHubLink } from '@/lib/guides/hubs';
-import { getGuidePath } from '@/lib/guides/routing';
-import { STROLLER_COMPARISON_CARDS, STROLLER_SERIES_CARDS } from '@/lib/guides/strollerHub';
+import {
+  getStrollerCategoryDecisionItems,
+  getStrollerCategoryGuideConfig,
+  getStrollerHubBackLinkCard,
+  getStrollerRelatedGuideCards,
+} from '@/lib/guides/strollerCluster';
+import type { GuideHubLink } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
-
-const FULL_SIZE_GUIDE_PATH = getGuidePath({ slug: 'full-size-modular-strollers' });
-const STROLLER_GUIDE_PATH = getGuidePath({ slug: 'best-strollers' });
-const COMPACT_GUIDE_PATH = getGuidePath({ slug: 'compact-lightweight-strollers' });
-const DOUBLE_GUIDE_PATH = getGuidePath({ slug: 'double-strollers' });
-
-const FULL_SIZE_COMPARE_CARDS = STROLLER_SERIES_CARDS.filter((card) =>
-  ['Compact Strollers', 'Travel Strollers', 'Convertible Strollers'].includes(card.title),
-);
-
-const FULL_SIZE_SERIES_CARDS = STROLLER_SERIES_CARDS.filter((card) => card.href !== FULL_SIZE_GUIDE_PATH);
-
-const FULL_SIZE_CONTINUE_LINKS: GuideHubLink[] = FULL_SIZE_COMPARE_CARDS.map((card) => ({
-  title: card.title,
-  description: card.description,
-  href: card.href,
-  icon: card.icon,
-}));
-
-const HERO_LABELS: Record<string, string> = {
-  'Interactive Planner': 'Interactive Planner',
-  Introduction: 'Overview',
-  'Why This Category Feels Overwhelming': 'Why It Feels Hard',
-  'What Full-Size and Modular Really Mean': 'What It Means',
-  'Real-Life Fit': 'Real-Life Fit',
-  'Product Examples': 'Product Picks',
-  'Common Mistakes Parents Make': 'Common Mistakes',
-  'Final Thoughts': 'Final Thoughts',
-  FAQ: 'FAQ',
-};
-
-const FULL_SIZE_PRODUCT_LINKS: GuideHubLink[] = [
-  {
-    title: 'Best Full-Size Strollers of 2026',
-    description: 'Use the shortlist when you already know this category fits and you want the actual models worth comparing.',
-    href: '/blog/best-full-size-strollers-2026',
-    icon: 'stroller',
-  },
-  {
-    title: 'Stroller Comparisons',
-    description: 'Helpful when the shortlist is getting muddled by overlapping premium brands and feature language.',
-    href: '/blog/stroller-comparisons',
-    icon: 'strategy',
-  },
-  {
-    title: 'Best Travel Strollers',
-    description: 'A useful check if the question is quietly shifting from everyday comfort to portability and lighter carry.',
-    href: '/blog/best-travel-strollers',
-    icon: 'plane',
-  },
-];
+import Comparison from '@/components/content-widgets/Comparison';
+import ProductCard from '@/components/content-widgets/ProductCard';
 
 function formatArticleDate(value: Date) {
   return value.toLocaleDateString('en-US', {
@@ -87,20 +45,6 @@ function stripLeadingTopHeading(content: string) {
   }
 
   return content.trim();
-}
-
-function splitPreface(content: string) {
-  const paragraphs = stripLeadingTopHeading(content)
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
-
-  const [leadParagraph = '', ...remainingParagraphs] = paragraphs;
-
-  return {
-    leadParagraph,
-    remainingPreface: remainingParagraphs.join('\n\n'),
-  };
 }
 
 function dedupeFaqEntries({
@@ -126,178 +70,183 @@ function dedupeFaqEntries({
   );
 }
 
-function buildVisibleTocItems(outline: ReturnType<typeof buildGuideOutline>, faqCount: number): GuideTocItem[] {
-  const sectionItems = outline.tocItems
-    .filter((item) => item.level === 2 && item.label !== 'FAQ')
-    .map((item) => ({
-      ...item,
-      label: HERO_LABELS[item.label] ?? item.label,
-    }));
-
-  if (faqCount > 0) {
-    sectionItems.splice(Math.max(sectionItems.length - 1, 0), 0, {
-      id: 'guide-faq',
-      label: HERO_LABELS.FAQ,
-      level: 2,
-    });
-  }
-
-  return sectionItems;
+function findSectionContent(
+  sections: ReturnType<typeof buildGuideOutline>['sections'],
+  titles: string[],
+) {
+  const normalizedTitles = titles.map((title) => title.trim().toLowerCase());
+  const match = sections.find((section) => normalizedTitles.includes(section.title.trim().toLowerCase()));
+  return match ? stripLeadingGuideHeading(match.content) : '';
 }
 
-function buildDecisionItems(sourceRoute: string): GuideHubDecisionItem[] {
+function buildTocItems({
+  hasLearningModules,
+  hasExamples,
+  hasNextStepLinks,
+  faqCount,
+}: {
+  hasLearningModules: boolean;
+  hasExamples: boolean;
+  hasNextStepLinks: boolean;
+  faqCount: number;
+}): GuideTocItem[] {
   return [
-    {
-      title: 'If you walk most days',
-      description: 'Stay here and use the real-life fit section to test whether everyday comfort and basket space are truly earning the footprint.',
-      href: `${sourceRoute}#real-life-fit`,
-      icon: 'stroller',
-    },
-    {
-      title: 'If the stroller mostly lives in the trunk',
-      description: 'Compare compact and travel options before buying more stroller than your routine is actually asking for.',
-      href: COMPACT_GUIDE_PATH,
-      icon: 'compact',
-    },
-    {
-      title: 'If sibling planning is driving the decision',
-      description: 'Check the double and convertible path first so modularity does not quietly turn into size you never needed.',
-      href: DOUBLE_GUIDE_PATH,
-      icon: 'double',
-    },
+    { id: 'what-this-category-is', label: 'What This Category Is', level: 2 },
+    ...(hasLearningModules ? [{ id: 'category-lessons', label: 'Category Lessons', level: 2 as const }] : []),
+    { id: 'who-it-works-for', label: 'Who It Works For', level: 2 },
+    { id: 'when-it-may-not-fit', label: 'When It May Not Fit', level: 2 },
+    { id: 'common-mistakes', label: 'Common Mistakes', level: 2 },
+    ...(hasExamples ? [{ id: 'product-examples', label: 'Product Examples', level: 2 as const }] : []),
+    { id: 'related-stroller-types', label: 'Related Stroller Types', level: 2 },
+    ...(hasNextStepLinks ? [{ id: 'category-next-reads', label: 'Next Reads', level: 2 as const }] : []),
+    ...(faqCount > 0 ? [{ id: 'guide-faq', label: 'FAQ', level: 2 as const }] : []),
   ];
 }
 
-function extractSectionSummary(content: string) {
-  const blocks = content
-    .split(/\n\s*\n/)
-    .map((block) => block.trim())
-    .filter(Boolean)
-    .filter(
-      (block) =>
-        !block.startsWith('### ') &&
-        !block.startsWith(':::') &&
-        !block.startsWith('![') &&
-        !block.startsWith('- ') &&
-        !/^\d+\.\s/.test(block),
-    );
-
-  return blocks[0] ? stripMarkdown(blocks[0]) : '';
-}
-
-function extractSectionHighlights(content: string) {
-  const { subsections } = splitGuideSectionContent(content);
-
-  return subsections.map((subsection) => stripMarkdown(subsection.title)).slice(0, 3);
-}
-
-function buildPlannerTopics({
-  sectionOrder,
-  faqEntries,
-  disclosureText,
-  showDisclosureAfterIntro,
-  showDisclosureBeforeConclusion,
-  showDisclosureBeforeAffiliates,
+function GuidePostSurface({
+  id,
+  eyebrow,
+  title,
+  content,
+  children,
 }: {
-  sectionOrder: ReturnType<typeof buildGuideOutline>['sections'];
-  faqEntries: { question: string; answer: string }[];
-  disclosureText: string;
-  showDisclosureAfterIntro: boolean;
-  showDisclosureBeforeConclusion: boolean;
-  showDisclosureBeforeAffiliates: boolean;
-}): FullSizePlannerTopic[] {
-  const topics: FullSizePlannerTopic[] = sectionOrder.map((section) => {
-    const trimmedContent = stripLeadingGuideHeading(section.content);
-    const { introContent, subsections } = splitGuideSectionContent(trimmedContent);
-    const overviewContent = stripLeadingGuideHeading(introContent);
-    const companions: FullSizePlannerTopic['companions'] = [];
-    const isProductSection = section.title === 'Product Examples';
-    const isIntroduction = section.title === 'Introduction';
-    const isFinalSection = section.title === 'Final Thoughts';
-    const isRealLifeFit = section.title === 'Real-Life Fit';
-    const isCommonMistakes = section.title === 'Common Mistakes Parents Make';
+  id: string;
+  eyebrow: string;
+  title: string;
+  content?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <section id={id} className="min-w-0 scroll-mt-28">
+      <MarketingSurface className="min-w-0 rounded-[2rem] border border-black/6 bg-white/94 p-6 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-8">
+        <div className="space-y-3">
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
+          <h2 className="font-serif text-[1.85rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-[2.45rem]">
+            {title}
+          </h2>
+        </div>
 
-    if (showDisclosureBeforeAffiliates && isProductSection) {
-      companions.push({
-        kind: 'disclosure',
-        text: disclosureText,
-      });
-    }
+        {content ? (
+          <div className="mt-6">
+            <PostContent
+              postId={`${id}-content`}
+              content={content}
+              className="guide-post-content stroller-guide-content stroller-guide-content--wide guide-post-content--subsection"
+              variant="plain"
+              highlightBrandWordmark={true}
+            />
+          </div>
+        ) : null}
 
-    if (showDisclosureBeforeConclusion && isFinalSection) {
-      companions.push({
-        kind: 'disclosure',
-        text: disclosureText,
-      });
-    }
+        {children ? <div className="mt-6">{children}</div> : null}
+      </MarketingSurface>
+    </section>
+  );
+}
 
-    if (showDisclosureAfterIntro && isIntroduction) {
-      companions.push({
-        kind: 'disclosure',
-        text: disclosureText,
-      });
-    }
+function normalizeSectionTitle(title: string) {
+  return title.trim().toLowerCase();
+}
 
-    if (isRealLifeFit) {
-      companions.push({
-        kind: 'continue',
-        title: 'Not sure this is the right amount of stroller?',
-        description:
-          'These next guides help when the decision is starting to tilt toward lighter everyday use, travel-first movement, or future-sibling planning.',
-        links: FULL_SIZE_CONTINUE_LINKS,
-      });
-    }
+function getSupplementalSections({
+  sections,
+  renderedTitles,
+}: {
+  sections: ReturnType<typeof buildGuideOutline>['sections'];
+  renderedTitles: string[];
+}) {
+  const renderedTitleSet = new Set(renderedTitles.map((title) => normalizeSectionTitle(title)));
+  const skippedTitles = new Set(
+    ['Introduction', 'Quick Guide Navigation', 'FAQ', 'Final Thoughts'].map((title) => normalizeSectionTitle(title)),
+  );
 
-    if (isProductSection) {
-      companions.push({
-        kind: 'comparison',
-        title: 'Want the actual full-size stroller shortlist?',
-        description: 'This is the faster next step once the category itself makes sense and you want the model list worth comparing.',
-        cards: FULL_SIZE_PRODUCT_LINKS,
-      });
-    }
-
-    if (isCommonMistakes) {
-      companions.push({
-        kind: 'comparison',
-        title: 'Compare the next part of the decision',
-        description:
-          'These supporting reads help when the full-size conversation starts overlapping with travel needs, category confusion, or infant car seat compatibility.',
-        cards: STROLLER_COMPARISON_CARDS,
-      });
-    }
-
-    return {
-      id: section.id,
-      label: HERO_LABELS[section.title] ?? section.title,
-      title: section.title,
-      summary: extractSectionSummary(trimmedContent),
-      highlights: extractSectionHighlights(trimmedContent),
-      overviewContent: overviewContent || undefined,
-      cards: subsections.map((subsection) => ({
-        id: subsection.id,
-        eyebrow: 'Focus area',
-        title: subsection.title,
-        content: stripLeadingGuideHeading(subsection.content),
-      })),
-      companions,
-    };
+  return sections.filter((section) => {
+    const normalizedTitle = normalizeSectionTitle(section.title);
+    return !renderedTitleSet.has(normalizedTitle) && !skippedTitles.has(normalizedTitle);
   });
+}
 
-  if (faqEntries.length > 0) {
-    topics.splice(Math.max(topics.length - 1, 0), 0, {
-      id: 'guide-faq',
-      label: HERO_LABELS.FAQ,
-      title: 'FAQ',
-      summary: 'Quick answers to the questions parents usually still have once the category starts making sense.',
-      highlights: [],
-      cards: [],
-      companions: [],
-      faqItems: faqEntries,
-    });
+function LearningModuleSection({
+  sections,
+}: {
+  sections: ReturnType<typeof buildGuideOutline>['sections'];
+}) {
+  if (sections.length === 0) {
+    return null;
   }
 
-  return topics;
+  return (
+    <section id="category-lessons" className="min-w-0 scroll-mt-28 space-y-6">
+      <div className="space-y-3">
+        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Category lessons</p>
+        <h2 className="font-serif text-[1.85rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-[2.45rem]">
+          The lessons that make this category easier to understand
+        </h2>
+        <p className="max-w-[70ch] text-[0.98rem] leading-relaxed text-neutral-700">
+          This section is meant to feel more like a decision library than a long article. Use the sections below to compare the
+          ideas parents usually need before they start narrowing model lists.
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        {sections.map((section, index) => (
+          <GuidePostSurface
+            key={section.id}
+            id={section.id}
+            eyebrow={`Lesson ${String(index + 1).padStart(2, '0')}`}
+            title={section.title}
+            content={stripLeadingGuideHeading(section.content)}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function stripStyledBlocksOfTypes(content: string, blockTypes: ParsedStyledBlock['type'][]) {
+  const typesToStrip = new Set(blockTypes);
+  const lines = content.split('\n');
+  const keptLines: string[] = [];
+
+  for (let index = 0; index < lines.length;) {
+    const line = lines[index] ?? '';
+    const trimmed = line.trim();
+
+    if (!trimmed || !isStyledBlockStart(trimmed)) {
+      keptLines.push(line);
+      index += 1;
+      continue;
+    }
+
+    const parsed = parseStyledBlock(lines, index);
+    if (!parsed) {
+      keptLines.push(line);
+      index += 1;
+      continue;
+    }
+
+    if (typesToStrip.has(parsed.block.type)) {
+      index = parsed.nextIndex;
+      continue;
+    }
+
+    keptLines.push(...lines.slice(index, parsed.nextIndex));
+    index = parsed.nextIndex;
+  }
+
+  return keptLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function splitProductExampleContent(content: string) {
+  const blocks = extractStyledBlocks(content);
+
+  return {
+    products: blocks.filter((block): block is Extract<ParsedStyledBlock, { type: 'product' }> => block.type === 'product'),
+    comparisons: blocks.filter(
+      (block): block is Extract<ParsedStyledBlock, { type: 'comparison' }> => block.type === 'comparison',
+    ),
+    narrative: stripStyledBlocksOfTypes(content, ['product', 'comparison']),
+  };
 }
 
 export default function GuideStrollerCategoryLayout({
@@ -305,47 +254,54 @@ export default function GuideStrollerCategoryLayout({
   displayDate,
   readingTime,
   sourceRoute,
+  strollerJournalLinks = [],
 }: {
   guide: GuideArticleRecord;
   displayDate: Date;
   readingTime: number;
   sourceRoute: string;
+  strollerJournalLinks?: GuideHubLink[];
 }) {
+  const config = getStrollerCategoryGuideConfig(guide.slug);
+  if (!config) {
+    return null;
+  }
+
   const articleContent = [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
   const outline = buildGuideOutline(articleContent);
-  const { leadParagraph, remainingPreface } = splitPreface(outline.preface);
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
-  const visibleTocItems: GuideTocItem[] = [
-    {
-      id: 'interactive-planner',
-      label: HERO_LABELS['Interactive Planner'],
-      level: 2,
-    },
-    ...buildVisibleTocItems(outline, faqEntries.length),
-  ];
-  const heroJumpLinks: GuideHeroJumpLink[] = visibleTocItems.slice(0, 6).map((item) => ({
+  const whatSectionContent = findSectionContent(outline.sections, config.whatSectionTitles);
+  const realLifeFitContent = findSectionContent(outline.sections, ['Real-Life Fit']);
+  const expertAdviceContent = findSectionContent(outline.sections, ['Expert Advice']);
+  const commonMistakesContent = findSectionContent(outline.sections, ['Common Mistakes Parents Make']);
+  const exampleModelsContent = findSectionContent(outline.sections, [
+    'Product Examples',
+    'Example Models',
+    'Products Worth Understanding',
+  ]);
+  const supplementalSections = getSupplementalSections({
+    sections: outline.sections,
+    renderedTitles: [
+      ...config.whatSectionTitles,
+      'Real-Life Fit',
+      'Expert Advice',
+      'Common Mistakes Parents Make',
+      'Product Examples',
+      'Example Models',
+      'Products Worth Understanding',
+    ],
+  });
+  const productExamples = exampleModelsContent ? splitProductExampleContent(exampleModelsContent) : null;
+  const tocItems = buildTocItems({
+    hasLearningModules: supplementalSections.length > 0,
+    hasExamples: Boolean(exampleModelsContent),
+    hasNextStepLinks: strollerJournalLinks.length > 0,
+    faqCount: faqEntries.length,
+  });
+  const heroJumpLinks = tocItems.slice(0, 5).map((item) => ({
     label: item.label,
     href: `${sourceRoute}#${item.id}`,
   }));
-  const sectionOrder = outline.sections.filter((section) => section.title !== 'FAQ');
-  const disclosureText =
-    guide.affiliateDisclosureText?.trim() ||
-    'Some links in this guide are affiliate links. Taylor-Made Baby Co. may earn a commission at no additional cost to you.';
-  const showDisclosureAfterIntro =
-    guide.affiliateDisclosureEnabled && guide.affiliateDisclosurePlacement === 'after_intro';
-  const showDisclosureBeforeConclusion =
-    guide.affiliateDisclosureEnabled && guide.affiliateDisclosurePlacement === 'before_conclusion';
-  const showDisclosureBeforeAffiliates =
-    guide.affiliateDisclosureEnabled &&
-    (!guide.affiliateDisclosurePlacement || guide.affiliateDisclosurePlacement === 'before_affiliates');
-  const plannerTopics = buildPlannerTopics({
-    sectionOrder,
-    faqEntries,
-    disclosureText,
-    showDisclosureAfterIntro,
-    showDisclosureBeforeConclusion,
-    showDisclosureBeforeAffiliates,
-  });
 
   return (
     <>
@@ -354,13 +310,10 @@ export default function GuideStrollerCategoryLayout({
       <GuideHero
         eyebrow={guide.category}
         title={guide.title}
-        description={
-          guide.excerpt?.trim() ||
-          'A stroller-category guide built to help you decide whether full-size comfort and modular flexibility fit your real week.'
-        }
+        description={guide.excerpt?.trim() || config.heroDescription}
         readTime={`${readingTime} min`}
         publishedLabel={formatArticleDate(displayDate)}
-        sectionCount={visibleTocItems.length}
+        sectionCount={tocItems.length}
         jumpLinks={heroJumpLinks}
         imageSrc={guide.heroImageUrl}
         imageAlt={guide.heroImageAlt}
@@ -368,114 +321,200 @@ export default function GuideStrollerCategoryLayout({
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-          <div className="stroller-hub-shell space-y-8 md:space-y-16">
-            <MarketingSurface className="mx-auto max-w-5xl rounded-[1.75rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[2rem] md:p-8">
-              <div className="space-y-3">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Start here</p>
-                <h2 className="font-serif text-[1.9rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-3xl">
-                  What this guide is helping you decide
-                </h2>
-              </div>
+        <div className="w-full px-5 py-10 sm:px-8 lg:px-10 lg:py-16 xl:px-12 2xl:px-16">
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_18.5rem] lg:gap-10 xl:gap-12">
+            <div className="min-w-0 stroller-hub-shell space-y-8">
+              <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
 
-              <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-                {leadParagraph ? (
-                  <div className="rounded-[1.35rem] border border-stone-200/70 bg-[#fcfaf7] p-4 sm:p-5">
-                    <PostContent
-                      postId={`${guide.id}-lead`}
-                      content={leadParagraph}
-                      className="guide-post-content guide-hub-card-content"
-                      variant="plain"
-                      highlightBrandWordmark={true}
-                    />
-                  </div>
-                ) : null}
-
-                {remainingPreface ? (
-                  <div className="rounded-[1.35rem] border border-stone-200/70 bg-[#fcfaf7] p-4 sm:p-5">
+              {outline.preface ? (
+                <MarketingSurface className="relative min-w-0 overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-8">
+                  <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
+                  <div className="relative">
                     <PostContent
                       postId={`${guide.id}-preface`}
-                      content={remainingPreface}
-                      className="guide-post-content guide-hub-card-content"
+                      content={outline.preface}
+                      className="guide-post-content stroller-guide-content stroller-guide-content--lead stroller-guide-content--wide"
                       variant="plain"
                       highlightBrandWordmark={true}
                     />
                   </div>
-                ) : null}
-              </div>
-            </MarketingSurface>
+                </MarketingSurface>
+              ) : null}
 
-            <GuideDecisionHelper
-              id="full-size-decision-helper"
-              eyebrow="Quick decision helper"
-              title="Is full-size actually your lane?"
-              description="Start with the friction you feel most in real life. That usually gets you to the right stroller category faster than another round of spec comparison."
-              items={buildDecisionItems(sourceRoute)}
-              variant="stroller-hub"
-              ctaLabel="Open guide"
-            />
+              <MarketingSurface className="min-w-0 rounded-[2rem] border border-black/6 bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-8">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Quick fit check</p>
+                    <h2 className="font-serif text-[1.9rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-3xl">
+                      Before you compare models, make sure this category fits your week.
+                    </h2>
+                  </div>
+                  <div className="space-y-3 text-sm leading-7 text-neutral-700">
+                    <p>{config.worksForSummary}</p>
+                    <p>{config.notBestFitSummary}</p>
+                  </div>
+                </div>
 
-            <GuideSectionDivider />
+                <div className="mt-6">
+                  <GuideDecisionHelper
+                    id="category-decision-helper"
+                    eyebrow="Quick decision helper"
+                    title={`Use the ${config.shortTitle.toLowerCase()} lane more confidently`}
+                    description="This should feel like a category decision, not a personality test. Start with the friction your routine makes obvious."
+                    items={getStrollerCategoryDecisionItems({
+                      slug: guide.slug,
+                      sourceRoute,
+                    })}
+                    variant="stroller-hub"
+                    ctaLabel="Open section"
+                  />
+                </div>
+              </MarketingSurface>
+              <GuidePostSurface
+                id="what-this-category-is"
+                eyebrow="What this category is"
+                title="What parents are actually choosing in this category"
+                content={whatSectionContent}
+              />
 
-            <GuideCategoryCards
-              id="full-size-category-compare"
-              eyebrow="Compare nearby categories"
-              title="Still deciding between full-size and something lighter?"
-              description="These are the stroller categories parents usually compare right before they realize the real decision is comfort versus convenience, not premium versus basic."
-              cards={FULL_SIZE_COMPARE_CARDS}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
-            />
+              {supplementalSections.length > 0 ? <LearningModuleSection sections={supplementalSections} /> : null}
 
-            <GuideSectionDivider />
+              <GuidePostSurface id="who-it-works-for" eyebrow="Who it works for" title="Who this category tends to help most" content={realLifeFitContent}>
+                <div className="rounded-[1.35rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,#fffaf6_0%,#fcf7f1_100%)] p-4 md:p-5">
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">Quick read</p>
+                  <ul className="mt-4 space-y-3">
+                    {config.worksForBullets.map((bullet) => (
+                      <li key={bullet} className="text-sm leading-7 text-neutral-700">
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </GuidePostSurface>
 
-            <div className="space-y-4">
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
+              <GuidePostSurface
+                id="when-it-may-not-fit"
+                eyebrow="When it may not be the best fit"
+                title="When this category may be more stroller than you need"
+                content={expertAdviceContent}
+              >
+                <div className="rounded-[1.35rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,#fffaf6_0%,#fcf7f1_100%)] p-4 md:p-5">
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">Watch for this</p>
+                  <ul className="mt-4 space-y-3">
+                    {config.notBestFitBullets.map((bullet) => (
+                      <li key={bullet} className="text-sm leading-7 text-neutral-700">
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </GuidePostSurface>
+
+              <GuidePostSurface
+                id="common-mistakes"
+                eyebrow="Common mistakes"
+                title="The mistakes that tend to create regret in this lane"
+                content={commonMistakesContent}
+              />
+
+              {exampleModelsContent ? (
+                <section id="product-examples" className="min-w-0 scroll-mt-28">
+                  <MarketingSurface className="min-w-0 rounded-[2rem] border border-black/6 bg-white/94 p-6 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-8">
+                    <div className="space-y-3">
+                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Product examples</p>
+                      <h2 className="font-serif text-[1.85rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-[2.45rem]">
+                        Product examples worth understanding once the category fits
+                      </h2>
+                    </div>
+
+                    {productExamples?.narrative ? (
+                      <div className="mt-6">
+                        <PostContent
+                          postId={`${guide.id}-product-examples-narrative`}
+                          content={productExamples.narrative}
+                          className="guide-post-content stroller-guide-content stroller-guide-content--wide guide-post-content--subsection"
+                          variant="plain"
+                          highlightBrandWordmark={true}
+                        />
+                      </div>
+                    ) : null}
+
+                    {productExamples?.products.length ? (
+                      <>
+                        {productExamples.comparisons.length > 0 ? (
+                          <div className="mt-6 space-y-4 [&_.content-widget]:my-0">
+                            {productExamples.comparisons.map((comparison, index) => (
+                              <Comparison
+                                key={`${guide.id}-product-example-comparison-${index}`}
+                                title={comparison.title}
+                                rows={comparison.rows}
+                              />
+                            ))}
+                          </div>
+                        ) : null}
+
+                      <div className="mt-6 space-y-5 [&_.content-widget]:my-0">
+                        {productExamples.products.map((product, index) => (
+                          <ProductCard
+                            key={`${guide.id}-product-example-${product.brand}-${product.productName}-${index}`}
+                            brand={product.brand}
+                            productName={product.productName}
+                            review={product.shortReview}
+                            bestFor={product.bestFor}
+                            standout={product.standout ?? undefined}
+                            pros={product.pros}
+                            affiliateLinks={product.affiliateLinks}
+                            imageUrl={product.imageUrl}
+                            imageAlt={product.imageAlt}
+                          />
+                        ))}
+                      </div>
+                      </>
+                    ) : null}
+                  </MarketingSurface>
+                </section>
+              ) : null}
+
+              <GuideCategoryCards
+                id="related-stroller-types"
+                eyebrow="Related stroller types"
+                title="Compare this category with the nearby stroller paths"
+                description="The next best comparison is usually another stroller type, not another premium brand carousel."
+                cards={getStrollerRelatedGuideCards(guide.slug)}
+                variant="stroller-hub"
+                ctaLabel="Explore guide"
+              />
+
+              {strollerJournalLinks.length > 0 ? (
+                <div id="category-next-reads" className="scroll-mt-28">
+                  <GuideComparisonCards
+                    title="Ready for recommendations instead of category education?"
+                    description="These journal pieces are the next step once you know this stroller type makes sense and want a tighter comparison lens."
+                    cards={strollerJournalLinks}
+                  />
+                </div>
+              ) : null}
+
+              <GuideCategoryCards
+                eyebrow="Back to the stroller hub"
+                title="Use the main stroller hub as your bigger map"
+                description="Go back to the pillar guide if you want to compare the full stroller cluster side by side again."
+                cards={getStrollerHubBackLinkCard()}
+                variant="stroller-hub"
+                ctaLabel="Open hub"
+              />
+
+              <GuideSoftConversionCta
+                title="Need a second set of eyes on the stroller decision?"
+                description="Taylor-Made Baby Planning helps parents narrow the stroller category, talk through tradeoffs, and stop comparing options that were never meant for the same life."
+                href="/services"
+                ctaLabel="Learn about Taylor-Made Baby Planning"
+              />
+
+              <GuideFaqAccordion items={faqEntries} />
             </div>
 
-            <GuideFullSizeInteractivePlanner sourceRoute={sourceRoute} topics={plannerTopics} />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              id="stroller-series"
-              eyebrow="Continue the series"
-              title="Compare this category with the rest of the stroller guide"
-              description="If full-size feels close but not quite right, the next answer is usually in one of the adjacent stroller categories, not in another premium showroom lap."
-              cards={FULL_SIZE_SERIES_CARDS}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideSoftConversionCta
-              title="Want stroller advice matched to your actual week?"
-              description="The stroller decision gets simpler once someone helps you sort walking habits, vehicle space, storage, sibling planning, and whether modular features will really earn their place."
-              href="/services"
-              ctaLabel="Learn about Taylor-Made Baby Planning"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              eyebrow="Back to the hub"
-              title="Use the stroller guide as your bigger map"
-              description="The full-size guide should sharpen the decision. The main stroller hub helps you step back and compare the whole category again if you need the broader view."
-              cards={[
-                {
-                  title: 'The Taylor-Made Stroller Guide',
-                  description: 'Go back to the full stroller education hub to compare categories side by side.',
-                  href: STROLLER_GUIDE_PATH,
-                  icon: 'stroller',
-                  imageSrc: '/assets/strollers/fullsize.png',
-                  imageAlt: 'Illustration representing the stroller guide hub.',
-                },
-              ]}
-              variant="stroller-hub"
-              ctaLabel="Open hub"
-            />
+            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" />
           </div>
         </div>
       </section>
