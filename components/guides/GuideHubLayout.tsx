@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
+import GuideCarSeatHub from '@/components/guides/GuideCarSeatHub';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
@@ -299,6 +300,7 @@ export default function GuideHubLayout({
   const outline = buildGuideOutline(contentWithoutInlineFaqs);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
   const isStrollerHub = guide.slug === 'best-strollers';
+  const isCarSeatHub = guide.slug === 'best-infant-car-seats';
   const heroJumpLinks = getGuideHeroJumpLinks({
     currentPath: sourceRoute,
     tocItems: outline.tocItems,
@@ -312,6 +314,12 @@ export default function GuideHubLayout({
       ? [{ label: 'Next reads', href: `${sourceRoute}#stroller-next-reads` }]
       : []),
   ];
+  const carSeatHeroJumpLinks = [
+    { label: 'Start here', href: `${sourceRoute}#car-seat-starting-point` },
+    { label: 'Stage flow', href: `${sourceRoute}#car-seat-stage-flow` },
+    { label: 'Categories', href: `${sourceRoute}#car-seat-category-grid` },
+    { label: 'Next steps', href: `${sourceRoute}#car-seat-continue` },
+  ];
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
   const nextGuideItems = getGuideNextGuideItems(guide.slug);
   const showDisclosureAfterIntro =
@@ -322,7 +330,7 @@ export default function GuideHubLayout({
     guide.affiliateDisclosureEnabled &&
     (!guide.affiliateDisclosurePlacement || guide.affiliateDisclosurePlacement === 'before_affiliates');
 
-  if (!hubConfig && !isStrollerHub) {
+  if (!hubConfig && !isStrollerHub && !isCarSeatHub) {
     return null;
   }
 
@@ -340,10 +348,10 @@ export default function GuideHubLayout({
         readTime={`${readingTime} min`}
         publishedLabel={formatArticleDate(displayDate)}
         sectionCount={outline.sections.length}
-        jumpLinks={isStrollerHub ? strollerHeroJumpLinks : heroJumpLinks}
+        jumpLinks={isStrollerHub ? strollerHeroJumpLinks : isCarSeatHub ? carSeatHeroJumpLinks : heroJumpLinks}
         imageSrc={guide.heroImageUrl}
         imageAlt={guide.heroImageAlt}
-        variant={isStrollerHub ? 'stroller-hub' : 'default'}
+        variant={isStrollerHub ? 'stroller-hub' : isCarSeatHub ? 'guide-hub' : 'default'}
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
@@ -351,6 +359,12 @@ export default function GuideHubLayout({
           <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
             <div className="space-y-8 md:space-y-16">
               <GuideStrollerHub guide={guide} outline={outline} nextStepLinks={strollerJournalLinks} />
+            </div>
+          </div>
+        ) : isCarSeatHub ? (
+          <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
+            <div className="space-y-8 md:space-y-16">
+              <GuideCarSeatHub guide={guide} outline={outline} />
             </div>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 const GUIDE_PARENT_BY_CLUSTER: Record<string, string> = {
   'TMBC Learning Library: Strollers': 'best-strollers',
+  'TMBC Learning Library: Car Seats': 'best-infant-car-seats',
 };
 
 const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
@@ -9,6 +10,12 @@ const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
   'convertible-strollers': 'best-strollers',
   'jogging-all-terrain-strollers': 'best-strollers',
   'double-strollers': 'best-strollers',
+  'infant-car-seats': 'best-infant-car-seats',
+  'convertible-car-seats': 'best-infant-car-seats',
+  'all-in-one-car-seats': 'best-infant-car-seats',
+  'booster-seats': 'best-infant-car-seats',
+  'rotating-car-seats': 'best-infant-car-seats',
+  'travel-lightweight-car-seats': 'best-infant-car-seats',
 };
 
 const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
@@ -17,6 +24,12 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'minimalist-baby-registry': 'baby-registry',
   'nursery-setup-guide': 'nursery',
   'travel-with-baby': 'travel-with-baby',
+  'infant-car-seats': 'infant-car-seats',
+  'convertible-car-seats': 'convertible-car-seats',
+  'all-in-one-car-seats': 'all-in-one-car-seats',
+  'booster-seats': 'booster-seats',
+  'rotating-car-seats': 'rotating-car-seats',
+  'travel-lightweight-car-seats': 'travel-lightweight-car-seats',
   'compact-lightweight-strollers': 'compact-strollers',
   'jogging-all-terrain-strollers': 'jogging-strollers',
 };

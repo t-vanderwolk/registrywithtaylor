@@ -23,10 +23,11 @@ export default function GuideHero({
   jumpLinks: GuideHeroJumpLink[];
   imageSrc?: string | null;
   imageAlt?: string | null;
-  variant?: 'default' | 'stroller-hub' | 'stroller-category';
+  variant?: 'default' | 'guide-hub' | 'stroller-hub' | 'stroller-category';
 }) {
   const shouldSkipImageOptimization = imageSrc ? isRemoteImageUrl(imageSrc) : false;
-  const isEditorialStrollerLayout = variant === 'stroller-hub' || variant === 'stroller-category';
+  const isEditorialStrollerLayout =
+    variant === 'guide-hub' || variant === 'stroller-hub' || variant === 'stroller-category';
   const showHeroImage = Boolean(imageSrc && variant !== 'stroller-category');
   const heroImageSrc = showHeroImage ? imageSrc! : '';
   const displayTitle = variant === 'stroller-hub' ? 'The Taylor-Made Stroller Guide' : title;

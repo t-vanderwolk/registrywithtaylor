@@ -63,6 +63,22 @@ export type GuideHeroJumpLink = {
   href: string;
 };
 
+export type GuideComparisonBandItem = {
+  id: string;
+  title: string;
+  href: string;
+  icon: GuideHubIconKey;
+  bestFor: string;
+  tradeoff: string;
+  strength?: string;
+  isActive?: boolean;
+};
+
+export type GuideComparisonBandGroup = {
+  label: string;
+  items: GuideComparisonBandItem[];
+};
+
 export type GuideNextGuideItem = GuideHubLink & {
   slug: string;
   current: boolean;

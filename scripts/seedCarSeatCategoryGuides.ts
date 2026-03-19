@@ -2,58 +2,41 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { PostStatus, Prisma } from '@prisma/client';
 import { extractFaqEntries, extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
-import { GUIDE_CATEGORIES, type GuideCategory } from '@/lib/guides/categories';
+import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import { getGuidePath } from '@/lib/guides/routing';
-import { getGuidePillar } from '@/lib/marketing/siteContent';
 import prisma from '@/lib/server/prisma';
 
-type GuideSeedDefinition = {
+type CarSeatGuideSeed = {
   fileName: string;
   slug: string;
-  category: GuideCategory;
   targetKeyword: string;
   secondaryKeywords: string[];
+  heroImageAlt: string;
+  relatedSlugs: string[];
 };
 
-const GUIDE_TOPIC_CLUSTER = 'TMBC Learning Library';
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'guides');
+const GUIDE_TOPIC_CLUSTER = 'TMBC Learning Library: Car Seats';
 const PUBLISH_FLAG = '--publish';
+const CAR_SEAT_CATEGORY = GUIDE_CATEGORIES[1];
+const CAR_SEAT_GUIDE_IMAGE = '/assets/editorial/gear.jpg';
 
-const guideSeeds: GuideSeedDefinition[] = [
+const carSeatGuideSeeds: CarSeatGuideSeed[] = [
   {
-    fileName: 'taylor-made-stroller-guide.md',
-    slug: 'best-strollers',
-    category: GUIDE_CATEGORIES[0],
-    targetKeyword: 'best strollers',
-    secondaryKeywords: ['travel stroller', 'full-size stroller', 'modular stroller', 'best stroller for newborn'],
+    fileName: 'taylor-made-rotating-car-seat-guide.md',
+    slug: 'rotating-car-seats',
+    targetKeyword: 'rotating car seat',
+    secondaryKeywords: ['swivel car seat', '360 car seat', 'rotating convertible car seat', 'rotating all-in-one car seat'],
+    heroImageAlt: 'Rotating car seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'travel-lightweight-car-seats'],
   },
   {
-    fileName: 'taylor-made-car-seat-guide.md',
-    slug: 'best-infant-car-seats',
-    category: GUIDE_CATEGORIES[1],
-    targetKeyword: 'car seat guide',
-    secondaryKeywords: ['infant car seat', 'convertible car seat', 'all-in-one car seat', 'car seat stages'],
-  },
-  {
-    fileName: 'taylor-made-baby-registry-guide.md',
-    slug: 'minimalist-baby-registry',
-    category: GUIDE_CATEGORIES[2],
-    targetKeyword: 'baby registry guide',
-    secondaryKeywords: ['minimalist baby registry', 'how to build a baby registry', 'baby registry checklist', 'registry planning'],
-  },
-  {
-    fileName: 'taylor-made-nursery-guide.md',
-    slug: 'nursery-setup-guide',
-    category: GUIDE_CATEGORIES[3],
-    targetKeyword: 'nursery planning guide',
-    secondaryKeywords: ['nursery setup', 'baby nursery layout', 'small nursery ideas', 'nursery planning'],
-  },
-  {
-    fileName: 'taylor-made-travel-with-baby-guide.md',
-    slug: 'travel-with-baby',
-    category: GUIDE_CATEGORIES[4],
-    targetKeyword: 'travel with baby',
-    secondaryKeywords: ['travel stroller', 'flying with baby', 'road trip with baby', 'baby travel checklist'],
+    fileName: 'taylor-made-travel-lightweight-car-seat-guide.md',
+    slug: 'travel-lightweight-car-seats',
+    targetKeyword: 'travel lightweight car seat',
+    secondaryKeywords: ['travel car seat', 'lightweight car seat', 'portable car seat', 'car seat for travel'],
+    heroImageAlt: 'Travel and lightweight car seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'rotating-car-seats', 'travel-with-baby'],
   },
 ];
 
@@ -72,7 +55,7 @@ function extractTitleAndBody(rawContent: string) {
   const titleMatch = normalized.match(/^#\s+(.+)$/m);
 
   if (!titleMatch) {
-    throw new Error('Missing top-level H1 title in guide markdown.');
+    throw new Error('Missing top-level H1 title in car seat guide markdown.');
   }
 
   const title = titleMatch[1].trim();
@@ -88,55 +71,36 @@ function stripPlaceholderProductLinks(content: string) {
     .trim();
 }
 
-function buildExcerpt(content: string, fallback: string) {
+function buildExcerpt(content: string) {
   const lead = extractLeadParagraphs(content, 2)
     .map((paragraph) => stripMarkdown(paragraph))
     .filter(Boolean)
     .join(' ');
 
-  return truncateAtWordBoundary(lead || fallback, 220);
+  return truncateAtWordBoundary(lead, 220);
 }
 
-function buildSeoDescription(content: string, fallback: string) {
+function buildSeoDescription(content: string) {
   const lead = extractLeadParagraphs(content, 2)
     .map((paragraph) => stripMarkdown(paragraph))
     .filter(Boolean)
     .join(' ');
 
-  return truncateAtWordBoundary(lead || fallback, 160);
+  return truncateAtWordBoundary(lead, 160);
 }
 
-async function readGuideSeed(definition: GuideSeedDefinition) {
-  const filePath = path.join(CONTENT_DIR, definition.fileName);
-  const pillar = getGuidePillar(definition.slug);
-
-  if (!pillar) {
-    throw new Error(`No marketing guide pillar found for slug "${definition.slug}".`);
-  }
-
-  const rawContent = await fs.readFile(filePath, 'utf8');
+async function readGuide(definition: CarSeatGuideSeed) {
+  const rawContent = await fs.readFile(path.join(CONTENT_DIR, definition.fileName), 'utf8');
   const { title, body } = extractTitleAndBody(rawContent);
   const cleanedBody = stripPlaceholderProductLinks(body);
-  const fallbackExcerpt = pillar.description;
-  const excerpt = buildExcerpt(cleanedBody, fallbackExcerpt);
-  const seoDescription = buildSeoDescription(cleanedBody, pillar.seoDescription);
-  const faqItems = extractFaqEntries(cleanedBody);
 
   return {
     ...definition,
     title,
     content: cleanedBody,
-    excerpt,
-    seoDescription,
-    faqItems,
-    heroImageUrl: pillar.imageSrc,
-    heroImageAlt: pillar.imageAlt,
-    ogImageUrl: pillar.imageSrc,
-    ogImageAlt: pillar.imageAlt,
-    canonicalUrl: getGuidePath({ slug: definition.slug }),
-    internalLinkNotes:
-      'Seeded from content/guides. Review internal blog link placeholders and add real product destination URLs before merchandising updates.',
-    relatedSlugs: pillar.relatedSlugs.filter((slug) => guideSeeds.some((entry) => entry.slug === slug)),
+    excerpt: buildExcerpt(cleanedBody),
+    seoDescription: buildSeoDescription(cleanedBody),
+    faqItems: extractFaqEntries(cleanedBody),
   };
 }
 
@@ -177,16 +141,16 @@ async function main() {
     }));
 
   if (!author) {
-    throw new Error('No users found. Create an admin user before seeding pillar guides.');
+    throw new Error('No users found. Create an admin user before seeding car seat category guides.');
   }
 
-  const guides = await Promise.all(guideSeeds.map((definition) => readGuideSeed(definition)));
+  const guides = await Promise.all(carSeatGuideSeeds.map((definition) => readGuide(definition)));
   const seededGuideIdsBySlug = new Map<string, string>();
 
   for (const guide of guides) {
     const existing = await prisma.guide.findUnique({
       where: { slug: guide.slug },
-      select: { id: true, status: true, publishedAt: true, archivedAt: true, views: true },
+      select: { id: true, status: true, publishedAt: true, archivedAt: true },
     });
 
     const statusData = getStatusData({ existing, publish });
@@ -197,10 +161,10 @@ async function main() {
       intro: null,
       content: guide.content,
       conclusion: null,
-      heroImageUrl: guide.heroImageUrl,
+      heroImageUrl: CAR_SEAT_GUIDE_IMAGE,
       heroImageAlt: guide.heroImageAlt,
       authorId: author.id,
-      category: guide.category,
+      category: CAR_SEAT_CATEGORY,
       topicCluster: GUIDE_TOPIC_CLUSTER,
       status: statusData.status,
       publishedAt: statusData.publishedAt,
@@ -210,12 +174,13 @@ async function main() {
       seoDescription: guide.seoDescription,
       ogTitle: guide.title,
       ogDescription: guide.seoDescription,
-      ogImageUrl: guide.ogImageUrl,
-      ogImageAlt: guide.ogImageAlt,
-      canonicalUrl: guide.canonicalUrl,
+      ogImageUrl: CAR_SEAT_GUIDE_IMAGE,
+      ogImageAlt: guide.heroImageAlt,
+      canonicalUrl: getGuidePath({ slug: guide.slug, topicCluster: GUIDE_TOPIC_CLUSTER }),
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: guide.secondaryKeywords,
-      internalLinkNotes: guide.internalLinkNotes,
+      internalLinkNotes:
+        'Seeded from content/guides. Review internal comparison placeholders and add live retailer destination URLs when merchandising is ready.',
       tableOfContentsEnabled: true,
       faqItems: guide.faqItems as Prisma.InputJsonValue,
       affiliateDisclosureEnabled: false,
@@ -228,8 +193,8 @@ async function main() {
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
-      nextStepCtaLabel: 'Explore More Guides',
-      nextStepCtaHref: '/guides',
+      nextStepCtaLabel: 'Read the Car Seat Guide',
+      nextStepCtaHref: getGuidePath({ slug: 'best-infant-car-seats' }),
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };
@@ -249,8 +214,18 @@ async function main() {
         });
 
     seededGuideIdsBySlug.set(saved.slug, saved.id);
-    console.log(`${existing ? 'Updated' : 'Created'} guide: ${saved.title} (${saved.slug}) [${saved.status}]`);
+    console.log(`${existing ? 'Updated' : 'Created'} car seat guide: ${saved.title} (${saved.slug}) [${saved.status}]`);
   }
+
+  const bestCarSeatGuide = await prisma.guide.findUnique({
+    where: { slug: 'best-infant-car-seats' },
+    select: { id: true, relatedGuideIds: true },
+  });
+
+  const travelWithBabyGuide = await prisma.guide.findUnique({
+    where: { slug: 'travel-with-baby' },
+    select: { id: true },
+  });
 
   for (const guide of guides) {
     const guideId = seededGuideIdsBySlug.get(guide.slug);
@@ -259,7 +234,17 @@ async function main() {
     }
 
     const relatedGuideIds = guide.relatedSlugs
-      .map((slug) => seededGuideIdsBySlug.get(slug))
+      .map((slug) => {
+        if (slug === 'best-infant-car-seats') {
+          return bestCarSeatGuide?.id ?? null;
+        }
+
+        if (slug === 'travel-with-baby') {
+          return travelWithBabyGuide?.id ?? null;
+        }
+
+        return seededGuideIdsBySlug.get(slug) ?? null;
+      })
       .filter((id): id is string => Boolean(id));
 
     await prisma.guide.update({
@@ -270,15 +255,26 @@ async function main() {
     });
   }
 
+  if (bestCarSeatGuide) {
+    await prisma.guide.update({
+      where: { id: bestCarSeatGuide.id },
+      data: {
+        relatedGuideIds: guides
+          .map((guide) => seededGuideIdsBySlug.get(guide.slug))
+          .filter((id): id is string => Boolean(id)),
+      },
+    });
+  }
+
   console.log('');
-  console.log(`Seeded ${guides.length} pillar guides as ${publish ? 'published' : 'draft'} content.`);
+  console.log(`Seeded ${guides.length} car seat category guides as ${publish ? 'published' : 'draft'} content.`);
   console.log(`Author: ${author.name?.trim() || author.email}`);
   console.log('Placeholder example.com product links were stripped during import to avoid broken outbound CTAs.');
 }
 
 main()
   .catch((error) => {
-    console.error('Failed to seed pillar guides:', error);
+    console.error('Failed to seed car seat category guides:', error);
     process.exit(1);
   })
   .finally(async () => {

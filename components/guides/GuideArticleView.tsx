@@ -3,6 +3,7 @@ import Link from 'next/link';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
 import GuideCompactLiveLayout from '@/components/guides/GuideCompactLiveLayout';
+import GuideCarSeatCategoryLiveLayout from '@/components/guides/GuideCarSeatCategoryLiveLayout';
 import GuideFullSizeLiveLayout from '@/components/guides/GuideFullSizeLiveLayout';
 import GuideStrollerCategoryLiveLayout from '@/components/guides/GuideStrollerCategoryLiveLayout';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
@@ -13,6 +14,7 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents, getGuideDestinationEvent } from '@/lib/guides/events';
 import { getGuideHubConfig } from '@/lib/guides/hubs';
 import { getGuidePath } from '@/lib/guides/routing';
+import { isCarSeatCategoryGuideSlug } from '@/lib/guides/carSeatCategoryGuides';
 import { isStrollerCategoryGuideSlug } from '@/lib/guides/strollerCluster';
 import { getAnalyticsPageType } from '@/lib/analytics';
 import { isRemoteImageUrl } from '@/lib/blog/images';
@@ -162,6 +164,7 @@ export default async function GuideArticleView({
   const useCompactLiveLayout = guide.slug === 'compact-lightweight-strollers';
   const useStrollerCategoryLiveLayout =
     isStrollerCategoryGuideSlug(guide.slug) && !useFullSizeLiveLayout && !useCompactLiveLayout;
+  const useCarSeatCategoryLiveLayout = isCarSeatCategoryGuideSlug(guide.slug);
   const strollerJournalLinks =
     guide.slug === 'best-strollers' || useStrollerCategoryLiveLayout || useFullSizeLiveLayout || useCompactLiveLayout
       ? await getPublishedStrollerJournalLinks(guide.slug)
@@ -248,6 +251,27 @@ export default async function GuideArticleView({
         />
 
         <GuideStrollerCategoryLiveLayout
+          guide={guide}
+          displayDate={displayDate}
+          readingTime={readingTime}
+          sourceRoute={sourceRoute}
+        />
+      </>
+    );
+  }
+
+  if (useCarSeatCategoryLiveLayout) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <GuideCarSeatCategoryLiveLayout
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}

@@ -3,10 +3,12 @@ import type { GuideHubLink } from '@/lib/guides/hubs';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 
 export default function GuideContinueExploring({
+  id,
   title,
   description,
   links,
 }: {
+  id?: string;
   title: string;
   description?: string;
   links: GuideHubLink[];
@@ -16,7 +18,7 @@ export default function GuideContinueExploring({
   }
 
   return (
-    <section className="rounded-[1.65rem] border border-black/6 bg-white/84 p-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:p-5 md:rounded-[1.8rem] md:p-6">
+    <section id={id} className="rounded-[1.65rem] border border-black/6 bg-white/84 p-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:p-5 md:rounded-[1.8rem] md:p-6">
       <div className="space-y-2">
         <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">Continue exploring</p>
         <h3 className="font-serif text-[1.55rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">{title}</h3>

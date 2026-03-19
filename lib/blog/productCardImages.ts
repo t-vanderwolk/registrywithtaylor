@@ -8,6 +8,27 @@ type ResolvedProductCardImage = {
 const STROLLER_AND_CAR_SEAT_IMAGE = '/assets/editorial/gear.jpg' as const;
 const NURSERY_IMAGE = '/assets/editorial/nursery.jpg' as const;
 const REGISTRY_IMAGE = '/assets/editorial/registry.jpg' as const;
+const CAR_SEAT_PRODUCT_IMAGES = {
+  alta: '/assets/car-seats/alta.png',
+  aria: '/assets/car-seats/aria.png',
+  atonswivel: '/assets/car-seats/atonswivel.png',
+  cloudt: '/assets/car-seats/cloudt.png',
+  callisto: '/assets/car-seats/callisto.png',
+  execnext: '/assets/car-seats/execnext.png',
+  foonf: '/assets/car-seats/foonf2.png',
+  liing: '/assets/car-seats/liing.png',
+  liingo: '/assets/car-seats/liingobaseless.png',
+  mesav3: '/assets/car-seats/mesav3.png',
+  one4life: '/assets/car-seats/one4life.png',
+  oobr: '/assets/car-seats/oobr.png',
+  piparx: '/assets/car-seats/piparxbase.png',
+  poplar: '/assets/car-seats/poplar.png',
+  ravanext: '/assets/car-seats/ravanext.png',
+  revvmaxx: '/assets/car-seats/revvmaxx.png',
+  romi: '/assets/car-seats/romi.png',
+  wayb: '/assets/car-seats/wayb.png',
+  peri: '/assets/car-seats/peri.png',
+} as const;
 const STROLLER_PRODUCT_IMAGES = {
   butterfly: '/assets/strollers/butterfly.png',
   cruz: '/assets/strollers/cruz.png',
@@ -177,6 +198,177 @@ export function resolveProductCardImage({
   if (includesAny(normalizedKey, ['ridge'])) {
     return {
       src: STROLLER_PRODUCT_IMAGES.ridge,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['pipa rx', 'piparx'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.piparx,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['mesa v3', 'mesa'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.mesav3,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['aria'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.aria,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['liingo'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.liingo,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['liing'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.liing,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['rava next', 'ravanext', 'rava'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.ravanext,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['poplar'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.poplar,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['foonf'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.foonf,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['exec next', 'execnext', 'exec'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.execnext,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['one4life'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.one4life,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['revv maxx', 'revvmaxx', 'revv'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.revvmaxx,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['aton swivel', 'atonswivel'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.atonswivel,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['peri 180', 'peri'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.peri,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['wayb', 'pico'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.wayb,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['oobr'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.oobr,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['alta'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.alta,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['cloud t', 'cloudt'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.cloudt,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['callisto'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.callisto,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['romi'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.romi,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,
