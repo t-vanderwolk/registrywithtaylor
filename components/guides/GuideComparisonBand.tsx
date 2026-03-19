@@ -10,12 +10,12 @@ function ComparisonGroup({
   return (
     <div className="space-y-4">
       <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{label}</p>
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {items.map((item) => (
           <Link
             key={`${item.id}-${item.href}`}
             href={item.href}
-            className={`group flex h-full flex-col rounded-[1.35rem] border p-4 transition duration-200 ${
+            className={`group flex h-full flex-col rounded-[1.35rem] border p-3.5 transition duration-200 sm:p-4 ${
               item.isActive
                 ? 'border-[rgba(196,156,94,0.26)] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.05)]'
                 : 'border-black/6 bg-[rgba(255,255,255,0.86)] hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.22)] hover:bg-white'
@@ -81,13 +81,13 @@ export default function GuideComparisonBand({
   }
 
   return (
-    <section className="rounded-[1.8rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff9f5_0%,#fbf4ec_100%)] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-6">
+    <section className="rounded-[1.7rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff9f5_0%,#fbf4ec_100%)] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-5 md:p-6">
       <div className="space-y-2">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
         <h2 className="font-serif text-[1.9rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl">
           {title ?? 'Compare the stroller lanes before you over-compare the models'}
         </h2>
-        <p className="max-w-[72ch] text-sm leading-7 text-neutral-700">
+        <p className="max-w-[72ch] text-sm leading-6 text-neutral-700 sm:leading-7">
           {description ??
             'Start with the core three first. Then compare the more specialized paths once the everyday question is already clear.'}
         </p>

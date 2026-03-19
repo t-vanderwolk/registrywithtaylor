@@ -25,7 +25,7 @@ export default function GuideContinueExploring({
         {description ? <p className="max-w-3xl text-sm leading-7 text-neutral-700">{description}</p> : null}
       </div>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {links.map((link) => (
           <Link
             key={`${link.href}-${link.title}`}

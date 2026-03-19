@@ -25,12 +25,15 @@ export default function GuideHero({
   imageAlt?: string | null;
   variant?: 'default' | 'guide-hub' | 'stroller-hub' | 'stroller-category';
 }) {
-  const shouldSkipImageOptimization = imageSrc ? isRemoteImageUrl(imageSrc) : false;
-  const isEditorialStrollerLayout =
-    variant === 'guide-hub' || variant === 'stroller-hub' || variant === 'stroller-category';
-  const showHeroImage = Boolean(imageSrc && variant !== 'stroller-category');
-  const heroImageSrc = showHeroImage ? imageSrc! : '';
-  const displayTitle = variant === 'stroller-hub' ? 'The Taylor-Made Stroller Guide' : title;
+	const shouldSkipImageOptimization = imageSrc ? isRemoteImageUrl(imageSrc) : false;
+	const isEditorialStrollerLayout =
+	  variant === 'guide-hub' || variant === 'stroller-hub' || variant === 'stroller-category';
+	const showHeroImage = Boolean(imageSrc && variant !== 'stroller-category');
+	const heroImageSrc = showHeroImage ? imageSrc! : '';
+	const heroImageClassName = isEditorialStrollerLayout
+	  ? 'object-contain object-center p-2 sm:p-3 lg:p-4'
+	  : 'object-cover';
+	const displayTitle = variant === 'stroller-hub' ? 'The Taylor-Made Stroller Guide' : title;
   const stats = [
     { label: 'Estimated read', value: readTime },
     ...(publishedLabel ? [{ label: 'Published', value: publishedLabel }] : []),
@@ -143,23 +146,23 @@ export default function GuideHero({
                 : 'rounded-[1.7rem] sm:rounded-[2rem]'
             }`}
           >
-            <div
-              className={`relative overflow-hidden ${
-                isEditorialStrollerLayout
-                  ? 'aspect-[4/3.1] rounded-[1.25rem] sm:rounded-[1.5rem] lg:aspect-[16/6.4] lg:rounded-none'
-                  : 'aspect-[4/3.65]'
-              }`}
-            >
-              <Image
-                src={heroImageSrc}
+			<div
+			  className={`relative overflow-hidden ${
+				isEditorialStrollerLayout
+				  ? 'aspect-[4/3.1] rounded-[1.25rem] bg-[linear-gradient(180deg,#f8f1e7_0%,#fdfaf6_100%)] sm:rounded-[1.5rem] lg:aspect-[16/6.4] lg:rounded-none'
+				  : 'aspect-[4/3.65]'
+			  }`}
+			>
+			  <Image
+				src={heroImageSrc}
                 alt={imageAlt?.trim() || title}
-                fill
-                priority
-                sizes={isEditorialStrollerLayout ? '(min-width: 1024px) 1300px, 100vw' : '(min-width: 1024px) 40vw, 100vw'}
-                className="object-cover"
-                unoptimized={shouldSkipImageOptimization}
-              />
-            </div>
+				fill
+				priority
+				sizes={isEditorialStrollerLayout ? '(min-width: 1024px) 1300px, 100vw' : '(min-width: 1024px) 40vw, 100vw'}
+				className={heroImageClassName}
+				unoptimized={shouldSkipImageOptimization}
+			  />
+			</div>
           </div>
         ) : null}
       </div>

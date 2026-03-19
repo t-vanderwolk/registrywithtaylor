@@ -183,20 +183,20 @@ export default function GuideCarSeatHub({
   const stageChips = previewSubsections.map((subsection) => toStageChipLabel(subsection.title)).slice(0, 4);
 
   return (
-    <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
+    <div className="stroller-hub-shell space-y-5 sm:space-y-8 lg:space-y-16">
       <section className="mx-auto max-w-6xl">
-        <MarketingSurface className="relative overflow-hidden rounded-[1.9rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)] p-4 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-6 md:rounded-[2rem] md:p-8">
-          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(215,161,175,0.14),rgba(215,161,175,0)_68%)]" />
+        <MarketingSurface className="relative overflow-hidden rounded-[1.8rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)] p-3.5 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-6 md:rounded-[2rem] md:p-8">
+          <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(215,161,175,0.14),rgba(215,161,175,0)_68%)] sm:h-40" />
 
-          <div className="relative grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start">
+          <div className="relative grid gap-4 sm:gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start">
             {preface.leadParagraph ? (
-              <div className="relative overflow-hidden rounded-[1.45rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(160deg,#fff8f7_0%,#f5ede5_100%)] p-5 shadow-[0_18px_40px_rgba(0,0,0,0.04)] sm:p-6 md:p-7">
+              <div className="relative overflow-hidden rounded-[1.35rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(160deg,#fff8f7_0%,#f5ede5_100%)] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.04)] sm:rounded-[1.45rem] sm:p-6 md:p-7">
                 <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.2)_0%,rgba(215,161,175,0)_72%)]" />
 
-                <div className="relative space-y-6">
+                <div className="relative space-y-5 sm:space-y-6">
                   <div className="space-y-3">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Stage-based guide</p>
-                    <h2 className="max-w-[11ch] font-serif text-[1.95rem] leading-[0.95] tracking-[-0.05em] text-neutral-900 sm:text-[2.45rem] md:text-[2.8rem]">
+                    <h2 className="max-w-[11ch] font-serif text-[1.72rem] leading-[0.95] tracking-[-0.05em] text-neutral-900 sm:text-[2.45rem] md:text-[2.8rem]">
                       Start with the stage.
                     </h2>
                     <div className="max-w-[32rem]">
@@ -211,13 +211,13 @@ export default function GuideCarSeatHub({
                   </div>
 
                   {stageChips.length > 0 ? (
-                    <div className="border-t border-[rgba(196,156,94,0.18)] pt-5">
+                    <div className="border-t border-[rgba(196,156,94,0.18)] pt-4 sm:pt-5">
                       <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">The path gets clearer fast</p>
-                      <div className="mt-3 flex flex-wrap gap-2.5">
+                      <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible sm:pb-0">
                         {stageChips.map((chip) => (
                           <span
                             key={chip}
-                            className="rounded-full border border-[rgba(196,156,94,0.18)] bg-white/78 px-3.5 py-2 text-[0.78rem] uppercase tracking-[0.16em] text-neutral-800"
+                            className="shrink-0 rounded-full border border-[rgba(196,156,94,0.18)] bg-white/78 px-3 py-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-neutral-800 sm:px-3.5 sm:py-2 sm:text-[0.78rem]"
                           >
                             {chip}
                           </span>
@@ -229,12 +229,12 @@ export default function GuideCarSeatHub({
               </div>
             ) : null}
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {preface.supportingParagraphs.length > 0 ? (
-                <div className="rounded-[1.45rem] border border-stone-200/70 bg-white/88 p-5 shadow-[0_14px_32px_rgba(0,0,0,0.04)] sm:p-6">
+                <div className="rounded-[1.35rem] border border-stone-200/70 bg-white/88 p-4 shadow-[0_14px_32px_rgba(0,0,0,0.04)] sm:rounded-[1.45rem] sm:p-6">
                   <div className="space-y-2">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Why this guide exists</p>
-                    <h3 className="font-serif text-[1.55rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">
+                    <h3 className="font-serif text-[1.4rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">
                       Clarity first. Then comparison.
                     </h3>
                   </div>
@@ -252,11 +252,11 @@ export default function GuideCarSeatHub({
               ) : null}
 
               {preface.callout ? (
-                <div className="rounded-[1.45rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f8edf1_100%)] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.04)] sm:p-6">
+                <div className="rounded-[1.35rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f8edf1_100%)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.04)] sm:rounded-[1.45rem] sm:p-6">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
                     {preface.callout.title?.trim() || 'TMBC note'}
                   </p>
-                  <p className="mt-4 max-w-[32rem] text-[1rem] leading-8 text-[var(--color-accent-dark)]/92">
+                  <p className="mt-3 max-w-[32rem] text-[0.95rem] leading-7 text-[var(--color-accent-dark)]/92 sm:mt-4 sm:text-[1rem] sm:leading-8">
                     {preface.callout.body}
                   </p>
                 </div>

@@ -32,7 +32,7 @@ export default function GuideCategoryCards({
       id={id}
       className={
         isStrollerHub
-          ? 'min-w-0 space-y-5 rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f8f2ec_100%)] p-4 shadow-[0_20px_48px_rgba(0,0,0,0.04)] sm:space-y-6 sm:p-6 md:space-y-7 md:rounded-[2rem] md:p-8 xl:p-10'
+          ? 'min-w-0 space-y-5 rounded-[1.6rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f8f2ec_100%)] p-3.5 shadow-[0_20px_48px_rgba(0,0,0,0.04)] sm:space-y-6 sm:p-6 md:space-y-7 md:rounded-[2rem] md:p-8 xl:p-10'
           : 'min-w-0 space-y-5'
       }
     >
@@ -48,14 +48,14 @@ export default function GuideCategoryCards({
         ) : null}
       </div>
 
-      <div className={`grid min-w-0 grid-cols-1 ${isStrollerHub ? 'gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
+      <div className={`grid min-w-0 grid-cols-1 ${isStrollerHub ? 'gap-3.5 sm:gap-5 md:grid-cols-2 xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
         {cards.map((card) => (
           <Link
             key={`${card.href}-${card.title}`}
             href={card.href}
             className={
               isStrollerHub
-                ? 'group flex min-w-0 h-full flex-col rounded-[1.6rem] border border-stone-200/70 bg-[#fcfaf7] p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#D7A1AF] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] sm:rounded-3xl sm:p-5 md:p-6'
+                ? 'group flex min-w-0 h-full flex-col rounded-[1.45rem] border border-stone-200/70 bg-[#fcfaf7] p-3.5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#D7A1AF] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f2ec] sm:rounded-3xl sm:p-5 md:p-6'
                 : 'group flex min-w-0 h-full flex-col rounded-xl border border-black/6 bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_14px_34px_rgba(0,0,0,0.05)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fcf7f4]'
             }
           >
@@ -63,12 +63,12 @@ export default function GuideCategoryCards({
               <div
                 className={
                   isStrollerHub
-                    ? 'mb-4 rounded-[1.35rem] border border-stone-200/70 bg-[linear-gradient(180deg,#f6efe8_0%,#fdfbf8_100%)] p-3 sm:mb-6 sm:rounded-[1.7rem] sm:p-4 md:p-5'
+                    ? 'mb-3 rounded-[1.2rem] border border-stone-200/70 bg-[linear-gradient(180deg,#f6efe8_0%,#fdfbf8_100%)] p-2.5 sm:mb-6 sm:rounded-[1.7rem] sm:p-4 md:p-5'
                     : 'relative mb-5 aspect-[4/3] overflow-hidden rounded-[1.15rem] border border-black/6 bg-[#f7f2eb]'
                 }
               >
                 {isStrollerHub ? (
-                  <div className="relative h-36 sm:h-48 md:h-[220px]">
+                  <div className="relative h-32 sm:h-44 md:h-[220px]">
                     <Image
                       src={card.imageSrc}
                       alt={card.imageAlt?.trim() || card.title}
@@ -119,25 +119,25 @@ export default function GuideCategoryCards({
               <div
                 className={
                   isStrollerHub
-                    ? 'flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)] sm:h-11 sm:w-11'
+                    ? 'flex h-9 w-9 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)] sm:h-11 sm:w-11'
                     : 'flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]'
                 }
               >
                 <GuideGlyph icon={card.icon} />
               </div>
-              <span className="text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)] sm:text-[0.68rem]">
+              <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)] sm:text-[0.68rem]">
                 {ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}
               </span>
             </div>
-            <h3 className={`${isStrollerHub ? 'mt-4 font-serif text-[1.24rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:mt-5 sm:text-[1.38rem] md:text-[1.5rem]' : 'mt-5 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900'}`}>
+            <h3 className={`${isStrollerHub ? 'mt-3 font-serif text-[1.16rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:mt-5 sm:text-[1.38rem] md:text-[1.5rem]' : 'mt-5 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900'}`}>
               {card.title}
             </h3>
-            <p className={`${isStrollerHub ? 'mt-3 text-sm leading-6 text-neutral-700 sm:leading-7' : 'mt-3 text-sm leading-7 text-neutral-700'}`}>
+            <p className={`${isStrollerHub ? 'mt-2.5 text-sm leading-6 text-neutral-700 sm:mt-3 sm:leading-7' : 'mt-3 text-sm leading-7 text-neutral-700'}`}>
               {card.description}
             </p>
             {card.bestFor ? (
               <p
-                className={`mt-3 rounded-[1rem] border border-stone-200/70 bg-white/90 px-3 py-3 text-sm leading-6 text-neutral-700 ${
+                className={`mt-3 rounded-[1rem] border border-stone-200/70 bg-white/90 px-3 py-2.5 text-sm leading-6 text-neutral-700 ${
                   isStrollerHub ? 'sm:leading-7' : ''
                 }`}
               >
@@ -148,7 +148,7 @@ export default function GuideCategoryCards({
               </p>
             ) : null}
 
-            <div className="mt-auto pt-5 text-sm font-semibold text-neutral-900 sm:pt-6">
+            <div className="mt-auto pt-4 text-sm font-semibold text-neutral-900 sm:pt-6">
               <span>{ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}</span>
               <span aria-hidden="true" className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
                 -&gt;
