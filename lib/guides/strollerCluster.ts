@@ -201,15 +201,15 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'convertible-strollers',
     shortTitle: 'Convertible',
     heroDescription:
-      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, including the difference between a modular stroller and a seat-specific convertible path.',
+      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, including the difference between a more modular single-to-double system and a more seat-specific seat path.',
     whatSectionTitles: ['What Convertible Strollers Actually Mean', 'Modular stroller vs seat-specific single-to-double'],
     signatureMoment: 'Planning for your life matters more than planning for the stroller.',
     worksForSummary:
-      'Convertible strollers make the most sense when future sibling planning is real enough to matter, and you need to judge a true single-to-double path instead of assuming every modular stroller is expandable.',
+      'Convertible strollers make the most sense when future sibling planning is real enough to matter, and you need to judge whether a more modular or more seat-specific single-to-double path actually fits your family.',
     worksForBullets: [
       'You are planning for another child on a real near-term timeline.',
       'Single-to-double flexibility would genuinely change what you buy now.',
-      'You want to understand future expansion without losing sight of present-day use, and you are willing to compare the exact seat path instead of trusting broad modular language.',
+      'You want to understand future expansion without losing sight of present-day use, and you are willing to compare whether the stroller feels more modular or more seat-specific once the second seat enters the picture.',
     ],
     notBestFitSummary:
       'This category can feel like too much stroller when future planning is vague and the everyday single-stroller experience already feels bulky.',

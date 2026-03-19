@@ -42,11 +42,21 @@ This is where a lot of parents get tripped up. A modular stroller simply means t
 
 Many modular strollers are still just single strollers. They are flexible, but they are not built around adding a second full seat later. So if the word modular is doing all the selling, stop and ask the more important question: does this stroller actually have a real second-seat path, or is it just versatile for one child?
 
+Once you get into true single-to-double strollers, there is another split to watch for: some feel more modular in how the whole system grows, and others feel much more seat-specific in how the second-child setup actually works.
+
+### Modular single-to-double means the frame is built around a more open expansion story
+
+This is the lane that feels most obviously designed to grow. The frame, seat choices, and accessory ecosystem usually make the stroller feel intentionally expandable instead of merely expandable on paper.
+
+That does not mean every setup is endlessly flexible. It means the second-child story tends to feel more integrated into the system from the beginning. Donkey, Gazelle, and Switchback & Roll are useful examples of this more modular single-to-double lane.
+
 ### Seat-specific single-to-double means the expansion path is brand-specific
 
 Some convertible strollers are not just expandable. They are seat-specific. That means the second-seat setup depends on a particular seat, a particular position on the frame, certain child-order rules, and sometimes different weight limits between the upper and lower seat.
 
-This matters because "single-to-double" sounds broad and simple in marketing. In real life, the details can be very specific. Not every seat works in every position. Not every two-child setup feels equally easy. And not every stroller that technically expands feels equally good once it does.
+This matters because "single-to-double" sounds broad and simple in marketing. In real life, the details can be very specific. Vista V3 and Wave 3 are good examples of this more seat-specific lane: the stroller may absolutely expand, but the promise only works if the exact seat map works for your family.
+
+Not every seat works in every position. Not every two-child setup feels equally easy. And not every stroller that technically expands feels equally good once it does.
 
 ### Convertible versus dedicated double
 
@@ -65,9 +75,9 @@ Watchout: The extra size only makes sense if the future expansion path is likely
 
 :::comparison
 Title: Modular stroller vs seat-specific single-to-double
-Modular stroller: Best when you want bassinet, car seat, and reversible-seat flexibility for one-child life without assuming a second seat is part of the deal
-Seat-specific single-to-double: Best when another child is part of a real near-term plan and you are willing to compare the exact second-seat rules, positions, and limits instead of just trusting the word convertible
-Watchout: Marketing often treats modular and convertible like synonyms. They are related, but they are not the same promise
+Modular single-to-double: Best when you want a stroller system that feels openly built around future seat combinations and the modular ecosystem is part of the appeal
+Seat-specific single-to-double: Best when another child is part of a real near-term plan and you are willing to compare the exact second-seat rules, positions, and limits before you buy
+Watchout: Both can be convertible. The difference is whether the second-seat path feels broadly modular or much more prescribed once you map real children onto it
 :::
 
 ## Real-Life Fit
@@ -109,14 +119,21 @@ If you need two seats now, compare double strollers. If you are planning ahead, 
 
 ## Product Examples
 
-These three examples are useful because they show that convertible does not always mean the same kind of expansion story. Some feel obviously built around conversion. Others are more seat-specific in how the second-child setup actually works.
+These five examples are useful because they split the category into the two real convertible lanes: more modular single-to-double systems and more seat-specific single-to-double systems. Neither lane is automatically better. The right one depends on whether you want a broader modular ecosystem or a tighter seat map you have actually checked.
+
+:::comparison
+Title: Modular examples vs seat-specific examples
+Modular single-to-double: Donkey 6, Gazelle S, and Switchback & Roll show the more open, system-driven version of conversion where the frame feels intentionally built around multiple future combinations
+Seat-specific single-to-double: Vista V3 and Wave 3 show the more prescribed version of conversion where the exact second-seat hardware, seat order, and configuration math matter more than the broad promise
+Watchout: A stroller can technically expand and still be much more restrictive than the word modular suggests
+:::
 
 :::product
 Brand: Bugaboo
 Product: Donkey 6
-Review: A convertible system that shows how this category can feel genuinely useful when the expansion plan is real. The side-by-side setup changes the footprint, but many families like the sibling visibility and the very clear single-to-double intent.
-Best for: Families who want future two-child flexibility and do not mind a wider convertible approach once the second seat enters the picture.
-Standout: A side-by-side convertible that makes the planning-forward category feel very tangible.
+Review: A modular single-to-double example that makes the growth story feel obvious from the start. The side-by-side setup changes the footprint, but many families like the sibling visibility and the very clear sense that the system was built around expansion.
+Best for: Families who want a more openly modular single-to-double system and do not mind a wider approach once the second seat enters the picture.
+Standout: A side-by-side convertible that makes the modular single-to-double lane feel very tangible.
 Pros: Converts from single to double | Strong sibling visibility | Premium push feel | Clear single-to-double identity
 Image: /assets/strollers/donkey.png
 Image Alt: Bugaboo Donkey 6 stroller.
@@ -127,9 +144,9 @@ Link: Shop at Amazon | https://example.com/amazon-bugaboo-donkey-6
 :::product
 Brand: Cybex
 Product: Gazelle S
-Review: A flexible convertible option with a wide range of seating combinations that appeals to parents who want future versatility without losing sight of current everyday use. It is also a good reminder that seat combinations and frame positions matter just as much as the promise of expansion.
-Best for: Families who care about configuration flexibility and expect to use the expansion options sooner rather than later.
-Standout: Strong seat-combination versatility with a more seat-specific planning feel.
+Review: A modular single-to-double example that shows how a convertible stroller can feel intentionally built around multiple future combinations while still staying grounded in everyday use as a single.
+Best for: Families who care about configuration flexibility and want a more modular-feeling expansion path instead of a tightly prescribed second-seat story.
+Standout: Strong seat-combination versatility with a more open modular single-to-double feel.
 Pros: Multiple seat combinations | Useful storage setup | Flexible sibling configurations | Good long-term planning value
 Image: /assets/strollers/gazelle.png
 Image Alt: Cybex Gazelle S stroller.
@@ -138,11 +155,37 @@ Link: Shop at Amazon | https://example.com/amazon-cybex-gazelle-s
 :::
 
 :::product
+Brand: Veer
+Product: Switchback & Roll
+Review: A modular single-to-double example that makes the system approach especially clear. The appeal is less about one rigid second-seat path and more about parents who like the idea of building a stroller setup around modular pieces that can evolve with the family.
+Best for: Families drawn to a modular stroller ecosystem and comfortable learning the accessory strategy that makes the expansion path work well.
+Standout: A distinctive system-first example of the modular single-to-double lane.
+Pros: Modular ecosystem thinking | Flexible setup mindset | Useful long-view planning angle | Clear system identity
+Image: /assets/strollers/switchback.png
+Image Alt: Veer Switchback & Roll stroller.
+Link: Shop at Albee Baby | https://example.com/veer-switchback
+Link: Shop at Amazon | https://example.com/amazon-veer-switchback
+:::
+
+:::product
+Brand: UPPAbaby
+Product: Vista V3
+Review: A seat-specific single-to-double example that helps explain why convertible does not always mean broadly modular. The stroller absolutely grows, but the real decision lives in the exact seat positions, rumble-seat math, and child-order rules you are comfortable living with.
+Best for: Families already drawn to the UPPAbaby ecosystem and willing to read the exact second-seat setup closely instead of assuming the expansion story is simple.
+Standout: One of the clearest examples of a seat-specific single-to-double path.
+Pros: Strong brand ecosystem | Polished everyday feel | Clear expansion path | Good planning value when the seat math fits
+Image: /assets/strollers/convertable.png
+Image Alt: UPPAbaby Vista V3 stroller.
+Link: Shop at Albee Baby | https://example.com/uppababy-vista-v3
+Link: Shop at Amazon | https://example.com/amazon-uppababy-vista-v3
+:::
+
+:::product
 Brand: Silver Cross
 Product: Wave 3
-Review: A premium expandable stroller that makes the most sense for parents who want one higher-end system and are comfortable with the larger footprint that usually comes with that flexibility. It is a helpful example of the more modular-looking end of convertible, where the exact seat path still matters more than the broad promise.
-Best for: Families who value premium materials, modular seating, and a long-view purchase.
-Standout: Luxury finish with real single-to-double intent.
+Review: A seat-specific single-to-double example that makes the premium end of this category feel more honest. The stroller can grow beautifully, but the exact seat path matters more than the broad promise of expansion.
+Best for: Families who value premium materials, want one higher-end system, and are willing to judge the exact seat map instead of assuming all convertible paths feel equally simple.
+Standout: Luxury finish with a distinctly seat-specific single-to-double story.
 Pros: Premium build quality | Expandable seating path | Strong newborn options | Elevated materials
 Image: /assets/strollers/wave.png
 Image Alt: Silver Cross Wave 3 stroller.
@@ -150,7 +193,7 @@ Link: Shop at Albee Baby | https://example.com/silver-cross-wave-3
 Link: Shop at Amazon | https://example.com/amazon-silver-cross-wave-3
 :::
 
-The point of these examples is not that one model wins universally. It is that each one handles the same question a little differently: are you buying a stroller that simply feels modular, or one whose specific second-seat path genuinely fits the future you are planning for?
+The point of these examples is not that one model wins universally. It is that convertible really splits into two different planning styles: more modular single-to-double systems like Donkey, Gazelle, and Switchback & Roll, and more seat-specific single-to-double systems like Vista V3 and Wave 3.
 
 :::comparison
 Title: Convertible vs dedicated double
@@ -179,7 +222,7 @@ Answer: No. Modular usually means one stroller can switch between modes like bas
 
 :::faq
 Question: What does seat-specific single-to-double actually mean?
-Answer: It means the expansion path is tied to the brand's exact seat setup, frame positions, and configuration rules. The second seat may fit only in certain places, carry different limits, or work best in a specific child order. That is why the details matter more than the broad promise.
+Answer: It means the expansion path is tied to the brand's exact seat setup, frame positions, and configuration rules. The second seat may fit only in certain places, carry different limits, or work best in a specific child order. Vista V3 and Wave 3 are useful examples of this kind of tighter seat map. That is why the details matter more than the broad promise.
 :::
 
 :::faq
@@ -201,7 +244,7 @@ The category can be smart. It just should not get credit for being strategic whe
 :::takeaways
 - Convertible means growth later. Double means two seats now.
 - Modular does not automatically mean single-to-double.
-- Some convertible systems are much more seat-specific than they first sound.
+- Some convertible systems feel more modular, while others are much more seat-specific than they first sound.
 - Judge the stroller in its single form before you fall for the expansion promise.
 - Future flexibility is only worth paying for when the timing is real.
 - The best stroller strategy should make current life easier, not just future life sound organized.

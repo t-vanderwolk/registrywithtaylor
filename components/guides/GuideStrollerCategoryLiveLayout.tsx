@@ -288,8 +288,8 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
   },
   'convertible-strollers': {
     startDescription:
-      'This section is here to separate real family planning from marketing shorthand, because modular, convertible, and single-to-double do not all mean the same thing.',
-    questionTitle: 'Do you need a modular stroller for one-child life, or a true single-to-double path you will actually use later?',
+      'This section is here to separate real family planning from marketing shorthand, because modular, convertible, and single-to-double do not all mean the same thing, and even true single-to-double systems are not all built the same way.',
+    questionTitle: 'Do you want a more modular single-to-double system, or a more seat-specific single-to-double path you will actually use later?',
     summaryCards: [
       {
         eyebrow: 'Best signal',
@@ -297,16 +297,16 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
       },
       {
         eyebrow: 'Usually worth paying for',
-        text: 'Expansion options that still leave you with a stroller you actually like using as a single, and whose second-seat setup makes sense in the exact brand-specific configuration your family would use.',
+        text: 'Expansion options that still leave you with a stroller you actually like using as a single, whether that means a more modular system or a more seat-specific seat path whose exact setup genuinely works for your family.',
       },
       {
         eyebrow: 'Common trap',
-        text: 'Treating modular like a synonym for convertible, or paying a daily size penalty for a second-seat promise without checking how specific that seat path really is.',
+        text: 'Treating every single-to-double stroller like the same kind of expandable system, or paying a daily size penalty without checking whether the path is broadly modular or much more seat-specific in real life.',
       },
     ],
     decisionHelperTitle: 'Is convertible really the job?',
     decisionHelperDescription:
-      'If future sibling planning is real and present-tense enough to matter, the convertible lane can make sense. But first you need to know whether you are buying modular flexibility for one child or a true, often seat-specific, single-to-double path.',
+      'If future sibling planning is real and present-tense enough to matter, the convertible lane can make sense. But first you need to know whether you are buying a more modular single-to-double system or a more seat-specific single-to-double path.',
     seriesDescription:
       'If convertible feels close but not quite right, the answer is usually in the category beside it: either a stronger single stroller for now or a true double for immediate sibling life.',
     softCtaDescription:
