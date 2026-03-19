@@ -1,4 +1,4 @@
-# The Taylor-Made Convertible Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Convertible Stroller Guide
 
 Convertible strollers sound wonderfully responsible. One stroller now. A second seat later. A tidy answer for the future. In real life, they are only smart when the future is real enough to matter and the stroller still feels good to use before the family expands.
 

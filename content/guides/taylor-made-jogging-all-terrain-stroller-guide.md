@@ -1,4 +1,4 @@
-# The Taylor-Made Jogging and All-Terrain Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Jogging and All-Terrain Stroller Guide
 
 Jogging and all-terrain strollers tend to attract two kinds of parents: families who know exactly why they need one, and families who are not sure whether they are looking at a practical tool or just a very rugged-looking version of stroller ambition.
 

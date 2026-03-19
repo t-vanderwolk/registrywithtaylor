@@ -1,4 +1,4 @@
-# The Taylor-Made Travel With Baby Guide for Overwhelmed Parents
+# The Taylor-Made Travel With Baby Guide
 
 Travel with a baby can sound intimidating long before you pack a single diaper. Parents imagine airports, car seat installs, nap disruptions, unfamiliar sleep spaces, snack failures, public meltdowns, and the possibility that every person in the terminal will somehow know this is your first time trying to board a plane with a stroller and a deeply overstuffed tote.
 

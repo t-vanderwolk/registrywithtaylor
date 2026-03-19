@@ -1,4 +1,4 @@
-# The Taylor-Made Nursery Planning Guide for Overwhelmed Parents
+# The Taylor-Made Nursery Planning Guide
 
 Nurseries have a branding problem. The internet often presents them as aesthetic projects when they are actually functional spaces that need to support exhausted adults, growing babies, awkward nighttime logistics, and a lot of laundry. The wallpaper may be lovely. The layout still needs to work at 2:14 AM.
 

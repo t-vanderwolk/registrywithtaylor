@@ -1,4 +1,4 @@
-# The Taylor-Made Double Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Double Stroller Guide
 
 Double strollers are one of the easiest categories to over-romanticize and one of the easiest categories to overbuy. On paper, they promise sibling convenience and a calmer solution for life with two small children. In real life, they are bigger, heavier, and only worth it when two full stroller seats are genuinely part of current life.
 

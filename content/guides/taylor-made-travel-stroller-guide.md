@@ -1,4 +1,4 @@
-# The Taylor-Made Travel Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Travel Stroller Guide
 
 Travel strollers sound simple until you start shopping for one. Then suddenly you are comparing fold dimensions, carry straps, gate-check policies, canopy depth, seat recline, overhead-bin rumors, and whether the stroller that folds beautifully in a brand video will still do so when you are balancing a diaper bag and a baby who has absolutely no interest in boarding groups.
 

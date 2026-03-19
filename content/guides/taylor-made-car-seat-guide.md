@@ -1,4 +1,4 @@
-# The Taylor-Made Car Seat Guide for Overwhelmed Parents
+# The Taylor-Made Car Seat Guide
 
 Car seats carry a different kind of emotional weight than most baby gear. With a stroller, parents worry about convenience. With a car seat, parents worry about safety, fit, installation, and the deeply human fear of getting something important wrong while learning an entirely new skill set.
 

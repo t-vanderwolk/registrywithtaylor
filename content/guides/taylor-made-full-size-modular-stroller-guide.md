@@ -1,4 +1,4 @@
-# The Taylor-Made Full-Size and Modular Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Full-Size and Modular Stroller Guide
 
 Full-size and modular strollers are often the products parents picture first when they imagine "the stroller." They look substantial, capable, polished, and ready for daily life with a baby. Sometimes that is exactly what a family needs. Sometimes it is simply the category with the best photography.
 

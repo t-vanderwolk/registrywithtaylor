@@ -1,4 +1,4 @@
-# The Taylor-Made Stroller Guide for Overwhelmed Parents
+# The Taylor-Made Stroller Guide
 
 Choosing a stroller should feel exciting.
 

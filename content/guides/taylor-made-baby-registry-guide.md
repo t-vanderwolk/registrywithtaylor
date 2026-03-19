@@ -1,4 +1,4 @@
-# The Taylor-Made Baby Registry Guide for Overwhelmed Parents
+# The Taylor-Made Baby Registry Guide
 
 Baby registries are supposed to make planning easier. Instead, they often turn into a strange combination of internet rabbit hole, social pressure experiment, and digital cart full of things you cannot yet evaluate because you have not met the tiny person who will allegedly need all of them.
 
