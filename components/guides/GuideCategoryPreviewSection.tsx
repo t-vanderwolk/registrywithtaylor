@@ -26,12 +26,12 @@ export default function GuideCategoryPreviewSection({
   ctaLabel: string;
 }) {
   return (
-    <section className="rounded-[1.75rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdfb_0%,#fbf6f1_100%)] p-4 sm:p-6 md:rounded-[2rem] md:p-8">
-      <div className="grid gap-6 sm:gap-8 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start">
+    <section className="rounded-[1.55rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdfb_0%,#fbf6f1_100%)] p-4 sm:p-6 md:rounded-[2rem] md:p-8">
+      <div className="grid gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_21rem]">
         <div className="min-w-0">
           <h3
             id={id}
-            className="scroll-mt-28 font-serif text-[1.75rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-2xl md:text-3xl"
+            className="scroll-mt-28 font-serif text-[1.55rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-2xl md:text-3xl"
           >
             {title}
           </h3>
@@ -47,8 +47,8 @@ export default function GuideCategoryPreviewSection({
           </div>
         </div>
 
-        <div className="rounded-[1.4rem] border border-stone-200/70 bg-[#fcfaf7] p-3 sm:rounded-[1.75rem] sm:p-4 md:p-5">
-          <div className="relative h-44 sm:h-52 md:h-60">
+        <div className="rounded-[1.3rem] border border-stone-200/70 bg-[#fcfaf7] p-3 sm:rounded-[1.75rem] sm:p-4 md:p-5">
+          <div className="relative h-36 sm:h-48 md:h-60">
             <Image
               src={imageSrc}
               alt={imageAlt}
@@ -61,7 +61,7 @@ export default function GuideCategoryPreviewSection({
       </div>
 
       <div className="mt-6 border-t border-stone-200/70 pt-6 sm:mt-8 sm:pt-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <div>
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Example strollers</p>
             <p className="mt-2 text-sm leading-6 text-neutral-700 sm:leading-7">
@@ -70,11 +70,11 @@ export default function GuideCategoryPreviewSection({
           </div>
         </div>
 
-        <div className="mt-5 flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-2 pr-1 lg:grid lg:grid-cols-3 lg:gap-4 lg:overflow-visible lg:pb-0 lg:pr-0">
+        <div className="mt-5 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pr-1 lg:grid lg:grid-cols-3 lg:gap-4 lg:overflow-visible lg:pb-0 lg:pr-0">
           {examples.map((example) => (
             <div
               key={`${title}-${example.name}`}
-              className="min-w-[12.75rem] snap-start flex-1 sm:min-w-[14rem]"
+              className="min-w-[11.5rem] snap-start flex-1 sm:min-w-[13.5rem]"
             >
               <GuideProductExampleCard name={example.name} imageSrc={example.imageSrc} imageAlt={example.imageAlt} />
             </div>

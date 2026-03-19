@@ -288,25 +288,25 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
   },
   'convertible-strollers': {
     startDescription:
-      'This section is here to separate real family planning from the very understandable urge to buy a future version of your stroller life too early.',
-    questionTitle: 'Do you need a stroller that can grow later, or do you need two seats right now?',
+      'This section is here to separate real family planning from marketing shorthand, because modular, convertible, and single-to-double do not all mean the same thing.',
+    questionTitle: 'Do you need a modular stroller for one-child life, or a true single-to-double path you will actually use later?',
     summaryCards: [
       {
         eyebrow: 'Best signal',
-        text: 'Another child is part of a clear near-term plan, and that future flexibility would genuinely change what you buy now.',
+        text: 'Another child is part of a clear near-term plan, and that future flexibility would genuinely change what you buy now enough to justify learning the real second-seat path.',
       },
       {
         eyebrow: 'Usually worth paying for',
-        text: 'Expansion options that still leave you with a stroller you actually like using as a single in the meantime.',
+        text: 'Expansion options that still leave you with a stroller you actually like using as a single, and whose second-seat setup makes sense in the exact brand-specific configuration your family would use.',
       },
       {
         eyebrow: 'Common trap',
-        text: 'Paying a daily size penalty for future-proofing when current life still mostly needs one good stroller, not a larger promise.',
+        text: 'Treating modular like a synonym for convertible, or paying a daily size penalty for a second-seat promise without checking how specific that seat path really is.',
       },
     ],
     decisionHelperTitle: 'Is convertible really the job?',
     decisionHelperDescription:
-      'If future sibling planning is real and present-tense enough to matter, the convertible lane can make sense. If the second seat is still theoretical, the answer often changes.',
+      'If future sibling planning is real and present-tense enough to matter, the convertible lane can make sense. But first you need to know whether you are buying modular flexibility for one child or a true, often seat-specific, single-to-double path.',
     seriesDescription:
       'If convertible feels close but not quite right, the answer is usually in the category beside it: either a stronger single stroller for now or a true double for immediate sibling life.',
     softCtaDescription:
@@ -316,6 +316,7 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
       Introduction: 'Overview',
       'Why This Category Feels Overwhelming': 'Why It Feels Hard',
       'What Convertible Strollers Actually Mean': 'What Convertible Means',
+      'Modular stroller vs seat-specific single-to-double': 'Modular vs Seat Path',
       'Real-Life Fit': 'Real-Life Fit',
       'Expert Advice': 'Expert Advice',
       'Product Examples': 'Product Picks',
@@ -515,34 +516,36 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
   },
   'jogging-all-terrain-strollers': {
     startDescription:
-      'This section is here to separate real route problems from the very understandable urge to buy the stroller that looks most prepared for adventure.',
-    questionTitle: 'Does your route actually need bigger wheels, or does the category just look reassuring?',
+      'This section is here to separate rough-route reality from actual running plans, because all-terrain and true jogging are close cousins, not the same job.',
+    questionTitle: 'Do you need terrain help for everyday life, or a true jogging stroller built for actual running later on?',
     summaryCards: [
       {
         eyebrow: 'Best signal',
-        text: 'Your real routes include broken sidewalks, gravel, grass, or long outdoor loops often enough that smaller wheels already annoy you.',
+        text: 'Your real routes include broken sidewalks, gravel, grass, or long outdoor loops often enough that smaller wheels already annoy you, or running really is part of the long-term plan.',
       },
       {
         eyebrow: 'Usually worth paying for',
-        text: 'Wheel size, suspension, and push stability you feel on every rough route instead of one flashy feature you notice once.',
+        text: 'Wheel size, suspension, and the right wheel layout for the job: four wheels when everyday terrain is the problem, or a true three-wheel performance frame when running is genuinely the goal.',
       },
       {
         eyebrow: 'Common trap',
-        text: 'Buying terrain performance for a life that mostly happens in parking lots, restaurants, and quick car-heavy errands.',
+        text: 'Buying a stroller that looks jogging-ready before actual running is on the calendar, or treating rough-route help and true jogging support like interchangeable ideas.',
       },
     ],
     decisionHelperTitle: 'Is terrain truly the problem?',
     decisionHelperDescription:
-      'If the ground itself keeps making stroller life harder, bigger wheels and stronger suspension can be worth the bulk. If not, the size tradeoff gets old fast.',
+      'If the ground itself keeps making stroller life harder, all-terrain help can be worth the bulk. If actual running is the goal, the question becomes even more specific: does a true jogging frame earn its extra specialization?',
     seriesDescription:
       'If jogging and all-terrain feels close but maybe too specialized, the broader stroller guide usually makes the next answer easier to see.',
     softCtaDescription:
-      'The terrain decision gets simpler once someone helps you sort route reality, trunk life, actual running plans, and whether bigger wheels are solving a daily problem or a hypothetical one.',
+      'The terrain decision gets simpler once someone helps you sort route reality, three wheels versus four, trunk life, actual running plans, and whether bigger wheels are solving a daily problem or a hypothetical one.',
     heroLabels: {
       'Interactive Planner': 'Interactive Planner',
       Introduction: 'Overview',
       'Why This Category Feels Overwhelming': 'Why It Feels Hard',
       'What This Category Actually Solves': 'What It Solves',
+      'Jogging Strollers vs All-Terrain Strollers': 'Jogging vs Terrain',
+      '3 Wheels vs 4 Wheels': '3 vs 4 Wheels',
       'Real-Life Fit': 'Real-Life Fit',
       'Expert Advice': 'Expert Advice',
       'Product Examples': 'Product Picks',
@@ -620,7 +623,7 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           fitLabel: 'Very likely the right lane',
           fitTone: 'yes',
           summary:
-            'If running is a real use case once your child is developmentally ready and you have pediatric guidance, a dedicated performance lane deserves a serious look.',
+            'If running is a real use case, a dedicated performance lane deserves a serious look, but the timeline still matters. True jogging usually starts around age 1, with pediatrician approval.',
           signals: [
             'You want stability at a faster pace, not just better neighborhood comfort.',
             'You are thinking about real running use, not only rough sidewalks.',
@@ -705,7 +708,7 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           verdict: 'Important if this is really the goal',
           tone: 'yes',
           summary:
-            'Running changes the conversation. It pushes the decision toward true performance and away from strollers that only look rugged in photos.',
+            'Running changes the conversation. It pushes the decision toward true performance and away from strollers that only look rugged in photos, and it usually does not start until around age 1 with pediatrician approval.',
           helpsWhen: 'You genuinely expect this stroller to support a running routine once it is developmentally appropriate.',
           watchout: 'If running is mostly aspirational, buying around that identity can create more stroller than you actually use.',
           href: '/blog/best-jogging-strollers',
@@ -1342,8 +1345,8 @@ export default function GuideStrollerCategoryLiveLayout({
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-          <div className="stroller-hub-shell space-y-8 md:space-y-16">
+        <div className="mx-auto max-w-[1300px] px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
+          <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
             <GuideContextStrip slug={guide.slug} />
 
             <GuideCategoryStartPanel
@@ -1360,7 +1363,7 @@ export default function GuideStrollerCategoryLiveLayout({
                   : null
               }
               summaryCards={config.summaryCards}
-              questionTitleClassName="max-w-[10ch]"
+              questionTitleClassName="max-w-none sm:max-w-[10ch]"
             />
             <GuideDecisionBlock
               title={`Use ${clusterConfig.shortTitle} as a fit check`}

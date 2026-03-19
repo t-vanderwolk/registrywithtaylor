@@ -123,14 +123,55 @@
   text-decoration: none;
 }
 
+.tmbc-blog a.btn.blog-affiliate-cta {
+  min-height: 4.4rem;
+  justify-content: flex-start;
+  gap: 0.95rem;
+  padding: 0.55rem 1.5rem 0.55rem 0.7rem;
+  letter-spacing: 0.22em;
+  line-height: 1;
+}
+
+.tmbc-blog a.btn.blog-affiliate-cta .blog-affiliate-cta__logo {
+  flex-shrink: 0;
+}
+
+.tmbc-blog a.btn.blog-affiliate-cta .blog-affiliate-cta__label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
 .tmbc-blog a.btn--primary,
 .tmbc-blog a.btn--primary:hover {
   color: #ffffff;
 }
 
+.tmbc-blog a.btn.blog-affiliate-cta.blog-affiliate-cta--primary {
+  background: linear-gradient(135deg, #d889a0 0%, #c97691 100%);
+  box-shadow: 0 16px 34px rgba(216, 137, 160, 0.22);
+}
+
+.tmbc-blog a.btn.blog-affiliate-cta.blog-affiliate-cta--primary:hover {
+  background: linear-gradient(135deg, #d17f99 0%, #bf6b88 100%);
+  box-shadow: 0 20px 38px rgba(203, 120, 146, 0.26);
+}
+
 .tmbc-blog a.btn--secondary,
 .tmbc-blog a.btn--secondary:hover {
   color: var(--color-accent-dark);
+}
+
+.tmbc-blog a.btn.blog-affiliate-cta.blog-affiliate-cta--secondary {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 247, 249, 0.94) 100%);
+  border-color: rgba(232, 154, 174, 0.48);
+  box-shadow: 0 14px 30px rgba(43, 38, 40, 0.05);
+}
+
+.tmbc-blog a.btn.blog-affiliate-cta.blog-affiliate-cta--secondary:hover {
+  background: linear-gradient(180deg, #fffafc 0%, #fff3f7 100%);
+  border-color: rgba(232, 154, 174, 0.7);
+  box-shadow: 0 18px 34px rgba(43, 38, 40, 0.07);
 }
 
 .tmbc-blog img {

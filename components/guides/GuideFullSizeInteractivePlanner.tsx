@@ -471,7 +471,7 @@ function TopicNavigatorCard({
         <span className="text-[0.62rem] uppercase tracking-[0.16em] text-black/44">Topic {index + 1}</span>
       </div>
 
-      <h4 className="mt-4 font-serif text-[1.2rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.28rem]">
+      <h4 className="mt-4 font-serif text-[1.08rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.28rem]">
         {topic.label}
       </h4>
       <p className="mt-2 text-sm leading-6 text-neutral-700">{topic.summary}</p>
@@ -618,11 +618,11 @@ export default function GuideFullSizeInteractivePlanner({
   return (
     <section
       id="interactive-planner"
-      className="scroll-mt-28 overflow-hidden rounded-[1.85rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f7efe7_100%)] p-5 shadow-[0_22px_58px_rgba(0,0,0,0.05)] sm:p-6 md:rounded-[2rem] md:p-8"
+      className="scroll-mt-28 overflow-hidden rounded-[1.85rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f7efe7_100%)] p-4 shadow-[0_22px_58px_rgba(0,0,0,0.05)] sm:p-6 md:rounded-[2rem] md:p-8"
     >
       <div className="space-y-3">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Interactive planner</p>
-        <h2 className="font-serif text-[1.95rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">
+        <h2 className="font-serif text-[1.72rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">
           Test whether the full-size and modular lane actually fits your week
         </h2>
         <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">
@@ -630,10 +630,10 @@ export default function GuideFullSizeInteractivePlanner({
         </p>
       </div>
 
-      <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="mt-7 grid gap-5 sm:mt-8 sm:gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div>
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Choose the routine that sounds most like your week</p>
-          <div role="tablist" aria-label="Full-size and modular stroller routine planner" className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div role="tablist" aria-label="Full-size and modular stroller routine planner" className="mt-4 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
             {plannerScenarios.map((scenario) => {
               const isActive = scenario.id === activeScenario.id;
               const buttonId = `${scenarioBaseId}-${scenario.id}-tab`;
@@ -678,16 +678,16 @@ export default function GuideFullSizeInteractivePlanner({
           id={`${scenarioBaseId}-${activeScenario.id}-panel`}
           role="tabpanel"
           aria-labelledby={`${scenarioBaseId}-${activeScenario.id}-tab`}
-          className="rounded-[1.5rem] border border-black/6 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6"
+          className="rounded-[1.5rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
         >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="inline-flex items-center gap-3">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-start gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
                 <GuideGlyph icon={activeScenario.icon} />
               </div>
               <div>
                 <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Routine lens</p>
-                <h3 className="mt-1 font-serif text-[1.55rem] leading-[1.06] tracking-[-0.03em] text-neutral-900">{activeScenario.label}</h3>
+                <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activeScenario.label}</h3>
               </div>
             </div>
             <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activeScenario.fitTone)}`}>
@@ -695,9 +695,9 @@ export default function GuideFullSizeInteractivePlanner({
             </span>
           </div>
 
-          <p className="mt-5 text-[0.98rem] leading-7 text-neutral-700">{activeScenario.summary}</p>
+          <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activeScenario.summary}</p>
 
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
               <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Signals this is your situation</p>
               <ul className="mt-3 list-disc space-y-3 pl-5">
@@ -727,7 +727,7 @@ export default function GuideFullSizeInteractivePlanner({
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href={activeScenario.primaryHref}
-              className="inline-flex items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-[rgba(255,248,241,0.96)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)]"
+              className="inline-flex w-full items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-[rgba(255,248,241,0.96)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
             >
               <span>{activeScenario.primaryLabel}</span>
               <span aria-hidden="true" className="ml-2">
@@ -736,7 +736,7 @@ export default function GuideFullSizeInteractivePlanner({
             </Link>
             <Link
               href={activeScenario.secondaryHref}
-              className="inline-flex items-center justify-center rounded-full border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)]"
+              className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
             >
               <span>{activeScenario.secondaryLabel}</span>
               <span aria-hidden="true" className="ml-2">
@@ -747,7 +747,7 @@ export default function GuideFullSizeInteractivePlanner({
         </article>
       </div>
 
-      <div className="mt-8 border-t border-[rgba(0,0,0,0.06)] pt-8">
+      <div className="mt-7 border-t border-[rgba(0,0,0,0.06)] pt-7 sm:mt-8 sm:pt-8">
         <div className="space-y-3">
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Pick the tradeoff you care about most</p>
           <div role="tablist" aria-label="Full-size and modular stroller tradeoff lenses" className="flex flex-wrap gap-2.5">
@@ -787,16 +787,16 @@ export default function GuideFullSizeInteractivePlanner({
           id={`${priorityBaseId}-${activePriority.id}-panel`}
           role="tabpanel"
           aria-labelledby={`${priorityBaseId}-${activePriority.id}-tab`}
-          className="mt-6 rounded-[1.45rem] border border-black/6 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6"
+          className="mt-6 rounded-[1.45rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
         >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-start gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
                 <GuideGlyph icon={activePriority.icon} />
               </div>
               <div>
                 <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Decision lens</p>
-                <h3 className="mt-1 font-serif text-[1.55rem] leading-[1.06] tracking-[-0.03em] text-neutral-900">{activePriority.label}</h3>
+                <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activePriority.label}</h3>
               </div>
             </div>
             <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activePriority.tone)}`}>
@@ -804,9 +804,9 @@ export default function GuideFullSizeInteractivePlanner({
             </span>
           </div>
 
-          <p className="mt-5 text-[0.98rem] leading-7 text-neutral-700">{activePriority.summary}</p>
+          <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activePriority.summary}</p>
 
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
               <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">When this helps</p>
               <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.helpsWhen}</p>
@@ -820,7 +820,7 @@ export default function GuideFullSizeInteractivePlanner({
           <div className="mt-6">
             <Link
               href={activePriority.href}
-              className="inline-flex items-center rounded-full border border-black/8 bg-[rgba(255,248,241,0.92)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)]"
+              className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-[rgba(255,248,241,0.92)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
             >
               <span>{activePriority.ctaLabel}</span>
               <span aria-hidden="true" className="ml-2">
@@ -832,10 +832,10 @@ export default function GuideFullSizeInteractivePlanner({
       </div>
 
       {activeTopic ? (
-        <div className="mt-8 border-t border-[rgba(0,0,0,0.06)] pt-8">
+        <div className="mt-7 border-t border-[rgba(0,0,0,0.06)] pt-7 sm:mt-8 sm:pt-8">
           <div className="space-y-3">
             <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Guide explorer</p>
-            <h3 className="font-serif text-[1.7rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
+            <h3 className="font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
               Open the part of the guide you actually need
             </h3>
             <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">
@@ -844,7 +844,7 @@ export default function GuideFullSizeInteractivePlanner({
           </div>
 
           <div className="mt-6 space-y-6">
-            <div role="tablist" aria-label="Full-size and modular guide topics" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            <div role="tablist" aria-label="Full-size and modular guide topics" className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 xl:grid-cols-3 2xl:grid-cols-4">
               {topics.map((topic, index) => {
                 const isActive = topic.id === activeTopic.id;
                 const buttonId = `${topicBaseId}-${topic.id}-tab`;
@@ -870,7 +870,7 @@ export default function GuideFullSizeInteractivePlanner({
               role="tabpanel"
               aria-labelledby={`${topicBaseId}-${activeTopic.id}-tab`}
               ref={topicPanelRef}
-              className="scroll-mt-28 rounded-[1.75rem] border border-black/6 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6"
+              className="scroll-mt-28 rounded-[1.75rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
             >
               <div className="space-y-6">
                 {hasStructuredProductExamples && productExampleContent ? (
@@ -883,8 +883,8 @@ export default function GuideFullSizeInteractivePlanner({
                   />
                 ) : null}
 
-                <div className="rounded-[1.55rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(145deg,#fff8f1_0%,#fffdfb_45%,#f8f1e8_100%)] p-5 sm:p-6">
-                  <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                <div className="rounded-[1.45rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(145deg,#fff8f1_0%,#fffdfb_45%,#f8f1e8_100%)] p-4 sm:p-6">
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     <div className="space-y-4">
                       <div className="inline-flex items-center gap-3">
                         <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[var(--color-accent-dark)] shadow-[0_10px_24px_rgba(0,0,0,0.04)]">
@@ -899,7 +899,7 @@ export default function GuideFullSizeInteractivePlanner({
                       </div>
 
                       <div className="space-y-3">
-                        <h3 className="font-serif text-[1.75rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2.1rem]">
+                        <h3 className="font-serif text-[1.5rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2.1rem]">
                           {activeTopic.title}
                         </h3>
                         {activeTopic.summary ? (
@@ -908,7 +908,7 @@ export default function GuideFullSizeInteractivePlanner({
                       </div>
                     </div>
 
-                    <div className="grid gap-3 sm:grid-cols-2 lg:w-[19rem]">
+                    <div className="grid gap-2.5 sm:grid-cols-2 lg:w-[19rem]">
                       <TopicMetric label="Inside this topic" value={`${activeTopicCardCount} content card${activeTopicCardCount === 1 ? '' : 's'}`} />
                       <TopicMetric
                         label="Support built in"
@@ -950,7 +950,7 @@ export default function GuideFullSizeInteractivePlanner({
                   !hasStructuredProductExamples ? (
                     <div className="space-y-4">
                       {nonProductNarrativeCardCount > 0 ? (
-                        <div className="grid gap-4 lg:grid-cols-2">
+                        <div className="grid gap-4 md:grid-cols-2">
                           {comparisonOverviewContent?.narrative ? (
                             <PlannerTopicCard
                               id={`${activeTopic.id}-overview-card`}
@@ -958,7 +958,7 @@ export default function GuideFullSizeInteractivePlanner({
                               title="What to know first"
                               content={comparisonOverviewContent.narrative}
                               postId={`planner-${activeTopic.id}-overview`}
-                              className="lg:col-span-2"
+                              className="md:col-span-2"
                             />
                           ) : null}
 
@@ -1000,7 +1000,7 @@ export default function GuideFullSizeInteractivePlanner({
                       ) : null}
                     </div>
                   ) : (
-                    <div className="grid gap-4 lg:grid-cols-2">
+                    <div className="grid gap-4 md:grid-cols-2">
                       {activeTopic.overviewContent ? (
                         <PlannerTopicCard
                           id={`${activeTopic.id}-overview-card`}
@@ -1008,7 +1008,7 @@ export default function GuideFullSizeInteractivePlanner({
                           title="What to know first"
                           content={activeTopic.overviewContent}
                           postId={`planner-${activeTopic.id}-overview`}
-                          className="lg:col-span-2"
+                          className="md:col-span-2"
                         />
                       ) : null}
 
@@ -1063,7 +1063,7 @@ export default function GuideFullSizeInteractivePlanner({
         </div>
       ) : null}
 
-      <div className="mt-8 rounded-[1.4rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f3_0%,#fffdf9_100%)] p-5 md:p-6">
+      <div className="mt-7 rounded-[1.4rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f3_0%,#fffdf9_100%)] p-4 sm:mt-8 sm:p-5 md:p-6">
         <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Ready for actual models?</p>
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
@@ -1076,7 +1076,7 @@ export default function GuideFullSizeInteractivePlanner({
           </div>
           <Link
             href={BEST_FULL_SIZE_BLOG_PATH}
-            className="inline-flex items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)]"
+            className="inline-flex w-full items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
           >
             <span>Open /blog/best-full-size-strollers-2026</span>
             <span aria-hidden="true" className="ml-2">

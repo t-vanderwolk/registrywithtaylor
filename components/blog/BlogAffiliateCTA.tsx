@@ -79,16 +79,17 @@ export default function BlogAffiliateCTA({
     );
   }
 
+  const buttonClassName =
+    variant === 'secondary'
+      ? 'btn btn--secondary blog-affiliate-cta blog-affiliate-cta--secondary group inline-flex items-center justify-start gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
+      : 'btn btn--primary blog-affiliate-cta blog-affiliate-cta--primary group inline-flex items-center justify-start gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
+
   return (
     <a
       href={resolvedDestinationUrl}
       target="_blank"
       rel="sponsored nofollow noopener noreferrer"
-      className={
-        variant === 'secondary'
-          ? 'btn btn--secondary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
-          : 'btn btn--primary group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]'
-      }
+      className={buttonClassName}
       data-analytics-managed="true"
       data-affiliate-partner={partner?.slug ?? ''}
       data-affiliate-network={partner?.network ?? ''}
@@ -99,12 +100,14 @@ export default function BlogAffiliateCTA({
       {partner?.logoUrl ? (
         <AffiliateLogoBadge
           src={partner.logoUrl}
-          size="cta"
+          alt={partner.name}
+          size="button"
+          interactive={false}
           syncWithGroup
-          className="shrink-0"
+          className="blog-affiliate-cta__logo shrink-0"
         />
       ) : null}
-      <span>{ctaText}</span>
+      <span className="blog-affiliate-cta__label">{ctaText}</span>
     </a>
   );
 }

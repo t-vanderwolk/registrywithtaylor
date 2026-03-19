@@ -79,7 +79,7 @@ export default function GuideExampleBlock({
       ) : null}
 
       {products.length > 0 ? (
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           {products.map((product, index) => (
             <div key={`${topicId}-product-${product.brand}-${product.productName}-${index}`}>
               <GuideProductExampleCard
@@ -97,7 +97,7 @@ export default function GuideExampleBlock({
       ) : null}
 
       {cards.length > 0 ? (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           {cards.map((card) => (
             <NarrativeCard
               key={`${topicId}-${card.id}`}

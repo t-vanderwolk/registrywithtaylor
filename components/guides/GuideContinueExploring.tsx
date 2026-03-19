@@ -16,14 +16,14 @@ export default function GuideContinueExploring({
   }
 
   return (
-    <section className="rounded-[1.8rem] border border-black/6 bg-white/84 p-5 shadow-[0_12px_30px_rgba(0,0,0,0.04)] md:p-6">
+    <section className="rounded-[1.65rem] border border-black/6 bg-white/84 p-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:p-5 md:rounded-[1.8rem] md:p-6">
       <div className="space-y-2">
         <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">Continue exploring</p>
-        <h3 className="font-serif text-[1.8rem] leading-[1.02] tracking-[-0.03em] text-neutral-900">{title}</h3>
+        <h3 className="font-serif text-[1.55rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">{title}</h3>
         {description ? <p className="max-w-3xl text-sm leading-7 text-neutral-700">{description}</p> : null}
       </div>
 
-      <div className="mt-5 grid gap-4 md:grid-cols-3">
+      <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {links.map((link) => (
           <Link
             key={`${link.href}-${link.title}`}
@@ -34,8 +34,8 @@ export default function GuideContinueExploring({
               <GuideGlyph icon={link.icon} />
               <span className="text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">Next read</span>
             </div>
-            <p className="mt-3 font-serif text-[1.25rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{link.title}</p>
-            <p className="mt-2 text-sm leading-7 text-neutral-700">{link.description}</p>
+            <p className="mt-3 font-serif text-[1.12rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.25rem]">{link.title}</p>
+            <p className="mt-2 text-sm leading-6 text-neutral-700 sm:leading-7">{link.description}</p>
           </Link>
         ))}
       </div>

@@ -16,14 +16,14 @@ export default function GuideDecisionBlock({
   signatureMoment?: string | null;
 }) {
   return (
-    <section className="rounded-[1.8rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6">
+    <section className="rounded-[1.65rem] border border-stone-200/70 bg-white/94 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:rounded-[1.8rem] md:p-6">
       <div className="space-y-2">
         <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Fit check</p>
-        <h2 className="font-serif text-[1.9rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl">{title}</h2>
-        <p className="max-w-[72ch] text-sm leading-7 text-neutral-700">{description}</p>
+        <h2 className="font-serif text-[1.6rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl">{title}</h2>
+        <p className="max-w-[72ch] text-[0.95rem] leading-6 text-neutral-700 sm:text-sm sm:leading-7">{description}</p>
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:gap-4 md:grid-cols-2">
         <div className="rounded-[1.35rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f4_0%,#f8efe6_100%)] p-4 sm:p-5">
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">This category is for you if</p>
           <p className="mt-3 text-sm leading-7 text-neutral-700">{fitSummary}</p>
@@ -50,9 +50,9 @@ export default function GuideDecisionBlock({
       </div>
 
       {signatureMoment ? (
-        <div className="mt-6 rounded-[1.25rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f9edf1_100%)] px-4 py-4">
+        <div className="mt-6 rounded-[1.25rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f9edf1_100%)] px-4 py-3.5 sm:py-4">
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">TMBC note</p>
-          <p className="mt-2 text-[0.98rem] leading-7 text-[var(--color-accent-dark)]/92">{signatureMoment}</p>
+          <p className="mt-2 text-[0.94rem] leading-6 text-[var(--color-accent-dark)]/92 sm:text-[0.98rem] sm:leading-7">{signatureMoment}</p>
         </div>
       ) : null}
     </section>

@@ -1,10 +1,8 @@
 import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
 import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
-import { BLOG_GUIDES_TITLE, getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
+import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
-import { getGuideLinksForBlogPost } from '@/lib/guides/blogLinks';
-import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
@@ -19,7 +17,6 @@ import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
-import GuideGrid from '@/components/marketing/GuideGrid';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -295,28 +292,6 @@ export default async function PostArticleView({
     category: categoryLabel,
     content: articleContent,
   });
-  const relatedGuides = getGuideLinksForBlogPost({
-    category: post.category,
-    slug: post.slug,
-    title: post.title,
-    content: articleContent,
-  }).map((guide) => ({
-    ...guide,
-    title: toCondensedGuideCardTitle(guide.slug, guide.title),
-  }));
-  const relatedGuidesSection =
-    relatedGuides.length > 0 ? (
-      <GuideGrid
-        guides={relatedGuides}
-        compact
-        eyebrow="Keep exploring"
-        title="Explore the guide pillars behind the decisions this article touches."
-        description="These links connect fresh editorial reads back to the evergreen baby gear and baby-preparation hub."
-        className="border-t border-black/5"
-        showCardEyebrows={false}
-        cardTextAlign="center"
-      />
-    ) : null;
   const relatedPostsSection =
     relatedPosts.length > 0 ? (
       <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
@@ -489,7 +464,6 @@ export default async function PostArticleView({
       }
       relatedPosts={
         <>
-          {relatedGuidesSection}
           {relatedPostsSection}
         </>
       }

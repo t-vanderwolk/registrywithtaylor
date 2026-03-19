@@ -54,6 +54,38 @@ Standout: Much better handling once sidewalks or paths get rough
 Watchout: Larger fold and heavier footprint than smoother-surface stroller categories
 :::
 
+## Jogging Strollers vs All-Terrain Strollers
+
+This is the distinction most parents need earlier than they realize.
+
+An all-terrain stroller is usually the answer when daily walks are rough, sidewalks are cracked, park paths are normal, and you want the stroller to stop feeling annoyed by the ground. It is about better everyday route performance.
+
+A jogging stroller is the more specialized version. It is built for actual running use, stronger straight-line tracking, and better stability at faster speeds. That usually means a more performance-first frame, a more obvious three-wheel design, and a stroller that makes the most sense once running is truly part of the plan.
+
+If you are not planning to run, you may still want terrain capability. That often means you want all-terrain, not true jogging.
+
+:::comparison
+Title: Jogging stroller vs all-terrain stroller
+Jogging stroller: Best when actual running is part of the plan and you need a more performance-first frame
+All-terrain stroller: Best when rough sidewalks, gravel, grass, or park paths are the real issue but running is not the job
+Watchout: A rugged-looking stroller is not automatically a jogging stroller, and not every family with rough routes needs the most specialized option
+:::
+
+## 3 Wheels vs 4 Wheels
+
+Wheel count tells you a lot about what the stroller is trying to be.
+
+Three-wheel strollers usually make the most sense when performance is the point. They tend to track straighter, feel more natural at faster pace, and handle rougher routes with a more obvious jogging-style rhythm. That is why true jogging strollers usually live here.
+
+Four-wheel strollers often make more sense when you want terrain help without turning the stroller into a more specialized running tool. They can feel more familiar for everyday stops, starts, errands, and normal family use while still handling rougher ground far better than smaller-wheel compact categories.
+
+:::comparison
+Title: 3 wheels vs 4 wheels
+3 wheels: Usually better for running, straighter tracking, and a more performance-first feel on rough routes
+4 wheels: Usually better for everyday balance, a less specialized feel, and families who want all-terrain help without building the whole decision around jogging
+Watchout: More wheels do not automatically mean better terrain performance, and fewer wheels do not automatically mean you will enjoy the stroller in everyday indoor life
+:::
+
 ## Real-Life Fit
 
 If your version of parenthood includes long outdoor walks, neighborhood loops with bad pavement, nature paths, or more active movement, this category can feel worth the size immediately. Parents often notice the benefit in their wrists, steering control, and how much less annoying it is to push the stroller over inconsistent ground.
@@ -70,7 +102,9 @@ Result: The right all-terrain stroller will often feel easier, not harder, becau
 
 The biggest mistake in this category is buying based on identity instead of use. You do not need a jogging stroller because you like the idea of being an outdoorsy parent. You need one because your actual routes, pace, and stroller life support it.
 
-The second mistake is overlooking storage and trunk consequences. A high-performance stroller still has to live somewhere. If the size makes daily loading miserable, the category may not be right as your only stroller.
+The second mistake is overlooking timing. If actual jogging is part of the plan, the useful rule of thumb is simple: wait until baby is around 1 year old and you have pediatrician approval before true jogging enters the picture. Before that, think walking, not running.
+
+The third mistake is overlooking storage and trunk consequences. A high-performance stroller still has to live somewhere. If the size makes daily loading miserable, the category may not be right as your only stroller.
 
 :::advice
 Taylor's take
@@ -93,18 +127,48 @@ Choose this category when the terrain is the problem you are solving. If the ter
 
 ## Product Examples
 
+These three examples are useful because they show the difference between a polished all-terrain everyday stroller and more dedicated jogging-first frames.
+
 :::product
-Brand: BOB
-Product: Gear Revolution Flex 3.0
-Review: A well-known reference point for the jogging stroller category because it is built around stronger outdoor performance and active-family use.
-Best for: Families who truly need a stroller that can handle longer outdoor routes and rougher surfaces.
-Standout: Terrain-ready push quality
-Pros: Large wheels | Strong stability | Built for active use
-Link: Shop at Albee Baby | https://example.com/bob-flex-3
-Link: Shop at Amazon | https://example.com/amazon-bob-flex-3
+Brand: UPPAbaby
+Product: Ridge
+Review: The Ridge is a useful reference point for families who want stronger terrain capability without immediately jumping to the most overtly performance-first feel in the category.
+Best for: Parents who want a premium all-terrain stroller that still feels polished enough for everyday neighborhood life.
+Standout: Premium all-terrain balance
+Pros: Strong suspension | Larger wheels | More refined everyday feel | Confident rougher-route handling
+Image: /assets/strollers/ridge.png
+Image Alt: UPPAbaby Ridge stroller.
+Link: Shop at Albee Baby | https://example.com/uppababy-ridge
+Link: Shop at Amazon | https://example.com/amazon-uppababy-ridge
 :::
 
-Some parents comparing this category also look at Bugaboo Fox 5 or Silver Cross Reef 2 models with more capable wheel systems, but the true decision is often between a dedicated jogging stroller and a very capable everyday all-terrain stroller.
+:::product
+Brand: Thule
+Product: Urban Glide
+Review: One of the clearest jogging-category benchmarks because it leans into lighter-running feel, strong maneuverability, and the kind of outdoor performance parents usually mean when they say they want a true jogging stroller.
+Best for: Families who want a more dedicated jogging and active-use stroller with a strong reputation for movement and control.
+Standout: Jogging-first performance feel
+Pros: Light running feel | Smooth maneuvering | Strong outdoor rhythm | Serious active-family credibility
+Image: /assets/strollers/urbnglide.png
+Image Alt: Thule Urban Glide stroller.
+Link: Shop at Albee Baby | https://example.com/thule-urban-glide
+Link: Shop at Amazon | https://example.com/amazon-thule-urban-glide
+:::
+
+:::product
+Brand: BOB
+Product: Alterrian
+Review: A helpful example of the sturdier, terrain-ready side of this category. It usually appeals to families who want a stronger outdoor build and do not mind a more obvious jogging-stroller footprint.
+Best for: Parents who want a more rugged-feeling stroller for rough sidewalks, mixed terrain, and outdoor-heavy weeks.
+Standout: Rugged terrain-ready build
+Pros: Strong stability | Bigger-wheel confidence | Durable outdoor feel | Handles rougher routes well
+Image: /assets/strollers/alterrian.png
+Image Alt: BOB Alterrian stroller.
+Link: Shop at Albee Baby | https://example.com/bob-alterrian
+Link: Shop at Amazon | https://example.com/amazon-bob-alterrian
+:::
+
+The short version: Ridge feels the most polished, Urban Glide feels the most jogging-first, and Alterrian feels the most rugged.
 
 :::comparison
 Title: Dedicated jogging stroller vs capable all-terrain everyday stroller
@@ -125,7 +189,7 @@ Parents also sometimes buy one of these strollers as their only stroller without
 
 :::faq
 Question: Do I need a jogging stroller if I am not a runner?
-Answer: Not necessarily, but you may still benefit from an all-terrain or jogging-style stroller if your routes are rough enough that smaller wheels feel frustrating every time you go out.
+Answer: Not necessarily. Many parents actually want an all-terrain stroller, not a true jogging stroller. If rough routes are the issue but running is not the plan, terrain capability may matter more than a dedicated jogging frame.
 :::
 
 :::faq
@@ -134,8 +198,13 @@ Answer: It can, but only if you are comfortable with the larger size in your hom
 :::
 
 :::faq
+Question: When can I actually start jogging with a baby?
+Answer: Usually around 1 year old, and only with pediatrician approval. Before that, even if you own a jogging stroller, think of it as a walking or rough-route stroller rather than a green light to start running.
+:::
+
+:::faq
 Question: What matters most in this category?
-Answer: Wheel size, suspension, stability, and whether the stroller truly matches the surfaces and movement patterns in your week.
+Answer: Start with the real job. Do you need rough-route comfort, actual jogging support, or both? Then look at wheel size, suspension, stability, and whether a three-wheel or four-wheel design fits the kind of life the stroller will actually live.
 :::
 
 ## Final Thoughts
@@ -146,7 +215,9 @@ The category works when the terrain justifies the bulk. That is the simplest way
 
 :::takeaways
 - Choose this category when the route is rough enough to demand it.
-- Not every family needs a dedicated jogging stroller.
+- Not every family who wants terrain help needs a dedicated jogging stroller.
+- True jogging usually starts around 1 year, with pediatrician approval.
+- Three wheels usually lean more performance-first, while four wheels often feel more everyday-friendly.
 - Storage and trunk life still matter.
 - Performance is only worth the size if you will actually use it.
 :::

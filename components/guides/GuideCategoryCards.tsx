@@ -48,7 +48,7 @@ export default function GuideCategoryCards({
         ) : null}
       </div>
 
-      <div className={`grid min-w-0 grid-cols-1 ${isStrollerHub ? 'gap-4 sm:gap-5 md:grid-cols-2 2xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
+      <div className={`grid min-w-0 grid-cols-1 ${isStrollerHub ? 'gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
         {cards.map((card) => (
           <Link
             key={`${card.href}-${card.title}`}
@@ -68,7 +68,7 @@ export default function GuideCategoryCards({
                 }
               >
                 {isStrollerHub ? (
-                  <div className="relative h-40 sm:h-48 md:h-[220px]">
+                  <div className="relative h-36 sm:h-48 md:h-[220px]">
                     <Image
                       src={card.imageSrc}
                       alt={card.imageAlt?.trim() || card.title}

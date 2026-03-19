@@ -39,7 +39,7 @@ export default function GuideHero({
   return (
     <section className="border-b border-black/5 bg-[linear-gradient(180deg,#fbf7f2_0%,#f4ede3_100%)]">
       <div
-        className={`mx-auto gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:py-16 ${
+        className={`mx-auto gap-5 px-4 py-6 sm:gap-8 sm:px-6 sm:py-12 lg:py-16 ${
           isEditorialStrollerLayout
             ? 'max-w-[1300px] lg:px-8'
             : 'grid max-w-7xl lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-10 lg:px-10'
@@ -48,7 +48,7 @@ export default function GuideHero({
         <div
           className={
             isEditorialStrollerLayout
-              ? 'space-y-5 rounded-[1.75rem] border border-black/6 bg-white/78 p-5 text-center shadow-[0_20px_48px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:space-y-6 sm:p-6 lg:rounded-[2rem] lg:p-8'
+              ? 'space-y-4 rounded-[1.55rem] border border-black/6 bg-white/78 p-4 text-center shadow-[0_20px_48px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:space-y-6 sm:p-6 lg:rounded-[2rem] lg:p-8'
               : 'space-y-5 sm:space-y-6'
           }
         >
@@ -57,8 +57,8 @@ export default function GuideHero({
             <h1
               className={`font-serif leading-[0.95] tracking-[-0.05em] text-neutral-900 ${
                 isEditorialStrollerLayout
-                  ? 'mx-auto max-w-[13ch] text-[2.05rem] sm:max-w-[12ch] sm:text-[3.2rem] lg:max-w-[10.5ch] lg:text-[4.35rem]'
-                  : 'max-w-[12ch] text-[2.15rem] sm:max-w-[13ch] sm:text-[3.4rem] lg:text-[4.35rem]'
+                  ? 'mx-auto max-w-[15ch] text-[1.85rem] sm:max-w-[12ch] sm:text-[3.2rem] lg:max-w-[10.5ch] lg:text-[4.35rem]'
+                  : 'max-w-[14ch] text-[1.95rem] sm:max-w-[13ch] sm:text-[3.4rem] lg:text-[4.35rem]'
               }`}
             >
               {displayTitle}
@@ -66,7 +66,7 @@ export default function GuideHero({
             <p
               className={`max-w-[44rem] text-neutral-700 ${
                 isEditorialStrollerLayout
-                  ? 'mx-auto text-[0.96rem] leading-6 sm:text-[1.04rem] sm:leading-8'
+                  ? 'mx-auto text-[0.92rem] leading-6 sm:text-[1.04rem] sm:leading-8'
                   : 'text-[0.98rem] leading-7 md:text-[1.08rem] md:leading-8'
               }`}
             >
@@ -75,18 +75,16 @@ export default function GuideHero({
           </div>
 
           {isEditorialStrollerLayout ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:mx-auto sm:flex sm:w-fit sm:flex-wrap sm:justify-center sm:gap-3">
-              {stats.map((stat, index) => (
+            <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
+              {stats.map((stat) => (
                 <div
                   key={`${stat.label}-${stat.value}`}
-                  className={`rounded-[1rem] border border-black/6 bg-white/88 px-3 py-3 text-neutral-700 sm:rounded-full sm:px-4 sm:py-2 ${
-                    stats.length % 2 === 1 && index === stats.length - 1 ? 'col-span-2' : ''
-                  }`}
+                  className="inline-flex min-w-[10rem] flex-col items-center rounded-[1rem] border border-black/6 bg-white/88 px-3.5 py-2.5 text-center text-neutral-700 sm:min-w-0 sm:flex-row sm:gap-2 sm:rounded-full sm:px-4 sm:py-2"
                 >
-                  <span className="block text-[0.62rem] uppercase tracking-[0.18em] text-black/42 sm:mr-2 sm:inline">
+                  <span className="text-[0.62rem] uppercase tracking-[0.18em] text-black/42">
                     {stat.label}
                   </span>
-                  <span className="mt-1 block text-[0.92rem] text-neutral-900 sm:mt-0 sm:inline sm:text-sm">{stat.value}</span>
+                  <span className="mt-1 block text-[0.9rem] text-neutral-900 sm:mt-0 sm:text-sm">{stat.value}</span>
                 </div>
               ))}
             </div>
@@ -116,7 +114,7 @@ export default function GuideHero({
               <div
                 className={`mt-4 ${
                   isEditorialStrollerLayout
-                    ? 'grid grid-cols-2 gap-2.5 sm:mx-auto sm:flex sm:w-fit sm:flex-wrap sm:justify-center sm:gap-3'
+                    ? 'flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-auto sm:w-fit sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible sm:pb-0'
                     : 'flex gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:gap-3 sm:overflow-visible sm:pb-0'
                 }`}
               >
@@ -125,7 +123,7 @@ export default function GuideHero({
                     key={link.href}
                     href={link.href}
                     className={`rounded-full border border-black/6 bg-[rgba(248,243,238,0.92)] px-4 py-2 text-sm text-neutral-800 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.28)] hover:bg-white ${
-                      isEditorialStrollerLayout ? 'text-center' : 'shrink-0 whitespace-nowrap'
+                      isEditorialStrollerLayout ? 'shrink-0 whitespace-nowrap text-center' : 'shrink-0 whitespace-nowrap'
                     }`}
                   >
                     {link.label}

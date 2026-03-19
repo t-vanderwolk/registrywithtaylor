@@ -137,7 +137,7 @@ export default function GuideStrollerHub({
   const previewSubsections = sortStrollerSubsections(categoryBreakdown?.subsections ?? []);
 
   return (
-    <div className="stroller-hub-shell space-y-8 md:space-y-16">
+    <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
       <section className="mx-auto max-w-5xl">
         <MarketingSurface className="rounded-[1.9rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[2rem] md:p-8">
           <div className="grid gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
@@ -182,7 +182,7 @@ export default function GuideStrollerHub({
         <>
           <GuideSectionDivider />
 
-          <div className="space-y-8 md:space-y-10">
+          <div className="space-y-6 sm:space-y-8 md:space-y-10">
             {previewSubsections.map((subsection) => {
               const preview = getStrollerCategoryPreview(subsection.title);
               const visual = getStrollerCategoryVisual(subsection.title);

@@ -395,8 +395,8 @@ export default function GuideCompactLiveLayout({
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-          <div className="stroller-hub-shell space-y-8 md:space-y-16">
+        <div className="mx-auto max-w-[1300px] px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
+          <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
             <GuideContextStrip slug={guide.slug} />
 
             <GuideCategoryStartPanel
@@ -413,7 +413,7 @@ export default function GuideCompactLiveLayout({
                   : null
               }
               summaryCards={[...COMPACT_SUMMARY_CARDS]}
-              questionTitleClassName="max-w-[9ch]"
+              questionTitleClassName="max-w-none sm:max-w-[9ch]"
             />
             <GuideDecisionBlock
               title={`Use ${categoryConfig.shortTitle} as a fit check`}

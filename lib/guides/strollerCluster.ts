@@ -201,15 +201,15 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'convertible-strollers',
     shortTitle: 'Convertible',
     heroDescription:
-      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, but current life still has to feel good too.',
-    whatSectionTitles: ['What Convertible Strollers Actually Mean'],
+      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, including the difference between a modular stroller and a seat-specific convertible path.',
+    whatSectionTitles: ['What Convertible Strollers Actually Mean', 'Modular stroller vs seat-specific single-to-double'],
     signatureMoment: 'Planning for your life matters more than planning for the stroller.',
     worksForSummary:
-      'Convertible strollers make the most sense when future sibling planning is real enough to matter, but you still need the stroller to feel sensible as a single right now.',
+      'Convertible strollers make the most sense when future sibling planning is real enough to matter, and you need to judge a true single-to-double path instead of assuming every modular stroller is expandable.',
     worksForBullets: [
       'You are planning for another child on a real near-term timeline.',
       'Single-to-double flexibility would genuinely change what you buy now.',
-      'You want to understand future expansion without losing sight of present-day use.',
+      'You want to understand future expansion without losing sight of present-day use, and you are willing to compare the exact seat path instead of trusting broad modular language.',
     ],
     notBestFitSummary:
       'This category can feel like too much stroller when future planning is vague and the everyday single-stroller experience already feels bulky.',
@@ -225,15 +225,15 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'jogging-all-terrain-strollers',
     shortTitle: 'Jogging',
     heroDescription:
-      'A guide to the bigger-wheel stroller category for parents whose routes are rough enough that smaller wheels stop feeling charming very quickly.',
-    whatSectionTitles: ['What This Category Actually Solves'],
+      'A guide to the terrain-and-running category for parents who need to separate everyday all-terrain help from a true jogging stroller built for actual running later on.',
+    whatSectionTitles: ['What This Category Actually Solves', 'Jogging Strollers vs All-Terrain Strollers', '3 Wheels vs 4 Wheels'],
     signatureMoment: 'If the ground is doing the arguing, bigger wheels may be the calmer answer.',
     worksForSummary:
-      'This category is strongest when the ground itself is the problem and you need a stroller that stops arguing with the route.',
+      'This category is strongest when the ground itself is the problem, or when actual jogging is truly in the plan later and you need to sort a four-wheel all-terrain stroller from a three-wheel jogging frame.',
     worksForBullets: [
       'Your weekly routes include cracked sidewalks, gravel, grass, or trails.',
       'Long outdoor walks or active movement are a normal part of life.',
-      'You want better stability and suspension than smaller-wheel strollers can offer.',
+      'You want better stability and suspension than smaller-wheel strollers can offer, and you need clarity on whether that means all-terrain help or a true jogging setup.',
     ],
     notBestFitSummary:
       'It is usually too much stroller when your routine is mostly smooth-surface errands, tighter indoor spaces, and compact storage needs.',

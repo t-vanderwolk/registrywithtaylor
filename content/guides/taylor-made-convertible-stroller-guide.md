@@ -36,6 +36,18 @@ The right convertible stroller should still feel like a good single stroller bef
 
 A convertible stroller starts by solving one-child life. Later, it may add a second seat, bassinet, ride board, or sibling combination depending on the system. The best versions feel useful in both stages. The weaker ones feel like you are always carrying around future potential you are not yet using.
 
+### Modular is not automatically convertible
+
+This is where a lot of parents get tripped up. A modular stroller simply means the stroller can change modes within one-child life: bassinet, infant car seat, toddler seat, parent-facing seat, world-facing seat. That is useful, but it is not the same thing as being a true single-to-double stroller.
+
+Many modular strollers are still just single strollers. They are flexible, but they are not built around adding a second full seat later. So if the word modular is doing all the selling, stop and ask the more important question: does this stroller actually have a real second-seat path, or is it just versatile for one child?
+
+### Seat-specific single-to-double means the expansion path is brand-specific
+
+Some convertible strollers are not just expandable. They are seat-specific. That means the second-seat setup depends on a particular seat, a particular position on the frame, certain child-order rules, and sometimes different weight limits between the upper and lower seat.
+
+This matters because "single-to-double" sounds broad and simple in marketing. In real life, the details can be very specific. Not every seat works in every position. Not every two-child setup feels equally easy. And not every stroller that technically expands feels equally good once it does.
+
 ### Convertible versus dedicated double
 
 This distinction matters more than most parents realize. Convertible strollers are built around growth. Dedicated doubles are built around immediate two-child use. If you need two seats now, the honest comparison may be a real double stroller instead of a flexible single-to-double system.
@@ -49,6 +61,13 @@ Title: Convertible stroller snapshot
 Best for: Families planning for another child on a clear timeline who still want one strong stroller system now
 Standout: Single-to-double flexibility without starting over later
 Watchout: The extra size only makes sense if the future expansion path is likely enough to matter
+:::
+
+:::comparison
+Title: Modular stroller vs seat-specific single-to-double
+Modular stroller: Best when you want bassinet, car seat, and reversible-seat flexibility for one-child life without assuming a second seat is part of the deal
+Seat-specific single-to-double: Best when another child is part of a real near-term plan and you are willing to compare the exact second-seat rules, positions, and limits instead of just trusting the word convertible
+Watchout: Marketing often treats modular and convertible like synonyms. They are related, but they are not the same promise
 :::
 
 ## Real-Life Fit
@@ -69,6 +88,8 @@ The smartest way to shop this category is to judge it in its single-stroller for
 
 Convertible strollers are best for families who want one thoughtful system and understand exactly why the flexibility helps. They are less helpful when they are mainly standing in for certainty about a future that is still blurry.
 
+The second smartest move is to read the second-seat math closely. Some systems are more open and obviously built around conversion. Others are much more seat-specific, which means the promise is only as good as the exact configuration your family will actually use.
+
 :::advice
 Taylor's take
 If you need two seats now, compare double strollers. If you are planning ahead, compare convertible strollers. Those are related questions, but they are not the same one.
@@ -88,6 +109,8 @@ If you need two seats now, compare double strollers. If you are planning ahead, 
 
 ## Product Examples
 
+These three examples are useful because they show that convertible does not always mean the same kind of expansion story. Some feel obviously built around conversion. Others are more seat-specific in how the second-child setup actually works.
+
 :::product
 Brand: Bugaboo
 Product: Donkey 6
@@ -104,9 +127,9 @@ Link: Shop at Amazon | https://example.com/amazon-bugaboo-donkey-6
 :::product
 Brand: Cybex
 Product: Gazelle S
-Review: A flexible convertible option with a wide range of seating combinations that appeals to parents who want future versatility without losing sight of current everyday use.
+Review: A flexible convertible option with a wide range of seating combinations that appeals to parents who want future versatility without losing sight of current everyday use. It is also a good reminder that seat combinations and frame positions matter just as much as the promise of expansion.
 Best for: Families who care about configuration flexibility and expect to use the expansion options sooner rather than later.
-Standout: Strong seat-combination versatility with a more planning-forward feel.
+Standout: Strong seat-combination versatility with a more seat-specific planning feel.
 Pros: Multiple seat combinations | Useful storage setup | Flexible sibling configurations | Good long-term planning value
 Image: /assets/strollers/gazelle.png
 Image Alt: Cybex Gazelle S stroller.
@@ -117,7 +140,7 @@ Link: Shop at Amazon | https://example.com/amazon-cybex-gazelle-s
 :::product
 Brand: Silver Cross
 Product: Wave 3
-Review: A premium expandable stroller that makes the most sense for parents who want one higher-end system and are comfortable with the larger footprint that usually comes with that flexibility.
+Review: A premium expandable stroller that makes the most sense for parents who want one higher-end system and are comfortable with the larger footprint that usually comes with that flexibility. It is a helpful example of the more modular-looking end of convertible, where the exact seat path still matters more than the broad promise.
 Best for: Families who value premium materials, modular seating, and a long-view purchase.
 Standout: Luxury finish with real single-to-double intent.
 Pros: Premium build quality | Expandable seating path | Strong newborn options | Elevated materials
@@ -127,7 +150,7 @@ Link: Shop at Albee Baby | https://example.com/silver-cross-wave-3
 Link: Shop at Amazon | https://example.com/amazon-silver-cross-wave-3
 :::
 
-The point of these examples is not that one model wins universally. It is that each one handles the same question a little differently: how much future flexibility is actually worth carrying around today?
+The point of these examples is not that one model wins universally. It is that each one handles the same question a little differently: are you buying a stroller that simply feels modular, or one whose specific second-seat path genuinely fits the future you are planning for?
 
 :::comparison
 Title: Convertible vs dedicated double
@@ -150,6 +173,16 @@ Answer: No. A convertible stroller starts as a single and can expand later. A do
 :::
 
 :::faq
+Question: Is every modular stroller also a convertible stroller?
+Answer: No. Modular usually means one stroller can switch between modes like bassinet, car seat, and toddler seat for one-child life. Convertible means the stroller has a real path to add a second seat later. Some strollers are both. Many are only modular.
+:::
+
+:::faq
+Question: What does seat-specific single-to-double actually mean?
+Answer: It means the expansion path is tied to the brand's exact seat setup, frame positions, and configuration rules. The second seat may fit only in certain places, carry different limits, or work best in a specific child order. That is why the details matter more than the broad promise.
+:::
+
+:::faq
 Question: Should I buy a convertible stroller with my first baby?
 Answer: Only if another child is part of a real near-term plan and the stroller still feels sensible for current one-child life. Otherwise, many families are happier choosing the best stroller for today and revisiting later.
 :::
@@ -167,6 +200,8 @@ The category can be smart. It just should not get credit for being strategic whe
 
 :::takeaways
 - Convertible means growth later. Double means two seats now.
+- Modular does not automatically mean single-to-double.
+- Some convertible systems are much more seat-specific than they first sound.
 - Judge the stroller in its single form before you fall for the expansion promise.
 - Future flexibility is only worth paying for when the timing is real.
 - The best stroller strategy should make current life easier, not just future life sound organized.
