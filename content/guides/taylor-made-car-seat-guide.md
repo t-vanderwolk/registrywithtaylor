@@ -126,15 +126,15 @@ Tradeoffs:
 
 ### Rotating Car Seats
 
-Rotating car seats are not a separate stage. They are a convenience-first subcategory that usually lives inside the convertible or all-in-one conversation.
+Rotating car seats are not a separate stage. They are a convenience-first subcategory that can show up inside infant, convertible, or all-in-one seats depending on where your child is in the broader car seat journey.
 
-Parents usually look here when the real problem is awkward daily loading, repeated buckle-ins, or wanting the seat to feel easier to live with in one main vehicle.
+Parents usually look here when the real problem is awkward daily loading, repeated buckle-ins, or wanting the seat to feel easier to live with inside the specific stage they already need.
 
 Why parents choose them:
 
 - They can make rear-facing loading feel less awkward.
 - They help when one primary vehicle handles most of the daily routine.
-- They can turn a frustrating buckle-in routine into a more manageable one.
+- They can turn a frustrating buckle-in routine into a more manageable one inside infant, convertible, or all-in-one use.
 
 Tradeoffs:
 

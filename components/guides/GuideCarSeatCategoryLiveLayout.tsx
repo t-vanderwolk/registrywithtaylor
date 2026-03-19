@@ -1,27 +1,25 @@
-import PostContent from '@/components/blog/PostContent';
 import GuideCategoryStartPanel from '@/components/guides/GuideCategoryStartPanel';
 import GuideContextStrip from '@/components/guides/GuideContextStrip';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
-import GuideExampleBlock from '@/components/guides/GuideExampleBlock';
-import GuideFAQ from '@/components/guides/GuideFAQ';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
+import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
+import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
+import GuideStrollerInteractivePlanner, {
+  type StrollerInteractivePlannerConfig,
+  type StrollerPlannerTopic,
+} from '@/components/guides/GuideStrollerInteractivePlanner';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
-import MarketingSurface from '@/components/ui/MarketingSurface';
-import { extractFaqEntries } from '@/lib/blog/contentText';
+import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock, type ParsedStyledBlock } from '@/lib/blog/styledBlocks';
-import {
-  buildGuideOutline,
-  stripLeadingGuideHeading,
-  type GuideSection,
-  type GuideTocItem,
-} from '@/lib/guides/articleOutline';
+import type { GuideTocItem } from '@/lib/guides/articleOutline';
+import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
+import type { GuideHeroJumpLink } from '@/lib/guides/hubs';
 import {
   getCarSeatCategoryGuideConfig,
   type CarSeatCategoryGuideSlug,
 } from '@/lib/guides/carSeatCategoryGuides';
-import type { GuideHeroJumpLink } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 function formatArticleDate(value: Date) {
@@ -148,63 +146,160 @@ function dedupeFaqEntries({
   );
 }
 
-function isFaqSection(section: GuideSection) {
-  return normalizeValue(section.title) === 'faq';
+function extractSectionSummary(content: string) {
+  const blocks = sanitizeGuideContent(content)
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .filter(
+      (block) =>
+        !block.startsWith('### ') &&
+        !block.startsWith(':::') &&
+        !block.startsWith('![') &&
+        !block.startsWith('- ') &&
+        !/^\d+\.\s/.test(block),
+    );
+
+  return blocks[0] ? stripMarkdown(blocks[0]) : '';
 }
 
-function isProductExamplesSection(section: GuideSection) {
-  return normalizeValue(section.title).includes('product examples');
+function extractSectionHighlights(content: string) {
+  const { subsections } = splitGuideSectionContent(sanitizeGuideContent(content));
+  return subsections.map((subsection) => stripMarkdown(subsection.title)).slice(0, 3);
 }
 
-function buildHeroJumpLinks({
-  hasProductExamples,
-  hasFaq,
+function isProductExamplesSection(title: string) {
+  return normalizeValue(title).includes('product examples');
+}
+
+function sectionLabel(title: string) {
+  switch (title) {
+    case 'Introduction':
+      return 'Overview';
+    case 'Product Examples':
+      return 'Product Picks';
+    case 'Final Thoughts':
+      return 'Final Thoughts';
+    case 'FAQ':
+      return 'FAQ';
+    default:
+      return title;
+  }
+}
+
+function buildVisibleTocItems({
+  outline,
+  faqCount,
 }: {
-  hasProductExamples: boolean;
-  hasFaq: boolean;
-}): GuideHeroJumpLink[] {
-  return [
-    { label: 'Start here', href: '#car-seat-guide-start' },
-    { label: 'Fit check', href: '#car-seat-guide-fit' },
-    ...(hasProductExamples ? [{ label: 'Examples', href: '#car-seat-guide-examples' }] : []),
-    ...(hasFaq ? [{ label: 'FAQ', href: '#guide-faq' }] : []),
-    { label: 'Continue', href: '#car-seat-guide-continue' },
-  ];
+  outline: ReturnType<typeof buildGuideOutline>;
+  faqCount: number;
+}): GuideTocItem[] {
+  const sectionItems = outline.tocItems
+    .filter((item) => item.level === 2 && normalizeValue(item.label) !== 'faq')
+    .map((item) => ({
+      ...item,
+      label: sectionLabel(item.label),
+    }));
+
+  if (faqCount > 0) {
+    sectionItems.splice(Math.max(sectionItems.length - 1, 0), 0, {
+      id: 'guide-faq',
+      label: 'FAQ',
+      level: 2,
+    });
+  }
+
+  return sectionItems;
 }
 
-function getVisibleTocItems(items: GuideTocItem[]) {
-  return items.filter((item) => normalizeValue(item.label) !== 'faq');
-}
-
-function GuideNarrativeSection({
-  guideId,
-  section,
+function buildPlannerTopics({
+  sections,
+  faqEntries,
+  productExamples,
 }: {
-  guideId: string;
-  section: GuideSection;
-}) {
-  return (
-    <section id={section.id} className="scroll-mt-28">
-      <MarketingSurface className="rounded-[1.55rem] border border-stone-200/70 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[1.8rem] md:p-7">
-        <div className="space-y-2">
-          <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/82">Guide topic</p>
-          <h2 className="font-serif text-[1.55rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.9rem]">
-            {section.title}
-          </h2>
-        </div>
+  sections: ReturnType<typeof buildGuideOutline>['sections'];
+  faqEntries: { question: string; answer: string }[];
+  productExamples: ReturnType<typeof getCarSeatCategoryGuideConfig>['productExamples'];
+}): StrollerPlannerTopic[] {
+  const topics: StrollerPlannerTopic[] = sections.map((section) => {
+    const cleanedContent = sanitizeGuideContent(stripLeadingGuideHeading(section.content));
+    const { introContent, subsections } = splitGuideSectionContent(cleanedContent);
+    const overviewContent = sanitizeGuideContent(stripLeadingGuideHeading(introContent));
+    const isProductTopic = isProductExamplesSection(section.title);
+    const topicId = isProductTopic ? 'product-examples' : section.id;
 
-        <div className="mt-5">
-          <PostContent
-            postId={`${guideId}-${section.id}`}
-            content={stripLeadingGuideHeading(section.content)}
-            className="guide-post-content"
-            variant="plain"
-            highlightBrandWordmark={true}
-          />
-        </div>
-      </MarketingSurface>
-    </section>
-  );
+    return {
+      id: topicId,
+      label: sectionLabel(section.title),
+      title: section.title,
+      summary: extractSectionSummary(cleanedContent),
+      highlights: extractSectionHighlights(cleanedContent),
+      overviewContent: overviewContent || (isProductTopic ? cleanedContent : undefined),
+      cards: subsections.map((subsection) => ({
+        id: subsection.id,
+        eyebrow: 'Focus area',
+        title: subsection.title,
+        content: sanitizeGuideContent(stripLeadingGuideHeading(subsection.content)),
+      })),
+      companions: [],
+      products: isProductTopic ? productExamples : undefined,
+    };
+  });
+
+  if (faqEntries.length > 0) {
+    topics.splice(Math.max(topics.length - 1, 0), 0, {
+      id: 'guide-faq',
+      label: 'FAQ',
+      title: 'FAQ',
+      summary: 'Quick answers to the questions parents usually still have once the category starts making more sense.',
+      highlights: [],
+      overviewContent: undefined,
+      cards: [],
+      companions: [],
+      faqItems: faqEntries.map((entry, index) => ({
+        id: `guide-faq-${index + 1}`,
+        question: entry.question,
+        answer: entry.answer,
+      })),
+    });
+  }
+
+  return topics;
+}
+
+function buildPlannerConfig({
+  planner,
+  currentLabel,
+  continueDescription,
+  continueLinks,
+  hubHref,
+  hubLabel,
+}: {
+  planner: ReturnType<typeof getCarSeatCategoryGuideConfig>['planner'];
+  currentLabel: string;
+  continueDescription: string;
+  continueLinks: ReturnType<typeof getCarSeatCategoryGuideConfig>['continueExploring']['links'];
+  hubHref: string;
+  hubLabel: string;
+}): StrollerInteractivePlannerConfig {
+  const primaryNextLink = continueLinks[0];
+
+  return {
+    ...planner,
+    finalCtaEyebrow: 'Next move',
+    finalCtaTitle: primaryNextLink ? `Continue with ${primaryNextLink.title}` : `Return to the ${hubLabel}`,
+    finalCtaDescription: primaryNextLink?.description ?? continueDescription,
+    finalCtaHref: primaryNextLink?.href ?? hubHref,
+    finalCtaLabel: primaryNextLink ? `Open ${primaryNextLink.title}` : `Open ${hubLabel}`,
+    topicIcons: {
+      introduction: 'book',
+      'product-examples': 'bag',
+      'guide-faq': 'checklist',
+      'final-thoughts': 'book',
+      ...planner.topicIcons,
+    },
+    topicTablistAriaLabel: `${currentLabel} guide topics`,
+  };
 }
 
 export default function GuideCarSeatCategoryLiveLayout({
@@ -219,17 +314,43 @@ export default function GuideCarSeatCategoryLiveLayout({
   sourceRoute: string;
 }) {
   const config = getCarSeatCategoryGuideConfig(guide.slug as CarSeatCategoryGuideSlug);
+
+  if (!config) {
+    return null;
+  }
+
   const articleContent = sanitizeGuideContent(guide.content);
   const outline = buildGuideOutline(articleContent);
-  const preface = buildPrefaceBrief(articleContent);
-  const faqItems = dedupeFaqEntries({ guide, articleContent });
-  const visibleTocItems = getVisibleTocItems(outline.tocItems);
-  const hasProductExamples = outline.sections.some(isProductExamplesSection);
-  const heroJumpLinks = buildHeroJumpLinks({
-    hasProductExamples,
-    hasFaq: faqItems.length > 0,
+  const preface = buildPrefaceBrief(outline.preface);
+  const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
+  const visibleTocItems: GuideTocItem[] = [
+    {
+      id: 'interactive-planner',
+      label: 'Interactive Planner',
+      level: 2,
+    },
+    ...buildVisibleTocItems({
+      outline,
+      faqCount: faqEntries.length,
+    }),
+  ];
+  const heroJumpLinks: GuideHeroJumpLink[] = visibleTocItems.slice(0, 6).map((item) => ({
+    label: item.label,
+    href: `${sourceRoute}#${item.id}`,
+  }));
+  const plannerTopics = buildPlannerTopics({
+    sections: outline.sections.filter((section) => normalizeValue(section.title) !== 'faq'),
+    faqEntries,
+    productExamples: config.productExamples,
   });
-  const topLevelSectionCount = visibleTocItems.filter((item) => item.level === 2).length || visibleTocItems.length || 1;
+  const plannerConfig = buildPlannerConfig({
+    planner: config.planner,
+    currentLabel: config.context.currentLabel,
+    continueDescription: config.continueExploring.description,
+    continueLinks: config.continueExploring.links,
+    hubHref: config.context.hubHref,
+    hubLabel: config.context.hubLabel,
+  });
 
   return (
     <>
@@ -241,119 +362,76 @@ export default function GuideCarSeatCategoryLiveLayout({
         description={config.heroDescription}
         readTime={`${readingTime} min`}
         publishedLabel={formatArticleDate(displayDate)}
-        sectionCount={topLevelSectionCount}
+        sectionCount={visibleTocItems.length}
         jumpLinks={heroJumpLinks}
         imageSrc={null}
         imageAlt={guide.title}
         variant="stroller-category"
       />
 
-      <div className="mx-auto max-w-6xl space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8 lg:space-y-10 lg:px-8 lg:py-10">
-        <GuideContextStrip context={config.context} />
+      <section className="bg-[var(--tmbc-blog-ivory)]">
+        <div className="mx-auto max-w-[1300px] px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
+          <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
+            <GuideContextStrip context={config.context} />
 
-        <div id="car-seat-guide-start" className="scroll-mt-28">
-          <GuideCategoryStartPanel
-            startDescription={config.startPanel.startDescription}
-            questionTitle={config.startPanel.questionTitle}
-            leadParagraph={preface.leadParagraph}
-            supportingParagraphs={preface.supportingParagraphs}
-            callout={
-              preface.callout
-                ? {
-                    title: preface.callout.title,
-                    body: preface.callout.body,
-                  }
-                : null
-            }
-            summaryCards={config.startPanel.summaryCards}
-            questionTitleClassName="max-w-none"
-            leadParagraphClassName="max-w-[36rem]"
-          />
-        </div>
+            <div id="car-seat-guide-start" className="scroll-mt-28">
+              <GuideCategoryStartPanel
+                startDescription={config.startPanel.startDescription}
+                questionTitle={config.startPanel.questionTitle}
+                leadParagraph={preface.leadParagraph ? stripMarkdown(preface.leadParagraph) : undefined}
+                supportingParagraphs={preface.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
+                callout={
+                  preface.callout
+                    ? {
+                        title: preface.callout.title,
+                        body: stripMarkdown(preface.callout.body),
+                      }
+                    : null
+                }
+                summaryCards={config.startPanel.summaryCards}
+                questionTitleClassName="max-w-none"
+                leadParagraphClassName="max-w-[36rem]"
+              />
+            </div>
 
-        <div id="car-seat-guide-fit" className="scroll-mt-28">
-          <GuideDecisionBlock
-            title={config.fitCheck.title}
-            description={config.fitCheck.description}
-            fitSummary={config.fitCheck.fitSummary}
-            fitBullets={config.fitCheck.fitBullets}
-            notFitSummary={config.fitCheck.notFitSummary}
-            notFitBullets={config.fitCheck.notFitBullets}
-            signatureMoment={config.fitCheck.signatureMoment}
-          />
-        </div>
+            <div id="car-seat-guide-fit" className="scroll-mt-28">
+              <GuideDecisionBlock
+                title={config.fitCheck.title}
+                description={config.fitCheck.description}
+                fitSummary={config.fitCheck.fitSummary}
+                fitBullets={config.fitCheck.fitBullets}
+                notFitSummary={config.fitCheck.notFitSummary}
+                notFitBullets={config.fitCheck.notFitBullets}
+                signatureMoment={config.fitCheck.signatureMoment}
+              />
+            </div>
 
-        <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} layout="band" />
+            <div className="space-y-4">
+              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
+              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
+            </div>
 
-        <div className="space-y-6 sm:space-y-7">
-          {outline.sections.map((section) => {
-            if (isFaqSection(section)) {
-              return null;
-            }
+            <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
 
-            if (isProductExamplesSection(section)) {
-              const productNarrative = stripStyledBlocksOfTypes(stripLeadingGuideHeading(section.content), [
-                'product',
-                'comparison',
-                'faq',
-              ]);
+            <div id="car-seat-guide-continue" className="scroll-mt-28">
+              <GuideContinueExploring
+                title={config.continueExploring.title}
+                description={config.continueExploring.description}
+                links={config.continueExploring.links}
+              />
+            </div>
 
-              return (
-                <section id="car-seat-guide-examples" key={section.id} className="scroll-mt-28 space-y-4">
-                  <MarketingSurface className="rounded-[1.55rem] border border-stone-200/70 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[1.8rem] md:p-7">
-                    <div className="space-y-2">
-                      <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/82">Guide topic</p>
-                      <h2 className="font-serif text-[1.55rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.9rem]">
-                        {section.title}
-                      </h2>
-                    </div>
+            <GuideSectionDivider />
 
-                    {productNarrative ? (
-                      <div className="mt-5">
-                        <PostContent
-                          postId={`${guide.id}-${section.id}-intro`}
-                          content={productNarrative}
-                          className="guide-post-content"
-                          variant="plain"
-                          highlightBrandWordmark={true}
-                        />
-                      </div>
-                    ) : null}
-                  </MarketingSurface>
-
-                  <GuideExampleBlock
-                    topicId={section.id}
-                    products={config.productExamples}
-                    comparisons={[]}
-                  />
-                </section>
-              );
-            }
-
-            return <GuideNarrativeSection key={section.id} guideId={guide.id} section={section} />;
-          })}
-        </div>
-
-        {faqItems.length > 0 ? (
-          <section id="guide-faq" className="scroll-mt-28">
-            <GuideFAQ
-              items={faqItems.map((item, index) => ({
-                id: `${guide.slug}-faq-${index + 1}`,
-                question: item.question,
-                answer: item.answer,
-              }))}
+            <GuideSoftConversionCta
+              title="Want help matching the right seat to your actual routine?"
+              description={`The ${config.context.currentLabel.toLowerCase()} decision gets much easier once someone helps you weigh stage, car fit, loading habits, and how long the seat really needs to work.`}
+              href="/services"
+              ctaLabel="Learn about Taylor-Made Baby Planning"
             />
-          </section>
-        ) : null}
-
-        <div id="car-seat-guide-continue" className="scroll-mt-28">
-          <GuideContinueExploring
-            title={config.continueExploring.title}
-            description={config.continueExploring.description}
-            links={config.continueExploring.links}
-          />
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

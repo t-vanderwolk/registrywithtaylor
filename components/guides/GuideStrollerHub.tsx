@@ -1,4 +1,3 @@
-import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideCategoryPreviewSection from '@/components/guides/GuideCategoryPreviewSection';
 import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
@@ -20,34 +19,6 @@ import type { GuideHubLink } from '@/lib/guides/hubs';
 import { getStrollerCategoryPreview, getStrollerCategoryVisual } from '@/lib/guides/strollerHub';
 import { getStrollerHubCategoryGridCards } from '@/lib/guides/strollerSystem';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
-
-function stripLeadingTopHeading(content: string) {
-  const lines = content.split('\n');
-  if (lines.length === 0) {
-    return content.trim();
-  }
-
-  const firstLine = lines[0]?.trim() ?? '';
-  if (firstLine.startsWith('# ')) {
-    return lines.slice(1).join('\n').trim();
-  }
-
-  return content.trim();
-}
-
-function splitPreface(content: string) {
-  const paragraphs = stripLeadingTopHeading(content)
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
-
-  const [leadParagraph = '', ...remainingParagraphs] = paragraphs;
-
-  return {
-    leadParagraph,
-    remainingPreface: remainingParagraphs.join('\n\n'),
-  };
-}
 
 function normalizeHeading(value: string) {
   return value
@@ -131,43 +102,12 @@ export default function GuideStrollerHub({
   outline: GuideOutline;
   nextStepLinks?: GuideHubLink[];
 }) {
-  const { leadParagraph, remainingPreface } = splitPreface(outline.preface);
   const categorySection = outline.sections.find(isStrollerCategorySection) ?? null;
   const categoryBreakdown = categorySection ? splitGuideSectionContent(categorySection.content) : null;
   const previewSubsections = sortStrollerSubsections(categoryBreakdown?.subsections ?? []);
 
   return (
     <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
-      <section className="mx-auto max-w-5xl">
-        <MarketingSurface className="rounded-[1.9rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[2rem] md:p-8">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
-            {leadParagraph ? (
-              <div className="rounded-[1.35rem] border border-stone-200/70 bg-[#fcfaf7] p-4 sm:p-5">
-                <PostContent
-                  postId={`${guide.id}-lead`}
-                  content={leadParagraph}
-                  className="guide-post-content guide-hub-card-content"
-                  variant="plain"
-                  highlightBrandWordmark={true}
-                />
-              </div>
-            ) : null}
-
-            {remainingPreface ? (
-              <div className="rounded-[1.35rem] border border-stone-200/70 bg-[#fcfaf7] p-4 sm:p-5">
-                <PostContent
-                  postId={`${guide.id}-preface`}
-                  content={remainingPreface}
-                  className="guide-post-content guide-hub-card-content"
-                  variant="plain"
-                  highlightBrandWordmark={true}
-                />
-              </div>
-            ) : null}
-          </div>
-        </MarketingSurface>
-      </section>
-
       <GuideCategoryCards
         id="stroller-category-grid"
         eyebrow="All stroller categories"

@@ -171,18 +171,20 @@ const CAR_SEAT_SPECIALIZED_CATEGORIES: readonly CarSeatHubCategory<CarSeatSpecia
     icon: 'convertible',
     imageSrc: '/assets/car-seats/revvmaxx.png',
     imageAlt: 'Nuna REVV maxx rotating car seat.',
-    lifestyleDescriptor: 'The convenience-first lane for families who want easier loading and less twisting in one heavily used vehicle.',
-    bestFor: 'Best for daily buckle-ins, rear-facing loading ease, and convenience in a primary car.',
+    lifestyleDescriptor:
+      'The convenience-first feature lane for families comparing rotating infant, convertible, or all-in-one seats inside the right stage.',
+    bestFor: 'Best for stage-specific swivel convenience, easier loading, and primary-car routines where the turning feature would matter often.',
     tradeoff: 'Heavier, larger, and usually more expensive.',
     strength: 'Makes the loading routine easier to live with.',
-    emotionalDescriptor: 'The path for parents who are not chasing portability. They are trying to make daily loading feel less awkward.',
+    emotionalDescriptor:
+      'The path for parents who need to separate infant, convertible, and all-in-one first, then decide whether the swivel feature is actually earning its keep.',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.rotating,
       ctaLabel: 'Explore rotating car seats',
       examples: [
+        { name: 'CYBEX Aton Swivel', brand: 'CYBEX', productName: 'Aton Swivel' },
         { name: 'Nuna REVV maxx', brand: 'Nuna', productName: 'REVV maxx' },
         { name: 'CYBEX Callisto', brand: 'CYBEX', productName: 'Callisto' },
-        { name: 'Maxi-Cosi Peri 180', brand: 'Maxi-Cosi', productName: 'Peri 180' },
       ],
     },
   },

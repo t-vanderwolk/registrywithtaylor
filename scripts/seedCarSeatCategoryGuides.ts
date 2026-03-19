@@ -23,12 +23,44 @@ const CAR_SEAT_GUIDE_IMAGE = '/assets/editorial/gear.jpg';
 
 const carSeatGuideSeeds: CarSeatGuideSeed[] = [
   {
+    fileName: 'taylor-made-infant-car-seat-guide.md',
+    slug: 'infant-car-seats',
+    targetKeyword: 'infant car seat',
+    secondaryKeywords: ['best infant car seat', 'newborn car seat', 'infant seat vs convertible', 'portable infant car seat'],
+    heroImageAlt: 'Infant car seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'convertible-car-seats', 'travel-lightweight-car-seats', 'rotating-car-seats'],
+  },
+  {
+    fileName: 'taylor-made-convertible-car-seat-guide.md',
+    slug: 'convertible-car-seats',
+    targetKeyword: 'convertible car seat',
+    secondaryKeywords: ['best convertible car seat', 'convertible vs infant car seat', 'convertible car seat from birth', 'rear facing convertible seat'],
+    heroImageAlt: 'Convertible car seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'infant-car-seats', 'all-in-one-car-seats', 'rotating-car-seats'],
+  },
+  {
+    fileName: 'taylor-made-all-in-one-car-seat-guide.md',
+    slug: 'all-in-one-car-seats',
+    targetKeyword: 'all in one car seat',
+    secondaryKeywords: ['best all in one car seat', 'all in one vs convertible car seat', 'multi stage car seat', 'long term car seat'],
+    heroImageAlt: 'All-in-one car seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'convertible-car-seats', 'booster-seats', 'rotating-car-seats'],
+  },
+  {
+    fileName: 'taylor-made-booster-seat-guide.md',
+    slug: 'booster-seats',
+    targetKeyword: 'booster seat',
+    secondaryKeywords: ['best booster seat', 'high back booster seat', 'backless booster seat', 'booster seat stage'],
+    heroImageAlt: 'Booster seat editorial image for TMBC car seat guide',
+    relatedSlugs: ['best-infant-car-seats', 'all-in-one-car-seats', 'convertible-car-seats'],
+  },
+  {
     fileName: 'taylor-made-rotating-car-seat-guide.md',
     slug: 'rotating-car-seats',
     targetKeyword: 'rotating car seat',
-    secondaryKeywords: ['swivel car seat', '360 car seat', 'rotating convertible car seat', 'rotating all-in-one car seat'],
+    secondaryKeywords: ['swivel car seat', '360 car seat', 'rotating infant car seat', 'rotating convertible car seat', 'rotating all-in-one car seat'],
     heroImageAlt: 'Rotating car seat editorial image for TMBC car seat guide',
-    relatedSlugs: ['best-infant-car-seats', 'travel-lightweight-car-seats'],
+    relatedSlugs: ['best-infant-car-seats', 'infant-car-seats', 'convertible-car-seats', 'all-in-one-car-seats', 'travel-lightweight-car-seats'],
   },
   {
     fileName: 'taylor-made-travel-lightweight-car-seat-guide.md',
@@ -36,7 +68,7 @@ const carSeatGuideSeeds: CarSeatGuideSeed[] = [
     targetKeyword: 'travel lightweight car seat',
     secondaryKeywords: ['travel car seat', 'lightweight car seat', 'portable car seat', 'car seat for travel'],
     heroImageAlt: 'Travel and lightweight car seat editorial image for TMBC car seat guide',
-    relatedSlugs: ['best-infant-car-seats', 'rotating-car-seats', 'travel-with-baby'],
+    relatedSlugs: ['best-infant-car-seats', 'infant-car-seats', 'rotating-car-seats', 'travel-with-baby'],
   },
 ];
 

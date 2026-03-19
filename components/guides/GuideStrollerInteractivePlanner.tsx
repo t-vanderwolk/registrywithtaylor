@@ -76,6 +76,8 @@ export type StrollerPlannerTopic = {
   cards: PlannerTopicCard[];
   companions: PlannerTopicCompanion[];
   faqItems?: GuideFaqAccordionItem[];
+  products?: Array<Extract<ParsedStyledBlock, { type: 'product' }>>;
+  comparisons?: Array<Extract<ParsedStyledBlock, { type: 'comparison' }>>;
 };
 
 export type StrollerInteractivePlannerConfig = {
@@ -93,6 +95,7 @@ export type StrollerInteractivePlannerConfig = {
   scenarios: PlannerScenario[];
   priorityLenses: PriorityLens[];
   topicIcons?: Partial<Record<string, GuideHubIconKey>>;
+  topicTablistAriaLabel?: string;
 };
 
 const DEFAULT_TOPIC_ICONS: Partial<Record<string, GuideHubIconKey>> = {
@@ -448,20 +451,45 @@ export default function GuideStrollerInteractivePlanner({
     }
   };
 
-  if (!config.scenarios.length || !config.priorityLenses.length || !topics.length) {
+  if (!topics.length) {
     return null;
   }
 
-  const activeScenario = config.scenarios.find((scenario) => scenario.id === activeScenarioId) ?? config.scenarios[0]!;
+  const hasScenarioPlanner = config.scenarios.length > 0;
+  const hasPriorityLenses = config.priorityLenses.length > 0;
+  const showDecisionLayers = hasScenarioPlanner || hasPriorityLenses;
+  const activeScenario =
+    hasScenarioPlanner
+      ? config.scenarios.find((scenario) => scenario.id === activeScenarioId) ?? config.scenarios[0]!
+      : null;
   const activePriority =
-    config.priorityLenses.find((priority) => priority.id === activePriorityId) ?? config.priorityLenses[0]!;
+    hasPriorityLenses
+      ? config.priorityLenses.find((priority) => priority.id === activePriorityId) ?? config.priorityLenses[0]!
+      : null;
   const activeTopic = topics.find((topic) => topic.id === activeTopicId) ?? topics[0] ?? null;
   const activeTopicIndex = activeTopic ? topics.findIndex((topic) => topic.id === activeTopic.id) : -1;
   const previousTopic = activeTopicIndex > 0 ? topics[activeTopicIndex - 1] ?? null : null;
   const nextTopic = activeTopicIndex >= 0 && activeTopicIndex < topics.length - 1 ? topics[activeTopicIndex + 1] ?? null : null;
-  const productExampleContent =
+  const parsedProductExampleContent =
     activeTopic?.id === 'product-examples' && activeTopic.overviewContent
       ? splitProductExampleContent(activeTopic.overviewContent)
+      : null;
+  const productExampleContent =
+    activeTopic?.id === 'product-examples'
+      ? {
+          products:
+            activeTopic.products && activeTopic.products.length > 0
+              ? activeTopic.products
+              : parsedProductExampleContent?.products ?? [],
+          comparisons:
+            activeTopic.comparisons && activeTopic.comparisons.length > 0
+              ? activeTopic.comparisons
+              : parsedProductExampleContent?.comparisons ?? [],
+          narrative:
+            activeTopic.products?.length || activeTopic.comparisons?.length
+              ? stripStyledBlocksOfTypes(activeTopic.overviewContent ?? '', ['product', 'comparison'])
+              : parsedProductExampleContent?.narrative ?? '',
+        }
       : null;
   const hasStructuredProductExamples = Boolean(
     productExampleContent && (productExampleContent.products.length > 0 || productExampleContent.comparisons.length > 0),
@@ -508,209 +536,212 @@ export default function GuideStrollerInteractivePlanner({
         <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">{config.description}</p>
       </div>
 
-      <div className="mt-7 grid gap-5 sm:mt-8 sm:gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <div>
-          <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.scenarioPrompt}</p>
-          <div role="tablist" aria-label={config.scenarioAriaLabel} className="mt-4 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
-            {config.scenarios.map((scenario) => {
-              const isActive = scenario.id === activeScenario.id;
-              const buttonId = `${scenarioBaseId}-${scenario.id}-tab`;
-              const panelId = `${scenarioBaseId}-${scenario.id}-panel`;
+      {hasScenarioPlanner && activeScenario ? (
+        <div className="mt-7 grid gap-5 sm:mt-8 sm:gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.scenarioPrompt}</p>
+            <div role="tablist" aria-label={config.scenarioAriaLabel} className="mt-4 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
+              {config.scenarios.map((scenario) => {
+                const isActive = scenario.id === activeScenario.id;
+                const buttonId = `${scenarioBaseId}-${scenario.id}-tab`;
+                const panelId = `${scenarioBaseId}-${scenario.id}-panel`;
 
-              return (
-                <button
-                  key={scenario.id}
-                  id={buttonId}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls={panelId}
-                  onClick={() => {
-                    startTransition(() => {
-                      setActiveScenarioId(scenario.id);
-                    });
-                  }}
-                  className={`group rounded-[1.35rem] border p-4 text-left transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] ${
-                    isActive
-                      ? 'border-[rgba(196,156,94,0.28)] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.05)]'
-                      : 'border-black/6 bg-[rgba(255,255,255,0.72)] hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.22)] hover:bg-white'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
-                      <GuideGlyph icon={scenario.icon} />
-                    </div>
-                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.16em] ${toneClasses(scenario.fitTone)}`}>
-                      {scenario.fitLabel}
-                    </span>
-                  </div>
-                  <p className="mt-4 font-serif text-[1.22rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{scenario.label}</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-700">{scenario.summary}</p>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <article
-          id={`${scenarioBaseId}-${activeScenario.id}-panel`}
-          role="tabpanel"
-          aria-labelledby={`${scenarioBaseId}-${activeScenario.id}-tab`}
-          className="rounded-[1.5rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
-                <GuideGlyph icon={activeScenario.icon} />
-              </div>
-              <div>
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Routine lens</p>
-                <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activeScenario.label}</h3>
-              </div>
-            </div>
-            <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activeScenario.fitTone)}`}>
-              {activeScenario.fitLabel}
-            </span>
-          </div>
-
-          <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activeScenario.summary}</p>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-              <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Signals this is your situation</p>
-              <ul className="mt-3 list-disc space-y-3 pl-5">
-                {activeScenario.signals.map((signal) => (
-                  <li key={signal} className="text-sm leading-6 text-neutral-700">
-                    {signal}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-              <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">What to prioritize first</p>
-              <div className="mt-3 flex flex-wrap gap-2.5">
-                {activeScenario.priorities.map((priority) => (
-                  <span
-                    key={priority}
-                    className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white px-3 py-2 text-sm text-neutral-800"
+                return (
+                  <button
+                    key={scenario.id}
+                    id={buttonId}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={panelId}
+                    onClick={() => {
+                      startTransition(() => {
+                        setActiveScenarioId(scenario.id);
+                      });
+                    }}
+                    className={`group rounded-[1.35rem] border p-4 text-left transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] ${
+                      isActive
+                        ? 'border-[rgba(196,156,94,0.28)] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.05)]'
+                        : 'border-black/6 bg-[rgba(255,255,255,0.72)] hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.22)] hover:bg-white'
+                    }`}
                   >
-                    {priority}
-                  </span>
-                ))}
-              </div>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
+                        <GuideGlyph icon={scenario.icon} />
+                      </div>
+                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.16em] ${toneClasses(scenario.fitTone)}`}>
+                        {scenario.fitLabel}
+                      </span>
+                    </div>
+                    <p className="mt-4 font-serif text-[1.22rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{scenario.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-neutral-700">{scenario.summary}</p>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href={activeScenario.primaryHref}
-              className="inline-flex w-full items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-[rgba(255,248,241,0.96)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
-            >
-              <span>{activeScenario.primaryLabel}</span>
-              <span aria-hidden="true" className="ml-2">
-                -&gt;
+          <article
+            id={`${scenarioBaseId}-${activeScenario.id}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${scenarioBaseId}-${activeScenario.id}-tab`}
+            className="rounded-[1.5rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
+                  <GuideGlyph icon={activeScenario.icon} />
+                </div>
+                <div>
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Routine lens</p>
+                  <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activeScenario.label}</h3>
+                </div>
+              </div>
+              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activeScenario.fitTone)}`}>
+                {activeScenario.fitLabel}
               </span>
-            </Link>
-            <Link
-              href={activeScenario.secondaryHref}
-              className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
-            >
-              <span>{activeScenario.secondaryLabel}</span>
-              <span aria-hidden="true" className="ml-2">
-                -&gt;
-              </span>
-            </Link>
-          </div>
-        </article>
-      </div>
+            </div>
 
-      <div className="mt-8 border-t border-[rgba(0,0,0,0.06)] pt-8">
-        <div className="space-y-3">
-          <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.priorityPrompt}</p>
-          <div role="tablist" aria-label={config.priorityAriaLabel} className="flex flex-wrap gap-2.5">
-            {config.priorityLenses.map((priority) => {
-              const isActive = priority.id === activePriority.id;
-              const buttonId = `${priorityBaseId}-${priority.id}-tab`;
-              const panelId = `${priorityBaseId}-${priority.id}-panel`;
+            <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activeScenario.summary}</p>
 
-              return (
-                <button
-                  key={priority.id}
-                  id={buttonId}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls={panelId}
-                  onClick={() => {
-                    startTransition(() => {
-                      setActivePriorityId(priority.id);
-                    });
-                  }}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] ${
-                    isActive
-                      ? 'border-[rgba(196,156,94,0.3)] bg-white text-neutral-900 shadow-[0_10px_24px_rgba(0,0,0,0.04)]'
-                      : 'border-black/8 bg-[rgba(255,255,255,0.68)] text-neutral-700 hover:border-[rgba(196,156,94,0.22)] hover:bg-white'
-                  }`}
-                >
-                  <GuideGlyph icon={priority.icon} className="h-4 w-4" />
-                  <span>{priority.label}</span>
-                </button>
-              );
-            })}
-          </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
+                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Signals this is your situation</p>
+                <ul className="mt-3 list-disc space-y-3 pl-5">
+                  {activeScenario.signals.map((signal) => (
+                    <li key={signal} className="text-sm leading-6 text-neutral-700">
+                      {signal}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
+                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">What to prioritize first</p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {activeScenario.priorities.map((priority) => (
+                    <span
+                      key={priority}
+                      className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white px-3 py-2 text-sm text-neutral-800"
+                    >
+                      {priority}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={activeScenario.primaryHref}
+                className="inline-flex w-full items-center justify-center rounded-full border border-[rgba(196,156,94,0.24)] bg-[rgba(255,248,241,0.96)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.34)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
+              >
+                <span>{activeScenario.primaryLabel}</span>
+                <span aria-hidden="true" className="ml-2">
+                  -&gt;
+                </span>
+              </Link>
+              <Link
+                href={activeScenario.secondaryHref}
+                className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
+              >
+                <span>{activeScenario.secondaryLabel}</span>
+                <span aria-hidden="true" className="ml-2">
+                  -&gt;
+                </span>
+              </Link>
+            </div>
+          </article>
         </div>
+      ) : null}
 
-        <article
-          id={`${priorityBaseId}-${activePriority.id}-panel`}
-          role="tabpanel"
-          aria-labelledby={`${priorityBaseId}-${activePriority.id}-tab`}
-          className="mt-6 rounded-[1.45rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
-                <GuideGlyph icon={activePriority.icon} />
-              </div>
-              <div>
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Decision lens</p>
-                <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activePriority.label}</h3>
-              </div>
+      {hasPriorityLenses && activePriority ? (
+        <div className={hasScenarioPlanner ? 'mt-8 border-t border-[rgba(0,0,0,0.06)] pt-8' : 'mt-7 sm:mt-8'}>
+          <div className="space-y-3">
+            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.priorityPrompt}</p>
+            <div role="tablist" aria-label={config.priorityAriaLabel} className="flex flex-wrap gap-2.5">
+              {config.priorityLenses.map((priority) => {
+                const isActive = priority.id === activePriority.id;
+                const buttonId = `${priorityBaseId}-${priority.id}-tab`;
+                const panelId = `${priorityBaseId}-${priority.id}-panel`;
+
+                return (
+                  <button
+                    key={priority.id}
+                    id={buttonId}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={panelId}
+                    onClick={() => {
+                      startTransition(() => {
+                        setActivePriorityId(priority.id);
+                      });
+                    }}
+                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)] ${
+                      isActive
+                        ? 'border-[rgba(196,156,94,0.3)] bg-white text-neutral-900 shadow-[0_10px_24px_rgba(0,0,0,0.04)]'
+                        : 'border-black/8 bg-[rgba(255,255,255,0.68)] text-neutral-700 hover:border-[rgba(196,156,94,0.22)] hover:bg-white'
+                    }`}
+                  >
+                    <GuideGlyph icon={priority.icon} className="h-4 w-4" />
+                    <span>{priority.label}</span>
+                  </button>
+                );
+              })}
             </div>
-            <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activePriority.tone)}`}>
-              {activePriority.verdict}
-            </span>
           </div>
-
-          <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activePriority.summary}</p>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-              <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">When this helps</p>
-              <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.helpsWhen}</p>
-            </div>
-            <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-              <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Watch out for</p>
-              <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.watchout}</p>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <Link
-              href={activePriority.href}
-              className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-[rgba(255,248,241,0.92)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
-            >
-              <span>{activePriority.ctaLabel}</span>
-              <span aria-hidden="true" className="ml-2">
-                -&gt;
+          <article
+            id={`${priorityBaseId}-${activePriority.id}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${priorityBaseId}-${activePriority.id}-tab`}
+            className="mt-6 rounded-[1.45rem] border border-black/6 bg-white/92 p-4 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-5 md:p-6"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
+                  <GuideGlyph icon={activePriority.icon} />
+                </div>
+                <div>
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Decision lens</p>
+                  <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activePriority.label}</h3>
+                </div>
+              </div>
+              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activePriority.tone)}`}>
+                {activePriority.verdict}
               </span>
-            </Link>
-          </div>
-        </article>
-      </div>
+            </div>
+
+            <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activePriority.summary}</p>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
+                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">When this helps</p>
+                <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.helpsWhen}</p>
+              </div>
+              <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
+                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Watch out for</p>
+                <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.watchout}</p>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <Link
+                href={activePriority.href}
+                className="inline-flex w-full items-center justify-center rounded-full border border-black/8 bg-[rgba(255,248,241,0.92)] px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:w-auto"
+              >
+                <span>{activePriority.ctaLabel}</span>
+                <span aria-hidden="true" className="ml-2">
+                  -&gt;
+                </span>
+              </Link>
+            </div>
+          </article>
+        </div>
+      ) : null}
 
       {activeTopic ? (
-        <div className="mt-7 border-t border-[rgba(0,0,0,0.06)] pt-7 sm:mt-8 sm:pt-8">
+        <div className={showDecisionLayers ? 'mt-7 border-t border-[rgba(0,0,0,0.06)] pt-7 sm:mt-8 sm:pt-8' : 'mt-7 sm:mt-8'}>
           <div className="space-y-3">
             <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Guide explorer</p>
             <h3 className="font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
@@ -722,7 +753,11 @@ export default function GuideStrollerInteractivePlanner({
           </div>
 
           <div className="mt-6 space-y-6">
-            <div role="tablist" aria-label="Stroller guide topics" className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 xl:grid-cols-3 2xl:grid-cols-4">
+            <div
+              role="tablist"
+              aria-label={config.topicTablistAriaLabel ?? 'Guide topics'}
+              className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 xl:grid-cols-3 2xl:grid-cols-4"
+            >
               {topics.map((topic, index) => {
                 const isActive = topic.id === activeTopic.id;
                 const buttonId = `${topicBaseId}-${topic.id}-tab`;
