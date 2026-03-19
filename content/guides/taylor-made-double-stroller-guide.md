@@ -1,31 +1,31 @@
 # The Taylor-Made Double Stroller Guide for Overwhelmed Parents
 
-Double strollers are one of the easiest categories to over-romanticize and one of the easiest categories to overbuy. On paper, they promise future-proofing, sibling convenience, and a calmer solution for life with more than one child. In real life, they are bigger, heavier, and much more worth it only when they actually match the age gap and routine you are planning for.
+Double strollers are one of the easiest categories to over-romanticize and one of the easiest categories to overbuy. On paper, they promise sibling convenience and a calmer solution for life with two small children. In real life, they are bigger, heavier, and only worth it when two full stroller seats are genuinely part of current life.
 
-That is why this category deserves more honesty than hype. A great double stroller can be life-giving for the right family. The wrong double stroller can feel like you adopted a second, much larger problem before the second baby even arrived.
+That is why this category deserves more honesty than hype. A great fixed double stroller can be life-giving for the right family. The wrong one can feel like you adopted a second, much larger problem before the second seat is even necessary.
 
-The TMBC goal here is to help you understand when a double stroller makes sense, what kinds of double strollers exist, and how to avoid paying an everyday size penalty for a future you have not actually reached yet.
+The TMBC goal here is to help you understand when a fixed double stroller makes sense, which dedicated two-seat layouts are worth comparing, and how to avoid paying an everyday size penalty for a stage you are not actually living yet.
 
 :::callout
-Future-proofing is not always everyday-proofing
-The best double stroller is not the one with the longest list of possible configurations. It is the one that still feels usable in the version of family life you are actually living.
+Two seats now is a different question than flexibility later
+The best fixed double stroller is not the one that sounds most strategic. It is the one that honestly solves current two-rider life without turning every doorway into a negotiation.
 :::
 
 ## Introduction
 
-Double strollers exist to solve sibling transport, but there is more than one way to solve it. Some are side-by-side. Some are tandem. Some begin as singles and convert to doubles later. Each approach changes width, maneuverability, storage feel, and the level of patience you will need for everyday use.
+Fixed double strollers exist to solve sibling transport when two seats are already the job. Some are side-by-side. Some are tandem. Each approach changes width, maneuverability, storage feel, and the level of patience you will need for everyday use.
 
-Parents often start here because they are expecting a close age gap, planning ahead with their first baby, or already managing two children with different stamina levels. Those are all valid reasons. The category just works best when the problem is current or very near-term, not purely theoretical.
+Parents often start here because they are managing twins, a close age gap, or two children who both truly still need stroller support. Those are all valid reasons. The category works best when the problem is current, not purely theoretical.
 
 [Read the full comparison ->](/guides/best-strollers)
 
-![Temporary placeholder image: double stroller configurations with single-to-double and side-by-side formats.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+![Temporary placeholder image: dedicated double stroller configurations with side-by-side and tandem formats.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Why This Category Feels Overwhelming
 
-Double strollers are overwhelming because you are not just buying for one child. You are buying for sibling spacing, seat combinations, storage, width, home access, trunk fit, and sometimes infant seat compatibility all at once.
+Double strollers are overwhelming because you are not just buying for one child. You are buying for width, seat order, storage, doorway tolerance, trunk fit, and how often both children will truly be in the stroller at the same time.
 
-Brands like UPPAbaby, Bugaboo, Cybex, Nuna, and Silver Cross make this category feel especially complex because many of their systems are built around future flexibility. That can be wonderful. It can also mean parents pay for a large, heavy stroller long before that flexibility is actually helpful.
+The category also feels crowded because side-by-side and tandem layouts each sound reasonable until you imagine them in your actual week. A stroller can make perfect sense in a product grid and still become deeply inconvenient in your trunk, your entryway, or the coffee shop you keep trying to enter sideways.
 
 :::pullquote
 The smartest double stroller is not always the one that can do the most. It is the one that asks the least from your daily life while still solving the sibling problem well.
@@ -34,52 +34,52 @@ The smartest double stroller is not always the one that can do the most. It is t
 
 ## The Main Double Stroller Paths
 
-### Convertible single-to-double
-
-These systems begin as a single stroller and add a second seat or ride option later. They are appealing because they promise long-term flexibility. They are often excellent for families who know a closer age gap is likely and want one system.
-
 ### Side-by-side double
 
-Side-by-side doubles can feel surprisingly balanced to push, but width matters. Doorways, stores, restaurants, and tighter sidewalks become more relevant immediately.
+Side-by-side doubles can feel surprisingly balanced to push and fairer to both children once you are using two seats regularly. The tradeoff is width. Doorways, stores, restaurants, and tighter sidewalks become more relevant immediately.
 
 ### Tandem double
 
-Tandem doubles place one seat behind the other, which helps with width but can create other compromises in seat access or configuration preferences.
+Tandem doubles place one seat behind the other, which helps with width but can create other compromises in seat access, basket reach, or how evenly the stroller feels loaded.
+
+### Compact dedicated double
+
+Some fixed doubles are built to feel a little less enormous in everyday use. They still ask for two-seat commitment, but they can make more sense for families who want honest two-child function without the biggest footprint in the category.
 
 :::comparison
-Title: Double stroller snapshot
+Title: Fixed double stroller snapshot
 Best for: Families with two children close in age or a very clear sibling transport need
-Standout: Solves multi-child movement in one system
+Standout: Solves current two-child movement in one purpose-built system
 Watchout: Size, weight, and storage demands are real and should not be minimized
 :::
 
 ## Real-Life Fit
 
-The strongest use case for a double stroller is not "maybe someday." It is life with two small children who both genuinely benefit from being in the stroller system. If you are already there, or close enough to plan concretely for it, the category can make a lot of sense.
+The strongest use case for a fixed double stroller is not "maybe someday." It is life with two small children who both genuinely benefit from being in the stroller system now. If you are already there, the category can make a lot of sense.
 
-Where parents get into trouble is buying the convertible dream too early. A large single-to-double stroller may technically prepare you for a future sibling, but it also becomes your everyday stroller for the present. If it already feels oversized now, that matters.
+Where parents get into trouble is buying a dedicated two-seat stroller before daily life actually asks for it. If the second seat is still mostly a future idea, the weight and size will be very present long before the benefit is.
 
 :::decision
-Question: Are you solving for an actual current sibling transport need or a future possibility?
-Option: Buy for the life stage that is closest and most certain, not the most hypothetical.
-Result: Parents usually make calmer decisions when they stop forcing today's stroller around tomorrow's maybe.
+Question: Are you solving for two riders who need seats now, or a problem that is still theoretical?
+Option: Choose fixed double only when the second seat is already part of real outings, not just part of a planning mood.
+Result: Parents usually make calmer decisions when they stop asking a current stroller to solve a future maybe.
 :::
 
 ## Expert Advice
 
-Double strollers should be chosen with unusual honesty about your space, vehicle, doorway tolerance, and how often both kids will actually use the stroller. There is a big difference between "two-kid household" and "two children who truly need a double stroller regularly."
+Fixed double strollers should be chosen with unusual honesty about your space, vehicle, doorway tolerance, and how often both kids will actually use the stroller. There is a big difference between "two-kid household" and "two children who truly need a dedicated two-seat stroller regularly."
 
-If you are still pregnant with your first and simply planning ahead, ask whether that future flexibility is worth the present size. Sometimes it is. Often it is not.
+If you are still planning ahead and do not need two stroller seats yet, pause before you buy this category. Dedicated doubles are excellent when the job is current. They are much less charming when they are mostly rehearsing for later.
 
 :::advice
 Taylor's take
-Buy a double stroller because the sibling logistics make it useful, not because the marketing makes it sound responsible.
+Buy a fixed double stroller because the sibling logistics make it useful now, not because two seats sound like a mature long-term strategy.
 :::
 
 :::pros
 - Very helpful when both children truly need stroller seating
 - Can simplify outings with two small kids
-- Convertible systems can reduce future gear reshuffling
+- Dedicated doubles can feel more honest than expandable systems when two seats are already the job
 :::
 
 :::cons
@@ -88,44 +88,61 @@ Buy a double stroller because the sibling logistics make it useful, not because 
 - Not every family with two kids needs one full time
 :::
 
-![Temporary placeholder image: sibling stroller in an everyday outing setting with a two-seat layout.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
+![Temporary placeholder image: dedicated double stroller in an everyday outing setting with a two-seat layout.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 ## Product Examples
 
 :::product
-Brand: UPPAbaby
-Product: Vista V2
-Review: At 27 lbs, the Vista V2 features all-weather comfort seat, Enhanced FlexRide suspension, and quick-secure harness. With 30 lbs basket capacity, UPF 50+ canopy, and ability to transport up to three children, it's GREENGUARD® Gold certified.
-Best for: Growing families who need a stroller that converts to double configuration with excellent storage.
-Standout: Highly versatile convertible at 27 lbs with premium features
-Pros: All-weather comfort seat | Enhanced FlexRide suspension | 30 lbs basket capacity | UPF 50+ canopy | Transports up to 3 children | GREENGUARD® Gold certified | Never flat tires | One-handed fold
-Link: Shop at Albee Baby | https://example.com/uppababy-vista-v2
-Link: Shop at Amazon | https://example.com/amazon-uppababy-vista-v2
+Brand: Bumbleride
+Product: Indie Twin
+Review: A dedicated side-by-side double that helps this category make immediate sense because it is honest about its job from the start. It is useful when both riders truly need real seat space and you want a sturdier everyday feel.
+Best for: Families who need two full seats now and care about push confidence more than a tiny folded footprint.
+Standout: A purpose-built side-by-side that feels straightforward about being a real double.
+Pros: Dedicated two-seat layout | Strong everyday push | Better sibling visibility | Roomier seat feel
+Image: /assets/strollers/inditwin.png
+Image Alt: Bumbleride Indie Twin stroller.
+Link: Shop at Albee Baby | https://example.com/bumbleride-indie-twin
+Link: Shop at Amazon | https://example.com/amazon-bumbleride-indie-twin
 :::
 
 :::product
-Brand: Bugaboo
-Product: Donkey 5
-Review: A side-by-side convertible approach that many parents appreciate for push quality and sibling access, as long as width is not a dealbreaker.
-Best for: Families who want a true two-child stroller with easier side-by-side interaction.
-Standout: Side-by-side sibling setup with premium handling
-Pros: Great push | Strong sibling visibility | Flexible side-by-side format
-Link: Shop at Albee Baby | https://example.com/bugaboo-donkey-5
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-donkey-5
+Brand: BOB
+Product: Revolution Flex Duallie
+Review: This is the kind of dedicated double that matters when outings include rougher routes, bigger wheels, or a family routine that asks more from the push than a mall lap.
+Best for: Families who need a fixed double and expect more outdoor use, rougher sidewalks, or a sturdier all-terrain feel.
+Standout: A fixed two-seat stroller with stronger terrain confidence.
+Pros: Bigger-wheel feel | More capable on rougher routes | Honest two-rider design | Strong outdoor usefulness
+Image: /assets/strollers/revolution.png
+Image Alt: BOB Revolution Flex Duallie stroller.
+Link: Shop at Albee Baby | https://example.com/bob-revolution-flex-duallie
+Link: Shop at Amazon | https://example.com/amazon-bob-revolution-flex-duallie
 :::
 
-The Bugaboo Donkey 5 and Cybex Gazelle S also matter in this category because they give parents slightly different versions of the same long-term planning question: how much future flexibility is truly worth the everyday footprint?
+:::product
+Brand: UPPAbaby
+Product: Minu Duo
+Review: A more compact-feeling dedicated double that helps illustrate an important point: fixed doubles do not all need to feel maximalist to be useful. This one matters when you want an immediate two-seat answer with a somewhat lighter everyday tone.
+Best for: Families who need a dedicated double but want something a little easier to live with in tighter errands and more urban routines.
+Standout: A fixed double that leans lighter and simpler than the category stereotype.
+Pros: Dedicated two-seat setup | More compact feel | Easier city errands | Straightforward everyday use
+Image: /assets/strollers/minuduo.png
+Image Alt: UPPAbaby Minu Duo stroller.
+Link: Shop at Albee Baby | https://example.com/uppababy-minu-duo
+Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-duo
+:::
+
+The point of these examples is not that one layout wins universally. It is that each one solves the same fixed-double question a little differently: how much width, weight, and push feel are you willing to live with once two seats are actually part of daily life?
 
 :::comparison
-Title: Convertible double vs purpose-built double
-Best for: Parents deciding whether future flexibility or current two-child use is the bigger need
-Standout: Convertible systems help with long-term planning while dedicated doubles can feel more immediately honest about their job
-Watchout: Buying a large stroller too early can make daily life feel heavier than necessary
+Title: Side-by-side vs tandem snapshot
+Best for: Parents deciding whether width or seat order is the more important daily tradeoff
+Standout: Side-by-side doubles often feel fairer and more balanced, while tandems can be easier to thread through tighter spaces
+Watchout: The better layout is the one that fits your actual routes, not the one that sounds smartest from the couch
 :::
 
 ## Common Mistakes Parents Make
 
-One mistake is buying a double stroller while still living fully as a one-child family and assuming the future will justify the present bulk. Another is underestimating how different side-by-side and tandem formats feel once you are in doorways, stores, and car trunks.
+One mistake is buying a fixed double stroller while still living fully as a one-child family and assuming the future will justify the present bulk. Another is underestimating how different side-by-side and tandem formats feel once you are in doorways, stores, and car trunks.
 
 Parents also sometimes forget that not every older sibling wants or needs full stroller seating all the time. Depending on age gap and temperament, a ride board or simpler solution may cover part of the need without a full-time double stroller.
 
@@ -134,12 +151,12 @@ Parents also sometimes forget that not every older sibling wants or needs full s
 ## FAQ
 
 :::faq
-Question: Should I buy a double stroller with my first baby?
-Answer: Usually only if you have a very clear near-term reason. Otherwise, many families are happier buying for their current one-child life and revisiting double needs when they become more concrete.
+Question: Should I buy a fixed double stroller with my first baby?
+Answer: Usually no. Dedicated doubles make the most sense when two seats are already part of real life. If you are planning ahead, that is usually a convertible or single-stroller question first.
 :::
 
 :::faq
-Question: Is a side-by-side or tandem double better?
+Question: Is a side-by-side or tandem fixed double better?
 Answer: It depends on what matters most to you. Side-by-side options can push beautifully but are wider, while tandem options help with width but can involve other seat and access tradeoffs.
 :::
 
@@ -150,14 +167,14 @@ Answer: No. It depends on age gap, walking tolerance, outing style, and how ofte
 
 ## Final Thoughts
 
-Double strollers are best when they are solving a present or very near-term sibling reality. They are less appealing when they are mostly solving planning anxiety.
+Fixed double strollers are best when they are solving a present sibling reality. They are much less appealing when they are mostly solving planning anxiety.
 
-This category can be brilliant. It just needs more honesty than most stroller shopping encourages. If the daily life is there, the size may be worth it. If the life stage is still hypothetical, keep your money and your trunk space for now.
+This category can be brilliant. It just needs more honesty than most stroller shopping encourages. If the daily life is there, the size may be worth it. If two seats are still hypothetical, keep your money and your trunk space for now.
 
 :::takeaways
-- Buy a double stroller for real sibling logistics, not just future imagination.
+- Buy a fixed double stroller for real sibling logistics, not just future imagination.
 - Side-by-side and tandem designs solve different problems.
-- Convertible systems are useful only if the current single setup still feels right.
+- Dedicated doubles make the most sense when two seats are already the job.
 - The right double stroller should reduce chaos, not add bulk for no reason.
 :::
 

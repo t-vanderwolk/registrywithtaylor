@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import PostContent from '@/components/blog/PostContent';
+import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import type { StrollerPreviewExample } from '@/lib/guides/strollerHub';
 
 export default function GuideCategoryPreviewSection({
@@ -73,23 +74,9 @@ export default function GuideCategoryPreviewSection({
           {examples.map((example) => (
             <div
               key={`${title}-${example.name}`}
-              className="min-w-[12.75rem] snap-start flex-1 rounded-[1.35rem] border border-stone-200/70 bg-white/90 p-3.5 sm:min-w-[14rem] sm:rounded-[1.5rem] sm:p-4"
+              className="min-w-[12.75rem] snap-start flex-1 sm:min-w-[14rem]"
             >
-              <div className="rounded-[1rem] border border-stone-200/70 bg-[#f8f3ed] p-2.5 sm:rounded-[1.2rem] sm:p-3">
-                <div className="relative h-24 sm:h-28">
-                  <Image
-                    src={example.imageSrc}
-                    alt={example.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 12rem"
-                    className="object-contain object-center"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <p className="mt-3 font-serif text-[1.02rem] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:mt-4 sm:text-[1.15rem]">
-                {example.name}
-              </p>
+              <GuideProductExampleCard name={example.name} imageSrc={example.imageSrc} imageAlt={example.imageAlt} />
             </div>
           ))}
         </div>

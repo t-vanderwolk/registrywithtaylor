@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { startTransition, useEffect, useId, useRef, useState } from 'react';
 import PostContent from '@/components/blog/PostContent';
 import Comparison from '@/components/content-widgets/Comparison';
-import ProductCard from '@/components/content-widgets/ProductCard';
 import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
+import GuideExampleBlock from '@/components/guides/GuideExampleBlock';
 import GuideFaqAccordion, { type GuideFaqAccordionItem } from '@/components/guides/GuideFaqAccordion';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
@@ -373,6 +373,21 @@ function splitProductExampleContent(content: string) {
   };
 }
 
+function splitComparisonContent(content: string) {
+  const blocks = extractStyledBlocks(content);
+
+  return {
+    comparisons: blocks.filter(
+      (block): block is Extract<ParsedStyledBlock, { type: 'comparison' }> => block.type === 'comparison',
+    ),
+    narrative: stripStyledBlocksOfTypes(content, ['comparison']),
+  };
+}
+
+function getDefaultGuideExplorerTopicId<T extends { id: string }>(topics: T[]) {
+  return topics.find((topic) => topic.id === 'product-examples')?.id ?? topics[0]?.id ?? '';
+}
+
 function TopicCompanions({ companions }: { companions: PlannerTopicCompanion[] }) {
   if (companions.length === 0) {
     return null;
@@ -499,7 +514,7 @@ export default function GuideFullSizeInteractivePlanner({
   const priorityLenses = buildPriorityLenses(sourceRoute);
   const [activeScenarioId, setActiveScenarioId] = useState(plannerScenarios[0]!.id);
   const [activePriorityId, setActivePriorityId] = useState(priorityLenses[0]!.id);
-  const [activeTopicId, setActiveTopicId] = useState(topics[0]?.id ?? '');
+  const [activeTopicId, setActiveTopicId] = useState(getDefaultGuideExplorerTopicId(topics));
 
   useEffect(() => {
     if (!topics.length) {
@@ -534,7 +549,7 @@ export default function GuideFullSizeInteractivePlanner({
     }
 
     if (!topics.some((topic) => topic.id === activeTopicId)) {
-      setActiveTopicId(topics[0]!.id);
+      setActiveTopicId(getDefaultGuideExplorerTopicId(topics));
     }
   }, [activeTopicId, topics]);
 
@@ -571,6 +586,23 @@ export default function GuideFullSizeInteractivePlanner({
   const hasStructuredProductExamples = Boolean(
     productExampleContent && (productExampleContent.products.length > 0 || productExampleContent.comparisons.length > 0),
   );
+  const comparisonOverviewContent =
+    !hasStructuredProductExamples && activeTopic?.overviewContent
+      ? splitComparisonContent(activeTopic.overviewContent)
+      : null;
+  const comparisonCardContent =
+    !hasStructuredProductExamples
+      ? (activeTopic?.cards ?? []).map((card) => ({
+          card,
+          content: splitComparisonContent(card.content),
+        }))
+      : [];
+  const comparisonBlockCount =
+    (comparisonOverviewContent?.comparisons.length ?? 0) +
+    comparisonCardContent.reduce((sum, entry) => sum + entry.content.comparisons.length, 0);
+  const nonProductNarrativeCardCount =
+    (comparisonOverviewContent?.narrative ? 1 : 0) +
+    comparisonCardContent.reduce((sum, entry) => sum + (entry.content.narrative ? 1 : 0), 0);
   const activeTopicCardCount = activeTopic
     ? hasStructuredProductExamples && productExampleContent
       ? (productExampleContent.narrative ? 1 : 0) +
@@ -578,7 +610,7 @@ export default function GuideFullSizeInteractivePlanner({
         productExampleContent.products.length +
         activeTopic.cards.length +
         (activeTopic.faqItems?.length ? 1 : 0)
-      : (activeTopic.overviewContent ? 1 : 0) + activeTopic.cards.length + (activeTopic.faqItems?.length ? 1 : 0)
+      : nonProductNarrativeCardCount + comparisonBlockCount + (activeTopic.faqItems?.length ? 1 : 0)
     : 0;
   const activeTopicSupportCount = activeTopic?.companions.length ?? 0;
   const activeTopicIcon = activeTopic ? getTopicIcon(activeTopic.id) : 'book';
@@ -811,8 +843,8 @@ export default function GuideFullSizeInteractivePlanner({
             </p>
           </div>
 
-          <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] xl:items-start">
-            <div role="tablist" aria-label="Full-size and modular guide topics" className="grid gap-3 sm:grid-cols-2 xl:sticky xl:top-28 xl:grid-cols-1">
+          <div className="mt-6 space-y-6">
+            <div role="tablist" aria-label="Full-size and modular guide topics" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
               {topics.map((topic, index) => {
                 const isActive = topic.id === activeTopic.id;
                 const buttonId = `${topicBaseId}-${topic.id}-tab`;
@@ -841,6 +873,16 @@ export default function GuideFullSizeInteractivePlanner({
               className="scroll-mt-28 rounded-[1.75rem] border border-black/6 bg-white/92 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6"
             >
               <div className="space-y-6">
+                {hasStructuredProductExamples && productExampleContent ? (
+                  <GuideExampleBlock
+                    topicId={activeTopic.id}
+                    narrative={productExampleContent.narrative}
+                    comparisons={productExampleContent.comparisons}
+                    products={productExampleContent.products}
+                    cards={activeTopic.cards}
+                  />
+                ) : null}
+
                 <div className="rounded-[1.55rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(145deg,#fff8f1_0%,#fffdfb_45%,#f8f1e8_100%)] p-5 sm:p-6">
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                     <div className="space-y-4">
@@ -905,63 +947,55 @@ export default function GuideFullSizeInteractivePlanner({
                 ) : null}
 
                 {activeTopic.overviewContent || activeTopic.cards.length > 0 ? (
-                  hasStructuredProductExamples && productExampleContent ? (
-                    <div className="space-y-5">
-                      {productExampleContent.narrative ? (
-                        <PlannerTopicCard
-                          id={`${activeTopic.id}-overview-card`}
-                          eyebrow="Section brief"
-                          title="How to compare these models"
-                          content={productExampleContent.narrative}
-                          postId={`planner-${activeTopic.id}-overview`}
-                        />
+                  !hasStructuredProductExamples ? (
+                    <div className="space-y-4">
+                      {nonProductNarrativeCardCount > 0 ? (
+                        <div className="grid gap-4 lg:grid-cols-2">
+                          {comparisonOverviewContent?.narrative ? (
+                            <PlannerTopicCard
+                              id={`${activeTopic.id}-overview-card`}
+                              eyebrow="Section brief"
+                              title="What to know first"
+                              content={comparisonOverviewContent.narrative}
+                              postId={`planner-${activeTopic.id}-overview`}
+                              className="lg:col-span-2"
+                            />
+                          ) : null}
+
+                          {comparisonCardContent.map(({ card, content }) =>
+                            content.narrative ? (
+                              <PlannerTopicCard
+                                key={`${activeTopic.id}-${card.id}`}
+                                id={`${activeTopic.id}-${card.id}`}
+                                eyebrow={card.eyebrow}
+                                title={card.title}
+                                content={content.narrative}
+                                postId={`planner-${activeTopic.id}-${card.id}`}
+                              />
+                            ) : null,
+                          )}
+                        </div>
                       ) : null}
 
-                      {productExampleContent.comparisons.length > 0 ? (
+                      {comparisonBlockCount > 0 ? (
                         <div className="space-y-4 [&_.content-widget]:my-0">
-                          {productExampleContent.comparisons.map((comparison, index) => (
+                          {comparisonOverviewContent?.comparisons.map((comparison, index) => (
                             <Comparison
-                              key={`${activeTopic.id}-comparison-${index}`}
+                              key={`${activeTopic.id}-overview-comparison-${index}`}
                               title={comparison.title}
                               rows={comparison.rows}
                             />
                           ))}
-                        </div>
-                      ) : null}
 
-                      {productExampleContent.products.length > 0 ? (
-                        <div className="grid gap-5 lg:grid-cols-2">
-                          {productExampleContent.products.map((product, index) => (
-                            <div key={`${activeTopic.id}-product-${product.brand}-${product.productName}-${index}`} className="[&_.content-widget]:my-0">
-                              <ProductCard
-                                brand={product.brand}
-                                productName={product.productName}
-                                review={product.shortReview}
-                                bestFor={product.bestFor}
-                                standout={product.standout ?? undefined}
-                                pros={product.pros}
-                                affiliateLinks={product.affiliateLinks}
-                                imageUrl={product.imageUrl}
-                                imageAlt={product.imageAlt}
-                                variant="homepage"
+                          {comparisonCardContent.flatMap(({ card, content }) =>
+                            content.comparisons.map((comparison, index) => (
+                              <Comparison
+                                key={`${activeTopic.id}-${card.id}-comparison-${index}`}
+                                title={comparison.title}
+                                rows={comparison.rows}
                               />
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-
-                      {activeTopic.cards.length > 0 ? (
-                        <div className="grid gap-4 lg:grid-cols-2">
-                          {activeTopic.cards.map((card) => (
-                            <PlannerTopicCard
-                              key={`${activeTopic.id}-${card.id}`}
-                              id={`${activeTopic.id}-${card.id}`}
-                              eyebrow={card.eyebrow}
-                              title={card.title}
-                              content={card.content}
-                              postId={`planner-${activeTopic.id}-${card.id}`}
-                            />
-                          ))}
+                            )),
+                          )}
                         </div>
                       ) : null}
                     </div>

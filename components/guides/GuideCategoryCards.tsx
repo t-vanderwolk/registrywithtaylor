@@ -25,6 +25,7 @@ export default function GuideCategoryCards({
   }
 
   const isStrollerHub = variant === 'stroller-hub';
+  const formatBestFor = (value: string) => value.replace(/^best for\s+/i, '').trim();
 
   return (
     <section
@@ -143,7 +144,7 @@ export default function GuideCategoryCards({
                 <span className="mr-2 text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/82">
                   Best for
                 </span>
-                <span>{card.bestFor}</span>
+                <span>{formatBestFor(card.bestFor)}</span>
               </p>
             ) : null}
 

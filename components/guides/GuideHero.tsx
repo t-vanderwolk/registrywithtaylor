@@ -27,6 +27,8 @@ export default function GuideHero({
 }) {
   const shouldSkipImageOptimization = imageSrc ? isRemoteImageUrl(imageSrc) : false;
   const isEditorialStrollerLayout = variant === 'stroller-hub' || variant === 'stroller-category';
+  const showHeroImage = Boolean(imageSrc && variant !== 'stroller-category');
+  const heroImageSrc = showHeroImage ? imageSrc! : '';
   const displayTitle = variant === 'stroller-hub' ? 'The Taylor-Made Stroller Guide' : title;
   const stats = [
     { label: 'Estimated read', value: readTime },
@@ -134,7 +136,7 @@ export default function GuideHero({
           ) : null}
         </div>
 
-        {imageSrc ? (
+        {showHeroImage ? (
           <div
             className={`relative overflow-hidden border border-white/70 bg-white/80 shadow-[0_24px_70px_rgba(0,0,0,0.08)] ${
               isEditorialStrollerLayout
@@ -150,7 +152,7 @@ export default function GuideHero({
               }`}
             >
               <Image
-                src={imageSrc}
+                src={heroImageSrc}
                 alt={imageAlt?.trim() || title}
                 fill
                 priority

@@ -6,6 +6,7 @@ const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
   'full-size-modular-strollers': 'best-strollers',
   'compact-lightweight-strollers': 'best-strollers',
   'travel-strollers': 'best-strollers',
+  'convertible-strollers': 'best-strollers',
   'jogging-all-terrain-strollers': 'best-strollers',
   'double-strollers': 'best-strollers',
 };

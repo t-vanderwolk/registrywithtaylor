@@ -2,7 +2,6 @@ import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideCategoryPreviewSection from '@/components/guides/GuideCategoryPreviewSection';
 import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
-import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
 import GuideLifestyleSelector from '@/components/guides/GuideLifestyleSelector';
 import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
@@ -14,13 +13,12 @@ import {
   type GuideSection,
 } from '@/lib/guides/articleOutline';
 import {
-  getStrollerHubCategoryCards,
   STROLLER_HUB_COMMON_MISTAKES,
-  STROLLER_HUB_DECISION_ITEMS,
   STROLLER_SELECTOR_ITEMS,
 } from '@/lib/guides/strollerCluster';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import { getStrollerCategoryPreview, getStrollerCategoryVisual } from '@/lib/guides/strollerHub';
+import { getStrollerHubCategoryGridCards } from '@/lib/guides/strollerSystem';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 function stripLeadingTopHeading(content: string) {
@@ -69,12 +67,12 @@ const STROLLER_SECTION_ORDER = new Map([
   ['compact strollers', 1],
   ['travel strollers', 2],
   ['lightweight and travel strollers', 2],
-  ['jogging and all terrain strollers', 3],
-  ['jogging all terrain strollers', 3],
-  ['convertible single to double strollers', 4],
-  ['convertible strollers', 4],
-  ['double strollers', 5],
-  ['side by side double strollers', 5],
+  ['convertible single to double strollers', 3],
+  ['convertible strollers', 3],
+  ['double strollers', 4],
+  ['side by side double strollers', 4],
+  ['jogging and all terrain strollers', 5],
+  ['jogging all terrain strollers', 5],
 ]);
 
 function sortStrollerSubsections<T extends { title: string }>(items: T[]) {
@@ -170,24 +168,12 @@ export default function GuideStrollerHub({
         </MarketingSurface>
       </section>
 
-      <GuideDecisionHelper
-        id="stroller-decision-helper"
-        eyebrow="Quick stroller decision helper"
-        title="Start with the question your routine answers fastest"
-        description="The goal is not to find the stroller with the longest feature list. It is to find the stroller type that already fits how you move through the week."
-        items={[...STROLLER_HUB_DECISION_ITEMS]}
-        variant="stroller-hub"
-        ctaLabel="Explore guide"
-      />
-
-      <GuideSectionDivider />
-
       <GuideCategoryCards
-        id="stroller-category-navigator"
-        eyebrow="Stroller category guides"
-        title="Choose the stroller category that matches your life first"
-        description="This hub is meant to narrow the lane before you ever open a product roundup. Once the category is right, the shortlist gets much simpler."
-        cards={getStrollerHubCategoryCards()}
+        id="stroller-category-grid"
+        eyebrow="All stroller categories"
+        title="Compare every stroller lane at a glance"
+        description="Each guide is built to help you choose what fits your life, not just what looks impressive on paper. Once the category is right, the model list gets much simpler."
+        cards={getStrollerHubCategoryGridCards()}
         variant="stroller-hub"
         ctaLabel="Explore guide"
       />

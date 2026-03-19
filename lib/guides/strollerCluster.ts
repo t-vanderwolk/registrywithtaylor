@@ -5,6 +5,7 @@ export const STROLLER_CATEGORY_GUIDE_SLUGS = [
   'full-size-modular-strollers',
   'compact-lightweight-strollers',
   'travel-strollers',
+  'convertible-strollers',
   'jogging-all-terrain-strollers',
   'double-strollers',
 ] as const;
@@ -26,6 +27,7 @@ type StrollerCategoryGuideConfig = {
   shortTitle: string;
   heroDescription: string;
   whatSectionTitles: string[];
+  signatureMoment: string;
   worksForSummary: string;
   worksForBullets: string[];
   notBestFitSummary: string;
@@ -39,6 +41,7 @@ const STROLLER_PATHS = {
   fullSize: getGuidePath({ slug: 'full-size-modular-strollers' }),
   compact: getGuidePath({ slug: 'compact-lightweight-strollers' }),
   travel: getGuidePath({ slug: 'travel-strollers' }),
+  convertible: getGuidePath({ slug: 'convertible-strollers' }),
   jogging: getGuidePath({ slug: 'jogging-all-terrain-strollers' }),
   double: getGuidePath({ slug: 'double-strollers' }),
 } as const;
@@ -75,6 +78,16 @@ const STROLLER_GUIDE_CARDS: readonly StrollerGuideCard[] = [
     imageAlt: 'Illustration representing travel strollers.',
   },
   {
+    slug: 'convertible-strollers',
+    title: 'Convertible',
+    description:
+      'The planning-ahead path for single-to-double systems when future sibling flexibility is part of the current decision.',
+    bestFor: 'Best for families planning for more than one child over time.',
+    icon: 'convertible',
+    imageSrc: '/assets/strollers/convertable.png',
+    imageAlt: 'Illustration representing convertible strollers.',
+  },
+  {
     slug: 'jogging-all-terrain-strollers',
     title: 'Jogging',
     description:
@@ -88,8 +101,8 @@ const STROLLER_GUIDE_CARDS: readonly StrollerGuideCard[] = [
     slug: 'double-strollers',
     title: 'Double',
     description:
-      'The sibling-planning lane for two riders, single-to-double tradeoffs, and the honest math around width, weight, and timing.',
-    bestFor: 'Best for twins or a very real near-term second-child plan.',
+      'The immediate two-rider lane for twins, close age gaps, and families who need a stroller built for two children now.',
+    bestFor: 'twins, close age gaps, and two children who both need seats now.',
     icon: 'double',
     imageSrc: '/assets/strollers/inditwin.png',
     imageAlt: 'Illustration representing double strollers.',
@@ -103,6 +116,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     heroDescription:
       'A calmer way to decide whether everyday comfort, better storage, and modular flexibility are actually worth the size in your real week.',
     whatSectionTitles: ['What Full-Size and Modular Really Mean'],
+    signatureMoment: 'The right stroller should feel easier to live with, not more impressive on paper.',
     worksForSummary:
       'This is usually the right lane when the stroller is part of normal life, not just the occasional parking-lot cameo.',
     worksForBullets: [
@@ -117,7 +131,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
       'Home storage is tight and you already resent bulky gear.',
       'You want the lightest possible setup for quick errands or frequent travel.',
     ],
-    relatedGuideSlugs: ['compact-lightweight-strollers', 'travel-strollers', 'double-strollers'],
+    relatedGuideSlugs: ['compact-lightweight-strollers', 'travel-strollers', 'convertible-strollers'],
     preferredBlogSlugs: [
       'best-full-size-strollers-2026',
       'stroller-comparisons',
@@ -131,6 +145,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     heroDescription:
       'A practical guide to the stroller category that feels easier to lift, store, and live with when daily life is more trunk than trail.',
     whatSectionTitles: ['What Defines a Compact or Lightweight Stroller'],
+    signatureMoment: 'Convenience matters more than category prestige once the stroller starts living in your trunk.',
     worksForSummary:
       'Compact strollers make the most sense when your routine rewards convenience more often than it rewards maximum suspension.',
     worksForBullets: [
@@ -145,7 +160,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
       'Your usual routes include rough sidewalks, gravel, or park paths.',
       'You really need a travel-first stroller built around airports and transit.',
     ],
-    relatedGuideSlugs: ['full-size-modular-strollers', 'travel-strollers', 'double-strollers'],
+    relatedGuideSlugs: ['full-size-modular-strollers', 'travel-strollers', 'convertible-strollers'],
     preferredBlogSlugs: [
       'best-compact-strollers',
       'best-travel-strollers',
@@ -159,6 +174,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     heroDescription:
       'The stroller category for families who need easier folds, lighter carry, and less gear drama once airports, rental cars, and quick trips enter the picture.',
     whatSectionTitles: ['What a Travel Stroller Should Actually Do'],
+    signatureMoment: 'Travel gear should lower the drama, not become a new version of it.',
     worksForSummary:
       'Travel strollers earn their place when movement between places is the hardest part of your stroller routine.',
     worksForBullets: [
@@ -173,7 +189,7 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
       'You want one stroller to handle rougher surfaces and heavier daily use.',
       'The stroller needs to feel substantial for all-day local outings.',
     ],
-    relatedGuideSlugs: ['compact-lightweight-strollers', 'full-size-modular-strollers', 'double-strollers'],
+    relatedGuideSlugs: ['compact-lightweight-strollers', 'full-size-modular-strollers', 'convertible-strollers'],
     preferredBlogSlugs: [
       'best-travel-strollers',
       'travel-system-questions-before-you-buy',
@@ -181,12 +197,37 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
       'gear-decisions-without-guesswork',
     ],
   },
+  'convertible-strollers': {
+    slug: 'convertible-strollers',
+    shortTitle: 'Convertible',
+    heroDescription:
+      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, but current life still has to feel good too.',
+    whatSectionTitles: ['What Convertible Strollers Actually Mean'],
+    signatureMoment: 'Planning for your life matters more than planning for the stroller.',
+    worksForSummary:
+      'Convertible strollers make the most sense when future sibling planning is real enough to matter, but you still need the stroller to feel sensible as a single right now.',
+    worksForBullets: [
+      'You are planning for another child on a real near-term timeline.',
+      'Single-to-double flexibility would genuinely change what you buy now.',
+      'You want to understand future expansion without losing sight of present-day use.',
+    ],
+    notBestFitSummary:
+      'This category can feel like too much stroller when future planning is vague and the everyday single-stroller experience already feels bulky.',
+    notBestFitBullets: [
+      'You need two seats immediately, not later.',
+      'Your home, trunk, or daily route already resists larger stroller systems.',
+      'You are still guessing about a future sibling timeline and buying bulk for reassurance.',
+    ],
+    relatedGuideSlugs: ['double-strollers', 'full-size-modular-strollers', 'compact-lightweight-strollers'],
+    preferredBlogSlugs: ['best-double-strollers', 'stroller-comparisons', 'gear-decisions-without-guesswork'],
+  },
   'jogging-all-terrain-strollers': {
     slug: 'jogging-all-terrain-strollers',
     shortTitle: 'Jogging',
     heroDescription:
       'A guide to the bigger-wheel stroller category for parents whose routes are rough enough that smaller wheels stop feeling charming very quickly.',
     whatSectionTitles: ['What This Category Actually Solves'],
+    signatureMoment: 'If the ground is doing the arguing, bigger wheels may be the calmer answer.',
     worksForSummary:
       'This category is strongest when the ground itself is the problem and you need a stroller that stops arguing with the route.',
     worksForBullets: [
@@ -201,30 +242,31 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
       'A bulky fold will create more friction than better suspension will solve.',
       'You need a stroller that behaves better in restaurants, trunks, and travel settings.',
     ],
-    relatedGuideSlugs: ['full-size-modular-strollers', 'compact-lightweight-strollers', 'double-strollers'],
+    relatedGuideSlugs: ['full-size-modular-strollers', 'compact-lightweight-strollers', 'convertible-strollers'],
     preferredBlogSlugs: ['best-jogging-strollers', 'stroller-comparisons', 'gear-decisions-without-guesswork'],
   },
   'double-strollers': {
     slug: 'double-strollers',
     shortTitle: 'Double',
     heroDescription:
-      'The stroller category for twins, two small children, and the very real question of whether single-to-double flexibility is worth the everyday size.',
+      'The stroller category for twins, two small children, and the very current question of whether a dedicated two-seat setup earns its size in your real week.',
     whatSectionTitles: ['The Main Double Stroller Paths'],
+    signatureMoment: 'Two-seat capacity is useful only when two seats are solving a real current problem.',
     worksForSummary:
-      'Double strollers are at their best when they are solving an actual sibling-transport problem, not just planning anxiety.',
+      'Double strollers are at their best when they are solving an actual current two-rider problem, not just planning anxiety.',
     worksForBullets: [
-      'You already have two riders or a very near-term second-child timeline.',
+      'You already have two riders who regularly need stroller help.',
       'Both children are likely to need stroller support regularly.',
-      'You need to compare side-by-side, tandem, and single-to-double tradeoffs honestly.',
+      'You need to compare side-by-side and tandem tradeoffs for real current use.',
     ],
     notBestFitSummary:
-      'This category is often too much when you are still fully living as a one-child family and paying a daily size penalty for a hypothetical future.',
+      'This category is often too much when two seats are still hypothetical and you are paying a daily size penalty before the job is real.',
     notBestFitBullets: [
       'Your current life would be easier with a more nimble single stroller.',
       'Storage, trunk space, and everyday maneuvering are already tight.',
-      'A ride board or later second solution may solve the problem more cleanly.',
+      'A convertible system, ride board, or later second solution may solve the problem more cleanly.',
     ],
-    relatedGuideSlugs: ['full-size-modular-strollers', 'compact-lightweight-strollers', 'travel-strollers'],
+    relatedGuideSlugs: ['convertible-strollers', 'full-size-modular-strollers', 'compact-lightweight-strollers'],
     preferredBlogSlugs: ['best-double-strollers', 'stroller-comparisons', 'gear-decisions-without-guesswork'],
   },
 };
@@ -256,9 +298,9 @@ export const STROLLER_HUB_DECISION_ITEMS = [
   },
   {
     title: 'Do you expect a second child soon?',
-    description: 'Double stroller planning matters most when sibling timing is close enough that the size tradeoff is real now.',
-    href: STROLLER_PATHS.double,
-    icon: 'double',
+    description: 'Convertible strollers make more sense when future sibling planning is shaping what you want to buy now.',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
   },
 ] as const;
 
@@ -294,9 +336,9 @@ export const STROLLER_SELECTOR_ITEMS = [
   {
     title: 'Growing Family Math',
     description: 'If a second rider is part of the near-term plan, compare the sibling logistics before you buy for flexibility alone.',
-    recommendation: 'Double',
-    href: STROLLER_PATHS.double,
-    icon: 'double',
+    recommendation: 'Convertible',
+    href: STROLLER_PATHS.convertible,
+    icon: 'convertible',
   },
 ] as const;
 
@@ -355,6 +397,15 @@ const BLOG_GUIDE_CARD_LIBRARY = {
     imageAlt: 'Illustration representing travel strollers.',
     eyebrow: 'Stroller Type',
   },
+  'convertible-strollers': {
+    slug: 'convertible-strollers',
+    href: STROLLER_PATHS.convertible,
+    title: 'Convertible',
+    description: 'The single-to-double lane for future sibling planning, flexible seating, and long-term stroller math.',
+    imageSrc: '/assets/strollers/convertable.png',
+    imageAlt: 'Illustration representing convertible strollers.',
+    eyebrow: 'Stroller Type',
+  },
   'jogging-all-terrain-strollers': {
     slug: 'jogging-all-terrain-strollers',
     href: STROLLER_PATHS.jogging,
@@ -368,7 +419,7 @@ const BLOG_GUIDE_CARD_LIBRARY = {
     slug: 'double-strollers',
     href: STROLLER_PATHS.double,
     title: 'Double',
-    description: 'The sibling-planning lane for two riders and honest size-versus-flexibility tradeoffs.',
+    description: 'The dedicated two-seat lane for twins, close age gaps, and current sibling logistics.',
     imageSrc: '/assets/strollers/inditwin.png',
     imageAlt: 'Illustration representing double strollers.',
     eyebrow: 'Stroller Type',
@@ -477,10 +528,10 @@ export function getStrollerCategoryDecisionItems({
           icon: 'compact',
         },
         {
-          title: 'Are sibling plans driving this decision?',
-          description: 'Double stroller logic is worth checking early so modularity does not quietly turn into unnecessary bulk.',
-          href: STROLLER_PATHS.double,
-          icon: 'double',
+          title: 'Are you planning ahead for another child?',
+          description: 'Convertible stroller logic is worth checking early so planning ahead does not quietly turn into bulk you never needed.',
+          href: STROLLER_PATHS.convertible,
+          icon: 'convertible',
         },
       ];
     case 'compact-lightweight-strollers':
@@ -525,6 +576,27 @@ export function getStrollerCategoryDecisionItems({
           icon: 'compact',
         },
       ];
+    case 'convertible-strollers':
+      return [
+        {
+          title: 'Is planning ahead actually part of this decision?',
+          description: 'Stay here if future sibling timing is real enough to matter now and you still need the stroller to feel sensible as a single today.',
+          href: `${sourceRoute}#who-it-works-for`,
+          icon: 'convertible',
+        },
+        {
+          title: 'Do you need two seats right now?',
+          description: 'Open the double guide if the job is immediate two-child transport instead of future flexibility.',
+          href: STROLLER_PATHS.double,
+          icon: 'double',
+        },
+        {
+          title: 'Would a stronger single stroller fit current life better?',
+          description: 'Full-size strollers are often the calmer answer when the family is still living mostly in one-child mode.',
+          href: STROLLER_PATHS.fullSize,
+          icon: 'stroller',
+        },
+      ];
     case 'jogging-all-terrain-strollers':
       return [
         {
@@ -555,10 +627,10 @@ export function getStrollerCategoryDecisionItems({
           icon: 'double',
         },
         {
-          title: 'Are you still living as a one-child family?',
-          description: 'A strong single stroller is often the calmer move when the second-child timeline is still theoretical.',
-          href: STROLLER_PATHS.fullSize,
-          icon: 'stroller',
+          title: 'Are you planning ahead more than solving today?',
+          description: 'Convertible strollers are the better comparison when future flexibility matters more than immediate double capacity.',
+          href: STROLLER_PATHS.convertible,
+          icon: 'convertible',
         },
         {
           title: 'Would a lighter backup stroller solve more of the day-to-day friction?',
@@ -604,7 +676,11 @@ export function getStrollerGuideSuggestionsForBlogPost({
     suggestedSlugs.push('compact-lightweight-strollers');
   }
 
-  if (/(double|single-to-double|single to double|sibling|twins|tandem|side-by-side|side by side|donkey|gazelle)/.test(text)) {
+  if (/(convertible stroller|single-to-double|single to double|future sibling|second child|grow with family|gazelle|vista|wave|demi)/.test(text)) {
+    suggestedSlugs.push('convertible-strollers');
+  }
+
+  if (/(double stroller|double|sibling seating|twins|tandem|side-by-side|side by side|donkey|minu duo)/.test(text)) {
     suggestedSlugs.push('double-strollers');
   }
 

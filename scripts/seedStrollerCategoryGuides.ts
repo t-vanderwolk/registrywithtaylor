@@ -47,6 +47,14 @@ const strollerGuideSeeds: StrollerGuideSeed[] = [
     relatedSlugs: ['best-strollers', 'compact-lightweight-strollers', 'travel-with-baby'],
   },
   {
+    fileName: 'taylor-made-convertible-stroller-guide.md',
+    slug: 'convertible-strollers',
+    targetKeyword: 'convertible stroller',
+    secondaryKeywords: ['single to double stroller', 'single-to-double stroller', 'expandable stroller', 'growing family stroller'],
+    heroImageAlt: 'Convertible stroller editorial image for TMBC stroller guide',
+    relatedSlugs: ['best-strollers', 'double-strollers', 'full-size-modular-strollers'],
+  },
+  {
     fileName: 'taylor-made-jogging-all-terrain-stroller-guide.md',
     slug: 'jogging-all-terrain-strollers',
     targetKeyword: 'jogging stroller',
@@ -58,7 +66,7 @@ const strollerGuideSeeds: StrollerGuideSeed[] = [
     fileName: 'taylor-made-double-stroller-guide.md',
     slug: 'double-strollers',
     targetKeyword: 'double stroller',
-    secondaryKeywords: ['single to double stroller', 'side by side double stroller', 'tandem stroller', 'sibling stroller'],
+    secondaryKeywords: ['fixed double stroller', 'dedicated double stroller', 'side by side double stroller', 'tandem stroller', 'sibling stroller'],
     heroImageAlt: 'Double stroller editorial image for TMBC stroller guide',
     relatedSlugs: ['best-strollers', 'full-size-modular-strollers', 'jogging-all-terrain-strollers'],
   },

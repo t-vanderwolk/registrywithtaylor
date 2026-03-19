@@ -12,7 +12,7 @@ const STROLLER_PATHS = {
   travel: getGuidePath({ slug: 'travel-strollers' }),
   jogging: getGuidePath({ slug: 'jogging-all-terrain-strollers' }),
   double: getGuidePath({ slug: 'double-strollers' }),
-  convertible: withAnchor(getGuidePath({ slug: 'double-strollers' }), 'convertible-single-to-double'),
+  convertible: getGuidePath({ slug: 'convertible-strollers' }),
 } as const;
 
 const BLOG_PATHS = {
@@ -92,9 +92,9 @@ export const STROLLER_START_HERE_ITEMS: GuideHubDecisionItem[] = [
   },
   {
     title: "I'm planning for two children",
-    description: 'Use the double-stroller path to compare footprint, configuration, and whether future flexibility is truly worth it.',
+    description: 'Use the convertible path when future sibling planning is part of the decision and you want the current-life tradeoffs spelled out clearly.',
     href: STROLLER_PATHS.convertible,
-    icon: 'double',
+    icon: 'convertible',
   },
 ];
 

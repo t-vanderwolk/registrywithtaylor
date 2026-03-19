@@ -28,7 +28,14 @@ import '../../styles/blog.css';
 
 const fallbackGuideHeroImage = '/assets/hero/hero-baby-editorial-v2.jpg' as const;
 const strollerGuideMenuOrder = new Map(
-  ['full-size-modular-strollers', 'compact-lightweight-strollers', 'travel-strollers', 'jogging-all-terrain-strollers', 'double-strollers'].map(
+  [
+    'full-size-modular-strollers',
+    'compact-lightweight-strollers',
+    'travel-strollers',
+    'convertible-strollers',
+    'double-strollers',
+    'jogging-all-terrain-strollers',
+  ].map(
     (slug, index) => [slug, index],
   ),
 );

@@ -95,34 +95,51 @@ The right travel stroller should make you feel more mobile, not more delicate ar
 ## Product Examples
 
 :::product
-Brand: UPPAbaby
-Product: Minu V2
-Review: A compact stroller that balances everyday usefulness with a manageable fold, making it a strong bridge between portability and practical comfort.
-Best for: Families who want a compact stroller that can handle frequent errands and still feel substantial enough for regular use.
-Standout: Good balance between compactness and usability
-Pros: Useful basket | Easy fold | Strong everyday flexibility
-Link: Shop at Albee Baby | https://example.com/uppababy-minu-v2
-Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-v2
+Brand: Bugaboo
+Product: Butterfly
+Review: One of the clearest travel-first examples in the category because it leans hard into portability without feeling so stripped down that every destination becomes annoying.
+Best for: Families who want a true travel stroller that still feels polished enough for frequent use beyond the airport.
+Standout: Travel-first fold with a more premium everyday feel
+Pros: Very portable | Quick fold | Strong travel identity | Easier destination use than some ultra-minimal options
+Image: /assets/strollers/butterfly.png
+Image Alt: Bugaboo Butterfly stroller.
+Link: Shop at Albee Baby | https://example.com/bugaboo-butterfly
+Link: Shop at Amazon | https://example.com/amazon-bugaboo-butterfly
 :::
 
 :::product
-Brand: Cybex
-Product: Eezy S Twist 2
-Review: A useful example of a travel stroller category choice that emphasizes urban convenience and easier movement in tighter spaces.
-Best for: Parents who want something smaller and city-friendly without stepping all the way into the tiniest travel category.
-Standout: Compact urban convenience
-Pros: Smaller footprint | City-friendly design | Easier daily storage
-Link: Shop at Albee Baby | https://example.com/cybex-eezy-s-twist
-Link: Shop at Amazon | https://example.com/amazon-cybex-eezy-s-twist
+Brand: Nuna
+Product: TRVL lx
+Review: A strong example of the travel stroller that still cares about destination comfort. It usually appeals to parents who want portability, but not at the cost of every ride feeling noticeably lighter-duty.
+Best for: Families who want an easier travel setup without giving up too much comfort once they arrive.
+Standout: Travel portability with a more comfortable destination feel
+Pros: Easy carry | Stronger comfort balance | Premium finish | Useful for trips and quick errands
+Image: /assets/strollers/trvllx.png
+Image Alt: Nuna TRVL lx stroller.
+Link: Shop at Albee Baby | https://example.com/nuna-trvl-lx
+Link: Shop at Amazon | https://example.com/amazon-nuna-trvl-lx
 :::
 
-The Bugaboo Butterfly, Nuna TRVL lx, and Silver Cross Jet 5 all belong in the same broader comparison set. Each leans slightly differently into portability, comfort, and how much the stroller wants to be used beyond the actual trip.
+:::product
+Brand: Joolz
+Product: Aer+
+Review: A helpful example when the conversation is really about simplicity, fast movement, and not carrying more stroller than the trip requires.
+Best for: Parents who want a genuinely lightweight travel option and care most about easy movement through airports, transit, and tighter daily routines.
+Standout: A lighter, simpler travel lane that still feels thoughtfully designed
+Pros: Lightweight carry | Fast travel rhythm | Smaller footprint | Clean, simple travel setup
+Image: /assets/strollers/joolz.png
+Image Alt: Joolz Aer+ stroller.
+Link: Shop at Albee Baby | https://example.com/joolz-aer-plus
+Link: Shop at Amazon | https://example.com/amazon-joolz-aer-plus
+:::
+
+The point of these examples is not that one stroller wins universally. It is that each one answers the same travel question a little differently: do you want the most travel-first fold, the best destination comfort within the category, or the lightest-feeling setup to move through the trip with less effort?
 
 :::comparison
 Title: Travel stroller comparison lens
-Best for: Parents comparing Bugaboo, Nuna, UPPAbaby, Cybex, and Silver Cross
-Standout: The best choice depends on whether you want the most compact fold or the best destination comfort
-Watchout: The most portable stroller is not always the most pleasant stroller at the destination
+Best for: Parents comparing Butterfly, TRVL lx, and Aer+ through real trip priorities
+Standout: The best choice depends on whether you want the most travel-first fold, the calmest destination feel, or the lightest overall setup
+Watchout: The smallest-feeling stroller is not automatically the one you will enjoy most once the trip stops moving
 :::
 
 ## Common Mistakes Parents Make

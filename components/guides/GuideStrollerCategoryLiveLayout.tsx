@@ -1,5 +1,7 @@
-import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
-import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
+import GuideCategoryStartPanel from '@/components/guides/GuideCategoryStartPanel';
+import GuideContextStrip from '@/components/guides/GuideContextStrip';
+import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
+import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
 import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
@@ -9,7 +11,6 @@ import GuideStrollerInteractivePlanner, {
   type StrollerPlannerTopic,
 } from '@/components/guides/GuideStrollerInteractivePlanner';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
-import MarketingSurface from '@/components/ui/MarketingSurface';
 import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
@@ -18,13 +19,11 @@ import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading }
 import type { GuideHeroJumpLink, GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
 import { getGuidePath } from '@/lib/guides/routing';
 import {
-  getStrollerCategoryDecisionItems,
   getStrollerCategoryGuideConfig,
-  getStrollerHubBackLinkCard,
   getStrollerRelatedGuideCards,
   type StrollerCategoryGuideSlug,
 } from '@/lib/guides/strollerCluster';
-import { STROLLER_COMPARISON_CARDS, STROLLER_SERIES_CARDS } from '@/lib/guides/strollerHub';
+import { STROLLER_COMPARISON_CARDS } from '@/lib/guides/strollerHub';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 type SharedStrollerGuideSlug = Exclude<
@@ -52,10 +51,10 @@ type CategoryLayoutConfig = {
   planner: StrollerInteractivePlannerConfig;
 };
 
-const STROLLER_GUIDE_PATH = getGuidePath({ slug: 'best-strollers' });
 const FULL_SIZE_GUIDE_PATH = getGuidePath({ slug: 'full-size-modular-strollers' });
 const COMPACT_GUIDE_PATH = getGuidePath({ slug: 'compact-lightweight-strollers' });
 const TRAVEL_GUIDE_PATH = getGuidePath({ slug: 'travel-strollers' });
+const CONVERTIBLE_GUIDE_PATH = getGuidePath({ slug: 'convertible-strollers' });
 const JOGGING_GUIDE_PATH = getGuidePath({ slug: 'jogging-all-terrain-strollers' });
 const DOUBLE_GUIDE_PATH = getGuidePath({ slug: 'double-strollers' });
 
@@ -283,6 +282,233 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           watchout: 'If the destination is rough, a more substantial stroller may feel calmer than a tiny travel-first frame.',
           href: FULL_SIZE_GUIDE_PATH,
           ctaLabel: 'Compare full-size options',
+        },
+      ],
+    },
+  },
+  'convertible-strollers': {
+    startDescription:
+      'This section is here to separate real family planning from the very understandable urge to buy a future version of your stroller life too early.',
+    questionTitle: 'Do you need a stroller that can grow later, or do you need two seats right now?',
+    summaryCards: [
+      {
+        eyebrow: 'Best signal',
+        text: 'Another child is part of a clear near-term plan, and that future flexibility would genuinely change what you buy now.',
+      },
+      {
+        eyebrow: 'Usually worth paying for',
+        text: 'Expansion options that still leave you with a stroller you actually like using as a single in the meantime.',
+      },
+      {
+        eyebrow: 'Common trap',
+        text: 'Paying a daily size penalty for future-proofing when current life still mostly needs one good stroller, not a larger promise.',
+      },
+    ],
+    decisionHelperTitle: 'Is convertible really the job?',
+    decisionHelperDescription:
+      'If future sibling planning is real and present-tense enough to matter, the convertible lane can make sense. If the second seat is still theoretical, the answer often changes.',
+    seriesDescription:
+      'If convertible feels close but not quite right, the answer is usually in the category beside it: either a stronger single stroller for now or a true double for immediate sibling life.',
+    softCtaDescription:
+      'The convertible stroller decision gets simpler once someone helps you weigh second-child timing, present-day maneuverability, storage tolerance, and whether the expansion promise is actually worth the bulk.',
+    heroLabels: {
+      'Interactive Planner': 'Interactive Planner',
+      Introduction: 'Overview',
+      'Why This Category Feels Overwhelming': 'Why It Feels Hard',
+      'What Convertible Strollers Actually Mean': 'What Convertible Means',
+      'Real-Life Fit': 'Real-Life Fit',
+      'Expert Advice': 'Expert Advice',
+      'Product Examples': 'Product Picks',
+      'Common Mistakes Parents Make': 'Common Mistakes',
+      'Final Thoughts': 'Final Thoughts',
+      FAQ: 'FAQ',
+    },
+    continueTitle: 'Continue exploring the nearby stroller lanes',
+    continueDescription:
+      'These next guides help when the real question is whether you need flexible family planning, immediate two-seat capacity, or simply one excellent stroller for current life.',
+    productLinksTitle: 'Want the actual convertible stroller shortlist?',
+    productLinksDescription:
+      'Once the planning logic is clear, these next reads help you compare the models and tradeoffs that actually matter.',
+    productLinks: [
+      {
+        title: 'Stroller Comparisons',
+        description: 'Helpful when single-to-double systems all sound flexible and the real differences are hiding in weight, seat order, and everyday push feel.',
+        href: '/blog/stroller-comparisons',
+        icon: 'strategy',
+      },
+      {
+        title: 'Best Double Strollers',
+        description: 'A useful reality check when the decision is starting to shift from planning ahead to needing a true two-seat solution soon.',
+        href: '/blog/best-double-strollers',
+        icon: 'double',
+      },
+      {
+        title: 'Best Full-Size Strollers of 2026',
+        description: 'Worth opening when the smarter move may still be one strong primary stroller for current life.',
+        href: '/blog/best-full-size-strollers-2026',
+        icon: 'stroller',
+      },
+    ],
+    planner: {
+      title: 'Test whether the convertible lane actually fits your family math',
+      description:
+        'Start with timing, current routine, and how much future flexibility you would truly use. Then open the part of the guide that answers the next honest question.',
+      scenarioPrompt: 'Choose the routine that sounds most like your week',
+      scenarioAriaLabel: 'Convertible stroller routine planner',
+      priorityPrompt: 'Pick the tradeoff you care about most',
+      priorityAriaLabel: 'Convertible stroller tradeoff lenses',
+      finalCtaTitle: 'Read the stroller comparison guide next',
+      finalCtaDescription:
+        'Once you know this category fits your life, the best next move is a sharper comparison read, not another round of vague future-proofing language.',
+      finalCtaHref: '/blog/stroller-comparisons',
+      finalCtaLabel: 'Open /blog/stroller-comparisons',
+      topicIcons: {
+        introduction: 'convertible',
+        'what-convertible-strollers-actually-mean': 'convertible',
+      },
+      scenarios: [
+        {
+          id: 'planning-soon',
+          label: 'We are planning for another child on a real timeline',
+          icon: 'calendar',
+          fitLabel: 'Strong convertible fit',
+          fitTone: 'yes',
+          summary:
+            'This is when the category usually earns its keep. The future second seat matters, but the stroller still has to feel sensible in the life you are already living.',
+          signals: [
+            'A second child is part of a near-term plan, not a vague someday.',
+            'You want to understand expansion options before you buy once.',
+            'Present-day single-stroller use still matters just as much as the future setup.',
+          ],
+          priorities: ['Timing reality', 'Expansion path', 'Current usability'],
+          primaryHref: `${CONVERTIBLE_GUIDE_PATH}#real-life-fit`,
+          primaryLabel: 'Jump to Real-Life Fit',
+          secondaryHref: '/blog/stroller-comparisons',
+          secondaryLabel: 'Read stroller comparisons',
+        },
+        {
+          id: 'one-stroller-now',
+          label: 'Current life still mostly needs one excellent stroller',
+          icon: 'stroller',
+          fitLabel: 'Proceed carefully',
+          fitTone: 'maybe',
+          summary:
+            'This is where convertible strollers can become too much stroller too soon. If the present setup already feels bulky in theory, that deserves attention now, not later.',
+          signals: [
+            'You are still living almost entirely as a one-child family.',
+            'Daily fold, storage, and maneuvering still matter more than future seat math.',
+            'You want flexibility, but not at the expense of current ease.',
+          ],
+          priorities: ['Present-day ease', 'Bulk penalty', 'Primary use'],
+          primaryHref: FULL_SIZE_GUIDE_PATH,
+          primaryLabel: 'Compare full-size strollers',
+          secondaryHref: `${CONVERTIBLE_GUIDE_PATH}#what-convertible-strollers-actually-mean`,
+          secondaryLabel: 'Review what convertible means',
+        },
+        {
+          id: 'two-seats-now',
+          label: 'We will need two seats immediately or very soon',
+          icon: 'double',
+          fitLabel: 'Double may be the better lane',
+          fitTone: 'no',
+          summary:
+            'If the second seat is not hypothetical, the question changes. This is where dedicated double strollers often feel more honest about the job from the start.',
+          signals: [
+            'Two children will genuinely need stroller support now or right away.',
+            'You are solving current sibling logistics rather than planning ahead.',
+            'Immediate two-seat usability matters more than future flexibility language.',
+          ],
+          priorities: ['Current seat need', 'Configuration honesty', 'Real-life use'],
+          primaryHref: DOUBLE_GUIDE_PATH,
+          primaryLabel: 'Compare double strollers',
+          secondaryHref: `${CONVERTIBLE_GUIDE_PATH}#real-life-fit`,
+          secondaryLabel: 'See the real-life fit section',
+        },
+        {
+          id: 'tight-limits',
+          label: 'Trunk space, storage, and narrow routes are already tight',
+          icon: 'storage',
+          fitLabel: 'The size penalty matters',
+          fitTone: 'maybe',
+          summary:
+            'Convertible strollers can still work here, but the future promise has to earn the present-day inconvenience. If the stroller already sounds annoying, that is useful information.',
+          signals: [
+            'Home storage or the trunk is already a negotiation.',
+            'You need the stroller to behave well in current family spaces.',
+            'Extra width and weight would have to solve a real problem soon.',
+          ],
+          priorities: ['Storage tolerance', 'Weight', 'Daily maneuvering'],
+          primaryHref: COMPACT_GUIDE_PATH,
+          primaryLabel: 'Compare compact strollers',
+          secondaryHref: FULL_SIZE_GUIDE_PATH,
+          secondaryLabel: 'See strong single options',
+        },
+      ],
+      priorityLenses: [
+        {
+          id: 'present-day-single',
+          label: 'Present-day single use',
+          icon: 'stroller',
+          verdict: 'Usually the first reality check',
+          tone: 'yes',
+          summary:
+            'A convertible stroller should still make sense before the second seat ever shows up. If it feels too large now, the future promise may not be enough to justify it.',
+          helpsWhen: 'You want to know whether the stroller will still feel good as a single during the stage you are actually entering first.',
+          watchout: 'Do not let an impressive expansion chart outrank how the stroller feels in its most-used setup.',
+          href: `${CONVERTIBLE_GUIDE_PATH}#what-convertible-strollers-actually-mean`,
+          ctaLabel: 'Review what convertible means',
+        },
+        {
+          id: 'expansion-value',
+          label: 'Expansion value',
+          icon: 'convertible',
+          verdict: 'Useful only when the timing is real',
+          tone: 'maybe',
+          summary:
+            'The expansion path matters only if you are genuinely likely to use it. Otherwise, you are mostly paying for future reassurance in the present.',
+          helpsWhen: 'You are weighing whether future sibling flexibility will actually save you from a second stroller purchase later.',
+          watchout: 'Planning ahead is helpful. Buying daily bulk for a hypothetical timeline is less strategic than it sounds.',
+          href: `${CONVERTIBLE_GUIDE_PATH}#real-life-fit`,
+          ctaLabel: 'See the real-life fit section',
+        },
+        {
+          id: 'double-distinction',
+          label: 'Convertible vs double',
+          icon: 'double',
+          verdict: 'One of the most important distinctions',
+          tone: 'yes',
+          summary:
+            'Convertible means the stroller can grow with the family. Double means the stroller is built to solve a two-child problem immediately. They are related, but not interchangeable.',
+          helpsWhen: 'You are trying to decide whether planning ahead or current sibling transport is the real job.',
+          watchout: 'Do not buy a planning stroller when the need is already immediate, or a true double when the second seat is still theoretical.',
+          href: DOUBLE_GUIDE_PATH,
+          ctaLabel: 'Compare double strollers',
+        },
+        {
+          id: 'weight-footprint',
+          label: 'Weight + footprint',
+          icon: 'storage',
+          verdict: 'The everyday cost of flexibility',
+          tone: 'no',
+          summary:
+            'The category can ask more from your trunk, storage, and everyday handling. That tradeoff is reasonable only when the future value is real enough to matter.',
+          helpsWhen: 'You know future flexibility has value and want to choose the version that creates the least everyday friction.',
+          watchout: 'If the stroller already sounds large, awkward, or annoying in current life, take that seriously before you buy.',
+          href: `${CONVERTIBLE_GUIDE_PATH}#common-mistakes-parents-make`,
+          ctaLabel: 'Review the common mistakes',
+        },
+        {
+          id: 'current-need',
+          label: 'Current need versus future need',
+          icon: 'calendar',
+          verdict: 'The honest tie-breaker',
+          tone: 'maybe',
+          summary:
+            'Most convertible decisions get clearer once you stop mixing today’s routine with tomorrow’s possibility. The life stage you are entering first deserves the louder vote.',
+          helpsWhen: 'You are torn between making one strategic purchase and keeping current life lighter and simpler.',
+          watchout: 'Buying for the future can feel responsible while still making present-day life harder than it needs to be.',
+          href: FULL_SIZE_GUIDE_PATH,
+          ctaLabel: 'Compare current-life options',
         },
       ],
     },
@@ -516,29 +742,29 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
   },
   'double-strollers': {
     startDescription:
-      'This section is here to separate real sibling logistics from the very expensive habit of buying for a future maybe.',
-    questionTitle: 'Do you have a real two-rider problem, or are you buying reassurance on four wheels?',
+      'This section is here to separate real two-seat logistics from the very expensive habit of buying a dedicated double before two seats are actually the job.',
+    questionTitle: 'Do you need a fixed two-seat stroller now, or are you trying to solve tomorrow from today\'s trunk?',
     summaryCards: [
       {
         eyebrow: 'Best signal',
-        text: 'Two riders really need stroller help now, or soon enough that the extra size is part of current life rather than theoretical planning.',
+        text: 'Two riders really need full stroller seats now, and that need is showing up in ordinary outings instead of hypothetical planning.',
       },
       {
         eyebrow: 'Usually worth paying for',
-        text: 'Seat flexibility that actually matches your age gap and a frame you can still maneuver, store, and load without resentment.',
+        text: 'A purpose-built two-seat frame that fits your routes, doorways, and storage reality without making every errand feel theatrical.',
       },
       {
         eyebrow: 'Common trap',
-        text: 'Paying a daily size penalty for future-proofing that never gets used the way you imagined in the showroom.',
+        text: 'Buying a dedicated double before daily life actually requires it, then resenting the size long before the second seat earns its place.',
       },
     ],
-    decisionHelperTitle: 'Is double really the job right now?',
+    decisionHelperTitle: 'Is a fixed double really the job right now?',
     decisionHelperDescription:
-      'The double lane earns its size when two riders truly need it. If the second seat is mostly theoretical, the smarter answer is often a stronger single stroller.',
+      'The dedicated-double lane earns its size when two riders truly need it now. If the second seat is mostly theoretical, the smarter answer is often convertible or single.',
     seriesDescription:
-      'If double feels close but maybe too much for right now, the rest of the stroller guide can help you decide whether a single stroller solves today\'s job better.',
+      'If a fixed double feels close but maybe too much for right now, the answer is usually in the category beside it: convertible for planning ahead or a stronger single stroller for current life.',
     softCtaDescription:
-      'The double stroller decision gets simpler once someone helps you sort age-gap reality, second-child timing, storage tolerance, and whether today\'s life actually needs two stroller seats.',
+      'The fixed double stroller decision gets simpler once someone helps you sort current rider needs, doorway tolerance, trunk fit, and whether two full seats are actually part of today\'s life.',
     heroLabels: {
       'Interactive Planner': 'Interactive Planner',
       Introduction: 'Overview',
@@ -551,12 +777,12 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
       'Final Thoughts': 'Final Thoughts',
       FAQ: 'FAQ',
     },
-    continueTitle: 'Still deciding whether you need a true double, a convertible system, or simply less stroller?',
+    continueTitle: 'Still deciding whether you need a fixed double at all?',
     continueDescription:
-      'These nearby guides help when the real question is whether two-seat capacity is solving a current life stage or just easing planning nerves.',
+      'These nearby guides help when the real question is whether today needs two full seats, a future-flex system, or simply a better single stroller.',
     productLinksTitle: 'Want the actual double stroller shortlist?',
     productLinksDescription:
-      'Once the sibling math is real, these are the next reads that help the model list feel less chaotic.',
+      'Once the two-seat need is real, these are the next reads that help the model list feel less chaotic without drifting back into future-proofing.',
     productLinks: [
       {
         title: 'Best Double Strollers',
@@ -566,7 +792,7 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
       },
       {
         title: 'Stroller Comparisons',
-        description: 'Helpful when single-to-double, tandem, and side-by-side choices start sounding equally persuasive.',
+        description: 'Helpful when side-by-side, tandem, and more compact two-seat options start sounding equally persuasive.',
         href: '/blog/stroller-comparisons',
         icon: 'strategy',
       },
@@ -578,9 +804,9 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
       },
     ],
     planner: {
-      title: 'Test whether the double lane actually fits your family math',
+      title: 'Test whether a fixed double actually fits your family math',
       description:
-        'Start with timing, rider needs, and everyday logistics. Then open the section that answers the next real question before you buy a stroller for a hypothetical future.',
+        'Start with current rider needs, daily routes, and storage reality. Then open the section that answers the next real question before you buy a stroller built for two seats full time.',
       scenarioPrompt: 'Choose the routine that sounds most like your week',
       scenarioAriaLabel: 'Double stroller routine planner',
       priorityPrompt: 'Pick the tradeoff you care about most',
@@ -615,23 +841,23 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           secondaryLabel: 'Read the double shortlist',
         },
         {
-          id: 'close-age-gap',
-          label: 'A second baby is likely soon and the age gap feels real',
+          id: 'twins-or-close-gap-now',
+          label: 'Twins or a very close age gap mean two seats are part of day one',
           icon: 'calendar',
-          fitLabel: 'Maybe the right timing',
-          fitTone: 'maybe',
+          fitLabel: 'Another strong fixed-double signal',
+          fitTone: 'yes',
           summary:
-            'This is where convertible logic can make sense, but only if the everyday single-stroller experience still feels good enough right now.',
+            'This is where dedicated doubles often make the most sense because the two-seat question is not theoretical. It is arriving at the same time as everything else.',
           signals: [
-            'You have a clear near-term plan rather than a vague someday.',
-            'You are weighing today\'s stroller against a likely future second rider.',
-            'You want flexibility without dragging around unnecessary bulk too early.',
+            'You know two seats will be needed immediately or close enough that it changes the whole buying decision.',
+            'You are evaluating width, seat order, and infant logistics as current issues.',
+            'You want a stroller that is honest about being a two-rider system from the start.',
           ],
-          priorities: ['Timing', 'Convertible value', 'Present-day use'],
+          priorities: ['Seat access', 'Width', 'Infant setup'],
           primaryHref: `${DOUBLE_GUIDE_PATH}#the-main-double-stroller-paths`,
           primaryLabel: 'Review the double paths',
-          secondaryHref: FULL_SIZE_GUIDE_PATH,
-          secondaryLabel: 'Compare strong single options',
+          secondaryHref: '/blog/best-double-strollers',
+          secondaryLabel: 'Read the double shortlist',
         },
         {
           id: 'older-sibling-walks',
@@ -651,6 +877,25 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           primaryLabel: 'See the real-life fit section',
           secondaryHref: FULL_SIZE_GUIDE_PATH,
           secondaryLabel: 'Compare single stroller options',
+        },
+        {
+          id: 'planning-ahead-only',
+          label: 'We are planning ahead, but do not actually need two seats yet',
+          icon: 'convertible',
+          fitLabel: 'Usually not fixed double yet',
+          fitTone: 'no',
+          summary:
+            'This is usually where dedicated doubles become too much stroller too early. If flexibility is the real question, convertible is the more honest comparison.',
+          signals: [
+            'You are still mainly living as a one-child family.',
+            'The second seat is part of future planning more than present outings.',
+            'You want to avoid buying today\'s bulk for tomorrow\'s maybe.',
+          ],
+          priorities: ['Timeline honesty', 'Current maneuverability', 'Planning logic'],
+          primaryHref: CONVERTIBLE_GUIDE_PATH,
+          primaryLabel: 'Compare convertible strollers',
+          secondaryHref: FULL_SIZE_GUIDE_PATH,
+          secondaryLabel: 'Compare strong single options',
         },
         {
           id: 'tight-spaces',
@@ -700,17 +945,17 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           ctaLabel: 'Review the double paths',
         },
         {
-          id: 'seat-flexibility',
-          label: 'Seat flexibility',
+          id: 'seat-layout',
+          label: 'Seat layout',
           icon: 'layers',
-          verdict: 'Useful only when it matches real life',
+          verdict: 'The main fixed-double choice',
           tone: 'maybe',
           summary:
-            'Configuration flexibility can be wonderful. It just should not outrank how the stroller feels when used in its most common setup.',
-          helpsWhen: 'Your age gap, infant plans, and outing style genuinely call for multiple seating arrangements.',
-          watchout: 'The stroller that can do the most is not always the stroller you will like using most.',
-          href: '/blog/best-double-strollers',
-          ctaLabel: 'Read the double shortlist',
+            'For dedicated doubles, the honest question is usually side-by-side versus tandem. That matters more than a long list of clever seating permutations you may never use.',
+          helpsWhen: 'You want to compare fairness for both riders against narrower width and easier threading through tighter spaces.',
+          watchout: 'The layout that looks best on paper can still be the one that annoys you most in your actual routine.',
+          href: `${DOUBLE_GUIDE_PATH}#the-main-double-stroller-paths`,
+          ctaLabel: 'Review the double paths',
         },
         {
           id: 'weight-storage',
@@ -726,17 +971,17 @@ const CATEGORY_LAYOUT_CONFIG: Record<SharedStrollerGuideSlug, CategoryLayoutConf
           ctaLabel: 'Review the common mistakes',
         },
         {
-          id: 'future-proofing',
-          label: 'Future-proofing',
+          id: 'timeline-honesty',
+          label: 'Timeline honesty',
           icon: 'calendar',
-          verdict: 'Valuable only when the timing is real',
-          tone: 'maybe',
+          verdict: 'Usually the blunt truth',
+          tone: 'no',
           summary:
-            'Planning ahead is useful. Buying daily bulk for a vague future is less strategic than stroller marketing makes it sound.',
-          helpsWhen: 'A second child is part of a clear near-term plan and the present single setup still feels acceptable.',
-          watchout: 'Do not let hypothetical flexibility overrule current maneuverability, weight, and storage pain.',
-          href: FULL_SIZE_GUIDE_PATH,
-          ctaLabel: 'Compare strong single options',
+            'If you do not need two seats now, a fixed double is often paying the size cost before the benefit exists. That is not strategy. That is just early bulk.',
+          helpsWhen: 'You are checking whether the dedicated-double category fits today or whether you are really comparing single versus convertible first.',
+          watchout: 'A fixed double cannot shrink back into a nimble single when current life still mostly needs one seat.',
+          href: CONVERTIBLE_GUIDE_PATH,
+          ctaLabel: 'Compare convertible planning',
         },
       ],
     },
@@ -919,10 +1164,6 @@ function buildPlannerTopics({
   showDisclosureBeforeConclusion,
   showDisclosureBeforeAffiliates,
   heroLabels,
-  continueMatchTitle,
-  continueTitle,
-  continueDescription,
-  continueLinks,
   productLinksTitle,
   productLinksDescription,
   productLinks,
@@ -934,10 +1175,6 @@ function buildPlannerTopics({
   showDisclosureBeforeConclusion: boolean;
   showDisclosureBeforeAffiliates: boolean;
   heroLabels: Record<string, string>;
-  continueMatchTitle: string;
-  continueTitle: string;
-  continueDescription: string;
-  continueLinks: GuideHubLink[];
   productLinksTitle: string;
   productLinksDescription: string;
   productLinks: GuideHubLink[];
@@ -950,7 +1187,6 @@ function buildPlannerTopics({
     const isProductSection = section.title === 'Product Examples';
     const isFinalSection = section.title === 'Final Thoughts';
     const isCommonMistakes = section.title === 'Common Mistakes Parents Make';
-    const isContinueSection = section.title === continueMatchTitle;
 
     if (showDisclosureBeforeAffiliates && isProductSection) {
       companions.push({
@@ -970,15 +1206,6 @@ function buildPlannerTopics({
       companions.push({
         kind: 'disclosure',
         text: disclosureText,
-      });
-    }
-
-    if (isContinueSection && continueLinks.length > 0) {
-      companions.push({
-        kind: 'continue',
-        title: continueTitle,
-        description: continueDescription,
-        links: continueLinks,
       });
     }
 
@@ -1092,18 +1319,9 @@ export default function GuideStrollerCategoryLiveLayout({
     showDisclosureBeforeConclusion,
     showDisclosureBeforeAffiliates,
     heroLabels: config.heroLabels,
-    continueMatchTitle: clusterConfig.whatSectionTitles[0] ?? sectionOrder[1]?.title ?? 'Introduction',
-    continueTitle: config.continueTitle,
-    continueDescription: config.continueDescription,
-    continueLinks: relatedGuideCards,
     productLinksTitle: config.productLinksTitle,
     productLinksDescription: config.productLinksDescription,
     productLinks: config.productLinks,
-  });
-  const seriesCards = STROLLER_SERIES_CARDS.filter((card) => card.href !== getGuidePath({ slug: guide.slug }));
-  const decisionItems = getStrollerCategoryDecisionItems({
-    slug: guide.slug,
-    sourceRoute,
   });
 
   return (
@@ -1126,86 +1344,33 @@ export default function GuideStrollerCategoryLiveLayout({
       <section className="bg-[var(--tmbc-blog-ivory)]">
         <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
           <div className="stroller-hub-shell space-y-8 md:space-y-16">
-            <MarketingSurface className="mx-auto max-w-6xl rounded-[1.75rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[2rem] md:p-8 lg:p-10">
-              <div className="max-w-3xl space-y-3">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Start here</p>
-                <h2 className="font-serif text-[1.9rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-3xl">
-                  What this guide is helping you decide
-                </h2>
-                <p className="text-[0.98rem] leading-relaxed text-neutral-700">{config.startDescription}</p>
-              </div>
+            <GuideContextStrip slug={guide.slug} />
 
-              <div className="mt-7 grid items-start gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-                <div className="relative overflow-hidden rounded-[1.7rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f8_0%,#f9f2ea_100%)] p-5 shadow-[0_18px_40px_rgba(0,0,0,0.04)] sm:p-6 md:p-7">
-                  <div className="absolute right-[-1.5rem] top-[-1.75rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.22)_0%,rgba(215,161,175,0)_72%)]" />
-                  <div className="relative space-y-6">
-                    <div className="space-y-3">
-                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">The real question</p>
-                      <h3 className="max-w-[10ch] font-serif text-[2.15rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.45rem]">
-                        {config.questionTitle}
-                      </h3>
-                    </div>
-
-                    {prefaceBrief.leadParagraph ? (
-                      <p className="max-w-[34rem] text-[1rem] leading-8 text-neutral-700 sm:text-[1.04rem]">
-                        {stripMarkdown(prefaceBrief.leadParagraph)}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  {prefaceBrief.supportingParagraphs[0] ? (
-                    <div className="rounded-[1.55rem] border border-stone-200/70 bg-[#fcfaf7] p-5 sm:p-6">
-                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">What this category solves</p>
-                      <p className="mt-4 text-[1rem] leading-8 text-neutral-700">{stripMarkdown(prefaceBrief.supportingParagraphs[0])}</p>
-                    </div>
-                  ) : null}
-
-                  {prefaceBrief.supportingParagraphs[1] ? (
-                    <div className="rounded-[1.55rem] border border-stone-200/70 bg-[#fcfaf7] p-5 sm:p-6">
-                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">What this guide will sort out</p>
-                      <p className="mt-4 text-[1rem] leading-8 text-neutral-700">{stripMarkdown(prefaceBrief.supportingParagraphs[1])}</p>
-                    </div>
-                  ) : null}
-
-                  {prefaceBrief.callout ? (
-                    <div className="rounded-[1.55rem] border border-[rgba(232,154,174,0.26)] bg-[linear-gradient(180deg,#fffdfd_0%,#f9edf1_100%)] p-5 shadow-[0_14px_36px_rgba(0,0,0,0.05)] sm:p-6">
-                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                        {prefaceBrief.callout.title?.trim() || 'Start with the routine'}
-                      </p>
-                      <p className="mt-4 text-[1rem] leading-8 text-[var(--color-accent-dark)]/92">
-                        {stripMarkdown(prefaceBrief.callout.body)}
-                      </p>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                {config.summaryCards.map((card) => (
-                  <div
-                    key={card.eyebrow}
-                    className="rounded-[1.2rem] border border-[rgba(196,156,94,0.14)] bg-[rgba(255,255,255,0.74)] p-4"
-                  >
-                    <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">{card.eyebrow}</p>
-                    <p className="mt-2 text-sm leading-6 text-neutral-700">{card.text}</p>
-                  </div>
-                ))}
-              </div>
-            </MarketingSurface>
-
-            <GuideDecisionHelper
-              id={`${guide.slug}-decision-helper`}
-              eyebrow="Quick decision helper"
-              title={config.decisionHelperTitle}
-              description={config.decisionHelperDescription}
-              items={decisionItems}
-              variant="stroller-hub"
-              ctaLabel="Open guide"
+            <GuideCategoryStartPanel
+              startDescription={config.startDescription}
+              questionTitle={config.questionTitle}
+              leadParagraph={prefaceBrief.leadParagraph ? stripMarkdown(prefaceBrief.leadParagraph) : undefined}
+              supportingParagraphs={prefaceBrief.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
+              callout={
+                prefaceBrief.callout
+                  ? {
+                      title: prefaceBrief.callout.title,
+                      body: stripMarkdown(prefaceBrief.callout.body),
+                    }
+                  : null
+              }
+              summaryCards={config.summaryCards}
+              questionTitleClassName="max-w-[10ch]"
             />
-
-            <GuideSectionDivider />
+            <GuideDecisionBlock
+              title={`Use ${clusterConfig.shortTitle} as a fit check`}
+              description="The fastest way to narrow this category is to decide whether the core tradeoff actually helps your real week."
+              fitSummary={clusterConfig.worksForSummary}
+              fitBullets={clusterConfig.worksForBullets}
+              notFitSummary={clusterConfig.notBestFitSummary}
+              notFitBullets={clusterConfig.notBestFitBullets}
+              signatureMoment={clusterConfig.signatureMoment}
+            />
 
             <div className="space-y-4">
               <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
@@ -1214,17 +1379,13 @@ export default function GuideStrollerCategoryLiveLayout({
 
             <GuideStrollerInteractivePlanner topics={plannerTopics} config={config.planner} />
 
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              id="stroller-series"
-              eyebrow="Continue the series"
-              title="Compare this category with the rest of the stroller guide"
-              description={config.seriesDescription}
-              cards={seriesCards}
-              variant="stroller-hub"
-              ctaLabel="Read guide"
-            />
+            {relatedGuideCards.length > 0 ? (
+              <GuideContinueExploring
+                title={config.continueTitle}
+                description={config.continueDescription}
+                links={relatedGuideCards}
+              />
+            ) : null}
 
             <GuideSectionDivider />
 
@@ -1233,17 +1394,6 @@ export default function GuideStrollerCategoryLiveLayout({
               description={config.softCtaDescription}
               href="/services"
               ctaLabel="Learn about Taylor-Made Baby Planning"
-            />
-
-            <GuideSectionDivider />
-
-            <GuideCategoryCards
-              eyebrow="Back to the hub"
-              title="Use the stroller guide as your bigger map"
-              description="The category guide should sharpen the decision. The main stroller hub helps you step back and compare the whole stroller map again if you need the broader view."
-              cards={getStrollerHubBackLinkCard()}
-              variant="stroller-hub"
-              ctaLabel="Open hub"
             />
           </div>
         </div>
