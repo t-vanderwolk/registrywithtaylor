@@ -1,5 +1,5 @@
+import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/data/products/carSeats';
 import type { GuideComparisonBandGroup, GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
-import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 import { getGuidePath } from '@/lib/guides/routing';
 
@@ -15,6 +15,8 @@ export type CarSeatSystemGuideSlug = (typeof CAR_SEAT_SYSTEM_GUIDE_SLUGS)[number
 export const CAR_SEAT_SPECIALIZED_GUIDE_SLUGS = ['rotating-car-seats', 'travel-lightweight-car-seats'] as const;
 
 export type CarSeatSpecializedGuideSlug = (typeof CAR_SEAT_SPECIALIZED_GUIDE_SLUGS)[number];
+
+export type CarSeatCategorySlug = CarSeatSystemGuideSlug | CarSeatSpecializedGuideSlug;
 
 export type CarSeatStageProgressionItem = {
   id: string;
@@ -50,6 +52,7 @@ type CarSeatHubCategory<Slug extends string> = {
   tradeoff: string;
   emotionalDescriptor: string;
   strength?: string;
+  compareWith: CarSeatCategorySlug;
   preview: CarSeatCategoryPreview;
 };
 
@@ -81,6 +84,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     tradeoff: 'Shorter usage window.',
     strength: 'Portable carrier and smoother newborn logistics.',
     emotionalDescriptor: 'The calmer starting point when the newborn stage already feels like a lot.',
+    compareWith: 'convertible-car-seats',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.infant,
       ctaLabel: 'Start with infant car seats',
@@ -100,6 +104,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     tradeoff: 'Stays in the car.',
     strength: 'Longer runway and stronger long-term value.',
     emotionalDescriptor: 'The grounded choice when you want to skip the carrier stage and settle into one seat.',
+    compareWith: 'all-in-one-car-seats',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.convertible,
       ctaLabel: 'Compare convertible options',
@@ -119,6 +124,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     tradeoff: 'Bulkier and less specialized early on.',
     strength: 'Multi-stage longevity in one purchase.',
     emotionalDescriptor: 'The planning-ahead lane when longevity matters more than newborn portability.',
+    compareWith: 'convertible-car-seats',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.allInOne,
       ctaLabel: 'Explore all-in-one systems',
@@ -138,6 +144,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     tradeoff: 'Not part of the newborn decision.',
     strength: 'Explains where the car seat journey goes next.',
     emotionalDescriptor: 'A future stage to understand now, not a newborn problem to solve today.',
+    compareWith: 'all-in-one-car-seats',
     preview: {
       examples: [...CAR_SEAT_PRODUCT_GROUPS.booster],
     },
@@ -160,6 +167,7 @@ const CAR_SEAT_SPECIALIZED_CATEGORIES: readonly CarSeatHubCategory<CarSeatSpecia
     strength: 'Makes the loading routine easier to live with.',
     emotionalDescriptor:
       'The path for parents who need to separate infant, convertible, and all-in-one first, then decide whether the swivel feature is actually earning its keep.',
+    compareWith: 'convertible-car-seats',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.rotating,
       ctaLabel: 'Explore rotating car seats',
@@ -179,6 +187,7 @@ const CAR_SEAT_SPECIALIZED_CATEGORIES: readonly CarSeatHubCategory<CarSeatSpecia
     tradeoff: 'Not every lightweight or travel-friendly seat is the best everyday seat for every family.',
     strength: 'Keeps the seat from becoming the hardest part of getting out the door.',
     emotionalDescriptor: 'The calmer lane when the seat keeps moving with you instead of staying parked in one main car.',
+    compareWith: 'infant-car-seats',
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.travelLightweight,
       ctaLabel: 'Explore travel & lightweight car seats',
@@ -220,9 +229,11 @@ const CAR_SEAT_CATEGORY_VISUALS: readonly CarSeatCategoryVisual[] = [
   },
 ] as const;
 
+const CAR_SEAT_ALL_CATEGORIES = [...CAR_SEAT_SYSTEM_CATEGORIES, ...CAR_SEAT_SPECIALIZED_CATEGORIES] as const;
+
 const CAR_SEAT_CATEGORY_MAP = Object.fromEntries(
-  CAR_SEAT_SYSTEM_CATEGORIES.map((category) => [category.slug, category]),
-) as Record<CarSeatSystemGuideSlug, CarSeatHubCategory<CarSeatSystemGuideSlug>>;
+  CAR_SEAT_ALL_CATEGORIES.map((category) => [category.slug, category]),
+) as Record<CarSeatCategorySlug, CarSeatHubCategory<CarSeatCategorySlug>>;
 
 function normalizeValue(value: string) {
   return value
@@ -262,6 +273,20 @@ function toHubCard({
   };
 }
 
+export const CAR_SEAT_ALL_CATEGORY_SLUGS = [...CAR_SEAT_SYSTEM_GUIDE_SLUGS, ...CAR_SEAT_SPECIALIZED_GUIDE_SLUGS] as const;
+
+export function isCarSeatCategorySlug(value: string): value is CarSeatCategorySlug {
+  return CAR_SEAT_ALL_CATEGORY_SLUGS.includes(value as CarSeatCategorySlug);
+}
+
+export function getCarSeatCategory(slug: string) {
+  if (!isCarSeatCategorySlug(slug)) {
+    return null;
+  }
+
+  return CAR_SEAT_CATEGORY_MAP[slug];
+}
+
 export const CAR_SEAT_HUB_CONTEXT = {
   breadcrumb: ['TMBC Guides', 'Car Seats', 'Stage-Based System'],
   currentLabel: 'Car Seat Stages',
@@ -297,7 +322,7 @@ export const CAR_SEAT_HUB_FIT_CHECK = {
 export function getCarSeatHubStartingPointCards(): GuideHubLink[] {
   return [
     toHubCard({
-      title: "I'm starting from birth",
+      title: 'Starting from birth',
       description: CAR_SEAT_CATEGORY_MAP['infant-car-seats'].emotionalDescriptor,
       bestFor: CAR_SEAT_CATEGORY_MAP['infant-car-seats'].bestFor,
       href: CAR_SEAT_CATEGORY_MAP['infant-car-seats'].href,
@@ -306,7 +331,7 @@ export function getCarSeatHubStartingPointCards(): GuideHubLink[] {
       imageAlt: CAR_SEAT_CATEGORY_MAP['infant-car-seats'].imageAlt,
     }),
     toHubCard({
-      title: 'I want something that grows with my child',
+      title: 'Want something that grows with baby',
       description: CAR_SEAT_CATEGORY_MAP['convertible-car-seats'].emotionalDescriptor,
       bestFor: CAR_SEAT_CATEGORY_MAP['convertible-car-seats'].bestFor,
       href: CAR_SEAT_CATEGORY_MAP['convertible-car-seats'].href,
@@ -315,7 +340,7 @@ export function getCarSeatHubStartingPointCards(): GuideHubLink[] {
       imageAlt: CAR_SEAT_CATEGORY_MAP['convertible-car-seats'].imageAlt,
     }),
     toHubCard({
-      title: "I'm planning ahead or already past the newborn stage",
+      title: 'Planning long-term from the start',
       description: CAR_SEAT_CATEGORY_MAP['all-in-one-car-seats'].emotionalDescriptor,
       bestFor: CAR_SEAT_CATEGORY_MAP['all-in-one-car-seats'].bestFor,
       href: CAR_SEAT_CATEGORY_MAP['all-in-one-car-seats'].href,
@@ -327,7 +352,7 @@ export function getCarSeatHubStartingPointCards(): GuideHubLink[] {
 }
 
 export function getCarSeatHubCategoryGridCards(): GuideHubLink[] {
-  return [...CAR_SEAT_SYSTEM_CATEGORIES, ...CAR_SEAT_SPECIALIZED_CATEGORIES].map((category) =>
+  return CAR_SEAT_SYSTEM_CATEGORIES.map((category) =>
     toHubCard({
       title: category.title,
       description: category.lifestyleDescriptor,
@@ -377,10 +402,12 @@ export function getCarSeatStageProgressionItems(): CarSeatStageProgressionItem[]
   ];
 }
 
-export function getCarSeatComparisonBandGroups(): GuideComparisonBandGroup[] {
+export function getCarSeatComparisonBandGroups(currentSlug?: string): GuideComparisonBandGroup[] {
+  const currentCategory = currentSlug ? getCarSeatCategory(currentSlug) : null;
+
   return [
     {
-      label: 'Core starting paths',
+      label: 'Primary starting paths',
       items: CAR_SEAT_SYSTEM_CATEGORIES.filter((category) => category.slug !== 'booster-seats').map((category) => ({
         id: category.slug,
         title: category.title,
@@ -389,6 +416,20 @@ export function getCarSeatComparisonBandGroups(): GuideComparisonBandGroup[] {
         bestFor: category.bestFor,
         strength: category.strength,
         tradeoff: category.tradeoff,
+        isActive: category.slug === currentCategory?.slug,
+      })),
+    },
+    {
+      label: 'Secondary path',
+      items: CAR_SEAT_SYSTEM_CATEGORIES.filter((category) => category.slug === 'booster-seats').map((category) => ({
+        id: category.slug,
+        title: category.title,
+        href: category.href,
+        icon: category.icon,
+        bestFor: category.bestFor,
+        strength: category.strength,
+        tradeoff: category.tradeoff,
+        isActive: category.slug === currentCategory?.slug,
       })),
     },
   ];
@@ -408,6 +449,41 @@ export function getCarSeatCategoryVisual(title: string) {
     CAR_SEAT_CATEGORY_VISUALS.find((visual) =>
       visual.matchTitles.some((matchTitle) => normalizeValue(matchTitle) === normalizedTitle),
     ) ?? null
+  );
+}
+
+export function getCarSeatContextStripData(slug: string) {
+  const currentCategory = getCarSeatCategory(slug);
+  if (!currentCategory) {
+    return null;
+  }
+
+  const compareCategory = CAR_SEAT_CATEGORY_MAP[currentCategory.compareWith];
+  if (!compareCategory) {
+    return null;
+  }
+
+  return {
+    breadcrumb: ['Car Seat Hub', 'Choose Your Fit', currentCategory.shortTitle],
+    currentLabel: currentCategory.title,
+    currentHref: currentCategory.href,
+    compareLabel: compareCategory.title,
+    compareHref: compareCategory.href,
+    hubHref: CAR_SEAT_SYSTEM_PATHS.hub,
+  };
+}
+
+export function getCarSeatSpecializedGuideLinks(): GuideHubLink[] {
+  return CAR_SEAT_SPECIALIZED_CATEGORIES.map((category) =>
+    toHubCard({
+      title: `${category.shortTitle} Guide`,
+      description: category.lifestyleDescriptor,
+      bestFor: category.bestFor,
+      href: category.href,
+      icon: category.icon,
+      imageSrc: category.imageSrc,
+      imageAlt: category.imageAlt,
+    }),
   );
 }
 

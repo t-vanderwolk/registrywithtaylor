@@ -2,10 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
-import GuideCompactLiveLayout from '@/components/guides/GuideCompactLiveLayout';
-import GuideCarSeatCategoryLiveLayout from '@/components/guides/GuideCarSeatCategoryLiveLayout';
-import GuideFullSizeLiveLayout from '@/components/guides/GuideFullSizeLiveLayout';
-import GuideStrollerCategoryLiveLayout from '@/components/guides/GuideStrollerCategoryLiveLayout';
+import GuideCategoryDecisionSystem from '@/components/guides/GuideCategoryDecisionSystem';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
@@ -160,13 +157,10 @@ export default async function GuideArticleView({
   const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
   const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
-  const useFullSizeLiveLayout = guide.slug === 'full-size-modular-strollers';
-  const useCompactLiveLayout = guide.slug === 'compact-lightweight-strollers';
-  const useStrollerCategoryLiveLayout =
-    isStrollerCategoryGuideSlug(guide.slug) && !useFullSizeLiveLayout && !useCompactLiveLayout;
+  const useStrollerCategoryLiveLayout = isStrollerCategoryGuideSlug(guide.slug);
   const useCarSeatCategoryLiveLayout = isCarSeatCategoryGuideSlug(guide.slug);
   const strollerJournalLinks =
-    guide.slug === 'best-strollers' || useStrollerCategoryLiveLayout || useFullSizeLiveLayout || useCompactLiveLayout
+    guide.slug === 'best-strollers' || useStrollerCategoryLiveLayout
       ? await getPublishedStrollerJournalLinks(guide.slug)
       : [];
 
@@ -197,48 +191,6 @@ export default async function GuideArticleView({
     );
   }
 
-  if (useFullSizeLiveLayout) {
-    return (
-      <>
-        <GuideViewTracker
-          guideId={guide.id}
-          sourceRoute={sourceRoute}
-          slug={guide.slug}
-          title={guide.title}
-          enabled={!preview}
-        />
-
-        <GuideFullSizeLiveLayout
-          guide={guide}
-          displayDate={displayDate}
-          readingTime={readingTime}
-          sourceRoute={sourceRoute}
-        />
-      </>
-    );
-  }
-
-  if (useCompactLiveLayout) {
-    return (
-      <>
-        <GuideViewTracker
-          guideId={guide.id}
-          sourceRoute={sourceRoute}
-          slug={guide.slug}
-          title={guide.title}
-          enabled={!preview}
-        />
-
-        <GuideCompactLiveLayout
-          guide={guide}
-          displayDate={displayDate}
-          readingTime={readingTime}
-          sourceRoute={sourceRoute}
-        />
-      </>
-    );
-  }
-
   if (useStrollerCategoryLiveLayout) {
     return (
       <>
@@ -250,7 +202,7 @@ export default async function GuideArticleView({
           enabled={!preview}
         />
 
-        <GuideStrollerCategoryLiveLayout
+        <GuideCategoryDecisionSystem
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}
@@ -271,7 +223,7 @@ export default async function GuideArticleView({
           enabled={!preview}
         />
 
-        <GuideCarSeatCategoryLiveLayout
+        <GuideCategoryDecisionSystem
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}

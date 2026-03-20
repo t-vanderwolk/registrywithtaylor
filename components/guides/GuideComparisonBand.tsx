@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import GuideGlyph from '@/components/guides/GuideGlyph';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { GuideComparisonBandGroup } from '@/lib/guides/hubs';
 import { getStrollerComparisonBandGroups } from '@/lib/guides/strollerSystem';
 
@@ -81,23 +82,25 @@ export default function GuideComparisonBand({
   }
 
   return (
-    <section className="rounded-[1.7rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff9f5_0%,#fbf4ec_100%)] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-5 md:p-6">
-      <div className="space-y-2">
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-        <h2 className="font-serif text-[1.9rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl">
-          {title ?? 'Compare the stroller lanes before you over-compare the models'}
-        </h2>
-        <p className="max-w-[72ch] text-sm leading-6 text-neutral-700 sm:leading-7">
-          {description ??
-            'Start with the core three first. Then compare the more specialized paths once the everyday question is already clear.'}
-        </p>
-      </div>
+    <RevealOnScroll>
+      <section className="rounded-[1.7rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff9f5_0%,#fbf4ec_100%)] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-5 md:p-6">
+        <div className="space-y-2">
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
+          <h2 className="font-serif text-[1.9rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl">
+            {title ?? 'Compare the stroller lanes before you over-compare the models'}
+          </h2>
+          <p className="max-w-[72ch] text-sm leading-6 text-neutral-700 sm:leading-7">
+            {description ??
+              'Start with the core three first. Then compare the more specialized paths once the everyday question is already clear.'}
+          </p>
+        </div>
 
-      <div className="mt-6 space-y-6">
-        {resolvedGroups.map((group) => (
-          <ComparisonGroup key={group.label} label={group.label} items={group.items} />
-        ))}
-      </div>
-    </section>
+        <div className="mt-6 space-y-6">
+          {resolvedGroups.map((group) => (
+            <ComparisonGroup key={group.label} label={group.label} items={group.items} />
+          ))}
+        </div>
+      </section>
+    </RevealOnScroll>
   );
 }

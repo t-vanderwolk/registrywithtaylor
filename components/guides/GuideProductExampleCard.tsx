@@ -55,7 +55,7 @@ export default function GuideProductExampleCard({
         : null;
 
   return (
-    <article className="rounded-[1.25rem] border border-stone-200/70 bg-white/90 p-3 shadow-[0_10px_24px_rgba(0,0,0,0.03)] sm:rounded-[1.5rem] sm:p-4">
+    <article className="rounded-[1.25rem] border border-stone-200/70 bg-white/90 p-4 shadow-[0_10px_24px_rgba(0,0,0,0.03)] sm:rounded-[1.5rem] sm:p-5">
       <div className="rounded-[1rem] border border-stone-200/70 bg-[#f8f3ed] p-2.5 sm:rounded-[1.2rem] sm:p-3">
         <div className="relative h-20 sm:h-28 md:h-32">
           {resolvedImage ? (
@@ -77,7 +77,7 @@ export default function GuideProductExampleCard({
         <p className="mt-3 text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">{brand}</p>
       ) : null}
 
-      <p className="mt-2 font-serif text-[0.98rem] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[1.15rem]">
+      <p className="mt-2 font-serif text-[1.08rem] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[1.26rem]">
         {name}
       </p>
 
@@ -90,21 +90,21 @@ export default function GuideProductExampleCard({
           {whyItMatters ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
               <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Why it matters</p>
-              <div className="mt-2 text-sm leading-6 text-neutral-700">{whyItMatters}</div>
+              <div className="mt-2 text-[0.98rem] leading-7 text-neutral-700">{whyItMatters}</div>
             </div>
           ) : null}
 
           {bestForContent ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
               <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Best for</p>
-              <div className="mt-2 text-sm leading-6 text-neutral-700">{bestForContent}</div>
+              <div className="mt-2 text-[0.98rem] leading-7 text-neutral-700">{bestForContent}</div>
             </div>
           ) : null}
 
           {specGroups.length > 0 ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
               <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Quick specs</p>
-              <div className="mt-2 space-y-2.5 text-sm leading-6 text-neutral-700">
+              <div className="mt-2 space-y-2.5 text-[0.98rem] leading-7 text-neutral-700">
                 {specGroups.map((group) => (
                   <div key={`${name}-${group.label}`}>
                     <p className="text-[0.65rem] uppercase tracking-[0.14em] text-neutral-500">{group.label}</p>
@@ -124,7 +124,7 @@ export default function GuideProductExampleCard({
           {notes.length > 0 ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
               <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Notes</p>
-              <ul className="mt-2 list-disc space-y-1 pl-4 text-sm leading-6 text-neutral-700">
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-[0.98rem] leading-7 text-neutral-700">
                 {notes.map((note) => (
                   <li key={`${name}-${note}`}>{note}</li>
                 ))}

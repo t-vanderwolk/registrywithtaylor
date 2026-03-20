@@ -198,7 +198,7 @@ export function getStrollerSystemCategory(slug: string) {
 export function getStrollerHubStartingPointCards(): GuideHubLink[] {
   return [
     toHubCard({
-      title: 'Everyday primary stroller',
+      title: 'Everyday stroller',
       description: STROLLER_SYSTEM_CATEGORY_MAP['full-size-modular-strollers'].emotionalDescriptor,
       bestFor: STROLLER_SYSTEM_CATEGORY_MAP['full-size-modular-strollers'].bestFor,
       href: STROLLER_SYSTEM_CATEGORY_MAP['full-size-modular-strollers'].href,
@@ -302,4 +302,3 @@ export function getStrollerComparisonBandGroups(currentSlug: string) {
 export function getStrollerCategorySignatureMoment(slug: string) {
   return getStrollerSystemCategory(slug)?.signatureMoment ?? null;
 }
-

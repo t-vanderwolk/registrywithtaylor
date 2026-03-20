@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import PostContent from '@/components/blog/PostContent';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
-import GuideCarSeatHub from '@/components/guides/GuideCarSeatHub';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
+import GuideDecisionSystemHub from '@/components/guides/GuideDecisionSystemHub';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
-import GuideStrollerHub from '@/components/guides/GuideStrollerHub';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -334,6 +333,10 @@ export default function GuideHubLayout({
     return null;
   }
 
+  if (isStrollerHub || isCarSeatHub) {
+    return <GuideDecisionSystemHub guide={guide} sourceRoute={sourceRoute} />;
+  }
+
   return (
     <>
       {isStrollerHub ? <GuideScrollProgress /> : null}
@@ -355,106 +358,92 @@ export default function GuideHubLayout({
       />
 
       <section className="bg-[var(--tmbc-blog-ivory)]">
-        {isStrollerHub ? (
-          <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-            <div className="space-y-8 md:space-y-16">
-              <GuideStrollerHub guide={guide} outline={outline} nextStepLinks={strollerJournalLinks} />
-            </div>
-          </div>
-        ) : isCarSeatHub ? (
-          <div className="mx-auto max-w-[1300px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-            <div className="space-y-8 md:space-y-16">
-              <GuideCarSeatHub guide={guide} outline={outline} />
-            </div>
-          </div>
-        ) : (
-          <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-16">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18.5rem] lg:gap-10">
-              <div className="space-y-8">
-                <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="mobile" />
+        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18.5rem] lg:gap-10">
+            <div className="space-y-8">
+              <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="mobile" />
 
-                {outline.preface ? (
-                  <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-8">
-                    <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
-                    <div className="relative">
-                      <PostContent postId={`${guide.id}-preface`} content={outline.preface} className="guide-post-content" />
-                    </div>
+              {outline.preface ? (
+                <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-5 py-6 shadow-[0_22px_60px_rgba(0,0,0,0.05)] sm:rounded-[2.2rem] md:px-8 md:py-8">
+                  <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
+                  <div className="relative">
+                    <PostContent postId={`${guide.id}-preface`} content={outline.preface} className="guide-post-content" />
                   </div>
-                ) : null}
+                </div>
+              ) : null}
 
-                {outline.sections.map((section, index) => {
-                  const continueExploringBlock = getGuideContinueExploringBlock({
-                    slug: guide.slug,
-                    currentPath: sourceRoute,
-                    sectionTitle: section.title,
-                    relatedGuides,
-                  });
-                  const isIntroduction = index === 0;
-                  const isFinalSection = index === outline.sections.length - 1;
+              {outline.sections.map((section, index) => {
+                const continueExploringBlock = getGuideContinueExploringBlock({
+                  slug: guide.slug,
+                  currentPath: sourceRoute,
+                  sectionTitle: section.title,
+                  relatedGuides,
+                });
+                const isIntroduction = index === 0;
+                const isFinalSection = index === outline.sections.length - 1;
 
-                  return (
-                    <div key={section.id} className="space-y-6">
-                      <GuidePostSurface postId={`${guide.id}-${section.id}`} content={section.content} contentClassName="guide-post-content" />
+                return (
+                  <div key={section.id} className="space-y-6">
+                    <GuidePostSurface postId={`${guide.id}-${section.id}`} content={section.content} contentClassName="guide-post-content" />
 
-                      {isIntroduction ? (
-                        <>
-                          {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
-                          <GuideCategoryCards
-                            title={hubConfig!.cardsTitle}
-                            description={hubConfig!.cardsDescription}
-                            cards={hubConfig!.cards}
-                          />
-                          <GuideDecisionHelper
-                            title={hubConfig!.decisionHelperTitle}
-                            description={hubConfig!.decisionHelperDescription}
-                            items={hubConfig!.decisionItems}
-                          />
-                        </>
-                      ) : null}
-
-                      {!isIntroduction && !isFinalSection && continueExploringBlock ? (
-                        <GuideContinueExploring
-                          title={continueExploringBlock.title}
-                          description={continueExploringBlock.description}
-                          links={continueExploringBlock.links}
+                    {isIntroduction ? (
+                      <>
+                        {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
+                        <GuideCategoryCards
+                          title={hubConfig!.cardsTitle}
+                          description={hubConfig!.cardsDescription}
+                          cards={hubConfig!.cards}
                         />
-                      ) : null}
+                        <GuideDecisionHelper
+                          title={hubConfig!.decisionHelperTitle}
+                          description={hubConfig!.decisionHelperDescription}
+                          items={hubConfig!.decisionItems}
+                        />
+                      </>
+                    ) : null}
 
-                      {showDisclosureBeforeConclusion && section.title === 'Planning Tips' ? (
-                        <DisclosureCard text={disclosureText} />
-                      ) : null}
-                    </div>
-                  );
-                })}
+                    {!isIntroduction && !isFinalSection && continueExploringBlock ? (
+                      <GuideContinueExploring
+                        title={continueExploringBlock.title}
+                        description={continueExploringBlock.description}
+                        links={continueExploringBlock.links}
+                      />
+                    ) : null}
 
-                <GuideFaqAccordion items={faqEntries} />
+                    {showDisclosureBeforeConclusion && section.title === 'Planning Tips' ? (
+                      <DisclosureCard text={disclosureText} />
+                    ) : null}
+                  </div>
+                );
+              })}
 
-                {guide.founderSignatureEnabled && guide.founderSignatureText ? (
-                  <MarketingSurface className="rounded-[2rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 md:p-8">
-                    <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
-                    <p className="mt-4 text-sm leading-7 text-neutral-700">{guide.founderSignatureText}</p>
-                  </MarketingSurface>
-                ) : null}
+              <GuideFaqAccordion items={faqEntries} />
 
-                {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
+              {guide.founderSignatureEnabled && guide.founderSignatureText ? (
+                <MarketingSurface className="rounded-[2rem] border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 md:p-8">
+                  <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
+                  <p className="mt-4 text-sm leading-7 text-neutral-700">{guide.founderSignatureText}</p>
+                </MarketingSurface>
+              ) : null}
 
-                <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
+              {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
 
-                <NextStepBand
-                  guide={guide}
-                  preview={preview}
-                  sourceRoute={sourceRoute}
-                  nextStepEvent={nextStepEvent}
-                  nextStepDestinationPageType={nextStepDestinationPageType}
-                />
+              <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
 
-                <GuideNextGuides items={nextGuideItems} />
-              </div>
+              <NextStepBand
+                guide={guide}
+                preview={preview}
+                sourceRoute={sourceRoute}
+                nextStepEvent={nextStepEvent}
+                nextStepDestinationPageType={nextStepDestinationPageType}
+              />
 
-              <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" />
+              <GuideNextGuides items={nextGuideItems} />
             </div>
+
+            <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" />
           </div>
-        )}
+        </div>
       </section>
     </>
   );

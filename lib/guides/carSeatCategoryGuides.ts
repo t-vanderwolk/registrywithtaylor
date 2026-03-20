@@ -1,6 +1,6 @@
 import type { StrollerInteractivePlannerConfig } from '@/components/guides/GuideStrollerInteractivePlanner';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
-import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
+import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/data/products/carSeats';
 import type { GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 import { CAR_SEAT_SYSTEM_PATHS } from '@/lib/guides/carSeatSystem';
