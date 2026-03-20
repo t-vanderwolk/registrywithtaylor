@@ -64,7 +64,7 @@ export default function ProductExampleGroup({
                 ) : null}
               </div>
 
-              <div className="mt-5 grid gap-4 md:grid-cols-2">
+              <div className="mt-5 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {group.examples.map((example) => (
                   <GuideProductExampleCard
                     key={`${group.id}-${example.name}`}
@@ -76,6 +76,7 @@ export default function ProductExampleGroup({
                     typeLabel={example.typeLabel}
                     whyItMatters={example.shortReview}
                     bestFor={example.bestFor}
+                    standout={example.standout}
                     specGroups={example.specGroups}
                     notes={example.notes}
                   />

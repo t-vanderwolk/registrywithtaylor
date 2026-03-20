@@ -37,28 +37,28 @@ export default function GuideDecisionSteps({
   return (
     <section className="space-y-5">
       <RevealOnScroll>
-        <div className="space-y-2">
-          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-          <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-[3.15rem]">{title}</h2>
-          {description ? <p className="max-w-[74ch] text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">{description}</p> : null}
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
+          <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
+          {description ? <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
         </div>
       </RevealOnScroll>
 
-      <div className="space-y-5">
+      <div className="space-y-6">
         {steps.map((step, index) => (
           <RevealOnScroll key={step.id} delayMs={index * 70}>
             <section
               id={step.id}
-              className="scroll-mt-28 rounded-[1.75rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_18px_40px_rgba(0,0,0,0.04)] sm:p-6"
+              className="scroll-mt-28 rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8"
             >
               <div className="space-y-4">
                 <div className="space-y-3">
-                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/82">{step.stepLabel}</p>
-                  <h3 className="font-serif text-[1.7rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2.15rem]">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/82">{step.stepLabel}</p>
+                  <h3 className="font-serif text-[1.6rem] leading-[1.04] tracking-tight text-charcoal md:text-[2rem]">
                     {step.title}
                   </h3>
                   {step.summary ? (
-                    <p className="max-w-[62ch] text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">
+                    <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
                       {step.summary}
                     </p>
                   ) : null}
@@ -69,7 +69,7 @@ export default function GuideDecisionSteps({
                     {step.highlights.slice(0, mode === 'summary' ? 3 : step.highlights.length).map((highlight) => (
                       <span
                         key={`${step.id}-${highlight}`}
-                        className="rounded-full border border-[rgba(196,156,94,0.16)] bg-[rgba(255,248,241,0.84)] px-3 py-1.5 text-[0.74rem] uppercase tracking-[0.12em] text-neutral-800"
+                        className="rounded-full border border-[rgba(196,156,94,0.16)] bg-[rgba(255,248,241,0.84)] px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-neutral-800"
                       >
                         {highlight}
                       </span>
@@ -78,12 +78,12 @@ export default function GuideDecisionSteps({
                 ) : null}
 
                 {mode === 'full' && step.introContent ? (
-                  <div className="rounded-[1.25rem] border border-stone-200/70 bg-[#fcfaf7] p-4">
+                  <div className="rounded-xl border border-stone-200/70 bg-[#FCFAFB] p-5">
                     <PostContent
                       postId={`decision-step-${step.id}-intro`}
                       content={step.introContent}
                       className="guide-post-content guide-hub-card-content guide-hub-card-content--compact"
-                      variant="plain"
+                      variant="guide"
                       highlightBrandWordmark={true}
                     />
                   </div>
@@ -94,15 +94,15 @@ export default function GuideDecisionSteps({
                     {step.subsections.map((subsection) => (
                       <div
                         key={`${step.id}-${subsection.id}`}
-                        className="rounded-[1.25rem] border border-stone-200/70 bg-[#fcfaf7] p-4"
+                        className="rounded-xl border border-stone-200/70 bg-[#FCFAFB] p-5"
                       >
-                        <h4 className="font-serif text-[1.2rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{subsection.title}</h4>
+                        <h4 className="font-serif text-[1.25rem] leading-[1.08] tracking-tight text-charcoal">{subsection.title}</h4>
                         <div className="mt-3">
                           <PostContent
                             postId={`decision-step-${step.id}-${subsection.id}`}
                             content={subsection.content}
                             className="guide-post-content guide-hub-card-content guide-hub-card-content--compact"
-                            variant="plain"
+                            variant="guide"
                             highlightBrandWordmark={true}
                           />
                         </div>

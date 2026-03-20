@@ -21,7 +21,7 @@ const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
 const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'best-strollers': 'strollers',
   'best-infant-car-seats': 'car-seats',
-  'minimalist-baby-registry': 'baby-registry',
+  'minimalist-baby-registry': 'registry',
   'nursery-setup-guide': 'nursery',
   'travel-with-baby': 'travel-with-baby',
   'infant-car-seats': 'infant-car-seats',
@@ -34,9 +34,12 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'jogging-all-terrain-strollers': 'jogging-strollers',
 };
 
-const GUIDE_SLUG_BY_ROUTE_SEGMENT = Object.fromEntries(
-  Object.entries(GUIDE_ROUTE_SEGMENT_BY_SLUG).map(([slug, routeSegment]) => [routeSegment, slug]),
-);
+const GUIDE_SLUG_BY_ROUTE_SEGMENT: Record<string, string> = {
+  ...Object.fromEntries(
+    Object.entries(GUIDE_ROUTE_SEGMENT_BY_SLUG).map(([slug, routeSegment]) => [routeSegment, slug]),
+  ),
+  'baby-registry': 'minimalist-baby-registry',
+};
 
 export function resolveGuideSlugFromRouteSegment(routeSegment: string) {
   return GUIDE_SLUG_BY_ROUTE_SEGMENT[routeSegment] ?? routeSegment;

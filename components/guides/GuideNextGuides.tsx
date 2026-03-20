@@ -14,11 +14,11 @@ export default function GuideNextGuides({
   }
 
   return (
-    <section className="rounded-[2rem] border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f4_0%,#fbf7f2_100%)] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] md:p-8">
-      <div className="space-y-2">
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Next guides</p>
-        <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900">{title}</h2>
-        <p className="max-w-3xl text-sm leading-7 text-neutral-700">
+    <section className="rounded-2xl border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f4_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
+      <div className="space-y-3">
+        <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Next guides</p>
+        <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
+        <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
           These five guides are meant to work like a planning loop, not five unrelated essays.
         </p>
       </div>
@@ -28,22 +28,22 @@ export default function GuideNextGuides({
           <Link
             key={item.slug}
             href={item.href}
-            className={`rounded-[1.3rem] border p-4 transition duration-200 ${
+            className={`rounded-xl border p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md ${
               item.current
-                ? 'border-[rgba(196,156,94,0.28)] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.05)]'
-                : 'border-black/6 bg-[rgba(255,255,255,0.72)] hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.24)] hover:bg-white'
+                ? 'border-[rgba(196,156,94,0.28)] bg-white shadow-sm'
+                : 'border-black/6 bg-[rgba(255,255,255,0.8)] hover:border-[rgba(196,156,94,0.24)] hover:bg-white'
             }`}
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
                 <GuideGlyph icon={item.icon} />
               </div>
-              <span className="text-[0.68rem] uppercase tracking-[0.16em] text-black/42">
+              <span className="text-xs uppercase tracking-[0.16em] text-black/42">
                 {item.current ? 'Current guide' : 'Open'}
               </span>
             </div>
-            <p className="mt-4 font-serif text-[1.25rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{item.title}</p>
-            <p className="mt-2 text-sm leading-7 text-neutral-700">{item.description}</p>
+            <p className="mt-4 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{item.title}</p>
+            <p className="mt-2 text-base leading-relaxed text-neutral-700">{item.description}</p>
           </Link>
         ))}
       </div>

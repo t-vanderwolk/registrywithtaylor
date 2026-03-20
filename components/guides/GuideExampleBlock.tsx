@@ -79,7 +79,7 @@ export default function GuideExampleBlock({
       ) : null}
 
       {products.length > 0 ? (
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product, index) => (
             <div key={`${topicId}-product-${product.brand}-${product.productName}-${index}`}>
               <GuideProductExampleCard
@@ -91,6 +91,7 @@ export default function GuideExampleBlock({
                 typeLabel={product.typeLabel}
                 whyItMatters={product.shortReview}
                 bestFor={product.bestFor}
+                standout={product.standout}
                 specGroups={product.specGroups}
                 notes={product.notes}
               />

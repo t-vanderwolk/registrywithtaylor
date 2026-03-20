@@ -2,9 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import RibbonDivider from '@/components/layout/RibbonDivider';
+import HomeAuthorityStrip from '@/components/home/HomeAuthorityStrip';
+import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import SiteShell from '@/components/SiteShell';
 import HomeServicesSection from '@/components/home/HomeServicesSection';
-import BlogPreview from '@/components/marketing/BlogPreview';
+import HomeTransitionSection from '@/components/home/HomeTransitionSection';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import CheckIcon from '@/components/ui/CheckIcon';
 import EditorialIllustration from '@/components/ui/EditorialIllustration';
@@ -12,11 +14,7 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
-import { normalizeBlogCategory } from '@/lib/blogCategories';
-import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { isTransientPrismaConnectionError } from '@/lib/server/prismaConnection';
-import prisma from '@/lib/server/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,24 +28,6 @@ export const metadata = buildMarketingMetadata({
 });
 
 type SearchParams = Promise<{ error?: string }> | undefined;
-
-type InsightPreview = {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  excerpt: string | null;
-  content: string;
-  featuredImageUrl: string | null;
-  coverImage: string | null;
-  featuredImage: {
-    url: string;
-  } | null;
-  publishedAt: Date | null;
-  scheduledFor: Date | null;
-  createdAt: Date;
-  readingTime: number | null;
-};
 
 type TimelineStep = {
   stepLabel: string;
@@ -220,6 +200,30 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   },
 ] as const;
 
+const authorityStripLogos = [
+  {
+    src: '/assets/logos/strolleria.png',
+    alt: 'Strolleria logo',
+    width: 1844,
+    height: 457,
+    className: 'max-h-6',
+  },
+  {
+    src: '/assets/brand/potterybarnkids.png',
+    alt: 'Pottery Barn Kids logo',
+    width: 1101,
+    height: 152,
+    className: 'max-h-5',
+  },
+  {
+    src: '/assets/brand/totsquad.png',
+    alt: 'Target Baby Concierge powered by Tot Squad logo',
+    width: 1065,
+    height: 228,
+    className: 'max-h-6',
+  },
+] as const;
+
 const preparationPartners: PreparationPartner[] = [
   {
     name: 'AZ Childproofers',
@@ -246,74 +250,6 @@ const preparationPartners: PreparationPartner[] = [
     logoClassName: 'max-h-8',
   },
 ] as const;
-
-const stripMarkdown = (value: string) =>
-  value
-    .replace(/```[\s\S]*?```/g, ' ')
-    .replace(/`[^`]*`/g, ' ')
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/^#{1,6}\s+/gm, '')
-    .replace(/[*_~>#]/g, '')
-    .replace(/\r?\n+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-const toInsightExcerpt = (excerpt: string | null, content: string, maxLength = 170) => {
-  if (excerpt?.trim()) {
-    return excerpt.trim();
-  }
-
-  const clean = stripMarkdown(content);
-  if (!clean) {
-    return '';
-  }
-
-  return clean.length > maxLength ? `${clean.slice(0, maxLength - 1)}...` : clean;
-};
-
-const formatInsightDate = (value: Date) =>
-  value.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
-async function loadHomepageInsightPreviews(now: Date) {
-  try {
-    return (await prisma.post.findMany({
-      where: getPublicPostWhere(now),
-      orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-      take: 3,
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        category: true,
-        excerpt: true,
-        content: true,
-        readingTime: true,
-        featuredImageUrl: true,
-        coverImage: true,
-        featuredImage: {
-          select: {
-            url: true,
-          },
-        },
-        publishedAt: true,
-        scheduledFor: true,
-        createdAt: true,
-      },
-    })) as InsightPreview[];
-  } catch (error) {
-    if (!isTransientPrismaConnectionError(error)) {
-      throw error;
-    }
-
-    console.error('Homepage journal preview unavailable because the database could not be reached.', error);
-    return [];
-  }
-}
 
 function TimelineStepCard({ stepLabel, title, description, emphasis, bullets }: TimelineStep) {
   return (
@@ -424,8 +360,6 @@ function PreparationPartnerCard({ partner }: { partner: PreparationPartner }) {
 
 export default async function HomePage({ searchParams }: { searchParams?: SearchParams }) {
   const params = searchParams ? await searchParams : undefined;
-  const now = new Date();
-  const insightPreviews = await loadHomepageInsightPreviews(now);
 
   return (
     <SiteShell currentPath="/">
@@ -443,6 +377,11 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           imageAlt="Curated baby gear arranged for planning and comparison"
           contentClassName="homepage-hero-content"
           staggerContent
+        />
+
+        <HomeAuthorityStrip
+          text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
+          logos={authorityStripLogos}
         />
 
         <section className="bg-white py-12 md:py-20">
@@ -512,26 +451,35 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           </div>
         </section>
 
-        <section className="bg-white pt-4 pb-28 md:pt-6 lg:pt-8">
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionIntro
-              spacing="tight"
-              title="Trusted Preparation Partners"
-              description="Taylor-Made Baby works alongside trusted specialists to help families prepare safely and confidently."
-              contentWidthClassName="max-w-4xl"
-            />
+        <HomeTransitionSection
+          eyebrow="Why this exists"
+          title="Most parents don't need more options. They need clarity."
+          body="That's what this is designed to provide."
+          secondaryLine="A calmer point of view, a shorter path through the noise, and help that still feels practical when life gets busy."
+          tone="linen"
+          cta={{ href: '/guides/strollers', label: 'Explore real product guidance' }}
+        />
 
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {preparationPartners.map((partner) => (
-                <PreparationPartnerCard key={partner.name} partner={partner} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <HomeServicesSection />
+
+        <HomeTransitionSection
+          eyebrow="What this solves"
+          title="Instead of guessing, overbuying, or second-guessing every decision..."
+          body="This gives you a clear path forward."
+          secondaryLine="Not louder advice. Just a better sequence for figuring out what actually fits your life."
+          tone="ivory"
+          cta={{ href: '/guides', label: 'Not sure where to begin? Start here' }}
+        />
+
+        <HomeEditorialBreak
+          imageSrc="/assets/editorial/registry.jpg"
+          imageAlt="Registry planning notebook and checklist on a linen table."
+          tone="linen"
+        />
 
         <section
           id="journey"
-          className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-24 md:py-28"
+          className="bg-[linear-gradient(180deg,#fffdfb_0%,#f8f2ea_100%)] py-24 md:py-28"
         >
           <div className="mx-auto max-w-6xl px-6">
             <SectionIntro
@@ -542,21 +490,34 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
             />
 
             <div className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {journeySteps.map((step) => (
-                <MarketingSurface
-                  key={step.stepLabel}
-                  className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]"
-                >
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                    {step.stepLabel}
-                  </p>
-                  <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                    {step.title}
-                  </h3>
-                  <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{step.description}</p>
-                </MarketingSurface>
+              {journeySteps.map((step, index) => (
+                <RevealOnScroll key={step.stepLabel} delayMs={index * 70}>
+                  <MarketingSurface className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                      {step.stepLabel}
+                    </p>
+                    <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                      {step.title}
+                    </h3>
+                    <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{step.description}</p>
+                  </MarketingSurface>
+                </RevealOnScroll>
               ))}
             </div>
+
+            <RevealOnScroll delayMs={180}>
+              <div className="mt-10 flex justify-center">
+                <Link
+                  href="/guides"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+                >
+                  Start with the Guides
+                  <span aria-hidden="true" className="ml-2">
+                    →
+                  </span>
+                </Link>
+              </div>
+            </RevealOnScroll>
           </div>
         </section>
 
@@ -577,35 +538,81 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
             </div>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {timelineSteps.map((step) => (
-                <TimelineStepCard key={step.stepLabel} {...step} />
+              {timelineSteps.map((step, index) => (
+                <RevealOnScroll key={step.stepLabel} delayMs={index * 70}>
+                  <TimelineStepCard {...step} />
+                </RevealOnScroll>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-white py-28">
+        <section className="bg-white py-24 md:py-28">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="overflow-hidden rounded-[2rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] shadow-[0_22px_55px_rgba(0,0,0,0.06)]">
+            <SectionIntro
+              spacing="tight"
+              title="Trusted Preparation Partners"
+              description="Taylor-Made Baby works alongside trusted specialists to help families prepare safely and confidently."
+              contentWidthClassName="max-w-4xl"
+            />
+
+            <div className="mt-10 grid gap-8 md:grid-cols-3">
+              {preparationPartners.map((partner, index) => (
+                <RevealOnScroll key={partner.name} delayMs={index * 70}>
+                  <PreparationPartnerCard partner={partner} />
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fbf7f3_0%,#f2e9e1_100%)] py-28">
+          <div className="pointer-events-none absolute inset-x-0 top-8 h-40 bg-[radial-gradient(circle_at_center,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_72%)] blur-3xl" />
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="relative overflow-hidden rounded-[2.35rem] border border-[rgba(215,161,175,0.24)] bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(253,247,248,0.96)_48%,rgba(249,243,238,0.98)_100%)] shadow-[0_28px_72px_rgba(65,46,53,0.08)]">
+              <div className="pointer-events-none absolute right-[-4rem] top-[-3rem] h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_72%)]" />
+              <div className="pointer-events-none absolute left-[-3rem] bottom-[-4rem] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(196,156,94,0.12)_0%,rgba(196,156,94,0)_72%)]" />
               <RevealOnScroll>
-                <div className="px-6 py-8 sm:px-8 md:py-10">
+                <div className="relative grid gap-8 px-6 py-8 sm:px-8 md:px-10 md:py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
                   <div className="max-w-3xl">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Learning Hub
+                      Guides
                     </p>
-                    <h3 className="mt-4 font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 sm:text-[2.35rem]">
-                      Start with learning.
+                    <h3 className="mt-4 max-w-[14ch] font-serif text-[2.2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
+                      Start with the Guides.
                     </h3>
-                    <p className="mt-5 max-w-none text-[1rem] leading-8 text-neutral-700">
-                      Every confident registry begins with understanding the options.
+                    <p className="mt-5 max-w-[40rem] text-[1.02rem] leading-8 text-neutral-700">
+                      If you are not ready to book anything yet, this is the best place to begin.
                     </p>
-                    <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
-                      The Taylor-Made Baby Learning Hub helps families explore baby gear categories, nursery planning,
-                      and postpartum preparation before making purchasing decisions.
+                    <p className="mt-4 max-w-[42rem] text-[1.02rem] leading-8 text-neutral-700">
+                      TMBC Guides walk you through strollers, car seats, registry planning, and nursery decisions in a calmer order, so you can understand what matters before you buy anything.
                     </p>
-                    <Link href="/learn" className="btn btn--primary mt-8">
-                      Enter the Learning Hub
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {['Strollers', 'Car Seats', 'Registry Planning', 'Nursery'].map((topic) => (
+                        <span
+                          key={topic}
+                          className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(215,161,175,0.22)] bg-white/78 px-4 py-2 text-sm text-charcoal shadow-sm"
+                        >
+                          {topic}
+                        </span>
+                      ))}
+                    </div>
+                    <Link href="/guides" className="btn btn--primary mt-8">
+                      Explore the Guides
                     </Link>
+                  </div>
+
+                  <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.2)] bg-white/88 p-5 shadow-[0_16px_36px_rgba(65,46,53,0.06)]">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                      Best place to begin
+                    </p>
+                    <p className="mt-4 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
+                      Start with your question, not the product list.
+                    </p>
+                    <div className="mt-5 space-y-3 text-sm leading-7 text-neutral-700">
+                      <p>Use the hub when you want calmer answers before you commit to anything.</p>
+                      <p>Pick the category that feels the most immediate and let the rest narrow from there.</p>
+                    </div>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -613,12 +620,28 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           </div>
         </section>
 
-        <HomeServicesSection />
+        <HomeEditorialBreak
+          imageSrc="/assets/editorial/toys-rainbow.png"
+          imageAlt="Soft editorial still life with baby toys and a rainbow motif."
+          tone="blush"
+        />
+
+        <HomeTransitionSection
+          eyebrow="A calmer next step"
+          title="Most families come to me feeling unsure where to start."
+          body="This is where we make it simple."
+          secondaryLine="We'll figure out what actually fits your life."
+          tone="blush"
+          titleClassName="max-w-[22ch]"
+        />
 
         <section
           id="request-a-consult"
           className="relative z-10 overflow-visible bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] pt-28 pb-8 md:pb-10"
         >
+          <div className="pointer-events-none absolute left-1/2 top-0 z-30 w-screen -translate-x-1/2 -translate-y-1/2">
+            <RibbonDivider />
+          </div>
           <div className="relative z-20 mx-auto max-w-6xl px-6">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(20rem,1fr)] lg:items-start lg:gap-12 xl:gap-16">
               <RevealOnScroll>
@@ -671,35 +694,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
               </RevealOnScroll>
             </div>
           </div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-[-2.9rem] z-10 w-full overflow-hidden md:bottom-[-3.6rem]">
-            <RibbonDivider
-              className="mx-auto w-full max-w-none"
-              showGlow={false}
-              imageClassName="h-[5rem] w-full object-cover object-center md:h-[6rem] lg:h-[6.5rem] drop-shadow-none"
-            />
-          </div>
         </section>
-
-        <BlogPreview
-          className="homepage-post-bow-section"
-          eyebrow=""
-          title="From the Journal"
-          description="A few recent notes on baby gear, registry strategy, and practical preparation."
-          linkLabel="Visit the Journal"
-          linkHref="/journal"
-          emptyMessage="Fresh journal posts will appear here as TMBC continues building the editorial library."
-          posts={insightPreviews.slice(0, 2).map((post) => ({
-            id: post.id,
-            title: post.title,
-            slug: post.slug,
-            category: normalizeBlogCategory(post.category),
-            excerpt: toInsightExcerpt(post.excerpt, post.content),
-            coverImage: post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
-            dateLabel: formatInsightDate(getPostDisplayDate(post)),
-            dateTime: getPostDisplayDate(post).toISOString(),
-            readingTime: post.readingTime,
-          }))}
-        />
       </main>
     </SiteShell>
   );

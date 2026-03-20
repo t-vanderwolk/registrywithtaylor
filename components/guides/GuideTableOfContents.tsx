@@ -42,15 +42,15 @@ export default function GuideTableOfContents({
     <>
       {showMobile ? (
         <div className="lg:hidden">
-          <div className="rounded-[1.5rem] border border-black/6 bg-white/88 p-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)]">
-            <label htmlFor="guide-toc-select" className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">
+          <div className="rounded-2xl border border-black/6 bg-white p-5 shadow-sm">
+            <label htmlFor="guide-toc-select" className="text-xs uppercase tracking-[0.2em] text-black/48">
               On this page
             </label>
             <select
               id="guide-toc-select"
               defaultValue=""
               onChange={handleSelectChange}
-              className="mt-3 w-full rounded-xl border border-black/8 bg-[rgba(248,243,238,0.92)] px-4 py-3 text-sm text-neutral-800 outline-none"
+              className="mt-3 min-h-[44px] w-full rounded-xl border border-black/8 bg-[rgba(248,243,238,0.92)] px-4 py-3 text-base text-neutral-800 outline-none"
             >
               <option value="" disabled>
                 Jump to a section
@@ -70,14 +70,14 @@ export default function GuideTableOfContents({
           <div
             className={
               layout === 'band'
-                ? 'sticky top-24 z-20 rounded-[1.85rem] border border-[rgba(196,156,94,0.18)] bg-white/88 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.05)] backdrop-blur-[6px] xl:p-5'
-                : 'sticky top-28 max-h-[calc(100vh-8rem)] overflow-auto rounded-[1.6rem] border border-black/6 bg-white/90 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)]'
+                ? 'sticky top-24 z-20 rounded-2xl border border-[rgba(196,156,94,0.18)] bg-white p-5 shadow-sm backdrop-blur-[6px]'
+                : 'sticky top-28 max-h-[calc(100vh-8rem)] overflow-auto rounded-2xl border border-black/6 bg-white p-5 shadow-sm'
             }
           >
             <div className={layout === 'band' ? 'flex items-center justify-between gap-4' : ''}>
-              <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">On this page</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-black/48">On this page</p>
               {layout === 'band' ? (
-                <p className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/72">
+                <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/72">
                   Jump through the guide
                 </p>
               ) : null}
@@ -96,12 +96,12 @@ export default function GuideTableOfContents({
                   href={`${currentPath}#${item.id}`}
                   className={
                     layout === 'band'
-                      ? `shrink-0 rounded-full border px-4 py-2.5 text-sm leading-6 text-neutral-700 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.28)] hover:bg-white hover:text-neutral-900 ${
+                      ? `shrink-0 rounded-full border px-4 py-2.5 text-base leading-relaxed text-neutral-700 transition hover:-translate-y-0.5 hover:border-[rgba(196,156,94,0.28)] hover:bg-white hover:text-neutral-900 ${
                           item.level === 3
                             ? 'border-black/6 bg-[rgba(252,247,242,0.66)] text-black/58'
                             : 'border-[rgba(196,156,94,0.18)] bg-[rgba(255,251,247,0.96)]'
                         }`
-                      : `block rounded-[1rem] px-3 py-2 text-sm leading-6 text-neutral-700 transition hover:bg-[rgba(248,243,238,0.9)] hover:text-neutral-900 ${
+                      : `block rounded-xl px-3 py-3 text-base leading-relaxed text-neutral-700 transition hover:bg-[rgba(248,243,238,0.9)] hover:text-neutral-900 ${
                           item.level === 3 ? 'pl-6 text-black/58' : 'bg-[rgba(252,247,242,0.72)]'
                         }`
                   }

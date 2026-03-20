@@ -263,7 +263,11 @@ export default async function GuideArticleView({
           nextStepCtaHref: guide.nextStepCtaHref || undefined,
           nextStepCtaLabel: guide.nextStepCtaLabel || undefined,
         }}
+        relatedGuides={relatedGuides}
         preview={preview}
+        sourceRoute={sourceRoute}
+        displayDate={displayDate}
+        readingTime={readingTime}
       />
     </>
   );

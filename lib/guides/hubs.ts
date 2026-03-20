@@ -1,5 +1,6 @@
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import type { GuideCardItem } from '@/lib/guides/presentation';
+import { getRegistrySubGuideGridItems, REGISTRY_SUBGUIDE_PATHS } from '@/lib/guides/registrySubguides';
 import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { getGuidePath } from '@/lib/guides/routing';
 
@@ -146,6 +147,8 @@ function anchor(path: string, id: string) {
 }
 
 function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfig> {
+  const registryGridItems = getRegistrySubGuideGridItems();
+
   return {
     'best-strollers': {
       cardsTitle: 'Explore stroller types',
@@ -335,85 +338,60 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
     },
     'minimalist-baby-registry': {
       cardsTitle: 'Explore registry sub-guides',
-      cardsDescription: 'Use these planning lanes to edit the list by system, timing, and what your home can realistically support.',
-      cards: [
-        {
-          title: 'Minimalist Registry',
-          description: 'For parents who want fewer items, clearer priorities, and less digital clutter pretending to be preparation.',
-          href: anchor(currentPath, 'how-to-choose-the-right-option'),
-          icon: 'strategy',
-        },
-        {
-          title: 'Registry Essentials',
-          description: 'For the systems that matter first: sleep, feeding, diapering, mobility, and recovery.',
-          href: anchor(currentPath, 'major-types-and-categories'),
-          icon: 'checklist',
-        },
-        {
-          title: 'Registry Mistakes',
-          description: 'For overbuying, duplication, and the categories that quietly become storage problems later.',
-          href: anchor(currentPath, 'common-mistakes-parents-make'),
-          icon: 'book',
-        },
-        {
-          title: 'Registry Strategy',
-          description: 'For the bigger editorial lens on what belongs now, what can wait, and how to keep the list grounded.',
-          href: SUPPORT_PATHS.registryEditorial,
-          icon: 'strategy',
-        },
-        {
-          title: 'Registry Planning Timeline',
-          description: 'For deciding what to register before birth and what makes more sense to revisit later.',
-          href: anchor(currentPath, 'planning-tips'),
-          icon: 'calendar',
-        },
-      ],
+      cardsDescription: 'Use these planning lanes to move from one big registry question into a specific next decision.',
+      cards: registryGridItems.map((item) => ({
+        title: item.title,
+        description: item.description,
+        href: item.path,
+        icon: item.icon,
+        bestFor: item.laneLabel,
+      })),
       decisionHelperTitle: 'Build around the friction, not the algorithm',
-      decisionHelperDescription: 'When a registry starts getting long, the fastest fix is usually deciding which daily problem the item is supposed to solve.',
+      decisionHelperDescription: 'When the list starts growing too fast, start with the lane that answers the clearest practical question first.',
       decisionItems: [
         {
-          title: 'If your home is tight on space',
+          title: 'If you want a tighter list',
           description: 'Start with the minimalist path.',
-          href: anchor(currentPath, 'scenario-one-the-small-space-family'),
-          icon: 'small-space',
+          href: REGISTRY_SUBGUIDE_PATHS.minimalist,
+          icon: 'strategy',
         },
         {
-          title: 'If you need the core categories first',
-          description: 'Open registry essentials.',
-          href: anchor(currentPath, 'major-types-and-categories'),
+          title: 'If you need the basics first',
+          description: 'Open the essentials guide.',
+          href: REGISTRY_SUBGUIDE_PATHS.essentials,
           icon: 'checklist',
         },
         {
-          title: 'If your list is growing faster than your confidence',
-          description: 'Go straight to registry mistakes.',
-          href: anchor(currentPath, 'common-mistakes-parents-make'),
-          icon: 'book',
+          title: 'If the list already feels messy',
+          description: 'Review the common mistakes first.',
+          href: REGISTRY_SUBGUIDE_PATHS.mistakes,
+          icon: 'shield',
         },
         {
-          title: 'If you are deciding what can wait',
-          description: 'Jump to planning tips.',
-          href: anchor(currentPath, 'planning-tips'),
+          title: 'If timing is the main issue',
+          description: 'Start with when to buy what.',
+          href: REGISTRY_SUBGUIDE_PATHS.timeline,
           icon: 'calendar',
         },
       ],
       supportLinks: [
         {
-          title: 'The Art of the Registry',
-          description: 'A quieter editorial read on building a registry with intention instead of volume.',
-          href: SUPPORT_PATHS.registryEditorial,
+          title: 'Where to Register & Why',
+          description: 'Compare Target, Amazon, Babylist, and the tradeoffs between convenience, perks, and returns.',
+          href: REGISTRY_SUBGUIDE_PATHS['where-to-register'],
+          icon: 'bag',
+        },
+        {
+          title: 'When to Buy What',
+          description: 'Use timing to decide what belongs on the early list and what is better saved for later.',
+          href: REGISTRY_SUBGUIDE_PATHS.timeline,
+          icon: 'calendar',
+        },
+        {
+          title: 'Free Registry Perks & Welcome Boxes',
+          description: 'Sort the discounts, welcome boxes, and stacking rules without letting perks drive the whole plan.',
+          href: REGISTRY_SUBGUIDE_PATHS.perks,
           icon: 'book',
-        },
-        {
-          title: 'Nursery Guide',
-          description: 'Helpful once the registry starts crossing into furniture, storage, and room-flow decisions.',
-          href: PILLAR_PATHS.nursery,
-          icon: 'home',
-        },
-        {
-          title: 'Car Seat Guide',
-          description: 'A good next step when the registry is getting held hostage by mobility decisions.',
-          href: PILLAR_PATHS.carSeats,
-          icon: 'carseat',
         },
       ],
     },

@@ -1,4 +1,6 @@
 import PageViewTracker from '@/components/analytics/PageViewTracker';
+import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
+import RibbonDivider from '@/components/layout/RibbonDivider';
 import SiteShell from '@/components/SiteShell';
 import CTASection from '@/components/marketing/CTASection';
 import ServiceCards from '@/components/marketing/ServiceCards';
@@ -140,12 +142,24 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
+        <HomeEditorialBreak
+          imageSrc="/assets/editorial/stroller-folds.jpg"
+          imageAlt="A stroller being folded in a calm editorial moment that emphasizes real-life gear use."
+          tone="linen"
+        />
+
         <ServiceCards
           packages={servicePackages}
           eyebrow="Ways to work with Taylor"
           title="Choose the level of advisor support that matches the decisions in front of you."
           description="The packages are designed around how much judgment and planning support you want in the mix, from one focused decision to full baby-preparation guidance."
         />
+
+        <div className="relative z-10 h-0 overflow-visible">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
+            <RibbonDivider />
+          </div>
+        </div>
 
         <MarketingSection tone="ivory" spacing="spacious">
           <SectionIntro
@@ -169,6 +183,12 @@ export default function ServicesPage() {
             ))}
           </div>
         </MarketingSection>
+
+        <HomeEditorialBreak
+          imageSrc="/assets/editorial/nursery.jpg"
+          imageAlt="Neutral nursery with crib, dresser, chair, and soft natural light."
+          tone="blush"
+        />
 
         <MarketingSection tone="white" spacing="spacious">
           <SectionIntro

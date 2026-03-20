@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import CheckIcon from '@/components/ui/CheckIcon';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 
 type HomeServiceKey = 'focused-edit' | 'signature-plan' | 'private-concierge';
@@ -27,26 +28,15 @@ const homeServiceCards: HomeServiceCard[] = [
     eyebrow: 'One Decision',
     title: 'Focused Edit',
     subtitle: '90-minute private consultation',
-    description:
-      'Perfect for families who need clarity around a few key baby gear or registry decisions.',
+    description: 'For families who want clarity on a few high-stakes gear or registry decisions.',
     detailGroups: [
       {
         title: 'Common topics include',
-        items: [
-          'stroller comparisons',
-          'car seat selection',
-          'registry review',
-          'nursery planning',
-          'baby gear troubleshooting',
-        ],
+        items: ['stroller comparisons', 'car seat selection', 'registry review', 'nursery planning'],
       },
       {
         title: "You'll leave with",
-        items: [
-          'clear product recommendations',
-          'a simplified registry strategy',
-          'practical next steps for preparation',
-        ],
+        items: ['clear product recommendations', 'a simpler next-step plan'],
       },
     ],
     availability: 'Available virtually or in person.',
@@ -56,8 +46,7 @@ const homeServiceCards: HomeServiceCard[] = [
     eyebrow: 'Full Baby Prep',
     title: 'Signature Edit',
     subtitle: 'Complete baby planning experience',
-    description:
-      'A guided planning process designed to help families prepare their registry, nursery, and home with clarity.',
+    description: 'A guided planning process for families who want registry, nursery, and home prep decisions to work together.',
     detailGroups: [
       {
         title: 'Includes',
@@ -65,13 +54,12 @@ const homeServiceCards: HomeServiceCard[] = [
           'three 90-minute planning sessions',
           'personalized registry blueprint',
           'complimentary in-home babyproofing walkthrough',
-          'Taylor-Made safety quote via AZ Childproofers',
-          'car seat installation guidance with CPST partner',
+          'safety planning through trusted partners',
         ],
       },
     ],
     availability: 'Available virtually or in person.',
-    badge: 'Most Popular',
+    badge: 'Most popular',
     featured: true,
   },
   {
@@ -79,8 +67,7 @@ const homeServiceCards: HomeServiceCard[] = [
     eyebrow: 'Ongoing Support',
     title: 'Private Concierge',
     subtitle: 'Ongoing planning support',
-    description:
-      'Designed for families who want hands-on support throughout pregnancy and early parenthood.',
+    description: 'For families who want hands-on support through pregnancy, setup, and early transitions.',
     detailGroups: [
       {
         title: 'Includes everything in',
@@ -90,8 +77,7 @@ const homeServiceCards: HomeServiceCard[] = [
         title: 'Plus',
         items: [
           'ongoing planning support',
-          'guidance through gear upgrades and transitions',
-          'preparation for a second child',
+          'guidance through gear transitions',
           'priority access for additional questions',
         ],
       },
@@ -104,7 +90,7 @@ function ServiceDetailCard({ title, items }: ServiceDetailGroup) {
   return (
     <div className="rounded-2xl border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-4">
       <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">{title}</p>
-      <div className="mt-4 space-y-3">
+      <div className="mt-4 space-y-2.5">
         {items.map((item) => (
           <div key={item} className="flex items-start gap-4">
             <CheckIcon frameClassName="mt-0.5" />
@@ -123,59 +109,99 @@ export default function HomeServicesSection() {
         <SectionIntro
           spacing="tight"
           title="Services"
-          description="All consultations are available virtually or in person."
+          description="Private support for families who want clearer decisions, calmer prep, and a registry that fits real life."
           contentWidthClassName="max-w-4xl"
         />
 
-        <div className="mt-8 grid gap-5 sm:mt-12 sm:gap-6 lg:grid-cols-3">
-          {homeServiceCards.map((service) => (
-            <article
-              key={service.key}
-              className={[
-                'flex h-full flex-col rounded-[1.75rem] border bg-white p-5 shadow-sm sm:rounded-2xl sm:p-7',
-                service.featured ? 'border-[rgba(216,137,160,0.34)]' : 'border-[rgba(0,0,0,0.06)]',
-              ].join(' ')}
-            >
-              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                  {service.eyebrow}
-                </p>
-                {service.badge ? (
-                  <span className="self-start rounded-full border border-[rgba(196,156,94,0.28)] bg-white px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
-                    {service.badge}
-                  </span>
-                ) : null}
-              </div>
-
-              <div
+        <div className="mt-8 grid gap-6 sm:mt-12 sm:gap-8 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.08fr)_minmax(0,0.96fr)] lg:items-stretch">
+          {homeServiceCards.map((service, index) => (
+            <RevealOnScroll key={service.key} delayMs={index * 70}>
+              <article
                 className={[
-                  'mt-4 rounded-[1.4rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-5',
-                  service.featured ? 'bg-[linear-gradient(180deg,#ffffff_0%,#fff1f4_100%)] text-center' : '',
+                  'flex h-full flex-col rounded-[1.75rem] border bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(55,40,46,0.08)] sm:rounded-2xl sm:p-7',
+                  service.featured
+                    ? 'relative border-[rgba(216,137,160,0.34)] shadow-[0_24px_70px_rgba(216,137,160,0.12)] lg:-translate-y-2 lg:scale-[1.02]'
+                    : 'border-[rgba(0,0,0,0.06)]',
                 ].join(' ')}
               >
-                <h3 className="font-serif text-[1.5rem] leading-[1.06] tracking-[-0.035em] text-neutral-900 sm:text-[1.75rem]">
-                  {service.title}
-                </h3>
-                <p className="mt-2 max-w-none text-[0.95rem] leading-7 text-neutral-600">{service.subtitle}</p>
-              </div>
+                {service.featured ? (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-[16%] top-5 h-16 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_74%)] blur-2xl"
+                  />
+                ) : null}
 
-              <p className="mt-5 max-w-none text-[0.98rem] leading-7 text-neutral-700">{service.description}</p>
+                <div className="relative">
+                  {service.badge ? (
+                    <p className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/78">
+                      {service.badge}
+                    </p>
+                  ) : null}
 
-              <div className="mt-5 space-y-5">
-                {service.detailGroups.map((group) => (
-                  <ServiceDetailCard key={`${service.key}-${group.title}`} {...group} />
-                ))}
-              </div>
+                  <div className="flex flex-col items-start gap-3">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                      {service.eyebrow}
+                    </p>
+                  </div>
 
-              <div className="mt-auto pt-6">
-                <p className="text-sm text-neutral-500">{service.availability}</p>
-                <Link href={`/contact?service=${service.key}`} className="btn btn--primary mt-4 w-full justify-center pt-0">
-                  Start a Consultation
-                </Link>
-              </div>
-            </article>
+                  <div
+                    className={[
+                      'mt-4 rounded-[1.4rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-5',
+                      service.featured ? 'bg-[linear-gradient(180deg,#ffffff_0%,#fff1f4_100%)] text-center shadow-[0_14px_34px_rgba(216,137,160,0.08)]' : '',
+                    ].join(' ')}
+                  >
+                    <h3
+                      className={[
+                        'font-serif leading-[1.06] tracking-[-0.035em] text-neutral-900',
+                        service.featured ? 'text-[1.72rem] sm:text-[2rem]' : 'text-[1.5rem] sm:text-[1.75rem]',
+                      ].join(' ')}
+                    >
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 max-w-none text-[0.95rem] leading-7 text-neutral-600">{service.subtitle}</p>
+                  </div>
+
+                  <p className="mt-5 max-w-none text-[0.98rem] leading-7 text-neutral-700">{service.description}</p>
+
+                  <div className="mt-6 space-y-5">
+                    {service.detailGroups.map((group) => (
+                      <ServiceDetailCard key={`${service.key}-${group.title}`} {...group} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-8">
+                  <p className="text-sm text-neutral-500">{service.availability}</p>
+                  <Link
+                    href={`/contact?service=${service.key}`}
+                    className={[
+                      'mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 hover:scale-[1.01]',
+                      service.featured
+                        ? 'bg-[var(--color-accent-dark)] text-white shadow-[0_16px_34px_rgba(55,40,46,0.12)]'
+                        : 'border border-[rgba(196,156,94,0.18)] bg-white text-neutral-900 hover:shadow-sm',
+                    ].join(' ')}
+                  >
+                    Start a Consultation
+                  </Link>
+                </div>
+              </article>
+            </RevealOnScroll>
           ))}
         </div>
+
+        <RevealOnScroll delayMs={180}>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/guides/strollers"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+            >
+              Explore real product guidance
+              <span aria-hidden="true" className="ml-2">
+                →
+              </span>
+            </Link>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
   );

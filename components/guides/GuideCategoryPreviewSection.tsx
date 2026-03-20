@@ -83,12 +83,9 @@ export default function GuideCategoryPreviewSection({
                 </div>
               </div>
 
-              <div className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pr-1 lg:mt-5 lg:grid lg:grid-cols-3 lg:gap-4 lg:overflow-visible lg:pb-0 lg:pr-0">
+              <div className="mt-5 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {examples.map((example) => (
-                  <div
-                    key={`${title}-${example.name}`}
-                    className="min-w-[10.5rem] snap-start flex-1 sm:min-w-[13rem]"
-                  >
+                  <div key={`${title}-${example.name}`}>
                     <GuideProductExampleCard
                       name={example.name}
                       brand={example.brand}
@@ -97,6 +94,8 @@ export default function GuideCategoryPreviewSection({
                       imageAlt={example.imageAlt}
                       typeLabel={example.typeLabel}
                       bestFor={example.bestFor}
+                      standout={example.standout}
+                      whyItMatters={example.shortReview}
                       specGroups={example.specGroups}
                       notes={example.notes}
                     />
@@ -109,7 +108,7 @@ export default function GuideCategoryPreviewSection({
           {hasCta ? (
             <Link
               href={href!}
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-stone-200/80 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:border-[rgba(196,156,94,0.28)] hover:text-[var(--color-accent-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbf6f1] sm:mt-6 sm:w-auto sm:justify-start sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
+              className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbf6f1] sm:w-auto"
             >
               <span>{ctaLabel}</span>
               <span aria-hidden="true">-&gt;</span>

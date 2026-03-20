@@ -439,7 +439,11 @@ export default function PostContent({
             const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
 
             nodes.push(
-              <h2 key={`${postId}-h2-${i}`} id={headingId} className={`scroll-mt-24 ${variant === 'guide' ? 'text-3xl font-serif text-charcoal mb-6' : 'text-[var(--tmbc-blog-charcoal)]'}`}>
+              <h2
+                key={`${postId}-h2-${i}`}
+                id={headingId}
+                className={`scroll-mt-24 ${variant === 'guide' ? 'mb-6 text-2xl font-serif tracking-tight text-charcoal md:text-3xl' : 'text-[var(--tmbc-blog-charcoal)]'}`}
+              >
                 {renderInlineContent(headingText, `${postId}-h2-inline-${i}`)}
               </h2>,
             );
@@ -456,7 +460,11 @@ export default function PostContent({
             const headingId = nextHeadingCount === 0 ? baseHeadingId : `${baseHeadingId}-${nextHeadingCount + 1}`;
 
             nodes.push(
-              <h3 key={`${postId}-h3-${i}`} id={headingId} className={`scroll-mt-24 ${variant === 'guide' ? 'text-xl font-semibold text-charcoal mt-6 mb-4' : 'text-[var(--tmbc-blog-charcoal)]'}`}>
+              <h3
+                key={`${postId}-h3-${i}`}
+                id={headingId}
+                className={`scroll-mt-24 ${variant === 'guide' ? 'mt-6 mb-4 text-[1.25rem] font-serif tracking-tight text-charcoal md:text-[1.5rem]' : 'text-[var(--tmbc-blog-charcoal)]'}`}
+              >
                 {renderInlineContent(headingText, `${postId}-h3-inline-${i}`)}
               </h3>,
             );
@@ -609,7 +617,11 @@ export default function PostContent({
             nodes.push(
               <ul
                 key={`${postId}-ul-${i}`}
-                className={variant === 'guide' ? 'mt-6 ml-6 list-disc space-y-2 text-neutral-700' : 'mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'}
+                className={
+                  variant === 'guide'
+                    ? 'mt-6 ml-6 list-disc space-y-3 text-base leading-relaxed text-neutral-700 md:text-lg'
+                    : 'mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'
+                }
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ul-${i}-${index}`} className="pl-1">
@@ -633,7 +645,11 @@ export default function PostContent({
             nodes.push(
               <ol
                 key={`${postId}-ol-${i}`}
-                className={variant === 'guide' ? 'mt-6 ml-6 list-decimal space-y-2 text-neutral-700' : 'mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'}
+                className={
+                  variant === 'guide'
+                    ? 'mt-6 ml-6 list-decimal space-y-3 text-base leading-relaxed text-neutral-700 md:text-lg'
+                    : 'mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'
+                }
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ol-${i}-${index}`} className="pl-1">
@@ -670,7 +686,16 @@ export default function PostContent({
           if (paragraphLines.length > 0) {
             paragraphCount += 1;
             nodes.push(
-              <p key={`${postId}-p-${i}`} className={variant === 'guide' ? 'text-neutral-700 leading-relaxed mb-4' : (paragraphCount === 1 ? 'text-charcoal/85' : 'text-charcoal/85')}>
+              <p
+                key={`${postId}-p-${i}`}
+                className={
+                  variant === 'guide'
+                    ? 'mb-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg'
+                    : paragraphCount === 1
+                      ? 'text-charcoal/85'
+                      : 'text-charcoal/85'
+                }
+              >
                 {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
               </p>,
             );

@@ -1,9 +1,11 @@
 import CategoryGrid from '@/components/guides/CategoryGrid';
 import GuideComparisonBand from '@/components/guides/GuideComparisonBand';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
+import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
 import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
 import GuideDecisionSteps from '@/components/guides/GuideDecisionSteps';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
+import GuidePageSection from '@/components/guides/GuidePageSection';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import HubDecisionCards from '@/components/guides/HubDecisionCards';
@@ -50,6 +52,7 @@ export default function GuideDecisionSystemHub({
     <>
       <GuideScrollProgress />
       <HubHero
+        parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
         eyebrow={config.hero.eyebrow}
         title={config.hero.title}
         description={config.hero.description}
@@ -59,78 +62,122 @@ export default function GuideDecisionSystemHub({
         jumpLinks={jumpLinks}
       />
 
-      <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto max-w-[1300px] px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-          <div className="space-y-6 sm:space-y-8 lg:space-y-16">
-            <HubDecisionCards
-              id="hub-start"
-              eyebrow={config.decisionCards.eyebrow}
-              title={config.decisionCards.title}
-              description={config.decisionCards.description}
-              cards={config.decisionCards.cards}
-            />
+      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
+        <GuideCTARibbon
+          eyebrow="Start here"
+          title="Begin with the lane that already sounds like your week."
+          description="This hub works best when you start with your routine, not the product names. Pick the path that sounds the most familiar and let the rest narrow from there."
+          primaryCta={
+            config.decisionCards.cards[0]
+              ? {
+                  href: config.decisionCards.cards[0].href,
+                  label: config.decisionCards.cards[0].title,
+                }
+              : null
+          }
+          secondaryCta={
+            config.decisionCards.cards[1]
+              ? {
+                  href: config.decisionCards.cards[1].href,
+                  label: config.decisionCards.cards[1].title,
+                }
+              : null
+          }
+        />
 
-            <CategoryGrid
-              id="hub-categories"
-              eyebrow={config.categoryGrid.eyebrow}
-              title={config.categoryGrid.title}
-              description={config.categoryGrid.description}
-              cards={config.categoryGrid.cards}
-            />
+        <HubDecisionCards
+          id="hub-start"
+          eyebrow={config.decisionCards.eyebrow}
+          title={config.decisionCards.title}
+          description={config.decisionCards.description}
+          cards={config.decisionCards.cards}
+        />
 
-            <div id="hub-fit-check" className="scroll-mt-28">
-              <GuideDecisionBlock {...config.fitCheck} />
-            </div>
+        <CategoryGrid
+          id="hub-categories"
+          eyebrow={config.categoryGrid.eyebrow}
+          title={config.categoryGrid.title}
+          description={config.categoryGrid.description}
+          cards={config.categoryGrid.cards}
+        />
+      </GuidePageSection>
 
-            <div id="hub-comparison" className="scroll-mt-28">
-              <GuideComparisonBand
-                eyebrow="Category comparison"
-                title={config.comparison.title}
-                description={config.comparison.description}
-                groups={config.comparison.groups}
-              />
-            </div>
+      <GuidePageSection tone="blush" innerClassName="space-y-12 md:space-y-16">
+        <div id="hub-fit-check" className="scroll-mt-28">
+          <GuideDecisionBlock {...config.fitCheck} />
+        </div>
 
-            {hubSteps.length > 0 ? (
-              <div id="hub-walkthrough" className="scroll-mt-28">
-                <GuideDecisionSteps
-                  eyebrow="Guided walkthrough"
-                  title="A quicker way to narrow it down."
-                  description="The key decisions are pulled forward here, so you can get oriented without reading the whole guide first."
-                  steps={hubSteps}
-                  mode="summary"
-                />
-              </div>
-            ) : null}
+        <div id="hub-comparison" className="scroll-mt-28">
+          <GuideComparisonBand
+            eyebrow="Category comparison"
+            title={config.comparison.title}
+            description={config.comparison.description}
+            groups={config.comparison.groups}
+          />
+        </div>
 
-            <div id="hub-examples" className="scroll-mt-28">
-              <ProductExampleGroup
-                eyebrow="Category examples"
-                title={config.productExamples.title}
-                description={config.productExamples.description}
-                groups={productExampleGroups}
-              />
-            </div>
-
-            <div id="hub-continue" className="scroll-mt-28">
-              <GuideContinueExploring
-                title={config.continueExploring.title}
-                description={config.continueExploring.description}
-                links={config.continueExploring.links}
-              />
-            </div>
-
-            {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
-
-            <GuideSoftConversionCta
-              title={config.softCta.title}
-              description={config.softCta.description}
-              href="/services"
-              ctaLabel="Learn about Taylor-Made Baby Planning"
+        {hubSteps.length > 0 ? (
+          <div id="hub-walkthrough" className="scroll-mt-28">
+            <GuideDecisionSteps
+              eyebrow="Guided walkthrough"
+              title="A quicker way to narrow it down."
+              description="The key decisions are pulled forward here, so you can get oriented without reading the whole guide first."
+              steps={hubSteps}
+              mode="summary"
             />
           </div>
+        ) : null}
+
+        <GuideCTARibbon
+          eyebrow="Keep going"
+          title="Need the shorter route?"
+          description="If you already know the general lane, jump straight into the next guide that gets you closest to a real shortlist."
+          primaryCta={
+            config.continueExploring.links[0]
+              ? {
+                  href: config.continueExploring.links[0].href,
+                  label: `Explore ${config.continueExploring.links[0].title}`,
+                }
+              : null
+          }
+          secondaryCta={
+            config.continueExploring.links[1]
+              ? {
+                  href: config.continueExploring.links[1].href,
+                  label: `Explore ${config.continueExploring.links[1].title}`,
+                }
+              : null
+          }
+        />
+      </GuidePageSection>
+
+      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
+        <div id="hub-examples" className="scroll-mt-28">
+          <ProductExampleGroup
+            eyebrow="Category examples"
+            title={config.productExamples.title}
+            description={config.productExamples.description}
+            groups={productExampleGroups}
+          />
         </div>
-      </section>
+
+        <div id="hub-continue" className="scroll-mt-28">
+          <GuideContinueExploring
+            title={config.continueExploring.title}
+            description={config.continueExploring.description}
+            links={config.continueExploring.links}
+          />
+        </div>
+
+        {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
+
+        <GuideSoftConversionCta
+          title={config.softCta.title}
+          description={config.softCta.description}
+          href="/services"
+          ctaLabel="Learn about Taylor-Made Baby Planning"
+        />
+      </GuidePageSection>
     </>
   );
 }
