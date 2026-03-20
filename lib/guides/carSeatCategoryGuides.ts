@@ -1,6 +1,8 @@
 import type { StrollerInteractivePlannerConfig } from '@/components/guides/GuideStrollerInteractivePlanner';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
+import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
+import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 import { CAR_SEAT_SYSTEM_PATHS } from '@/lib/guides/carSeatSystem';
 
 export const CAR_SEAT_CATEGORY_GUIDE_SLUGS = [
@@ -108,233 +110,36 @@ const BASE_CAR_SEAT_TOPIC_ICONS: Partial<Record<string, GuideHubIconKey>> = {
   'final-thoughts': 'book',
 };
 
-const INFANT_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
+function toGuideProductExample(product: GuideProductExampleData): CarSeatGuideProductExample {
+  return {
     type: 'product',
-    brand: 'Nuna',
-    productName: 'PIPA RX',
-    shortReview:
-      'A helpful infant example because it shows the category at its most straightforward: a portable newborn carrier built to make the early months easier to move through.',
-    pros: ['Portable newborn setup', 'Travel-system friendly', 'Straightforward infant logic'],
-    bestFor:
-      'Families who want classic infant-seat convenience and expect the click-in, carry-out rhythm to matter in actual life.',
-    standout: 'Newborn portability',
+    brand: product.brand ?? '',
+    productName: product.productName ?? product.name,
+    shortReview: product.shortReview ?? 'A useful example for understanding the category more clearly.',
+    pros:
+      product.pros && product.pros.length > 0
+        ? [...product.pros]
+        : product.notes && product.notes.length > 0
+          ? [...product.notes]
+          : ['A thoughtful example for this category.'],
+    bestFor: product.bestFor ?? 'Parents who want a clearer fit for this category.',
+    standout: product.standout ?? product.typeLabel ?? null,
     affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Nuna PIPA RX car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'UPPAbaby',
-    productName: 'Mesa V3',
-    shortReview:
-      'Useful because it shows how an infant seat can make the earliest stage feel smoother when stroller compatibility and easy day-to-day transitions are part of the plan.',
-    pros: ['Stroller-system logic', 'Portable infant category fit', 'Early-stage convenience'],
-    bestFor:
-      'Parents who want the infant-seat category to feel cohesive with the rest of their early stroller and appointment routine.',
-    standout: 'Travel-system ease',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'UPPAbaby Mesa V3 car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Clek',
-    productName: 'Liing',
-    shortReview:
-      'A strong category anchor because it keeps the infant conversation grounded in fit, installation confidence, and real newborn use instead of just carry-handle marketing.',
-    pros: ['Infant-seat clarity', 'Installation-minded example', 'Portable early-stage fit'],
-    bestFor:
-      'Families who still want an infant seat, but care just as much about setup quality and everyday confidence as they do about carrying the seat around.',
-    standout: 'Confidence in the infant lane',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Clek Liing car seat image',
-  },
-];
+    imageUrl: product.imageSrc ?? null,
+    imageAlt: product.imageAlt ?? null,
+    typeLabel: product.typeLabel ?? null,
+    specGroups: product.specGroups ? [...product.specGroups] : [],
+    notes: product.notes ? [...product.notes] : [],
+    ctaLabel: product.ctaLabel ?? null,
+  };
+}
 
-const CONVERTIBLE_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
-    type: 'product',
-    brand: 'Nuna',
-    productName: 'RAVA next',
-    shortReview:
-      'A useful convertible anchor because it shows the category at its cleanest: a seat that stays put and focuses on the long middle of car seat life rather than the portable newborn moment.',
-    pros: ['Stay-in-the-car logic', 'Long-run convertible fit', 'From-birth possibility'],
-    bestFor:
-      'Families who want to start with a seat that lives in the car and covers a long stretch of rear-facing and forward-facing use.',
-    standout: 'Long-run everyday seat',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Nuna RAVA next car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Britax',
-    productName: 'Poplar',
-    shortReview:
-      'Helpful here because it reinforces the convertible job description: not flashy portability, but a strong installed seat that earns its keep through everyday repetition.',
-    pros: ['Installed-seat category fit', 'Long-term convertible use', 'Daily-use focus'],
-    bestFor:
-      'Parents who are skipping the infant carrier stage or who care more about a strong everyday seat than about carrying the seat in and out.',
-    standout: 'Convertible clarity',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Britax Poplar car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Clek',
-    productName: 'Foonf',
-    shortReview:
-      'A good comparison point because it reminds parents that convertible is a broad lane. The category question comes first, then the specific flavor of convertible second.',
-    pros: ['Convertible comparison anchor', 'Installed-seat mindset', 'Category-range example'],
-    bestFor:
-      'Families who already know they want the convertible lane and now need to understand how different convertibles can still solve that same job differently.',
-    standout: 'Convertible comparison value',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Clek Foonf car seat image',
-  },
-];
-
-const ALL_IN_ONE_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
-    type: 'product',
-    brand: 'Nuna',
-    productName: 'EXEC next',
-    shortReview:
-      'A strong all-in-one example because it makes the promise of the category easy to see: one larger seat built for families thinking beyond the first stage.',
-    pros: ['Multi-stage runway', 'Long-view category fit', 'Planning-ahead logic'],
-    bestFor:
-      'Parents who are comfortable with a larger seat because they care more about long-term coverage than early portability.',
-    standout: 'Long-view planning seat',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Nuna EXEC next car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Britax',
-    productName: 'One4Life',
-    shortReview:
-      'Helpful because it shows the all-in-one category without pretending the seat is magically best at every stage. The value is the broad runway, not the absence of tradeoffs.',
-    pros: ['Multi-stage logic', 'One-seat-long-run framing', 'Big-picture category fit'],
-    bestFor:
-      'Families who want one seat to cover a longer arc and already know they are shopping for longevity more than newborn convenience.',
-    standout: 'Broad stage coverage',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Britax One4Life car seat image',
-  },
-];
-
-const BOOSTER_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
-    type: 'product',
-    brand: 'UPPAbaby',
-    productName: 'Alta V2',
-    shortReview:
-      'A good booster anchor because it keeps the category focused on the real job: belt positioning, comfort, and later-stage everyday usability instead of newborn-era habits.',
-    pros: ['Later-stage category fit', 'Booster-specific job', 'Clear next-stage framing'],
-    bestFor:
-      'Families who are no longer solving the harness stage and need a booster conversation that feels like its own category, not an afterthought.',
-    standout: 'High-back booster clarity',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'UPPAbaby Alta V2 booster seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Clek',
-    productName: 'Oobr',
-    shortReview:
-      'Useful here because it reinforces that booster shopping is still real shopping. The seat may be later-stage, but the right fit, comfort, and everyday use still matter.',
-    pros: ['Booster comparison value', 'Later-stage comfort focus', 'Clear belt-positioning lane'],
-    bestFor:
-      'Parents who are at the booster transition and want to understand the category as a real stage with its own tradeoffs and not just a quick checkbox.',
-    standout: 'Booster stage seriousness',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Clek Oobr booster seat image',
-  },
-];
-
-const ROTATING_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
-    type: 'product',
-    brand: 'CYBEX',
-    productName: 'Aton Swivel',
-    shortReview:
-      'Useful because it shows that rotation can start in the infant lane too. This is the example that keeps the conversation from collapsing into convertibles only.',
-    pros: ['Infant rotating example', 'Newborn-stage rotation', 'Stage-specific category clarity'],
-    bestFor:
-      'Families who want to understand what a rotating infant setup is actually solving before assuming every swivel seat lives in the same stage.',
-    standout: 'Infant rotating lane',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'CYBEX Aton Swivel car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Nuna',
-    productName: 'REVV maxx',
-    shortReview:
-      'A strong rotating convertible example because it shows the category at its most obvious: a seat built around easier loading in one heavily used vehicle.',
-    pros: ['Rotating convertible logic', 'Primary-car convenience', 'Daily buckle-in relief'],
-    bestFor:
-      'Families who want the swivel feature to matter every day in a primary car and are comfortable paying for convenience in that routine.',
-    standout: 'Rotating convertible lane',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Nuna REVV maxx car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'CYBEX',
-    productName: 'Callisto',
-    shortReview:
-      'Helpful here because it rounds out the rotating conversation with the longer-run all-in-one lane, where the swivel feature is still serving stage-specific convenience instead of acting like a category by itself.',
-    pros: ['Rotating all-in-one example', 'Longer-run swivel context', 'Stage-first comparison value'],
-    bestFor:
-      'Parents who want to compare rotation inside a longer multi-stage path, not just inside a dedicated convertible conversation.',
-    standout: 'Rotating all-in-one lane',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'CYBEX Callisto car seat image',
-  },
-];
-
-const TRAVEL_LIGHTWEIGHT_PRODUCT_EXAMPLES: CarSeatGuideProductExample[] = [
-  {
-    type: 'product',
-    brand: 'WAYB',
-    productName: 'Pico',
-    shortReview:
-      'A good reminder that travel and lightweight is not only a newborn conversation. Later-stage travel seats solve a very different problem once portability becomes the whole job.',
-    pros: ['Later-stage travel option', 'Movement-first design', 'Secondary-seat logic'],
-    bestFor:
-      'Families who are past the infant stage and need something genuinely easier for travel, carpools, grandparents, or occasional use.',
-    standout: 'Later-stage travel seat example',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'WAYB Pico car seat image',
-  },
-  {
-    type: 'product',
-    brand: 'Maxi-Cosi',
-    productName: 'Romi',
-    shortReview:
-      'Useful because it keeps the travel-and-lightweight lane grounded in what many families actually need: something simpler, smaller, and easier to move when the seat does not stay in one place.',
-    pros: ['Lightweight secondary-seat logic', 'Travel-friendly setup', 'Less-bulk option'],
-    bestFor:
-      'Families who need a genuinely easier seat for travel, grandparents, carpools, or occasional use beyond the infant stage.',
-    standout: 'Portable without overcomplicating the job',
-    affiliateLinks: [],
-    imageUrl: null,
-    imageAlt: 'Maxi-Cosi Romi car seat image',
-  },
-];
+const INFANT_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.infant.map(toGuideProductExample);
+const CONVERTIBLE_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.convertible.map(toGuideProductExample);
+const ALL_IN_ONE_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.allInOne.map(toGuideProductExample);
+const BOOSTER_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.booster.map(toGuideProductExample);
+const ROTATING_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.rotating.map(toGuideProductExample);
+const TRAVEL_LIGHTWEIGHT_PRODUCT_EXAMPLES = CAR_SEAT_PRODUCT_GROUPS.travelLightweight.map(toGuideProductExample);
 
 const INFANT_PLANNER = createPlannerConfig({
   title: 'Test whether the infant-seat lane actually fits your first stage',

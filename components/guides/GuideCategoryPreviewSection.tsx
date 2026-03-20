@@ -2,14 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PostContent from '@/components/blog/PostContent';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
+import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
-export type GuideCategoryPreviewExample = {
-  name: string;
-  brand?: string;
-  productName?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-};
+export type GuideCategoryPreviewExample = GuideProductExampleData;
 
 export default function GuideCategoryPreviewSection({
   id,
@@ -46,16 +41,16 @@ export default function GuideCategoryPreviewSection({
         <div className="min-w-0">
           <h3
             id={id}
-            className="scroll-mt-28 font-serif text-[1.42rem] leading-[1.04] tracking-tight text-neutral-900 sm:text-2xl md:text-3xl"
+            className="scroll-mt-28 max-w-[18ch] font-serif text-[1.42rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.92rem] md:text-[2.32rem]"
           >
             {title}
           </h3>
 
-          <div className="mt-4 max-w-3xl sm:mt-5">
+          <div className="mt-3.5 max-w-[42rem] sm:mt-4">
             <PostContent
               postId={postId}
               content={content}
-              className="guide-post-content stroller-guide-content guide-post-content--subsection"
+              className="guide-post-content stroller-guide-content guide-post-content--subsection guide-hub-preview-content"
               variant="plain"
               highlightBrandWordmark={true}
             />
@@ -83,8 +78,8 @@ export default function GuideCategoryPreviewSection({
             <>
               <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{examplesEyebrow}</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-700 sm:leading-7">{examplesDescription}</p>
+                  <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">{examplesEyebrow}</p>
+                  <p className="mt-1.5 max-w-[58ch] text-[1rem] leading-[1.74] text-neutral-700">{examplesDescription}</p>
                 </div>
               </div>
 
@@ -100,6 +95,10 @@ export default function GuideCategoryPreviewSection({
                       productName={example.productName}
                       imageSrc={example.imageSrc}
                       imageAlt={example.imageAlt}
+                      typeLabel={example.typeLabel}
+                      bestFor={example.bestFor}
+                      specGroups={example.specGroups}
+                      notes={example.notes}
                     />
                   </div>
                 ))}

@@ -8,6 +8,7 @@ import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
 import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
 import GuideStageProgression from '@/components/guides/GuideStageProgression';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { CAR_SEAT_SEQUENCE_NOTE } from '@/lib/guides/carSeatProductCatalog';
 import {
   CAR_SEAT_HUB_CONTEXT,
   CAR_SEAT_HUB_FIT_CHECK,
@@ -195,15 +196,15 @@ export default function GuideCarSeatHub({
 
                 <div className="relative space-y-5 sm:space-y-6">
                   <div className="space-y-3">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Stage-based guide</p>
-                    <h2 className="max-w-[11ch] font-serif text-[1.72rem] leading-[0.95] tracking-[-0.05em] text-neutral-900 sm:text-[2.45rem] md:text-[2.8rem]">
+                    <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">Stage-based guide</p>
+                    <h2 className="max-w-[12ch] font-serif text-[1.68rem] leading-[1] tracking-[-0.035em] text-neutral-900 sm:text-[2.25rem] md:text-[2.6rem]">
                       Start with the stage.
                     </h2>
                     <div className="max-w-[32rem]">
                       <PostContent
                         postId={`${guide.id}-lead`}
                         content={preface.leadParagraph}
-                        className="guide-post-content guide-hub-card-content"
+                        className="guide-post-content guide-hub-card-content guide-hub-card-content--compact"
                         variant="plain"
                         highlightBrandWordmark={true}
                       />
@@ -212,12 +213,12 @@ export default function GuideCarSeatHub({
 
                   {stageChips.length > 0 ? (
                     <div className="border-t border-[rgba(196,156,94,0.18)] pt-4 sm:pt-5">
-                      <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">The path gets clearer fast</p>
+                      <p className="text-[0.66rem] uppercase tracking-[0.15em] text-[var(--color-accent-dark)]/76">The path gets clearer fast</p>
                       <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible sm:pb-0">
                         {stageChips.map((chip) => (
                           <span
                             key={chip}
-                            className="shrink-0 rounded-full border border-[rgba(196,156,94,0.18)] bg-white/78 px-3 py-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-neutral-800 sm:px-3.5 sm:py-2 sm:text-[0.78rem]"
+                            className="shrink-0 rounded-full border border-[rgba(196,156,94,0.18)] bg-white/78 px-3 py-1.5 text-[0.73rem] uppercase tracking-[0.12em] text-neutral-800 sm:px-3.5 sm:py-2 sm:text-[0.76rem]"
                           >
                             {chip}
                           </span>
@@ -233,8 +234,8 @@ export default function GuideCarSeatHub({
               {preface.supportingParagraphs.length > 0 ? (
                 <div className="rounded-[1.35rem] border border-stone-200/70 bg-white/88 p-4 shadow-[0_14px_32px_rgba(0,0,0,0.04)] sm:rounded-[1.45rem] sm:p-6">
                   <div className="space-y-2">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Why this guide exists</p>
-                    <h3 className="font-serif text-[1.4rem] leading-[1.02] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">
+                    <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">Why this guide exists</p>
+                    <h3 className="font-serif text-[1.36rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.7rem]">
                       Clarity first. Then comparison.
                     </h3>
                   </div>
@@ -243,7 +244,7 @@ export default function GuideCarSeatHub({
                     <PostContent
                       postId={`${guide.id}-preface`}
                       content={preface.supportingParagraphs.join('\n\n')}
-                      className="guide-post-content guide-hub-card-content"
+                      className="guide-post-content guide-hub-card-content guide-hub-card-content--compact"
                       variant="plain"
                       highlightBrandWordmark={true}
                     />
@@ -253,10 +254,10 @@ export default function GuideCarSeatHub({
 
               {preface.callout ? (
                 <div className="rounded-[1.35rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f8edf1_100%)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.04)] sm:rounded-[1.45rem] sm:p-6">
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                  <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">
                     {preface.callout.title?.trim() || 'TMBC note'}
                   </p>
-                  <p className="mt-3 max-w-[32rem] text-[0.95rem] leading-7 text-[var(--color-accent-dark)]/92 sm:mt-4 sm:text-[1rem] sm:leading-8">
+                  <p className="mt-3 max-w-[30rem] text-[1rem] leading-[1.76] text-[var(--color-accent-dark)]/92 sm:mt-4 sm:text-[1.04rem]">
                     {preface.callout.body}
                   </p>
                 </div>
@@ -373,6 +374,51 @@ export default function GuideCarSeatHub({
           </div>
         </>
       ) : null}
+
+      <GuideSectionDivider />
+
+      <section className="mx-auto max-w-5xl">
+        <MarketingSurface className="rounded-[1.6rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)] p-4 shadow-[0_18px_42px_rgba(0,0,0,0.04)] sm:p-6 md:rounded-[2rem] md:p-8">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">
+                {CAR_SEAT_SEQUENCE_NOTE.title}
+              </p>
+              <h2 className="max-w-[18ch] font-serif text-[1.42rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[1.9rem] md:text-[2.25rem]">
+                Choose the right sequence, not the biggest pile.
+              </h2>
+              <p className="max-w-[58ch] text-[0.97rem] leading-[1.72] text-neutral-700">{CAR_SEAT_SEQUENCE_NOTE.intro}</p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+              <div className="rounded-[1.25rem] border border-stone-200/70 bg-white/88 p-4">
+                <p className="text-[0.66rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/76">Most families use</p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-[0.96rem] leading-7 text-neutral-700">
+                  {CAR_SEAT_SEQUENCE_NOTE.sequence.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-[1.25rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(180deg,#fffdfd_0%,#f8edf1_100%)] p-4">
+                <div className="space-y-3 text-[0.96rem] leading-7 text-neutral-700">
+                  {CAR_SEAT_SEQUENCE_NOTE.closing.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#car-seat-starting-point"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 transition hover:text-[var(--color-accent-dark)]"
+            >
+              <span>{CAR_SEAT_SEQUENCE_NOTE.ctaLabel}</span>
+              <span aria-hidden="true">-&gt;</span>
+            </a>
+          </div>
+        </MarketingSurface>
+      </section>
 
       <GuideSectionDivider />
 

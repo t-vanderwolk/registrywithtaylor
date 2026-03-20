@@ -1,4 +1,6 @@
 import type { GuideComparisonBandGroup, GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
+import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
+import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 import { getGuidePath } from '@/lib/guides/routing';
 
 export const CAR_SEAT_SYSTEM_GUIDE_SLUGS = [
@@ -26,13 +28,7 @@ export type CarSeatStageProgressionItem = {
 export type CarSeatCategoryPreview = {
   href?: string;
   ctaLabel?: string;
-  examples: Array<{
-    name: string;
-    brand?: string;
-    productName?: string;
-    imageSrc?: string;
-    imageAlt?: string;
-  }>;
+  examples: GuideProductExampleData[];
 };
 
 type CarSeatCategoryVisual = {
@@ -88,11 +84,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.infant,
       ctaLabel: 'Start with infant car seats',
-      examples: [
-        { name: 'Nuna PIPA RX', brand: 'Nuna', productName: 'PIPA RX' },
-        { name: 'UPPAbaby Mesa V3', brand: 'UPPAbaby', productName: 'Mesa V3' },
-        { name: 'Clek Liing', brand: 'Clek', productName: 'Liing' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.infant],
     },
   },
   {
@@ -111,11 +103,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.convertible,
       ctaLabel: 'Compare convertible options',
-      examples: [
-        { name: 'Nuna RAVA next', brand: 'Nuna', productName: 'RAVA next' },
-        { name: 'Britax Poplar', brand: 'Britax', productName: 'Poplar' },
-        { name: 'Clek Foonf', brand: 'Clek', productName: 'Foonf' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.convertible],
     },
   },
   {
@@ -134,10 +122,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.allInOne,
       ctaLabel: 'Explore all-in-one systems',
-      examples: [
-        { name: 'Nuna EXEC next', brand: 'Nuna', productName: 'EXEC next' },
-        { name: 'Britax One4Life', brand: 'Britax', productName: 'One4Life' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.allInOne],
     },
   },
   {
@@ -154,10 +139,7 @@ const CAR_SEAT_SYSTEM_CATEGORIES: readonly CarSeatHubCategory<CarSeatSystemGuide
     strength: 'Explains where the car seat journey goes next.',
     emotionalDescriptor: 'A future stage to understand now, not a newborn problem to solve today.',
     preview: {
-      examples: [
-        { name: 'UPPAbaby Alta V2', brand: 'UPPAbaby', productName: 'Alta V2' },
-        { name: 'Clek Oobr', brand: 'Clek', productName: 'Oobr' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.booster],
     },
   },
 ] as const;
@@ -181,11 +163,7 @@ const CAR_SEAT_SPECIALIZED_CATEGORIES: readonly CarSeatHubCategory<CarSeatSpecia
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.rotating,
       ctaLabel: 'Explore rotating car seats',
-      examples: [
-        { name: 'CYBEX Aton Swivel', brand: 'CYBEX', productName: 'Aton Swivel' },
-        { name: 'Nuna REVV maxx', brand: 'Nuna', productName: 'REVV maxx' },
-        { name: 'CYBEX Callisto', brand: 'CYBEX', productName: 'Callisto' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.rotating],
     },
   },
   {
@@ -204,10 +182,7 @@ const CAR_SEAT_SPECIALIZED_CATEGORIES: readonly CarSeatHubCategory<CarSeatSpecia
     preview: {
       href: CAR_SEAT_SYSTEM_PATHS.travelLightweight,
       ctaLabel: 'Explore travel & lightweight car seats',
-      examples: [
-        { name: 'WAYB Pico', brand: 'WAYB', productName: 'Pico' },
-        { name: 'Maxi-Cosi Romi', brand: 'Maxi-Cosi', productName: 'Romi' },
-      ],
+      examples: [...CAR_SEAT_PRODUCT_GROUPS.travelLightweight],
     },
   },
 ] as const;

@@ -146,7 +146,7 @@ function PlannerTopicCard({
     >
       <div className="space-y-2">
         <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-        <h4 className="font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.5rem]">{title}</h4>
+        <h4 className="font-serif text-[1.44rem] leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-[1.62rem]">{title}</h4>
       </div>
 
       <div className="mt-4">
@@ -172,14 +172,14 @@ function TopicMetric({
   return (
     <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-white/86 px-4 py-4">
       <p className="text-[0.64rem] uppercase tracking-[0.16em] text-black/42">{label}</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-neutral-900">{value}</p>
+      <p className="mt-2 text-[0.98rem] font-semibold leading-7 text-neutral-900">{value}</p>
     </div>
   );
 }
 
 function PlannerDisclosureCard({ text }: { text: string }) {
   return (
-    <div className="rounded-[1.75rem] border border-black/6 bg-white/90 p-5 text-sm leading-7 text-neutral-700">
+    <div className="rounded-[1.75rem] border border-black/6 bg-white/90 p-5 text-[0.98rem] leading-7 text-neutral-700">
       {text}
     </div>
   );
@@ -328,13 +328,13 @@ function TopicNavigatorCard({
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
           <GuideGlyph icon={icon} />
         </div>
-        <span className="text-[0.62rem] uppercase tracking-[0.16em] text-black/44">Topic {index + 1}</span>
+        <span className="text-[0.64rem] uppercase tracking-[0.14em] text-black/44">Topic {index + 1}</span>
       </div>
 
-      <h4 className="mt-4 font-serif text-[1.08rem] leading-[1.08] tracking-[-0.02em] text-neutral-900 sm:text-[1.28rem]">
+      <h4 className="mt-4 font-serif text-[1.16rem] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[1.36rem]">
         {topic.label}
       </h4>
-      <p className="mt-2 text-sm leading-6 text-neutral-700">{topic.summary}</p>
+      <p className="mt-2 text-[0.98rem] leading-7 text-neutral-700">{topic.summary}</p>
 
       {previewItems.length > 0 ? (
         <div className="mt-4 flex flex-wrap gap-2">
@@ -350,7 +350,7 @@ function TopicNavigatorCard({
       ) : null}
 
       <div className="mt-auto pt-4 text-sm font-semibold text-neutral-900">
-        <span>{isActive ? 'Open now' : 'Open topic'}</span>
+              <span>{isActive ? 'Open now' : 'Open topic'}</span>
         <span aria-hidden="true" className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
           -&gt;
         </span>
@@ -529,17 +529,17 @@ export default function GuideStrollerInteractivePlanner({
       className="scroll-mt-28 overflow-hidden rounded-[1.85rem] border border-stone-200/70 bg-[linear-gradient(180deg,#fffdf9_0%,#f7efe7_100%)] p-4 shadow-[0_22px_58px_rgba(0,0,0,0.05)] sm:p-6 md:rounded-[2rem] md:p-8"
     >
       <div className="space-y-3">
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Interactive planner</p>
-        <h2 className="font-serif text-[1.72rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">
+        <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">Interactive planner</p>
+        <h2 className="font-serif text-[1.86rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2.35rem] md:text-[2.9rem]">
           {config.title}
         </h2>
-        <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">{config.description}</p>
+        <p className="max-w-[66ch] text-[1.02rem] leading-[1.78] text-neutral-700 sm:text-[1.06rem]">{config.description}</p>
       </div>
 
       {hasScenarioPlanner && activeScenario ? (
         <div className="mt-7 grid gap-5 sm:mt-8 sm:gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
-            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.scenarioPrompt}</p>
+            <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">{config.scenarioPrompt}</p>
             <div role="tablist" aria-label={config.scenarioAriaLabel} className="mt-4 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
               {config.scenarios.map((scenario) => {
                 const isActive = scenario.id === activeScenario.id;
@@ -569,12 +569,12 @@ export default function GuideStrollerInteractivePlanner({
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
                         <GuideGlyph icon={scenario.icon} />
                       </div>
-                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.16em] ${toneClasses(scenario.fitTone)}`}>
+                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] ${toneClasses(scenario.fitTone)}`}>
                         {scenario.fitLabel}
                       </span>
                     </div>
-                    <p className="mt-4 font-serif text-[1.22rem] leading-[1.08] tracking-[-0.02em] text-neutral-900">{scenario.label}</p>
-                    <p className="mt-2 text-sm leading-6 text-neutral-700">{scenario.summary}</p>
+                    <p className="mt-4 font-serif text-[1.3rem] leading-[1.1] tracking-[-0.02em] text-neutral-900">{scenario.label}</p>
+                    <p className="mt-2 text-[0.98rem] leading-7 text-neutral-700">{scenario.summary}</p>
                   </button>
                 );
               })}
@@ -593,23 +593,23 @@ export default function GuideStrollerInteractivePlanner({
                   <GuideGlyph icon={activeScenario.icon} />
                 </div>
                 <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Routine lens</p>
-                  <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activeScenario.label}</h3>
+                  <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Routine lens</p>
+                  <h3 className="mt-1 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.68rem]">{activeScenario.label}</h3>
                 </div>
               </div>
-              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activeScenario.fitTone)}`}>
+              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] ${toneClasses(activeScenario.fitTone)}`}>
                 {activeScenario.fitLabel}
               </span>
             </div>
 
-            <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activeScenario.summary}</p>
+            <p className="mt-5 text-[1rem] leading-7 text-neutral-700 sm:text-[1.04rem] sm:leading-[1.78]">{activeScenario.summary}</p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Signals this is your situation</p>
+                <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Signals this is your situation</p>
                 <ul className="mt-3 list-disc space-y-3 pl-5">
                   {activeScenario.signals.map((signal) => (
-                    <li key={signal} className="text-sm leading-6 text-neutral-700">
+                    <li key={signal} className="text-[0.98rem] leading-7 text-neutral-700">
                       {signal}
                     </li>
                   ))}
@@ -617,12 +617,12 @@ export default function GuideStrollerInteractivePlanner({
               </div>
 
               <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">What to prioritize first</p>
+                <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">What to prioritize first</p>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {activeScenario.priorities.map((priority) => (
                     <span
                       key={priority}
-                      className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white px-3 py-2 text-sm text-neutral-800"
+                      className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white px-3 py-2 text-[0.96rem] text-neutral-800"
                     >
                       {priority}
                     </span>
@@ -658,7 +658,7 @@ export default function GuideStrollerInteractivePlanner({
       {hasPriorityLenses && activePriority ? (
         <div className={hasScenarioPlanner ? 'mt-8 border-t border-[rgba(0,0,0,0.06)] pt-8' : 'mt-7 sm:mt-8'}>
           <div className="space-y-3">
-            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">{config.priorityPrompt}</p>
+            <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">{config.priorityPrompt}</p>
             <div role="tablist" aria-label={config.priorityAriaLabel} className="flex flex-wrap gap-2.5">
               {config.priorityLenses.map((priority) => {
                 const isActive = priority.id === activePriority.id;
@@ -703,25 +703,25 @@ export default function GuideStrollerInteractivePlanner({
                   <GuideGlyph icon={activePriority.icon} />
                 </div>
                 <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Decision lens</p>
-                  <h3 className="mt-1 font-serif text-[1.35rem] leading-[1.06] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">{activePriority.label}</h3>
+                  <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Decision lens</p>
+                  <h3 className="mt-1 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[1.68rem]">{activePriority.label}</h3>
                 </div>
               </div>
-              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.18em] ${toneClasses(activePriority.tone)}`}>
+              <span className={`inline-flex rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.15em] ${toneClasses(activePriority.tone)}`}>
                 {activePriority.verdict}
               </span>
             </div>
 
-            <p className="mt-5 text-[0.96rem] leading-6 text-neutral-700 sm:leading-7">{activePriority.summary}</p>
+            <p className="mt-5 text-[1rem] leading-7 text-neutral-700 sm:text-[1.04rem] sm:leading-[1.78]">{activePriority.summary}</p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">When this helps</p>
-                <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.helpsWhen}</p>
+                <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">When this helps</p>
+                <p className="mt-3 text-[0.98rem] leading-7 text-neutral-700">{activePriority.helpsWhen}</p>
               </div>
               <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.06)] bg-[#fcfaf7] p-4">
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Watch out for</p>
-                <p className="mt-3 text-sm leading-7 text-neutral-700">{activePriority.watchout}</p>
+                <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Watch out for</p>
+                <p className="mt-3 text-[0.98rem] leading-7 text-neutral-700">{activePriority.watchout}</p>
               </div>
             </div>
 
@@ -743,11 +743,11 @@ export default function GuideStrollerInteractivePlanner({
       {activeTopic ? (
         <div className={showDecisionLayers ? 'mt-7 border-t border-[rgba(0,0,0,0.06)] pt-7 sm:mt-8 sm:pt-8' : 'mt-7 sm:mt-8'}>
           <div className="space-y-3">
-            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Guide explorer</p>
-            <h3 className="font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
+            <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Guide explorer</p>
+            <h3 className="font-serif text-[1.68rem] leading-[1.05] tracking-[-0.03em] text-neutral-900 sm:text-[2.15rem]">
               Open the part of the guide you actually need
             </h3>
-            <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">
+            <p className="max-w-[66ch] text-[1.02rem] leading-[1.78] text-neutral-700">
               The rest of the education hub now lives inside this planner. Jump straight to the part that answers the next real-life question instead of scrolling through separate section blocks.
             </p>
           </div>
@@ -805,19 +805,19 @@ export default function GuideStrollerInteractivePlanner({
                           <GuideGlyph icon={activeTopicIcon} />
                         </div>
                         <div>
-                          <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Guide topic</p>
-                          <p className="mt-1 text-sm font-semibold text-neutral-900">
+                          <p className="text-[0.68rem] uppercase tracking-[0.15em] text-black/48">Guide topic</p>
+                          <p className="mt-1 text-[0.96rem] font-semibold text-neutral-900">
                             Topic {activeTopicIndex + 1} of {topics.length}
                           </p>
                         </div>
                       </div>
 
                       <div className="space-y-3">
-                        <h3 className="font-serif text-[1.5rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[2.1rem]">
+                        <h3 className="font-serif text-[1.62rem] leading-[1.05] tracking-[-0.03em] text-neutral-900 sm:text-[2.2rem]">
                           {activeTopic.title}
                         </h3>
                         {activeTopic.summary ? (
-                          <p className="max-w-[72ch] text-[0.98rem] leading-relaxed text-neutral-700">{activeTopic.summary}</p>
+                          <p className="max-w-[66ch] text-[1.02rem] leading-[1.78] text-neutral-700">{activeTopic.summary}</p>
                         ) : null}
                       </div>
                     </div>
@@ -842,7 +842,7 @@ export default function GuideStrollerInteractivePlanner({
                       {activeTopic.highlights.map((highlight) => (
                         <span
                           key={`${activeTopic.id}-${highlight}`}
-                          className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white/86 px-3 py-2 text-sm text-neutral-800"
+                          className="inline-flex rounded-full border border-[rgba(196,156,94,0.18)] bg-white/86 px-3 py-2 text-[0.96rem] text-neutral-800"
                         >
                           {highlight}
                         </span>

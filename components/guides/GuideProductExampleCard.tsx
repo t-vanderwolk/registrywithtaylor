@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { resolveProductCardImage } from '@/lib/blog/productCardImages';
+import type { GuideProductSpecGroup } from '@/lib/guides/productExamples';
 
 export default function GuideProductExampleCard({
   name,
@@ -7,17 +8,26 @@ export default function GuideProductExampleCard({
   imageAlt,
   brand,
   productName,
+  typeLabel,
   whyItMatters,
+  bestFor,
   whoItFits,
+  specGroups = [],
+  notes = [],
 }: {
   name: string;
   imageSrc?: string | null;
   imageAlt?: string | null;
   brand?: string;
   productName?: string;
+  typeLabel?: string | null;
   whyItMatters?: ReactNode;
+  bestFor?: ReactNode;
   whoItFits?: ReactNode;
+  specGroups?: GuideProductSpecGroup[];
+  notes?: string[];
 }) {
+  const bestForContent = bestFor ?? whoItFits;
   const resolvedImage =
     imageSrc?.trim()
       ? {
@@ -71,7 +81,11 @@ export default function GuideProductExampleCard({
         {name}
       </p>
 
-      {whyItMatters || whoItFits ? (
+      {typeLabel ? (
+        <p className="mt-2 text-[0.68rem] uppercase tracking-[0.15em] text-[var(--color-accent-dark)]/82">{typeLabel}</p>
+      ) : null}
+
+      {whyItMatters || bestForContent || specGroups.length > 0 || notes.length > 0 ? (
         <div className="mt-3 space-y-3">
           {whyItMatters ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
@@ -80,10 +94,41 @@ export default function GuideProductExampleCard({
             </div>
           ) : null}
 
-          {whoItFits ? (
+          {bestForContent ? (
             <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
-              <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Who it fits</p>
-              <div className="mt-2 text-sm leading-6 text-neutral-700">{whoItFits}</div>
+              <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Best for</p>
+              <div className="mt-2 text-sm leading-6 text-neutral-700">{bestForContent}</div>
+            </div>
+          ) : null}
+
+          {specGroups.length > 0 ? (
+            <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
+              <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Quick specs</p>
+              <div className="mt-2 space-y-2.5 text-sm leading-6 text-neutral-700">
+                {specGroups.map((group) => (
+                  <div key={`${name}-${group.label}`}>
+                    <p className="text-[0.65rem] uppercase tracking-[0.14em] text-neutral-500">{group.label}</p>
+                    <ul className="mt-1 list-disc space-y-1 pl-4">
+                      {group.items.map((item) => (
+                        <li key={`${name}-${group.label}-${item}`} className="leading-6">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {notes.length > 0 ? (
+            <div className="rounded-[1rem] border border-stone-200/70 bg-[#fcfaf7] p-3">
+              <p className="text-[0.66rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">Notes</p>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-sm leading-6 text-neutral-700">
+                {notes.map((note) => (
+                  <li key={`${name}-${note}`}>{note}</li>
+                ))}
+              </ul>
             </div>
           ) : null}
         </div>

@@ -1,3 +1,5 @@
+import type { GuideProductSpecGroup } from '@/lib/guides/productExamples';
+
 export type StyledBlockId =
   | 'callout'
   | 'advice'
@@ -54,6 +56,10 @@ export type ParsedStyledBlock =
       affiliateLinks: Array<{ label: string; url: string }>;
       imageUrl: string | null;
       imageAlt: string | null;
+      typeLabel?: string | null;
+      specGroups?: GuideProductSpecGroup[];
+      notes?: string[];
+      ctaLabel?: string | null;
     }
   | {
       type: 'faq';

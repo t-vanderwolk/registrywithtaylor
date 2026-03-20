@@ -37,12 +37,12 @@ export default function GuideCategoryCards({
       }
     >
       <div className="space-y-2">
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+        <p className="text-[0.7rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">
           {eyebrow ?? (isStrollerHub ? 'Stroller categories' : 'Sub-guides')}
         </p>
-        <h2 className="font-serif text-[1.85rem] leading-[1.02] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl">{title}</h2>
+        <h2 className="max-w-[16ch] font-serif text-[1.84rem] leading-[1.05] tracking-[-0.03em] text-neutral-900 sm:text-[2.5rem] md:text-[3rem]">{title}</h2>
         {description ? (
-          <p className={`${isStrollerHub ? 'max-w-[70ch] text-[0.96rem] leading-relaxed text-neutral-700 sm:text-[0.98rem]' : 'max-w-3xl text-sm leading-7 text-neutral-700'}`}>
+          <p className={`${isStrollerHub ? 'max-w-[62ch] text-[1rem] leading-[1.74] text-neutral-700 sm:text-[1.04rem]' : 'max-w-3xl text-sm leading-7 text-neutral-700'}`}>
             {description}
           </p>
         ) : null}
@@ -125,23 +125,21 @@ export default function GuideCategoryCards({
               >
                 <GuideGlyph icon={card.icon} />
               </div>
-              <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)] sm:text-[0.68rem]">
+              <span className="text-[0.64rem] uppercase tracking-[0.13em] text-[var(--color-accent-dark)] sm:text-[0.7rem]">
                 {ctaLabel ?? (isStrollerHub ? 'Explore guide' : 'Open guide')}
               </span>
             </div>
-            <h3 className={`${isStrollerHub ? 'mt-3 font-serif text-[1.16rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:mt-5 sm:text-[1.38rem] md:text-[1.5rem]' : 'mt-5 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900'}`}>
+            <h3 className={`${isStrollerHub ? 'mt-3 font-serif text-[1.16rem] leading-[1.12] tracking-[-0.02em] text-neutral-900 sm:mt-5 sm:text-[1.34rem] md:text-[1.46rem]' : 'mt-5 font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900'}`}>
               {card.title}
             </h3>
-            <p className={`${isStrollerHub ? 'mt-2.5 text-sm leading-6 text-neutral-700 sm:mt-3 sm:leading-7' : 'mt-3 text-sm leading-7 text-neutral-700'}`}>
+            <p className={`${isStrollerHub ? 'mt-2.5 max-w-[34ch] text-[1rem] leading-[1.74] text-neutral-700 sm:mt-3' : 'mt-3 text-sm leading-7 text-neutral-700'}`}>
               {card.description}
             </p>
             {card.bestFor ? (
               <p
-                className={`mt-3 rounded-[1rem] border border-stone-200/70 bg-white/90 px-3 py-2.5 text-sm leading-6 text-neutral-700 ${
-                  isStrollerHub ? 'sm:leading-7' : ''
-                }`}
+                className="mt-3 rounded-[1rem] border border-stone-200/70 bg-white/90 px-3 py-2.5 text-[0.98rem] leading-[1.68] text-neutral-700"
               >
-                <span className="mr-2 text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/82">
+                <span className="mr-2 text-[0.64rem] uppercase tracking-[0.13em] text-[var(--color-accent-dark)]/82">
                   Best for
                 </span>
                 <span>{formatBestFor(card.bestFor)}</span>

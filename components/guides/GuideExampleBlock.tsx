@@ -88,8 +88,11 @@ export default function GuideExampleBlock({
                 productName={product.productName}
                 imageSrc={product.imageUrl}
                 imageAlt={product.imageAlt}
+                typeLabel={product.typeLabel}
                 whyItMatters={product.shortReview}
-                whoItFits={product.bestFor}
+                bestFor={product.bestFor}
+                specGroups={product.specGroups}
+                notes={product.notes}
               />
             </div>
           ))}
