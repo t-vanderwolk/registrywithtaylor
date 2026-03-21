@@ -58,7 +58,7 @@ export default async function RegistrySubGuidePage({ params }: RegistrySubGuideP
 
   return (
     <SiteShell currentPath={guide.path}>
-      <main className="site-main">
+      <main className="site-main min-h-0">
         <PageViewTracker path={guide.path} pageType="guide" slug={`registry-${guide.slug}`} title={guide.title} />
         <GuideEducationLayout
           guide={{

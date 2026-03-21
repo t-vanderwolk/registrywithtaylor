@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import FadeInSection from '@/components/ui/FadeInSection';
 
 export default function GuidePageSection({
   id,
@@ -15,9 +16,9 @@ export default function GuidePageSection({
 }) {
   return (
     <section id={id} className={`${tone === 'blush' ? 'bg-[#FAF7F8]' : 'bg-white'} ${className}`.trim()}>
-      <div className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
+      <FadeInSection className="mx-auto w-full max-w-[1520px] px-6 py-12 md:px-10 md:py-16 xl:px-12">
         <div className={`space-y-16 md:space-y-24 ${innerClassName}`.trim()}>{children}</div>
-      </div>
+      </FadeInSection>
     </section>
   );
 }

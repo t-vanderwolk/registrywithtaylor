@@ -92,6 +92,7 @@ export default function GuideCategoryPreviewSection({
                       productName={example.productName}
                       imageSrc={example.imageSrc}
                       imageAlt={example.imageAlt}
+                      imageHref={example.affiliateUrl}
                       typeLabel={example.typeLabel}
                       bestFor={example.bestFor}
                       standout={example.standout}

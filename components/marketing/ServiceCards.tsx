@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import MarketingSection from '@/components/layout/MarketingSection';
 import CheckIcon from '@/components/ui/CheckIcon';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import SectionIntro from '@/components/ui/SectionIntro';
 import type { ServicePackage } from '@/lib/marketing/siteContent';
 
@@ -93,7 +94,7 @@ export default function ServiceCards({
             <div className="mt-auto pt-6">
               <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/45">When you want clearer next steps</p>
               <Link href={ctaHref} className="btn btn--primary mt-4 w-full justify-center pt-0">
-                {ctaLabel}
+                <MotionCtaContent>{ctaLabel}</MotionCtaContent>
               </Link>
             </div>
           </article>

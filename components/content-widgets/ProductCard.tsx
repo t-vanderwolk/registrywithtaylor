@@ -39,6 +39,7 @@ export default function ProductCard({
     imageUrl,
     imageAlt,
   });
+  const primaryAffiliateLink = affiliateLinks.find((link) => link.url?.trim())?.url?.trim() ?? null;
   const isHomepageVariant = variant === 'homepage';
 
   const shellClassName = isHomepageVariant
@@ -81,47 +82,61 @@ export default function ProductCard({
   const proClassName = isHomepageVariant
     ? 'rounded-full border border-[rgba(196,156,94,0.18)] bg-[rgba(255,248,241,0.82)] px-3 py-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-neutral-800'
     : 'rounded-full border border-[rgba(232,154,174,0.24)] bg-[rgba(255,255,255,0.9)] px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--tmbc-blog-rose)] sm:px-3 sm:py-2';
+  const imagePanel = (
+    <div className={imageWrapClassName}>
+      {resolvedImage ? (
+        <div className="relative h-full">
+          <img
+            src={resolvedImage.src}
+            alt={resolvedImage.alt}
+            className={imageClassName}
+            loading="lazy"
+          />
+          {resolvedImage.isFallback ? (
+            <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(18,18,18,0)_0%,rgba(18,18,18,0.72)_100%)] p-5 text-white">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white/82">{brand}</p>
+              <p className="mt-2 font-serif text-[1.55rem] leading-[1.05] tracking-[-0.03em]">{productName}</p>
+              {category && (
+                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.18em] text-white/72">{category}</p>
+              )}
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <div className="flex h-full flex-col justify-end p-6">
+          <p className={brandClassName}>{brand}</p>
+          <p
+            className={
+              isHomepageVariant
+                ? 'mt-3 font-serif text-[1.7rem] leading-[1.04] tracking-[-0.04em] text-neutral-900'
+                : 'tmbc-widget-heading mt-3 font-serif text-[1.9rem] leading-[1.02] tracking-[-0.04em]'
+            }
+          >
+            {productName}
+          </p>
+          {category && (
+            <p className={categoryClassName}>{category}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <article className={shellClassName}>
-      {/* Image at the top */}
-      <div className={imageWrapClassName}>
-        {resolvedImage ? (
-          <div className="relative h-full">
-            <img
-              src={resolvedImage.src}
-              alt={resolvedImage.alt}
-              className={imageClassName}
-              loading="lazy"
-            />
-            {resolvedImage.isFallback ? (
-              <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(18,18,18,0)_0%,rgba(18,18,18,0.72)_100%)] p-5 text-white">
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white/82">{brand}</p>
-                <p className="mt-2 font-serif text-[1.55rem] leading-[1.05] tracking-[-0.03em]">{productName}</p>
-                {category && (
-                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.18em] text-white/72">{category}</p>
-                )}
-              </div>
-            ) : null}
-          </div>
-        ) : (
-          <div className="flex h-full flex-col justify-end p-6">
-            <p className={brandClassName}>{brand}</p>
-            <p
-              className={
-                isHomepageVariant
-                  ? 'mt-3 font-serif text-[1.7rem] leading-[1.04] tracking-[-0.04em] text-neutral-900'
-                  : 'tmbc-widget-heading mt-3 font-serif text-[1.9rem] leading-[1.02] tracking-[-0.04em]'
-              }
-            >
-              {productName}
-            </p>
-            {category && (
-              <p className={categoryClassName}>{category}</p>
-            )}
-          </div>
-        )}
-      </div>
+      {primaryAffiliateLink ? (
+        <a
+          href={primaryAffiliateLink}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          aria-label={`Shop ${productName}`}
+          className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4"
+        >
+          {imagePanel}
+        </a>
+      ) : (
+        imagePanel
+      )}
 
       {/* Product info below image */}
       <div className="p-4 sm:p-6">

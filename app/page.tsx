@@ -7,6 +7,8 @@ import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import SiteShell from '@/components/SiteShell';
 import HomeServicesSection from '@/components/home/HomeServicesSection';
 import HomeTransitionSection from '@/components/home/HomeTransitionSection';
+import EcosystemFlow from '@/components/marketing/EcosystemFlow';
+import StartHereSection from '@/components/marketing/StartHereSection';
 import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import CheckIcon from '@/components/ui/CheckIcon';
 import EditorialIllustration from '@/components/ui/EditorialIllustration';
@@ -379,6 +381,8 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           staggerContent
         />
 
+        <StartHereSection />
+
         <HomeAuthorityStrip
           text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
           logos={authorityStripLogos}
@@ -477,49 +481,13 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           tone="linen"
         />
 
-        <section
+        <EcosystemFlow
           id="journey"
-          className="bg-[linear-gradient(180deg,#fffdfb_0%,#f8f2ea_100%)] py-24 md:py-28"
-        >
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionIntro
-              spacing="tight"
-              title="The Taylor-Made Method"
-              description="A calmer baby-prep process starts with education, moves into planning, and ends with purchases that actually make sense for your life."
-              contentWidthClassName="max-w-4xl"
-            />
-
-            <div className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {journeySteps.map((step, index) => (
-                <RevealOnScroll key={step.stepLabel} delayMs={index * 70}>
-                  <MarketingSurface className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      {step.stepLabel}
-                    </p>
-                    <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                      {step.title}
-                    </h3>
-                    <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{step.description}</p>
-                  </MarketingSurface>
-                </RevealOnScroll>
-              ))}
-            </div>
-
-            <RevealOnScroll delayMs={180}>
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href="/guides"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
-                >
-                  Start with the Guides
-                  <span aria-hidden="true" className="ml-2">
-                    →
-                  </span>
-                </Link>
-              </div>
-            </RevealOnScroll>
-          </div>
-        </section>
+          title="The Taylor-Made Method"
+          description="A calmer baby-prep process starts with education, moves into planning, and ends with purchases that actually make sense for your life."
+          steps={journeySteps}
+          cta={{ href: '/guides', label: 'Start with the Guides' }}
+        />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
           <div className="mx-auto max-w-6xl px-6">

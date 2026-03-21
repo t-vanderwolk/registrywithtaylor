@@ -17,6 +17,7 @@ export default function GuideProductExampleCard({
   watchout,
   specGroups = [],
   notes = [],
+  imageHref,
 }: {
   name: string;
   imageSrc?: string | null;
@@ -31,6 +32,7 @@ export default function GuideProductExampleCard({
   watchout?: ReactNode;
   specGroups?: GuideProductSpecGroup[];
   notes?: string[];
+  imageHref?: string | null;
 }) {
   const bestForContent = bestFor ?? whoItFits;
   const resolvedImage =
@@ -73,6 +75,7 @@ export default function GuideProductExampleCard({
       name={name}
       brand={brand}
       image={resolvedImage}
+      imageHref={imageHref}
       description={whyItMatters ?? typeLabel ?? null}
       bestFor={bestForContent}
       standout={standoutContent}

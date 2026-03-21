@@ -4,11 +4,11 @@ import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
-import GuidePageSection from '@/components/guides/GuidePageSection';
-import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
+import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import ProductExampleCard from '@/components/guides/ProductExampleCard';
+import SlideSection from '@/components/guides/SlideSection';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import type { GuideHubLink } from '@/lib/guides/hubs';
@@ -190,249 +190,281 @@ export default function GuideEducationLayout({
   });
   const actionClassName =
     'inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 hover:scale-[1.02] hover:shadow-md';
-  const primaryActionClassName = useSoftGuideCtas
-    ? `${actionClassName} border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]`
-    : `${actionClassName} bg-charcoal text-white`;
+  const primaryActionClassName = `${actionClassName} border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]`;
+  const slideDeckId = `guide-slide-deck-${guide.slug}`;
+  const slideItems = [
+    { id: 'guide-overview', label: 'Overview', shortLabel: 'Start' },
+    { id: 'guide-start-here', label: 'Start Here', shortLabel: 'Map' },
+    ...sections.map((section, index) => ({
+      id: section.id,
+      label: section.title,
+      shortLabel: String(index + 1).padStart(2, '0'),
+    })),
+    { id: 'guide-next-steps', label: 'Next Steps', shortLabel: 'Next' },
+  ];
 
   return (
-    <>
-      <GuideScrollProgress />
-
-      <GuideHero
-        parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-        eyebrow={guide.category}
-        title={guide.title}
-        description={
-          leadCopy ||
-          'Clear, practical guidance to help you understand what matters first, what can wait, and what to do next.'
-        }
-        readTime={`${readingTime} min`}
-        publishedLabel={formatArticleDate(displayDate)}
-        sectionCount={sections.length}
-        jumpLinks={tocItems.slice(0, 6).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
-        imageSrc={undefined}
-        imageAlt={guide.title}
-        variant="default"
-      />
-
-      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
-        <GuideCTARibbon
-          eyebrow="Start here"
-          title="Use the guide like a planning tool, not a reading assignment."
-          description="Jump into the part that matches your biggest question first. The rest can come after you know what actually matters."
-          primaryCta={
-            tocItems[0]
-              ? {
-                  href: `${sourceRoute}#${tocItems[0].id}`,
-                  label: `Jump to ${tocItems[0].label}`,
-                  ...(useSoftGuideCtas ? { variant: 'accent' as const } : {}),
-                }
-              : null
+    <GuideSlideDeck containerId={slideDeckId} items={slideItems}>
+      <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
+        <GuideHero
+          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          eyebrow={guide.category}
+          title={guide.title}
+          description={
+            leadCopy ||
+            'Clear, practical guidance to help you understand what matters first, what can wait, and what to do next.'
           }
-          secondaryCta={
-            guide.nextStepCtaHref
-              ? {
-                  href: guide.nextStepCtaHref,
-                  label: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
-                  variant: 'secondary' as const,
-                }
-              : null
-          }
+          readTime={`${readingTime} min`}
+          publishedLabel={formatArticleDate(displayDate)}
+          sectionCount={sections.length}
+          jumpLinks={slideItems.slice(1, 7).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+          imageSrc={undefined}
+          imageAlt={guide.title}
+          variant="default"
         />
+      </SlideSection>
 
-        <div className="space-y-4">
-          <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
-          <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
-        </div>
-
-        {leadCopy ? (
-          <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
-            <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">What this guide helps sort out</p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{leadCopy}</p>
-          </MarketingSurface>
-        ) : null}
-
-        <DecisionHelper
-          eyebrow="Decision helper"
-          title="How to move through this guide"
-          description="Start with the section that sounds the most like your current question. That is usually enough to make the rest easier to read."
-          items={decisionItems}
-        />
-      </GuidePageSection>
-
-      <GuidePageSection tone="blush" innerClassName="space-y-12 md:space-y-16">
-        {sections.map((section) => (
-          <section key={section.id} id={section.id} className="scroll-mt-28">
-            <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
-              <h2 className="mb-6 text-2xl font-serif tracking-tight text-charcoal md:text-3xl">{section.title}</h2>
-              <PostContent postId={`${guide.id}-${section.id}`} content={section.content} variant="guide" className="guide-post-content" />
-            </MarketingSurface>
-          </section>
-        ))}
-
-        <GuideCTARibbon
-          eyebrow="Need the next click?"
-          title="Keep the next step obvious."
-          description="If the guide already helped you narrow the question, use one of these next steps instead of opening five more tabs."
-          primaryCta={
-            continueLinks[0]
-              ? {
-                  href: continueLinks[0].href,
-                  label: `Read ${continueLinks[0].title}`,
-                  ...(useSoftGuideCtas ? { variant: 'accent' as const } : {}),
-                }
-              : null
-          }
-          secondaryCta={
-            continueLinks[1]
-              ? {
-                  href: continueLinks[1].href,
-                  label: `Read ${continueLinks[1].title}`,
-                  variant: 'secondary' as const,
-                }
-              : null
-          }
-        />
-      </GuidePageSection>
-
-      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
-        {guide.affiliateModules.length > 0 ? (
-          <section className="space-y-6">
-            <div className="space-y-3">
-              <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Product examples</p>
-              <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">A few examples to make the tradeoffs easier to picture</h2>
-              <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
-                These are here to give the category some shape, not to turn the page into a shopping grid.
-              </p>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {guide.affiliateModules.map((module) => (
-                <ProductExampleCard
-                  key={module.id}
-                  brand={module.retailerLabel}
-                  name={module.productName}
-                  image={
-                    module.imageUrl
-                      ? {
-                          src: module.imageUrl,
-                          alt: module.productName,
-                          objectClassName: 'object-cover',
-                        }
-                      : null
+      <SlideSection id="guide-start-here" background="white">
+        <div className="space-y-8">
+          <GuideCTARibbon
+            eyebrow="Start here"
+            title="Use the guide like a planning tool, not a reading assignment."
+            description="Jump into the part that matches your biggest question first. The rest can come after you know what actually matters."
+            primaryCta={
+              tocItems[0]
+                ? {
+                    href: `${sourceRoute}#${tocItems[0].id}`,
+                    label: `Jump to ${tocItems[0].label}`,
+                    ...(useSoftGuideCtas ? { variant: 'accent' as const } : {}),
                   }
-                  description={module.description}
-                  bestFor={module.title}
-                  standout={module.notes ?? undefined}
-                  actionSlot={
-                    <GuideTrackedLink
-                      guideId={guide.id}
-                      href={module.destinationUrl}
-                      event={GuideAnalyticsEvents.AFFILIATE_CLICK}
-                      sourceRoute={sourceRoute}
-                      className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
-                      track={!preview}
-                      meta={{
-                        moduleTitle: module.title,
-                        productName: module.productName,
-                        ctaLabel: module.ctaLabel,
-                        retailerLabel: module.retailerLabel,
-                        partnerId: module.partnerId,
-                      }}
-                    >
-                      <span>{module.ctaLabel}</span>
-                      <span aria-hidden="true" className="ml-2">
-                        -&gt;
-                      </span>
-                    </GuideTrackedLink>
+                : null
+            }
+            secondaryCta={
+              guide.nextStepCtaHref
+                ? {
+                    href: guide.nextStepCtaHref,
+                    label: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
+                    variant: 'secondary' as const,
                   }
-                />
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {continueLinks.length > 0 ? (
-          <GuideContinueExploring
-            title="Continue exploring"
-            description="The point is to leave the page knowing where to go next, not to keep wandering."
-            links={continueLinks}
+                : null
+            }
           />
-        ) : null}
 
-        {faqItems.length > 0 ? <GuideFaqAccordion items={faqItems} /> : null}
+          <div className="space-y-4">
+            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
+            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
+          </div>
 
-        {guide.founderSignatureEnabled && guide.founderSignatureText ? (
-          <MarketingSurface className="rounded-2xl border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
-            <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{guide.founderSignatureText}</p>
-          </MarketingSurface>
-        ) : null}
+          {leadCopy ? (
+            <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
+              <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">What this guide helps sort out</p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{leadCopy}</p>
+            </MarketingSurface>
+          ) : null}
 
-        <GuideCTARibbon
-          eyebrow="Next step"
-          title="Keep the momentum once the guide gets you close."
-          description="The goal is a calmer decision, a clearer shortlist, and one obvious next move."
-          actionsSlot={
-            <>
-              {guide.consultationCtaEnabled ? (
-                <GuideTrackedLink
-                  guideId={guide.id}
-                  href="/book"
-                  event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
-                  sourceRoute={sourceRoute}
-                  className={primaryActionClassName}
-                  track={!preview}
-                  meta={{
-                    ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
-                    placement: 'bottom_band',
-                    slug: guide.slug,
-                    title: guide.title,
-                  }}
+          <DecisionHelper
+            eyebrow="Decision helper"
+            title="How to move through this guide"
+            description="Start with the section that sounds the most like your current question. That is usually enough to make the rest easier to read."
+            items={decisionItems}
+          />
+        </div>
+      </SlideSection>
+
+      {sections.map((section, index) => {
+        const nextSection = sections[index + 1] ?? null;
+
+        return (
+          <SlideSection
+            key={section.id}
+            id={section.id}
+            background={index % 2 === 0 ? 'blush' : 'ivory'}
+          >
+            <div className="grid gap-8 xl:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] xl:items-start">
+              <div className="space-y-5">
+                <div className="space-y-3">
+                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">
+                    Section {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.5rem]">
+                    {section.title}
+                  </h2>
+                  <p className="text-base leading-relaxed text-neutral-700 md:text-lg">
+                    {summarizeSection(section.content)}
+                  </p>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-[rgba(196,156,94,0.12)] bg-white/76 p-5 shadow-sm">
+                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-black/46">Keep moving</p>
+                  <p className="mt-3 text-base leading-relaxed text-neutral-700">
+                    Let this section narrow the next question instead of reopening the whole category.
+                  </p>
+                </div>
+
+                <a
+                  href={nextSection ? `${sourceRoute}#${nextSection.id}` : `${sourceRoute}#guide-next-steps`}
+                  className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.24)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
-                </GuideTrackedLink>
-              ) : null}
+                  Continue to {nextSection ? nextSection.title : 'Next Steps'}
+                </a>
+              </div>
 
-              {guide.newsletterCtaEnabled && guide.newsletterCtaHref ? (
-                <GuideTrackedLink
-                  guideId={guide.id}
-                  href={guide.newsletterCtaHref}
-                  event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
-                  sourceRoute={sourceRoute}
-                  className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
-                  track={!preview}
-                  meta={{
-                    ctaLabel: guide.newsletterCtaLabel?.trim() || 'Get the resource',
-                    placement: 'bottom_band',
-                  }}
-                >
-                  {guide.newsletterCtaLabel?.trim() || 'Get the resource'}
-                </GuideTrackedLink>
-              ) : null}
+              <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
+                <h2 className="mb-6 text-2xl font-serif tracking-tight text-charcoal md:text-3xl">{section.title}</h2>
+                <PostContent
+                  postId={`${guide.id}-${section.id}`}
+                  content={section.content}
+                  variant="guide"
+                  className="guide-post-content guide-slide-content"
+                />
+              </MarketingSurface>
+            </div>
+          </SlideSection>
+        );
+      })}
 
-              {guide.nextStepCtaHref ? (
-                <GuideTrackedLink
-                  guideId={guide.id}
-                  href={guide.nextStepCtaHref}
-                  event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
-                  sourceRoute={sourceRoute}
-                  className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
-                  track={!preview}
-                  meta={{
-                    ctaLabel: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
-                    placement: 'bottom_band',
-                    slug: guide.slug,
-                    title: guide.title,
-                  }}
-                >
-                  {guide.nextStepCtaLabel?.trim() || 'Explore the next guide'}
-                </GuideTrackedLink>
-              ) : null}
-            </>
-          }
-        />
-      </GuidePageSection>
-    </>
+      <SlideSection id="guide-next-steps" background="white">
+        <div className="space-y-8">
+          {guide.affiliateModules.length > 0 ? (
+            <section className="space-y-6">
+              <div className="space-y-3">
+                <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Product examples</p>
+                <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">A few examples to make the tradeoffs easier to picture</h2>
+                <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
+                  These are here to give the category some shape, not to turn the page into a shopping grid.
+                </p>
+              </div>
+
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {guide.affiliateModules.map((module) => (
+                  <ProductExampleCard
+                    key={module.id}
+                    brand={module.retailerLabel}
+                    name={module.productName}
+                    image={
+                      module.imageUrl
+                        ? {
+                            src: module.imageUrl,
+                            alt: module.productName,
+                            objectClassName: 'object-cover',
+                          }
+                        : null
+                    }
+                    imageHref={module.destinationUrl}
+                    imageLinkLabel={module.ctaLabel}
+                    description={module.description}
+                    bestFor={module.title}
+                    standout={module.notes ?? undefined}
+                    actionSlot={
+                      <GuideTrackedLink
+                        guideId={guide.id}
+                        href={module.destinationUrl}
+                        event={GuideAnalyticsEvents.AFFILIATE_CLICK}
+                        sourceRoute={sourceRoute}
+                        className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
+                        track={!preview}
+                        meta={{
+                          moduleTitle: module.title,
+                          productName: module.productName,
+                          ctaLabel: module.ctaLabel,
+                          retailerLabel: module.retailerLabel,
+                          partnerId: module.partnerId,
+                        }}
+                      >
+                        <span>{module.ctaLabel}</span>
+                        <span aria-hidden="true" className="ml-2">
+                          -&gt;
+                        </span>
+                      </GuideTrackedLink>
+                    }
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {continueLinks.length > 0 ? (
+            <GuideContinueExploring
+              title="Continue exploring"
+              description="The point is to leave the page knowing where to go next, not to keep wandering."
+              links={continueLinks}
+            />
+          ) : null}
+
+          {faqItems.length > 0 ? <GuideFaqAccordion items={faqItems} /> : null}
+
+          {guide.founderSignatureEnabled && guide.founderSignatureText ? (
+            <MarketingSurface className="rounded-2xl border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
+              <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{guide.founderSignatureText}</p>
+            </MarketingSurface>
+          ) : null}
+
+          <GuideCTARibbon
+            eyebrow="Next step"
+            title="Keep the momentum once the guide gets you close."
+            description="The goal is a calmer decision, a clearer shortlist, and one obvious next move."
+            actionsSlot={
+              <>
+                {guide.consultationCtaEnabled ? (
+                  <GuideTrackedLink
+                    guideId={guide.id}
+                    href="/book"
+                    event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
+                    sourceRoute={sourceRoute}
+                    className={primaryActionClassName}
+                    track={!preview}
+                    meta={{
+                      ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
+                      placement: 'bottom_band',
+                      slug: guide.slug,
+                      title: guide.title,
+                    }}
+                  >
+                    {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
+                  </GuideTrackedLink>
+                ) : null}
+
+                {guide.newsletterCtaEnabled && guide.newsletterCtaHref ? (
+                  <GuideTrackedLink
+                    guideId={guide.id}
+                    href={guide.newsletterCtaHref}
+                    event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
+                    sourceRoute={sourceRoute}
+                    className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
+                    track={!preview}
+                    meta={{
+                      ctaLabel: guide.newsletterCtaLabel?.trim() || 'Get the resource',
+                      placement: 'bottom_band',
+                    }}
+                  >
+                    {guide.newsletterCtaLabel?.trim() || 'Get the resource'}
+                  </GuideTrackedLink>
+                ) : null}
+
+                {guide.nextStepCtaHref ? (
+                  <GuideTrackedLink
+                    guideId={guide.id}
+                    href={guide.nextStepCtaHref}
+                    event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
+                    sourceRoute={sourceRoute}
+                    className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
+                    track={!preview}
+                    meta={{
+                      ctaLabel: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
+                      placement: 'bottom_band',
+                      slug: guide.slug,
+                      title: guide.title,
+                    }}
+                  >
+                    {guide.nextStepCtaLabel?.trim() || 'Explore the next guide'}
+                  </GuideTrackedLink>
+                ) : null}
+              </>
+            }
+          />
+        </div>
+      </SlideSection>
+    </GuideSlideDeck>
   );
 }

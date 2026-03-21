@@ -29,15 +29,31 @@ export default function ProductGuideCard({
   return (
     <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 hover:shadow-md transition-shadow">
       {imageUrl && (
-        <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-neutral-50">
-          <Image
-            src={imageUrl}
-            alt={productName}
-            fill
-            className="object-cover"
-            unoptimized={isRemoteImageUrl(imageUrl)}
-          />
-        </div>
+        <GuideTrackedLink
+          guideId={guideId}
+          href={destinationUrl}
+          event={GuideAnalyticsEvents.AFFILIATE_CLICK}
+          sourceRoute={`/guides/${guideId}`}
+          className="group mb-6 block overflow-hidden rounded-xl bg-neutral-50 transition duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4"
+          track={!preview}
+          meta={{
+            productName,
+            retailerLabel: retailerLabel || '',
+            ctaLabel,
+            partnerId,
+            placement: 'image',
+          }}
+        >
+          <div className="relative aspect-[4/3]">
+            <Image
+              src={imageUrl}
+              alt={productName}
+              fill
+              className="object-cover transition duration-200 group-hover:scale-[1.01]"
+              unoptimized={isRemoteImageUrl(imageUrl)}
+            />
+          </div>
+        </GuideTrackedLink>
       )}
 
       <div className="space-y-3">

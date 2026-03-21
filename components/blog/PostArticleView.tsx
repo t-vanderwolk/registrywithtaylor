@@ -17,9 +17,11 @@ import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
+import FadeInSection from '@/components/ui/FadeInSection';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { getBlogCategoryFallbackImage } from '@/lib/blog/images';
 
 export type DownloadableResource = {
@@ -296,24 +298,28 @@ export default async function PostArticleView({
     relatedPosts.length > 0 ? (
       <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <div className="max-w-5xl mx-auto px-6">
-          <div className="mx-auto max-w-2xl space-y-4 text-center">
-            <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
-            <H2 className="font-serif text-neutral-900">More from the Journal</H2>
-          </div>
+          <FadeInSection>
+            <>
+              <div className="mx-auto max-w-2xl space-y-4 text-center">
+                <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
+                <H2 className="font-serif text-neutral-900">More from the Journal</H2>
+              </div>
 
-          <div className="mt-12 grid gap-10 md:grid-cols-3">
-            {relatedPosts.map((relatedPost) => (
-              <JournalCard
-                key={relatedPost.id}
-                title={relatedPost.title}
-                slug={relatedPost.slug}
-                coverImage={relatedPost.coverImage}
-                category={relatedPost.category}
-                dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
-                dateTime={getPostDisplayDate(relatedPost).toISOString()}
-              />
-            ))}
-          </div>
+              <div className="mt-12 grid gap-10 md:grid-cols-3">
+                {relatedPosts.map((relatedPost) => (
+                  <JournalCard
+                    key={relatedPost.id}
+                    title={relatedPost.title}
+                    slug={relatedPost.slug}
+                    coverImage={relatedPost.coverImage}
+                    category={relatedPost.category}
+                    dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
+                    dateTime={getPostDisplayDate(relatedPost).toISOString()}
+                  />
+                ))}
+              </div>
+            </>
+          </FadeInSection>
         </div>
       </section>
     ) : null;
@@ -354,8 +360,10 @@ export default async function PostArticleView({
                 <p className="mt-2 text-xs uppercase tracking-[0.18em] text-charcoal/55">
                   PDF · {formatFileSize(media.fileSize)}
                 </p>
-                <a href={media.url} target="_blank" rel="noreferrer" className="link-underline mt-4 inline-block text-sm">
-                  Download PDF →
+                <a href={media.url} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm text-neutral-900">
+                  <MotionCtaContent align="start" showArrow underline>
+                    Download PDF
+                  </MotionCtaContent>
                 </a>
               </MarketingSurface>
             ))}
@@ -373,8 +381,9 @@ export default async function PostArticleView({
                   rel="noreferrer"
                   className="inline-flex items-center uppercase tracking-[0.14em] text-neutral-800 transition-colors duration-200 hover:text-neutral-900"
                 >
-                  <span className="link-underline">Download PDF</span>
-                  <span aria-hidden className="ml-1">→</span>
+                  <MotionCtaContent align="start" showArrow underline>
+                    Download PDF
+                  </MotionCtaContent>
                 </a>
                 {resource.fileSize ? <span className="text-charcoal/55">{resource.fileSize}</span> : null}
               </div>
@@ -439,7 +448,7 @@ export default async function PostArticleView({
                           className="inline-flex items-center rounded-full border border-black/12 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-900 transition hover:border-black/20 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                           aria-label={`Shop ${brand.name}`}
                         >
-                          Shop {brand.name}
+                          <MotionCtaContent>Shop {brand.name}</MotionCtaContent>
                         </a>
                       </div>
                     ) : null}

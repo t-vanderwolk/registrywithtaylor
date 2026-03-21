@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import CheckIcon from '@/components/ui/CheckIcon';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 
@@ -175,13 +176,13 @@ export default function HomeServicesSection() {
                   <Link
                     href={`/contact?service=${service.key}`}
                     className={[
-                      'mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 hover:scale-[1.01]',
+                      'mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-shadow duration-200 hover:shadow-[0_16px_34px_rgba(55,40,46,0.08)]',
                       service.featured
                         ? 'bg-[var(--color-accent-dark)] text-white shadow-[0_16px_34px_rgba(55,40,46,0.12)]'
                         : 'border border-[rgba(196,156,94,0.18)] bg-white text-neutral-900 hover:shadow-sm',
                     ].join(' ')}
                   >
-                    Start a Consultation
+                    <MotionCtaContent>Start a Consultation</MotionCtaContent>
                   </Link>
                 </div>
               </article>
@@ -195,10 +196,7 @@ export default function HomeServicesSection() {
               href="/guides/strollers"
               className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
             >
-              Explore real product guidance
-              <span aria-hidden="true" className="ml-2">
-                →
-              </span>
+              <MotionCtaContent showArrow>Explore real product guidance</MotionCtaContent>
             </Link>
           </div>
         </RevealOnScroll>

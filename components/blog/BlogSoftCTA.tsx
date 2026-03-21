@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Body, H2 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { getAnalyticsPageType, getClientPageAnalyticsContext, getInternalPathFromHref, trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
@@ -90,7 +91,7 @@ export default function BlogSoftCTA({
               data-analytics-managed="true"
               onClick={() => trackBlogCta('/book', 'Book a Consultation')}
             >
-              Book a Consultation
+              <MotionCtaContent>Book a Consultation</MotionCtaContent>
             </Link>
             <Link
               href="/contact"
@@ -98,7 +99,7 @@ export default function BlogSoftCTA({
               data-analytics-managed="true"
               onClick={() => trackBlogCta('/contact', 'Contact Taylor')}
             >
-              Contact Taylor
+              <MotionCtaContent>Contact Taylor</MotionCtaContent>
             </Link>
           </div>
         </div>

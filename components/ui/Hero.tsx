@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
 import RibbonDivider from '@/components/layout/RibbonDivider';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 
 type CTA = {
   label: string;
@@ -156,7 +157,7 @@ export default function Hero({
                       href={primaryCta.href}
                       className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                     >
-                      {primaryCta.label}
+                      <MotionCtaContent>{primaryCta.label}</MotionCtaContent>
                     </Link>
                   )}
                   {secondaryCta && (
@@ -164,7 +165,7 @@ export default function Hero({
                       href={secondaryCta.href}
                       className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                     >
-                      {secondaryCta.label}
+                      <MotionCtaContent>{secondaryCta.label}</MotionCtaContent>
                     </Link>
                   )}
                 </div>

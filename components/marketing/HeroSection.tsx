@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 
 type HeroSectionProps = {
   eyebrow?: string;
@@ -66,10 +67,10 @@ export default function HeroSection({
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <Link href={primaryCtaHref} className="btn btn--primary w-full sm:w-auto">
-              {primaryCtaLabel}
+              <MotionCtaContent>{primaryCtaLabel}</MotionCtaContent>
             </Link>
             <Link href={secondaryCtaHref} className="btn btn--secondary w-full sm:w-auto">
-              {secondaryCtaLabel}
+              <MotionCtaContent>{secondaryCtaLabel}</MotionCtaContent>
             </Link>
           </div>
         </div>

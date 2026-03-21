@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import MarketingSection from '@/components/layout/MarketingSection';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { getAnalyticsPageType, getClientPageAnalyticsContext, getInternalPathFromHref, trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 
@@ -87,7 +88,7 @@ export default function CTASection({
             data-analytics-managed="true"
             onClick={() => trackCtaClick(primaryHref, primaryAnalyticsLabel ?? primaryLabel)}
           >
-            {primaryLabel}
+            <MotionCtaContent>{primaryLabel}</MotionCtaContent>
           </Link>
           <Link
             href={secondaryHref}
@@ -95,7 +96,7 @@ export default function CTASection({
             data-analytics-managed="true"
             onClick={() => trackCtaClick(secondaryHref, secondaryAnalyticsLabel ?? secondaryLabel)}
           >
-            {secondaryLabel}
+            <MotionCtaContent>{secondaryLabel}</MotionCtaContent>
           </Link>
         </div>
         <p className="relative mt-4 text-[0.72rem] uppercase tracking-[0.18em] text-black/45 sm:mt-5">{note}</p>

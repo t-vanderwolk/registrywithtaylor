@@ -88,6 +88,7 @@ export default function GuideExampleBlock({
                 productName={product.productName}
                 imageSrc={product.imageUrl}
                 imageAlt={product.imageAlt}
+                imageHref={product.affiliateLinks[0]?.url ?? null}
                 typeLabel={product.typeLabel}
                 whyItMatters={product.shortReview}
                 bestFor={product.bestFor}

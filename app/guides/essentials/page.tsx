@@ -18,7 +18,7 @@ export const metadata = buildMarketingMetadata({
 export default function EssentialsGuideHubPage() {
   return (
     <SiteShell currentPath={config.path}>
-      <main className="site-main">
+      <main className="site-main min-h-0">
         <PageViewTracker path={config.path} pageType="guide" />
         <GuideFutureHubPage config={config} />
       </main>

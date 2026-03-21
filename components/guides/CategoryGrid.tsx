@@ -37,12 +37,12 @@ export default function CategoryGrid({
           <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
           <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
           {description ? (
-            <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p>
+            <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p>
           ) : null}
         </div>
       </RevealOnScroll>
 
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {cards.map((card, index) => (
           <RevealOnScroll key={`${card.href}-${card.title}`} delayMs={index * 70}>
             <Link

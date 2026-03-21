@@ -1,4 +1,5 @@
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
+import { STROLLER_AFFILIATE_LINKS } from '@/lib/data/products/strollerAffiliateLinks';
 
 export type StrollerProductGroupSlug =
   | 'full-size-modular-strollers'
@@ -16,6 +17,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Fox 5',
       imageSrc: '/assets/strollers/fox5.png',
       imageAlt: 'Bugaboo Fox 5 stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bugaboo-fox-5'],
       typeLabel: 'Full-Size Stroller',
       bestFor: 'families who want an everyday stroller with stronger suspension and a polished push feel',
       shortReview:
@@ -34,6 +36,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'MIXX next',
       imageSrc: '/assets/strollers/mixxnext.png',
       imageAlt: 'Nuna MIXX next stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['nuna-mixx-next'],
       typeLabel: 'Full-Size Stroller',
       bestFor: 'parents who want a capable everyday stroller that still feels manageable in the trunk',
       shortReview:
@@ -52,6 +55,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Reef 2',
       imageSrc: '/assets/strollers/reef.png',
       imageAlt: 'Silver Cross Reef 2 stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['silver-cross-reef-2'],
       typeLabel: 'Full-Size Stroller',
       bestFor: 'parents who want premium finishing, good storage, and a more substantial everyday feel',
       shortReview:
@@ -72,6 +76,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Dragonfly',
       imageSrc: '/assets/strollers/compact.png',
       imageAlt: 'Bugaboo Dragonfly stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bugaboo-dragonfly'],
       typeLabel: 'Compact Stroller',
       bestFor: 'parents who want lighter everyday handling without dropping into a true travel-only feel',
       shortReview:
@@ -90,6 +95,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'TRIV',
       imageSrc: '/assets/strollers/triv.png',
       imageAlt: 'Nuna TRIV stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['nuna-triv'],
       typeLabel: 'Compact Stroller',
       bestFor: 'families who want easier storage and simpler lifting in a premium compact frame',
       shortReview:
@@ -108,6 +114,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Mios',
       imageSrc: '/assets/strollers/mios.png',
       imageAlt: 'CYBEX Mios stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['cybex-mios'],
       typeLabel: 'Compact Stroller',
       bestFor: 'urban families who care about maneuverability, tighter spaces, and a cleaner compact silhouette',
       shortReview:
@@ -184,6 +191,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Donkey 5',
       imageSrc: '/assets/strollers/donkey.png',
       imageAlt: 'Bugaboo Donkey 5 stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bugaboo-donkey'],
       typeLabel: 'Convertible Stroller',
       bestFor: 'families planning for a second child soon who want a true single-to-double system',
       shortReview:
@@ -202,6 +210,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Wave 3',
       imageSrc: '/assets/strollers/wave.png',
       imageAlt: 'Silver Cross Wave 3 stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['silver-cross-wave-3'],
       typeLabel: 'Convertible Stroller',
       bestFor: 'parents who want modular flexibility with a more premium, substantial stroller feel',
       shortReview:
@@ -220,6 +229,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Gazelle S',
       imageSrc: '/assets/strollers/gazelle.png',
       imageAlt: 'CYBEX Gazelle S stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['cybex-gazelle-s'],
       typeLabel: 'Convertible Stroller',
       bestFor: 'families comparing modular single-to-double flexibility with a still-usable everyday setup',
       shortReview:

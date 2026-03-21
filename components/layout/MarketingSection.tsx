@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import FadeInSection from '@/components/ui/FadeInSection';
 
 type MarketingSectionTone = 'white' | 'ivory' | 'ivoryWarm' | 'neutral' | 'blush';
 type MarketingSectionContainer = 'default' | 'narrow' | 'wide';
@@ -11,6 +12,7 @@ type MarketingSectionProps = {
   spacing?: MarketingSectionSpacing;
   className?: string;
   id?: string;
+  reveal?: boolean;
   children: ReactNode;
 };
 
@@ -41,6 +43,7 @@ export default function MarketingSection({
   spacing = 'default',
   className = '',
   id,
+  reveal = true,
   children,
 }: MarketingSectionProps) {
   const resolvedContainer = variant ?? container;
@@ -50,7 +53,13 @@ export default function MarketingSection({
 
   return (
     <section id={id} className={sectionClassName}>
-      <div className={containerClassMap[resolvedContainer]}>{children}</div>
+      {reveal ? (
+        <FadeInSection className={containerClassMap[resolvedContainer]}>
+          {children}
+        </FadeInSection>
+      ) : (
+        <div className={containerClassMap[resolvedContainer]}>{children}</div>
+      )}
     </section>
   );
 }

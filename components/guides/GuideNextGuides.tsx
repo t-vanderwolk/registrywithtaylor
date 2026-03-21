@@ -14,16 +14,16 @@ export default function GuideNextGuides({
   }
 
   return (
-    <section className="rounded-2xl border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f4_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
+    <section className="rounded-2xl border border-[rgba(196,156,94,0.18)] bg-[linear-gradient(180deg,#fff8f4_0%,#fbf7f2_100%)] p-5 shadow-sm md:p-7">
       <div className="space-y-3">
         <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Next guides</p>
         <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
-        <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
+        <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">
           These five guides are meant to work like a planning loop, not five unrelated essays.
         </p>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {items.map((item) => (
           <Link
             key={item.slug}

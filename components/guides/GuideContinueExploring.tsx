@@ -20,14 +20,14 @@ export default function GuideContinueExploring({
 
   return (
     <RevealOnScroll>
-      <section id={id} className="rounded-2xl border border-black/6 bg-white p-6 shadow-sm md:p-8">
+      <section id={id} className="rounded-2xl border border-black/6 bg-white p-5 shadow-sm md:p-7">
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.22em] text-black/48">Continue exploring</p>
           <h3 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h3>
-          {description ? <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
+          {description ? <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {links.map((link) => (
             <Link
               key={`${link.href}-${link.title}`}

@@ -352,7 +352,7 @@ export async function renderGuideRoute({
 
     return (
       <SiteShell currentPath={guidePath}>
-        <main className="site-main" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
+        <main className="site-main min-h-0" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

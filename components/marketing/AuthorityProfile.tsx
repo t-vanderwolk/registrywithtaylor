@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import MarketingSection from '@/components/layout/MarketingSection';
 import CheckIcon from '@/components/ui/CheckIcon';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import SectionIntro from '@/components/ui/SectionIntro';
 import Image from 'next/image';
 
@@ -69,7 +70,7 @@ export default function AuthorityProfile({
 
           <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
             <Link href="/consultation" className="btn btn--primary w-full sm:w-auto">
-              Book a Consultation
+              <MotionCtaContent>Book a Consultation</MotionCtaContent>
             </Link>
           </div>
         </div>
@@ -113,8 +114,9 @@ export default function AuthorityProfile({
                 href="/about"
                 className="mt-6 inline-flex min-h-[44px] items-center text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)] transition-opacity duration-200 hover:opacity-75"
               >
-                Meet Taylor
-                <span aria-hidden className="ml-2">→</span>
+                <MotionCtaContent align="start" showArrow>
+                  Meet Taylor
+                </MotionCtaContent>
               </Link>
             </div>
           </div>

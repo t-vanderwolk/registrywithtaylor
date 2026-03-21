@@ -10,11 +10,12 @@ import GuideDecisionSystemHub from '@/components/guides/GuideDecisionSystemHub';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
-import GuidePageSection from '@/components/guides/GuidePageSection';
-import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
+import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
+import RegistryGuideSlideLayout from '@/components/guides/RegistryGuideSlideLayout';
+import SlideSection from '@/components/guides/SlideSection';
 import HubDecisionCards from '@/components/guides/HubDecisionCards';
 import ProductExampleCard from '@/components/guides/ProductExampleCard';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -153,6 +154,8 @@ function ProductRecommendations({
                   }
                 : null
             }
+            imageHref={module.destinationUrl}
+            imageLinkLabel={module.ctaLabel}
             description={module.description}
             bestFor={module.title}
             standout={module.notes ?? undefined}
@@ -191,14 +194,12 @@ function NextStepBand({
   sourceRoute,
   nextStepEvent,
   nextStepDestinationPageType,
-  useSoftPrimaryActions = false,
 }: {
   guide: GuideArticleRecord;
   preview: boolean;
   sourceRoute: string;
   nextStepEvent: GuideAnalyticsEventName | null;
   nextStepDestinationPageType: AnalyticsPageType | null;
-  useSoftPrimaryActions?: boolean;
 }) {
   if (!guide.consultationCtaEnabled && !guide.newsletterCtaEnabled && !guide.nextStepCtaHref) {
     return null;
@@ -206,9 +207,7 @@ function NextStepBand({
 
   const actionClassName =
     'inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 hover:scale-[1.02] hover:shadow-md';
-  const primaryActionClassName = useSoftPrimaryActions
-    ? `${actionClassName} border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]`
-    : `${actionClassName} bg-charcoal text-white`;
+  const primaryActionClassName = `${actionClassName} border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]`;
 
   return (
     <div className="space-y-4">
@@ -458,6 +457,23 @@ export default function GuideHubLayout({
           variant: 'secondary' as const,
         }
       : null;
+  const slideDeckId = `guide-slide-deck-${guide.slug}`;
+  const slideItems = useDecisionStyledHubCards
+    ? [
+        { id: 'guide-overview', label: 'Overview', shortLabel: 'Start' },
+        { id: 'hub-start', label: 'Start Here', shortLabel: 'Path' },
+        { id: 'hub-categories', label: 'Planning Lanes', shortLabel: 'Lanes' },
+        ...(decisionStyledHubSteps.length > 0
+          ? [{ id: 'hub-walkthrough', label: 'Quick Guide', shortLabel: 'Guide' }]
+          : []),
+        { id: 'hub-next-steps', label: 'Next Steps', shortLabel: 'Next' },
+      ]
+    : [
+        { id: 'guide-overview', label: 'Overview', shortLabel: 'Start' },
+        { id: 'hub-start', label: 'Start Here', shortLabel: 'Map' },
+        { id: 'hub-guide-path', label: 'Guide Path', shortLabel: 'Read' },
+        { id: 'hub-next-steps', label: 'Next Steps', shortLabel: 'Next' },
+      ];
 
   if (!hubConfig && !isStrollerHub && !isCarSeatHub) {
     return null;
@@ -467,120 +483,130 @@ export default function GuideHubLayout({
     return <GuideDecisionSystemHub guide={guide} sourceRoute={sourceRoute} />;
   }
 
-  return (
-    <>
-      <GuideScrollProgress />
-
-      <GuideHero
-        parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-        eyebrow={guide.category}
-        title={guide.title}
-        description={
-          guide.excerpt?.trim() ||
-          'A calmer editorial guide built to help you sort the tradeoffs, skip the noise, and move into the right next decision.'
-        }
-        readTime={`${readingTime} min`}
-        publishedLabel={formatArticleDate(displayDate)}
-        sectionCount={outline.sections.length}
-        jumpLinks={isStrollerHub ? strollerHeroJumpLinks : isCarSeatHub ? carSeatHeroJumpLinks : styledHubHeroJumpLinks}
-        imageSrc={guide.heroImageUrl}
-        imageAlt={guide.heroImageAlt}
-        variant={isStrollerHub ? 'stroller-hub' : isCarSeatHub ? 'guide-hub' : 'default'}
+  if (guide.slug === 'minimalist-baby-registry') {
+    return (
+      <RegistryGuideSlideLayout
+        guide={guide}
+        sourceRoute={sourceRoute}
+        displayDate={displayDate}
+        readingTime={readingTime}
+        faqEntries={faqEntries}
+        nextGuideItems={nextGuideItems}
       />
+    );
+  }
 
-      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
-        <GuideCTARibbon
-          eyebrow="Start here"
-          title="Start with the lane that sounds most like your life."
-          description="You do not need to read this guide like homework. Begin with the section that matches the friction you are actually trying to solve."
-          primaryCta={heroPrimaryCta}
-          secondaryCta={heroSecondaryCta}
+  return (
+    <GuideSlideDeck containerId={slideDeckId} items={slideItems}>
+      <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
+        <GuideHero
+          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          eyebrow={guide.category}
+          title={guide.title}
+          description={
+            guide.excerpt?.trim() ||
+            'A calmer editorial guide built to help you sort the tradeoffs, skip the noise, and move into the right next decision.'
+          }
+          readTime={`${readingTime} min`}
+          publishedLabel={formatArticleDate(displayDate)}
+          sectionCount={outline.sections.length}
+          jumpLinks={slideItems.slice(1, 7).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+          imageSrc={guide.heroImageUrl}
+          imageAlt={guide.heroImageAlt}
+          variant={isStrollerHub ? 'stroller-hub' : isCarSeatHub ? 'guide-hub' : 'default'}
         />
+      </SlideSection>
 
-        {!useDecisionStyledHubCards ? (
-          <div className="space-y-4">
-            <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="mobile" />
-            <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" layout="band" />
-          </div>
-        ) : null}
+      <SlideSection id="hub-start" background="white">
+        <div className="space-y-8">
+          <GuideCTARibbon
+            eyebrow="Start here"
+            title="Start with the lane that sounds most like your life."
+            description="You do not need to read this guide like homework. Begin with the section that matches the friction you are actually trying to solve."
+            primaryCta={heroPrimaryCta}
+            secondaryCta={heroSecondaryCta}
+          />
 
-        {outline.preface && !useDecisionStyledHubCards ? (
-          <div className="relative overflow-hidden rounded-2xl border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-6 py-6 shadow-sm md:px-8 md:py-8">
-            <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
-            <div className="relative">
-              <PostContent postId={`${guide.id}-preface`} content={outline.preface} className="guide-post-content" variant="guide" />
+          {!useDecisionStyledHubCards ? (
+            <div className="space-y-4">
+              <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="mobile" />
+              <GuideTableOfContents currentPath={sourceRoute} items={outline.tocItems} mode="desktop" layout="band" />
             </div>
-          </div>
-        ) : null}
+          ) : null}
 
-        {introSection ? (
-          <div className="space-y-6">
-            {useDecisionStyledHubCards && decisionStyledHubCopy ? (
-              <>
-                {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
-                <HubDecisionCards
-                  id="hub-start"
-                  eyebrow={decisionStyledHubCopy.decisionEyebrow}
-                  title={decisionStyledHubCopy.decisionTitle}
-                  description={decisionStyledHubCopy.decisionDescription}
-                  cards={hubConfig!.decisionItems.map((item) => ({
-                    title: item.title,
-                    description: item.description,
-                    href: item.href,
-                    icon: item.icon,
-                    ctaLabel: 'Explore this path',
-                  }))}
-                />
-
-                <CategoryGrid
-                  id="hub-categories"
-                  eyebrow={decisionStyledHubCopy.categoryEyebrow}
-                  title={decisionStyledHubCopy.categoryTitle}
-                  description={decisionStyledHubCopy.categoryDescription}
-                  bestForLabel={guide.slug === 'minimalist-baby-registry' ? 'Lane' : undefined}
-                  cards={hubConfig!.cards.map((card) => ({
-                    ...card,
-                    ctaLabel: 'Explore guide',
-                  }))}
-                />
-              </>
-            ) : (
-              <>
-                <GuidePostSurface postId={`${guide.id}-${introSection.id}`} content={introSection.content} contentClassName="guide-post-content" />
-                {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
-                <GuideCategoryCards
-                  title={hubConfig!.cardsTitle}
-                  description={hubConfig!.cardsDescription}
-                  cards={hubConfig!.cards}
-                />
-                <GuideDecisionHelper
-                  title={hubConfig!.decisionHelperTitle}
-                  description={hubConfig!.decisionHelperDescription}
-                  items={hubConfig!.decisionItems}
-                />
-              </>
-            )}
-          </div>
-        ) : null}
-      </GuidePageSection>
-
-      <GuidePageSection tone="blush" innerClassName="space-y-12 md:space-y-16">
-        {useDecisionStyledHubCards && decisionStyledHubCopy ? (
-          <>
-            {decisionStyledHubSteps.length > 0 ? (
-              <div id="hub-walkthrough" className="scroll-mt-28">
-                <GuideDecisionSteps
-                  eyebrow={decisionStyledHubCopy.walkthroughEyebrow}
-                  title={decisionStyledHubCopy.walkthroughTitle}
-                  description={decisionStyledHubCopy.walkthroughDescription}
-                  steps={decisionStyledHubSteps}
-                  mode="summary"
+          {outline.preface && !useDecisionStyledHubCards ? (
+            <div className="relative overflow-hidden rounded-2xl border border-[rgba(196,156,94,0.16)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,246,241,0.98)_100%)] px-6 py-6 shadow-sm md:px-8 md:py-8">
+              <div className="absolute right-[-1.5rem] top-[-1.5rem] h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.18)_0%,rgba(215,161,175,0)_72%)]" />
+              <div className="relative">
+                <PostContent
+                  postId={`${guide.id}-preface`}
+                  content={outline.preface}
+                  className="guide-post-content guide-slide-content"
+                  variant="guide"
                 />
               </div>
-            ) : null}
-          </>
-        ) : (
-          <>
+            </div>
+          ) : null}
+
+          {introSection ? (
+            <div className="space-y-6">
+              {useDecisionStyledHubCards && decisionStyledHubCopy ? (
+                <>
+                  {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
+                  <HubDecisionCards
+                    eyebrow={decisionStyledHubCopy.decisionEyebrow}
+                    title={decisionStyledHubCopy.decisionTitle}
+                    description={decisionStyledHubCopy.decisionDescription}
+                    cards={hubConfig!.decisionItems.map((item) => ({
+                      title: item.title,
+                      description: item.description,
+                      href: item.href,
+                      icon: item.icon,
+                      ctaLabel: 'Explore this path',
+                    }))}
+                  />
+                </>
+              ) : (
+                <>
+                  <GuidePostSurface
+                    postId={`${guide.id}-${introSection.id}`}
+                    content={introSection.content}
+                    contentClassName="guide-post-content guide-slide-content"
+                  />
+                  {showDisclosureAfterIntro ? <DisclosureCard text={disclosureText} /> : null}
+                  <GuideCategoryCards
+                    title={hubConfig!.cardsTitle}
+                    description={hubConfig!.cardsDescription}
+                    cards={hubConfig!.cards}
+                  />
+                  <GuideDecisionHelper
+                    title={hubConfig!.decisionHelperTitle}
+                    description={hubConfig!.decisionHelperDescription}
+                    items={hubConfig!.decisionItems}
+                  />
+                </>
+              )}
+            </div>
+          ) : null}
+        </div>
+      </SlideSection>
+
+      {useDecisionStyledHubCards && decisionStyledHubCopy ? (
+        <SlideSection id="hub-categories" background="blush">
+          <CategoryGrid
+            eyebrow={decisionStyledHubCopy.categoryEyebrow}
+            title={decisionStyledHubCopy.categoryTitle}
+            description={decisionStyledHubCopy.categoryDescription}
+            bestForLabel={guide.slug === 'minimalist-baby-registry' ? 'Lane' : undefined}
+            cards={hubConfig!.cards.map((card) => ({
+              ...card,
+              ctaLabel: 'Explore guide',
+            }))}
+          />
+        </SlideSection>
+      ) : (
+        <SlideSection id="hub-guide-path" background="blush">
+          <div className="space-y-8">
             {remainingSections.map((section, index) => {
               const continueExploringBlock = getGuideContinueExploringBlock({
                 slug: guide.slug,
@@ -592,7 +618,11 @@ export default function GuideHubLayout({
 
               return (
                 <div key={section.id} className="space-y-6">
-                  <GuidePostSurface postId={`${guide.id}-${section.id}`} content={section.content} contentClassName="guide-post-content" />
+                  <GuidePostSurface
+                    postId={`${guide.id}-${section.id}`}
+                    content={section.content}
+                    contentClassName="guide-post-content guide-slide-content"
+                  />
 
                   {!isFinalSection && continueExploringBlock ? (
                     <GuideContinueExploring
@@ -606,62 +636,84 @@ export default function GuideHubLayout({
                 </div>
               );
             })}
-          </>
-        )}
 
-        <GuideCTARibbon
-          eyebrow="Need a shorter path?"
-          title="Keep the next step obvious."
-          description="If the details are getting longer than your patience, use one of these shortcuts and keep moving toward a real decision."
-          primaryCta={midPrimaryCta}
-          secondaryCta={midSecondaryCta}
-        />
-      </GuidePageSection>
+            <GuideCTARibbon
+              eyebrow="Need a shorter path?"
+              title="Keep the next step obvious."
+              description="If the details are getting longer than your patience, use one of these shortcuts and keep moving toward a real decision."
+              primaryCta={midPrimaryCta}
+              secondaryCta={midSecondaryCta}
+            />
+          </div>
+        </SlideSection>
+      )}
 
-      <GuidePageSection tone="white" innerClassName="space-y-12 md:space-y-16">
-        {useDecisionStyledHubCards && decisionStyledHubCopy ? (
-          <GuideContinueExploring
-            id="hub-continue"
-            title={decisionStyledHubCopy.continueTitle}
-            description={decisionStyledHubCopy.continueDescription}
-            links={hubConfig!.supportLinks}
+      {useDecisionStyledHubCards && decisionStyledHubCopy && decisionStyledHubSteps.length > 0 ? (
+        <SlideSection id="hub-walkthrough" background="ivory">
+          <div className="space-y-8">
+            <GuideDecisionSteps
+              eyebrow={decisionStyledHubCopy.walkthroughEyebrow}
+              title={decisionStyledHubCopy.walkthroughTitle}
+              description={decisionStyledHubCopy.walkthroughDescription}
+              steps={decisionStyledHubSteps}
+              mode="summary"
+            />
+
+            <GuideCTARibbon
+              eyebrow="Need a shorter path?"
+              title="Keep the next step obvious."
+              description="If the details are getting longer than your patience, use one of these shortcuts and keep moving toward a real decision."
+              primaryCta={midPrimaryCta}
+              secondaryCta={midSecondaryCta}
+            />
+          </div>
+        </SlideSection>
+      ) : null}
+
+      <SlideSection id="hub-next-steps" background="white">
+        <div className="space-y-8">
+          {useDecisionStyledHubCards && decisionStyledHubCopy ? (
+            <GuideContinueExploring
+              title={decisionStyledHubCopy.continueTitle}
+              description={decisionStyledHubCopy.continueDescription}
+              links={hubConfig!.supportLinks}
+            />
+          ) : null}
+
+          {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
+
+          {guide.founderSignatureEnabled && guide.founderSignatureText ? (
+            <MarketingSurface className="rounded-2xl border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
+              <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{guide.founderSignatureText}</p>
+            </MarketingSurface>
+          ) : null}
+
+          {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
+
+          <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
+
+          <NextStepBand
+            guide={guide}
+            preview={preview}
+            sourceRoute={sourceRoute}
+            nextStepEvent={nextStepEvent}
+            nextStepDestinationPageType={nextStepDestinationPageType}
           />
-        ) : null}
 
-        {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
+          {useDecisionStyledHubCards && decisionStyledHubCopy ? (
+            <GuideSoftConversionCta
+              title={decisionStyledHubCopy.softCtaTitle}
+              description={decisionStyledHubCopy.softCtaDescription}
+              href="/services"
+              ctaLabel="Learn about Taylor-Made Baby Planning"
+              primaryVariant={useSoftGuideCtas ? 'accent' : 'primary'}
+            />
+          ) : null}
 
-        {guide.founderSignatureEnabled && guide.founderSignatureText ? (
-          <MarketingSurface className="rounded-2xl border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
-            <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{guide.founderSignatureText}</p>
-          </MarketingSurface>
-        ) : null}
-
-        {showDisclosureBeforeAffiliates && guide.affiliateModules.length > 0 ? <DisclosureCard text={disclosureText} /> : null}
-
-        <ProductRecommendations guide={guide} preview={preview} sourceRoute={sourceRoute} />
-
-        <NextStepBand
-          guide={guide}
-          preview={preview}
-          sourceRoute={sourceRoute}
-          nextStepEvent={nextStepEvent}
-          nextStepDestinationPageType={nextStepDestinationPageType}
-          useSoftPrimaryActions={useSoftGuideCtas}
-        />
-
-        {useDecisionStyledHubCards && decisionStyledHubCopy ? (
-          <GuideSoftConversionCta
-            title={decisionStyledHubCopy.softCtaTitle}
-            description={decisionStyledHubCopy.softCtaDescription}
-            href="/services"
-            ctaLabel="Learn about Taylor-Made Baby Planning"
-            primaryVariant={useSoftGuideCtas ? 'accent' : 'primary'}
-          />
-        ) : null}
-
-        <GuideNextGuides items={nextGuideItems} />
-      </GuidePageSection>
-    </>
+          <GuideNextGuides items={nextGuideItems} />
+        </div>
+      </SlideSection>
+    </GuideSlideDeck>
   );
 }

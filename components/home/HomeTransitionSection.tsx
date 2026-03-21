@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 type HomeTransitionTone = 'white' | 'ivory' | 'blush' | 'linen';
@@ -68,12 +69,9 @@ export default function HomeTransitionSection({
               <div className="mt-8">
                 <Link
                   href={cta.href}
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition-shadow duration-200 hover:shadow-sm"
                 >
-                  {cta.label}
-                  <span aria-hidden="true" className="ml-2">
-                    →
-                  </span>
+                  <MotionCtaContent showArrow>{cta.label}</MotionCtaContent>
                 </Link>
               </div>
             ) : null}

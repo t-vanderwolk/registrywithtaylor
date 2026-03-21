@@ -48,8 +48,8 @@ export default function GuideHero({
 
   return (
     <section className="bg-[linear-gradient(180deg,#FBF7F8_0%,#FFFFFF_100%)]">
-      <div className="mx-auto max-w-6xl px-6 pb-16 pt-24 md:px-10 md:pb-20 md:pt-32">
-        <div className={`grid gap-10 ${showHeroImage ? 'lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center' : ''}`}>
+      <div className="mx-auto w-full max-w-[1520px] px-6 pb-12 pt-20 md:px-10 md:pb-16 md:pt-24 xl:px-12">
+        <div className={`grid gap-8 ${showHeroImage ? 'lg:grid-cols-[minmax(0,1.14fr)_24rem] lg:items-center lg:gap-10' : ''}`}>
           <div className="space-y-8">
             <div className="space-y-5">
               {parentLink ? (
@@ -63,8 +63,8 @@ export default function GuideHero({
               ) : null}
 
               <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-              <h1 className="max-w-2xl text-4xl font-serif tracking-tight text-charcoal md:text-5xl">{displayTitle}</h1>
-              <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p>
+              <h1 className="max-w-[16ch] text-4xl font-serif tracking-tight text-charcoal md:text-5xl">{displayTitle}</h1>
+              <p className="max-w-3xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -85,7 +85,7 @@ export default function GuideHero({
                 <div className="mt-4 flex flex-wrap gap-3">
                   {jumpLinks.map((link) => (
                     <a
-                      key={link.href}
+                      key={`${link.href}-${link.label}`}
                       href={link.href}
                       className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.22)] bg-[#FCFAFB] px-4 py-2 text-sm text-charcoal transition duration-200 hover:-translate-y-1 hover:shadow-md"
                     >
@@ -105,7 +105,7 @@ export default function GuideHero({
                   alt={imageAlt?.trim() || title}
                   fill
                   priority
-                  sizes="(min-width: 1024px) 22rem, 100vw"
+                  sizes="(min-width: 1024px) 24rem, 100vw"
                   className={heroImageClassName}
                   unoptimized={shouldSkipImageOptimization}
                 />

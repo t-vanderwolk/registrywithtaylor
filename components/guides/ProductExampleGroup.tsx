@@ -73,6 +73,7 @@ export default function ProductExampleGroup({
                     productName={example.productName}
                     imageSrc={example.imageSrc}
                     imageAlt={example.imageAlt}
+                    imageHref={example.affiliateUrl}
                     typeLabel={example.typeLabel}
                     whyItMatters={example.shortReview}
                     bestFor={example.bestFor}

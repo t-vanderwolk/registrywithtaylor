@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
+import FadeInSection from '@/components/ui/FadeInSection';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 
 type TMBCBlogTemplateProps = {
@@ -63,49 +64,51 @@ export default function TMBCBlogTemplate({
     <>
       <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 sm:px-6">
-          <header className="tmbc-blog-hero">
-            <div className="tmbc-blog-hero__inner">
-              <div className="tmbc-blog-hero__eyebrow">
-                <CategoryTag label={categoryLabel} />
-              </div>
-              <div className="tmbc-blog-hero__copy">
-                <h1 className="text-[var(--tmbc-blog-charcoal)]">{title}</h1>
-                {subtitle ? <p className="excerpt">{subtitle}</p> : null}
-              </div>
+          <FadeInSection>
+            <header className="tmbc-blog-hero">
+              <div className="tmbc-blog-hero__inner">
+                <div className="tmbc-blog-hero__eyebrow">
+                  <CategoryTag label={categoryLabel} />
+                </div>
+                <div className="tmbc-blog-hero__copy">
+                  <h1 className="text-[var(--tmbc-blog-charcoal)]">{title}</h1>
+                  {subtitle ? <p className="excerpt">{subtitle}</p> : null}
+                </div>
 
-              <div className="meta tmbc-blog-meta">
-                {primaryAuthor ? (
-                  primaryAuthor.slug ? (
-                    <a
-                      href={`/blog/author/${primaryAuthor.slug}`}
-                      className="font-medium text-[var(--tmbc-blog-charcoal)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-4"
-                    >
-                      {primaryAuthor.name}
-                    </a>
-                  ) : (
-                    <span className="font-medium text-[var(--tmbc-blog-charcoal)]">{primaryAuthor.name}</span>
-                  )
-                ) : null}
-                <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                <time dateTime={publishDateIso}>{publishDateLabel}</time>
-                {readingTime ? (
-                  <>
-                    <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                    <span>{readingTime} min read</span>
-                  </>
-                ) : null}
-                {contributors.length > 0 ? (
-                  <>
-                    <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
-                    <span>with contributions from {contributors.map((author) => author.name).join(', ')}</span>
-                  </>
-                ) : null}
+                <div className="meta tmbc-blog-meta">
+                  {primaryAuthor ? (
+                    primaryAuthor.slug ? (
+                      <a
+                        href={`/blog/author/${primaryAuthor.slug}`}
+                        className="font-medium text-[var(--tmbc-blog-charcoal)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-4"
+                      >
+                        {primaryAuthor.name}
+                      </a>
+                    ) : (
+                      <span className="font-medium text-[var(--tmbc-blog-charcoal)]">{primaryAuthor.name}</span>
+                    )
+                  ) : null}
+                  <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                  <time dateTime={publishDateIso}>{publishDateLabel}</time>
+                  {readingTime ? (
+                    <>
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                      <span>{readingTime} min read</span>
+                    </>
+                  ) : null}
+                  {contributors.length > 0 ? (
+                    <>
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                      <span>with contributions from {contributors.map((author) => author.name).join(', ')}</span>
+                    </>
+                  ) : null}
+                </div>
+                <div className="tmbc-blog-hero__divider">
+                  <BlogDivider />
+                </div>
               </div>
-              <div className="tmbc-blog-hero__divider">
-                <BlogDivider />
-              </div>
-            </div>
-          </header>
+            </header>
+          </FadeInSection>
 
           {featuredImageUrl ? (
             <div className="tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
@@ -123,18 +126,32 @@ export default function TMBCBlogTemplate({
             </div>
           ) : null}
 
-          {affiliateDisclosure ? <div className="mt-10">{affiliateDisclosure}</div> : null}
+          {affiliateDisclosure ? (
+            <FadeInSection delayMs={50}>
+              <div className="mt-10">{affiliateDisclosure}</div>
+            </FadeInSection>
+          ) : null}
 
-          <div className="mt-14">{body}</div>
-          {resources}
-          {gallery}
-          {affiliateCta}
-          {conversionCta ? <div className="mt-16">{conversionCta}</div> : null}
+          <FadeInSection delayMs={80}>
+            <div className="mt-14">{body}</div>
+          </FadeInSection>
 
-          <section className="blog-section-soft mt-16 px-4 sm:px-6">
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--tmbc-blog-soft-text)]">Share This Guide</p>
-            <div className="mt-5">{shareSection}</div>
-          </section>
+          {resources ? <FadeInSection delayMs={100}>{resources}</FadeInSection> : null}
+          {gallery ? <FadeInSection delayMs={120}>{gallery}</FadeInSection> : null}
+          {affiliateCta ? <FadeInSection delayMs={140}>{affiliateCta}</FadeInSection> : null}
+
+          {conversionCta ? (
+            <FadeInSection delayMs={160}>
+              <div className="mt-16">{conversionCta}</div>
+            </FadeInSection>
+          ) : null}
+
+          <FadeInSection delayMs={180}>
+            <section className="blog-section-soft mt-16 px-4 sm:px-6">
+              <p className="text-xs uppercase tracking-[0.24em] text-[var(--tmbc-blog-soft-text)]">Share This Guide</p>
+              <div className="mt-5">{shareSection}</div>
+            </section>
+          </FadeInSection>
         </article>
       </section>
 

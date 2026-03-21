@@ -5,6 +5,8 @@ import PostContent from '@/components/blog/PostContent';
 import GuideCategoryDecisionSystem from '@/components/guides/GuideCategoryDecisionSystem';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
+import StrollerAcademyHub from '@/components/guides/StrollerAcademyHub';
+import StrollerAcademyLanePage from '@/components/guides/StrollerAcademyLanePage';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -157,12 +159,33 @@ export default async function GuideArticleView({
   const showCategoryMenu = !preview && guide.slug === 'best-strollers' && categoryGuides.length > 0;
   const pillarPreviewTopics = tocItems.filter((item) => item.level === 2).slice(0, 4);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
+  const useStrollerAcademyHub = guide.slug === 'best-strollers';
   const useStrollerCategoryLiveLayout = isStrollerCategoryGuideSlug(guide.slug);
   const useCarSeatCategoryLiveLayout = isCarSeatCategoryGuideSlug(guide.slug);
   const strollerJournalLinks =
     guide.slug === 'best-strollers' || useStrollerCategoryLiveLayout
       ? await getPublishedStrollerJournalLinks(guide.slug)
       : [];
+
+  if (useStrollerAcademyHub) {
+    return (
+      <>
+        <GuideViewTracker
+          guideId={guide.id}
+          sourceRoute={sourceRoute}
+          slug={guide.slug}
+          title={guide.title}
+          enabled={!preview}
+        />
+
+        <StrollerAcademyHub
+          guide={guide}
+          sourceRoute={sourceRoute}
+          readingTime={readingTime}
+        />
+      </>
+    );
+  }
 
   if (hubConfig) {
     return (
@@ -202,7 +225,7 @@ export default async function GuideArticleView({
           enabled={!preview}
         />
 
-        <GuideCategoryDecisionSystem
+        <StrollerAcademyLanePage
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}

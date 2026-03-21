@@ -33,15 +33,15 @@ export default function DecisionHelper({
     <RevealOnScroll>
       <section
         id={id}
-        className="rounded-2xl border border-[rgba(215,161,175,0.22)] bg-[rgba(250,247,248,0.96)] p-6 shadow-sm md:p-8"
+        className="rounded-2xl border border-[rgba(215,161,175,0.22)] bg-[rgba(250,247,248,0.96)] p-5 shadow-sm md:p-7"
       >
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
           <h2 className="font-serif text-2xl text-charcoal md:text-3xl">{title}</h2>
-          {description ? <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
+          {description ? <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {items.map((item) => {
             const content = (
               <div className="flex h-full flex-col rounded-xl border border-[rgba(215,161,175,0.16)] bg-white p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md">

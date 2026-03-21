@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import FadeInSection from '@/components/ui/FadeInSection';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { getStrollerContextStripData } from '@/lib/guides/strollerSystem';
 
@@ -34,10 +36,10 @@ export default function GuideContextStrip({
             currentLabel: strollerContext.currentLabel,
             compareLabel: strollerContext.compareLabel,
             compareHref: strollerContext.compareHref,
-            compareCtaLabel: 'Open comparison path ->',
+            compareCtaLabel: 'Open comparison path',
             hubLabel: 'Stroller Hub',
             hubHref: strollerContext.hubHref,
-            hubCtaLabel: 'See the full stroller map ->',
+            hubCtaLabel: 'See the full stroller map',
           } satisfies GuideContextStripData;
         })()
       : null);
@@ -59,27 +61,33 @@ export default function GuideContextStrip({
         </div>
 
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] px-4 py-4">
-            <p className="text-xs uppercase tracking-[0.16em] text-black/45">You&apos;re exploring</p>
-            <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.currentLabel}</p>
-          </div>
+          <FadeInSection duration={0.25} yOffset={-10}>
+            <div className="rounded-xl border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] px-4 py-4">
+              <p className="text-xs uppercase tracking-[0.16em] text-black/45">You&apos;re exploring</p>
+              <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.currentLabel}</p>
+            </div>
+          </FadeInSection>
 
           <Link
             href={resolvedContext.compareHref}
             className="group rounded-xl border border-[rgba(0,0,0,0.06)] bg-white px-4 py-4 transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-md"
-          >
-            <p className="text-xs uppercase tracking-[0.16em] text-black/45">Compare with</p>
-            <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.compareLabel}</p>
-            <p className="mt-2 text-base text-[var(--color-accent-dark)]">{resolvedContext.compareCtaLabel ?? 'Open comparison path ->'}</p>
+            >
+              <p className="text-xs uppercase tracking-[0.16em] text-black/45">Compare with</p>
+              <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.compareLabel}</p>
+              <MotionCtaContent align="start" className="mt-2 text-base text-[var(--color-accent-dark)]" showArrow>
+                {resolvedContext.compareCtaLabel ?? 'Open comparison path'}
+              </MotionCtaContent>
           </Link>
 
           <Link
             href={resolvedContext.hubHref}
             className="group rounded-xl border border-[rgba(0,0,0,0.06)] bg-white px-4 py-4 transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-md"
-          >
-            <p className="text-xs uppercase tracking-[0.16em] text-black/45">Or return to</p>
-            <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.hubLabel}</p>
-            <p className="mt-2 text-base text-[var(--color-accent-dark)]">{resolvedContext.hubCtaLabel ?? 'See the full map ->'}</p>
+            >
+              <p className="text-xs uppercase tracking-[0.16em] text-black/45">Or return to</p>
+              <p className="mt-2 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{resolvedContext.hubLabel}</p>
+              <MotionCtaContent align="start" className="mt-2 text-base text-[var(--color-accent-dark)]" showArrow>
+                {resolvedContext.hubCtaLabel ?? 'See the full map'}
+              </MotionCtaContent>
           </Link>
         </div>
       </section>

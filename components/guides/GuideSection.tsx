@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import FadeInSection from '@/components/ui/FadeInSection';
 
 interface GuideSectionProps {
   title: string;
@@ -8,11 +9,13 @@ interface GuideSectionProps {
 
 export default function GuideSection({ title, children, id }: GuideSectionProps) {
   return (
-    <section id={id} className="bg-white border border-neutral-100 rounded-2xl shadow-sm p-10 mb-20">
-      <h2 className="text-3xl font-serif text-charcoal mb-8">{title}</h2>
-      <div className="prose prose-lg max-w-none">
-        {children}
-      </div>
-    </section>
+    <FadeInSection className="mb-20">
+      <section id={id} className="rounded-2xl border border-neutral-100 bg-white p-10 shadow-sm">
+        <h2 className="mb-8 text-3xl font-serif text-charcoal">{title}</h2>
+        <div className="prose prose-lg max-w-none">
+          {children}
+        </div>
+      </section>
+    </FadeInSection>
   );
 }

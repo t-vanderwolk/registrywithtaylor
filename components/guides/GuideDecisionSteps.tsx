@@ -40,16 +40,16 @@ export default function GuideDecisionSteps({
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
           <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
-          {description ? <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
+          {description ? <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
         </div>
       </RevealOnScroll>
 
-      <div className="space-y-6">
+      <div className="space-y-5">
         {steps.map((step, index) => (
           <RevealOnScroll key={step.id} delayMs={index * 70}>
             <section
               id={step.id}
-              className="scroll-mt-28 rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8"
+              className="scroll-mt-28 rounded-2xl border border-stone-200/70 bg-white p-5 shadow-sm md:p-7"
             >
               <div className="space-y-4">
                 <div className="space-y-3">
@@ -58,7 +58,7 @@ export default function GuideDecisionSteps({
                     {step.title}
                   </h3>
                   {step.summary ? (
-                    <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
+                    <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">
                       {step.summary}
                     </p>
                   ) : null}

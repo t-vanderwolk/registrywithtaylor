@@ -8,6 +8,10 @@ type ProductExampleImage = {
   objectClassName?: string;
 };
 
+function isExternalHref(href: string) {
+  return /^https?:\/\//i.test(href);
+}
+
 function DetailBlock({
   label,
   children,
@@ -31,6 +35,8 @@ export default function ProductExampleCard({
   bestFor,
   standout,
   watchout,
+  imageHref,
+  imageLinkLabel,
   cta,
   actionSlot,
 }: {
@@ -41,32 +47,60 @@ export default function ProductExampleCard({
   bestFor?: ReactNode;
   standout?: ReactNode;
   watchout?: ReactNode;
+  imageHref?: string | null;
+  imageLinkLabel?: string | null;
   cta?: {
     href: string;
     label: string;
   } | null;
   actionSlot?: ReactNode;
 }) {
+  const imagePanel = (
+    <div className="overflow-hidden rounded-xl border border-stone-200/70 bg-[#F7F3F0]">
+      <div className="relative aspect-[4/3]">
+        {image ? (
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            className={`h-full w-full ${image.objectClassName ?? 'object-contain'} object-center p-4`}
+          />
+        ) : (
+          <div className="flex h-full items-end p-5">
+            <p className="font-serif text-xl text-charcoal">{name}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <RevealOnScroll>
       <article className="h-full rounded-2xl border border-stone-200/70 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md md:p-6">
-        <div className="overflow-hidden rounded-xl border border-stone-200/70 bg-[#F7F3F0]">
-          <div className="relative aspect-[4/3]">
-            {image ? (
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                decoding="async"
-                className={`h-full w-full ${image.objectClassName ?? 'object-contain'} object-center p-4`}
-              />
-            ) : (
-              <div className="flex h-full items-end p-5">
-                <p className="font-serif text-xl text-charcoal">{name}</p>
-              </div>
-            )}
-          </div>
-        </div>
+        {imageHref ? (
+          isExternalHref(imageHref) ? (
+            <a
+              href={imageHref}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              aria-label={imageLinkLabel?.trim() || `Shop ${name}`}
+              className="block rounded-xl transition duration-200 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+            >
+              {imagePanel}
+            </a>
+          ) : (
+            <Link
+              href={imageHref}
+              aria-label={imageLinkLabel?.trim() || `Open ${name}`}
+              className="block rounded-xl transition duration-200 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+            >
+              {imagePanel}
+            </Link>
+          )
+        ) : (
+          imagePanel
+        )}
 
         <div className="mt-5 space-y-3">
           {brand ? (

@@ -9,6 +9,7 @@ export type GuideProductExampleData = {
   productName?: string;
   imageSrc?: string | null;
   imageAlt?: string | null;
+  affiliateUrl?: string | null;
   typeLabel?: string | null;
   bestFor?: string;
   shortReview?: string;
