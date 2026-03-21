@@ -1,15 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ProgressIndicatorItem } from '@/components/guides/ProgressIndicator';
+import {
+  getActiveGuideSectionFromScroll,
+  getGuideStickyTopOffset,
+  getGuideViewportOffset,
+  isScrollableGuideContainer,
+  scrollToGuideSection,
+} from '@/lib/guides/guideNav';
 
 type GuideStickyNavLink = {
   href: string;
   label: string;
 };
-
-const observerThresholds = [0, 0.2, 0.35, 0.5, 0.7, 0.9];
 
 export default function GuideStickyNav({
   items,
@@ -23,56 +28,85 @@ export default function GuideStickyNav({
   className?: string;
 }) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
+  const navRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    let animationFrame = 0;
+
+    const syncStickyMetrics = () => {
+      document.documentElement.style.setProperty('--guide-sticky-top', `${getGuideStickyTopOffset()}px`);
+      document.documentElement.style.setProperty(
+        '--guide-sticky-nav-height',
+        `${navRef.current?.getBoundingClientRect().height ?? 0}px`,
+      );
+    };
+
+    const requestStickyMetricsSync = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        syncStickyMetrics();
+      });
+    };
+
+    syncStickyMetrics();
+    window.addEventListener('resize', requestStickyMetricsSync);
+    window.addEventListener('scroll', requestStickyMetricsSync, { passive: true });
+
+    const observer =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(() => {
+            requestStickyMetricsSync();
+          })
+        : null;
+
+    if (observer && navRef.current) {
+      observer.observe(navRef.current);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      observer?.disconnect();
+      window.removeEventListener('resize', requestStickyMetricsSync);
+      window.removeEventListener('scroll', requestStickyMetricsSync);
+    };
+  }, []);
 
   useEffect(() => {
     if (items.length === 0) {
       return undefined;
     }
 
-    const sections = items
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    if (sections.length === 0) {
-      return undefined;
-    }
-
     const root = containerId ? document.getElementById(containerId) : null;
-    const visibilityById = new Map<string, number>();
+    const scrollTarget =
+      root instanceof HTMLElement && isScrollableGuideContainer(root) ? root : window;
+    let animationFrame = 0;
 
     const updateActiveSection = () => {
-      const [nextActiveId] =
-        [...visibilityById.entries()].sort((left, right) => right[1] - left[1])[0] ?? [items[0]?.id ?? '', 0];
-
+      const nextActiveId = getActiveGuideSectionFromScroll({
+        items,
+        containerId,
+        viewportOffset: scrollTarget === window ? getGuideViewportOffset(containerId) : 72,
+      });
       if (nextActiveId) {
         setActiveId(nextActiveId);
       }
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          visibilityById.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
-        }
-
+    const requestUpdate = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
         updateActiveSection();
-      },
-      {
-        root,
-        rootMargin: '-28% 0px -42% 0px',
-        threshold: observerThresholds,
-      },
-    );
-
-    for (const section of sections) {
-      visibilityById.set(section.id, 0);
-      observer.observe(section);
-    }
+      });
+    };
 
     updateActiveSection();
+    scrollTarget.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
 
     return () => {
-      observer.disconnect();
+      window.cancelAnimationFrame(animationFrame);
+      scrollTarget.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
     };
   }, [containerId, items]);
 
@@ -84,32 +118,35 @@ export default function GuideStickyNav({
   }
 
   return (
-    <div className={['sticky top-3 z-30', className].filter(Boolean).join(' ')}>
+    <div className={['w-full', className].filter(Boolean).join(' ')}>
       <nav
+        ref={navRef}
+        data-guide-sticky-nav
         aria-label="Guide navigation"
-        className="overflow-hidden rounded-[1.6rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(255,252,251,0.88)] shadow-[0_18px_44px_rgba(58,36,43,0.08)] backdrop-blur-[12px]"
+        className="overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.22)] bg-[rgba(255,252,251,0.97)] shadow-[0_14px_28px_rgba(58,36,43,0.08)] backdrop-blur-[12px] sm:rounded-[1.1rem]"
       >
-        <div className="flex flex-col gap-3 p-3 sm:p-4">
-          <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-col gap-2 p-2 sm:p-2.5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             {resolvedBackLink ? (
               <Link
                 href={resolvedBackLink.href}
-                className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(161,91,114,0.18)] bg-white/90 px-4 py-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="inline-flex min-h-[40px] items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/94 px-3 py-2 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-[38px] sm:justify-start"
               >
                 {resolvedBackLink.label}
               </Link>
             ) : null}
 
             {activeItem ? (
-              <div className="inline-flex min-h-[44px] items-center rounded-full bg-[rgba(250,244,246,0.95)] px-4 py-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#9F556D]">
-                <span>Now viewing</span>
-                <span className="ml-2 text-sm font-medium normal-case tracking-normal text-[#2F2430]">{activeItem.label}</span>
+              <div className="inline-flex min-h-[40px] min-w-0 items-center justify-center rounded-full bg-[rgba(250,244,246,0.96)] px-3 py-2 text-[0.62rem] uppercase tracking-[0.16em] text-[#9F556D] sm:min-h-[38px] sm:justify-start">
+                <span className="mr-2 h-2 w-2 shrink-0 rounded-full bg-[#C77D97]" />
+                <span className="shrink-0">Now Viewing</span>
+                <span className="ml-2 truncate text-sm font-medium normal-case tracking-normal text-[#2F2430]">{activeItem.label}</span>
               </div>
             ) : null}
           </div>
 
           {items.length > 1 ? (
-            <div className="-mx-1 flex snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="-mx-0.5 flex snap-x snap-mandatory gap-1.5 overflow-x-auto px-0.5 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {items.map((item, index) => {
                 const isActive = item.id === activeId;
 
@@ -117,17 +154,12 @@ export default function GuideStickyNav({
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => {
-                      document.getElementById(item.id)?.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                      });
-                    }}
+                    onClick={() => scrollToGuideSection(item.id, containerId)}
                     aria-current={isActive ? 'step' : undefined}
-                    className={`inline-flex min-h-[44px] shrink-0 items-center rounded-full border px-4 py-2 text-sm transition duration-300 ${
+                    className={`inline-flex min-h-[40px] shrink-0 items-center rounded-full border px-3 py-2 text-[0.82rem] transition duration-300 sm:min-h-[38px] sm:text-[0.88rem] ${
                       isActive
-                        ? 'border-[rgba(199,125,151,0.3)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_10px_24px_rgba(199,125,151,0.18)]'
-                        : 'border-[rgba(215,161,175,0.16)] bg-white/82 text-[#5B4B55] hover:-translate-y-0.5 hover:shadow-sm'
+                        ? 'border-[rgba(199,125,151,0.38)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_10px_24px_rgba(199,125,151,0.22)]'
+                        : 'border-[rgba(215,161,175,0.16)] bg-white/86 text-[#5B4B55] hover:-translate-y-0.5 hover:border-[rgba(199,125,151,0.18)] hover:shadow-sm'
                     }`}
                   >
                     <span className="sm:hidden">{item.shortLabel?.trim() || String(index + 1).padStart(2, '0')}</span>

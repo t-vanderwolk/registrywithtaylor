@@ -398,7 +398,7 @@ export async function renderGuideRoute({
           image={fallbackGuideHeroImage}
           imageAlt={pillar.imageAlt}
           contentClassName="homepage-hero-content"
-          staggerContent
+          animateContent={false}
         />
 
         <MarketingSection tone="white" spacing="spacious">

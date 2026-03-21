@@ -6,9 +6,14 @@ import ConsultCTASection from '@/components/guides/academy/ConsultCTASection';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
+import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
+import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
+import YouAreHere from '@/components/guides/YouAreHere';
+import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import {
   getStrollerAcademyConsultCards,
   getStrollerAcademyLane,
@@ -63,6 +68,38 @@ export default function StrollerAcademyLanePage({
   const compareLinks = lane.compareAgainst
     .map((slug) => getStrollerAcademyLane(slug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+  const slideItems = getStandardGuideSlideItems('guide');
+  const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const stageItems: AcademyStageNavItem[] = [
+    {
+      id: 'start',
+      label: 'Start',
+      title: 'Get oriented',
+      description: 'See what this lane is solving before you compare it to the others.',
+      href: `${sourceRoute}#${slideItems[1].id}`,
+    },
+    {
+      id: 'compare',
+      label: 'Compare',
+      title: 'Understand the lane',
+      description: 'See why the lane exists and what kind of week it supports best.',
+      href: `${sourceRoute}#${slideItems[3].id}`,
+    },
+    {
+      id: 'decide',
+      label: 'Decide',
+      title: 'Pressure-test the fit',
+      description: 'Use the fit logic and comparison table before you shortlist products.',
+      href: `${sourceRoute}#${slideItems[4].id}`,
+    },
+    {
+      id: 'refine',
+      label: 'Refine',
+      title: 'Test and shortlist',
+      description: 'Move into real-world testing, compare, and save actions.',
+      href: `${sourceRoute}#${slideItems[6].id}`,
+    },
+  ];
   const comparisonRows = [lane, ...compareLinks].map((entry) => ({
     title: entry.title,
     bestFor: entry.bestFor,
@@ -71,44 +108,39 @@ export default function StrollerAcademyLanePage({
     href: entry.href,
     isCurrent: entry.slug === lane.slug,
   }));
-  const stageItems: AcademyStageNavItem[] = [
-    {
-      id: 'learn',
-      label: 'Learn',
-      title: 'Why this lane exists',
-      description: 'Understand the role this stroller lane is meant to solve.',
-      href: `${sourceRoute}#lane-why`,
-    },
-    {
-      id: 'plan',
-      label: 'Plan',
-      title: 'Check the real-life fit',
-      description: 'See who this lane helps, and where it becomes too much.',
-      href: `${sourceRoute}#lane-fit`,
-    },
-    {
-      id: 'try',
-      label: 'Try',
-      title: 'Test it in person',
-      description: 'Pressure-test the fold, layout, steering, and actual usability.',
-      href: `${sourceRoute}#lane-try`,
-    },
-    {
-      id: 'buy',
-      label: 'Buy',
-      title: 'Move into compare and registry later',
-      description: 'Use the lane to anchor product comparison without losing the plot.',
-      href: `${sourceRoute}#lane-buy`,
-    },
-  ];
-  const slideItems = [
-    { id: 'lane-overview', label: 'Overview', shortLabel: 'Start' },
-    { id: 'lane-why', label: 'Why It Exists', shortLabel: 'Why' },
-    { id: 'lane-fit', label: 'Real-Life Fit', shortLabel: 'Fit' },
-    { id: 'lane-compare', label: 'Compare', shortLabel: 'Compare' },
-    { id: 'lane-try', label: 'Try', shortLabel: 'Try' },
-    { id: 'lane-buy', label: 'Buy', shortLabel: 'Buy' },
-  ];
+  const nextSteps = normalizeGuideLinks(
+    [
+      {
+        href: '/guides/strollers',
+        label: 'Back to Stroller Academy',
+        description: 'Return to the main stroller map if you need the wider lane overview again.',
+        stage: 'Start' as const,
+      },
+      ...(compareLinks[0]
+        ? [
+            {
+              href: compareLinks[0].href,
+              label: `Compare ${compareLinks[0].shortTitle}`,
+              description: compareLinks[0].definition,
+              stage: 'Compare' as const,
+            },
+          ]
+        : []),
+      {
+        href: '/guides/car-seats',
+        label: 'Open Car Seats',
+        description: 'Useful once travel-system or compatibility questions start affecting the lane decision.',
+        stage: 'Refine' as const,
+      },
+      {
+        href: '/guides/registry',
+        label: 'Return to Registry',
+        description: 'Use the lane fit to keep the registry shortlist tighter.',
+        stage: 'Refine' as const,
+      },
+    ],
+    4,
+  );
 
   return (
     <GuideSlideDeck
@@ -116,16 +148,16 @@ export default function StrollerAcademyLanePage({
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
     >
-      <SlideSection id="lane-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
+      <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <AcademyHero
           eyebrow="TMBC Academy · Stroller Lane"
           title={`${lane.title} Lane`}
           description={guide.excerpt?.trim() || lane.heroDescription}
           note={lane.signatureMoment}
-          primaryCta={{ label: 'Review This Lane', href: `${sourceRoute}#lane-fit` }}
+          primaryCta={{ label: 'Review This Lane', href: `${sourceRoute}#${slideItems[4].id}` }}
           secondaryCta={{
             label: compareLinks[0] ? `Compare ${compareLinks[0].shortTitle}` : 'Back to Stroller Academy',
-            href: compareLinks[0]?.href || getStrollerAcademyLane('full-size-modular-strollers')?.href || '/guides/strollers',
+            href: compareLinks[0]?.href || '/guides/strollers',
           }}
           stageItems={stageItems}
           stats={[
@@ -134,13 +166,32 @@ export default function StrollerAcademyLanePage({
             { label: 'Updated', value: formatDate(displayDate) },
             { label: 'Read time', value: `${readingTime} min` },
           ]}
+          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
         />
       </SlideSection>
 
-      <SlideSection id="lane-why" background="white">
+      <SlideSection id={slideItems[1].id} background="white">
+        <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
+      </SlideSection>
+
+      <SlideSection id={slideItems[2].id} background="blush">
+        <GuideBulletSection
+          eyebrow="What This Guide Covers"
+          title="What This Guide Covers"
+          description="This lane page should stay concise and useful while it helps you decide whether the category deserves a shortlist."
+          items={[
+            lane.whyExists,
+            `Best for: ${lane.bestFor}`,
+            `Tradeoff: ${lane.tradeoff}`,
+            `Compare against: ${compareLinks.map((entry) => entry.shortTitle).join(', ') || 'the closest neighboring lanes'}.`,
+          ]}
+        />
+      </SlideSection>
+
+      <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <StageLead
-            eyebrow="Learn"
+            eyebrow="Core Content"
             title={`Why the ${lane.title} lane exists.`}
             description={lane.whyExists}
           />
@@ -164,39 +215,49 @@ export default function StrollerAcademyLanePage({
         </div>
       </SlideSection>
 
-      <SlideSection id="lane-fit" background="blush">
+      <SlideSection id={slideItems[4].id} background="white">
         <div className="space-y-8">
-          <StageLead
-            eyebrow="Plan"
-            title={`See whether ${lane.shortTitle} fits your real week.`}
-            description="This section keeps the lane honest. It shows where the fit feels strong, where the tradeoff starts to bite, and what most parents should compare next."
+          <DecisionBlock
+            title={`Use the ${lane.shortTitle} fit check before you compare products.`}
+            description="This is the shorter lane logic when you want the answer without rereading the whole page."
+            items={[
+              ...lane.worksForBullets.slice(0, 2).map((bullet) => ({
+                condition: bullet.toLowerCase(),
+                recommendation: `This lane is usually a strong fit. ${lane.worksForSummary}`,
+                href: `${sourceRoute}#${slideItems[3].id}`,
+              })),
+              ...lane.notBestFitBullets.slice(0, 1).map((bullet) => ({
+                condition: bullet.toLowerCase(),
+                recommendation: `Compare ${compareLinks[0]?.shortTitle || 'a neighboring lane'} next. ${lane.notBestFitSummary}`,
+                href: compareLinks[0]?.href,
+              })),
+            ]}
           />
 
-          <div className="grid gap-5 xl:grid-cols-[minmax(0,0.9fr)_minmax(20rem,0.65fr)]">
-            <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:p-7">
-              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Best For</p>
-              <h3 className="mt-3 text-2xl font-medium text-[#2F2430]">{lane.worksForSummary}</h3>
-              <div className="mt-5 space-y-3">
-                {lane.worksForBullets.map((bullet) => (
-                  <div key={bullet} className="rounded-[1.2rem] bg-[rgba(252,247,249,0.9)] px-4 py-4">
-                    <p className="text-sm leading-7 text-[#4B3641]">{bullet}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+          <ComparisonTable
+            title={`Compare ${lane.shortTitle} against the closest neighboring lanes.`}
+            description={lane.compareNote}
+            rows={comparisonRows}
+          />
+        </div>
+      </SlideSection>
 
-            <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:p-7">
-              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Tradeoff</p>
-              <h3 className="mt-3 text-2xl font-medium text-[#2F2430]">{lane.notBestFitSummary}</h3>
-              <div className="mt-5 space-y-3">
-                {lane.notBestFitBullets.map((bullet) => (
-                  <div key={bullet} className="rounded-[1.2rem] bg-[rgba(250,244,246,0.92)] px-4 py-4">
-                    <p className="text-sm leading-7 text-[#4B3641]">{bullet}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
+      <SlideSection id={slideItems[5].id} background="blush">
+        <div className="space-y-8">
+          <GuideBulletSection
+            eyebrow="Common Mistakes"
+            title="Common Mistakes"
+            description="These are the lane-specific misses that usually make a good category feel wrong."
+            items={dedupeTextItems(
+              [
+                'Choosing the lane for hypothetical flexibility instead of for the current routine.',
+                'Testing the showroom push and skipping the fold, lift, and storage reality.',
+                `Assuming ${lane.shortTitle.toLowerCase()} is automatically smarter because the category sounds more ambitious.`,
+                lane.notBestFitSummary,
+              ],
+              4,
+            )}
+          />
 
           <ExpertTipCallout
             eyebrow="Everyday Feel"
@@ -206,35 +267,11 @@ export default function StrollerAcademyLanePage({
         </div>
       </SlideSection>
 
-      <SlideSection id="lane-compare" background="ivory">
-        <div className="space-y-8">
-          <ComparisonTable
-            title={`Compare ${lane.shortTitle} against the closest neighboring lanes.`}
-            description={lane.compareNote}
-            rows={comparisonRows}
-          />
-
-          <div className="grid gap-5 lg:grid-cols-3">
-            {compareLinks.map((compareLane) => (
-              <a
-                key={compareLane.slug}
-                href={compareLane.href}
-                className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(58,36,43,0.12)]"
-              >
-                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Compare With</p>
-                <h3 className="mt-3 text-xl font-medium text-[#2F2430]">{compareLane.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#5B4B55]">{compareLane.definition}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </SlideSection>
-
-      <SlideSection id="lane-try" background="blush">
+      <SlideSection id={slideItems[6].id} background="ivory">
         <div className="space-y-8">
           <ChecklistCardSet
             title={`What to test before you buy ${lane.shortTitle}.`}
-            description="This is where the lane gets validated. The most useful questions usually show up when the stroller meets a trunk, a doorway, and an honest setup conversation."
+            description="This is where the lane gets validated. The useful questions show up when the stroller meets a trunk, a doorway, and an honest setup conversation."
             sections={lane.testSections}
           />
 
@@ -242,16 +279,6 @@ export default function StrollerAcademyLanePage({
             title={`Where to validate the ${lane.shortTitle} lane.`}
             description="Use this part of the process to pressure-test the lane with a plan already in hand instead of walking in cold."
             cards={consultCards}
-          />
-        </div>
-      </SlideSection>
-
-      <SlideSection id="lane-buy" background="white">
-        <div className="space-y-8">
-          <StageLead
-            eyebrow="Buy"
-            title={`Move from ${lane.shortTitle} lane to shortlist.`}
-            description="The lane page should make product comparison smaller, not bigger. Use it to anchor the shortlist, the compare flow, and the future registry action."
           />
 
           <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
@@ -275,6 +302,27 @@ export default function StrollerAcademyLanePage({
             ))}
           </div>
 
+          <NextSteps title="Next Steps" links={nextSteps} />
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[7].id} background="white">
+        <div className="space-y-8">
+          <GuideBulletSection
+            eyebrow="Takeaways"
+            title="Takeaways"
+            description="The lane page should make comparison smaller, not bigger."
+            items={dedupeTextItems(
+              [
+                lane.worksForSummary,
+                lane.notBestFitSummary,
+                lane.buyNote,
+                lane.signatureMoment,
+              ],
+              4,
+            )}
+          />
+
           <ExpertTipCallout eyebrow="TMBC Buy Rule" title={lane.buyNote} body={lane.signatureMoment} />
 
           <SaveDecisionBar
@@ -282,7 +330,9 @@ export default function StrollerAcademyLanePage({
             description="Use the lane to save, compare, and validate the right options without slipping back into generic stroller browsing."
             actions={[
               { label: 'Back to Stroller Academy', href: '/guides/strollers' },
-              compareLinks[0] ? { label: `Compare ${compareLinks[0].shortTitle}`, href: compareLinks[0].href } : { label: 'Explore Another Lane', href: allLanes[0]?.href },
+              compareLinks[0]
+                ? { label: `Compare ${compareLinks[0].shortTitle}`, href: compareLinks[0].href }
+                : { label: 'Explore Another Lane', href: allLanes[0]?.href },
               { label: '[CTA_PLACEHOLDER: Save for Later]' },
             ]}
           />

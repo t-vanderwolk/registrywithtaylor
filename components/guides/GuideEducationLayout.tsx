@@ -1,17 +1,28 @@
 import PostContent from '@/components/blog/PostContent';
-import DecisionHelper from '@/components/guides/DecisionHelper';
-import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
-import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
+import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
+import NextSteps from '@/components/guides/NextSteps';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
-import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
-import ProductExampleCard from '@/components/guides/ProductExampleCard';
 import SlideSection from '@/components/guides/SlideSection';
+import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import { GuideAnalyticsEvents } from '@/lib/guides/events';
-import type { GuideHubLink } from '@/lib/guides/hubs';
+import { buildGuideOutline } from '@/lib/guides/articleOutline';
+import {
+  buildCoverBulletsFromOutline,
+  buildTakeawayBulletsFromOutline,
+  dedupeTextItems,
+  extractMarkdownListItems,
+  getDefaultNextSteps,
+  getFallbackCommonMistakes,
+  getFallbackTakeaways,
+  getGuideOrientation,
+  getStandardGuideSlideItems,
+  guideCardToNextStepLink,
+  normalizeGuideLinks,
+} from '@/lib/guides/guideFlow';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 
 interface GuideEducationLayoutProps {
@@ -21,18 +32,31 @@ interface GuideEducationLayoutProps {
     slug: string;
     category: string;
     content: string;
-    affiliateModules: any[];
-    faqItems: any[];
-    founderSignatureEnabled?: boolean;
-    founderSignatureText?: string;
+    affiliateModules?: Array<{
+      id: string;
+      retailerLabel?: string | null;
+      productName: string;
+      imageUrl?: string | null;
+      destinationUrl: string;
+      ctaLabel?: string | null;
+      description?: string | null;
+      title?: string | null;
+      notes?: string | null;
+    }>;
+    affiliateDisclosureEnabled?: boolean;
+    affiliateDisclosureText?: string | null;
+    faqItems: Array<{ question: string; answer: string }>;
     consultationCtaEnabled?: boolean;
-    consultationCtaLabel?: string;
+    consultationCtaLabel?: string | null;
     newsletterCtaEnabled?: boolean;
-    newsletterCtaHref?: string;
-    newsletterCtaLabel?: string;
-    nextStepCtaHref?: string;
-    nextStepCtaLabel?: string;
+    newsletterCtaHref?: string | null;
+    newsletterCtaLabel?: string | null;
+    nextStepCtaHref?: string | null;
+    nextStepCtaLabel?: string | null;
+    founderSignatureEnabled?: boolean;
+    founderSignatureText?: string | null;
     takeaways?: string[];
+    topicCluster?: string | null;
   };
   relatedGuides?: GuideCardItem[];
   preview?: boolean;
@@ -41,34 +65,12 @@ interface GuideEducationLayoutProps {
   readingTime: number;
 }
 
-type GuideSectionItem = {
-  id: string;
-  title: string;
-  content: string;
-};
-
 function formatArticleDate(value: Date) {
   return value.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-}
-
-function slugifySectionTitle(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function stripMarkdown(value: string) {
-  return value
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '$1')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
-    .replace(/[*_`>#-]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 function extractLeadCopy(content: string) {
@@ -80,136 +82,86 @@ function extractLeadCopy(content: string) {
   return paragraphs.slice(0, 2).join(' ');
 }
 
-function extractGuideSections(content: string): GuideSectionItem[] {
-  const lines = content.split('\n');
-  const sections: GuideSectionItem[] = [];
-  let currentSection: { id: string; title: string; content: string[] } | null = null;
-
-  for (const rawLine of lines) {
-    const line = rawLine.trimEnd();
-
-    if (line.startsWith('## ')) {
-      if (currentSection) {
-        sections.push({
-          id: currentSection.id,
-          title: currentSection.title,
-          content: currentSection.content.join('\n').trim(),
-        });
-      }
-
-      const title = line.replace(/^##\s+/, '').trim();
-      currentSection = {
-        id: slugifySectionTitle(title) || `section-${sections.length + 1}`,
-        title,
-        content: [],
-      };
-      continue;
-    }
-
-    if (!currentSection) {
-      currentSection = {
-        id: 'guide-overview',
-        title: 'Guide overview',
-        content: [],
-      };
-    }
-
-    currentSection.content.push(rawLine);
-  }
-
-  if (currentSection) {
-    sections.push({
-      id: currentSection.id,
-      title: currentSection.title,
-      content: currentSection.content.join('\n').trim(),
-    });
-  }
-
-  return sections.filter((section) => section.content.trim());
-}
-
 function summarizeSection(content: string) {
-  const plainText = stripMarkdown(content);
+  const plainText = content
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '$1')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+    .replace(/[*_`>#-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
   if (!plainText) {
-    return 'Use this section to narrow the decision without rereading the whole guide.';
+    return 'Use this section to get clearer on the decision without rereading the whole guide.';
   }
 
-  return plainText.length > 140 ? `${plainText.slice(0, 137).trim()}...` : plainText;
-}
-
-function shouldUseSoftGuideCtas({
-  slug,
-  category,
-  sourceRoute,
-}: {
-  slug: string;
-  category: string;
-  sourceRoute: string;
-}) {
-  const context = `${slug} ${category} ${sourceRoute}`.toLowerCase();
-  return context.includes('registry') || context.includes('nursery');
+  return plainText.length > 150 ? `${plainText.slice(0, 147).trim()}...` : plainText;
 }
 
 export default function GuideEducationLayout({
   guide,
   relatedGuides = [],
-  preview = false,
   sourceRoute,
   displayDate,
   readingTime,
 }: GuideEducationLayoutProps) {
-  const sections = extractGuideSections(guide.content);
+  const outline = buildGuideOutline(guide.content);
   const leadCopy = extractLeadCopy(guide.content);
-  const tocItems = sections.map((section) => ({
+  const orientation = getGuideOrientation({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const slideItems = getStandardGuideSlideItems('guide');
+  const tocItems = outline.sections.map((section) => ({
     id: section.id,
     label: section.title,
     level: 2 as const,
   }));
-  const decisionItems = sections.slice(0, 3).map((section) => ({
-    question: section.title,
-    optionLabel: 'Focus here first',
-    result: summarizeSection(section.content),
+  const whatThisGuideCovers = buildCoverBulletsFromOutline(outline);
+  const commonMistakes =
+    extractMarkdownListItems(
+      outline.sections.find((section) => section.title.toLowerCase().includes('common mistakes'))?.content ?? '',
+      5,
+    ).length > 0
+      ? extractMarkdownListItems(
+          outline.sections.find((section) => section.title.toLowerCase().includes('common mistakes'))?.content ?? '',
+          5,
+        )
+      : getFallbackCommonMistakes(guide.slug);
+  const takeaways = dedupeTextItems(
+    [...buildTakeawayBulletsFromOutline(outline), ...getFallbackTakeaways(guide.slug)],
+    4,
+  );
+  const decisionItems = outline.sections.slice(0, 4).map((section) => ({
+    condition: `need clarity on ${section.title.toLowerCase()}`,
+    recommendation: `${summarizeSection(section.content)} Start with this section.`,
     href: `${sourceRoute}#${section.id}`,
-    ctaLabel: 'Jump to section',
-    icon: 'strategy' as const,
   }));
-  const continueLinks: GuideHubLink[] = relatedGuides.slice(0, 4).map((item) => ({
-    title: item.title,
-    description: item.description,
-    href: item.href,
-    icon: 'book',
-  }));
-  const faqItems = guide.faqItems.map((item) => ({
-    question: item.question,
-    answer: item.answer,
-  }));
-  const useSoftGuideCtas = shouldUseSoftGuideCtas({
-    slug: guide.slug,
-    category: guide.category,
-    sourceRoute,
-  });
-  const actionClassName =
-    'inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 hover:scale-[1.02] hover:shadow-md';
-  const primaryActionClassName = `${actionClassName} border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]`;
-  const slideDeckId = `guide-slide-deck-${guide.slug}`;
-  const slideItems = [
-    { id: 'guide-overview', label: 'Overview', shortLabel: 'Start' },
-    { id: 'guide-start-here', label: 'Start Here', shortLabel: 'Map' },
-    ...sections.map((section, index) => ({
-      id: section.id,
-      label: section.title,
-      shortLabel: String(index + 1).padStart(2, '0'),
-    })),
-    { id: 'guide-next-steps', label: 'Next Steps', shortLabel: 'Next' },
-  ];
+  const nextSteps = normalizeGuideLinks(
+    [
+      ...(guide.nextStepCtaHref
+        ? [
+            {
+              href: guide.nextStepCtaHref,
+              label: guide.nextStepCtaLabel?.trim() || 'Open the next guide',
+              description: 'Use the next linked guide while this decision is still fresh.',
+              stage: 'Refine' as const,
+            },
+          ]
+        : []),
+      ...relatedGuides.slice(0, 3).map((guideCard) => guideCardToNextStepLink(guideCard, 'Compare')),
+      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
+    ],
+    4,
+  );
 
   return (
     <GuideSlideDeck
-      containerId={slideDeckId}
+      containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
     >
-      <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
+      <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
           eyebrow={guide.category}
@@ -220,253 +172,112 @@ export default function GuideEducationLayout({
           }
           readTime={`${readingTime} min`}
           publishedLabel={formatArticleDate(displayDate)}
-          sectionCount={sections.length}
-          jumpLinks={slideItems.slice(1, 7).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+          sectionCount={outline.sections.length}
+          jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
           imageSrc={undefined}
           imageAlt={guide.title}
           variant="default"
         />
       </SlideSection>
 
-      <SlideSection id="guide-start-here" background="white">
-        <div className="space-y-8">
-          <GuideCTARibbon
-            eyebrow="Start here"
-            title="Use the guide like a planning tool, not a reading assignment."
-            description="Jump into the part that matches your biggest question first. The rest can come after you know what actually matters."
-            primaryCta={
-              tocItems[0]
-                ? {
-                    href: `${sourceRoute}#${tocItems[0].id}`,
-                    label: `Jump to ${tocItems[0].label}`,
-                    ...(useSoftGuideCtas ? { variant: 'accent' as const } : {}),
-                  }
-                : null
-            }
-            secondaryCta={
-              guide.nextStepCtaHref
-                ? {
-                    href: guide.nextStepCtaHref,
-                    label: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
-                    variant: 'secondary' as const,
-                  }
-                : null
-            }
+      <SlideSection id={slideItems[1].id} background="white">
+        <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
+      </SlideSection>
+
+      <SlideSection id={slideItems[2].id} background="blush">
+        <div className="space-y-6">
+          <GuideBulletSection
+            eyebrow="What This Guide Covers"
+            title="What This Guide Covers"
+            description="Use these as the main buckets on the page. You should not need a long lead-in paragraph to know what is ahead."
+            items={whatThisGuideCovers}
           />
 
-          <div className="space-y-4">
-            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
-            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
-          </div>
-
-          {leadCopy ? (
-            <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
-              <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">What this guide helps sort out</p>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{leadCopy}</p>
-            </MarketingSurface>
+          {tocItems.length > 0 ? (
+            <div className="space-y-4">
+              <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
+              <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
+            </div>
           ) : null}
-
-          <DecisionHelper
-            eyebrow="Decision helper"
-            title="How to move through this guide"
-            description="Start with the section that sounds the most like your current question. That is usually enough to make the rest easier to read."
-            items={decisionItems}
-          />
         </div>
       </SlideSection>
 
-      {sections.map((section, index) => {
-        const nextSection = sections[index + 1] ?? null;
-
-        return (
-          <SlideSection
-            key={section.id}
-            id={section.id}
-            background={index % 2 === 0 ? 'blush' : 'ivory'}
-          >
-            <div className="grid gap-8 xl:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] xl:items-start">
-              <div className="space-y-5">
-                <div className="space-y-3">
-                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">
-                    Section {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.5rem]">
-                    {section.title}
-                  </h2>
-                  <p className="text-base leading-relaxed text-neutral-700 md:text-lg">
-                    {summarizeSection(section.content)}
-                  </p>
-                </div>
-
-                <div className="rounded-[1.5rem] border border-[rgba(196,156,94,0.12)] bg-white/76 p-5 shadow-sm">
-                  <p className="text-[0.68rem] uppercase tracking-[0.2em] text-black/46">Keep moving</p>
-                  <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                    Let this section narrow the next question instead of reopening the whole category.
-                  </p>
-                </div>
-
-                <a
-                  href={nextSection ? `${sourceRoute}#${nextSection.id}` : `${sourceRoute}#guide-next-steps`}
-                  className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.24)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  Continue to {nextSection ? nextSection.title : 'Next Steps'}
-                </a>
-              </div>
-
-              <MarketingSurface className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm md:p-8">
-                <h2 className="mb-6 text-2xl font-serif tracking-tight text-charcoal md:text-3xl">{section.title}</h2>
-                <PostContent
-                  postId={`${guide.id}-${section.id}`}
-                  content={section.content}
-                  variant="guide"
-                  className="guide-post-content guide-slide-content"
-                />
-              </MarketingSurface>
-            </div>
-          </SlideSection>
-        );
-      })}
-
-      <SlideSection id="guide-next-steps" background="white">
-        <div className="space-y-8">
-          {guide.affiliateModules.length > 0 ? (
-            <section className="space-y-6">
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Product examples</p>
-                <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">A few examples to make the tradeoffs easier to picture</h2>
-                <p className="max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
-                  These are here to give the category some shape, not to turn the page into a shopping grid.
-                </p>
-              </div>
-
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {guide.affiliateModules.map((module) => (
-                  <ProductExampleCard
-                    key={module.id}
-                    brand={module.retailerLabel}
-                    name={module.productName}
-                    image={
-                      module.imageUrl
-                        ? {
-                            src: module.imageUrl,
-                            alt: module.productName,
-                            objectClassName: 'object-cover',
-                          }
-                        : null
-                    }
-                    imageHref={module.destinationUrl}
-                    imageLinkLabel={module.ctaLabel}
-                    description={module.description}
-                    bestFor={module.title}
-                    standout={module.notes ?? undefined}
-                    actionSlot={
-                      <GuideTrackedLink
-                        guideId={guide.id}
-                        href={module.destinationUrl}
-                        event={GuideAnalyticsEvents.AFFILIATE_CLICK}
-                        sourceRoute={sourceRoute}
-                        className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
-                        track={!preview}
-                        meta={{
-                          moduleTitle: module.title,
-                          productName: module.productName,
-                          ctaLabel: module.ctaLabel,
-                          retailerLabel: module.retailerLabel,
-                          partnerId: module.partnerId,
-                        }}
-                      >
-                        <span>{module.ctaLabel}</span>
-                        <span aria-hidden="true" className="ml-2">
-                          -&gt;
-                        </span>
-                      </GuideTrackedLink>
-                    }
-                  />
-                ))}
-              </div>
-            </section>
-          ) : null}
-
-          {continueLinks.length > 0 ? (
-            <GuideContinueExploring
-              title="Continue exploring"
-              description="The point is to leave the page knowing where to go next, not to keep wandering."
-              links={continueLinks}
-            />
-          ) : null}
-
-          {faqItems.length > 0 ? <GuideFaqAccordion items={faqItems} /> : null}
-
-          {guide.founderSignatureEnabled && guide.founderSignatureText ? (
-            <MarketingSurface className="rounded-2xl border border-[rgba(196,156,94,0.2)] bg-[linear-gradient(180deg,#fff8f6_0%,#fbf7f2_100%)] p-6 shadow-sm md:p-8">
-              <p className="font-script text-[2rem] leading-none text-[var(--color-accent-dark)]">Taylor</p>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">{guide.founderSignatureText}</p>
+      <SlideSection id={slideItems[3].id} background="ivory">
+        <div className="space-y-6">
+          {outline.preface ? (
+            <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
+              <PostContent
+                postId={`${guide.id}-guide-preface`}
+                content={outline.preface}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
+              />
             </MarketingSurface>
           ) : null}
 
-          <GuideCTARibbon
-            eyebrow="Next step"
-            title="Keep the momentum once the guide gets you close."
-            description="The goal is a calmer decision, a clearer shortlist, and one obvious next move."
-            actionsSlot={
-              <>
-                {guide.consultationCtaEnabled ? (
-                  <GuideTrackedLink
-                    guideId={guide.id}
-                    href="/book"
-                    event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
-                    sourceRoute={sourceRoute}
-                    className={primaryActionClassName}
-                    track={!preview}
-                    meta={{
-                      ctaLabel: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
-                      placement: 'bottom_band',
-                      slug: guide.slug,
-                      title: guide.title,
-                    }}
-                  >
-                    {guide.consultationCtaLabel?.trim() || 'Book a Consultation'}
-                  </GuideTrackedLink>
-                ) : null}
+          <div className="grid gap-5 xl:grid-cols-2">
+            {outline.sections.map((section) => (
+              <section
+                key={section.id}
+                id={section.id}
+                className="rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
+              >
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">{section.title}</p>
+                <div className="mt-4">
+                  <PostContent
+                    postId={`${guide.id}-${section.id}`}
+                    content={section.content}
+                    className="guide-post-content guide-slide-content"
+                    variant="guide"
+                  />
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
+      </SlideSection>
 
-                {guide.newsletterCtaEnabled && guide.newsletterCtaHref ? (
-                  <GuideTrackedLink
-                    guideId={guide.id}
-                    href={guide.newsletterCtaHref}
-                    event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
-                    sourceRoute={sourceRoute}
-                    className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
-                    track={!preview}
-                    meta={{
-                      ctaLabel: guide.newsletterCtaLabel?.trim() || 'Get the resource',
-                      placement: 'bottom_band',
-                    }}
-                  >
-                    {guide.newsletterCtaLabel?.trim() || 'Get the resource'}
-                  </GuideTrackedLink>
-                ) : null}
+      <SlideSection id={slideItems[4].id} background="white">
+        <DecisionBlock
+          title="Use the guide as a decision path, not a reading assignment."
+          description="These are the fastest ways to match the guide to the question you are actually trying to answer."
+          items={decisionItems}
+        />
+      </SlideSection>
 
-                {guide.nextStepCtaHref ? (
-                  <GuideTrackedLink
-                    guideId={guide.id}
-                    href={guide.nextStepCtaHref}
-                    event={GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK}
-                    sourceRoute={sourceRoute}
-                    className={`${actionClassName} border border-[rgba(215,161,175,0.36)] bg-white/90 text-charcoal`}
-                    track={!preview}
-                    meta={{
-                      ctaLabel: guide.nextStepCtaLabel?.trim() || 'Explore the next guide',
-                      placement: 'bottom_band',
-                      slug: guide.slug,
-                      title: guide.title,
-                    }}
-                  >
-                    {guide.nextStepCtaLabel?.trim() || 'Explore the next guide'}
-                  </GuideTrackedLink>
-                ) : null}
-              </>
-            }
+      <SlideSection id={slideItems[5].id} background="blush">
+        <GuideBulletSection
+          eyebrow="Common Mistakes"
+          title="Common Mistakes"
+          description="These are the practical misses that usually make the category feel heavier than it needs to."
+          items={commonMistakes}
+        />
+      </SlideSection>
+
+      <SlideSection id={slideItems[6].id} background="ivory">
+        <NextSteps
+          links={nextSteps}
+          description="Use these links to keep the guide system connected. Every page should point back to the parent guide, the next logical decision, and a related category."
+        />
+      </SlideSection>
+
+      <SlideSection id={slideItems[7].id} background="white">
+        <div className="space-y-6">
+          <GuideBulletSection
+            eyebrow="Takeaways"
+            title="Takeaways"
+            description="If you only keep the short version, keep these."
+            items={takeaways}
           />
+
+          {guide.faqItems.length > 0 ? (
+            <GuideFaqAccordion
+              items={guide.faqItems.map((item) => ({
+                question: item.question,
+                answer: item.answer,
+              }))}
+            />
+          ) : null}
         </div>
       </SlideSection>
     </GuideSlideDeck>

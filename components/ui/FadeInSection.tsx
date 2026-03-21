@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from 'react';
 import { useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 type FadeInSectionProps = {
@@ -28,14 +29,16 @@ export default function FadeInSection({
   style,
 }: FadeInSectionProps) {
   const prefersReducedMotion = useReducedMotion();
+  const pathname = usePathname();
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const disableGuideReveal = pathname?.startsWith('/guides');
   const isInView = useInView(sectionRef, {
     amount: threshold,
     margin: '-100px 0px',
     once,
   });
-  const isVisible = prefersReducedMotion || isInView;
-  const hiddenY = prefersReducedMotion ? 0 : yOffset;
+  const isVisible = prefersReducedMotion || disableGuideReveal || isInView;
+  const hiddenY = prefersReducedMotion || disableGuideReveal ? 0 : yOffset;
 
   return (
     <motion.div
@@ -43,15 +46,15 @@ export default function FadeInSection({
       id={id}
       className={className}
       style={style}
-      initial={{ opacity: prefersReducedMotion ? 1 : 0, y: hiddenY }}
+      initial={{ opacity: prefersReducedMotion || disableGuideReveal ? 1 : 0, y: hiddenY }}
       animate={
         isVisible
           ? {
               opacity: 1,
               y: 0,
               transition: {
-                delay: prefersReducedMotion ? 0 : delayMs / 1000,
-                duration: prefersReducedMotion ? 0.01 : duration,
+                delay: prefersReducedMotion || disableGuideReveal ? 0 : delayMs / 1000,
+                duration: prefersReducedMotion || disableGuideReveal ? 0.01 : duration,
                 ease: 'easeOut',
               },
             }

@@ -1,28 +1,36 @@
 import PostContent from '@/components/blog/PostContent';
 import AcademyHero from '@/components/guides/academy/AcademyHero';
-import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
-import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
+import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
+import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideFaqAccordion, { type GuideFaqAccordionItem } from '@/components/guides/GuideFaqAccordion';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
-import GuideStickyNav from '@/components/guides/GuideStickyNav';
-import ProgressIndicator, { type ProgressIndicatorItem } from '@/components/guides/ProgressIndicator';
+import NextSteps from '@/components/guides/NextSteps';
+import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import SlideSection from '@/components/guides/SlideSection';
+import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { buildGuideOutline, splitGuideSectionContent } from '@/lib/guides/articleOutline';
 import { extractSectionSummary, stripSectionHeading } from '@/lib/guides/decisionSystemContent';
+import {
+  dedupeTextItems,
+  extractMarkdownListItems,
+  getGuideOrientation,
+  getStandardGuideSlideItems,
+  guideHubLinkToNextStepLink,
+  normalizeGuideLinks,
+} from '@/lib/guides/guideFlow';
 import { getGuideHubConfig, type GuideNextGuideItem } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
-const registrySlideContainerId = 'registry-guide-slide-container';
-
 const registryStepConfig = [
-  { match: 'foundation', id: 'registry-foundation', label: '01 Foundation', shortLabel: '01' },
-  { match: 'daily function', id: 'registry-function', label: '02 Function', shortLabel: '02' },
-  { match: 'platforms', id: 'registry-platforms', label: '03 Platforms', shortLabel: '03' },
-  { match: 'compare', id: 'registry-compare', label: '04 Compare', shortLabel: '04' },
-  { match: 'optimize', id: 'registry-optimize', label: '05 Optimize', shortLabel: '05' },
-  { match: 'decide', id: 'registry-decide', label: '06 Decide', shortLabel: '06' },
-  { match: 'refine', id: 'registry-refine', label: '07 Refine', shortLabel: '07' },
+  { match: 'foundation', id: 'registry-foundation', label: '01 Foundation' },
+  { match: 'daily function', id: 'registry-function', label: '02 Function' },
+  { match: 'platforms', id: 'registry-platforms', label: '03 Platforms' },
+  { match: 'compare', id: 'registry-compare', label: '04 Compare' },
+  { match: 'optimize', id: 'registry-optimize', label: '05 Optimize' },
+  { match: 'decide', id: 'registry-decide', label: '06 Decide' },
+  { match: 'refine', id: 'registry-refine', label: '07 Refine' },
 ] as const;
 
 function formatArticleDate(value: Date) {
@@ -38,24 +46,6 @@ function findSectionByTitle(
   title: string,
 ) {
   return sections.find((section) => section.title.toLowerCase() === title.toLowerCase()) ?? null;
-}
-
-function SurfaceLabel({
-  children,
-  tone = 'accent',
-}: {
-  children: string;
-  tone?: 'accent' | 'neutral';
-}) {
-  return (
-    <p
-      className={`text-[0.68rem] uppercase tracking-[0.22em] ${
-        tone === 'accent' ? 'text-[var(--color-accent-dark)]/78' : 'text-black/45'
-      }`}
-    >
-      {children}
-    </p>
-  );
 }
 
 function parseLabeledRows(content: string) {
@@ -108,6 +98,13 @@ export default function RegistryGuideSlideLayout({
   const nextStepsSection = findSectionByTitle(outline.sections, 'NEXT STEPS');
   const takeawaysSection = findSectionByTitle(outline.sections, 'TAKEAWAYS');
   const youAreHereRows = parseLabeledRows(youAreHereSection?.content ?? '');
+  const slideItems = getStandardGuideSlideItems('guide');
+  const fallbackOrientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const orientation = {
+    step: (youAreHereRows.find((row) => row.label.toLowerCase() === 'step')?.value as typeof fallbackOrientation.step) || fallbackOrientation.step,
+    category: youAreHereRows.find((row) => row.label.toLowerCase() === 'category')?.value || fallbackOrientation.category,
+    goal: youAreHereRows.find((row) => row.label.toLowerCase() === 'goal')?.value || fallbackOrientation.goal,
+  };
   const registrySystemBreakdown = splitGuideSectionContent(stripSectionHeading(registrySystemSection?.content ?? ''));
   const registrySystemSteps = registryStepConfig.flatMap((config) => {
     const subsection =
@@ -128,336 +125,260 @@ export default function RegistryGuideSlideLayout({
       },
     ];
   });
-  const slideItems: ProgressIndicatorItem[] = [
-    { id: 'registry-you-are-here', label: 'You Are Here', shortLabel: 'Start' },
-    { id: 'registry-system-overview', label: 'System Overview', shortLabel: 'Map' },
-    ...registrySystemSteps.map((step) => ({
-      id: step.id,
-      label: step.label,
-      shortLabel: step.shortLabel,
-    })),
-    { id: 'registry-decision-guide', label: 'Decision Guide', shortLabel: 'Guide' },
-    { id: 'registry-next-steps', label: 'Next Steps', shortLabel: 'Next' },
+  const heroStageItems: AcademyStageNavItem[] = [
+    {
+      id: 'start',
+      label: 'Start',
+      title: 'Get the registry sequence clear',
+      description: 'Start with the order before the products and perks start shouting.',
+      href: `${sourceRoute}#${slideItems[1].id}`,
+    },
+    {
+      id: 'compare',
+      label: 'Compare',
+      title: 'See what this guide covers',
+      description: 'Use the system overview and phase cards to understand the sequence.',
+      href: `${sourceRoute}#${slideItems[3].id}`,
+    },
+    {
+      id: 'decide',
+      label: 'Decide',
+      title: 'Use the shorter decision logic',
+      description: 'Move into the decision guide once the system already makes sense.',
+      href: `${sourceRoute}#${slideItems[4].id}`,
+    },
+    {
+      id: 'refine',
+      label: 'Refine',
+      title: 'Keep the next step obvious',
+      description: 'Use the next guide links while the registry plan is still fresh.',
+      href: `${sourceRoute}#${slideItems[6].id}`,
+    },
   ];
-  const overviewContent = [
-    stripSectionHeading(whatThisGuideCoversSection?.content ?? ''),
-    registrySystemBreakdown.introContent.trim(),
-  ]
-    .filter(Boolean)
-    .join('\n\n');
-  const primaryNextStepCta = guide.nextStepCtaHref
-    ? {
-        href: guide.nextStepCtaHref,
-        label: guide.nextStepCtaLabel?.trim() || 'Explore More Guides',
-        variant: 'accent' as const,
-      }
-    : supportLinks[0]
-      ? {
-          href: supportLinks[0].href,
-          label: supportLinks[0].title,
-          variant: 'accent' as const,
-        }
-      : null;
-  const consultationCta = guide.consultationCtaEnabled
-    ? {
-        href: '/book',
-        label: guide.consultationCtaLabel?.trim() || 'Book a Consultation',
-        variant: 'secondary' as const,
-      }
-    : null;
-  const stats = [
-    { label: 'Read time', value: `${readingTime} min` },
-    { label: 'Published', value: formatArticleDate(displayDate) },
-    { label: 'Slides', value: String(slideItems.length) },
-  ];
-  const heroStageItems = slideItems.slice(1, 5).map((item, index) => ({
-    id: `registry-hero-stage-${index + 1}`,
-    label: String(index + 1).padStart(2, '0'),
-    title: item.label,
-    description: 'Move through the registry Academy in order or jump to the part you need.',
-    href: `#${item.id}`,
-  }));
+  const nextSteps = normalizeGuideLinks(
+    [
+      {
+        href: '/guides',
+        label: 'TMBC Education Hub',
+        description: 'Return to the wider guide system if a different category needs to be solved next.',
+        stage: 'Start' as const,
+      },
+      ...(guide.nextStepCtaHref
+        ? [
+            {
+              href: guide.nextStepCtaHref,
+              label: guide.nextStepCtaLabel?.trim() || 'Open the next guide',
+              description: 'Use the next linked guide while the registry order is still clear.',
+              stage: 'Refine' as const,
+            },
+          ]
+        : []),
+      ...supportLinks.map((link) => guideHubLinkToNextStepLink(link, 'Refine')),
+    ],
+    4,
+  );
+  const takeaways = dedupeTextItems(
+    [
+      ...extractMarkdownListItems(takeawaysSection?.content ?? '', 4),
+      ...extractMarkdownListItems(keyRuleSection?.content ?? '', 2),
+      'Build the registry in the right order before comparing products.',
+    ],
+    4,
+  );
 
   return (
-    <div className="relative space-y-4 md:flex md:h-full md:min-h-0 md:flex-col md:space-y-0">
-      <div className="mx-auto w-full max-w-[1680px] px-4 pt-4 sm:px-5 xl:px-0">
-        <GuideStickyNav
-          items={slideItems}
-          containerId={registrySlideContainerId}
-          backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
-        />
-      </div>
+    <GuideSlideDeck
+      containerId="registry-guide-slide-container"
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
+      <SlideSection id={slideItems[0].id} background="ivory">
+        <div className="space-y-8">
+          <AcademyHero
+            eyebrow={guide.category}
+            title={guide.title}
+            description="Registry planning works better when the system comes first. This Academy path turns the list into a guided decision instead of a longer tab problem."
+            note="Build the registry in the right order first. Product decisions come after the system is clear."
+            primaryCta={{ href: `${sourceRoute}#${slideItems[3].id}`, label: 'Start the Registry Academy' }}
+            secondaryCta={nextSteps[0] ? { href: nextSteps[0].href, label: nextSteps[0].label } : undefined}
+            stageItems={heroStageItems}
+            stats={[
+              { label: 'Read time', value: `${readingTime} min` },
+              { label: 'Published', value: formatArticleDate(displayDate) },
+              { label: 'Phases', value: String(registrySystemSteps.length || 7) },
+            ]}
+            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          />
 
-      <div className="mx-auto w-full max-w-[1680px] md:flex-1 md:min-h-0 xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-6">
-        <div
-          id={registrySlideContainerId}
-          className="snap-none scroll-smooth md:h-full md:min-h-0 md:snap-y md:snap-mandatory md:overflow-y-auto xl:pr-2"
-        >
-          <SlideSection id="registry-you-are-here" background="ivory">
-            <div className="space-y-8">
-              <AcademyHero
-                eyebrow={guide.category}
-                title={guide.title}
-                description="Registry planning works better when the system comes first. This Academy path turns the list into a guided decision instead of a longer tab problem."
-                note="Build the registry in the right order first. Product decisions come after the system is clear."
-                primaryCta={{ href: '#registry-system-overview', label: 'Start the Registry Academy' }}
-                secondaryCta={primaryNextStepCta ? { href: primaryNextStepCta.href, label: primaryNextStepCta.label } : undefined}
-                stageItems={heroStageItems}
-                stats={stats}
-                parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          {introSection ? (
+            <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
+              <PostContent
+                postId={`${guide.id}-registry-intro`}
+                content={stripSectionHeading(introSection.content)}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
               />
+            </MarketingSurface>
+          ) : null}
+        </div>
+      </SlideSection>
 
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(19rem,0.92fr)] lg:items-start lg:gap-10">
-                {introSection ? (
-                  <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
-                    <PostContent
-                      postId={`${guide.id}-registry-intro`}
-                      content={stripSectionHeading(introSection.content)}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  </MarketingSurface>
-                ) : <div />}
+      <SlideSection id={slideItems[1].id} background="white">
+        <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
+      </SlideSection>
 
-                <MarketingSurface className="border-[rgba(215,161,175,0.16)] bg-[linear-gradient(180deg,#FFFDFD_0%,#FBF2F5_100%)] shadow-[0_18px_44px_rgba(0,0,0,0.06)]">
-                  <div className="space-y-4">
-                    <SurfaceLabel>You are here</SurfaceLabel>
-                    {youAreHereRows.length > 0 ? (
-                      <div className="grid gap-3">
-                        {youAreHereRows.map((row) => (
-                          <div
-                            key={`${row.label}-${row.value}`}
-                            className="rounded-[1.2rem] border border-[rgba(215,161,175,0.16)] bg-white/76 px-4 py-3"
-                          >
-                            <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/72">
-                              {row.label}
-                            </p>
-                            <p className="mt-2 text-lg leading-relaxed text-charcoal">
-                              {row.value}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : youAreHereSection ? (
-                      <PostContent
-                        postId={`${guide.id}-registry-you-are-here`}
-                        content={stripSectionHeading(youAreHereSection.content)}
-                        className="guide-post-content guide-slide-content"
-                        variant="guide"
-                      />
-                    ) : (
-                      <p className="text-base leading-relaxed text-neutral-700">
-                        Build the registry in the right order first. Product decisions come after the system is clear.
-                      </p>
-                    )}
-                  </div>
-                </MarketingSurface>
-              </div>
-            </div>
-          </SlideSection>
+      <SlideSection id={slideItems[2].id} background="blush">
+        <GuideBulletSection
+          eyebrow="What This Guide Covers"
+          title="What This Guide Covers"
+          description="The registry hub should stay readable at a glance."
+          items={
+            extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5).length > 0
+              ? extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5)
+              : dedupeTextItems(registrySystemSteps.map((step) => step.title), 5)
+          }
+        />
+      </SlideSection>
 
-          <SlideSection id="registry-system-overview" background="blush">
-            <div className="grid gap-8 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:items-start">
-              <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                <div className="space-y-4">
-                  <SurfaceLabel>System overview</SurfaceLabel>
-                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
-                    The registry works better when the order is doing some of the thinking for you.
-                  </h2>
-                  {overviewContent ? (
-                    <PostContent
-                      postId={`${guide.id}-registry-system-overview`}
-                      content={overviewContent}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  ) : null}
-                </div>
-              </MarketingSurface>
-
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {registrySystemSteps.map((step) => (
-                  <a
-                    key={step.id}
-                    href={`#${step.id}`}
-                    className="group rounded-[1.6rem] border border-[rgba(196,156,94,0.14)] bg-white/90 p-5 shadow-[0_12px_32px_rgba(0,0,0,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]"
-                  >
-                    <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/76">{step.label}</p>
-                    <h3 className="mt-3 font-serif text-[1.5rem] leading-[1.05] tracking-tight text-charcoal">{step.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                      {step.summary || 'Use this part of the system to keep the next registry decision simpler.'}
-                    </p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </SlideSection>
-
-          {registrySystemSteps.map((step, index) => {
-            const nextStep = registrySystemSteps[index + 1] ?? null;
-            const nextSlideTarget = nextStep ? `#${nextStep.id}` : '#registry-decision-guide';
-            const nextSlideLabel = nextStep ? nextStep.label : 'Decision Guide';
-
-            return (
-              <SlideSection
-                key={step.id}
-                id={step.id}
-                background={index % 2 === 0 ? 'ivory' : 'blush'}
-              >
-                <div className="grid gap-8 xl:grid-cols-[minmax(0,0.38fr)_minmax(0,1fr)] xl:items-start">
-                  <div className="space-y-5">
-                    <div className="space-y-3">
-                      <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">Registry system</p>
-                      <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.5rem]">
-                        {step.label}
-                      </h2>
-                      <p className="text-base leading-relaxed text-neutral-700 md:text-lg">
-                        {step.summary || 'Move through this phase before adding more comparison tabs.'}
-                      </p>
-                    </div>
-
-                    <div className="rounded-[1.5rem] border border-[rgba(196,156,94,0.12)] bg-white/76 p-5 shadow-sm">
-                      <p className="text-[0.68rem] uppercase tracking-[0.2em] text-black/46">Why this slide matters</p>
-                      <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                        Each phase is meant to narrow the next decision, so the registry gets clearer instead of longer.
-                      </p>
-                    </div>
-
-                    <a
-                      href={nextSlideTarget}
-                      className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.24)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      Continue to {nextSlideLabel}
-                    </a>
-                  </div>
-
-                  <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/94 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
-                    <PostContent
-                      postId={`${guide.id}-${step.id}`}
-                      content={step.content}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  </MarketingSurface>
-                </div>
-              </SlideSection>
-            );
-          })}
-
-          <SlideSection id="registry-decision-guide" background="ivory">
-            <div className="grid gap-8 xl:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] xl:items-start">
-              <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-[linear-gradient(180deg,#FFFDFD_0%,#FBF4F7_100%)] shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                <div className="space-y-4">
-                  <SurfaceLabel>Decision guide</SurfaceLabel>
-                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
-                    Use the shorter version when you need to get unstuck without rereading everything.
-                  </h2>
-                  {decisionGuideSection ? (
-                    <PostContent
-                      postId={`${guide.id}-registry-decision-guide`}
-                      content={stripSectionHeading(decisionGuideSection.content)}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  ) : null}
-                </div>
-              </MarketingSurface>
-
-              <div className="space-y-4">
-                {commonMistakesSection ? (
-                  <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
-                    <div className="space-y-4">
-                      <SurfaceLabel tone="neutral">Common mistakes</SurfaceLabel>
-                      <PostContent
-                        postId={`${guide.id}-registry-common-mistakes`}
-                        content={stripSectionHeading(commonMistakesSection.content)}
-                        className="guide-post-content guide-slide-content"
-                        variant="guide"
-                      />
-                    </div>
-                  </MarketingSurface>
-                ) : null}
-
-                {keyRuleSection ? (
-                  <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
-                    <div className="space-y-4">
-                      <SurfaceLabel tone="neutral">Key rule</SurfaceLabel>
-                      <PostContent
-                        postId={`${guide.id}-registry-key-rule`}
-                        content={stripSectionHeading(keyRuleSection.content)}
-                        className="guide-post-content guide-slide-content"
-                        variant="guide"
-                      />
-                    </div>
-                  </MarketingSurface>
-                ) : null}
-              </div>
-            </div>
-          </SlideSection>
-
-          <SlideSection id="registry-next-steps" background="blush">
-            <div className="space-y-8">
-              <div className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start">
-                <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                  <div className="space-y-4">
-                    <SurfaceLabel>Next steps</SurfaceLabel>
-                    {nextStepsSection ? (
-                      <PostContent
-                        postId={`${guide.id}-registry-next-steps`}
-                        content={stripSectionHeading(nextStepsSection.content)}
-                        className="guide-post-content guide-slide-content"
-                        variant="guide"
-                      />
-                    ) : null}
-                  </div>
-                </MarketingSurface>
-
-                <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                  <div className="space-y-4">
-                    <SurfaceLabel tone="neutral">Takeaways</SurfaceLabel>
-                    {takeawaysSection ? (
-                      <PostContent
-                        postId={`${guide.id}-registry-takeaways`}
-                        content={stripSectionHeading(takeawaysSection.content)}
-                        className="guide-post-content guide-slide-content"
-                        variant="guide"
-                      />
-                    ) : (
-                      <p className="text-base leading-relaxed text-neutral-700">
-                        Start with the system, then let each step narrow the next choice.
-                      </p>
-                    )}
-                  </div>
-                </MarketingSurface>
-              </div>
-
-              {supportLinks.length > 0 ? (
-                <GuideContinueExploring
-                  title="Keep moving into the next useful registry question."
-                  description="Use the related paths that sharpen the decision instead of opening five new tabs that all sound urgent."
-                  links={supportLinks}
+      <SlideSection id={slideItems[3].id} background="ivory">
+        <div className="space-y-8">
+          <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+            <div className="space-y-4">
+              <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Content</p>
+              <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
+                The registry works better when the order is doing some of the thinking for you.
+              </h2>
+              {registrySystemBreakdown.introContent ? (
+                <PostContent
+                  postId={`${guide.id}-registry-system-overview`}
+                  content={registrySystemBreakdown.introContent}
+                  className="guide-post-content guide-slide-content"
+                  variant="guide"
                 />
               ) : null}
-
-              <GuideCTARibbon
-                eyebrow="Next move"
-                title="Keep the momentum practical."
-                description="Once the sequence feels clear, use the next guide that matches your current question. The goal is a calmer plan, not a bigger list."
-                primaryCta={primaryNextStepCta}
-                secondaryCta={consultationCta}
-              />
-
-              <GuideNextGuides items={nextGuideItems} />
-
-              {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
             </div>
-          </SlideSection>
-        </div>
+          </MarketingSurface>
 
-        <div className="hidden xl:flex xl:items-center xl:justify-center">
-          <ProgressIndicator items={slideItems} containerId={registrySlideContainerId} className="w-full max-w-[12.5rem]" />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {registrySystemSteps.map((step) => (
+              <section
+                key={step.id}
+                className="rounded-[1.6rem] border border-[rgba(196,156,94,0.14)] bg-white/90 p-5 shadow-[0_12px_32px_rgba(0,0,0,0.05)]"
+              >
+                <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/76">{step.label}</p>
+                <h3 className="mt-3 font-serif text-[1.5rem] leading-[1.05] tracking-tight text-charcoal">{step.title}</h3>
+                <p className="mt-3 text-base leading-relaxed text-neutral-700">
+                  {step.summary || 'Use this phase to keep the next registry decision smaller and calmer.'}
+                </p>
+              </section>
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[4].id} background="white">
+        <div className="space-y-8">
+          <DecisionBlock
+            title="Use the shorter decision guide when you need to get unstuck."
+            description="This is the quick registry logic when you want the answer without rereading the whole system."
+            items={[
+              {
+                condition: 'are still building the list from scratch',
+                recommendation: 'Start with Foundation and Function before you compare products or retailers.',
+                href: `${sourceRoute}#${slideItems[3].id}`,
+              },
+              {
+                condition: 'are comparing retailers or perks too early',
+                recommendation: 'Move back to Platforms and Compare so the setup decision happens in the right order.',
+                href: `${sourceRoute}#${slideItems[3].id}`,
+              },
+              {
+                condition: 'feel like the list is getting longer instead of clearer',
+                recommendation: 'Use Optimize, Decide, and Refine to cut duplicates and tighten what really belongs.',
+                href: `${sourceRoute}#${slideItems[6].id}`,
+              },
+            ]}
+          />
+
+          {decisionGuideSection ? (
+            <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-[linear-gradient(180deg,#FFFDFD_0%,#FBF4F7_100%)] shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+              <PostContent
+                postId={`${guide.id}-registry-decision-guide`}
+                content={stripSectionHeading(decisionGuideSection.content)}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
+              />
+            </MarketingSurface>
+          ) : null}
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[5].id} background="blush">
+        <GuideBulletSection
+          eyebrow="Common Mistakes"
+          title="Common Mistakes"
+          description="These are the practical misses that usually turn a registry into a longer, noisier list."
+          items={
+            extractMarkdownListItems(commonMistakesSection?.content ?? '', 5).length > 0
+              ? extractMarkdownListItems(commonMistakesSection?.content ?? '', 5)
+              : [
+                  'Adding products before the order of decisions is clear.',
+                  'Comparing retailers and perks before the list foundation is built.',
+                  'Treating every category like it belongs on the first-pass registry.',
+                ]
+          }
+        />
+      </SlideSection>
+
+      <SlideSection id={slideItems[6].id} background="ivory">
+        <div className="space-y-8">
+          {nextStepsSection ? (
+            <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+              <PostContent
+                postId={`${guide.id}-registry-next-steps`}
+                content={stripSectionHeading(nextStepsSection.content)}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
+              />
+            </MarketingSurface>
+          ) : null}
+
+          <NextSteps
+            title="Next Steps"
+            description="Once the registry sequence is clearer, use the next guide that matches the question in front of you."
+            links={nextSteps}
+          />
+
+          <GuideNextGuides items={nextGuideItems} />
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[7].id} background="white">
+        <div className="space-y-8">
+          <GuideBulletSection
+            eyebrow="Takeaways"
+            title="Takeaways"
+            description="If you only keep the short version, keep these."
+            items={takeaways}
+          />
+
+          {keyRuleSection ? (
+            <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
+              <div className="space-y-4">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">Key Rule</p>
+                <PostContent
+                  postId={`${guide.id}-registry-key-rule`}
+                  content={stripSectionHeading(keyRuleSection.content)}
+                  className="guide-post-content guide-slide-content"
+                  variant="guide"
+                />
+              </div>
+            </MarketingSurface>
+          ) : null}
+
+          {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
+        </div>
+      </SlideSection>
+    </GuideSlideDeck>
   );
 }

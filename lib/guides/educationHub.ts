@@ -196,28 +196,28 @@ export const guidesEducationHubContent = {
     description: 'A few strong starting points if you want to keep moving.',
     links: [
       {
-        title: 'Stroller Guide',
-        description: 'A calmer way to compare full-size, compact, travel, and future-family stroller paths.',
-        href: GUIDE_PATHS.strollers,
-        icon: 'stroller',
-      },
-      {
-        title: 'Car Seat Guide',
-        description: 'Stage-by-stage guidance for what fits your child, your car, and your real routine.',
-        href: GUIDE_PATHS.carSeats,
-        icon: 'carseat',
-      },
-      {
-        title: 'Registry Guide',
-        description: 'Build the list around what earns space in your home and in the first season.',
-        href: GUIDE_PATHS.registry,
-        icon: 'checklist',
-      },
-      {
         title: 'Nursery Guide',
-        description: 'Plan the room for sleep, storage, and middle-of-the-night function instead of just the reveal photo.',
+        description: 'Start with room flow, storage, and the setup that makes the first routines easier to live with.',
         href: GUIDE_PATHS.nursery,
         icon: 'home',
+      },
+      {
+        title: 'Feeding Guide',
+        description: 'Continue into feeding setup once the room plan is steady and the daily workflow is easier to picture.',
+        href: GUIDE_PATHS.feeding,
+        icon: 'bag',
+      },
+      {
+        title: 'Registry Strategy',
+        description: 'Use registry setup logic to choose where to register before the perks and store dashboards start leading the plan.',
+        href: '/guides/registry/where-to-register',
+        icon: 'strategy',
+      },
+      {
+        title: 'Stroller Guide',
+        description: 'Move into stroller decisions after the planning foundations are clear enough to compare the right lane.',
+        href: GUIDE_PATHS.strollers,
+        icon: 'stroller',
       },
     ] satisfies GuideHubLink[],
   },
@@ -278,7 +278,7 @@ const futureGuideHubConfigs: Record<FutureGuideHubSlug, FutureGuideHubConfig> = 
     note: 'Feeding prep should support real life, not produce a drawer full of backup plans you never wanted.',
     stats: [
       { label: 'Status', value: 'Growing now' },
-      { label: 'Best next step', value: 'Start with the essentials filter' },
+      { label: 'Best next step', value: 'Choose your registry strategy' },
     ],
     highlights: [
       {
@@ -292,23 +292,23 @@ const futureGuideHubConfigs: Record<FutureGuideHubSlug, FutureGuideHubConfig> = 
       'Which feeding extras are genuinely helpful and which ones mostly create clutter.',
     ],
     continueTitle: 'Use these guides while the feeding hub comes together.',
-    continueDescription: 'They cover the prep decisions that usually shape feeding choices anyway.',
+    continueDescription: 'They keep the path moving from feeding setup into registry strategy and then into bigger gear.',
     continueLinks: [
       {
-        title: 'Essentials Hub',
-        description: 'Start with the broader filter for what matters now versus what can wait.',
-        href: GUIDE_PATHS.essentials,
-        icon: 'book',
+        title: 'Registry Strategy',
+        description: 'Choose where to register before the perks, returns, and platform tradeoffs start influencing the whole plan.',
+        href: '/guides/registry/where-to-register',
+        icon: 'strategy',
       },
       {
-        title: 'Registry Guide',
-        description: 'Map feeding categories into a registry that still feels practical and manageable.',
-        href: GUIDE_PATHS.registry,
-        icon: 'checklist',
+        title: 'Stroller Guide',
+        description: 'Move into big-gear comparison after the feeding and registry setup decisions are in better shape.',
+        href: GUIDE_PATHS.strollers,
+        icon: 'stroller',
       },
       {
         title: 'Nursery Guide',
-        description: 'Think through feeding stations, storage, and how the room supports your routine.',
+        description: 'Step back to room flow if feeding stations, storage, and setup still need work.',
         href: GUIDE_PATHS.nursery,
         icon: 'home',
       },

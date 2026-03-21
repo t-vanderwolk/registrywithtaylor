@@ -1,14 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import {
+  getActiveGuideSectionFromScroll,
+  getGuideViewportOffset,
+  isScrollableGuideContainer,
+  scrollToGuideSection,
+} from '@/lib/guides/guideNav';
 
 export type ProgressIndicatorItem = {
   id: string;
   label: string;
   shortLabel?: string;
 };
-
-const observerThresholds = [0, 0.2, 0.35, 0.5, 0.7, 0.9];
 
 export default function ProgressIndicator({
   items,
@@ -26,50 +30,38 @@ export default function ProgressIndicator({
       return undefined;
     }
 
-    const sections = items
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    if (sections.length === 0) {
-      return undefined;
-    }
-
     const root = containerId ? document.getElementById(containerId) : null;
-    const visibilityById = new Map<string, number>();
+    const scrollTarget =
+      root instanceof HTMLElement && isScrollableGuideContainer(root) ? root : window;
+    let animationFrame = 0;
 
     const updateActiveSection = () => {
-      const [nextActiveId] =
-        [...visibilityById.entries()].sort((left, right) => right[1] - left[1])[0] ?? [items[0]?.id ?? '', 0];
+      const nextActiveId = getActiveGuideSectionFromScroll({
+        items,
+        containerId,
+        viewportOffset: scrollTarget === window ? getGuideViewportOffset(containerId) : 72,
+      });
 
       if (nextActiveId) {
         setActiveId(nextActiveId);
       }
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          visibilityById.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
-        }
-
+    const requestUpdate = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
         updateActiveSection();
-      },
-      {
-        root,
-        rootMargin: '-28% 0px -42% 0px',
-        threshold: observerThresholds,
-      },
-    );
-
-    for (const section of sections) {
-      visibilityById.set(section.id, 0);
-      observer.observe(section);
-    }
+      });
+    };
 
     updateActiveSection();
+    scrollTarget.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
 
     return () => {
-      observer.disconnect();
+      window.cancelAnimationFrame(animationFrame);
+      scrollTarget.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
     };
   }, [containerId, items]);
 
@@ -97,12 +89,7 @@ export default function ProgressIndicator({
             <li key={item.id}>
               <button
                 type="button"
-                onClick={() => {
-                  document.getElementById(item.id)?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                  });
-                }}
+                onClick={() => scrollToGuideSection(item.id, containerId)}
                 aria-current={isActive ? 'step' : undefined}
                 className={`group flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition duration-300 ${
                   isActive ? 'bg-[#FCF4F6]' : 'hover:bg-[#FCFAFB]'

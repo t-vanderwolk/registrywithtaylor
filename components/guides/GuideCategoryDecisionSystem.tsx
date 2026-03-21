@@ -1,25 +1,27 @@
 import GuideCategoryStartPanel from '@/components/guides/GuideCategoryStartPanel';
 import GuideComparisonBand from '@/components/guides/GuideComparisonBand';
 import GuideContextStrip from '@/components/guides/GuideContextStrip';
-import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
-import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
-import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
-import GuideDecisionSteps from '@/components/guides/GuideDecisionSteps';
+import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
+import NextSteps from '@/components/guides/NextSteps';
+import ProductExampleGroup from '@/components/guides/ProductExampleGroup';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
-import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
-import ProductExampleGroup from '@/components/guides/ProductExampleGroup';
 import SlideSection from '@/components/guides/SlideSection';
+import YouAreHere from '@/components/guides/YouAreHere';
 import { stripMarkdown } from '@/lib/blog/contentText';
-import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import { buildGuideOutline } from '@/lib/guides/articleOutline';
+import { buildPrefaceBrief, dedupeFaqEntries } from '@/lib/guides/decisionSystemContent';
 import {
-  buildDecisionStepsFromSections,
-  buildPrefaceBrief,
-  dedupeFaqEntries,
-} from '@/lib/guides/decisionSystemContent';
+  dedupeTextItems,
+  getFallbackCommonMistakes,
+  getGuideOrientation,
+  getStandardGuideSlideItems,
+  guideHubLinkToNextStepLink,
+  normalizeGuideLinks,
+} from '@/lib/guides/guideFlow';
 import { getDecisionCategoryPageConfig } from '@/lib/guides/guideDecisionSystem';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
@@ -50,73 +52,90 @@ export default function GuideCategoryDecisionSystem({
   const articleContent = [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
   const outline = buildGuideOutline(articleContent);
   const preface = buildPrefaceBrief(outline.preface);
-  const steps = buildDecisionStepsFromSections(outline.sections, {
-    excludeTitles: ['FAQ', 'Product Examples'],
-  });
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
-  const tocItems: GuideTocItem[] = [
-    { id: 'guide-start', label: 'Start here', level: 2 },
-    { id: 'guide-fit', label: 'Fit check', level: 2 },
-    { id: 'guide-compare', label: 'Compare lanes', level: 2 },
-    { id: 'guide-steps', label: 'Decision steps', level: 2 },
-    { id: 'guide-next', label: 'Next steps', level: 2 },
+  const slideItems = getStandardGuideSlideItems('guide');
+  const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const nextSteps = normalizeGuideLinks(
+    [
+      {
+        href: config.context.hubHref,
+        label: config.context.hubLabel,
+        description: 'Return to the parent hub if you need the wider category map again.',
+        stage: 'Start' as const,
+      },
+      {
+        href: config.context.compareHref,
+        label: config.context.compareLabel,
+        description: 'Compare this path with the closest neighboring category next.',
+        stage: 'Compare' as const,
+      },
+      ...config.continueExploring.links.map((link) => guideHubLinkToNextStepLink(link, 'Refine')),
+    ],
+    4,
+  );
+  const decisionItems = [
+    ...config.fitCheck.fitBullets.slice(0, 2).map((bullet) => ({
+      condition: bullet.toLowerCase(),
+      recommendation: `This category is usually a good fit. ${config.fitCheck.fitSummary}`,
+      href: `${sourceRoute}#${slideItems[3].id}`,
+    })),
+    ...config.fitCheck.notFitBullets.slice(0, 1).map((bullet) => ({
+      condition: bullet.toLowerCase(),
+      recommendation: `Compare ${config.context.compareLabel} before you commit. ${config.fitCheck.notFitSummary}`,
+      href: config.context.compareHref,
+    })),
   ];
-  const heroJumpLinks = tocItems.slice(0, 6).map((item) => ({
-    label: item.label,
-    href: `${sourceRoute}#${item.id}`,
-  }));
-  const slideDeckId = `guide-slide-deck-${guide.slug}`;
-  const slideItems = [
-    { id: 'guide-overview', label: 'Overview', shortLabel: 'Start' },
-    { id: 'guide-start', label: 'Start Here', shortLabel: 'Map' },
-    { id: 'guide-fit', label: 'Fit Check', shortLabel: 'Fit' },
-    { id: 'guide-compare', label: 'Compare Lanes', shortLabel: 'Compare' },
-    { id: 'guide-steps', label: 'Decision Steps', shortLabel: 'Steps' },
-    { id: 'guide-next', label: 'Next Steps', shortLabel: 'Next' },
-  ];
+  const takeaways = dedupeTextItems(
+    [
+      config.fitCheck.fitSummary,
+      config.fitCheck.notFitSummary,
+      config.comparison.description,
+      config.softCta.description,
+    ],
+    4,
+  );
 
   return (
     <GuideSlideDeck
-      containerId={slideDeckId}
+      containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
     >
-      <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
+      <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero
           eyebrow={config.heroEyebrow}
           title={guide.title}
           description={guide.excerpt?.trim() || config.heroDescription}
           readTime={`${readingTime} min`}
           publishedLabel={formatArticleDate(displayDate)}
-          sectionCount={tocItems.length}
-          jumpLinks={heroJumpLinks}
+          sectionCount={slideItems.length}
+          jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
           imageSrc={null}
           imageAlt={guide.title}
           variant="stroller-category"
         />
       </SlideSection>
 
-      <SlideSection id="guide-start" background="white">
+      <SlideSection id={slideItems[1].id} background="white">
+        <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
+      </SlideSection>
+
+      <SlideSection id={slideItems[2].id} background="blush">
+        <GuideBulletSection
+          eyebrow="What This Guide Covers"
+          title="What This Guide Covers"
+          description="The goal is to make the category legible before you start over-comparing the wrong products."
+          items={[
+            config.startPanel.startDescription,
+            ...config.startPanel.summaryCards.map((card) => card.text),
+            config.comparison.description,
+          ].slice(0, 5)}
+        />
+      </SlideSection>
+
+      <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <GuideContextStrip context={config.context} />
-
-          <GuideCTARibbon
-            eyebrow="Start here"
-            title="Start with the question hiding under the category name."
-            description="Most of these categories make more sense once you connect them to your routine, your storage, and what you need the gear to do on an ordinary Tuesday."
-            primaryCta={
-              config.continueExploring.links[0]
-                ? {
-                    href: config.continueExploring.links[0].href,
-                    label: `Compare ${config.continueExploring.links[0].title}`,
-                  }
-                : null
-            }
-            secondaryCta={{
-              href: config.context.hubHref,
-              label: `Return to ${config.context.hubLabel}`,
-            }}
-          />
 
           <GuideCategoryStartPanel
             startDescription={config.startPanel.startDescription}
@@ -136,71 +155,52 @@ export default function GuideCategoryDecisionSystem({
             leadParagraphClassName="max-w-[38rem]"
           />
 
-          <div className="space-y-4">
-            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="mobile" />
-            <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
-          </div>
+          <GuideComparisonBand
+            eyebrow="Category comparison"
+            title={config.comparison.title}
+            description={config.comparison.description}
+            groups={config.comparison.groups}
+          />
         </div>
       </SlideSection>
 
-      <SlideSection id="guide-fit" background="blush">
-        <GuideDecisionBlock {...config.fitCheck} />
+      <SlideSection id={slideItems[4].id} background="white">
+        <DecisionBlock title={config.fitCheck.title} description={config.fitCheck.description} items={decisionItems} />
       </SlideSection>
 
-      <SlideSection id="guide-compare" background="ivory">
-        <GuideComparisonBand
-          eyebrow="Category comparison"
-          title={config.comparison.title}
-          description={config.comparison.description}
-          groups={config.comparison.groups}
+      <SlideSection id={slideItems[5].id} background="blush">
+        <GuideBulletSection
+          eyebrow="Common Mistakes"
+          title="Common Mistakes"
+          description="These are the category traps that usually make the page feel more confusing than it needs to."
+          items={getFallbackCommonMistakes(guide.slug)}
         />
       </SlideSection>
 
-      <SlideSection id="guide-steps" background="blush">
+      <SlideSection id={slideItems[6].id} background="ivory">
         <div className="space-y-8">
-          <GuideDecisionSteps
-            title="Move through the decision one clear step at a time."
-            description="This keeps the guide structured around what you need to understand next, not around how much copy can fit on one page."
-            steps={steps}
+          <NextSteps
+            title={config.continueExploring.title}
+            description={config.continueExploring.description}
+            links={nextSteps}
           />
 
-          <GuideCTARibbon
-            eyebrow="Need the next click?"
-            title="Keep moving without over-reading."
-            description="If this category already feels mostly clear, use the next step links below and compare it against the closest alternative."
-            primaryCta={
-              config.continueExploring.links[0]
-                ? {
-                    href: config.continueExploring.links[0].href,
-                    label: `Explore ${config.continueExploring.links[0].title}`,
-                  }
-                : null
-            }
-            secondaryCta={
-              config.continueExploring.links[1]
-                ? {
-                    href: config.continueExploring.links[1].href,
-                    label: `Explore ${config.continueExploring.links[1].title}`,
-                  }
-                : null
-            }
-          />
-        </div>
-      </SlideSection>
-
-      <SlideSection id="guide-next" background="white">
-        <div className="space-y-8">
           <ProductExampleGroup
             eyebrow="Product examples"
             title={config.productExamples.title}
             description={config.productExamples.description}
             groups={config.productExamples.groups}
           />
+        </div>
+      </SlideSection>
 
-          <GuideContinueExploring
-            title={config.continueExploring.title}
-            description={config.continueExploring.description}
-            links={config.continueExploring.links}
+      <SlideSection id={slideItems[7].id} background="white">
+        <div className="space-y-8">
+          <GuideBulletSection
+            eyebrow="Takeaways"
+            title="Takeaways"
+            description="Keep the short version, then move into the next comparison while it still feels obvious."
+            items={takeaways}
           />
 
           {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}

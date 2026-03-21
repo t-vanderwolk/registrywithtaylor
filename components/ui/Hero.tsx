@@ -29,6 +29,7 @@ type HeroProps = {
   fullBleed?: boolean;
   showImage?: boolean;
   staggerContent?: boolean;
+  animateContent?: boolean;
   ribbonClassName?: string;
   footerContent?: ReactNode;
   footerClassName?: string;
@@ -56,6 +57,7 @@ export default function Hero({
   fullBleed = true,
   showImage = true,
   staggerContent = false,
+  animateContent = true,
   ribbonClassName = '',
   footerContent,
   footerClassName = '',
@@ -125,7 +127,7 @@ export default function Hero({
 
       <div className={`hero-inner relative z-10 ${innerClassName}`.trim()} style={innerStyle}>
         <div
-          className={`hero-content ${staggerContent ? '' : 'animate-hero-fade'} marketing-hero-content ${contentClassName}`.trim()}
+          className={`hero-content ${staggerContent || !animateContent ? '' : 'animate-hero-fade'} marketing-hero-content ${contentClassName}`.trim()}
           style={resolvedContentStyle}
         >
           {hasCustomContent ? (

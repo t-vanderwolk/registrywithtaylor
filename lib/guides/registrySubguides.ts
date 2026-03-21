@@ -301,8 +301,8 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'Where to Register for a Baby Registry | Taylor-Made Baby Co.',
     seoDescription:
       'Compare Target, Amazon, and Babylist by completion discounts, welcome boxes, returns, and setup logic.',
-    nextStepCtaHref: '/guides/registry/perks',
-    nextStepCtaLabel: 'See Registry Perks & Welcome Boxes',
+    nextStepCtaHref: '/guides/strollers',
+    nextStepCtaLabel: 'Continue to the Stroller Guide',
     content: [
       'Choose a registry for the shopping experience it creates, not just the logo on the page.',
       '',
