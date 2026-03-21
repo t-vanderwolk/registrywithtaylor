@@ -6,13 +6,13 @@ import JournalCard from '@/components/blog/JournalCard';
 import FinalCTA from '@/components/layout/FinalCTA';
 import { Body, H1, H2 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
-import { normalizeBlogCategory } from '@/lib/blogCategories';
+import { getPostDisplayDate } from '@/lib/blog/postStatus';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import prisma from '@/lib/server/prisma';
 import { toExcerpt } from '@/components/blog/PostArticleView';
 import { toBlogAuthorProfile } from '@/lib/server/blogAuthors';
+import { getPublicBlogPostsByAuthorId } from '@/lib/server/publicBlog';
 
 type AuthorPageProps = {
   params: Promise<{ slug: string }>;
@@ -43,32 +43,7 @@ async function getAuthorPageData(slug: string) {
     return null;
   }
 
-  const posts = await prisma.post.findMany({
-    where: {
-      ...getPublicPostWhere(),
-      OR: [{ authorId: author.id }, { authorships: { some: { userId: author.id } } }],
-    },
-    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      excerpt: true,
-      content: true,
-      readingTime: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          url: true,
-        },
-      },
-      publishedAt: true,
-      scheduledFor: true,
-      createdAt: true,
-    },
-  });
+  const posts = await getPublicBlogPostsByAuthorId(author.id);
 
   return { author, posts };
 }
@@ -183,7 +158,7 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
                     dateLabel={formatDate(getPostDisplayDate(post))}
                     dateTime={getPostDisplayDate(post).toISOString()}
                     readingTime={post.readingTime}
-                    category={normalizeBlogCategory(post.category)}
+                    category={post.category}
                     authorName={authorName}
                   />
                 ))}

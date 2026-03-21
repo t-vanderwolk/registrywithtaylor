@@ -4,9 +4,9 @@ import SiteShell from '@/components/SiteShell';
 import BlogIndexView from '@/components/blog/BlogIndexView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
-import { getPostDisplayDate, getPublicPostWhere } from '@/lib/blog/postStatus';
-import { BLOG_GUIDES_TITLE, type BlogCategory } from '@/lib/blogCategories';
-import prisma from '@/lib/server/prisma';
+import { getPostDisplayDate } from '@/lib/blog/postStatus';
+import type { BlogCategory } from '@/lib/blogCategories';
+import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 
 export const dynamic = 'force-dynamic';
 
@@ -88,29 +88,7 @@ const toExcerpt = (excerpt: string | null, content: string, maxLength = 160) => 
 
 export default async function BlogPage() {
   const now = new Date();
-  const posts = (await prisma.post.findMany({
-    where: getPublicPostWhere(now),
-    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      excerpt: true,
-      content: true,
-      readingTime: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          url: true,
-        },
-      },
-      publishedAt: true,
-      scheduledFor: true,
-      createdAt: true,
-    },
-  })) as BlogPost[];
+  const posts = await getPublicBlogIndexPosts(now);
 
   const toViewPost = (post: BlogPost): BlogIndexPost => ({
     id: post.id,

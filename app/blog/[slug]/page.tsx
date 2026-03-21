@@ -8,11 +8,9 @@ import PostArticleView, {
 } from '@/components/blog/PostArticleView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import { extractFaqEntries } from '@/lib/blog/contentText';
-import { getPostDisplayDate, getPublicPostWhere, isPostPubliclyVisible } from '@/lib/blog/postStatus';
-import { normalizeBlogCategory } from '@/lib/blogCategories';
+import { getPostDisplayDate } from '@/lib/blog/postStatus';
 import { SITE_URL } from '@/lib/marketing/metadata';
-import { postArticleSelect, toPostArticleRecord } from '@/lib/server/postArticleRecord';
-import prisma from '@/lib/server/prisma';
+import { getPublicBlogPostBySlug, getPublicRelatedBlogPosts } from '@/lib/server/publicBlog';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,11 +18,7 @@ type BlogPostParams = {
   params: Promise<{ slug: string }>;
 };
 
-const getBlogPost = cache(async (slug: string) =>
-  prisma.post.findUnique({
-    where: { slug },
-    select: postArticleSelect,
-  }));
+const getBlogPost = cache(async (slug: string) => getPublicBlogPostBySlug(slug));
 
 const toAbsoluteUrl = (pathOrUrl: string) => {
   if (/^https?:\/\//i.test(pathOrUrl)) {
@@ -38,17 +32,16 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
   const { slug } = await params;
   const post = await getBlogPost(slug);
 
-  if (!post || !isPostPubliclyVisible(post.status, post.scheduledFor)) {
+  if (!post) {
     return {};
   }
 
-  const articlePost = toPostArticleRecord(post);
-  const { content: articleContent } = extractDownloadableResource(articlePost.content);
+  const { content: articleContent } = extractDownloadableResource(post.content);
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const description =
-    articlePost.shareDescription?.trim() || post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
+    post.shareDescription?.trim() || post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
   const displayDate = getPostDisplayDate(post);
-  const metadataTitle = articlePost.shareTitle?.trim() || post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
+  const metadataTitle = post.shareTitle?.trim() || post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
   const canonical = post.canonicalUrl?.trim() || `/blog/${post.slug}`;
   const keywords = [
     post.focusKeyword,
@@ -73,7 +66,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
       url: `${SITE_URL}/blog/${post.slug}`,
       publishedTime: displayDate.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
-      authors: articlePost.authors.map((author) => author.name),
+      authors: post.authors.map((author) => author.name),
       tags: keywords,
       images: featuredImageUrl
         ? [
@@ -86,7 +79,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
     },
     twitter: {
       card: featuredImageUrl ? 'summary_large_image' : 'summary',
-      title: articlePost.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
+      title: post.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
       description,
       images: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
     },
@@ -100,42 +93,13 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   const { slug } = await params;
   const post = await getBlogPost(slug);
 
-  if (!post || !isPostPubliclyVisible(post.status, post.scheduledFor)) {
+  if (!post) {
     notFound();
   }
 
-  const articlePost = toPostArticleRecord(post);
-
-  const relatedPosts = await prisma.post.findMany({
-    where: {
-      ...getPublicPostWhere(),
-      NOT: {
-        id: post.id,
-      },
-    },
-    orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-    take: 3,
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      readingTime: true,
-      featuredImageUrl: true,
-      coverImage: true,
-      featuredImage: {
-        select: {
-          url: true,
-        },
-      },
-      publishedAt: true,
-      scheduledFor: true,
-      createdAt: true,
-    },
-  });
-
+  const relatedPosts = await getPublicRelatedBlogPosts(post.id);
   const { content: articleContent } = extractDownloadableResource(post.content);
-  const featuredImageUrl = articlePost.featuredImage?.url ?? articlePost.coverImage ?? articlePost.featuredImageUrl;
+  const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
   const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
   const faqEntries = extractFaqEntries(articleContent);
@@ -148,7 +112,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     'nursery planning',
     'baby gear guidance',
   ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
-  const authorSchemas = articlePost.authors.map((author) => ({
+  const authorSchemas = post.authors.map((author) => ({
     '@type': 'Person',
     '@id': author.slug ? `${SITE_URL}/blog/author/${author.slug}` : `${canonicalUrl}#author-${author.id}`,
     name: author.name,
@@ -161,8 +125,8 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     '@graph': [
       {
         '@type': 'BlogPosting',
-        headline: articlePost.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
-        description: articlePost.shareDescription?.trim() || post.seoDescription?.trim() || headerExcerpt,
+        headline: post.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
+        description: post.shareDescription?.trim() || post.seoDescription?.trim() || headerExcerpt,
         articleSection: post.category,
         keywords: seoKeywords,
         datePublished: displayDate.toISOString(),
@@ -203,19 +167,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <PostArticleView
-          post={articlePost}
-          relatedPosts={relatedPosts.map((relatedPost) => ({
-            id: relatedPost.id,
-            title: relatedPost.title,
-            slug: relatedPost.slug,
-            category: normalizeBlogCategory(relatedPost.category),
-            coverImage: relatedPost.featuredImage?.url ?? relatedPost.featuredImageUrl ?? relatedPost.coverImage,
-            publishedAt: relatedPost.publishedAt,
-            scheduledFor: relatedPost.scheduledFor,
-            createdAt: relatedPost.createdAt,
-          }))}
-        />
+        <PostArticleView post={post} relatedPosts={relatedPosts} />
         <FinalCTA />
       </main>
     </SiteShell>

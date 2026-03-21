@@ -40,6 +40,7 @@ export function isPostPubliclyVisible(
   status: PostStatusValue,
   scheduledFor?: Date | string | null,
   now: Date = new Date(),
+  legacyPublished = false,
 ) {
   if (status === 'PUBLISHED') {
     return true;
@@ -47,6 +48,10 @@ export function isPostPubliclyVisible(
 
   if (status === 'SCHEDULED' && scheduledFor) {
     return new Date(scheduledFor).getTime() <= now.getTime();
+  }
+
+  if (legacyPublished && status !== 'ARCHIVED') {
+    return true;
   }
 
   return false;
@@ -60,6 +65,12 @@ export function getPublicPostWhere(now: Date = new Date()) {
         status: 'SCHEDULED' as const,
         scheduledFor: {
           lte: now,
+        },
+      },
+      {
+        published: true,
+        NOT: {
+          status: 'ARCHIVED' as const,
         },
       },
     ],

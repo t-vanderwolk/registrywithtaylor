@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { getGuidePath } from '@/lib/guides/routing';
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { guidePillars } from '@/lib/marketing/siteContent';
 import { SITE_URL } from '@/lib/marketing/metadata';
+import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 import prisma from '@/lib/server/prisma';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 
@@ -43,14 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   try {
-    const posts = await prisma.post.findMany({
-      where: getPublicPostWhere(now),
-      orderBy: [{ updatedAt: 'desc' }, { publishedAt: 'desc' }, { createdAt: 'desc' }],
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
-    });
+    const posts = await getPublicBlogIndexPosts(now);
 
     blogEntries = posts.map((post) => ({
       url: buildUrl(`/blog/${post.slug}`),
