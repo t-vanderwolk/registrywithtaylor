@@ -115,7 +115,6 @@ export default async function BlogPage() {
           image="/assets/hero/hero-04.jpg"
           imageAlt=""
           contentClassName="homepage-hero-content"
-          staggerContent
         />
 
         <BlogIndexView posts={posts.map(toViewPost)} />

@@ -3,7 +3,6 @@
 import { startTransition, useState } from 'react';
 import JournalCard from '@/components/blog/JournalCard';
 import MarketingSurface from '@/components/ui/MarketingSurface';
-import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { Body } from '@/components/ui/MarketingHeading';
 import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 
@@ -82,23 +81,21 @@ export default function BlogIndexView({
       <section className="pb-20 md:pb-28" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <div className="mx-auto max-w-5xl px-5 sm:px-6">
           {filteredPosts.length > 0 ? (
-            <RevealOnScroll>
-              <div className="blog-section-soft grid gap-6 px-4 py-6 sm:px-6 sm:py-8 md:grid-cols-2 md:gap-10 md:px-8">
-                {filteredPosts.map((post) => (
-                  <JournalCard
-                    key={post.id}
-                    title={post.title}
-                    slug={post.slug}
-                    coverImage={post.coverImage}
-                    excerpt={post.excerpt}
-                    dateLabel={post.dateLabel}
-                    dateTime={post.dateTime}
-                    readingTime={post.readingTime}
-                    category={post.category}
-                  />
-                ))}
-              </div>
-            </RevealOnScroll>
+            <div className="blog-section-soft grid gap-6 px-4 py-6 sm:px-6 sm:py-8 md:grid-cols-2 md:gap-10 md:px-8">
+              {filteredPosts.map((post) => (
+                <JournalCard
+                  key={post.id}
+                  title={post.title}
+                  slug={post.slug}
+                  coverImage={post.coverImage}
+                  excerpt={post.excerpt}
+                  dateLabel={post.dateLabel}
+                  dateTime={post.dateTime}
+                  readingTime={post.readingTime}
+                  category={post.category}
+                />
+              ))}
+            </div>
           ) : (
             <MarketingSurface className="text-center">
               <p className="text-sm uppercase tracking-[0.22em] text-charcoal/55">

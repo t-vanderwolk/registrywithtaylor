@@ -31,14 +31,14 @@ export default function FadeInSection({
   const prefersReducedMotion = useReducedMotion();
   const pathname = usePathname();
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const disableGuideReveal = pathname?.startsWith('/guides');
+  const disableAnimatedReveal = pathname?.startsWith('/guides') || pathname?.startsWith('/blog');
   const isInView = useInView(sectionRef, {
     amount: threshold,
     margin: '-100px 0px',
     once,
   });
-  const isVisible = prefersReducedMotion || disableGuideReveal || isInView;
-  const hiddenY = prefersReducedMotion || disableGuideReveal ? 0 : yOffset;
+  const isVisible = prefersReducedMotion || disableAnimatedReveal || isInView;
+  const hiddenY = prefersReducedMotion || disableAnimatedReveal ? 0 : yOffset;
 
   return (
     <motion.div
@@ -46,15 +46,15 @@ export default function FadeInSection({
       id={id}
       className={className}
       style={style}
-      initial={{ opacity: prefersReducedMotion || disableGuideReveal ? 1 : 0, y: hiddenY }}
+      initial={{ opacity: prefersReducedMotion || disableAnimatedReveal ? 1 : 0, y: hiddenY }}
       animate={
         isVisible
           ? {
               opacity: 1,
               y: 0,
               transition: {
-                delay: prefersReducedMotion || disableGuideReveal ? 0 : delayMs / 1000,
-                duration: prefersReducedMotion || disableGuideReveal ? 0.01 : duration,
+                delay: prefersReducedMotion || disableAnimatedReveal ? 0 : delayMs / 1000,
+                duration: prefersReducedMotion || disableAnimatedReveal ? 0.01 : duration,
                 ease: 'easeOut',
               },
             }

@@ -17,7 +17,6 @@ import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import JournalCard from '@/components/blog/JournalCard';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
-import FadeInSection from '@/components/ui/FadeInSection';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -298,28 +297,24 @@ export default async function PostArticleView({
     relatedPosts.length > 0 ? (
       <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
         <div className="max-w-5xl mx-auto px-6">
-          <FadeInSection>
-            <>
-              <div className="mx-auto max-w-2xl space-y-4 text-center">
-                <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
-                <H2 className="font-serif text-neutral-900">More from the Journal</H2>
-              </div>
+          <div className="mx-auto max-w-2xl space-y-4 text-center">
+            <span className="block text-xs uppercase tracking-[0.3em] text-charcoal/60">Continue Reading</span>
+            <H2 className="font-serif text-neutral-900">More from the Journal</H2>
+          </div>
 
-              <div className="mt-12 grid gap-10 md:grid-cols-3">
-                {relatedPosts.map((relatedPost) => (
-                  <JournalCard
-                    key={relatedPost.id}
-                    title={relatedPost.title}
-                    slug={relatedPost.slug}
-                    coverImage={relatedPost.coverImage}
-                    category={relatedPost.category}
-                    dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
-                    dateTime={getPostDisplayDate(relatedPost).toISOString()}
-                  />
-                ))}
-              </div>
-            </>
-          </FadeInSection>
+          <div className="mt-12 grid gap-10 md:grid-cols-3">
+            {relatedPosts.map((relatedPost) => (
+              <JournalCard
+                key={relatedPost.id}
+                title={relatedPost.title}
+                slug={relatedPost.slug}
+                coverImage={relatedPost.coverImage}
+                category={relatedPost.category}
+                dateLabel={formatArticleDate(getPostDisplayDate(relatedPost))}
+                dateTime={getPostDisplayDate(relatedPost).toISOString()}
+              />
+            ))}
+          </div>
         </div>
       </section>
     ) : null;

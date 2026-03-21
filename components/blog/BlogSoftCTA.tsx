@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Body, H2 } from '@/components/ui/MarketingHeading';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
-import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { getAnalyticsPageType, getClientPageAnalyticsContext, getInternalPathFromHref, trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 
@@ -74,36 +73,34 @@ export default function BlogSoftCTA({
     <MarketingSurface
       className={['text-center', className].filter(Boolean).join(' ')}
     >
-      <RevealOnScroll>
-        <div className="mx-auto max-w-2xl space-y-6">
-          <span className="block text-xs uppercase tracking-[0.28em] text-charcoal/55">Need expert guidance?</span>
-          <H2 className="font-serif leading-tight text-neutral-900">
-            Bring your baby gear questions to Taylor when the guide gets you close, but not all the way there.
-          </H2>
-          <Body className="mx-auto text-charcoal/75">
-            The journal builds clarity. The consultation applies that clarity to your stroller, car seat, registry,
-            nursery, and purchase-timing decisions.
-          </Body>
-          <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row">
-            <Link
-              href="/book"
-              className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              data-analytics-managed="true"
-              onClick={() => trackBlogCta('/book', 'Book a Consultation')}
-            >
-              <MotionCtaContent>Book a Consultation</MotionCtaContent>
-            </Link>
-            <Link
-              href="/contact"
-              className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
-              data-analytics-managed="true"
-              onClick={() => trackBlogCta('/contact', 'Contact Taylor')}
-            >
-              <MotionCtaContent>Contact Taylor</MotionCtaContent>
-            </Link>
-          </div>
+      <div className="mx-auto max-w-2xl space-y-6">
+        <span className="block text-xs uppercase tracking-[0.28em] text-charcoal/55">Need expert guidance?</span>
+        <H2 className="font-serif leading-tight text-neutral-900">
+          Bring your baby gear questions to Taylor when the guide gets you close, but not all the way there.
+        </H2>
+        <Body className="mx-auto text-charcoal/75">
+          The journal builds clarity. The consultation applies that clarity to your stroller, car seat, registry,
+          nursery, and purchase-timing decisions.
+        </Body>
+        <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row">
+          <Link
+            href="/book"
+            className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            data-analytics-managed="true"
+            onClick={() => trackBlogCta('/book', 'Book a Consultation')}
+          >
+            <MotionCtaContent>Book a Consultation</MotionCtaContent>
+          </Link>
+          <Link
+            href="/contact"
+            className="btn btn--secondary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+            data-analytics-managed="true"
+            onClick={() => trackBlogCta('/contact', 'Contact Taylor')}
+          >
+            <MotionCtaContent>Contact Taylor</MotionCtaContent>
+          </Link>
         </div>
-      </RevealOnScroll>
+      </div>
     </MarketingSurface>
   );
 }
