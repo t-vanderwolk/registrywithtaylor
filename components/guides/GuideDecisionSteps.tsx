@@ -38,9 +38,9 @@ export default function GuideDecisionSteps({
     <section className="space-y-5">
       <RevealOnScroll>
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-          <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
-          {description ? <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
+          <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">{eyebrow}</p>
+          <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">{title}</h2>
+          {description ? <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">{description}</p> : null}
         </div>
       </RevealOnScroll>
 
@@ -49,16 +49,16 @@ export default function GuideDecisionSteps({
           <RevealOnScroll key={step.id} delayMs={index * 70}>
             <section
               id={step.id}
-              className="scroll-mt-28 rounded-2xl border border-stone-200/70 bg-white p-5 shadow-sm md:p-7"
+              className="scroll-mt-28 rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] md:p-7"
             >
               <div className="space-y-4">
                 <div className="space-y-3">
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/82">{step.stepLabel}</p>
-                  <h3 className="font-serif text-[1.6rem] leading-[1.04] tracking-tight text-charcoal md:text-[2rem]">
+                  <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">{step.stepLabel}</p>
+                  <h3 className="text-[1.6rem] font-medium leading-[1.04] tracking-[-0.02em] text-[#2F2430] md:text-[2rem]">
                     {step.title}
                   </h3>
                   {step.summary ? (
-                    <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">
+                    <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">
                       {step.summary}
                     </p>
                   ) : null}
@@ -69,7 +69,7 @@ export default function GuideDecisionSteps({
                     {step.highlights.slice(0, mode === 'summary' ? 3 : step.highlights.length).map((highlight) => (
                       <span
                         key={`${step.id}-${highlight}`}
-                        className="rounded-full border border-[rgba(196,156,94,0.16)] bg-[rgba(255,248,241,0.84)] px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-neutral-800"
+                        className="rounded-full border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.92)] px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-[#6E5561]"
                       >
                         {highlight}
                       </span>
@@ -78,7 +78,7 @@ export default function GuideDecisionSteps({
                 ) : null}
 
                 {mode === 'full' && step.introContent ? (
-                  <div className="rounded-xl border border-stone-200/70 bg-[#FCFAFB] p-5">
+                  <div className="rounded-[1.2rem] bg-[rgba(252,247,249,0.9)] p-5">
                     <PostContent
                       postId={`decision-step-${step.id}-intro`}
                       content={step.introContent}
@@ -94,9 +94,9 @@ export default function GuideDecisionSteps({
                     {step.subsections.map((subsection) => (
                       <div
                         key={`${step.id}-${subsection.id}`}
-                        className="rounded-xl border border-stone-200/70 bg-[#FCFAFB] p-5"
+                        className="rounded-[1.2rem] bg-[rgba(250,244,246,0.92)] p-5"
                       >
-                        <h4 className="font-serif text-[1.25rem] leading-[1.08] tracking-tight text-charcoal">{subsection.title}</h4>
+                        <h4 className="text-[1.25rem] font-medium leading-[1.08] tracking-[-0.02em] text-[#2F2430]">{subsection.title}</h4>
                         <div className="mt-3">
                           <PostContent
                             postId={`decision-step-${step.id}-${subsection.id}`}

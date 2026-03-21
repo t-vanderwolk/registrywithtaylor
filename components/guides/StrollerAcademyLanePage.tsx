@@ -111,7 +111,11 @@ export default function StrollerAcademyLanePage({
   ];
 
   return (
-    <GuideSlideDeck containerId={`guide-slide-deck-${guide.slug}`} items={slideItems}>
+    <GuideSlideDeck
+      containerId={`guide-slide-deck-${guide.slug}`}
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
       <SlideSection id="lane-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
         <AcademyHero
           eyebrow="TMBC Academy · Stroller Lane"

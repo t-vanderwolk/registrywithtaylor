@@ -31,7 +31,7 @@ export default function SlideSection({
         .filter(Boolean)
         .join(' ')}
     >
-      <div className={['mx-auto w-full max-w-[1520px] px-6 py-24 md:px-10 md:py-28 xl:px-12', innerClassName].filter(Boolean).join(' ')}>
+      <div className={['mx-auto w-full max-w-[1520px] px-5 py-20 sm:px-6 sm:py-24 md:px-10 md:py-28 xl:px-12', innerClassName].filter(Boolean).join(' ')}>
         {children}
       </div>
     </section>

@@ -58,7 +58,11 @@ export default function GuideDecisionSystemHub({
   ];
 
   return (
-    <GuideSlideDeck containerId={slideDeckId} items={slideItems}>
+    <GuideSlideDeck
+      containerId={slideDeckId}
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
       <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}

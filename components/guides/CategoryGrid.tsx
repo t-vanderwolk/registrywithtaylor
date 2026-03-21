@@ -34,10 +34,10 @@ export default function CategoryGrid({
     <section id={id} className="space-y-5 scroll-mt-28">
       <RevealOnScroll>
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{eyebrow}</p>
-          <h2 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h2>
+          <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">{eyebrow}</p>
+          <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.4rem]">{title}</h2>
           {description ? (
-            <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p>
+            <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">{description}</p>
           ) : null}
         </div>
       </RevealOnScroll>
@@ -47,20 +47,20 @@ export default function CategoryGrid({
           <RevealOnScroll key={`${card.href}-${card.title}`} delayMs={index * 70}>
             <Link
               href={card.href}
-              className="group flex h-full flex-col rounded-2xl border border-stone-200/70 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:shadow-md"
+              className="group flex h-full flex-col rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(58,36,43,0.12)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(196,156,94,0.12)] text-[var(--color-accent-dark)]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(215,161,175,0.14)] text-[#A15B72]">
                     <GuideGlyph icon={card.icon} />
                   </div>
-                  <h3 className="font-serif text-[1.45rem] leading-[1.06] tracking-tight text-charcoal sm:text-[1.62rem]">
+                  <h3 className="text-[1.45rem] font-medium leading-[1.06] tracking-[-0.02em] text-[#2F2430] sm:text-[1.62rem]">
                     {card.title}
                   </h3>
                 </div>
 
                 {card.imageSrc ? (
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1rem] border border-stone-200/70 bg-[#fbf6f1]">
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(251,245,239,0.96)]">
                     <Image
                       src={card.imageSrc}
                       alt={card.imageAlt?.trim() || card.title}
@@ -72,25 +72,25 @@ export default function CategoryGrid({
                 ) : null}
               </div>
 
-              <p className="mt-4 text-base leading-relaxed text-neutral-700">{card.description}</p>
+              <p className="mt-4 text-base leading-8 text-[#5B4B55]">{card.description}</p>
 
               <div className="mt-4 space-y-3">
                 {card.bestFor ? (
-                  <div className="rounded-xl border border-[rgba(196,156,94,0.14)] bg-[rgba(255,248,241,0.86)] px-4 py-3">
-                    <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-accent-dark)]/76">{bestForLabel}</p>
-                    <p className="mt-2 text-base leading-relaxed text-neutral-700">{card.bestFor}</p>
+                  <div className="rounded-[1.2rem] bg-[rgba(252,247,249,0.9)] px-4 py-4">
+                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">{bestForLabel}</p>
+                    <p className="mt-2 text-sm leading-7 text-[#4B3641]">{card.bestFor}</p>
                   </div>
                 ) : null}
 
                 {card.tradeoff ? (
-                  <div className="rounded-xl border border-black/6 bg-[#FCFAFB] px-4 py-3">
-                    <p className="text-xs uppercase tracking-[0.16em] text-black/46">{tradeoffLabel}</p>
-                    <p className="mt-2 text-base leading-relaxed text-neutral-700">{card.tradeoff}</p>
+                  <div className="rounded-[1.2rem] bg-[rgba(250,244,246,0.92)] px-4 py-4">
+                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">{tradeoffLabel}</p>
+                    <p className="mt-2 text-sm leading-7 text-[#4B3641]">{card.tradeoff}</p>
                   </div>
                 ) : null}
               </div>
 
-              <span className="mt-5 inline-flex items-center gap-2 text-base font-medium text-[var(--color-accent-dark)]">
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-[#8F4C62]">
                 <span>{card.ctaLabel ?? `Explore ${card.title}`}</span>
                 <span aria-hidden="true">-&gt;</span>
               </span>

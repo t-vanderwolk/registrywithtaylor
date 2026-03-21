@@ -76,7 +76,11 @@ export default function GuideCategoryDecisionSystem({
   ];
 
   return (
-    <GuideSlideDeck containerId={slideDeckId} items={slideItems}>
+    <GuideSlideDeck
+      containerId={slideDeckId}
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
       <SlideSection id="guide-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero
           eyebrow={config.heroEyebrow}

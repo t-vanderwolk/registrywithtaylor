@@ -1,8 +1,10 @@
 import PostContent from '@/components/blog/PostContent';
+import AcademyHero from '@/components/guides/academy/AcademyHero';
 import GuideCTARibbon from '@/components/guides/GuideCTARibbon';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideFaqAccordion, { type GuideFaqAccordionItem } from '@/components/guides/GuideFaqAccordion';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
+import GuideStickyNav from '@/components/guides/GuideStickyNav';
 import ProgressIndicator, { type ProgressIndicatorItem } from '@/components/guides/ProgressIndicator';
 import SlideSection from '@/components/guides/SlideSection';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -168,24 +170,44 @@ export default function RegistryGuideSlideLayout({
     { label: 'Published', value: formatArticleDate(displayDate) },
     { label: 'Slides', value: String(slideItems.length) },
   ];
+  const heroStageItems = slideItems.slice(1, 5).map((item, index) => ({
+    id: `registry-hero-stage-${index + 1}`,
+    label: String(index + 1).padStart(2, '0'),
+    title: item.label,
+    description: 'Move through the registry Academy in order or jump to the part you need.',
+    href: `#${item.id}`,
+  }));
 
   return (
-    <div className="relative md:flex md:h-full md:min-h-0 md:flex-col">
+    <div className="relative space-y-4 md:flex md:h-full md:min-h-0 md:flex-col md:space-y-0">
+      <div className="mx-auto w-full max-w-[1680px] px-4 pt-4 sm:px-5 xl:px-0">
+        <GuideStickyNav
+          items={slideItems}
+          containerId={registrySlideContainerId}
+          backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+        />
+      </div>
+
       <div className="mx-auto w-full max-w-[1680px] md:flex-1 md:min-h-0 xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-6">
         <div
           id={registrySlideContainerId}
           className="snap-none scroll-smooth md:h-full md:min-h-0 md:snap-y md:snap-mandatory md:overflow-y-auto xl:pr-2"
         >
           <SlideSection id="registry-you-are-here" background="ivory">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(19rem,0.92fr)] lg:items-center lg:gap-10">
-              <div className="space-y-8">
-                <div className="space-y-5">
-                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">{guide.category}</p>
-                  <h1 className="max-w-[14ch] font-serif text-4xl tracking-tight text-charcoal md:text-5xl">
-                    {guide.title}
-                  </h1>
-                </div>
+            <div className="space-y-8">
+              <AcademyHero
+                eyebrow={guide.category}
+                title={guide.title}
+                description="Registry planning works better when the system comes first. This Academy path turns the list into a guided decision instead of a longer tab problem."
+                note="Build the registry in the right order first. Product decisions come after the system is clear."
+                primaryCta={{ href: '#registry-system-overview', label: 'Start the Registry Academy' }}
+                secondaryCta={primaryNextStepCta ? { href: primaryNextStepCta.href, label: primaryNextStepCta.label } : undefined}
+                stageItems={heroStageItems}
+                stats={stats}
+                parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+              />
 
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(19rem,0.92fr)] lg:items-start lg:gap-10">
                 {introSection ? (
                   <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
                     <PostContent
@@ -195,68 +217,42 @@ export default function RegistryGuideSlideLayout({
                       variant="guide"
                     />
                   </MarketingSurface>
-                ) : null}
+                ) : <div />}
 
-                <div className="flex flex-wrap gap-3">
-                  {stats.map((stat) => (
-                    <div
-                      key={`${stat.label}-${stat.value}`}
-                      className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[rgba(196,156,94,0.14)] bg-white/84 px-4 py-2 text-sm text-neutral-700 shadow-sm"
-                    >
-                      <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/76">
-                        {stat.label}
-                      </span>
-                      <span className="text-charcoal">{stat.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  {slideItems.slice(1, 5).map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.22)] bg-[#FFFBFC] px-4 py-2 text-sm text-charcoal transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
+                <MarketingSurface className="border-[rgba(215,161,175,0.16)] bg-[linear-gradient(180deg,#FFFDFD_0%,#FBF2F5_100%)] shadow-[0_18px_44px_rgba(0,0,0,0.06)]">
+                  <div className="space-y-4">
+                    <SurfaceLabel>You are here</SurfaceLabel>
+                    {youAreHereRows.length > 0 ? (
+                      <div className="grid gap-3">
+                        {youAreHereRows.map((row) => (
+                          <div
+                            key={`${row.label}-${row.value}`}
+                            className="rounded-[1.2rem] border border-[rgba(215,161,175,0.16)] bg-white/76 px-4 py-3"
+                          >
+                            <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/72">
+                              {row.label}
+                            </p>
+                            <p className="mt-2 text-lg leading-relaxed text-charcoal">
+                              {row.value}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : youAreHereSection ? (
+                      <PostContent
+                        postId={`${guide.id}-registry-you-are-here`}
+                        content={stripSectionHeading(youAreHereSection.content)}
+                        className="guide-post-content guide-slide-content"
+                        variant="guide"
+                      />
+                    ) : (
+                      <p className="text-base leading-relaxed text-neutral-700">
+                        Build the registry in the right order first. Product decisions come after the system is clear.
+                      </p>
+                    )}
+                  </div>
+                </MarketingSurface>
               </div>
-
-              <MarketingSurface className="border-[rgba(215,161,175,0.16)] bg-[linear-gradient(180deg,#FFFDFD_0%,#FBF2F5_100%)] shadow-[0_18px_44px_rgba(0,0,0,0.06)]">
-                <div className="space-y-4">
-                  <SurfaceLabel>You are here</SurfaceLabel>
-                  {youAreHereRows.length > 0 ? (
-                    <div className="grid gap-3">
-                      {youAreHereRows.map((row) => (
-                        <div
-                          key={`${row.label}-${row.value}`}
-                          className="rounded-[1.2rem] border border-[rgba(215,161,175,0.16)] bg-white/76 px-4 py-3"
-                        >
-                          <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/72">
-                            {row.label}
-                          </p>
-                          <p className="mt-2 text-lg leading-relaxed text-charcoal">
-                            {row.value}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : youAreHereSection ? (
-                    <PostContent
-                      postId={`${guide.id}-registry-you-are-here`}
-                      content={stripSectionHeading(youAreHereSection.content)}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  ) : (
-                    <p className="text-base leading-relaxed text-neutral-700">
-                      Build the registry in the right order first. Product decisions come after the system is clear.
-                    </p>
-                  )}
-                </div>
-              </MarketingSurface>
             </div>
           </SlideSection>
 

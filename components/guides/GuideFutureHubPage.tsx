@@ -17,7 +17,11 @@ export default function GuideFutureHubPage({
   ];
 
   return (
-    <GuideSlideDeck containerId={slideDeckId} items={slideItems}>
+    <GuideSlideDeck
+      containerId={slideDeckId}
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
       <SlideSection id="future-hub-overview-slide" background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}

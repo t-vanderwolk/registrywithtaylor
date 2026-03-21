@@ -2,7 +2,6 @@ import AcademyHero from '@/components/guides/academy/AcademyHero';
 import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ComparisonTable from '@/components/guides/academy/ComparisonTable';
-import ConsultCTASection from '@/components/guides/academy/ConsultCTASection';
 import DecisionFlowchart from '@/components/guides/academy/DecisionFlowchart';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import LaneOverviewGrid from '@/components/guides/academy/LaneOverviewGrid';
@@ -13,7 +12,6 @@ import GuideGlyph from '@/components/guides/GuideGlyph';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import SlideSection from '@/components/guides/SlideSection';
 import {
-  getStrollerAcademyConsultCards,
   getStrollerAcademyFlowchart,
   getStrollerAcademyLane,
   getStrollerAcademyLanes,
@@ -56,7 +54,6 @@ export default function StrollerAcademyHub({
   const flowchart = getStrollerAcademyFlowchart();
   const questions = getStrollerAcademyPlanQuestions();
   const tryChecklist = getStrollerAcademyTryChecklist();
-  const consultCards = getStrollerAcademyConsultCards();
   const stageItems: AcademyStageNavItem[] = getStrollerAcademyStages().map((stage) => ({
     id: stage.id,
     label: stage.label,
@@ -74,7 +71,11 @@ export default function StrollerAcademyHub({
   ];
 
   return (
-    <GuideSlideDeck containerId={`guide-slide-deck-${guide.slug}`} items={slideItems}>
+    <GuideSlideDeck
+      containerId={`guide-slide-deck-${guide.slug}`}
+      items={slideItems}
+      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+    >
       <SlideSection id="academy-overview" background="ivory" innerClassName="max-w-none px-0 py-0">
         <AcademyHero
           eyebrow="TMBC Academy · Strollers"
@@ -176,12 +177,6 @@ export default function StrollerAcademyHub({
             title="Try the stroller in the ways your week will actually use it."
             description="The real validation stage happens with folds, corners, trunks, baskets, and honest questions. The quick showroom push is not enough."
             sections={tryChecklist}
-          />
-
-          <ConsultCTASection
-            title="Bridge the digital plan into a real-world test."
-            description="This stage matters because trust gets built when the recommendation survives a trunk, a curb, and a real conversation."
-            cards={consultCards}
           />
 
           <ExpertTipCallout

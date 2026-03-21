@@ -20,11 +20,11 @@ export default function GuideContinueExploring({
 
   return (
     <RevealOnScroll>
-      <section id={id} className="rounded-2xl border border-black/6 bg-white p-5 shadow-sm md:p-7">
+      <section id={id} className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] md:p-7">
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.22em] text-black/48">Continue exploring</p>
-          <h3 className="font-serif text-2xl tracking-tight text-charcoal md:text-3xl">{title}</h3>
-          {description ? <p className="max-w-4xl text-base leading-relaxed text-neutral-700 md:text-lg">{description}</p> : null}
+          <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Continue exploring</p>
+          <h3 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.3rem]">{title}</h3>
+          {description ? <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">{description}</p> : null}
         </div>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -32,14 +32,14 @@ export default function GuideContinueExploring({
             <Link
               key={`${link.href}-${link.title}`}
               href={link.href}
-              className="group rounded-xl border border-black/6 bg-[#FCFAFB] p-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(196,156,94,0.24)] hover:bg-white hover:shadow-md"
+              className="group rounded-[1.4rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.9)] p-5 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_50px_rgba(58,36,43,0.10)]"
             >
-              <div className="flex items-center gap-3 text-[var(--color-accent-dark)]">
+              <div className="flex items-center gap-3 text-[#A15B72]">
                 <GuideGlyph icon={link.icon} />
-                <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">Next read</span>
+                <span className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Next read</span>
               </div>
-              <p className="mt-3 font-serif text-[1.3rem] leading-[1.08] tracking-tight text-charcoal">{link.title}</p>
-              <p className="mt-2 text-base leading-relaxed text-neutral-700">{link.description}</p>
+              <p className="mt-3 text-[1.3rem] font-medium leading-[1.08] tracking-[-0.02em] text-[#2F2430]">{link.title}</p>
+              <p className="mt-2 text-base leading-8 text-[#5B4B55]">{link.description}</p>
             </Link>
           ))}
         </div>
