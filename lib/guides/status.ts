@@ -1,7 +1,7 @@
+import type { Prisma } from '@prisma/client';
 import {
   POST_STATUS_LABELS,
   getPostDisplayDate,
-  getPublicPostWhere,
   getStatusPillClassName,
   isPostPubliclyVisible,
   normalizePostStatus,
@@ -16,7 +16,19 @@ export const GUIDE_STATUS_LABELS = POST_STATUS_LABELS;
 export const normalizeGuideStatus = normalizePostStatus;
 export const getGuideStatusPillClassName = getStatusPillClassName;
 export const isGuidePubliclyVisible = isPostPubliclyVisible;
-export const getPublicGuideWhere = getPublicPostWhere;
 export const requiresLiveGuideContent = requiresLiveContent;
 export const getGuideDisplayDate = getPostDisplayDate;
 
+export function getPublicGuideWhere(now: Date = new Date()): Prisma.GuideWhereInput {
+  return {
+    OR: [
+      { status: 'PUBLISHED' },
+      {
+        status: 'SCHEDULED',
+        scheduledFor: {
+          lte: now,
+        },
+      },
+    ],
+  };
+}

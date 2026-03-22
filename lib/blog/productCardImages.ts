@@ -26,8 +26,10 @@ const CAR_SEAT_PRODUCT_IMAGES = {
   liingo: '/assets/car-seats/liingobaseless.png',
   mesav3: '/assets/car-seats/mesav3.png',
   mico: '/assets/car-seats/mico.png',
+  orbitbaby: '/assets/car-seats/orbitbaby.png',
   one4life: '/assets/car-seats/one4life.png',
   oobr: '/assets/car-seats/oobr.png',
+  pegviaggio435: '/assets/car-seats/pegperago4-35.png',
   pipaaire: '/assets/car-seats/pipaaire.png',
   pipabaless: '/assets/car-seats/pipabaless.png',
   piparx: '/assets/car-seats/piparxbase.png',
@@ -37,7 +39,9 @@ const CAR_SEAT_PRODUCT_IMAGES = {
   ravanext: '/assets/car-seats/ravanext.png',
   revvmaxx: '/assets/car-seats/revvmaxx.png',
   romi: '/assets/car-seats/romi.png',
+  romerjuni: '/assets/car-seats/romerjuni.png',
   turtleair: '/assets/car-seats/turtleair.png',
+  turtleone: '/assets/car-seats/turtleone.png',
   wayb: '/assets/car-seats/wayb.png',
   peri: '/assets/car-seats/peri.png',
   willow: '/assets/car-seats/willow.png',
@@ -588,6 +592,34 @@ export function resolveCompatibilityCarSeatImage({
   if (includesAny(normalizedKey, ['turtle air', 'turtleair'])) {
     return {
       src: CAR_SEAT_PRODUCT_IMAGES.turtleair,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['turtle one', 'turtleone'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.turtleone,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['orbit baby g5', 'g5 infant seat', 'orbitbaby'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.orbitbaby,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['primo viaggio 4-35', 'primo viaggio', 'pegperago4-35'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.pegviaggio435,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['romer infant seat', 'infant seat series', 'romer juni', 'juni'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.romerjuni,
       alt: `${brand} ${productName}`,
     };
   }
