@@ -68,6 +68,12 @@ const DIRECT_DEFAULT_BRANDS = new Set([
   'uppababy',
 ]);
 
+const SHARED_ADAPTER_BRANDS = new Set(['clek', 'cybex', 'maxi-cosi', 'nuna']);
+
+function usesSharedInfantSeatAdapter(brand: string) {
+  return SHARED_ADAPTER_BRANDS.has(normalizeBrand(brand));
+}
+
 function getDisplayName(brand: string, model: string, displayName?: string | null) {
   return displayName?.trim() ? displayName : `${brand} ${model}`;
 }
@@ -89,6 +95,10 @@ function getAdapterType(
 ) {
   if (!adapterRequired) {
     return null;
+  }
+
+  if (usesSharedInfantSeatAdapter(carSeatBrand)) {
+    return `${strollerBrand} adapter for Maxi-Cosi / Nuna / CYBEX / Clek infant seats`;
   }
 
   if (adapterType?.trim()) {

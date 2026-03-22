@@ -275,14 +275,6 @@ const CAR_SEAT_INSIGHTS: Record<string, TravelSystemBrandInsight> = {
     supportedBrands: ['Romer'],
     tmbcInsight: 'Niche and relatively closed.',
   },
-  stokke: {
-    brand: 'Stokke',
-    ecosystemType: 'semiClosed',
-    ecosystemLabel: 'Hybrid system',
-    compatibilityPattern: 'Stokke PIPA sits in the overlap between Stokke and Nuna logic, so it is less closed than it looks but still not a universal seat.',
-    supportedBrands: ['Stokke', 'Nuna'],
-    tmbcInsight: 'Hybrid Stokke x Nuna overlap.',
-  },
   uppababy: {
     brand: 'UPPAbaby',
     ecosystemType: 'closed',
