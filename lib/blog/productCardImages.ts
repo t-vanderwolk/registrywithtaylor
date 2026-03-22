@@ -14,10 +14,14 @@ const CAR_SEAT_PRODUCT_IMAGES = {
   atonswivel: '/assets/car-seats/atonswivel.png',
   cloudt: '/assets/car-seats/cloudt.png',
   callisto: '/assets/car-seats/callisto.png',
+  coral: '/assets/car-seats/coral.png',
+  cypress: '/assets/car-seats/cypress.png',
   execnext: '/assets/car-seats/execnext.png',
   foonf: '/assets/car-seats/foonf2.png',
   joiemint: '/assets/car-seats/joiemint.png',
   joierue: '/assets/car-seats/joierue.png',
+  keyfit2: '/assets/car-seats/keyfit2.png',
+  keyfit35: '/assets/car-seats/keyfit35.png',
   liing: '/assets/car-seats/liing.png',
   liingo: '/assets/car-seats/liingobaseless.png',
   mesav3: '/assets/car-seats/mesav3.png',
@@ -33,6 +37,7 @@ const CAR_SEAT_PRODUCT_IMAGES = {
   ravanext: '/assets/car-seats/ravanext.png',
   revvmaxx: '/assets/car-seats/revvmaxx.png',
   romi: '/assets/car-seats/romi.png',
+  turtleair: '/assets/car-seats/turtleair.png',
   wayb: '/assets/car-seats/wayb.png',
   peri: '/assets/car-seats/peri.png',
   willow: '/assets/car-seats/willow.png',
@@ -456,7 +461,7 @@ export function resolveCompatibilityCarSeatImage({
 
   if (includesAny(normalizedKey, ['pipa urbn', 'pipaurbn'])) {
     return {
-      src: CAR_SEAT_PRODUCT_IMAGES.pipaurbn,
+      src: CAR_SEAT_PRODUCT_IMAGES.pipabaless,
       alt: `${brand} ${productName}`,
     };
   }
@@ -496,9 +501,44 @@ export function resolveCompatibilityCarSeatImage({
     };
   }
 
+  if (includesAny(normalizedKey, ['coral', 'coral xp'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.coral,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['peri 180', 'peri'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.peri,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
   if (includesAny(normalizedKey, ['willow s', 'willow'])) {
     return {
       src: CAR_SEAT_PRODUCT_IMAGES.willow,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['cypress'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.cypress,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['fit2', 'fit 2', 'keyfit 2', 'keyfit2'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.keyfit2,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['keyfit 35', 'keyfit35'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.keyfit35,
       alt: `${brand} ${productName}`,
     };
   }
@@ -527,6 +567,27 @@ export function resolveCompatibilityCarSeatImage({
   if (includesAny(normalizedKey, ['joie mint', 'joiemint'])) {
     return {
       src: CAR_SEAT_PRODUCT_IMAGES.joiemint,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['liingo', 'liingo baseless'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.liingo,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['liing'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.liing,
+      alt: `${brand} ${productName}`,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['turtle air', 'turtleair'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.turtleair,
       alt: `${brand} ${productName}`,
     };
   }
