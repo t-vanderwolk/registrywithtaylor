@@ -11,6 +11,7 @@ import GuideStrollerInteractivePlanner, {
   type StrollerPlannerTopic,
 } from '@/components/guides/GuideStrollerInteractivePlanner';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
+import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock, type ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
@@ -21,6 +22,10 @@ import {
   type CarSeatCategoryGuideSlug,
 } from '@/lib/guides/carSeatCategoryGuides';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
 
 function formatArticleDate(value: Date) {
   return value.toLocaleDateString('en-US', {
@@ -302,7 +307,7 @@ function buildPlannerConfig({
   };
 }
 
-export default function GuideCarSeatCategoryLiveLayout({
+export default async function GuideCarSeatCategoryLiveLayout({
   guide,
   displayDate,
   readingTime,
@@ -323,12 +328,25 @@ export default function GuideCarSeatCategoryLiveLayout({
   const outline = buildGuideOutline(articleContent);
   const preface = buildPrefaceBrief(outline.preface);
   const faqEntries = dedupeFaqEntries({ guide, articleContent }).slice(0, 6);
+  const showCompatibilityGenerator = guide.slug === 'infant-car-seats';
+  const [compatibilityStrollers, compatibilityCarSeats] = showCompatibilityGenerator
+    ? await Promise.all([getTravelSystemStrollers(), getTravelSystemCarSeats()])
+    : [[], []];
   const visibleTocItems: GuideTocItem[] = [
     {
       id: 'interactive-planner',
       label: 'Interactive Planner',
       level: 2,
     },
+    ...(showCompatibilityGenerator
+      ? ([
+          {
+            id: 'travel-system-compatibility',
+            label: 'Travel System Compatibility',
+            level: 2,
+          },
+        ] satisfies GuideTocItem[])
+      : []),
     ...buildVisibleTocItems({
       outline,
       faqCount: faqEntries.length,
@@ -412,6 +430,35 @@ export default function GuideCarSeatCategoryLiveLayout({
             </div>
 
             <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
+
+            {showCompatibilityGenerator ? (
+              <div id="travel-system-compatibility" className="scroll-mt-28">
+                <section className="space-y-5">
+                  <div className="max-w-3xl space-y-3">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                      Compatibility Tool
+                    </p>
+                    <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+                      Travel system compatibility
+                    </h2>
+                    <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
+                      If the stroller question is dragging the infant seat decision around with it, use this to check the real pairings before you commit. Start with the stroller or the infant seat, then see what actually fits and what kind of adapter story comes with it.
+                    </p>
+                  </div>
+
+                  {compatibilityStrollers.length > 0 || compatibilityCarSeats.length > 0 ? (
+                    <TravelSystemGenerator
+                      strollers={compatibilityStrollers}
+                      carSeats={compatibilityCarSeats}
+                    />
+                  ) : (
+                    <div className="rounded-[1.8rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-white/78 px-5 py-6 text-sm leading-7 text-neutral-600">
+                      The TMBC compatibility library is not available in this environment yet. Once the stroller and infant seat data are present, this section will show the same travel system generator used in the full tool.
+                    </div>
+                  )}
+                </section>
+              </div>
+            ) : null}
 
             <div id="car-seat-guide-continue" className="scroll-mt-28">
               <GuideContinueExploring

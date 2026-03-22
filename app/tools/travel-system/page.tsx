@@ -4,7 +4,10 @@ import SiteShell from '@/components/SiteShell';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +21,10 @@ export const metadata = buildMarketingMetadata({
 });
 
 export default async function TravelSystemCompatibilityPage() {
-  const strollers = await getTravelSystemStrollers();
+  const [strollers, carSeats] = await Promise.all([
+    getTravelSystemStrollers(),
+    getTravelSystemCarSeats(),
+  ]);
 
   return (
     <SiteShell currentPath="/tools/travel-system">
@@ -29,12 +35,12 @@ export default async function TravelSystemCompatibilityPage() {
           <SectionIntro
             eyebrow="Tool"
             title="Travel System Compatibility"
-            description="Select your stroller to see which infant car seats are compatible — and what adapters you may need."
+            description="Start with your stroller or your infant car seat to see what works together — and where adapters start to matter."
             contentWidthClassName="max-w-4xl"
           />
 
           <div className="mt-10">
-            <TravelSystemGenerator strollers={strollers} />
+            <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
           </div>
         </MarketingSection>
       </main>

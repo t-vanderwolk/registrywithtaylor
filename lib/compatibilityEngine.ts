@@ -8,6 +8,13 @@ export type TravelSystemStrollerOption = {
   summary: string | null;
 };
 
+export type TravelSystemCarSeatOption = {
+  brand: string;
+  model: string;
+  displayName: string;
+  summary: string | null;
+};
+
 export type CompatibleCarSeatResult = {
   brand: string;
   model: string;
@@ -17,11 +24,32 @@ export type CompatibleCarSeatResult = {
   adapterType: string | null;
   notes: string | null;
   confidence: CompatibilityConfidence;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
 };
 
 export type TravelSystemCompatibilityResponse = {
   stroller: TravelSystemStrollerOption;
   compatibleCarSeats: CompatibleCarSeatResult[];
+};
+
+export type CompatibleStrollerResult = {
+  brand: string;
+  model: string;
+  displayName: string;
+  summary: string | null;
+  compatibilityType: CompatibilityType;
+  adapterRequired: boolean;
+  adapterType: string | null;
+  notes: string | null;
+  confidence: CompatibilityConfidence;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
+};
+
+export type TravelSystemCompatibilityByCarSeatResponse = {
+  carSeat: TravelSystemCarSeatOption;
+  compatibleStrollers: CompatibleStrollerResult[];
 };
 
 const COMPATIBILITY_SCORES: Record<CompatibilityType, number> = {
@@ -99,6 +127,25 @@ export function getCompatibilityScore(item: { compatibilityType: string }) {
 }
 
 export function compareCompatibleCarSeats(left: CompatibleCarSeatResult, right: CompatibleCarSeatResult) {
+  const compatibilityDelta = getCompatibilityScore(right) - getCompatibilityScore(left);
+  if (compatibilityDelta !== 0) {
+    return compatibilityDelta;
+  }
+
+  const confidenceDelta =
+    CONFIDENCE_SCORES[right.confidence] - CONFIDENCE_SCORES[left.confidence];
+  if (confidenceDelta !== 0) {
+    return confidenceDelta;
+  }
+
+  return (
+    left.brand.localeCompare(right.brand) ||
+    left.model.localeCompare(right.model) ||
+    left.displayName.localeCompare(right.displayName)
+  );
+}
+
+export function compareCompatibleStrollers(left: CompatibleStrollerResult, right: CompatibleStrollerResult) {
   const compatibilityDelta = getCompatibilityScore(right) - getCompatibilityScore(left);
   if (compatibilityDelta !== 0) {
     return compatibilityDelta;
