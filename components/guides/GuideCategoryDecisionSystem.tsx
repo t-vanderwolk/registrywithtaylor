@@ -12,6 +12,7 @@ import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { stripMarkdown } from '@/lib/blog/contentText';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline } from '@/lib/guides/articleOutline';
 import { buildPrefaceBrief, dedupeFaqEntries } from '@/lib/guides/decisionSystemContent';
 import {
@@ -100,6 +101,11 @@ export default function GuideCategoryDecisionSystem({
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero

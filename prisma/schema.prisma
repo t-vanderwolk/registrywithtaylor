@@ -372,6 +372,56 @@ model ContactInquiry {
   createdAt      DateTime? @default(now()) @db.Timestamp(6)
 }
 
+model Stroller {
+  id              String          @id @default(cuid())
+  brand           String
+  model           String
+  displayName     String?
+  summary         String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  compatibilities Compatibility[]
+
+  @@unique([brand, model], name: "brand_model")
+  @@index([brand])
+}
+
+model CarSeat {
+  id              String                  @id @default(cuid())
+  brand           String
+  model           String
+  displayName     String?
+  seatType        CarSeatType            @default(INFANT)
+  summary         String?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  compatibilities Compatibility[]
+
+  @@unique([brand, model], name: "brand_model")
+  @@index([brand])
+  @@index([seatType])
+}
+
+model Compatibility {
+  id                String                   @id @default(cuid())
+  strollerId        String
+  carSeatId         String
+  compatibilityType CompatibilityType
+  adapterRequired   Boolean                  @default(false)
+  adapterType       String?
+  notes             String?
+  confidence        CompatibilityConfidence  @default(HIGH)
+  createdAt         DateTime                 @default(now())
+  updatedAt         DateTime                 @updatedAt
+  stroller          Stroller                 @relation(fields: [strollerId], references: [id], onDelete: Cascade)
+  carSeat           CarSeat                  @relation(fields: [carSeatId], references: [id], onDelete: Cascade)
+
+  @@unique([strollerId, carSeatId])
+  @@index([strollerId])
+  @@index([carSeatId])
+  @@index([compatibilityType])
+}
+
 enum Role {
   USER
   ADMIN
@@ -405,4 +455,24 @@ enum CommissionType {
   CPL
   FLAT_FEE
   VARIABLE
+}
+
+enum CarSeatType {
+  INFANT
+  CONVERTIBLE
+  ALL_IN_ONE
+}
+
+enum CompatibilityType {
+  DIRECT
+  ADAPTER
+  LIMITED
+  LOCKED
+  INCOMPATIBLE
+}
+
+enum CompatibilityConfidence {
+  HIGH
+  MEDIUM
+  LOW
 }

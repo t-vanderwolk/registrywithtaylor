@@ -7,9 +7,10 @@ import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import SiteShell from '@/components/SiteShell';
 import HomeServicesSection from '@/components/home/HomeServicesSection';
 import HomeTransitionSection from '@/components/home/HomeTransitionSection';
+import ConsultationRequestSection from '@/components/marketing/ConsultationRequestSection';
 import EcosystemFlow from '@/components/marketing/EcosystemFlow';
+import RegistryEcosystemMap from '@/components/marketing/RegistryEcosystemMap';
 import StartHereSection from '@/components/marketing/StartHereSection';
-import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
 import CheckIcon from '@/components/ui/CheckIcon';
 import EditorialIllustration from '@/components/ui/EditorialIllustration';
 import Hero from '@/components/ui/Hero';
@@ -290,8 +291,8 @@ function AdvisorFocusCard({
 }) {
   return (
     <RevealOnScroll delayMs={delayMs}>
-      <div className="sort-grid-card flex h-full flex-col rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] text-center shadow-[0_10px_24px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.78)]">
-        <div className="mx-auto flex min-h-[10.5rem] w-full items-center justify-center sm:min-h-[11rem]">
+      <div className="sort-grid-card flex h-full flex-col rounded-[1.35rem] border border-[rgba(174,132,145,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.99)_0%,rgba(250,242,239,0.98)_100%)] px-4 py-4 text-center shadow-[0_16px_34px_rgba(57,39,45,0.06),inset_0_1px_0_rgba(255,255,255,0.82)]">
+        <div className="mx-auto flex min-h-[10.5rem] w-full items-center justify-center rounded-[1.05rem] border border-[rgba(196,156,94,0.14)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(248,239,234,0.88)_100%)] sm:min-h-[11rem]">
           <EditorialIllustration
             src={item.iconSrc}
             alt={item.iconAlt}
@@ -302,11 +303,13 @@ function AdvisorFocusCard({
             loading="lazy"
           />
         </div>
-        <p className="mx-auto max-w-[12rem] bg-transparent text-[0.98rem] font-medium leading-[1.35] text-neutral-800 selection:bg-transparent selection:text-neutral-800">
+        <p className="mx-auto mt-4 max-w-[12rem] bg-transparent text-[1.02rem] font-semibold leading-[1.35] text-[#2E2529] selection:bg-transparent selection:text-[#2E2529]">
           {item.title}
         </p>
         <div className="mt-auto flex justify-center pt-4">
-          <CheckIcon frameClassName="mt-0" />
+          <div className="inline-flex rounded-full border border-[rgba(215,161,175,0.18)] bg-white/92 px-2.5 py-2 shadow-[0_8px_18px_rgba(58,36,43,0.06)]">
+            <CheckIcon frameClassName="mt-0" />
+          </div>
         </div>
       </div>
     </RevealOnScroll>
@@ -383,6 +386,8 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
 
         <StartHereSection />
 
+        <RegistryEcosystemMap />
+
         <HomeAuthorityStrip
           text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
           logos={authorityStripLogos}
@@ -440,8 +445,8 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
               </div>
 
               <RevealOnScroll delayMs={140}>
-                <div className="rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-7">
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">
+                <div className="rounded-[1.8rem] border border-[rgba(174,132,145,0.2)] bg-[linear-gradient(180deg,#ffffff_0%,#f9f1ec_100%)] p-6 shadow-[0_20px_48px_rgba(48,31,37,0.07)] sm:p-7">
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#7A626C]">
                     What Taylor helps you sort
                   </p>
                   <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -464,6 +469,12 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           cta={{ href: '/guides/strollers', label: 'Explore real product guidance' }}
         />
 
+        <div className="relative z-10 h-0 overflow-visible">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
+            <RibbonDivider />
+          </div>
+        </div>
+
         <HomeServicesSection />
 
         <HomeTransitionSection
@@ -479,6 +490,9 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           imageSrc="/assets/editorial/registry.jpg"
           imageAlt="Registry planning notebook and checklist on a linen table."
           tone="linen"
+          eyebrow="Registry perspective"
+          title="The list works better when life comes first."
+          description="A good registry is not a trophy. It is a plan for what will actually help once baby is here."
         />
 
         <EcosystemFlow
@@ -592,6 +606,9 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           imageSrc="/assets/editorial/toys-rainbow.png"
           imageAlt="Soft editorial still life with baby toys and a rainbow motif."
           tone="blush"
+          eyebrow="A calmer next step"
+          title="You do not have to figure it all out today."
+          description="Some of the best decisions happen after the panic leaves the room."
         />
 
         <HomeTransitionSection
@@ -603,66 +620,12 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           titleClassName="max-w-[22ch]"
         />
 
-        <section
-          id="request-a-consult"
-          className="relative z-10 overflow-visible bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] pt-28 pb-8 md:pb-10"
-        >
-          <div className="pointer-events-none absolute left-1/2 top-0 z-30 w-screen -translate-x-1/2 -translate-y-1/2">
-            <RibbonDivider />
-          </div>
-          <div className="relative z-20 mx-auto max-w-6xl px-6">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(20rem,1fr)] lg:items-start lg:gap-12 xl:gap-16">
-              <RevealOnScroll>
-                <div className="max-w-[36rem]">
-                  <div className="relative z-10">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
-                      Request a Consultation
-                    </p>
-                    <h2 className="mt-4 font-serif text-[2.3rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      Start with confidence.
-                    </h2>
-                    <p className="mt-5 max-w-none text-[1rem] leading-8 text-neutral-700">
-                      If you want expert eyes on your registry, stroller shortlist, car seat plan, or nursery setup,
-                      start here.
-                    </p>
-                    <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
-                      Submit a short request and Taylor will follow up directly. The first conversation is meant to bring
-                      clarity, not more tabs to compare.
-                    </p>
-
-                    <div className="mt-8 space-y-4 text-sm leading-7 text-neutral-700">
-                      <p>Complimentary first conversation</p>
-                      <p>Available virtually or in person</p>
-                      <p>Built for real homes, real routines, and the decisions that actually matter</p>
-                    </div>
-                  </div>
-                </div>
-              </RevealOnScroll>
-
-              <RevealOnScroll delayMs={120}>
-                <MarketingSurface className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] p-6 shadow-[0_24px_58px_rgba(55,40,46,0.06)] sm:p-8">
-                  <div className="absolute inset-x-[12%] top-[-8%] h-24 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_74%)] blur-2xl" />
-
-                  <div className="relative">
-                    <ConsultationRequestForm
-                      errorCode={params?.error ?? null}
-                      returnPath="/#request-a-consult"
-                      successPath="/consultation/confirmation"
-                      submitLabel="Request a Consultation"
-                    />
-
-                    <p className="mt-6 text-center text-sm text-neutral-600">
-                      Prefer to review the full page first?{' '}
-                      <Link href="/consultation" className="link-underline">
-                        View consultation details
-                      </Link>
-                    </p>
-                  </div>
-                </MarketingSurface>
-              </RevealOnScroll>
-            </div>
-          </div>
-        </section>
+        <ConsultationRequestSection
+          errorCode={params?.error ?? null}
+          returnPath="/#request-a-consult"
+          successPath="/consultation/confirmation"
+          submitLabel="Request a Consultation"
+        />
       </main>
     </SiteShell>
   );

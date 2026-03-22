@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import EcosystemStrip from '@/components/guides/EcosystemStrip';
 import GuideStickyNav from '@/components/guides/GuideStickyNav';
 import type { ProgressIndicatorItem } from '@/components/guides/ProgressIndicator';
 
@@ -11,11 +12,13 @@ export default function GuideSlideDeck({
   containerId,
   items,
   backLink,
+  ecosystemCurrentStep,
   children,
 }: {
   containerId: string;
   items: ProgressIndicatorItem[];
   backLink?: GuideSlideDeckLink | null;
+  ecosystemCurrentStep?: number | null;
   children: ReactNode;
 }) {
   return (
@@ -34,6 +37,12 @@ export default function GuideSlideDeck({
         className="shrink-0"
         style={{ height: 'calc(var(--guide-sticky-nav-height, 76px) + 0.75rem)' }}
       />
+
+      {typeof ecosystemCurrentStep === 'number' ? (
+        <div className="pb-4">
+          <EcosystemStrip currentStep={ecosystemCurrentStep} />
+        </div>
+      ) : null}
 
       <div className="mx-auto w-full max-w-[1680px] md:flex-1 md:min-h-0">
         <div

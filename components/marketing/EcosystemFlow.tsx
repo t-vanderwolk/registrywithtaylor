@@ -105,22 +105,22 @@ export default function EcosystemFlow({
             />
           ) : null}
 
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid justify-items-center gap-8 md:grid-cols-2 xl:grid-cols-4">
             {steps.map((step) => (
               <motion.div
                 key={step.stepLabel}
                 variants={flowItemVariants}
                 {...(prefersReducedMotion ? {} : scaleHover)}
-                className="group h-full"
+                className="group h-full w-full"
               >
-                <article className="flex h-full flex-col rounded-[1.9rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_16px_38px_rgba(55,40,46,0.05)] transition-shadow duration-200 group-hover:shadow-[0_24px_52px_rgba(55,40,46,0.08)]">
+                <article className="mx-auto flex h-full w-full max-w-[19rem] flex-col items-center rounded-[1.9rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 text-center shadow-[0_16px_38px_rgba(55,40,46,0.05)] transition-shadow duration-200 group-hover:shadow-[0_24px_52px_rgba(55,40,46,0.08)]">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
                     {step.stepLabel}
                   </p>
-                  <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                  <h3 className="mt-4 max-w-[10ch] font-serif text-[1.65rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                     {step.title}
                   </h3>
-                  <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{step.description}</p>
+                  <p className="mt-4 max-w-[18rem] text-[0.98rem] leading-8 text-neutral-700">{step.description}</p>
                 </article>
               </motion.div>
             ))}

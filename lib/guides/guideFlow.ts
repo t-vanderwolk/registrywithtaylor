@@ -122,6 +122,667 @@ export function guideCardToNextStepLink(card: GuideCardItem, stage?: GuideStageL
   };
 }
 
+const CURATED_NEXT_STEP_LINKS: Record<
+  string,
+  Array<{
+    href: string;
+    label: string;
+    description: string;
+    stage: GuideStageLabel;
+  }>
+> = {
+  'nursery-setup-guide': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the main guide map if a different planning category should come first.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Continue into the daily routine setup once the room plan is doing its job.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Choose where to register once the room and storage realities are clearer.',
+      stage: 'Decide',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Move into gear comparison once the home setup and registry sequence feel steadier.',
+      stage: 'Compare',
+    },
+  ],
+  feeding: [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the wider planning map if another category needs attention first.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Step back to the room and station setup if the routine still needs a better home base.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Use the feeding routine to make the registry platform and list structure cleaner.',
+      stage: 'Decide',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Continue into gear comparison once the daily-use workflow is clearer.',
+      stage: 'Compare',
+    },
+  ],
+  essentials: [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the broader guide system if a different foundation guide should come first.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Use the room setup to decide what deserves day-one space and what can wait.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Move into feeding when the everyday-use items need more structure.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Use the essentials filter to build a calmer first-pass registry.',
+      stage: 'Decide',
+    },
+  ],
+  postpartum: [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the guide map if a different setup category should come next.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Keep the early routine practical by pairing recovery planning with feeding setup.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Revisit the room setup if the recovery workflow still needs calmer support.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Use the recovery plan to trim what belongs on the list and what does not.',
+      stage: 'Decide',
+    },
+  ],
+  'travel-with-baby': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the guide map if another category deserves attention before the next trip.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Use the travel routine to decide whether portability or everyday comfort matters more.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Keep the travel plan coherent when car-seat portability or fit starts affecting the setup.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Tighten the outing routine once the big travel gear decisions are clearer.',
+      stage: 'Optimize',
+    },
+  ],
+  'minimalist-baby-registry': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the wider guide system if another foundation guide should happen first.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Use the room plan to decide what earns space on the registry.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Move into feeding once the registry structure is calm enough to support the routine details.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Choose the registry platform once the system itself feels clear.',
+      stage: 'Decide',
+    },
+  ],
+  minimalist: [
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Return to the parent registry path when you need the wider sequence again.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Use the room setup to tighten what really deserves space and budget.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Carry the minimalist filter into one of the highest-duplicate routine categories.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Use the same filter when major gear starts competing for space and attention.',
+      stage: 'Compare',
+    },
+  ],
+  mistakes: [
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Return to the parent registry guide when you need the bigger system again.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Sort the platform decision after the common list mistakes are easier to spot.',
+      stage: 'Decide',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Use the same mistake filter when room planning starts turning into extra product pressure.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Apply the cleanup mindset to one of the easiest categories to overbuild.',
+      stage: 'Optimize',
+    },
+  ],
+  'where-to-register': [
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Return to the parent registry path if you need the wider decision order again.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Continue into stroller comparison once the registry platform and return logic are clear.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Step back into feeding if those daily-use decisions still need more structure.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides/registry/perks',
+      label: 'Registry Perks',
+      description: 'Use the platform decision to make the perks strategy practical instead of distracting.',
+      stage: 'Optimize',
+    },
+  ],
+  timeline: [
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Return to the parent registry map if you need the wider sequence again.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Choose the registry platform once the timing plan is calmer and more realistic.',
+      stage: 'Decide',
+    },
+    {
+      href: '/guides/nursery',
+      label: 'Nursery Guide',
+      description: 'Use the timing plan to decide which room pieces deserve the earliest attention.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Move into gear comparison once the purchase order is working for you.',
+      stage: 'Compare',
+    },
+  ],
+  perks: [
+    {
+      href: '/guides/registry',
+      label: 'Registry Guide',
+      description: 'Return to the parent registry path if the system itself needs a wider reset.',
+      stage: 'Start',
+    },
+    {
+      href: '/guides/registry/where-to-register',
+      label: 'Registry Strategy',
+      description: 'Use the retailer choice to make the perks actually useful instead of noisy.',
+      stage: 'Decide',
+    },
+    {
+      href: '/guides/strollers',
+      label: 'Stroller Guide',
+      description: 'Carry the savings strategy into one of the biggest purchase categories.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/feeding',
+      label: 'Feeding Guide',
+      description: 'Apply the same filter to a daily-use category that can get expensive fast.',
+      stage: 'Optimize',
+    },
+  ],
+  'best-strollers': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the broader guide system if another category needs to come first.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'compact-lightweight-strollers' }),
+      label: 'Compact Lane',
+      description: 'A strong next read when storage, lifting, and easier loading are the real friction.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Open this once travel-system or compatibility questions start affecting the stroller plan.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the stroller lane you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'full-size-modular-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'compact-lightweight-strollers' }),
+      label: 'Compare Compact',
+      description: 'Use this comparison when portability might matter more than extra stroller bulk.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Open this once travel-system or compatibility questions start affecting the setup.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the lane fit to keep the registry shortlist tighter.',
+      stage: 'Refine',
+    },
+  ],
+  'compact-lightweight-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'travel-strollers' }),
+      label: 'Compare Travel',
+      description: 'Useful when the question is whether you need lighter everyday gear or true trip-first portability.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Open this once travel-system or compatibility questions start affecting the setup.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the lane fit to keep the registry shortlist tighter.',
+      stage: 'Refine',
+    },
+  ],
+  'travel-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'compact-lightweight-strollers' }),
+      label: 'Compare Compact',
+      description: 'A good lateral move when you need lighter daily use more than flight-first minimalism.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/travel-with-baby',
+      label: 'Travel With Baby Guide',
+      description: 'Use the broader travel routine to test whether the stroller is solving the right problem.',
+      stage: 'Optimize',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Useful once portability and travel-system questions start crossing categories.',
+      stage: 'Refine',
+    },
+  ],
+  'convertible-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'double-strollers' }),
+      label: 'Compare Double',
+      description: 'Use this comparison when future planning needs to be measured against a real two-seat setup.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Useful once travel-system or infant-seat compatibility questions start affecting the plan.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the lane fit to keep the registry shortlist tighter.',
+      stage: 'Refine',
+    },
+  ],
+  'double-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'convertible-strollers' }),
+      label: 'Compare Convertible',
+      description: 'Use this comparison when you need to weigh a real second seat against planning ahead.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Useful once travel-system or infant-seat compatibility questions start affecting the plan.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the lane fit to keep the registry shortlist tighter.',
+      stage: 'Refine',
+    },
+  ],
+  'jogging-all-terrain-strollers': [
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Back to Stroller Academy',
+      description: 'Return to the main stroller map if you need the wider lane overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'full-size-modular-strollers' }),
+      label: 'Compare Full-Size',
+      description: 'Use this when rough routes are occasional and you need to test whether daily comfort is the stronger priority.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/travel-with-baby',
+      label: 'Travel With Baby Guide',
+      description: 'Pressure-test how much outdoor or away-from-home friction the stroller really needs to solve.',
+      stage: 'Optimize',
+    },
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Car Seat Guide',
+      description: 'Open this if travel-system or compatibility questions start changing the stroller choice.',
+      stage: 'Refine',
+    },
+  ],
+  'best-infant-car-seats': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the broader guide system if another category needs to come first.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'infant-car-seats' }),
+      label: 'Infant Seat Guide',
+      description: 'A strong next read when newborn portability is still the question in front of you.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once travel-system or compatibility questions start affecting the seat decision.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the seat path you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'infant-car-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'convertible-car-seats' }),
+      label: 'Compare Convertible Seats',
+      description: 'Useful when you need to weigh newborn portability against a longer installed-seat plan.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once stroller compatibility or travel-system questions start leading the decision.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the seat path you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'convertible-car-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'all-in-one-car-seats' }),
+      label: 'Compare All-in-One',
+      description: 'Use this when the question is whether more stages on paper actually improve the plan.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once stroller compatibility or travel-system questions start leading the decision.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the seat path you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'all-in-one-car-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'convertible-car-seats' }),
+      label: 'Compare Convertible Seats',
+      description: 'Useful when you need to test whether the simpler installed-seat path makes more sense.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once stroller compatibility or travel-system questions start leading the decision.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the seat path you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'booster-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'all-in-one-car-seats' }),
+      label: 'Compare All-in-One',
+      description: 'Useful when the stage path still needs more context before you decide what comes next.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/travel-with-baby',
+      label: 'Travel With Baby Guide',
+      description: 'Use the real routine outside the driveway to pressure-test what matters most.',
+      stage: 'Optimize',
+    },
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Step back to the broader guide system if another category should come first.',
+      stage: 'Start',
+    },
+  ],
+  'rotating-car-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'convertible-car-seats' }),
+      label: 'Compare Convertible Seats',
+      description: 'Useful when you need to weigh the convenience feature against a simpler installed-seat path.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once stroller compatibility or travel-system questions start leading the decision.',
+      stage: 'Refine',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the seat path you chose to keep the registry shortlist calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'travel-lightweight-car-seats': [
+    {
+      href: getGuidePath({ slug: 'best-infant-car-seats' }),
+      label: 'Back to Car Seat Guide',
+      description: 'Return to the parent seat map if you need the wider path overview again.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'infant-car-seats' }),
+      label: 'Compare Infant Seats',
+      description: 'Use this when you need to weigh portability against the broader newborn carry setup.',
+      stage: 'Compare',
+    },
+    {
+      href: '/guides/travel-with-baby',
+      label: 'Travel With Baby Guide',
+      description: 'Use the broader travel routine to pressure-test whether the lighter seat solves the right problem.',
+      stage: 'Optimize',
+    },
+    {
+      href: getGuidePath({ slug: 'best-strollers' }),
+      label: 'Stroller Guide',
+      description: 'Open this once travel-system or compatibility questions start leading the decision.',
+      stage: 'Refine',
+    },
+  ],
+};
+
 export function getGuideOrientation({
   slug,
   category,
@@ -393,50 +1054,9 @@ export function getDefaultNextSteps({
   slug: string;
   topicCluster?: string | null;
 }) {
-  if (slug === 'nursery-setup-guide') {
-    return normalizeGuideLinks(
-      [
-        {
-          href: '/guides/feeding',
-          label: 'Feeding Guide',
-          description: 'Continue into feeding setup once the room plan and daily stations are clearer.',
-          stage: 'Optimize' as const,
-        },
-        {
-          href: '/guides/registry/where-to-register',
-          label: 'Registry Strategy',
-          description: 'Choose where to register once the planning foundations are steady enough to support the list.',
-          stage: 'Decide' as const,
-        },
-        {
-          href: '/guides/strollers',
-          label: 'Stroller Guide',
-          description: 'Move into stroller comparison after the home setup and registry strategy are more settled.',
-          stage: 'Compare' as const,
-        },
-      ],
-      4,
-    );
-  }
-
-  if (slug === 'where-to-register') {
-    return normalizeGuideLinks(
-      [
-        {
-          href: '/guides/strollers',
-          label: 'Stroller Guide',
-          description: 'Continue into stroller comparison once the registry platform and return logic are clear.',
-          stage: 'Compare' as const,
-        },
-        {
-          href: '/guides/feeding',
-          label: 'Feeding Guide',
-          description: 'Step back to feeding setup if those daily-use decisions still need more structure.',
-          stage: 'Optimize' as const,
-        },
-      ],
-      4,
-    );
+  const curatedLinks = CURATED_NEXT_STEP_LINKS[slug];
+  if (curatedLinks) {
+    return normalizeGuideLinks(curatedLinks, 4);
   }
 
   const parentSlug = getGuideParentSlug({ slug, topicCluster });

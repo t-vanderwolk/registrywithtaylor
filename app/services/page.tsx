@@ -2,7 +2,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 import SiteShell from '@/components/SiteShell';
-import CTASection from '@/components/marketing/CTASection';
+import ConsultationRequestSection from '@/components/marketing/ConsultationRequestSection';
 import ServiceCards from '@/components/marketing/ServiceCards';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
@@ -20,6 +20,8 @@ export const metadata = buildMarketingMetadata({
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Taylor-Made Baby Co. advisory services.',
 });
+
+type SearchParams = Promise<{ error?: string }> | undefined;
 
 const fitMoments = [
   {
@@ -101,7 +103,9 @@ const serviceFaqs: FAQEntry[] = [
   },
 ] as const;
 
-export default function ServicesPage() {
+export default async function ServicesPage({ searchParams }: { searchParams?: SearchParams }) {
+  const params = searchParams ? await searchParams : undefined;
+
   return (
     <SiteShell currentPath="/services">
       <main className="site-main">
@@ -146,6 +150,9 @@ export default function ServicesPage() {
           imageSrc="/assets/editorial/stroller-folds.jpg"
           imageAlt="A stroller being folded in a calm editorial moment that emphasizes real-life gear use."
           tone="linen"
+          eyebrow="Real-life over showroom life"
+          title="The right pick should work in the parking lot too."
+          description="If it folds badly, fits awkwardly, or annoys you by day three, the feature list is not going to save it."
         />
 
         <ServiceCards
@@ -188,6 +195,9 @@ export default function ServicesPage() {
           imageSrc="/assets/editorial/nursery.jpg"
           imageAlt="Neutral nursery with crib, dresser, chair, and soft natural light."
           tone="blush"
+          eyebrow="Preparation that feels like relief"
+          title="The room should help at 2:14 AM."
+          description="Good planning is not about making everything prettier. It is about making everything easier to live with."
         />
 
         <MarketingSection tone="white" spacing="spacious">
@@ -226,10 +236,11 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <CTASection
-          eyebrow="Next step"
-          title="Book a consultation when you want Taylor's judgment on the decisions that matter most."
-          description="Start with a conversation, then choose the level of support that fits the complexity of your baby gear and preparation questions."
+        <ConsultationRequestSection
+          errorCode={params?.error ?? null}
+          returnPath="/services#request-a-consult"
+          successPath="/consultation/confirmation"
+          submitLabel="Request a Consultation"
         />
       </main>
     </SiteShell>

@@ -11,6 +11,7 @@ import NextSteps from '@/components/guides/NextSteps';
 import ProductExampleGroup from '@/components/guides/ProductExampleGroup';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline } from '@/lib/guides/articleOutline';
 import { dedupeFaqEntries } from '@/lib/guides/decisionSystemContent';
 import { getGuideOrientation, getStandardGuideSlideItems, guideHubLinkToNextStepLink, normalizeGuideLinks, getFallbackCommonMistakes, dedupeTextItems } from '@/lib/guides/guideFlow';
@@ -73,6 +74,11 @@ export default function GuideDecisionSystemHub({
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero

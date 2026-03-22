@@ -16,6 +16,7 @@ import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { extractFaqEntries } from '@/lib/blog/contentText';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, stripFaqBlocks } from '@/lib/guides/articleOutline';
 import {
   buildCoverBulletsFromOutline,
@@ -202,6 +203,11 @@ export default function GuideHubLayout({
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero

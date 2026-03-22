@@ -100,7 +100,7 @@ export default function GuidesEducationHub() {
   );
 
   return (
-    <GuideSlideDeck containerId="guide-slide-deck-guides-hub" items={slideItems}>
+    <GuideSlideDeck containerId="guide-slide-deck-guides-hub" items={slideItems} ecosystemCurrentStep={4}>
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
           eyebrow={guidesEducationHubContent.hero.eyebrow}

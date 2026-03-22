@@ -13,6 +13,7 @@ import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import {
   getStrollerAcademyConsultCards,
@@ -147,6 +148,11 @@ export default function StrollerAcademyLanePage({
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <AcademyHero

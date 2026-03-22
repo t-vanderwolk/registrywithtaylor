@@ -10,6 +10,7 @@ import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, splitGuideSectionContent } from '@/lib/guides/articleOutline';
 import { extractSectionSummary, stripSectionHeading } from '@/lib/guides/decisionSystemContent';
 import {
@@ -191,6 +192,11 @@ export default function RegistryGuideSlideLayout({
       containerId="registry-guide-slide-container"
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
     >
       <SlideSection id={slideItems[0].id} background="ivory">
         <div className="space-y-8">

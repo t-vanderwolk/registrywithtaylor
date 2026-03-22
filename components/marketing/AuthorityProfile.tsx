@@ -56,13 +56,18 @@ export default function AuthorityProfile({
             contentWidthClassName="max-w-[38rem]"
           />
 
-          <div className="rounded-[1.8rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)] p-6 shadow-[0_18px_42px_rgba(0,0,0,0.05)] sm:p-7">
-            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">What Taylor helps you sort</p>
+          <div className="rounded-[1.8rem] border border-[rgba(174,132,145,0.2)] bg-[linear-gradient(180deg,#ffffff_0%,#f9f1ec_100%)] p-6 shadow-[0_20px_48px_rgba(48,31,37,0.07)] sm:p-7">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#7A626C]">What Taylor helps you sort</p>
             <div className="mt-5 grid gap-4 md:grid-cols-2 xl:gap-x-8">
               {expertise.map((item) => (
-                <div key={item} className="flex items-start gap-4">
-                  <CheckIcon frameClassName="mt-0.5" />
-                  <p className="max-w-none text-[0.98rem] leading-8 text-neutral-700">{item}</p>
+                <div
+                  key={item}
+                  className="flex items-start gap-4 rounded-[1.1rem] border border-[rgba(174,132,145,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(250,242,239,0.96)_100%)] px-4 py-4 shadow-[0_12px_26px_rgba(57,39,45,0.05)]"
+                >
+                  <div className="inline-flex rounded-full border border-[rgba(215,161,175,0.18)] bg-white/92 px-2.5 py-2 shadow-[0_8px_18px_rgba(58,36,43,0.06)]">
+                    <CheckIcon frameClassName="mt-0" />
+                  </div>
+                  <p className="max-w-none text-[0.98rem] font-medium leading-8 text-[#41353B]">{item}</p>
                 </div>
               ))}
             </div>

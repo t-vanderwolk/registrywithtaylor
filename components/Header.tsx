@@ -70,7 +70,7 @@ export default function Header({ currentPath }: HeaderProps) {
     <>
       <header
         ref={headerRef}
-        className="site-header w-full border-b border-black/5 bg-[#f7f4ef]/92 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-md supports-[backdrop-filter]:bg-[#f7f4ef]/84"
+        className="site-header w-full border-b border-black/6 bg-[#f7f4ef] shadow-[0_1px_0_rgba(0,0,0,0.03),0_14px_30px_rgba(41,30,35,0.04)]"
         style={{
           position: isGuideRoute ? 'sticky' : 'fixed',
           top: 0,
@@ -140,7 +140,7 @@ export default function Header({ currentPath }: HeaderProps) {
         </div>
 
         <div
-          className={`overflow-hidden bg-[#f7f4ef]/96 backdrop-blur-md transition-all duration-300 md:hidden ${
+          className={`overflow-hidden bg-[#f7f4ef] transition-all duration-300 md:hidden ${
             open
               ? 'max-h-[80svh] border-t border-black/5 opacity-100'
               : 'max-h-0 border-t border-transparent opacity-0 pointer-events-none'

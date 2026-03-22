@@ -5,6 +5,7 @@ import HubHero from '@/components/guides/HubHero';
 import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import {
   getGuideOrientation,
   getStandardGuideSlideItems,
@@ -28,6 +29,7 @@ export default function GuideFutureHubPage({
       containerId={`guide-slide-deck-${config.path.replace(/\//g, '-')}`}
       items={slideItems}
       backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({ slug, path: config.path, category: config.eyebrow })}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
