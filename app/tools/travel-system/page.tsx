@@ -6,6 +6,8 @@ import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = buildMarketingMetadata({
   title: 'Travel System Compatibility | Taylor-Made Baby Co.',
   description:
