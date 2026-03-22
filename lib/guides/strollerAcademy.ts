@@ -282,27 +282,6 @@ export const STROLLER_ACADEMY_TRY_CHECKLIST: AcademyChecklistSection[] = [
   },
 ];
 
-export const STROLLER_ACADEMY_CONSULT_CARDS: AcademyConsultCard[] = [
-  {
-    title: 'Target Baby Concierge',
-    description: 'Use this when you want a lower-pressure in-store check on fold, steering, and car-seat setup questions.',
-    placeholderLabel: '[CTA_PLACEHOLDER: Book Target Baby Concierge]',
-    note: 'Best for quick in-person validation and hands-on stroller testing.',
-  },
-  {
-    title: 'MacroBaby Consult',
-    description: 'Useful when you want a broader side-by-side comparison, either virtually or in person.',
-    placeholderLabel: '[CTA_PLACEHOLDER: Schedule MacroBaby Consult]',
-    note: 'Best for seeing multiple stroller lanes in one session.',
-  },
-  {
-    title: 'Hip Baby Gear Virtual Session',
-    description: 'Helpful when you want a specialty-gear conversation without committing to store traffic first.',
-    placeholderLabel: '[CTA_PLACEHOLDER: Book Hip Baby Gear Virtual Session]',
-    note: 'Best for expert walkthroughs and honest category comparison.',
-  },
-];
-
 export const STROLLER_ACADEMY_PLANNING_QUESTIONS: AcademyPlanningQuestion[] = [
   {
     id: 'two-seats-now',
@@ -856,8 +835,4 @@ export function getStrollerAcademyTryChecklist() {
     ...section,
     items: section.items.map((item) => ({ ...item })),
   }));
-}
-
-export function getStrollerAcademyConsultCards() {
-  return STROLLER_ACADEMY_CONSULT_CARDS.map((card) => ({ ...card }));
 }

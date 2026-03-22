@@ -22,7 +22,7 @@ export default function ConsultationRequestSection({
   return (
     <section
       id={id}
-      className="relative z-10 overflow-visible bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] pt-28 pb-8 md:pb-10"
+      className="relative z-10 overflow-visible bg-[linear-gradient(180deg,#fff6f7_0%,#fbf7f2_100%)] pt-20 pb-8 md:pt-28 md:pb-10"
     >
       <div className="pointer-events-none absolute left-1/2 top-0 z-30 w-screen -translate-x-1/2 -translate-y-1/2">
         <RibbonDivider />

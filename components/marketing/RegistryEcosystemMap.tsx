@@ -153,7 +153,7 @@ export default function RegistryEcosystemMap() {
                   <motion.article
                     key={step.step}
                     variants={cardVariants}
-                    className={`relative flex min-h-[21rem] min-w-[82%] snap-center flex-col justify-between overflow-hidden rounded-[1.85rem] border p-6 shadow-[0_20px_42px_rgba(58,36,43,0.07)] sm:min-w-[20rem] md:min-h-[19rem] md:min-w-[18rem] md:snap-start md:p-7 lg:min-w-[19rem] xl:min-w-[20rem] ${
+                    className={`relative flex min-h-[18.5rem] min-w-[82%] snap-center flex-col justify-between overflow-hidden rounded-[1.85rem] border p-6 shadow-[0_20px_42px_rgba(58,36,43,0.07)] sm:min-w-[20rem] md:min-h-[19rem] md:min-w-[18rem] md:snap-start md:p-7 lg:min-w-[19rem] xl:min-w-[20rem] ${
                       isBlush
                         ? 'border-[rgba(215,161,175,0.24)] bg-[linear-gradient(180deg,rgba(252,244,246,0.98)_0%,rgba(249,240,243,0.94)_100%)]'
                         : 'border-[rgba(196,156,94,0.14)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,248,243,0.96)_100%)]'

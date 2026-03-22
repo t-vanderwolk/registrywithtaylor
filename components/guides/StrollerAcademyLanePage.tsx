@@ -2,7 +2,6 @@ import AcademyHero from '@/components/guides/academy/AcademyHero';
 import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ComparisonTable from '@/components/guides/academy/ComparisonTable';
-import ConsultCTASection from '@/components/guides/academy/ConsultCTASection';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
@@ -16,7 +15,6 @@ import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import {
-  getStrollerAcademyConsultCards,
   getStrollerAcademyLane,
   getStrollerAcademyLanes,
 } from '@/lib/guides/strollerAcademy';
@@ -64,7 +62,6 @@ export default function StrollerAcademyLanePage({
     return null;
   }
 
-  const consultCards = getStrollerAcademyConsultCards();
   const allLanes = getStrollerAcademyLanes();
   const compareLinks = lane.compareAgainst
     .map((slug) => getStrollerAcademyLane(slug))
@@ -279,12 +276,6 @@ export default function StrollerAcademyLanePage({
             title={`What to test before you buy ${lane.shortTitle}.`}
             description="This is where the lane gets validated. The useful questions show up when the stroller meets a trunk, a doorway, and an honest setup conversation."
             sections={lane.testSections}
-          />
-
-          <ConsultCTASection
-            title={`Where to validate the ${lane.shortTitle} lane.`}
-            description="Use this part of the process to pressure-test the lane with a plan already in hand instead of walking in cold."
-            cards={consultCards}
           />
 
           <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">

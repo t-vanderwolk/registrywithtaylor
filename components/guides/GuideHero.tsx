@@ -38,7 +38,7 @@ export default function GuideHero({
   const heroImageSrc = showHeroImage ? imageSrc! : '';
   const heroImageClassName = isEditorialStrollerLayout
     ? 'object-contain object-center p-4 md:p-5'
-    : 'object-cover';
+    : 'object-contain object-center p-3 md:object-cover md:p-0';
   const displayTitle = variant === 'stroller-hub' ? 'The Taylor-Made Stroller Guide' : title;
   const stats = [
     { label: 'Read time', value: readTime },

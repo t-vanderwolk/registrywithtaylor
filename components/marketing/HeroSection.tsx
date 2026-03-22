@@ -86,14 +86,14 @@ export default function HeroSection({
               </span>
             </div>
 
-            <div className="relative aspect-[4/4.6] overflow-hidden sm:aspect-[4/4.2]">
+            <div className="relative aspect-[4/4.8] overflow-hidden sm:aspect-[4/4.2]">
               <Image
                 src={imageSrc}
                 alt={imageAlt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 44vw, 100vw"
-                className="object-cover"
+                className="object-contain object-center p-4 sm:p-5"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.18)_100%)]" />
             </div>

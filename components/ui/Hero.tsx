@@ -111,7 +111,7 @@ export default function Hero({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-contain object-center md:object-cover"
           />
 
           {/* optional subtle darkening if needed */}
