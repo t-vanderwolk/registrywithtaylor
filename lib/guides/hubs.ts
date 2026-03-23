@@ -1,5 +1,6 @@
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import type { GuideCardItem } from '@/lib/guides/presentation';
+import { NURSERY_SUBGUIDE_PATHS } from '@/lib/guides/nurserySubguides';
 import { getRegistrySubGuideGridItems, REGISTRY_SUBGUIDE_PATHS } from '@/lib/guides/registrySubguides';
 import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { getGuidePath } from '@/lib/guides/routing';
@@ -406,40 +407,34 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
       cardsDescription: 'Move from the big nursery question into the part of the room that most affects your actual nights and mornings.',
       editorialIntroImage: {
         eyebrow: 'Editorial image',
-        src: '/assets/editorial/nursery.png',
+        src: '/assets/editorial/nursery2.png',
         alt: 'Editorial nursery image for the TMBC nursery hub.',
         caption: 'Nursery planning gets clearer once the room is treated like a working route for sleep, feeding, storage, and the middle of the night.',
       },
       cards: [
         {
           title: 'Sleep Setup',
-          description: 'For crib size, room flow, sleep supports, and what the first-year setup really needs to do.',
-          href: anchor(currentPath, 'sleep-zone'),
+          description: 'For crib size, room-sharing crossover, safe sleep basics, and the setup that actually supports the first stretch of nights.',
+          href: NURSERY_SUBGUIDE_PATHS.sleepSetup,
           icon: 'sleep',
         },
         {
           title: 'Nursery Furniture',
-          description: 'For cribs, dressers, chairs, and the pieces that need to work harder than they pose.',
-          href: anchor(currentPath, 'how-to-choose-the-right-option'),
+          description: 'For cribs, dressers, chairs, and the pieces that need to earn their floor space instead of just looking composed.',
+          href: NURSERY_SUBGUIDE_PATHS.furniture,
           icon: 'home',
         },
         {
           title: 'Changing Stations',
-          description: 'For dresser-top setups, restocking logic, and keeping the middle-of-the-night route short.',
-          href: anchor(currentPath, 'changing-and-care-zone'),
-          icon: 'home',
+          description: 'For dresser-top setups, diapering flow, and keeping the middle-of-the-night route short.',
+          href: NURSERY_SUBGUIDE_PATHS.changingStation,
+          icon: 'checklist',
         },
         {
-          title: 'Nursery Organization',
+          title: 'Storage',
           description: 'For drawers, baskets, backup supplies, and storage systems that still make sense when you are tired.',
-          href: anchor(currentPath, 'storage-zone'),
+          href: NURSERY_SUBGUIDE_PATHS.storage,
           icon: 'storage',
-        },
-        {
-          title: 'Small Space Nurseries',
-          description: 'For mini cribs, sharper editing, and layouts that stop pretending the room is bigger than it is.',
-          href: anchor(currentPath, 'scenario-two-the-small-nursery'),
-          icon: 'small-space',
         },
       ],
       decisionHelperTitle: 'Choose the zone that creates the most friction',
@@ -448,26 +443,26 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
         {
           title: 'If nights already feel like the concern',
           description: 'Start with sleep setup.',
-          href: anchor(currentPath, 'sleep-zone'),
+          href: NURSERY_SUBGUIDE_PATHS.sleepSetup,
           icon: 'sleep',
         },
         {
           title: 'If the room is small',
-          description: 'Jump to small-space nursery planning.',
-          href: anchor(currentPath, 'scenario-two-the-small-nursery'),
-          icon: 'small-space',
+          description: 'Start with nursery furniture that can do double duty without crowding the route.',
+          href: NURSERY_SUBGUIDE_PATHS.furniture,
+          icon: 'home',
         },
         {
           title: 'If storage feels fuzzy',
-          description: 'Open nursery organization.',
-          href: anchor(currentPath, 'storage-zone'),
+          description: 'Open nursery storage.',
+          href: NURSERY_SUBGUIDE_PATHS.storage,
           icon: 'storage',
         },
         {
-          title: 'If furniture needs to do double duty',
-          description: 'Review nursery furniture first.',
-          href: anchor(currentPath, 'think-in-routes-not-zones-alone'),
-          icon: 'home',
+          title: 'If diapering flow is the part that keeps unraveling',
+          description: 'Open changing stations first.',
+          href: NURSERY_SUBGUIDE_PATHS.changingStation,
+          icon: 'checklist',
         },
       ],
       supportLinks: [
@@ -478,10 +473,10 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
           icon: 'bag',
         },
         {
-          title: 'Registry Strategy',
-          description: 'Choose where to register once nursery decisions are affecting the budget, gifting plan, and what belongs on the list.',
-          href: REGISTRY_SUBGUIDE_PATHS['where-to-register'],
-          icon: 'strategy',
+          title: 'Registry Guide',
+          description: 'Revisit the registry once the room setup clarifies what actually deserves day-one space and what can wait.',
+          href: PILLAR_PATHS.registry,
+          icon: 'checklist',
         },
         {
           title: 'Stroller Guide',

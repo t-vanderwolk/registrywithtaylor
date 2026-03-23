@@ -70,7 +70,7 @@ export default function GuideCTARibbon({
                   <Link
                     key={`${action.href}-${action.label}`}
                     href={action.href}
-                    className={`inline-flex min-h-[46px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-300 hover:-translate-y-0.5 hover:shadow-md ${
+                    className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-5 py-3 text-center text-sm font-semibold transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto ${
                       isPrimary
                         ? 'border border-[rgba(215,161,175,0.26)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_16px_34px_rgba(199,125,151,0.24)]'
                         : isAccent

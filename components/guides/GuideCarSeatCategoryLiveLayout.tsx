@@ -1,26 +1,41 @@
 import PostContent from '@/components/blog/PostContent';
+import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideCategoryStartPanel from '@/components/guides/GuideCategoryStartPanel';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
+import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideContextStrip from '@/components/guides/GuideContextStrip';
-import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
 import GuideDecisionBlock from '@/components/guides/GuideDecisionBlock';
 import GuideHero from '@/components/guides/GuideHero';
-import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
-import GuideSectionDivider from '@/components/guides/GuideSectionDivider';
-import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideStrollerInteractivePlanner, {
   type StrollerInteractivePlannerConfig,
   type StrollerPlannerTopic,
 } from '@/components/guides/GuideStrollerInteractivePlanner';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
+import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock, type ParsedStyledBlock } from '@/lib/blog/styledBlocks';
+import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
+import {
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideLifestyleImages,
+  getGuideParentLink,
+  getGuideRealLifePrompt,
+} from '@/lib/guides/experience';
+import { getGuideFinalThought, getGuideSignOff, getGuideTakeaways } from '@/lib/guides/editorialSystem';
 import type { GuideHeroJumpLink } from '@/lib/guides/hubs';
-import { getGuideOrientation } from '@/lib/guides/guideFlow';
+import { getDefaultNextSteps, getGuideOrientation, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import {
   getCarSeatCategoryGuideConfig,
   type CarSeatCategoryGuideSlug,
@@ -369,10 +384,6 @@ export default async function GuideCarSeatCategoryLiveLayout({
       faqCount: faqEntries.length,
     }),
   ];
-  const heroJumpLinks: GuideHeroJumpLink[] = visibleTocItems.slice(0, 6).map((item) => ({
-    label: item.label,
-    href: `${sourceRoute}#${item.id}`,
-  }));
   const plannerTopics = buildPlannerTopics({
     sections: outline.sections.filter((section) => normalizeValue(section.title) !== 'faq'),
     faqEntries,
@@ -391,174 +402,320 @@ export default async function GuideCarSeatCategoryLiveLayout({
     category: guide.category,
     topicCluster: guide.topicCluster,
   });
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const parentGuide = getGuideParentLink({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const nextSteps = normalizeGuideLinks(
+    [
+      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
+      {
+        href: config.context.hubHref,
+        label: `Back to ${config.context.hubLabel}`,
+        description: `Return to the broader ${config.context.currentLabel.toLowerCase()} map if you need the wider lane context again.`,
+        stage: 'Start' as const,
+      },
+      ...config.continueExploring.links.map((link) => ({
+        href: link.href,
+        label: link.title,
+        description: link.description,
+        stage: 'Refine' as const,
+      })),
+    ],
+    4,
+  );
   const commonMistakesSection = findCommonMistakesSection(outline.sections);
+  const slideItems = [
+    { id: 'car-seat-guide-overview', label: 'Title + Intro', shortLabel: 'Intro' },
+    { id: 'car-seat-guide-start', label: 'Orientation', shortLabel: 'Start' },
+    { id: 'interactive-planner', label: 'What Matters', shortLabel: 'Matter' },
+    { id: 'car-seat-guide-fit', label: 'Decision Framework', shortLabel: 'Decide' },
+    { id: 'car-seat-guide-education', label: 'Critical Education', shortLabel: 'Know' },
+    { id: commonMistakesSection?.id ?? 'car-seat-guide-mistakes', label: 'What People Get Wrong', shortLabel: 'Avoid' },
+    { id: 'car-seat-guide-continue', label: 'Next Steps', shortLabel: 'Next' },
+  ] as const;
+  const heroJumpLinks: GuideHeroJumpLink[] = slideItems.slice(1).map((item) => ({
+    label: item.label,
+    href: `${sourceRoute}#${item.id}`,
+  }));
+  const criticalEducationItems = showCompatibilityGenerator
+    ? [
+        'All infant car seats can be installed without a base. The base is convenience, not requirement.',
+        'Travel systems explain how an infant seat clicks into a stroller. They do not prove the stroller is the strongest long-term choice.',
+        'If you want click-in convenience, confirm seat-to-stroller compatibility after the stroller lane is clear.',
+        'When a matching infant seat and a longer-lasting stroller pull against each other, stroller longevity usually matters more.',
+      ]
+    : [
+        'Stage fit, install confidence, and daily loading habits matter more than the feature list sounding impressive.',
+        'If a travel-system question is steering the decision, solve the stroller lane first and then confirm the car seat pairing.',
+        'The seat should fit the stroller if you want click-in convenience, but the stroller still tends to have the longer job.',
+      ];
+  const fallbackMistakes = [
+    'Picking the category label first and only later asking whether the actual stage or fit problem matches.',
+    'Treating convenience language like a safety rule, especially around bases, rotating features, or click-in marketing.',
+    'Letting compatibility shorthand outrank install confidence, car fit, or how long the setup will realistically serve you.',
+  ];
+  const finalThought = getGuideFinalThought({
+    guide: {
+      slug: guide.slug,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+    },
+    outline,
+  });
+  const takeaways = getGuideTakeaways({
+    guide: { slug: guide.slug },
+    outline,
+    extraItems: [
+      criticalEducationItems[0] ?? '',
+      config.fitCheck.fitSummary,
+      config.fitCheck.signatureMoment,
+    ],
+  });
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
 
   return (
-    <>
-      <GuideScrollProgress />
+    <GuideSlideDeck
+      containerId={`guide-slide-deck-${guide.slug}`}
+      items={[...slideItems]}
+      backLink={{ href: config.context.hubHref, label: `Back to ${config.context.hubLabel}` }}
+      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
+        slug: guide.slug,
+        path: sourceRoute,
+        category: guide.category,
+      })}
+      journeyPathLabels={journeyPath}
+    >
+      <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
+        <div className="space-y-6">
+          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
+            <GuideBreadcrumbs items={breadcrumbs} />
+          </div>
 
-      <GuideHero
-        eyebrow={config.heroEyebrow}
-        title={guide.title}
-        description={config.heroDescription}
-        readTime={`${readingTime} min`}
-        publishedLabel={formatArticleDate(displayDate)}
-        sectionCount={visibleTocItems.length}
-        jumpLinks={heroJumpLinks}
-        imageSrc={null}
-        imageAlt={guide.title}
-        variant="stroller-category"
-      />
+          <GuideHero
+            parentLink={{ href: config.context.hubHref, label: config.context.hubLabel }}
+            eyebrow={config.heroEyebrow}
+            title={guide.title}
+            description={config.heroDescription}
+            readTime={`${readingTime} min`}
+            publishedLabel={formatArticleDate(displayDate)}
+            sectionCount={slideItems.length - 1}
+            jumpLinks={heroJumpLinks}
+            imageSrc={null}
+            imageAlt={guide.title}
+            variant="stroller-category"
+          />
+        </div>
+      </SlideSection>
 
-      <section className="bg-[var(--tmbc-blog-ivory)]">
-        <div className="mx-auto max-w-[1300px] px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
-          <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
+      <SlideSection id={slideItems[1].id} background="blush">
+        <div className="stroller-hub-shell space-y-6 sm:space-y-8">
             <GuideContextStrip context={config.context} />
 
             <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
 
-            <div id="car-seat-guide-start" className="scroll-mt-28">
-              <div className="space-y-5">
-                <div className="max-w-3xl space-y-3">
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                    Editorial Intro
-                  </p>
-                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
-                    The setup underneath the label matters more than the label itself.
-                  </h2>
-                  <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
-                    Start here to get the category grounded in real life before you move into planner tabs, comparison pressure, or the most convincing product page.
-                  </p>
-                </div>
+          <GuideJourneyIntro
+            title="The setup underneath the label matters more than the label itself."
+            description="Start here to get the category grounded in real life before you move into planner tabs, comparison pressure, or the most convincing product page."
+            intro={[
+              config.heroDescription,
+              'This is a narrower category guide, which means it works best after the main car-seat guide has already given you the wider stage context.',
+            ]}
+            calloutBody={getGuideRealLifePrompt({
+              slug: guide.slug,
+              category: guide.category,
+              topicCluster: guide.topicCluster,
+            })}
+            parentGuide={parentGuide}
+            whoThisIsFor={config.fitCheck.fitBullets.slice(0, 4)}
+            whatThisIs={`A narrower car seat category guide for parents pressure-testing the ${config.context.currentLabel.toLowerCase()} lane before they shortlist specific seats.`}
+            whyItExists={config.startPanel.startDescription}
+          />
 
-                <GuideCategoryStartPanel
-                  startDescription={config.startPanel.startDescription}
-                  questionTitle={config.startPanel.questionTitle}
-                  leadParagraph={preface.leadParagraph ? stripMarkdown(preface.leadParagraph) : undefined}
-                  supportingParagraphs={preface.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
-                  callout={
-                    preface.callout
-                      ? {
-                          title: preface.callout.title,
-                          body: stripMarkdown(preface.callout.body),
-                        }
-                      : null
+          <GuideCategoryStartPanel
+            startDescription={config.startPanel.startDescription}
+            questionTitle={config.startPanel.questionTitle}
+            leadParagraph={preface.leadParagraph ? stripMarkdown(preface.leadParagraph) : undefined}
+            supportingParagraphs={preface.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
+            callout={
+              preface.callout
+                ? {
+                    title: preface.callout.title,
+                    body: stripMarkdown(preface.callout.body),
                   }
-                  summaryCards={config.startPanel.summaryCards}
-                  questionTitleClassName="max-w-none"
-                  leadParagraphClassName="max-w-[36rem]"
-                />
-              </div>
-            </div>
+                : null
+            }
+            summaryCards={config.startPanel.summaryCards}
+            questionTitleClassName="max-w-none"
+            leadParagraphClassName="max-w-[36rem]"
+          />
 
-            <div className="space-y-4">
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
-            </div>
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
+        </div>
+      </SlideSection>
 
-            <div id="interactive-planner" className="scroll-mt-28 space-y-5">
+      <SlideSection id={slideItems[2].id} background="ivory">
+        <div className="space-y-5">
+          <div className="space-y-4">
+            <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
+            <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
+          </div>
+
+          <div className="max-w-3xl space-y-3">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+              What Matters
+            </p>
+            <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+              The considerations that usually make the category clearer.
+            </h2>
+            <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
+              Work through the guide like a guided editorial experience: understand the lane, pressure-test the fit, and only then get more specific.
+            </p>
+          </div>
+
+          <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[3].id} background="white">
+        <div className="space-y-5">
+          <div className="max-w-3xl space-y-3">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+              Decision Framework
+            </p>
+            <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+              Use the shorter fit logic when you need the answer without rereading the whole guide.
+            </h2>
+          </div>
+
+          <GuideDecisionBlock
+            title={config.fitCheck.title}
+            description={config.fitCheck.description}
+            fitSummary={config.fitCheck.fitSummary}
+            fitBullets={config.fitCheck.fitBullets}
+            notFitSummary={config.fitCheck.notFitSummary}
+            notFitBullets={config.fitCheck.notFitBullets}
+            signatureMoment={config.fitCheck.signatureMoment}
+          />
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[4].id} background="blush">
+        <div className="space-y-8">
+          <GuideBulletSection
+            eyebrow="Critical Education"
+            title="The rules that keep the car seat decision calmer."
+            description="These are the points that usually reduce confusion before compatibility shorthand or feature lists take over."
+            items={criticalEducationItems}
+          />
+
+          {showCompatibilityGenerator ? (
+            <section id="travel-system-compatibility" className="space-y-5 scroll-mt-28">
               <div className="max-w-3xl space-y-3">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                  Core Considerations
+                  Compatibility Tool
                 </p>
                 <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
-                  The considerations that usually make the category clearer.
+                  Travel system compatibility
                 </h2>
                 <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
-                  Work through the guide like a guided editorial experience: understand the lane, pressure-test the fit, and only then get more specific.
+                  If the stroller question is dragging the infant seat decision around with it, use this to check the real pairings before you commit. Start with the stroller or the infant seat, then see what actually fits and what kind of adapter story comes with it.
                 </p>
               </div>
 
-              <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
-            </div>
-
-            <div id="car-seat-guide-fit" className="scroll-mt-28 space-y-5">
-              <div className="max-w-3xl space-y-3">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                  Decision Section
-                </p>
-                <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
-                  Use the shorter fit logic when you need the answer without rereading the whole guide.
-                </h2>
-              </div>
-
-              <GuideDecisionBlock
-                title={config.fitCheck.title}
-                description={config.fitCheck.description}
-                fitSummary={config.fitCheck.fitSummary}
-                fitBullets={config.fitCheck.fitBullets}
-                notFitSummary={config.fitCheck.notFitSummary}
-                notFitBullets={config.fitCheck.notFitBullets}
-                signatureMoment={config.fitCheck.signatureMoment}
-              />
-            </div>
-
-            {showCompatibilityGenerator ? (
-              <div id="travel-system-compatibility" className="scroll-mt-28">
-                <section className="space-y-5">
-                  <div className="max-w-3xl space-y-3">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Compatibility Tool
-                    </p>
-                    <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
-                      Travel system compatibility
-                    </h2>
-                    <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
-                      If the stroller question is dragging the infant seat decision around with it, use this to check the real pairings before you commit. Start with the stroller or the infant seat, then see what actually fits and what kind of adapter story comes with it.
-                    </p>
-                  </div>
-
-                  {compatibilityStrollers.length > 0 || compatibilityCarSeats.length > 0 ? (
-                    <TravelSystemGenerator
-                      strollers={compatibilityStrollers}
-                      carSeats={compatibilityCarSeats}
-                    />
-                  ) : (
-                    <div className="rounded-[1.8rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-white/78 px-5 py-6 text-sm leading-7 text-neutral-600">
-                      The TMBC compatibility library is not available in this environment yet. Once the stroller and infant seat data are present, this section will show the same travel system generator used in the full tool.
-                    </div>
-                  )}
-                </section>
-              </div>
-            ) : null}
-
-            {commonMistakesSection ? (
-              <div id={commonMistakesSection.id} className="scroll-mt-28">
-                <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                  <div className="space-y-4">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Common Mistakes
-                    </p>
-                    <PostContent
-                      postId={`${guide.id}-${commonMistakesSection.id}-common-mistakes`}
-                      content={stripLeadingGuideHeading(commonMistakesSection.content)}
-                      className="guide-post-content guide-slide-content"
-                      variant="guide"
-                    />
-                  </div>
-                </MarketingSurface>
-              </div>
-            ) : null}
-
-            <div id="car-seat-guide-continue" className="scroll-mt-28">
-              <GuideContinueExploring
-                title={config.continueExploring.title}
-                description={config.continueExploring.description}
-                links={config.continueExploring.links}
-              />
-            </div>
-
-            <GuideSectionDivider />
-
-            <GuideSoftConversionCta
-              title="Want help matching the right seat to your actual routine?"
-              description={`The ${config.context.currentLabel.toLowerCase()} decision gets much easier once someone helps you weigh stage, car fit, loading habits, and how long the seat really needs to work.`}
-              href="/services"
-              ctaLabel="Learn about Taylor-Made Baby Planning"
-            />
-          </div>
+              {compatibilityStrollers.length > 0 || compatibilityCarSeats.length > 0 ? (
+                <TravelSystemGenerator
+                  strollers={compatibilityStrollers}
+                  carSeats={compatibilityCarSeats}
+                />
+              ) : (
+                <div className="rounded-[1.8rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-white/78 px-5 py-6 text-sm leading-7 text-neutral-600">
+                  The TMBC compatibility library is not available in this environment yet. Once the stroller and infant seat data are present, this section will show the same travel system generator used in the full tool.
+                </div>
+              )}
+            </section>
+          ) : null}
         </div>
-      </section>
-    </>
+      </SlideSection>
+
+      <SlideSection id={slideItems[5].id} background="white">
+        {commonMistakesSection ? (
+          <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+            <div className="space-y-4">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                What People Get Wrong
+              </p>
+              <PostContent
+                postId={`${guide.id}-${commonMistakesSection.id}-common-mistakes`}
+                content={stripLeadingGuideHeading(commonMistakesSection.content)}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
+              />
+            </div>
+          </MarketingSurface>
+        ) : (
+          <GuideBulletSection
+            eyebrow="What People Get Wrong"
+            title="What People Get Wrong"
+            description="These are the habits that usually make a smaller car seat decision feel larger than it needs to."
+            items={fallbackMistakes}
+          />
+        )}
+      </SlideSection>
+
+      <SlideSection id={slideItems[6].id} background="ivory">
+        <div className="space-y-8">
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            nextStepsTitle={config.continueExploring.title}
+            nextStepsDescription={config.continueExploring.description}
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
+            consultationDescription={`The ${config.context.currentLabel.toLowerCase()} decision gets much easier once someone helps you weigh stage, car fit, loading habits, and how long the seat really needs to work.`}
+          />
+
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the broader TMBC routes within reach."
+              description="If this sub-guide helped, the next move should stay obvious instead of turning back into a fresh search."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
+            />
+          ) : null}
+        </div>
+      </SlideSection>
+    </GuideSlideDeck>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { trackEvent, trackPageView } from '@/lib/analytics';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { sendGuideTrackingEvent } from '@/lib/guides/clientTracking';
+import { getGuideJourneyState, TMBC_GUIDE_JOURNEY_STORAGE_KEY } from '@/lib/guides/masterJourney';
 
 export default function GuideViewTracker({
   guideId,
@@ -44,6 +45,21 @@ export default function GuideViewTracker({
       sourceRoute,
       meta: payload,
     });
+
+    try {
+      window.localStorage.setItem(
+        TMBC_GUIDE_JOURNEY_STORAGE_KEY,
+        JSON.stringify(
+          getGuideJourneyState({
+            slug,
+            title,
+            sourceRoute,
+          }),
+        ),
+      );
+    } catch {
+      return;
+    }
   }, [enabled, guideId, slug, sourceRoute, title]);
 
   return null;

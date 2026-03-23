@@ -64,7 +64,7 @@ export default async function RegistrySubGuidePage({ params }: RegistrySubGuideP
           guide={{
             id: `registry-${guide.slug}`,
             title: guide.title,
-            slug: `registry-${guide.slug}`,
+            slug: guide.slug,
             category: 'Registry Planning',
             content: guide.content,
             affiliateModules: [],

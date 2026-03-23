@@ -5,15 +5,29 @@ import ComparisonTable from '@/components/guides/academy/ComparisonTable';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import DecisionBlock from '@/components/guides/DecisionBlock';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
+import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
-import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
-import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
+import {
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideLifestyleImages,
+  getGuideParentLink,
+  getGuideRealLifePrompt,
+} from '@/lib/guides/experience';
+import { getGuideSignOff } from '@/lib/guides/editorialSystem';
+import { dedupeTextItems, getDefaultNextSteps, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import {
   getStrollerAcademyLane,
@@ -102,6 +116,48 @@ export default function StrollerAcademyLanePage({
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
   const slideItems = getStandardGuideSlideItems('guide');
   const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const parentGuide = getGuideParentLink({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const finalThought = `${lane.shortTitle} is the right answer when the lane fits your real week better, not when the product page tells the prettiest story.`;
+  const takeaways = dedupeTextItems(
+    [
+      lane.worksForSummary,
+      lane.notBestFitSummary,
+      lane.buyNote,
+      lane.signatureMoment,
+    ],
+    4,
+  );
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
   const stageItems: AcademyStageNavItem[] = [
     {
       id: 'start',
@@ -142,6 +198,7 @@ export default function StrollerAcademyLanePage({
   }));
   const nextSteps = normalizeGuideLinks(
     [
+      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: '/guides/strollers',
         label: 'Back to Stroller Academy',
@@ -197,32 +254,39 @@ export default function StrollerAcademyLanePage({
         path: sourceRoute,
         category: guide.category,
       })}
+      journeyPathLabels={journeyPath}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
-        <AcademyHero
-          eyebrow="TMBC Academy · Stroller Lane"
-          title={`${lane.title} Lane`}
-          description={guide.excerpt?.trim() || lane.heroDescription}
-          note={lane.signatureMoment}
-          primaryCta={{ label: 'Review This Lane', href: `${sourceRoute}#${slideItems[4].id}` }}
-          secondaryCta={{
-            label: compareLinks[0] ? `Compare ${compareLinks[0].shortTitle}` : 'Back to Stroller Academy',
-            href: compareLinks[0]?.href || '/guides/strollers',
-          }}
-          stageItems={stageItems}
-          stats={[
-            { label: 'Best for', value: lane.bestFor },
-            { label: 'Tradeoff', value: lane.tradeoff },
-            { label: 'Updated', value: formatDate(displayDate) },
-            { label: 'Read time', value: `${readingTime} min` },
-          ]}
-          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-          imageSrc={displayHeroImage.src}
-          imageAlt={displayHeroImage.alt}
-          imageAspectClassName="aspect-[16/11]"
-          imageObjectClassName={displayHeroObjectClassName}
-          imagePriority
-        />
+        <div className="space-y-6">
+          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
+            <GuideBreadcrumbs items={breadcrumbs} />
+          </div>
+
+          <AcademyHero
+            eyebrow="TMBC Academy · Stroller Lane"
+            title={`${lane.title} Lane`}
+            description={guide.excerpt?.trim() || lane.heroDescription}
+            note={lane.signatureMoment}
+            primaryCta={{ label: 'Review This Lane', href: `${sourceRoute}#${slideItems[4].id}` }}
+            secondaryCta={{
+              label: compareLinks[0] ? `Compare ${compareLinks[0].shortTitle}` : 'Back to Stroller Academy',
+              href: compareLinks[0]?.href || '/guides/strollers',
+            }}
+            stageItems={stageItems}
+            stats={[
+              { label: 'Best for', value: lane.bestFor },
+              { label: 'Tradeoff', value: lane.tradeoff },
+              { label: 'Updated', value: formatDate(displayDate) },
+              { label: 'Read time', value: `${readingTime} min` },
+            ]}
+            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            imageSrc={displayHeroImage.src}
+            imageAlt={displayHeroImage.alt}
+            imageAspectClassName="aspect-[16/11]"
+            imageObjectClassName={displayHeroObjectClassName}
+            imagePriority
+          />
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[1].id} background="white">
@@ -230,24 +294,46 @@ export default function StrollerAcademyLanePage({
       </SlideSection>
 
       <SlideSection id={slideItems[2].id} background="blush">
-        <GuideBulletSection
-          eyebrow="Editorial Intro"
-          title="Editorial Intro"
-          description="This lane page should stay concise and useful while it helps you decide whether the category deserves a shortlist."
-          items={[
-            lane.whyExists,
-            `Best for: ${lane.bestFor}`,
-            `Tradeoff: ${lane.tradeoff}`,
-            `Compare against: ${compareLinks.map((entry) => entry.shortTitle).join(', ') || 'the closest neighboring lanes'}.`,
-          ]}
-          editorialImage={LANE_EDITORIAL_IMAGES[lane.slug]}
-        />
+        <div className="space-y-6">
+          <GuideJourneyIntro
+            title={`Start here before you shortlist ${lane.shortTitle.toLowerCase()}.`}
+            description="This sub-guide should help you validate whether the lane fits real life before you spend time comparing products inside it."
+            intro={[
+              guide.excerpt?.trim() || lane.heroDescription,
+              'This is the narrower version of the stroller conversation, so it works best after the main stroller guide has already given the wider category context.',
+            ]}
+            calloutBody={getGuideRealLifePrompt({
+              slug: guide.slug,
+              category: guide.category,
+              topicCluster: guide.topicCluster,
+            })}
+            parentGuide={parentGuide}
+            whoThisIsFor={lane.worksForBullets.slice(0, 4)}
+            whatThisIs={`A narrower stroller lane guide for families weighing ${lane.shortTitle.toLowerCase()} before they build a product shortlist.`}
+            whyItExists={lane.whyExists}
+          />
+
+          <GuideBulletSection
+            eyebrow="Orientation"
+            title="Orientation"
+            description="Use these lane signals to decide whether this category deserves a real shortlist."
+            items={[
+              lane.whyExists,
+              `Best for: ${lane.bestFor}`,
+              `Tradeoff: ${lane.tradeoff}`,
+              `Compare against: ${compareLinks.map((entry) => entry.shortTitle).join(', ') || 'the closest neighboring lanes'}.`,
+            ]}
+            editorialImage={LANE_EDITORIAL_IMAGES[lane.slug]}
+          />
+
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <StageLead
-            eyebrow="Core Considerations"
+            eyebrow="What Matters"
             title={`Why the ${lane.title} lane exists.`}
             description={lane.whyExists}
           />
@@ -301,8 +387,8 @@ export default function StrollerAcademyLanePage({
       <SlideSection id={slideItems[5].id} background="blush">
         <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Common Mistakes"
-            title="Common Mistakes"
+            eyebrow="What People Get Wrong"
+            title="What People Get Wrong"
             description="These are the lane-specific misses that usually make a good category feel wrong."
             items={dedupeTextItems(
               [
@@ -352,22 +438,25 @@ export default function StrollerAcademyLanePage({
             ))}
           </div>
 
-          <NextSteps title="Next Steps" links={nextSteps} />
-
-          <GuideBulletSection
-            eyebrow="Keep In Mind"
-            title="Keep In Mind"
-            description="The lane page should make comparison smaller, not bigger."
-            items={dedupeTextItems(
-              [
-                lane.worksForSummary,
-                lane.notBestFitSummary,
-                lane.buyNote,
-                lane.signatureMoment,
-              ],
-              4,
-            )}
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
           />
+
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the broader TMBC routes nearby."
+              description="The lane decision gets easier when you can move cleanly into the next category instead of slipping back into generic browsing."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
+            />
+          ) : null}
 
           <ExpertTipCallout eyebrow="TMBC Buy Rule" title={lane.buyNote} body={lane.signatureMoment} />
 

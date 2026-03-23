@@ -1,24 +1,37 @@
 import PostContent from '@/components/blog/PostContent';
 import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
+import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideEditorialImage from '@/components/guides/GuideEditorialImage';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
-import NextSteps from '@/components/guides/NextSteps';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
 import {
-  buildTakeawayBulletsFromOutline,
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideLifestyleImages,
+  getGuideParentLink,
+  getGuideRealLifePrompt,
+} from '@/lib/guides/experience';
+import { getGuideFinalThought, getGuideSignOff, getGuideTakeaways, getGuideWhatThisIs, getGuideWhyItExists } from '@/lib/guides/editorialSystem';
+import {
   dedupeTextItems,
   extractMarkdownListItems,
   getDefaultNextSteps,
   getFallbackCommonMistakes,
-  getFallbackTakeaways,
   getGuideOrientation,
   getStandardGuideSlideItems,
   guideCardToNextStepLink,
@@ -92,13 +105,12 @@ function formatArticleDate(value: Date) {
   });
 }
 
-function extractLeadCopy(content: string) {
-  const paragraphs = content
+function extractLeadParagraphs(content: string, maxParagraphs = 2) {
+  return content
     .split('\n\n')
     .map((block) => block.trim())
-    .filter((block) => block && !block.startsWith('#'));
-
-  return paragraphs.slice(0, 2).join(' ');
+    .filter((block) => block && !block.startsWith('#'))
+    .slice(0, maxParagraphs);
 }
 
 function summarizeSection(content: string) {
@@ -126,6 +138,7 @@ function normalizeTitle(value: string) {
 function isEditorialIntroSection(title: string) {
   const normalized = normalizeTitle(title);
   return (
+    normalized === 'orientation' ||
     normalized === 'introduction' ||
     normalized.startsWith('why ') ||
     normalized.includes('feels overwhelming') ||
@@ -139,7 +152,8 @@ function isEditorialIntroSection(title: string) {
 }
 
 function isCommonMistakesSection(title: string) {
-  return normalizeTitle(title).includes('common mistakes');
+  const normalized = normalizeTitle(title);
+  return normalized.includes('common mistakes') || normalized.includes('what people get wrong');
 }
 
 function isFaqSection(title: string) {
@@ -152,6 +166,9 @@ function isCoreExclusionSection(title: string) {
   return (
     isCommonMistakesSection(title) ||
     isFaqSection(title) ||
+    normalized === 'what this is' ||
+    normalized === 'who this is for' ||
+    normalized === 'why it exists' ||
     normalized === 'final thoughts' ||
     normalized === 'next steps' ||
     normalized === 'takeaways' ||
@@ -188,6 +205,10 @@ function extractInlineImage(content: string) {
     }
 
     const [, altText, src, title] = match;
+    if (src.includes('/placeholders/') || src.includes('/placeholder')) {
+      continue;
+    }
+
     const fallbackCopy = 'Guide editorial image';
     const copy = sanitizeImageCopy(altText || title, fallbackCopy);
 
@@ -202,6 +223,58 @@ function extractInlineImage(content: string) {
   return null;
 }
 
+function extractJourneyCalloutBody(content: string, fallback: string) {
+  const callout = extractStyledBlocks(content).find(
+    (block): block is Extract<ReturnType<typeof extractStyledBlocks>[number], { type: 'callout' }> => block.type === 'callout',
+  );
+
+  return callout?.body?.trim() || fallback;
+}
+
+function isWhoThisIsForSection(title: string) {
+  const normalized = normalizeTitle(title);
+
+  return (
+    normalized.includes('who this is for') ||
+    normalized.includes('use this approach if') ||
+    normalized.includes('when the category makes sense') ||
+    normalized.includes('when this category makes sense') ||
+    normalized.includes('use this guide if') ||
+    normalized.includes('best fit')
+  );
+}
+
+function buildWhoThisIsFor({
+  sections,
+  guide,
+}: {
+  sections: ReturnType<typeof buildGuideOutline>['sections'];
+  guide: GuideEducationLayoutProps['guide'];
+}) {
+  const matchingSection = sections.find((section) => isWhoThisIsForSection(section.title));
+  if (matchingSection) {
+    const items = extractMarkdownListItems(matchingSection.content, 4);
+    if (items.length > 0) {
+      return items;
+    }
+  }
+
+  for (const section of sections) {
+    const items = extractMarkdownListItems(section.content, 4);
+    if (items.length >= 2) {
+      return items;
+    }
+  }
+
+  const categoryLabel = guide.category?.trim() || 'this guide';
+
+  return [
+    `Parents who want clearer guidance around ${categoryLabel.toLowerCase()}.`,
+    'Families trying to match the decision to their space, routine, and daily use.',
+    'Anyone who would prefer fewer tabs and a better order of operations.',
+  ];
+}
+
 function getFallbackImagePool(guide: GuideEducationLayoutProps['guide']) {
   const normalizedCategory = normalizeTitle(guide.category);
   const normalizedSlug = normalizeTitle(guide.slug);
@@ -209,24 +282,24 @@ function getFallbackImagePool(guide: GuideEducationLayoutProps['guide']) {
   if (normalizedCategory.includes('nursery') || normalizedSlug.includes('nursery')) {
     return [
       '/assets/editorial/nursery.jpg',
-      '/assets/editorial/gear.jpg',
-      '/assets/placeholders/tmbc-guide-image-placeholder.svg',
+      '/assets/editorial/nursery.png',
+      '/assets/editorial/teddy-glow.png',
     ];
   }
 
   if (normalizedCategory.includes('registry') || normalizedSlug.includes('registry')) {
     return [
       '/assets/editorial/registry.jpg',
+      '/assets/editorial/registry.png',
       '/assets/editorial/gear.jpg',
-      '/assets/placeholders/tmbc-guide-image-placeholder.svg',
     ];
   }
 
   if (normalizedCategory.includes('travel') || normalizedSlug.includes('travel')) {
     return [
       '/assets/editorial/growing-with-confidence.jpg',
+      '/assets/editorial/stroller-folds.jpg',
       '/assets/editorial/gear.jpg',
-      '/assets/placeholders/tmbc-guide-image-placeholder.svg',
     ];
   }
 
@@ -243,14 +316,14 @@ function getFallbackImagePool(guide: GuideEducationLayoutProps['guide']) {
     return [
       '/assets/editorial/gear.jpg',
       '/assets/editorial/growing-with-confidence.jpg',
-      '/assets/placeholders/tmbc-guide-image-placeholder.svg',
+      '/assets/editorial/welcome.png',
     ];
   }
 
   return [
     '/assets/editorial/gear.jpg',
     '/assets/editorial/growing-with-confidence.jpg',
-    '/assets/placeholders/tmbc-guide-image-placeholder.svg',
+    '/assets/editorial/welcome.png',
   ];
 }
 
@@ -264,7 +337,7 @@ function buildFallbackImage({
   index: number;
 }) {
   const pool = getFallbackImagePool(guide);
-  const src = pool[index % pool.length] ?? '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+  const src = pool[index % pool.length] ?? '/assets/editorial/gear.jpg';
   const caption = `${sectionTitle} is easier to hold onto once you can picture how it shows up in everyday life.`;
 
   return {
@@ -301,15 +374,54 @@ function buildNarrativeSections({
 export default function GuideEducationLayout({
   guide,
   relatedGuides = [],
+  preview = false,
   sourceRoute,
   displayDate,
   readingTime,
 }: GuideEducationLayoutProps) {
   const outline = buildGuideOutline(guide.content);
-  const leadCopy = extractLeadCopy(guide.content);
+  const leadParagraphs = extractLeadParagraphs(guide.content);
+  const leadCopy = leadParagraphs.join(' ');
   const orientation = getGuideOrientation({
     slug: guide.slug,
     category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const parentGuide = getGuideParentLink({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const calloutBody = extractJourneyCalloutBody(
+    guide.content,
+    getGuideRealLifePrompt({
+      slug: guide.slug,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+    }),
+  );
+  const whoThisIsFor = parentGuide ? buildWhoThisIsFor({ sections: outline.sections, guide }) : [];
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
     topicCluster: guide.topicCluster,
   });
   const slideItems = getStandardGuideSlideItems('guide');
@@ -359,14 +471,23 @@ export default function GuideEducationLayout({
       !editorialIntroIds.has(section.id) &&
       !selectedCoreIds.has(section.id) &&
       !isCommonMistakesSection(section.title) &&
-      !isFaqSection(section.title),
+      !isFaqSection(section.title) &&
+      !['final thoughts', 'takeaways', 'keep in mind'].includes(normalizeTitle(section.title)),
   );
   const commonMistakesSection = outline.sections.find((section) => isCommonMistakesSection(section.title));
   const commonMistakes = extractMarkdownListItems(commonMistakesSection?.content ?? '', 5);
-  const takeaways = dedupeTextItems(
-    [...buildTakeawayBulletsFromOutline(outline), ...getFallbackTakeaways(guide.slug)],
-    4,
-  );
+  const whatThisIs = getGuideWhatThisIs({ guide, outline });
+  const whyItExists = getGuideWhyItExists({ guide, outline });
+  const finalThought = getGuideFinalThought({ guide, outline });
+  const takeaways = getGuideTakeaways({
+    guide,
+    outline,
+    extraItems: [...(guide.takeaways ?? [])],
+  });
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
   const decisionItems = (coreSections.length > 0 ? coreSections : editorialSections).slice(0, 4).map((section) => ({
     condition: `need clarity on ${section.title.toLowerCase()}`,
     recommendation: `${summarizeSection(section.content)} Start with this section.`,
@@ -400,27 +521,34 @@ export default function GuideEducationLayout({
         path: sourceRoute,
         category: guide.category,
       })}
+      journeyPathLabels={journeyPath}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
-        <GuideHero
-          slug={guide.slug}
-          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-          eyebrow={guide.category}
-          category={guide.category}
-          title={guide.title}
-          description={
-            leadCopy ||
-            'Clear, practical guidance to help you understand what matters first, what can wait, and what to do next.'
-          }
-          readTime={`${readingTime} min`}
-          publishedLabel={formatArticleDate(displayDate)}
-          sectionCount={outline.sections.length}
-          jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
-          topicCluster={guide.topicCluster}
-          imageSrc={guide.heroImageUrl}
-          imageAlt={guide.heroImageAlt}
-          variant="default"
-        />
+        <div className="space-y-6">
+          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
+            <GuideBreadcrumbs items={breadcrumbs} />
+          </div>
+
+          <GuideHero
+            slug={guide.slug}
+            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            eyebrow={guide.category}
+            category={guide.category}
+            title={guide.title}
+            description={
+              leadCopy ||
+              'Clear, practical guidance to help you understand what matters first, what can wait, and what to do next.'
+            }
+            readTime={`${readingTime} min`}
+            publishedLabel={formatArticleDate(displayDate)}
+            sectionCount={outline.sections.length}
+            jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+            topicCluster={guide.topicCluster}
+            imageSrc={guide.heroImageUrl}
+            imageAlt={guide.heroImageAlt}
+            variant="default"
+          />
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[1].id} background="white">
@@ -429,16 +557,27 @@ export default function GuideEducationLayout({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <div className="space-y-6">
-          {outline.preface ? (
-            <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
-              <PostContent
-                postId={`${guide.id}-guide-preface`}
-                content={outline.preface}
-                className="guide-post-content guide-slide-content"
-                variant="guide"
-              />
-            </MarketingSurface>
-          ) : null}
+          <GuideJourneyIntro
+            title="Start here before the guide gets more specific."
+            description="This is the short orientation layer: what the page is helping you decide, where it fits, and how to read it without turning it into homework."
+            intro={
+              leadParagraphs.length > 0
+                ? leadParagraphs
+                : ['Use this guide to understand the tradeoffs before you disappear into narrower comparisons.']
+            }
+            calloutBody={calloutBody}
+            parentGuide={parentGuide}
+            whoThisIsFor={whoThisIsFor}
+            whatThisIs={parentGuide ? `A focused sub-guide inside ${parentGuide.label} that helps you sort one narrower piece of the decision before product comparison starts sprawling.` : whatThisIs}
+            whyItExists={whyItExists}
+          />
+
+          <GuideBulletSection
+            eyebrow="What It Is"
+            title="What It Is"
+            description="Use this as the short editorial frame before you move into the heavier detail."
+            items={[whatThisIs, whyItExists]}
+          />
 
           {editorialSections.map((section) => (
             <MarketingSurface
@@ -463,13 +602,15 @@ export default function GuideEducationLayout({
               <GuideTableOfContents currentPath={sourceRoute} items={tocItems} mode="desktop" layout="band" />
             </div>
           ) : null}
+
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
         </div>
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <div className="max-w-3xl space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
             <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
               The pieces that usually shape the real decision.
             </h2>
@@ -487,7 +628,7 @@ export default function GuideEducationLayout({
               >
                 <div className="space-y-6">
                   <div className="space-y-3">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Core consideration</p>
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">What matters</p>
                     <h3 className="text-[1.8rem] font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.15rem]">
                       {section.title}
                     </h3>
@@ -523,8 +664,8 @@ export default function GuideEducationLayout({
 
       <SlideSection id={slideItems[5].id} background="blush">
         <GuideBulletSection
-          eyebrow="Common Mistakes"
-          title="Common Mistakes"
+          eyebrow="What People Get Wrong"
+          title="What People Get Wrong"
           description="These are the practical misses that usually make the category feel heavier than it needs to."
           items={commonMistakes.length > 0 ? commonMistakes : getFallbackCommonMistakes(guide.slug)}
         />
@@ -532,10 +673,26 @@ export default function GuideEducationLayout({
 
       <SlideSection id={slideItems[6].id} background="ivory">
         <div className="space-y-8">
-          <NextSteps
-            links={nextSteps}
-            description="Use these links to keep the guide system connected. Every page should point back to the parent guide, the next logical decision, and a related category."
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            nextStepsDescription="Use these links to keep the guide system connected. Every page should point back to the parent guide, the next logical decision, and a related category."
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={!preview && guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
           />
+
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the main TMBC routes within reach."
+              description="If another category should lead the next decision, use the core guide map instead of starting over from scratch."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
+            />
+          ) : null}
 
           {supportingSections.length > 0 ? (
             <div className="grid gap-5 xl:grid-cols-2">
@@ -557,13 +714,6 @@ export default function GuideEducationLayout({
               ))}
             </div>
           ) : null}
-
-          <GuideBulletSection
-            eyebrow="Keep In Mind"
-            title="Keep In Mind"
-            description="If you only keep the short version, keep these."
-            items={takeaways}
-          />
 
           {guide.faqItems.length > 0 ? (
             <GuideFaqAccordion

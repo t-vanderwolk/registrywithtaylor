@@ -1,4 +1,5 @@
 import PostContent from '@/components/blog/PostContent';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
 import GuideDecisionSystemHub from '@/components/guides/GuideDecisionSystemHub';
@@ -6,11 +7,12 @@ import DecisionBlock from '@/components/guides/DecisionBlock';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
-import NextSteps from '@/components/guides/NextSteps';
 import RegistryGuideSlideLayout from '@/components/guides/RegistryGuideSlideLayout';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
-import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import ProductExampleCard from '@/components/guides/ProductExampleCard';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
@@ -18,9 +20,16 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import { extractFaqEntries } from '@/lib/blog/contentText';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, stripFaqBlocks } from '@/lib/guides/articleOutline';
+import { getGuideFinalThought, getGuideSignOff, getGuideTakeaways, getGuideWhatThisIs, getGuideWhyItExists } from '@/lib/guides/editorialSystem';
 import {
-  buildCoverBulletsFromOutline,
-  buildTakeawayBulletsFromOutline,
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideRealLifePrompt,
+  getGuideLifestyleImages,
+} from '@/lib/guides/experience';
+import {
   dedupeTextItems,
   getFallbackCommonMistakes,
   getGuideOrientation,
@@ -142,6 +151,30 @@ export default function GuideHubLayout({
   const nextGuideItems = getGuideNextGuideItems(guide.slug);
   const slideItems = getStandardGuideSlideItems('guide');
   const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
 
   if (!hubConfig && guide.slug !== 'best-strollers' && guide.slug !== 'best-infant-car-seats') {
     return null;
@@ -193,10 +226,21 @@ export default function GuideHubLayout({
     recommendation: item.description,
     href: item.href,
   }));
+  const whatThisIs = getGuideWhatThisIs({ guide, outline });
+  const whyItExists = getGuideWhyItExists({ guide, outline });
+  const finalThought = getGuideFinalThought({ guide, outline });
   const takeaways = dedupeTextItems(
-    [...buildTakeawayBulletsFromOutline(outline), ...hubConfig!.decisionItems.map((item) => item.description)],
+    getGuideTakeaways({
+      guide,
+      outline,
+      extraItems: hubConfig!.decisionItems.map((item) => item.description),
+    }),
     4,
   );
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
 
   return (
     <GuideSlideDeck
@@ -208,27 +252,34 @@ export default function GuideHubLayout({
         path: sourceRoute,
         category: guide.category,
       })}
+      journeyPathLabels={journeyPath}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
-        <GuideHero
-          slug={guide.slug}
-          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-          eyebrow={guide.category}
-          category={guide.category}
-          title={guide.title}
-          description={
-            guide.excerpt?.trim() ||
-            'A calmer editorial guide built to help you sort the tradeoffs, skip the noise, and move into the right next decision.'
-          }
-          readTime={`${readingTime} min`}
-          publishedLabel={formatArticleDate(displayDate)}
-          sectionCount={outline.sections.length}
-          jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
-          topicCluster={guide.topicCluster}
-          imageSrc={guide.heroImageUrl}
-          imageAlt={guide.heroImageAlt}
-          variant="default"
-        />
+        <div className="space-y-6">
+          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
+            <GuideBreadcrumbs items={breadcrumbs} />
+          </div>
+
+          <GuideHero
+            slug={guide.slug}
+            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            eyebrow={guide.category}
+            category={guide.category}
+            title={guide.title}
+            description={
+              guide.excerpt?.trim() ||
+              'A calmer editorial guide built to help you sort the tradeoffs, skip the noise, and move into the right next decision.'
+            }
+            readTime={`${readingTime} min`}
+            publishedLabel={formatArticleDate(displayDate)}
+            sectionCount={outline.sections.length}
+            jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+            topicCluster={guide.topicCluster}
+            imageSrc={guide.heroImageUrl}
+            imageAlt={guide.heroImageAlt}
+            variant="default"
+          />
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[1].id} background="white">
@@ -237,19 +288,21 @@ export default function GuideHubLayout({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <div className="space-y-6">
-          <GuideBulletSection
-            eyebrow="Editorial Intro"
-            title="Editorial Intro"
-            description="This is the calmer overview before the category starts splitting into narrower lanes."
-            items={dedupeTextItems(
-              [
-                ...buildCoverBulletsFromOutline(outline),
-                ...hubConfig!.cards.map((card) => card.title),
-                ...hubConfig!.decisionItems.map((item) => item.title),
-              ],
-              5,
-            )}
-            editorialImage={hubConfig?.editorialIntroImage}
+          <GuideJourneyIntro
+            title="Start here before the category splits into narrower lanes."
+            description="The parent guide should give you the shape of the category first so the next click feels more intelligent and less random."
+            intro={[
+              guide.excerpt?.trim() ||
+                'This hub is the wider editorial layer. Use it to understand the main routes before the narrower guide starts making promises.',
+              'You should leave this section knowing which lane fits your life best and which lane can wait its turn.',
+            ]}
+            calloutBody={getGuideRealLifePrompt({
+              slug: guide.slug,
+              category: guide.category,
+              topicCluster: guide.topicCluster,
+            })}
+            whatThisIs={whatThisIs}
+            whyItExists={whyItExists}
           />
 
           {outline.preface ? (
@@ -273,13 +326,15 @@ export default function GuideHubLayout({
               />
             </MarketingSurface>
           ) : null}
+
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
         </div>
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <div className="max-w-3xl space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
             <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
               The category lanes that usually make the next decision clearer.
             </h2>
@@ -312,8 +367,8 @@ export default function GuideHubLayout({
 
       <SlideSection id={slideItems[5].id} background="blush">
         <GuideBulletSection
-          eyebrow="Common Mistakes"
-          title="Common Mistakes"
+          eyebrow="What People Get Wrong"
+          title="What People Get Wrong"
           description="These are the habits that usually make hub pages feel heavier than they need to."
           items={getFallbackCommonMistakes(guide.slug)}
         />
@@ -321,25 +376,28 @@ export default function GuideHubLayout({
 
       <SlideSection id={slideItems[6].id} background="ivory">
         <div className="space-y-8">
-          <NextSteps links={nextSteps} />
-          <ProductRecommendations guide={guide} />
-          <GuideBulletSection
-            eyebrow="Keep In Mind"
-            title="Keep In Mind"
-            description="If the hub did its job, these are the parts that should still feel obvious when you leave."
-            items={takeaways}
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={!preview && guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
           />
 
-          {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
-
-          {!preview ? (
-            <GuideSoftConversionCta
-              title="Keep the next step calm."
-              description="Once the category feels clearer, the fastest win is following the next logical guide instead of reopening the whole decision from scratch."
-              href="/services"
-              ctaLabel="Learn about Taylor-Made Baby Planning"
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the broader TMBC map close."
+              description="Use the core guides when a different category should lead the next move, not just the loudest one."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
             />
           ) : null}
+
+          <ProductRecommendations guide={guide} />
+          {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}
 
           <GuideNextGuides items={nextGuideItems} />
         </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import GuideNextStep from '@/components/guides/GuideNextStep';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { GuideStageLabel } from '@/lib/guides/guideFlow';
@@ -34,23 +35,13 @@ export default function NextSteps({
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {links.map((link) => (
-            <Link
+            <GuideNextStep
               key={`${link.href}-${link.label}`}
+              label={link.label}
               href={link.href}
-              className="group rounded-[1.5rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.9)] p-5 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_50px_rgba(58,36,43,0.10)]"
-            >
-              {link.stage ? (
-                <span className="inline-flex min-h-[32px] items-center rounded-full bg-[rgba(215,161,175,0.14)] px-3 py-1 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62]">
-                  {link.stage}
-                </span>
-              ) : null}
-              <h3 className="mt-4 text-[1.22rem] font-medium leading-[1.1] tracking-[-0.02em] text-[#2F2430]">{link.label}</h3>
-              <p className="mt-3 text-sm leading-7 text-[#5B4B55]">{link.description}</p>
-              <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-[#8F4C62]">
-                <span>Open guide</span>
-                <span aria-hidden="true">-&gt;</span>
-              </span>
-            </Link>
+              description={link.description}
+              stage={link.stage}
+            />
           ))}
         </div>
 

@@ -94,7 +94,7 @@ export function getGuideEcosystemCurrentStep({
   const normalizedCategory = category?.trim().toLowerCase() ?? '';
 
   if (normalizedPath === '/guides' || normalizedSlug === 'guides-hub') {
-    return 4;
+    return 1;
   }
 
   if (normalizedSlug === 'nursery-setup-guide' || normalizedPath === '/guides/nursery' || normalizedCategory === 'nursery') {

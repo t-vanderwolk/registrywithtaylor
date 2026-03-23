@@ -3,10 +3,14 @@ import PostContent from '@/components/blog/PostContent';
 import AcademyHero from '@/components/guides/academy/AcademyHero';
 import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
 import DecisionBlock from '@/components/guides/DecisionBlock';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
+import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideFaqAccordion, { type GuideFaqAccordionItem } from '@/components/guides/GuideFaqAccordion';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
-import NextSteps from '@/components/guides/NextSteps';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
@@ -15,8 +19,24 @@ import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, splitGuideSectionContent } from '@/lib/guides/articleOutline';
 import { extractSectionSummary, stripSectionHeading } from '@/lib/guides/decisionSystemContent';
 import {
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideLifestyleImages,
+  getGuideRealLifePrompt,
+} from '@/lib/guides/experience';
+import {
+  getGuideFinalThought,
+  getGuideSignOff,
+  getGuideTakeaways,
+  getGuideWhatThisIs,
+  getGuideWhyItExists,
+} from '@/lib/guides/editorialSystem';
+import {
   dedupeTextItems,
   extractMarkdownListItems,
+  getDefaultNextSteps,
   getGuideOrientation,
   getStandardGuideSlideItems,
   guideHubLinkToNextStepLink,
@@ -142,6 +162,30 @@ export default function RegistryGuideSlideLayout({
   const outline = buildGuideOutline(articleContent);
   const hubConfig = getGuideHubConfig(guide.slug, sourceRoute);
   const supportLinks = hubConfig?.supportLinks ?? [];
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
   const introSection = findSectionByTitle(outline.sections, 'Baby Registry');
   const youAreHereSection = findSectionByTitle(outline.sections, 'YOU ARE HERE');
   const whatThisGuideCoversSection = findSectionByTitle(outline.sections, 'What This Guide Covers');
@@ -151,6 +195,23 @@ export default function RegistryGuideSlideLayout({
   const keyRuleSection = findSectionByTitle(outline.sections, 'KEY RULE');
   const nextStepsSection = findSectionByTitle(outline.sections, 'NEXT STEPS');
   const takeawaysSection = findSectionByTitle(outline.sections, 'TAKEAWAYS');
+  const whatThisIs = getGuideWhatThisIs({
+    guide: {
+      slug: guide.slug,
+      title: guide.title,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+    },
+    outline,
+  });
+  const whyItExists = getGuideWhyItExists({
+    guide: {
+      slug: guide.slug,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+    },
+    outline,
+  });
   const youAreHereRows = parseLabeledRows(youAreHereSection?.content ?? '');
   const slideItems = getStandardGuideSlideItems('guide');
   const fallbackOrientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
@@ -211,6 +272,7 @@ export default function RegistryGuideSlideLayout({
   ];
   const nextSteps = normalizeGuideLinks(
     [
+      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: '/guides',
         label: 'TMBC Education Hub',
@@ -232,14 +294,27 @@ export default function RegistryGuideSlideLayout({
     4,
   );
   const routeButtonGroups = parseRegistryRouteButtonGroups(nextStepsSection?.content ?? '');
-  const takeaways = dedupeTextItems(
-    [
+  const finalThought = getGuideFinalThought({
+    guide: {
+      slug: guide.slug,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+    },
+    outline,
+  });
+  const takeaways = getGuideTakeaways({
+    guide: { slug: guide.slug },
+    outline,
+    extraItems: [
       ...extractMarkdownListItems(takeawaysSection?.content ?? '', 4),
       ...extractMarkdownListItems(keyRuleSection?.content ?? '', 2),
       'Build the registry in the right order before comparing products.',
     ],
-    4,
-  );
+  });
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
   const heroImage = resolveGuideHeroImage({
     slug: guide.slug,
     title: guide.title,
@@ -265,9 +340,12 @@ export default function RegistryGuideSlideLayout({
         path: sourceRoute,
         category: guide.category,
       })}
+      journeyPathLabels={journeyPath}
     >
       <SlideSection id={slideItems[0].id} background="ivory">
         <div className="space-y-8">
+          <GuideBreadcrumbs items={breadcrumbs} />
+
           <AcademyHero
             eyebrow={guide.category}
             title={guide.title}
@@ -308,15 +386,36 @@ export default function RegistryGuideSlideLayout({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <div className="space-y-6">
+          <GuideJourneyIntro
+            title="Start here before the registry turns into a longer list."
+            description="The parent registry guide should make the system feel smaller and more orderly before you start comparing categories, retailers, or perks."
+            intro={[
+              'Registry planning works better when the system comes first. The list gets calmer once timing, category priorities, and room for later decisions are doing more of the work.',
+              'Use this page to understand the registry sequence, then move into the narrower sub-guide that matches the question you are actually asking.',
+            ]}
+            calloutBody={getGuideRealLifePrompt({
+              slug: guide.slug,
+              category: guide.category,
+              topicCluster: guide.topicCluster,
+            })}
+            whatThisIs={whatThisIs}
+            whyItExists={whyItExists}
+          />
+
           <GuideBulletSection
-            eyebrow="Editorial Intro"
-            title="Editorial Intro"
-            description="The registry hub should stay readable at a glance."
-            items={
-              extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5).length > 0
-                ? extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5)
-                : dedupeTextItems(registrySystemSteps.map((step) => step.title), 5)
-            }
+            eyebrow="What It Is"
+            title="What It Is"
+            description="This is the short editorial frame before the registry gets more detailed."
+            items={dedupeTextItems(
+              [
+                whatThisIs,
+                whyItExists,
+                ...(extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 3).length > 0
+                  ? extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 3)
+                  : registrySystemSteps.map((step) => step.title)),
+              ],
+              5,
+            )}
             editorialImage={{
               eyebrow: 'Editorial image',
               src: '/assets/services/smartbuying.jpeg',
@@ -335,6 +434,8 @@ export default function RegistryGuideSlideLayout({
               />
             </MarketingSurface>
           ) : null}
+
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
         </div>
       </SlideSection>
 
@@ -342,7 +443,7 @@ export default function RegistryGuideSlideLayout({
         <div className="space-y-8">
           <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
             <div className="space-y-4">
-              <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
+              <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
               <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
                 The registry works better when the order is doing some of the thinking for you.
               </h2>
@@ -413,8 +514,8 @@ export default function RegistryGuideSlideLayout({
 
       <SlideSection id={slideItems[5].id} background="blush">
         <GuideBulletSection
-          eyebrow="Common Mistakes"
-          title="Common Mistakes"
+          eyebrow="What People Get Wrong"
+          title="What People Get Wrong"
           description="These are the practical misses that usually turn a registry into a longer, noisier list."
           items={
             extractMarkdownListItems(commonMistakesSection?.content ?? '', 5).length > 0
@@ -486,20 +587,28 @@ export default function RegistryGuideSlideLayout({
             </MarketingSurface>
           ) : null}
 
-          <NextSteps
-            title="Next Steps"
-            description="Once the registry sequence is clearer, use the next guide that matches the question in front of you."
-            links={nextSteps}
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            nextStepsDescription="Once the registry sequence is clearer, use the next guide that matches the question in front of you."
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
           />
+
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the main TMBC routes close."
+              description="If another category should lead next, move there cleanly instead of reopening the whole registry question from scratch."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
+            />
+          ) : null}
 
           <GuideNextGuides items={nextGuideItems} />
-
-          <GuideBulletSection
-            eyebrow="Keep In Mind"
-            title="Keep In Mind"
-            description="If you only keep the short version, keep these."
-            items={takeaways}
-          />
 
           {keyRuleSection ? (
             <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">

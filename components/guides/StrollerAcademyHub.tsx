@@ -8,15 +8,28 @@ import LaneOverviewGrid from '@/components/guides/academy/LaneOverviewGrid';
 import PlanningFlow from '@/components/guides/academy/PlanningFlow';
 import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
+import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import DecisionBlock from '@/components/guides/DecisionBlock';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
+import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
+import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
+import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
+import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
-import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
-import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
+import {
+  getCoreGuideRouteCards,
+  getGuideBlogRecommendations,
+  getGuideBreadcrumbs,
+  getGuideJourneyPath,
+  getGuideLifestyleImages,
+  getGuideRealLifePrompt,
+} from '@/lib/guides/experience';
+import { getGuideSignOff } from '@/lib/guides/editorialSystem';
+import { dedupeTextItems, getDefaultNextSteps, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import {
   getStrollerAcademyFlowchart,
@@ -62,6 +75,49 @@ export default function StrollerAcademyHub({
   const tryChecklist = getStrollerAcademyTryChecklist();
   const slideItems = getStandardGuideSlideItems('guide');
   const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const breadcrumbs = getGuideBreadcrumbs({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
+  const coreGuideRoutes = getCoreGuideRouteCards({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+  });
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const blogRecommendations = getGuideBlogRecommendations({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const whatThisIs =
+    'A stroller decision hub that sorts the main stroller lanes before product comparisons start acting like they all solve the same job.';
+  const whyItExists =
+    'Stroller shopping gets noisy when every model tries to sound universal. This page exists to separate lane fit from product hype.';
+  const finalThought =
+    'The stroller decision usually gets much easier once the lane is clear. Then the shortlist only has to solve the right job, which is a far more civilized assignment.';
+  const takeaways = dedupeTextItems(
+    [
+      'Choose the stroller lane before you compare the products inside it.',
+      'Let your real week, not your hypothetical future, do more of the talking.',
+      'Validate the fold, the lift, and the trunk reality before you buy.',
+      'Move from lane to shortlist without slipping back into generic stroller browsing.',
+    ],
+    4,
+  );
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
+  });
+  const journeyPath = getGuideJourneyPath({
+    slug: guide.slug,
+    title: guide.title,
+    topicCluster: guide.topicCluster,
+  });
   const stageItems: AcademyStageNavItem[] = [
     {
       id: 'start',
@@ -94,6 +150,7 @@ export default function StrollerAcademyHub({
   ];
   const nextSteps = normalizeGuideLinks(
     [
+      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: getStrollerAcademyLane('convertible-strollers')?.href || '/guides/strollers/convertible-strollers',
         label: 'Open the Convertible Lane',
@@ -146,28 +203,35 @@ export default function StrollerAcademyHub({
         path: sourceRoute,
         category: guide.category,
       })}
+      journeyPathLabels={journeyPath}
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
-        <AcademyHero
-          eyebrow="TMBC Academy · Strollers"
-          title="Choose your stroller with confidence, not confusion."
-          description="Most parents do not choose the wrong stroller. They choose the wrong category. This stroller Academy helps you learn the lanes, plan around real life, test the fit, and buy without guesswork."
-          note="The stroller should make your week easier. It does not need to win a showroom talent competition."
-          primaryCta={{ label: 'Start Your Stroller Plan', href: `${sourceRoute}#${slideItems[4].id}` }}
-          secondaryCta={{ label: 'Explore Stroller Lanes', href: `${sourceRoute}#${slideItems[3].id}` }}
-          stageItems={stageItems}
-          stats={[
-            { label: 'Academy stages', value: '7 guide stops' },
-            { label: 'Stroller lanes', value: String(lanes.length) },
-            { label: 'Quick start', value: `${readingTime} min` },
-          ]}
-          parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-          imageSrc={displayHeroImage.src}
-          imageAlt={displayHeroImage.alt}
-          imageAspectClassName="aspect-[16/11]"
-          imageObjectClassName="object-cover object-center"
-          imagePriority
-        />
+        <div className="space-y-6">
+          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
+            <GuideBreadcrumbs items={breadcrumbs} />
+          </div>
+
+          <AcademyHero
+            eyebrow="TMBC Academy · Strollers"
+            title="Choose your stroller with confidence, not confusion."
+            description="Most parents do not choose the wrong stroller. They choose the wrong category. This stroller Academy helps you learn the lanes, plan around real life, test the fit, and buy without guesswork."
+            note="The stroller should make your week easier. It does not need to win a showroom talent competition."
+            primaryCta={{ label: 'Start Your Stroller Plan', href: `${sourceRoute}#${slideItems[4].id}` }}
+            secondaryCta={{ label: 'Explore Stroller Lanes', href: `${sourceRoute}#${slideItems[3].id}` }}
+            stageItems={stageItems}
+            stats={[
+              { label: 'Academy stages', value: '7 guide stops' },
+              { label: 'Stroller lanes', value: String(lanes.length) },
+              { label: 'Quick start', value: `${readingTime} min` },
+            ]}
+            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            imageSrc={displayHeroImage.src}
+            imageAlt={displayHeroImage.alt}
+            imageAspectClassName="aspect-[16/11]"
+            imageObjectClassName="object-cover object-center"
+            imagePriority
+          />
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[1].id} background="white">
@@ -175,29 +239,49 @@ export default function StrollerAcademyHub({
       </SlideSection>
 
       <SlideSection id={slideItems[2].id} background="blush">
-        <GuideBulletSection
-          eyebrow="Editorial Intro"
-          title="Editorial Intro"
-          description="The stroller hub should get the category under control before you start scrolling product grids."
-          items={[
-            'The real-life factors that separate stroller lanes before brands enter the conversation.',
-            'The stroller lane map for full-size, compact, travel, convertible, double, and jogging.',
-            'A planning flow that translates routine, storage, travel, and terrain into a clearer fit.',
-            'The test checklist and next links that move you from theory into validation and buying.',
-          ]}
-          editorialImage={{
-            eyebrow: 'Editorial image',
-            src: '/assets/editorial/editorialstroller.png',
-            alt: 'Editorial stroller image for the TMBC stroller hub.',
-            caption: 'Stroller decisions get calmer once you can see the category as a daily-life fit problem instead of a product popularity contest.',
-          }}
-        />
+        <div className="space-y-6">
+          <GuideJourneyIntro
+            title="Start here before you compare a single stroller."
+            description="The Academy should make the category smaller before the product grid gets a vote."
+            intro={[
+              'The real-life factors that separate stroller lanes matter more than the brand page pretending every family wants the same thing.',
+              'Use this page to sort daily workflow, storage pressure, travel, terrain, and future planning before you shortlist anything with a cup holder and strong opinions.',
+            ]}
+            calloutBody={getGuideRealLifePrompt({
+              slug: guide.slug,
+              category: guide.category,
+              topicCluster: guide.topicCluster,
+            })}
+            whatThisIs={whatThisIs}
+            whyItExists={whyItExists}
+          />
+
+          <GuideBulletSection
+            eyebrow="Orientation"
+            title="Orientation"
+            description="These are the lenses this hub uses to keep stroller shopping from becoming brand theater."
+            items={[
+              'The real-life factors that separate stroller lanes before brands enter the conversation.',
+              'The stroller lane map for full-size, compact, travel, convertible, double, and jogging.',
+              'A planning flow that translates routine, storage, travel, and terrain into a clearer fit.',
+              'The test checklist and next links that move you from theory into validation and buying.',
+            ]}
+            editorialImage={{
+              eyebrow: 'Editorial image',
+              src: '/assets/editorial/editorialstroller.png',
+              alt: 'Editorial stroller image for the TMBC stroller hub.',
+              caption: 'Stroller decisions get calmer once you can see the category as a daily-life fit problem instead of a product popularity contest.',
+            }}
+          />
+
+          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <StageLead
-            eyebrow="Core Considerations"
+            eyebrow="What Matters"
             title="Start with the role the stroller has to play in your real life."
             description="The category gets easier once you sort daily workflow, storage pressure, travel, future sibling timing, and route quality."
           />
@@ -279,8 +363,8 @@ export default function StrollerAcademyHub({
       <SlideSection id={slideItems[5].id} background="blush">
         <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Common Mistakes"
-            title="Common Mistakes"
+            eyebrow="What People Get Wrong"
+            title="What People Get Wrong"
             description="This is where stroller shopping usually gets louder than it needs to."
             items={[
               'Comparing stroller models before the lane is clear.',
@@ -330,26 +414,26 @@ export default function StrollerAcademyHub({
             })}
           </div>
 
-          <NextSteps
-            title="Next Steps"
-            description="Once the lane is clearer, use the next guide or category while the logic is still fresh."
-            links={nextSteps}
+          <GuideJourneyFooter
+            finalThought={finalThought}
+            takeaways={takeaways}
+            signOff={signOff}
+            nextSteps={nextSteps}
+            nextStepsDescription="Once the lane is clearer, use the next guide or category while the logic is still fresh."
+            blogRecommendations={blogRecommendations}
+            consultationEnabled={guide.consultationCtaEnabled !== false}
+            consultationLabel={guide.consultationCtaLabel}
           />
 
-          <GuideBulletSection
-            eyebrow="Keep In Mind"
-            title="Keep In Mind"
-            description="The whole point is to make stroller buying feel calmer and more linear."
-            items={dedupeTextItems(
-              [
-                'Choose the stroller lane before you compare the products inside it.',
-                'Let your real week, not your hypothetical future, do more of the talking.',
-                'Validate the fold, the lift, and the trunk reality before you buy.',
-                'Move from lane to shortlist without slipping back into generic stroller browsing.',
-              ],
-              4,
-            )}
-          />
+          {coreGuideRoutes.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="Core guides"
+              title="Keep the rest of the TMBC map close."
+              description="The stroller answer gets stronger when you can route cleanly into the next category instead of reopening the whole search."
+              cards={coreGuideRoutes}
+              ctaLabel="Open guide"
+            />
+          ) : null}
 
           <ExpertTipCallout
             eyebrow="TMBC Buy Rule"

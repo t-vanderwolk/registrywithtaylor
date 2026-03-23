@@ -2,7 +2,9 @@ import { stripMarkdown } from '@/lib/blog/contentText';
 import type { GuideOutline } from '@/lib/guides/articleOutline';
 import { getFutureGuideHubConfig } from '@/lib/guides/educationHub';
 import { getGuideNextGuideItems } from '@/lib/guides/hubs';
+import { getNurserySubGuideBySlug } from '@/lib/guides/nurserySubguides';
 import type { GuideHubLink } from '@/lib/guides/hubs';
+import { getNextGuideLane } from '@/lib/guides/masterJourney';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuidePath, getGuideParentSlug } from '@/lib/guides/routing';
 import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
@@ -27,10 +29,10 @@ export function getStandardGuideSlideItems(prefix: string): StandardGuideSlideIt
   return [
     { id: `${prefix}-overview`, label: 'Title + Intro', shortLabel: 'Intro' },
     { id: `${prefix}-you-are-here`, label: 'You Are Here', shortLabel: 'Path' },
-    { id: `${prefix}-covers`, label: 'Editorial Intro', shortLabel: 'Edit' },
-    { id: `${prefix}-core-content`, label: 'Core Considerations', shortLabel: 'Core' },
-    { id: `${prefix}-decision`, label: 'Decision Section', shortLabel: 'Decide' },
-    { id: `${prefix}-mistakes`, label: 'Common Mistakes', shortLabel: 'Avoid' },
+    { id: `${prefix}-covers`, label: 'Orientation', shortLabel: 'Start' },
+    { id: `${prefix}-core-content`, label: 'What Matters', shortLabel: 'Matter' },
+    { id: `${prefix}-decision`, label: 'Decision Framework', shortLabel: 'Decide' },
+    { id: `${prefix}-mistakes`, label: 'What People Get Wrong', shortLabel: 'Avoid' },
     { id: `${prefix}-next-steps`, label: 'Next Steps', shortLabel: 'Next' },
   ];
 }
@@ -902,6 +904,22 @@ export function getGuideOrientation({
     };
   }
 
+  const nurserySubGuide = getNurserySubGuideBySlug(slug);
+  if (nurserySubGuide) {
+    const nurseryGoals: Record<string, string> = {
+      'nursery-sleep-setup': 'Choose the sleep setup that fits your room, your first months, and your actual nights.',
+      'nursery-changing-station': 'Build a changing route that keeps the supplies close and the restocking logic obvious.',
+      'nursery-furniture': 'Choose the pieces that earn their floor space and still make sense once the room starts evolving.',
+      'nursery-storage': 'Build a storage system that keeps the daily items visible and the backups from taking over.',
+    };
+
+    return {
+      step: 'Decide',
+      category: 'Nursery',
+      goal: nurseryGoals[nurserySubGuide.slug] ?? 'Use this guide to solve the part of the room creating the most daily friction.',
+    };
+  }
+
   const parentSlug = getGuideParentSlug({ slug, topicCluster });
   if (parentSlug === 'best-strollers') {
     return {
@@ -951,6 +969,26 @@ export function getFallbackCommonMistakes(slug: string) {
       'Using floor space without checking the actual route between sleep, changing, and storage.',
       'Buying furniture before the room measurements and storage needs are honest.',
       'Filling the nursery with backup products instead of calmer systems.',
+    ],
+    'nursery-sleep-setup': [
+      'Buying the biggest sleep piece before checking the room, route, and first-year plan honestly.',
+      'Treating every sleep support like a safety requirement instead of separating safe basics from convenience extras.',
+      'Planning the nursery sleep zone without considering whether baby will room-share first.',
+    ],
+    'nursery-changing-station': [
+      'Building a cute diaper area without checking whether the wipes, creams, and backup clothes are actually within reach.',
+      'Using storage containers without a restocking plan, then wondering why the station feels messy again in three days.',
+      'Choosing a dedicated changing table before asking whether a dresser-top setup would solve the job with less floor space.',
+    ],
+    'nursery-furniture': [
+      'Letting matching sets decide the room before the room has decided what it can comfortably hold.',
+      'Buying furniture for a future version of the nursery that makes the newborn setup harder right now.',
+      'Giving major floor space to low-use furniture while the daily-use pieces are still underpowered.',
+    ],
+    'nursery-storage': [
+      'Treating baskets like a storage system when they are still just unlabeled piles with better lighting.',
+      'Mixing daily-use supplies and backup stock until every drawer feels fuller and less useful.',
+      'Storing the high-use items beautifully but farther away than the routine can actually tolerate.',
     ],
     'travel-with-baby': [
       'Trying to solve the whole trip at once instead of the hardest transition first.',
@@ -1053,9 +1091,22 @@ export function getDefaultNextSteps({
   slug: string;
   topicCluster?: string | null;
 }) {
+  const masterNextLane = getNextGuideLane({ slug, topicCluster });
+  const masterNextLink = masterNextLane
+    ? {
+        href: masterNextLane.href,
+        label: masterNextLane.slug === 'buy' ? 'Book a Consultation' : `Next: ${masterNextLane.title}`,
+        description:
+          masterNextLane.slug === 'buy'
+            ? 'You have reached the end of the core TMBC path. Book support when you want help turning the clearer plan into an actual shortlist and buying decision.'
+            : `The next core TMBC lane after this one is ${masterNextLane.title}. Keep the sequence clean while this decision is still fresh.`,
+        stage: 'Refine' as const,
+      }
+    : null;
+
   const curatedLinks = CURATED_NEXT_STEP_LINKS[slug];
   if (curatedLinks) {
-    return normalizeGuideLinks(curatedLinks, 4);
+    return normalizeGuideLinks([...(masterNextLink ? [masterNextLink] : []), ...curatedLinks], 4);
   }
 
   const parentSlug = getGuideParentSlug({ slug, topicCluster });
@@ -1080,5 +1131,5 @@ export function getDefaultNextSteps({
     });
   }
 
-  return normalizeGuideLinks(links);
+  return normalizeGuideLinks([...(masterNextLink ? [masterNextLink] : []), ...links], 4);
 }

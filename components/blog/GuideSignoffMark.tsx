@@ -14,14 +14,14 @@ export default function GuideSignoffMark({ className }: { className?: string }) 
           transform="rotate(-5 380 170)"
           style={{ fontFamily: '"Caveat", cursive', fontWeight: 600, fontSize: '214px', letterSpacing: '8px' }}
         >
-          XOXO
+          xoxo
         </text>
         <text
           x="230"
           y="408"
           style={{ fontFamily: '"Caveat", cursive', fontWeight: 600, fontSize: '178px', letterSpacing: '2px' }}
         >
-          - T
+          -T
         </text>
       </g>
     </svg>

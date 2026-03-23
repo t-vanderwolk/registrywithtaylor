@@ -31,6 +31,7 @@ export default function AcademyHero({
   imageObjectClassName,
   imagePriority = false,
   imageOverlaySlot,
+  directionalHint = "Keep going -> we'll walk through this step by step",
 }: {
   eyebrow: string;
   title: string;
@@ -48,6 +49,7 @@ export default function AcademyHero({
   imageObjectClassName?: string;
   imagePriority?: boolean;
   imageOverlaySlot?: ReactNode;
+  directionalHint?: string;
 }) {
   const trimmedImageSrc = imageSrc?.trim() || '';
   const hasHeroImage = Boolean(trimmedImageSrc);
@@ -55,9 +57,9 @@ export default function AcademyHero({
   const hasFooterCards = stats.length > 0 || Boolean(note) || Boolean(asideSlot);
 
   return (
-    <section className="relative min-w-0 overflow-hidden rounded-[1.7rem] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.96)_54%,rgba(247,231,236,0.88))] px-4 py-7 shadow-[0_28px_90px_rgba(71,44,53,0.08)] sm:rounded-[2.5rem] sm:px-8 sm:py-12 lg:px-12 lg:py-14">
-      <div className="relative space-y-6 sm:space-y-8">
-        <div className="relative isolate overflow-hidden rounded-[2.15rem] border border-[rgba(215,161,175,0.16)] bg-[linear-gradient(135deg,rgba(252,247,241,0.98),rgba(255,252,253,0.97)_48%,rgba(247,233,238,0.86))] shadow-[0_28px_90px_rgba(71,44,53,0.10)] sm:rounded-[2.45rem]">
+    <section className="relative min-w-0 overflow-hidden rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.96)_54%,rgba(247,231,236,0.88))] px-3.5 py-5 shadow-[0_28px_90px_rgba(71,44,53,0.08)] sm:rounded-[2.5rem] sm:px-8 sm:py-12 lg:px-12 lg:py-14">
+      <div className="relative space-y-5 sm:space-y-8">
+        <div className="relative isolate overflow-hidden rounded-[1.75rem] border border-[rgba(215,161,175,0.16)] bg-[linear-gradient(135deg,rgba(252,247,241,0.98),rgba(255,252,253,0.97)_48%,rgba(247,233,238,0.86))] shadow-[0_28px_90px_rgba(71,44,53,0.10)] sm:rounded-[2.45rem]">
           <div className="pointer-events-none absolute left-[-4rem] top-[-3rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.16)_0%,rgba(232,154,174,0)_72%)] blur-3xl" />
           <div className="pointer-events-none absolute right-[-5rem] bottom-[-4rem] h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(196,156,94,0.14)_0%,rgba(196,156,94,0)_74%)] blur-3xl" />
 
@@ -79,7 +81,7 @@ export default function AcademyHero({
             </div>
           ) : null}
 
-          <div className={`relative z-10 flex min-h-[31rem] flex-col justify-between gap-8 px-4 py-6 sm:min-h-[34rem] sm:gap-10 sm:px-8 sm:py-10 lg:min-h-[clamp(34rem,78vh,50rem)] lg:px-12 lg:py-12 ${hasHeroImage ? 'lg:pr-[14rem] xl:pr-[18rem]' : ''}`}>
+          <div className={`relative z-10 flex min-h-[18rem] flex-col justify-between gap-7 px-4 py-5 sm:min-h-[24rem] sm:gap-10 sm:px-8 sm:py-10 lg:min-h-[clamp(26rem,58vh,38rem)] lg:px-12 lg:py-10 ${hasHeroImage ? 'lg:pr-[14rem] xl:pr-[18rem]' : ''}`}>
             <div className="min-w-0 max-w-3xl">
               {parentLink ? (
                 <a
@@ -92,10 +94,10 @@ export default function AcademyHero({
               <p className="mt-3 text-[0.65rem] uppercase tracking-[0.24em] text-[#9F556D] sm:text-[0.72rem] sm:tracking-[0.34em]">
                 {eyebrow}
               </p>
-              <h1 className="mt-4 max-w-[10ch] text-balance text-[clamp(2.35rem,11.5vw,5rem)] font-medium leading-[0.92] tracking-[-0.05em] text-[#2F2430] sm:max-w-[11ch] sm:leading-[0.98]">
+              <h1 className="mt-4 max-w-[10ch] text-balance text-[clamp(2.1rem,11vw,5rem)] font-medium leading-[0.92] tracking-[-0.05em] text-[#2F2430] sm:max-w-[11ch] sm:leading-[0.98]">
                 {title}
               </h1>
-              <p className="mt-5 max-w-[39rem] text-[0.96rem] leading-7 text-[#5B4B55] sm:mt-6 sm:text-[1.08rem] sm:leading-8">
+              <p className="mt-4 max-w-[39rem] text-[0.94rem] leading-7 text-[#5B4B55] sm:mt-6 sm:text-[1.08rem] sm:leading-8">
                 {description}
               </p>
 
@@ -119,14 +121,20 @@ export default function AcademyHero({
                   ) : null}
                 </div>
               ) : null}
+
+              {directionalHint ? (
+                <p className="mt-4 text-[0.92rem] leading-7 text-[#6A5660] sm:text-[0.98rem]">
+                  {directionalHint}
+                </p>
+              ) : null}
             </div>
 
             {hasFooterCards ? (
               <div className="w-full max-w-5xl">
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.9fr))]">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.9fr))]">
                   {note ? (
                     <GuideHandwrittenNote
-                      className="col-span-2 h-full xl:col-auto"
+                      className="h-full sm:col-span-2 xl:col-auto"
                       title={note}
                       size="compact"
                       presentation="margin"

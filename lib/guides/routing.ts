@@ -1,6 +1,9 @@
+import { NURSERY_GUIDE_PARENT_SLUG, NURSERY_GUIDE_TOPIC_CLUSTER, NURSERY_SUBGUIDE_DEFINITIONS } from '@/lib/guides/nurserySubguides';
+
 const GUIDE_PARENT_BY_CLUSTER: Record<string, string> = {
   'TMBC Learning Library: Strollers': 'best-strollers',
   'TMBC Learning Library: Car Seats': 'best-infant-car-seats',
+  [NURSERY_GUIDE_TOPIC_CLUSTER]: NURSERY_GUIDE_PARENT_SLUG,
 };
 
 const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
@@ -16,6 +19,7 @@ const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
   'booster-seats': 'best-infant-car-seats',
   'rotating-car-seats': 'best-infant-car-seats',
   'travel-lightweight-car-seats': 'best-infant-car-seats',
+  ...Object.fromEntries(NURSERY_SUBGUIDE_DEFINITIONS.map((guide) => [guide.slug, NURSERY_GUIDE_PARENT_SLUG])),
 };
 
 const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
@@ -32,6 +36,7 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'travel-lightweight-car-seats': 'travel-lightweight-car-seats',
   'compact-lightweight-strollers': 'compact-strollers',
   'jogging-all-terrain-strollers': 'jogging-strollers',
+  ...Object.fromEntries(NURSERY_SUBGUIDE_DEFINITIONS.map((guide) => [guide.slug, guide.routeSegment])),
 };
 
 const GUIDE_SLUG_BY_ROUTE_SEGMENT: Record<string, string> = {

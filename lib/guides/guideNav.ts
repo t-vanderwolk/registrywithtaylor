@@ -4,7 +4,18 @@ const GUIDE_STICKY_GAP = 10;
 
 export function isScrollableGuideContainer(container: HTMLElement) {
   const styles = window.getComputedStyle(container);
-  return styles.overflowY !== 'visible' && container.scrollHeight > container.clientHeight + 4;
+  return (
+    (styles.overflowY !== 'visible' && container.scrollHeight > container.clientHeight + 4) ||
+    (styles.overflowX !== 'visible' && container.scrollWidth > container.clientWidth + 4)
+  );
+}
+
+function isHorizontalGuideContainer(container: HTMLElement) {
+  return (
+    container.dataset.guideCarousel === 'true' &&
+    container.scrollWidth > container.clientWidth + 4 &&
+    window.getComputedStyle(container).overflowX !== 'visible'
+  );
 }
 
 export function getSiteHeaderHeight() {
@@ -43,6 +54,10 @@ export function getGuideViewportOffset(containerId?: string) {
   const container = containerId ? document.getElementById(containerId) : null;
 
   if (container instanceof HTMLElement && isScrollableGuideContainer(container)) {
+    if (isHorizontalGuideContainer(container)) {
+      return 0;
+    }
+
     return 72;
   }
 
@@ -58,6 +73,15 @@ export function scrollToGuideSection(id: string, containerId?: string) {
   const container = containerId ? document.getElementById(containerId) : null;
 
   if (container instanceof HTMLElement && isScrollableGuideContainer(container)) {
+    if (isHorizontalGuideContainer(container)) {
+      const offsetLeft = Math.max(section.offsetLeft, 0);
+      container.scrollTo({
+        left: offsetLeft,
+        behavior: 'smooth',
+      });
+      return;
+    }
+
     const offsetTop = Math.max(section.offsetTop - 24, 0);
     container.scrollTo({
       top: offsetTop,
@@ -96,6 +120,23 @@ export function getActiveGuideSectionFromScroll({
   const resolvedViewportOffset = viewportOffset ?? getGuideViewportOffset(containerId);
 
   if (container instanceof HTMLElement && isScrollableGuideContainer(container)) {
+    if (isHorizontalGuideContainer(container)) {
+      const anchor = container.scrollLeft + container.clientWidth / 2;
+      const passedSections = sections
+        .map((section) => ({
+          id: section.id,
+          left: section.offsetLeft + section.clientWidth / 2,
+        }))
+        .filter((section) => section.left <= anchor)
+        .sort((left, right) => left.left - right.left);
+
+      if (passedSections.length > 0) {
+        return passedSections[passedSections.length - 1]?.id ?? items[0]?.id ?? '';
+      }
+
+      return sections[0]?.id ?? items[0]?.id ?? '';
+    }
+
     const anchor = container.scrollTop + resolvedViewportOffset;
     const passedSections = sections
       .map((section) => ({

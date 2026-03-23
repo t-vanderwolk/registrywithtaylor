@@ -20,11 +20,13 @@ export default function GuideStickyNav({
   items,
   containerId,
   backLink,
+  pathLabels,
   className = '',
 }: {
   items: ProgressIndicatorItem[];
   containerId?: string;
   backLink?: GuideStickyNavLink | null;
+  pathLabels?: string[];
   className?: string;
 }) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
@@ -111,6 +113,12 @@ export default function GuideStickyNav({
   }, [containerId, items]);
 
   const activeItem = items.find((item) => item.id === activeId) ?? items[0] ?? null;
+  const activeIndex = Math.max(
+    items.findIndex((item) => item.id === activeId),
+    0,
+  );
+  const journeyPath = (pathLabels ?? []).filter(Boolean).join(' -> ');
+  const currentLane = pathLabels?.[1] ?? activeItem?.label ?? 'Guide';
   const resolvedBackLink = backLink ?? { href: '/guides', label: 'Back to TMBC Hub' };
 
   if (!resolvedBackLink && items.length === 0) {
@@ -123,28 +131,80 @@ export default function GuideStickyNav({
         ref={navRef}
         data-guide-sticky-nav
         aria-label="Guide navigation"
-        className="overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.22)] bg-[rgba(255,252,251,0.97)] shadow-[0_14px_28px_rgba(58,36,43,0.08)] backdrop-blur-[12px] sm:rounded-[1.1rem]"
+        className="overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.22)] bg-[rgba(255,252,251,0.97)] shadow-[0_12px_24px_rgba(58,36,43,0.08)] backdrop-blur-[12px] sm:rounded-[1.1rem]"
       >
-        <div className="flex flex-col gap-1.5 p-1.5 sm:gap-2 sm:p-2.5">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-col gap-1.5 p-1.5 sm:gap-1.5 sm:p-2">
+          <div className="grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
             {resolvedBackLink ? (
               <Link
                 href={resolvedBackLink.href}
-                className="inline-flex min-h-[36px] items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/94 px-3 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.16em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-[38px] sm:justify-start sm:text-[0.62rem] sm:tracking-[0.18em]"
+                className="inline-flex min-h-[36px] w-full items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/94 px-3 py-1.5 text-[0.56rem] font-medium uppercase tracking-[0.16em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-[36px] sm:w-auto sm:justify-start sm:text-[0.6rem] sm:tracking-[0.18em]"
               >
                 {resolvedBackLink.label}
               </Link>
             ) : null}
 
-            {activeItem ? (
-              <div className="inline-flex min-h-[36px] min-w-0 max-w-full items-center rounded-full bg-[rgba(250,244,246,0.96)] px-3 py-1.5 text-[0.58rem] uppercase tracking-[0.14em] text-[#9F556D] sm:min-h-[38px] sm:text-[0.62rem] sm:tracking-[0.16em]">
-                <span className="mr-2 h-2 w-2 shrink-0 rounded-full bg-[#C77D97]" />
-                <span className="hidden shrink-0 sm:inline">Now Viewing</span>
-                <span className="truncate text-[0.82rem] font-medium normal-case tracking-normal text-[#2F2430] sm:ml-2 sm:text-sm">
-                  {activeItem.label}
-                </span>
+            <div className="min-w-0 w-full rounded-[0.95rem] border border-[rgba(215,161,175,0.14)] bg-[rgba(255,255,255,0.78)] px-3 py-2 sm:flex-1 sm:max-w-[62%]">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  {items.length > 0 ? (
+                    <>
+                      <span className="text-[0.8rem] font-medium leading-5 text-[#4B3641] sm:hidden">
+                        {`Step ${activeIndex + 1}/${items.length}`}
+                      </span>
+                      <span className="hidden text-[0.82rem] font-medium leading-6 text-[#4B3641] sm:inline sm:text-[0.9rem]">
+                        {`Step ${activeIndex + 1} of ${items.length} · ${currentLane}`}
+                      </span>
+                    </>
+                  ) : null}
+
+                  <p className="mt-0.5 truncate text-[0.72rem] leading-5 text-[#6A5660] sm:hidden">
+                    {currentLane}
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-1.5">
+                  {items.map((item, index) => {
+                    const isActive = item.id === activeId;
+
+                    return (
+                      <button
+                        key={`dot-${item.id}`}
+                        type="button"
+                        aria-label={`Go to step ${index + 1}: ${item.label}`}
+                        aria-current={isActive ? 'step' : undefined}
+                        onClick={() => scrollToGuideSection(item.id, containerId)}
+                        className="group inline-flex h-3.5 w-3.5 items-center justify-center"
+                      >
+                        <span
+                          className={[
+                            'block h-2 w-2 rounded-full border transition duration-200',
+                            isActive
+                              ? 'border-[#A15B72] bg-[#A15B72]'
+                              : 'border-[rgba(161,91,114,0.32)] bg-white group-hover:border-[#A15B72]',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            ) : null}
+
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+                {activeItem ? (
+                  <p className="max-w-full truncate text-[0.74rem] leading-5 text-[#6A5660] sm:text-[0.82rem]">
+                    {activeItem.label}
+                  </p>
+                ) : null}
+                {journeyPath ? (
+                  <p className="hidden text-[0.74rem] leading-5 text-[#7A6670] md:block">
+                    {journeyPath}
+                  </p>
+                ) : null}
+              </div>
+            </div>
           </div>
 
           {items.length > 1 ? (
@@ -158,7 +218,7 @@ export default function GuideStickyNav({
                     type="button"
                     onClick={() => scrollToGuideSection(item.id, containerId)}
                     aria-current={isActive ? 'step' : undefined}
-                    className={`inline-flex min-h-[36px] shrink-0 items-center rounded-full border px-3 py-1.5 text-[0.78rem] transition duration-300 sm:min-h-[38px] sm:py-2 sm:text-[0.88rem] ${
+                    className={`inline-flex min-h-[32px] shrink-0 items-center rounded-full border px-2.5 py-1.5 text-[0.72rem] transition duration-300 sm:min-h-[36px] sm:px-3 sm:py-1.5 sm:text-[0.84rem] ${
                       isActive
                         ? 'border-[rgba(199,125,151,0.38)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_10px_24px_rgba(199,125,151,0.22)]'
                         : 'border-[rgba(215,161,175,0.16)] bg-white/86 text-[#5B4B55] hover:-translate-y-0.5 hover:border-[rgba(199,125,151,0.18)] hover:shadow-sm'

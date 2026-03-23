@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import GuideGlyph from '@/components/guides/GuideGlyph';
+import GuideCardRouter from '@/components/guides/GuideCardRouter';
 
 export default function GuideCategoryCards({
   id,
@@ -25,6 +26,19 @@ export default function GuideCategoryCards({
   }
 
   const isStrollerHub = variant === 'stroller-hub';
+
+  if (!isStrollerHub) {
+    return (
+      <GuideCardRouter
+        title={title}
+        description={description}
+        cards={cards}
+        eyebrow={eyebrow ?? 'Sub-guides'}
+        ctaLabel={ctaLabel ?? 'Open guide'}
+      />
+    );
+  }
+
   const formatBestFor = (value: string) => value.replace(/^best for\s+/i, '').trim();
 
   return (

@@ -12,7 +12,7 @@ function getSectionAnnotation({
 }) {
   const normalized = `${eyebrow ?? ''} ${title}`.toLowerCase();
 
-  if (normalized.includes('editorial intro')) {
+  if (normalized.includes('editorial intro') || normalized.includes('orientation')) {
     return {
       badge: 'read this first',
       noteTitle: 'Read for the shape of the decision first.',
@@ -25,7 +25,7 @@ function getSectionAnnotation({
     };
   }
 
-  if (normalized.includes('common mistakes')) {
+  if (normalized.includes('common mistakes') || normalized.includes('what people get wrong')) {
     return {
       badge: 'circle this',
       noteTitle: 'Most mistakes start with the wrong order.',
@@ -116,7 +116,7 @@ export default function GuideBulletSection({
           ))}
         </div>
 
-        {annotation.showPlaceholderImage ? (
+        {annotation.showPlaceholderImage || editorialImage ? (
           <div className="mt-6">
             <GuideEditorialImage
               eyebrow={editorialImage?.eyebrow ?? annotation.imageEyebrow}

@@ -1,9 +1,6 @@
 import { STARTER_TEMPLATES, type StarterTemplateId } from '@/components/admin/blog/starterTemplates';
 
-const TMBC_SIGNATURE = `Start with confidence.
-
-XOXO
-Taylor`;
+const TMBC_SIGNATURE = 'xoxo -T';
 
 const GUIDE_WIDGET_PLAYGROUND = `## Widget-Ready Sections
 
@@ -95,79 +92,62 @@ export const GUIDE_TEMPLATES = {
     intro: `This category tends to overwhelm parents quickly. The product names sound similar, the feature lists are longer than they need to be, and nearly every brand promises to make life dramatically easier.
 
 What most parents need here is not more product information. They need better guidance. At Taylor-Made Baby Co., the goal is to slow the decision down, understand how this category fits real daily life, and separate practical value from marketing noise.`,
-    content: withGuideWidgets(`## Why This Category Feels Overwhelming
+    content: withGuideWidgets(`## What This Is
 
-This category usually comes with too many opinions and not enough context. Parents hear retailer recommendations, social media favorites, registry advice from friends, and brand messaging that makes every version sound essential.
+Explain what belongs in this category, how it differs from adjacent products, and what job it is actually supposed to do in daily life.
 
-The result is that families often compare features before they understand the job this product is actually supposed to do. That is usually where the confusion begins.
+## Why This Category Feels Overwhelming
 
-## Understanding the Category
+This is where you name the noise: long feature lists, brand marketing, friend recommendations, and the way every product page tries to sound essential.
 
-Before comparing brands or price points, it helps to define the category clearly. A calmer decision starts with understanding what this product is, what problem it solves, and where it shows up in everyday life with a newborn.
+Show why parents often start comparing features before they understand the role the product needs to play.
 
-### What this category is
+## What People Get Wrong
 
-Explain what belongs in this category and how it differs from adjacent products that parents often lump together.
+Call out the common misses with a calm tone:
 
-### What problem it solves
+- comparing brands before defining the use case
+- overvaluing dramatic features
+- underestimating space, routine, and setup friction
+- assuming more gear means better preparation
 
-Describe the practical friction this product is meant to reduce. Keep the focus on function, not hype.
+## Decision Framework
 
-### When parents actually use it
+Offer the shorter decision path first:
 
-Walk through the moments when this product becomes relevant: the newborn phase, errands, sleep-deprived evenings, travel days, or the first few months at home.
-
-## Key Types in This Category
-
-Break down the major versions parents should understand before they shop. Focus on the differences that affect daily use, storage, mobility, safety, and longevity.
-
-Call out which type tends to work best for which kind of family, and where common confusion tends to happen.
-
-## How These Products Work in Real Life
-
-Daily life is usually where the best choice becomes clearer. Explain what this category looks like on a rushed morning, in a smaller home, during recovery, in a compact trunk, or when one parent is managing multiple tasks at once.
-
-This is the place to connect the product to real routine instead of idealized marketing images.
-
-## How to Think About This Decision
-
-Offer a steady framework parents can use before they buy:
-
-- How does this fit your lifestyle?
-- How does it work with your home layout and storage?
+- What job does this need to do well?
+- Where will it live when it is not in use?
 - How often will it leave the house?
-- Does it need to support travel or everyday neighborhood use?
-- Will it still make sense a few months from now?
+- What kind of friction are you actually trying to reduce?
+- Will this still make sense in a few months?
 
-## Common Mistakes Parents Make
+## Core Content
 
-Parents often spend too much time chasing feature lists and not enough time thinking about compatibility.
+### Key types in this category
 
-Some overbuy because they assume more gear means better preparation. Others under-evaluate how space, routine, weight, cleanup, folding, or install friction will feel once baby is actually here.
+Break down the major versions parents should understand before they shop. Focus on the differences that change daily use, storage, mobility, safety, and longevity.
 
-## What Actually Matters
+### How this works in real life
 
-This is where you narrow the decision to the features that truly change daily life. Highlight what affects usability, safety, convenience, comfort, and long-term value.
+Describe what this category looks like on a rushed morning, in a smaller home, during recovery, or on a tired errand run. This is where the best choice usually becomes clearer.
 
-Also explain which details sound impressive but rarely change the lived experience for most families.
+### When it is worth buying
 
-## When This Product Is Worth Buying
+Explain the circumstances that make this category genuinely useful. Keep the focus on practical fit, not fear-based reasoning.
 
-Explain the circumstances that make this category genuinely useful. Focus on practical fit, not fear-based reasoning.
+### When it may not be necessary
 
-Describe what has to be true for this purchase to make sense in a thoughtful, grounded setup.
+Offer honest permission to skip, delay, borrow, or simplify when the product does not solve enough real friction.
 
-## When It May Not Be Necessary
+## Final Thought
 
-Offer honest guidance about when parents can skip this product, delay it, borrow it, or choose a simpler version.
+The best decision in this category usually feels less dramatic than parents expect. It is often the option that fits daily life well and does not ask too much from your space, routine, or budget.
 
-This section should help families feel permission to buy with intention instead of pressure.
+## Takeaways
 
-## The Taylor-Made Perspective
-
-At Taylor-Made Baby Co., the goal is not to help parents collect more gear. It is to help them understand what fits their life, their home, and the way they actually plan to move through early parenthood.
-
-Learning before buying leads to better decisions. Better decisions lead to calmer preparation. And calmer preparation usually means less waste, less second-guessing, and more confidence.`,
+- Start with the role, not the brand.
+- Choose the option that removes the most real-life friction.
+- Let clarity beat feature overload every time.`,
 ),
     conclusion: `The best decision in this category usually feels less dramatic than parents expect. It is often the option that fits daily life well, solves a real problem, and does not ask too much from your space, routine, or budget.
 
@@ -182,23 +162,41 @@ ${TMBC_SIGNATURE}`,
     intro: `Comparison guides are useful because parents are rarely choosing between a perfect option and a bad one. More often, they are deciding between two products that both seem reasonable on the surface.
 
 The TMBC approach is to step back from brand marketing and compare how each option performs in real life. Parents do not need a louder winner. They need a calmer way to understand the tradeoffs.`,
-    content: withGuideWidgets(`## What Parents Are Really Comparing
+    content: withGuideWidgets(`## What This Is
 
-Name the real decision underneath the comparison. Most parents are not simply comparing two products. They are comparing convenience, longevity, footprint, price, ease of use, or flexibility.
+Explain the real decision underneath the comparison. Most parents are not simply comparing two products. They are comparing convenience, longevity, footprint, price, ease of use, or flexibility.
 
-## Where the Options Overlap
+## What People Get Wrong
 
-Start with what these options do similarly. That gives parents a cleaner baseline and keeps the comparison from becoming more dramatic than it needs to be.
+This is where you point out the habits that make comparisons noisier than they need to be:
 
-## The Core Difference
+- treating one option like the universal winner
+- comparing spec sheets before routine
+- overvaluing headline features
+- forgetting to ask which tradeoff feels easier to live with
 
-Explain the one or two differences that actually change the buying decision. Focus on use case, not on every minor spec.
+## Decision Framework
 
-## Which Option Fits Which Lifestyle
+- Which option fits your actual routine?
+- Which one is easier to store, clean, lift, or manage?
+- Which tradeoff are you more willing to live with?
+- Will this still feel useful in a few months?
 
-Show how the better fit changes depending on routine, storage, travel habits, vehicle size, home layout, and how often the product will be used.
+## Core Content
 
-## Comparison Table
+### Where the options overlap
+
+Start with what these options do similarly. That gives parents a cleaner baseline and keeps the comparison grounded.
+
+### The core difference
+
+Explain the one or two differences that actually change the buying decision. Focus on use case, not every minor spec.
+
+### Which option fits which lifestyle
+
+Show how the better fit changes depending on routine, storage, travel habits, vehicle size, home layout, and frequency of use.
+
+### Comparison table
 
 **Option A**
 - Best for:
@@ -213,20 +211,15 @@ Show how the better fit changes depending on routine, storage, travel habits, ve
 **Bottom line**
 - Which option feels easier to live with day after day?
 
-## What Most Parents Overvalue
+## Final Thought
 
-Point out the features or promises that sound impressive during research but tend to matter less once baby is here.
+A good comparison should narrow the choice without making the whole category louder.
 
-## Questions To Ask Before You Choose
+## Takeaways
 
-- Which option fits your actual routine?
-- Which one is easier to store, clean, lift, or manage?
-- Which tradeoff are you more willing to live with?
-- Will this still feel useful in a few months?
-
-## The Taylor-Made Perspective
-
-The right comparison should leave parents feeling clearer, not more pressured. The goal is not to crown a universal winner. It is to identify which option fits a specific family more naturally.`,
+- Compare the real tradeoff, not the marketing mood.
+- Let lifestyle fit decide the winner.
+- If both still seem close, choose the option that feels easier to manage when you are tired.`,
 ),
     conclusion: `A good comparison should narrow the choice without creating more noise. When you focus on daily use, space, and long-term fit, the better option usually becomes much easier to see.
 
@@ -241,42 +234,53 @@ ${TMBC_SIGNATURE}`,
     intro: `Some baby gear decisions feel hard because parents are trying to make them in the wrong order. They start with brands, reviews, or viral recommendations before they have built a clear framework for the decision itself.
 
 Taylor-Made Baby Co. approaches these moments differently. Before shopping, define the real constraints, the real routine, and the real role this product needs to play.`,
-    content: withGuideWidgets(`## The Decision Behind the Product
+    content: withGuideWidgets(`## What This Is
 
 Clarify what parents are actually deciding. Is the question about convenience, safety, mobility, multi-stage use, ease of setup, or simplifying a crowded category?
 
-## Start With Daily Life
+## What People Get Wrong
 
-Walk through the day-to-day context first. Explain how the decision changes based on schedule, sleep deprivation, home flow, and how much friction parents can realistically tolerate.
+Name the order problem directly:
 
-## Look at Space, Routine, and Longevity
+- starting with brands instead of constraints
+- shopping before defining the job
+- solving hypothetical problems before present-day ones
+- mistaking more options for more clarity
 
-These choices usually improve when parents consider:
-
-- storage space
-- room layout
-- vehicle size
-- frequency of use
-- how long the product needs to last
-
-## Questions To Ask Before You Buy
+## Decision Framework
 
 - What job does this need to do well?
 - What would make this annoying after two weeks?
 - What part of your lifestyle matters most here?
 - Is this solving a real problem or a hypothetical one?
 
-## Red Flags That Signal a Mismatch
+## Core Content
+
+### Start with daily life
+
+Walk through the day-to-day context first. Explain how the decision changes based on schedule, sleep deprivation, home flow, and how much friction parents can realistically tolerate.
+
+### Look at space, routine, and longevity
+
+These choices usually improve when parents consider storage space, room layout, vehicle size, frequency of use, and how long the product needs to last.
+
+### Red flags that signal a mismatch
 
 Describe the clues that a product is wrong for the family: too large, too complicated, too specialized, too hard to store, too expensive for the value it delivers, or too disconnected from actual routine.
 
-## What a Good Decision Usually Looks Like
+### What a good decision usually looks like
 
 A good decision does not have to feel flashy. It usually feels practical, compatible, and easy to explain in plain language.
 
-## The Taylor-Made Perspective
+## Final Thought
 
-Parents make better choices when they understand the decision before they evaluate the product. That shift alone reduces overwhelm and makes it easier to choose with confidence instead of urgency.`,
+Framework first. Product second. That order solves more confusion than most parents realize.
+
+## Takeaways
+
+- Define the decision before you compare the products.
+- Let daily life do more of the talking.
+- A clearer framework usually makes the buying process quieter and faster.`,
 ),
     conclusion: `Framework first. Product second. That order solves more confusion than most parents realize.
 
@@ -291,36 +295,50 @@ ${TMBC_SIGNATURE}`,
     intro: `Minimalist guides are not about buying the fewest products possible. They are about buying with more intention, less pressure, and a better understanding of what actually earns a place in your home.
 
 At TMBC, minimalism means practical clarity. Parents do not need a sparse setup for the sake of aesthetics. They need a setup that works well without creating more clutter, more cost, or more decision fatigue.`,
-    content: withGuideWidgets(`## Why Minimalism Gets Misunderstood
-
-In baby gear, minimalism is often framed as either unrealistic or trendy. In reality, it is simply a way to evaluate what truly supports daily life and what mostly takes up space.
-
-## What This Category Actually Needs To Do
+    content: withGuideWidgets(`## What This Is
 
 Define the real function of this category before discussing quantity, upgrades, or accessories.
 
-## What Most Parents Can Skip
+## What People Get Wrong
 
-List the versions, extras, or add-ons that sound useful but rarely change the experience enough to justify the space or spend for most families.
+In baby gear, minimalism is often framed as either unrealistic or trendy. In reality, it is simply a way to evaluate what truly supports daily life and what mostly takes up space.
 
-## What Earns Its Place
+Call out the common misses:
 
-Explain what makes an item worth keeping in a more intentional setup. Focus on frequency of use, versatility, ease, and whether it removes real friction.
+- assuming fewer products means fewer basics
+- keeping duplicate solutions just in case
+- letting aesthetics or popularity outrank function
 
-## How To Build a Leaner Setup
+## Decision Framework
 
 - Start with the version that covers the core need well.
 - Delay add-ons until the need is real.
 - Avoid duplicate products solving the same problem.
 - Choose compatibility and flexibility over novelty.
 
-## When More Product Creates More Friction
+## Core Content
+
+### What most parents can skip
+
+List the versions, extras, or add-ons that sound useful but rarely change the experience enough to justify the space or spend for most families.
+
+### What earns its place
+
+Explain what makes an item worth keeping in a more intentional setup. Focus on frequency of use, versatility, ease, and whether it removes real friction.
+
+### When more product creates more friction
 
 More gear can mean more to clean, more to store, more to move, and more to second-guess. Spell out how excess often creates workload rather than relief.
 
-## The Taylor-Made Perspective
+## Final Thought
 
-Minimalism is not deprivation. It is decision quality. When parents understand what matters, they can build a calmer setup that feels lighter, more useful, and easier to live with.`,
+Minimalism is not deprivation. It is decision quality.
+
+## Takeaways
+
+- Keep what helps.
+- Skip what adds noise.
+- Let practical use decide what earns a place in the home.`,
 ),
     conclusion: `A minimalist setup works best when it is shaped by real life, not by pressure to buy everything at once or pressure to own almost nothing.
 
