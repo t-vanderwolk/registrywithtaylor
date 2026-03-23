@@ -17,6 +17,7 @@ import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import {
   getStrollerAcademyFlowchart,
   getStrollerAcademyLane,
@@ -120,6 +121,20 @@ export default function StrollerAcademyHub({
     ],
     4,
   );
+  const heroImage = resolveGuideHeroImage({
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+    imageSrc: guide.heroImageUrl,
+    imageAlt: guide.heroImageAlt,
+  });
+  const displayHeroImage = guide.heroImageUrl?.trim()
+    ? heroImage
+    : {
+        src: '/assets/editorial/strollers.png',
+        alt: 'Editorial stroller image for the TMBC stroller academy.',
+      };
 
   return (
     <GuideSlideDeck
@@ -142,11 +157,16 @@ export default function StrollerAcademyHub({
           secondaryCta={{ label: 'Explore Stroller Lanes', href: `${sourceRoute}#${slideItems[3].id}` }}
           stageItems={stageItems}
           stats={[
-            { label: 'Academy stages', value: '8 guide stops' },
+            { label: 'Academy stages', value: '7 guide stops' },
             { label: 'Stroller lanes', value: String(lanes.length) },
             { label: 'Quick start', value: `${readingTime} min` },
           ]}
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          imageSrc={displayHeroImage.src}
+          imageAlt={displayHeroImage.alt}
+          imageAspectClassName="aspect-[16/11]"
+          imageObjectClassName="object-cover object-center"
+          imagePriority
         />
       </SlideSection>
 
@@ -156,8 +176,8 @@ export default function StrollerAcademyHub({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
+          eyebrow="Editorial Intro"
+          title="Editorial Intro"
           description="The stroller hub should get the category under control before you start scrolling product grids."
           items={[
             'The real-life factors that separate stroller lanes before brands enter the conversation.',
@@ -165,13 +185,19 @@ export default function StrollerAcademyHub({
             'A planning flow that translates routine, storage, travel, and terrain into a clearer fit.',
             'The test checklist and next links that move you from theory into validation and buying.',
           ]}
+          editorialImage={{
+            eyebrow: 'Editorial image',
+            src: '/assets/editorial/editorialstroller.png',
+            alt: 'Editorial stroller image for the TMBC stroller hub.',
+            caption: 'Stroller decisions get calmer once you can see the category as a daily-life fit problem instead of a product popularity contest.',
+          }}
         />
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <StageLead
-            eyebrow="Core Content"
+            eyebrow="Core Considerations"
             title="Start with the role the stroller has to play in your real life."
             description="The category gets easier once you sort daily workflow, storage pressure, travel, future sibling timing, and route quality."
           />
@@ -309,14 +335,10 @@ export default function StrollerAcademyHub({
             description="Once the lane is clearer, use the next guide or category while the logic is still fresh."
             links={nextSteps}
           />
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[7].id} background="white">
-        <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Takeaways"
-            title="Takeaways"
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
             description="The whole point is to make stroller buying feel calmer and more linear."
             items={dedupeTextItems(
               [

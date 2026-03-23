@@ -14,11 +14,45 @@ import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { dedupeTextItems, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import {
   getStrollerAcademyLane,
   getStrollerAcademyLanes,
 } from '@/lib/guides/strollerAcademy';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
+
+const LANE_EDITORIAL_IMAGES: Partial<
+  Record<
+    string,
+    {
+      eyebrow?: string;
+      src: string;
+      alt: string;
+      caption: string;
+    }
+  >
+> = {
+  'full-size-modular-strollers': {
+    eyebrow: 'Editorial image',
+    src: '/assets/editorial/fullsize.png',
+    alt: 'Editorial image for the full-size modular stroller lane.',
+    caption:
+      'Full-size modular strollers make more sense once the category is framed around everyday comfort, storage reality, and how much stroller the week actually asks for.',
+  },
+  'compact-lightweight-strollers': {
+    eyebrow: 'Editorial image',
+    src: '/assets/editorial/compact.png',
+    alt: 'Editorial image for the compact stroller lane.',
+    caption:
+      'Compact strollers start making more sense once the category is framed around easier folds, tighter storage, and the kind of convenience you actually feel every day.',
+  },
+};
+
+const STROLLER_SUBGUIDE_HERO = {
+  src: '/assets/editorial/strollers.png',
+  alt: 'Editorial stroller image for TMBC stroller lane guides.',
+  objectClassName: 'object-cover object-center',
+} as const;
 
 function StageLead({
   eyebrow,
@@ -139,6 +173,19 @@ export default function StrollerAcademyLanePage({
     ],
     4,
   );
+  const heroImage = resolveGuideHeroImage({
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+    imageSrc: guide.heroImageUrl,
+    imageAlt: guide.heroImageAlt,
+  });
+  const heroImageOverride = STROLLER_SUBGUIDE_HERO;
+  const displayHeroImage = heroImageOverride
+    ? { src: heroImageOverride.src, alt: heroImageOverride.alt }
+    : heroImage;
+  const displayHeroObjectClassName = heroImageOverride?.objectClassName ?? 'object-cover object-[76%_center]';
 
   return (
     <GuideSlideDeck
@@ -170,6 +217,11 @@ export default function StrollerAcademyLanePage({
             { label: 'Read time', value: `${readingTime} min` },
           ]}
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+          imageSrc={displayHeroImage.src}
+          imageAlt={displayHeroImage.alt}
+          imageAspectClassName="aspect-[16/11]"
+          imageObjectClassName={displayHeroObjectClassName}
+          imagePriority
         />
       </SlideSection>
 
@@ -179,8 +231,8 @@ export default function StrollerAcademyLanePage({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
+          eyebrow="Editorial Intro"
+          title="Editorial Intro"
           description="This lane page should stay concise and useful while it helps you decide whether the category deserves a shortlist."
           items={[
             lane.whyExists,
@@ -188,13 +240,14 @@ export default function StrollerAcademyLanePage({
             `Tradeoff: ${lane.tradeoff}`,
             `Compare against: ${compareLinks.map((entry) => entry.shortTitle).join(', ') || 'the closest neighboring lanes'}.`,
           ]}
+          editorialImage={LANE_EDITORIAL_IMAGES[lane.slug]}
         />
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <StageLead
-            eyebrow="Core Content"
+            eyebrow="Core Considerations"
             title={`Why the ${lane.title} lane exists.`}
             description={lane.whyExists}
           />
@@ -300,14 +353,10 @@ export default function StrollerAcademyLanePage({
           </div>
 
           <NextSteps title="Next Steps" links={nextSteps} />
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[7].id} background="white">
-        <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Takeaways"
-            title="Takeaways"
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
             description="The lane page should make comparison smaller, not bigger."
             items={dedupeTextItems(
               [

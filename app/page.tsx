@@ -573,15 +573,27 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
                       {['Strollers', 'Car Seats', 'Registry Planning', 'Nursery'].map((topic) => (
                         <span
                           key={topic}
-                          className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(215,161,175,0.22)] bg-white/78 px-4 py-2 text-sm text-charcoal shadow-sm"
+                          className="inline-flex min-h-[40px] items-center rounded-full border border-[#E8A2B6]/55 bg-[rgba(255,246,249,0.96)] px-4 py-2 text-sm text-[#B96C87] shadow-[0_8px_18px_rgba(217,134,162,0.08)]"
                         >
                           {topic}
                         </span>
                       ))}
                     </div>
-                    <Link href="/guides" className="btn btn--primary mt-8">
-                      Explore the Guides
-                    </Link>
+                    <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+                      <div className="relative inline-flex items-center justify-center px-4 py-2">
+                        <span className="pointer-events-none absolute inset-x-0 inset-y-1 rounded-full border-[2.5px] border-[#E38AA7]/82 rotate-[-8deg]" />
+                        <span className="pointer-events-none absolute inset-x-2 inset-y-0 rounded-full border border-[#E9A1B7]/72 rotate-[6deg]" />
+                        <span
+                          className="relative text-[1.3rem] leading-none text-[#D986A2] sm:text-[1.45rem]"
+                          style={{ fontFamily: '"Caveat", cursive' }}
+                        >
+                          Start Here
+                        </span>
+                      </div>
+                      <Link href="/guides" className="btn btn--primary">
+                        Explore the Guides
+                      </Link>
+                    </div>
                   </div>
 
                   <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.2)] bg-white/88 p-5 shadow-[0_16px_36px_rgba(65,46,53,0.06)]">

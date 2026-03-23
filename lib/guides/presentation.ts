@@ -1,4 +1,5 @@
 import { getGuidePath } from '@/lib/guides/routing';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import { getGuidePillar, type GuidePillar } from '@/lib/marketing/siteContent';
 
 export type GuideCardItem = {
@@ -95,6 +96,14 @@ export function toGuideCardItemFromGuide(guide: {
     slug: guide.slug,
     category: guide.category,
   });
+  const heroImage = resolveGuideHeroImage({
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+    imageSrc: guide.heroImageUrl,
+    imageAlt: guide.heroImageAlt,
+  });
 
   return {
     slug: guide.slug,
@@ -104,8 +113,8 @@ export function toGuideCardItemFromGuide(guide: {
       guide.excerpt?.trim() ||
       fallbackPillar?.description ||
       'Evergreen baby gear guidance built to help expecting parents make clearer decisions.',
-    imageSrc: guide.heroImageUrl?.trim() || fallbackPillar?.imageSrc || DEFAULT_GUIDE_IMAGE,
-    imageAlt: guide.heroImageAlt?.trim() || fallbackPillar?.imageAlt || DEFAULT_GUIDE_ALT,
+    imageSrc: heroImage.src || fallbackPillar?.imageSrc || DEFAULT_GUIDE_IMAGE,
+    imageAlt: heroImage.alt || fallbackPillar?.imageAlt || DEFAULT_GUIDE_ALT,
     eyebrow: fallbackPillar?.eyebrow || getGuideEyebrow(guide.category),
   };
 }

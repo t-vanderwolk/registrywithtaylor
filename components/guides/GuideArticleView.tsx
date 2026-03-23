@@ -285,6 +285,8 @@ export default async function GuideArticleView({
           newsletterCtaLabel: guide.newsletterCtaLabel || undefined,
           nextStepCtaHref: guide.nextStepCtaHref || undefined,
           nextStepCtaLabel: guide.nextStepCtaLabel || undefined,
+          heroImageUrl: guide.heroImageUrl || undefined,
+          heroImageAlt: guide.heroImageAlt || undefined,
         }}
         relatedGuides={relatedGuides}
         preview={preview}

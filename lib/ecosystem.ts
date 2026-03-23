@@ -1,52 +1,62 @@
+import { getGuidePath } from '@/lib/guides/routing';
+
 export type EcosystemStep = {
   step: string;
   label: string;
   title: string;
   description: string;
+  href: string;
 };
 
 export const TMBC_ECOSYSTEM_STEPS: EcosystemStep[] = [
   {
     step: '01',
     label: 'START',
-    title: 'Build Your Nursery',
-    description: 'Start with the pieces that define your space and take the longest to arrive.',
+    title: 'Build Your Registry',
+    description: 'Organize what you need and create a clear plan before adding everything at once.',
+    href: getGuidePath({ slug: 'minimalist-baby-registry' }),
   },
   {
     step: '02',
     label: 'ROUTINE',
     title: 'Set Up Daily Life',
     description: "Focus on feeding, diapering, and the routines you'll use every day.",
+    href: '/guides/feeding',
   },
   {
     step: '03',
     label: 'ORGANIZE',
-    title: 'Build Your Registry',
-    description: 'Organize what you need and create a clear plan before adding everything at once.',
+    title: 'Build Your Nursery',
+    description: 'Start with the pieces that define your space and take the longest to arrive.',
+    href: getGuidePath({ slug: 'nursery-setup-guide' }),
   },
   {
     step: '04',
     label: 'LEARN',
     title: 'Understand Your Options',
     description: 'Explore categories and understand what matters before making decisions.',
+    href: '/guides',
   },
   {
     step: '05',
     label: 'SAVE',
     title: 'Plan Your Purchases',
     description: 'Use timing, rewards, and strategy to make smarter buying decisions.',
+    href: '/guides/registry/perks',
   },
   {
     step: '06',
     label: 'CHOOSE',
     title: 'Select Core Gear',
     description: 'Choose your most important items once your lifestyle is clear.',
+    href: getGuidePath({ slug: 'best-strollers' }),
   },
   {
     step: '07',
     label: 'FINALIZE',
     title: 'Finalize With Confidence',
     description: 'Make final adjustments with clarity, not pressure.',
+    href: '/guides/postpartum',
   },
 ] as const;
 
@@ -88,7 +98,7 @@ export function getGuideEcosystemCurrentStep({
   }
 
   if (normalizedSlug === 'nursery-setup-guide' || normalizedPath === '/guides/nursery' || normalizedCategory === 'nursery') {
-    return 1;
+    return 3;
   }
 
   if (normalizedSlug === 'feeding' || normalizedPath === '/guides/feeding' || normalizedCategory === 'feeding') {
@@ -110,7 +120,7 @@ export function getGuideEcosystemCurrentStep({
     normalizedPath.startsWith('/guides/registry/') ||
     normalizedCategory === 'registry'
   ) {
-    return 3;
+    return 1;
   }
 
   if (STROLLER_SLUGS.has(normalizedSlug) || normalizedPath === '/guides/strollers' || normalizedPath.startsWith('/guides/strollers/')) {

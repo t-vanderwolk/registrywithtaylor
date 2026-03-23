@@ -18,6 +18,7 @@ export default function HomeTransitionSection({
   body,
   secondaryLine,
   cta,
+  handwrittenNote,
   tone = 'white',
   titleClassName = '',
 }: {
@@ -30,6 +31,7 @@ export default function HomeTransitionSection({
     href: string;
     label: string;
   };
+  handwrittenNote?: string;
   tone?: HomeTransitionTone;
   titleClassName?: string;
 }) {
@@ -66,7 +68,19 @@ export default function HomeTransitionSection({
             <p className="mx-auto mt-5 max-w-2xl text-[1rem] leading-8 text-neutral-700">{body}</p>
             {secondaryLine ? <p className="mx-auto mt-3 max-w-2xl text-[1rem] leading-8 text-neutral-700">{secondaryLine}</p> : null}
             {cta ? (
-              <div className="mt-8">
+              <div className="mt-8 flex flex-col items-center gap-3">
+                {handwrittenNote ? (
+                  <div className="relative inline-flex items-center justify-center px-4 py-2">
+                    <span className="pointer-events-none absolute inset-x-0 inset-y-1 rounded-full border-[2.5px] border-[#E38AA7]/82 rotate-[-8deg]" />
+                    <span className="pointer-events-none absolute inset-x-2 inset-y-0 rounded-full border border-[#E9A1B7]/72 rotate-[6deg]" />
+                    <span
+                      className="relative text-[1.3rem] leading-none text-[#D986A2] sm:text-[1.45rem]"
+                      style={{ fontFamily: '"Caveat", cursive' }}
+                    >
+                      {handwrittenNote}
+                    </span>
+                  </div>
+                ) : null}
                 <Link
                   href={cta.href}
                   className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition-shadow duration-200 hover:shadow-sm"

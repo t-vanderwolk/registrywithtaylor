@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { GuideStageLabel } from '@/lib/guides/guideFlow';
 
@@ -52,6 +53,18 @@ export default function NextSteps({
             </Link>
           ))}
         </div>
+
+        <GuideHandwrittenNote
+          className="mt-6"
+          tone="linen"
+          title="You can stop once the next move is obvious."
+          description={
+            <p>
+              This does not need to become a full reading tour. Leave with the page that answers the decision in
+              front of you, then let the rest wait its turn.
+            </p>
+          }
+        />
       </section>
     </RevealOnScroll>
   );

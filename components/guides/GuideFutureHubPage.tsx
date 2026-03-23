@@ -33,8 +33,10 @@ export default function GuideFutureHubPage({
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
+          slug={slug}
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
           eyebrow={config.eyebrow}
+          category={config.eyebrow}
           title={config.title}
           description={config.description}
           note={config.note}
@@ -50,17 +52,18 @@ export default function GuideFutureHubPage({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
+          eyebrow="Editorial Intro"
+          title="Editorial Intro"
           description="Even while the full hub is growing, the structure is still meant to be clear and scannable."
           items={config.plannedTopics.slice(0, 5)}
+          editorialImage={config.editorialIntroImage}
         />
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <section className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] md:p-8">
           <div className="space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Content</p>
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
             <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
               This hub is being built around real questions, not filler.
             </h2>
@@ -108,24 +111,24 @@ export default function GuideFutureHubPage({
       </SlideSection>
 
       <SlideSection id={slideItems[6].id} background="ivory">
-        <NextSteps
-          title={config.continueTitle}
-          description={config.continueDescription}
-          links={nextSteps}
-        />
-      </SlideSection>
+        <div className="space-y-8">
+          <NextSteps
+            title={config.continueTitle}
+            description={config.continueDescription}
+            links={nextSteps}
+          />
 
-      <SlideSection id={slideItems[7].id} background="white">
-        <GuideBulletSection
-          eyebrow="Takeaways"
-          title="Takeaways"
-          description="The future hub still needs to leave you with a clear route."
-          items={[
-            'The TMBC Academy should always offer a practical next move, even when a category is still growing.',
-            'Use the strongest current guide instead of waiting for the whole section to be finished.',
-            'Come back here once the broader hub is live, but keep moving now.',
-          ]}
-        />
+          <GuideBulletSection
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
+            description="The future hub still needs to leave you with a clear route."
+            items={[
+              'The TMBC Academy should always offer a practical next move, even when a category is still growing.',
+              'Use the strongest current guide instead of waiting for the whole section to be finished.',
+              'Come back here once the broader hub is live, but keep moving now.',
+            ]}
+          />
+        </div>
       </SlideSection>
     </GuideSlideDeck>
   );

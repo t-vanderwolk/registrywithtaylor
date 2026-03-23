@@ -17,6 +17,7 @@ import {
   getGuideRouteSegment,
   resolveGuideSlugFromRouteSegment,
 } from '@/lib/guides/routing';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getGuideDisplayDate, isGuidePubliclyVisible } from '@/lib/guides/status';
 import { getGuidePillar, getRelatedGuidePillars } from '@/lib/marketing/siteContent';
@@ -98,7 +99,15 @@ export async function getGuidePageMetadata({
       guide.excerpt?.trim() ||
       getGuideDescriptionFallback(articleGuide) ||
       'Expert baby gear and baby preparation guidance from Taylor-Made Baby Co.';
-    const imageUrl = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
+    const heroImage = resolveGuideHeroImage({
+      slug: guide.slug,
+      title: guide.title,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+      imageSrc: guide.heroImageUrl,
+      imageAlt: guide.heroImageAlt,
+    });
+    const imageUrl = guide.ogImageUrl?.trim() || heroImage.src || fallbackGuideHeroImage;
     const keywords = [
       guide.targetKeyword,
       ...guide.secondaryKeywords,
@@ -127,7 +136,7 @@ export async function getGuidePageMetadata({
           ? [
               {
                 url: toAbsoluteUrl(imageUrl),
-                alt: guide.ogImageAlt?.trim() || guide.heroImageAlt?.trim() || guide.title,
+                alt: guide.ogImageAlt?.trim() || heroImage.alt || guide.title,
               },
             ]
           : undefined,
@@ -193,7 +202,15 @@ export async function renderGuideRoute({
       guide.excerpt?.trim() ||
       getGuideDescriptionFallback(articleGuide) ||
       guide.title;
-    const articleImage = guide.ogImageUrl?.trim() || guide.heroImageUrl?.trim() || fallbackGuideHeroImage;
+    const heroImage = resolveGuideHeroImage({
+      slug: guide.slug,
+      title: guide.title,
+      category: guide.category,
+      topicCluster: guide.topicCluster,
+      imageSrc: guide.heroImageUrl,
+      imageAlt: guide.heroImageAlt,
+    });
+    const articleImage = guide.ogImageUrl?.trim() || heroImage.src || fallbackGuideHeroImage;
     const faqEntries = [
       ...articleGuide.faqItems.map((entry) => ({
         question: entry.question,

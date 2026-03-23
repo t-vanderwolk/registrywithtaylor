@@ -376,7 +376,7 @@ const STROLLER_EDITORIAL_IMAGES: StrollerEditorialImage[] = [
   {
     matchTitle: 'Major Types and Categories',
     eyebrow: 'Editorial break',
-    src: '/assets/editorial/stroller-types.jpg',
+    src: '/assets/editorial/strollers.png',
     alt: 'Editorial placeholder image for stroller categories and types.',
     caption: 'Stroller categories get clearer once you picture where the stroller actually lives: neighborhood loops, trunk transfers, store aisles, and airport gates.',
   },

@@ -11,6 +11,13 @@ type EducationHubHighlight = {
   text: string;
 };
 
+type EducationHubEditorialImage = {
+  eyebrow?: string;
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 type EducationHubDecisionCard = GuideHubLink & {
   ctaLabel?: string;
 };
@@ -32,6 +39,7 @@ export type FutureGuideHubConfig = {
   stats: EducationHubStat[];
   highlights: EducationHubHighlight[];
   plannedTopics: string[];
+  editorialIntroImage?: EducationHubEditorialImage;
   continueTitle: string;
   continueDescription: string;
   continueLinks: GuideHubLink[];
@@ -51,36 +59,44 @@ const GUIDE_PATHS = {
 
 export const guidesEducationHubContent = {
   hero: {
-    eyebrow: 'TMBC Education Hub',
-    title: 'Guides for Real-Life Baby Prep',
+    eyebrow: 'TMBC Guide Hub',
+    title: 'The calm front door to TMBC baby prep.',
     description:
-      'Clear, practical guidance to help you choose what actually fits your life, not just what looks good on a list.',
-    note: "Start where you are. We'll help you figure out the rest.",
+      'This is where the TMBC guide system comes together. If you are not sure where to begin, start with Registry, then use the rest of the hub to narrow what comes next.',
+    note: 'You do not need to read every guide. You need the right first click, and that is usually Registry.',
     stats: [
-      { label: 'Category hubs', value: '6 calm entry points' },
-      { label: 'Start paths', value: '4 guided ways in' },
-      { label: 'Built for', value: 'Real-life decisions' },
+      { label: 'Main hubs', value: '6 connected categories' },
+      { label: 'Ways in', value: '4 clear starting points' },
+      { label: 'Built for', value: 'Decisions, not doom-scrolling' },
     ] satisfies EducationHubStat[],
     highlights: [
       {
-        label: 'TMBC lens',
-        text: 'The goal is not more information. It is knowing what matters next.',
+        label: 'What this is',
+        text: 'A portal into the TMBC guide system, not a giant pile of disconnected articles.',
       },
       {
-        label: 'How it feels',
-        text: 'Less tab chaos, less guessing, and a cleaner path through the big decisions.',
+        label: 'How to use it',
+        text: 'Start with Registry if the plan still feels fuzzy, then follow the next linked step instead of reopening the whole internet.',
+      },
+      {
+        label: 'What happens next',
+        text: 'Each hub explains the landscape first, then sends you into the narrower guide that actually fits your life.',
+      },
+      {
+        label: 'TMBC rule',
+        text: 'If the page is making the decision feel bigger, step back one hub.',
       },
     ] satisfies EducationHubHighlight[],
   },
   startHere: {
     eyebrow: 'Start here',
-    title: "Tell us where you are. We'll guide the next step.",
+    title: 'Start with the question that is actually on your mind.',
     description:
-      'Choose the decision that feels most immediate, then move into the hub that makes the category easier to understand.',
+      'You do not need a perfect reading order. If nothing is clearly leading, open Registry first. It usually makes the rest of the hub easier to use.',
     cards: [
       {
         title: "I'm building my baby registry",
-        description: 'You want the list to make sense before it turns into a second job.',
+        description: 'You want the list to make sense before it becomes a part-time administrative role.',
         bestFor: 'Sorting what belongs now, what can wait, and what is mostly taking up registry space.',
         href: GUIDE_PATHS.registry,
         icon: 'checklist',
@@ -88,7 +104,7 @@ export const guidesEducationHubContent = {
       },
       {
         title: "I'm choosing big gear",
-        description: 'You are deciding between the bulky, expensive things that somehow all claim to be essential.',
+        description: 'You are looking at the bulky, expensive categories that all seem very confident about themselves.',
         bestFor: 'Strollers, car seats, and the gear choices that shape everyday life first.',
         href: GUIDE_PATHS.strollers,
         icon: 'stroller',
@@ -96,7 +112,7 @@ export const guidesEducationHubContent = {
       },
       {
         title: "I'm planning my nursery",
-        description: 'You want the room to work at 2:14 AM, not just in the photos.',
+        description: 'You want the room to work at 2:14 AM, not just during the reveal.',
         bestFor: 'Layout, storage, sleep setup, and what actually earns a place in the room.',
         href: GUIDE_PATHS.nursery,
         icon: 'home',
@@ -104,7 +120,7 @@ export const guidesEducationHubContent = {
       },
       {
         title: 'I just want to understand what I actually need',
-        description: 'You would like fewer tabs, fewer opinions, and a clearer baseline.',
+        description: 'You would like fewer tabs, fewer opinions, and a baseline that feels sane.',
         bestFor: 'A calmer essentials filter before the smaller decisions start multiplying.',
         href: GUIDE_PATHS.essentials,
         icon: 'book',
@@ -114,9 +130,9 @@ export const guidesEducationHubContent = {
   },
   categoryGrid: {
     eyebrow: 'Category hubs',
-    title: 'Explore the category that needs clarity first.',
+    title: 'Browse the main TMBC hubs.',
     description:
-      'Each hub starts broad, explains the category, and then helps you move into the right next comparison without feeling buried.',
+      'Each hub starts broad, explains the category, and then helps you move into the right next comparison without dropping you straight into product chaos.',
     cards: [
       {
         title: 'Strollers',
@@ -124,7 +140,7 @@ export const guidesEducationHubContent = {
         bestFor: 'Everyday vs compact vs travel, plus what changes with storage, terrain, and second-child planning.',
         href: GUIDE_PATHS.strollers,
         icon: 'stroller',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open stroller hub',
       },
       {
         title: 'Car Seats',
@@ -132,7 +148,7 @@ export const guidesEducationHubContent = {
         bestFor: 'How infant, convertible, all-in-one, and booster paths fit your child, your car, and your routine.',
         href: GUIDE_PATHS.carSeats,
         icon: 'carseat',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open car seat hub',
       },
       {
         title: 'Nursery',
@@ -140,7 +156,7 @@ export const guidesEducationHubContent = {
         bestFor: 'Sleep setup, room flow, storage, and what helps the space feel calmer instead of fuller.',
         href: GUIDE_PATHS.nursery,
         icon: 'home',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open nursery hub',
       },
       {
         title: 'Feeding',
@@ -148,7 +164,7 @@ export const guidesEducationHubContent = {
         bestFor: 'Bottle basics, pump support, everyday setup, and what most families can decide later.',
         href: GUIDE_PATHS.feeding,
         icon: 'bag',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open feeding hub',
       },
       {
         title: 'Travel',
@@ -156,7 +172,7 @@ export const guidesEducationHubContent = {
         bestFor: 'Travel-friendly gear, packing logic, and how portability changes the rest of your setup.',
         href: GUIDE_PATHS.travel,
         icon: 'plane',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open travel hub',
       },
       {
         title: 'Postpartum',
@@ -164,37 +180,43 @@ export const guidesEducationHubContent = {
         bestFor: 'Recovery support, home readiness, and what actually helps in the first weeks.',
         href: GUIDE_PATHS.postpartum,
         icon: 'layers',
-        ctaLabel: 'Explore Guides',
+        ctaLabel: 'Open postpartum hub',
       },
     ] satisfies EducationHubDecisionCard[],
   },
   learningPath: {
     eyebrow: 'How to use TMBC guides',
-    title: 'A simple way to move through the system.',
+    title: 'A simple way to move through the hub.',
     description:
-      'The guides are designed to help you start with your real situation, understand the category, and then narrow the decision without spiraling.',
+      'The hub is designed to keep the decision getting smaller. If it starts getting bigger again, you probably skipped a step.',
     steps: [
       {
-        title: 'Start with your situation',
-        description: 'Begin with the question that feels immediate, not with the longest list on the internet.',
+        title: 'Start with the present question',
+        description: 'Begin with the decision that is interrupting your week right now, not with the most dramatic category headline.',
         icon: 'checklist',
       },
       {
-        title: 'Understand the category',
-        description: 'Use the hub to learn the lanes, tradeoffs, and what actually changes your choice.',
+        title: 'Use the hub before the sub-guide',
+        description: 'Let the parent hub explain the lanes, tradeoffs, and vocabulary before you disappear into the narrower page.',
         icon: 'book',
       },
       {
-        title: 'Narrow your decision',
-        description: 'Move into the right sub-guide once the category is clearer and the options finally make sense.',
+        title: 'Follow the next linked move',
+        description: 'Once the category is clearer, open the next guide while the logic is still fresh instead of starting over in a new tab.',
         icon: 'strategy',
       },
     ] satisfies EducationHubPathStep[],
   },
   featured: {
-    title: 'Most Helpful Guides Right Now',
-    description: 'A few strong starting points if you want to keep moving.',
+    title: 'Strong Starting Points',
+    description: 'A few reliable first clicks if you want TMBC to choose the opening move.',
     links: [
+      {
+        title: 'Registry Guide',
+        description: 'Start here if the whole plan feels noisy and you want the order to make more sense before the products start piling up.',
+        href: GUIDE_PATHS.registry,
+        icon: 'checklist',
+      },
       {
         title: 'Nursery Guide',
         description: 'Start with room flow, storage, and the setup that makes the first routines easier to live with.',
@@ -202,22 +224,16 @@ export const guidesEducationHubContent = {
         icon: 'home',
       },
       {
-        title: 'Feeding Guide',
-        description: 'Continue into feeding setup once the room plan is steady and the daily workflow is easier to picture.',
-        href: GUIDE_PATHS.feeding,
-        icon: 'bag',
+        title: 'Stroller Guide',
+        description: 'Move into stroller decisions after the planning foundations are clear enough to compare the right lane.',
+        href: GUIDE_PATHS.strollers,
+        icon: 'stroller',
       },
       {
         title: 'Registry Strategy',
         description: 'Use registry setup logic to choose where to register before the perks and store dashboards start leading the plan.',
         href: '/guides/registry/where-to-register',
         icon: 'strategy',
-      },
-      {
-        title: 'Stroller Guide',
-        description: 'Move into stroller decisions after the planning foundations are clear enough to compare the right lane.',
-        href: GUIDE_PATHS.strollers,
-        icon: 'stroller',
       },
     ] satisfies GuideHubLink[],
   },
@@ -291,6 +307,12 @@ const futureGuideHubConfigs: Record<FutureGuideHubSlug, FutureGuideHubConfig> = 
       'How bottle, pump, and storage choices affect daily setup.',
       'Which feeding extras are genuinely helpful and which ones mostly create clutter.',
     ],
+    editorialIntroImage: {
+      eyebrow: 'Editorial image',
+      src: '/assets/editorial/feeding.png',
+      alt: 'Editorial feeding image for the TMBC feeding hub.',
+      caption: 'Feeding decisions get calmer once the setup supports daily life instead of trying to predict every possible scenario.',
+    },
     continueTitle: 'Use these guides while the feeding hub comes together.',
     continueDescription: 'They keep the path moving from feeding setup into registry strategy and then into bigger gear.',
     continueLinks: [

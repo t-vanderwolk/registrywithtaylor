@@ -82,14 +82,19 @@ export default function GuideDecisionSystemHub({
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <HubHero
+          slug={guide.slug}
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
           eyebrow={config.hero.eyebrow}
+          category={guide.category}
           title={config.hero.title}
           description={config.hero.description}
           note={config.hero.note}
           stats={config.hero.stats}
           highlights={config.hero.highlights}
           jumpLinks={slideItems.slice(1).map((item) => ({ href: `${sourceRoute}#${item.id}`, label: item.label }))}
+          topicCluster={guide.topicCluster}
+          imageSrc={guide.heroImageUrl}
+          imageAlt={guide.heroImageAlt}
         />
       </SlideSection>
 
@@ -99,8 +104,8 @@ export default function GuideDecisionSystemHub({
 
       <SlideSection id={slideItems[2].id} background="blush">
         <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
+          eyebrow="Editorial Intro"
+          title="Editorial Intro"
           description="This hub should get you oriented before you disappear into category tabs."
           items={[
             'The main starting-point cards that sort the category by real-life fit.',
@@ -113,6 +118,16 @@ export default function GuideDecisionSystemHub({
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
+          <div className="max-w-3xl space-y-3">
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
+            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
+              The main routes that make the category feel smaller on purpose.
+            </h2>
+            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">
+              Read this section like an editorial map: first the starting lanes, then the category grid, then the side-by-side tradeoffs.
+            </p>
+          </div>
+
           <HubDecisionCards
             eyebrow={config.decisionCards.eyebrow}
             title={config.decisionCards.title}
@@ -170,14 +185,10 @@ export default function GuideDecisionSystemHub({
               examples: group.examples.slice(0, 2),
             }))}
           />
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[7].id} background="white">
-        <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Takeaways"
-            title="Takeaways"
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
             description="If the hub did its job, these should be the parts you still remember once you click away."
             items={takeaways}
           />

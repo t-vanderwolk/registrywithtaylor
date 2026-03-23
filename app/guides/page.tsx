@@ -6,7 +6,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'TMBC Education Hub | Taylor-Made Baby Co.',
   description:
-    'Start with the TMBC Education Hub for calmer baby registry, stroller, car seat, nursery, travel, feeding, and postpartum guidance.',
+    'Use the TMBC Guide Hub as the calm starting point for registry, nursery, stroller, car seat, travel, feeding, and postpartum decisions.',
   path: '/guides',
   imagePath: '/assets/hero/hero-baby-editorial.jpg',
   imageAlt: 'Taylor-Made Baby Co. education hub for real-life baby prep.',

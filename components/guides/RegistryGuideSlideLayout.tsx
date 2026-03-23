@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PostContent from '@/components/blog/PostContent';
 import AcademyHero from '@/components/guides/academy/AcademyHero';
 import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
@@ -21,6 +22,7 @@ import {
   guideHubLinkToNextStepLink,
   normalizeGuideLinks,
 } from '@/lib/guides/guideFlow';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import { getGuideHubConfig, type GuideNextGuideItem } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
@@ -68,6 +70,57 @@ function parseLabeledRows(content: string) {
       ];
     })
     .filter((row) => row.label && row.value);
+}
+
+type RegistryRouteButtonGroup = {
+  label: string;
+  links: Array<{
+    label: string;
+    href: string;
+  }>;
+};
+
+function parseRegistryRouteButtonGroups(content: string) {
+  const groups: RegistryRouteButtonGroup[] = [];
+  let currentGroup: RegistryRouteButtonGroup | null = null;
+  const lines = stripSectionHeading(content)
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  for (const line of lines) {
+    const headingMatch = line.match(/^([^:]+):$/);
+    if (headingMatch && !line.includes('/guides')) {
+      currentGroup = {
+        label: headingMatch[1]?.trim() ?? 'Start here',
+        links: [],
+      };
+      groups.push(currentGroup);
+      continue;
+    }
+
+    const matches = [...line.matchAll(/[→-]?\s*([^:\n]+?):\s*(\/guides(?:\/[^\s→]+)?)/g)];
+    if (matches.length === 0) {
+      continue;
+    }
+
+    if (!currentGroup) {
+      currentGroup = {
+        label: 'Start here',
+        links: [],
+      };
+      groups.push(currentGroup);
+    }
+
+    for (const match of matches) {
+      currentGroup.links.push({
+        label: match[1]?.trim() ?? 'Open guide',
+        href: match[2]?.trim() ?? '/guides',
+      });
+    }
+  }
+
+  return groups.filter((group) => group.links.length > 0);
 }
 
 export default function RegistryGuideSlideLayout({
@@ -178,6 +231,7 @@ export default function RegistryGuideSlideLayout({
     ],
     4,
   );
+  const routeButtonGroups = parseRegistryRouteButtonGroups(nextStepsSection?.content ?? '');
   const takeaways = dedupeTextItems(
     [
       ...extractMarkdownListItems(takeawaysSection?.content ?? '', 4),
@@ -186,6 +240,20 @@ export default function RegistryGuideSlideLayout({
     ],
     4,
   );
+  const heroImage = resolveGuideHeroImage({
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+    imageSrc: guide.heroImageUrl,
+    imageAlt: guide.heroImageAlt,
+  });
+  const registryHeroImage = guide.heroImageUrl?.trim()
+    ? heroImage
+    : {
+        src: '/assets/hero/hero-03.jpg',
+        alt: 'Editorial hero image for registry planning and baby gear guidance.',
+      };
 
   return (
     <GuideSlideDeck
@@ -214,6 +282,11 @@ export default function RegistryGuideSlideLayout({
               { label: 'Phases', value: String(registrySystemSteps.length || 7) },
             ]}
             parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            imageSrc={registryHeroImage.src}
+            imageAlt={registryHeroImage.alt}
+            imageAspectClassName="aspect-[16/11]"
+            imageObjectClassName="object-cover object-[74%_center]"
+            imagePriority
           />
 
           {introSection ? (
@@ -234,23 +307,42 @@ export default function RegistryGuideSlideLayout({
       </SlideSection>
 
       <SlideSection id={slideItems[2].id} background="blush">
-        <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
-          description="The registry hub should stay readable at a glance."
-          items={
-            extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5).length > 0
-              ? extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5)
-              : dedupeTextItems(registrySystemSteps.map((step) => step.title), 5)
-          }
-        />
+        <div className="space-y-6">
+          <GuideBulletSection
+            eyebrow="Editorial Intro"
+            title="Editorial Intro"
+            description="The registry hub should stay readable at a glance."
+            items={
+              extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5).length > 0
+                ? extractMarkdownListItems(whatThisGuideCoversSection?.content ?? '', 5)
+                : dedupeTextItems(registrySystemSteps.map((step) => step.title), 5)
+            }
+            editorialImage={{
+              eyebrow: 'Editorial image',
+              src: '/assets/services/smartbuying.jpeg',
+              alt: 'Smart buying editorial image for registry planning.',
+              caption: 'A smarter registry starts when the buying decisions follow a clearer system instead of a louder category.',
+            }}
+          />
+
+          {whatThisGuideCoversSection ? (
+            <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+              <PostContent
+                postId={`${guide.id}-registry-covers`}
+                content={stripSectionHeading(whatThisGuideCoversSection.content)}
+                className="guide-post-content guide-slide-content"
+                variant="guide"
+              />
+            </MarketingSurface>
+          ) : null}
+        </div>
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
           <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
             <div className="space-y-4">
-              <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Content</p>
+              <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
               <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
                 The registry works better when the order is doing some of the thinking for you.
               </h2>
@@ -338,7 +430,52 @@ export default function RegistryGuideSlideLayout({
 
       <SlideSection id={slideItems[6].id} background="ivory">
         <div className="space-y-8">
-          {nextStepsSection ? (
+          {routeButtonGroups.length > 0 ? (
+            <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Start Here</p>
+                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-tight text-charcoal md:text-[2.35rem]">
+                    Use the next route while the registry order is still clear.
+                  </h2>
+                  <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">
+                    If the list finally feels calmer, hand off into the next category with a cleaner sequence instead of
+                    reopening five tabs and pretending that counts as progress.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 sm:gap-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+                  {routeButtonGroups.map((group, groupIndex) => (
+                    <div
+                      key={group.label}
+                      className="rounded-[1.45rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.82)] p-4 sm:rounded-[1.6rem] sm:p-5"
+                    >
+                      <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">{group.label}</p>
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        {group.links.map((link, linkIndex) => {
+                          const isPrimary = groupIndex === 0 && linkIndex === 0;
+
+                          return (
+                            <Link
+                              key={`${group.label}-${link.href}-${link.label}`}
+                              href={link.href}
+                              className={
+                                isPrimary
+                                  ? 'inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#A15B72] px-6 py-3 text-center text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62] sm:w-auto'
+                                  : 'inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-[rgba(161,91,114,0.18)] bg-white/88 px-5 py-3 text-center text-sm font-medium text-[#4B3641] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto'
+                              }
+                            >
+                              {link.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </MarketingSurface>
+          ) : nextStepsSection ? (
             <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
               <PostContent
                 postId={`${guide.id}-registry-next-steps`}
@@ -356,14 +493,10 @@ export default function RegistryGuideSlideLayout({
           />
 
           <GuideNextGuides items={nextGuideItems} />
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[7].id} background="white">
-        <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Takeaways"
-            title="Takeaways"
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
             description="If you only keep the short version, keep these."
             items={takeaways}
           />

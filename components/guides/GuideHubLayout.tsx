@@ -211,8 +211,10 @@ export default function GuideHubLayout({
     >
       <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <GuideHero
+          slug={guide.slug}
           parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
           eyebrow={guide.category}
+          category={guide.category}
           title={guide.title}
           description={
             guide.excerpt?.trim() ||
@@ -222,6 +224,7 @@ export default function GuideHubLayout({
           publishedLabel={formatArticleDate(displayDate)}
           sectionCount={outline.sections.length}
           jumpLinks={slideItems.slice(1).map((item) => ({ label: item.label, href: `${sourceRoute}#${item.id}` }))}
+          topicCluster={guide.topicCluster}
           imageSrc={guide.heroImageUrl}
           imageAlt={guide.heroImageAlt}
           variant="default"
@@ -233,23 +236,22 @@ export default function GuideHubLayout({
       </SlideSection>
 
       <SlideSection id={slideItems[2].id} background="blush">
-        <GuideBulletSection
-          eyebrow="What This Guide Covers"
-          title="What This Guide Covers"
-          description="This hub should act like a route map through the category, not like a stacked article directory."
-          items={dedupeTextItems(
-            [
-              ...buildCoverBulletsFromOutline(outline),
-              ...hubConfig!.cards.map((card) => card.title),
-              ...hubConfig!.decisionItems.map((item) => item.title),
-            ],
-            5,
-          )}
-        />
-      </SlideSection>
+        <div className="space-y-6">
+          <GuideBulletSection
+            eyebrow="Editorial Intro"
+            title="Editorial Intro"
+            description="This is the calmer overview before the category starts splitting into narrower lanes."
+            items={dedupeTextItems(
+              [
+                ...buildCoverBulletsFromOutline(outline),
+                ...hubConfig!.cards.map((card) => card.title),
+                ...hubConfig!.decisionItems.map((item) => item.title),
+              ],
+              5,
+            )}
+            editorialImage={hubConfig?.editorialIntroImage}
+          />
 
-      <SlideSection id={slideItems[3].id} background="ivory">
-        <div className="space-y-8">
           {outline.preface ? (
             <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
               <PostContent
@@ -262,7 +264,7 @@ export default function GuideHubLayout({
           ) : null}
 
           {outline.sections[0] ? (
-            <MarketingSurface className="border-[rgba(196,156,94,0.12)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
+            <MarketingSurface className="border-[rgba(215,161,175,0.16)] bg-white/92 shadow-[0_16px_42px_rgba(0,0,0,0.06)]">
               <PostContent
                 postId={`${guide.id}-${outline.sections[0].id}`}
                 content={outline.sections[0].content}
@@ -271,6 +273,20 @@ export default function GuideHubLayout({
               />
             </MarketingSurface>
           ) : null}
+        </div>
+      </SlideSection>
+
+      <SlideSection id={slideItems[3].id} background="ivory">
+        <div className="space-y-8">
+          <div className="max-w-3xl space-y-3">
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">Core Considerations</p>
+            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
+              The category lanes that usually make the next decision clearer.
+            </h2>
+            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">
+              Use the cards below like a guided editorial map through the category, not like a shelf of disconnected options.
+            </p>
+          </div>
 
           <GuideCategoryCards
             title={hubConfig!.cardsTitle}
@@ -307,14 +323,9 @@ export default function GuideHubLayout({
         <div className="space-y-8">
           <NextSteps links={nextSteps} />
           <ProductRecommendations guide={guide} />
-        </div>
-      </SlideSection>
-
-      <SlideSection id={slideItems[7].id} background="white">
-        <div className="space-y-8">
           <GuideBulletSection
-            eyebrow="Takeaways"
-            title="Takeaways"
+            eyebrow="Keep In Mind"
+            title="Keep In Mind"
             description="If the hub did its job, these are the parts that should still feel obvious when you leave."
             items={takeaways}
           />

@@ -1,5 +1,6 @@
 import AcademyHero from '@/components/guides/academy/AcademyHero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 
 type HubHeroStat = {
   label: string;
@@ -22,6 +23,7 @@ type HubHeroParentLink = {
 };
 
 export default function HubHero({
+  slug,
   eyebrow,
   title,
   description,
@@ -30,7 +32,12 @@ export default function HubHero({
   highlights = [],
   jumpLinks = [],
   parentLink,
+  imageSrc,
+  imageAlt,
+  category,
+  topicCluster,
 }: {
+  slug?: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -39,6 +46,10 @@ export default function HubHero({
   highlights?: HubHeroHighlight[];
   jumpLinks?: HubHeroJumpLink[];
   parentLink?: HubHeroParentLink | null;
+  imageSrc?: string | null;
+  imageAlt?: string | null;
+  category?: string | null;
+  topicCluster?: string | null;
 }) {
   const stageItems = jumpLinks.map((link, index) => ({
     id: `hub-stage-${index + 1}`,
@@ -64,6 +75,14 @@ export default function HubHero({
           label: parentLink.label,
         }
       : undefined;
+  const resolvedHeroImage = resolveGuideHeroImage({
+    slug,
+    title,
+    category: category ?? eyebrow,
+    topicCluster,
+    imageSrc,
+    imageAlt,
+  });
 
   return (
     <section className="bg-[linear-gradient(180deg,#FBF7F8_0%,#FFFFFF_100%)]">
@@ -80,6 +99,11 @@ export default function HubHero({
               stageItems={stageItems}
               stats={stats}
               parentLink={parentLink ? { href: parentLink.href, label: parentLink.label } : undefined}
+              imageSrc={resolvedHeroImage.src}
+              imageAlt={resolvedHeroImage.alt}
+              imageAspectClassName="aspect-[16/11]"
+              imageObjectClassName="object-cover object-[74%_center]"
+              imagePriority
             />
 
             {highlights.length > 0 ? (

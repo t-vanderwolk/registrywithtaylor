@@ -51,6 +51,12 @@ export type GuideHubConfig = {
   decisionHelperDescription: string;
   decisionItems: GuideHubDecisionItem[];
   supportLinks: GuideHubLink[];
+  editorialIntroImage?: {
+    eyebrow?: string;
+    src: string;
+    alt: string;
+    caption: string;
+  };
 };
 
 export type GuideContinueExploringBlock = {
@@ -398,6 +404,12 @@ function buildGuideHubConfigs(currentPath: string): Record<string, GuideHubConfi
     'nursery-setup-guide': {
       cardsTitle: 'Explore nursery planning lanes',
       cardsDescription: 'Move from the big nursery question into the part of the room that most affects your actual nights and mornings.',
+      editorialIntroImage: {
+        eyebrow: 'Editorial image',
+        src: '/assets/editorial/nursery.png',
+        alt: 'Editorial nursery image for the TMBC nursery hub.',
+        caption: 'Nursery planning gets clearer once the room is treated like a working route for sleep, feeding, storage, and the middle of the night.',
+      },
       cards: [
         {
           title: 'Sleep Setup',

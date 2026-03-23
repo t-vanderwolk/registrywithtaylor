@@ -125,22 +125,24 @@ export default function GuideStickyNav({
         aria-label="Guide navigation"
         className="overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.22)] bg-[rgba(255,252,251,0.97)] shadow-[0_14px_28px_rgba(58,36,43,0.08)] backdrop-blur-[12px] sm:rounded-[1.1rem]"
       >
-        <div className="flex flex-col gap-2 p-2 sm:p-2.5">
-          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-1.5 p-1.5 sm:gap-2 sm:p-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             {resolvedBackLink ? (
               <Link
                 href={resolvedBackLink.href}
-                className="inline-flex min-h-[40px] items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/94 px-3 py-2 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-[38px] sm:justify-start"
+                className="inline-flex min-h-[36px] items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/94 px-3 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.16em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:min-h-[38px] sm:justify-start sm:text-[0.62rem] sm:tracking-[0.18em]"
               >
                 {resolvedBackLink.label}
               </Link>
             ) : null}
 
             {activeItem ? (
-              <div className="inline-flex min-h-[40px] min-w-0 items-center justify-center rounded-full bg-[rgba(250,244,246,0.96)] px-3 py-2 text-[0.62rem] uppercase tracking-[0.16em] text-[#9F556D] sm:min-h-[38px] sm:justify-start">
+              <div className="inline-flex min-h-[36px] min-w-0 max-w-full items-center rounded-full bg-[rgba(250,244,246,0.96)] px-3 py-1.5 text-[0.58rem] uppercase tracking-[0.14em] text-[#9F556D] sm:min-h-[38px] sm:text-[0.62rem] sm:tracking-[0.16em]">
                 <span className="mr-2 h-2 w-2 shrink-0 rounded-full bg-[#C77D97]" />
-                <span className="shrink-0">Now Viewing</span>
-                <span className="ml-2 truncate text-sm font-medium normal-case tracking-normal text-[#2F2430]">{activeItem.label}</span>
+                <span className="hidden shrink-0 sm:inline">Now Viewing</span>
+                <span className="truncate text-[0.82rem] font-medium normal-case tracking-normal text-[#2F2430] sm:ml-2 sm:text-sm">
+                  {activeItem.label}
+                </span>
               </div>
             ) : null}
           </div>
@@ -156,7 +158,7 @@ export default function GuideStickyNav({
                     type="button"
                     onClick={() => scrollToGuideSection(item.id, containerId)}
                     aria-current={isActive ? 'step' : undefined}
-                    className={`inline-flex min-h-[40px] shrink-0 items-center rounded-full border px-3 py-2 text-[0.82rem] transition duration-300 sm:min-h-[38px] sm:text-[0.88rem] ${
+                    className={`inline-flex min-h-[36px] shrink-0 items-center rounded-full border px-3 py-1.5 text-[0.78rem] transition duration-300 sm:min-h-[38px] sm:py-2 sm:text-[0.88rem] ${
                       isActive
                         ? 'border-[rgba(199,125,151,0.38)] bg-[linear-gradient(135deg,#D88EA2_0%,#C77D97_100%)] text-white shadow-[0_10px_24px_rgba(199,125,151,0.22)]'
                         : 'border-[rgba(215,161,175,0.16)] bg-white/86 text-[#5B4B55] hover:-translate-y-0.5 hover:border-[rgba(199,125,151,0.18)] hover:shadow-sm'

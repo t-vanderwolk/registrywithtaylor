@@ -1,3 +1,4 @@
+import PostContent from '@/components/blog/PostContent';
 import GuideCategoryStartPanel from '@/components/guides/GuideCategoryStartPanel';
 import GuideContextStrip from '@/components/guides/GuideContextStrip';
 import GuideContinueExploring from '@/components/guides/GuideContinueExploring';
@@ -11,12 +12,15 @@ import GuideStrollerInteractivePlanner, {
   type StrollerPlannerTopic,
 } from '@/components/guides/GuideStrollerInteractivePlanner';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
+import YouAreHere from '@/components/guides/YouAreHere';
+import MarketingSurface from '@/components/ui/MarketingSurface';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { extractFaqEntries, stripMarkdown } from '@/lib/blog/contentText';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock, type ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
 import type { GuideHeroJumpLink } from '@/lib/guides/hubs';
+import { getGuideOrientation } from '@/lib/guides/guideFlow';
 import {
   getCarSeatCategoryGuideConfig,
   type CarSeatCategoryGuideSlug,
@@ -217,6 +221,19 @@ function buildVisibleTocItems({
   return sectionItems;
 }
 
+function findCommonMistakesSection(sections: ReturnType<typeof buildGuideOutline>['sections']) {
+  return (
+    sections.find((section) => {
+      const normalized = normalizeValue(section.title);
+      return (
+        normalized.includes('watch out') ||
+        normalized.includes('mistake') ||
+        normalized.includes('watchout')
+      );
+    }) ?? null
+  );
+}
+
 function buildPlannerTopics({
   sections,
   faqEntries,
@@ -369,6 +386,12 @@ export default async function GuideCarSeatCategoryLiveLayout({
     hubHref: config.context.hubHref,
     hubLabel: config.context.hubLabel,
   });
+  const orientation = getGuideOrientation({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+  const commonMistakesSection = findCommonMistakesSection(outline.sections);
 
   return (
     <>
@@ -392,27 +415,73 @@ export default async function GuideCarSeatCategoryLiveLayout({
           <div className="stroller-hub-shell space-y-6 sm:space-y-8 lg:space-y-16">
             <GuideContextStrip context={config.context} />
 
+            <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
+
             <div id="car-seat-guide-start" className="scroll-mt-28">
-              <GuideCategoryStartPanel
-                startDescription={config.startPanel.startDescription}
-                questionTitle={config.startPanel.questionTitle}
-                leadParagraph={preface.leadParagraph ? stripMarkdown(preface.leadParagraph) : undefined}
-                supportingParagraphs={preface.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
-                callout={
-                  preface.callout
-                    ? {
-                        title: preface.callout.title,
-                        body: stripMarkdown(preface.callout.body),
-                      }
-                    : null
-                }
-                summaryCards={config.startPanel.summaryCards}
-                questionTitleClassName="max-w-none"
-                leadParagraphClassName="max-w-[36rem]"
-              />
+              <div className="space-y-5">
+                <div className="max-w-3xl space-y-3">
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                    Editorial Intro
+                  </p>
+                  <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+                    The setup underneath the label matters more than the label itself.
+                  </h2>
+                  <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
+                    Start here to get the category grounded in real life before you move into planner tabs, comparison pressure, or the most convincing product page.
+                  </p>
+                </div>
+
+                <GuideCategoryStartPanel
+                  startDescription={config.startPanel.startDescription}
+                  questionTitle={config.startPanel.questionTitle}
+                  leadParagraph={preface.leadParagraph ? stripMarkdown(preface.leadParagraph) : undefined}
+                  supportingParagraphs={preface.supportingParagraphs.map((paragraph) => stripMarkdown(paragraph))}
+                  callout={
+                    preface.callout
+                      ? {
+                          title: preface.callout.title,
+                          body: stripMarkdown(preface.callout.body),
+                        }
+                      : null
+                  }
+                  summaryCards={config.startPanel.summaryCards}
+                  questionTitleClassName="max-w-none"
+                  leadParagraphClassName="max-w-[36rem]"
+                />
+              </div>
             </div>
 
-            <div id="car-seat-guide-fit" className="scroll-mt-28">
+            <div className="space-y-4">
+              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
+              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
+            </div>
+
+            <div id="interactive-planner" className="scroll-mt-28 space-y-5">
+              <div className="max-w-3xl space-y-3">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                  Core Considerations
+                </p>
+                <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+                  The considerations that usually make the category clearer.
+                </h2>
+                <p className="text-sm leading-7 text-neutral-700 md:text-[1rem]">
+                  Work through the guide like a guided editorial experience: understand the lane, pressure-test the fit, and only then get more specific.
+                </p>
+              </div>
+
+              <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
+            </div>
+
+            <div id="car-seat-guide-fit" className="scroll-mt-28 space-y-5">
+              <div className="max-w-3xl space-y-3">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                  Decision Section
+                </p>
+                <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">
+                  Use the shorter fit logic when you need the answer without rereading the whole guide.
+                </h2>
+              </div>
+
               <GuideDecisionBlock
                 title={config.fitCheck.title}
                 description={config.fitCheck.description}
@@ -423,13 +492,6 @@ export default async function GuideCarSeatCategoryLiveLayout({
                 signatureMoment={config.fitCheck.signatureMoment}
               />
             </div>
-
-            <div className="space-y-4">
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="mobile" />
-              <GuideTableOfContents currentPath={sourceRoute} items={visibleTocItems} mode="desktop" layout="band" />
-            </div>
-
-            <GuideStrollerInteractivePlanner topics={plannerTopics} config={plannerConfig} />
 
             {showCompatibilityGenerator ? (
               <div id="travel-system-compatibility" className="scroll-mt-28">
@@ -457,6 +519,24 @@ export default async function GuideCarSeatCategoryLiveLayout({
                     </div>
                   )}
                 </section>
+              </div>
+            ) : null}
+
+            {commonMistakesSection ? (
+              <div id={commonMistakesSection.id} className="scroll-mt-28">
+                <MarketingSurface className="border-[rgba(215,161,175,0.14)] bg-white/92 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+                  <div className="space-y-4">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+                      Common Mistakes
+                    </p>
+                    <PostContent
+                      postId={`${guide.id}-${commonMistakesSection.id}-common-mistakes`}
+                      content={stripLeadingGuideHeading(commonMistakesSection.content)}
+                      className="guide-post-content guide-slide-content"
+                      variant="guide"
+                    />
+                  </div>
+                </MarketingSurface>
               </div>
             ) : null}
 

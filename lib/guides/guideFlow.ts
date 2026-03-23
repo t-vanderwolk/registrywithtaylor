@@ -27,12 +27,11 @@ export function getStandardGuideSlideItems(prefix: string): StandardGuideSlideIt
   return [
     { id: `${prefix}-overview`, label: 'Title + Intro', shortLabel: 'Intro' },
     { id: `${prefix}-you-are-here`, label: 'You Are Here', shortLabel: 'Path' },
-    { id: `${prefix}-covers`, label: 'What This Guide Covers', shortLabel: 'Covers' },
-    { id: `${prefix}-core-content`, label: 'Core Content', shortLabel: 'Core' },
+    { id: `${prefix}-covers`, label: 'Editorial Intro', shortLabel: 'Edit' },
+    { id: `${prefix}-core-content`, label: 'Core Considerations', shortLabel: 'Core' },
     { id: `${prefix}-decision`, label: 'Decision Section', shortLabel: 'Decide' },
     { id: `${prefix}-mistakes`, label: 'Common Mistakes', shortLabel: 'Avoid' },
     { id: `${prefix}-next-steps`, label: 'Next Steps', shortLabel: 'Next' },
-    { id: `${prefix}-takeaways`, label: 'Takeaways', shortLabel: 'Wrap' },
   ];
 }
 

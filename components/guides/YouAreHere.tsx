@@ -1,3 +1,4 @@
+import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { GuideStageLabel } from '@/lib/guides/guideFlow';
 
@@ -39,6 +40,18 @@ export default function YouAreHere({
             <p className="mt-2 text-base leading-7 text-[#4B3641]">{goal}</p>
           </div>
         </div>
+
+        <GuideHandwrittenNote
+          className="mt-6"
+          tone="white"
+          title="You do not need to memorize the whole system."
+          description={
+            <p>
+              You just need to know what this page is helping you decide. Once that part is clear, the next click
+              usually gets much less dramatic.
+            </p>
+          }
+        />
       </section>
     </RevealOnScroll>
   );
