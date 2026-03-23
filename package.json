@@ -31,9 +31,11 @@
     "framer-motion": "^12.38.0",
     "next": "16.1.6",
     "next-auth": "^4.22.1",
+    "prisma": "^5.17.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "recharts": "^3.8.0"
+    "recharts": "^3.8.0",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -42,9 +44,7 @@
     "@types/react": "19.2.14",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.33",
-    "prisma": "^5.17.0",
     "tailwindcss": "^3.4.5",
-    "tsx": "^4.21.0",
     "typescript": "5.9.3"
   }
 }
