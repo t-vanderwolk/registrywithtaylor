@@ -1,9 +1,12 @@
+import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
+
 type ProductRecommendationLink = {
   label: string;
   url: string;
 };
 
 export type ProductRecommendationCardProps = {
+  postId?: string;
   brand: string;
   productName: string;
   shortReview: string;
@@ -14,6 +17,7 @@ export type ProductRecommendationCardProps = {
 };
 
 export default function ProductRecommendationCard({
+  postId: _postId,
   brand,
   productName,
   shortReview,
@@ -62,15 +66,19 @@ export default function ProductRecommendationCard({
         {affiliateLinks.length > 0 ? (
           <div className="flex flex-wrap gap-3 pt-2">
             {affiliateLinks.map((link) => (
-              <a
+              <TrackedAffiliateLink
                 key={`${productName}-${link.label}-${link.url}`}
                 href={link.url}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
+                ctaText={link.label}
                 className="btn btn--secondary"
+                meta={{
+                  context: 'product_recommendation_card',
+                  productName,
+                  brandName: brand,
+                }}
               >
                 {link.label}
-              </a>
+              </TrackedAffiliateLink>
             ))}
           </div>
         ) : null}

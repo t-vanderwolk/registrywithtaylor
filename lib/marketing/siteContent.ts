@@ -110,8 +110,8 @@ export const guidePillars: GuidePillar[] = [
     shortTitle: 'Nursery Planning',
     description:
       'Design a nursery that supports feeding, diapering, storage, and sleep with calm, functional room flow.',
-    imageSrc: '/assets/editorial/nursery.jpg',
-    imageAlt: 'Calm nursery planning scene with crib and essentials',
+    imageSrc: '/assets/editorial/nurseryzones.png',
+    imageAlt: 'Nursery planning zones for sleep, changing, feeding, and storage',
     eyebrow: 'Baby Preparation Guide',
     seoTitle: 'Nursery Setup Guide | Taylor-Made Baby Co.',
     seoDescription:

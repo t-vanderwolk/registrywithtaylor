@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { resolveProductCardImage } from '@/lib/blog/productCardImages';
 
 type ProductLink = {
@@ -125,15 +126,19 @@ export default function ProductCard({
   return (
     <article className={shellClassName}>
       {primaryAffiliateLink ? (
-        <a
+        <TrackedAffiliateLink
           href={primaryAffiliateLink}
-          target="_blank"
-          rel="sponsored nofollow noopener noreferrer"
+          ctaText={`Shop ${productName}`}
           aria-label={`Shop ${productName}`}
           className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4"
+          meta={{
+            context: 'product_card_image',
+            productName,
+            brandName: brand,
+          }}
         >
           {imagePanel}
-        </a>
+        </TrackedAffiliateLink>
       ) : (
         imagePanel
       )}
@@ -179,15 +184,19 @@ export default function ProductCard({
           {affiliateLinks.length > 0 ? (
             <div className="flex flex-wrap gap-3 pt-1">
               {affiliateLinks.map((link) => (
-                <a
+                <TrackedAffiliateLink
                   key={`${productName}-${link.label}-${link.url}`}
                   href={link.url}
-                  target="_blank"
-                  rel="sponsored nofollow noopener noreferrer"
+                  ctaText={link.label}
                   className="btn btn--secondary"
+                  meta={{
+                    context: 'product_card_cta',
+                    productName,
+                    brandName: brand,
+                  }}
                 >
                   {link.label}
-                </a>
+                </TrackedAffiliateLink>
               ))}
             </div>
           ) : null}

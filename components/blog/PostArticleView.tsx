@@ -1,4 +1,6 @@
 import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
+import { BlogTrackingProvider } from '@/components/analytics/TrackingContext';
+import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
 import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
@@ -320,7 +322,7 @@ export default async function PostArticleView({
     ) : null;
 
   return (
-    <>
+    <BlogTrackingProvider value={{ postId: post.id, slug: post.slug, title: post.title }}>
       <BlogViewTracker postId={post.id} slug={post.slug} title={post.title} enabled={trackView} />
 
       <TMBCBlogTemplate
@@ -436,15 +438,21 @@ export default async function PostArticleView({
                     </div>
                     {href ? (
                       <div className="mt-5">
-                        <a
+                        <TrackedAffiliateLink
                           href={href}
-                          target="_blank"
-                          rel="sponsored nofollow noopener noreferrer"
+                          ctaText={`Shop ${brand.name}`}
                           className="inline-flex items-center rounded-full border border-black/12 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-neutral-900 transition hover:border-black/20 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                           aria-label={`Shop ${brand.name}`}
+                          meta={{
+                            context: 'brand_partner_card',
+                            brandId: brand.id,
+                            brandName: brand.name,
+                            programId: brand.primaryProgram?.id ?? null,
+                            network: brand.primaryProgram?.network ?? null,
+                          }}
                         >
                           <MotionCtaContent>Shop {brand.name}</MotionCtaContent>
-                        </a>
+                        </TrackedAffiliateLink>
                       </div>
                     ) : null}
                   </div>
@@ -472,6 +480,6 @@ export default async function PostArticleView({
         </>
       }
       />
-    </>
+    </BlogTrackingProvider>
   );
 }

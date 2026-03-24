@@ -1,7 +1,6 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import {
   calculateRevenuePerThousandViews,
-  estimateRevenueForClicks,
   estimateRevenuePerClick,
 } from '@/lib/analytics/revenueEstimator';
 import prisma from '@/lib/server/prisma';
@@ -19,17 +18,11 @@ type ProgramRecord = {
   brand: BrandRecord;
 };
 
-type LinkRecord = {
+type PartnerRecord = {
   id: string;
-  blogPostId: string | null;
   name: string | null;
+  brand: BrandRecord | null;
   program: ProgramRecord | null;
-  partner: {
-    id: string;
-    name: string;
-    brand: BrandRecord | null;
-    program: ProgramRecord | null;
-  } | null;
 };
 
 export type BlogRevenuePostRow = {
@@ -103,13 +96,83 @@ const fillTimelineGaps = (points: RevenueTimelinePoint[]) => {
   return filled;
 };
 
-const resolveProgramForLink = (link?: LinkRecord | null) => link?.program ?? link?.partner?.program ?? null;
+const asMetaObject = (value: unknown) =>
+  value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, unknown>) : null;
 
-const resolveBrandForLink = (link?: LinkRecord | null) =>
-  resolveProgramForLink(link)?.brand ?? link?.partner?.brand ?? null;
+const getMetaText = (meta: Record<string, unknown> | null, key: string) => {
+  const value = meta?.[key];
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+};
+
+const getBrandKey = (brandId: string | null, brandName: string) =>
+  brandId ?? `unresolved:${brandName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+
+const resolveProgramForEvent = ({
+  meta,
+  partnerMap,
+  programMap,
+}: {
+  meta: Record<string, unknown> | null;
+  partnerMap: Map<string, PartnerRecord>;
+  programMap: Map<string, ProgramRecord>;
+}) => {
+  const programId = getMetaText(meta, 'programId');
+  if (programId) {
+    const program = programMap.get(programId);
+    if (program) {
+      return program;
+    }
+  }
+
+  const partnerId = getMetaText(meta, 'partnerId');
+  if (partnerId) {
+    return partnerMap.get(partnerId)?.program ?? null;
+  }
+
+  return null;
+};
+
+const resolveBrandForEvent = ({
+  meta,
+  program,
+  partnerMap,
+}: {
+  meta: Record<string, unknown> | null;
+  program: ProgramRecord | null;
+  partnerMap: Map<string, PartnerRecord>;
+}) => {
+  if (program?.brand) {
+    return program.brand;
+  }
+
+  const partnerId = getMetaText(meta, 'partnerId');
+  if (partnerId) {
+    const partner = partnerMap.get(partnerId);
+    if (partner?.brand) {
+      return partner.brand;
+    }
+
+    if (partner?.name) {
+      return {
+        id: getBrandKey(null, partner.name),
+        name: partner.name,
+      } satisfies BrandRecord;
+    }
+  }
+
+  const brandName = getMetaText(meta, 'brandName') ?? getMetaText(meta, 'partnerName');
+  if (!brandName) {
+    return null;
+  }
+
+  return {
+    id: getBrandKey(getMetaText(meta, 'brandId'), brandName),
+    name: brandName,
+  } satisfies BrandRecord;
+};
 
 export async function getBlogRevenueAnalytics(): Promise<BlogRevenueAnalyticsSnapshot> {
-  const [posts, clickGroups, timelineClicks] = await Promise.all([
+  const [posts, affiliateClicks] = await Promise.all([
     prisma.post.findMany({
       select: {
         id: true,
@@ -119,97 +182,94 @@ export async function getBlogRevenueAnalytics(): Promise<BlogRevenueAnalyticsSna
       },
       orderBy: [{ views: 'desc' }, { publishedAt: 'desc' }, { updatedAt: 'desc' }],
     }),
-    prisma.affiliateClick.groupBy({
-      by: ['postId', 'linkId'],
+    prisma.postAnalytics.findMany({
       where: {
-        postId: {
-          not: null,
-        },
+        event: 'AFFILIATE_CLICK',
       },
-      _count: {
-        _all: true,
-      },
-    }),
-    prisma.affiliateClick.findMany({
-      where: {
-        postId: {
-          not: null,
-        },
+      select: {
+        postId: true,
+        createdAt: true,
+        meta: true,
       },
       orderBy: {
         createdAt: 'asc',
       },
-      select: {
-        createdAt: true,
-        linkId: true,
-        postId: true,
-      },
     }),
   ]);
 
-  const linkIds = Array.from(
-    new Set([
-      ...clickGroups.map((group) => group.linkId),
-      ...timelineClicks.map((click) => click.linkId),
-    ]),
+  const partnerIds = Array.from(
+    new Set(
+      affiliateClicks
+        .map((event) => getMetaText(asMetaObject(event.meta), 'partnerId'))
+        .filter((value): value is string => Boolean(value)),
+    ),
+  );
+  const programIds = Array.from(
+    new Set(
+      affiliateClicks
+        .map((event) => getMetaText(asMetaObject(event.meta), 'programId'))
+        .filter((value): value is string => Boolean(value)),
+    ),
   );
 
-  const links = linkIds.length
-    ? await prisma.affiliateLink.findMany({
-        where: {
-          id: {
-            in: linkIds,
-          },
-        },
-        select: {
-          id: true,
-          blogPostId: true,
-          name: true,
-          program: {
-            select: {
-              id: true,
-              network: true,
-              averageOrderValue: true,
-              commissionRate: true,
-              brand: {
-                select: {
-                  id: true,
-                  name: true,
-                },
-              },
+  const [partners, programs] = await Promise.all([
+    partnerIds.length
+      ? prisma.affiliatePartner.findMany({
+          where: {
+            id: {
+              in: partnerIds,
             },
           },
-          partner: {
-            select: {
-              id: true,
-              name: true,
-              brand: {
-                select: {
-                  id: true,
-                  name: true,
-                },
+          select: {
+            id: true,
+            name: true,
+            brand: {
+              select: {
+                id: true,
+                name: true,
               },
-              program: {
-                select: {
-                  id: true,
-                  network: true,
-                  averageOrderValue: true,
-                  commissionRate: true,
-                  brand: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
+            },
+            program: {
+              select: {
+                id: true,
+                network: true,
+                averageOrderValue: true,
+                commissionRate: true,
+                brand: {
+                  select: {
+                    id: true,
+                    name: true,
                   },
-                },
+                }
+              },
+            },
+          }
+        })
+      : [],
+    programIds.length
+      ? prisma.affiliateProgram.findMany({
+          where: {
+            id: {
+              in: programIds,
+            },
+          },
+          select: {
+            id: true,
+            network: true,
+            averageOrderValue: true,
+            commissionRate: true,
+            brand: {
+              select: {
+                id: true,
+                name: true,
               },
             },
           },
-        },
-      })
-    : [];
-
-  const linkMap = new Map<string, LinkRecord>(links.map((link) => [link.id, link]));
+        })
+      : [],
+  ]);
+  const partnerMap = new Map<string, PartnerRecord>(partners.map((partner) => [partner.id, partner]));
+  const programMap = new Map<string, ProgramRecord>(programs.map((program) => [program.id, program]));
   const postMap = new Map(
     posts.map((post) => [
       post.id,
@@ -226,49 +286,41 @@ export async function getBlogRevenueAnalytics(): Promise<BlogRevenueAnalyticsSna
   );
   const brandMap = new Map<string, BlogRevenueBrandRow>();
 
-  for (const group of clickGroups) {
-    const link = linkMap.get(group.linkId);
-    const postId = group.postId ?? link?.blogPostId;
-    if (!postId) {
-      continue;
-    }
+  const timelineMap = new Map<string, RevenueTimelinePoint>();
 
-    const post = postMap.get(postId);
+  for (const click of affiliateClicks) {
+    const post = postMap.get(click.postId);
     if (!post) {
       continue;
     }
 
-    const clickCount = group._count._all;
-    const program = resolveProgramForLink(link);
-    const revenue = estimateRevenueForClicks(clickCount, program);
+    const meta = asMetaObject(click.meta);
+    const program = resolveProgramForEvent({
+      meta,
+      partnerMap,
+      programMap,
+    });
+    const revenue = estimateRevenuePerClick(program);
 
-    post.affiliateClicks += clickCount;
+    post.affiliateClicks += 1;
     post.estimatedRevenue += revenue;
 
-    const brand = resolveBrandForLink(link);
-    if (!brand) {
-      continue;
-    }
+    const brand = resolveBrandForEvent({
+      meta,
+      program,
+      partnerMap,
+    });
+    if (brand) {
+      const brandRow = brandMap.get(brand.id) ?? {
+        brandId: brand.id,
+        brandName: brand.name,
+        affiliateClicks: 0,
+        estimatedRevenue: 0,
+      };
 
-    const brandRow = brandMap.get(brand.id) ?? {
-      brandId: brand.id,
-      brandName: brand.name,
-      affiliateClicks: 0,
-      estimatedRevenue: 0,
-    };
-
-    brandRow.affiliateClicks += clickCount;
-    brandRow.estimatedRevenue += revenue;
-    brandMap.set(brand.id, brandRow);
-  }
-
-  const timelineMap = new Map<string, RevenueTimelinePoint>();
-
-  for (const click of timelineClicks) {
-    const link = linkMap.get(click.linkId);
-    const postId = click.postId ?? link?.blogPostId;
-    if (!postId || !postMap.has(postId)) {
-      continue;
+      brandRow.affiliateClicks += 1;
+      brandRow.estimatedRevenue += revenue;
+      brandMap.set(brand.id, brandRow);
     }
 
     const timelineKey = toIsoDay(click.createdAt);
@@ -279,7 +331,7 @@ export async function getBlogRevenueAnalytics(): Promise<BlogRevenueAnalyticsSna
     };
 
     point.affiliateClicks += 1;
-    point.estimatedRevenue += estimateRevenuePerClick(resolveProgramForLink(link));
+    point.estimatedRevenue += revenue;
     timelineMap.set(timelineKey, point);
   }
 

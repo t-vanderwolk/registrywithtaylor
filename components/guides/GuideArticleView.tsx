@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { GuideTrackingProvider } from '@/components/analytics/TrackingContext';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
 import GuideCarSeatCategoryLiveLayout from '@/components/guides/GuideCarSeatCategoryLiveLayout';
@@ -169,7 +170,7 @@ export default async function GuideArticleView({
 
   if (useStrollerAcademyHub) {
     return (
-      <>
+      <GuideTrackingProvider value={{ guideId: guide.id, sourceRoute, slug: guide.slug, title: guide.title }}>
         <GuideViewTracker
           guideId={guide.id}
           sourceRoute={sourceRoute}
@@ -183,13 +184,13 @@ export default async function GuideArticleView({
           sourceRoute={sourceRoute}
           readingTime={readingTime}
         />
-      </>
+      </GuideTrackingProvider>
     );
   }
 
   if (hubConfig) {
     return (
-      <>
+      <GuideTrackingProvider value={{ guideId: guide.id, sourceRoute, slug: guide.slug, title: guide.title }}>
         <GuideViewTracker
           guideId={guide.id}
           sourceRoute={sourceRoute}
@@ -210,13 +211,13 @@ export default async function GuideArticleView({
           nextStepEvent={nextStepEvent}
           nextStepDestinationPageType={nextStepDestinationPageType}
         />
-      </>
+      </GuideTrackingProvider>
     );
   }
 
   if (useStrollerCategoryLiveLayout) {
     return (
-      <>
+      <GuideTrackingProvider value={{ guideId: guide.id, sourceRoute, slug: guide.slug, title: guide.title }}>
         <GuideViewTracker
           guideId={guide.id}
           sourceRoute={sourceRoute}
@@ -231,13 +232,13 @@ export default async function GuideArticleView({
           readingTime={readingTime}
           sourceRoute={sourceRoute}
         />
-      </>
+      </GuideTrackingProvider>
     );
   }
 
   if (useCarSeatCategoryLiveLayout) {
     return (
-      <>
+      <GuideTrackingProvider value={{ guideId: guide.id, sourceRoute, slug: guide.slug, title: guide.title }}>
         <GuideViewTracker
           guideId={guide.id}
           sourceRoute={sourceRoute}
@@ -252,12 +253,12 @@ export default async function GuideArticleView({
           readingTime={readingTime}
           sourceRoute={sourceRoute}
         />
-      </>
+      </GuideTrackingProvider>
     );
   }
 
   return (
-    <>
+    <GuideTrackingProvider value={{ guideId: guide.id, sourceRoute, slug: guide.slug, title: guide.title }}>
       <GuideViewTracker
         guideId={guide.id}
         sourceRoute={sourceRoute}
@@ -294,6 +295,6 @@ export default async function GuideArticleView({
         displayDate={displayDate}
         readingTime={readingTime}
       />
-    </>
+    </GuideTrackingProvider>
   );
 }

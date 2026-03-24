@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 type ProductExampleImage = {
@@ -80,15 +81,19 @@ export default function ProductExampleCard({
       <article className="h-full rounded-2xl border border-stone-200/70 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md md:p-6">
         {imageHref ? (
           isExternalHref(imageHref) ? (
-            <a
+            <TrackedAffiliateLink
               href={imageHref}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
+              ctaText={imageLinkLabel?.trim() || `Shop ${name}`}
               aria-label={imageLinkLabel?.trim() || `Shop ${name}`}
               className="block rounded-xl transition duration-200 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(196,156,94,0.42)] focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+              meta={{
+                context: 'guide_product_example_image',
+                productName: name,
+                brandName: brand ?? undefined,
+              }}
             >
               {imagePanel}
-            </a>
+            </TrackedAffiliateLink>
           ) : (
             <Link
               href={imageHref}
@@ -126,15 +131,33 @@ export default function ProductExampleCard({
           <div className="mt-5">{actionSlot}</div>
         ) : cta ? (
           <div className="mt-5">
-            <Link
-              href={cta.href}
-              className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
-            >
-              <span>{cta.label}</span>
-              <span aria-hidden="true" className="ml-2">
-                -&gt;
-              </span>
-            </Link>
+            {isExternalHref(cta.href) ? (
+              <TrackedAffiliateLink
+                href={cta.href}
+                ctaText={cta.label}
+                className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
+                meta={{
+                  context: 'guide_product_example_cta',
+                  productName: name,
+                  brandName: brand ?? undefined,
+                }}
+              >
+                <span>{cta.label}</span>
+                <span aria-hidden="true" className="ml-2">
+                  -&gt;
+                </span>
+              </TrackedAffiliateLink>
+            ) : (
+              <Link
+                href={cta.href}
+                className="inline-flex min-h-[44px] items-center rounded-full border border-[rgba(215,161,175,0.36)] bg-white px-5 py-3 text-sm font-semibold text-charcoal transition duration-200 hover:scale-[1.02] hover:shadow-md"
+              >
+                <span>{cta.label}</span>
+                <span aria-hidden="true" className="ml-2">
+                  -&gt;
+                </span>
+              </Link>
+            )}
           </div>
         ) : null}
       </article>

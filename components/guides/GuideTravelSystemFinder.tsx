@@ -1,6 +1,7 @@
 'use client';
 
 import { useDeferredValue, useId, useState } from 'react';
+import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 import {
   findTravelSystemEntities,
@@ -170,15 +171,23 @@ export default function GuideTravelSystemFinder() {
                       <p className="mt-4 text-sm leading-7 text-neutral-700">{result.note}</p>
 
                       <div className="mt-auto pt-5">
-                        <a
+                        <TrackedAffiliateLink
                           href={result.sourceUrl}
-                          target="_blank"
-                          rel="noreferrer"
+                          ctaText={result.sourceLabel}
                           className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 underline decoration-[rgba(196,156,94,0.45)] underline-offset-4"
+                          rel="noopener noreferrer"
+                          meta={{
+                            context: 'travel_system_finder',
+                            productName: result.counterpart.label,
+                            brandName:
+                              result.counterpart.type === 'stroller'
+                                ? result.stroller.shortLabel
+                                : result.carSeat.shortLabel,
+                          }}
                         >
                           <span>{result.sourceLabel}</span>
                           <span aria-hidden="true">-&gt;</span>
-                        </a>
+                        </TrackedAffiliateLink>
                       </div>
                     </article>
                   ))}
