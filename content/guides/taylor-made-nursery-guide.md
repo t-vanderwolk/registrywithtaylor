@@ -6,7 +6,7 @@ That is the TMBC nursery lens. The goal is not to make the room more impressive.
 
 Most nursery stress also comes from trying to solve everything at once. Sleep setup, changing flow, furniture, and storage are not four separate decorating categories. They are one connected system. Once that system is clear, the room usually looks better too. Convenient.
 
-![Nursery planning zones for sleep, changing, feeding, and storage.](/assets/editorial/nurseryzones.png)
+![A calm nursery with soft light, functional furniture, and an uncluttered setup.](/assets/editorial/nursery.jpg)
 
 :::callout
 Start with your real life

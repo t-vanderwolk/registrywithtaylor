@@ -37,7 +37,7 @@ export default function GuideSlide({
     >
       <div
         className={[
-          'mx-auto flex w-full max-w-[1520px] flex-col px-4 py-6 sm:px-6 sm:py-9 md:px-10 md:py-12 xl:px-12',
+          'mx-auto flex w-full max-w-[1520px] flex-col px-4 py-4 sm:px-6 sm:py-8 md:px-10 md:py-12 xl:px-12',
           innerClassName,
         ]
           .filter(Boolean)
@@ -45,10 +45,7 @@ export default function GuideSlide({
       >
         {children}
 
-        <div className="mt-5 flex flex-col gap-3 border-t border-[rgba(161,91,114,0.12)] pt-3.5 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:pt-4">
-          <p className="text-[1rem] leading-7 text-[#6A5660]">Continue -&gt;</p>
-          <GuideNextStep mode="carousel" className="self-start sm:self-auto" />
-        </div>
+        <GuideNextStep mode="carousel" layout="footer" className="self-start sm:self-auto" />
       </div>
     </section>
   );

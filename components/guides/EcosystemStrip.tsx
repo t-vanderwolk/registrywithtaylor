@@ -34,7 +34,7 @@ export default function EcosystemStrip({ currentStep }: { currentStep: number })
         <div className="relative overflow-hidden rounded-[1rem] border border-[rgba(215,161,175,0.18)] bg-[rgba(255,251,250,0.94)] px-2.5 py-2.5 shadow-[0_10px_24px_rgba(58,36,43,0.06)] backdrop-blur-[10px] sm:px-4 sm:py-3">
           <div className="flex flex-col items-start justify-between gap-1 pb-1.5 sm:flex-row sm:items-center sm:gap-4">
             <p className="text-[0.64rem] uppercase tracking-[0.2em] text-[#A15B72]">TMBC Ecosystem</p>
-            <p className="text-[0.7rem] text-[#6E6068] sm:hidden">{`Step ${currentStep} of ${TMBC_ECOSYSTEM_STEPS.length}`}</p>
+            <p className="text-[0.7rem] text-[#6E6068] sm:hidden">{`Step ${currentStep} of ${TMBC_ECOSYSTEM_STEPS.length} · swipe through the path`}</p>
             <p className="hidden text-[0.72rem] text-[#6E6068] sm:block sm:text-[0.78rem]">There is a system. You are inside it.</p>
           </div>
 
@@ -42,7 +42,7 @@ export default function EcosystemStrip({ currentStep }: { currentStep: number })
             initial="initial"
             animate={prefersReducedMotion ? 'animate' : 'animate'}
             variants={stripVariants}
-            className="-mx-1 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="-mx-1 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-1 pr-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {TMBC_ECOSYSTEM_STEPS.map((step, index) => {
               const stepNumber = index + 1;

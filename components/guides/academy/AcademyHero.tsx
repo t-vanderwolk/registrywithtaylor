@@ -57,8 +57,8 @@ export default function AcademyHero({
   const hasFooterCards = stats.length > 0 || Boolean(note) || Boolean(asideSlot);
 
   return (
-    <section className="relative min-w-0 overflow-hidden rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.96)_54%,rgba(247,231,236,0.88))] px-3.5 py-5 shadow-[0_28px_90px_rgba(71,44,53,0.08)] sm:rounded-[2.5rem] sm:px-8 sm:py-12 lg:px-12 lg:py-14">
-      <div className="relative space-y-5 sm:space-y-8">
+    <section className="relative min-w-0 overflow-hidden rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.96)_54%,rgba(247,231,236,0.88))] px-3 py-4 shadow-[0_28px_90px_rgba(71,44,53,0.08)] sm:rounded-[2.5rem] sm:px-8 sm:py-12 lg:px-12 lg:py-14">
+      <div className="relative space-y-4 sm:space-y-8">
         <div className="relative isolate overflow-hidden rounded-[1.75rem] border border-[rgba(215,161,175,0.16)] bg-[linear-gradient(135deg,rgba(252,247,241,0.98),rgba(255,252,253,0.97)_48%,rgba(247,233,238,0.86))] shadow-[0_28px_90px_rgba(71,44,53,0.10)] sm:rounded-[2.45rem]">
           <div className="pointer-events-none absolute left-[-4rem] top-[-3rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.16)_0%,rgba(232,154,174,0)_72%)] blur-3xl" />
           <div className="pointer-events-none absolute right-[-5rem] bottom-[-4rem] h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(196,156,94,0.14)_0%,rgba(196,156,94,0)_74%)] blur-3xl" />
@@ -81,23 +81,23 @@ export default function AcademyHero({
             </div>
           ) : null}
 
-          <div className={`relative z-10 flex min-h-[18rem] flex-col justify-between gap-7 px-4 py-5 sm:min-h-[24rem] sm:gap-10 sm:px-8 sm:py-10 lg:min-h-[clamp(26rem,58vh,38rem)] lg:px-12 lg:py-10 ${hasHeroImage ? 'lg:pr-[14rem] xl:pr-[18rem]' : ''}`}>
+          <div className={`relative z-10 flex min-h-[16rem] flex-col justify-between gap-6 px-4 py-4 sm:min-h-[24rem] sm:gap-10 sm:px-8 sm:py-10 lg:min-h-[clamp(26rem,58vh,38rem)] lg:px-12 lg:py-10 ${hasHeroImage ? 'lg:pr-[14rem] xl:pr-[18rem]' : ''}`}>
             <div className="min-w-0 max-w-3xl">
               {parentLink ? (
                 <a
                   href={parentLink.href}
-                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full border border-[rgba(161,91,114,0.16)] bg-white/82 px-4 py-2 text-[0.62rem] uppercase tracking-[0.2em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto sm:text-[0.68rem] sm:tracking-[0.22em]"
+                  className="inline-flex min-h-[44px] max-w-full items-center justify-start rounded-full border border-[rgba(161,91,114,0.16)] bg-white/82 px-4 py-2 text-[0.62rem] uppercase tracking-[0.2em] text-[#8F4C62] transition duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto sm:text-[0.68rem] sm:tracking-[0.22em]"
                 >
                   {parentLink.label}
                 </a>
               ) : null}
-              <p className="mt-3 text-[0.65rem] uppercase tracking-[0.24em] text-[#9F556D] sm:text-[0.72rem] sm:tracking-[0.34em]">
+              <p className="mt-2.5 text-[0.65rem] uppercase tracking-[0.22em] text-[#9F556D] sm:text-[0.72rem] sm:tracking-[0.34em]">
                 {eyebrow}
               </p>
               <h1 className="mt-4 max-w-[10ch] text-balance text-[clamp(2.1rem,11vw,5rem)] font-medium leading-[0.92] tracking-[-0.05em] text-[#2F2430] sm:max-w-[11ch] sm:leading-[0.98]">
                 {title}
               </h1>
-              <p className="mt-4 max-w-[39rem] text-[0.94rem] leading-7 text-[#5B4B55] sm:mt-6 sm:text-[1.08rem] sm:leading-8">
+              <p className="mt-4 max-w-[39rem] text-[0.98rem] leading-7 text-[#5B4B55] sm:mt-6 sm:text-[1.08rem] sm:leading-8">
                 {description}
               </p>
 
@@ -123,7 +123,7 @@ export default function AcademyHero({
               ) : null}
 
               {directionalHint ? (
-                <p className="mt-4 text-[0.92rem] leading-7 text-[#6A5660] sm:text-[0.98rem]">
+                <p className="mt-4 rounded-[1rem] border border-[rgba(161,91,114,0.12)] bg-white/62 px-3 py-2.5 text-[0.92rem] leading-7 text-[#6A5660] sm:inline-block sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-[0.98rem]">
                   {directionalHint}
                 </p>
               ) : null}

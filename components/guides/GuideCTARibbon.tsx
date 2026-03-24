@@ -49,13 +49,13 @@ export default function GuideCTARibbon({
     <RevealOnScroll>
       <section
         id={id}
-        className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.95))] p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] md:p-7"
+        className="rounded-[1.6rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(251,245,239,0.97),rgba(255,250,252,0.95))] p-4 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:rounded-[2rem] sm:p-5 md:p-7"
       >
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-3">
             <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">{eyebrow}</p>
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.3rem]">{title}</h2>
-            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">{description}</p>
+            <h2 className="text-[1.8rem] font-medium leading-[1.04] tracking-[-0.03em] text-[#2F2430] sm:text-3xl md:text-[2.3rem]">{title}</h2>
+            <p className="text-[1rem] leading-7 text-[#5B4B55] md:text-lg md:leading-8">{description}</p>
           </div>
 
           {actionsSlot ? (
