@@ -52,7 +52,7 @@ export default function BlogPreview({
 
         <Link
           href={linkHref}
-          className="inline-flex min-h-[44px] items-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-black/52 transition-opacity duration-200 hover:opacity-75 md:justify-self-end"
+          className="inline-flex min-h-[44px] w-full items-center justify-start text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-black/52 transition-opacity duration-200 hover:opacity-75 md:w-auto md:justify-self-end"
         >
           {linkLabel}
         </Link>
@@ -67,7 +67,7 @@ export default function BlogPreview({
 
             return (
               <RevealOnScroll key={post.id} delayMs={index * 80}>
-                <article className="flex h-full flex-col rounded-[1.65rem] border border-[rgba(0,0,0,0.045)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,248,245,0.94)_100%)] p-5 shadow-[0_10px_24px_rgba(0,0,0,0.035)] transition-opacity duration-200 hover:opacity-[0.96]">
+                <article className="flex h-full flex-col rounded-[1.45rem] border border-[rgba(0,0,0,0.045)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,248,245,0.94)_100%)] p-4 shadow-[0_10px_24px_rgba(0,0,0,0.035)] transition-opacity duration-200 hover:opacity-[0.96] sm:rounded-[1.65rem] sm:p-5">
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-black/48">{categoryLabel}</p>
 
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.15em] text-black/48">
@@ -80,7 +80,7 @@ export default function BlogPreview({
                     ) : null}
                   </div>
 
-                  <h3 className="mt-3 max-w-[16ch] font-serif text-[1.32rem] leading-[1.08] tracking-[-0.028em] text-neutral-900">
+                  <h3 className="mt-3 max-w-[16ch] font-serif text-[1.24rem] leading-[1.08] tracking-[-0.028em] text-neutral-900 sm:text-[1.32rem]">
                     <Link href={`/blog/${post.slug}`} className="transition-opacity duration-200 hover:opacity-80">
                       {post.title}
                     </Link>
@@ -114,7 +114,7 @@ export default function BlogPreview({
             );
           })
         ) : (
-          <div className="rounded-[1.55rem] border border-[rgba(0,0,0,0.05)] bg-white px-5 py-6 text-center shadow-[0_10px_24px_rgba(0,0,0,0.035)] lg:col-span-2">
+          <div className="rounded-[1.35rem] border border-[rgba(0,0,0,0.05)] bg-white px-4 py-6 text-center shadow-[0_10px_24px_rgba(0,0,0,0.035)] sm:rounded-[1.55rem] sm:px-5 lg:col-span-2">
             <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/45">Journal update</p>
             <p className="mt-3 max-w-none text-sm leading-7 text-neutral-700">
               {emptyMessage}

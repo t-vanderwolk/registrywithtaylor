@@ -13,7 +13,7 @@ function ServiceDetailCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-2xl border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-4">
+    <div className="rounded-[1.15rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-3.5 sm:rounded-2xl sm:p-4">
       <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">{title}</p>
       <div className="mt-4 space-y-2.5">
         {items.map((item) => (
@@ -55,12 +55,12 @@ export default function ServiceCards({
         contentWidthClassName="max-w-4xl"
       />
 
-      <div className="mt-8 grid gap-6 sm:mt-12 sm:gap-8 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.08fr)_minmax(0,0.96fr)] lg:items-stretch">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-7 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.08fr)_minmax(0,0.96fr)] lg:items-stretch">
         {packages.map((pkg) => (
           <article
             key={pkg.key}
             className={[
-              'flex h-full flex-col rounded-[1.75rem] border bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(55,40,46,0.08)] sm:rounded-2xl sm:p-7',
+              'flex h-full flex-col rounded-[1.45rem] border bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(55,40,46,0.08)] sm:rounded-2xl sm:p-7',
               pkg.featured
                 ? 'relative border-[rgba(216,137,160,0.34)] shadow-[0_24px_70px_rgba(216,137,160,0.12)] lg:-translate-y-2 lg:scale-[1.02]'
                 : 'border-[rgba(0,0,0,0.06)]',
@@ -88,7 +88,7 @@ export default function ServiceCards({
 
               <div
                 className={[
-                  'mt-4 rounded-[1.4rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-5',
+                  'mt-4 rounded-[1.2rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-5',
                   pkg.featured ? 'bg-[linear-gradient(180deg,#ffffff_0%,#fff1f4_100%)] text-center shadow-[0_14px_34px_rgba(216,137,160,0.08)]' : '',
                 ].join(' ')}
               >
@@ -105,13 +105,13 @@ export default function ServiceCards({
 
               <p className="mt-5 max-w-none text-[0.98rem] leading-7 text-neutral-700">{pkg.description}</p>
 
-              <div className="mt-6 space-y-5">
+              <div className="mt-6 space-y-4">
                 <ServiceDetailCard title="Best for" items={[pkg.bestFor]} />
                 <ServiceDetailCard title="What this includes" items={pkg.bullets} />
               </div>
             </div>
 
-            <div className="mt-auto pt-8">
+            <div className="mt-auto pt-6 sm:pt-8">
               <p className="text-sm text-neutral-500">Advisor-led support for the decisions that are not getting clearer on their own.</p>
               <Link
                 href={ctaHref}
