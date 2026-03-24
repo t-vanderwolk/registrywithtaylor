@@ -747,8 +747,8 @@
 }
 
 .guide-post-content h2 {
-  font-size: clamp(2rem, 3.6vw, 3.15rem);
-  line-height: 1.02;
+  font-size: clamp(2.12rem, 3.9vw, 3.3rem);
+  line-height: 1.04;
   letter-spacing: -0.045em;
   margin-top: 72px;
   margin-bottom: 18px;
@@ -768,23 +768,23 @@
 }
 
 .guide-post-content h3 {
-  font-size: clamp(1.32rem, 2vw, 1.7rem);
-  line-height: 1.18;
+  font-size: clamp(1.42rem, 2.1vw, 1.82rem);
+  line-height: 1.2;
   letter-spacing: -0.025em;
   margin-top: 34px;
   margin-bottom: 12px;
 }
 
 .guide-post-content p {
-  font-size: clamp(1.04rem, 1.15vw, 1.18rem);
-  line-height: 1.94;
-  margin-bottom: 26px;
+  font-size: clamp(1.1rem, 1.24vw, 1.26rem);
+  line-height: 1.96;
+  margin-bottom: 28px;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 88%, white 12%);
 }
 
 .guide-post-content > p:first-of-type {
-  font-size: clamp(1.28rem, 1.7vw, 1.52rem);
-  line-height: 1.72;
+  font-size: clamp(1.36rem, 1.82vw, 1.62rem);
+  line-height: 1.76;
   letter-spacing: -0.01em;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
 }
@@ -803,8 +803,8 @@
 }
 
 .guide-post-content--subsection > p:first-of-type {
-  font-size: clamp(1.08rem, 1.22vw, 1.22rem);
-  line-height: 1.88;
+  font-size: clamp(1.14rem, 1.3vw, 1.3rem);
+  line-height: 1.92;
   letter-spacing: 0;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 88%, white 12%);
 }
@@ -821,9 +821,9 @@
 
 .guide-post-content.guide-slide-content h2 {
   margin-top: 0;
-  margin-bottom: 14px;
-  font-size: clamp(1.7rem, 2.2vw, 2.3rem);
-  line-height: 1.08;
+  margin-bottom: 16px;
+  font-size: clamp(1.82rem, 2.35vw, 2.52rem);
+  line-height: 1.1;
 }
 
 .guide-post-content.guide-slide-content h2::after {
@@ -831,23 +831,23 @@
 }
 
 .guide-post-content.guide-slide-content h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: clamp(1.14rem, 1.45vw, 1.36rem);
-  line-height: 1.18;
+  margin-top: 22px;
+  margin-bottom: 12px;
+  font-size: clamp(1.24rem, 1.58vw, 1.5rem);
+  line-height: 1.22;
   letter-spacing: -0.02em;
 }
 
 .guide-post-content.guide-slide-content p {
-  margin-bottom: 16px;
-  font-size: 1.02rem;
-  line-height: 1.74;
+  margin-bottom: 18px;
+  font-size: clamp(1.08rem, 1.16vw, 1.18rem);
+  line-height: 1.82;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 86%, white 14%);
 }
 
 .guide-post-content.guide-slide-content > p:first-of-type {
-  font-size: 1.03rem;
-  line-height: 1.74;
+  font-size: clamp(1.1rem, 1.18vw, 1.22rem);
+  line-height: 1.84;
   letter-spacing: 0;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 86%, white 14%);
 }
@@ -868,8 +868,9 @@
 }
 
 .guide-post-content.guide-slide-content li {
-  margin-bottom: 10px;
-  line-height: 1.72;
+  margin-bottom: 12px;
+  font-size: 1.06rem;
+  line-height: 1.8;
 }
 
 .guide-post-content.guide-slide-content ul {
@@ -898,21 +899,21 @@
 .guide-post-content.guide-hub-card-content h3 {
   margin-top: 22px;
   margin-bottom: 10px;
-  font-size: clamp(1.18rem, 1.55vw, 1.44rem);
-  line-height: 1.16;
+  font-size: clamp(1.26rem, 1.68vw, 1.56rem);
+  line-height: 1.18;
   letter-spacing: -0.02em;
 }
 
 .guide-post-content.guide-hub-card-content p {
   margin-bottom: 18px;
-  font-size: 1.02rem;
-  line-height: 1.74;
+  font-size: clamp(1.06rem, 1.08vw, 1.16rem);
+  line-height: 1.8;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 86%, white 14%);
 }
 
 .guide-post-content.guide-hub-card-content > p:first-of-type {
-  font-size: 1.03rem;
-  line-height: 1.74;
+  font-size: clamp(1.08rem, 1.12vw, 1.18rem);
+  line-height: 1.8;
   letter-spacing: 0;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 86%, white 14%);
 }
@@ -1428,12 +1429,12 @@
   }
 
   .guide-post-content p {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.11rem;
+    line-height: 1.86;
   }
 
   .guide-post-content > p:first-of-type {
-    font-size: 1.2rem;
+    font-size: 1.26rem;
   }
 
   .guide-post-content > p:first-of-type::first-letter {
@@ -1442,14 +1443,14 @@
   }
 
   .stroller-guide-content p {
-    font-size: 1.05rem;
-    line-height: 1.76;
+    font-size: 1.11rem;
+    line-height: 1.82;
     margin-bottom: 22px;
   }
 
   .stroller-guide-content > p:first-of-type {
-    font-size: 1.12rem;
-    line-height: 1.72;
+    font-size: 1.18rem;
+    line-height: 1.78;
   }
 
   .stroller-guide-content h2 {
@@ -1463,17 +1464,31 @@
   }
 
   .guide-post-content.guide-hub-card-content h3 {
-    font-size: 1.14rem;
+    font-size: 1.2rem;
   }
 
   .guide-post-content.guide-hub-card-content p {
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: 1.04rem;
+    line-height: 1.76;
   }
 
   .guide-post-content.guide-hub-card-content > p:first-of-type {
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: 1.08rem;
+    line-height: 1.76;
+  }
+
+  .guide-post-content.guide-slide-content p {
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .guide-post-content.guide-slide-content > p:first-of-type {
+    font-size: 1.12rem;
+    line-height: 1.82;
+  }
+
+  .guide-post-content.guide-slide-content h3 {
+    font-size: 1.2rem;
   }
 
   .tmbc-editorial-article-shell {

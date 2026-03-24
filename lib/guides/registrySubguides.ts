@@ -1,5 +1,4 @@
 import type { GuideCardItem } from '@/lib/guides/presentation';
-import { getGuidePath } from '@/lib/guides/routing';
 
 export const REGISTRY_SUBGUIDE_PATHS = {
   minimalist: '/guides/registry/minimalist',
@@ -9,6 +8,9 @@ export const REGISTRY_SUBGUIDE_PATHS = {
   timeline: '/guides/registry/timeline',
   perks: '/guides/registry/perks',
 } as const;
+
+export const REGISTRY_GUIDE_PARENT_SLUG = 'minimalist-baby-registry';
+export const REGISTRY_GUIDE_TOPIC_CLUSTER = 'TMBC Learning Library: Registry';
 
 export type RegistrySubGuideSlug = keyof typeof REGISTRY_SUBGUIDE_PATHS;
 
@@ -27,6 +29,9 @@ export type RegistrySubGuidePageData = {
   description: string;
   seoTitle: string;
   seoDescription: string;
+  targetKeyword: string;
+  secondaryKeywords: string[];
+  relatedSlugs: string[];
   content: string;
   nextStepCtaHref: string;
   nextStepCtaLabel: string;
@@ -88,7 +93,7 @@ const DEFAULT_GUIDE_IMAGE = '/assets/hero/hero-baby-editorial.jpg';
 const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   {
     slug: 'minimalist-baby-registry',
-    href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+    href: '/guides/registry',
     title: 'Registry Hub',
     description: 'Return to the full registry decision hub.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -97,7 +102,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'best-strollers',
-    href: getGuidePath({ slug: 'best-strollers' }),
+    href: '/guides/strollers',
     title: 'Stroller Guide',
     description: 'Use this once you are ready to narrow stroller tradeoffs.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -106,7 +111,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'best-infant-car-seats',
-    href: getGuidePath({ slug: 'best-infant-car-seats' }),
+    href: '/guides/car-seats',
     title: 'Car Seat Guide',
     description: 'Use this when you are ready to sort infant and convertible seat fit.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -115,7 +120,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'nursery-setup-guide',
-    href: getGuidePath({ slug: 'nursery-setup-guide' }),
+    href: '/guides/nursery',
     title: 'Nursery Guide',
     description: 'Use this when the room plan starts affecting the registry list.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -213,6 +218,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'Minimalist Baby Registry | Taylor-Made Baby Co.',
     seoDescription:
       'A structured guide to building a smaller, smarter baby registry around daily use, space, and clear priorities.',
+    targetKeyword: 'minimalist baby registry',
+    secondaryKeywords: ['baby registry guide', 'what to put on a baby registry', 'registry planning', 'registry essentials'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'mistakes'],
     nextStepCtaHref: '/guides/registry',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
@@ -304,6 +312,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'What to Register For First | Taylor-Made Baby Co.',
     seoDescription:
       'A structured first-pass baby registry guide covering sleep, feeding, diapering, and everyday setup before extras.',
+    targetKeyword: 'registry essentials',
+    secondaryKeywords: ['what to register for first', 'baby registry checklist', 'newborn essentials', 'registry basics'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'mistakes', 'timeline'],
     nextStepCtaHref: '/guides/registry',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
@@ -405,6 +416,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'Registry Mistakes to Avoid | Taylor-Made Baby Co.',
     seoDescription:
       'A clear list of baby registry mistakes that lead to overbuying, duplication, and a list that does not match real life.',
+    targetKeyword: 'baby registry mistakes',
+    secondaryKeywords: ['registry mistakes to avoid', 'common registry mistakes', 'how to build a baby registry', 'registry planning tips'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'where-to-register'],
     nextStepCtaHref: '/guides/registry',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
@@ -497,6 +511,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'Where to Register for a Baby Registry | Taylor-Made Baby Co.',
     seoDescription:
       'Compare Target, Amazon, and Babylist by completion discounts, welcome boxes, returns, and setup logic.',
+    targetKeyword: 'where to register for a baby registry',
+    secondaryKeywords: ['best baby registry', 'Target vs Amazon vs Babylist registry', 'baby registry comparison', 'registry completion discount'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'timeline', 'perks'],
     nextStepCtaHref: '/guides/strollers',
     nextStepCtaLabel: 'Continue to the Stroller Guide',
     content: buildRegistrySubGuideContent({
@@ -600,6 +617,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'When to Buy What for a Baby Registry | Taylor-Made Baby Co.',
     seoDescription:
       'A structured registry timeline covering nursery-first planning, large-purchase timing, completion discounts, and what to delay.',
+    targetKeyword: 'when to buy baby registry items',
+    secondaryKeywords: ['baby registry timeline', 'when to build a baby registry', 'when to buy nursery furniture', 'completion discount timing'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'where-to-register'],
     nextStepCtaHref: '/guides/registry/where-to-register',
     nextStepCtaLabel: 'Compare Registry Retailers',
     content: buildRegistrySubGuideContent({
@@ -696,6 +716,9 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     seoTitle: 'Free Registry Perks & Welcome Boxes | Taylor-Made Baby Co.',
     seoDescription:
       'A structured guide to registry welcome boxes, completion discounts, qualification rules, and perk-stacking strategy.',
+    targetKeyword: 'baby registry perks',
+    secondaryKeywords: ['registry welcome boxes', 'baby registry completion discount', 'Target registry welcome kit', 'Babylist Hello Baby Box'],
+    relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'where-to-register', 'timeline'],
     nextStepCtaHref: '/guides/registry/where-to-register',
     nextStepCtaLabel: 'Compare Registry Retailers',
     content: buildRegistrySubGuideContent({

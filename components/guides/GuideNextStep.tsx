@@ -83,7 +83,7 @@ export default function GuideNextStep({
           });
         }}
         className={[
-          'inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(161,91,114,0.18)] bg-white/92 px-5 py-2.5 text-sm font-medium text-[#4B3641] shadow-[0_12px_28px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(58,36,43,0.12)] sm:w-auto',
+          'inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-[rgba(161,91,114,0.18)] bg-white/92 px-5 py-3 text-[0.98rem] font-medium text-[#4B3641] shadow-[0_12px_28px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(58,36,43,0.12)] sm:w-auto',
           className,
         ]
           .filter(Boolean)
@@ -113,8 +113,8 @@ export default function GuideNextStep({
           {stage}
         </span>
       ) : null}
-      <h3 className="mt-4 text-[1.22rem] font-medium leading-[1.1] tracking-[-0.02em] text-[#2F2430]">{label}</h3>
-      <p className="mt-3 text-sm leading-7 text-[#5B4B55]">{description}</p>
+      <h3 className="mt-4 text-[1.28rem] font-medium leading-[1.14] tracking-[-0.02em] text-[#2F2430] md:text-[1.34rem]">{label}</h3>
+      <p className="mt-3 text-[1.02rem] leading-8 text-[#5B4B55] md:text-[1.06rem]">{description}</p>
       <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-[#8F4C62]">
         <span>Continue</span>
         <span aria-hidden="true">-&gt;</span>

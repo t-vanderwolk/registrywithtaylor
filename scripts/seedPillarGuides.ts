@@ -21,20 +21,6 @@ const PUBLISH_FLAG = '--publish';
 
 const guideSeeds: GuideSeedDefinition[] = [
   {
-    fileName: 'taylor-made-stroller-guide.md',
-    slug: 'best-strollers',
-    category: GUIDE_CATEGORIES[0],
-    targetKeyword: 'best strollers',
-    secondaryKeywords: ['travel stroller', 'full-size stroller', 'modular stroller', 'best stroller for newborn'],
-  },
-  {
-    fileName: 'taylor-made-car-seat-guide.md',
-    slug: 'best-infant-car-seats',
-    category: GUIDE_CATEGORIES[1],
-    targetKeyword: 'car seat guide',
-    secondaryKeywords: ['infant car seat', 'convertible car seat', 'all-in-one car seat', 'car seat stages'],
-  },
-  {
     fileName: 'taylor-made-baby-registry-guide.md',
     slug: 'minimalist-baby-registry',
     category: GUIDE_CATEGORIES[2],
@@ -47,6 +33,20 @@ const guideSeeds: GuideSeedDefinition[] = [
     category: GUIDE_CATEGORIES[3],
     targetKeyword: 'nursery planning guide',
     secondaryKeywords: ['nursery setup', 'baby nursery layout', 'small nursery ideas', 'nursery planning'],
+  },
+  {
+    fileName: 'taylor-made-stroller-guide.md',
+    slug: 'best-strollers',
+    category: GUIDE_CATEGORIES[0],
+    targetKeyword: 'best strollers',
+    secondaryKeywords: ['travel stroller', 'full-size stroller', 'modular stroller', 'best stroller for newborn'],
+  },
+  {
+    fileName: 'taylor-made-car-seat-guide.md',
+    slug: 'best-infant-car-seats',
+    category: GUIDE_CATEGORIES[1],
+    targetKeyword: 'car seat guide',
+    secondaryKeywords: ['infant car seat', 'convertible car seat', 'all-in-one car seat', 'car seat stages'],
   },
   {
     fileName: 'taylor-made-travel-with-baby-guide.md',

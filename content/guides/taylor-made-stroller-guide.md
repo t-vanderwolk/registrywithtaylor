@@ -1,253 +1,92 @@
 # The Taylor-Made Stroller Guide
 
-Choosing a stroller should feel exciting.
+Strollers seem complicated until someone explains what actually matters. Before that, they can feel like a maze of wheel sizes, fold demos, and very confident strangers on the internet.
 
-But for many parents it quickly becomes one of the most confusing decisions on the entire registry.
+Most parents do not need more stroller opinions. They need a cleaner way to decide which category fits their life before they get dragged into model-by-model comparison.
 
-The stroller industry is filled with dozens of brands, long feature lists, and strong opinions from every direction. Social media recommends one thing. Retailers recommend another. Friends often swear by whatever worked for their family.
+That is what this guide is for. We are not starting with brands. We are starting with space, routine, terrain, storage, and how this stroller will really be used when the novelty has worn off and you are just trying to leave the house on time.
 
-And suddenly parents find themselves comparing wheel suspension systems late at night while wondering how any of this is supposed to feel simple.
-
-The challenge usually isn't a lack of information.
-
-It's a lack of context.
-
-At Taylor-Made Baby Co., the goal is to slow the decision down and help families understand **the categories first**.
-
-Because once you understand how stroller types differ, the decision becomes dramatically simpler.
-
-This guide is the starting point.
-
-Think of it as the **map of the stroller world**. Each section introduces a stroller category and links to a deeper guide where we explore that category in detail.
-
-:::pullquote
-The stroller you actually use every day will always matter more than the stroller with the longest feature list.
--- Taylor-Made Baby
-:::
-
-## Why Strollers Feel So Confusing
-
-Few baby gear categories generate as many opinions as strollers.
-
-Ask five parents which stroller to buy and you will likely receive five completely different answers.
-
-One parent will recommend a travel stroller they used on a trip. Another will swear by a large modular stroller that worked beautifully for two children. A retailer might highlight the newest model on the showroom floor, while social media often gravitates toward whatever photographs best in a curated nursery post.
-
-None of these perspectives are wrong.
-
-They are simply incomplete.
-
-The real question most parents need to answer is much simpler:
-
-How will this stroller actually fit into our daily life?
-
-Without that context, families end up comparing suspension systems, wheel sizes, and folding mechanisms without fully understanding why those features exist in the first place.
-
-A calmer approach begins by stepping back and understanding the **types of strollers** that exist.
-
-Once that foundation is clear, the decision becomes far less overwhelming.
-
-## The Six Stroller Categories Parents Should Know
-
-Most strollers fall into a small number of clear categories.
-
-Understanding these categories helps parents focus on the strollers that actually fit their routines rather than trying to compare every stroller on the market.
-
-### Full-Size & Modular Strollers
-
-Full-size and modular strollers are the everyday workhorses of the stroller world.
-
-They are designed for daily life and tend to provide the most comfort, storage, and all-around capability for both baby and parent.
-
-Common features often include:
-
-- larger wheels
-- smoother suspension
-- generous storage baskets
-- reversible toddler seats
-- compatibility with infant car seats
-- bassinet and seat flexibility in modular systems
-
-Families who take regular walks, visit parks frequently, or plan to use their stroller most days often appreciate the stability, ride quality, and stage flexibility this category can offer.
-
-:::advice
-If you expect to use your stroller most days, full-size and modular options are often the clearest place to start.
-:::
-
-Continue exploring:
-
--> The Taylor-Made Guide to Full-Size & Modular Strollers
-
-### Compact Strollers
-
-Compact strollers sit comfortably between full-size strollers and travel strollers.
-
-They are designed to offer everyday usability while taking up less space.
-
-Many families living in cities or smaller homes appreciate compact strollers because they typically:
-
-• fold smaller
-• weigh less
-• fit more easily in smaller trunks
-• navigate tighter spaces
-
-Compact strollers can be an excellent option for parents who want a capable stroller without the footprint of a larger frame.
-
-Continue exploring:
-
--> The Taylor-Made Guide to Compact Strollers
-
-### Travel Strollers
-
-Travel strollers prioritize portability above almost everything else.
-
-They are lighter, smaller, and designed to fold quickly.
-
-Some models even fold small enough to fit in airplane overhead compartments, which can make traveling with a baby dramatically easier.
-
-Travel strollers work especially well for:
-
-• frequent travelers
-• quick errands
-• small storage spaces
-• families who want a second stroller
-
-Because they are designed for portability, travel strollers often sacrifice some ride comfort and basket space compared with larger strollers.
+![A parent pushing a stroller through a real neighborhood with space, texture, and everyday movement.](/assets/placeholders/tmbc-guide-image-placeholder.svg)
 
 :::callout
-Many families eventually own two strollers: one comfortable everyday stroller and one lightweight travel stroller.
+Start with your real life
+Think about your trunk, your sidewalks, your storage, your building, and how often this stroller will come in and out of the house. That is where the right category starts revealing itself.
 :::
 
-Continue exploring:
+## What This Is
 
--> The Taylor-Made Guide to Travel Strollers
+This is the main TMBC stroller guide. It is designed to help you understand the major stroller categories, what each one is actually good at, and how to narrow the field before you start comparing specific models from Bugaboo, Nuna, UPPAbaby, Cybex, Silver Cross, and beyond.
 
-### Jogging and All-Terrain Strollers
+The category map comes first. The brand rabbit hole can wait.
 
-Jogging strollers are built for movement and uneven terrain.
+## What People Get Wrong
 
-They typically include:
+- Shopping by brand reputation before defining the use case.
+- Assuming one stroller needs to be perfect for every scenario.
+- Overvaluing flashy features and undervaluing fold size, weight, and basket access.
+- Letting infant car seat compatibility outrank long-term stroller fit.
+- Forgetting that a stroller has to live somewhere when it is not being pushed.
 
-• three large air-filled tires
-• strong suspension
-• hand brakes
-• fixed or lockable front wheels
+## Decision Framework
 
-Parents who run, hike, or spend time on gravel paths often appreciate the smoother ride these strollers provide.
+- Start with where the stroller will be used most: neighborhood walks, errands, travel, rough terrain, or multiple kids.
+- Decide whether this is your everyday stroller, your secondary stroller, or both.
+- Check the storage reality: trunk, hallway, closet, garage, walk-up, elevator, all of it.
+- Think about longevity after the newborn stage, not just the first few months.
+- Choose the category that solves the most repeated friction with the fewest tradeoffs you will hate later.
 
-Interestingly, some parents who never plan to jog still choose jogging strollers simply because they handle bumps and uneven surfaces exceptionally well.
+## Core Content
 
-Continue exploring:
+### Full-size and modular strollers
 
--> The Taylor-Made Guide to Jogging & All-Terrain Strollers
+These are usually the workhorses. They tend to offer the best basket space, smoother ride quality, more generous seats, and the most comfortable long-walk experience. Families who use a stroller often, spend time outside, or want a more substantial everyday setup usually start here.
 
-### Convertible Single-to-Double Strollers
+This is also where a lot of families meet brands like UPPAbaby, Nuna, Bugaboo, Silver Cross, and Cybex. The important part is not the badge. It is whether the stroller actually matches your daily movement and storage reality.
 
-Convertible strollers are designed to grow from a single stroller to a double stroller.
+### Compact and travel strollers
 
-This category appeals to families who:
+Compact and travel strollers matter when space and portability are part of the job description. Smaller trunks, tighter homes, frequent errands, and airport travel all push parents toward a lighter, easier-folding category.
 
-• plan to have children close in age
-• want a stroller that can adapt over time
-• prefer buying once for long-term flexibility
+The tradeoff is that the smallest stroller is not always the one you want to push for long outings. Compact wins on convenience. Full-size usually wins on comfort. Most families are not choosing a moral philosophy here. They are choosing which tradeoff is easier to live with.
 
-However, convertible strollers come in two different design approaches.
+### Jogging, all-terrain, and specialty paths
 
-Some systems use **seat-specific positions**, meaning different seats are designed for specific placements on the stroller frame.
+If your real life includes rough sidewalks, trails, frequent outdoor walking, or actual running, the category changes. Larger wheels, stronger suspension, and more stability start to matter for good reason.
 
-Other systems follow a **modular design** with interchangeable seats. In many of these modular systems, the space for the second seat becomes additional storage when the stroller is used with one child.
+This is not a niche decision if the terrain is a daily part of your routine. It is just a clearer use case.
 
-Convertible strollers can offer impressive flexibility, but they are usually larger and heavier than standard single strollers.
+### Double and future-family thinking
 
-Continue exploring:
+Parents often get tangled here by trying to solve both today's stroller decision and a hypothetical future sibling decision in one purchase. Sometimes that is smart. Sometimes it creates a much larger stroller than you actually need right now.
 
--> The Taylor-Made Guide to Convertible Strollers
+If you are actively planning for two children close in age, convertible single-to-double options can make sense. If you are not there yet, it is okay to choose the stronger single-stroller fit first and revisit later.
 
-### Double Strollers
+### Car seat compatibility matters, but not more than longevity
 
-Double strollers are designed specifically to carry two children.
+Yes, your infant car seat and stroller should work together if that is part of your plan. But the stroller has a much longer runway than the infant seat. If a stroller is awkward, bulky, or annoying after the infant stage, short-term compatibility will not save it.
 
-They generally fall into two layout styles:
+That is why TMBC always puts stroller fit ahead of travel-system sparkle.
 
-Side-by-side seating
-Both children sit next to each other.
-
-Tandem seating
-One child sits in front of the other.
-
-Each layout has advantages depending on family needs, doorway widths, and storage space.
-
-Families with twins or two young children often explore this category early when planning their stroller setup.
-
-Continue exploring:
-
--> The Taylor-Made Guide to Double Strollers
-
-## How Most Families Actually Use Strollers
-
-One of the quieter truths about stroller ownership is that many families eventually use **two different strollers**.
-
-A common setup often looks like this:
-
-• one full-size stroller for everyday walks and outings
-• one travel stroller for quick errands and trips
-
-Each stroller serves a slightly different purpose.
-
-Trying to find a single stroller that excels in every scenario can sometimes add unnecessary complexity.
-
-Understanding this possibility early can make stroller decisions feel far less stressful.
-
-## How to Think About Choosing a Stroller
-
-Before comparing brands or price points, it helps to ask a few practical questions.
-
-How often will we use this stroller?
-
-Will it live mostly in the trunk or inside the house?
-
-Do we expect to travel with it?
-
-Are we planning for one child right now, or possibly two close in age?
-
-These questions usually reveal far more than feature lists ever will.
-
-Because the best stroller is rarely the one with the most features.
-
-It is the one that fits the rhythm of your daily life.
-
-:::pullquote
-The best stroller decision usually feels simple once the category becomes clear.
--- Taylor-Made Baby
+:::decision
+Question: Are you choosing the stroller that fits your everyday life, or the stroller that simply sounds the most impressive?
+Option: Favor the category that matches your storage, terrain, and real frequency of use.
+Result: The right stroller feels less like a status object and more like a reliable part of your routine.
 :::
 
-## Where to Go Next
+## Final Thought
 
-If you're still deciding where to begin, start with the stroller category that most closely matches your daily routine.
+The best stroller decision usually gets quieter once the category is right. Most of the confusion lives upstream of the product comparison.
 
-Walk often -> Full-Size & Modular Strollers
-Travel frequently -> Travel Strollers
-Live in a smaller space -> Compact Strollers
-Run or hike -> Jogging Strollers
-Planning two children -> Convertible Strollers
+Choose the stroller that works hardest for your real days, not the one that performs best in a showroom fantasy.
 
-Each category guide explores the details parents actually need to understand before choosing a stroller.
+## Takeaways
 
-## Final Thoughts
-
-The stroller industry can make parents feel like they need to understand every option before making a decision.
-
-You don't.
-
-You simply need to understand which category fits your life.
-
-Once that piece becomes clear, the rest of the decision usually becomes much easier.
-
-Preparation works best when it feels thoughtful rather than rushed.
-
-And stroller shopping is no different.
+:::takeaways
+- Start with routine, terrain, and storage before you compare brands.
+- Let stroller longevity matter more than short-stage newborn convenience.
+- A calmer category choice makes the product choice much easier.
+:::
 
 Start with confidence.
 
-XOXO
-Taylor
+xoxo -T
