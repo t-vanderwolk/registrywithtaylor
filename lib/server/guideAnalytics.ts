@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 import prisma from '@/lib/server/prisma';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import { getAcademyGuideScopeWhere } from '@/lib/server/academyGuides';
 import {
   GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
   isGuideStorageUnavailableError,
@@ -24,6 +25,8 @@ export type GuideAnalyticsCounts = {
   servicesClicks: number;
   newsletterClicks: number;
 };
+
+export type GuideAnalyticsScope = 'all' | 'academy';
 
 const emptyCounts = (): GuideAnalyticsCounts => ({
   views: 0,
@@ -169,6 +172,7 @@ type GuideAnalyticsDashboard = {
     guideId: string;
     title: string;
     slug: string;
+    canonicalUrl: string | null;
     category: string;
     topicCluster: string | null;
     views: number;
@@ -199,6 +203,7 @@ type GuideAnalyticsDashboard = {
     guideId: string;
     title: string;
     slug: string;
+    canonicalUrl: string | null;
     category: string;
     publishedAt: Date | null;
     views: number;
@@ -231,17 +236,24 @@ function toAffiliateSectionLabel(meta: Record<string, unknown> | null | undefine
   return 'Affiliate module';
 }
 
-export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashboard> {
+export async function getGuideAnalyticsDashboard({
+  scope = 'all',
+}: {
+  scope?: GuideAnalyticsScope;
+} = {}): Promise<GuideAnalyticsDashboard> {
   let guides;
   let affiliateClickEvents;
+  const scopeWhere = scope === 'academy' ? getAcademyGuideScopeWhere() : undefined;
   try {
     [guides, affiliateClickEvents] = await Promise.all([
       prisma.guide.findMany({
+        where: scopeWhere,
         orderBy: [{ publishedAt: 'desc' }, { updatedAt: 'desc' }],
         select: {
           id: true,
           title: true,
           slug: true,
+          canonicalUrl: true,
           category: true,
           topicCluster: true,
           status: true,
@@ -250,6 +262,13 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
       }),
       prisma.guideAnalytics.findMany({
         where: {
+          ...(scopeWhere
+            ? {
+                guide: {
+                  is: scopeWhere,
+                },
+              }
+            : {}),
           event: GuideAnalyticsEvents.AFFILIATE_CLICK,
         },
         orderBy: [{ createdAt: 'desc' }],
@@ -299,6 +318,7 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
         guideId: guide.id,
         title: guide.title,
         slug: guide.slug,
+        canonicalUrl: guide.canonicalUrl,
         category: guide.category,
         topicCluster: guide.topicCluster,
         views: counts.views,
@@ -423,6 +443,7 @@ export async function getGuideAnalyticsDashboard(): Promise<GuideAnalyticsDashbo
           guideId: guide.id,
           title: guide.title,
           slug: guide.slug,
+          canonicalUrl: guide.canonicalUrl,
           category: guide.category,
           publishedAt: guide.publishedAt,
           views: counts.views,

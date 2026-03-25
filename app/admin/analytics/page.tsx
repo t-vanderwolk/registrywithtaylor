@@ -2,7 +2,7 @@ import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
-import { getGuidePath } from '@/lib/guides/routing';
+import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
@@ -126,6 +126,9 @@ export default async function AdminAnalyticsPage() {
         subtitle="Track output volume, status mix, and post-level readership at a glance."
         actions={
           <>
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/academy/analytics">Academy analytics</Link>
+            </AdminButton>
             <AdminButton asChild variant="secondary">
               <Link href="/admin/guides/analytics">Guide analytics</Link>
             </AdminButton>
@@ -255,9 +258,9 @@ export default async function AdminAnalyticsPage() {
       </AdminSurface>
 
       <AdminHeader
-        eyebrow="Guide Engagement"
-        title="Guide views and consultation conversion"
-        subtitle="The funnel now runs through content. Use guide views, guide engagement, and guide-to-book clicks to measure what moves readers toward action."
+        eyebrow="Guide + Academy Engagement"
+        title="Guide and academy views with consultation conversion"
+        subtitle="The funnel now runs through editorial content and academy modules. Use the shared guide analytics layer to measure what moves readers toward action."
       />
 
       <section className="admin-kpi-grid" aria-label="Guide engagement metrics">
@@ -270,7 +273,7 @@ export default async function AdminAnalyticsPage() {
       </section>
 
       <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Top guide conversion sources</h2>
+        <h2 className="admin-h2">Top guide and academy conversion sources</h2>
         <AdminTable
           density="compact"
           columns={[
@@ -280,7 +283,7 @@ export default async function AdminAnalyticsPage() {
             { key: 'contact', label: 'Contact Clicks', align: 'right' },
             { key: 'services', label: 'Services Clicks', align: 'right' },
           ]}
-          emptyState={<p className="admin-body p-6">No guide conversion data yet.</p>}
+          emptyState={<p className="admin-body p-6">No guide or academy conversion data yet.</p>}
         >
           {guideAnalytics.topGuides.slice(0, 8).map((guide) => (
             <tr key={guide.guideId} className="admin-row">
@@ -288,11 +291,19 @@ export default async function AdminAnalyticsPage() {
                 <div className="admin-stack gap-1">
                   <p className="text-admin">{guide.title}</p>
                   <Link
-                    href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
+                    href={getGuidePublicPath({
+                      slug: guide.slug,
+                      topicCluster: guide.topicCluster,
+                      canonicalUrl: guide.canonicalUrl,
+                    })}
                     target="_blank"
                     className="admin-micro underline underline-offset-2"
                   >
-                    {getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })}
+                    {getGuidePublicPath({
+                      slug: guide.slug,
+                      topicCluster: guide.topicCluster,
+                      canonicalUrl: guide.canonicalUrl,
+                    })}
                   </Link>
                 </div>
               </td>

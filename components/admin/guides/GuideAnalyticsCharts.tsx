@@ -22,6 +22,8 @@ type GuideAnalyticsChartsProps = {
     views: number;
     consultationClicks: number;
   }>;
+  entityLabel?: string;
+  entityLabelPlural?: string;
 };
 
 const tickStyle = {
@@ -45,6 +47,8 @@ const formatTooltipMetric = (
 export default function GuideAnalyticsCharts({
   topGuides,
   categoryPerformance,
+  entityLabel = 'Guide',
+  entityLabelPlural = 'Guides',
 }: GuideAnalyticsChartsProps) {
   const topGuideData = topGuides.map((guide) => ({
     ...guide,
@@ -60,12 +64,12 @@ export default function GuideAnalyticsCharts({
     <section className="grid gap-4 xl:grid-cols-2">
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
-          <p className="admin-eyebrow">Top Performing Guides</p>
-          <h2 className="admin-h2">Guide views</h2>
+          <p className="admin-eyebrow">Top Performing {entityLabelPlural}</p>
+          <h2 className="admin-h2">{entityLabel} views</h2>
         </div>
 
         {topGuideData.length === 0 ? (
-          <p className="admin-body">No guide traffic data is available yet.</p>
+          <p className="admin-body">No {entityLabel.toLowerCase()} traffic data is available yet.</p>
         ) : (
           <div className="h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -81,7 +85,7 @@ export default function GuideAnalyticsCharts({
                 />
                 <YAxis tick={tickStyle} width={72} />
                 <Tooltip
-                  labelFormatter={(_label, payload) => payload?.[0]?.payload?.label ?? 'Guide'}
+                  labelFormatter={(_label, payload) => payload?.[0]?.payload?.label ?? entityLabel}
                   formatter={(value, key) => formatTooltipMetric(value, String(key))}
                   contentStyle={{
                     borderRadius: '18px',
@@ -99,7 +103,7 @@ export default function GuideAnalyticsCharts({
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
           <p className="admin-eyebrow">Category Performance</p>
-          <h2 className="admin-h2">Guide views by category</h2>
+          <h2 className="admin-h2">{entityLabel} views by category</h2>
         </div>
 
         {categoryData.length === 0 ? (

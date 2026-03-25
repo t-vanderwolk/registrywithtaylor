@@ -9,13 +9,14 @@ import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminSelect from '@/components/admin/ui/AdminSelect';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import StatusPill from '@/components/admin/ui/StatusPill';
-import { getGuidePath } from '@/lib/guides/routing';
+import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import type { GuideStatusValue } from '@/lib/guides/status';
 
 type AdminGuideRow = {
   id: string;
   title: string;
   slug: string;
+  canonicalUrl: string | null;
   status: GuideStatusValue;
   category: string;
   topicCluster: string | null;
@@ -32,6 +33,15 @@ type AdminGuideRow = {
     affiliateClicks: number;
   };
 };
+
+function formatLabel(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return '';
+  }
+
+  return `${trimmed.charAt(0).toUpperCase()}${trimmed.slice(1)}`;
+}
 
 type GuideWorkspaceFilters = {
   search: string;
@@ -73,6 +83,7 @@ function mapApiGuide(
     id: String(payload.id),
     title: typeof payload.title === 'string' ? payload.title : 'Untitled guide',
     slug: typeof payload.slug === 'string' ? payload.slug : '',
+    canonicalUrl: typeof payload.canonicalUrl === 'string' ? payload.canonicalUrl : null,
     status: payload.status as GuideStatusValue,
     category: typeof payload.category === 'string' ? payload.category : 'Strollers',
     topicCluster: typeof payload.topicCluster === 'string' ? payload.topicCluster : null,
@@ -102,6 +113,12 @@ export default function GuideWorkspace({
   filters,
   pagination,
   categoryOptions,
+  itemLabel = 'guide',
+  itemsLabel = 'guides',
+  editorBasePath = '/admin/guides',
+  newHref,
+  showCreateAction = true,
+  primaryColumnLabel = 'Guide',
 }: {
   guides: AdminGuideRow[];
   filters: GuideWorkspaceFilters;
@@ -111,6 +128,12 @@ export default function GuideWorkspace({
     totalCount: number;
   };
   categoryOptions: string[];
+  itemLabel?: string;
+  itemsLabel?: string;
+  editorBasePath?: string;
+  newHref?: string;
+  showCreateAction?: boolean;
+  primaryColumnLabel?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -120,6 +143,7 @@ export default function GuideWorkspace({
   const [rows, setRows] = useState(guides);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [busyKey, setBusyKey] = useState<string | null>(null);
+  const resolvedNewHref = newHref ?? `${editorBasePath}/new`;
 
   useEffect(() => {
     setRows(guides);
@@ -209,7 +233,7 @@ export default function GuideWorkspace({
       }
 
       setNotice({ tone: 'success', message: 'Draft duplicated. Opening the copy.' });
-      router.push(`/admin/guides/${payload.id}/edit`);
+      router.push(`${editorBasePath}/${payload.id}/edit`);
     } catch (error) {
       setNotice({
         tone: 'error',
@@ -232,7 +256,7 @@ export default function GuideWorkspace({
     try {
       await updateGuide(guideId, {
         status: nextStatus,
-        sourceRoute: '/admin/guides',
+        sourceRoute: pathname || editorBasePath,
       });
       await refreshWithNotice({ tone: 'success', message: successMessage });
     } catch (error) {
@@ -247,13 +271,13 @@ export default function GuideWorkspace({
 
   const pageLabel = useMemo(() => {
     if (pagination.totalCount === 0) {
-      return 'No guides';
+      return `No ${itemsLabel}`;
     }
 
     const pageStart = (pagination.page - 1) * 25 + 1;
     const pageEnd = Math.min(pageStart + rows.length - 1, pagination.totalCount);
     return `${pageStart}-${pageEnd} of ${pagination.totalCount}`;
-  }, [pagination.page, pagination.totalCount, rows.length]);
+  }, [itemsLabel, pagination.page, pagination.totalCount, rows.length]);
 
   return (
     <div className="admin-stack gap-4">
@@ -262,7 +286,7 @@ export default function GuideWorkspace({
           value={searchValue}
           onChange={(event) => setSearchValue(event.target.value)}
           placeholder="Search titles, slugs, keywords, or clusters"
-          aria-label="Search guides"
+          aria-label={`Search ${itemsLabel}`}
         />
         <AdminSelect
           value={filters.status}
@@ -339,7 +363,7 @@ export default function GuideWorkspace({
       <AdminTable
         density="compact"
         columns={[
-          { key: 'guide', label: 'Guide' },
+          { key: 'guide', label: primaryColumnLabel },
           { key: 'category', label: 'Category' },
           { key: 'author', label: 'Author' },
           { key: 'status', label: 'Status' },
@@ -349,26 +373,30 @@ export default function GuideWorkspace({
         ]}
         emptyState={
           <AdminEmptyState
-            title="No guides found"
-            hint="Start with a new evergreen guide or loosen the filters."
-            action={
+            title={`No ${itemsLabel} found`}
+            hint={showCreateAction ? `Start with a new ${itemLabel} or loosen the filters.` : 'Loosen the filters or confirm the records have been seeded.'}
+            action={showCreateAction ? (
               <AdminButton asChild variant="primary" size="sm">
-                <Link href="/admin/guides/new">Create New Guide</Link>
+                <Link href={resolvedNewHref}>Create New {formatLabel(itemLabel)}</Link>
               </AdminButton>
-            }
+            ) : undefined}
           />
         }
       >
         {rows.map((guide) => {
           const isPublished = guide.status === 'PUBLISHED';
           const isArchived = guide.status === 'ARCHIVED';
-          const publicRoute = getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster });
+          const publicRoute = getGuidePublicPath({
+            slug: guide.slug,
+            topicCluster: guide.topicCluster,
+            canonicalUrl: guide.canonicalUrl,
+          });
 
           return (
             <tr key={guide.id} className="admin-row">
               <td>
                 <div className="admin-stack gap-1">
-                  <Link href={`/admin/guides/${guide.id}/edit`} className="text-admin transition hover:opacity-75">
+                  <Link href={`${editorBasePath}/${guide.id}/edit`} className="text-admin transition hover:opacity-75">
                     {guide.title}
                   </Link>
                   <span className="admin-table-code">{publicRoute}</span>
@@ -412,10 +440,10 @@ export default function GuideWorkspace({
               <td>
                 <div className="flex flex-wrap gap-2">
                   <AdminButton asChild variant="secondary" size="sm">
-                    <Link href={`/admin/guides/${guide.id}/edit`}>Edit</Link>
+                    <Link href={`${editorBasePath}/${guide.id}/edit`}>Edit</Link>
                   </AdminButton>
                   <AdminButton asChild variant="ghost" size="sm">
-                    <Link href={`/admin/guides/${guide.id}/preview`}>Preview</Link>
+                    <Link href={`${editorBasePath}/${guide.id}/preview`}>Preview</Link>
                   </AdminButton>
                   <AdminButton
                     variant={isPublished ? 'secondary' : 'primary'}

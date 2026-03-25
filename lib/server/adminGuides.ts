@@ -3,6 +3,7 @@ import prisma from '@/lib/server/prisma';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import { getGuideAnalyticsCountsByGuide } from '@/lib/server/guideAnalytics';
 import { normalizeGuideStatus, type GuideStatusValue } from '@/lib/guides/status';
+import { getAcademyGuideScopeWhere } from '@/lib/server/academyGuides';
 import {
   GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
   isGuideStorageUnavailableError,
@@ -12,12 +13,14 @@ import {
 export const ADMIN_GUIDE_PAGE_SIZE = 25;
 
 export type AdminGuideSort = 'updated' | 'publishedAt' | 'performance' | 'title';
+export type AdminGuideScope = 'all' | 'academy';
 
 export type AdminGuideListParams = {
   search: string;
   status: 'all' | GuideStatusValue;
   category: 'all' | string;
   sort: AdminGuideSort;
+  scope: AdminGuideScope;
   page: number;
   pageSize: number;
 };
@@ -26,6 +29,7 @@ export type AdminGuideListItem = {
   id: string;
   title: string;
   slug: string;
+  canonicalUrl: string | null;
   status: GuideStatusValue;
   category: string;
   topicCluster: string | null;
@@ -77,20 +81,37 @@ function parseStatus(value: string | undefined) {
   return normalizeGuideStatus(value, 'DRAFT');
 }
 
+function parseScope(value: string | undefined): AdminGuideScope {
+  return value === 'academy' ? 'academy' : 'all';
+}
+
 export function parseAdminGuideListParams(searchParams?: SearchParamsRecord): AdminGuideListParams {
   return {
     search: asSingle(searchParams?.search)?.trim() ?? '',
     status: parseStatus(asSingle(searchParams?.status)),
     category: parseCategory(asSingle(searchParams?.category)),
     sort: parseSort(asSingle(searchParams?.sort)),
+    scope: parseScope(asSingle(searchParams?.scope)),
     page: parsePage(asSingle(searchParams?.page)),
     pageSize: ADMIN_GUIDE_PAGE_SIZE,
   };
 }
 
+function buildScopeWhere(scope: AdminGuideScope): Prisma.GuideWhereInput | undefined {
+  if (scope === 'academy') {
+    return getAcademyGuideScopeWhere();
+  }
+
+  return undefined;
+}
+
 function buildWhere(params: AdminGuideListParams): Prisma.GuideWhereInput {
-  const where: Prisma.GuideWhereInput = {};
   const and: Prisma.GuideWhereInput[] = [];
+  const scopeWhere = buildScopeWhere(params.scope);
+
+  if (scopeWhere) {
+    and.push(scopeWhere);
+  }
 
   if (params.search) {
     and.push({
@@ -112,11 +133,11 @@ function buildWhere(params: AdminGuideListParams): Prisma.GuideWhereInput {
     and.push({ category: params.category });
   }
 
-  if (and.length > 0) {
-    where.AND = and;
+  if (and.length === 0) {
+    return {};
   }
 
-  return where;
+  return { AND: and };
 }
 
 function buildOrderBy(sort: AdminGuideSort): Prisma.GuideOrderByWithRelationInput[] {
@@ -141,11 +162,13 @@ function getCategoryGroupCount(entry: { _count?: true | { _all?: number } }) {
 
 export async function listAdminGuides(params: AdminGuideListParams) {
   const where = buildWhere(params);
+  const scopeWhere = buildScopeWhere(params.scope);
   const skip = (params.page - 1) * params.pageSize;
   const guideSelect = {
     id: true,
     title: true,
     slug: true,
+    canonicalUrl: true,
     status: true,
     category: true,
     topicCluster: true,
@@ -166,13 +189,22 @@ export async function listAdminGuides(params: AdminGuideListParams) {
   const [totalCount, totalGuides, draftCount, scheduledCount, publishedCount, archivedCount, categoryGroups] =
     await prisma.$transaction([
       prisma.guide.count({ where }),
-      prisma.guide.count(),
-      prisma.guide.count({ where: { status: 'DRAFT' } }),
-      prisma.guide.count({ where: { status: 'SCHEDULED' } }),
-      prisma.guide.count({ where: { status: 'PUBLISHED' } }),
-      prisma.guide.count({ where: { status: 'ARCHIVED' } }),
+      prisma.guide.count({ where: scopeWhere }),
+      prisma.guide.count({
+        where: scopeWhere ? { AND: [scopeWhere, { status: 'DRAFT' }] } : { status: 'DRAFT' },
+      }),
+      prisma.guide.count({
+        where: scopeWhere ? { AND: [scopeWhere, { status: 'SCHEDULED' }] } : { status: 'SCHEDULED' },
+      }),
+      prisma.guide.count({
+        where: scopeWhere ? { AND: [scopeWhere, { status: 'PUBLISHED' }] } : { status: 'PUBLISHED' },
+      }),
+      prisma.guide.count({
+        where: scopeWhere ? { AND: [scopeWhere, { status: 'ARCHIVED' }] } : { status: 'ARCHIVED' },
+      }),
       prisma.guide.groupBy({
         by: ['category'],
+        where: scopeWhere,
         _count: {
           _all: true,
         },
@@ -203,6 +235,7 @@ export async function listAdminGuides(params: AdminGuideListParams) {
     id: guide.id,
     title: guide.title,
     slug: guide.slug,
+    canonicalUrl: guide.canonicalUrl,
     status: guide.status,
     category: guide.category,
     topicCluster: guide.topicCluster,

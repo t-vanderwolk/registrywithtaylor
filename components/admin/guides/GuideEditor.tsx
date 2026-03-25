@@ -30,7 +30,7 @@ import {
   type GuideSectionSnippetId,
   type GuideTemplateId,
 } from '@/lib/guides/guideTemplates';
-import { getGuidePath } from '@/lib/guides/routing';
+import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import { sanitizeGuideAffiliateModules, sanitizeGuideFaqItems, sanitizeStringList } from '@/lib/guides/types';
 import { GUIDE_STATUS_LABELS, requiresLiveGuideContent, type GuideStatusValue } from '@/lib/guides/status';
 import { STYLED_BLOCKS, getStyledBlockSnippet, type StyledBlockId } from '@/lib/blog/styledBlocks';
@@ -376,13 +376,18 @@ export default function GuideEditor({
   authorOptions,
   affiliatePartnerOptions,
   relatedGuideOptions,
+  adminBasePath = '/admin/guides',
+  listingHref,
 }: {
   initialGuide: PersistedGuideRecord;
   authorOptions: AuthorOption[];
   affiliatePartnerOptions: AffiliatePartnerOption[];
   relatedGuideOptions: RelatedGuideOption[];
+  adminBasePath?: string;
+  listingHref?: string;
 }) {
   const router = useRouter();
+  const resolvedListingHref = listingHref ?? adminBasePath;
   const initialState = useMemo(() => toGuideState(initialGuide), [initialGuide]);
   const [guide, setGuide] = useState<GuideState>(initialState);
   const [currentGuideId, setCurrentGuideId] = useState<string | null>(initialState.id);
@@ -581,7 +586,7 @@ export default function GuideEditor({
     }
 
     const versionAtSave = versionRef.current;
-    const sourceRoute = currentGuideIdRef.current ? `/admin/guides/${currentGuideIdRef.current}/edit` : '/admin/guides/new';
+    const sourceRoute = currentGuideIdRef.current ? `${adminBasePath}/${currentGuideIdRef.current}/edit` : `${adminBasePath}/new`;
     const payload = toSavePayload(stateRef.current, sourceRoute);
     const requestUrl = currentGuideIdRef.current ? `/api/guides/${currentGuideIdRef.current}` : '/api/guides';
     const method = currentGuideIdRef.current ? 'PUT' : 'POST';
@@ -620,7 +625,7 @@ export default function GuideEditor({
 
       if (!currentGuideIdRef.current && nextPersisted.id) {
         currentGuideIdRef.current = nextPersisted.id;
-        router.replace(`/admin/guides/${nextPersisted.id}/edit`);
+        router.replace(`${adminBasePath}/${nextPersisted.id}/edit`);
       }
 
       return true;
@@ -1045,7 +1050,7 @@ export default function GuideEditor({
       return;
     }
 
-    const previewUrl = `/admin/guides/${currentGuideIdRef.current}/preview`;
+    const previewUrl = `${adminBasePath}/${currentGuideIdRef.current}/preview`;
     if (previewWindow) {
       previewWindow.location.href = previewUrl;
       return;
@@ -1065,7 +1070,7 @@ export default function GuideEditor({
 
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton variant="secondary" size="sm" onClick={() => void openPreview()} disabled={!canPreview || saving}>
-            Preview Guide
+            Preview content
           </AdminButton>
         </div>
       </div>
@@ -1274,7 +1279,11 @@ export default function GuideEditor({
 
       <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
         <p className="admin-micro">
-          Public route: {guide.slug ? getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster }) : 'Not generated yet'}
+          Public route: {guide.slug ? getGuidePublicPath({
+            slug: guide.slug,
+            topicCluster: guide.topicCluster,
+            canonicalUrl: guide.canonicalUrl,
+          }) : 'Not generated yet'}
         </p>
         <p className="admin-micro">Target keyword: {guide.targetKeyword || 'Not set'}</p>
         <p className="admin-micro">Related guides: {guide.relatedGuideIds.length}</p>
@@ -1284,7 +1293,14 @@ export default function GuideEditor({
       {hasPersistedGuide && guide.slug ? (
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="secondary" size="sm">
-            <Link href={getGuidePath({ slug: guide.slug, topicCluster: guide.topicCluster })} target="_blank">
+            <Link
+              href={getGuidePublicPath({
+                slug: guide.slug,
+                topicCluster: guide.topicCluster,
+                canonicalUrl: guide.canonicalUrl,
+              })}
+              target="_blank"
+            >
               View public guide
             </Link>
           </AdminButton>
@@ -2204,7 +2220,7 @@ export default function GuideEditor({
     <AdminStack gap="lg">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <AdminButton asChild variant="secondary" size="sm">
-          <Link href="/admin/guides">Back to guides</Link>
+          <Link href={resolvedListingHref}>Back to workspace</Link>
         </AdminButton>
         <p className="admin-micro">Guide workspace: structure on the left, workflow controls on the right.</p>
       </div>

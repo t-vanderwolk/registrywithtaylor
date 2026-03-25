@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import ProductCard from '@/components/ui/ProductCard';
+import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import type { AcademyBreadcrumbItem, AcademyModuleData } from '@/lib/academy/content';
 
 type ModuleLayoutProps = {
@@ -229,9 +231,25 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               ))}
             </div>
             <div className="mt-6">
-              <Link href="/consultation" className="btn btn--secondary">
-                {'Work with me ->'}
-              </Link>
+              {module.trackingGuideId ? (
+                <GuideTrackedLink
+                  guideId={module.trackingGuideId}
+                  href="/consultation"
+                  event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
+                  sourceRoute={module.href}
+                  className="btn btn--secondary"
+                  meta={{
+                    ctaLabel: 'Work with me',
+                    label: 'academy_work_with_me',
+                  }}
+                >
+                  {'Work with me ->'}
+                </GuideTrackedLink>
+              ) : (
+                <Link href="/consultation" className="btn btn--secondary">
+                  {'Work with me ->'}
+                </Link>
+              )}
             </div>
           </section>
 

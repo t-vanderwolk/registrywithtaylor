@@ -80,7 +80,7 @@ export default function AdminShell({
               </div>
               <div className="admin-divider" />
               <p className="admin-micro">
-                Guides publish to the public authority layer while posts continue through the journal flow.
+                Guides and academy modules publish through the authority layer while posts continue through the journal flow.
               </p>
             </AdminSurface>
           </aside>

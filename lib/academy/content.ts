@@ -110,6 +110,7 @@ export type AcademyModuleData = {
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
   breadcrumb: AcademyBreadcrumbItem[];
+  trackingGuideId?: string | null;
 };
 
 export type AcademyHomePathCard = {

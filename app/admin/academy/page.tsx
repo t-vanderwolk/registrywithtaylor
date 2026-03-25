@@ -12,30 +12,30 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>> | und
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminGuidesIndexPage({
+export default async function AdminAcademyIndexPage({
   searchParams,
 }: {
   searchParams?: SearchParams;
 }) {
   const params = parseAdminGuideListParams(searchParams ? await searchParams : undefined);
-  const result = await listAdminGuidesSafe(params);
+  const result = await listAdminGuidesSafe({
+    ...params,
+    scope: 'academy',
+  });
 
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Guides"
-        title="Guide editor workspace"
-        subtitle="Manage evergreen authority content, publish updates, and keep guide performance close to the editing workflow."
+        eyebrow="Academy"
+        title="Academy editor workspace"
+        subtitle="Manage TMBC Baby Academy modules, keep their canonical academy URLs intact, and edit the records the academy routes now use for live tracking and module content."
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/academy">Academy editor</Link>
+              <Link href="/admin/academy/analytics">Academy Analytics</Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/guides/analytics">Guide Analytics</Link>
-            </AdminButton>
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/guides/new">Create New Guide</Link>
+              <Link href="/admin/guides">All Guide Records</Link>
             </AdminButton>
           </>
         }
@@ -45,7 +45,7 @@ export default async function AdminGuidesIndexPage({
         <>
           <AdminKpiStrip
             items={[
-              { label: 'Total guides', value: result.kpis.totalGuides },
+              { label: 'Total modules', value: result.kpis.totalGuides },
               { label: 'Draft count', value: result.kpis.draftCount },
               { label: 'Scheduled count', value: result.kpis.scheduledCount },
               { label: 'Published count', value: result.kpis.publishedCount },
@@ -68,6 +68,11 @@ export default async function AdminGuidesIndexPage({
                 totalCount: result.pagination.totalCount,
               }}
               categoryOptions={result.categoryOptions}
+              itemLabel="academy module"
+              itemsLabel="academy modules"
+              primaryColumnLabel="Module"
+              editorBasePath="/admin/academy"
+              showCreateAction={false}
             />
           </AdminSurface>
         </>

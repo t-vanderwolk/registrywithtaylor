@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
+import { GuideTrackingProvider } from '@/components/analytics/TrackingContext';
 import ModuleLayout from '@/components/academy/ModuleLayout';
+import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import SiteShell from '@/components/SiteShell';
 import {
   getAcademyModuleData,
@@ -10,6 +12,17 @@ import {
   isAcademyPathSlug,
 } from '@/lib/academy/content';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import {
+  getPublishedAcademyGuideForModule,
+  mergeAcademyModuleWithGuideRecord,
+} from '@/lib/server/academyGuides';
+
+function resolveMetadataImagePath(
+  preferredPath: string | null | undefined,
+  fallbackPath: string,
+) {
+  return preferredPath?.trim().startsWith('/') ? (preferredPath.trim() as `/${string}`) : (fallbackPath as `/${string}`);
+}
 
 type AcademyModulePageProps = {
   params: Promise<{
@@ -34,12 +47,24 @@ export async function generateMetadata({ params }: AcademyModulePageProps): Prom
     return {};
   }
 
+  const academyGuide = await getPublishedAcademyGuideForModule({
+    pathSlug: academyPath,
+    moduleSlug: module,
+  });
+  const renderedModule = academyGuide ? mergeAcademyModuleWithGuideRecord(moduleData, academyGuide) : moduleData;
+
   return buildMarketingMetadata({
-    title: `${moduleData.title} | TMBC Baby Academy`,
-    description: moduleData.description,
-    path: moduleData.href as `/${string}`,
-    imagePath: moduleData.imagePath as `/${string}`,
-    imageAlt: moduleData.imageAlt,
+    title: `${renderedModule.title} | TMBC Baby Academy`,
+    description: academyGuide?.seoDescription?.trim() || renderedModule.description,
+    path: renderedModule.href as `/${string}`,
+    imagePath: resolveMetadataImagePath(
+      academyGuide?.ogImageUrl?.trim() || academyGuide?.heroImageUrl?.trim(),
+      renderedModule.imagePath,
+    ),
+    imageAlt:
+      academyGuide?.ogImageAlt?.trim() ||
+      academyGuide?.heroImageAlt?.trim() ||
+      renderedModule.imageAlt,
   });
 }
 
@@ -56,16 +81,45 @@ export default async function AcademyModulePage({ params }: AcademyModulePagePro
     notFound();
   }
 
+  const academyGuide = await getPublishedAcademyGuideForModule({
+    pathSlug: academyPath,
+    moduleSlug: module,
+  });
+  const renderedModule = academyGuide
+    ? mergeAcademyModuleWithGuideRecord(moduleData, academyGuide)
+    : moduleData;
+
   return (
-    <SiteShell currentPath={moduleData.href}>
+    <SiteShell currentPath={renderedModule.href}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={moduleData.href}
-          pageType="guide"
-          slug={`academy-${moduleData.pathSlug}-${moduleData.slug}`}
-          title={moduleData.title}
-        />
-        <ModuleLayout module={moduleData} />
+        {academyGuide ? (
+          <GuideTrackingProvider
+            value={{
+              guideId: academyGuide.id,
+              sourceRoute: renderedModule.href,
+              slug: academyGuide.slug,
+              title: academyGuide.title,
+            }}
+          >
+            <GuideViewTracker
+              guideId={academyGuide.id}
+              sourceRoute={renderedModule.href}
+              slug={academyGuide.slug}
+              title={academyGuide.title}
+            />
+            <ModuleLayout module={renderedModule} />
+          </GuideTrackingProvider>
+        ) : (
+          <>
+            <PageViewTracker
+              path={renderedModule.href}
+              pageType="guide"
+              slug={`academy-${renderedModule.pathSlug}-${renderedModule.slug}`}
+              title={renderedModule.title}
+            />
+            <ModuleLayout module={renderedModule} />
+          </>
+        )}
       </main>
     </SiteShell>
   );

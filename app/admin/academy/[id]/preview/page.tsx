@@ -23,11 +23,11 @@ import '../../../../../styles/blog.css';
 
 export const dynamic = 'force-dynamic';
 
-type AdminGuidePreviewPageProps = {
+type AdminAcademyPreviewPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function AdminGuidePreviewPage({ params }: AdminGuidePreviewPageProps) {
+export default async function AdminAcademyPreviewPage({ params }: AdminAcademyPreviewPageProps) {
   const { id } = await params;
 
   let guide = null;
@@ -41,11 +41,11 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
       return (
         <AdminStack gap="xl">
           <AdminHeader
-            eyebrow="Preview"
-            title="Guide preview"
-            subtitle="Guide previews are blocked until the Guide tables exist in the database."
+            eyebrow="Academy Preview"
+            title="Academy module preview"
+            subtitle="Academy previews are blocked until the Guide tables exist in the database."
           />
-          <GuideStorageNotice backHref="/admin/guides" backLabel="Back to guides" />
+          <GuideStorageNotice backHref="/admin/academy" backLabel="Back to academy" />
         </AdminStack>
       );
     }
@@ -79,7 +79,7 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
     await logGuideEvent({
       guideId: guide.id,
       event: GuideAnalyticsEvents.GUIDE_PREVIEWED,
-      sourceRoute: `/admin/guides/${guide.id}/preview`,
+      sourceRoute: `/admin/academy/${guide.id}/preview`,
       meta: {
         guide_id: guide.id,
         guide_title: guide.title,
@@ -87,7 +87,7 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
         guide_category: guide.category,
         author_id: guide.author.id,
         status: guide.status,
-        source_route: `/admin/guides/${guide.id}/preview`,
+        source_route: `/admin/academy/${guide.id}/preview`,
       },
     });
   } catch (error) {
@@ -134,18 +134,18 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Preview"
-        title={guide.title?.trim() ? guide.title : 'Untitled guide'}
-        subtitle="This preview uses the public guide renderer without incrementing public view analytics."
+        eyebrow="Academy Preview"
+        title={guide.title?.trim() ? guide.title : 'Untitled academy module'}
+        subtitle="This preview uses the live academy renderer when the record maps to an academy canonical URL."
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href={`/admin/guides/${guide.id}/edit`}>Back to editor</Link>
+              <Link href={`/admin/academy/${guide.id}/edit`}>Back to editor</Link>
             </AdminButton>
             {isGuidePubliclyVisible(guide.status, guide.scheduledFor) ? (
               <AdminButton asChild variant="ghost">
                 <Link href={publicPath} target="_blank">
-                  View public guide
+                  View public module
                 </Link>
               </AdminButton>
             ) : null}

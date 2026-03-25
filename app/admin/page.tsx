@@ -121,19 +121,19 @@ export default async function AdminDashboardPage() {
             hint="Public journal article traffic"
           />
           <AdminKpiCard
-            label="Guide Views"
+            label="Guide + Academy Views"
             value={totalGuideViews.toLocaleString()}
-            hint={guideAnalytics.storageReady ? 'Public guide traffic' : 'Guide analytics unavailable'}
+            hint={guideAnalytics.storageReady ? 'Public guide and academy traffic' : 'Guide analytics unavailable'}
           />
           <AdminKpiCard
-            label="Guide Engagement"
+            label="Guide + Academy Engagement"
             value={guideAnalytics.summary.totalEngagement.toLocaleString()}
-            hint="Guide CTA and affiliate clicks"
+            hint="Guide and academy CTA plus affiliate clicks"
           />
           <AdminKpiCard
-            label="Guide to Book"
+            label="Guide + Academy to Book"
             value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()}
-            hint="Consultation clicks from guides"
+            hint="Consultation clicks from guide and academy content"
           />
         </section>
         <div className="admin-stack gap-2">
@@ -155,6 +155,12 @@ export default async function AdminDashboardPage() {
             <Link href="/admin/analytics">Open analytics overview</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
+            <Link href="/admin/academy">Academy editor</Link>
+          </AdminButton>
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/academy/analytics">Academy analytics</Link>
+          </AdminButton>
+          <AdminButton asChild variant="secondary">
             <Link href="/admin/guides/analytics">Open guide analytics</Link>
           </AdminButton>
         </div>
@@ -164,6 +170,12 @@ export default async function AdminDashboardPage() {
         <p className="admin-eyebrow">Quick links</p>
         <p className="admin-body">Guides in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="flex flex-wrap items-center gap-2">
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/academy">Manage academy</Link>
+          </AdminButton>
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/academy/analytics">Academy analytics</Link>
+          </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/guides">Manage guides</Link>
           </AdminButton>
