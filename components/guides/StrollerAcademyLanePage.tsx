@@ -1,89 +1,101 @@
-import AcademyHero from '@/components/guides/academy/AcademyHero';
-import type { AcademyStageNavItem } from '@/components/guides/academy/AcademyStageNav';
+import Image from 'next/image';
+import Link from 'next/link';
+import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
+import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ComparisonTable from '@/components/guides/academy/ComparisonTable';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
-import DecisionBlock from '@/components/guides/DecisionBlock';
-import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
-import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
-import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
-import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
-import SlideSection from '@/components/guides/SlideSection';
-import YouAreHere from '@/components/guides/YouAreHere';
-import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
+import { isRemoteImageUrl } from '@/lib/blog/images';
+import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import {
   getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
-  getGuideJourneyPath,
   getGuideLifestyleImages,
-  getGuideParentLink,
-  getGuideRealLifePrompt,
 } from '@/lib/guides/experience';
 import { getGuideSignOff } from '@/lib/guides/editorialSystem';
-import { dedupeTextItems, getDefaultNextSteps, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
+import { dedupeTextItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import {
   getStrollerAcademyLane,
   getStrollerAcademyLanes,
+  type StrollerAcademyLane,
 } from '@/lib/guides/strollerAcademy';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
-
-const LANE_EDITORIAL_IMAGES: Partial<
-  Record<
-    string,
-    {
-      eyebrow?: string;
-      src: string;
-      alt: string;
-      caption: string;
-    }
-  >
-> = {
-  'full-size-modular-strollers': {
-    eyebrow: 'Editorial image',
-    src: '/assets/editorial/fullsize.png',
-    alt: 'Editorial image for the full-size modular stroller lane.',
-    caption:
-      'Full-size modular strollers make more sense once the category is framed around everyday comfort, storage reality, and how much stroller the week actually asks for.',
-  },
-  'compact-lightweight-strollers': {
-    eyebrow: 'Editorial image',
-    src: '/assets/editorial/compact.png',
-    alt: 'Editorial image for the compact stroller lane.',
-    caption:
-      'Compact strollers start making more sense once the category is framed around easier folds, tighter storage, and the kind of convenience you actually feel every day.',
-  },
-};
 
 const STROLLER_SUBGUIDE_HERO = {
   src: '/assets/editorial/strollers.png',
   alt: 'Editorial stroller image for TMBC stroller lane guides.',
-  objectClassName: 'object-cover object-center',
 } as const;
 
-function StageLead({
-  eyebrow,
-  title,
-  description,
+function HeroStat({
+  label,
+  value,
 }: {
-  eyebrow: string;
-  title: string;
-  description: string;
+  label: string;
+  value: string;
 }) {
   return (
-    <div className="max-w-3xl">
-      <p className="text-[0.72rem] uppercase tracking-[0.34em] text-[#A15B72]">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-medium tracking-[-0.03em] text-[#2F2430] sm:text-[2.5rem]">{title}</h2>
-      <p className="mt-4 text-base leading-8 text-[#5B4B55]">{description}</p>
+    <div className="rounded-[1.15rem] border border-[rgba(215,161,175,0.18)] bg-[rgba(255,251,252,0.9)] px-4 py-4 shadow-[0_10px_30px_rgba(58,36,43,0.06)]">
+      <p className="text-[0.65rem] uppercase tracking-[0.22em] text-[#A15B72]">{label}</p>
+      <p className="mt-2 text-sm font-medium leading-6 text-[#2F2430]">{value}</p>
     </div>
   );
+}
+
+function NextStepCard({
+  href,
+  title,
+  description,
+  ctaLabel,
+  eyebrow = 'Next Step',
+}: {
+  href: string;
+  title: string;
+  description: string;
+  ctaLabel: string;
+  eyebrow?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex h-full flex-col rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(58,36,43,0.12)]"
+    >
+      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
+      <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-[#2F2430]">{title}</h3>
+      <p className="mt-3 text-[0.98rem] leading-7 text-[#5B4B55]">{description}</p>
+      <span className="mt-auto pt-5 text-sm font-semibold text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
+        {ctaLabel}
+      </span>
+    </Link>
+  );
+}
+
+function buildLaneFitChecklistSections(lane: StrollerAcademyLane) {
+  return [
+    {
+      title: 'Strong fit if',
+      description: lane.worksForSummary,
+      items: lane.worksForBullets.slice(0, 4).map((bullet) => ({
+        label: bullet,
+        status: 'check' as const,
+      })),
+    },
+    {
+      title: 'Pause and compare if',
+      description: lane.notBestFitSummary,
+      items: lane.notBestFitBullets.slice(0, 4).map((bullet) => ({
+        label: bullet,
+        status: 'watch' as const,
+      })),
+    },
+  ];
 }
 
 function formatDate(value: Date) {
@@ -111,27 +123,31 @@ export default function StrollerAcademyLanePage({
   }
 
   const allLanes = getStrollerAcademyLanes();
+  const laneIndex = allLanes.findIndex((entry) => entry.slug === lane.slug);
+  const normalizedLaneIndex = laneIndex >= 0 ? laneIndex + 1 : 1;
   const compareLinks = lane.compareAgainst
     .map((slug) => getStrollerAcademyLane(slug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
-  const slideItems = getStandardGuideSlideItems('guide');
-  const orientation = getGuideOrientation({ slug: guide.slug, category: guide.category, topicCluster: guide.topicCluster });
+  const comparisonRows = [lane, ...compareLinks].map((entry) => ({
+    title: entry.title,
+    bestFor: entry.bestFor,
+    tradeoff: entry.tradeoff,
+    everydayFeel: entry.everydayFeel,
+    href: entry.href,
+    isCurrent: entry.slug === lane.slug,
+  }));
+  const lifestyleImages = getGuideLifestyleImages({
+    slug: guide.slug,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
     topicCluster: guide.topicCluster,
   });
-  const parentGuide = getGuideParentLink({
-    slug: guide.slug,
-    topicCluster: guide.topicCluster,
-  });
   const coreGuideRoutes = getCoreGuideRouteCards({
     slug: guide.slug,
-    topicCluster: guide.topicCluster,
-  });
-  const lifestyleImages = getGuideLifestyleImages({
-    slug: guide.slug,
-    category: guide.category,
     topicCluster: guide.topicCluster,
   });
   const blogRecommendations = getGuideBlogRecommendations({
@@ -139,7 +155,36 @@ export default function StrollerAcademyLanePage({
     category: guide.category,
     topicCluster: guide.topicCluster,
   });
-  const finalThought = `${lane.shortTitle} is the right answer when the lane fits your real week better, not when the product page tells the prettiest story.`;
+  const guideHeroImage = resolveGuideHeroImage({
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+    imageSrc: guide.heroImageUrl,
+    imageAlt: guide.heroImageAlt,
+  });
+  const displayHeroImage = guideHeroImage.src
+    ? guideHeroImage
+    : STROLLER_SUBGUIDE_HERO;
+  const shouldSkipHeroImageOptimization = isRemoteImageUrl(displayHeroImage.src);
+  const introParagraphs = dedupeTextItems(
+    [
+      guide.excerpt?.trim(),
+      lane.heroDescription,
+      lane.worksForSummary,
+      lane.signatureMoment,
+    ],
+    3,
+  );
+  const whatPeopleGetWrong = dedupeTextItems(
+    [
+      'Choosing the lane for a hypothetical future instead of for the routine that already exists.',
+      'Testing the showroom push and skipping the fold, the lift, and the trunk reality.',
+      `Assuming ${lane.shortTitle.toLowerCase()} is automatically smarter because the category sounds more ambitious.`,
+      lane.notBestFitSummary,
+    ],
+    4,
+  );
   const takeaways = dedupeTextItems(
     [
       lane.worksForSummary,
@@ -149,60 +194,12 @@ export default function StrollerAcademyLanePage({
     ],
     4,
   );
-  const signOff = getGuideSignOff({
-    founderSignatureEnabled: guide.founderSignatureEnabled,
-    founderSignatureText: guide.founderSignatureText,
-  });
-  const journeyPath = getGuideJourneyPath({
-    slug: guide.slug,
-    title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const stageItems: AcademyStageNavItem[] = [
-    {
-      id: 'start',
-      label: 'Start',
-      title: 'Get oriented',
-      description: 'See what this lane is solving before you compare it to the others.',
-      href: `${sourceRoute}#${slideItems[1].id}`,
-    },
-    {
-      id: 'compare',
-      label: 'Compare',
-      title: 'Understand the lane',
-      description: 'See why the lane exists and what kind of week it supports best.',
-      href: `${sourceRoute}#${slideItems[3].id}`,
-    },
-    {
-      id: 'decide',
-      label: 'Decide',
-      title: 'Pressure-test the fit',
-      description: 'Use the fit logic and comparison table before you shortlist products.',
-      href: `${sourceRoute}#${slideItems[4].id}`,
-    },
-    {
-      id: 'refine',
-      label: 'Refine',
-      title: 'Test and shortlist',
-      description: 'Move into real-world testing, compare, and save actions.',
-      href: `${sourceRoute}#${slideItems[6].id}`,
-    },
-  ];
-  const comparisonRows = [lane, ...compareLinks].map((entry) => ({
-    title: entry.title,
-    bestFor: entry.bestFor,
-    tradeoff: entry.tradeoff,
-    everydayFeel: entry.everydayFeel,
-    href: entry.href,
-    isCurrent: entry.slug === lane.slug,
-  }));
   const nextSteps = normalizeGuideLinks(
     [
-      ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
-        href: '/guides/strollers',
-        label: 'Back to Stroller Academy',
-        description: 'Return to the main stroller map if you need the wider lane overview again.',
+        href: '/academy/gear/stroller-foundations',
+        label: 'Back to Stroller Foundations',
+        description: 'Return to the main academy stroller module if you want the wider category map again.',
         stage: 'Start' as const,
       },
       ...(compareLinks[0]
@@ -216,241 +213,252 @@ export default function StrollerAcademyLanePage({
           ]
         : []),
       {
-        href: '/guides/car-seats',
-        label: 'Open Car Seats',
-        description: 'Useful once travel-system or compatibility questions start affecting the lane decision.',
+        href: '/academy/gear/travel-systems',
+        label: 'Open Travel Systems',
+        description: 'Useful once compatibility and infant-seat questions start affecting the stroller decision.',
         stage: 'Refine' as const,
       },
       {
-        href: '/guides/registry',
-        label: 'Return to Registry',
-        description: 'Use the lane fit to keep the registry shortlist tighter.',
+        href: '/academy/registry/where-to-register',
+        label: 'Bring This Into Registry',
+        description: 'Use the lane choice to keep the registry shortlist tighter and a lot less random.',
         stage: 'Refine' as const,
       },
     ],
     4,
   );
-  const heroImage = resolveGuideHeroImage({
-    slug: guide.slug,
-    title: guide.title,
-    category: guide.category,
-    topicCluster: guide.topicCluster,
-    imageSrc: guide.heroImageUrl,
-    imageAlt: guide.heroImageAlt,
+  const signOff = getGuideSignOff({
+    founderSignatureEnabled: guide.founderSignatureEnabled,
+    founderSignatureText: guide.founderSignatureText,
   });
-  const heroImageOverride = STROLLER_SUBGUIDE_HERO;
-  const displayHeroImage = heroImageOverride
-    ? { src: heroImageOverride.src, alt: heroImageOverride.alt }
-    : heroImage;
-  const displayHeroObjectClassName = heroImageOverride?.objectClassName ?? 'object-cover object-[76%_center]';
 
   return (
-    <GuideSlideDeck
-      containerId={`guide-slide-deck-${guide.slug}`}
-      items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
-      ecosystemCurrentStep={getGuideEcosystemCurrentStep({
-        slug: guide.slug,
-        path: sourceRoute,
-        category: guide.category,
-      })}
-      journeyPathLabels={journeyPath}
-    >
-      <SlideSection id={slideItems[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
-        <div className="space-y-6">
-          <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
-            <GuideBreadcrumbs items={breadcrumbs} />
-          </div>
+    <div className="bg-[radial-gradient(circle_at_top_right,rgba(215,161,175,0.16),transparent_28%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.28),transparent_30%),linear-gradient(180deg,#fdf8f5_0%,#fbf1f4_36%,#fffdfa_100%)]">
+      <div className="mx-auto max-w-6xl px-6 pb-20 pt-10 sm:px-8 md:pb-24 md:pt-14 lg:px-10">
+        <div className="space-y-12">
+          <GuideBreadcrumbs items={breadcrumbs} />
 
-          <AcademyHero
-            eyebrow="TMBC Academy · Stroller Lane"
-            title={`${lane.title} Lane`}
-            description={guide.excerpt?.trim() || lane.heroDescription}
-            note={lane.signatureMoment}
-            primaryCta={{ label: 'Review This Lane', href: `${sourceRoute}#${slideItems[4].id}` }}
-            secondaryCta={{
-              label: compareLinks[0] ? `Compare ${compareLinks[0].shortTitle}` : 'Back to Stroller Academy',
-              href: compareLinks[0]?.href || '/guides/strollers',
-            }}
-            stageItems={stageItems}
-            stats={[
-              { label: 'Best for', value: lane.bestFor },
-              { label: 'Tradeoff', value: lane.tradeoff },
-              { label: 'Updated', value: formatDate(displayDate) },
-              { label: 'Read time', value: `${readingTime} min` },
-            ]}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
-            imageSrc={displayHeroImage.src}
-            imageAlt={displayHeroImage.alt}
-            imageAspectClassName="aspect-[16/11]"
-            imageObjectClassName={displayHeroObjectClassName}
-            imagePriority
-          />
-        </div>
-      </SlideSection>
+          <section className="relative overflow-hidden rounded-[2.25rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(252,247,249,0.98)_0%,rgba(251,245,239,0.98)_52%,rgba(255,251,252,0.98)_100%)] px-6 py-8 shadow-[0_26px_70px_rgba(58,36,43,0.10)] sm:px-8 sm:py-10 md:px-10 md:py-12">
+            <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(215,161,175,0.26)_0%,rgba(215,161,175,0)_72%)] blur-2xl" />
+            <div className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(243,216,196,0.32)_0%,rgba(243,216,196,0)_72%)] blur-2xl" />
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)] lg:items-end">
+              <div>
+                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">
+                  TMBC Academy · Stroller Category
+                </p>
+                <h1 className="mt-4 max-w-[12ch] font-serif text-[2.9rem] leading-[0.92] tracking-[-0.05em] text-[#2F2430] sm:text-[3.3rem] md:text-[3.8rem]">
+                  {lane.title}
+                </h1>
+                <p className="mt-5 max-w-[44rem] text-[1.08rem] leading-8 text-[#4B3641]">
+                  {guide.excerpt?.trim() || lane.heroDescription}
+                </p>
+                <p className="mt-4 text-sm uppercase tracking-[0.18em] text-[#8F4C62]">
+                  Updated {formatDate(displayDate)} · {readingTime} min read
+                </p>
 
-      <SlideSection id={slideItems[1].id} background="white">
-        <YouAreHere step={orientation.step} category={orientation.category} goal={orientation.goal} />
-      </SlideSection>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <Link
+                    href="#lane-fit"
+                    className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#A15B72] px-6 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
+                  >
+                    Review This Lane
+                  </Link>
+                  <Link
+                    href={compareLinks[0]?.href || '/academy/gear/stroller-foundations'}
+                    className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[rgba(161,91,114,0.18)] bg-white/82 px-6 py-3 text-sm font-medium text-[#4B3641] transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    {compareLinks[0] ? `Compare ${compareLinks[0].shortTitle}` : 'Back to Stroller Foundations'}
+                  </Link>
+                </div>
 
-      <SlideSection id={slideItems[2].id} background="blush">
-        <div className="space-y-6">
-          <GuideJourneyIntro
-            title={`Start here before you shortlist ${lane.shortTitle.toLowerCase()}.`}
-            description="This sub-guide should help you validate whether the lane fits real life before you spend time comparing products inside it."
-            intro={[
-              guide.excerpt?.trim() || lane.heroDescription,
-              'This is the narrower version of the stroller conversation, so it works best after the main stroller guide has already given the wider category context.',
-            ]}
-            calloutBody={getGuideRealLifePrompt({
-              slug: guide.slug,
-              category: guide.category,
-              topicCluster: guide.topicCluster,
-            })}
-            parentGuide={parentGuide}
-            whoThisIsFor={lane.worksForBullets.slice(0, 4)}
-            whatThisIs={`A narrower stroller lane guide for families weighing ${lane.shortTitle.toLowerCase()} before they build a product shortlist.`}
-            whyItExists={lane.whyExists}
-          />
+                <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  <HeroStat label="Lane" value={`${normalizedLaneIndex} of ${allLanes.length}`} />
+                  <HeroStat label="Best For" value={lane.bestFor} />
+                  <HeroStat label="Tradeoff" value={lane.tradeoff} />
+                </div>
+              </div>
 
-          <GuideBulletSection
-            eyebrow="Orientation"
-            title="Orientation"
-            description="Use these lane signals to decide whether this category deserves a real shortlist."
-            items={[
-              lane.whyExists,
-              `Best for: ${lane.bestFor}`,
-              `Tradeoff: ${lane.tradeoff}`,
-              `Compare against: ${compareLinks.map((entry) => entry.shortTitle).join(', ') || 'the closest neighboring lanes'}.`,
-            ]}
-            editorialImage={LANE_EDITORIAL_IMAGES[lane.slug]}
-          />
+              <div className="overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/88 shadow-[0_18px_42px_rgba(58,36,43,0.10)]">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={displayHeroImage.src}
+                    alt={displayHeroImage.alt}
+                    fill
+                    sizes="(min-width: 1024px) 24rem, 100vw"
+                    className="object-cover object-center"
+                    unoptimized={shouldSkipHeroImageOptimization}
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/86 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8">
+            <AcademyProgressBar
+              current={normalizedLaneIndex}
+              total={allLanes.length}
+              label="Stroller category guide progress"
+            />
+          </section>
+
+          <section className="rounded-[1.95rem] border border-[rgba(215,161,175,0.18)] bg-white/90 px-6 py-8 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8 md:px-10">
+            <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Editorial Intro</p>
+            <div className="mt-5 max-w-[46rem] space-y-5 text-[1.04rem] leading-8 text-[#5B4B55]">
+              {introParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </section>
 
           {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[3].id} background="ivory">
-        <div className="space-y-8">
-          <StageLead
-            eyebrow="What Matters"
-            title={`Why the ${lane.title} lane exists.`}
-            description={lane.whyExists}
+          <section className="space-y-8">
+            <div className="max-w-3xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Core Considerations</p>
+              <h2 className="mt-3 font-serif text-[2.2rem] leading-[0.96] tracking-[-0.04em] text-[#2F2430] sm:text-[2.6rem]">
+                What actually defines this lane
+              </h2>
+            </div>
+
+            <div className="grid gap-6 xl:grid-cols-3">
+              {lane.lessons.map((lesson) => (
+                <article
+                  key={lesson.title}
+                  className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 px-6 py-8 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8"
+                >
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(215,161,175,0.14)] text-[#9F556D]">
+                    <GuideGlyph icon={lane.icon} className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-5 font-serif text-[1.8rem] leading-[1] tracking-[-0.03em] text-[#2F2430]">
+                    {lesson.title}
+                  </h3>
+                  <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">{lesson.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <ExpertTipCallout
+            eyebrow="Everyday Feel"
+            title={lane.everydayFeel}
+            body={lane.expertTip}
           />
 
-          <ExpertTipCallout title={lane.shortTitle} body={lane.expertTip} />
-
-          <div className="grid gap-5 xl:grid-cols-3">
-            {lane.lessons.map((lesson) => (
-              <section
-                key={lesson.title}
-                className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
-              >
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(215,161,175,0.14)] text-[#9F556D]">
-                  <GuideGlyph icon={lane.icon} className="h-5 w-5" />
-                </span>
-                <h3 className="mt-5 text-2xl font-medium tracking-[-0.02em] text-[#2F2430]">{lesson.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#5B4B55]">{lesson.body}</p>
-              </section>
-            ))}
-          </div>
-        </div>
-      </SlideSection>
-
-      <SlideSection id={slideItems[4].id} background="white">
-        <div className="space-y-8">
-          <DecisionBlock
-            title={`Use the ${lane.shortTitle} fit check before you compare products.`}
-            description="This is the shorter lane logic when you want the answer without rereading the whole page."
-            items={[
-              ...lane.worksForBullets.slice(0, 2).map((bullet) => ({
-                condition: bullet.toLowerCase(),
-                recommendation: `This lane is usually a strong fit. ${lane.worksForSummary}`,
-                href: `${sourceRoute}#${slideItems[3].id}`,
-              })),
-              ...lane.notBestFitBullets.slice(0, 1).map((bullet) => ({
-                condition: bullet.toLowerCase(),
-                recommendation: `Compare ${compareLinks[0]?.shortTitle || 'a neighboring lane'} next. ${lane.notBestFitSummary}`,
-                href: compareLinks[0]?.href,
-              })),
-            ]}
-          />
+          <section id="lane-fit" className="space-y-8">
+            <ChecklistCardSet
+              title={`What this lane means for you.`}
+              description="Use this fit check before you let product pages start doing too much of the talking."
+              sections={buildLaneFitChecklistSections(lane)}
+            />
+          </section>
 
           <ComparisonTable
             title={`Compare ${lane.shortTitle} against the closest neighboring lanes.`}
             description={lane.compareNote}
             rows={comparisonRows}
           />
-        </div>
-      </SlideSection>
 
-      <SlideSection id={slideItems[5].id} background="blush">
-        <div className="space-y-8">
-          <GuideBulletSection
-            eyebrow="What People Get Wrong"
-            title="What People Get Wrong"
-            description="These are the lane-specific misses that usually make a good category feel wrong."
-            items={dedupeTextItems(
-              [
-                'Choosing the lane for hypothetical flexibility instead of for the current routine.',
-                'Testing the showroom push and skipping the fold, lift, and storage reality.',
-                `Assuming ${lane.shortTitle.toLowerCase()} is automatically smarter because the category sounds more ambitious.`,
-                lane.notBestFitSummary,
-              ],
-              4,
-            )}
-          />
+          <section className="space-y-6">
+            <div className="max-w-3xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">What People Get Wrong</p>
+              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                The mistakes that make a good lane feel wrong
+              </h2>
+              <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">
+                These are usually the reasons parents talk themselves out of the right category or buy more stroller than the week actually needs.
+              </p>
+            </div>
 
-          <ExpertTipCallout
-            eyebrow="Everyday Feel"
-            title={lane.everydayFeel}
-            body="The right lane should feel calmer in the life you are already living, not just more impressive in a product demo."
-          />
-        </div>
-      </SlideSection>
+            <div className="grid gap-5 md:grid-cols-2">
+              {whatPeopleGetWrong.map((item, index) => (
+                <article
+                  key={item}
+                  className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
+                >
+                  <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">
+                    Mistake {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <p className="mt-4 text-[1rem] leading-8 text-[#4B3641]">{item}</p>
+                </article>
+              ))}
+            </div>
+          </section>
 
-      <SlideSection id={slideItems[6].id} background="ivory">
-        <div className="space-y-8">
           <ChecklistCardSet
             title={`What to test before you buy ${lane.shortTitle}.`}
-            description="This is where the lane gets validated. The useful questions show up when the stroller meets a trunk, a doorway, and an honest setup conversation."
+            description="This is the part that keeps the category grounded. The useful answers show up when the stroller meets a trunk, a doorway, and your actual setup."
             sections={lane.testSections}
           />
 
-          <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
-            {lane.productExamples.map((example) => (
-              <ProductPlaceholderCard
-                key={example.name}
-                eyebrow={`${lane.shortTitle} example`}
-                title={example.name}
-                description={example.shortReview || lane.heroDescription}
-                bestFor={example.bestFor || lane.bestFor}
-                standout={example.standout || lane.everydayFeel}
-                watchout={lane.tradeoff}
-                imageSrc={example.imageSrc}
-                imageAlt={example.imageAlt}
-                ctas={[
-                  { label: '[PRODUCT_CARD_PLACEHOLDER]' },
-                  { label: '[COMPARE_CTA_PLACEHOLDER: Compare This Stroller]' },
-                  { label: '[REGISTRY_CTA_PLACEHOLDER: Add to Registry]' },
-                ]}
-              />
-            ))}
-          </div>
+          <section className="space-y-6">
+            <div className="max-w-3xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Product Examples</p>
+              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                Guided examples, not a ranking
+              </h2>
+              <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">
+                These examples make the lane more concrete. They are here to sharpen the fit, not to turn the page into a beauty contest with wheels.
+              </p>
+            </div>
 
-          <GuideJourneyFooter
-            finalThought={finalThought}
-            takeaways={takeaways}
-            signOff={signOff}
-            nextSteps={nextSteps}
-            blogRecommendations={blogRecommendations}
-            consultationEnabled={guide.consultationCtaEnabled !== false}
-            consultationLabel={guide.consultationCtaLabel}
-          />
+            <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+              {lane.productExamples.map((example) => (
+                <ProductPlaceholderCard
+                  key={example.name}
+                  eyebrow={`${lane.shortTitle} example`}
+                  title={example.name}
+                  description={example.shortReview || lane.heroDescription}
+                  bestFor={example.bestFor || lane.bestFor}
+                  standout={example.standout || lane.everydayFeel}
+                  watchout={lane.tradeoff}
+                  imageSrc={example.imageSrc}
+                  imageAlt={example.imageAlt}
+                  ctas={[
+                    { label: '[PRODUCT_CARD_PLACEHOLDER]' },
+                    { label: '[COMPARE_CTA_PLACEHOLDER: Compare This Stroller]' },
+                    { label: '[REGISTRY_CTA_PLACEHOLDER: Add to Registry]' },
+                  ]}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className="max-w-3xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Takeaways</p>
+              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                Keep the short version
+              </h2>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {takeaways.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[1.5rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.92)] px-5 py-5 text-[1rem] leading-8 text-[#4B3641]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <ExpertTipCallout eyebrow="TMBC Buy Rule" title={lane.buyNote} body={lane.signatureMoment} />
+
+          {blogRecommendations.length > 0 ? (
+            <GuideCategoryCards
+              eyebrow="From the Journal"
+              title="Keep learning without reopening the whole question."
+              description="Use these reads when you want narrower comparisons, buying timing, or a few practical examples without losing the lane logic."
+              cards={blogRecommendations}
+              ctaLabel="Read article"
+            />
+          ) : null}
 
           {coreGuideRoutes.length > 0 ? (
             <GuideCategoryCards
-              eyebrow="Core guides"
+              eyebrow="Core Guides"
               title="Keep the broader TMBC routes nearby."
               description="The lane decision gets easier when you can move cleanly into the next category instead of slipping back into generic browsing."
               cards={coreGuideRoutes}
@@ -458,23 +466,81 @@ export default function StrollerAcademyLanePage({
             />
           ) : null}
 
-          <ExpertTipCallout eyebrow="TMBC Buy Rule" title={lane.buyNote} body={lane.signatureMoment} />
+          <section className="space-y-5">
+            <ExpertTipCallout
+              eyebrow="Work With Taylor"
+              title={`This is where ${lane.shortTitle.toLowerCase()} gets easier to shortlist.`}
+              body="If you want help turning this lane into a cleaner shortlist, travel-system plan, or registry decision, this is the right point to get tailored guidance."
+            />
+            {guide.consultationCtaEnabled !== false ? (
+              <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/88 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-7">
+                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Personal Guidance</p>
+                <p className="mt-3 max-w-3xl text-base leading-8 text-[#5B4B55]">
+                  Some stroller decisions need a calmer second opinion, especially when the lane choice touches your car seat plan, travel setup, or registry timing.
+                </p>
+                <div className="mt-5">
+                  <GuideTrackedLink
+                    guideId={guide.id}
+                    href="/consultation"
+                    event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
+                    sourceRoute={sourceRoute}
+                    className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
+                    meta={{
+                      ctaLabel: guide.consultationCtaLabel || 'Book a Consultation',
+                      label: 'stroller_lane_consultation',
+                    }}
+                  >
+                    {guide.consultationCtaLabel || 'Book a Consultation'}
+                  </GuideTrackedLink>
+                </div>
+              </div>
+            ) : null}
+          </section>
 
           <SaveDecisionBar
             title={`Keep the ${lane.shortTitle} decision moving.`}
             description="Use the lane to save, compare, and validate the right options without slipping back into generic stroller browsing."
             actions={[
-              { label: 'Back to Stroller Academy', href: '/guides/strollers' },
+              { label: 'Back to Stroller Foundations', href: '/academy/gear/stroller-foundations' },
               compareLinks[0]
                 ? { label: `Compare ${compareLinks[0].shortTitle}`, href: compareLinks[0].href }
-                : { label: 'Explore Another Lane', href: allLanes[0]?.href },
-              { label: '[CTA_PLACEHOLDER: Save for Later]' },
+                : { label: 'Compare Another Lane', href: '/academy/gear/stroller-foundations' },
+              { label: 'Work with me', href: '/consultation' },
             ]}
           />
 
+          <section className="space-y-6">
+            <div className="max-w-3xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Next Steps</p>
+              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                Keep the path moving
+              </h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {nextSteps.map((step) => (
+                <NextStepCard
+                  key={`${step.href}-${step.label}`}
+                  href={step.href}
+                  title={step.label}
+                  description={step.description}
+                  ctaLabel="Open step ->"
+                  eyebrow={step.stage ?? 'Next Step'}
+                />
+              ))}
+            </div>
+          </section>
+
+          {signOff ? (
+            <section className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/88 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-7">
+              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">From Taylor</p>
+              <div className="mt-4 whitespace-pre-line text-base leading-8 text-[#4B3641]">{signOff}</div>
+            </section>
+          ) : null}
+
           {/* TODO: Replace compare/save/registry placeholders with live TMBC compare and registry wiring once those product actions exist. */}
         </div>
-      </SlideSection>
-    </GuideSlideDeck>
+      </div>
+    </div>
   );
 }
