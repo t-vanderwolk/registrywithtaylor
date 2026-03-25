@@ -15,36 +15,6 @@ const academyGuideRedirects = [
     permanent: true,
   },
   {
-    source: '/guides/strollers/compact-strollers',
-    destination: '/academy/gear/stroller-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/strollers/full-size-modular-strollers',
-    destination: '/academy/gear/stroller-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/strollers/convertible-strollers',
-    destination: '/academy/gear/stroller-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/strollers/double-strollers',
-    destination: '/academy/gear/stroller-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/strollers/jogging-strollers',
-    destination: '/academy/gear/stroller-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/strollers/travel-strollers',
-    destination: '/academy/gear/travel-systems',
-    permanent: true,
-  },
-  {
     source: '/guides/travel-strollers',
     destination: '/academy/gear/travel-systems',
     permanent: true,
@@ -177,16 +147,6 @@ const academyGuideRedirects = [
   {
     source: '/guides/essentials',
     destination: '/academy/postpartum/first-weeks-essentials',
-    permanent: true,
-  },
-  {
-    source: '/guides/:slug/:subSlug',
-    destination: '/academy',
-    permanent: true,
-  },
-  {
-    source: '/guides/:slug',
-    destination: '/academy',
     permanent: true,
   },
 ];
