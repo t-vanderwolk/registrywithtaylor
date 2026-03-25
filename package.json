@@ -20,6 +20,8 @@
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
     "seed:registry-sub-guides": "tsx scripts/seedRegistrySubGuides.ts",
     "seed:stroller-category-guides": "tsx scripts/seedStrollerCategoryGuides.ts",
+    "seed:stroller-academy-modules": "tsx scripts/seedStrollerAcademyModules.ts",
+    "seed:car-seat-product-catalog-modules": "tsx scripts/seedCarSeatProductCatalogModules.ts",
     "seed:nursery-category-guides": "tsx scripts/seedNurseryCategoryGuides.ts"
   },
   "prisma": {

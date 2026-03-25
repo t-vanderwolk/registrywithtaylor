@@ -16,7 +16,7 @@ import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
-export type AcademyPathSlug = 'nursery' | 'gear' | 'postpartum';
+export type AcademyPathSlug = 'registry' | 'nursery' | 'gear' | 'postpartum';
 
 export type AcademyModuleSlug =
   | 'vision-and-lifestyle'
@@ -159,15 +159,29 @@ const GUIDE_FILES = {
   allInOneCarSeat: 'taylor-made-all-in-one-car-seat-guide.md',
 } as const;
 
-const ACADEMY_PATH_ORDER: AcademyPathSlug[] = ['nursery', 'gear', 'postpartum'];
+const ACADEMY_PATH_ORDER: AcademyPathSlug[] = ['registry', 'nursery', 'gear', 'postpartum'];
 
 const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
-  nursery: ['vision-and-lifestyle', 'space-and-flow', 'storage-and-stations'],
+  registry: ['vision-and-lifestyle'],
+  nursery: ['space-and-flow', 'storage-and-stations'],
   gear: ['stroller-foundations', 'travel-systems', 'car-seat-basics'],
   postpartum: ['recovery-and-support', 'feeding-and-home-rhythm', 'first-weeks-essentials'],
 };
 
 const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> = {
+  registry: {
+    title: 'Registry',
+    shortDescription: 'Start with what matters',
+    heroTitle: 'Registry Path',
+    heroDescription:
+      'Build the list around systems, timing, and what actually supports life with a baby before the categories start multiplying.',
+    intro: [
+      'Registry planning usually gets easier once you stop treating it like a giant shopping assignment and start treating it like a household plan.',
+      'This path starts with the life you are building, then helps you decide what belongs on the list now, what can wait, and what never needed prime registry real estate in the first place.',
+    ],
+    imagePath: '/assets/editorial/registry.jpg',
+    imageAlt: 'Registry planning editorial image for TMBC Baby Academy.',
+  },
   nursery: {
     title: 'Nursery',
     shortDescription: 'Start with your space',
@@ -211,7 +225,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
 
 const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinition> = {
   'vision-and-lifestyle': {
-    pathSlug: 'nursery',
+    pathSlug: 'registry',
     title: 'Vision and Lifestyle',
     description: 'Start with the life you are building before the registry and nursery start collecting too much momentum.',
     subhead: 'This is the calmer place to begin when the plan still feels bigger than the products.',

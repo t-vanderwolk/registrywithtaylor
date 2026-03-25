@@ -96,17 +96,17 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/registry',
-    destination: '/academy/nursery/vision-and-lifestyle',
+    destination: '/academy/registry/vision-and-lifestyle',
     permanent: true,
   },
   {
     source: '/guides/baby-registry',
-    destination: '/academy/nursery/vision-and-lifestyle',
+    destination: '/academy/registry/vision-and-lifestyle',
     permanent: true,
   },
   {
     source: '/guides/registry/:subSlug',
-    destination: '/academy/nursery/vision-and-lifestyle',
+    destination: '/academy/registry/vision-and-lifestyle',
     permanent: true,
   },
   {
