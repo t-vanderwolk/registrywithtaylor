@@ -186,8 +186,14 @@ async function main() {
     );
   }
 
-  const strollerFoundationsGuide = await prisma.guide.findUnique({
-    where: { slug: 'stroller-foundations' },
+  const strollerFoundationsGuide = await prisma.guide.findFirst({
+    where: {
+      OR: [
+        { canonicalUrl: '/academy/gear/stroller-foundations' },
+        { slug: 'academy-gear-stroller-foundations' },
+        { slug: 'stroller-foundations' },
+      ],
+    },
     select: { id: true },
   });
 

@@ -56,42 +56,42 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/infant-car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/convertible-car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/all-in-one-car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/booster-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/rotating-car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/travel-lightweight-car-seats',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
     source: '/guides/car-seats/:subSlug',
-    destination: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {
@@ -157,6 +157,11 @@ const academyGuideRedirects = [
   {
     source: '/academy/nursery/storage-and-stations',
     destination: '/academy/nursery/storage-and-organization',
+    permanent: true,
+  },
+  {
+    source: '/academy/gear/car-seat-basics',
+    destination: '/academy/gear/car-seat-foundations',
     permanent: true,
   },
   {

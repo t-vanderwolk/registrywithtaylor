@@ -12,7 +12,7 @@ type BuildMarketingMetadataInput = {
   title: string;
   description: string;
   path: `/${string}` | '/';
-  imagePath: `/${string}`;
+  imagePath: string;
   imageAlt: string;
 };
 
@@ -24,7 +24,7 @@ export function buildMarketingMetadata({
   imageAlt,
 }: BuildMarketingMetadataInput): Metadata {
   const canonicalUrl = path === '/' ? SITE_URL : `${SITE_URL}${path}`;
-  const imageUrl = `${SITE_URL}${imagePath}`;
+  const imageUrl = /^https?:\/\//i.test(imagePath) ? imagePath : `${SITE_URL}${imagePath}`;
 
   return {
     metadataBase: new URL(SITE_URL),

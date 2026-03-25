@@ -4,6 +4,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 import {
+  getGearAcademyModule,
+  isGearAcademyModuleSlug,
+  GEAR_ACADEMY_MODULES,
+  type GearAcademyModuleSlug,
+} from '@/lib/academy/gearModules';
+import {
   getRegistryAcademyModule,
   isRegistryAcademyModuleSlug,
   REGISTRY_ACADEMY_MODULES,
@@ -31,10 +37,9 @@ import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 export type AcademyPathSlug = 'registry' | 'nursery' | 'gear' | 'postpartum';
 
 export type AcademyModuleSlug =
+  | GearAcademyModuleSlug
   | RegistryAcademyModuleSlug
   | NurseryAcademyModuleSlug
-  | 'stroller-foundations'
-  | 'travel-systems'
   | 'car-seat-basics'
   | 'recovery-and-support'
   | 'feeding-and-home-rhythm'
@@ -186,7 +191,7 @@ const ACADEMY_PATH_ORDER: AcademyPathSlug[] = ['registry', 'nursery', 'gear', 'p
 const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
   registry: REGISTRY_ACADEMY_MODULES.map((module) => module.slug),
   nursery: NURSERY_ACADEMY_MODULES.map((module) => module.slug),
-  gear: ['stroller-foundations', 'travel-systems', 'car-seat-basics'],
+  gear: GEAR_ACADEMY_MODULES.map((module) => module.slug),
   postpartum: ['recovery-and-support', 'feeding-and-home-rhythm', 'first-weeks-essentials'],
 };
 
@@ -222,10 +227,10 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     shortDescription: 'Understand before you choose',
     heroTitle: 'Gear Path',
     heroDescription:
-      'Sort the lanes, the tradeoffs, and the daily-life fit first so the product comparison starts making sense.',
+      'Understand before you choose, with a calmer path through the gear decisions that shape daily life most.',
     intro: [
-      'Most gear decisions get noisy because families start with models before they understand the job the gear needs to do.',
-      'This path keeps the order calmer: stroller foundations first, travel-system logic second, and car seat stage clarity after that.',
+      'Most gear overwhelm starts when parents compare products before they understand the category or the job that gear needs to do.',
+      'This path keeps the order calmer: first how to think, then strollers, car seats, travel systems, the compact-versus-full-size call, and finally the gear that earns daily use.',
     ],
     imagePath: '/assets/editorial/gear.jpg',
     imageAlt: 'Editorial baby gear image for TMBC Baby Academy.',
@@ -345,32 +350,68 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imageAlt: 'Calm nursery atmosphere image for the Atmosphere & Safety module.',
     relatedSlug: 'stroller-foundations',
   },
+  'how-to-think-about-baby-gear': {
+    pathSlug: 'gear',
+    title: 'How to Think About Baby Gear',
+    description: 'Understand how to choose baby gear based on your life, your routine, and real fit before the features start talking too loudly.',
+    subhead: 'Before you choose anything, understand how to choose.',
+    imagePath: '/assets/editorial/gear.jpg',
+    imageAlt: 'Editorial baby gear image for the How to Think About Baby Gear academy module.',
+    relatedSlug: 'where-to-register',
+  },
   'stroller-foundations': {
     pathSlug: 'gear',
     title: 'Stroller Foundations',
-    description: 'Get clear on stroller lanes before comparing products that were never solving the same job.',
-    subhead: 'The calmer stroller decision starts with routine, storage, terrain, and longevity instead of a brand shortlist.',
+    description: 'Choose the stroller setup that fits your routine, your environment, and your storage reality before you compare brands.',
+    subhead: 'Not all strollers are built for the same life.',
     imagePath: '/assets/editorial/strollers.png',
     imageAlt: 'Editorial stroller planning image for the Stroller Foundations academy module.',
-    relatedSlug: 'vision-and-lifestyle',
+    relatedSlug: null,
+  },
+  'car-seat-foundations': {
+    pathSlug: 'gear',
+    title: 'Car Seat Foundations',
+    description: 'Use the car seat categories, your vehicle, and your routine to choose the safer everyday fit with less confusion.',
+    subhead: 'Safety is the baseline. Fit is what matters next.',
+    imagePath: '/assets/editorial/gear.jpg',
+    imageAlt: 'Editorial car seat planning image for the Car Seat Foundations academy module.',
+    relatedSlug: null,
   },
   'travel-systems': {
     pathSlug: 'gear',
     title: 'Travel Systems',
-    description: 'Understand how travel strollers, infant seats, and portability work together before convenience starts running the whole decision.',
-    subhead: 'This module is about transitions: how you leave, move, load, and arrive with less friction.',
+    description: 'Understand how stroller and car seat compatibility works so the setup stays practical instead of more complicated than it needs to be.',
+    subhead: 'How your stroller and car seat actually work together.',
     imagePath: '/assets/editorial/stroller-folds.jpg',
     imageAlt: 'Travel stroller fold image for the Travel Systems academy module.',
-    relatedSlug: 'storage-and-organization',
+    relatedSlug: null,
+  },
+  'compact-vs-full-size': {
+    pathSlug: 'gear',
+    title: 'Compact vs Full-Size Strollers',
+    description: 'Use the compact versus full-size decision to simplify the stroller shortlist around frequency of use and everyday trade-offs.',
+    subhead: 'The decision that simplifies everything.',
+    imagePath: '/assets/editorial/compact.png',
+    imageAlt: 'Compact stroller image for the Compact vs Full-Size Strollers academy module.',
+    relatedSlug: 'stroller-foundations',
+  },
+  'daily-use-gear': {
+    pathSlug: 'gear',
+    title: 'Daily Use Gear',
+    description: 'Prioritize the gear that becomes part of your real daily rhythm and skip the categories that mostly create clutter.',
+    subhead: 'What you will actually use every day.',
+    imagePath: '/assets/editorial/babystuff.png',
+    imageAlt: 'Daily-use baby gear image for the Daily Use Gear academy module.',
+    relatedSlug: 'where-to-register',
   },
   'car-seat-basics': {
     pathSlug: 'gear',
-    title: 'Car Seat Basics',
-    description: 'Make the stage-based car seat decision clearer before brand language turns the category into homework.',
-    subhead: 'Start with the stage, the vehicle, and the routine. The rest gets much quieter from there.',
+    title: 'Car Seat Foundations',
+    description: 'Use the car seat categories, your vehicle, and your routine to choose the safer everyday fit with less confusion.',
+    subhead: 'Safety is the baseline. Fit is what matters next.',
     imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Car seat and gear image for the Car Seat Basics academy module.',
-    relatedSlug: 'first-weeks-essentials',
+    imageAlt: 'Editorial car seat planning image for the Car Seat Foundations academy module.',
+    relatedSlug: null,
   },
   'recovery-and-support': {
     pathSlug: 'postpartum',
@@ -635,6 +676,33 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
     title: definition.title,
     description: `${definition.description} Inside the ${pathDefinition.title} path.`,
     ctaLabel,
+  };
+}
+
+function buildGearAcademyModule(slug: GearAcademyModuleSlug): AcademyModuleContent {
+  const module = getGearAcademyModule(slug);
+  return {
+    intro: module.intro,
+    coreSections: module.coreSections.map((section) =>
+      buildCoreSection({
+        title: section.title,
+        paragraphs: section.paragraphs,
+        imageSrc: section.imageSrc,
+        imageAlt: section.imageAlt,
+      }),
+    ),
+    decisionBullets: module.decisionBullets,
+    products: module.products.map((product) =>
+      buildGenericProductExample({
+        name: product.name,
+        description: product.description,
+        pros: product.pros,
+        category: module.title,
+      }),
+    ),
+    softCtaLabel: module.softCtaLabel,
+    softCtaTitle: module.softCtaTitle,
+    softCtaBody: module.softCtaBody,
   };
 }
 
@@ -1129,6 +1197,10 @@ async function buildFirstWeeksEssentialsModule() {
 }
 
 async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModuleContent | null> {
+  if (isGearAcademyModuleSlug(slug)) {
+    return buildGearAcademyModule(slug);
+  }
+
   if (isRegistryAcademyModuleSlug(slug)) {
     return buildRegistryAcademyModule(slug);
   }
@@ -1138,12 +1210,8 @@ async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModul
   }
 
   switch (slug) {
-    case 'stroller-foundations':
-      return buildStrollerFoundationsModule();
-    case 'travel-systems':
-      return buildTravelSystemsModule();
     case 'car-seat-basics':
-      return buildCarSeatBasicsModule();
+      return buildGearAcademyModule('car-seat-foundations');
     case 'recovery-and-support':
       return buildRecoveryAndSupportModule();
     case 'feeding-and-home-rhythm':
@@ -1270,10 +1338,9 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     decisionTitle: 'What This Means For You',
     decisionBullets: content.decisionBullets,
     products: content.products,
-    softCtaLabel: content.softCtaLabel ?? 'Soft CTA',
-    softCtaTitle: content.softCtaTitle ?? 'This is where most families want a second opinion.',
-    softCtaBody:
-      content.softCtaBody ?? ['Once the logic is clear, a personal recommendation usually gets faster and much more useful.'],
+    softCtaLabel: content.softCtaLabel ?? '',
+    softCtaTitle: content.softCtaTitle ?? '',
+    softCtaBody: content.softCtaBody ?? [],
     previous: previousSlug ? getRelatedLink(previousSlug, 'Previous module ->') : null,
     next: nextSlug ? getRelatedLink(nextSlug, 'Next module ->') : null,
     related: definition.relatedSlug ? getRelatedLink(definition.relatedSlug, 'Related module ->') : null,

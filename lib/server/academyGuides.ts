@@ -3,6 +3,7 @@ import 'server-only';
 import { cache } from 'react';
 import type { Prisma } from '@prisma/client';
 import prisma from '@/lib/server/prisma';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
   type AcademyCoreSection,
   type AcademyModuleData,
@@ -26,7 +27,15 @@ const imageLinePattern = /^!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)$/;
 const emphasisOnlyPattern = /^\*([^*]+)\*$/;
 
 function resolveRenderableImagePath(candidate: string | null | undefined, fallback: string) {
-  return candidate?.trim().startsWith('/') ? candidate.trim() : fallback;
+  const normalizedCandidate = candidate?.trim();
+
+  if (!normalizedCandidate) {
+    return fallback;
+  }
+
+  return normalizedCandidate.startsWith('/') || isRemoteImageUrl(normalizedCandidate)
+    ? normalizedCandidate
+    : fallback;
 }
 
 function normalizeTitle(value: string) {

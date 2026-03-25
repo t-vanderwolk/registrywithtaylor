@@ -18,12 +18,21 @@ import {
   getPublishedAcademyGuideForModule,
   mergeAcademyModuleWithGuideRecord,
 } from '@/lib/server/academyGuides';
+import { isRemoteImageUrl } from '@/lib/blog/images';
 
 function resolveMetadataImagePath(
   preferredPath: string | null | undefined,
   fallbackPath: string,
 ) {
-  return preferredPath?.trim().startsWith('/') ? (preferredPath.trim() as `/${string}`) : (fallbackPath as `/${string}`);
+  const normalizedPreferredPath = preferredPath?.trim();
+
+  if (!normalizedPreferredPath) {
+    return fallbackPath;
+  }
+
+  return normalizedPreferredPath.startsWith('/') || isRemoteImageUrl(normalizedPreferredPath)
+    ? normalizedPreferredPath
+    : fallbackPath;
 }
 
 type AcademyModulePageProps = {

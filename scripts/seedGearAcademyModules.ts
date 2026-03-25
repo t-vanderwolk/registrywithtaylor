@@ -1,12 +1,12 @@
 import type { PostStatus, Prisma } from '@prisma/client';
 import { extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
-import { NURSERY_ACADEMY_MODULES } from '@/lib/academy/nurseryModules';
+import { GEAR_ACADEMY_MODULES } from '@/lib/academy/gearModules';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import prisma from '@/lib/server/prisma';
 
 const PUBLISH_FLAG = '--publish';
-const NURSERY_CATEGORY = GUIDE_CATEGORIES[3];
-const NURSERY_ACADEMY_TOPIC_CLUSTER = 'TMBC Baby Academy: Nursery Modules';
+const GEAR_CATEGORY = GUIDE_CATEGORIES[5];
+const GEAR_ACADEMY_TOPIC_CLUSTER = 'TMBC Baby Academy: Gear Modules';
 
 function truncateAtWordBoundary(value: string, maxLength: number) {
   if (value.length <= maxLength) {
@@ -40,17 +40,42 @@ function stripTopHeading(content: string) {
   return content.replace(/^#\s+.+\n+/, '').trim();
 }
 
+function getGuideSlug(moduleSlug: string) {
+  return `academy-gear-${moduleSlug}`;
+}
+
+function getLegacyLookupVariants(moduleSlug: string) {
+  if (moduleSlug === 'car-seat-foundations') {
+    return [
+      { slug: 'car-seat-basics' },
+      { canonicalUrl: '/academy/gear/car-seat-basics' },
+    ];
+  }
+
+  return [{ slug: moduleSlug }];
+}
+
 function getStatusData({
   existing,
   publish,
+  preserveExistingStatus,
 }: {
   existing: { status: PostStatus; publishedAt: Date | null; archivedAt: Date | null } | null;
   publish: boolean;
+  preserveExistingStatus: boolean;
 }) {
   if (publish) {
     return {
       status: 'PUBLISHED' as const,
       publishedAt: existing?.publishedAt ?? new Date(),
+      archivedAt: null,
+    };
+  }
+
+  if (!preserveExistingStatus) {
+    return {
+      status: 'DRAFT' as const,
+      publishedAt: null,
       archivedAt: null,
     };
   }
@@ -77,23 +102,39 @@ async function main() {
     }));
 
   if (!author) {
-    throw new Error('No users found. Create an admin user before seeding nursery academy modules.');
+    throw new Error('No users found. Create an admin user before seeding gear academy modules.');
   }
 
   const seededGuideIdsBySlug = new Map<string, string>();
 
-  for (const module of NURSERY_ACADEMY_MODULES) {
-    const existing = await prisma.guide.findUnique({
-      where: { slug: module.slug },
-      select: { id: true, status: true, publishedAt: true, archivedAt: true },
+  for (const module of GEAR_ACADEMY_MODULES) {
+    const canonicalUrl = `/academy/gear/${module.slug}`;
+    const guideSlug = getGuideSlug(module.slug);
+    const existing = await prisma.guide.findFirst({
+      where: {
+        topicCluster: {
+          contains: GEAR_ACADEMY_TOPIC_CLUSTER,
+          mode: 'insensitive',
+        },
+        OR: [{ slug: guideSlug }, { canonicalUrl }, ...getLegacyLookupVariants(module.slug)],
+      },
+      select: { id: true, slug: true, status: true, publishedAt: true, archivedAt: true },
     });
 
-    const statusData = getStatusData({ existing, publish });
+    const statusData = getStatusData({
+      existing,
+      publish,
+      preserveExistingStatus: existing?.slug === guideSlug,
+    });
     const intro = module.intro.join('\n\n').trim();
     const content = stripTopHeading(module.markdownContent);
+    const nextModule = module.nextModuleSlug
+      ? GEAR_ACADEMY_MODULES.find((candidate) => candidate.slug === module.nextModuleSlug) ?? null
+      : null;
+
     const data = {
       title: module.title,
-      slug: module.slug,
+      slug: guideSlug,
       excerpt: buildExcerpt(intro, module.description),
       intro,
       content,
@@ -101,8 +142,8 @@ async function main() {
       heroImageUrl: module.imagePath,
       heroImageAlt: module.imageAlt,
       authorId: author.id,
-      category: NURSERY_CATEGORY,
-      topicCluster: NURSERY_ACADEMY_TOPIC_CLUSTER,
+      category: GEAR_CATEGORY,
+      topicCluster: GEAR_ACADEMY_TOPIC_CLUSTER,
       status: statusData.status,
       publishedAt: statusData.publishedAt,
       scheduledFor: null,
@@ -113,11 +154,11 @@ async function main() {
       ogDescription: buildSeoDescription(intro, module.description),
       ogImageUrl: module.imagePath,
       ogImageAlt: module.imageAlt,
-      canonicalUrl: `/academy/nursery/${module.slug}`,
-      targetKeyword: `${module.title.toLowerCase()} nursery`,
-      secondaryKeywords: ['nursery planning', 'academy nursery module', module.slug.replace(/-/g, ' ')],
+      canonicalUrl,
+      targetKeyword: `${module.title.toLowerCase()} baby gear`,
+      secondaryKeywords: ['baby gear planning', 'academy gear module', module.slug.replace(/-/g, ' ')],
       internalLinkNotes:
-        'Seeded from lib/academy/nurseryModules.ts. Keep draft unless academy module records are intentionally being surfaced through another guide workflow.',
+        'Seeded from lib/academy/gearModules.ts. Keep draft unless academy module records are intentionally being surfaced through another guide workflow.',
       tableOfContentsEnabled: true,
       faqItems: [] as Prisma.InputJsonValue,
       affiliateDisclosureEnabled: false,
@@ -130,10 +171,8 @@ async function main() {
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
-      nextStepCtaLabel: module.nextModuleSlug
-        ? `Next Module: ${NURSERY_ACADEMY_MODULES.find((candidate) => candidate.slug === module.nextModuleSlug)?.title ?? 'Continue'}`
-        : 'Continue to Gear Path',
-      nextStepCtaHref: module.nextModuleSlug ? `/academy/nursery/${module.nextModuleSlug}` : '/academy/gear',
+      nextStepCtaLabel: nextModule ? `Next Module: ${nextModule.title}` : 'Continue to Registry Path',
+      nextStepCtaHref: nextModule ? `/academy/gear/${nextModule.slug}` : '/academy/registry',
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };
@@ -152,22 +191,24 @@ async function main() {
           select: { id: true, slug: true, title: true, status: true },
         });
 
-    seededGuideIdsBySlug.set(saved.slug, saved.id);
-    console.log(`${existing ? 'Updated' : 'Created'} nursery academy module: ${saved.title} (${saved.slug}) [${saved.status}]`);
+    seededGuideIdsBySlug.set(module.slug, saved.id);
+    console.log(
+      `${existing ? 'Updated' : 'Created'} gear academy module: ${saved.title} (${guideSlug} -> ${canonicalUrl}) [${saved.status}]`,
+    );
   }
 
-  const strollerFoundationsGuide = await prisma.guide.findFirst({
+  const registryGuide = await prisma.guide.findFirst({
     where: {
       OR: [
-        { canonicalUrl: '/academy/gear/stroller-foundations' },
-        { slug: 'academy-gear-stroller-foundations' },
-        { slug: 'stroller-foundations' },
+        { canonicalUrl: '/academy/registry/where-to-register' },
+        { slug: 'academy-registry-where-to-register' },
+        { slug: 'where-to-register' },
       ],
     },
     select: { id: true },
   });
 
-  for (const module of NURSERY_ACADEMY_MODULES) {
+  for (const module of GEAR_ACADEMY_MODULES) {
     const guideId = seededGuideIdsBySlug.get(module.slug);
     if (!guideId) {
       continue;
@@ -176,9 +217,8 @@ async function main() {
     const relatedGuideIds = [
       module.previousModuleSlug ? seededGuideIdsBySlug.get(module.previousModuleSlug) ?? null : null,
       module.nextModuleSlug ? seededGuideIdsBySlug.get(module.nextModuleSlug) ?? null : null,
-      module.slug === 'atmosphere-and-safety' ? strollerFoundationsGuide?.id ?? null : null,
-    ]
-      .filter((id): id is string => Boolean(id));
+      module.slug === 'daily-use-gear' ? registryGuide?.id ?? null : null,
+    ].filter((id): id is string => Boolean(id));
 
     await prisma.guide.update({
       where: { id: guideId },
@@ -189,14 +229,14 @@ async function main() {
   }
 
   console.log('');
-  console.log(`Seeded ${NURSERY_ACADEMY_MODULES.length} nursery academy modules as ${publish ? 'published' : 'draft'} content.`);
+  console.log(`Seeded ${GEAR_ACADEMY_MODULES.length} gear academy modules as ${publish ? 'published' : 'draft'} content.`);
   console.log(`Author: ${author.name?.trim() || author.email}`);
-  console.log('These records mirror the academy nursery path and keep the module copy editable in the guide system without changing the public academy routes.');
+  console.log('These records mirror the academy gear path and keep the module copy editable in the guide system without changing the public academy routes.');
 }
 
 main()
   .catch((error) => {
-    console.error('Failed to seed nursery academy modules:', error);
+    console.error('Failed to seed gear academy modules:', error);
     process.exit(1);
   })
   .finally(async () => {
