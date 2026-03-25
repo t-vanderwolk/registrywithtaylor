@@ -102,12 +102,41 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           </div>
         </section>
 
+        <section className="mx-auto max-w-6xl px-6 pb-12 sm:px-8 md:pb-14 lg:px-10">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
+            <div className="rounded-[1.9rem] border border-[rgba(114,90,77,0.12)] bg-white/92 px-6 py-7 shadow-[0_18px_40px_rgba(48,31,24,0.05)] sm:px-8 sm:py-8">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">Overall Summary</p>
+              <h2 className="mt-3 font-serif text-[2.15rem] leading-[0.96] tracking-[-0.04em] text-neutral-900 sm:text-[2.45rem]">
+                What this path will actually help you do
+              </h2>
+              <div className="mt-5 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-neutral-700">
+                {pathData.overallSummary.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.9rem] border border-[rgba(114,90,77,0.12)] bg-[linear-gradient(180deg,rgba(255,253,249,0.98)_0%,rgba(247,238,229,0.96)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(48,31,24,0.05)] sm:px-8 sm:py-8">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">What You&apos;ll Learn</p>
+              <ul className="mt-5 space-y-3 text-[0.98rem] leading-7 text-neutral-700">
+                {pathData.learningHighlights.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8A6C62]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <section className="mx-auto max-w-6xl px-6 pb-20 sm:px-8 md:pb-24 lg:px-10">
           <div className="max-w-3xl">
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">Modules</p>
             <h2 className="mt-3 font-serif text-[2.2rem] leading-[0.96] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
-              Follow the sequence
+              What you&apos;ll learn, module by module
             </h2>
+            <p className="mt-4 text-[1rem] leading-8 text-neutral-700">{pathData.moduleSectionDescription}</p>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">

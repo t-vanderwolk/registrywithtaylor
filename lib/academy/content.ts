@@ -31,6 +31,7 @@ import {
   type GuideSectionSubsection,
 } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
+import { getStrollerHubCategoryCards } from '@/lib/guides/strollerCluster';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
@@ -75,6 +76,20 @@ export type AcademyModuleCard = {
   ctaLabel: string;
 };
 
+export type AcademySubmoduleCard = {
+  href: string;
+  title: string;
+  description: string;
+  ctaLabel: string;
+  eyebrow?: string;
+};
+
+export type AcademySubmoduleSection = {
+  title: string;
+  description: string;
+  cards: AcademySubmoduleCard[];
+};
+
 export type AcademyRelatedLink = {
   href: string;
   title: string;
@@ -90,6 +105,9 @@ export type AcademyPathData = {
   heroTitle: string;
   heroDescription: string;
   intro: string[];
+  overallSummary: string[];
+  learningHighlights: string[];
+  moduleSectionDescription: string;
   imagePath: string;
   imageAlt: string;
   moduleCards: AcademyModuleCard[];
@@ -120,6 +138,7 @@ export type AcademyModuleData = {
   previous: AcademyRelatedLink | null;
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
+  submoduleSection: AcademySubmoduleSection | null;
   breadcrumb: AcademyBreadcrumbItem[];
   trackingGuideId?: string | null;
 };
@@ -148,6 +167,9 @@ type AcademyPathDefinition = {
   heroTitle: string;
   heroDescription: string;
   intro: string[];
+  overallSummary: string[];
+  learningHighlights: string[];
+  moduleSectionDescription: string;
   imagePath: string;
   imageAlt: string;
 };
@@ -206,6 +228,19 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'This path is where registry planning gets more strategic and much less random.',
       'You will decide where to register, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
     ],
+    overallSummary: [
+      'This path turns the registry into a system instead of one giant list. You are not just choosing products here. You are choosing where the list lives, how it earns value back, and when it actually makes sense to buy.',
+      'By the end, your registry should feel more edited, easier for guests to use, and much less likely to leave you with duplicates, clutter, or late-stage regret.',
+    ],
+    learningHighlights: [
+      'How to choose between a universal registry, one main retailer, or a combined setup.',
+      'How welcome boxes, perks, and samples can become useful product testing instead of random extras.',
+      'How to time rewards, loyalty programs, and completion discounts so savings actually stack.',
+      'How to phase purchases so you buy what matters first and let the rest wait for real need.',
+      'How to guide showers and gifting without making the registry harder for guests to shop.',
+    ],
+    moduleSectionDescription:
+      'Each module builds the registry from setup into perks, timing, and gifting strategy so the list gets smarter instead of longer.',
     imagePath: '/assets/editorial/registry.jpg',
     imageAlt: 'Registry planning editorial image for TMBC Baby Academy.',
   },
@@ -219,6 +254,19 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'Nursery planning works better when it starts as a working system, not a decorating sprint.',
       'This path moves from the big-picture vision into room flow and then into the smaller station decisions that make the room easier to live in.',
     ],
+    overallSummary: [
+      'This path helps you build the room around real life, not just the reveal photo. We start with the space you have, the routines you are about to repeat, and the decisions that matter most when everyone is tired.',
+      'By the end, the nursery should feel less like a shopping project and more like a setup that supports sleep, storage, movement, and calmer resets.',
+    ],
+    learningHighlights: [
+      'How to start with your lifestyle, room constraints, and real nursery priorities before buying furniture.',
+      'How to think through sleep space decisions with your home setup and comfort level in mind.',
+      'How to choose furniture that earns its footprint instead of filling the room for the sake of completion.',
+      'How to organize the room around flow, changing routines, and the routes you will repeat most.',
+      'How to bring the nursery together with calmer storage, atmosphere, and safety choices.',
+    ],
+    moduleSectionDescription:
+      'Each module moves from the big room decisions into the smaller routines and systems that make the nursery actually usable.',
     imagePath: '/assets/editorial/nursery.jpg',
     imageAlt: 'Calm nursery editorial image for TMBC Baby Academy.',
   },
@@ -232,6 +280,19 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'Most gear overwhelm starts when parents compare products before they understand the category or the job that gear needs to do.',
       'This path keeps the order calmer: first how to think, then strollers, car seats, travel systems, the compact-versus-full-size call, and finally the gear that earns daily use.',
     ],
+    overallSummary: [
+      'This path is about understanding before choosing. Instead of jumping straight into brands and features, you will start with fit, then work through the categories that shape daily life most.',
+      'By the end, the gear conversation should feel smaller, clearer, and much easier to shortlist without buying for a life you are not actually living.',
+    ],
+    learningHighlights: [
+      'How to think about baby gear through the lens of routine, space, car setup, and real fit.',
+      'How stroller categories differ and what matters more than the feature grid.',
+      'How to make the infant-versus-convertible car seat decision with your vehicle and daily use in mind.',
+      'How travel systems, adapters, and compatibility actually work in the early months.',
+      'How to decide between compact and full-size, then focus on the daily-use gear that truly earns a place.',
+    ],
+    moduleSectionDescription:
+      'Each module narrows the gear conversation so you can understand the category first and compare products later, with much less noise.',
     imagePath: '/assets/editorial/gear.jpg',
     imageAlt: 'Editorial baby gear image for TMBC Baby Academy.',
   },
@@ -245,6 +306,19 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'Postpartum is often treated like a side note in baby prep. It should not be.',
       'This path turns recovery, feeding rhythm, and first-weeks support into a real sequence so the household gets prepared alongside the baby.',
     ],
+    overallSummary: [
+      'This path brings the adult side of early parenthood back into the plan. Recovery, feeding rhythm, and first-weeks support need more than a hopeful checklist and a basket by the bed.',
+      'By the end, you should have a steadier picture of how to prepare the house, the routines, and the support layers that make the first stretch feel more workable.',
+    ],
+    learningHighlights: [
+      'How to plan for postpartum recovery as part of the household setup, not as an afterthought.',
+      'How to build one workable feeding setup and a home rhythm that supports the repeated parts of the day.',
+      'How to identify the first-weeks essentials that actually reduce friction for the adults and the baby.',
+      'How to keep support practical, visible, and close to the spots where life will happen most.',
+      'How to leave room for real-life learning instead of trying to predict every future scenario in advance.',
+    ],
+    moduleSectionDescription:
+      'Each module helps you prepare the repeated parts of early parenthood before the first weeks turn them into on-the-fly decisions.',
     imagePath: '/assets/editorial/growing-with-confidence.jpg',
     imageAlt: 'Postpartum and early parenthood editorial image for TMBC Baby Academy.',
   },
@@ -676,6 +750,25 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
     title: definition.title,
     description: `${definition.description} Inside the ${pathDefinition.title} path.`,
     ctaLabel,
+  };
+}
+
+function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSection | null {
+  if (slug !== 'stroller-foundations') {
+    return null;
+  }
+
+  return {
+    title: 'Stroller Foundations Sub Modules',
+    description:
+      'Once the category basics click, use these stroller category guides to go deeper into the lane that actually fits your routine.',
+    cards: getStrollerHubCategoryCards().map((card) => ({
+      href: card.href,
+      title: card.title,
+      description: card.description,
+      ctaLabel: 'Open sub module ->',
+      eyebrow: 'Stroller Category',
+    })),
   };
 }
 
@@ -1296,6 +1389,9 @@ export async function getAcademyPathData(pathSlug: AcademyPathSlug): Promise<Aca
     heroTitle: definition.heroTitle,
     heroDescription: definition.heroDescription,
     intro: definition.intro,
+    overallSummary: definition.overallSummary,
+    learningHighlights: definition.learningHighlights,
+    moduleSectionDescription: definition.moduleSectionDescription,
     imagePath: definition.imagePath,
     imageAlt: definition.imageAlt,
     moduleCards: ACADEMY_PATH_MODULES[pathSlug].map((moduleSlug) => getModuleCard(moduleSlug)),
@@ -1344,6 +1440,7 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     previous: previousSlug ? getRelatedLink(previousSlug, 'Previous module ->') : null,
     next: nextSlug ? getRelatedLink(nextSlug, 'Next module ->') : null,
     related: definition.relatedSlug ? getRelatedLink(definition.relatedSlug, 'Related module ->') : null,
+    submoduleSection: getAcademySubmoduleSection(slug),
     breadcrumb: [
       { label: 'Academy', href: '/academy' },
       { label: pathDefinition.title, href: getAcademyPathHref(definition.pathSlug) },

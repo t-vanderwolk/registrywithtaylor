@@ -55,18 +55,20 @@ function NextStepCard({
   title,
   description,
   ctaLabel,
+  eyebrow = 'Module Link',
 }: {
   href: string;
   title: string;
   description: string;
   ctaLabel: string;
+  eyebrow?: string;
 }) {
   return (
     <Link
       href={href}
       className="group flex h-full flex-col rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(58,36,43,0.12)]"
     >
-      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Module Link</p>
+      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
       <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-[#2F2430]">{title}</h3>
       <p className="mt-3 text-[0.98rem] leading-7 text-[#5B4B55]">{description}</p>
       <span className="mt-auto pt-5 text-sm font-semibold text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
@@ -251,6 +253,31 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               description="This is the shorter, more usable version of the module once you want the actual takeaways."
               sections={decisionChecklistSections}
             />
+          ) : null}
+
+          {module.submoduleSection ? (
+            <section className="space-y-6">
+              <div className="max-w-3xl">
+                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Sub Modules</p>
+                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                  {module.submoduleSection.title}
+                </h2>
+                <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">{module.submoduleSection.description}</p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {module.submoduleSection.cards.map((card) => (
+                  <NextStepCard
+                    key={`${module.slug}-${card.href}`}
+                    href={card.href}
+                    title={card.title}
+                    description={card.description}
+                    ctaLabel={card.ctaLabel}
+                    eyebrow={card.eyebrow}
+                  />
+                ))}
+              </div>
+            </section>
           ) : null}
 
           {module.products.length > 0 ? (

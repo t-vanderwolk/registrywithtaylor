@@ -212,7 +212,7 @@ async function main() {
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: guide.secondaryKeywords,
       internalLinkNotes:
-        'Seeded from content/guides. Review internal comparison placeholders and add live retailer destination URLs when merchandising is ready.',
+        'Seeded from content/guides. These records also act as the Stroller Foundations sub modules inside TMBC Baby Academy. Review internal comparison placeholders and add live retailer destination URLs when merchandising is ready.',
       tableOfContentsEnabled: true,
       faqItems: guide.faqItems as Prisma.InputJsonValue,
       affiliateDisclosureEnabled: false,
@@ -225,8 +225,8 @@ async function main() {
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
-      nextStepCtaLabel: 'Read the Main Stroller Guide',
-      nextStepCtaHref: getGuidePath({ slug: 'best-strollers' }),
+      nextStepCtaLabel: 'Back to Stroller Foundations',
+      nextStepCtaHref: '/academy/gear/stroller-foundations',
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };
@@ -253,6 +253,16 @@ async function main() {
     where: { slug: 'best-strollers' },
     select: { id: true, relatedGuideIds: true },
   });
+  const academyStrollerFoundationsGuide = await prisma.guide.findFirst({
+    where: {
+      OR: [
+        { canonicalUrl: '/academy/gear/stroller-foundations' },
+        { slug: 'academy-gear-stroller-foundations' },
+        { slug: 'stroller-foundations' },
+      ],
+    },
+    select: { id: true },
+  });
 
   for (const guide of guides) {
     const guideId = seededGuideIdsBySlug.get(guide.slug);
@@ -260,9 +270,16 @@ async function main() {
       continue;
     }
 
-    const relatedGuideIds = guide.relatedSlugs
-      .map((slug) => seededGuideIdsBySlug.get(slug) ?? (slug === 'best-strollers' ? bestStrollersGuide?.id ?? null : null))
-      .filter((id): id is string => Boolean(id));
+    const relatedGuideIds = Array.from(
+      new Set(
+        [
+          ...guide.relatedSlugs.map(
+            (slug) => seededGuideIdsBySlug.get(slug) ?? (slug === 'best-strollers' ? bestStrollersGuide?.id ?? null : null),
+          ),
+          academyStrollerFoundationsGuide?.id ?? null,
+        ].filter((id): id is string => Boolean(id)),
+      ),
+    );
 
     await prisma.guide.update({
       where: { id: guideId },

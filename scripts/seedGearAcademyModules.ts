@@ -2,6 +2,7 @@ import type { PostStatus, Prisma } from '@prisma/client';
 import { extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
 import { GEAR_ACADEMY_MODULES } from '@/lib/academy/gearModules';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
+import { STROLLER_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/strollerCluster';
 import prisma from '@/lib/server/prisma';
 
 const PUBLISH_FLAG = '--publish';
@@ -207,6 +208,20 @@ async function main() {
     },
     select: { id: true },
   });
+  const strollerCategoryGuides = await prisma.guide.findMany({
+    where: {
+      slug: {
+        in: Array.from(STROLLER_CATEGORY_GUIDE_SLUGS),
+      },
+    },
+    select: {
+      id: true,
+      slug: true,
+    },
+  });
+  const strollerCategoryGuideIds = Array.from(STROLLER_CATEGORY_GUIDE_SLUGS)
+    .map((slug) => strollerCategoryGuides.find((guide) => guide.slug === slug)?.id ?? null)
+    .filter((id): id is string => Boolean(id));
 
   for (const module of GEAR_ACADEMY_MODULES) {
     const guideId = seededGuideIdsBySlug.get(module.slug);
@@ -214,11 +229,16 @@ async function main() {
       continue;
     }
 
-    const relatedGuideIds = [
-      module.previousModuleSlug ? seededGuideIdsBySlug.get(module.previousModuleSlug) ?? null : null,
-      module.nextModuleSlug ? seededGuideIdsBySlug.get(module.nextModuleSlug) ?? null : null,
-      module.slug === 'daily-use-gear' ? registryGuide?.id ?? null : null,
-    ].filter((id): id is string => Boolean(id));
+    const relatedGuideIds = Array.from(
+      new Set(
+        [
+          module.previousModuleSlug ? seededGuideIdsBySlug.get(module.previousModuleSlug) ?? null : null,
+          module.nextModuleSlug ? seededGuideIdsBySlug.get(module.nextModuleSlug) ?? null : null,
+          module.slug === 'daily-use-gear' ? registryGuide?.id ?? null : null,
+          ...(module.slug === 'stroller-foundations' ? strollerCategoryGuideIds : []),
+        ].filter((id): id is string => Boolean(id)),
+      ),
+    );
 
     await prisma.guide.update({
       where: { id: guideId },
