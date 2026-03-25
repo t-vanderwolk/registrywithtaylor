@@ -96,17 +96,17 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/registry',
-    destination: '/academy/registry/registry-foundations',
+    destination: '/academy/registry/where-to-register',
     permanent: true,
   },
   {
     source: '/guides/baby-registry',
-    destination: '/academy/registry/registry-foundations',
+    destination: '/academy/registry/where-to-register',
     permanent: true,
   },
   {
     source: '/guides/registry/:subSlug',
-    destination: '/academy/registry/registry-foundations',
+    destination: '/academy/registry/where-to-register',
     permanent: true,
   },
   {
@@ -136,7 +136,12 @@ const academyGuideRedirects = [
   },
   {
     source: '/academy/registry/vision-and-lifestyle',
-    destination: '/academy/registry/registry-foundations',
+    destination: '/academy/registry/where-to-register',
+    permanent: true,
+  },
+  {
+    source: '/academy/registry/registry-foundations',
+    destination: '/academy/registry/where-to-register',
     permanent: true,
   },
   {

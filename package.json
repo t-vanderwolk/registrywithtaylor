@@ -19,6 +19,7 @@
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
     "seed:registry-sub-guides": "tsx scripts/seedRegistrySubGuides.ts",
+    "seed:registry-academy-modules": "tsx scripts/seedRegistryAcademyModules.ts",
     "seed:stroller-category-guides": "tsx scripts/seedStrollerCategoryGuides.ts",
     "seed:stroller-academy-modules": "tsx scripts/seedStrollerAcademyModules.ts",
     "seed:car-seat-product-catalog-modules": "tsx scripts/seedCarSeatProductCatalogModules.ts",

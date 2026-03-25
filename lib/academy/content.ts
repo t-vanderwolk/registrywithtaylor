@@ -4,6 +4,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 import {
+  getRegistryAcademyModule,
+  isRegistryAcademyModuleSlug,
+  REGISTRY_ACADEMY_MODULES,
+  type RegistryAcademyModuleSlug,
+} from '@/lib/academy/registryModules';
+import {
   getNurseryAcademyModule,
   isNurseryAcademyModuleSlug,
   NURSERY_ACADEMY_MODULES,
@@ -25,7 +31,7 @@ import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 export type AcademyPathSlug = 'registry' | 'nursery' | 'gear' | 'postpartum';
 
 export type AcademyModuleSlug =
-  | 'registry-foundations'
+  | RegistryAcademyModuleSlug
   | NurseryAcademyModuleSlug
   | 'stroller-foundations'
   | 'travel-systems'
@@ -166,9 +172,6 @@ const GUIDE_FILES = {
   compact: 'taylor-made-compact-lightweight-stroller-guide.md',
   travelStroller: 'taylor-made-travel-stroller-guide.md',
   travel: 'taylor-made-travel-with-baby-guide.md',
-  registry: 'taylor-made-baby-registry-guide.md',
-  nursery: 'taylor-made-nursery-guide.md',
-  sleep: 'taylor-made-nursery-sleep-setup-guide.md',
   changing: 'taylor-made-changing-station-guide.md',
   storage: 'taylor-made-nursery-storage-guide.md',
   furniture: 'taylor-made-nursery-furniture-guide.md',
@@ -181,7 +184,7 @@ const GUIDE_FILES = {
 const ACADEMY_PATH_ORDER: AcademyPathSlug[] = ['registry', 'nursery', 'gear', 'postpartum'];
 
 const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
-  registry: ['registry-foundations'],
+  registry: REGISTRY_ACADEMY_MODULES.map((module) => module.slug),
   nursery: NURSERY_ACADEMY_MODULES.map((module) => module.slug),
   gear: ['stroller-foundations', 'travel-systems', 'car-seat-basics'],
   postpartum: ['recovery-and-support', 'feeding-and-home-rhythm', 'first-weeks-essentials'],
@@ -190,13 +193,13 @@ const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
 const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> = {
   registry: {
     title: 'Registry',
-    shortDescription: 'Start with what matters',
+    shortDescription: 'Build it step by step',
     heroTitle: 'Registry Path',
     heroDescription:
-      'Build the list around systems, timing, and what actually supports life with a baby before the categories start multiplying.',
+      'Build your registry the right way, step by step, with a calmer plan for platforms, perks, timing, and gifting.',
     intro: [
-      'Registry planning usually gets easier once you stop treating it like a giant shopping assignment and start treating it like a household plan.',
-      'This path starts with the life you are building, then helps you decide what belongs on the list now, what can wait, and what never needed prime registry real estate in the first place.',
+      'This path is where registry planning gets more strategic and much less random.',
+      'You will decide where to register, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
     ],
     imagePath: '/assets/editorial/registry.jpg',
     imageAlt: 'Registry planning editorial image for TMBC Baby Academy.',
@@ -243,14 +246,50 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
 };
 
 const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinition> = {
-  'registry-foundations': {
+  'where-to-register': {
     pathSlug: 'registry',
-    title: 'Vision and Lifestyle',
-    description: 'Start with the life you are building before the registry and nursery start collecting too much momentum.',
-    subhead: 'This is the calmer place to begin when the plan still feels bigger than the products.',
+    title: 'Where to Register',
+    description: 'Choose the registry setup that fits your perks, your guests, and how much flexibility you actually want.',
+    subhead: 'Choosing the right platform matters more than most people realize.',
     imagePath: '/assets/editorial/registry.jpg',
-    imageAlt: 'Registry planning image for the Vision and Lifestyle academy module.',
-    relatedSlug: 'first-weeks-essentials',
+    imageAlt: 'Registry planning image for the Where to Register academy module.',
+    relatedSlug: null,
+  },
+  'welcome-boxes-perks': {
+    pathSlug: 'registry',
+    title: 'Welcome Boxes & Perks',
+    description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
+    subhead: "The hidden benefits most parents don't fully use.",
+    imagePath: '/assets/editorial/welcome.png',
+    imageAlt: 'Welcome boxes and registry perks image for the Welcome Boxes & Perks academy module.',
+    relatedSlug: null,
+  },
+  'rewards-completion-discounts': {
+    pathSlug: 'registry',
+    title: 'Loyalty, Rewards & Completion Discounts',
+    description: 'Use discounts, rewards, and timing together so you can save well without filling the house too early.',
+    subhead: 'How to save without overbuying.',
+    imagePath: '/assets/editorial/registry.png',
+    imageAlt: 'Registry savings and planning image for the Loyalty, Rewards & Completion Discounts academy module.',
+    relatedSlug: null,
+  },
+  'smart-purchasing-timeline': {
+    pathSlug: 'registry',
+    title: 'Smart Purchasing Timeline',
+    description: 'Buy in phases so the essentials get covered, the maybes stay flexible, and the discount windows still do their job.',
+    subhead: 'When to buy matters just as much as what you buy.',
+    imagePath: '/assets/editorial/clipboard.png',
+    imageAlt: 'Registry purchasing timeline image for the Smart Purchasing Timeline academy module.',
+    relatedSlug: null,
+  },
+  'baby-showers-gifting': {
+    pathSlug: 'registry',
+    title: 'Baby Showers & Gifting Strategy',
+    description: 'Guide gifting clearly so guests can shop confidently, duplicates stay down, and the registry still feels easy to use.',
+    subhead: 'How to guide what you receive without overcomplicating it.',
+    imagePath: '/assets/editorial/bunny-gift.png',
+    imageAlt: 'Baby shower and gifting image for the Baby Showers & Gifting Strategy academy module.',
+    relatedSlug: 'stroller-foundations',
   },
   'vision-and-lifestyle': {
     pathSlug: 'nursery',
@@ -259,7 +298,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'Start with your space - not your shopping list.',
     imagePath: '/assets/editorial/nursery.jpg',
     imageAlt: 'Calm nursery editorial image for the Vision & Lifestyle Foundations academy module.',
-    relatedSlug: 'registry-foundations',
+    relatedSlug: 'where-to-register',
   },
   'sleep-space-decisions': {
     pathSlug: 'nursery',
@@ -268,7 +307,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'Where your baby sleeps - and why it matters more than you think.',
     imagePath: '/assets/editorial/babyincrib.png',
     imageAlt: 'Baby sleep editorial image for the Sleep Space Decisions module.',
-    relatedSlug: 'registry-foundations',
+    relatedSlug: 'where-to-register',
   },
   'furniture-that-actually-works': {
     pathSlug: 'nursery',
@@ -277,7 +316,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'What you need - and what you do not.',
     imagePath: '/assets/editorial/nursery2.png',
     imageAlt: 'Nursery furniture editorial image for the Furniture That Actually Works module.',
-    relatedSlug: 'registry-foundations',
+    relatedSlug: 'where-to-register',
   },
   'layout-and-flow': {
     pathSlug: 'nursery',
@@ -358,7 +397,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'A calmer first-weeks setup usually looks smaller, smarter, and more forgiving than the internet suggested.',
     imagePath: '/assets/editorial/babystuff.png',
     imageAlt: 'First-weeks essentials image for the First-Weeks Essentials academy module.',
-    relatedSlug: 'registry-foundations',
+    relatedSlug: 'where-to-register',
   },
 };
 
@@ -599,84 +638,30 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
   };
 }
 
-async function buildRegistryFoundationsModule(): Promise<AcademyModuleContent> {
-  const title = ACADEMY_MODULE_DEFINITIONS['registry-foundations'].title;
-
-  const intro = uniqueItems([
-    ...(await getPrefaceParagraphs(GUIDE_FILES.registry, 2)),
-    ...(await getPrefaceParagraphs(GUIDE_FILES.nursery, 1)),
-  ], 3);
-
-  const decisionBullets = uniqueItems([
-    ...(await getSectionListItems(GUIDE_FILES.registry, 'Decision Framework', 4)),
-    ...(await getSectionListItems(GUIDE_FILES.nursery, 'Decision Framework', 3)),
-  ], 5);
-
+function buildRegistryAcademyModule(slug: RegistryAcademyModuleSlug): AcademyModuleContent {
+  const module = getRegistryAcademyModule(slug);
   return {
-    intro,
-    coreSections: [
+    intro: module.intro,
+    coreSections: module.coreSections.map((section) =>
       buildCoreSection({
-        title: 'Systems before products',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.registry, 'Core Content', 'Build the registry by system, not by aisle', 2)),
-          ...(await getSectionParagraphs(GUIDE_FILES.registry, 'What This Is', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/registry.png',
-        imageAlt: 'Registry planning notebook and essentials.',
-        imageCaption: 'When the systems are clear, the product list usually gets shorter on its own.',
+        title: section.title,
+        paragraphs: section.paragraphs,
+        imageSrc: section.imageSrc,
+        imageAlt: section.imageAlt,
       }),
-      buildCoreSection({
-        title: 'First-stage clarity matters more than future-stage noise',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.registry, 'Core Content', 'Focus on the first stage first', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.sleep, 'Core Content', 'Start with the first-stage plan', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/babyincrib.png',
-        imageAlt: 'Editorial baby sleep image for first-stage planning.',
-        imageCaption: 'You do not need to solve every future chapter before the newborn one begins.',
-      }),
-      buildCoreSection({
-        title: 'Let your home do the editing',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.registry, 'Core Content', 'Big-ticket items should solve real friction', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.nursery, 'Core Content', 'Furniture should earn its floor space', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/nursery2.png',
-        imageAlt: 'Calm nursery layout image for real-life planning.',
-        imageCaption: 'The room, the storage, and the route should get a real vote before anything expensive lands on the list.',
-      }),
-      buildCoreSection({
-        title: 'Useful support is allowed to look boring',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.registry, 'Core Content', 'Practical support matters more than people expect', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.nursery, 'Core Content', 'Storage should shorten the route', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/clipboard.png',
-        imageAlt: 'Editorial planning tools image for practical support.',
-        imageCaption: 'The items that quietly reduce repeated friction tend to age better than the flashy ones.',
-      }),
-    ],
-    decisionBullets,
-    products: [
+    ),
+    decisionBullets: module.decisionBullets,
+    products: module.products.map((product) =>
       buildGenericProductExample({
-        name: 'Mini Crib Setup',
-        description: 'A practical fit when a smaller room needs the sleep zone to work without crowding the rest of the route.',
-        pros: ['Helps tighter rooms stay usable', 'Leaves space for storage and movement', 'Works well when flow matters more than maximum footprint'],
-        category: title,
+        name: product.name,
+        description: product.description,
+        pros: product.pros,
+        category: module.title,
       }),
-      buildGenericProductExample({
-        name: 'Dresser with Changing Pad',
-        description: 'A strong example when you want one furniture piece to handle storage and diapering in the same footprint.',
-        pros: ['Combines two daily jobs', 'Keeps the room from feeling over-furnished', 'Supports a shorter reset after changes'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Rolling Supply Cart',
-        description: 'Useful when your support items need to move between rooms or stay flexible through the early weeks.',
-        pros: ['Keeps daily items close', 'Works well in smaller or shared spaces', 'Easy to rethink as routines change'],
-        category: title,
-      }),
-    ],
+    ),
+    softCtaLabel: module.softCtaLabel,
+    softCtaTitle: module.softCtaTitle,
+    softCtaBody: module.softCtaBody,
   };
 }
 
@@ -1144,16 +1129,15 @@ async function buildFirstWeeksEssentialsModule() {
 }
 
 async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModuleContent | null> {
+  if (isRegistryAcademyModuleSlug(slug)) {
+    return buildRegistryAcademyModule(slug);
+  }
+
+  if (isNurseryAcademyModuleSlug(slug)) {
+    return buildNurseryAcademyModule(slug);
+  }
+
   switch (slug) {
-    case 'registry-foundations':
-      return buildRegistryFoundationsModule();
-    case 'vision-and-lifestyle':
-    case 'sleep-space-decisions':
-    case 'furniture-that-actually-works':
-    case 'layout-and-flow':
-    case 'storage-and-organization':
-    case 'atmosphere-and-safety':
-      return buildNurseryAcademyModule(slug);
     case 'stroller-foundations':
       return buildStrollerFoundationsModule();
     case 'travel-systems':
