@@ -96,42 +96,62 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/registry',
-    destination: '/academy/registry/vision-and-lifestyle',
+    destination: '/academy/registry/registry-foundations',
     permanent: true,
   },
   {
     source: '/guides/baby-registry',
-    destination: '/academy/registry/vision-and-lifestyle',
+    destination: '/academy/registry/registry-foundations',
     permanent: true,
   },
   {
     source: '/guides/registry/:subSlug',
-    destination: '/academy/registry/vision-and-lifestyle',
+    destination: '/academy/registry/registry-foundations',
     permanent: true,
   },
   {
     source: '/guides/nursery',
-    destination: '/academy/nursery/space-and-flow',
+    destination: '/academy/nursery/vision-and-lifestyle',
     permanent: true,
   },
   {
     source: '/guides/nursery/sleep-setup',
-    destination: '/academy/nursery/space-and-flow',
+    destination: '/academy/nursery/sleep-space-decisions',
     permanent: true,
   },
   {
     source: '/guides/nursery/furniture',
-    destination: '/academy/nursery/space-and-flow',
+    destination: '/academy/nursery/furniture-that-actually-works',
     permanent: true,
   },
   {
     source: '/guides/nursery/changing-station',
-    destination: '/academy/nursery/storage-and-stations',
+    destination: '/academy/nursery/storage-and-organization',
     permanent: true,
   },
   {
     source: '/guides/nursery/storage',
-    destination: '/academy/nursery/storage-and-stations',
+    destination: '/academy/nursery/storage-and-organization',
+    permanent: true,
+  },
+  {
+    source: '/academy/registry/vision-and-lifestyle',
+    destination: '/academy/registry/registry-foundations',
+    permanent: true,
+  },
+  {
+    source: '/academy/nursery/vision-and-lifestyle-foundations',
+    destination: '/academy/nursery/vision-and-lifestyle',
+    permanent: true,
+  },
+  {
+    source: '/academy/nursery/space-and-flow',
+    destination: '/academy/nursery/layout-and-flow',
+    permanent: true,
+  },
+  {
+    source: '/academy/nursery/storage-and-stations',
+    destination: '/academy/nursery/storage-and-organization',
     permanent: true,
   },
   {

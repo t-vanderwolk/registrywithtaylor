@@ -28,15 +28,22 @@ function Breadcrumbs({ items }: { items: AcademyBreadcrumbItem[] }) {
   );
 }
 
-function ProgressBar({ current, total }: { current: number; total: number }) {
+function ProgressBar({
+  current,
+  total,
+  pathLabel,
+}: {
+  current: number;
+  total: number;
+  pathLabel?: string;
+}) {
   const percentage = total > 0 ? (current / total) * 100 : 0;
+  const progressLabel = pathLabel ? `Module ${current} of ${total} - ${pathLabel}` : `Module ${current} of ${total}`;
 
   return (
     <div className="rounded-[1.5rem] border border-[rgba(114,90,77,0.12)] bg-white/88 p-5 shadow-[0_12px_28px_rgba(48,31,24,0.06)] sm:p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">
-          Module {current} of {total}
-        </p>
+        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">{progressLabel}</p>
         <p className="text-sm leading-7 text-neutral-700">A guided sequence, not a content pile.</p>
       </div>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#EAE0D6]">
@@ -75,6 +82,8 @@ function NextStepCard({
 }
 
 export default function ModuleLayout({ module }: ModuleLayoutProps) {
+  const pathLabel = module.breadcrumb[1]?.label;
+
   return (
     <div className="bg-[linear-gradient(180deg,#fcf8f2_0%,#f8efe4_34%,#fffdfa_100%)]">
       <div className="mx-auto max-w-6xl px-6 pb-20 pt-10 sm:px-8 md:pb-24 md:pt-14 lg:px-10">
@@ -106,7 +115,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </section>
 
-          <ProgressBar current={module.progress.current} total={module.progress.total} />
+          <ProgressBar current={module.progress.current} total={module.progress.total} pathLabel={pathLabel} />
 
           <section className="rounded-[1.8rem] border border-[rgba(114,90,77,0.1)] bg-white/88 px-6 py-8 shadow-[0_16px_34px_rgba(48,31,24,0.05)] sm:px-8 md:px-10">
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">Editorial Intro</p>
@@ -210,13 +219,15 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
           ) : null}
 
           <section className="rounded-[1.9rem] border border-[rgba(114,90,77,0.12)] bg-[linear-gradient(135deg,#fffaf5_0%,#f6ede3_100%)] px-6 py-8 shadow-[0_18px_38px_rgba(48,31,24,0.06)] sm:px-8 md:px-10">
-            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">Soft CTA</p>
-            <h2 className="mt-3 max-w-[18ch] font-serif text-[2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.35rem]">
-              This is where most families want a second opinion.
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">{module.softCtaLabel}</p>
+            <h2 className="mt-3 max-w-[26ch] font-serif text-[2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.35rem]">
+              {module.softCtaTitle}
             </h2>
-            <p className="mt-4 max-w-[40rem] text-[1rem] leading-8 text-neutral-700">
-              Once the logic is clear, a personal recommendation usually gets faster and much more useful.
-            </p>
+            <div className="mt-4 max-w-[40rem] space-y-4 text-[1rem] leading-8 text-neutral-700">
+              {module.softCtaBody.map((paragraph) => (
+                <p key={`${module.slug}-${paragraph}`}>{paragraph}</p>
+              ))}
+            </div>
             <div className="mt-6">
               <Link href="/consultation" className="btn btn--secondary">
                 {'Work with me ->'}

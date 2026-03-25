@@ -3,6 +3,12 @@ import 'server-only';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
+import {
+  getNurseryAcademyModule,
+  isNurseryAcademyModuleSlug,
+  NURSERY_ACADEMY_MODULES,
+  type NurseryAcademyModuleSlug,
+} from '@/lib/academy/nurseryModules';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import {
@@ -19,9 +25,8 @@ import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 export type AcademyPathSlug = 'registry' | 'nursery' | 'gear' | 'postpartum';
 
 export type AcademyModuleSlug =
-  | 'vision-and-lifestyle'
-  | 'space-and-flow'
-  | 'storage-and-stations'
+  | 'registry-foundations'
+  | NurseryAcademyModuleSlug
   | 'stroller-foundations'
   | 'travel-systems'
   | 'car-seat-basics'
@@ -98,6 +103,9 @@ export type AcademyModuleData = {
   decisionTitle: string;
   decisionBullets: string[];
   products: AcademyProductExample[];
+  softCtaLabel: string;
+  softCtaTitle: string;
+  softCtaBody: string[];
   previous: AcademyRelatedLink | null;
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
@@ -139,7 +147,17 @@ type AcademyModuleDefinition = {
   subhead: string;
   imagePath: string;
   imageAlt: string;
-  relatedSlug: AcademyModuleSlug;
+  relatedSlug: AcademyModuleSlug | null;
+};
+
+type AcademyModuleContent = {
+  intro: string[];
+  coreSections: AcademyCoreSection[];
+  decisionBullets: string[];
+  products: AcademyProductExample[];
+  softCtaLabel?: string;
+  softCtaTitle?: string;
+  softCtaBody?: string[];
 };
 
 const GUIDE_FILES = {
@@ -162,8 +180,8 @@ const GUIDE_FILES = {
 const ACADEMY_PATH_ORDER: AcademyPathSlug[] = ['registry', 'nursery', 'gear', 'postpartum'];
 
 const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
-  registry: ['vision-and-lifestyle'],
-  nursery: ['space-and-flow', 'storage-and-stations'],
+  registry: ['registry-foundations'],
+  nursery: NURSERY_ACADEMY_MODULES.map((module) => module.slug),
   gear: ['stroller-foundations', 'travel-systems', 'car-seat-basics'],
   postpartum: ['recovery-and-support', 'feeding-and-home-rhythm', 'first-weeks-essentials'],
 };
@@ -224,7 +242,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
 };
 
 const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinition> = {
-  'vision-and-lifestyle': {
+  'registry-foundations': {
     pathSlug: 'registry',
     title: 'Vision and Lifestyle',
     description: 'Start with the life you are building before the registry and nursery start collecting too much momentum.',
@@ -233,23 +251,59 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imageAlt: 'Registry planning image for the Vision and Lifestyle academy module.',
     relatedSlug: 'first-weeks-essentials',
   },
-  'space-and-flow': {
+  'vision-and-lifestyle': {
     pathSlug: 'nursery',
-    title: 'Space and Flow',
-    description: 'Shape the room around sleep, movement, and the furniture that actually earns its place.',
-    subhead: 'A strong nursery usually feels less crowded and more intentional once the route through the room is clear.',
-    imagePath: '/assets/editorial/nurseryzones.png',
-    imageAlt: 'Nursery zones editorial image for the Space and Flow academy module.',
-    relatedSlug: 'recovery-and-support',
+    title: 'Vision & Lifestyle Foundations',
+    description: 'Start with your space and your real rhythm before the nursery turns into a shopping list.',
+    subhead: 'Start with your space - not your shopping list.',
+    imagePath: '/assets/editorial/nursery.jpg',
+    imageAlt: 'Calm nursery editorial image for the Vision & Lifestyle Foundations academy module.',
+    relatedSlug: 'registry-foundations',
   },
-  'storage-and-stations': {
+  'sleep-space-decisions': {
     pathSlug: 'nursery',
-    title: 'Storage and Stations',
-    description: 'Keep changing, storage, and reset routines obvious enough to survive real life.',
-    subhead: 'This module is about shortening the route, not building a room full of labeled optimism bins.',
-    imagePath: '/assets/editorial/clipboard.png',
-    imageAlt: 'Nursery organization image for the Storage and Stations academy module.',
+    title: 'Sleep Space Decisions',
+    description: 'Decide where your baby will actually sleep based on your space, your nights, and your comfort level.',
+    subhead: 'Where your baby sleeps - and why it matters more than you think.',
+    imagePath: '/assets/editorial/babyincrib.png',
+    imageAlt: 'Baby sleep editorial image for the Sleep Space Decisions module.',
+    relatedSlug: 'registry-foundations',
+  },
+  'furniture-that-actually-works': {
+    pathSlug: 'nursery',
+    title: 'Furniture That Actually Works',
+    description: 'Choose the pieces that support your routine instead of filling the room for the sake of completion.',
+    subhead: 'What you need - and what you do not.',
+    imagePath: '/assets/editorial/nursery2.png',
+    imageAlt: 'Nursery furniture editorial image for the Furniture That Actually Works module.',
+    relatedSlug: 'registry-foundations',
+  },
+  'layout-and-flow': {
+    pathSlug: 'nursery',
+    title: 'Layout & Flow',
+    description: 'Design the room around movement, access, and nighttime usability before styling details take over.',
+    subhead: 'How your nursery actually works in real life.',
+    imagePath: '/assets/editorial/nurseryzones.png',
+    imageAlt: 'Nursery zones editorial image for the Layout & Flow module.',
     relatedSlug: 'feeding-and-home-rhythm',
+  },
+  'storage-and-organization': {
+    pathSlug: 'nursery',
+    title: 'Storage & Organization',
+    description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
+    subhead: 'How to reduce chaos before it starts.',
+    imagePath: '/assets/editorial/clipboard.png',
+    imageAlt: 'Nursery organization editorial image for the Storage & Organization module.',
+    relatedSlug: 'first-weeks-essentials',
+  },
+  'atmosphere-and-safety': {
+    pathSlug: 'nursery',
+    title: 'Atmosphere & Safety',
+    description: 'Bring the room together around calm, safety, and the kind of simplicity that still works at 2:14 AM.',
+    subhead: 'How your nursery feels - and functions.',
+    imagePath: '/assets/editorial/teddy-glow.png',
+    imageAlt: 'Calm nursery atmosphere image for the Atmosphere & Safety module.',
+    relatedSlug: 'stroller-foundations',
   },
   'stroller-foundations': {
     pathSlug: 'gear',
@@ -267,7 +321,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'This module is about transitions: how you leave, move, load, and arrive with less friction.',
     imagePath: '/assets/editorial/stroller-folds.jpg',
     imageAlt: 'Travel stroller fold image for the Travel Systems academy module.',
-    relatedSlug: 'storage-and-stations',
+    relatedSlug: 'storage-and-organization',
   },
   'car-seat-basics': {
     pathSlug: 'gear',
@@ -285,7 +339,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'Recovery deserves structure, support, and room inside the plan from the beginning.',
     imagePath: '/assets/editorial/teddy-glow.png',
     imageAlt: 'Soft postpartum support image for the Recovery and Support academy module.',
-    relatedSlug: 'space-and-flow',
+    relatedSlug: 'layout-and-flow',
   },
   'feeding-and-home-rhythm': {
     pathSlug: 'postpartum',
@@ -294,7 +348,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'The goal is not to predict every scenario. It is to make the repeated parts of the day easier to move through.',
     imagePath: '/assets/editorial/feeding.png',
     imageAlt: 'Feeding editorial image for the Feeding and Home Rhythm academy module.',
-    relatedSlug: 'storage-and-stations',
+    relatedSlug: 'storage-and-organization',
   },
   'first-weeks-essentials': {
     pathSlug: 'postpartum',
@@ -303,7 +357,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'A calmer first-weeks setup usually looks smaller, smarter, and more forgiving than the internet suggested.',
     imagePath: '/assets/editorial/babystuff.png',
     imageAlt: 'First-weeks essentials image for the First-Weeks Essentials academy module.',
-    relatedSlug: 'vision-and-lifestyle',
+    relatedSlug: 'registry-foundations',
   },
 };
 
@@ -544,8 +598,8 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
   };
 }
 
-async function buildVisionAndLifestyleModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['vision-and-lifestyle'].title;
+async function buildRegistryFoundationsModule(): Promise<AcademyModuleContent> {
+  const title = ACADEMY_MODULE_DEFINITIONS['registry-foundations'].title;
 
   const intro = uniqueItems([
     ...(await getPrefaceParagraphs(GUIDE_FILES.registry, 2)),
@@ -625,147 +679,30 @@ async function buildVisionAndLifestyleModule() {
   };
 }
 
-async function buildSpaceAndFlowModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['space-and-flow'].title;
-
-  const intro = uniqueItems([
-    ...(await getPrefaceParagraphs(GUIDE_FILES.nursery, 2)),
-    ...(await getPrefaceParagraphs(GUIDE_FILES.sleep, 1)),
-  ], 3);
-
-  const decisionBullets = uniqueItems([
-    ...(await getSectionListItems(GUIDE_FILES.nursery, 'Decision Framework', 4)),
-    ...(await getSectionListItems(GUIDE_FILES.sleep, 'Decision Framework', 3)),
-    ...(await getSectionListItems(GUIDE_FILES.furniture, 'Decision Framework', 3)),
-  ], 5);
-
+function buildNurseryAcademyModule(slug: NurseryAcademyModuleSlug): AcademyModuleContent {
+  const module = getNurseryAcademyModule(slug);
   return {
-    intro,
-    coreSections: [
+    intro: module.intro,
+    coreSections: module.coreSections.map((section) =>
       buildCoreSection({
-        title: 'Start with the sleep route',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.nursery, 'Core Content', 'Sleep setup comes first', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.sleep, 'Core Content', 'Start with the first-stage plan', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/babyincrib.png',
-        imageAlt: 'Nursery sleep route image.',
-        imageCaption: 'The sleep plan usually decides how the rest of the room starts making sense.',
+        title: section.title,
+        paragraphs: section.paragraphs,
+        imageSrc: section.imageSrc,
+        imageAlt: section.imageAlt,
       }),
-      buildCoreSection({
-        title: 'Scale the room to the room you actually have',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.sleep, 'Core Content', 'Full crib versus mini crib', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.furniture, 'Core Content', 'Buy for the room you have', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/nurseryzones.png',
-        imageAlt: 'Nursery zones and layout planning image.',
-        imageCaption: 'An oversized piece is not a small detail when it changes the whole route through the room.',
-      }),
-      buildCoreSection({
-        title: 'Furniture should earn the footprint',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.nursery, 'Core Content', 'Furniture should earn its floor space', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.furniture, 'Core Content', 'Crib, dresser, chair', 2)),
-        ], 4),
-        imageSrc: '/assets/editorial/nursery.jpg',
-        imageAlt: 'Calm nursery furniture image.',
-        imageCaption: 'The edited room usually works harder than the one trying to prove it covered every category.',
-      }),
-    ],
-    decisionBullets,
-    products: [
+    ),
+    decisionBullets: module.decisionBullets,
+    products: module.products.map((product) =>
       buildGenericProductExample({
-        name: 'Full Crib',
-        description: 'A useful fit when the room can comfortably hold it and you want a longer runway from the start.',
-        pros: ['Longer-term sleep piece', 'Works well in rooms with generous flow', 'Helps if the nursery will carry more of the sleep load early'],
-        category: title,
+        name: product.name,
+        description: product.description,
+        pros: product.pros,
+        category: module.title,
       }),
-      buildGenericProductExample({
-        name: 'Mini Crib',
-        description: 'A strong example when room flow matters more than solving the entire timeline in one purchase.',
-        pros: ['Smarter in tighter rooms', 'Protects open floor space', 'Lets the nursery stay calmer and easier to move through'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Comfort-First Nursery Chair',
-        description: 'Worth the footprint when feeding, soothing, or settling will happen in the nursery often enough to justify real comfort.',
-        pros: ['Supports longer feeding or settling windows', 'Adds function instead of filler', 'Feels more useful than decorative seating'],
-        category: title,
-      }),
-    ],
-  };
-}
-
-async function buildStorageAndStationsModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['storage-and-stations'].title;
-
-  const intro = uniqueItems([
-    ...(await getPrefaceParagraphs(GUIDE_FILES.changing, 2)),
-    ...(await getPrefaceParagraphs(GUIDE_FILES.storage, 1)),
-  ], 3);
-
-  const decisionBullets = uniqueItems([
-    ...(await getSectionListItems(GUIDE_FILES.changing, 'Decision Framework', 4)),
-    ...(await getSectionListItems(GUIDE_FILES.storage, 'Decision Framework', 3)),
-  ], 5);
-
-  return {
-    intro,
-    coreSections: [
-      buildCoreSection({
-        title: 'One working station beats three almost-stations',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.changing, 'Core Content', 'Dresser-top setups usually work hard', 2)),
-          ...(await getSectionParagraphs(GUIDE_FILES.changing, 'What This Is', 1)),
-        ], 3),
-        imageSrc: '/assets/editorial/clipboard.png',
-        imageAlt: 'Changing station planning image.',
-        imageCaption: 'The point is not to make the station charming. It is to make it obvious and easy to reset.',
-      }),
-      buildCoreSection({
-        title: 'Daily stock and backup stock are different jobs',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.changing, 'Core Content', 'Separate backup stock', 1)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.storage, 'Core Content', 'Keep backup stock separate', 2)),
-        ], 3),
-        imageSrc: '/assets/editorial/notebook-bunny.png',
-        imageAlt: 'Editorial planning notebook image for stock organization.',
-        imageCaption: 'The station stays calmer when the refill layer lives nearby but does not crowd the working zone.',
-      }),
-      buildCoreSection({
-        title: 'Organize by routine, not container type',
-        paragraphs: uniqueItems([
-          ...(await getSubsectionParagraphs(GUIDE_FILES.storage, 'Core Content', 'Organize by use, not by optimism', 2)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.storage, 'Core Content', 'Drawers beat mystery piles', 1)),
-          ...(await getSubsectionParagraphs(GUIDE_FILES.changing, 'Core Content', 'Keep the high-use supplies close', 1)),
-        ], 4),
-        imageSrc: '/assets/editorial/nurseryzones.png',
-        imageAlt: 'Nursery organization zones image.',
-        imageCaption: 'The best systems reduce decisions because the layout already did some of the thinking for you.',
-      }),
-    ],
-    decisionBullets,
-    products: [
-      buildGenericProductExample({
-        name: 'Dresser-Top Changing Setup',
-        description: 'Helpful when you want storage and diapering to live in the same footprint instead of competing for space.',
-        pros: ['Shortens the changing route', 'Combines storage and surface', 'Often smarter than a dedicated changing table'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Drawer-Based Clothing System',
-        description: 'A calmer fit when you want the fast-moving nursery items grouped by routine instead of scattered across baskets.',
-        pros: ['Hides visual noise', 'Supports repeatable categories', 'Easier for tired adults to reset quickly'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Labeled Refill Bin',
-        description: 'Useful for the backup layer that needs to stay visible enough to restock from, but separate enough to keep the room light.',
-        pros: ['Keeps extra supplies contained', 'Makes restocking obvious', 'Prevents daily zones from getting overcrowded'],
-        category: title,
-      }),
-    ],
+    ),
+    softCtaLabel: module.softCtaLabel,
+    softCtaTitle: module.softCtaTitle,
+    softCtaBody: module.softCtaBody,
   };
 }
 
@@ -1205,14 +1142,17 @@ async function buildFirstWeeksEssentialsModule() {
   };
 }
 
-async function buildModuleContent(slug: AcademyModuleSlug) {
+async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModuleContent | null> {
   switch (slug) {
+    case 'registry-foundations':
+      return buildRegistryFoundationsModule();
     case 'vision-and-lifestyle':
-      return buildVisionAndLifestyleModule();
-    case 'space-and-flow':
-      return buildSpaceAndFlowModule();
-    case 'storage-and-stations':
-      return buildStorageAndStationsModule();
+    case 'sleep-space-decisions':
+    case 'furniture-that-actually-works':
+    case 'layout-and-flow':
+    case 'storage-and-organization':
+    case 'atmosphere-and-safety':
+      return buildNurseryAcademyModule(slug);
     case 'stroller-foundations':
       return buildStrollerFoundationsModule();
     case 'travel-systems':
@@ -1345,9 +1285,13 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     decisionTitle: 'What This Means For You',
     decisionBullets: content.decisionBullets,
     products: content.products,
+    softCtaLabel: content.softCtaLabel ?? 'Soft CTA',
+    softCtaTitle: content.softCtaTitle ?? 'This is where most families want a second opinion.',
+    softCtaBody:
+      content.softCtaBody ?? ['Once the logic is clear, a personal recommendation usually gets faster and much more useful.'],
     previous: previousSlug ? getRelatedLink(previousSlug, 'Previous module ->') : null,
     next: nextSlug ? getRelatedLink(nextSlug, 'Next module ->') : null,
-    related: getRelatedLink(definition.relatedSlug, 'Related module ->'),
+    related: definition.relatedSlug ? getRelatedLink(definition.relatedSlug, 'Related module ->') : null,
     breadcrumb: [
       { label: 'Academy', href: '/academy' },
       { label: pathDefinition.title, href: getAcademyPathHref(definition.pathSlug) },
