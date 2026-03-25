@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import { chunkArray } from '@/lib/chunkArray';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
 export type ProductExampleGroupSection = {
@@ -64,23 +65,34 @@ export default function ProductExampleGroup({
                 ) : null}
               </div>
 
-              <div className="mt-5 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {group.examples.map((example) => (
-                  <GuideProductExampleCard
-                    key={`${group.id}-${example.name}`}
-                    name={example.name}
-                    brand={example.brand}
-                    productName={example.productName}
-                    imageSrc={example.imageSrc}
-                    imageAlt={example.imageAlt}
-                    imageHref={example.affiliateUrl}
-                    typeLabel={example.typeLabel}
-                    whyItMatters={example.shortReview}
-                    bestFor={example.bestFor}
-                    standout={example.standout}
-                    specGroups={example.specGroups}
-                    notes={example.notes}
-                  />
+              <div className="mt-5 space-y-5">
+                {chunkArray(group.examples, 3).map((exampleChunk, chunkIndex) => (
+                  <div key={`${group.id}-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    {exampleChunk.map((example, index) => {
+                      const position = chunkIndex * 3 + index + 1;
+
+                      return (
+                        <GuideProductExampleCard
+                          key={`${group.id}-${example.name}-${position}`}
+                          name={example.name}
+                          brand={example.brand}
+                          productName={example.productName}
+                          imageSrc={example.imageSrc}
+                          imageAlt={example.imageAlt}
+                          affiliateUrl={example.affiliateUrl ?? null}
+                          typeLabel={example.typeLabel}
+                          whyItMatters={example.shortReview}
+                          bestFor={example.bestFor}
+                          standout={example.standout}
+                          specGroups={example.specGroups}
+                          notes={example.notes}
+                          pros={example.pros}
+                          category={group.title}
+                          position={position}
+                        />
+                      );
+                    })}
+                  </div>
                 ))}
               </div>
             </div>

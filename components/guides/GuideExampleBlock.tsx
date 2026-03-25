@@ -1,6 +1,7 @@
 import PostContent from '@/components/blog/PostContent';
 import Comparison from '@/components/content-widgets/Comparison';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
+import { chunkArray } from '@/lib/chunkArray';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 
 export type GuideExampleBlockCard = {
@@ -79,23 +80,34 @@ export default function GuideExampleBlock({
       ) : null}
 
       {products.length > 0 ? (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
-            <div key={`${topicId}-product-${product.brand}-${product.productName}-${index}`}>
-              <GuideProductExampleCard
-                name={product.productName}
-                brand={product.brand}
-                productName={product.productName}
-                imageSrc={product.imageUrl}
-                imageAlt={product.imageAlt}
-                imageHref={product.affiliateLinks[0]?.url ?? null}
-                typeLabel={product.typeLabel}
-                whyItMatters={product.shortReview}
-                bestFor={product.bestFor}
-                standout={product.standout}
-                specGroups={product.specGroups}
-                notes={product.notes}
-              />
+        <div className="space-y-5">
+          {chunkArray(products, 3).map((productChunk, chunkIndex) => (
+            <div key={`${topicId}-product-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {productChunk.map((product, index) => {
+                const position = chunkIndex * 3 + index + 1;
+
+                return (
+                  <div key={`${topicId}-product-${product.brand}-${product.productName}-${position}`}>
+                    <GuideProductExampleCard
+                      name={product.productName}
+                      brand={product.brand}
+                      productName={product.productName}
+                      imageSrc={product.imageUrl}
+                      imageAlt={product.imageAlt}
+                      affiliateUrl={product.affiliateLinks[0]?.url ?? null}
+                      typeLabel={product.typeLabel}
+                      whyItMatters={product.shortReview}
+                      bestFor={product.bestFor}
+                      standout={product.standout}
+                      specGroups={product.specGroups}
+                      notes={product.notes}
+                      pros={product.pros}
+                      category={product.typeLabel ?? 'Product example'}
+                      position={position}
+                    />
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>

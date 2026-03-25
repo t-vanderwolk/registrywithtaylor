@@ -5,10 +5,12 @@ import GuideComparisonCards from '@/components/guides/GuideComparisonCards';
 import GuideDecisionHelper from '@/components/guides/GuideDecisionHelper';
 import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideHero from '@/components/guides/GuideHero';
+import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import GuideScrollProgress from '@/components/guides/GuideScrollProgress';
 import GuideSoftConversionCta from '@/components/guides/GuideSoftConversionCta';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import MarketingSurface from '@/components/ui/MarketingSurface';
+import { chunkArray } from '@/lib/chunkArray';
 import { extractFaqEntries } from '@/lib/blog/contentText';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
@@ -23,7 +25,6 @@ import {
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 import Comparison from '@/components/content-widgets/Comparison';
-import ProductCard from '@/components/content-widgets/ProductCard';
 
 function formatArticleDate(value: Date) {
   return value.toLocaleDateString('en-US', {
@@ -453,20 +454,34 @@ export default function GuideStrollerCategoryLayout({
                           </div>
                         ) : null}
 
-                      <div className="mt-6 space-y-5 [&_.content-widget]:my-0">
-                        {productExamples.products.map((product, index) => (
-                          <ProductCard
-                            key={`${guide.id}-product-example-${product.brand}-${product.productName}-${index}`}
-                            brand={product.brand}
-                            productName={product.productName}
-                            review={product.shortReview}
-                            bestFor={product.bestFor}
-                            standout={product.standout ?? undefined}
-                            pros={product.pros}
-                            affiliateLinks={product.affiliateLinks}
-                            imageUrl={product.imageUrl}
-                            imageAlt={product.imageAlt}
-                          />
+                      <div className="mt-6 space-y-5">
+                        {chunkArray(productExamples.products, 3).map((productChunk, chunkIndex) => (
+                          <div key={`${guide.id}-product-example-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            {productChunk.map((product, index) => {
+                              const position = chunkIndex * 3 + index + 1;
+
+                              return (
+                                <GuideProductExampleCard
+                                  key={`${guide.id}-product-example-${product.brand}-${product.productName}-${position}`}
+                                  name={product.productName}
+                                  brand={product.brand}
+                                  productName={product.productName}
+                                  imageSrc={product.imageUrl}
+                                  imageAlt={product.imageAlt}
+                                  affiliateUrl={product.affiliateLinks[0]?.url ?? null}
+                                  typeLabel={product.typeLabel}
+                                  whyItMatters={product.shortReview}
+                                  bestFor={product.bestFor}
+                                  standout={product.standout ?? undefined}
+                                  specGroups={product.specGroups}
+                                  notes={product.notes}
+                                  pros={product.pros}
+                                  category={guide.title}
+                                  position={position}
+                                />
+                              );
+                            })}
+                          </div>
                         ))}
                       </div>
                       </>

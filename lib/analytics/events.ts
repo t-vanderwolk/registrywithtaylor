@@ -4,6 +4,7 @@ export const AnalyticsEvents = {
   CONSULTATION_CLICK: 'consultation_cta_click',
   CONTACT_CLICK: 'contact_cta_click',
   GUIDE_DOWNLOAD: 'guide_download',
+  AFFILIATE_CLICK: 'affiliate_click',
   AFFILIATE_OUTBOUND_CLICK: 'affiliate_outbound_click',
   CONSULTATION_FORM_OPEN: 'consultation_form_open',
   CONSULTATION_SUBMITTED: 'consultation_request_submitted',

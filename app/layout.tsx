@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Suspense, type ReactNode } from 'react';
+import AffiliateLinkTracker from '@/components/analytics/AffiliateLinkTracker';
 import AnalyticsClickTracker from '@/components/analytics/AnalyticsClickTracker';
 import AnalyticsRouteTracker from '@/components/analytics/AnalyticsRouteTracker';
 import {
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Suspense fallback={null}>
           <AnalyticsRouteTracker />
           <AnalyticsClickTracker />
+          <AffiliateLinkTracker />
         </Suspense>
 
         {/* Optional global script */}

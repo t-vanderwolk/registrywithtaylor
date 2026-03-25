@@ -31,7 +31,10 @@ export default function FadeInSection({
   const prefersReducedMotion = useReducedMotion();
   const pathname = usePathname();
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const disableAnimatedReveal = pathname?.startsWith('/guides') || pathname?.startsWith('/blog');
+  const disableAnimatedReveal =
+    pathname?.startsWith('/guides') ||
+    pathname?.startsWith('/academy') ||
+    pathname?.startsWith('/blog');
   const isInView = useInView(sectionRef, {
     amount: threshold,
     margin: '-100px 0px',

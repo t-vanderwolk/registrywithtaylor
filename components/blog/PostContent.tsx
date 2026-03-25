@@ -6,6 +6,7 @@ import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
 import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
+import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { renderBrandWordmarkText } from '@/components/ui/BrandWordmark';
 import Advice from '@/components/content-widgets/Advice';
 import Callout from '@/components/content-widgets/Callout';
@@ -17,6 +18,7 @@ import ProductCard from '@/components/content-widgets/ProductCard';
 import Pros from '@/components/content-widgets/Pros';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
 import Takeaways from '@/components/content-widgets/Takeaways';
+import { chunkArray } from '@/lib/chunkArray';
 import { slugify } from '@/lib/slugify';
 import {
   extractStoredCtaButtons,
@@ -57,6 +59,8 @@ type LegacyCtaButtonBlock = {
   url: string;
   variant?: CtaButtonVariant;
 };
+
+type GuideProductBlock = Extract<ParsedStyledBlock, { type: 'product' }>;
 
 const orderedListPattern = /^\d+\.\s+/;
 const unorderedListPattern = /^(?:[-•])\s+/;
@@ -267,6 +271,45 @@ function renderStoredCtaButtons(
   );
 }
 
+function renderGuideProductGrid(products: GuideProductBlock[], postId: string, startingPosition: number) {
+  if (products.length === 0) {
+    return null;
+  }
+
+  return (
+    <div key={`${postId}-guide-product-grid-${startingPosition}`} className="space-y-5">
+      {chunkArray(products, 3).map((productChunk, chunkIndex) => (
+        <div key={`${postId}-guide-product-grid-${startingPosition}-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {productChunk.map((product, index) => {
+            const position = startingPosition + chunkIndex * 3 + index + 1;
+
+            return (
+              <GuideProductExampleCard
+                key={`${postId}-guide-product-${product.brand}-${product.productName}-${position}`}
+                name={product.productName}
+                brand={product.brand}
+                productName={product.productName}
+                imageSrc={product.imageUrl}
+                imageAlt={product.imageAlt}
+                affiliateUrl={product.affiliateLinks[0]?.url ?? null}
+                typeLabel={product.typeLabel}
+                whyItMatters={product.shortReview}
+                bestFor={product.bestFor}
+                standout={product.standout}
+                specGroups={product.specGroups}
+                notes={product.notes}
+                pros={product.pros}
+                category={product.typeLabel ?? 'Product Examples'}
+                position={position}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: number, highlightBrandWordmark = false) {
   if (block.type === 'callout') {
     return (
@@ -416,6 +459,7 @@ export default function PostContent({
         let i = 0;
         let paragraphCount = 0;
         let h2Count = 0;
+        let guideProductCount = 0;
         const slottedButtonIds = new Set<string>();
         const headingIdCounts = new Map<string, number>();
 
@@ -473,6 +517,30 @@ export default function PostContent({
           }
 
           const styledBlock = parseStyledBlock(lines, i);
+          if (styledBlock && variant === 'guide' && styledBlock.block.type === 'product') {
+            const productBlocks: GuideProductBlock[] = [];
+            let nextIndex = i;
+
+            while (nextIndex < lines.length) {
+              while (nextIndex < lines.length && !(lines[nextIndex]?.trim() ?? '')) {
+                nextIndex += 1;
+              }
+
+              const nextBlock = parseStyledBlock(lines, nextIndex);
+              if (!nextBlock || nextBlock.block.type !== 'product') {
+                break;
+              }
+
+              productBlocks.push(nextBlock.block);
+              nextIndex = nextBlock.nextIndex;
+            }
+
+            nodes.push(renderGuideProductGrid(productBlocks, postId, guideProductCount));
+            guideProductCount += productBlocks.length;
+            i = nextIndex;
+            continue;
+          }
+
           if (styledBlock) {
             nodes.push(renderStyledBlock(styledBlock.block, postId, i));
             i = styledBlock.nextIndex;

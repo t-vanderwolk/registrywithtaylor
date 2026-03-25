@@ -6,7 +6,7 @@ import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
 
 const footerLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Guides', href: '/guides' },
+  { label: 'Academy', href: '/academy' },
   { label: 'Journal', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },

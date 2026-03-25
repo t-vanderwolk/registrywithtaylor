@@ -10,7 +10,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
-  { label: 'Guides', href: '/guides' },
+  { label: 'Academy', href: '/academy' },
   { label: 'Journal', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -22,7 +22,11 @@ type HeaderProps = {
 export default function Header({ currentPath }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement | null>(null);
-  const isGuideRoute = currentPath === '/guides' || currentPath.startsWith('/guides/');
+  const isGuideRoute =
+    currentPath === '/guides' ||
+    currentPath.startsWith('/guides/') ||
+    currentPath === '/academy' ||
+    currentPath.startsWith('/academy/');
   const isActiveLink = (href: string) =>
     href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(`${href}/`);
 

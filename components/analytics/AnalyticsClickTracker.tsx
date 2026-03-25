@@ -4,6 +4,7 @@ import { useEffect, useEffectEvent } from 'react';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import { GA_ID } from '@/lib/analytics/gtag';
 import { getClientPageAnalyticsContext, getAnalyticsPageType, trackEvent } from '@/lib/analytics';
+import { isAffiliateLink } from '@/lib/analytics/isAffiliateLink';
 
 const DOWNLOAD_FILE_PATTERN = /\.(pdf|docx?|xlsx?|zip)(?:[?#].*)?$/i;
 
@@ -21,19 +22,6 @@ const getSourceLabel = (path: string, pageType: string) => {
   }
 
   return pageType === 'other' ? path : pageType;
-};
-
-const isAffiliateLink = (anchor: HTMLAnchorElement, url: URL, origin: string) => {
-  if (url.origin === origin) {
-    return false;
-  }
-
-  if (anchor.dataset.affiliatePartner || anchor.dataset.affiliateContext) {
-    return true;
-  }
-
-  const rel = anchor.rel.toLowerCase();
-  return rel.includes('sponsored') || rel.includes('nofollow');
 };
 
 export default function AnalyticsClickTracker() {
@@ -107,15 +95,8 @@ export default function AnalyticsClickTracker() {
       return;
     }
 
-    if (isAffiliateLink(anchor, destinationUrl, window.location.origin)) {
-      trackEvent(AnalyticsEvents.AFFILIATE_OUTBOUND_CLICK, {
-        ...context,
-        category: 'affiliate',
-        label: anchor.dataset.affiliatePartner || linkText || sourceLabel,
-        destination: destinationUrl.toString(),
-        partnerSlug: anchor.dataset.affiliatePartner || undefined,
-        affiliateContext: anchor.dataset.affiliateContext || undefined,
-      });
+    if (isAffiliateLink(destinationUrl)) {
+      return;
     }
   });
 

@@ -29,6 +29,7 @@ const GA_EVENT_CATEGORIES: Record<string, string> = {
   [AnalyticsEvents.CONSULTATION_CLICK]: 'conversion',
   [AnalyticsEvents.CONTACT_CLICK]: 'conversion',
   [AnalyticsEvents.GUIDE_DOWNLOAD]: 'guides',
+  [AnalyticsEvents.AFFILIATE_CLICK]: 'affiliate',
   [AnalyticsEvents.AFFILIATE_OUTBOUND_CLICK]: 'affiliate',
   [AnalyticsEvents.CONSULTATION_FORM_OPEN]: 'forms',
   [AnalyticsEvents.CONSULTATION_SUBMITTED]: 'forms',
@@ -112,10 +113,12 @@ const getSourceLabelFromPayload = (payload: AnalyticsPayload) => {
 };
 
 const getGaEventCategory = (eventName: string, payload: AnalyticsPayload) =>
-  getStringPayloadValue(payload, 'category') ??
-  GA_EVENT_CATEGORIES[eventName] ??
-  getStringPayloadValue(payload, 'pageType') ??
-  'engagement';
+  eventName === AnalyticsEvents.AFFILIATE_CLICK
+    ? GA_EVENT_CATEGORIES[eventName] ?? 'affiliate'
+    : getStringPayloadValue(payload, 'category') ??
+      GA_EVENT_CATEGORIES[eventName] ??
+      getStringPayloadValue(payload, 'pageType') ??
+      'engagement';
 
 const getGaEventLabel = (eventName: string, payload: AnalyticsPayload) => {
   const explicitLabel = getStringPayloadValue(payload, 'label');
@@ -124,6 +127,14 @@ const getGaEventLabel = (eventName: string, payload: AnalyticsPayload) => {
   }
 
   switch (eventName) {
+    case AnalyticsEvents.AFFILIATE_CLICK:
+      return (
+        getStringPayloadValue(payload, 'product') ??
+        getStringPayloadValue(payload, 'brand') ??
+        getStringPayloadValue(payload, 'guide') ??
+        getStringPayloadValue(payload, 'url') ??
+        getSourceLabelFromPayload(payload)
+      );
     case AnalyticsEvents.BLOG_AFFILIATE_CTA_CLICK:
     case AnalyticsEvents.AFFILIATE_OUTBOUND_CLICK:
     case 'guide_affiliate_click':
@@ -158,7 +169,12 @@ export function getAnalyticsPageType(path: string): AnalyticsPageType {
     return 'blog';
   }
 
-  if (normalizedPath === '/guides' || normalizedPath.startsWith('/guides/')) {
+  if (
+    normalizedPath === '/guides' ||
+    normalizedPath.startsWith('/guides/') ||
+    normalizedPath === '/academy' ||
+    normalizedPath.startsWith('/academy/')
+  ) {
     return 'guide';
   }
 

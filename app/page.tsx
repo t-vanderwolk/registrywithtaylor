@@ -483,7 +483,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           body="This gives you a clear path forward."
           secondaryLine="Not louder advice. Just a better sequence for figuring out what actually fits your life."
           tone="ivory"
-          cta={{ href: '/guides', label: 'Not sure where to begin? Start here' }}
+          cta={{ href: '/academy', label: 'Not sure where to begin? Start here' }}
         />
 
         <HomeEditorialBreak
@@ -500,7 +500,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           title="The Taylor-Made Method"
           description="A calmer baby-prep process starts with education, moves into planning, and ends with purchases that actually make sense for your life."
           steps={journeySteps}
-          cta={{ href: '/guides', label: 'Start with the Guides' }}
+          cta={{ href: '/academy', label: 'Start with the Academy' }}
         />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
@@ -558,16 +558,16 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
                 <div className="relative grid gap-8 px-6 py-8 sm:px-8 md:px-10 md:py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
                   <div className="max-w-3xl">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Guides
+                      Academy
                     </p>
                     <h3 className="mt-4 max-w-[14ch] font-serif text-[2.2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
-                      Start with the Guides.
+                      Start with the Academy.
                     </h3>
                     <p className="mt-5 max-w-[40rem] text-[1.02rem] leading-8 text-neutral-700">
                       If you are not ready to book anything yet, this is the best place to begin.
                     </p>
                     <p className="mt-4 max-w-[42rem] text-[1.02rem] leading-8 text-neutral-700">
-                      TMBC Guides walk you through strollers, car seats, registry planning, and nursery decisions in a calmer order, so you can understand what matters before you buy anything.
+                      TMBC Baby Academy walks you through strollers, car seats, registry planning, nursery decisions, and postpartum preparation in a calmer order, so you can understand what matters before you buy anything.
                     </p>
                     <div className="mt-6 flex flex-wrap gap-3">
                       {['Strollers', 'Car Seats', 'Registry Planning', 'Nursery'].map((topic) => (
@@ -590,8 +590,8 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
                           Start Here
                         </span>
                       </div>
-                      <Link href="/guides" className="btn btn--primary">
-                        Explore the Guides
+                      <Link href="/academy" className="btn btn--primary">
+                        Explore the Academy
                       </Link>
                     </div>
                   </div>

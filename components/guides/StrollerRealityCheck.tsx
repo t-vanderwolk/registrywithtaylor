@@ -1,5 +1,5 @@
 import type { StrollerRealityCheckCard } from '@/lib/guides/strollerHub';
-import ProductCard from '@/components/content-widgets/ProductCard';
+import ProductCard from '@/components/ui/ProductCard';
 
 export default function StrollerRealityCheck({
   id,
@@ -26,17 +26,16 @@ export default function StrollerRealityCheck({
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
-        {cards.map((card) => (
+        {cards.map((card, index) => (
           <ProductCard
             key={`${card.brand}-${card.productName}`}
+            name={card.productName}
             brand={card.brand}
-            productName={card.productName}            category={card.category}            review={card.review}
-            bestFor={card.bestFor}
-            standout={card.standout}
+            description={card.review}
             pros={card.pros}
-            affiliateLinks={[]} // No affiliate links for these examples
-            imageUrl={card.imageUrl}
-            imageAlt={card.imageAlt}
+            affiliateUrl={null}
+            category={card.category}
+            position={index + 1}
           />
         ))}
       </div>

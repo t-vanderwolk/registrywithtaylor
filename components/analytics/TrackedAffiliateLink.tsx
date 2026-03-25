@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { sendGuideTrackingEvent } from '@/lib/guides/clientTracking';
 import { getClientPageAnalyticsContext, trackEvent, type AnalyticsPayload } from '@/lib/analytics';
+import { getAffiliateTrackingDataAttributes, trackAffiliateClick } from '@/lib/analytics/trackAffiliateClick';
 import { sendBlogAffiliateTrackingEvent, type BlogAffiliateTrackingMeta } from '@/lib/blog/clientTracking';
 import { useBlogTrackingContext, useGuideTrackingContext } from '@/components/analytics/TrackingContext';
 
@@ -19,6 +20,21 @@ type TrackedAffiliateLinkProps = {
   onClick?: () => void;
 };
 
+const getMetaText = (meta: AnalyticsPayload | undefined, ...keys: string[]) => {
+  for (const key of keys) {
+    const value = meta?.[key];
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return String(value);
+    }
+
+    if (typeof value === 'string' && value.trim()) {
+      return value.trim();
+    }
+  }
+
+  return undefined;
+};
+
 export default function TrackedAffiliateLink({
   href,
   ctaText,
@@ -32,8 +48,20 @@ export default function TrackedAffiliateLink({
 }: TrackedAffiliateLinkProps) {
   const blogTrackingContext = useBlogTrackingContext();
   const guideTrackingContext = useGuideTrackingContext();
+  const affiliateMetadata = {
+    product: getMetaText(meta, 'product', 'productName'),
+    brand: getMetaText(meta, 'brand', 'brandName', 'partnerName'),
+    category: getMetaText(meta, 'category'),
+    guide: guideTrackingContext?.slug ?? getMetaText(meta, 'guide'),
+    position: getMetaText(meta, 'position', 'placement', 'context'),
+  };
 
   const handleClick = () => {
+    trackAffiliateClick({
+      url: href,
+      ...affiliateMetadata,
+    });
+
     if (blogTrackingContext) {
       sendBlogAffiliateTrackingEvent({
         postId: blogTrackingContext.postId,
@@ -83,6 +111,8 @@ export default function TrackedAffiliateLink({
       aria-label={ariaLabel}
       className={className}
       data-analytics-managed="true"
+      data-affiliate-track-source="manual"
+      {...getAffiliateTrackingDataAttributes(affiliateMetadata)}
       onClick={handleClick}
     >
       {children}

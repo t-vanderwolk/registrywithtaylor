@@ -117,7 +117,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           title="Premium Baby Gear Guidance, Built Around Real-Life Fit"
           subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."
           primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
-          secondaryCta={{ label: 'Explore the Guides', href: '/guides' }}
+          secondaryCta={{ label: 'Explore the Academy', href: '/academy' }}
           tagline="Registry Planning • Strollers • Infant Car Seats • Nursery Setup"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Baby registry and gear planning scene"

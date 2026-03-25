@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PostContent from '@/components/blog/PostContent';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
+import { chunkArray } from '@/lib/chunkArray';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
 export type GuideCategoryPreviewExample = GuideProductExampleData;
@@ -83,23 +84,34 @@ export default function GuideCategoryPreviewSection({
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {examples.map((example) => (
-                  <div key={`${title}-${example.name}`}>
-                    <GuideProductExampleCard
-                      name={example.name}
-                      brand={example.brand}
-                      productName={example.productName}
-                      imageSrc={example.imageSrc}
-                      imageAlt={example.imageAlt}
-                      imageHref={example.affiliateUrl}
-                      typeLabel={example.typeLabel}
-                      bestFor={example.bestFor}
-                      standout={example.standout}
-                      whyItMatters={example.shortReview}
-                      specGroups={example.specGroups}
-                      notes={example.notes}
-                    />
+              <div className="mt-5 space-y-5">
+                {chunkArray(examples, 3).map((exampleChunk, chunkIndex) => (
+                  <div key={`${title}-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    {exampleChunk.map((example, index) => {
+                      const position = chunkIndex * 3 + index + 1;
+
+                      return (
+                        <div key={`${title}-${example.name}-${position}`}>
+                          <GuideProductExampleCard
+                            name={example.name}
+                            brand={example.brand}
+                            productName={example.productName}
+                            imageSrc={example.imageSrc}
+                            imageAlt={example.imageAlt}
+                            affiliateUrl={example.affiliateUrl ?? null}
+                            typeLabel={example.typeLabel}
+                            bestFor={example.bestFor}
+                            standout={example.standout}
+                            whyItMatters={example.shortReview}
+                            specGroups={example.specGroups}
+                            notes={example.notes}
+                            pros={example.pros}
+                            category={title}
+                            position={position}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 ))}
               </div>
