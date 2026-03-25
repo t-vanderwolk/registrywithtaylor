@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
+
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import { GuideTrackingProvider } from '@/components/analytics/TrackingContext';
 import ModuleLayout from '@/components/academy/ModuleLayout';
@@ -7,7 +10,6 @@ import GuideViewTracker from '@/components/guides/GuideViewTracker';
 import SiteShell from '@/components/SiteShell';
 import {
   getAcademyModuleData,
-  getAcademyModuleParams,
   isAcademyModuleSlug,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
@@ -30,10 +32,6 @@ type AcademyModulePageProps = {
     module: string;
   }>;
 };
-
-export function generateStaticParams() {
-  return getAcademyModuleParams();
-}
 
 export async function generateMetadata({ params }: AcademyModulePageProps): Promise<Metadata> {
   const { academyPath, module } = await params;
