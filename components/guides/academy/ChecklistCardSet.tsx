@@ -38,21 +38,21 @@ export default function ChecklistCardSet({
           <span className="h-[1px] flex-1 max-w-[7rem] bg-[linear-gradient(90deg,rgba(217,134,162,0.55),rgba(217,134,162,0))]" />
         </div>
         <p className="text-[0.72rem] uppercase tracking-[0.34em] text-[#A15B72]">Checklist</p>
-        <h2 className="mt-3 text-3xl font-medium tracking-[-0.03em] text-[#2F2430] sm:text-[2.35rem]">{title}</h2>
-        {description ? <p className="mt-4 text-base leading-8 text-[#5B4B55]">{description}</p> : null}
+        <h2 className="mt-3 text-[2rem] font-medium leading-[1.02] tracking-[-0.03em] text-[#2F2430] sm:text-[2.35rem]">{title}</h2>
+        {description ? <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-base sm:leading-8">{description}</p> : null}
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {sections.map((section) => (
           <section
             key={section.title}
-            className="academy-sheen rounded-[1.95rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
+            className="academy-sheen rounded-[1.95rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:p-6"
           >
             <div className="mb-4 flex items-center gap-3">
               <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
               <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
             </div>
-            <h3 className="text-xl font-medium text-[#2F2430]">{section.title}</h3>
+            <h3 className="text-[1.15rem] font-medium text-[#2F2430] sm:text-xl">{section.title}</h3>
             {section.description ? <p className="mt-2 text-sm leading-7 text-[#5B4B55]">{section.description}</p> : null}
 
             <div className="mt-5 space-y-3">
@@ -63,7 +63,7 @@ export default function ChecklistCardSet({
                     <div className="flex items-start gap-3">
                       <span className={`mt-2 h-2.5 w-2.5 rounded-full ${statusStyle.dotClassName}`} />
                       <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                           <p className="text-sm font-medium text-[#2F2430]">{item.label}</p>
                           <span className={`inline-flex rounded-full px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.22em] ${statusStyle.pillClassName}`}>
                             {statusStyle.label}

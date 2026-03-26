@@ -54,7 +54,7 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
       <main className="site-main min-h-0 bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.16),transparent_24%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.3),transparent_28%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_34%,#fffdfa_100%)]">
         <PageViewTracker path={pathData.href} pageType="guide" slug={`academy-${academyPath}`} title={pathData.title} />
 
-        <section className="mx-auto max-w-6xl px-6 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
+        <section className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
           <nav aria-label="Breadcrumb" className="academy-load-in academy-load-in--1 text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">
             <ol className="flex flex-wrap items-center gap-2">
               {pathData.breadcrumb.map((item, index) => (
@@ -73,21 +73,22 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           </nav>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-16 sm:px-8 md:pb-20 lg:px-10">
+        <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 md:pb-20 lg:px-10">
           <div className="academy-load-in academy-load-in--2 overflow-hidden rounded-[2.25rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(135deg,rgba(255,252,253,0.98)_0%,rgba(252,242,246,0.97)_38%,rgba(249,240,231,0.96)_100%)] shadow-[0_28px_64px_rgba(58,36,43,0.10)]">
             <div className="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
               <div className="px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">{pathData.title} Path</p>
-                <h1 className="mt-4 font-serif text-[3rem] leading-[0.92] tracking-[-0.05em] text-neutral-900 sm:text-[3.6rem]">
+                <h1 className="mt-4 font-serif text-[2.35rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:text-[3.6rem]">
                   {pathData.heroTitle}
                 </h1>
-                <p className="mt-5 max-w-[42rem] text-[1.08rem] leading-8 text-neutral-700">{pathData.heroDescription}</p>
+                <p className="mt-5 max-w-[42rem] text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">{pathData.heroDescription}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <span className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(217,134,162,0.18)] bg-white/76 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62] shadow-[0_12px_26px_rgba(58,36,43,0.06)]">
                     Learn it in order. Buy later.
                   </span>
-                  <span className="font-script text-[1.9rem] leading-none text-[#D986A2]">this is the calmer route</span>
+                  <span className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">this is the calmer route</span>
                 </div>
+                <p className="academy-handwritten-aside mt-3">Read the sequence first. Shop after the thinking gets quieter.</p>
                 <div className="mt-6 max-w-[42rem] space-y-4 text-[1rem] leading-8 text-neutral-700">
                   {pathData.intro.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
@@ -95,28 +96,28 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
                 </div>
               </div>
 
-              <div className="relative min-h-[16rem]">
+              <div className="relative min-h-[14rem] bg-[linear-gradient(135deg,rgba(253,244,247,0.98),rgba(247,231,236,0.9)_54%,rgba(250,241,231,0.92))] sm:min-h-[16rem]">
                 <Image
                   src={pathData.imagePath}
                   alt={pathData.imageAlt}
                   fill
                   priority
                   sizes="(min-width: 1024px) 32rem, 100vw"
-                  className="object-cover"
+                  className="object-contain p-4 sm:p-8"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-12 sm:px-8 md:pb-14 lg:px-10">
+        <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
             <div className="academy-load-in academy-load-in--3 rounded-[1.9rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8 sm:py-8">
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Overall Summary</p>
-              <h2 className="mt-3 font-serif text-[2.15rem] leading-[0.96] tracking-[-0.04em] text-neutral-900 sm:text-[2.45rem]">
+              <h2 className="mt-3 font-serif text-[1.92rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.45rem]">
                 What this path will actually help you do
               </h2>
-              <div className="mt-5 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-neutral-700">
+              <div className="mt-5 max-w-[44rem] space-y-4 text-[0.98rem] leading-7 text-neutral-700 sm:text-[1rem] sm:leading-8">
                 {pathData.overallSummary.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -137,13 +138,14 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-20 sm:px-8 md:pb-24 lg:px-10">
+        <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
           <div className="max-w-3xl">
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Modules</p>
-            <h2 className="mt-3 font-serif text-[2.2rem] leading-[0.96] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
+            <h2 className="mt-3 font-serif text-[1.95rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
               What you&apos;ll learn, module by module
             </h2>
-            <p className="mt-4 text-[1rem] leading-8 text-neutral-700">{pathData.moduleSectionDescription}</p>
+            <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-right mt-4">one calm module at a time</p>
+            <p className="mt-4 text-[0.98rem] leading-7 text-neutral-700 sm:text-[1rem] sm:leading-8">{pathData.moduleSectionDescription}</p>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -159,10 +161,10 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
                   <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
                 </div>
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Module {index + 1}</p>
-                <h3 className="mt-4 font-serif text-[1.9rem] leading-[0.98] tracking-[-0.04em] text-neutral-900">
+                <h3 className="mt-4 font-serif text-[1.65rem] leading-[1] tracking-[-0.04em] text-neutral-900 sm:text-[1.9rem]">
                   {moduleCard.title}
                 </h3>
-                <p className="mt-4 text-[1rem] leading-8 text-neutral-700">{moduleCard.description}</p>
+                <p className="mt-4 text-[0.98rem] leading-7 text-neutral-700 sm:text-[1rem] sm:leading-8">{moduleCard.description}</p>
                 <span className="mt-auto pt-6 text-sm font-semibold text-neutral-900 transition duration-200 group-hover:translate-x-1">
                   {moduleCard.ctaLabel}
                 </span>
@@ -172,10 +174,11 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
 
           <div className="mt-10 max-w-lg">
             <GuideHandwrittenNote
+              eyebrow="Little reminder"
               title="Read the path in order. It works better that way."
               description="The goal is not to consume more content. The goal is to make the next decision feel smaller and smarter."
               presentation="margin"
-              size="compact"
+              showEyebrow
             />
           </div>
         </section>

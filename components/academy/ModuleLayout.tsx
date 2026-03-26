@@ -75,8 +75,8 @@ function NextStepCard({
         <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.4),rgba(217,134,162,0))]" />
       </div>
       <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
-      <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-[#2F2430]">{title}</h3>
-      <p className="mt-3 text-[0.98rem] leading-7 text-[#5B4B55]">{description}</p>
+      <h3 className="mt-3 font-serif text-[1.38rem] leading-[1.05] tracking-[-0.03em] text-[#2F2430] sm:text-[1.55rem]">{title}</h3>
+      <p className="mt-3 text-[0.96rem] leading-7 text-[#5B4B55] sm:text-[0.98rem]">{description}</p>
       <span className="mt-auto pt-5 text-sm font-semibold text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
         {ctaLabel}
       </span>
@@ -163,12 +163,48 @@ function getModuleHandwrittenNote(module: AcademyModuleData) {
   }
 }
 
+function getModuleTypographyAccent(module: AcademyModuleData) {
+  switch (module.pathSlug) {
+    case 'registry':
+      return {
+        hero: 'keep the list edited',
+        section: 'this is where the registry gets smarter',
+        next: 'keep the easier decision in view',
+      };
+    case 'nursery':
+      return {
+        hero: 'pretty can follow function',
+        section: 'make the route easier while you are tired',
+        next: 'build the room around real life',
+      };
+    case 'gear':
+      return {
+        hero: 'fit first, features second',
+        section: 'this is the part worth slowing down for',
+        next: 'the shortlist can come after the framework',
+      };
+    case 'postpartum':
+      return {
+        hero: 'support is part of the plan',
+        section: 'this is the part people rush past',
+        next: 'care for the adults too',
+      };
+    default:
+      return {
+        hero: 'one calmer decision at a time',
+        section: 'start with the quieter question',
+        next: 'let clarity do the editing',
+      };
+  }
+}
+
 export default function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
   const handwrittenNote = getModuleHandwrittenNote(module);
+  const typographyAccent = getModuleTypographyAccent(module);
   const decisionBarActions = [
     module.next ? { label: `Next: ${module.next.title}`, href: module.next.href } : null,
     module.related ? { label: `Related: ${module.related.title}`, href: module.related.href } : null,
@@ -177,13 +213,13 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
 
   return (
     <div className="bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.2),transparent_26%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.34),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(232,154,174,0.12),transparent_32%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_30%,#fff8fb_58%,#fffdfa_100%)]">
-      <div className="mx-auto max-w-6xl px-6 pb-20 pt-10 sm:px-8 md:pb-24 md:pt-14 lg:px-10">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-10 sm:px-8 md:pb-24 md:pt-14 lg:px-10">
         <div className="space-y-12">
           <div className="academy-load-in academy-load-in--1">
             <Breadcrumbs items={module.breadcrumb} />
           </div>
 
-          <section className="academy-load-in academy-load-in--2 relative overflow-hidden rounded-[2.45rem] border border-[rgba(226,150,173,0.2)] bg-[linear-gradient(135deg,rgba(255,250,252,0.98)_0%,rgba(252,242,246,0.98)_38%,rgba(251,245,239,0.98)_72%,rgba(255,252,253,0.98)_100%)] px-6 py-8 shadow-[0_30px_84px_rgba(58,36,43,0.12)] sm:px-8 sm:py-10 md:px-10 md:py-12">
+          <section className="academy-load-in academy-load-in--2 relative overflow-hidden rounded-[2.45rem] border border-[rgba(226,150,173,0.2)] bg-[linear-gradient(135deg,rgba(255,250,252,0.98)_0%,rgba(252,242,246,0.98)_38%,rgba(251,245,239,0.98)_72%,rgba(255,252,253,0.98)_100%)] px-5 py-7 shadow-[0_30px_84px_rgba(58,36,43,0.12)] sm:px-8 sm:py-10 md:px-10 md:py-12">
             <div className="academy-rose-glow pointer-events-none absolute right-[-4rem] top-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.28)_0%,rgba(232,154,174,0)_72%)] blur-2xl" />
             <div className="academy-petal-drift pointer-events-none absolute bottom-[-5rem] left-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(243,216,196,0.34)_0%,rgba(243,216,196,0)_72%)] blur-2xl" />
             <div className="pointer-events-none absolute inset-x-8 top-6 h-px bg-[linear-gradient(90deg,rgba(217,134,162,0),rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
@@ -192,16 +228,18 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                 <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">
                   TMBC Academy · {pathLabel ?? 'Academy'}
                 </p>
-                <h1 className="mt-4 max-w-[14ch] font-serif text-[2.9rem] leading-[0.92] tracking-[-0.05em] text-[#2F2430] sm:text-[3.3rem] md:text-[3.8rem]">
+                <h1 className="mt-4 max-w-[14ch] font-serif text-[2.35rem] leading-[0.96] tracking-[-0.05em] text-[#2F2430] sm:text-[3.3rem] md:text-[3.8rem]">
                   {module.title}
                 </h1>
-                <p className="mt-5 max-w-[44rem] text-[1.08rem] leading-8 text-[#4B3641]">{module.subhead}</p>
+                <p className="mt-5 max-w-[44rem] text-[1rem] leading-7 text-[#4B3641] sm:text-[1.08rem] sm:leading-8">{module.subhead}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <span className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(217,134,162,0.18)] bg-white/76 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62] shadow-[0_12px_26px_rgba(58,36,43,0.06)]">
                     Step-by-step, not panic-by-panic
                   </span>
-                  <span className="font-script text-[1.9rem] leading-none text-[#D986A2]">softly, but on purpose</span>
+                  <span className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">softly, but on purpose</span>
                 </div>
+                <p className="academy-script-note academy-script-note--tilt-right mt-4">{typographyAccent.hero}</p>
+                <p className="academy-handwritten-aside mt-2">Start with your real life, then let the choices get smaller.</p>
                 <div className="mt-7 grid gap-3 sm:grid-cols-3">
                   <HeroStat label="Module" value={`${module.progress.current} of ${module.progress.total}`} />
                   <HeroStat label="Path" value={pathLabel ?? 'Academy'} />
@@ -209,14 +247,14 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                 </div>
               </div>
 
-              <div className="academy-sheen overflow-hidden rounded-[1.9rem] border border-white/80 bg-white/88 shadow-[0_22px_46px_rgba(58,36,43,0.12)]">
+              <div className="academy-sheen overflow-hidden rounded-[1.9rem] border border-white/80 bg-[linear-gradient(135deg,rgba(253,244,247,0.98),rgba(247,231,236,0.9)_54%,rgba(250,241,231,0.92))] shadow-[0_22px_46px_rgba(58,36,43,0.12)]">
                 <div className="relative aspect-[4/3]">
                   <Image
                     src={module.imagePath}
                     alt={module.imageAlt}
                     fill
                     sizes="(min-width: 1024px) 24rem, 100vw"
-                    className="object-cover"
+                    className="object-contain p-4 sm:p-8"
                     unoptimized={shouldSkipHeroImageOptimization}
                   />
                 </div>
@@ -244,10 +282,12 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
 
             <GuideHandwrittenNote
               className="academy-load-in academy-load-in--5 self-start lg:mt-8"
+              eyebrow="Taylor's note"
               title={handwrittenNote.title}
               description={handwrittenNote.description}
               presentation="margin"
               size="compact"
+              showEyebrow
               showSignoff={false}
             />
           </section>
@@ -258,6 +298,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               <h2 className="mt-3 font-serif text-[2.2rem] leading-[0.96] tracking-[-0.04em] text-[#2F2430] sm:text-[2.6rem]">
                 What actually shapes this decision
               </h2>
+              <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left mt-4">{typographyAccent.section}</p>
             </div>
 
             <div className="space-y-10">
@@ -276,10 +317,10 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                         <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.38),rgba(217,134,162,0))]" />
                       </div>
                       <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">TMBC Focus</p>
-                      <h3 className="mt-3 font-serif text-[1.8rem] leading-[1] tracking-[-0.03em] text-[#2F2430] sm:text-[2rem]">
+                      <h3 className="mt-3 font-serif text-[1.58rem] leading-[1.02] tracking-[-0.03em] text-[#2F2430] sm:text-[2rem]">
                         {section.title}
                       </h3>
-                      <div className="mt-5 max-w-[46rem] space-y-5 text-[1.02rem] leading-8 text-[#5B4B55]">
+                      <div className="mt-5 max-w-[46rem] space-y-5 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1.02rem] sm:leading-8">
                         {section.paragraphs.map((paragraph) => (
                           <p key={`${section.title}-${paragraph}`}>{paragraph}</p>
                         ))}
@@ -292,7 +333,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                             alt={section.imageAlt}
                             fill
                             sizes="(min-width: 1280px) 72rem, (min-width: 768px) 90vw, 100vw"
-                            className="object-cover"
+                            className="object-contain p-4 sm:p-6"
                             unoptimized={shouldSkipSectionImageOptimization}
                           />
                         </div>
@@ -324,7 +365,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                 <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
                   Continue in the Journal
                 </h2>
-                <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">
+                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
                   Use these TMBC journal posts when you want the category shortlist after the framework gets clearer.
                 </p>
               </div>
@@ -351,7 +392,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                 <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
                   {module.submoduleSection.title}
                 </h2>
-                <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">{module.submoduleSection.description}</p>
+                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">{module.submoduleSection.description}</p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -376,7 +417,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                 <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
                   Guided examples, not a ranking
                 </h2>
-                <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">
+                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
                   These are here to make the decision more concrete in real life. They are not meant to turn the module into a product list.
                 </p>
               </div>
@@ -409,7 +450,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               />
               <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/88 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-7">
                 <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Work With Taylor</p>
-                <p className="mt-3 max-w-3xl text-base leading-8 text-[#5B4B55]">
+                <p className="mt-3 max-w-3xl text-[0.98rem] leading-7 text-[#5B4B55] sm:text-base sm:leading-8">
                   If you want help translating this module into a smarter shortlist or cleaner registry plan, this is the right point to get tailored guidance.
                 </p>
                 <div className="mt-5">
@@ -419,7 +460,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                       href="/consultation"
                       event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
                       sourceRoute={module.href}
-                      className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
+                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62] sm:w-auto"
                       meta={{
                         ctaLabel: 'Work with me',
                         label: 'academy_work_with_me',
@@ -430,7 +471,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                   ) : (
                     <Link
                       href="/consultation"
-                      className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
+                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62] sm:w-auto"
                     >
                       {'Work with me ->'}
                     </Link>
@@ -452,6 +493,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
                 Keep the path moving
               </h2>
+              <p className="academy-handwritten-aside mt-4">{typographyAccent.next}</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

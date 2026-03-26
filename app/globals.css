@@ -467,6 +467,58 @@ p {
   font-style: normal;
 }
 
+.academy-script-note {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 3.8vw, 3.35rem);
+  line-height: 0.94;
+  letter-spacing: 0.01em;
+  color: #d986a2;
+  display: inline-block;
+}
+
+.academy-script-note--sm {
+  font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+  line-height: 0.98;
+}
+
+.academy-script-note--tilt-left {
+  transform: rotate(-2.2deg);
+  transform-origin: left center;
+}
+
+.academy-script-note--tilt-right {
+  transform: rotate(2deg);
+  transform-origin: right center;
+}
+
+.academy-handwritten-aside {
+  font-family: var(--font-handwritten-print);
+  font-size: clamp(1.02rem, 1.7vw, 1.35rem);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: #c77996;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .academy-script-note {
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+    line-height: 0.98;
+    max-width: 100%;
+  }
+
+  .academy-script-note--sm {
+    font-size: clamp(1.25rem, 6.4vw, 1.7rem);
+    line-height: 1;
+  }
+
+  .academy-handwritten-aside {
+    font-size: clamp(0.94rem, 4.2vw, 1.08rem);
+    line-height: 1.18;
+    max-width: 100%;
+  }
+}
+
 li {
   color: var(--color-muted);
 }

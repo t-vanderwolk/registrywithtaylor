@@ -18,6 +18,7 @@ type HeroProps = {
   tagline?: string;
   image?: string;
   imageAlt?: string;
+  imageClassName?: string;
   className?: string;
   sectionStyle?: CSSProperties;
   overlayStyle?: CSSProperties;
@@ -46,6 +47,7 @@ export default function Hero({
   tagline,
   image,
   imageAlt = '',
+  imageClassName = 'object-cover object-center',
   className = '',
   sectionStyle,
   overlayStyle,
@@ -111,7 +113,7 @@ export default function Hero({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className={imageClassName}
           />
 
           {/* optional subtle darkening if needed */}

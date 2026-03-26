@@ -9,6 +9,7 @@ export default function GuideHandwrittenNote({
   size = 'default',
   presentation = 'card',
   showSignoff = true,
+  showEyebrow = false,
   className = '',
 }: {
   eyebrow?: string;
@@ -18,6 +19,7 @@ export default function GuideHandwrittenNote({
   size?: 'default' | 'compact';
   presentation?: 'card' | 'margin';
   showSignoff?: boolean;
+  showEyebrow?: boolean;
   className?: string;
 }) {
   const toneClassName =
@@ -48,8 +50,15 @@ export default function GuideHandwrittenNote({
 
       <div className={`relative flex flex-col gap-4 sm:gap-5 ${isMargin ? '' : 'md:flex-row md:items-end md:justify-between'}`}>
         <div className="max-w-3xl">
+          {showEyebrow && eyebrow?.trim() ? (
+            <p
+              className={`font-script text-[#D986A2] ${isMargin ? 'text-[1.32rem] leading-none sm:text-[1.7rem]' : 'text-[1.45rem] leading-none sm:text-[2rem]'}`}
+            >
+              {eyebrow}
+            </p>
+          ) : null}
           <h3
-            className={`font-handwritten-print ${isMargin ? 'mt-1 text-[1.45rem] font-medium leading-[1.12] text-[#D986A2] sm:text-[1.62rem]' : `${eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.92] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.5rem] sm:text-[1.8rem]' : 'text-[2.05rem] sm:text-[2.45rem]'}`}`}
+            className={`font-handwritten-print ${isMargin ? 'mt-1 text-[1.32rem] font-medium leading-[1.14] text-[#D986A2] sm:text-[1.62rem]' : `${eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.96] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.35rem] sm:text-[1.8rem]' : 'text-[1.72rem] sm:text-[2.45rem]'}`}`}
           >
             {title}
           </h3>

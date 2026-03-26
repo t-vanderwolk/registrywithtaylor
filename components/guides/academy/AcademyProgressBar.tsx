@@ -14,12 +14,14 @@ export default function AcademyProgressBar({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 items-center gap-3">
           <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
-          <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{label}</p>
+          <p className="min-w-0 text-[0.64rem] uppercase leading-5 tracking-[0.22em] text-[#A15B72] sm:text-[0.68rem] sm:tracking-[0.24em]">
+            {label}
+          </p>
         </div>
-        <p className="rounded-full border border-[rgba(217,134,162,0.16)] bg-white/72 px-3 py-1.5 text-sm font-medium text-[#4B3641] shadow-[0_10px_24px_rgba(58,36,43,0.05)]">
+        <p className="inline-flex w-fit rounded-full border border-[rgba(217,134,162,0.16)] bg-white/72 px-3 py-1.5 text-sm font-medium text-[#4B3641] shadow-[0_10px_24px_rgba(58,36,43,0.05)]">
           {current}/{total}
         </p>
       </div>
