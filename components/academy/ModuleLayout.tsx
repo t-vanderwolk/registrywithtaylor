@@ -317,6 +317,33 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
             />
           ) : null}
 
+          {module.editorialLinks.length > 0 ? (
+            <section className="space-y-6">
+              <div className="max-w-3xl">
+                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Keep Reading</p>
+                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                  Continue in the Journal
+                </h2>
+                <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">
+                  Use these TMBC journal posts when you want the category shortlist after the framework gets clearer.
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {module.editorialLinks.map((link) => (
+                  <NextStepCard
+                    key={`${module.slug}-${link.href}`}
+                    href={link.href}
+                    title={link.title}
+                    description={link.description}
+                    ctaLabel={link.ctaLabel}
+                    eyebrow="Journal"
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           {module.submoduleSection ? (
             <section className="space-y-6">
               <div className="max-w-3xl">

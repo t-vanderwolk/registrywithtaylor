@@ -1,5 +1,6 @@
 export type RegistryAcademyModuleSlug =
   | 'where-to-register'
+  | 'shop-local-get-support'
   | 'welcome-boxes-perks'
   | 'rewards-completion-discounts'
   | 'smart-purchasing-timeline'
@@ -42,7 +43,7 @@ export type RegistryAcademyModuleRecord = {
 
 type RegistryAcademyModuleInput = Omit<RegistryAcademyModuleRecord, 'path' | 'totalModules' | 'markdownContent'>;
 
-const TOTAL_MODULES = 5;
+const TOTAL_MODULES = 6;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
 function renderProductMarkdown(product: RegistryAcademyProductExample) {
@@ -128,13 +129,90 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
     softCtaLabel: 'A Note Before You Move Forward',
     softCtaTitle: 'This is where your registry starts to take shape.',
     softCtaBody: ['Small decisions here can affect everything that follows.'],
-    nextModuleSlug: 'welcome-boxes-perks',
+    nextModuleSlug: 'shop-local-get-support',
     previousModuleSlug: null,
+  },
+  {
+    title: 'Shop Local & Get Support',
+    slug: 'shop-local-get-support',
+    moduleOrder: 2,
+    description:
+      'Use local stores, hybrid shopping, and real expert guidance so registry decisions feel calmer, faster, and much less isolating.',
+    subhead: 'Shop locally, think strategically, and stop trying to figure this out alone.',
+    imagePath: '/assets/editorial/registry.jpg',
+    imageAlt: 'Registry support and guided shopping editorial image for the Shop Local & Get Support module.',
+    intro: [
+      'Once you know where your registry lives, the next question becomes where you should actually shop.',
+      'This is where most parents fall into the same pattern: they scroll, compare, read reviews, watch videos, and try to piece everything together on their own.',
+      'The shift that changes everything is realizing you do not need more research. You need better guidance.',
+    ],
+    coreSections: [
+      {
+        title: 'Start here: shop local if you can',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Independent baby store shopping and stroller testing setup.',
+        paragraphs: [
+          'Before anything else, check whether there is a locally owned baby store near you.',
+          'Independent stores let you test strollers in person, compare car seats side by side, feel the materials, and ask questions that actually apply to your life.',
+          'That kind of hands-on guidance is often the closest thing to having someone walk through the registry with you.',
+        ],
+      },
+      {
+        title: 'Hybrid and virtual support',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Virtual baby registry consultation and shopping support.',
+        paragraphs: [
+          'If a local store is not available or your schedule does not leave much room for in-person visits, there is still a strong middle ground.',
+          'Hybrid shopping lets you learn virtually, confirm in store when needed, and build the registry with actual support instead of guesswork.',
+          'Virtual guidance works best when it feels like a real conversation about your lifestyle, not just another product page with better branding.',
+        ],
+      },
+      {
+        title: 'Experts vs influencers',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Editorial comparison between expert guidance and general baby product content.',
+        paragraphs: [
+          'There is a lot of baby content online, but much of it is sponsored, generalized, or built to sell faster than it guides.',
+          'Real guidance sounds different. It explains why something works for your car, your home, your routine, and your priorities.',
+          'The fastest way to clarity is not more content. It is the right conversation with someone who can help you narrow instead of overwhelm.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'You do not have to figure everything out alone.',
+      'Start with real expert support, whether that is local, virtual, or hybrid.',
+      'Narrow the big decisions first so the registry becomes easier to build strategically.',
+    ],
+    products: [
+      {
+        name: 'Target Baby Concierge',
+        description: 'A guided registry support option that gives you one-on-one help, product comparisons, and real conversation about your lifestyle.',
+        pros: ['Virtual and in-store support', 'Useful when you want a clearer starting point'],
+      },
+      {
+        name: 'Independent Baby Store Consultation',
+        description: 'A local or virtual walkthrough that helps you test products, ask better questions, and choose with more confidence.',
+        pros: ['Hands-on product testing', 'Relationship-based guidance'],
+      },
+      {
+        name: 'Specialty Retailer Hybrid Support',
+        description: 'A deeper education-driven option from specialty retailers that combine consults, product testing, and more strategic recommendations.',
+        pros: ['Good for comparing categories', 'Works well when you need more decision support'],
+      },
+    ],
+    softCtaLabel: 'Before You Move Forward',
+    softCtaTitle: 'If this feels like a shift, it is.',
+    softCtaBody: [
+      'Most people try to solve this with more information. You are solving it with better guidance.',
+      'Support does not make this process more complicated. It makes it easier.',
+    ],
+    nextModuleSlug: 'welcome-boxes-perks',
+    previousModuleSlug: 'where-to-register',
   },
   {
     title: 'Welcome Boxes & Perks',
     slug: 'welcome-boxes-perks',
-    moduleOrder: 2,
+    moduleOrder: 3,
     description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
     subhead: "The hidden benefits most parents don't fully use.",
     imagePath: '/assets/editorial/welcome.png',
@@ -192,12 +270,12 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
     softCtaTitle: 'This is one of the easiest ways to get value from your registry.',
     softCtaBody: ['But only if you approach it intentionally.'],
     nextModuleSlug: 'rewards-completion-discounts',
-    previousModuleSlug: 'where-to-register',
+    previousModuleSlug: 'shop-local-get-support',
   },
   {
     title: 'Loyalty, Rewards & Completion Discounts',
     slug: 'rewards-completion-discounts',
-    moduleOrder: 3,
+    moduleOrder: 4,
     description: 'Use discounts, rewards, and timing together so you can save well without filling the house too early.',
     subhead: 'How to save without overbuying.',
     imagePath: '/assets/editorial/registry.png',
@@ -260,7 +338,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
   {
     title: 'Smart Purchasing Timeline',
     slug: 'smart-purchasing-timeline',
-    moduleOrder: 4,
+    moduleOrder: 5,
     description: 'Buy in phases so the essentials get covered, the maybes stay flexible, and the discount windows still do their job.',
     subhead: 'When to buy matters just as much as what you buy.',
     imagePath: '/assets/editorial/clipboard.png',
@@ -317,7 +395,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
   {
     title: 'Baby Showers & Gifting Strategy',
     slug: 'baby-showers-gifting',
-    moduleOrder: 5,
+    moduleOrder: 6,
     description: 'Guide gifting clearly so guests can shop confidently, duplicates stay down, and the registry still feels easy to use.',
     subhead: 'How to guide what you receive without overcomplicating it.',
     imagePath: '/assets/editorial/bunny-gift.png',

@@ -139,6 +139,7 @@ export type AcademyModuleData = {
   previous: AcademyRelatedLink | null;
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
+  editorialLinks: AcademyRelatedLink[];
   submoduleSection: AcademySubmoduleSection | null;
   breadcrumb: AcademyBreadcrumbItem[];
   trackingGuideId?: string | null;
@@ -224,17 +225,18 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     shortDescription: 'Build it step by step',
     heroTitle: 'Registry Path',
     heroDescription:
-      'Build your registry the right way, step by step, with a calmer plan for platforms, perks, timing, and gifting.',
+      'Build your registry the right way, step by step, with a calmer plan for platforms, support, perks, timing, and gifting.',
     intro: [
       'This path is where registry planning gets more strategic and much less random.',
-      'You will decide where to register, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
+      'You will decide where to register, where to get actual shopping support, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
     ],
     overallSummary: [
-      'This path turns the registry into a system instead of one giant list. You are not just choosing products here. You are choosing where the list lives, how it earns value back, and when it actually makes sense to buy.',
+      'This path turns the registry into a system instead of one giant list. You are not just choosing products here. You are choosing where the list lives, where real support can come from, how it earns value back, and when it actually makes sense to buy.',
       'By the end, your registry should feel more edited, easier for guests to use, and much less likely to leave you with duplicates, clutter, or late-stage regret.',
     ],
     learningHighlights: [
       'How to choose between a universal registry, one main retailer, or a combined setup.',
+      'How to use local stores, virtual help, and hybrid support to make the biggest registry decisions with more clarity.',
       'How welcome boxes, perks, and samples can become useful product testing instead of random extras.',
       'How to time rewards, loyalty programs, and completion discounts so savings actually stack.',
       'How to phase purchases so you buy what matters first and let the rest wait for real need.',
@@ -333,6 +335,16 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'Choosing the right platform matters more than most people realize.',
     imagePath: '/assets/editorial/registry.jpg',
     imageAlt: 'Registry planning image for the Where to Register academy module.',
+    relatedSlug: null,
+  },
+  'shop-local-get-support': {
+    pathSlug: 'registry',
+    title: 'Shop Local & Get Support',
+    description:
+      'Use local stores, hybrid shopping, and real expert guidance so registry decisions feel calmer, faster, and much less isolating.',
+    subhead: 'Shop locally, think strategically, and stop trying to figure this out alone.',
+    imagePath: '/assets/editorial/registry.jpg',
+    imageAlt: 'Registry support and guided shopping image for the Shop Local & Get Support academy module.',
     relatedSlug: null,
   },
   'welcome-boxes-perks': {
@@ -744,6 +756,48 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
     description: `${definition.description} Inside the ${pathDefinition.title} path.`,
     ctaLabel,
   };
+}
+
+function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[] {
+  if (slug === 'stroller-foundations') {
+    return [
+      {
+        href: '/blog/best-full-size-strollers-2026',
+        title: 'Best Full-Size Strollers of 2026',
+        description:
+          'Use this once you know the full-size lane is in play and you want a calmer shortlist of the strongest everyday contenders.',
+        ctaLabel: 'Read journal post ->',
+      },
+      {
+        href: '/blog/blog-best-compact-strollers-2026',
+        title: 'Best Compact Strollers of 2026',
+        description:
+          'Use this when the smaller-footprint lane is winning and you want the shortlist without turning it into another feature spiral.',
+        ctaLabel: 'Read journal post ->',
+      },
+      {
+        href: '/blog/best-convertible-single-to-double-strollers-2026',
+        title: 'Best Convertible Single-to-Double Strollers of 2026',
+        description:
+          'Use this if you are planning around growth and want to see which expandable stroller setups are actually worth the space.',
+        ctaLabel: 'Read journal post ->',
+      },
+    ];
+  }
+
+  if (slug === 'travel-systems') {
+    return [
+      {
+        href: '/blog/best-travel-strollers-2026',
+        title: 'Best Travel Strollers of 2026',
+        description:
+          'Use this when portability is the point and you want a cleaner look at the travel-first options before you commit.',
+        ctaLabel: 'Read journal post ->',
+      },
+    ];
+  }
+
+  return [];
 }
 
 function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSection | null {
@@ -1448,6 +1502,7 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     previous: previousSlug ? getRelatedLink(previousSlug, 'Previous module ->') : null,
     next: nextSlug ? getRelatedLink(nextSlug, 'Next module ->') : null,
     related: definition.relatedSlug ? getRelatedLink(definition.relatedSlug, 'Related module ->') : null,
+    editorialLinks: getAcademyEditorialLinks(slug),
     submoduleSection: getAcademySubmoduleSection(slug),
     breadcrumb: [
       { label: 'Academy', href: '/academy' },
