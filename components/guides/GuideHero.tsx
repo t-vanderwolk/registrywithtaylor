@@ -161,10 +161,7 @@ export default function GuideHero({
                 </div>
 
                 <div className="pointer-events-none absolute bottom-3 right-3 z-[2] max-w-[13rem] rotate-[-4deg] rounded-[1rem] border border-[#D986A2]/20 bg-white/88 px-3 py-2 shadow-[0_12px_26px_rgba(58,36,43,0.08)] md:bottom-4 md:right-4">
-                  <p
-                    className="text-[1rem] leading-[1.05] text-[#B86584]"
-                    style={{ fontFamily: '"Caveat", cursive' }}
-                  >
+                  <p className="font-handwritten-print text-[1rem] font-medium leading-[1.08] tracking-[0.01em] text-[#B86584]">
                     {heroNotes.imageNote}
                   </p>
                 </div>

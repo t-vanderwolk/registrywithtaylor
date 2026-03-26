@@ -58,12 +58,14 @@ export default function GuideHandwrittenNote({
             </p>
           ) : null}
           <h3
-            className={`font-handwritten-print ${isMargin ? 'mt-1 text-[1.32rem] font-medium leading-[1.14] text-[#D986A2] sm:text-[1.62rem]' : `${eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.96] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.35rem] sm:text-[1.8rem]' : 'text-[1.72rem] sm:text-[2.45rem]'}`}`}
+            className={`font-handwritten-print ${isMargin ? 'mt-1 text-[1.32rem] font-medium leading-[1.14] text-[#D986A2] sm:text-[1.62rem]' : `${showEyebrow && eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.96] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.35rem] sm:text-[1.8rem]' : 'text-[1.72rem] sm:text-[2.45rem]'}`}`}
           >
             {title}
           </h3>
           {description ? (
-            <div className={`mt-4 ${isMargin ? 'font-normal text-[#C77996]' : 'text-[#5B4B55]'} ${isCompact ? 'text-[0.9rem] leading-6 sm:text-[0.92rem] sm:leading-7' : 'text-sm leading-6 sm:text-[0.98rem] sm:leading-7'}`}>
+            <div
+              className={`font-handwritten-print mt-4 tracking-[0.01em] ${isMargin ? 'font-medium text-[#C77996]' : 'font-medium text-[#7B5A68]'} ${isCompact ? 'text-[0.98rem] leading-6 sm:text-[1.04rem] sm:leading-7' : 'text-[1rem] leading-7 sm:text-[1.08rem] sm:leading-8'}`}
+            >
               {description}
             </div>
           ) : null}

@@ -36,10 +36,7 @@ export default function GuideEditorialImage({
 
         {isPlaceholder ? (
           <div className="pointer-events-none absolute bottom-3 right-3 z-[2] max-w-[9.5rem] rotate-[-4deg] rounded-[1rem] border border-[#D986A2]/20 bg-white/84 px-2.5 py-2 shadow-[0_12px_26px_rgba(58,36,43,0.08)] sm:bottom-4 sm:right-4 sm:max-w-[13rem] sm:px-3">
-            <p
-              className="text-[0.9rem] leading-none text-[#B86584] sm:text-[1.05rem]"
-              style={{ fontFamily: '"Caveat", cursive' }}
-            >
+            <p className="font-handwritten-print text-[0.94rem] font-medium leading-[1.08] tracking-[0.01em] text-[#B86584] sm:text-[1.05rem]">
               Drop the editorial image here.
             </p>
           </div>
