@@ -12,6 +12,7 @@ import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import type { AcademyBreadcrumbItem, AcademyModuleData } from '@/lib/academy/content';
 import {
   getTravelSystemCarSeats,
@@ -222,6 +223,14 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
+  const renderableProducts = module.products.filter((product) =>
+    hasResolvedGuideAffiliateUrl({
+      affiliateUrl: product.affiliateUrl,
+      brand: product.brand,
+      productName: product.name,
+      name: product.name,
+    }),
+  );
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
   const travelSystemWidget =
@@ -447,7 +456,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          {module.products.length > 0 ? (
+          {renderableProducts.length > 0 ? (
             <section className="space-y-6">
               <SectionHeading
                 eyebrow="Product Examples"
@@ -456,7 +465,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
               />
 
               <div className="grid gap-6 lg:grid-cols-3">
-                {module.products.slice(0, 3).map((product, index) => (
+                {renderableProducts.slice(0, 3).map((product, index) => (
                   <div key={`${module.slug}-${product.brand}-${product.name}-${index}`} className="academy-load-in" style={{ animationDelay: `${140 + index * 80}ms` }}>
                     <ProductCard
                       name={product.name}

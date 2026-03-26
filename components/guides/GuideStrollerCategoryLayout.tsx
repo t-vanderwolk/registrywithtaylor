@@ -22,6 +22,7 @@ import {
   getStrollerHubBackLinkCard,
   getStrollerRelatedGuideCards,
 } from '@/lib/guides/strollerCluster';
+import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 import Comparison from '@/components/content-widgets/Comparison';
@@ -242,7 +243,9 @@ function splitProductExampleContent(content: string) {
   const blocks = extractStyledBlocks(content);
 
   return {
-    products: blocks.filter((block): block is Extract<ParsedStyledBlock, { type: 'product' }> => block.type === 'product'),
+    products: filterRenderableGuideProductBlocks(
+      blocks.filter((block): block is Extract<ParsedStyledBlock, { type: 'product' }> => block.type === 'product'),
+    ),
     comparisons: blocks.filter(
       (block): block is Extract<ParsedStyledBlock, { type: 'comparison' }> => block.type === 'comparison',
     ),
@@ -293,9 +296,16 @@ export default function GuideStrollerCategoryLayout({
     ],
   });
   const productExamples = exampleModelsContent ? splitProductExampleContent(exampleModelsContent) : null;
+  const hasExamplesSection = Boolean(
+    exampleModelsContent &&
+      productExamples &&
+      (productExamples.products.length > 0 ||
+        productExamples.comparisons.length > 0 ||
+        productExamples.narrative.trim()),
+  );
   const tocItems = buildTocItems({
     hasLearningModules: supplementalSections.length > 0,
-    hasExamples: Boolean(exampleModelsContent),
+    hasExamples: hasExamplesSection,
     hasNextStepLinks: strollerJournalLinks.length > 0,
     faqCount: faqEntries.length,
   });
@@ -418,7 +428,7 @@ export default function GuideStrollerCategoryLayout({
                 content={commonMistakesContent}
               />
 
-              {exampleModelsContent ? (
+              {hasExamplesSection ? (
                 <section id="product-examples" className="min-w-0 scroll-mt-28">
                   <MarketingSurface className="min-w-0 rounded-[2rem] border border-black/6 bg-white/94 p-6 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-8">
                     <div className="space-y-3">

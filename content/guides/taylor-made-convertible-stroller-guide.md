@@ -137,8 +137,6 @@ Standout: A side-by-side convertible that makes the modular single-to-double lan
 Pros: Converts from single to double | Strong sibling visibility | Premium push feel | Clear single-to-double identity
 Image: /assets/strollers/donkey.png
 Image Alt: Bugaboo Donkey 6 stroller.
-Link: Shop at Albee Baby | https://example.com/bugaboo-donkey-6
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-donkey-6
 :::
 
 :::product
@@ -150,8 +148,6 @@ Standout: Strong seat-combination versatility with a more open modular single-to
 Pros: Multiple seat combinations | Useful storage setup | Flexible sibling configurations | Good long-term planning value
 Image: /assets/strollers/gazelle.png
 Image Alt: Cybex Gazelle S stroller.
-Link: Shop at Albee Baby | https://example.com/cybex-gazelle-s
-Link: Shop at Amazon | https://example.com/amazon-cybex-gazelle-s
 :::
 
 :::product
@@ -163,8 +159,6 @@ Standout: A distinctive system-first example of the modular single-to-double lan
 Pros: Modular ecosystem thinking | Flexible setup mindset | Useful long-view planning angle | Clear system identity
 Image: /assets/strollers/switchback.png
 Image Alt: Veer Switchback & Roll stroller.
-Link: Shop at Albee Baby | https://example.com/veer-switchback
-Link: Shop at Amazon | https://example.com/amazon-veer-switchback
 :::
 
 :::product
@@ -176,8 +170,6 @@ Standout: One of the clearest examples of a seat-specific single-to-double path.
 Pros: Strong brand ecosystem | Polished everyday feel | Clear expansion path | Good planning value when the seat math fits
 Image: /assets/strollers/convertable.png
 Image Alt: UPPAbaby Vista V3 stroller.
-Link: Shop at Albee Baby | https://example.com/uppababy-vista-v3
-Link: Shop at Amazon | https://example.com/amazon-uppababy-vista-v3
 :::
 
 :::product
@@ -189,8 +181,6 @@ Standout: Luxury finish with a distinctly seat-specific single-to-double story.
 Pros: Premium build quality | Expandable seating path | Strong newborn options | Elevated materials
 Image: /assets/strollers/wave.png
 Image Alt: Silver Cross Wave 3 stroller.
-Link: Shop at Albee Baby | https://example.com/silver-cross-wave-3
-Link: Shop at Amazon | https://example.com/amazon-silver-cross-wave-3
 :::
 
 The point of these examples is not that one model wins universally. It is that convertible really splits into two different planning styles: more modular single-to-double systems like Donkey, Gazelle, and Switchback & Roll, and more seat-specific single-to-double systems like Vista V3 and Wave 3.

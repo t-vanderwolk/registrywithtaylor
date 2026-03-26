@@ -122,8 +122,6 @@ Standout: Ride quality that earns itself on repeated daily use
 Pros: Excellent suspension | Smooth everyday push | Spacious seat | Parent-facing flexibility | Premium build quality
 Image: /assets/strollers/fox5.png
 Image Alt: Bugaboo Fox 5 stroller.
-Link: Shop at Albee Baby | https://example.com/bugaboo-fox-5
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-fox-5
 :::
 
 :::product
@@ -135,8 +133,6 @@ Standout: A more manageable full-size option with strong everyday flexibility
 Pros: Refined fold | Good everyday push | Newborn-to-toddler flexibility | Strong car seat compatibility story | Premium feel without the biggest footprint
 Image: /assets/strollers/mixxnext.png
 Image Alt: Nuna MIXX Next stroller.
-Link: Shop at Albee Baby | https://example.com/nuna-mixx-next
-Link: Shop at Amazon | https://example.com/amazon-nuna-mixx-next
 :::
 
 :::product
@@ -148,8 +144,6 @@ Standout: The simpler UPPAbaby full-size choice when daily ease matters more tha
 Pros: Smooth everyday push | Strong basket access | Familiar UPPAbaby ecosystem | More manageable than Vista | Great for straightforward daily use
 Image: /assets/strollers/cruz.png
 Image Alt: UPPAbaby Cruz V2 stroller.
-Link: Shop at Albee Baby | https://example.com/uppababy-cruz-v2
-Link: Shop at Amazon | https://example.com/amazon-uppababy-cruz-v2
 :::
 
 :::product
@@ -161,8 +155,6 @@ Standout: Premium British craftsmanship at 26.5 lbs
 Pros: Premium materials and finish | Best-in-class maneuverability | No-rethread harness system | 22 lbs basket capacity | One-handed fold | Suitable newborn to 55 lbs
 Image: /assets/strollers/reef.png
 Image Alt: Silver Cross Reef 2 stroller.
-Link: Shop at Albee Baby | https://example.com/silver-cross-reef-2
-Link: Shop at Amazon | https://example.com/amazon-silver-cross-reef-2
 :::
 
 The useful comparison is not which stroller sounds the most premium. It is which version of full-size living actually matches your week.

@@ -3,6 +3,7 @@ import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { chunkArray } from '@/lib/chunkArray';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
+import { filterRenderableGuideProductExampleData } from '@/lib/guides/renderableProductExamples';
 
 export type ProductExampleGroupSection = {
   id: string;
@@ -26,7 +27,14 @@ export default function ProductExampleGroup({
   description?: string;
   groups: ProductExampleGroupSection[];
 }) {
-  if (groups.length === 0) {
+  const renderableGroups = groups
+    .map((group) => ({
+      ...group,
+      examples: filterRenderableGuideProductExampleData(group.examples),
+    }))
+    .filter((group) => group.examples.length > 0);
+
+  if (renderableGroups.length === 0) {
     return null;
   }
 
@@ -43,7 +51,7 @@ export default function ProductExampleGroup({
       </RevealOnScroll>
 
       <div className="space-y-5">
-        {groups.map((group, index) => (
+        {renderableGroups.map((group, index) => (
           <RevealOnScroll key={group.id} delayMs={index * 80}>
             <div className="rounded-[1.7rem] border border-stone-200/70 bg-white/94 p-5 shadow-[0_16px_38px_rgba(0,0,0,0.04)] sm:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

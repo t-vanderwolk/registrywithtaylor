@@ -12,6 +12,7 @@ import GuideGlyph from '@/components/guides/GuideGlyph';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
 import { extractStyledBlocks, isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
 import type { GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
+import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
 import { getGuidePath } from '@/lib/guides/routing';
 
 type PlannerScenario = {
@@ -368,7 +369,9 @@ function splitProductExampleContent(content: string) {
   const blocks = extractStyledBlocks(content);
 
   return {
-    products: blocks.filter((block): block is Extract<ParsedStyledBlock, { type: 'product' }> => block.type === 'product'),
+    products: filterRenderableGuideProductBlocks(
+      blocks.filter((block): block is Extract<ParsedStyledBlock, { type: 'product' }> => block.type === 'product'),
+    ),
     comparisons: blocks.filter(
       (block): block is Extract<ParsedStyledBlock, { type: 'comparison' }> => block.type === 'comparison',
     ),

@@ -38,6 +38,7 @@ import {
   type GuideSectionSubsection,
 } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
+import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import { getStrollerHubCategoryCards } from '@/lib/guides/strollerCluster';
 import { getCarSeatAcademyCategoryCards } from '@/lib/guides/carSeatAcademy';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
@@ -751,9 +752,20 @@ function buildCarSeatProductExample({
     brand: product.brand ?? '',
     description: toSentence(product.shortReview ?? product.bestFor ?? 'A helpful guided example.'),
     pros: uniqueItems(product.pros ?? [], 3),
-    affiliateUrl: null,
+    affiliateUrl: product.affiliateUrl ?? null,
     category,
   } satisfies AcademyProductExample;
+}
+
+function filterRenderableAcademyProducts(products: AcademyProductExample[]) {
+  return products.filter((product) =>
+    hasResolvedGuideAffiliateUrl({
+      affiliateUrl: product.affiliateUrl,
+      brand: product.brand,
+      productName: product.name,
+      name: product.name,
+    }),
+  );
 }
 
 function getAcademyPathHref(pathSlug: AcademyPathSlug) {
@@ -1313,7 +1325,7 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     coreSections: content.coreSections,
     decisionTitle: 'What This Means For You',
     decisionBullets: content.decisionBullets,
-    products: resolveAcademyProductExamples(slug, content.products),
+    products: filterRenderableAcademyProducts(resolveAcademyProductExamples(slug, content.products)),
     softCtaLabel: content.softCtaLabel ?? '',
     softCtaTitle: content.softCtaTitle ?? '',
     softCtaBody: content.softCtaBody ?? [],

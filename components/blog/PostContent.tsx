@@ -19,6 +19,7 @@ import Pros from '@/components/content-widgets/Pros';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
 import Takeaways from '@/components/content-widgets/Takeaways';
 import { chunkArray } from '@/lib/chunkArray';
+import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
 import { slugify } from '@/lib/slugify';
 import {
   extractStoredCtaButtons,
@@ -272,13 +273,15 @@ function renderStoredCtaButtons(
 }
 
 function renderGuideProductGrid(products: GuideProductBlock[], postId: string, startingPosition: number) {
-  if (products.length === 0) {
+  const renderableProducts = filterRenderableGuideProductBlocks(products);
+
+  if (renderableProducts.length === 0) {
     return null;
   }
 
   return (
     <div key={`${postId}-guide-product-grid-${startingPosition}`} className="space-y-5">
-      {chunkArray(products, 3).map((productChunk, chunkIndex) => (
+      {chunkArray(renderableProducts, 3).map((productChunk, chunkIndex) => (
         <div key={`${postId}-guide-product-grid-${startingPosition}-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {productChunk.map((product, index) => {
             const position = startingPosition + chunkIndex * 3 + index + 1;

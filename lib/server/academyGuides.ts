@@ -20,12 +20,24 @@ import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading }
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
 import { getPublicGuideWhere } from '@/lib/guides/status';
 import { normalizeGuideCanonicalPath } from '@/lib/guides/publicPath';
+import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import { guideArticleSelect, toGuideArticleRecord, type GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 export const ACADEMY_TOPIC_CLUSTER_TOKEN = 'TMBC Baby Academy';
 
 const imageLinePattern = /^!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)$/;
 const emphasisOnlyPattern = /^\*([^*]+)\*$/;
+
+function filterRenderableAcademyProducts(products: AcademyProductExample[]) {
+  return products.filter((product) =>
+    hasResolvedGuideAffiliateUrl({
+      affiliateUrl: product.affiliateUrl,
+      brand: product.brand,
+      productName: product.name,
+      name: product.name,
+    }),
+  );
+}
 
 function resolveRenderableImagePath(candidate: string | null | undefined, fallback: string) {
   const normalizedCandidate = candidate?.trim();
@@ -355,9 +367,11 @@ export function mergeAcademyModuleWithGuideRecord(
     coreSections: coreSection ? parseCoreSections(coreSection.content, fallbackModule.coreSections) : fallbackModule.coreSections,
     decisionTitle: decisionSection?.title?.trim() || fallbackModule.decisionTitle,
     decisionBullets: decisionBullets.length > 0 ? decisionBullets : fallbackModule.decisionBullets,
-    products: resolveAcademyProductExamples(
-      fallbackModule.slug,
-      productSection ? parseProductExamples(productSection.content, fallbackModule.products) : fallbackModule.products,
+    products: filterRenderableAcademyProducts(
+      resolveAcademyProductExamples(
+        fallbackModule.slug,
+        productSection ? parseProductExamples(productSection.content, fallbackModule.products) : fallbackModule.products,
+      ),
     ),
     softCtaLabel: softCta.softCtaLabel,
     softCtaTitle: softCta.softCtaTitle,

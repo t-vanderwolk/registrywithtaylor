@@ -118,6 +118,10 @@ export default function GuideProductExampleCard({
     name: resolvedName,
   });
 
+  if (!resolvedAffiliateUrl) {
+    return null;
+  }
+
   return (
     <ProductCard
       name={resolvedName}

@@ -138,8 +138,6 @@ Standout: Premium all-terrain balance
 Pros: Strong suspension | Larger wheels | More refined everyday feel | Confident rougher-route handling
 Image: /assets/strollers/ridge.png
 Image Alt: UPPAbaby Ridge stroller.
-Link: Shop at Albee Baby | https://example.com/uppababy-ridge
-Link: Shop at Amazon | https://example.com/amazon-uppababy-ridge
 :::
 
 :::product
@@ -151,8 +149,6 @@ Standout: Jogging-first performance feel
 Pros: Light running feel | Smooth maneuvering | Strong outdoor rhythm | Serious active-family credibility
 Image: /assets/strollers/urbnglide.png
 Image Alt: Thule Urban Glide stroller.
-Link: Shop at Albee Baby | https://example.com/thule-urban-glide
-Link: Shop at Amazon | https://example.com/amazon-thule-urban-glide
 :::
 
 :::product
@@ -164,8 +160,6 @@ Standout: Rugged terrain-ready build
 Pros: Strong stability | Bigger-wheel confidence | Durable outdoor feel | Handles rougher routes well
 Image: /assets/strollers/alterrian.png
 Image Alt: BOB Alterrian stroller.
-Link: Shop at Albee Baby | https://example.com/bob-alterrian
-Link: Shop at Amazon | https://example.com/amazon-bob-alterrian
 :::
 
 The short version: Ridge feels the most polished, Urban Glide feels the most jogging-first, and Alterrian feels the most rugged.

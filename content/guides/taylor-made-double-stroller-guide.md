@@ -101,8 +101,6 @@ Standout: A purpose-built side-by-side that feels straightforward about being a 
 Pros: Dedicated two-seat layout | Strong everyday push | Better sibling visibility | Roomier seat feel
 Image: /assets/strollers/inditwin.png
 Image Alt: Bumbleride Indie Twin stroller.
-Link: Shop at Albee Baby | https://example.com/bumbleride-indie-twin
-Link: Shop at Amazon | https://example.com/amazon-bumbleride-indie-twin
 :::
 
 :::product
@@ -114,8 +112,6 @@ Standout: A fixed two-seat stroller with stronger terrain confidence.
 Pros: Bigger-wheel feel | More capable on rougher routes | Honest two-rider design | Strong outdoor usefulness
 Image: /assets/strollers/revolution.png
 Image Alt: BOB Revolution Flex Duallie stroller.
-Link: Shop at Albee Baby | https://example.com/bob-revolution-flex-duallie
-Link: Shop at Amazon | https://example.com/amazon-bob-revolution-flex-duallie
 :::
 
 :::product
@@ -127,8 +123,6 @@ Standout: A fixed double that leans lighter and simpler than the category stereo
 Pros: Dedicated two-seat setup | More compact feel | Easier city errands | Straightforward everyday use
 Image: /assets/strollers/minuduo.png
 Image Alt: UPPAbaby Minu Duo stroller.
-Link: Shop at Albee Baby | https://example.com/uppababy-minu-duo
-Link: Shop at Amazon | https://example.com/amazon-uppababy-minu-duo
 :::
 
 The point of these examples is not that one layout wins universally. It is that each one solves the same fixed-double question a little differently: how much width, weight, and push feel are you willing to live with once two seats are actually part of daily life?

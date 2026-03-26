@@ -103,8 +103,6 @@ Standout: Travel-first fold with a more premium everyday feel
 Pros: Very portable | Quick fold | Strong travel identity | Easier destination use than some ultra-minimal options
 Image: /assets/strollers/butterfly.png
 Image Alt: Bugaboo Butterfly stroller.
-Link: Shop at Albee Baby | https://example.com/bugaboo-butterfly
-Link: Shop at Amazon | https://example.com/amazon-bugaboo-butterfly
 :::
 
 :::product
@@ -116,8 +114,6 @@ Standout: Travel portability with a more comfortable destination feel
 Pros: Easy carry | Stronger comfort balance | Premium finish | Useful for trips and quick errands
 Image: /assets/strollers/trvllx.png
 Image Alt: Nuna TRVL lx stroller.
-Link: Shop at Albee Baby | https://example.com/nuna-trvl-lx
-Link: Shop at Amazon | https://example.com/amazon-nuna-trvl-lx
 :::
 
 :::product
@@ -129,8 +125,6 @@ Standout: A lighter, simpler travel lane that still feels thoughtfully designed
 Pros: Lightweight carry | Fast travel rhythm | Smaller footprint | Clean, simple travel setup
 Image: /assets/strollers/joolz.png
 Image Alt: Joolz Aer+ stroller.
-Link: Shop at Albee Baby | https://example.com/joolz-aer-plus
-Link: Shop at Amazon | https://example.com/amazon-joolz-aer-plus
 :::
 
 The point of these examples is not that one stroller wins universally. It is that each one answers the same travel question a little differently: do you want the most travel-first fold, the best destination comfort within the category, or the lightest-feeling setup to move through the trip with less effort?

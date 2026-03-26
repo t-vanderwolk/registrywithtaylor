@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { resolveProductCardImage } from '@/lib/blog/productCardImages';
+import { resolveGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 
 type ProductLink = {
   label: string;
@@ -40,7 +41,39 @@ export default function ProductCard({
     imageUrl,
     imageAlt,
   });
-  const primaryAffiliateLink = affiliateLinks.find((link) => link.url?.trim())?.url?.trim() ?? null;
+  const resolvedAffiliateLinks = affiliateLinks
+    .map((link) => {
+      const resolvedUrl = resolveGuideAffiliateUrl({
+        affiliateUrl: link.url,
+        brand,
+        productName,
+        name: productName,
+      });
+
+      if (!resolvedUrl) {
+        return null;
+      }
+
+      return {
+        ...link,
+        url: resolvedUrl,
+      };
+    })
+    .filter((link): link is ProductLink => Boolean(link))
+    .filter((link, index, links) => links.findIndex((candidate) => candidate.url === link.url) === index);
+  const fallbackAffiliateUrl = resolveGuideAffiliateUrl({
+    affiliateUrl: null,
+    brand,
+    productName,
+    name: productName,
+  });
+  const displayAffiliateLinks =
+    resolvedAffiliateLinks.length > 0
+      ? resolvedAffiliateLinks
+      : fallbackAffiliateUrl
+        ? [{ label: 'View option', url: fallbackAffiliateUrl }]
+        : [];
+  const primaryAffiliateLink = displayAffiliateLinks[0]?.url ?? null;
   const isHomepageVariant = variant === 'homepage';
 
   const shellClassName = isHomepageVariant
@@ -181,9 +214,9 @@ export default function ProductCard({
             </ul>
           ) : null}
 
-          {affiliateLinks.length > 0 ? (
+          {displayAffiliateLinks.length > 0 ? (
             <div className="flex flex-wrap gap-3 pt-1">
-              {affiliateLinks.map((link) => (
+              {displayAffiliateLinks.map((link) => (
                 <TrackedAffiliateLink
                   key={`${productName}-${link.label}-${link.url}`}
                   href={link.url}

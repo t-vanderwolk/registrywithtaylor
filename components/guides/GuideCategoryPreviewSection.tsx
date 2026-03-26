@@ -4,6 +4,7 @@ import PostContent from '@/components/blog/PostContent';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { chunkArray } from '@/lib/chunkArray';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
+import { filterRenderableGuideProductExampleData } from '@/lib/guides/renderableProductExamples';
 
 export type GuideCategoryPreviewExample = GuideProductExampleData;
 
@@ -32,7 +33,8 @@ export default function GuideCategoryPreviewSection({
   examplesEyebrow?: string;
   examplesDescription?: string;
 }) {
-  const hasExamples = examples.length > 0;
+  const renderableExamples = filterRenderableGuideProductExampleData(examples);
+  const hasExamples = renderableExamples.length > 0;
   const hasCta = Boolean(href && ctaLabel);
   const hasVisual = Boolean(imageSrc?.trim());
 
@@ -85,7 +87,7 @@ export default function GuideCategoryPreviewSection({
               </div>
 
               <div className="mt-5 space-y-5">
-                {chunkArray(examples, 3).map((exampleChunk, chunkIndex) => (
+                {chunkArray(renderableExamples, 3).map((exampleChunk, chunkIndex) => (
                   <div key={`${title}-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {exampleChunk.map((example, index) => {
                       const position = chunkIndex * 3 + index + 1;

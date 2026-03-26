@@ -3,6 +3,7 @@ import Comparison from '@/components/content-widgets/Comparison';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { chunkArray } from '@/lib/chunkArray';
 import type { ParsedStyledBlock } from '@/lib/blog/styledBlocks';
+import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
 
 export type GuideExampleBlockCard = {
   id: string;
@@ -59,6 +60,8 @@ export default function GuideExampleBlock({
   comparisons: ComparisonExample[];
   cards?: GuideExampleBlockCard[];
 }) {
+  const renderableProducts = filterRenderableGuideProductBlocks(products);
+
   return (
     <div className="space-y-5">
       {narrative ? (
@@ -79,9 +82,9 @@ export default function GuideExampleBlock({
         </div>
       ) : null}
 
-      {products.length > 0 ? (
+      {renderableProducts.length > 0 ? (
         <div className="space-y-5">
-          {chunkArray(products, 3).map((productChunk, chunkIndex) => (
+          {chunkArray(renderableProducts, 3).map((productChunk, chunkIndex) => (
             <div key={`${topicId}-product-chunk-${chunkIndex}`} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {productChunk.map((product, index) => {
                 const position = chunkIndex * 3 + index + 1;

@@ -1,7 +1,15 @@
+import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/data/products/carSeats';
 import { STROLLER_AFFILIATE_LINKS } from '@/lib/data/products/strollerAffiliateLinks';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 
 const PLACEHOLDER_AFFILIATE_URL_PATTERN = /^https?:\/\/example\.com\b/i;
+
+export type GuideAffiliateLookupInput = {
+  affiliateUrl?: string | null;
+  brand?: string | null;
+  productName?: string | null;
+  name?: string | null;
+};
 
 function normalizeText(value: string | null | undefined) {
   if (typeof value !== 'string') {
@@ -20,28 +28,33 @@ function normalizeKey(brand: string | null | undefined, productName: string | nu
 
 function buildGuideAffiliateLookup() {
   const lookup = new Map<string, string>();
+  const productGroups = [...Object.values(STROLLER_PRODUCT_GROUPS), ...Object.values(CAR_SEAT_PRODUCT_GROUPS)];
+  const lookupProducts = productGroups.flat() as Array<{
+    affiliateUrl?: string | null;
+    brand?: string | null;
+    name?: string | null;
+    productName?: string | null;
+  }>;
 
-  Object.values(STROLLER_PRODUCT_GROUPS)
-    .flat()
-    .forEach((product) => {
-      const affiliateUrl = normalizeText(product.affiliateUrl);
-      if (!affiliateUrl || PLACEHOLDER_AFFILIATE_URL_PATTERN.test(affiliateUrl)) {
-        return;
+  lookupProducts.forEach((product) => {
+    const affiliateUrl = normalizeText(product.affiliateUrl);
+    if (!affiliateUrl || PLACEHOLDER_AFFILIATE_URL_PATTERN.test(affiliateUrl)) {
+      return;
+    }
+
+    const keys = [
+      normalizeKey(product.brand, product.productName ?? product.name),
+      normalizeKey(product.brand, product.name),
+      normalizeKey('', product.productName ?? product.name),
+      normalizeKey('', product.name),
+    ];
+
+    keys.forEach((key) => {
+      if (key !== '::') {
+        lookup.set(key, affiliateUrl);
       }
-
-      const keys = [
-        normalizeKey(product.brand, product.productName ?? product.name),
-        normalizeKey(product.brand, product.name),
-        normalizeKey('', product.productName ?? product.name),
-        normalizeKey('', product.name),
-      ];
-
-      keys.forEach((key) => {
-        if (key !== '::') {
-          lookup.set(key, affiliateUrl);
-        }
-      });
     });
+  });
 
   lookup.set(normalizeKey('Bugaboo', 'Donkey 6'), STROLLER_AFFILIATE_LINKS['bugaboo-donkey']);
 
@@ -55,12 +68,7 @@ export function resolveGuideAffiliateUrl({
   brand,
   productName,
   name,
-}: {
-  affiliateUrl?: string | null;
-  brand?: string | null;
-  productName?: string | null;
-  name?: string | null;
-}) {
+}: GuideAffiliateLookupInput) {
   const directUrl = normalizeText(affiliateUrl);
   if (directUrl && !PLACEHOLDER_AFFILIATE_URL_PATTERN.test(directUrl)) {
     return directUrl;
@@ -81,4 +89,8 @@ export function resolveGuideAffiliateUrl({
   }
 
   return null;
+}
+
+export function hasResolvedGuideAffiliateUrl(input: GuideAffiliateLookupInput) {
+  return Boolean(resolveGuideAffiliateUrl(input));
 }
