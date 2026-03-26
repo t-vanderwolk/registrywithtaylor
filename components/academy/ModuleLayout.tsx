@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import BlogDivider from '@/components/blog/BlogDivider';
+import CategoryTag from '@/components/blog/CategoryTag';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
@@ -41,22 +43,6 @@ function Breadcrumbs({ items }: { items: AcademyBreadcrumbItem[] }) {
   );
 }
 
-function HeroStat({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="academy-sheen rounded-[1.3rem] border border-[rgba(226,150,173,0.2)] bg-[linear-gradient(180deg,rgba(255,252,253,0.96)_0%,rgba(252,243,247,0.92)_100%)] px-4 py-4 shadow-[0_14px_36px_rgba(58,36,43,0.08)]">
-      <div className="mb-3 h-[2px] w-12 rounded-full bg-[linear-gradient(90deg,rgba(217,134,162,0.08),rgba(217,134,162,0.65),rgba(217,134,162,0.08))]" />
-      <p className="text-[0.65rem] uppercase tracking-[0.22em] text-[#A15B72]">{label}</p>
-      <p className="mt-2 text-sm font-medium text-[#2F2430]">{value}</p>
-    </div>
-  );
-}
-
 function NextStepCard({
   href,
   title,
@@ -73,19 +59,47 @@ function NextStepCard({
   return (
     <Link
       href={href}
-      className="group academy-sheen flex h-full flex-col rounded-[1.9rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,247,250,0.92)_100%)] p-5 shadow-[0_20px_56px_rgba(58,36,43,0.08)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(217,134,162,0.28)] hover:shadow-[0_28px_64px_rgba(58,36,43,0.12)]"
+      className="group tmbc-blog-soft-card flex h-full flex-col p-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(232,154,174,0.34)] hover:shadow-[0_24px_54px_rgba(70,53,58,0.08)] sm:p-6"
     >
-      <div className="mb-4 flex items-center gap-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
-        <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.4),rgba(217,134,162,0))]" />
-      </div>
-      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
-      <h3 className="mt-3 font-serif text-[1.38rem] leading-[1.05] tracking-[-0.03em] text-[#2F2430] sm:text-[1.55rem]">{title}</h3>
-      <p className="mt-3 text-[0.96rem] leading-7 text-[#5B4B55] sm:text-[0.98rem]">{description}</p>
-      <span className="mt-auto pt-5 text-sm font-semibold text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
+      <p className="w-fit">
+        <span className="tmbc-tag">{eyebrow}</span>
+      </p>
+      <h3 className="mt-5 font-serif text-[clamp(1.45rem,2vw,1.9rem)] leading-[1.12] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
+        {title}
+      </h3>
+      <p className="mt-4 text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)]">{description}</p>
+      <span className="mt-auto pt-6 text-sm uppercase tracking-[0.16em] text-[var(--tmbc-blog-rose)] transition duration-200 group-hover:translate-x-1">
         {ctaLabel}
       </span>
     </Link>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  note,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  note?: string;
+}) {
+  return (
+    <div className="max-w-3xl">
+      <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">{eyebrow}</p>
+      <h2 className="mt-4 font-serif text-[clamp(2.1rem,4vw,2.9rem)] leading-[1.1] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
+        {title}
+      </h2>
+      <div className="mt-4 h-1 w-[78px] rounded-full bg-[linear-gradient(90deg,rgba(232,154,174,0.9)_0%,rgba(215,161,175,1)_100%)] shadow-[0_10px_24px_rgba(232,154,174,0.18)]" />
+      {description ? (
+        <p className="mt-5 text-[1.05rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.08rem]">
+          {description}
+        </p>
+      ) : null}
+      {note ? <p className="academy-handwritten-aside mt-4">{note}</p> : null}
+    </div>
   );
 }
 
@@ -224,57 +238,61 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   ].filter((action): action is { label: string; href: string } => Boolean(action));
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.2),transparent_26%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.34),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(232,154,174,0.12),transparent_32%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_30%,#fff8fb_58%,#fffdfa_100%)]">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-10 sm:px-8 md:pb-24 md:pt-14 lg:px-10">
+    <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
+      <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 pb-20 pt-10 sm:px-6 md:pb-24 md:pt-12">
         <div className="space-y-12">
-          <div className="academy-load-in academy-load-in--1">
+          <div className="academy-load-in academy-load-in--1 pt-2">
             <Breadcrumbs items={module.breadcrumb} />
           </div>
 
-          <section className="academy-load-in academy-load-in--2 relative overflow-hidden rounded-[2.45rem] border border-[rgba(226,150,173,0.2)] bg-[linear-gradient(135deg,rgba(255,250,252,0.98)_0%,rgba(252,242,246,0.98)_38%,rgba(251,245,239,0.98)_72%,rgba(255,252,253,0.98)_100%)] px-5 py-7 shadow-[0_30px_84px_rgba(58,36,43,0.12)] sm:px-8 sm:py-10 md:px-10 md:py-12">
-            <div className="academy-rose-glow pointer-events-none absolute right-[-4rem] top-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.28)_0%,rgba(232,154,174,0)_72%)] blur-2xl" />
-            <div className="academy-petal-drift pointer-events-none absolute bottom-[-5rem] left-[-4rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(243,216,196,0.34)_0%,rgba(243,216,196,0)_72%)] blur-2xl" />
-            <div className="pointer-events-none absolute inset-x-8 top-6 h-px bg-[linear-gradient(90deg,rgba(217,134,162,0),rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)] lg:items-end">
-              <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">
-                  TMBC Academy · {pathLabel ?? 'Academy'}
-                </p>
-                <h1 className="mt-4 max-w-[14ch] font-serif text-[2.35rem] leading-[0.96] tracking-[-0.05em] text-[#2F2430] sm:text-[3.3rem] md:text-[3.8rem]">
-                  {module.title}
-                </h1>
-                <p className="mt-5 max-w-[44rem] text-[1rem] leading-7 text-[#4B3641] sm:text-[1.08rem] sm:leading-8">{module.subhead}</p>
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <span className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(217,134,162,0.18)] bg-white/76 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62] shadow-[0_12px_26px_rgba(58,36,43,0.06)]">
-                    Step-by-step, not panic-by-panic
-                  </span>
-                  <span className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">softly, but on purpose</span>
-                </div>
-                <p className="academy-script-note academy-script-note--tilt-right mt-4">{typographyAccent.hero}</p>
-                <p className="academy-handwritten-aside mt-2">Start with your real life, then let the choices get smaller.</p>
-                <div className="mt-7 grid gap-3 sm:grid-cols-3">
-                  <HeroStat label="Module" value={`${module.progress.current} of ${module.progress.total}`} />
-                  <HeroStat label="Path" value={pathLabel ?? 'Academy'} />
-                  <HeroStat label="Approach" value="Guided, not overwhelming" />
-                </div>
+          <header className="academy-load-in academy-load-in--2 tmbc-blog-hero">
+            <div className="tmbc-blog-hero__inner">
+              <div className="tmbc-blog-hero__eyebrow flex flex-wrap items-center gap-3">
+                <CategoryTag label="TMBC Academy" />
+                {pathLabel ? <CategoryTag label={pathLabel} /> : null}
               </div>
 
-              <div className="academy-sheen overflow-hidden rounded-[1.9rem] border border-white/80 bg-[linear-gradient(135deg,rgba(253,244,247,0.98),rgba(247,231,236,0.9)_54%,rgba(250,241,231,0.92))] shadow-[0_22px_46px_rgba(58,36,43,0.12)]">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={module.imagePath}
-                    alt={module.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 24rem, 100vw"
-                    className="object-contain p-4 sm:p-8"
-                    unoptimized={shouldSkipHeroImageOptimization}
-                  />
-                </div>
+              <div className="tmbc-blog-hero__copy">
+                <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">
+                  Module {module.progress.current} of {module.progress.total}
+                </p>
+                <h1 className="text-[var(--tmbc-blog-charcoal)]">{module.title}</h1>
+                <p className="excerpt">{module.subhead}</p>
+                <p className="academy-handwritten-aside mt-5">{typographyAccent.hero}</p>
+                <p className="mt-4 max-w-[42rem] text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.04rem]">
+                  Start with your real life, then let the choices get smaller.
+                </p>
+              </div>
+
+              <div className="tmbc-blog-meta">
+                <span>{pathLabel ?? 'Academy'} path</span>
+                <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                <span>Guided, not overwhelming</span>
+                <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
+                <span>Step-by-step, not panic-by-panic</span>
+              </div>
+
+              <div className="tmbc-blog-hero__divider">
+                <BlogDivider />
               </div>
             </div>
-          </section>
+          </header>
 
-          <section className="academy-load-in academy-load-in--3 rounded-[1.95rem] border border-[rgba(226,150,173,0.18)] bg-white/86 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8">
+          <div className="academy-load-in academy-load-in--2 tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
+            <div className="relative h-full w-full">
+              <Image
+                src={module.imagePath}
+                alt={module.imageAlt}
+                fill
+                priority
+                sizes="(min-width: 1024px) 896px, 100vw"
+                className="object-contain"
+                unoptimized={shouldSkipHeroImageOptimization}
+              />
+            </div>
+          </div>
+
+          <section className="academy-load-in academy-load-in--3 blog-section-soft px-4 sm:px-6">
             <AcademyProgressBar
               current={module.progress.current}
               total={module.progress.total}
@@ -282,107 +300,93 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             />
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)] lg:items-start">
-            <div className="academy-load-in academy-load-in--4 rounded-[1.95rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-8 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8 md:px-10">
-              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Editorial Intro</p>
-              <div className="mt-5 max-w-[46rem] space-y-5 text-[1.04rem] leading-8 text-[#5B4B55]">
-                {module.intro.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </div>
-
-            <GuideHandwrittenNote
-              className="academy-load-in academy-load-in--5 self-start lg:mt-8"
-              eyebrow="Taylor's note"
-              title={handwrittenNote.title}
-              description={handwrittenNote.description}
-              presentation="margin"
-              size="compact"
-              showEyebrow
-              showSignoff={false}
-            />
+          <section className="academy-load-in academy-load-in--4 tmbc-editorial-article-shell">
+            <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>
+            <article className="tmbc-blog tmbc-blog-post-content mt-6 max-w-none">
+              {module.intro.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </article>
           </section>
 
+          <GuideHandwrittenNote
+            className="academy-load-in academy-load-in--5"
+            eyebrow="Taylor's note"
+            title={handwrittenNote.title}
+            description={handwrittenNote.description}
+            presentation="margin"
+            size="compact"
+            showEyebrow
+            showSignoff={false}
+          />
+
           <section className="space-y-8">
-            <div className="max-w-3xl">
-              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Core Considerations</p>
-              <h2 className="mt-3 font-serif text-[2.2rem] leading-[0.96] tracking-[-0.04em] text-[#2F2430] sm:text-[2.6rem]">
-                What actually shapes this decision
-              </h2>
-              <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left mt-4">{typographyAccent.section}</p>
-            </div>
+            <SectionHeading
+              eyebrow="Core Considerations"
+              title="What actually shapes this decision"
+              note={typographyAccent.section}
+            />
 
             <div className="space-y-10">
-              {module.coreSections.map((section, index) => (
-                (() => {
-                  const shouldSkipSectionImageOptimization = isRemoteImageUrl(section.imageSrc);
+              {module.coreSections.map((section, index) => {
+                const shouldSkipSectionImageOptimization = isRemoteImageUrl(section.imageSrc);
 
-                  return (
-                    <article
-                      key={section.title}
-                      className="academy-load-in rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-8 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-8 md:px-10"
-                      style={{ animationDelay: `${120 + index * 80}ms` }}
-                    >
-                      <div className="mb-5 flex items-center gap-3">
-                        <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
-                        <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.38),rgba(217,134,162,0))]" />
-                      </div>
-                      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">TMBC Focus</p>
-                      <h3 className="mt-3 font-serif text-[1.58rem] leading-[1.02] tracking-[-0.03em] text-[#2F2430] sm:text-[2rem]">
-                        {section.title}
-                      </h3>
-                      <div className="mt-5 max-w-[46rem] space-y-5 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1.02rem] sm:leading-8">
-                        {section.paragraphs.map((paragraph) => (
-                          <p key={`${section.title}-${paragraph}`}>{paragraph}</p>
-                        ))}
-                      </div>
+                return (
+                  <article
+                    key={section.title}
+                    className="academy-load-in tmbc-editorial-article-shell"
+                    style={{ animationDelay: `${120 + index * 80}ms` }}
+                  >
+                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--tmbc-blog-rose)]">TMBC Focus</p>
+                    <div className="tmbc-blog mt-6 max-w-none">
+                      <h3 className="mt-0">{section.title}</h3>
+                      {section.paragraphs.map((paragraph) => (
+                        <p key={`${section.title}-${paragraph}`}>{paragraph}</p>
+                      ))}
+                    </div>
 
-                      <figure className="academy-sheen mt-8 overflow-hidden rounded-[1.75rem] border border-[rgba(226,150,173,0.2)] bg-[linear-gradient(135deg,rgba(255,247,250,0.98),rgba(247,231,236,0.9))]">
-                        <div className="relative aspect-[16/9] w-full">
+                    <figure className="mt-8">
+                      <div className="tmbc-blog-featured-frame relative aspect-[16/10] overflow-hidden p-4 sm:p-5">
+                        <div className="relative h-full w-full">
                           <Image
                             src={section.imageSrc}
                             alt={section.imageAlt}
                             fill
-                            sizes="(min-width: 1280px) 72rem, (min-width: 768px) 90vw, 100vw"
-                            className="object-contain p-4 sm:p-6"
+                            sizes="(min-width: 1024px) 896px, 100vw"
+                            className="object-contain"
                             unoptimized={shouldSkipSectionImageOptimization}
                           />
                         </div>
-                        {section.imageCaption ? (
-                          <figcaption className="px-5 py-4 text-sm leading-6 text-[#6B5560] sm:px-6">
-                            {section.imageCaption}
-                          </figcaption>
-                        ) : null}
-                      </figure>
-                    </article>
-                  );
-                })()
-              ))}
+                      </div>
+                      {section.imageCaption ? (
+                        <figcaption className="px-1 pt-4 text-[13px] leading-6 text-[var(--tmbc-blog-soft-text)]">
+                          {section.imageCaption}
+                        </figcaption>
+                      ) : null}
+                    </figure>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
           {travelSystemWidget ? (
             <section className="space-y-6">
-              <div className="max-w-3xl">
-                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Compatibility Tool</p>
-                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                  Travel system compatibility
-                </h2>
-                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
-                  If the stroller question is dragging the infant seat decision around with it, use this here instead of opening twelve tabs and hoping the adapter story reveals itself. Start with the stroller or the infant seat, then see what actually works together.
-                </p>
-              </div>
+              <SectionHeading
+                eyebrow="Compatibility Tool"
+                title="Travel system compatibility"
+                description="If the stroller question is dragging the infant seat decision around with it, use this here instead of opening twelve tabs and hoping the adapter story reveals itself. Start with the stroller or the infant seat, then see what actually works together."
+              />
 
               {travelSystemWidget.strollers.length > 0 || travelSystemWidget.carSeats.length > 0 ? (
-                <div className="academy-load-in rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,248,251,0.93)_100%)] px-4 py-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-6 sm:py-6">
+                <div className="academy-load-in blog-section-soft px-4 py-5 sm:px-6 sm:py-6">
                   <TravelSystemGenerator
                     strollers={travelSystemWidget.strollers}
                     carSeats={travelSystemWidget.carSeats}
                   />
                 </div>
               ) : (
-                <div className="rounded-[1.8rem] border border-dashed border-[rgba(161,91,114,0.18)] bg-white/86 px-5 py-6 text-sm leading-7 text-[#6B5560] sm:px-6">
+                <div className="tmbc-blog-soft-card px-5 py-6 text-sm leading-7 text-[var(--tmbc-blog-soft-text)] sm:px-6">
                   The TMBC compatibility library is not available in this environment yet. Once the stroller and infant seat data are present, this module will show the same travel system generator used in the full tool.
                 </div>
               )}
@@ -399,15 +403,11 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {module.editorialLinks.length > 0 ? (
             <section className="space-y-6">
-              <div className="max-w-3xl">
-                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Keep Reading</p>
-                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                  Continue in the Journal
-                </h2>
-                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
-                  Use these TMBC journal posts when you want the category shortlist after the framework gets clearer.
-                </p>
-              </div>
+              <SectionHeading
+                eyebrow="Keep Reading"
+                title="Continue in the Journal"
+                description="Use these TMBC journal posts when you want the category shortlist after the framework gets clearer."
+              />
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {module.editorialLinks.map((link) => (
@@ -426,13 +426,11 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {module.submoduleSection ? (
             <section className="space-y-6">
-              <div className="max-w-3xl">
-                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Sub Modules</p>
-                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                  {module.submoduleSection.title}
-                </h2>
-                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">{module.submoduleSection.description}</p>
-              </div>
+              <SectionHeading
+                eyebrow="Sub Modules"
+                title={module.submoduleSection.title}
+                description={module.submoduleSection.description}
+              />
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {module.submoduleSection.cards.map((card) => (
@@ -451,15 +449,11 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {module.products.length > 0 ? (
             <section className="space-y-6">
-              <div className="max-w-3xl">
-                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Product Examples</p>
-                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                  Guided examples, not a ranking
-                </h2>
-                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
-                  These are here to make the decision more concrete in real life. They are not meant to turn the module into a product list.
-                </p>
-              </div>
+              <SectionHeading
+                eyebrow="Product Examples"
+                title="Guided examples, not a ranking"
+                description="These are here to make the decision more concrete in real life. They are not meant to turn the module into a product list."
+              />
 
               <div className="grid gap-6 lg:grid-cols-3">
                 {module.products.slice(0, 3).map((product, index) => (
@@ -489,19 +483,19 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                 title={module.softCtaTitle}
                 body={module.softCtaBody.join(' ')}
               />
-              <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/88 px-6 py-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-7">
-                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Work With Taylor</p>
-                <p className="mt-3 max-w-3xl text-[0.98rem] leading-7 text-[#5B4B55] sm:text-base sm:leading-8">
+              <div className="tmbc-blog-soft-card px-6 py-6 sm:px-7">
+                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Work With Taylor</p>
+                <p className="mt-4 max-w-3xl text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.04rem]">
                   If you want help translating this module into a smarter shortlist or cleaner registry plan, this is the right point to get tailored guidance.
                 </p>
-                <div className="mt-5">
+                <div className="mt-6">
                   {module.trackingGuideId ? (
                     <GuideTrackedLink
                       guideId={module.trackingGuideId}
                       href="/consultation"
                       event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
                       sourceRoute={module.href}
-                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62] sm:w-auto"
+                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
                       meta={{
                         ctaLabel: 'Work with me',
                         label: 'academy_work_with_me',
@@ -512,7 +506,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                   ) : (
                     <Link
                       href="/consultation"
-                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62] sm:w-auto"
+                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
                     >
                       {'Work with me ->'}
                     </Link>
@@ -529,13 +523,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           />
 
           <section className="space-y-6">
-            <div className="max-w-3xl">
-              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Next Steps</p>
-              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                Keep the path moving
-              </h2>
-              <p className="academy-handwritten-aside mt-4">{typographyAccent.next}</p>
-            </div>
+            <SectionHeading eyebrow="Next Steps" title="Keep the path moving" note={typographyAccent.next} />
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {module.previous ? <NextStepCard {...module.previous} /> : null}
@@ -544,7 +532,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </section>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }
