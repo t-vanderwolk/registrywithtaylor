@@ -5,6 +5,7 @@ export const GUIDE_CATEGORIES = [
   'Nursery Planning',
   'Travel With Baby',
   'Baby Gear Guides',
+  'Postpartum Planning',
 ] as const;
 
 export type GuideCategory = (typeof GUIDE_CATEGORIES)[number];
@@ -23,4 +24,3 @@ export function normalizeGuideCategory(value: unknown, fallback: GuideCategory =
   const normalized = value.trim();
   return isGuideCategory(normalized) ? normalized : fallback;
 }
-

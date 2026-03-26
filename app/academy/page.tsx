@@ -33,7 +33,11 @@ export default function AcademyHomePage() {
           tagline="Registry • Nursery • Gear • Postpartum"
           image="/assets/hero/hero-baby-editorial-v2.jpg"
           imageAlt="TMBC Baby Academy hero image"
-          imageClassName="object-contain object-right p-4 sm:p-8 md:p-10 lg:p-12"
+          imageClassName="object-cover object-[72%_center]"
+          overlayStyle={{
+            background:
+              'linear-gradient(90deg, rgba(255,250,252,0.97) 0%, rgba(255,250,252,0.9) 24%, rgba(255,250,252,0.72) 40%, rgba(255,250,252,0.36) 58%, rgba(255,250,252,0.14) 76%, rgba(255,250,252,0.08) 100%)',
+          }}
           contentClassName="homepage-hero-content"
           ribbonClassName="translate-y-6 md:translate-y-8"
           staggerContent

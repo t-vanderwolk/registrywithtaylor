@@ -21,6 +21,12 @@ import {
   NURSERY_ACADEMY_MODULES,
   type NurseryAcademyModuleSlug,
 } from '@/lib/academy/nurseryModules';
+import {
+  getPostpartumAcademyModule,
+  isPostpartumAcademyModuleSlug,
+  POSTPARTUM_ACADEMY_MODULES,
+  type PostpartumAcademyModuleSlug,
+} from '@/lib/academy/postpartumModules';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import {
@@ -42,10 +48,8 @@ export type AcademyModuleSlug =
   | GearAcademyModuleSlug
   | RegistryAcademyModuleSlug
   | NurseryAcademyModuleSlug
-  | 'car-seat-basics'
-  | 'recovery-and-support'
-  | 'feeding-and-home-rhythm'
-  | 'first-weeks-essentials';
+  | PostpartumAcademyModuleSlug
+  | 'car-seat-basics';
 
 export type AcademyBreadcrumbItem = {
   label: string;
@@ -216,7 +220,7 @@ const ACADEMY_PATH_MODULES: Record<AcademyPathSlug, AcademyModuleSlug[]> = {
   registry: REGISTRY_ACADEMY_MODULES.map((module) => module.slug),
   nursery: NURSERY_ACADEMY_MODULES.map((module) => module.slug),
   gear: GEAR_ACADEMY_MODULES.map((module) => module.slug),
-  postpartum: ['recovery-and-support', 'feeding-and-home-rhythm', 'first-weeks-essentials'],
+  postpartum: POSTPARTUM_ACADEMY_MODULES.map((module) => module.slug),
 };
 
 const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> = {
@@ -301,27 +305,27 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
   },
   postpartum: {
     title: 'Postpartum',
-    shortDescription: 'Support your real life',
+    shortDescription: 'Move through it with support',
     heroTitle: 'Postpartum Path',
     heroDescription:
-      'Make room for recovery, feeding rhythm, and the practical support that helps the adults function, too.',
+      'Move through recovery, feeding, rest, emotional change, and support with a calmer system for the adult side of early parenthood.',
     intro: [
-      'Postpartum is often treated like a side note in baby prep. It should not be.',
-      'This path turns recovery, feeding rhythm, and first-weeks support into a real sequence so the household gets prepared alongside the baby.',
+      'Postpartum is often the least-prepared-for part of baby prep, which is a fairly brutal design flaw in the whole process.',
+      'This path gives recovery, feeding, rest, emotional wellness, and support their own real sequence so the household can prepare for the adult side of early parenthood too.',
     ],
     overallSummary: [
-      'This path brings the adult side of early parenthood back into the plan. Recovery, feeding rhythm, and first-weeks support need more than a hopeful checklist and a basket by the bed.',
-      'By the end, you should have a steadier picture of how to prepare the house, the routines, and the support layers that make the first stretch feel more workable.',
+      'This path brings the adult side of early parenthood back into the plan. Postpartum works better when it is treated like a chapter you move through with support, not a vague stretch you are supposed to absorb while caring for a newborn.',
+      'By the end, you should have a steadier picture of healing, feeding, rest, emotional adjustment, and the support system that helps the first stretch feel more workable and much less lonely.',
     ],
     learningHighlights: [
-      'How to plan for postpartum recovery as part of the household setup, not as an afterthought.',
-      'How to build one workable feeding setup and a home rhythm that supports the repeated parts of the day.',
-      'How to identify the first-weeks essentials that actually reduce friction for the adults and the baby.',
-      'How to keep support practical, visible, and close to the spots where life will happen most.',
-      'How to leave room for real-life learning instead of trying to predict every future scenario in advance.',
+      'What physical recovery actually looks like, what supports healing, and how to build a more realistic recovery rhythm.',
+      'How to think about breastfeeding, bottle feeding, and combination feeding with more flexibility and less guilt.',
+      'How to set more realistic sleep expectations, share responsibilities, and protect rest without waiting for perfect schedules.',
+      'How emotional shifts and identity changes show up in postpartum, and what helps them feel less isolating.',
+      'How to build a usable support system, ask for help more clearly, and stop treating support like a bonus instead of a need.',
     ],
     moduleSectionDescription:
-      'Each module helps you prepare the repeated parts of early parenthood before the first weeks turn them into on-the-fly decisions.',
+      'Each module helps turn the adult side of early parenthood into something more structured, more supportive, and much less dependent on winging it.',
     imagePath: '/assets/editorial/growing-with-confidence.jpg',
     imageAlt: 'Postpartum and early parenthood editorial image for TMBC Baby Academy.',
   },
@@ -417,7 +421,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'How your nursery actually works in real life.',
     imagePath: '/assets/editorial/nurseryzones.png',
     imageAlt: 'Nursery zones editorial image for the Layout & Flow module.',
-    relatedSlug: 'feeding-and-home-rhythm',
+    relatedSlug: 'healing-and-recovery',
   },
   'storage-and-organization': {
     pathSlug: 'nursery',
@@ -426,7 +430,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'How to reduce chaos before it starts.',
     imagePath: '/assets/editorial/clipboard.png',
     imageAlt: 'Nursery organization editorial image for the Storage & Organization module.',
-    relatedSlug: 'first-weeks-essentials',
+    relatedSlug: 'feeding-and-lactation',
   },
   'atmosphere-and-safety': {
     pathSlug: 'nursery',
@@ -492,32 +496,55 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imageAlt: 'Editorial car seat planning image for the Car Seat Foundations academy module.',
     relatedSlug: null,
   },
-  'recovery-and-support': {
+  'healing-and-recovery': {
     pathSlug: 'postpartum',
-    title: 'Recovery and Support',
-    description: 'Plan for the adult side of early parenthood with more intention than a snack basket and a hopeful to-do list.',
-    subhead: 'Recovery deserves structure, support, and room inside the plan from the beginning.',
+    title: 'Healing & Recovery',
+    description:
+      'Understand what physical recovery actually looks like, what supports healing, and how to move through the first stretch without pressure to bounce back.',
+    subhead: 'What no one fully prepares you for.',
     imagePath: '/assets/editorial/teddy-glow.png',
-    imageAlt: 'Soft postpartum support image for the Recovery and Support academy module.',
+    imageAlt: 'Soft postpartum recovery image for the Healing & Recovery academy module.',
     relatedSlug: 'layout-and-flow',
   },
-  'feeding-and-home-rhythm': {
+  'feeding-and-lactation': {
     pathSlug: 'postpartum',
-    title: 'Feeding and Home Rhythm',
-    description: 'Build one workable feeding setup and a calmer household rhythm before backup systems multiply.',
-    subhead: 'The goal is not to predict every scenario. It is to make the repeated parts of the day easier to move through.',
+    title: 'Feeding & Lactation',
+    description:
+      'Understand breastfeeding, bottle feeding, and combination feeding with more flexibility, less guilt, and a calmer view of what support actually helps.',
+    subhead: 'Without pressure or perfection.',
     imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Feeding editorial image for the Feeding and Home Rhythm academy module.',
+    imageAlt: 'Feeding editorial image for the Feeding & Lactation academy module.',
     relatedSlug: 'storage-and-organization',
   },
-  'first-weeks-essentials': {
+  'rest-and-sleep': {
     pathSlug: 'postpartum',
-    title: 'First-Weeks Essentials',
-    description: 'Trim the list down to what actually supports the first stretch, then let real life finish the rest.',
-    subhead: 'A calmer first-weeks setup usually looks smaller, smarter, and more forgiving than the internet suggested.',
-    imagePath: '/assets/editorial/babystuff.png',
-    imageAlt: 'First-weeks essentials image for the First-Weeks Essentials academy module.',
-    relatedSlug: 'where-to-register',
+    title: 'Rest & Sleep',
+    description:
+      'Build more realistic expectations, shared responsibility, and a steadier rest rhythm so sleep deprivation feels less personal and more manageable.',
+    subhead: 'How to survive it without losing yourself.',
+    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imageAlt: 'Rest and sleep image for the Rest & Sleep academy module.',
+    relatedSlug: 'sleep-space-decisions',
+  },
+  'emotional-wellness-and-identity': {
+    pathSlug: 'postpartum',
+    title: 'Emotional Wellness & Identity',
+    description:
+      'Understand emotional shifts, identity changes, and the support conversations that make postpartum feel more human and less isolating.',
+    subhead: 'The part no one talks about enough.',
+    imagePath: '/assets/editorial/notebook-bunny.png',
+    imageAlt: 'Emotional wellness image for the Emotional Wellness & Identity academy module.',
+    relatedSlug: 'atmosphere-and-safety',
+  },
+  'support-systems': {
+    pathSlug: 'postpartum',
+    title: 'Support Systems',
+    description:
+      'Build the support system around you with more intention, clearer asks, and less guilt so the first stretch does not depend on you carrying everything alone.',
+    subhead: 'You were never meant to do this alone.',
+    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imageAlt: 'Support systems image for the Support Systems academy module.',
+    relatedSlug: 'shop-local-get-support',
   },
 };
 
@@ -915,6 +942,33 @@ function buildNurseryAcademyModule(slug: NurseryAcademyModuleSlug): AcademyModul
   };
 }
 
+function buildPostpartumAcademyModule(slug: PostpartumAcademyModuleSlug): AcademyModuleContent {
+  const module = getPostpartumAcademyModule(slug);
+  return {
+    intro: module.intro,
+    coreSections: module.coreSections.map((section) =>
+      buildCoreSection({
+        title: section.title,
+        paragraphs: section.paragraphs,
+        imageSrc: section.imageSrc,
+        imageAlt: section.imageAlt,
+      }),
+    ),
+    decisionBullets: module.decisionBullets,
+    products: module.products.map((product) =>
+      buildGenericProductExample({
+        name: product.name,
+        description: product.description,
+        pros: product.pros,
+        category: module.title,
+      }),
+    ),
+    softCtaLabel: module.softCtaLabel,
+    softCtaTitle: module.softCtaTitle,
+    softCtaBody: module.softCtaBody,
+  };
+}
+
 async function buildStrollerFoundationsModule() {
   const title = ACADEMY_MODULE_DEFINITIONS['stroller-foundations'].title;
 
@@ -1114,243 +1168,6 @@ async function buildCarSeatBasicsModule() {
   };
 }
 
-async function buildRecoveryAndSupportModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['recovery-and-support'].title;
-
-  return {
-    intro: [
-      'Postpartum planning is too often treated like an optional appendix to baby prep, which is a remarkably unhelpful order of operations.',
-      'The adults still need the house to work. Recovery still needs support. Sleep still arrives in short, inconvenient intervals. This module puts that reality back inside the plan where it belongs.',
-    ],
-    coreSections: [
-      buildCoreSection({
-        title: 'Postpartum belongs inside the prep plan',
-        paragraphs: [
-          'A lot of first-time planning energy goes toward the baby categories while recovery gets reduced to a short list and a vague hope that the house will somehow cooperate. It usually does not.',
-          'A stronger approach starts by giving postpartum its own structure. That means thinking about comfort, hydration, rest, feeding support, bathroom logistics, and the little repeat-use pieces that make a day feel less brittle.',
-        ],
-        imageSrc: '/assets/editorial/teddy-glow.png',
-        imageAlt: 'Soft postpartum support image.',
-        imageCaption: 'The baby is not the only one who needs the plan to work.',
-      }),
-      buildCoreSection({
-        title: 'Support starts with the route through the house',
-        paragraphs: [
-          'Where you sit, where you feed, where recovery supplies live, and how many steps it takes to reach the basics all matter more after birth because the day is more repetitive and your margin is thinner.',
-          'The postpartum setup usually improves when it borrows the same logic as the nursery: shorter routes, clearer stations, and fewer tasks hidden behind charming but inconvenient storage.',
-        ],
-        imageSrc: '/assets/editorial/nursery.jpg',
-        imageAlt: 'Home setup image for postpartum support.',
-        imageCaption: 'If the route is fussy before baby arrives, it rarely gets better later.',
-      }),
-      buildCoreSection({
-        title: 'Small comforts count because repetition counts',
-        paragraphs: [
-          'The glamorous version of support is not usually what earns its keep. The better helpers tend to be the quiet ones: a water bottle you actually keep full, a bedside caddy that saves a trip, duplicate chargers, extra linens, and clothing that makes feeding and recovery easier instead of more performative.',
-          'These things matter because they solve repeated friction. That is usually the difference between support that sounds nice and support that actually gets used.',
-        ],
-        imageSrc: '/assets/editorial/welcome.png',
-        imageAlt: 'Comfort-focused postpartum image.',
-        imageCaption: 'Useful support often looks plain on paper and excellent in real life.',
-      }),
-      buildCoreSection({
-        title: 'Plan for backup, not perfection',
-        paragraphs: [
-          'The point is not to predict every hard moment. It is to make sure the basics stay close enough that small disruptions remain small.',
-          'One extra layer for recovery, one for feeding, one for linens, and one for household reset is usually more useful than a drawer full of backup identities you never wanted to manage.',
-        ],
-        imageSrc: '/assets/editorial/growing-with-confidence.jpg',
-        imageAlt: 'Parent adjusting to life with baby.',
-        imageCaption: 'A good postpartum plan makes the household feel steadier, not busier.',
-      }),
-    ],
-    decisionBullets: [
-      'Start with the rooms and routines that will carry the most repetition in the first two weeks.',
-      "Keep recovery basics, hydration, and comfort items within arm's reach of the spots you will use most.",
-      'Let the support plan help the adults function, not just the baby categories look complete.',
-      'Choose one practical backup layer for the essentials, then stop there.',
-    ],
-    products: [
-      buildGenericProductExample({
-        name: 'Bedside Recovery Caddy',
-        description: 'A useful fit when you want the basics close enough that rest does not require a scavenger hunt.',
-        pros: ['Keeps repeat-use items within reach', 'Supports overnight feeding or recovery windows', 'Helps one main station stay calmer'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Large Straw Water Bottle',
-        description: 'Helpful when hydration is one of the easiest support wins to miss simply because the container is annoying to keep nearby.',
-        pros: ['Easy to sip one-handed', 'Supports longer feeding or resting stretches', 'Simple comfort that earns its keep quickly'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Soft Layered Linens Set',
-        description: 'A strong example when you want the bed, chair, or recovery zone to stay easy to reset after inevitable messier moments.',
-        pros: ['Makes resets faster', 'Helps comfort stay practical', 'Useful in the first stretch when everything repeats often'],
-        category: title,
-      }),
-    ],
-  };
-}
-
-async function buildFeedingAndHomeRhythmModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['feeding-and-home-rhythm'].title;
-
-  return {
-    intro: [
-      'Feeding setup gets overwhelming when families try to solve every possible preference before the baby has offered any opinions on the matter.',
-      'This module keeps the sequence calmer: one workable setup first, then a home rhythm that supports the repeated parts of the day without turning every counter into a feeding category.',
-    ],
-    coreSections: [
-      buildCoreSection({
-        title: 'One workable feeding setup is enough to start',
-        paragraphs: [
-          'The first goal is not to own every bottle system, storage container, and backup path in the category. It is to have one reasonable setup you can use confidently when the day is still new and a little messy.',
-          'That usually means a small starter layer, a clean place to store it, and enough flexibility to pivot later if your baby or your routine clearly asks for something different.',
-        ],
-        imageSrc: '/assets/editorial/feeding.png',
-        imageAlt: 'Feeding setup image.',
-        imageCaption: 'Feeding prep should support real life, not produce a drawer full of backup plans.',
-      }),
-      buildCoreSection({
-        title: 'Keep the house arranged around repetition',
-        paragraphs: [
-          'Feeding does not happen in isolation. It sits inside laundry, rest, changing, hydration, dishes, and the very glamorous task of remembering where you put the burp cloths this time.',
-          'When the setup works, the home rhythm starts to feel smoother because the high-use items stay obvious and the next step in the routine is easier to see.',
-        ],
-        imageSrc: '/assets/editorial/bottle-booties.png',
-        imageAlt: 'Editorial home rhythm image.',
-        imageCaption: 'The feeding zone usually improves when it is treated like a repeated route instead of a product category.',
-      }),
-      buildCoreSection({
-        title: 'Choose convenience that actually saves a step',
-        paragraphs: [
-          'Some convenience items truly shorten the route. Others just relocate clutter into a more expensive shape. The distinction matters.',
-          'A good filter is simple: does this item remove repeated friction in the part of the day you are actually living, or does it just make the setup feel more emotionally complete?',
-        ],
-        imageSrc: '/assets/editorial/registry.png',
-        imageAlt: 'Planning image for feeding convenience.',
-        imageCaption: 'The better convenience item is the one that quietly removes a step from the routine.',
-      }),
-      buildCoreSection({
-        title: 'Leave room for baby preferences',
-        paragraphs: [
-          'Feeding is one of the clearest examples of why calmer planning leaves space to learn. Bottle shapes, feeding pace, and what feels easiest for the adults can all shift once real life begins.',
-          'That does not mean you should under-prepare. It means you should stop before the prep becomes a full-time attempt to predict every future scenario.',
-        ],
-        imageSrc: '/assets/editorial/notebook-bunny.png',
-        imageAlt: 'Editorial notebook image for feeding decisions.',
-        imageCaption: 'Prepared and overcommitted are not the same thing.',
-      }),
-    ],
-    decisionBullets: [
-      'Start with one workable bottle or feeding setup before expanding into backups.',
-      'Keep the highest-use items closest to the spots where feeding actually happens.',
-      'Let convenience earn its place by removing repeated friction, not by sounding reassuring online.',
-      'Leave enough flexibility for your baby and your routine to change the plan later.',
-    ],
-    products: [
-      buildGenericProductExample({
-        name: 'Starter Bottle Set',
-        description: 'A practical first step when you want enough coverage to begin without committing to a full cabinet of one system.',
-        pros: ['Keeps the first setup simple', 'Leaves room to adjust later', 'Works better than overbuying before preferences are clear'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Countertop Drying Zone',
-        description: 'Helpful when the repeated wash-and-reset rhythm needs one obvious home instead of spreading across the kitchen.',
-        pros: ['Makes resets faster', 'Keeps feeding items grouped together', 'Supports a calmer daily rhythm'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Portable Feeding Caddy',
-        description: 'Useful when feeding happens in more than one room and the basics need to move with less effort.',
-        pros: ['Keeps the essentials together', 'Supports flexible seating or recovery spots', 'Reduces back-and-forth between rooms'],
-        category: title,
-      }),
-    ],
-  };
-}
-
-async function buildFirstWeeksEssentialsModule() {
-  const title = ACADEMY_MODULE_DEFINITIONS['first-weeks-essentials'].title;
-
-  return {
-    intro: [
-      'A calmer essentials list usually starts by admitting that the first stretch is not asking you to prepare for every future stage at once.',
-      'This module narrows the list around what actually supports sleep, feeding, changing, movement, recovery, and household reset in the first weeks, then lets the rest wait until it earns a reason.',
-    ],
-    coreSections: [
-      buildCoreSection({
-        title: 'Build for the first stretch, not every future stage',
-        paragraphs: [
-          'One of the fastest ways to overbuild the list is to shop for newborn life, six-month life, and toddler life at the same time. It makes the plan feel impressive while making the first stage harder to see clearly.',
-          'The smarter version stays close to the first repeated routines and lets later categories arrive once your life has more information to work with.',
-        ],
-        imageSrc: '/assets/editorial/babystuff.png',
-        imageAlt: 'First-weeks essentials flat lay.',
-        imageCaption: 'Prepared does not need to mean finished for every future chapter.',
-      }),
-      buildCoreSection({
-        title: 'Essentials are the items that reduce repeated friction',
-        paragraphs: [
-          'The items that matter most early are rarely the ones with the loudest marketing. They are the ones that support sleep, feeding, diapering, movement, recovery, laundry, and the small resets you will repeat every day.',
-          'That is why a practical support layer often matters more than one more flashy category that sounded useful in theory.',
-        ],
-        imageSrc: '/assets/editorial/registry.jpg',
-        imageAlt: 'Registry essentials planning image.',
-        imageCaption: 'If the item is not helping a real repeated system, it probably does not belong in the first-pass essentials list.',
-      }),
-      buildCoreSection({
-        title: 'Space and budget deserve a real vote',
-        paragraphs: [
-          'The right essentials list in a smaller home should not look like a failed version of a bigger one. It should look edited on purpose.',
-          'The same goes for budget. Thoughtful preparation is not about buying more things faster. It is about getting the most useful things into the right order.',
-        ],
-        imageSrc: '/assets/editorial/nursery2.png',
-        imageAlt: 'Edited home setup image.',
-        imageCaption: 'The stronger list is usually the one that fits the house, the budget, and the first stage honestly.',
-      }),
-      buildCoreSection({
-        title: 'A calmer list leaves room to learn your baby',
-        paragraphs: [
-          'Some categories simply need real-world feedback before they deserve a larger commitment. That is not under-preparing. It is a more mature way to prepare.',
-          'The essentials list works best when it covers the first stretch well and leaves enough margin for your actual baby to tell you what comes next.',
-        ],
-        imageSrc: '/assets/editorial/teddy-glow.png',
-        imageAlt: 'Calm first-weeks support image.',
-        imageCaption: 'Real life is allowed to finish the list for you.',
-      }),
-    ],
-    decisionBullets: [
-      'Build the first-pass list around sleep, feeding, diapering, movement, recovery, and household reset.',
-      'Keep maybe-later categories off the main list until they earn a clearer reason.',
-      'Let the size of your home and the reality of your budget edit the list on purpose.',
-      'Choose usefulness over popularity every time.',
-    ],
-    products: [
-      buildGenericProductExample({
-        name: 'Safe Sleep Starter Setup',
-        description: 'A clear fit when you want the first weeks covered without turning the sleep category into a themed shopping event.',
-        pros: ['Supports the first stretch directly', 'Keeps the sleep lane simple', 'Leaves room to adjust later if needed'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Diapering Basket',
-        description: 'Helpful when you want the highest-use changing items together and easy to move between the spots you really use.',
-        pros: ['Keeps the basics close', 'Supports quick resets', 'Useful in bedrooms, nurseries, or shared spaces'],
-        category: title,
-      }),
-      buildGenericProductExample({
-        name: 'Simple Laundry Backup Layer',
-        description: 'A practical example because extra sheets, burp cloths, and repeat-use basics often solve more stress than another novelty category.',
-        pros: ['Supports the daily reset', 'Helps messy moments stay manageable', 'Quietly earns its keep in the first stretch'],
-        category: title,
-      }),
-    ],
-  };
-}
-
 async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModuleContent | null> {
   if (isGearAcademyModuleSlug(slug)) {
     return buildGearAcademyModule(slug);
@@ -1364,15 +1181,13 @@ async function buildModuleContent(slug: AcademyModuleSlug): Promise<AcademyModul
     return buildNurseryAcademyModule(slug);
   }
 
+  if (isPostpartumAcademyModuleSlug(slug)) {
+    return buildPostpartumAcademyModule(slug);
+  }
+
   switch (slug) {
     case 'car-seat-basics':
       return buildGearAcademyModule('car-seat-foundations');
-    case 'recovery-and-support':
-      return buildRecoveryAndSupportModule();
-    case 'feeding-and-home-rhythm':
-      return buildFeedingAndHomeRhythmModule();
-    case 'first-weeks-essentials':
-      return buildFirstWeeksEssentialsModule();
     default:
       return null;
   }

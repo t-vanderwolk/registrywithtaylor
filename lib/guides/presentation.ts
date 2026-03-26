@@ -39,6 +39,7 @@ export function getGuideEyebrow(category?: string | null) {
   switch (category?.trim()) {
     case 'Registry Planning':
     case 'Nursery Planning':
+    case 'Postpartum Planning':
       return 'Baby Preparation Guide';
     case 'Strollers':
     case 'Car Seats':

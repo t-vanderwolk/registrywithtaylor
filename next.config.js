@@ -136,17 +136,32 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/postpartum',
-    destination: '/academy/postpartum/recovery-and-support',
+    destination: '/academy/postpartum/healing-and-recovery',
     permanent: true,
   },
   {
     source: '/guides/feeding',
-    destination: '/academy/postpartum/feeding-and-home-rhythm',
+    destination: '/academy/postpartum/feeding-and-lactation',
     permanent: true,
   },
   {
     source: '/guides/essentials',
-    destination: '/academy/postpartum/first-weeks-essentials',
+    destination: '/academy/postpartum',
+    permanent: true,
+  },
+  {
+    source: '/academy/postpartum/recovery-and-support',
+    destination: '/academy/postpartum/healing-and-recovery',
+    permanent: true,
+  },
+  {
+    source: '/academy/postpartum/feeding-and-home-rhythm',
+    destination: '/academy/postpartum/feeding-and-lactation',
+    permanent: true,
+  },
+  {
+    source: '/academy/postpartum/first-weeks-essentials',
+    destination: '/academy/postpartum',
     permanent: true,
   },
 ];
