@@ -49,8 +49,7 @@ export default function GuideHandwrittenNote({
       <div className={`relative flex flex-col gap-4 sm:gap-5 ${isMargin ? '' : 'md:flex-row md:items-end md:justify-between'}`}>
         <div className="max-w-3xl">
           <h3
-            className={`${isMargin ? 'mt-1 text-[1.45rem] font-medium leading-[1.12] text-[#D986A2] sm:text-[1.62rem]' : `${eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.92] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.5rem] sm:text-[1.8rem]' : 'text-[2.05rem] sm:text-[2.45rem]'}`}`}
-            style={{ fontFamily: '"Caveat", cursive' }}
+            className={`font-handwritten-print ${isMargin ? 'mt-1 text-[1.45rem] font-medium leading-[1.12] text-[#D986A2] sm:text-[1.62rem]' : `${eyebrow ? 'mt-3' : 'mt-0'} font-semibold leading-[0.92] tracking-[0.01em] text-[#D986A2] ${isCompact ? 'text-[1.5rem] sm:text-[1.8rem]' : 'text-[2.05rem] sm:text-[2.45rem]'}`}`}
           >
             {title}
           </h3>
@@ -61,12 +60,9 @@ export default function GuideHandwrittenNote({
           ) : null}
 
           {showSignoff && isMargin ? (
-            <div
-              className="mt-4 flex flex-col items-end text-[#D986A2]"
-              style={{ fontFamily: '"Caveat", cursive' }}
-            >
-              <span className="text-[1.2rem] leading-none sm:text-[1.35rem]">XOXO</span>
-              <span className="mt-1 text-[1.02rem] leading-none sm:text-[1.15rem]">-T</span>
+            <div className="font-handwritten-print mt-4 flex flex-col items-end text-[#D986A2]">
+              <span className="text-[1.2rem] font-semibold uppercase leading-none tracking-[0.15em] sm:text-[1.35rem]">XOXO</span>
+              <span className="mt-1 text-[1.02rem] font-semibold uppercase leading-none tracking-[0.14em] sm:text-[1.15rem]">-T</span>
             </div>
           ) : null}
         </div>

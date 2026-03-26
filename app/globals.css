@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;500;600;700;800&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;500;600;700;800&family=Great+Vibes&family=Caveat:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -368,6 +368,7 @@ a:hover .link-underline::after {
   --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-script: "Great Vibes", cursive;
+  --font-handwritten-print: "Caveat", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
   --text-primary: #2b2628;
   --text-secondary: #625a60;
   --radius-lg: 1.25rem;
@@ -483,6 +484,11 @@ p {
 
 .font-script {
   font-family: var(--font-script);
+}
+
+.font-handwritten-print {
+  font-family: var(--font-handwritten-print);
+  font-style: normal;
 }
 
 li {

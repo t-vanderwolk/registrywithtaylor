@@ -48,7 +48,9 @@ export default function SaveDecisionBar({
       </div>
 
       <div className="mt-5 flex justify-end">
-        <span className="font-script text-[1.7rem] leading-none text-[#D986A2]">XOXO -T</span>
+        <span className="font-handwritten-print text-[1.55rem] font-semibold uppercase leading-none tracking-[0.16em] text-[#D986A2]">
+          XOXO -T
+        </span>
       </div>
       </div>
     </section>

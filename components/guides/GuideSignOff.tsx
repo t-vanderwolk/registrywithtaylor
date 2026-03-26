@@ -26,10 +26,7 @@ export default function GuideSignOff({
           <GuideSignoffMark className="h-auto w-full max-w-full" />
         </div>
       ) : (
-        <div
-          className="mt-4 whitespace-pre-line text-[1.75rem] leading-none text-[#D986A2] md:text-[2rem]"
-          style={{ fontFamily: '"Caveat", cursive' }}
-        >
+        <div className="font-handwritten-print mt-4 whitespace-pre-line text-[1.75rem] font-semibold uppercase leading-none tracking-[0.14em] text-[#D986A2] md:text-[2rem]">
           {trimmedSignature}
         </div>
       )}
