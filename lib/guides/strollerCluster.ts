@@ -114,21 +114,21 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'full-size-modular-strollers',
     shortTitle: 'Full-Size & Modular',
     heroDescription:
-      'A calmer way to decide whether everyday comfort, better storage, and modular flexibility are actually worth the size in your real week.',
+      'This lane makes sense when the stroller has a real weekly job. Think longer walks, real basket use, and enough mileage to justify more stroller without buying bulk just because it looks polished.',
     whatSectionTitles: ['What Full-Size and Modular Really Mean'],
-    signatureMoment: 'The right stroller should feel easier to live with, not more impressive on paper.',
+    signatureMoment: 'A full-size stroller should earn its square footage.',
     worksForSummary:
-      'This is usually the right lane when the stroller is part of normal life, not just the occasional parking-lot cameo.',
+      'This is usually the right lane when the stroller is part of regular life and you will actually notice the difference between decent and genuinely comfortable.',
     worksForBullets: [
       'You walk often enough to care about ride quality and push feel.',
       'Basket space, canopy coverage, and seat comfort would genuinely get used.',
-      'You want one stronger everyday stroller with bassinet or parent-facing flexibility.',
+      'You want one strong primary stroller and do not mind living with more frame to get that ease back.',
     ],
     notBestFitSummary:
-      'It is often too much stroller when portability is the real job and the folded routine matters more than the ride.',
+      'It gets too big, too fast when the real routine is mostly trunk transfers, quick stops, and tighter storage.',
     notBestFitBullets: [
       'The stroller mostly lives in the trunk and gets lifted constantly.',
-      'Home storage is tight and you already resent bulky gear.',
+      'Home storage is tight and you already know bulky gear will annoy you.',
       'You want the lightest possible setup for quick errands or frequent travel.',
     ],
     relatedGuideSlugs: ['compact-lightweight-strollers', 'travel-strollers', 'convertible-strollers'],
@@ -143,18 +143,18 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'compact-lightweight-strollers',
     shortTitle: 'Compact',
     heroDescription:
-      'A practical guide to the stroller category that feels easier to lift, store, and live with when daily life is more trunk than trail.',
+      'This lane is for families who want less stroller to wrestle with. When the real friction is lifting, folding, storing, and getting out the door without a full production, compact usually makes a lot of sense.',
     whatSectionTitles: ['What Defines a Compact or Lightweight Stroller'],
-    signatureMoment: 'Convenience matters more than category prestige once the stroller starts living in your trunk.',
+    signatureMoment: 'The best compact stroller feels like one less step.',
     worksForSummary:
-      'Compact strollers make the most sense when your routine rewards convenience more often than it rewards maximum suspension.',
+      'Compact usually wins when convenience keeps showing up in your week more often than long walks do.',
     worksForBullets: [
       'You load the stroller in and out of the car a lot.',
       'Smaller storage, lighter lifting, and faster exits matter in your house.',
       'You want something easier than full-size without going fully travel-first.',
     ],
     notBestFitSummary:
-      'This category can feel too minimal when the stroller has to handle longer walks, rougher ground, or all-day use regularly.',
+      'This category can feel a little too stripped back when the stroller has to carry longer walks, rougher routes, or bigger outing days regularly.',
     notBestFitBullets: [
       'You want the strongest comfort for frequent neighborhood walks.',
       'Your usual routes include rough sidewalks, gravel, or park paths.',
@@ -172,14 +172,14 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'travel-strollers',
     shortTitle: 'Travel',
     heroDescription:
-      'The stroller category for families who need easier folds, lighter carry, and less gear drama once airports, rental cars, and quick trips enter the picture.',
+      'This lane is for families who keep moving. Flights, ride shares, grandparents, tiny trunks, and quick folds make more sense once you stop asking a travel stroller to behave like a full-size one.',
     whatSectionTitles: ['What a Travel Stroller Should Actually Do'],
-    signatureMoment: 'Travel gear should lower the drama, not become a new version of it.',
+    signatureMoment: 'Travel gear should make movement easier, not just smaller.',
     worksForSummary:
-      'Travel strollers earn their place when movement between places is the hardest part of your stroller routine.',
+      'Travel strollers earn their place when the hardest part of your stroller routine is getting from place to place with less gear friction.',
     worksForBullets: [
       'Flights, ride shares, grandparents, or small trunks are part of regular life.',
-      'You want a second stroller that handles transit-heavy days better.',
+      'You want a stroller that handles transit-heavy days with less drama.',
       'Quick folds and lighter carry matter more than maximum basket space.',
     ],
     notBestFitSummary:
@@ -201,18 +201,18 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'convertible-strollers',
     shortTitle: 'Convertible',
     heroDescription:
-      'A grounded guide to single-to-double stroller systems when planning ahead is part of the decision, including the difference between a more modular single-to-double system and a more seat-specific seat path.',
+      'This lane is for the parent trying to buy thoughtfully once, not endlessly twice. It only makes sense when future sibling planning is real enough to earn the present-day size, weight, and setup.',
     whatSectionTitles: ['What Convertible Strollers Actually Mean', 'Modular stroller vs seat-specific single-to-double'],
-    signatureMoment: 'Planning for your life matters more than planning for the stroller.',
+    signatureMoment: 'Future flexibility only helps when the future is not purely theoretical.',
     worksForSummary:
-      'Convertible strollers make the most sense when future sibling planning is real enough to matter, and you need to judge whether a more modular or more seat-specific single-to-double path actually fits your family.',
+      'Convertible strollers make the most sense when future sibling planning is real enough to matter now, not just comforting to imagine.',
     worksForBullets: [
       'You are planning for another child on a real near-term timeline.',
       'Single-to-double flexibility would genuinely change what you buy now.',
-      'You want to understand future expansion without losing sight of present-day use, and you are willing to compare whether the stroller feels more modular or more seat-specific once the second seat enters the picture.',
+      'You want to compare expansion paths without forgetting that the stroller still has to work well as a single first.',
     ],
     notBestFitSummary:
-      'This category can feel like too much stroller when future planning is vague and the everyday single-stroller experience already feels bulky.',
+      'This category starts to feel like too much stroller when the future plan is still vague and the current single-stroller version already feels bulky.',
     notBestFitBullets: [
       'You need two seats immediately, not later.',
       'Your home, trunk, or daily route already resists larger stroller systems.',
@@ -225,18 +225,18 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'jogging-all-terrain-strollers',
     shortTitle: 'Jogging',
     heroDescription:
-      'A guide to the terrain-and-running category for parents who need to separate everyday all-terrain help from a true jogging stroller built for actual running later on.',
+      'This lane is for the routes that keep exposing the limits of smaller wheels. Rough sidewalks, gravel, outdoor-heavy weeks, and actual jogging plans deserve a different conversation than a smooth Target run.',
     whatSectionTitles: ['What This Category Actually Solves', 'Jogging Strollers vs All-Terrain Strollers', '3 Wheels vs 4 Wheels'],
-    signatureMoment: 'If the ground is doing the arguing, bigger wheels may be the calmer answer.',
+    signatureMoment: 'If the ground keeps winning the argument, listen.',
     worksForSummary:
-      'This category is strongest when the ground itself is the problem, or when actual jogging is truly in the plan later and you need to sort a four-wheel all-terrain stroller from a three-wheel jogging frame.',
+      'This category is strongest when the ground itself is the problem, or when actual jogging is genuinely part of the plan and not just a flattering self-image.',
     worksForBullets: [
       'Your weekly routes include cracked sidewalks, gravel, grass, or trails.',
       'Long outdoor walks or active movement are a normal part of life.',
       'You want better stability and suspension than smaller-wheel strollers can offer, and you need clarity on whether that means all-terrain help or a true jogging setup.',
     ],
     notBestFitSummary:
-      'It is usually too much stroller when your routine is mostly smooth-surface errands, tighter indoor spaces, and compact storage needs.',
+      'It is usually too much stroller when your week is mostly smooth-surface errands, tighter indoor spaces, and compact storage needs.',
     notBestFitBullets: [
       'Most outings are quick, car-heavy, and indoors.',
       'A bulky fold will create more friction than better suspension will solve.',
@@ -249,11 +249,11 @@ const STROLLER_CATEGORY_GUIDE_CONFIG: Record<StrollerCategoryGuideSlug, Stroller
     slug: 'double-strollers',
     shortTitle: 'Double',
     heroDescription:
-      'The stroller category for twins, two small children, and the very current question of whether a dedicated two-seat setup earns its size in your real week.',
+      'This lane is for a very current problem: two children who both need a seat now. It is not the same question as future flexibility, and treating those as the same usually creates a lot of unnecessary stroller.',
     whatSectionTitles: ['The Main Double Stroller Paths'],
-    signatureMoment: 'Two-seat capacity is useful only when two seats are solving a real current problem.',
+    signatureMoment: 'Two seats now is a logistics question, not a vibe.',
     worksForSummary:
-      'Double strollers are at their best when they are solving an actual current two-rider problem, not just planning anxiety.',
+      'Double strollers are at their best when they are solving a real current two-rider problem, not just planning anxiety in a very large frame.',
     worksForBullets: [
       'You already have two riders who regularly need stroller help.',
       'Both children are likely to need stroller support regularly.',

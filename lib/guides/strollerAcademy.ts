@@ -496,26 +496,26 @@ export const STROLLER_ACADEMY_PLANNING_QUESTIONS: AcademyPlanningQuestion[] = [
 
 const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> = {
   'full-size-modular-strollers': {
-    definition: 'The everyday lane when the stroller is part of normal life, not just the occasional trunk appearance.',
-    everydayFeel: 'Steady, capable, and built to stay in rotation.',
+    definition: 'The everyday stroller lane for families who want one strong primary stroller and will actually use what the bigger frame gives back.',
+    everydayFeel: 'Steady, roomy, and easier to appreciate the more often you use it.',
     whyExists:
-      'This lane exists for parents who need a stroller to carry the week well: longer walks, deeper baskets, smoother handling, and a seat that feels ready for repeated use.',
-    expertTip: 'If the stroller shows up in your ordinary week, comfort and handling are not extra credit.',
+      'This lane exists because some families really do need more stroller. Longer walks, better basket access, stronger push quality, and a seat that feels good after hour two all matter when the stroller is part of normal life.',
+    expertTip: 'If the stroller shows up four days a week, comfort is not indulgent. It is workflow.',
     compareAgainst: ['compact-lightweight-strollers', 'travel-strollers', 'convertible-strollers'],
     compareNote:
-      'Compare against Compact when lifting and storage are the recurring headache. Compare against Convertible if future sibling planning is starting to shape the decision.',
+      'Compare against Compact when lifting and storage are the recurring complaint. Compare against Convertible if future family timing is turning one stroller decision into two.',
     lessons: [
       {
         title: 'Why parents choose it',
-        body: 'It feels calmer once the stroller is doing real daily work instead of cameo appearances.',
+        body: 'Because repeated walks and longer outings reveal the value of better push, better basket access, and a seat that does not feel apologetic.',
       },
       {
         title: 'Best for',
-        body: 'Walk-heavy routines, longer outings, basket use, and families who want one primary stroller that feels capable.',
+        body: 'Families who want one capable everyday stroller and are willing to live with more frame to get that ease back.',
       },
       {
         title: 'Tradeoff',
-        body: 'You pay for comfort with more frame, more lift, and more stroller living in your trunk or closet.',
+        body: 'You bring home more stroller: more size, more lift, and more trunk presence.',
       },
     ],
     testSections: [
@@ -537,25 +537,25 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
         ],
       },
     ],
-    buyNote: 'Buy full-size when the stroller is part of your week. Skip it when it mostly lives folded in the trunk.',
+    buyNote: 'Buy full-size when your week will use full-size. Otherwise it just becomes a very expensive thing to fold.',
   },
   'compact-lightweight-strollers': {
-    definition: 'The convenience lane for families who want less stroller to lift, fold, store, and live with.',
-    everydayFeel: 'Lighter, quicker, and easier to reset between outings.',
+    definition: 'The convenience lane for families who want the stroller to fit their life a little more quietly.',
+    everydayFeel: 'Easy to grab, easy to stash, and much less dramatic between errands.',
     whyExists:
-      'This lane exists because many families do not need the biggest stroller. They need the stroller that feels easiest to use in trunks, closets, errands, and tighter spaces.',
-    expertTip: 'Compact is usually a lifestyle answer, not a compromise answer.',
+      'This lane exists because many parents do not need the biggest stroller. They need the one that feels simplest when they are late, juggling bags, parking tight, or handing the stroller off to someone else.',
+    expertTip: 'Compact is not the consolation prize. For a lot of families, it is the grown-up answer.',
     compareAgainst: ['full-size-modular-strollers', 'travel-strollers', 'convertible-strollers'],
     compareNote:
-      'Compare against Full-Size when longer walks and bigger baskets still matter. Compare against Travel if flights and transit are the true job.',
+      'Compare against Full-Size if your week still includes longer walks and bigger basket use. Compare against Travel if portability is the main event, not just a nice bonus.',
     lessons: [
       {
         title: 'Why parents choose it',
-        body: 'The daily fold-and-lift routine starts to matter more than maximum stroller presence.',
+        body: 'Because the daily fold-and-lift routine starts to matter more than owning the stroller with the biggest footprint in the room.',
       },
       {
         title: 'Best for',
-        body: 'Car-heavy routines, smaller homes, shared caregiver use, and parents who want easier everyday storage.',
+        body: 'Car-heavy routines, smaller homes, shared caregiver use, and parents who want easier everyday exits.',
       },
       {
         title: 'Tradeoff',
@@ -581,21 +581,21 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
         ],
       },
     ],
-    buyNote: 'Compact wins when convenience keeps showing up in your week. It loses when you keep wishing for more stroller.',
+    buyNote: 'Buy compact when convenience keeps winning the argument. Do not buy it if you already know you will keep wishing it felt sturdier.',
   },
   'travel-strollers': {
     definition: 'The fold-first lane for families who need easier transit, smaller storage pressure, and less stroller overall.',
-    everydayFeel: 'Smaller, faster, and built for the moments between places.',
+    everydayFeel: 'Smaller, faster, and most useful in the moments between places.',
     whyExists:
       'This lane exists to solve movement friction: airports, ride shares, grandparents, tiny trunks, and quick outings where the fold matters almost as much as the push.',
-    expertTip: 'Travel-first only works when portability is the real job, not just a category fantasy.',
+    expertTip: 'Travel-first only works when portability is the real job, not just a flattering category fantasy.',
     compareAgainst: ['compact-lightweight-strollers', 'full-size-modular-strollers'],
     compareNote:
       'Compare against Compact if the stroller is mostly for local life with occasional trips. Compare against Full-Size if destination comfort matters more than transit ease.',
     lessons: [
       {
         title: 'Why parents choose it',
-        body: 'It makes travel and high-movement days feel less like a gear negotiation.',
+        body: 'It makes travel days and high-movement weeks feel less like a negotiation with your gear.',
       },
       {
         title: 'Best for',
@@ -603,7 +603,7 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
       },
       {
         title: 'Tradeoff',
-        body: 'A smaller fold often means less basket, less suspension, and a more minimal feel once you arrive.',
+        body: 'A smaller fold often means less basket, less suspension, and a more minimal feel once you actually arrive.',
       },
     ],
     testSections: [
@@ -625,25 +625,25 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
         ],
       },
     ],
-    buyNote: 'Do not buy the tiniest stroller in the conversation. Buy the one that makes travel easier without becoming annoying on arrival.',
+    buyNote: 'Do not buy the tiniest stroller in the conversation. Buy the one that makes travel easier without becoming annoying once you get there.',
   },
   'convertible-strollers': {
     definition: 'The planning-ahead lane for single-to-double systems when future sibling timing is real enough to matter now.',
-    everydayFeel: 'Flexible, thoughtful, and best when current life can tolerate more stroller for future value.',
+    everydayFeel: 'Thoughtful and flexible, but only satisfying when current life can tolerate more stroller for future value.',
     whyExists:
       'This lane exists for families trying to make one strategic purchase for today and tomorrow. It only works when the expansion path is useful enough to earn the present-day size and complexity.',
-    expertTip: 'Planning for your life matters more than planning for the stroller.',
+    expertTip: 'Planning ahead is smart. Paying a daily bulk tax for a maybe is not.',
     compareAgainst: ['double-strollers', 'full-size-modular-strollers', 'compact-lightweight-strollers'],
     compareNote:
       'Compare against Double if the second seat is immediate. Compare against Full-Size if current life still mostly needs one excellent stroller now.',
     lessons: [
       {
         title: 'Why parents choose it',
-        body: 'The second child feels real enough that future expansion could genuinely change what they buy now.',
+        body: 'Because the second child feels real enough that future expansion could genuinely change what they buy now.',
       },
       {
         title: 'Best for',
-        body: 'Families who want to understand single-to-double planning before buying a stroller twice.',
+        body: 'Families who want to understand single-to-double planning without pretending current life does not still matter more first.',
       },
       {
         title: 'Tradeoff',
@@ -676,8 +676,8 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
     definition: 'The immediate two-rider lane for twins, close age gaps, and families solving sibling logistics in the present tense.',
     everydayFeel: 'Honest, practical, and built for two children who really need seats now.',
     whyExists:
-      'This lane exists because current two-seat life is a different job than planning ahead. When both seats matter now, a dedicated double often solves the problem more honestly.',
-    expertTip: 'Two seats now is a different question than flexibility later.',
+      'This lane exists because current two-seat life is a different job than planning ahead. When both seats matter now, a dedicated double usually solves the problem more honestly.',
+    expertTip: 'Two seats now is a very different question than flexibility later.',
     compareAgainst: ['convertible-strollers', 'compact-lightweight-strollers', 'full-size-modular-strollers'],
     compareNote:
       'Compare against Convertible if the second child is still part of the near future, not the current week. Compare against Compact if only one child rides most of the time.',
@@ -728,7 +728,7 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
     lessons: [
       {
         title: 'Why parents choose it',
-        body: 'Rough sidewalks, gravel, grass, or true jogging plans keep exposing the limits of smaller wheels.',
+        body: 'Because rough sidewalks, gravel, grass, or real jogging plans keep exposing the limits of smaller wheels.',
       },
       {
         title: 'Best for',
@@ -736,7 +736,7 @@ const LANE_CUSTOM_CONTENT: Record<StrollerCategoryGuideSlug, LaneCustomContent> 
       },
       {
         title: 'Tradeoff',
-        body: 'You take on more bulk and a larger fold, which can feel silly if your routine is mostly smooth-surface errands.',
+        body: 'You take on more bulk and a larger fold, which can feel a little ridiculous if your routine is mostly smooth-surface errands.',
       },
     ],
     testSections: [

@@ -278,7 +278,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'Understand before you choose, with a calmer path through the gear decisions that shape daily life most.',
     intro: [
       'Most gear overwhelm starts when parents compare products before they understand the category or the job that gear needs to do.',
-      'This path keeps the order calmer: first how to think, then strollers, car seats, travel systems, the compact-versus-full-size call, and finally the gear that earns daily use.',
+      'This path keeps the order calmer: first how to think, then stroller foundations, car seats, travel systems, and finally the gear that truly earns daily use.',
     ],
     overallSummary: [
       'This path is about understanding before choosing. Instead of jumping straight into brands and features, you will start with fit, then work through the categories that shape daily life most.',
@@ -286,10 +286,10 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     ],
     learningHighlights: [
       'How to think about baby gear through the lens of routine, space, car setup, and real fit.',
-      'How stroller categories differ and what matters more than the feature grid.',
+      'How stroller categories differ, and how the compact-versus-full-size decision helps simplify the shortlist.',
       'How to make the infant-versus-convertible car seat decision with your vehicle and daily use in mind.',
       'How travel systems, adapters, and compatibility actually work in the early months.',
-      'How to decide between compact and full-size, then focus on the daily-use gear that truly earns a place.',
+      'How to focus on the daily-use gear that truly earns a place in your routine.',
     ],
     moduleSectionDescription:
       'Each module narrows the gear conversation so you can understand the category first and compare products later, with much less noise.',
@@ -436,7 +436,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
   'stroller-foundations': {
     pathSlug: 'gear',
     title: 'Stroller Foundations',
-    description: 'Choose the stroller setup that fits your routine, your environment, and your storage reality before you compare brands.',
+    description:
+      'Choose the stroller setup that fits your routine, your environment, and your storage reality, then use the compact-versus-full-size call to shrink the shortlist.',
     subhead: 'Not all strollers are built for the same life.',
     imagePath: '/assets/editorial/strollers.png',
     imageAlt: 'Editorial stroller planning image for the Stroller Foundations academy module.',
@@ -459,15 +460,6 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imagePath: '/assets/editorial/stroller-folds.jpg',
     imageAlt: 'Travel stroller fold image for the Travel Systems academy module.',
     relatedSlug: null,
-  },
-  'compact-vs-full-size': {
-    pathSlug: 'gear',
-    title: 'Compact vs Full-Size Strollers',
-    description: 'Use the compact versus full-size decision to simplify the stroller shortlist around frequency of use and everyday trade-offs.',
-    subhead: 'The decision that simplifies everything.',
-    imagePath: '/assets/editorial/compact.png',
-    imageAlt: 'Compact stroller image for the Compact vs Full-Size Strollers academy module.',
-    relatedSlug: 'stroller-foundations',
   },
   'daily-use-gear': {
     pathSlug: 'gear',

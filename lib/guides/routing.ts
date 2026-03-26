@@ -37,6 +37,7 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'booster-seats': 'booster-seats',
   'rotating-car-seats': 'rotating-car-seats',
   'travel-lightweight-car-seats': 'travel-lightweight-car-seats',
+  'full-size-modular-strollers': 'full-size-strollers',
   'compact-lightweight-strollers': 'compact-strollers',
   'jogging-all-terrain-strollers': 'jogging-strollers',
   ...Object.fromEntries(Object.keys(REGISTRY_SUBGUIDE_PATHS).map((guide) => [guide, guide])),

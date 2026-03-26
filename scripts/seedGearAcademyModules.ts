@@ -8,6 +8,11 @@ import prisma from '@/lib/server/prisma';
 const PUBLISH_FLAG = '--publish';
 const GEAR_CATEGORY = GUIDE_CATEGORIES[5];
 const GEAR_ACADEMY_TOPIC_CLUSTER = 'TMBC Baby Academy: Gear Modules';
+const RETIRED_GEAR_ACADEMY_LOOKUPS: Prisma.GuideWhereInput[] = [
+  { slug: 'academy-gear-compact-vs-full-size' },
+  { slug: 'compact-vs-full-size' },
+  { canonicalUrl: '/academy/gear/compact-vs-full-size' },
+];
 
 function truncateAtWordBoundary(value: string, maxLength: number) {
   if (value.length <= maxLength) {
@@ -248,8 +253,39 @@ async function main() {
     });
   }
 
+  const retiredGuides = await prisma.guide.findMany({
+    where: {
+      topicCluster: {
+        contains: GEAR_ACADEMY_TOPIC_CLUSTER,
+        mode: 'insensitive',
+      },
+      OR: RETIRED_GEAR_ACADEMY_LOOKUPS,
+    },
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      archivedAt: true,
+    },
+  });
+
+  for (const retiredGuide of retiredGuides) {
+    await prisma.guide.update({
+      where: { id: retiredGuide.id },
+      data: {
+        status: 'ARCHIVED',
+        archivedAt: retiredGuide.archivedAt ?? new Date(),
+        scheduledFor: null,
+      },
+    });
+
+    console.log(`Archived retired gear academy module: ${retiredGuide.title}`);
+  }
+
   console.log('');
-  console.log(`Seeded ${GEAR_ACADEMY_MODULES.length} gear academy modules as ${publish ? 'published' : 'draft'} content.`);
+  console.log(
+    `Seeded ${GEAR_ACADEMY_MODULES.length} gear academy modules${publish ? ' as published content.' : ' while preserving existing live statuses when records already existed.'}`,
+  );
   console.log(`Author: ${author.name?.trim() || author.email}`);
   console.log('These records mirror the academy gear path and keep the module copy editable in the guide system without changing the public academy routes.');
 }

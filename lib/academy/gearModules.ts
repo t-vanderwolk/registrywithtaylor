@@ -3,7 +3,6 @@ export type GearAcademyModuleSlug =
   | 'stroller-foundations'
   | 'car-seat-foundations'
   | 'travel-systems'
-  | 'compact-vs-full-size'
   | 'daily-use-gear';
 
 type GearAcademyCoreSection = {
@@ -43,7 +42,7 @@ export type GearAcademyModuleRecord = {
 
 type GearAcademyModuleInput = Omit<GearAcademyModuleRecord, 'path' | 'totalModules' | 'markdownContent'>;
 
-const TOTAL_MODULES = 6;
+const TOTAL_MODULES = 5;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
 function renderProductMarkdown(product: GearAcademyProductExample) {
@@ -125,7 +124,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
     title: 'Stroller Foundations',
     slug: 'stroller-foundations',
     moduleOrder: 2,
-    description: 'Choose the stroller setup that fits your routine, your environment, and your storage reality before you compare brands.',
+    description:
+      'Choose the stroller setup that fits your routine, your environment, and your storage reality, then use the compact-versus-full-size call to shrink the shortlist.',
     subhead: 'Not all strollers are built for the same life.',
     imagePath: '/assets/editorial/strollers.png',
     imageAlt: 'Editorial stroller image for the Stroller Foundations module.',
@@ -133,6 +133,7 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
       'The biggest mistake parents make is choosing a stroller before understanding how they will use it.',
       'There is no best stroller.',
       'There is only the one that fits your day.',
+      'And for most families, the compact-versus-full-size decision is the point where the shortlist finally gets smaller in a useful way.',
     ],
     coreSections: [
       {
@@ -165,10 +166,31 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
           'If the fold or the trunk reality is annoying now, it rarely gets more charming later.',
         ],
       },
+      {
+        title: 'Everyday life vs occasional use',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Compact vs full-size visual comparison.',
+        paragraphs: [
+          'Full-size strollers usually make the most sense when the stroller has a real everyday job.',
+          'Compact strollers make more sense when flexibility, smaller size, and easier loading matter more.',
+          'How often you use it should shape the answer more than the idea of owning the bigger option.',
+        ],
+      },
+      {
+        title: 'Trade-offs that actually matter',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Stroller size comparison visual.',
+        paragraphs: [
+          'This choice is mostly about size versus portability and comfort versus convenience.',
+          'Full-size usually wins some comfort and storage points. Compact usually wins many portability points.',
+          'The right trade-off is the one that makes your regular routine easier, not the one that sounds most impressive.',
+        ],
+      },
     ],
     decisionBullets: [
-      'Choose based on routine.',
+      'Choose based on routine and frequency of use.',
       'Test size and fold mentally before you buy.',
+      'Let the everyday trade-off decide the category.',
       'Prioritize ease over features.',
     ],
     products: [
@@ -318,68 +340,13 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
         pros: ['Cross-brand flexibility', 'Useful when the best stroller and best seat are not the same brand'],
       },
     ],
-    nextModuleSlug: 'compact-vs-full-size',
-    previousModuleSlug: 'car-seat-foundations',
-  },
-  {
-    title: 'Compact vs Full-Size Strollers',
-    slug: 'compact-vs-full-size',
-    moduleOrder: 5,
-    description: 'Use the compact versus full-size decision to simplify the stroller shortlist around frequency of use and everyday trade-offs.',
-    subhead: 'The decision that simplifies everything.',
-    imagePath: '/assets/editorial/compact.png',
-    imageAlt: 'Editorial compact stroller image for the Compact vs Full-Size Strollers module.',
-    intro: [
-      'This is the point where the stroller decision usually becomes much clearer.',
-      'Once you know whether you need full-size or compact, the shortlist gets dramatically smaller.',
-      'That is why this decision tends to simplify everything else.',
-    ],
-    coreSections: [
-      {
-        title: 'Everyday life vs occasional use',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Compact vs full-size visual comparison.',
-        paragraphs: [
-          'Full-size strollers usually make the most sense when the stroller has a real everyday job.',
-          'Compact strollers make more sense when flexibility, smaller size, and easier loading matter more.',
-          'How often you use it should shape the answer more than the idea of owning the bigger option.',
-        ],
-      },
-      {
-        title: 'Trade-offs',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Stroller size comparison visual.',
-        paragraphs: [
-          'This choice is mostly about size versus portability and comfort versus convenience.',
-          'Full-size wins some comfort and storage points. Compact wins many portability points.',
-          'The right trade-off is the one that makes your regular routine easier, not the one that sounds most impressive.',
-        ],
-      },
-    ],
-    decisionBullets: [
-      'Choose based on frequency of use.',
-      'Let the everyday trade-off decide it.',
-      'Simplify the shortlist after this choice is clear.',
-    ],
-    products: [
-      {
-        name: 'Full-Size Option',
-        description: 'A stronger fit when the stroller is doing real everyday duty and comfort matters more than saving a little space.',
-        pros: ['Better for heavier weekly use', 'Usually stronger on comfort and storage'],
-      },
-      {
-        name: 'Compact Option',
-        description: 'A better fit when easier carrying, smaller storage needs, and lighter weight matter more often.',
-        pros: ['Easier portability', 'Works well when the fold and trunk reality matter a lot'],
-      },
-    ],
     nextModuleSlug: 'daily-use-gear',
-    previousModuleSlug: 'travel-systems',
+    previousModuleSlug: 'car-seat-foundations',
   },
   {
     title: 'Daily Use Gear',
     slug: 'daily-use-gear',
-    moduleOrder: 6,
+    moduleOrder: 5,
     description: 'Prioritize the gear that becomes part of your real daily rhythm and skip the categories that mostly create clutter.',
     subhead: 'What you will actually use every day.',
     imagePath: '/assets/editorial/babystuff.png',
@@ -437,7 +404,7 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
     softCtaTitle: 'This is where everything becomes real.',
     softCtaBody: ['And it is usually where personalized guidance makes the biggest difference.'],
     nextModuleSlug: null,
-    previousModuleSlug: 'compact-vs-full-size',
+    previousModuleSlug: 'travel-systems',
   },
 ];
 

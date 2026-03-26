@@ -135,6 +135,11 @@ const academyGuideRedirects = [
     permanent: true,
   },
   {
+    source: '/academy/gear/compact-vs-full-size',
+    destination: '/academy/gear/stroller-foundations',
+    permanent: true,
+  },
+  {
     source: '/guides/postpartum',
     destination: '/academy/postpartum/recovery-and-support',
     permanent: true,

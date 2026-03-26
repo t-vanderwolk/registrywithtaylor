@@ -169,10 +169,10 @@ export default function StrollerAcademyLanePage({
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(displayHeroImage.src);
   const introParagraphs = dedupeTextItems(
     [
-      guide.excerpt?.trim(),
       lane.heroDescription,
       lane.worksForSummary,
       lane.signatureMoment,
+      guide.excerpt?.trim(),
     ],
     3,
   );
@@ -250,7 +250,7 @@ export default function StrollerAcademyLanePage({
                   {lane.title}
                 </h1>
                 <p className="mt-5 max-w-[44rem] text-[1.08rem] leading-8 text-[#4B3641]">
-                  {guide.excerpt?.trim() || lane.heroDescription}
+                  {lane.heroDescription || guide.excerpt?.trim()}
                 </p>
                 <p className="mt-4 text-sm uppercase tracking-[0.18em] text-[#8F4C62]">
                   Updated {formatDate(displayDate)} · {readingTime} min read
