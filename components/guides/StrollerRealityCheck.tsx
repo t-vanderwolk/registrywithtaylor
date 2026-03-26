@@ -34,6 +34,8 @@ export default function StrollerRealityCheck({
             description={card.review}
             pros={card.pros}
             affiliateUrl={null}
+            imageSrc={card.imageUrl ?? null}
+            imageAlt={card.imageAlt ?? null}
             category={card.category}
             position={index + 1}
           />

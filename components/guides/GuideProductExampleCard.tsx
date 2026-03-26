@@ -71,6 +71,8 @@ function buildPros({
 
 export default function GuideProductExampleCard({
   name,
+  imageSrc,
+  imageAlt,
   brand,
   productName,
   typeLabel,
@@ -123,6 +125,8 @@ export default function GuideProductExampleCard({
       description={buildDescription({ whyItMatters, bestFor, typeLabel })}
       pros={buildPros({ pros, standout, specGroups, notes })}
       affiliateUrl={resolvedAffiliateUrl}
+      imageSrc={imageSrc}
+      imageAlt={imageAlt}
       category={resolvedCategory}
       guide={guide}
       position={position}

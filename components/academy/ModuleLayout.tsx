@@ -6,10 +6,15 @@ import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
+import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import type { AcademyBreadcrumbItem, AcademyModuleData } from '@/lib/academy/content';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
 
 type ModuleLayoutProps = {
   module: AcademyModuleData;
@@ -198,13 +203,20 @@ function getModuleTypographyAccent(module: AcademyModuleData) {
   }
 }
 
-export default function ModuleLayout({ module }: ModuleLayoutProps) {
+export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
+  const travelSystemWidget =
+    module.slug === 'travel-systems'
+      ? await Promise.all([getTravelSystemStrollers(), getTravelSystemCarSeats()]).then(([strollers, carSeats]) => ({
+          strollers,
+          carSeats,
+        }))
+      : null;
   const decisionBarActions = [
     module.next ? { label: `Next: ${module.next.title}`, href: module.next.href } : null,
     module.related ? { label: `Related: ${module.related.title}`, href: module.related.href } : null,
@@ -350,6 +362,33 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </section>
 
+          {travelSystemWidget ? (
+            <section className="space-y-6">
+              <div className="max-w-3xl">
+                <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Compatibility Tool</p>
+                <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
+                  Travel system compatibility
+                </h2>
+                <p className="mt-4 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
+                  If the stroller question is dragging the infant seat decision around with it, use this here instead of opening twelve tabs and hoping the adapter story reveals itself. Start with the stroller or the infant seat, then see what actually works together.
+                </p>
+              </div>
+
+              {travelSystemWidget.strollers.length > 0 || travelSystemWidget.carSeats.length > 0 ? (
+                <div className="academy-load-in rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,248,251,0.93)_100%)] px-4 py-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:px-6 sm:py-6">
+                  <TravelSystemGenerator
+                    strollers={travelSystemWidget.strollers}
+                    carSeats={travelSystemWidget.carSeats}
+                  />
+                </div>
+              ) : (
+                <div className="rounded-[1.8rem] border border-dashed border-[rgba(161,91,114,0.18)] bg-white/86 px-5 py-6 text-sm leading-7 text-[#6B5560] sm:px-6">
+                  The TMBC compatibility library is not available in this environment yet. Once the stroller and infant seat data are present, this module will show the same travel system generator used in the full tool.
+                </div>
+              )}
+            </section>
+          ) : null}
+
           {decisionChecklistSections.length > 0 ? (
             <ChecklistCardSet
               title={module.decisionTitle}
@@ -423,7 +462,7 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
               </div>
 
               <div className="grid gap-6 lg:grid-cols-3">
-              {module.products.slice(0, 3).map((product, index) => (
+                {module.products.slice(0, 3).map((product, index) => (
                   <div key={`${module.slug}-${product.brand}-${product.name}-${index}`} className="academy-load-in" style={{ animationDelay: `${140 + index * 80}ms` }}>
                     <ProductCard
                       name={product.name}
@@ -431,6 +470,8 @@ export default function ModuleLayout({ module }: ModuleLayoutProps) {
                       description={product.description}
                       pros={product.pros}
                       affiliateUrl={product.affiliateUrl}
+                      imageSrc={product.imageSrc}
+                      imageAlt={product.imageAlt}
                       category={product.category}
                       guide={`${module.pathSlug}/${module.slug}`}
                       position={index + 1}

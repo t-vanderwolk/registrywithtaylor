@@ -27,6 +27,7 @@ import {
   POSTPARTUM_ACADEMY_MODULES,
   type PostpartumAcademyModuleSlug,
 } from '@/lib/academy/postpartumModules';
+import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import {
@@ -71,6 +72,8 @@ export type AcademyProductExample = {
   pros: string[];
   affiliateUrl: string | null;
   category: string;
+  imageSrc?: string | null;
+  imageAlt?: string | null;
 };
 
 export type AcademyModuleCard = {
@@ -1310,7 +1313,7 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     coreSections: content.coreSections,
     decisionTitle: 'What This Means For You',
     decisionBullets: content.decisionBullets,
-    products: content.products,
+    products: resolveAcademyProductExamples(slug, content.products),
     softCtaLabel: content.softCtaLabel ?? '',
     softCtaTitle: content.softCtaTitle ?? '',
     softCtaBody: content.softCtaBody ?? [],

@@ -13,6 +13,7 @@ import {
   isAcademyModuleSlug,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
+import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import { isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
@@ -354,7 +355,10 @@ export function mergeAcademyModuleWithGuideRecord(
     coreSections: coreSection ? parseCoreSections(coreSection.content, fallbackModule.coreSections) : fallbackModule.coreSections,
     decisionTitle: decisionSection?.title?.trim() || fallbackModule.decisionTitle,
     decisionBullets: decisionBullets.length > 0 ? decisionBullets : fallbackModule.decisionBullets,
-    products: productSection ? parseProductExamples(productSection.content, fallbackModule.products) : fallbackModule.products,
+    products: resolveAcademyProductExamples(
+      fallbackModule.slug,
+      productSection ? parseProductExamples(productSection.content, fallbackModule.products) : fallbackModule.products,
+    ),
     softCtaLabel: softCta.softCtaLabel,
     softCtaTitle: softCta.softCtaTitle,
     softCtaBody: softCta.softCtaBody,
