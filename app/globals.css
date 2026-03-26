@@ -98,15 +98,6 @@
   }
 }
 
-@keyframes academySweep {
-  0% {
-    transform: translateX(-140%);
-  }
-  100% {
-    transform: translateX(140%);
-  }
-}
-
 @keyframes academyPetalDrift {
   0%, 100% {
     transform: rotate(0deg) translate3d(0, 0, 0);
@@ -199,17 +190,6 @@
   overflow: hidden;
 }
 
-.academy-sheen::after {
-  content: "";
-  position: absolute;
-  inset: -40% auto -40% -30%;
-  width: 38%;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.52) 48%, rgba(255,255,255,0) 100%);
-  transform: translateX(-140%);
-  animation: academySweep 3.6s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .motion-reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -292,10 +272,6 @@ a:hover .link-underline::after {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-
-  .academy-sheen::after {
-    animation: none !important;
   }
 
   .motion-reveal,
