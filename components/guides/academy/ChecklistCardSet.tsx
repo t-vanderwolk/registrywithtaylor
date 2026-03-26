@@ -33,6 +33,10 @@ export default function ChecklistCardSet({
   return (
     <section className="space-y-6">
       <div className="max-w-3xl">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
+          <span className="h-[1px] flex-1 max-w-[7rem] bg-[linear-gradient(90deg,rgba(217,134,162,0.55),rgba(217,134,162,0))]" />
+        </div>
         <p className="text-[0.72rem] uppercase tracking-[0.34em] text-[#A15B72]">Checklist</p>
         <h2 className="mt-3 text-3xl font-medium tracking-[-0.03em] text-[#2F2430] sm:text-[2.35rem]">{title}</h2>
         {description ? <p className="mt-4 text-base leading-8 text-[#5B4B55]">{description}</p> : null}
@@ -42,8 +46,12 @@ export default function ChecklistCardSet({
         {sections.map((section) => (
           <section
             key={section.title}
-            className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/90 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
+            className="academy-sheen rounded-[1.95rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)]"
           >
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
+              <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
+            </div>
             <h3 className="text-xl font-medium text-[#2F2430]">{section.title}</h3>
             {section.description ? <p className="mt-2 text-sm leading-7 text-[#5B4B55]">{section.description}</p> : null}
 
@@ -51,7 +59,7 @@ export default function ChecklistCardSet({
               {section.items.map((item) => {
                 const statusStyle = STATUS_STYLES[item.status];
                 return (
-                  <div key={item.label} className="rounded-[1.25rem] bg-[rgba(252,247,249,0.9)] px-4 py-4">
+                  <div key={item.label} className="rounded-[1.35rem] border border-[rgba(217,134,162,0.08)] bg-[rgba(252,247,249,0.92)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
                     <div className="flex items-start gap-3">
                       <span className={`mt-2 h-2.5 w-2.5 rounded-full ${statusStyle.dotClassName}`} />
                       <div className="min-w-0 flex-1">

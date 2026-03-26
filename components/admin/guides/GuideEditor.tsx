@@ -33,11 +33,17 @@ import {
 import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import { sanitizeGuideAffiliateModules, sanitizeGuideFaqItems, sanitizeStringList } from '@/lib/guides/types';
 import { GUIDE_STATUS_LABELS, requiresLiveGuideContent, type GuideStatusValue } from '@/lib/guides/status';
-import { STYLED_BLOCKS, getStyledBlockSnippet, type StyledBlockId } from '@/lib/blog/styledBlocks';
+import { STYLED_BLOCKS, getStyledBlockSnippet, isStyledBlockStart, parseStyledBlock, type StyledBlockId } from '@/lib/blog/styledBlocks';
 import { buildDefaultAffiliateCtaText } from '@/lib/affiliatePartners';
+import {
+  extractGuideMarkdownImages,
+  getGuideMarkdownImageLineOffset,
+  updateGuideMarkdownImage,
+} from '@/lib/guides/markdownImages';
 import { slugify } from '@/lib/slugify';
 
 type SaveMode = 'debounced' | 'immediate' | 'manual';
+type GuideEditorVariant = 'guide' | 'academyModule';
 type GuideContentFormatAction =
   | 'h2'
   | 'h3'
@@ -56,12 +62,100 @@ type HelperNotice = {
   tone: 'success' | 'warning';
   message: string;
 };
+type AcademySectionSnippetId =
+  | 'moduleIntro'
+  | 'coreConsiderations'
+  | 'whatThisMeans'
+  | 'productExamples'
+  | 'softCta'
+  | 'nextSteps';
+type AcademySectionSnippet = {
+  label: string;
+  content: string;
+};
+type MarkdownSection = {
+  title: string;
+  content: string;
+};
+type AcademyDraftStructureSummary = {
+  moduleIntroParagraphs: number;
+  coreSectionCount: number;
+  coreSectionsWithImages: number;
+  checklistItemCount: number;
+  productWidgetCount: number;
+  softCtaTitle: string | null;
+  hasNextStepsSection: boolean;
+};
 
 const placementOptions = [
   { value: 'before_affiliates', label: 'Before affiliate modules' },
   { value: 'after_intro', label: 'After intro' },
   { value: 'before_conclusion', label: 'Before conclusion' },
 ] as const;
+
+const ACADEMY_IGNORED_SECTION_TITLES = new Set([
+  'core considerations',
+  'what this means for you',
+  'product examples',
+  'examples that support this setup',
+  'next steps',
+]);
+
+const ACADEMY_SECTION_SNIPPETS: Record<AcademySectionSnippetId, AcademySectionSnippet> = {
+  moduleIntro: {
+    label: 'Module Intro',
+    content: `## Module X of Y · Path
+
+Add 2 to 4 short paragraphs here.
+
+This becomes the live intro beneath the hero.`,
+  },
+  coreConsiderations: {
+    label: 'Core Considerations',
+    content: `## Core Considerations
+
+### First consideration
+
+![Editorial image alt](https://example.com/editorial-image.jpg)
+
+Add a short paragraph that explains what actually matters here.
+
+### Second consideration
+
+![Editorial image alt](https://example.com/editorial-image.jpg)
+
+Add a second grounded consideration.`,
+  },
+  whatThisMeans: {
+    label: 'What This Means',
+    content: `## What This Means For You
+
+- First practical takeaway
+- Second decision point
+- Third grounded reminder`,
+  },
+  productExamples: {
+    label: 'Product Examples',
+    content: `## Examples That Support This Setup
+
+Add one or more \`:::product\` widgets below this heading. Each product widget becomes a live academy product card.`,
+  },
+  softCta: {
+    label: 'Soft CTA',
+    content: `## A Note Before You Move Forward
+
+Add 1 to 3 short paragraphs here.
+
+The live academy module uses the first non-core section like this as the TMBC expert callout.`,
+  },
+  nextSteps: {
+    label: 'Next Steps',
+    content: `## Next Steps
+
+- Continue to the next module
+- Back to the previous module`,
+  },
+};
 
 const createEmptyFaq = () => ({
   question: '',
@@ -188,6 +282,136 @@ function countWords(value: string) {
   return normalized ? normalized.split(/\s+/).length : 0;
 }
 
+function normalizeSectionTitle(value: string) {
+  return value
+    .replace(/[*_`~]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function splitMarkdownSections(content: string, headingLevel: 2 | 3): MarkdownSection[] {
+  const headingPrefix = `${'#'.repeat(headingLevel)} `;
+  const lines = content.split('\n');
+  const sections: MarkdownSection[] = [];
+  let currentTitle: string | null = null;
+  let currentLines: string[] = [];
+
+  for (const line of lines) {
+    if (line.startsWith(headingPrefix)) {
+      if (currentTitle) {
+        sections.push({
+          title: currentTitle,
+          content: currentLines.join('\n').trim(),
+        });
+      }
+
+      currentTitle = line.slice(headingPrefix.length).trim();
+      currentLines = [];
+      continue;
+    }
+
+    if (currentTitle) {
+      currentLines.push(line);
+    }
+  }
+
+  if (currentTitle) {
+    sections.push({
+      title: currentTitle,
+      content: currentLines.join('\n').trim(),
+    });
+  }
+
+  return sections;
+}
+
+function isAcademyParagraphBlock(block: string) {
+  const trimmed = block.trim();
+
+  return (
+    Boolean(trimmed) &&
+    !trimmed.startsWith('#') &&
+    !trimmed.startsWith(':::') &&
+    !trimmed.startsWith('![') &&
+    !trimmed.startsWith('>') &&
+    !/^[-*]\s+/.test(trimmed) &&
+    !/^\d+\.\s+/.test(trimmed)
+  );
+}
+
+function countParagraphBlocks(content: string) {
+  return content
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(isAcademyParagraphBlock).length;
+}
+
+function extractMarkdownListCount(content: string) {
+  return content
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => /^[-*]\s+/.test(line) || /^\d+\.\s+/.test(line)).length;
+}
+
+function countProductStyledBlocks(content: string) {
+  const lines = content.split('\n');
+  let productCount = 0;
+
+  for (let index = 0; index < lines.length;) {
+    if (!isStyledBlockStart(lines[index] ?? '')) {
+      index += 1;
+      continue;
+    }
+
+    const parsed = parseStyledBlock(lines, index);
+    if (!parsed) {
+      index += 1;
+      continue;
+    }
+
+    index = parsed.nextIndex;
+    if (parsed.block.type === 'product') {
+      productCount += 1;
+    }
+  }
+
+  return productCount;
+}
+
+function summarizeAcademyDraftStructure(content: string): AcademyDraftStructureSummary {
+  const sections = splitMarkdownSections(content, 2);
+  const introSection =
+    sections.find((section) => normalizeSectionTitle(section.title).startsWith('module ')) ?? null;
+  const coreSection =
+    sections.find((section) => normalizeSectionTitle(section.title) === 'core considerations') ?? null;
+  const checklistSection =
+    sections.find((section) => normalizeSectionTitle(section.title) === 'what this means for you') ?? null;
+  const productSection =
+    sections.find((section) => {
+      const normalizedTitle = normalizeSectionTitle(section.title);
+      return normalizedTitle === 'product examples' || normalizedTitle === 'examples that support this setup';
+    }) ?? null;
+  const softCtaSection =
+    sections.find((section) => {
+      const normalizedTitle = normalizeSectionTitle(section.title);
+      return !ACADEMY_IGNORED_SECTION_TITLES.has(normalizedTitle) && !normalizedTitle.startsWith('module ');
+    }) ?? null;
+  const nextStepsSection =
+    sections.find((section) => normalizeSectionTitle(section.title) === 'next steps') ?? null;
+  const coreSubsections = coreSection ? splitMarkdownSections(coreSection.content, 3) : [];
+
+  return {
+    moduleIntroParagraphs: introSection ? countParagraphBlocks(introSection.content) : 0,
+    coreSectionCount: coreSubsections.length,
+    coreSectionsWithImages: coreSubsections.filter((section) => /!\[[^\]]*]\([^)]+\)/.test(section.content)).length,
+    checklistItemCount: checklistSection ? extractMarkdownListCount(checklistSection.content) : 0,
+    productWidgetCount: productSection ? countProductStyledBlocks(productSection.content) : 0,
+    softCtaTitle: softCtaSection?.title ?? null,
+    hasNextStepsSection: Boolean(nextStepsSection),
+  };
+}
+
 function getReadingTimeMinutes(wordCount: number) {
   return wordCount === 0 ? 0 : Math.ceil(wordCount / 200);
 }
@@ -272,6 +496,12 @@ function validateGuideState(guide: GuideState) {
 
   if (guide.ogImageUrl?.trim() && !isValidImageUrl(guide.ogImageUrl)) {
     return 'OG image URLs must start with http://, https://, or /.';
+  }
+
+  for (const image of extractGuideMarkdownImages(guide.content)) {
+    if (!isValidImageUrl(image.src)) {
+      return 'Inline guide image URLs must start with http://, https://, or /.';
+    }
   }
 
   if (guide.canonicalUrl?.trim() && !isValidLinkTarget(guide.canonicalUrl)) {
@@ -378,6 +608,7 @@ export default function GuideEditor({
   relatedGuideOptions,
   adminBasePath = '/admin/guides',
   listingHref,
+  editorVariant = 'guide',
 }: {
   initialGuide: PersistedGuideRecord;
   authorOptions: AuthorOption[];
@@ -385,8 +616,10 @@ export default function GuideEditor({
   relatedGuideOptions: RelatedGuideOption[];
   adminBasePath?: string;
   listingHref?: string;
+  editorVariant?: GuideEditorVariant;
 }) {
   const router = useRouter();
+  const isAcademyModuleEditor = editorVariant === 'academyModule';
   const resolvedListingHref = listingHref ?? adminBasePath;
   const initialState = useMemo(() => toGuideState(initialGuide), [initialGuide]);
   const [guide, setGuide] = useState<GuideState>(initialState);
@@ -440,6 +673,8 @@ export default function GuideEditor({
     templateSelection === 'blank'
       ? null
       : GUIDE_TEMPLATE_OPTIONS.find((template) => template.id === templateSelection) ?? null;
+  const contentEditorialImages = useMemo(() => extractGuideMarkdownImages(guide.content), [guide.content]);
+  const academyDraftStructure = useMemo(() => summarizeAcademyDraftStructure(guide.content), [guide.content]);
 
   useEffect(() => {
     stateRef.current = guide;
@@ -1026,6 +1261,15 @@ export default function GuideEditor({
     });
   }
 
+  function insertAcademySectionSnippet(snippetId: AcademySectionSnippetId) {
+    const snippet = ACADEMY_SECTION_SNIPPETS[snippetId];
+    insertGuideContentBlockAtCursor(snippet.content, 'debounced');
+    setHelperNotice({
+      tone: 'success',
+      message: `${snippet.label} inserted into the academy module draft.`,
+    });
+  }
+
   function insertStyledBlock(blockId: StyledBlockId) {
     const snippet = getStyledBlockSnippet(blockId);
     if (!snippet) {
@@ -1040,6 +1284,29 @@ export default function GuideEditor({
         message: `${block.label} inserted into the guide draft.`,
       });
     }
+  }
+
+  function handleContentImageUpdate(
+    lineNumber: number,
+    partial: {
+      alt?: string;
+      src?: string;
+    },
+  ) {
+    applyGuideUpdate(
+      (current) => ({
+        ...current,
+        content: updateGuideMarkdownImage(current.content, lineNumber, partial),
+      }),
+      'debounced',
+    );
+  }
+
+  function jumpToContentImage(lineNumber: number) {
+    const currentContent = stateRef.current.content;
+    const start = getGuideMarkdownImageLineOffset(currentContent, lineNumber);
+    const line = currentContent.split('\n')[lineNumber] ?? '';
+    focusGuideContentSelection(start, start + line.length);
   }
 
   async function openPreview() {
@@ -1063,70 +1330,123 @@ export default function GuideEditor({
     <AdminSurface className="admin-stack gap-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="admin-stack gap-1.5">
-          <p className="admin-eyebrow">Guide Start</p>
-          <h2 className="admin-h2">Start From Template</h2>
-          <p className="admin-body">Load either a guide framework or one of the blog editor starters into the draft before you refine it for search and authority.</p>
+          <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Academy Module' : 'Guide Start'}</p>
+          <h2 className="admin-h2">{isAcademyModuleEditor ? 'Live Module Structure' : 'Start From Template'}</h2>
+          <p className="admin-body">
+            {isAcademyModuleEditor
+              ? 'This editor maps directly to the live academy renderer. Build the module with the exact sections below, then use preview to confirm the public layout.'
+              : 'Load either a guide framework or one of the blog editor starters into the draft before you refine it for search and authority.'}
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton variant="secondary" size="sm" onClick={() => void openPreview()} disabled={!canPreview || saving}>
-            Preview content
+            {isAcademyModuleEditor ? 'Preview live module' : 'Preview content'}
           </AdminButton>
         </div>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <div className="admin-stack gap-2">
-          <AdminField
-            label="Start From Template"
-            htmlFor="guide-template-select"
-            help="Templates only insert into a blank guide draft. Blog editor starters are included here too."
-          >
-            <AdminSelect
-              id="guide-template-select"
-              value={templateSelection}
-              onChange={(event) => handleTemplateSelection(event.target.value as TemplateSelectValue)}
-            >
-              <option value="blank">Blank Guide</option>
-              <optgroup label="Guide templates">
-                {guideTemplateOptions.map((template) => (
-                  <option key={template.id} value={template.id}>
-                    {template.label}
-                  </option>
-                ))}
-              </optgroup>
-              <optgroup label="Blog editor templates">
-                {blogTemplateOptions.map((template) => (
-                  <option key={template.id} value={template.id}>
-                    {template.label}
-                  </option>
-                ))}
-              </optgroup>
-            </AdminSelect>
-          </AdminField>
+        {isAcademyModuleEditor ? (
+          <>
+            <div className="admin-stack gap-3">
+              <div className="admin-stack gap-1">
+                <p className="admin-label">Academy Section Scaffolds</p>
+                <p className="admin-micro">
+                  Insert the exact headings the live academy module parser reads. Missing sections fall back to seeded defaults on the public page.
+                </p>
+              </div>
 
-          {selectedTemplateOption ? (
-            <div className="rounded-[20px] border border-[var(--admin-color-border)] bg-white p-4">
-              <p className="admin-label">
-                {selectedTemplateOption.source === 'blog' ? 'Blog editor template' : 'Guide template'}
-              </p>
-              {selectedTemplateOption.description ? (
-                <p className="admin-micro mt-2">{selectedTemplateOption.description}</p>
-              ) : null}
+              <div className="flex flex-wrap items-center gap-2">
+                {(Object.entries(ACADEMY_SECTION_SNIPPETS) as Array<[AcademySectionSnippetId, AcademySectionSnippet]>).map(
+                  ([snippetId, snippet]) => (
+                    <AdminButton
+                      key={snippetId}
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => insertAcademySectionSnippet(snippetId)}
+                    >
+                      {snippet.label}
+                    </AdminButton>
+                  ),
+                )}
+              </div>
+
+              {helperNotice ? <AdminToast tone={helperNotice.tone}>{helperNotice.message}</AdminToast> : null}
             </div>
-          ) : null}
 
-          {helperNotice ? <AdminToast tone={helperNotice.tone}>{helperNotice.message}</AdminToast> : null}
-        </div>
+            <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+              <p className="admin-label">Live Structure Snapshot</p>
+              <p className="admin-micro">Intro paragraphs: {academyDraftStructure.moduleIntroParagraphs}</p>
+              <p className="admin-micro">
+                Core cards: {academyDraftStructure.coreSectionCount} · with images: {academyDraftStructure.coreSectionsWithImages}
+              </p>
+              <p className="admin-micro">Checklist bullets: {academyDraftStructure.checklistItemCount}</p>
+              <p className="admin-micro">Product widgets: {academyDraftStructure.productWidgetCount}</p>
+              <p className="admin-micro">
+                Soft CTA: {academyDraftStructure.softCtaTitle ? academyDraftStructure.softCtaTitle : 'Using seeded fallback'}
+              </p>
+              <p className="admin-micro">
+                Next steps section: {academyDraftStructure.hasNextStepsSection ? 'Present in draft' : 'Not written yet'}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="admin-stack gap-2">
+              <AdminField
+                label="Start From Template"
+                htmlFor="guide-template-select"
+                help="Templates only insert into a blank guide draft. Blog editor starters are included here too."
+              >
+                <AdminSelect
+                  id="guide-template-select"
+                  value={templateSelection}
+                  onChange={(event) => handleTemplateSelection(event.target.value as TemplateSelectValue)}
+                >
+                  <option value="blank">Blank Guide</option>
+                  <optgroup label="Guide templates">
+                    {guideTemplateOptions.map((template) => (
+                      <option key={template.id} value={template.id}>
+                        {template.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Blog editor templates">
+                    {blogTemplateOptions.map((template) => (
+                      <option key={template.id} value={template.id}>
+                        {template.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                </AdminSelect>
+              </AdminField>
 
-        <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
-          <p className="admin-label">Authority Goal</p>
-          <p className={`text-sm font-semibold uppercase tracking-[0.12em] ${wordCountToneClass}`}>
-            Word Count: {wordCount.toLocaleString()}
-          </p>
-          <p className="admin-micro">Target: Minimum 4000 words</p>
-          <p className="admin-micro">Estimated reading time: {readingTimeLabel}</p>
-        </div>
+              {selectedTemplateOption ? (
+                <div className="rounded-[20px] border border-[var(--admin-color-border)] bg-white p-4">
+                  <p className="admin-label">
+                    {selectedTemplateOption.source === 'blog' ? 'Blog editor template' : 'Guide template'}
+                  </p>
+                  {selectedTemplateOption.description ? (
+                    <p className="admin-micro mt-2">{selectedTemplateOption.description}</p>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {helperNotice ? <AdminToast tone={helperNotice.tone}>{helperNotice.message}</AdminToast> : null}
+            </div>
+
+            <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+              <p className="admin-label">Authority Goal</p>
+              <p className={`text-sm font-semibold uppercase tracking-[0.12em] ${wordCountToneClass}`}>
+                Word Count: {wordCount.toLocaleString()}
+              </p>
+              <p className="admin-micro">Target: Minimum 4000 words</p>
+              <p className="admin-micro">Estimated reading time: {readingTimeLabel}</p>
+            </div>
+          </>
+        )}
       </div>
     </AdminSurface>
   );
@@ -1274,7 +1594,7 @@ export default function GuideEditor({
     <AdminSurface className="admin-stack gap-4">
       <div className="admin-stack gap-1.5">
         <p className="admin-eyebrow">Snapshot</p>
-        <h2 className="admin-h2">Editor summary</h2>
+        <h2 className="admin-h2">{isAcademyModuleEditor ? 'Live module summary' : 'Editor summary'}</h2>
       </div>
 
       <div className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
@@ -1285,9 +1605,21 @@ export default function GuideEditor({
             canonicalUrl: guide.canonicalUrl,
           }) : 'Not generated yet'}
         </p>
-        <p className="admin-micro">Target keyword: {guide.targetKeyword || 'Not set'}</p>
-        <p className="admin-micro">Related guides: {guide.relatedGuideIds.length}</p>
-        <p className="admin-micro">Affiliate modules: {guide.affiliateModules.length}</p>
+        {isAcademyModuleEditor ? (
+          <>
+            <p className="admin-micro">Hero image: {guide.heroImageUrl?.trim() ? 'Ready for live module' : 'Using fallback or empty'}</p>
+            <p className="admin-micro">Path summary: {guide.excerpt?.trim() ? 'Ready for live cards' : 'Missing excerpt / summary'}</p>
+            <p className="admin-micro">Core cards detected: {academyDraftStructure.coreSectionCount}</p>
+            <p className="admin-micro">Checklist bullets detected: {academyDraftStructure.checklistItemCount}</p>
+            <p className="admin-micro">Product widgets detected: {academyDraftStructure.productWidgetCount}</p>
+          </>
+        ) : (
+          <>
+            <p className="admin-micro">Target keyword: {guide.targetKeyword || 'Not set'}</p>
+            <p className="admin-micro">Related guides: {guide.relatedGuideIds.length}</p>
+            <p className="admin-micro">Affiliate modules: {guide.affiliateModules.length}</p>
+          </>
+        )}
       </div>
 
       {hasPersistedGuide && guide.slug ? (
@@ -1314,9 +1646,13 @@ export default function GuideEditor({
       <AdminStack gap="lg">
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
-            <p className="admin-eyebrow">Core Content</p>
-            <h2 className="admin-h2">Guide basics</h2>
-            <p className="admin-body">Set the core editorial framing before filling in the long-form sections.</p>
+            <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Basics' : 'Core Content'}</p>
+            <h2 className="admin-h2">{isAcademyModuleEditor ? 'Academy module basics' : 'Guide basics'}</h2>
+            <p className="admin-body">
+              {isAcademyModuleEditor
+                ? 'These fields feed the live academy hero, path cards, and module summary before the markdown sections render below.'
+                : 'Set the core editorial framing before filling in the long-form sections.'}
+            </p>
           </div>
 
           <AdminField
@@ -1332,7 +1668,15 @@ export default function GuideEditor({
             />
           </AdminField>
 
-          <AdminField label="Excerpt / summary" htmlFor="guide-excerpt" help="Used on the guide index and social previews.">
+          <AdminField
+            label="Excerpt / summary"
+            htmlFor="guide-excerpt"
+            help={
+              isAcademyModuleEditor
+                ? 'Used on academy path pages, live module summaries, and social previews.'
+                : 'Used on the guide index and social previews.'
+            }
+          >
             <AdminTextarea
               id="guide-excerpt"
               value={guide.excerpt ?? ''}
@@ -1351,7 +1695,11 @@ export default function GuideEditor({
           </AdminField>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <AdminField label="Hero image URL" htmlFor="guide-hero-image-url" help="Use a full URL or root-relative path.">
+            <AdminField
+              label="Hero image URL"
+              htmlFor="guide-hero-image-url"
+              help={isAcademyModuleEditor ? 'This is the live academy hero image. Use a full URL or root-relative path.' : 'Use a full URL or root-relative path.'}
+            >
               <AdminInput
                 id="guide-hero-image-url"
                 value={guide.heroImageUrl ?? ''}
@@ -1409,9 +1757,13 @@ export default function GuideEditor({
       <AdminStack gap="lg">
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
-            <p className="admin-eyebrow">SEO / Metadata</p>
-            <h2 className="admin-h2">Search and social metadata</h2>
-            <p className="admin-body">This layer controls how the guide is framed for search, sharing, and internal discovery.</p>
+            <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Metadata' : 'SEO / Metadata'}</p>
+            <h2 className="admin-h2">{isAcademyModuleEditor ? 'Search and sharing metadata' : 'Search and social metadata'}</h2>
+            <p className="admin-body">
+              {isAcademyModuleEditor
+                ? 'These fields shape search, sharing, and admin discoverability. They do not replace the academy module body sections.'
+                : 'This layer controls how the guide is framed for search, sharing, and internal discovery.'}
+            </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -1649,14 +2001,87 @@ export default function GuideEditor({
       </AdminStack>
     ) : activeTab === 'structure' ? (
       <AdminStack gap="lg">
+        {isAcademyModuleEditor ? (
+          <AdminSurface className="admin-stack gap-4">
+            <div className="admin-stack gap-1.5">
+              <p className="admin-eyebrow">Live Academy Mapping</p>
+              <h2 className="admin-h2">What the public module actually reads</h2>
+              <p className="admin-body">
+                The academy preview and live module do not render this draft as a generic article. They parse the headings below into TMBC academy cards, checklists, product widgets, and callouts.
+              </p>
+            </div>
+
+            <div className="grid gap-3 lg:grid-cols-2">
+              {[
+                {
+                  title: 'Title + excerpt + hero image',
+                  status: guide.title.trim() && guide.excerpt?.trim() && guide.heroImageUrl?.trim() ? 'Ready' : 'Needs attention',
+                  body: 'These fields drive the module title, summary, and hero media on the live academy page.',
+                },
+                {
+                  title: '## Module X of Y',
+                  status: academyDraftStructure.moduleIntroParagraphs > 0 ? `${academyDraftStructure.moduleIntroParagraphs} intro paragraphs` : 'Missing in draft',
+                  body: 'This section becomes the intro copy beneath the hero.',
+                },
+                {
+                  title: '## Core Considerations',
+                  status:
+                    academyDraftStructure.coreSectionCount > 0
+                      ? `${academyDraftStructure.coreSectionCount} live cards`
+                      : 'Missing in draft',
+                  body: 'Each `###` subsection becomes its own live editorial card. Inline markdown images inside those subsections become the section visuals.',
+                },
+                {
+                  title: '## What This Means For You',
+                  status:
+                    academyDraftStructure.checklistItemCount > 0
+                      ? `${academyDraftStructure.checklistItemCount} checklist bullets`
+                      : 'Missing in draft',
+                  body: 'The bullet list in this section becomes the checklist-style decision widget.',
+                },
+                {
+                  title: '## Examples That Support This Setup',
+                  status:
+                    academyDraftStructure.productWidgetCount > 0
+                      ? `${academyDraftStructure.productWidgetCount} product widgets`
+                      : 'Using seeded examples or none',
+                  body: 'Only `:::product` widgets inside this section become live academy product cards.',
+                },
+                {
+                  title: 'First non-core section',
+                  status: academyDraftStructure.softCtaTitle ? academyDraftStructure.softCtaTitle : 'Using seeded fallback',
+                  body: 'Usually this is `## A Note Before You Move Forward`. The first non-core section becomes the TMBC expert callout.',
+                },
+                {
+                  title: '## Next Steps',
+                  status: academyDraftStructure.hasNextStepsSection ? 'Present in draft' : 'Optional editorial copy',
+                  body: 'This section is editorial only. Actual module navigation still comes from the module order and next/previous slugs.',
+                },
+              ].map((item) => (
+                <div key={item.title} className="space-y-2 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+                  <p className="admin-label">{item.title}</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-admin">{item.status}</p>
+                  <p className="admin-micro">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </AdminSurface>
+        ) : null}
+
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
-            <p className="admin-eyebrow">Guide Structure</p>
-            <h2 className="admin-h2">Long-form content</h2>
-            <p className="admin-body">Write the full guide in one continuous field. Use markdown headings to create structure where it actually helps the reader.</p>
+            <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Structure' : 'Guide Structure'}</p>
+            <h2 className="admin-h2">{isAcademyModuleEditor ? 'Academy markdown' : 'Long-form content'}</h2>
+            <p className="admin-body">
+              {isAcademyModuleEditor
+                ? 'Write the academy module in one field, but keep the heading structure exact. The live academy layout converts these sections into widgets and editorial cards.'
+                : 'Write the full guide in one continuous field. Use markdown headings to create structure where it actually helps the reader.'}
+            </p>
             <div className="flex flex-wrap items-center gap-3">
               <p className={`admin-micro ${wordCountToneClass}`}>Word Count: {wordCount.toLocaleString()}</p>
-              <p className="admin-micro">Target: Minimum 4000 words</p>
+              <p className="admin-micro">
+                {isAcademyModuleEditor ? 'Focus on clear sections, not long-form SEO length.' : 'Target: Minimum 4000 words'}
+              </p>
             </div>
           </div>
 
@@ -1678,7 +2103,15 @@ export default function GuideEditor({
             <span>{guide.tableOfContentsEnabled ? 'Table of contents enabled' : 'Table of contents hidden'}</span>
           </label>
 
-          <AdminField label="Guide content" htmlFor="guide-content" help="Write in markdown with clear H2 and H3 structure where needed.">
+          <AdminField
+            label={isAcademyModuleEditor ? 'Module content' : 'Guide content'}
+            htmlFor="guide-content"
+            help={
+              isAcademyModuleEditor
+                ? 'Use the exact academy headings shown above. `###` sections inside `## Core Considerations` become live cards.'
+                : 'Write in markdown with clear H2 and H3 structure where needed.'
+            }
+          >
             <div className="admin-stack gap-3">
               <div className="admin-stack gap-1">
                 <p className="admin-eyebrow">Formatting Tools</p>
@@ -1718,9 +2151,90 @@ export default function GuideEditor({
                 </AdminButton>
               </div>
 
+              <div className="admin-stack gap-3">
+                <div className="admin-stack gap-1">
+                  <p className="admin-eyebrow">Editorial Images</p>
+                  <p className="admin-micro">
+                    Academy modules and guide layouts read these markdown image rows directly. Swap placeholder URLs here instead of digging through the draft.
+                  </p>
+                </div>
+
+                {contentEditorialImages.length === 0 ? (
+                  <div className="rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
+                    <p className="admin-micro">
+                      No inline images in this draft yet. Use the Image button above to insert one, then manage it here.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {contentEditorialImages.map((image) => (
+                      <div
+                        key={`${image.lineNumber}-${image.index}`}
+                        className="space-y-4 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4"
+                      >
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div className="admin-stack gap-1">
+                            <p className="admin-label">{image.heading || `Image ${image.index + 1}`}</p>
+                            <p className="admin-micro">
+                              {image.isPlaceholder ? 'Placeholder active' : 'Live image'} · line {image.lineNumber + 1}
+                            </p>
+                          </div>
+                          <AdminButton
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => jumpToContentImage(image.lineNumber)}
+                          >
+                            Jump to markdown
+                          </AdminButton>
+                        </div>
+
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <AdminField label="Image URL" htmlFor={`guide-inline-image-url-${image.lineNumber}`}>
+                            <AdminInput
+                              id={`guide-inline-image-url-${image.lineNumber}`}
+                              value={image.src}
+                              onChange={(event) =>
+                                handleContentImageUpdate(image.lineNumber, {
+                                  src: event.target.value,
+                                })
+                              }
+                              placeholder="https://cdn.example.com/editorial-image.jpg"
+                            />
+                          </AdminField>
+
+                          <AdminField label="Alt text" htmlFor={`guide-inline-image-alt-${image.lineNumber}`}>
+                            <AdminInput
+                              id={`guide-inline-image-alt-${image.lineNumber}`}
+                              value={image.alt}
+                              onChange={(event) =>
+                                handleContentImageUpdate(image.lineNumber, {
+                                  alt: event.target.value,
+                                })
+                              }
+                              placeholder="Editorial image description"
+                            />
+                          </AdminField>
+                        </div>
+
+                        {image.src ? (
+                          <div className="overflow-hidden rounded-[20px] border border-[var(--admin-color-border)] bg-[rgba(251,248,245,0.8)]">
+                            <img src={image.src} alt={image.alt || 'Guide editorial preview'} className="h-auto w-full" />
+                          </div>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <div className="admin-stack gap-1">
-                <p className="admin-eyebrow">Insert Section</p>
-                <p className="admin-micro">Drop a ready-made TMBC section into the guide draft at the current cursor position.</p>
+                <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Insert Guide Section' : 'Insert Section'}</p>
+                <p className="admin-micro">
+                  {isAcademyModuleEditor
+                    ? 'Use these generic TMBC sections when you need extra framing inside a module. The academy-specific scaffold buttons live above.'
+                    : 'Drop a ready-made TMBC section into the guide draft at the current cursor position.'}
+                </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-2">

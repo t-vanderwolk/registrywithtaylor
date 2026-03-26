@@ -212,7 +212,7 @@ async function main() {
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: guide.secondaryKeywords,
       internalLinkNotes:
-        'Seeded from content/guides. Review internal comparison placeholders and add live retailer destination URLs when merchandising is ready.',
+        'Seeded from content/guides. These records also act as the Car Seat Foundations sub modules inside TMBC Baby Academy. Review internal comparison placeholders and add live retailer destination URLs when merchandising is ready.',
       tableOfContentsEnabled: true,
       faqItems: guide.faqItems as Prisma.InputJsonValue,
       affiliateDisclosureEnabled: false,
@@ -225,8 +225,8 @@ async function main() {
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
-      nextStepCtaLabel: 'Read the Car Seat Guide',
-      nextStepCtaHref: getGuidePath({ slug: 'best-infant-car-seats' }),
+      nextStepCtaLabel: 'Back to Car Seat Foundations',
+      nextStepCtaHref: '/academy/gear/car-seat-foundations',
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };
@@ -253,6 +253,17 @@ async function main() {
     where: { slug: 'best-infant-car-seats' },
     select: { id: true, relatedGuideIds: true },
   });
+  const academyCarSeatFoundationsGuide = await prisma.guide.findFirst({
+    where: {
+      OR: [
+        { canonicalUrl: '/academy/gear/car-seat-foundations' },
+        { slug: 'academy-gear-car-seat-foundations' },
+        { slug: 'car-seat-foundations' },
+        { slug: 'car-seat-basics' },
+      ],
+    },
+    select: { id: true },
+  });
 
   const travelWithBabyGuide = await prisma.guide.findUnique({
     where: { slug: 'travel-with-baby' },
@@ -265,19 +276,24 @@ async function main() {
       continue;
     }
 
-    const relatedGuideIds = guide.relatedSlugs
-      .map((slug) => {
-        if (slug === 'best-infant-car-seats') {
-          return bestCarSeatGuide?.id ?? null;
-        }
+    const relatedGuideIds = Array.from(
+      new Set(
+        [
+          ...guide.relatedSlugs.map((slug) => {
+            if (slug === 'best-infant-car-seats') {
+              return bestCarSeatGuide?.id ?? null;
+            }
 
-        if (slug === 'travel-with-baby') {
-          return travelWithBabyGuide?.id ?? null;
-        }
+            if (slug === 'travel-with-baby') {
+              return travelWithBabyGuide?.id ?? null;
+            }
 
-        return seededGuideIdsBySlug.get(slug) ?? null;
-      })
-      .filter((id): id is string => Boolean(id));
+            return seededGuideIdsBySlug.get(slug) ?? null;
+          }),
+          academyCarSeatFoundationsGuide?.id ?? null,
+        ].filter((id): id is string => Boolean(id)),
+      ),
+    );
 
     await prisma.guide.update({
       where: { id: guideId },

@@ -31,37 +31,32 @@ const academyGuideRedirects = [
   },
   {
     source: '/guides/infant-car-seats',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/infant-car-seats',
     permanent: true,
   },
   {
     source: '/guides/convertible-car-seats',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/convertible-car-seats',
     permanent: true,
   },
   {
     source: '/guides/all-in-one-car-seats',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/all-in-one-car-seats',
     permanent: true,
   },
   {
     source: '/guides/booster-seats',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/booster-seats',
     permanent: true,
   },
   {
     source: '/guides/rotating-car-seats',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/rotating-car-seats',
     permanent: true,
   },
   {
     source: '/guides/travel-lightweight-car-seats',
-    destination: '/academy/gear/car-seat-foundations',
-    permanent: true,
-  },
-  {
-    source: '/guides/car-seats/:subSlug',
-    destination: '/academy/gear/car-seat-foundations',
+    destination: '/guides/car-seats/travel-lightweight-car-seats',
     permanent: true,
   },
   {

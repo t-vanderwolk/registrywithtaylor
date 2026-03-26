@@ -32,6 +32,7 @@ import {
 } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
 import { getStrollerHubCategoryCards } from '@/lib/guides/strollerCluster';
+import { getCarSeatAcademyCategoryCards } from '@/lib/guides/carSeatAcademy';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
@@ -746,22 +747,37 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
 }
 
 function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSection | null {
-  if (slug !== 'stroller-foundations') {
-    return null;
+  if (slug === 'stroller-foundations') {
+    return {
+      title: 'Stroller Foundations Sub Modules',
+      description:
+        'Once the category basics click, use these stroller category guides to go deeper into the lane that actually fits your routine.',
+      cards: getStrollerHubCategoryCards().map((card) => ({
+        href: card.href,
+        title: card.title,
+        description: card.description,
+        ctaLabel: 'Open sub module ->',
+        eyebrow: 'Stroller Category',
+      })),
+    };
   }
 
-  return {
-    title: 'Stroller Foundations Sub Modules',
-    description:
-      'Once the category basics click, use these stroller category guides to go deeper into the lane that actually fits your routine.',
-    cards: getStrollerHubCategoryCards().map((card) => ({
-      href: card.href,
-      title: card.title,
-      description: card.description,
-      ctaLabel: 'Open sub module ->',
-      eyebrow: 'Stroller Category',
-    })),
-  };
+  if (slug === 'car-seat-foundations') {
+    return {
+      title: 'Car Seat Foundations Sub Modules',
+      description:
+        'Once the stage basics click, use these car seat category guides to go deeper into the lane that actually fits your vehicle, your routine, and the chapter you are in.',
+      cards: getCarSeatAcademyCategoryCards().map((card) => ({
+        href: card.href,
+        title: card.title,
+        description: card.description,
+        ctaLabel: 'Open sub module ->',
+        eyebrow: 'Car Seat Category',
+      })),
+    };
+  }
+
+  return null;
 }
 
 function buildGearAcademyModule(slug: GearAcademyModuleSlug): AcademyModuleContent {

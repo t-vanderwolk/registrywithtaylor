@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
+import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
 import Hero from '@/components/ui/Hero';
 import { getAcademyHomeData } from '@/lib/academy/content';
@@ -19,7 +20,7 @@ export default function AcademyHomePage() {
 
   return (
     <SiteShell currentPath="/academy">
-      <main className="site-main min-h-0 bg-[linear-gradient(180deg,#fcf8f2_0%,#f5ece3_38%,#fffdfa_100%)]">
+      <main className="site-main min-h-0 bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.16),transparent_24%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.28),transparent_28%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_32%,#fffdfa_100%)]">
         <PageViewTracker path="/academy" pageType="guide" slug="academy" title={home.title} />
 
         <Hero
@@ -39,11 +40,12 @@ export default function AcademyHomePage() {
 
         <section className="mx-auto max-w-6xl px-6 py-16 sm:px-8 md:py-20 lg:px-10">
           <div className="grid gap-6 lg:grid-cols-3">
-            {home.paths.map((pathCard) => (
+            {home.paths.map((pathCard, index) => (
               <Link
                 key={pathCard.slug}
                 href={pathCard.href}
-                className="group overflow-hidden rounded-[2rem] border border-[rgba(114,90,77,0.12)] bg-white/92 shadow-[0_22px_50px_rgba(48,31,24,0.06)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_60px_rgba(48,31,24,0.1)]"
+                className="academy-load-in academy-sheen group overflow-hidden rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,248,251,0.92)_100%)] shadow-[0_22px_50px_rgba(58,36,43,0.08)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(217,134,162,0.28)] hover:shadow-[0_28px_60px_rgba(58,36,43,0.12)]"
+                style={{ animationDelay: `${110 + index * 80}ms` }}
               >
                 <div className="relative aspect-[4/3]">
                   <Image
@@ -56,7 +58,11 @@ export default function AcademyHomePage() {
                   />
                 </div>
                 <div className="space-y-4 px-6 py-6">
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">{pathCard.eyebrow}</p>
+                  <div className="flex items-center gap-3">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#D986A2]" />
+                    <span className="h-[1px] flex-1 bg-[linear-gradient(90deg,rgba(217,134,162,0.45),rgba(217,134,162,0))]" />
+                  </div>
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">{pathCard.eyebrow}</p>
                   <h2 className="font-serif text-[2rem] leading-[0.96] tracking-[-0.04em] text-neutral-900">
                     {pathCard.title}
                   </h2>
@@ -72,12 +78,20 @@ export default function AcademyHomePage() {
 
         <section className="border-t border-black/5 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)]">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 md:py-20 lg:px-10">
-            <div className="rounded-[2rem] border border-[rgba(114,90,77,0.12)] bg-white/88 px-6 py-8 shadow-[0_20px_44px_rgba(48,31,24,0.06)] sm:px-8 md:px-10">
-              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8A6C62]">How TMBC Academy Works</p>
+            <div className="rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(255,248,251,0.9)_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(58,36,43,0.08)] sm:px-8 md:px-10">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">How TMBC Academy Works</p>
               <h2 className="mt-3 max-w-[18ch] font-serif text-[2.2rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:text-[2.7rem]">
                 {home.explanationTitle}
               </h2>
               <p className="mt-5 max-w-[44rem] text-[1.04rem] leading-8 text-neutral-700">{home.explanationBody}</p>
+              <div className="mt-8 max-w-lg">
+                <GuideHandwrittenNote
+                  title="Start with the layer underneath the decision."
+                  description="That is usually the moment baby prep stops feeling like a pile and starts feeling like a plan."
+                  presentation="margin"
+                  size="compact"
+                />
+              </div>
             </div>
           </div>
         </section>

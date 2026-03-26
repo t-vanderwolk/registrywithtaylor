@@ -56,7 +56,7 @@ export default async function EditAcademyModulePage({ params }: EditAcademyModul
       <AdminHeader
         eyebrow="Academy"
         title={guide.title?.trim() ? guide.title : 'Untitled module'}
-        subtitle="This reuses the live guide editor so academy modules keep the same autosave, metadata, commerce, and conversion tooling."
+        subtitle="This editor now maps directly to the live academy module structure, so the fields and markdown sections here match what the public module actually renders."
       />
 
       <GuideEditor
@@ -67,6 +67,7 @@ export default async function EditAcademyModulePage({ params }: EditAcademyModul
         relatedGuideOptions={relatedGuideOptions}
         adminBasePath="/admin/academy"
         listingHref="/admin/academy"
+        editorVariant="academyModule"
       />
     </AdminStack>
   );

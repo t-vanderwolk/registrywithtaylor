@@ -3,6 +3,7 @@ import { extractLeadParagraphs, stripMarkdown } from '@/lib/blog/contentText';
 import { GEAR_ACADEMY_MODULES } from '@/lib/academy/gearModules';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import { STROLLER_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/strollerCluster';
+import { CAR_SEAT_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/carSeatCategoryGuides';
 import prisma from '@/lib/server/prisma';
 
 const PUBLISH_FLAG = '--publish';
@@ -227,6 +228,20 @@ async function main() {
   const strollerCategoryGuideIds = Array.from(STROLLER_CATEGORY_GUIDE_SLUGS)
     .map((slug) => strollerCategoryGuides.find((guide) => guide.slug === slug)?.id ?? null)
     .filter((id): id is string => Boolean(id));
+  const carSeatCategoryGuides = await prisma.guide.findMany({
+    where: {
+      slug: {
+        in: Array.from(CAR_SEAT_CATEGORY_GUIDE_SLUGS),
+      },
+    },
+    select: {
+      id: true,
+      slug: true,
+    },
+  });
+  const carSeatCategoryGuideIds = Array.from(CAR_SEAT_CATEGORY_GUIDE_SLUGS)
+    .map((slug) => carSeatCategoryGuides.find((guide) => guide.slug === slug)?.id ?? null)
+    .filter((id): id is string => Boolean(id));
 
   for (const module of GEAR_ACADEMY_MODULES) {
     const guideId = seededGuideIdsBySlug.get(module.slug);
@@ -241,6 +256,7 @@ async function main() {
           module.nextModuleSlug ? seededGuideIdsBySlug.get(module.nextModuleSlug) ?? null : null,
           module.slug === 'daily-use-gear' ? registryGuide?.id ?? null : null,
           ...(module.slug === 'stroller-foundations' ? strollerCategoryGuideIds : []),
+          ...(module.slug === 'car-seat-foundations' ? carSeatCategoryGuideIds : []),
         ].filter((id): id is string => Boolean(id)),
       ),
     );

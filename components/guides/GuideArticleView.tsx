@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { GuideTrackingProvider } from '@/components/analytics/TrackingContext';
 import GuideGrid from '@/components/marketing/GuideGrid';
 import PostContent from '@/components/blog/PostContent';
-import GuideCarSeatCategoryLiveLayout from '@/components/guides/GuideCarSeatCategoryLiveLayout';
+import CarSeatAcademyLanePage from '@/components/guides/CarSeatAcademyLanePage';
 import GuideHubLayout from '@/components/guides/GuideHubLayout';
 import GuideEducationLayout from '@/components/guides/GuideEducationLayout';
 import StrollerAcademyHub from '@/components/guides/StrollerAcademyHub';
@@ -247,7 +247,7 @@ export default async function GuideArticleView({
           enabled={!preview}
         />
 
-        <GuideCarSeatCategoryLiveLayout
+        <CarSeatAcademyLanePage
           guide={guide}
           displayDate={displayDate}
           readingTime={readingTime}

@@ -87,6 +87,35 @@
   }
 }
 
+@keyframes academyGlowPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes academySweep {
+  0% {
+    transform: translateX(-140%);
+  }
+  100% {
+    transform: translateX(140%);
+  }
+}
+
+@keyframes academyPetalDrift {
+  0%, 100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(4deg) translate3d(0, 7px, 0);
+  }
+}
+
 .hero-load-reveal {
   opacity: 0;
   animation: luxuryFadeUp 320ms ease-out forwards;
@@ -129,6 +158,56 @@
 .editorial-drift {
   animation: editorialDrift 19s ease-in-out infinite;
   will-change: transform;
+}
+
+.academy-load-in {
+  opacity: 0;
+  animation: heroFadeUp 0.78s ease-out forwards;
+}
+
+.academy-load-in--1 {
+  animation-delay: 90ms;
+}
+
+.academy-load-in--2 {
+  animation-delay: 170ms;
+}
+
+.academy-load-in--3 {
+  animation-delay: 250ms;
+}
+
+.academy-load-in--4 {
+  animation-delay: 330ms;
+}
+
+.academy-load-in--5 {
+  animation-delay: 410ms;
+}
+
+.academy-rose-glow {
+  animation: academyGlowPulse 9s ease-in-out infinite;
+}
+
+.academy-petal-drift {
+  animation: academyPetalDrift 13s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.academy-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.academy-sheen::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -30%;
+  width: 38%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.52) 48%, rgba(255,255,255,0) 100%);
+  transform: translateX(-140%);
+  animation: academySweep 3.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .motion-reveal {
@@ -206,9 +285,17 @@ a:hover .link-underline::after {
 
   .editorial-float,
   .editorial-float--reverse,
-  .editorial-drift {
+  .editorial-drift,
+  .academy-load-in,
+  .academy-rose-glow,
+  .academy-petal-drift {
     animation: none !important;
+    opacity: 1 !important;
     transform: none !important;
+  }
+
+  .academy-sheen::after {
+    animation: none !important;
   }
 
   .motion-reveal,
