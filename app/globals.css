@@ -468,17 +468,19 @@ p {
 }
 
 .academy-script-note {
-  font-family: var(--font-script);
-  font-size: clamp(2.2rem, 3.8vw, 3.35rem);
-  line-height: 0.94;
-  letter-spacing: 0.01em;
+  font-family: var(--font-handwritten-print);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.95rem, 3.2vw, 2.75rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
   color: #d986a2;
   display: inline-block;
 }
 
 .academy-script-note--sm {
-  font-size: clamp(1.7rem, 2.6vw, 2.35rem);
-  line-height: 0.98;
+  font-size: clamp(1.4rem, 2.3vw, 1.95rem);
+  line-height: 1.04;
 }
 
 .academy-script-note--tilt-left {
@@ -502,14 +504,14 @@ p {
 
 @media (max-width: 767px) {
   .academy-script-note {
-    font-size: clamp(1.65rem, 8vw, 2.25rem);
-    line-height: 0.98;
+    font-size: clamp(1.4rem, 6.8vw, 1.95rem);
+    line-height: 1.04;
     max-width: 100%;
   }
 
   .academy-script-note--sm {
-    font-size: clamp(1.25rem, 6.4vw, 1.7rem);
-    line-height: 1;
+    font-size: clamp(1.15rem, 5.5vw, 1.45rem);
+    line-height: 1.06;
   }
 
   .academy-handwritten-aside {
@@ -1295,12 +1297,30 @@ li {
   padding-bottom: clamp(6rem, 9vw, 7.5rem);
 }
 
+.homepage-hero.hero-section--full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  min-height: clamp(43rem, 92vh, 62rem);
+}
+
 .homepage-hero .hero-inner {
+  max-width: none;
   padding-top: clamp(7.5rem, 14vh, 11rem);
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
 }
 
 .homepage-hero-content {
-  max-width: 58rem !important;
+  max-width: min(100%, 46rem) !important;
+}
+
+.homepage-hero .hero-content::before {
+  left: -5rem;
+  right: -5rem;
+  top: -3rem;
+  bottom: -4rem;
+  filter: blur(10px);
 }
 
 .homepage-hero-content .hero-title {
@@ -1328,10 +1348,24 @@ li {
 
   .homepage-hero .hero-inner {
     padding-top: 5.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .homepage-hero-content .hero-title {
     max-width: 11.25ch;
+  }
+
+  .homepage-hero.hero-section--full-bleed {
+    min-height: clamp(28rem, 74svh, 37rem);
+  }
+
+  .homepage-hero .hero-content::before {
+    left: -1.25rem;
+    right: -1.25rem;
+    top: -1.4rem;
+    bottom: -2rem;
+    filter: blur(7px);
   }
 }
 

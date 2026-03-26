@@ -52,7 +52,7 @@ export default function GuideHandwrittenNote({
         <div className="max-w-3xl">
           {showEyebrow && eyebrow?.trim() ? (
             <p
-              className={`font-script text-[#D986A2] ${isMargin ? 'text-[1.32rem] leading-none sm:text-[1.7rem]' : 'text-[1.45rem] leading-none sm:text-[2rem]'}`}
+              className={`font-handwritten-print font-semibold tracking-[0.02em] text-[#D986A2] ${isMargin ? 'text-[1.08rem] leading-[1.04] sm:text-[1.3rem]' : 'text-[1.2rem] leading-[1.04] sm:text-[1.5rem]'}`}
             >
               {eyebrow}
             </p>
