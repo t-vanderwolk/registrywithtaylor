@@ -28,6 +28,11 @@ export const ACADEMY_TOPIC_CLUSTER_TOKEN = 'TMBC Baby Academy';
 const imageLinePattern = /^!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)$/;
 const emphasisOnlyPattern = /^\*([^*]+)\*$/;
 
+function isPlaceholderImagePath(candidate: string | null | undefined) {
+  const normalizedCandidate = candidate?.trim().toLowerCase() ?? '';
+  return normalizedCandidate.includes('/assets/placeholders/') || normalizedCandidate.includes('placeholder');
+}
+
 function filterRenderableAcademyProducts(products: AcademyProductExample[]) {
   return products.filter((product) =>
     hasResolvedGuideAffiliateUrl({
@@ -128,8 +133,14 @@ function parseImageMeta(content: string, fallback: AcademyCoreSection | null) {
       break;
     }
 
+    const fallbackImageSrc = fallback?.imageSrc ?? '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+    const preferredImageSrc =
+      isPlaceholderImagePath(match[2]) && !isPlaceholderImagePath(fallbackImageSrc)
+        ? fallbackImageSrc
+        : match[2];
+
     return {
-      imageSrc: resolveRenderableImagePath(match[2], fallback?.imageSrc ?? '/assets/placeholders/tmbc-guide-image-placeholder.svg'),
+      imageSrc: resolveRenderableImagePath(preferredImageSrc, fallbackImageSrc),
       imageAlt: match[1]?.trim() || fallback?.imageAlt || 'Academy editorial image.',
       imageCaption: caption ?? fallback?.imageCaption,
     } satisfies Pick<AcademyCoreSection, 'imageSrc' | 'imageAlt' | 'imageCaption'>;

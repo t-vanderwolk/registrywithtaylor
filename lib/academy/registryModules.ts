@@ -80,7 +80,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
     coreSections: [
       {
         title: 'Single retailer vs universal registry',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: '/assets/editorial/registry.jpg',
         imageAlt: 'Clean desk with laptop and registry planning setup.',
         paragraphs: [
           'Some registries are tied to one store. Others let you pull products from anywhere.',
@@ -90,7 +90,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       },
       {
         title: 'Ease for your guests',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: '/assets/editorial/registry.png',
         imageAlt: 'Minimal gifting setup with wrapped baby gifts in neutral tones.',
         paragraphs: [
           'Your registry is not just for you. It needs to feel easy for the people using it.',
@@ -100,7 +100,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       },
       {
         title: 'Long-term flexibility',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: '/assets/editorial/clipboard.png',
         imageAlt: 'Neutral workspace with registry planning notes.',
         paragraphs: [
           'Your needs will change as you go, and the registry should be able to change with you.',
