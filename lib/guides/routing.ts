@@ -9,6 +9,12 @@ const GUIDE_PARENT_BY_CLUSTER: Record<string, string> = {
 };
 
 const GUIDE_PARENT_BY_SLUG: Record<string, string> = {
+  carriers: 'daily-use-gear',
+  highchairs: 'daily-use-gear',
+  'baby-bath': 'daily-use-gear',
+  bouncers: 'daily-use-gear',
+  'pack-and-play': 'daily-use-gear',
+  swings: 'daily-use-gear',
   'full-size-modular-strollers': 'best-strollers',
   'compact-lightweight-strollers': 'best-strollers',
   'travel-strollers': 'best-strollers',
@@ -31,6 +37,7 @@ const GUIDE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'minimalist-baby-registry': 'registry',
   'nursery-setup-guide': 'nursery',
   'travel-with-baby': 'travel-with-baby',
+  'daily-use-gear': 'daily-use-gear',
   'infant-car-seats': 'infant-car-seats',
   'convertible-car-seats': 'convertible-car-seats',
   'all-in-one-car-seats': 'all-in-one-car-seats',

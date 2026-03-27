@@ -98,6 +98,7 @@ const PILLAR_PATHS = {
   registry: getGuidePath({ slug: 'minimalist-baby-registry' }),
   nursery: getGuidePath({ slug: 'nursery-setup-guide' }),
   travel: getGuidePath({ slug: 'travel-with-baby' }),
+  dailyUseGear: getGuidePath({ slug: 'daily-use-gear' }),
   fullSizeStrollers: getGuidePath({ slug: 'full-size-modular-strollers' }),
   compactStrollers: getGuidePath({ slug: 'compact-lightweight-strollers' }),
   travelStrollers: getGuidePath({ slug: 'travel-strollers' }),
@@ -146,6 +147,13 @@ const NEXT_GUIDES_BASE: Array<Omit<GuideNextGuideItem, 'current'>> = [
     description: 'Make airports, road trips, and away-from-home routines feel more manageable.',
     href: PILLAR_PATHS.travel,
     icon: 'plane',
+  },
+  {
+    slug: 'daily-use-gear',
+    title: 'Daily Use Gear',
+    description: 'Sort carriers, highchairs, bath gear, bouncers, playards, and swings by real-life use instead of category clutter.',
+    href: PILLAR_PATHS.dailyUseGear,
+    icon: 'bag',
   },
 ];
 

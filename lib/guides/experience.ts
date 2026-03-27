@@ -179,6 +179,26 @@ const LIFESTYLE_IMAGE_LIBRARY: Record<string, readonly GuideLifestyleImage[]> = 
       caption: 'A lighter setup only counts as helpful if it still supports the routine once you arrive.',
     },
   ],
+  'daily-use-gear': [
+    {
+      eyebrow: 'Lifestyle image',
+      src: '/assets/editorial/babystuff.png',
+      alt: 'Editorial daily use baby gear image.',
+      caption: 'The smaller categories matter because they keep showing up in ordinary life, not because they make the loudest first impression.',
+    },
+    {
+      eyebrow: 'Lifestyle image',
+      src: '/assets/editorial/feeding.png',
+      alt: 'Editorial feeding and daily routine image.',
+      caption: 'Daily use gear should help the routine quietly enough that you stop thinking about it once it is doing its job.',
+    },
+    {
+      eyebrow: 'Lifestyle image',
+      src: '/assets/editorial/teddy-glow.png',
+      alt: 'Editorial soothing and home support image.',
+      caption: 'A calmer day usually comes from fewer better-fit helpers, not a larger collection of backup plans.',
+    },
+  ],
   feeding: [
     {
       eyebrow: 'Lifestyle image',
@@ -336,6 +356,7 @@ const GUIDE_JOURNEY_BLOG_RECOMMENDATIONS: Record<string, readonly string[]> = {
   'car-seats': ['best-infant-car-seats', 'travel-system-questions-before-you-buy', 'gear-decisions-without-guesswork'],
   nursery: ['nursery-setup-that-actually-works', 'the-art-of-the-registry', 'gear-decisions-without-guesswork'],
   travel: ['best-travel-strollers', 'travel-system-questions-before-you-buy', 'gear-decisions-without-guesswork'],
+  'daily-use-gear': ['gear-decisions-without-guesswork', 'the-art-of-the-registry', 'nursery-setup-that-actually-works'],
   feeding: ['the-art-of-the-registry', 'gear-decisions-without-guesswork', 'nursery-setup-that-actually-works'],
   postpartum: ['nursery-setup-that-actually-works', 'gear-decisions-without-guesswork', 'the-art-of-the-registry'],
   essentials: ['the-art-of-the-registry', 'gear-decisions-without-guesswork', 'nursery-setup-that-actually-works'],
@@ -382,6 +403,10 @@ function normalizeGuideFamily({
 
   if (resolvedSlug === 'travel-with-baby' || context.includes('travel')) {
     return 'travel';
+  }
+
+  if (resolvedSlug === 'daily-use-gear' || parentSlug === 'daily-use-gear' || context.includes('daily use gear')) {
+    return 'daily-use-gear';
   }
 
   if (resolvedSlug === 'feeding' || context.includes('feeding')) {
@@ -444,6 +469,13 @@ export function getGuideLabel(slug: string, fallbackTitle?: string | null) {
 
   const staticLabels: Record<string, string> = {
     'guides-hub': 'Guide Hub',
+    'daily-use-gear': 'Daily Use Gear',
+    carriers: 'Baby Carriers',
+    highchairs: 'Highchairs',
+    'baby-bath': 'Baby Bath',
+    bouncers: 'Bouncers',
+    'pack-and-play': 'Pack & Play',
+    swings: 'Swings',
     feeding: 'Feeding',
     postpartum: 'Postpartum',
     essentials: 'Essentials',
@@ -545,6 +577,8 @@ export function getGuideRealLifePrompt({
       return 'Start with the midnight route: where you will reach, change, feed, store, and put baby back down when everyone is tired.';
     case 'travel':
       return 'Start with the trip or outing you actually take most often. The fantasy version is rarely the one creating the daily friction.';
+    case 'daily-use-gear':
+      return 'Start with the routine that repeats most often. The daily-use products worth buying are the ones that make that routine easier over and over.';
     case 'feeding':
       return 'Start with one workable everyday setup before you buy backup systems for every possible feeding outcome.';
     case 'postpartum':

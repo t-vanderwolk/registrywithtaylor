@@ -60,6 +60,17 @@ export const TMBC_MASTER_GUIDE_FLOW = [
     imageSrc: '/assets/editorial/growing-with-confidence.jpg',
     imageAlt: 'Editorial travel-with-baby image for Taylor-Made Baby Co.',
   },
+  {
+    slug: 'daily-use-gear',
+    label: 'Daily Use Gear',
+    stepLabel: 'Step 6',
+    title: 'Daily Use Gear',
+    description: 'Sort the smaller everyday workhorses so feeding, soothing, bathing, and holding feel easier to live with.',
+    href: getGuidePath({ slug: 'daily-use-gear' }),
+    icon: 'bag',
+    imageSrc: '/assets/editorial/babystuff.png',
+    imageAlt: 'Editorial daily use baby gear image for Taylor-Made Baby Co.',
+  },
 ] as const satisfies readonly (GuideHubLink & {
   slug: string;
   label: string;

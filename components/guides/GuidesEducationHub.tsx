@@ -97,10 +97,10 @@ export default function GuidesEducationHub() {
                 <AcademyHero
                   eyebrow="TMBC Guide Hub"
                   title="Start Your Baby Prep the Right Way"
-                  description="TMBC works best as a guided decision platform, not a content pile. Start with Registry, move into Nursery, then let Strollers, Car Seats, and Travel enter the conversation in the right order."
+                  description="TMBC works best as a guided decision platform, not a content pile. Start with Registry, move into Nursery, then let Strollers, Car Seats, Travel, and Daily Use Gear enter the conversation in the right order."
                   note="Some baby prep gets complicated because the categories show up in the wrong order. Registry first fixes more than it gets credit for."
                   primaryCta={{ href: '/guides/registry', label: 'Start with Registry' }}
-                  secondaryCta={{ href: `#${HUB_SLIDES[1].id}`, label: 'See the 5-step flow' }}
+                  secondaryCta={{ href: `#${HUB_SLIDES[1].id}`, label: 'See the 6-step flow' }}
                   stageItems={masterFlowCards.map((card, index) => ({
                     id: card.slug,
                     label: String(index + 1).padStart(2, '0'),
@@ -109,7 +109,7 @@ export default function GuidesEducationHub() {
                     href: card.href,
                   }))}
                   stats={[
-                    { label: 'Core steps', value: '5 before buy' },
+                    { label: 'Core steps', value: '6 before buy' },
                     { label: 'Entry point', value: 'Registry first' },
                     { label: 'Built for', value: 'Decision clarity' },
                   ]}
@@ -135,7 +135,7 @@ export default function GuidesEducationHub() {
             description="This is not a scavenger hunt. It is a calmer sequence built to keep your decisions smaller as you move."
             intro={[
               'Registry comes first because it forces the whole plan into better order. Nursery comes next because room flow affects what belongs in the house. Then the gear categories get much easier to judge because they are finally being asked to support a clearer life.',
-              'If you skip the order, baby prep starts sounding like five urgent categories instead of one guided journey. That is a rough trade.',
+              'If you skip the order, baby prep starts sounding like six urgent categories instead of one guided journey. That is a rough trade.',
             ]}
             calloutBody={getGuideRealLifePrompt({ slug: 'guides-hub', category: 'TMBC Guide Hub' })}
             whatThisIs={whatThisIs}
@@ -144,7 +144,7 @@ export default function GuidesEducationHub() {
 
           <GuideCardRouter
             eyebrow="Step Flow"
-            title="Registry -> Nursery -> Strollers -> Car Seats -> Travel"
+            title="Registry -> Nursery -> Strollers -> Car Seats -> Travel -> Daily Use Gear"
             description="This is the core TMBC order. The goal is not to make you read more. The goal is to stop each new category from showing up before the one underneath it is clear."
             cards={masterFlowCards.map((card, index) => ({
               ...card,
@@ -212,7 +212,7 @@ export default function GuidesEducationHub() {
               },
               {
                 condition: 'mostly need the away-from-home setup after the big decisions are steadier',
-                recommendation: 'Travel is usually the cleaner final category before you move into actual buying.',
+                recommendation: 'Travel should hand off to Daily Use Gear before you move into actual buying.',
                 href: '/guides/travel-with-baby',
               },
             ]}

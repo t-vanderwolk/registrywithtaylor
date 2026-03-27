@@ -29,7 +29,7 @@ export default function GuideSlide({
       data-guide-slide
       className={[
         backgroundClasses[background],
-        'scroll-mt-[calc(var(--guide-sticky-nav-height,76px)+1rem)] transition-colors duration-500 lg:h-auto lg:flex-none lg:self-start lg:max-w-[91%] lg:min-w-[91%] lg:snap-start xl:max-w-[89%] xl:min-w-[89%]',
+        'scroll-mt-[calc(var(--guide-sticky-nav-height,76px)+1rem)] transition-colors duration-500 lg:flex-none lg:self-start lg:max-h-[85vh] lg:max-w-[91%] lg:min-h-[85vh] lg:min-w-[91%] lg:overflow-hidden lg:snap-start xl:max-w-[89%] xl:min-w-[89%]',
         className,
       ]
         .filter(Boolean)
@@ -37,7 +37,7 @@ export default function GuideSlide({
     >
       <div
         className={[
-          'mx-auto flex w-full max-w-[1520px] flex-col px-4 py-4 sm:px-6 sm:py-8 md:px-10 md:py-12 xl:px-12',
+          'mx-auto flex w-full max-w-[1520px] flex-col px-4 py-4 sm:px-6 sm:py-8 md:px-10 md:py-10 lg:max-h-[85vh] lg:overflow-y-auto lg:pr-4 xl:px-12 xl:py-10',
           innerClassName,
         ]
           .filter(Boolean)

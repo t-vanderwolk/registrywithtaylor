@@ -262,6 +262,11 @@ function getScheduleError(status: GuideStatusValue, scheduledFor?: Date | string
   return undefined;
 }
 
+function toAltText(fileName: string) {
+  const baseName = fileName.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+  return baseName || 'Editorial image';
+}
+
 function combineGuideContent(guide: Pick<GuideState, 'intro' | 'content' | 'conclusion'>) {
   return [guide.intro, guide.content, guide.conclusion].filter(Boolean).join('\n\n');
 }
@@ -630,7 +635,7 @@ export default function GuideEditor({
   const [isDirty, setIsDirty] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [uploadingKind, setUploadingKind] = useState<'hero' | 'og' | null>(null);
+  const [uploadingKind, setUploadingKind] = useState<'hero' | 'og' | 'inline' | null>(null);
   const [uploadFeedback, setUploadFeedback] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [helperNotice, setHelperNotice] = useState<HelperNotice | null>(null);
@@ -646,6 +651,8 @@ export default function GuideEditor({
   const slugEditedRef = useRef(Boolean(initialState.id));
   const heroInputRef = useRef<HTMLInputElement | null>(null);
   const ogInputRef = useRef<HTMLInputElement | null>(null);
+  const inlineInputRef = useRef<HTMLInputElement | null>(null);
+  const pendingInlineImageLineRef = useRef<number | null>(null);
   const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const hasPersistedGuide = Boolean(currentGuideId);
@@ -1155,6 +1162,40 @@ export default function GuideEditor({
     focusGuideContentSelection(insertion.cursorPosition, insertion.cursorPosition);
   }
 
+  function insertGuideImageAtSelection({
+    alt,
+    src,
+    saveMode = 'debounced',
+  }: {
+    alt: string;
+    src: string;
+    saveMode?: SaveMode;
+  }) {
+    const currentGuide = stateRef.current;
+    const textarea = contentTextareaRef.current;
+    const insertion = buildInsertedContent(
+      currentGuide.content,
+      `![${alt.trim()}](${src.trim()})`,
+      textarea?.selectionStart,
+      textarea?.selectionEnd,
+    );
+
+    applyGuideUpdate(
+      (current) => ({
+        ...current,
+        content: insertion.nextContent,
+      }),
+      saveMode,
+    );
+
+    focusGuideContentSelection(insertion.cursorPosition, insertion.cursorPosition);
+  }
+
+  function openInlineImagePicker(lineNumber?: number) {
+    pendingInlineImageLineRef.current = typeof lineNumber === 'number' ? lineNumber : null;
+    inlineInputRef.current?.click();
+  }
+
   function applyGuideMarkdownFormat(action: GuideContentFormatAction) {
     const currentGuide = stateRef.current;
     const textarea = contentTextareaRef.current;
@@ -1235,8 +1276,15 @@ export default function GuideEditor({
         return;
       }
 
-      const replacement = `![${altText}](${href.trim()})`;
-      applyReplacement(replaceSelection(currentGuide.content, start, end, replacement));
+      const insertion = buildInsertedContent(currentGuide.content, `![${altText}](${href.trim()})`, start, end);
+      applyGuideUpdate(
+        (current) => ({
+          ...current,
+          content: insertion.nextContent,
+        }),
+        'debounced',
+      );
+      focusGuideContentSelection(insertion.cursorPosition, insertion.cursorPosition);
       return;
     }
 
@@ -1292,13 +1340,14 @@ export default function GuideEditor({
       alt?: string;
       src?: string;
     },
+    saveMode: SaveMode = 'debounced',
   ) {
     applyGuideUpdate(
       (current) => ({
         ...current,
         content: updateGuideMarkdownImage(current.content, lineNumber, partial),
       }),
-      'debounced',
+      saveMode,
     );
   }
 
@@ -1307,6 +1356,45 @@ export default function GuideEditor({
     const start = getGuideMarkdownImageLineOffset(currentContent, lineNumber);
     const line = currentContent.split('\n')[lineNumber] ?? '';
     focusGuideContentSelection(start, start + line.length);
+  }
+
+  async function handleInlineImageUpload(file: File) {
+    setUploadingKind('inline');
+    setUploadError(null);
+    setUploadFeedback(null);
+
+    try {
+      const url = await uploadFile(file);
+      const pendingLineNumber = pendingInlineImageLineRef.current;
+      pendingInlineImageLineRef.current = null;
+
+      if (typeof pendingLineNumber === 'number') {
+        const currentImage = extractGuideMarkdownImages(stateRef.current.content).find((image) => image.lineNumber === pendingLineNumber);
+        handleContentImageUpdate(
+          pendingLineNumber,
+          {
+            src: url,
+            alt: currentImage?.alt?.trim() || toAltText(file.name),
+          },
+          'immediate',
+        );
+        jumpToContentImage(pendingLineNumber);
+        setUploadFeedback('Image uploaded and applied to the draft.');
+        return;
+      }
+
+      insertGuideImageAtSelection({
+        alt: toAltText(file.name),
+        src: url,
+        saveMode: 'immediate',
+      });
+      setUploadFeedback('Image uploaded and inserted into the draft.');
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Unable to upload inline image.');
+    } finally {
+      pendingInlineImageLineRef.current = null;
+      setUploadingKind(null);
+    }
   }
 
   async function openPreview() {
@@ -2146,6 +2234,15 @@ export default function GuideEditor({
                 <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('image')}>
                   Image
                 </AdminButton>
+                <AdminButton
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => openInlineImagePicker()}
+                  disabled={uploadingKind !== null}
+                >
+                  {uploadingKind === 'inline' ? 'Uploading image...' : 'Upload image'}
+                </AdminButton>
                 <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('divider')}>
                   Divider
                 </AdminButton>
@@ -2162,7 +2259,7 @@ export default function GuideEditor({
                 {contentEditorialImages.length === 0 ? (
                   <div className="rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
                     <p className="admin-micro">
-                      No inline images in this draft yet. Use the Image button above to insert one, then manage it here.
+                      No inline images in this draft yet. Use the Image or Upload image buttons above to insert one, then manage it here.
                     </p>
                   </div>
                 ) : (
@@ -2179,14 +2276,25 @@ export default function GuideEditor({
                               {image.isPlaceholder ? 'Placeholder active' : 'Live image'} · line {image.lineNumber + 1}
                             </p>
                           </div>
-                          <AdminButton
-                            type="button"
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => jumpToContentImage(image.lineNumber)}
-                          >
-                            Jump to markdown
-                          </AdminButton>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <AdminButton
+                              type="button"
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => openInlineImagePicker(image.lineNumber)}
+                              disabled={uploadingKind !== null}
+                            >
+                              {uploadingKind === 'inline' ? 'Uploading image...' : 'Upload replacement'}
+                            </AdminButton>
+                            <AdminButton
+                              type="button"
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => jumpToContentImage(image.lineNumber)}
+                            >
+                              Jump to markdown
+                            </AdminButton>
+                          </div>
                         </div>
 
                         <div className="grid gap-4 md:grid-cols-2">
@@ -2831,6 +2939,23 @@ export default function GuideEditor({
           }
 
           void handleOgUpload(file);
+        }}
+      />
+
+      <input
+        ref={inlineInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          event.currentTarget.value = '';
+          if (!file) {
+            pendingInlineImageLineRef.current = null;
+            return;
+          }
+
+          void handleInlineImageUpload(file);
         }}
       />
     </AdminStack>

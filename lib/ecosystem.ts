@@ -135,6 +135,14 @@ export function getGuideEcosystemCurrentStep({
     return 6;
   }
 
+  if (
+    normalizedSlug === 'daily-use-gear' ||
+    normalizedPath === '/guides/daily-use-gear' ||
+    normalizedPath.startsWith('/guides/daily-use-gear/')
+  ) {
+    return 6;
+  }
+
   if (normalizedSlug === 'essentials' || normalizedPath === '/guides/essentials') {
     return 2;
   }

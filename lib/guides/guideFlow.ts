@@ -256,10 +256,36 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: '/guides/feeding',
-      label: 'Feeding Guide',
-      description: 'Tighten the outing routine once the big travel gear decisions are clearer.',
-      stage: 'Optimize',
+      href: getGuidePath({ slug: 'daily-use-gear' }),
+      label: 'Daily Use Gear',
+      description: 'Move into the smaller everyday workhorses once travel logistics feel calmer.',
+      stage: 'Refine',
+    },
+  ],
+  'daily-use-gear': [
+    {
+      href: '/guides',
+      label: 'TMBC Academy',
+      description: 'Return to the guide map if another lane deserves attention before you finalize the shortlist.',
+      stage: 'Start',
+    },
+    {
+      href: getGuidePath({ slug: 'travel-with-baby' }),
+      label: 'Travel With Baby Guide',
+      description: 'Step back to Travel if the portability and outing system still need more structure.',
+      stage: 'Compare',
+    },
+    {
+      href: getGuidePath({ slug: 'minimalist-baby-registry' }),
+      label: 'Registry Guide',
+      description: 'Use the daily-use filter to tighten what still belongs on the registry and what can wait.',
+      stage: 'Decide',
+    },
+    {
+      href: '/consultation',
+      label: 'Book a Consultation',
+      description: 'Get help turning the calmer daily-use plan into the actual shortlist and buy-now decisions.',
+      stage: 'Refine',
     },
   ],
   'minimalist-baby-registry': [
@@ -851,6 +877,14 @@ export function getGuideOrientation({
     };
   }
 
+  if (slug === 'daily-use-gear') {
+    return {
+      step: 'Refine',
+      category: 'Daily Use Gear',
+      goal: 'Sort the smaller everyday workhorses before the quieter categories turn into clutter.',
+    };
+  }
+
   if (slug === 'full-size-modular-strollers') {
     return { step: 'Decide', category: 'Strollers', goal: 'Decide whether the full-size lane fits your actual week.' };
   }
@@ -884,6 +918,14 @@ export function getGuideOrientation({
       step: 'Decide',
       category: 'Car Seats',
       goal: 'Decide whether this seat path fits your child, your car, and your routine.',
+    };
+  }
+
+  if (['carriers', 'highchairs', 'baby-bath', 'bouncers', 'pack-and-play', 'swings'].includes(slug)) {
+    return {
+      step: 'Decide',
+      category: 'Daily Use Gear',
+      goal: 'Use this guide to choose the version of the product that will quietly support the real routine.',
     };
   }
 

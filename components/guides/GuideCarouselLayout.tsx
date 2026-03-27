@@ -190,7 +190,7 @@ export default function GuideCarouselLayout({
             tabIndex={0}
             data-guide-carousel="true"
             aria-label="Guide carousel"
-            className="scroll-smooth outline-none lg:flex lg:items-start lg:snap-x lg:snap-mandatory lg:gap-4 lg:overflow-x-auto lg:overflow-y-visible lg:pr-[5rem] lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
+            className="scroll-smooth outline-none lg:flex lg:items-start lg:snap-x lg:snap-mandatory lg:gap-4 lg:overflow-x-auto lg:overflow-y-hidden lg:pr-[5rem] lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
           >
             {children}
           </div>
@@ -198,7 +198,7 @@ export default function GuideCarouselLayout({
           {childCount > 1 && activeIndex < childCount - 1 ? (
             <div className="pointer-events-none absolute inset-y-4 right-0 hidden w-24 items-center justify-end bg-[linear-gradient(90deg,rgba(255,252,251,0)_0%,rgba(255,252,251,0.88)_42%,rgba(255,252,251,0.98)_100%)] lg:flex">
               <div className="mr-4 rounded-full border border-[rgba(161,91,114,0.14)] bg-white/88 px-3 py-2 text-[0.68rem] uppercase tracking-[0.16em] text-[#8F4C62] shadow-[0_12px_24px_rgba(58,36,43,0.08)] animate-pulse">
-                More -&gt;
+                Swipe to continue -&gt;
               </div>
             </div>
           ) : null}

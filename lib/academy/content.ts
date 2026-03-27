@@ -27,6 +27,7 @@ import {
   POSTPARTUM_ACADEMY_MODULES,
   type PostpartumAcademyModuleSlug,
 } from '@/lib/academy/postpartumModules';
+import { getNurseryFurnitureSubmoduleCards } from '@/lib/academy/nurseryFurnitureAcademy';
 import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 import { stripMarkdown } from '@/lib/blog/contentText';
@@ -870,6 +871,15 @@ function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSe
         ctaLabel: 'Open sub module ->',
         eyebrow: 'Car Seat Category',
       })),
+    };
+  }
+
+  if (slug === 'furniture-that-actually-works') {
+    return {
+      title: 'Furniture That Actually Works Sub Modules',
+      description:
+        'Use these nursery furniture submodules to sort the pieces that support sleep, feeding, changing, storage, and safety without turning the room into a shopping checklist.',
+      cards: getNurseryFurnitureSubmoduleCards(),
     };
   }
 
