@@ -32,21 +32,29 @@ const EDITORIAL_IMAGES = {
   gearDaily: '/assets/editorial/babystuff.png',
 } as const;
 
+const SUPPORT_LOGOS = {
+  hipBabyGear: 'https://cdn.shoplightspeed.com/shops/607706/themes/15634/v/740329/assets/logo.png?20230511131332',
+  macroBaby: 'https://www.macrobaby.com/cdn/shop/files/macrobaby-logo.webp?v=301422832542348940',
+  targetBabyConcierge:
+    'https://target.scene7.com/is/image/Target/GUEST_8fed714b-5ae7-4ca3-9d24-293ea2f643b6?wid=2160&qlt=80&fmt=pjpeg',
+} as const;
+
 const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyProductOverride>>> = {
   'where-to-register': {
     [normalizeKey('Universal Registry Platform')]: {
       name: 'MyRegistry Best Baby Registry',
       brand: 'MyRegistry',
       affiliateUrl: 'https://www.myregistry.com/best-baby-registry.aspx',
-      imageSrc: EDITORIAL_IMAGES.registry,
-      imageAlt: 'MyRegistry baby registry setup example.',
+      imageSrc: 'https://www.modernnursery.com/cdn/shop/files/myregistry_logo.jpg?v=1674761005&width=360',
+      imageAlt: 'MyRegistry Best Baby Registry logo.',
     },
     [normalizeKey('Retailer-Based Registry')]: {
       name: 'Target Baby Registry',
       brand: 'Target',
       affiliateUrl: 'https://www.target.com/gift-registry/create-baby-registry',
-      imageSrc: EDITORIAL_IMAGES.registryAlt,
-      imageAlt: 'Target baby registry example.',
+      imageSrc:
+        'https://i0.wp.com/happilytrista.com/wp-content/uploads/2021/01/happily-trista-target-registry.jpg?resize=1024%2C683&ssl=1',
+      imageAlt: 'Target Baby Registry example.',
     },
   },
   'shop-local-get-support': {
@@ -54,22 +62,22 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       name: 'Target Baby Concierge',
       brand: 'Target',
       affiliateUrl: 'https://www.target.com/gift-registry/create-baby-registry',
-      imageSrc: EDITORIAL_IMAGES.registry,
-      imageAlt: 'Target baby registry support example.',
+      imageSrc: SUPPORT_LOGOS.targetBabyConcierge,
+      imageAlt: 'Target Baby Concierge logo.',
     },
     [normalizeKey('Independent Baby Store Consultation')]: {
       name: 'MacroBaby Registry Support',
       brand: 'MacroBaby',
       affiliateUrl: 'https://www.macrobaby.com/',
-      imageSrc: EDITORIAL_IMAGES.registry,
-      imageAlt: 'Independent baby store registry support example.',
+      imageSrc: SUPPORT_LOGOS.macroBaby,
+      imageAlt: 'MacroBaby logo.',
     },
     [normalizeKey('Specialty Retailer Hybrid Support')]: {
       name: 'Hip Baby Gear Virtual Consultation',
       brand: 'Hip Baby Gear',
       affiliateUrl: 'https://www.hipbabygear.com/brands/hip-baby-gear/',
-      imageSrc: EDITORIAL_IMAGES.registryAlt,
-      imageAlt: 'Hybrid stroller and registry support example.',
+      imageSrc: SUPPORT_LOGOS.hipBabyGear,
+      imageAlt: 'Hip Baby Gear logo.',
     },
   },
   'welcome-boxes-perks': {
@@ -77,8 +85,8 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       name: 'Babylist Hello Baby Box',
       brand: 'Babylist',
       affiliateUrl: 'https://www.babylist.com/hello-baby/whats-inside-babylist-hello-baby-box',
-      imageSrc: EDITORIAL_IMAGES.welcome,
-      imageAlt: 'Babylist Hello Baby Box example.',
+      imageSrc: 'https://images.babylist.com/image/upload/f_auto,q_auto,c_scale,w_800/v1634250920/hbb_y09ybf.png',
+      imageAlt: 'Babylist Hello Baby Box.',
     },
   },
   'rewards-completion-discounts': {
