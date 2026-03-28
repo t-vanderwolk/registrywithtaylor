@@ -8,6 +8,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
+import { readConsultationIntakeSummary } from '@/lib/consultation/intake';
 
 type SearchParams = Promise<{ status?: string }> | undefined;
 type StatusFilter = 'all' | 'new' | 'responded' | 'scheduled' | 'completed';
@@ -77,6 +78,7 @@ export default async function AdminConsultationsPage({ searchParams }: { searchP
         email: true,
         dueDate: true,
         city: true,
+        intakeSummary: true,
         status: true,
         createdAt: true,
         response: {
@@ -146,16 +148,28 @@ export default async function AdminConsultationsPage({ searchParams }: { searchP
           {consultations.map((consultation) => (
             <tr key={consultation.id} className="admin-row">
               <td>
-                <div className="admin-stack gap-1">
-                  <p className="text-admin font-medium">{consultation.name}</p>
-                  <p className="admin-micro">{consultation.email}</p>
-                  <p className="admin-micro">
-                    {consultation.city || 'City not provided'}
-                    {consultation.response?.scheduledTime
-                      ? ` | Scheduled for ${formatDateTime(consultation.response.scheduledTime)}`
-                      : ''}
-                  </p>
-                </div>
+                {(() => {
+                  const summary = readConsultationIntakeSummary(consultation.intakeSummary);
+                  const quickView = summary?.quickView ?? null;
+
+                  return (
+                    <div className="admin-stack gap-1">
+                      <p className="text-admin font-medium">{consultation.name}</p>
+                      <p className="admin-micro">{consultation.email}</p>
+                      <p className="admin-micro">
+                        {quickView?.consultType || consultation.city || 'Consult type not shared'}
+                        {consultation.response?.scheduledTime
+                          ? ` | Scheduled for ${formatDateTime(consultation.response.scheduledTime)}`
+                          : ''}
+                      </p>
+                      {quickView?.topConcerns?.length ? (
+                        <p className="admin-micro">
+                          Topics: {quickView.topConcerns.slice(0, 3).join(', ')}
+                        </p>
+                      ) : null}
+                    </div>
+                  );
+                })()}
               </td>
               <td className="admin-micro">{formatDate(consultation.dueDate)}</td>
               <td>

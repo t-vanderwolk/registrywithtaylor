@@ -31,7 +31,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
           className="homepage-hero"
           eyebrow="Consultation"
           title="Book a Consultation"
-          subtitle="Submit your request and Taylor will follow up directly to begin a calmer, more expert-guided baby gear planning process."
+          subtitle="Walk through a guided intake, share what is actually going on in your home and registry, and Taylor will follow up with a session that starts from real context instead of guesswork."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Consultation planning form"
           contentClassName="homepage-hero-content"
@@ -40,7 +40,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams?
 
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>
-            <MarketingSurface className="mx-auto max-w-2xl space-y-6">
+            <MarketingSurface className="mx-auto max-w-5xl space-y-6">
               <ConsultationRequestForm errorCode={params?.error ?? null} />
 
               <p className="text-center text-sm text-neutral-600">

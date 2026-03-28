@@ -336,6 +336,7 @@ model ConsultationRequest {
   city       String?
   babyNumber String?
   message    String?
+  intakeSummary Json?
   status     String?               @default("new")
   createdAt  DateTime?             @default(now()) @db.Timestamp(6)
   response   ConsultationResponse?

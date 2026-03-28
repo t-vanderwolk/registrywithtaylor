@@ -22,7 +22,7 @@ export default function ConsultationConfirmationPage() {
               Request Received
             </h1>
             <p className="text-lg leading-relaxed text-neutral-700">
-              Your consultation request has been received. Taylor will respond shortly.
+              Your consultation intake has been received. Taylor will review your notes and follow up shortly with next steps that fit your session goals.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link href="/#journey" className="btn btn--secondary">

@@ -43,8 +43,8 @@ export default function ConsultationRequestSection({
                   here.
                 </p>
                 <p className="mt-4 max-w-none text-[1rem] leading-7 text-neutral-700 sm:leading-8">
-                  Submit a short request and Taylor will follow up directly. The first conversation is meant to bring
-                  clarity, not more tabs to compare.
+                  Walk through the guided intake and Taylor will follow up directly. The first conversation is meant to
+                  bring clarity, not more tabs to compare.
                 </p>
 
                 <div className="mt-7 space-y-3.5 text-sm leading-7 text-neutral-700">

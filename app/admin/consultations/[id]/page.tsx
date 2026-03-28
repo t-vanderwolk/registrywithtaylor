@@ -9,6 +9,7 @@ import AdminInput from '@/components/admin/ui/AdminInput';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTextarea from '@/components/admin/ui/AdminTextarea';
+import { readConsultationIntakeSummary } from '@/lib/consultation/intake';
 
 type AdminConsultationDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -47,6 +48,19 @@ const isValidHttpUrl = (value: string) => {
     return false;
   }
 };
+
+function SummaryField({ label, value }: { label: string; value: string | null | undefined }) {
+  return (
+    <div className="admin-stack gap-1">
+      <p className="admin-eyebrow">{label}</p>
+      <p className="admin-body text-admin whitespace-pre-wrap">{value || 'N/A'}</p>
+    </div>
+  );
+}
+
+function SummaryArrayField({ label, values }: { label: string; values: string[] | null | undefined }) {
+  return <SummaryField label={label} value={values && values.length > 0 ? values.join(', ') : 'N/A'} />;
+}
 
 async function saveConsultationResponseAction(formData: FormData) {
   'use server';
@@ -170,6 +184,7 @@ export default async function AdminConsultationDetailPage({
       city: true,
       babyNumber: true,
       message: true,
+      intakeSummary: true,
       status: true,
       createdAt: true,
       response: {
@@ -189,6 +204,7 @@ export default async function AdminConsultationDetailPage({
 
   const statusValue = consultation.status?.trim() || 'new';
   const statusLabel = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+  const intakeSummary = readConsultationIntakeSummary(consultation.intakeSummary);
 
   return (
     <AdminStack gap="xl">
@@ -231,23 +247,84 @@ export default async function AdminConsultationDetailPage({
             <p className="admin-body text-admin">{formatDateTime(consultation.dueDate)}</p>
           </div>
           <div className="admin-stack gap-1">
-            <p className="admin-eyebrow">City</p>
-            <p className="admin-body text-admin">{consultation.city || 'N/A'}</p>
+            <p className="admin-eyebrow">Parent stage</p>
+            <p className="admin-body text-admin">{intakeSummary?.quickView.parentStage || consultation.babyNumber || 'N/A'}</p>
           </div>
           <div className="admin-stack gap-1">
-            <p className="admin-eyebrow">Baby number</p>
-            <p className="admin-body text-admin">{consultation.babyNumber || 'N/A'}</p>
+            <p className="admin-eyebrow">Consult type</p>
+            <p className="admin-body text-admin">{intakeSummary?.quickView.consultType || 'N/A'}</p>
           </div>
           <div className="admin-stack gap-1">
             <p className="admin-eyebrow">Current status</p>
             <p className="admin-body text-admin">{statusLabel}</p>
           </div>
+          <div className="admin-stack gap-1">
+            <p className="admin-eyebrow">Meeting preference</p>
+            <p className="admin-body text-admin">{intakeSummary?.quickView.meetingPreference || 'N/A'}</p>
+          </div>
         </div>
         <div className="admin-stack gap-1">
-          <p className="admin-eyebrow">Message</p>
+          <p className="admin-eyebrow">Legacy message summary</p>
           <p className="admin-body whitespace-pre-wrap text-admin">{consultation.message || 'No message provided.'}</p>
         </div>
       </AdminSurface>
+
+      {intakeSummary ? (
+        <AdminSurface className="admin-stack gap-5">
+          <h2 className="admin-h2">Pre-consult summary</h2>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <SummaryField label="Client stage" value={intakeSummary.quickView.clientStage} />
+            <SummaryArrayField label="Top concerns" values={intakeSummary.quickView.topConcerns} />
+            <SummaryArrayField label="Likely discussion topics" values={intakeSummary.quickView.likelyDiscussionTopics} />
+            <SummaryArrayField label="Registry platforms" values={intakeSummary.quickView.registryPlatforms} />
+            <SummaryField label="Budget range" value={intakeSummary.quickView.budgetRange} />
+            <SummaryField label="Phone" value={intakeSummary.personalBasics.phone} />
+          </div>
+
+          <div className="grid gap-5 xl:grid-cols-2">
+            <div className="admin-stack gap-4 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-white/90 p-5">
+              <p className="admin-eyebrow">Home + lifestyle</p>
+              <SummaryField label="Home type" value={intakeSummary.lifestyleConstraints.homeType} />
+              <SummaryField label="Has stairs" value={intakeSummary.lifestyleConstraints.hasStairs} />
+              <SummaryField label="Day-to-day" value={intakeSummary.lifestyleConstraints.dayToDay} />
+              <SummaryField label="Storage space" value={intakeSummary.lifestyleConstraints.storageSpace} />
+              <SummaryField label="Lifestyle notes" value={intakeSummary.lifestyleConstraints.notes} />
+            </div>
+
+            <div className="admin-stack gap-4 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-white/90 p-5">
+              <p className="admin-eyebrow">Registry + current gear</p>
+              <SummaryField label="Registry status" value={intakeSummary.registryStatus.registryBuilt} />
+              <SummaryArrayField label="Registry platforms" values={intakeSummary.registryStatus.registryPlatforms} />
+              <SummaryField label="Already has gear" value={intakeSummary.registryStatus.gearAlreadyPurchased} />
+              <SummaryField label="Existing gear" value={intakeSummary.registryStatus.existingGear} />
+              <SummaryArrayField label="Main help topics" values={intakeSummary.registryStatus.helpTopics} />
+            </div>
+
+            <div className="admin-stack gap-4 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-white/90 p-5">
+              <p className="admin-eyebrow">Priorities + preferences</p>
+              <SummaryArrayField label="Priorities" values={intakeSummary.prioritiesAndPreferences.priorities} />
+              <SummaryField label="Budget range" value={intakeSummary.prioritiesAndPreferences.budgetRange} />
+              <SummaryArrayField label="Feeding plans" values={intakeSummary.prioritiesAndPreferences.feedingPlans} />
+              <SummaryField label="Pets at home" value={intakeSummary.prioritiesAndPreferences.petsAtHome} />
+              <SummaryField
+                label="Additional caregivers"
+                value={intakeSummary.prioritiesAndPreferences.additionalCaregivers}
+              />
+              <SummaryField label="Caregiver notes" value={intakeSummary.prioritiesAndPreferences.caregiverNotes} />
+            </div>
+
+            <div className="admin-stack gap-4 rounded-[1.25rem] border border-[rgba(0,0,0,0.06)] bg-white/90 p-5">
+              <p className="admin-eyebrow">Booking + goals</p>
+              <SummaryField label="Meeting preference" value={intakeSummary.bookingAndGoals.meetingPreference} />
+              <SummaryField label="Consult type" value={intakeSummary.bookingAndGoals.consultType} />
+              <SummaryField label="Preferred timing" value={intakeSummary.bookingAndGoals.preferredTiming} />
+              <SummaryField label="Session goal" value={intakeSummary.bookingAndGoals.sessionGoals} />
+              <SummaryField label="Most overwhelming right now" value={intakeSummary.bookingAndGoals.overwhelmNotes} />
+            </div>
+          </div>
+        </AdminSurface>
+      ) : null}
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Admin response</h2>
