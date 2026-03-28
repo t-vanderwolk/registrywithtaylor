@@ -1351,6 +1351,24 @@ export default function GuideEditor({
     );
   }
 
+  async function flushContentImageEdits(lineNumber?: number, successMessage?: string) {
+    const saved = await flushSaveRef.current();
+
+    if (!saved) {
+      return false;
+    }
+
+    if (typeof lineNumber === 'number') {
+      jumpToContentImage(lineNumber);
+    }
+
+    if (successMessage) {
+      setUploadFeedback(successMessage);
+    }
+
+    return true;
+  }
+
   function jumpToContentImage(lineNumber: number) {
     const currentContent = stateRef.current.content;
     const start = getGuideMarkdownImageLineOffset(currentContent, lineNumber);
@@ -1376,19 +1394,18 @@ export default function GuideEditor({
             src: url,
             alt: currentImage?.alt?.trim() || toAltText(file.name),
           },
-          'immediate',
+          'manual',
         );
-        jumpToContentImage(pendingLineNumber);
-        setUploadFeedback('Image uploaded and applied to the draft.');
+        await flushContentImageEdits(pendingLineNumber, 'Image uploaded and saved to the draft.');
         return;
       }
 
       insertGuideImageAtSelection({
         alt: toAltText(file.name),
         src: url,
-        saveMode: 'immediate',
+        saveMode: 'manual',
       });
-      setUploadFeedback('Image uploaded and inserted into the draft.');
+      await flushContentImageEdits(undefined, 'Image uploaded and inserted into the draft.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload inline image.');
     } finally {
@@ -2290,6 +2307,16 @@ export default function GuideEditor({
                               type="button"
                               variant="secondary"
                               size="sm"
+                              onClick={() =>
+                                void flushContentImageEdits(image.lineNumber, 'Editorial image changes saved.')
+                              }
+                            >
+                              Save image changes
+                            </AdminButton>
+                            <AdminButton
+                              type="button"
+                              variant="secondary"
+                              size="sm"
                               onClick={() => jumpToContentImage(image.lineNumber)}
                             >
                               Jump to markdown
@@ -2307,6 +2334,9 @@ export default function GuideEditor({
                                   src: event.target.value,
                                 })
                               }
+                              onBlur={() =>
+                                void flushContentImageEdits(image.lineNumber, 'Editorial image changes saved.')
+                              }
                               placeholder="https://cdn.example.com/editorial-image.jpg"
                             />
                           </AdminField>
@@ -2319,6 +2349,9 @@ export default function GuideEditor({
                                 handleContentImageUpdate(image.lineNumber, {
                                   alt: event.target.value,
                                 })
+                              }
+                              onBlur={() =>
+                                void flushContentImageEdits(image.lineNumber, 'Editorial image changes saved.')
                               }
                               placeholder="Editorial image description"
                             />
