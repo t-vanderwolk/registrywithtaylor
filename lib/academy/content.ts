@@ -205,6 +205,8 @@ type AcademyModuleContent = {
   softCtaBody?: string[];
 };
 
+const ACADEMY_PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+
 const GUIDE_FILES = {
   stroller: 'taylor-made-stroller-guide.md',
   compact: 'taylor-made-compact-lightweight-stroller-guide.md',
@@ -342,7 +344,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Where to Register',
     description: 'Choose the registry setup that fits your perks, your guests, and how much flexibility you actually want.',
     subhead: 'Choosing the right platform matters more than most people realize.',
-    imagePath: '/assets/editorial/registry.jpg',
+    imagePath: ACADEMY_PLACEHOLDER_IMAGE,
     imageAlt: 'Registry planning image for the Where to Register academy module.',
     relatedSlug: null,
   },

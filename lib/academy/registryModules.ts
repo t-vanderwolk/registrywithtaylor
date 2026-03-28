@@ -69,7 +69,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
     moduleOrder: 1,
     description: 'Choose the registry setup that fits your perks, your guests, and how much flexibility you actually want.',
     subhead: 'Choosing the right platform matters more than most people realize.',
-    imagePath: '/assets/editorial/registry.jpg',
+    imagePath: PLACEHOLDER_IMAGE,
     imageAlt: 'Registry planning editorial image for the Where to Register module.',
     intro: [
       'Most parents think a registry is just a list.',
@@ -80,7 +80,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
     coreSections: [
       {
         title: 'Single retailer vs universal registry',
-        imageSrc: '/assets/editorial/registry.jpg',
+        imageSrc: PLACEHOLDER_IMAGE,
         imageAlt: 'Clean desk with laptop and registry planning setup.',
         paragraphs: [
           'Some registries are tied to one store. Others let you pull products from anywhere.',
@@ -90,7 +90,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       },
       {
         title: 'Ease for your guests',
-        imageSrc: '/assets/editorial/registry.png',
+        imageSrc: PLACEHOLDER_IMAGE,
         imageAlt: 'Minimal gifting setup with wrapped baby gifts in neutral tones.',
         paragraphs: [
           'Your registry is not just for you. It needs to feel easy for the people using it.',
@@ -100,7 +100,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       },
       {
         title: 'Long-term flexibility',
-        imageSrc: '/assets/editorial/clipboard.png',
+        imageSrc: PLACEHOLDER_IMAGE,
         imageAlt: 'Neutral workspace with registry planning notes.',
         paragraphs: [
           'Your needs will change as you go, and the registry should be able to change with you.',

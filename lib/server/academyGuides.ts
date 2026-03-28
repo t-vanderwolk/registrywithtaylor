@@ -134,13 +134,9 @@ function parseImageMeta(content: string, fallback: AcademyCoreSection | null) {
     }
 
     const fallbackImageSrc = fallback?.imageSrc ?? '/assets/placeholders/tmbc-guide-image-placeholder.svg';
-    const preferredImageSrc =
-      isPlaceholderImagePath(match[2]) && !isPlaceholderImagePath(fallbackImageSrc)
-        ? fallbackImageSrc
-        : match[2];
 
     return {
-      imageSrc: resolveRenderableImagePath(preferredImageSrc, fallbackImageSrc),
+      imageSrc: resolveRenderableImagePath(match[2], fallbackImageSrc),
       imageAlt: match[1]?.trim() || fallback?.imageAlt || 'Academy editorial image.',
       imageCaption: caption ?? fallback?.imageCaption,
     } satisfies Pick<AcademyCoreSection, 'imageSrc' | 'imageAlt' | 'imageCaption'>;
