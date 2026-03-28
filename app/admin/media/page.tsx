@@ -123,7 +123,7 @@ export default async function AdminMediaPage({ searchParams }: { searchParams?: 
         <AdminSurface>
           <AdminEmptyState
             title="No media uploaded yet"
-            hint="Upload files from the blog editor to populate the library."
+            hint="Upload files from the blog, guide, or academy editor to populate the library."
           />
         </AdminSurface>
       ) : (

@@ -17,6 +17,7 @@ import {
   type AffiliatePartnerOption,
   type AuthorOption,
   type GuideEditorTabId,
+  type MediaRecord,
   type GuideSavePayload,
   type PersistedGuideRecord,
   type RelatedGuideOption,
@@ -55,6 +56,11 @@ type GuideContentFormatAction =
   | 'divider'
   | 'image'
   | 'link';
+type GuideMediaPickerTarget =
+  | { kind: 'hero' }
+  | { kind: 'og' }
+  | { kind: 'inlineInsert' }
+  | { kind: 'inlineReplace'; lineNumber: number };
 
 type GuideState = PersistedGuideRecord;
 type TemplateSelectValue = 'blank' | GuideTemplateId;
@@ -611,6 +617,7 @@ export default function GuideEditor({
   authorOptions,
   affiliatePartnerOptions,
   relatedGuideOptions,
+  mediaLibrary = [],
   adminBasePath = '/admin/guides',
   listingHref,
   editorVariant = 'guide',
@@ -619,6 +626,7 @@ export default function GuideEditor({
   authorOptions: AuthorOption[];
   affiliatePartnerOptions: AffiliatePartnerOption[];
   relatedGuideOptions: RelatedGuideOption[];
+  mediaLibrary?: MediaRecord[];
   adminBasePath?: string;
   listingHref?: string;
   editorVariant?: GuideEditorVariant;
@@ -641,6 +649,8 @@ export default function GuideEditor({
   const [helperNotice, setHelperNotice] = useState<HelperNotice | null>(null);
   const [pendingTemplateId, setPendingTemplateId] = useState<GuideTemplateId | null>(null);
   const [templateSelection, setTemplateSelection] = useState<TemplateSelectValue>('blank');
+  const [mediaPickerTarget, setMediaPickerTarget] = useState<GuideMediaPickerTarget | null>(null);
+  const [mediaLibrarySearch, setMediaLibrarySearch] = useState('');
   const stateRef = useRef(guide);
   const currentGuideIdRef = useRef(currentGuideId);
   const debounceRef = useRef<number | null>(null);
@@ -682,6 +692,37 @@ export default function GuideEditor({
       : GUIDE_TEMPLATE_OPTIONS.find((template) => template.id === templateSelection) ?? null;
   const contentEditorialImages = useMemo(() => extractGuideMarkdownImages(guide.content), [guide.content]);
   const academyDraftStructure = useMemo(() => summarizeAcademyDraftStructure(guide.content), [guide.content]);
+  const filteredMediaLibrary = useMemo(() => {
+    const normalizedSearch = mediaLibrarySearch.trim().toLowerCase();
+
+    if (!normalizedSearch) {
+      return mediaLibrary;
+    }
+
+    return mediaLibrary.filter((media) => {
+      const haystack = `${media.fileName} ${media.url}`.toLowerCase();
+      return haystack.includes(normalizedSearch);
+    });
+  }, [mediaLibrary, mediaLibrarySearch]);
+
+  const mediaPickerTitle =
+    mediaPickerTarget?.kind === 'hero'
+      ? 'Choose a hero image'
+      : mediaPickerTarget?.kind === 'og'
+        ? 'Choose an OG image'
+        : mediaPickerTarget?.kind === 'inlineReplace'
+          ? 'Replace this editorial image'
+          : mediaPickerTarget?.kind === 'inlineInsert'
+            ? 'Insert an editorial image'
+            : 'Choose an image';
+  const mediaPickerActionLabel =
+    mediaPickerTarget?.kind === 'hero'
+      ? 'Use for hero'
+      : mediaPickerTarget?.kind === 'og'
+        ? 'Use for OG'
+        : mediaPickerTarget?.kind === 'inlineReplace'
+          ? 'Replace image'
+          : 'Insert image';
 
   useEffect(() => {
     stateRef.current = guide;
@@ -711,6 +752,8 @@ export default function GuideEditor({
     setHelperNotice(null);
     setPendingTemplateId(null);
     setTemplateSelection('blank');
+    setMediaPickerTarget(null);
+    setMediaLibrarySearch('');
     slugEditedRef.current = Boolean(next.slug.trim());
   }, [initialGuide]);
 
@@ -1034,9 +1077,9 @@ export default function GuideEditor({
           heroImageUrl: url,
           heroImageAlt: current.heroImageAlt?.trim() ? current.heroImageAlt : current.title,
         }),
-        'immediate',
+        'manual',
       );
-      setUploadFeedback('Hero image uploaded.');
+      await flushGuideEdits('Hero image uploaded.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload hero image.');
     } finally {
@@ -1057,9 +1100,9 @@ export default function GuideEditor({
           ogImageUrl: url,
           ogImageAlt: current.ogImageAlt?.trim() ? current.ogImageAlt : current.title,
         }),
-        'immediate',
+        'manual',
       );
-      setUploadFeedback('OG image uploaded.');
+      await flushGuideEdits('OG image uploaded.');
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Unable to upload OG image.');
     } finally {
@@ -1351,8 +1394,22 @@ export default function GuideEditor({
     );
   }
 
-  async function flushContentImageEdits(lineNumber?: number, successMessage?: string) {
+  async function flushGuideEdits(successMessage?: string) {
     const saved = await flushSaveRef.current();
+
+    if (!saved) {
+      return false;
+    }
+
+    if (successMessage) {
+      setUploadFeedback(successMessage);
+    }
+
+    return true;
+  }
+
+  async function flushContentImageEdits(lineNumber?: number, successMessage?: string) {
+    const saved = await flushGuideEdits(successMessage);
 
     if (!saved) {
       return false;
@@ -1362,11 +1419,103 @@ export default function GuideEditor({
       jumpToContentImage(lineNumber);
     }
 
-    if (successMessage) {
-      setUploadFeedback(successMessage);
+    return true;
+  }
+
+  function openMediaPicker(target: GuideMediaPickerTarget) {
+    setUploadError(null);
+    setUploadFeedback(null);
+    setMediaLibrarySearch('');
+    setMediaPickerTarget(target);
+  }
+
+  function closeMediaPicker() {
+    setMediaPickerTarget(null);
+    setMediaLibrarySearch('');
+  }
+
+  async function handleSelectMediaFromLibrary(media: MediaRecord) {
+    const target = mediaPickerTarget;
+    if (!target) {
+      return;
     }
 
-    return true;
+    const nextAltText = toAltText(media.fileName);
+    setUploadError(null);
+    setUploadFeedback(null);
+
+    try {
+      if (target.kind === 'hero') {
+        applyGuideUpdate(
+          (current) => ({
+            ...current,
+            heroImageUrl: media.url,
+            heroImageAlt: current.heroImageAlt?.trim() ? current.heroImageAlt : nextAltText,
+          }),
+          'manual',
+        );
+
+        const saved = await flushGuideEdits('Hero image updated from the media library.');
+        if (saved) {
+          closeMediaPicker();
+        }
+        return;
+      }
+
+      if (target.kind === 'og') {
+        applyGuideUpdate(
+          (current) => ({
+            ...current,
+            ogImageUrl: media.url,
+            ogImageAlt: current.ogImageAlt?.trim() ? current.ogImageAlt : nextAltText,
+          }),
+          'manual',
+        );
+
+        const saved = await flushGuideEdits('OG image updated from the media library.');
+        if (saved) {
+          closeMediaPicker();
+        }
+        return;
+      }
+
+      if (target.kind === 'inlineReplace') {
+        const currentImage = extractGuideMarkdownImages(stateRef.current.content).find(
+          (image) => image.lineNumber === target.lineNumber,
+        );
+
+        handleContentImageUpdate(
+          target.lineNumber,
+          {
+            src: media.url,
+            alt: currentImage?.alt?.trim() || nextAltText,
+          },
+          'manual',
+        );
+
+        const saved = await flushContentImageEdits(
+          target.lineNumber,
+          'Editorial image updated from the media library.',
+        );
+        if (saved) {
+          closeMediaPicker();
+        }
+        return;
+      }
+
+      insertGuideImageAtSelection({
+        alt: nextAltText,
+        src: media.url,
+        saveMode: 'manual',
+      });
+
+      const saved = await flushGuideEdits('Image inserted from the media library.');
+      if (saved) {
+        closeMediaPicker();
+      }
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Unable to use this image from the media library.');
+    }
   }
 
   function jumpToContentImage(lineNumber: number) {
@@ -1849,6 +1998,18 @@ export default function GuideEditor({
             >
               {uploadingKind === 'hero' ? 'Uploading hero...' : 'Upload hero image'}
             </AdminButton>
+            <AdminButton
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => openMediaPicker({ kind: 'hero' })}
+              disabled={mediaLibrary.length === 0}
+            >
+              Use library image
+            </AdminButton>
+            <AdminButton asChild type="button" variant="ghost" size="sm">
+              <Link href="/admin/media">Open media library</Link>
+            </AdminButton>
           </div>
 
           {guide.heroImageUrl ? (
@@ -2036,6 +2197,18 @@ export default function GuideEditor({
               disabled={uploadingKind !== null}
             >
               {uploadingKind === 'og' ? 'Uploading OG image...' : 'Upload OG image'}
+            </AdminButton>
+            <AdminButton
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => openMediaPicker({ kind: 'og' })}
+              disabled={mediaLibrary.length === 0}
+            >
+              Use library image
+            </AdminButton>
+            <AdminButton asChild type="button" variant="ghost" size="sm">
+              <Link href="/admin/media">Open media library</Link>
             </AdminButton>
           </div>
         </AdminSurface>
@@ -2260,6 +2433,15 @@ export default function GuideEditor({
                 >
                   {uploadingKind === 'inline' ? 'Uploading image...' : 'Upload image'}
                 </AdminButton>
+                <AdminButton
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => openMediaPicker({ kind: 'inlineInsert' })}
+                  disabled={mediaLibrary.length === 0}
+                >
+                  Library image
+                </AdminButton>
                 <AdminButton type="button" variant="secondary" size="sm" onClick={() => applyGuideMarkdownFormat('divider')}>
                   Divider
                 </AdminButton>
@@ -2302,6 +2484,15 @@ export default function GuideEditor({
                               disabled={uploadingKind !== null}
                             >
                               {uploadingKind === 'inline' ? 'Uploading image...' : 'Upload replacement'}
+                            </AdminButton>
+                            <AdminButton
+                              type="button"
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => openMediaPicker({ kind: 'inlineReplace', lineNumber: image.lineNumber })}
+                              disabled={mediaLibrary.length === 0}
+                            >
+                              Use library image
                             </AdminButton>
                             <AdminButton
                               type="button"
@@ -2913,6 +3104,86 @@ export default function GuideEditor({
           </>
         }
       />
+
+      {mediaPickerTarget ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 py-8" role="presentation">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="guide-media-dialog-title"
+            className="w-full max-w-5xl rounded-[28px] border border-[var(--admin-color-border)] bg-[var(--admin-color-background)] p-6 shadow-[var(--admin-shadow-popover)]"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="admin-stack gap-2">
+                <p className="admin-eyebrow">Media library</p>
+                <h2 id="guide-media-dialog-title" className="admin-h2">{mediaPickerTitle}</h2>
+                <p className="admin-body">
+                  Use one of your uploaded images, or upload a new one from the editor and it will appear here too.
+                </p>
+              </div>
+
+              <AdminButton variant="secondary" size="sm" onClick={closeMediaPicker}>
+                Close
+              </AdminButton>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <div className="min-w-[16rem] flex-1">
+                <AdminInput
+                  value={mediaLibrarySearch}
+                  onChange={(event) => setMediaLibrarySearch(event.target.value)}
+                  placeholder="Search by file name"
+                />
+              </div>
+              <AdminButton asChild variant="ghost" size="sm">
+                <Link href="/admin/media">Open full media library</Link>
+              </AdminButton>
+            </div>
+
+            {filteredMediaLibrary.length === 0 ? (
+              <div className="mt-6 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-6">
+                <p className="admin-body">
+                  No uploaded images match this search yet. Upload one from this editor, or open the media library to review your assets.
+                </p>
+              </div>
+            ) : (
+              <div className="mt-6 grid max-h-[65vh] gap-4 overflow-y-auto pr-1 md:grid-cols-2 xl:grid-cols-3">
+                {filteredMediaLibrary.map((media) => (
+                  <div
+                    key={media.id}
+                    className="rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4 shadow-[0_10px_24px_rgba(39,28,32,0.04)]"
+                  >
+                    <div className="overflow-hidden rounded-[20px] border border-[var(--admin-color-border)] bg-[rgba(251,248,245,0.8)]">
+                      <img src={media.url} alt={media.fileName} className="aspect-[4/3] w-full object-cover" />
+                    </div>
+
+                    <div className="mt-4 admin-stack gap-1.5">
+                      <p className="admin-label">{media.fileName}</p>
+                      <p className="admin-micro truncate">{media.url}</p>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <AdminButton
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => void handleSelectMediaFromLibrary(media)}
+                      >
+                        {mediaPickerActionLabel}
+                      </AdminButton>
+                      <AdminButton asChild type="button" variant="ghost" size="sm">
+                        <a href={media.url} target="_blank" rel="noreferrer">
+                          Open
+                        </a>
+                      </AdminButton>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ) : null}
 
       {pendingTemplateId ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4" role="presentation">

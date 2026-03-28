@@ -1,8 +1,8 @@
 import type { GuideAffiliateModule, GuideFaqItem } from '@/lib/guides/types';
 import type { GuideStatusValue } from '@/lib/guides/status';
-import type { AffiliatePartnerOption, AuthorOption } from '@/components/admin/blog/postEditorTypes';
+import type { AffiliatePartnerOption, AuthorOption, MediaRecord } from '@/components/admin/blog/postEditorTypes';
 
-export type { AffiliatePartnerOption, AuthorOption };
+export type { AffiliatePartnerOption, AuthorOption, MediaRecord };
 
 export type RelatedGuideOption = {
   id: string;
@@ -67,4 +67,3 @@ export type GuideSavePayload = Omit<PersistedGuideRecord, 'id' | 'views' | 'crea
 };
 
 export type GuideEditorTabId = 'core' | 'seo' | 'structure' | 'commerce' | 'conversion';
-

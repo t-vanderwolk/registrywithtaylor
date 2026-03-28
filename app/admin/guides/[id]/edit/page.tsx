@@ -7,6 +7,7 @@ import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
 import { guideEditorSelect, toGuideEditorRecord } from '@/lib/server/guideEditorRecord';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 import { listGuideRelationOptions } from '@/lib/server/guides';
+import { listImageMediaLibrary } from '@/lib/server/mediaLibrary';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import prisma from '@/lib/server/prisma';
 
@@ -45,10 +46,11 @@ export default async function EditGuidePage({ params }: EditGuidePageProps) {
     notFound();
   }
 
-  const [authorOptions, affiliatePartnerOptions, relatedGuideOptions] = await Promise.all([
+  const [authorOptions, affiliatePartnerOptions, relatedGuideOptions, mediaLibrary] = await Promise.all([
     listBlogAuthorOptions(),
     listAffiliatePartnerOptions(),
     listGuideRelationOptions(id),
+    listImageMediaLibrary(),
   ]);
 
   return (
@@ -65,6 +67,7 @@ export default async function EditGuidePage({ params }: EditGuidePageProps) {
         authorOptions={authorOptions}
         affiliatePartnerOptions={affiliatePartnerOptions}
         relatedGuideOptions={relatedGuideOptions}
+        mediaLibrary={mediaLibrary}
       />
     </AdminStack>
   );

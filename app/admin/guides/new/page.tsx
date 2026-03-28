@@ -6,6 +6,7 @@ import { DEFAULT_GUIDE_CATEGORY } from '@/lib/guides/categories';
 import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 import { isGuideStorageReady, listGuideRelationOptions } from '@/lib/server/guides';
+import { listImageMediaLibrary } from '@/lib/server/mediaLibrary';
 import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
@@ -27,10 +28,11 @@ export default async function NewGuidePage() {
     );
   }
 
-  const [authorOptions, affiliatePartnerOptions, relatedGuideOptions] = await Promise.all([
+  const [authorOptions, affiliatePartnerOptions, relatedGuideOptions, mediaLibrary] = await Promise.all([
     listBlogAuthorOptions(),
     listAffiliatePartnerOptions(),
     listGuideRelationOptions(),
+    listImageMediaLibrary(),
   ]);
   const defaultAuthor = authorOptions.find((option) => option.id === session.user.id) ?? authorOptions[0] ?? null;
 
@@ -94,6 +96,7 @@ export default async function NewGuidePage() {
         authorOptions={authorOptions}
         affiliatePartnerOptions={affiliatePartnerOptions}
         relatedGuideOptions={relatedGuideOptions}
+        mediaLibrary={mediaLibrary}
       />
     </AdminStack>
   );
