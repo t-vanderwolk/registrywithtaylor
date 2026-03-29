@@ -3,7 +3,6 @@ import Link from 'next/link';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
-import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import type { AcademyBreadcrumbItem, AcademyModuleSlug, AcademyPathSlug } from '@/lib/academy/content';
 
 export type AcademyModuleHubCard = {
@@ -217,10 +216,6 @@ export default function AcademyModuleHub({
             </div>
           </div>
         </section>
-      </div>
-
-      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <AcademyJourneyNavigator currentPathSlug={pathSlug} currentModuleSlug={moduleSlug} />
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-6 px-5 pb-12 sm:px-8 md:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] md:pb-16 lg:px-10">

@@ -1,4 +1,3 @@
-import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import Image from 'next/image';
 import Link from 'next/link';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
@@ -134,21 +133,18 @@ export default function NurseryFurnitureHub() {
       </SlideSection>
 
       <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[1].id} background="white">
-        <div className="space-y-6">
-          <AcademyJourneyNavigator currentPathSlug="nursery" currentModuleSlug="furniture-that-actually-works" />
-          <GuideJourneyIntro
-            title="What this module is"
-            description="This is the functional layer of the nursery. Not decor. Not filler. The pieces here shape the daily workflow."
-            intro={[
-              'Furniture That Actually Works is the part of nursery planning where you stop asking how the room should look and start asking how the room should behave.',
-              'That means choosing the pieces that support sleep, feeding, changing, storage, and the quieter safety decisions that show up in real life long after the registry confetti settles.',
-            ]}
-            calloutBody="Start with the jobs the room has to do. The right furniture usually becomes obvious much faster once each piece has a clear role."
-            whatThisIs="A guided walkthrough of the hard-working nursery furniture categories that most affect daily life."
-            whyItExists="Because the nursery gets easier when you choose fewer, better-fitting pieces instead of trying to complete a theme."
-            whoThisIsFor={[...NURSERY_FURNITURE_HUB_WHO_THIS_IS_FOR]}
-          />
-        </div>
+        <GuideJourneyIntro
+          title="What this module is"
+          description="This is the functional layer of the nursery. Not decor. Not filler. The pieces here shape the daily workflow."
+          intro={[
+            'Furniture That Actually Works is the part of nursery planning where you stop asking how the room should look and start asking how the room should behave.',
+            'That means choosing the pieces that support sleep, feeding, changing, storage, and the quieter safety decisions that show up in real life long after the registry confetti settles.',
+          ]}
+          calloutBody="Start with the jobs the room has to do. The right furniture usually becomes obvious much faster once each piece has a clear role."
+          whatThisIs="A guided walkthrough of the hard-working nursery furniture categories that most affect daily life."
+          whyItExists="Because the nursery gets easier when you choose fewer, better-fitting pieces instead of trying to complete a theme."
+          whoThisIsFor={[...NURSERY_FURNITURE_HUB_WHO_THIS_IS_FOR]}
+        />
       </SlideSection>
 
       <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[2].id} background="blush">

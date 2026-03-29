@@ -1,4 +1,3 @@
-import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import Image from 'next/image';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
@@ -146,18 +145,15 @@ export default function NurseryFurnitureCategoryPage({
       </SlideSection>
 
       <SlideSection id={`academy-nursery-furniture-${slug}-${CATEGORY_SLIDES[1].id}`} background="white">
-        <div className="space-y-6">
-          <AcademyJourneyNavigator currentPathSlug="nursery" currentModuleSlug="furniture-that-actually-works" />
-          <GuideJourneyIntro
-            title="What this does"
-            description={category.whatItDoes.description}
-            intro={category.whatItDoes.intro}
-            calloutBody={category.whatItDoes.calloutBody}
-            whatThisIs={category.whatItDoes.whatThisIs}
-            whyItExists={category.whatItDoes.whyItExists}
-            whoThisIsFor={category.whatItDoes.supportPoints}
-          />
-        </div>
+        <GuideJourneyIntro
+          title="What this does"
+          description={category.whatItDoes.description}
+          intro={category.whatItDoes.intro}
+          calloutBody={category.whatItDoes.calloutBody}
+          whatThisIs={category.whatItDoes.whatThisIs}
+          whyItExists={category.whatItDoes.whyItExists}
+          whoThisIsFor={category.whatItDoes.supportPoints}
+        />
       </SlideSection>
 
       <SlideSection id={`academy-nursery-furniture-${slug}-${CATEGORY_SLIDES[2].id}`} background="blush">

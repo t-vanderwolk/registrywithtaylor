@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -344,13 +343,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
               current={module.progress.current}
               total={module.progress.total}
               label={pathLabel ? `${pathLabel} path progress` : 'Academy module progress'}
-            />
-          </section>
-
-          <section className="academy-load-in academy-load-in--3">
-            <AcademyJourneyNavigator
-              currentPathSlug={module.pathSlug}
-              currentModuleSlug={module.slug as AcademyModuleData['slug']}
             />
           </section>
 
