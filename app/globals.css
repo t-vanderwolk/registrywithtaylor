@@ -40,6 +40,12 @@
     animation: none;
     transform: none;
   }
+
+  .consult-success-card,
+  .consult-success-orb {
+    animation: none;
+    transform: none;
+  }
 }
 
 @keyframes heroFadeIn {
@@ -105,6 +111,37 @@
   50% {
     transform: rotate(4deg) translate3d(0, 7px, 0);
   }
+}
+
+@keyframes consultationSuccessLift {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes consultationSuccessPulse {
+  0%, 100% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.consult-success-card {
+  animation: consultationSuccessLift 420ms ease-out both;
+}
+
+.consult-success-orb {
+  animation: consultationSuccessPulse 2.8s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .hero-load-reveal {

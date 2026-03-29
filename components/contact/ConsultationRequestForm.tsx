@@ -422,6 +422,7 @@ export default function ConsultationRequestForm({
   const router = useRouter();
   const formStartedRef = useRef(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const successRedirectTimeoutRef = useRef<number | null>(null);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formState, setFormState] = useState<ConsultationIntakeState>(CONSULTATION_INTAKE_INITIAL_STATE);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -459,6 +460,14 @@ export default function ConsultationRequestForm({
 
     window.localStorage.setItem(FORM_DRAFT_KEY, JSON.stringify(formState));
   }, [formState, hydrated]);
+
+  useEffect(() => {
+    return () => {
+      if (successRedirectTimeoutRef.current) {
+        window.clearTimeout(successRedirectTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const setFieldValue = <K extends keyof ConsultationIntakeState>(field: K, value: ConsultationIntakeState[K]) => {
     setFormState((current) => ({
@@ -652,10 +661,19 @@ export default function ConsultationRequestForm({
       if (typeof window !== 'undefined') {
         window.localStorage.removeItem(FORM_DRAFT_KEY);
       }
+      scrollToTop();
 
-      startTransition(() => {
-        router.push(payload?.redirectTo || successPath);
-      });
+      if (typeof window !== 'undefined') {
+        successRedirectTimeoutRef.current = window.setTimeout(() => {
+          startTransition(() => {
+            router.push(payload?.redirectTo || successPath);
+          });
+        }, 950);
+      } else {
+        startTransition(() => {
+          router.push(payload?.redirectTo || successPath);
+        });
+      }
     } catch (error) {
       setSubmitState({
         type: 'error',
@@ -1068,45 +1086,95 @@ export default function ConsultationRequestForm({
             </div>
           ) : null}
 
-          {renderStepContent()}
-
-          <div className="flex flex-col-reverse gap-3 border-t border-[rgba(47,36,48,0.08)] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <button
-              type="button"
-              onClick={handleBack}
-              disabled={currentStepIndex === 0 || submitState.type === 'submitting'}
-              className={cx(
-                'min-h-[48px] rounded-full px-5 py-3 text-sm font-semibold transition duration-200',
-                currentStepIndex === 0
-                  ? 'cursor-not-allowed border border-transparent bg-transparent text-neutral-300'
-                  : 'border border-[rgba(47,36,48,0.12)] bg-white text-neutral-700 hover:shadow-sm',
-              )}
+          {submitState.type === 'success' ? (
+            <div
+              className="consult-success-card rounded-[1.45rem] border border-[rgba(216,137,160,0.22)] bg-[linear-gradient(180deg,rgba(255,250,251,0.98)_0%,rgba(255,244,247,0.96)_100%)] px-5 py-7 text-center shadow-[0_24px_52px_rgba(47,36,48,0.08)] sm:px-8 sm:py-9"
+              role="status"
+              aria-live="polite"
             >
-              Back
-            </button>
+              <div className="mx-auto flex w-full max-w-[22rem] flex-col items-center">
+                <div className="relative flex h-24 w-24 items-center justify-center sm:h-28 sm:w-28">
+                  <span
+                    aria-hidden="true"
+                    className="consult-success-orb absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(216,137,160,0.2)_0%,rgba(216,137,160,0.04)_58%,rgba(216,137,160,0)_76%)]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-[16%] rounded-full border border-[rgba(216,137,160,0.32)] bg-white/84 shadow-[0_12px_30px_rgba(47,36,48,0.08)]"
+                  />
+                  <span className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(180deg,#d889a0_0%,#c97691_100%)] text-white shadow-[0_12px_28px_rgba(201,118,145,0.32)] sm:h-14 sm:w-14">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-6 w-6 sm:h-7 sm:w-7"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <p className="text-sm leading-6 text-neutral-500">
-                {currentStep.id === 'review'
-                  ? 'This intake becomes your pre-consult plan.'
-                  : 'You do not need to have everything figured out.'}
-              </p>
-
-              {currentStep.id === 'review' ? (
-                <button
-                  type="submit"
-                  disabled={submitState.type === 'submitting'}
-                  className="btn btn--primary min-h-[48px] px-6"
-                >
-                  {submitState.type === 'submitting' ? 'Sending your intake...' : submitLabel}
-                </button>
-              ) : (
-                <button type="button" onClick={handleNext} className="btn btn--primary min-h-[48px] px-6">
-                  Continue
-                </button>
-              )}
+                <p className="mt-5 text-[0.72rem] uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/82">
+                  Intake sent
+                </p>
+                <h4 className="mt-3 font-serif text-[2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.2rem]">
+                  You&apos;re all set.
+                </h4>
+                <p className="mt-4 text-[1rem] leading-8 text-neutral-700 sm:text-[1.04rem]">
+                  I have your notes. Opening your confirmation screen now so you know everything went through cleanly.
+                </p>
+                <p className="mt-4 text-sm leading-7 text-neutral-500">
+                  No need to resubmit. The goal is clarity, not repeat paperwork.
+                </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            renderStepContent()
+          )}
+
+          {submitState.type !== 'success' ? (
+            <div className="flex flex-col-reverse gap-3 border-t border-[rgba(47,36,48,0.08)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="button"
+                onClick={handleBack}
+                disabled={currentStepIndex === 0 || submitState.type === 'submitting'}
+                className={cx(
+                  'min-h-[48px] rounded-full px-5 py-3 text-sm font-semibold transition duration-200',
+                  currentStepIndex === 0
+                    ? 'cursor-not-allowed border border-transparent bg-transparent text-neutral-300'
+                    : 'border border-[rgba(47,36,48,0.12)] bg-white text-neutral-700 hover:shadow-sm',
+                )}
+              >
+                Back
+              </button>
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <p className="text-sm leading-6 text-neutral-500">
+                  {currentStep.id === 'review'
+                    ? 'This intake becomes your pre-consult plan.'
+                    : 'You do not need to have everything figured out.'}
+                </p>
+
+                {currentStep.id === 'review' ? (
+                  <button
+                    type="submit"
+                    disabled={submitState.type === 'submitting'}
+                    className="btn btn--primary min-h-[48px] px-6"
+                  >
+                    {submitState.type === 'submitting' ? 'Sending your intake...' : submitLabel}
+                  </button>
+                ) : (
+                  <button type="button" onClick={handleNext} className="btn btn--primary min-h-[48px] px-6">
+                    Continue
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <div className="rounded-[1.2rem] bg-[rgba(255,248,249,0.86)] px-5 py-4 text-sm leading-7 text-neutral-600">
