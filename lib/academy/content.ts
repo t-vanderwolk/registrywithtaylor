@@ -29,7 +29,9 @@ import {
 } from '@/lib/academy/postpartumModules';
 import { getDailyUseGearAcademySubmoduleCards } from '@/lib/academy/dailyUseGearAcademy';
 import { getNurseryFurnitureSubmoduleCards } from '@/lib/academy/nurseryFurnitureAcademy';
+import { getCarSeatFoundationsAcademySubmoduleCards } from '@/lib/academy/carSeatFoundationsAcademy';
 import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
+import { getStrollerFoundationsAcademySubmoduleCards } from '@/lib/academy/strollerFoundationsAcademy';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import {
@@ -41,8 +43,6 @@ import {
 } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
-import { getStrollerHubCategoryCards } from '@/lib/guides/strollerCluster';
-import { getCarSeatAcademyCategoryCards } from '@/lib/guides/carSeatAcademy';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
@@ -852,12 +852,10 @@ function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSe
       title: 'Stroller Foundations Sub Modules',
       description:
         'Once the category basics click, use these stroller category guides to go deeper into the lane that actually fits your routine.',
-      cards: getStrollerHubCategoryCards().map((card) => ({
-        href: card.href,
-        title: card.title,
-        description: card.description,
+      cards: getStrollerFoundationsAcademySubmoduleCards().map((card) => ({
+        ...card,
         ctaLabel: 'Open sub module ->',
-        eyebrow: 'Stroller Category',
+        eyebrow: 'Stroller Lane',
       })),
     };
   }
@@ -867,10 +865,8 @@ function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSe
       title: 'Car Seat Foundations Sub Modules',
       description:
         'Once the stage basics click, use these car seat category guides to go deeper into the lane that actually fits your vehicle, your routine, and the chapter you are in.',
-      cards: getCarSeatAcademyCategoryCards().map((card) => ({
-        href: card.href,
-        title: card.title,
-        description: card.description,
+      cards: getCarSeatFoundationsAcademySubmoduleCards().map((card) => ({
+        ...card,
         ctaLabel: 'Open sub module ->',
         eyebrow: 'Car Seat Category',
       })),
@@ -1273,6 +1269,8 @@ export function getAcademySitemapPaths() {
     ...ACADEMY_PATH_ORDER.flatMap((pathSlug) =>
       ACADEMY_PATH_MODULES[pathSlug].map((moduleSlug) => getAcademyModuleHref(pathSlug, moduleSlug)),
     ),
+    ...getStrollerFoundationsAcademySubmoduleCards().map((card) => card.href),
+    ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => card.href),
   ];
 }
 

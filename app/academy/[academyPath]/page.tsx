@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
@@ -136,6 +137,10 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
               </ul>
             </div>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
+          <AcademyJourneyNavigator currentPathSlug={pathData.slug} />
         </section>
 
         <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
