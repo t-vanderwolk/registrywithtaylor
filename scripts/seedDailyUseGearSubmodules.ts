@@ -8,9 +8,9 @@ import {
 } from '@/lib/academy/dailyUseGearAcademy';
 import { GUIDE_CATEGORIES } from '@/lib/guides/categories';
 import prisma from '@/lib/server/prisma';
-import { ACADEMY_TOPIC_CLUSTER_TOKEN } from '@/lib/server/academyGuides';
 
 const PUBLISH_FLAG = '--publish';
+const ACADEMY_TOPIC_CLUSTER_TOKEN = 'TMBC Baby Academy';
 const DAILY_USE_GEAR_CATEGORY = GUIDE_CATEGORIES[5];
 const DAILY_USE_GEAR_TOPIC_CLUSTER = `${ACADEMY_TOPIC_CLUSTER_TOKEN} · Gear · Daily Use Gear`;
 const DAILY_USE_GEAR_PARENT_PATH = '/academy/gear/daily-use-gear';
