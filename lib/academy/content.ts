@@ -27,6 +27,7 @@ import {
   POSTPARTUM_ACADEMY_MODULES,
   type PostpartumAcademyModuleSlug,
 } from '@/lib/academy/postpartumModules';
+import { getDailyUseGearAcademySubmoduleCards } from '@/lib/academy/dailyUseGearAcademy';
 import { getNurseryFurnitureSubmoduleCards } from '@/lib/academy/nurseryFurnitureAcademy';
 import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
 import { STROLLER_PRODUCT_GROUPS } from '@/lib/data/products/strollers';
@@ -488,8 +489,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
   'daily-use-gear': {
     pathSlug: 'gear',
     title: 'Daily Use Gear',
-    description: 'Prioritize the gear that becomes part of your real daily rhythm and skip the categories that mostly create clutter.',
-    subhead: 'What you will actually use every day.',
+    description: "The products you'll use every single day - and feel immediately if they're wrong.",
+    subhead: 'The products that shape the routine fast.',
     imagePath: '/assets/editorial/babystuff.png',
     imageAlt: 'Daily-use baby gear image for the Daily Use Gear academy module.',
     relatedSlug: 'where-to-register',
@@ -882,6 +883,15 @@ function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSe
       description:
         'Use these nursery furniture submodules to sort the pieces that support sleep, feeding, changing, storage, and safety without turning the room into a shopping checklist.',
       cards: getNurseryFurnitureSubmoduleCards(),
+    };
+  }
+
+  if (slug === 'daily-use-gear') {
+    return {
+      title: 'Daily Use Gear Sub Modules',
+      description:
+        'Use these Daily Use Gear submodules to sort the products that shape movement, feeding, soothing, cleanup, and the smaller repeated parts of the day without overbuying the category.',
+      cards: getDailyUseGearAcademySubmoduleCards(),
     };
   }
 

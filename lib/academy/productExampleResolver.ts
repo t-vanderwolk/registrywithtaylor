@@ -94,8 +94,8 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       name: 'Target Registry Completion Offer',
       brand: 'Target',
       affiliateUrl: 'https://www.target.com/gift-registry/create-baby-registry',
-      imageSrc: EDITORIAL_IMAGES.registryAlt,
-      imageAlt: 'Registry completion discount example.',
+      imageSrc: 'https://images.agoramedia.com/wte3.0/gcms/target-baby-registry-logo.jpg',
+      imageAlt: 'Target baby registry completion offer example.',
     },
   },
   'vision-and-lifestyle': {

@@ -347,8 +347,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
     title: 'Daily Use Gear',
     slug: 'daily-use-gear',
     moduleOrder: 5,
-    description: 'Prioritize the gear that becomes part of your real daily rhythm and skip the categories that mostly create clutter.',
-    subhead: 'What you will actually use every day.',
+    description: "The products you'll use every single day - and feel immediately if they're wrong.",
+    subhead: 'The products that shape the routine fast.',
     imagePath: '/assets/editorial/babystuff.png',
     imageAlt: 'Editorial daily-use baby gear image for the Daily Use Gear module.',
     intro: [

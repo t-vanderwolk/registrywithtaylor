@@ -9,7 +9,6 @@ import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
-import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
@@ -17,7 +16,6 @@ import {
   getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
-  getGuideLifestyleImages,
 } from '@/lib/guides/experience';
 import { getGuideSignOff } from '@/lib/guides/editorialSystem';
 import { dedupeTextItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
@@ -131,11 +129,6 @@ export default function CarSeatAcademyLanePage({
     href: entry.href,
     isCurrent: entry.slug === lane.slug,
   }));
-  const lifestyleImages = getGuideLifestyleImages({
-    slug: guide.slug,
-    category: guide.category,
-    topicCluster: guide.topicCluster,
-  });
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
@@ -302,9 +295,6 @@ export default function CarSeatAcademyLanePage({
               ))}
             </div>
           </section>
-
-          {lifestyleImages.length > 0 ? <GuideLifestyleGallery images={lifestyleImages} /> : null}
-
           <section className="space-y-8">
             <div className="max-w-3xl">
               <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Core Considerations</p>
