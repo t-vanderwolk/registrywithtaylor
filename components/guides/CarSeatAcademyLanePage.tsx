@@ -5,12 +5,12 @@ import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ComparisonTable from '@/components/guides/academy/ComparisonTable';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
-import ProductPlaceholderCard from '@/components/guides/academy/ProductPlaceholderCard';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import {
@@ -395,22 +395,25 @@ export default function CarSeatAcademyLanePage({
             </div>
 
             <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
-              {lane.productExamples.map((example) => (
-                <ProductPlaceholderCard
+              {lane.productExamples.map((example, index) => (
+                <GuideProductExampleCard
                   key={example.productName}
-                  eyebrow={`${lane.shortTitle} example`}
-                  title={example.productName}
-                  description={example.shortReview || lane.heroDescription}
+                  name={example.productName}
+                  brand={example.brand}
+                  productName={example.productName}
+                  typeLabel={example.typeLabel}
+                  whyItMatters={example.shortReview || lane.heroDescription}
                   bestFor={example.bestFor || lane.bestFor}
                   standout={example.standout || example.typeLabel || lane.everydayFeel}
-                  watchout={lane.tradeoff}
+                  specGroups={example.specGroups}
+                  notes={example.notes}
+                  pros={example.pros}
+                  affiliateUrl={example.affiliateLinks[0]?.url ?? null}
                   imageSrc={example.imageUrl}
                   imageAlt={example.imageAlt}
-                  ctas={[
-                    { label: '[PRODUCT_CARD_PLACEHOLDER]' },
-                    { label: '[COMPARE_CTA_PLACEHOLDER: Compare This Car Seat]' },
-                    { label: '[REGISTRY_CTA_PLACEHOLDER: Add to Registry]' },
-                  ]}
+                  category={`${lane.shortTitle} example`}
+                  guide={guide.slug}
+                  position={index + 1}
                 />
               ))}
             </div>

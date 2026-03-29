@@ -13,13 +13,13 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#d889a0',
     icons: [
       {
-        src: '/assets/editorial/ribbonbow.png',
+        src: '/assets/editorial/ribbonbow-app-192.png',
         sizes: '192x192',
         type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/assets/editorial/ribbonbow.png',
+        src: '/assets/editorial/ribbonbow-app-512.png',
         sizes: '512x512',
         type: 'image/png',
         purpose: 'any',

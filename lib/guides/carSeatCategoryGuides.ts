@@ -124,7 +124,9 @@ function toGuideProductExample(product: GuideProductExampleData): CarSeatGuidePr
           : ['A thoughtful example for this category.'],
     bestFor: product.bestFor ?? 'Parents who want a clearer fit for this category.',
     standout: product.standout ?? product.typeLabel ?? null,
-    affiliateLinks: [],
+    affiliateLinks: product.affiliateUrl
+      ? [{ label: product.ctaLabel ?? `View ${product.productName ?? product.name}`, url: product.affiliateUrl }]
+      : [],
     imageUrl: product.imageSrc ?? null,
     imageAlt: product.imageAlt ?? null,
     typeLabel: product.typeLabel ?? null,

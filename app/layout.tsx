@@ -27,9 +27,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: [{ url: '/assets/editorial/ribbonbow.png', type: 'image/png' }],
-    shortcut: [{ url: '/assets/editorial/ribbonbow.png', type: 'image/png' }],
-    apple: [{ url: '/assets/editorial/ribbonbow.png', sizes: '180x180', type: 'image/png' }],
+    icon: [
+      { url: '/assets/editorial/ribbonbow-favicon-64.png', sizes: '64x64', type: 'image/png' },
+      { url: '/assets/editorial/ribbonbow-app-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: [{ url: '/assets/editorial/ribbonbow-favicon-64.png', sizes: '64x64', type: 'image/png' }],
+    apple: [{ url: '/assets/editorial/ribbonbow-apple-180.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     title: DEFAULT_SITE_TITLE,

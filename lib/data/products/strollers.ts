@@ -135,6 +135,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Butterfly',
       imageSrc: '/assets/strollers/butterfly.png',
       imageAlt: 'Bugaboo Butterfly stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bugaboo-butterfly'],
       typeLabel: 'Travel Stroller',
       bestFor: 'families who want a true travel-first fold without giving up every last bit of comfort',
       shortReview:
@@ -153,6 +154,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'TRVL lx',
       imageSrc: '/assets/strollers/trvllx.png',
       imageAlt: 'Nuna TRVL lx stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['nuna-trvl-lx'],
       typeLabel: 'Travel Stroller',
       bestFor: 'parents who want lighter carry and a cleaner quick-trip stroller for flights and errands',
       shortReview:
@@ -171,6 +173,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Aer+',
       imageSrc: '/assets/strollers/joolz.png',
       imageAlt: 'Joolz Aer+ stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['joolz-aer-plus'],
       typeLabel: 'Travel Stroller',
       bestFor: 'parents prioritizing portability, faster folds, and genuinely smaller stroller footprint',
       shortReview:
@@ -250,6 +253,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Indie Twin',
       imageSrc: '/assets/strollers/inditwin.png',
       imageAlt: 'Bumbleride Indie Twin stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bumbleride-indie-twin'],
       typeLabel: 'Double Stroller',
       bestFor: 'families who need two actual seats now and want honest everyday double-stroller capability',
       shortReview:
@@ -268,6 +272,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Revolution Flex Duallie',
       imageSrc: '/assets/strollers/revolution.png',
       imageAlt: 'BOB Revolution Flex Duallie stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bob-revolution-flex-duallie'],
       typeLabel: 'Double Jogging Stroller',
       bestFor: 'active families who need a double setup that can handle longer outdoor routes and rougher terrain',
       shortReview:
@@ -286,6 +291,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Minu Duo',
       imageSrc: '/assets/strollers/minuduo.png',
       imageAlt: 'UPPAbaby Minu Duo stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['uppababy-minu-duo'],
       typeLabel: 'Double Stroller',
       bestFor: 'parents who need two seats now but still care deeply about day-to-day maneuvering and a more compact feel',
       shortReview:
@@ -306,6 +312,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Ridge',
       imageSrc: '/assets/strollers/ridge.png',
       imageAlt: 'UPPAbaby Ridge stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['uppababy-ridge'],
       typeLabel: 'Jogging / All-Terrain Stroller',
       bestFor: 'parents who want bigger wheels and stronger suspension for rougher routes and outdoor-heavy weeks',
       shortReview:
@@ -324,6 +331,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Urban Glide 3',
       imageSrc: '/assets/strollers/urbnglide.png',
       imageAlt: 'Thule Urban Glide 3 stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['thule-urban-glide-3'],
       typeLabel: 'Jogging Stroller',
       bestFor: 'families comparing a true jogging setup with a more general all-terrain lane',
       shortReview:
@@ -342,6 +350,7 @@ export const STROLLER_PRODUCT_GROUPS: Record<StrollerProductGroupSlug, GuideProd
       productName: 'Alterrain Pro',
       imageSrc: '/assets/strollers/alterrian.png',
       imageAlt: 'BOB Alterrain Pro stroller.',
+      affiliateUrl: STROLLER_AFFILIATE_LINKS['bob-alterrain-pro'],
       typeLabel: 'All-Terrain Stroller',
       bestFor: 'parents whose routes include trails, gravel, or broken sidewalks often enough to matter every week',
       shortReview:
