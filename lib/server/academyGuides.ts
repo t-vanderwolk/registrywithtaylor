@@ -10,16 +10,33 @@ import {
   type AcademyModuleSlug,
   type AcademyPathSlug,
   type AcademyProductExample,
+  getAcademyModuleData,
   isAcademyModuleSlug,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
+import {
+  buildCarSeatFoundationsAcademySubmoduleModule,
+  isCarSeatFoundationsAcademySubmoduleSlug,
+} from '@/lib/academy/carSeatFoundationsAcademy';
+import {
+  buildDailyUseGearAcademySubmoduleModule,
+  isDailyUseGearAcademySubmoduleSlug,
+} from '@/lib/academy/dailyUseGearAcademy';
+import {
+  buildNurseryFurnitureAcademySubmoduleModule,
+  isNurseryFurnitureCategorySlug,
+} from '@/lib/academy/nurseryFurnitureAcademy';
 import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
+import {
+  buildStrollerFoundationsAcademySubmoduleModule,
+  isStrollerFoundationsAcademySubmoduleSlug,
+} from '@/lib/academy/strollerFoundationsAcademy';
 import { stripMarkdown } from '@/lib/blog/contentText';
 import { isStyledBlockStart, parseStyledBlock } from '@/lib/blog/styledBlocks';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
 import { getPublicGuideWhere } from '@/lib/guides/status';
-import { normalizeGuideCanonicalPath } from '@/lib/guides/publicPath';
+import { getGuidePublicPath, normalizeGuideCanonicalPath } from '@/lib/guides/publicPath';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import { guideArticleSelect, toGuideArticleRecord, type GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
@@ -218,7 +235,7 @@ function parseProductExamples(
 
 function parseSoftCta(
   sections: Array<{ title: string; content: string }>,
-  fallbackModule: AcademyModuleData,
+  fallbackModule: Pick<AcademyModuleData, 'softCtaLabel' | 'softCtaTitle' | 'softCtaBody'>,
 ) {
   const ignoredTitles = new Set([
     'core considerations',
@@ -306,7 +323,7 @@ export function getAcademyModuleReferenceFromGuide(guide: Pick<GuideArticleRecor
 
 const getPublishedAcademyGuideForModuleCached = cache(async (pathSlug: AcademyPathSlug, moduleSlug: AcademyModuleSlug) => {
   const canonicalPath = `/academy/${pathSlug}/${moduleSlug}`;
-  const guide = await prisma.guide.findFirst({
+  const guides = await prisma.guide.findMany({
     where: {
       AND: [
         getPublicGuideWhere(),
@@ -315,7 +332,7 @@ const getPublishedAcademyGuideForModuleCached = cache(async (pathSlug: AcademyPa
           OR: [
             {
               canonicalUrl: {
-                contains: canonicalPath,
+                endsWith: canonicalPath,
                 mode: 'insensitive',
               },
             },
@@ -330,6 +347,38 @@ const getPublishedAcademyGuideForModuleCached = cache(async (pathSlug: AcademyPa
     select: guideArticleSelect,
   });
 
+  const exactPathGuide =
+    guides.find((guide) => normalizeGuideCanonicalPath(guide.canonicalUrl) === canonicalPath) ?? null;
+  const slugGuide = guides.find((guide) => guide.slug === moduleSlug) ?? null;
+  const guide = exactPathGuide ?? slugGuide;
+
+  return guide ? toGuideArticleRecord(guide) : null;
+});
+
+const getPublishedAcademyGuideForPathCached = cache(async (publicPath: string) => {
+  const normalizedPath = normalizeGuideCanonicalPath(publicPath);
+  if (!normalizedPath) {
+    return null;
+  }
+
+  const guides = await prisma.guide.findMany({
+    where: {
+      AND: [
+        getPublicGuideWhere(),
+        getAcademyGuideScopeWhere(),
+        {
+          canonicalUrl: {
+            endsWith: normalizedPath,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    },
+    orderBy: [{ publishedAt: 'desc' }, { updatedAt: 'desc' }],
+    select: guideArticleSelect,
+  });
+
+  const guide = guides.find((entry) => normalizeGuideCanonicalPath(entry.canonicalUrl) === normalizedPath) ?? null;
   return guide ? toGuideArticleRecord(guide) : null;
 });
 
@@ -343,10 +392,105 @@ export async function getPublishedAcademyGuideForModule({
   return getPublishedAcademyGuideForModuleCached(pathSlug, moduleSlug);
 }
 
-export function mergeAcademyModuleWithGuideRecord(
-  fallbackModule: AcademyModuleData,
+export async function getPublishedAcademyGuideForPath(publicPath?: string | null) {
+  const normalizedPath = normalizeGuideCanonicalPath(publicPath);
+  if (!normalizedPath) {
+    return null;
+  }
+
+  return getPublishedAcademyGuideForPathCached(normalizedPath);
+}
+
+type AcademyGuideMergeTarget = {
+  slug: string;
+  title: string;
+  description: string;
+  subhead: string;
+  intro: string[];
+  imagePath: string;
+  imageAlt: string;
+  coreSections: AcademyCoreSection[];
+  decisionTitle: string;
+  decisionBullets: string[];
+  products: AcademyProductExample[];
+  softCtaLabel: string;
+  softCtaTitle: string;
+  softCtaBody: string[];
+  trackingGuideId?: string | null;
+};
+
+export async function getAcademyPreviewModuleFromPath(publicPath?: string | null) {
+  const normalizedPath = normalizeGuideCanonicalPath(publicPath);
+  if (!normalizedPath) {
+    return null;
+  }
+
+  const segments = normalizedPath.split('/').filter(Boolean);
+  if (segments[0] !== 'academy') {
+    return null;
+  }
+
+  if (segments.length === 3) {
+    const [, academyPath, moduleSlug] = segments;
+    if (!isAcademyPathSlug(academyPath) || !isAcademyModuleSlug(moduleSlug)) {
+      return null;
+    }
+
+    return getAcademyModuleData(moduleSlug);
+  }
+
+  if (segments.length !== 4) {
+    return null;
+  }
+
+  const [, academyPath, moduleSlug, submoduleSlug] = segments;
+
+  if (academyPath === 'gear' && moduleSlug === 'daily-use-gear' && isDailyUseGearAcademySubmoduleSlug(submoduleSlug)) {
+    return buildDailyUseGearAcademySubmoduleModule(submoduleSlug);
+  }
+
+  if (
+    academyPath === 'gear' &&
+    moduleSlug === 'stroller-foundations' &&
+    isStrollerFoundationsAcademySubmoduleSlug(submoduleSlug)
+  ) {
+    return buildStrollerFoundationsAcademySubmoduleModule(submoduleSlug);
+  }
+
+  if (
+    academyPath === 'gear' &&
+    moduleSlug === 'car-seat-foundations' &&
+    isCarSeatFoundationsAcademySubmoduleSlug(submoduleSlug)
+  ) {
+    return buildCarSeatFoundationsAcademySubmoduleModule(submoduleSlug);
+  }
+
+  if (
+    academyPath === 'nursery' &&
+    moduleSlug === 'furniture-that-actually-works' &&
+    isNurseryFurnitureCategorySlug(submoduleSlug)
+  ) {
+    return buildNurseryFurnitureAcademySubmoduleModule(submoduleSlug);
+  }
+
+  return null;
+}
+
+export async function getAcademyPreviewModuleFromGuide(guide: GuideArticleRecord) {
+  const publicPath = getGuidePublicPath({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+    canonicalUrl: guide.canonicalUrl,
+  });
+  const fallbackModule = await getAcademyPreviewModuleFromPath(publicPath);
+
+  return fallbackModule ? mergeAcademyModuleWithGuideRecord(fallbackModule, guide) : null;
+}
+
+export function mergeAcademyModuleWithGuideRecord<T extends AcademyGuideMergeTarget>(
+  fallbackModule: T,
   guide: GuideArticleRecord,
-): AcademyModuleData {
+): T {
   const content = guide.content?.trim() || '';
   const outline = buildGuideOutline(content);
   const moduleSection = findSection(outline.sections, (title) => title.startsWith('module '));
@@ -384,5 +528,5 @@ export function mergeAcademyModuleWithGuideRecord(
     softCtaTitle: softCta.softCtaTitle,
     softCtaBody: softCta.softCtaBody,
     trackingGuideId: guide.id,
-  };
+  } satisfies T;
 }

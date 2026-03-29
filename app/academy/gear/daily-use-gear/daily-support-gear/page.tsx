@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import DailyUseGearSubmodulePage from '@/components/academy/DailyUseGearSubmodulePage';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -22,12 +21,6 @@ export default function DailyUseGearDailySupportGearPage() {
   return (
     <SiteShell currentPath={path}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={path}
-          pageType="guide"
-          slug="academy-gear-daily-use-gear-daily-support-gear"
-          title={submodule.title}
-        />
         <DailyUseGearSubmodulePage slug="daily-support-gear" />
       </main>
     </SiteShell>

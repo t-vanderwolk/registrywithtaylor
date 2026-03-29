@@ -1,77 +1,12 @@
-import { notFound } from 'next/navigation';
-import GuideEditor from '@/components/admin/guides/GuideEditor';
-import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
-import AdminHeader from '@/components/admin/ui/AdminHeader';
-import AdminStack from '@/components/admin/ui/AdminStack';
-import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
-import { guideEditorSelect, toGuideEditorRecord } from '@/lib/server/guideEditorRecord';
-import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
-import { listGuideRelationOptions } from '@/lib/server/guides';
-import { listImageMediaLibrary } from '@/lib/server/mediaLibrary';
-import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
-import prisma from '@/lib/server/prisma';
-
-export const dynamic = 'force-dynamic';
+import { redirect } from 'next/navigation';
 
 type EditAcademyModulePageProps = {
   params: Promise<{ id: string }>;
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditAcademyModulePage({ params }: EditAcademyModulePageProps) {
   const { id } = await params;
-  let guide = null;
-  try {
-    guide = await prisma.guide.findUnique({
-      where: { id },
-      select: guideEditorSelect,
-    });
-  } catch (error) {
-    if (isGuideStorageUnavailableError(error)) {
-      return (
-        <AdminStack gap="xl">
-          <AdminHeader
-            eyebrow="Academy"
-            title="Academy module editor"
-            subtitle="Academy editing is blocked until the Guide tables exist in the database."
-          />
-          <GuideStorageNotice backHref="/admin/academy" backLabel="Back to academy" />
-        </AdminStack>
-      );
-    }
-
-    throw error;
-  }
-
-  if (!guide) {
-    notFound();
-  }
-
-  const [authorOptions, affiliatePartnerOptions, relatedGuideOptions, mediaLibrary] = await Promise.all([
-    listBlogAuthorOptions(),
-    listAffiliatePartnerOptions(),
-    listGuideRelationOptions(id),
-    listImageMediaLibrary(),
-  ]);
-
-  return (
-    <AdminStack gap="xl">
-      <AdminHeader
-        eyebrow="Academy"
-        title={guide.title?.trim() ? guide.title : 'Untitled module'}
-        subtitle="This editor now maps directly to the live academy module structure, so the fields and markdown sections here match what the public module actually renders."
-      />
-
-      <GuideEditor
-        key={guide.id}
-        initialGuide={toGuideEditorRecord(guide)}
-        authorOptions={authorOptions}
-        affiliatePartnerOptions={affiliatePartnerOptions}
-        relatedGuideOptions={relatedGuideOptions}
-        mediaLibrary={mediaLibrary}
-        adminBasePath="/admin/academy"
-        listingHref="/admin/academy"
-        editorVariant="academyModule"
-      />
-    </AdminStack>
-  );
+  redirect(`/admin/guides/${id}/edit`);
 }

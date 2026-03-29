@@ -1,3 +1,4 @@
+import type { ModuleLayoutData } from '@/components/academy/ModuleLayout';
 import type { DecisionBlockItem } from '@/components/guides/DecisionBlock';
 import type { GuideStageLabel } from '@/lib/guides/guideFlow';
 import type { GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
@@ -92,6 +93,10 @@ function createNextStep(
 
 export function getNurseryFurnitureCategoryPath(slug: NurseryFurnitureCategorySlug) {
   return `${NURSERY_FURNITURE_HUB_PATH}/${slug}` as const;
+}
+
+export function isNurseryFurnitureCategorySlug(value: string): value is NurseryFurnitureCategorySlug {
+  return CATEGORY_ORDER.includes(value as NurseryFurnitureCategorySlug);
 }
 
 export const NURSERY_FURNITURE_CATEGORIES: Record<
@@ -670,6 +675,136 @@ export function getNurseryFurnitureSubmoduleCards() {
 
 export function getNurseryFurnitureCategory(slug: NurseryFurnitureCategorySlug) {
   return NURSERY_FURNITURE_CATEGORIES[slug];
+}
+
+function decisionItemsToParagraphs(items: DecisionBlockItem[]) {
+  return items.map((item) => `If you ${item.condition}, ${item.recommendation}`);
+}
+
+function uniqueItems(items: Array<string | null | undefined>, maxItems?: number) {
+  const deduped = items
+    .map((item) => (typeof item === 'string' ? item.trim() : ''))
+    .filter(Boolean)
+    .filter((item, index, collection) => collection.indexOf(item) === index);
+
+  return typeof maxItems === 'number' ? deduped.slice(0, maxItems) : deduped;
+}
+
+export function buildNurseryFurnitureAcademySubmoduleModule(
+  slug: NurseryFurnitureCategorySlug,
+): ModuleLayoutData {
+  const category = getNurseryFurnitureCategory(slug);
+  const currentIndex = CATEGORY_ORDER.indexOf(slug);
+  const previousSlug = currentIndex > 0 ? CATEGORY_ORDER[currentIndex - 1] ?? null : null;
+  const nextSlug = currentIndex >= 0 && currentIndex < CATEGORY_ORDER.length - 1 ? CATEGORY_ORDER[currentIndex + 1] ?? null : null;
+
+  return {
+    slug,
+    pathSlug: 'nursery',
+    href: getNurseryFurnitureCategoryPath(slug),
+    title: category.title,
+    description: category.whatItDoes.description,
+    subhead: category.whatItDoes.whatThisIs,
+    intro: uniqueItems(category.orientation, 4),
+    imagePath: category.heroImageSrc,
+    imageAlt: category.heroImageAlt,
+    progress: {
+      current: currentIndex + 1,
+      total: CATEGORY_ORDER.length,
+    },
+    coreSections: [
+      {
+        title: 'What this does',
+        paragraphs: uniqueItems(
+          [category.whatItDoes.description, ...category.whatItDoes.intro, category.whatItDoes.whyItExists],
+          4,
+        ),
+        imageSrc: category.heroImageSrc,
+        imageAlt: category.heroImageAlt,
+        imageCaption: category.whatItDoes.calloutBody,
+      },
+      {
+        title: 'Types',
+        paragraphs: uniqueItems([category.typesDescription, ...category.types], 5),
+        imageSrc: '/assets/editorial/nursery2.png',
+        imageAlt: 'Nursery furniture planning editorial image.',
+        imageCaption: 'The category usually gets easier once the real job is clear.',
+      },
+      {
+        title: 'What actually matters',
+        paragraphs: uniqueItems([category.whatActuallyMattersDescription, ...category.whatActuallyMatters], 6),
+        imageSrc: '/assets/editorial/organize.png',
+        imageAlt: 'Organized nursery setup with everyday essentials.',
+        imageCaption: 'The repeated parts of the routine should do more of the deciding.',
+      },
+      {
+        title: 'Common mistakes',
+        paragraphs: uniqueItems([category.commonMistakesDescription, ...category.commonMistakes], 5),
+        imageSrc: '/assets/editorial/teddy-glow.png',
+        imageAlt: 'Calm nursery lighting and atmosphere editorial image.',
+        imageCaption: 'Most regret here starts when future theory gets louder than current use.',
+      },
+      {
+        title: 'How to choose',
+        paragraphs: uniqueItems([category.howToChooseDescription, ...decisionItemsToParagraphs(category.howToChoose)], 5),
+        imageSrc: '/assets/editorial/clipboard.png',
+        imageAlt: 'Planning notes for nursery setup decisions.',
+        imageCaption: 'A calmer decision usually starts with the stage you are actually furnishing for.',
+      },
+    ],
+    decisionTitle: 'What This Means For You',
+    decisionBullets: uniqueItems(
+      [
+        ...category.whatActuallyMatters.slice(0, 3),
+        ...category.howToChoose.map((item) => item.recommendation),
+      ],
+      5,
+    ),
+    products: [],
+    softCtaLabel: 'TMBC note',
+    softCtaTitle: 'This piece should earn its space through repetition.',
+    softCtaBody: [category.whatItDoes.calloutBody],
+    previous: previousSlug
+      ? {
+          href: getNurseryFurnitureCategoryPath(previousSlug),
+          title: getNurseryFurnitureCategory(previousSlug).title,
+          description: `Go back one step inside Furniture That Actually Works if ${getNurseryFurnitureCategory(previousSlug).title.toLowerCase()} still needs the cleaner answer.`,
+          ctaLabel: 'Previous category ->',
+        }
+      : {
+          href: NURSERY_FURNITURE_HUB_PATH,
+          title: 'Furniture That Actually Works',
+          description: 'Return to the furniture hub if you want the full nursery category map again.',
+          ctaLabel: 'Back to hub ->',
+        },
+    next: nextSlug
+      ? {
+          href: getNurseryFurnitureCategoryPath(nextSlug),
+          title: getNurseryFurnitureCategory(nextSlug).title,
+          description: `Keep the nursery flow moving into ${getNurseryFurnitureCategory(nextSlug).title.toLowerCase()} while the logic is still fresh.`,
+          ctaLabel: 'Next category ->',
+        }
+      : {
+          href: '/academy/gear',
+          title: 'Gear Path',
+          description: 'Continue into the Gear path once the nursery furniture layer feels calmer and more functional.',
+          ctaLabel: 'Continue the Academy ->',
+        },
+    related: {
+      href: NURSERY_FURNITURE_HUB_PATH,
+      title: 'Furniture That Actually Works',
+      description: 'Return to the full furniture module map before opening another nursery category.',
+      ctaLabel: 'Back to hub ->',
+    },
+    editorialLinks: [],
+    submoduleSection: null,
+    breadcrumb: [
+      { label: 'Academy', href: '/academy' },
+      { label: 'Nursery', href: '/academy/nursery' },
+      { label: 'Furniture That Actually Works', href: NURSERY_FURNITURE_HUB_PATH },
+      { label: category.title },
+    ],
+  };
 }
 
 export function getNurseryFurnitureCategoryNextStepLinks(slug: NurseryFurnitureCategorySlug): NurseryFurnitureNextStep[] {

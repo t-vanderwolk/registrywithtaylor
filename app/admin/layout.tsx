@@ -29,7 +29,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         {
           label: 'Publish',
           links: [
-            { label: 'Academy', href: '/admin/academy' },
+            { label: 'Academy', href: '/admin/guides?scope=academy' },
             { label: 'Guides', href: '/admin/guides' },
             { label: 'Posts', href: '/admin/blog' },
             { label: 'Planner', href: '/admin/blog/planner' },
@@ -48,7 +48,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           label: 'Measure',
           links: [
             { label: 'Analytics', href: '/admin/analytics' },
-            { label: 'Academy Analytics', href: '/admin/academy/analytics' },
+            { label: 'Academy Analytics', href: '/admin/guides/analytics?scope=academy' },
             { label: 'Guide Analytics', href: '/admin/guides/analytics' },
           ],
         },

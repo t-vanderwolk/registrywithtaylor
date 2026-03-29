@@ -48,6 +48,7 @@ type GuideWorkspaceFilters = {
   status: 'all' | GuideStatusValue;
   category: 'all' | string;
   sort: 'updated' | 'publishedAt' | 'performance' | 'title';
+  scope?: 'all' | 'academy';
   page: number;
 };
 
@@ -181,6 +182,10 @@ export default function GuideWorkspace({
       params.set('sort', next.sort);
     }
 
+    if (next.scope && next.scope !== 'all') {
+      params.set('scope', next.scope);
+    }
+
     if (next.page > 1) {
       params.set('page', String(next.page));
     }
@@ -238,6 +243,38 @@ export default function GuideWorkspace({
       setNotice({
         tone: 'error',
         message: error instanceof Error ? error.message : 'Unable to duplicate the guide.',
+      });
+    } finally {
+      setBusyKey(null);
+    }
+  }
+
+  async function deleteGuide(guideId: string) {
+    const target = rows.find((row) => row.id === guideId);
+    if (!target) {
+      return;
+    }
+
+    if (!window.confirm(`Delete "${target.title}"? This cannot be undone.`)) {
+      return;
+    }
+
+    setBusyKey(`delete:${guideId}`);
+    setNotice(null);
+
+    try {
+      const response = await fetch(`/api/guides/${guideId}`, { method: 'DELETE' });
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.error || 'Unable to delete the guide.');
+      }
+
+      await refreshWithNotice({ tone: 'success', message: 'Guide deleted.' });
+    } catch (error) {
+      setNotice({
+        tone: 'error',
+        message: error instanceof Error ? error.message : 'Unable to delete the guide.',
       });
     } finally {
       setBusyKey(null);
@@ -369,7 +406,7 @@ export default function GuideWorkspace({
           { key: 'status', label: 'Status' },
           { key: 'updated', label: 'Updated' },
           { key: 'performance', label: 'Performance' },
-          { key: 'actions', label: 'Actions', className: 'w-[18rem]' },
+          { key: 'actions', label: 'Actions', className: 'w-[22rem]' },
         ]}
         emptyState={
           <AdminEmptyState
@@ -478,6 +515,14 @@ export default function GuideWorkspace({
                     onClick={() => void setGuideStatus(guide.id, 'ARCHIVED', 'Guide archived.')}
                   >
                     {busyKey === `archived:${guide.id}` ? 'Working...' : 'Archive'}
+                  </AdminButton>
+                  <AdminButton
+                    variant="danger"
+                    size="sm"
+                    disabled={busyKey !== null}
+                    onClick={() => void deleteGuide(guide.id)}
+                  >
+                    {busyKey === `delete:${guide.id}` ? 'Working...' : 'Delete'}
                   </AdminButton>
                 </div>
               </td>

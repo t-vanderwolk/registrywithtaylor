@@ -3,6 +3,7 @@ import GuideEditor from '@/components/admin/guides/GuideEditor';
 import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
+import { getGuidePublicPath, isAcademyPublicPath } from '@/lib/guides/publicPath';
 import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
 import { guideEditorSelect, toGuideEditorRecord } from '@/lib/server/guideEditorRecord';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
@@ -52,13 +53,23 @@ export default async function EditGuidePage({ params }: EditGuidePageProps) {
     listGuideRelationOptions(id),
     listImageMediaLibrary(),
   ]);
+  const publicPath = getGuidePublicPath({
+    slug: guide.slug,
+    topicCluster: guide.topicCluster,
+    canonicalUrl: guide.canonicalUrl,
+  });
+  const isAcademyGuide = isAcademyPublicPath(publicPath);
 
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Guides"
+        eyebrow={isAcademyGuide ? 'Guides · Academy Scope' : 'Guides'}
         title={guide.title?.trim() ? guide.title : 'Untitled guide'}
-        subtitle="Autosave is enabled. Keep the guide structure, metadata, commerce modules, and conversion layer in one workspace."
+        subtitle={
+          isAcademyGuide
+            ? 'This Academy page is managed here as a guide record. Keep the live Academy heading structure and route metadata in one workspace.'
+            : 'Autosave is enabled. Keep the guide structure, metadata, commerce modules, and conversion layer in one workspace.'
+        }
       />
 
       <GuideEditor
@@ -68,6 +79,8 @@ export default async function EditGuidePage({ params }: EditGuidePageProps) {
         affiliatePartnerOptions={affiliatePartnerOptions}
         relatedGuideOptions={relatedGuideOptions}
         mediaLibrary={mediaLibrary}
+        listingHref={isAcademyGuide ? '/admin/guides?scope=academy' : '/admin/guides'}
+        editorVariant={isAcademyGuide ? 'academyModule' : 'guide'}
       />
     </AdminStack>
   );

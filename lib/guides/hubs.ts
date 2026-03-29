@@ -98,7 +98,7 @@ const PILLAR_PATHS = {
   registry: getGuidePath({ slug: 'minimalist-baby-registry' }),
   nursery: getGuidePath({ slug: 'nursery-setup-guide' }),
   travel: getGuidePath({ slug: 'travel-with-baby' }),
-  dailyUseGear: getGuidePath({ slug: 'daily-use-gear' }),
+  dailyUseGear: '/academy/gear/daily-use-gear',
   fullSizeStrollers: getGuidePath({ slug: 'full-size-modular-strollers' }),
   compactStrollers: getGuidePath({ slug: 'compact-lightweight-strollers' }),
   travelStrollers: getGuidePath({ slug: 'travel-strollers' }),

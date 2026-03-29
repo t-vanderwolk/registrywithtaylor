@@ -127,7 +127,7 @@ export default async function AdminAnalyticsPage() {
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/academy/analytics">Academy analytics</Link>
+              <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
               <Link href="/admin/guides/analytics">Guide analytics</Link>

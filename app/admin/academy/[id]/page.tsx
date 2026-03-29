@@ -6,5 +6,5 @@ type AdminAcademyModulePageProps = {
 
 export default async function AdminAcademyModuleRedirectPage({ params }: AdminAcademyModulePageProps) {
   const { id } = await params;
-  redirect(`/admin/academy/${id}/edit`);
+  redirect(`/admin/guides/${id}/edit`);
 }

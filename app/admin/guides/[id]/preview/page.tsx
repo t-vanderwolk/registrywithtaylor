@@ -6,16 +6,12 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
 import GuideArticleView from '@/components/guides/GuideArticleView';
-import { getAcademyModuleData } from '@/lib/academy/content';
-import { getGuidePublicPath, isAcademyPublicPath } from '@/lib/guides/publicPath';
+import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import { toGuideCardItemFromGuide } from '@/lib/guides/presentation';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { isGuidePubliclyVisible } from '@/lib/guides/status';
 import { guideArticleSelect, toGuideArticleRecord } from '@/lib/server/guideArticleRecord';
-import {
-  getAcademyModuleReferenceFromGuide,
-  mergeAcademyModuleWithGuideRecord,
-} from '@/lib/server/academyGuides';
+import { getAcademyPreviewModuleFromGuide } from '@/lib/server/academyGuides';
 import { logGuideEvent } from '@/lib/server/guideAnalytics';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import prisma from '@/lib/server/prisma';
@@ -63,17 +59,13 @@ export default async function AdminGuidePreviewPage({ params }: AdminGuidePrevie
     topicCluster: guide.topicCluster,
     canonicalUrl: guide.canonicalUrl,
   });
-  const academyModuleReference = getAcademyModuleReferenceFromGuide(guideRecord);
-  const academyModule =
-    academyModuleReference && isAcademyPublicPath(publicPath)
-      ? {
-          ...mergeAcademyModuleWithGuideRecord(
-            await getAcademyModuleData(academyModuleReference.moduleSlug),
-            guideRecord,
-          ),
-          trackingGuideId: null,
-        }
-      : null;
+  const academyModuleRecord = await getAcademyPreviewModuleFromGuide(guideRecord);
+  const academyModule = academyModuleRecord
+    ? {
+        ...academyModuleRecord,
+        trackingGuideId: null,
+      }
+    : null;
 
   try {
     await logGuideEvent({

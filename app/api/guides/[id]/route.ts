@@ -289,3 +289,76 @@ export async function PUT(
     throw error;
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
+) {
+  try {
+    const { id } = await context.params;
+    const token = await requireAdmin(req);
+
+    if (!token?.id) {
+      return unauthorizedResponse();
+    }
+
+    const existingGuide = await prisma.guide.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        slug: true,
+        topicCluster: true,
+        canonicalUrl: true,
+      },
+    });
+
+    if (!existingGuide) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    const impactedGuides = await prisma.$transaction(async (tx) => {
+      const referencingGuides = await tx.guide.findMany({
+        where: {
+          relatedGuideIds: {
+            has: id,
+          },
+        },
+        select: {
+          id: true,
+          slug: true,
+          topicCluster: true,
+          canonicalUrl: true,
+          relatedGuideIds: true,
+        },
+      });
+
+      for (const guide of referencingGuides) {
+        await tx.guide.update({
+          where: { id: guide.id },
+          data: {
+            relatedGuideIds: guide.relatedGuideIds.filter((relatedGuideId) => relatedGuideId !== id),
+          },
+        });
+      }
+
+      await tx.guide.delete({
+        where: { id },
+      });
+
+      return referencingGuides;
+    });
+
+    revalidateGuidePaths(existingGuide);
+    for (const guide of impactedGuides) {
+      revalidateGuidePaths(guide);
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    if (isGuideStorageUnavailableError(error)) {
+      return NextResponse.json({ error: GUIDE_STORAGE_UNAVAILABLE_MESSAGE }, { status: 503 });
+    }
+
+    throw error;
+  }
+}

@@ -1,5 +1,4 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
-import NurseryFurnitureCategoryPage from '@/components/academy/NurseryFurnitureCategoryPage';
+import NurseryFurnitureCategoryRoute from '@/components/academy/NurseryFurnitureCategoryRoute';
 import SiteShell from '@/components/SiteShell';
 import { getNurseryFurnitureCategory, getNurseryFurnitureCategoryPath } from '@/lib/academy/nurseryFurnitureAcademy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -19,13 +18,7 @@ export default function NurseryFurnitureDiaperPailsPage() {
   return (
     <SiteShell currentPath={path}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={path}
-          pageType="guide"
-          slug="academy-nursery-furniture-diaper-pails"
-          title={category.title}
-        />
-        <NurseryFurnitureCategoryPage slug="diaper-pails" />
+        <NurseryFurnitureCategoryRoute slug="diaper-pails" />
       </main>
     </SiteShell>
   );

@@ -1,5 +1,4 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
-import NurseryFurnitureCategoryPage from '@/components/academy/NurseryFurnitureCategoryPage';
+import NurseryFurnitureCategoryRoute from '@/components/academy/NurseryFurnitureCategoryRoute';
 import SiteShell from '@/components/SiteShell';
 import { getNurseryFurnitureCategory, getNurseryFurnitureCategoryPath } from '@/lib/academy/nurseryFurnitureAcademy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -19,13 +18,7 @@ export default function NurseryFurnitureDressersChangingPage() {
   return (
     <SiteShell currentPath={path}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={path}
-          pageType="guide"
-          slug="academy-nursery-furniture-dressers-changing"
-          title={category.title}
-        />
-        <NurseryFurnitureCategoryPage slug="dressers-changing" />
+        <NurseryFurnitureCategoryRoute slug="dressers-changing" />
       </main>
     </SiteShell>
   );

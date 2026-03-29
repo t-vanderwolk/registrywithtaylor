@@ -3,6 +3,7 @@ import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import { DEFAULT_GUIDE_CATEGORY } from '@/lib/guides/categories';
+import { getAcademyEditorSeedByPath } from '@/lib/server/academyEditorWorkspace';
 import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 import { isGuideStorageReady, listGuideRelationOptions } from '@/lib/server/guides';
@@ -11,7 +12,17 @@ import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
-export default async function NewGuidePage() {
+type SearchParams = Promise<Record<string, string | string[] | undefined>> | undefined;
+
+function asSingle(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function NewGuidePage({
+  searchParams,
+}: {
+  searchParams?: SearchParams;
+}) {
   const session = await requireAdminSession();
   const storageReady = await isGuideStorageReady();
 
@@ -28,6 +39,9 @@ export default async function NewGuidePage() {
     );
   }
 
+  const params = searchParams ? await searchParams : undefined;
+  const academySeed = getAcademyEditorSeedByPath(asSingle(params?.path));
+  const academyScope = asSingle(params?.scope) === 'academy' || Boolean(academySeed);
   const [authorOptions, affiliatePartnerOptions, relatedGuideOptions, mediaLibrary] = await Promise.all([
     listBlogAuthorOptions(),
     listAffiliatePartnerOptions(),
@@ -39,18 +53,24 @@ export default async function NewGuidePage() {
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Guides"
-        title="New guide draft"
-        subtitle="Nothing is written to Prisma until the first save or autosave flush."
+        eyebrow={academyScope ? 'Guides · Academy Scope' : 'Guides'}
+        title={academySeed ? `New ${academySeed.title} draft` : academyScope ? 'New academy draft' : 'New guide draft'}
+        subtitle={
+          academySeed
+            ? `This draft is preloaded for ${academySeed.publicPath}, so the canonical Academy route is already locked in.`
+            : academyScope
+              ? 'Create Academy pages here as guide records. Nothing is written to Prisma until the first save or autosave flush.'
+              : 'Nothing is written to Prisma until the first save or autosave flush.'
+        }
       />
 
       <GuideEditor
-        key="new-guide-editor"
+        key={academySeed?.publicPath ?? (academyScope ? 'new-academy-guide-editor' : 'new-guide-editor')}
         initialGuide={{
           id: null,
-          title: '',
-          slug: '',
-          excerpt: '',
+          title: academySeed?.title ?? '',
+          slug: academySeed?.slug ?? '',
+          excerpt: academySeed?.description ?? '',
           intro: '',
           content: '',
           conclusion: '',
@@ -58,19 +78,19 @@ export default async function NewGuidePage() {
           heroImageAlt: '',
           authorId: defaultAuthor?.id ?? '',
           authorLabel: defaultAuthor?.name ?? '',
-          category: DEFAULT_GUIDE_CATEGORY,
-          topicCluster: '',
+          category: academySeed?.category ?? (academyScope ? 'Baby Gear Guides' : DEFAULT_GUIDE_CATEGORY),
+          topicCluster: academySeed?.topicCluster ?? (academyScope ? 'TMBC Baby Academy' : ''),
           status: 'DRAFT',
           publishedAt: null,
           scheduledFor: null,
           archivedAt: null,
-          seoTitle: '',
-          seoDescription: '',
-          ogTitle: '',
-          ogDescription: '',
+          seoTitle: academySeed?.title ?? '',
+          seoDescription: academySeed?.description ?? '',
+          ogTitle: academySeed?.title ?? '',
+          ogDescription: academySeed?.description ?? '',
           ogImageUrl: '',
           ogImageAlt: '',
-          canonicalUrl: '',
+          canonicalUrl: academySeed?.publicPath ?? '',
           targetKeyword: '',
           secondaryKeywords: [],
           internalLinkNotes: '',
@@ -86,8 +106,8 @@ export default async function NewGuidePage() {
           newsletterCtaLabel: '',
           newsletterCtaDescription: '',
           newsletterCtaHref: '',
-          nextStepCtaLabel: 'Explore related guides',
-          nextStepCtaHref: '/guides',
+          nextStepCtaLabel: academyScope ? 'Continue through the Academy' : 'Explore related guides',
+          nextStepCtaHref: academyScope ? '/academy' : '/guides',
           founderSignatureEnabled: false,
           founderSignatureText: '',
           relatedGuideIds: [],
@@ -97,6 +117,8 @@ export default async function NewGuidePage() {
         affiliatePartnerOptions={affiliatePartnerOptions}
         relatedGuideOptions={relatedGuideOptions}
         mediaLibrary={mediaLibrary}
+        listingHref={academyScope ? '/admin/guides?scope=academy' : '/admin/guides'}
+        editorVariant={academyScope ? 'academyModule' : 'guide'}
       />
     </AdminStack>
   );

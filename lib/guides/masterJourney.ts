@@ -66,7 +66,7 @@ export const TMBC_MASTER_GUIDE_FLOW = [
     stepLabel: 'Step 6',
     title: 'Daily Use Gear',
     description: 'Sort the smaller everyday workhorses so feeding, soothing, bathing, and holding feel easier to live with.',
-    href: getGuidePath({ slug: 'daily-use-gear' }),
+    href: '/academy/gear/daily-use-gear',
     icon: 'bag',
     imageSrc: '/assets/editorial/babystuff.png',
     imageAlt: 'Editorial daily use baby gear image for Taylor-Made Baby Co.',

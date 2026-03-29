@@ -256,7 +256,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: getGuidePath({ slug: 'daily-use-gear' }),
+      href: '/academy/gear/daily-use-gear',
       label: 'Daily Use Gear',
       description: 'Move into the smaller everyday workhorses once travel logistics feel calmer.',
       stage: 'Refine',

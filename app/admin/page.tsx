@@ -155,10 +155,10 @@ export default async function AdminDashboardPage() {
             <Link href="/admin/analytics">Open analytics overview</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">Academy editor</Link>
+            <Link href="/admin/guides?scope=academy">Academy editor</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy/analytics">Academy analytics</Link>
+            <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/guides/analytics">Open guide analytics</Link>
@@ -171,10 +171,10 @@ export default async function AdminDashboardPage() {
         <p className="admin-body">Guides in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">Manage academy</Link>
+            <Link href="/admin/guides?scope=academy">Manage academy</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy/analytics">Academy analytics</Link>
+            <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/guides">Manage guides</Link>

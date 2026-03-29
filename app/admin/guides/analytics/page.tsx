@@ -26,8 +26,20 @@ const formatDateTime = (value?: Date | null) => {
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminGuideAnalyticsPage() {
-  const analytics = await getGuideAnalyticsDashboard();
+type SearchParams = Promise<Record<string, string | string[] | undefined>> | undefined;
+
+function asSingle(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function AdminGuideAnalyticsPage({
+  searchParams,
+}: {
+  searchParams?: SearchParams;
+}) {
+  const params = searchParams ? await searchParams : undefined;
+  const academyScope = asSingle(params?.scope) === 'academy';
+  const analytics = await getGuideAnalyticsDashboard({ scope: academyScope ? 'academy' : 'all' });
   const guideToConsultationConversion =
     analytics.summary.totalViews > 0
       ? `${((analytics.summary.totalConsultationClicks / analytics.summary.totalViews) * 100).toFixed(1)}%`
@@ -36,16 +48,24 @@ export default async function AdminGuideAnalyticsPage() {
   return (
     <AdminStack gap="xl">
       <AdminHeader
-        eyebrow="Guide Analytics"
-        title="Guide and academy performance overview"
-        subtitle="Track guide views, academy module engagement, and the next-step clicks that move readers toward booking, contact, or services."
+        eyebrow={academyScope ? 'Guide Analytics · Academy Scope' : 'Guide Analytics'}
+        title={academyScope ? 'Academy performance overview' : 'Guide and academy performance overview'}
+        subtitle={
+          academyScope
+            ? 'Track Academy record views, engagement, and conversion clicks without leaving the shared guide analytics workspace.'
+            : 'Track guide views, academy module engagement, and the next-step clicks that move readers toward booking, contact, or services.'
+        }
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/academy">Academy editor</Link>
+              <Link href={academyScope ? '/admin/guides' : '/admin/guides?scope=academy'}>
+                {academyScope ? 'All guide records' : 'Academy records'}
+              </Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/guides">Manage guides</Link>
+              <Link href={academyScope ? '/admin/guides?scope=academy' : '/admin/guides'}>
+                {academyScope ? 'Manage Academy records' : 'Manage guides'}
+              </Link>
             </AdminButton>
           </>
         }
@@ -54,13 +74,13 @@ export default async function AdminGuideAnalyticsPage() {
       {analytics.storageReady ? (
         <>
           <section className="admin-kpi-grid" aria-label="Guide analytics metrics">
-            <AdminKpiCard label="Tracked records" value={String(analytics.summary.totalGuides)} />
-            <AdminKpiCard label="Published records" value={String(analytics.summary.publishedGuides)} />
-            <AdminKpiCard label="Guide + academy views" value={analytics.summary.totalViews.toLocaleString()} />
-            <AdminKpiCard label="Guide + academy engagement" value={analytics.summary.totalEngagement.toLocaleString()} />
-            <AdminKpiCard label="Guide + academy to book" value={analytics.summary.totalConsultationClicks.toLocaleString()} />
-            <AdminKpiCard label="Guide + academy to book rate" value={guideToConsultationConversion} />
-            <AdminKpiCard label="Guide + academy to contact" value={analytics.summary.totalContactClicks.toLocaleString()} />
+            <AdminKpiCard label={academyScope ? 'Academy records' : 'Tracked records'} value={String(analytics.summary.totalGuides)} />
+            <AdminKpiCard label={academyScope ? 'Published Academy records' : 'Published records'} value={String(analytics.summary.publishedGuides)} />
+            <AdminKpiCard label={academyScope ? 'Academy views' : 'Guide + academy views'} value={analytics.summary.totalViews.toLocaleString()} />
+            <AdminKpiCard label={academyScope ? 'Academy engagement' : 'Guide + academy engagement'} value={analytics.summary.totalEngagement.toLocaleString()} />
+            <AdminKpiCard label={academyScope ? 'Academy to book' : 'Guide + academy to book'} value={analytics.summary.totalConsultationClicks.toLocaleString()} />
+            <AdminKpiCard label={academyScope ? 'Academy to book rate' : 'Guide + academy to book rate'} value={guideToConsultationConversion} />
+            <AdminKpiCard label={academyScope ? 'Academy to contact' : 'Guide + academy to contact'} value={analytics.summary.totalContactClicks.toLocaleString()} />
             <AdminKpiCard label="Affiliate clicks" value={analytics.summary.totalAffiliateClicks.toLocaleString()} />
           </section>
 
@@ -78,7 +98,7 @@ export default async function AdminGuideAnalyticsPage() {
           />
 
           <AdminSurface className="admin-stack">
-            <h2 className="admin-h2">Top Performing Guide and Academy Records</h2>
+            <h2 className="admin-h2">{academyScope ? 'Top Performing Academy Records' : 'Top Performing Guide and Academy Records'}</h2>
             <AdminTable
               density="compact"
               columns={[
@@ -90,7 +110,7 @@ export default async function AdminGuideAnalyticsPage() {
                 { key: 'services', label: 'Services Clicks', align: 'right' },
                 { key: 'affiliate', label: 'Affiliate Clicks', align: 'right' },
               ]}
-              emptyState={<p className="admin-body p-6">No guide or academy analytics yet.</p>}
+              emptyState={<p className="admin-body p-6">{academyScope ? 'No Academy analytics yet.' : 'No guide or academy analytics yet.'}</p>}
             >
               {analytics.topGuides.map((guide) => (
                 <tr key={guide.guideId} className="admin-row">
@@ -162,19 +182,19 @@ export default async function AdminGuideAnalyticsPage() {
               >
                 {analytics.categoryPerformance.map((entry) => (
                   <tr key={entry.category} className="admin-row">
-                  <td className="text-admin">{entry.category}</td>
-                  <td className="text-right text-admin">{entry.guideCount.toLocaleString()}</td>
-                  <td className="text-right text-admin">{entry.views.toLocaleString()}</td>
-                  <td className="text-right text-admin">{entry.consultationClicks.toLocaleString()}</td>
-                  <td className="text-right text-admin">{entry.contactClicks.toLocaleString()}</td>
-                </tr>
-              ))}
-            </AdminTable>
+                    <td className="text-admin">{entry.category}</td>
+                    <td className="text-right text-admin">{entry.guideCount.toLocaleString()}</td>
+                    <td className="text-right text-admin">{entry.views.toLocaleString()}</td>
+                    <td className="text-right text-admin">{entry.consultationClicks.toLocaleString()}</td>
+                    <td className="text-right text-admin">{entry.contactClicks.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </AdminTable>
             </AdminSurface>
           </div>
 
           <AdminSurface className="admin-stack">
-            <h2 className="admin-h2">Recently Published Performance</h2>
+            <h2 className="admin-h2">{academyScope ? 'Recently Published Academy Performance' : 'Recently Published Performance'}</h2>
             <AdminTable
               density="compact"
               columns={[
@@ -186,7 +206,7 @@ export default async function AdminGuideAnalyticsPage() {
                 { key: 'services', label: 'Services Clicks', align: 'right' },
                 { key: 'affiliate', label: 'Affiliate Clicks', align: 'right' },
               ]}
-              emptyState={<p className="admin-body p-6">No published guide or academy records yet.</p>}
+              emptyState={<p className="admin-body p-6">{academyScope ? 'No published Academy records yet.' : 'No published guide or academy records yet.'}</p>}
             >
               {analytics.recentlyPublished.map((guide) => (
                 <tr key={guide.guideId} className="admin-row">
