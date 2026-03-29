@@ -22,7 +22,6 @@ import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, stripFaqBlocks } from '@/lib/guides/articleOutline';
 import { getGuideFinalThought, getGuideSignOff, getGuideTakeaways, getGuideWhatThisIs, getGuideWhyItExists } from '@/lib/guides/editorialSystem';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -154,10 +153,6 @@ export default function GuideHubLayout({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const lifestyleImages = getGuideLifestyleImages({
@@ -385,16 +380,6 @@ export default function GuideHubLayout({
             consultationEnabled={!preview && guide.consultationCtaEnabled !== false}
             consultationLabel={guide.consultationCtaLabel}
           />
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the broader TMBC map close."
-              description="Use the core guides when a different category should lead the next move, not just the loudest one."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
 
           <ProductRecommendations guide={guide} />
           {faqEntries.length > 0 ? <GuideFaqAccordion items={faqEntries} /> : null}

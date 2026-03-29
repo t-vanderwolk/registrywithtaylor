@@ -25,7 +25,6 @@ import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import { buildGuideOutline, splitGuideSectionContent, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -411,10 +410,6 @@ export default async function GuideCarSeatCategoryLiveLayout({
     slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
-    topicCluster: guide.topicCluster,
-  });
   const lifestyleImages = getGuideLifestyleImages({
     slug: guide.slug,
     category: guide.category,
@@ -705,15 +700,6 @@ export default async function GuideCarSeatCategoryLiveLayout({
             consultationDescription={`The ${config.context.currentLabel.toLowerCase()} decision gets much easier once someone helps you weigh stage, car fit, loading habits, and how long the seat really needs to work.`}
           />
 
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the broader TMBC routes within reach."
-              description="If this sub-guide helped, the next move should stay obvious instead of turning back into a fresh search."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
         </div>
       </SlideSection>
     </GuideSlideDeck>

@@ -19,7 +19,6 @@ import { buildGuideOutline } from '@/lib/guides/articleOutline';
 import { dedupeFaqEntries } from '@/lib/guides/decisionSystemContent';
 import { getGuideFinalThought, getGuideSignOff, getGuideTakeaways, getGuideWhatThisIs, getGuideWhyItExists } from '@/lib/guides/editorialSystem';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -50,10 +49,6 @@ export default function GuideDecisionSystemHub({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const lifestyleImages = getGuideLifestyleImages({
@@ -263,16 +258,6 @@ export default function GuideDecisionSystemHub({
             consultationLabel={guide.consultationCtaLabel}
             consultationDescription={config.softCta.description}
           />
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the broader guide system within reach."
-              description="Use the core TMBC routes when a different category should come next instead of reopening the whole decision from scratch."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
 
           <ProductExampleGroup
             eyebrow="Product examples"

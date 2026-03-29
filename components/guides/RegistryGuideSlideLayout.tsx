@@ -19,7 +19,6 @@ import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, splitGuideSectionContent } from '@/lib/guides/articleOutline';
 import { extractSectionSummary, stripSectionHeading } from '@/lib/guides/decisionSystemContent';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -165,10 +164,6 @@ export default function RegistryGuideSlideLayout({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const lifestyleImages = getGuideLifestyleImages({
@@ -597,16 +592,6 @@ export default function RegistryGuideSlideLayout({
             consultationEnabled={guide.consultationCtaEnabled !== false}
             consultationLabel={guide.consultationCtaLabel}
           />
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the main TMBC routes close."
-              description="If another category should lead next, move there cleanly instead of reopening the whole registry question from scratch."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
 
           <GuideNextGuides items={nextGuideItems} />
 

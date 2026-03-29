@@ -21,7 +21,6 @@ import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -78,10 +77,6 @@ export default function StrollerAcademyHub({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const lifestyleImages = getGuideLifestyleImages({
@@ -424,16 +419,6 @@ export default function StrollerAcademyHub({
             consultationEnabled={guide.consultationCtaEnabled !== false}
             consultationLabel={guide.consultationCtaLabel}
           />
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the rest of the TMBC map close."
-              description="The stroller answer gets stronger when you can route cleanly into the next category instead of reopening the whole search."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
 
           <ExpertTipCallout
             eyebrow="TMBC Buy Rule"

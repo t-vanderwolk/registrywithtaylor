@@ -13,7 +13,6 @@ import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
 } from '@/lib/guides/experience';
@@ -132,10 +131,6 @@ export default function CarSeatAcademyLanePage({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const blogRecommendations = getGuideBlogRecommendations({
@@ -438,16 +433,6 @@ export default function CarSeatAcademyLanePage({
               description="Use these reads when you want narrower comparisons, timing guidance, or a few practical examples without losing the category logic."
               cards={blogRecommendations}
               ctaLabel="Read article"
-            />
-          ) : null}
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core Guides"
-              title="Keep the broader TMBC routes nearby."
-              description="The category decision gets easier when you can move cleanly into the next question instead of slipping back into generic browsing."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
             />
           ) : null}
 

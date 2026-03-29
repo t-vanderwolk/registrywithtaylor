@@ -11,7 +11,6 @@ import SlideSection from '@/components/guides/SlideSection';
 import YouAreHere from '@/components/guides/YouAreHere';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -37,7 +36,6 @@ export default function GuideFutureHubPage({
   const orientation = getGuideOrientation({ slug, category: config.eyebrow });
   const breadcrumbs = getGuideBreadcrumbs({ slug, title: config.title });
   const lifestyleImages = getGuideLifestyleImages({ slug, category: config.eyebrow });
-  const coreGuideRoutes = getCoreGuideRouteCards({ slug });
   const blogRecommendations = getGuideBlogRecommendations({ slug, category: config.eyebrow });
   const journeyPath = getGuideJourneyPath({ slug, title: config.title });
   const nextSteps = normalizeGuideLinks(config.continueLinks.map((link) => guideHubLinkToNextStepLink(link, 'Refine')));
@@ -175,15 +173,6 @@ export default function GuideFutureHubPage({
             blogRecommendations={blogRecommendations}
           />
 
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the broader TMBC routes close."
-              description="If this future hub is not the next best move, use the core guide map instead of waiting around for a perfect placeholder to become a finished plan."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
         </div>
       </SlideSection>
     </GuideSlideDeck>

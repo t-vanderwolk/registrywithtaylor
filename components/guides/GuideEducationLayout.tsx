@@ -18,7 +18,6 @@ import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
 import { getGuideEcosystemCurrentStep } from '@/lib/ecosystem';
 import { buildGuideOutline, stripLeadingGuideHeading } from '@/lib/guides/articleOutline';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
   getGuideJourneyPath,
@@ -405,10 +404,6 @@ export default function GuideEducationLayout({
     }),
   );
   const whoThisIsFor = parentGuide ? buildWhoThisIsFor({ sections: outline.sections, guide }) : [];
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
-    topicCluster: guide.topicCluster,
-  });
   const lifestyleImages = getGuideLifestyleImages({
     slug: guide.slug,
     category: guide.category,
@@ -683,16 +678,6 @@ export default function GuideEducationLayout({
             consultationEnabled={!preview && guide.consultationCtaEnabled !== false}
             consultationLabel={guide.consultationCtaLabel}
           />
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core guides"
-              title="Keep the main TMBC routes within reach."
-              description="If another category should lead the next decision, use the core guide map instead of starting over from scratch."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
-            />
-          ) : null}
 
           {supportingSections.length > 0 ? (
             <div className="grid gap-5 xl:grid-cols-2">

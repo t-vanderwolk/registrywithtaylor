@@ -13,14 +13,51 @@ import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
-import type { AcademyBreadcrumbItem, AcademyModuleData } from '@/lib/academy/content';
+import type {
+  AcademyBreadcrumbItem,
+  AcademyCoreSection,
+  AcademyModuleData,
+  AcademyProductExample,
+  AcademyRelatedLink,
+  AcademySubmoduleSection,
+} from '@/lib/academy/content';
 import {
   getTravelSystemCarSeats,
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 
+export type ModuleLayoutData = {
+  slug: string;
+  pathSlug: AcademyModuleData['pathSlug'];
+  href: string;
+  title: string;
+  description: string;
+  subhead: string;
+  intro: string[];
+  imagePath: string;
+  imageAlt: string;
+  progress: {
+    current: number;
+    total: number;
+  };
+  coreSections: AcademyCoreSection[];
+  decisionTitle: string;
+  decisionBullets: string[];
+  products: AcademyProductExample[];
+  softCtaLabel: string;
+  softCtaTitle: string;
+  softCtaBody: string[];
+  previous: AcademyRelatedLink | null;
+  next: AcademyRelatedLink | null;
+  related: AcademyRelatedLink | null;
+  editorialLinks: AcademyRelatedLink[];
+  submoduleSection: AcademySubmoduleSection | null;
+  breadcrumb: AcademyBreadcrumbItem[];
+  trackingGuideId?: string | null;
+};
+
 type ModuleLayoutProps = {
-  module: AcademyModuleData;
+  module: ModuleLayoutData;
 };
 
 function Breadcrumbs({ items }: { items: AcademyBreadcrumbItem[] }) {
@@ -104,7 +141,7 @@ function SectionHeading({
   );
 }
 
-function buildDecisionChecklistSections(module: AcademyModuleData) {
+function buildDecisionChecklistSections(module: ModuleLayoutData) {
   if (module.decisionBullets.length === 0) {
     return [];
   }
@@ -137,7 +174,7 @@ function buildDecisionChecklistSections(module: AcademyModuleData) {
   ];
 }
 
-function buildDecisionBarDescription(module: AcademyModuleData) {
+function buildDecisionBarDescription(module: ModuleLayoutData) {
   if (module.next && module.related) {
     return 'Use the next module to keep the sequence moving, and the related one when this decision starts touching another path.';
   }
@@ -153,7 +190,7 @@ function buildDecisionBarDescription(module: AcademyModuleData) {
   return 'If you want help turning this into a cleaner plan, this is the right point to get a second opinion.';
 }
 
-function getModuleHandwrittenNote(module: AcademyModuleData) {
+function getModuleHandwrittenNote(module: ModuleLayoutData) {
   switch (module.pathSlug) {
     case 'registry':
       return {
@@ -183,7 +220,7 @@ function getModuleHandwrittenNote(module: AcademyModuleData) {
   }
 }
 
-function getModuleTypographyAccent(module: AcademyModuleData) {
+function getModuleTypographyAccent(module: ModuleLayoutData) {
   switch (module.pathSlug) {
     case 'registry':
       return {

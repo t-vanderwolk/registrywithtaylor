@@ -13,7 +13,6 @@ import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import {
-  getCoreGuideRouteCards,
   getGuideBlogRecommendations,
   getGuideBreadcrumbs,
 } from '@/lib/guides/experience';
@@ -137,10 +136,6 @@ export default function StrollerAcademyLanePage({
   const breadcrumbs = getGuideBreadcrumbs({
     slug: guide.slug,
     title: guide.title,
-    topicCluster: guide.topicCluster,
-  });
-  const coreGuideRoutes = getCoreGuideRouteCards({
-    slug: guide.slug,
     topicCluster: guide.topicCluster,
   });
   const blogRecommendations = getGuideBlogRecommendations({
@@ -446,16 +441,6 @@ export default function StrollerAcademyLanePage({
               description="Use these reads when you want narrower comparisons, buying timing, or a few practical examples without losing the lane logic."
               cards={blogRecommendations}
               ctaLabel="Read article"
-            />
-          ) : null}
-
-          {coreGuideRoutes.length > 0 ? (
-            <GuideCategoryCards
-              eyebrow="Core Guides"
-              title="Keep the broader TMBC routes nearby."
-              description="The lane decision gets easier when you can move cleanly into the next category instead of slipping back into generic browsing."
-              cards={coreGuideRoutes}
-              ctaLabel="Open guide"
             />
           ) : null}
 

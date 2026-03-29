@@ -48,6 +48,7 @@ export type DailyUseGearAcademySubmoduleDefinition = {
   plan: DailyUseGearAcademySection;
   trySection: DailyUseGearAcademySection;
   buy: DailyUseGearAcademySection;
+  decisionBullets: string[];
   note: DailyUseGearAcademyNote;
 };
 
@@ -199,6 +200,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'If another style becomes useful later, add it because real life asked for it, not because the category started looking collectible.',
       ],
     },
+    decisionBullets: [
+      'Start with caregiver fit before aesthetics.',
+      'Choose based on where and how often you will actually wear baby.',
+      'Prioritize ease if multiple caregivers will use it.',
+      'Start with one strong everyday carrier, not a collection.',
+    ],
     note: {
       eyebrow: 'TMBC note',
       title: "The best carrier is not the one with the most tutorials. It's the one you'll actually use.",
@@ -281,6 +288,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'If a highchair feels visually clean but operationally fussy, the visual part stops mattering quickly.',
       ],
     },
+    decisionBullets: [
+      'Let posture and foot support matter.',
+      'Choose around your table, floor space, and cleanup tolerance.',
+      'Test tray removal, straps, and wipe-down reality.',
+      'Buy the chair you will not dread using three times a day.',
+    ],
     note: {
       eyebrow: 'TMBC note',
       title: "The best highchair isn't the prettiest one. It's the one you don't dread cleaning.",
@@ -361,6 +374,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'You are not building a spa package. You are building a routine that feels calm when everyone is damp and ready to be done.',
       ],
     },
+    decisionBullets: [
+      'Match the setup to where baby will actually be bathed.',
+      'Keep stability and safety above accessories.',
+      'Test fill, drain, and storage before you buy.',
+      'One simple bath setup is enough.',
+    ],
     note: {
       eyebrow: 'Callout',
       title: 'You do not need a spa. You need a setup that feels stable, simple, and safe.',
@@ -442,6 +461,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'When the intended use is clear, the category gets much easier. When the intended use stays vague, the wrong version of "versatile" usually wins.',
       ],
     },
+    decisionBullets: [
+      'Decide whether this is for travel, home backup, or daily sleep.',
+      'Let fold, weight, and footprint matter if you will move it often.',
+      'Match sleep safety to the way it will actually be used.',
+      'Buy the version of flexible that fits the real job.',
+    ],
     note: {
       eyebrow: 'TMBC note',
       title: 'If folding it already annoys you, that feeling does not get better.',
@@ -521,6 +546,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         "Baby preference is real. A product can be well-designed and still not be your baby's thing. That is not failure. That is just baby math.",
       ],
     },
+    decisionBullets: [
+      'Decide whether you need soothing help or simply a set-down station.',
+      'Keep footprint and storage in view.',
+      'Remember that baby preference is real.',
+      'Start with one option, not a lineup.',
+    ],
     note: {
       eyebrow: 'Callout',
       title: 'You are not buying a magic fix. You are buying an option.',
@@ -602,6 +633,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'Support gear becomes clutter fastest when it gets bought in theory. It becomes helpful when it answers a specific, repeated annoyance.',
       ],
     },
+    decisionBullets: [
+      'Solve repeated friction instead of buying for hypothetical perfection.',
+      'Give the most-used supplies a real home.',
+      'Add support gear slowly after the routine shows you the need.',
+      'Buy helpers that answer one specific annoyance clearly.',
+    ],
     note: {
       eyebrow: 'TMBC note',
       title: 'The little things are rarely little when you use them fifteen times a day.',
