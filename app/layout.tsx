@@ -22,13 +22,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: DEFAULT_SITE_TITLE,
   description: DEFAULT_SITE_DESCRIPTION,
+  manifest: '/manifest.webmanifest',
   alternates: {
     canonical: '/',
   },
   icons: {
-    icon: '/assets/editorial/ribbonbow.png',
-    shortcut: '/assets/editorial/ribbonbow.png',
-    apple: '/assets/editorial/ribbonbow.png',
+    icon: [{ url: '/assets/editorial/ribbonbow.png', type: 'image/png' }],
+    shortcut: [{ url: '/assets/editorial/ribbonbow.png', type: 'image/png' }],
+    apple: [{ url: '/assets/editorial/ribbonbow.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     title: DEFAULT_SITE_TITLE,
