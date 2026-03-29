@@ -75,6 +75,14 @@ export default function EcosystemFlow({
   showLine = true,
 }: EcosystemFlowProps) {
   const prefersReducedMotion = useReducedMotion();
+  const gridClassName =
+    steps.length >= 5
+      ? 'grid justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+      : steps.length === 4
+        ? 'grid justify-items-center gap-8 md:grid-cols-2 xl:grid-cols-4'
+        : steps.length === 3
+          ? 'grid justify-items-center gap-8 md:grid-cols-3'
+          : 'grid justify-items-center gap-8 md:grid-cols-2';
 
   return (
     <motion.section
@@ -105,7 +113,7 @@ export default function EcosystemFlow({
             />
           ) : null}
 
-          <div className="grid justify-items-center gap-8 md:grid-cols-2 xl:grid-cols-4">
+          <div className={gridClassName}>
             {steps.map((step) => (
               <motion.div
                 key={step.stepLabel}

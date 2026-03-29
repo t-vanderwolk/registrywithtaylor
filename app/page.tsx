@@ -113,23 +113,33 @@ const timelineSteps: TimelineStep[] = [
 const journeySteps: JourneyStep[] = [
   {
     stepLabel: 'Step 1',
-    title: 'Learn',
-    description: 'Explore baby gear categories and preparation guidance before the registry starts filling itself in.',
+    title: 'Start the Intake',
+    description:
+      'Begin with the guided consultation form so Taylor can see your due date, lifestyle, registry status, and the decisions already taking up too much space in your head.',
   },
   {
     stepLabel: 'Step 2',
-    title: 'Plan',
-    description: 'Work with Taylor to shape your registry, priorities, and preparation timeline around real life.',
+    title: 'Taylor Reviews It',
+    description:
+      'Before the call, your notes get reviewed so the conversation starts with context instead of ten minutes of backstory and frantic catch-up.',
   },
   {
     stepLabel: 'Step 3',
-    title: 'Try',
-    description: 'Test products in store or through trusted partners so the shortlist feels grounded.',
+    title: 'Free 30 Minutes',
+    description:
+      'You meet one-on-one with Taylor for a complimentary 30-minute conversation focused on your actual questions, not a generic baby gear script.',
   },
   {
     stepLabel: 'Step 4',
-    title: 'Buy',
-    description: 'Make confident purchases using registry perks, discounts, and better timing.',
+    title: 'Leave Clearer',
+    description:
+      'You walk away knowing what to focus on first, what can wait, and which gear directions actually fit your home, routine, and budget.',
+  },
+  {
+    stepLabel: 'Step 5',
+    title: 'Choose Next Support',
+    description:
+      'From there, you can keep moving with the Academy, use the guidance on your own, or continue into deeper private planning if you want more hands-on support.',
   },
 ];
 
@@ -497,10 +507,11 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
 
         <EcosystemFlow
           id="journey"
-          title="The Taylor-Made Method"
-          description="A calmer baby-prep process starts with education, moves into planning, and ends with purchases that actually make sense for your life."
+          eyebrow="How it starts"
+          title="How the first free 30-minute conversation works"
+          description="The first step is the intake form. That gives Taylor enough context to make the complimentary conversation specific, calm, and actually useful instead of broad and forgettable."
           steps={journeySteps}
-          cta={{ href: '/academy', label: 'Start with the Academy' }}
+          cta={{ href: '/consultation', label: 'Start the Intake' }}
         />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">

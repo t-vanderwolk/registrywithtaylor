@@ -26,8 +26,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/assets/logo.svg',
-    shortcut: '/assets/logo.svg',
+    icon: '/assets/editorial/ribbonkey.png',
+    shortcut: '/assets/editorial/ribbonkey.png',
+    apple: '/assets/editorial/ribbonkey.png',
   },
   openGraph: {
     title: DEFAULT_SITE_TITLE,
