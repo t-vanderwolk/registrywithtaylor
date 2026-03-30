@@ -13,6 +13,7 @@ import {
   getRegistryAcademyModule,
   isRegistryAcademyModuleSlug,
   REGISTRY_ACADEMY_MODULES,
+  REGISTRY_PATH_IMAGES,
   type RegistryAcademyModuleSlug,
 } from '@/lib/academy/registryModules';
 import {
@@ -206,8 +207,6 @@ type AcademyModuleContent = {
   softCtaBody?: string[];
 };
 
-const ACADEMY_PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
-
 const GUIDE_FILES = {
   stroller: 'taylor-made-stroller-guide.md',
   compact: 'taylor-made-compact-lightweight-stroller-guide.md',
@@ -345,7 +344,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Where to Register',
     description: 'Choose the registry setup that fits your perks, your guests, and how much flexibility you actually want.',
     subhead: 'Choosing the right platform matters more than most people realize.',
-    imagePath: ACADEMY_PLACEHOLDER_IMAGE,
+    imagePath: REGISTRY_PATH_IMAGES.whereToRegister,
     imageAlt: 'Registry planning image for the Where to Register academy module.',
     relatedSlug: null,
   },
@@ -355,7 +354,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Use local stores, hybrid shopping, and real expert guidance so registry decisions feel calmer, faster, and much less isolating.',
     subhead: 'Shop locally, think strategically, and stop trying to figure this out alone.',
-    imagePath: '/assets/editorial/registry.jpg',
+    imagePath: REGISTRY_PATH_IMAGES.shopLocal,
     imageAlt: 'Registry support and guided shopping image for the Shop Local & Get Support academy module.',
     relatedSlug: null,
   },
@@ -364,7 +363,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Welcome Boxes & Perks',
     description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
     subhead: "The hidden benefits most parents don't fully use.",
-    imagePath: '/assets/editorial/welcome.png',
+    imagePath: REGISTRY_PATH_IMAGES.welcomeBox,
     imageAlt: 'Welcome boxes and registry perks image for the Welcome Boxes & Perks academy module.',
     relatedSlug: null,
   },
@@ -373,7 +372,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Loyalty, Rewards & Completion Discounts',
     description: 'Use discounts, rewards, and timing together so you can save well without filling the house too early.',
     subhead: 'How to save without overbuying.',
-    imagePath: '/assets/editorial/registry.png',
+    imagePath: REGISTRY_PATH_IMAGES.rewards,
     imageAlt: 'Registry savings and planning image for the Loyalty, Rewards & Completion Discounts academy module.',
     relatedSlug: null,
   },
@@ -382,7 +381,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Smart Purchasing Timeline',
     description: 'Buy in phases so the essentials get covered, the maybes stay flexible, and the discount windows still do their job.',
     subhead: 'When to buy matters just as much as what you buy.',
-    imagePath: '/assets/editorial/clipboard.png',
+    imagePath: REGISTRY_PATH_IMAGES.purchasingTimeline,
     imageAlt: 'Registry purchasing timeline image for the Smart Purchasing Timeline academy module.',
     relatedSlug: null,
   },
@@ -391,7 +390,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Baby Showers & Gifting Strategy',
     description: 'Guide gifting clearly so guests can shop confidently, duplicates stay down, and the registry still feels easy to use.',
     subhead: 'How to guide what you receive without overcomplicating it.',
-    imagePath: '/assets/editorial/bunny-gift.png',
+    imagePath: REGISTRY_PATH_IMAGES.babyShower,
     imageAlt: 'Baby shower and gifting image for the Baby Showers & Gifting Strategy academy module.',
     relatedSlug: 'stroller-foundations',
   },
