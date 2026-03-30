@@ -3,6 +3,7 @@ import { BlogTrackingProvider } from '@/components/analytics/TrackingContext';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
+import type { BlogPostComment } from '@/lib/blog/postComments';
 import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
 import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
@@ -17,6 +18,7 @@ import BlogShareBar from '@/components/blog/BlogShareBar';
 import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
 import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import JournalCard from '@/components/blog/JournalCard';
+import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
@@ -72,6 +74,7 @@ export type PostArticleRecord = {
     alt: string | null;
     createdAt: Date;
   }>;
+  comments: BlogPostComment[];
   affiliateBrands: AffiliateBrandCard[];
   status: PostStatusValue;
   publishedAt: Date | null;
@@ -320,6 +323,7 @@ export default async function PostArticleView({
         </div>
       </section>
     ) : null;
+  const commentsSection = <PostCommentsSection postId={post.id} comments={post.comments} />;
 
   return (
     <BlogTrackingProvider value={{ postId: post.id, slug: post.slug, title: post.title }}>
@@ -462,6 +466,7 @@ export default async function PostArticleView({
           </div>
         ) : undefined
       }
+      discussionSection={commentsSection}
       conversionCta={<BlogSoftCTA postId={post.id} postSlug={post.slug} postTitle={post.title} />}
       shareSection={
         <BlogShareBar

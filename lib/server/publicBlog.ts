@@ -181,6 +181,7 @@ function toLegacyArticleRecord(
     featuredImage: null,
     media: [],
     images: [],
+    comments: [],
     affiliateBrands: [],
     status: FALLBACK_STATUS,
     publishedAt: null,

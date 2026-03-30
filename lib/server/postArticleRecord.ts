@@ -1,6 +1,7 @@
 import type { Prisma } from '@prisma/client';
 import type { PostArticleRecord } from '@/components/blog/PostArticleView';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
+import { publicPostCommentSelect, toBlogPostComment } from '@/lib/server/postComments';
 import {
   affiliateBrandSelect,
   legacyPostAffiliateSelect,
@@ -45,6 +46,10 @@ export const postArticleSelect = {
       alt: true,
       createdAt: true,
     },
+    orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+  },
+  comments: {
+    select: publicPostCommentSelect,
     orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
   },
   affiliateBrands: {
@@ -122,6 +127,7 @@ export function toPostArticleRecord(post: PostArticleQueryResult): PostArticleRe
     featuredImage: post.featuredImage,
     media: post.media,
     images: post.images,
+    comments: post.comments.map(toBlogPostComment),
     affiliateBrands: normalizePostAffiliateBrands({
       affiliateBrands: post.affiliateBrands,
       legacyAffiliates: post.affiliates,
