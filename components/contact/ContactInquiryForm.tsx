@@ -92,7 +92,7 @@ export default function ContactInquiryForm({
 
       setSubmitState({
         type: 'success',
-        message: 'Thank you. Your inquiry has been received.',
+        message: "You're in. I received your note, and a confirmation email is on its way.",
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';

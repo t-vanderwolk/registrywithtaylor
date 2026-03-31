@@ -4,12 +4,12 @@ import { cache } from 'react';
 import SiteShell from '@/components/SiteShell';
 import PostArticleView, {
   extractDownloadableResource,
-  toExcerpt,
 } from '@/components/blog/PostArticleView';
 import FinalCTA from '@/components/layout/FinalCTA';
 import { extractFaqEntries } from '@/lib/blog/contentText';
+import { buildBlogSeoSnapshot } from '@/lib/blog/seo';
 import { getPostDisplayDate } from '@/lib/blog/postStatus';
-import { SITE_URL } from '@/lib/marketing/metadata';
+import { SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogPostBySlug, getPublicRelatedBlogPosts } from '@/lib/server/publicBlog';
 
 export const dynamic = 'force-dynamic';
@@ -37,51 +37,73 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
   }
 
   const { content: articleContent } = extractDownloadableResource(post.content);
+  const seoSnapshot = buildBlogSeoSnapshot({
+    title: post.title,
+    slug: post.slug,
+    category: post.category,
+    content: articleContent,
+    excerpt: post.excerpt,
+    deck: post.deck,
+    focusKeyword: post.focusKeyword,
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    shareTitle: post.shareTitle,
+    shareDescription: post.shareDescription,
+    canonicalUrl: post.canonicalUrl,
+    readingTime: post.readingTime,
+  });
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
-  const description =
-    post.shareDescription?.trim() || post.seoDescription?.trim() || toExcerpt(post.excerpt, articleContent, 160);
   const displayDate = getPostDisplayDate(post);
-  const metadataTitle = post.shareTitle?.trim() || post.seoTitle?.trim() || `${post.title} | Taylor-Made Baby Co.`;
-  const canonical = post.canonicalUrl?.trim() || `/blog/${post.slug}`;
-  const keywords = [
-    post.focusKeyword,
-    post.category,
-    'Taylor-Made Baby Co.',
-    'baby registry planning',
-    'nursery planning',
-    'baby gear guidance',
-  ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
+  const imageUrl = featuredImageUrl ? toAbsoluteUrl(featuredImageUrl) : undefined;
 
   return {
-    title: metadataTitle,
-    description,
-    keywords,
+    title: seoSnapshot.shareTitle,
+    description: seoSnapshot.shareDescription,
+    keywords: seoSnapshot.keywords,
+    category: post.category,
+    authors: post.authors.map((author) => ({ name: author.name })),
+    creator: post.authors[0]?.name || SITE_NAME,
+    publisher: SITE_NAME,
     alternates: {
-      canonical,
+      canonical: seoSnapshot.canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
     },
     openGraph: {
-      title: post.seoTitle?.trim() || post.title,
-      description,
+      title: seoSnapshot.shareTitle,
+      description: seoSnapshot.shareDescription,
       type: 'article',
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: seoSnapshot.canonicalUrl,
+      siteName: SITE_NAME,
       publishedTime: displayDate.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
       authors: post.authors.map((author) => author.name),
-      tags: keywords,
-      images: featuredImageUrl
+      tags: seoSnapshot.keywords,
+      images: imageUrl
         ? [
             {
-              url: toAbsoluteUrl(featuredImageUrl),
+              url: imageUrl,
+              width: 1200,
+              height: 630,
               alt: post.title,
             },
           ]
         : undefined,
     },
     twitter: {
-      card: featuredImageUrl ? 'summary_large_image' : 'summary',
-      title: post.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
-      description,
-      images: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
+      card: imageUrl ? 'summary_large_image' : 'summary',
+      title: seoSnapshot.shareTitle,
+      description: seoSnapshot.shareDescription,
+      images: imageUrl ? [imageUrl] : undefined,
     },
     other: {
       'pinterest-rich-pin': 'true',
@@ -99,25 +121,30 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
   const relatedPosts = await getPublicRelatedBlogPosts(post.id);
   const { content: articleContent } = extractDownloadableResource(post.content);
+  const seoSnapshot = buildBlogSeoSnapshot({
+    title: post.title,
+    slug: post.slug,
+    category: post.category,
+    content: articleContent,
+    excerpt: post.excerpt,
+    deck: post.deck,
+    focusKeyword: post.focusKeyword,
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    shareTitle: post.shareTitle,
+    shareDescription: post.shareDescription,
+    canonicalUrl: post.canonicalUrl,
+    readingTime: post.readingTime,
+  });
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
-  const headerExcerpt = toExcerpt(post.excerpt, articleContent, 180);
   const displayDate = getPostDisplayDate(post);
   const faqEntries = extractFaqEntries(articleContent);
-  const canonicalUrl = post.canonicalUrl?.trim() ? toAbsoluteUrl(post.canonicalUrl) : `${SITE_URL}/blog/${post.slug}`;
-  const seoKeywords = [
-    post.focusKeyword,
-    post.category,
-    'Taylor-Made Baby Co.',
-    'baby registry planning',
-    'nursery planning',
-    'baby gear guidance',
-  ].filter((value, index, collection): value is string => Boolean(value) && collection.indexOf(value) === index);
+  const canonicalUrl = seoSnapshot.canonicalUrl;
   const authorSchemas = post.authors.map((author) => ({
     '@type': 'Person',
-    '@id': author.slug ? `${SITE_URL}/blog/author/${author.slug}` : `${canonicalUrl}#author-${author.id}`,
+    '@id': `${canonicalUrl}#author-${author.id}`,
     name: author.name,
     description: author.bio ?? undefined,
-    url: author.slug ? `${SITE_URL}/blog/author/${author.slug}` : undefined,
     knowsAbout: author.expertiseAreas.length > 0 ? author.expertiseAreas : undefined,
   }));
   const structuredData = {
@@ -125,21 +152,58 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     '@graph': [
       {
         '@type': 'BlogPosting',
-        headline: post.shareTitle?.trim() || post.seoTitle?.trim() || post.title,
-        description: post.shareDescription?.trim() || post.seoDescription?.trim() || headerExcerpt,
+        '@id': `${canonicalUrl}#blog-post`,
+        headline: seoSnapshot.shareTitle,
+        description: seoSnapshot.shareDescription,
         articleSection: post.category,
-        keywords: seoKeywords,
+        keywords: seoSnapshot.keywords,
         datePublished: displayDate.toISOString(),
         dateModified: post.updatedAt.toISOString(),
+        dateCreated: post.createdAt.toISOString(),
+        url: canonicalUrl,
         mainEntityOfPage: canonicalUrl,
         author: authorSchemas.map((author) => ({ '@id': author['@id'] })),
         publisher: {
           '@type': 'Organization',
-          name: 'Taylor-Made Baby Co.',
+          name: SITE_NAME,
           url: SITE_URL,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${SITE_URL}/assets/editorial/ribbonbow-app-192.png`,
+          },
         },
         image: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,
         inLanguage: 'en-US',
+        wordCount: seoSnapshot.wordCount,
+        timeRequired: `PT${seoSnapshot.readingTime}M`,
+        isAccessibleForFree: true,
+        about: seoSnapshot.keywords.map((keyword) => ({
+          '@type': 'Thing',
+          name: keyword,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Baby Gear Journal',
+            item: `${SITE_URL}/blog`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: post.title,
+            item: canonicalUrl,
+          },
+        ],
       },
       ...authorSchemas,
       ...(faqEntries.length > 0

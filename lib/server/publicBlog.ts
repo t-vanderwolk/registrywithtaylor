@@ -33,6 +33,9 @@ const publicBlogRelatedSelect = {
   title: true,
   slug: true,
   category: true,
+  excerpt: true,
+  content: true,
+  focusKeyword: true,
   featuredImageUrl: true,
   coverImage: true,
   featuredImage: {
@@ -205,11 +208,72 @@ function toLegacyRelatedRecord(
     title: post.title,
     slug: post.slug,
     category: DEFAULT_BLOG_CATEGORY,
+    excerpt: post.excerpt,
     coverImage: null,
     publishedAt: null,
     scheduledFor: null,
     createdAt: post.createdAt,
   };
+}
+
+function tokenizeForSimilarity(...values: Array<string | null | undefined>) {
+  return values
+    .flatMap((value) =>
+      (value ?? '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter((token) => token.length > 2),
+    )
+    .filter(Boolean);
+}
+
+function scoreRelatedPost(
+  current: {
+    category: string;
+    title: string;
+    excerpt?: string | null;
+    focusKeyword?: string | null;
+    content?: string | null;
+  },
+  candidate: {
+    category: string;
+    title: string;
+    excerpt?: string | null;
+    focusKeyword?: string | null;
+    content?: string | null;
+    publishedAt: Date | null;
+    createdAt: Date;
+  },
+) {
+  let score = 0;
+
+  if (normalizeBlogCategory(current.category) === normalizeBlogCategory(candidate.category)) {
+    score += 12;
+  }
+
+  if (current.focusKeyword && candidate.focusKeyword && current.focusKeyword.toLowerCase() === candidate.focusKeyword.toLowerCase()) {
+    score += 10;
+  }
+
+  const currentTokens = new Set(tokenizeForSimilarity(current.title, current.excerpt, current.focusKeyword, current.content));
+  const candidateTokens = new Set(
+    tokenizeForSimilarity(candidate.title, candidate.excerpt, candidate.focusKeyword, candidate.content),
+  );
+  let overlapCount = 0;
+
+  currentTokens.forEach((token) => {
+    if (candidateTokens.has(token)) {
+      overlapCount += 1;
+    }
+  });
+
+  score += overlapCount * 3;
+
+  const publishedTime = candidate.publishedAt?.getTime() ?? candidate.createdAt.getTime();
+  score += publishedTime / 10_000_000_000_000;
+
+  return score;
 }
 
 function warnLegacyPublicBlogFallback(scope: string, error: unknown) {
@@ -290,23 +354,43 @@ export async function getPublicRelatedBlogPosts(
   now: Date = new Date(),
 ): Promise<PostArticleRelatedPost[]> {
   try {
-    const posts = await prisma.post.findMany({
-      where: {
-        ...getPublicPostWhere(now),
-        NOT: {
-          id: postId,
+    const [currentPost, posts] = await Promise.all([
+      prisma.post.findUnique({
+        where: { id: postId },
+        select: {
+          id: true,
+          title: true,
+          category: true,
+          excerpt: true,
+          content: true,
+          focusKeyword: true,
         },
-      },
-      orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
-      take,
-      select: publicBlogRelatedSelect,
-    });
+      }),
+      prisma.post.findMany({
+        where: {
+          ...getPublicPostWhere(now),
+          NOT: {
+            id: postId,
+          },
+        },
+        orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
+        select: publicBlogRelatedSelect,
+      }),
+    ]);
 
-    return posts.map((post) => ({
+    const rankedPosts = currentPost
+      ? [...posts].sort(
+          (left, right) =>
+            scoreRelatedPost(currentPost, right) - scoreRelatedPost(currentPost, left),
+        )
+      : posts;
+
+    return rankedPosts.slice(0, take).map((post) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
       category: normalizeBlogCategory(post.category),
+      excerpt: post.excerpt || null,
       coverImage: post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
       publishedAt: post.publishedAt,
       scheduledFor: post.scheduledFor,
@@ -326,12 +410,12 @@ export async function getPublicRelatedBlogPosts(
           id: postId,
         },
       },
-      orderBy: [{ createdAt: 'desc' }],
       take,
+      orderBy: [{ createdAt: 'desc' }],
       select: legacyPublicBlogListSelect,
     });
 
-    return posts.map(toLegacyRelatedRecord);
+    return posts.slice(0, take).map(toLegacyRelatedRecord);
   }
 }
 

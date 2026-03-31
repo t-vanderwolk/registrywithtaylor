@@ -1125,7 +1125,7 @@ export default function ConsultationRequestForm({
                   You&apos;re all set.
                 </h4>
                 <p className="mt-4 text-[1rem] leading-8 text-neutral-700 sm:text-[1.04rem]">
-                  I have your notes. Opening your confirmation screen now so you know everything went through cleanly.
+                  I have your notes. Opening your confirmation screen now so you know everything went through cleanly, and a confirmation email is on its way too.
                 </p>
                 <p className="mt-4 text-sm leading-7 text-neutral-500">
                   No need to resubmit. The goal is clarity, not repeat paperwork.

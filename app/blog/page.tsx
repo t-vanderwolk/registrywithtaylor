@@ -6,6 +6,7 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import Hero from '@/components/ui/Hero';
 import { getPostDisplayDate } from '@/lib/blog/postStatus';
 import type { BlogCategory } from '@/lib/blogCategories';
+import { SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 
 export const dynamic = 'force-dynamic';
@@ -22,6 +23,33 @@ export const metadata: Metadata = {
     'baby gear guidance',
     'Taylor-Made Baby Co.',
   ],
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Baby Gear Journal — Taylor-Made Baby Co.',
+    description:
+      'Editorial baby gear guidance, registry strategy, nursery setup, and calmer preparation advice from Taylor-Made Baby Co.',
+    url: `${SITE_URL}/blog`,
+    siteName: SITE_NAME,
+    type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: `${SITE_URL}/assets/hero/hero-04.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Taylor-Made Baby Co. blog journal',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Baby Gear Journal — Taylor-Made Baby Co.',
+    description:
+      'Editorial baby gear guidance, registry strategy, nursery setup, and calmer preparation advice from Taylor-Made Baby Co.',
+    images: [`${SITE_URL}/assets/hero/hero-04.jpg`],
+  },
 };
 
 type BlogPost = {

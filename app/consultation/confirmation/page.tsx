@@ -55,7 +55,7 @@ export default function ConsultationConfirmationPage() {
                 You&apos;re in.
               </h1>
               <p className="mt-4 text-base leading-8 text-neutral-700 sm:text-lg">
-                Your consultation intake has been received. Taylor will review your notes and follow up shortly with next steps that fit your session goals.
+                Your consultation intake has been received. Taylor will review your notes, a confirmation email is on its way, and the follow-up will match the session goals you shared.
               </p>
             </div>
 

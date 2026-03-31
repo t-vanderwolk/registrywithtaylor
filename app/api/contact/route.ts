@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
+import { contactConfirmationTemplate } from '@/lib/email/templates/contactConfirmation';
+import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 
@@ -26,6 +29,23 @@ const asOptionalDate = (value: FormDataEntryValue | null) => {
 };
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+const formatDateLabel = (value: Date | null) => {
+  if (!value) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(value);
+};
+
+const buildAdminMessage = (entries: Array<string | null>) => {
+  const sections = entries.map((entry) => entry?.trim()).filter(Boolean);
+  return sections.length > 0 ? sections.join('\n\n') : 'No additional message was provided.';
+};
 
 const getRequestIp = (req: NextRequest) => {
   const forwardedFor = req.headers.get('x-forwarded-for');
@@ -78,6 +98,18 @@ export async function POST(req: NextRequest) {
   const fullName = asText(formData.get('fullName'));
   const email = asText(formData.get('email'));
   const dueDate = asOptionalDate(formData.get('dueDate'));
+  const service = asOptionalText(formData.get('service'));
+  const registryLink = asOptionalText(formData.get('registryLink'));
+  const homeType = asOptionalText(formData.get('homeType'));
+  const budgetRange = asOptionalText(formData.get('budgetRange'));
+  const topConcerns = asOptionalText(formData.get('topConcerns'));
+  const biggestStress = asOptionalText(formData.get('biggestStress'));
+  const location = asOptionalText(formData.get('location'));
+  const levelOfSupport = asOptionalText(formData.get('levelOfSupport'));
+  const timeline = asOptionalText(formData.get('timeline'));
+  const notes = asOptionalText(formData.get('notes'));
+  const referrer = asOptionalText(formData.get('referrer'));
+  const sourceUrl = asOptionalText(formData.get('sourceUrl'));
 
   if (!fullName || !email) {
     return NextResponse.json({ error: 'Full name and email are required.' }, { status: 400 });
@@ -95,21 +127,65 @@ export async function POST(req: NextRequest) {
     data: {
       fullName,
       email,
-      service: asOptionalText(formData.get('service')),
+      service,
       dueDate: dueDate.value,
-      registryLink: asOptionalText(formData.get('registryLink')),
-      homeType: asOptionalText(formData.get('homeType')),
-      budgetRange: asOptionalText(formData.get('budgetRange')),
-      topConcerns: asOptionalText(formData.get('topConcerns')),
-      biggestStress: asOptionalText(formData.get('biggestStress')),
-      location: asOptionalText(formData.get('location')),
-      levelOfSupport: asOptionalText(formData.get('levelOfSupport')),
-      timeline: asOptionalText(formData.get('timeline')),
-      notes: asOptionalText(formData.get('notes')),
-      referrer: asOptionalText(formData.get('referrer')),
-      sourceUrl: asOptionalText(formData.get('sourceUrl')),
+      registryLink,
+      homeType,
+      budgetRange,
+      topConcerns,
+      biggestStress,
+      location,
+      levelOfSupport,
+      timeline,
+      notes,
+      referrer,
+      sourceUrl,
     },
     select: { id: true },
+  });
+
+  const dueDateLabel = formatDateLabel(dueDate.value);
+  const adminMessage = buildAdminMessage([
+    notes,
+    topConcerns ? `Top concerns: ${topConcerns}` : null,
+    biggestStress ? `Biggest stress: ${biggestStress}` : null,
+    timeline ? `Timeline: ${timeline}` : null,
+  ]);
+
+  const emailResults = await Promise.allSettled([
+    sendEmail({
+      to: email,
+      subject: 'We received your message — Taylor-Made Baby Co.',
+      html: contactConfirmationTemplate({ name: fullName }),
+    }),
+    sendEmail({
+      to: getAdminEmail(),
+      replyTo: email,
+      subject: 'New TMBC Inquiry',
+      html: adminNotificationTemplate({
+        name: fullName,
+        email,
+        type: 'contact',
+        message: adminMessage,
+        details: [
+          ...(service ? [{ label: 'Service', value: service }] : []),
+          ...(dueDateLabel ? [{ label: 'Due Date', value: dueDateLabel }] : []),
+          ...(location ? [{ label: 'Location', value: location }] : []),
+          ...(levelOfSupport ? [{ label: 'Support', value: levelOfSupport }] : []),
+          ...(registryLink ? [{ label: 'Registry', value: registryLink }] : []),
+        ],
+      }),
+    }),
+  ]);
+
+  emailResults.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      console.error('Contact inquiry email failed to send.', {
+        inquiryId: inquiry.id,
+        emailType: index === 0 ? 'user_confirmation' : 'admin_notification',
+        error: result.reason,
+      });
+    }
   });
 
   return NextResponse.json({ success: true, inquiryId: inquiry.id });

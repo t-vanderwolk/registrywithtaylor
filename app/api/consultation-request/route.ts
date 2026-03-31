@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
+import { consultationConfirmationTemplate } from '@/lib/email/templates/consultationConfirmation';
+import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import {
@@ -89,6 +92,11 @@ const jsonError = (message: string, status: number, fieldErrors?: Record<string,
     },
     { status },
   );
+
+const buildAdminMessage = (entries: Array<string | null>) => {
+  const sections = entries.map((entry) => entry?.trim()).filter(Boolean);
+  return sections.length > 0 ? sections.join('\n\n') : 'No additional intake message was provided.';
+};
 
 function buildFieldErrors(state: ReturnType<typeof normalizeConsultationIntakeDraft>) {
   const fieldErrors: Record<string, string> = {};
@@ -221,7 +229,7 @@ export async function POST(req: NextRequest) {
     state.overwhelmNotes ||
     null;
 
-  await prisma.consultationRequest.create({
+  const consultation = await prisma.consultationRequest.create({
     data: {
       name: state.name,
       email: state.email,
@@ -231,6 +239,67 @@ export async function POST(req: NextRequest) {
       message: legacyMessage,
       intakeSummary,
     },
+    select: { id: true },
+  });
+
+  const adminMessage = buildAdminMessage([
+    legacyMessage,
+    state.lifestyleNotes ? `Lifestyle notes: ${state.lifestyleNotes}` : null,
+    state.ownedGearNotes ? `Existing gear: ${state.ownedGearNotes}` : null,
+    state.caregiverNotes ? `Caregiver notes: ${state.caregiverNotes}` : null,
+  ]);
+
+  const emailResults = await Promise.allSettled([
+    sendEmail({
+      to: state.email,
+      subject: 'Your consultation inquiry is in — Taylor-Made Baby Co.',
+      html: consultationConfirmationTemplate({ name: state.name }),
+    }),
+    sendEmail({
+      to: getAdminEmail(),
+      replyTo: state.email,
+      subject: 'New TMBC Inquiry',
+      html: adminNotificationTemplate({
+        name: state.name,
+        email: state.email,
+        type: 'consultation',
+        message: adminMessage,
+        details: [
+          ...(state.phone ? [{ label: 'Phone', value: state.phone }] : []),
+          ...(intakeSummary.personalBasics.dueDateOrBirthday
+            ? [{ label: 'Due Date', value: intakeSummary.personalBasics.dueDateOrBirthday }]
+            : []),
+          ...(intakeSummary.personalBasics.firstTimeParent
+            ? [{ label: 'Parent Stage', value: intakeSummary.personalBasics.firstTimeParent }]
+            : []),
+          ...(intakeSummary.bookingAndGoals.consultType
+            ? [{ label: 'Consult Type', value: intakeSummary.bookingAndGoals.consultType }]
+            : []),
+          ...(intakeSummary.bookingAndGoals.meetingPreference
+            ? [{ label: 'Meeting', value: intakeSummary.bookingAndGoals.meetingPreference }]
+            : []),
+          ...(intakeSummary.quickView.topConcerns.length > 0
+            ? [{ label: 'Help Topics', value: intakeSummary.quickView.topConcerns.join(', ') }]
+            : []),
+          ...(intakeSummary.quickView.registryPlatforms.length > 0
+            ? [{ label: 'Registry Platforms', value: intakeSummary.quickView.registryPlatforms.join(', ') }]
+            : []),
+          ...(intakeSummary.quickView.budgetRange
+            ? [{ label: 'Budget', value: intakeSummary.quickView.budgetRange }]
+            : []),
+        ],
+      }),
+    }),
+  ]);
+
+  emailResults.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      console.error('Consultation inquiry email failed to send.', {
+        consultationId: consultation.id,
+        emailType: index === 0 ? 'user_confirmation' : 'admin_notification',
+        error: result.reason,
+      });
+    }
   });
 
   return wantsJson

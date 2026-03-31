@@ -6,6 +6,7 @@ import { extractStoredCtaButtons } from '@/lib/blog/ctaButtons';
 import type { BlogPostComment } from '@/lib/blog/postComments';
 import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { sanitizeLegacyArticleContent } from '@/lib/blog/contentText';
+import { buildBlogSeoSnapshot, truncateAtWordBoundary } from '@/lib/blog/seo';
 import { generateSocialSnippets } from '@/lib/blog/socialSnippets';
 import { getPostDisplayDate, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
@@ -17,6 +18,7 @@ import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
 import BlogShareBar from '@/components/blog/BlogShareBar';
 import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
 import BlogViewTracker from '@/components/blog/BlogViewTracker';
+import BlogArticleCompass from '@/components/blog/BlogArticleCompass';
 import JournalCard from '@/components/blog/JournalCard';
 import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
@@ -94,6 +96,7 @@ export type PostArticleRelatedPost = {
   title: string;
   slug: string;
   category: BlogCategory;
+  excerpt?: string | null;
   coverImage: string | null;
   publishedAt: Date | null;
   scheduledFor: Date | null;
@@ -263,7 +266,22 @@ export default async function PostArticleView({
     (image, index, collection) =>
       image.url !== featuredImageUrl && collection.findIndex((candidate) => candidate.url === image.url) === index,
   );
-  const subtitle = post.deck?.trim() || toExcerpt(post.excerpt, articleContent, 180);
+  const seoSnapshot = buildBlogSeoSnapshot({
+    title: post.title,
+    slug: post.slug,
+    category: post.category,
+    content: articleContent,
+    excerpt: post.excerpt,
+    deck: post.deck,
+    focusKeyword: post.focusKeyword,
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    shareTitle: post.shareTitle,
+    shareDescription: post.shareDescription,
+    canonicalUrl: post.canonicalUrl,
+    readingTime: post.readingTime,
+  });
+  const subtitle = post.deck?.trim() || truncateAtWordBoundary(seoSnapshot.seoDescription, 180);
   const isAffiliate = post.affiliateBrands.length > 0;
   const ctaPartnerIds = Array.from(
     new Set(storedCtas.buttons.flatMap((button) => (button.partnerId ? [button.partnerId] : []))),
@@ -285,16 +303,12 @@ export default async function PostArticleView({
   );
   const hasAffiliateDisclosure = isAffiliate || storedCtas.buttons.some((button) => Boolean(button.partnerId));
   const displayDate = getPostDisplayDate(post);
-  const shareUrl = post.canonicalUrl?.trim()
-    ? /^https?:\/\//i.test(post.canonicalUrl)
-      ? post.canonicalUrl
-      : new URL(post.canonicalUrl, SITE_URL).toString()
-    : `${SITE_URL}/blog/${post.slug}`;
+  const shareUrl = seoSnapshot.canonicalUrl;
   const socialSnippets = generateSocialSnippets({
     title: post.title,
     excerpt: post.excerpt ?? post.deck,
-    shareTitle: post.shareTitle,
-    shareDescription: post.shareDescription,
+    shareTitle: seoSnapshot.shareTitle,
+    shareDescription: seoSnapshot.shareDescription,
     category: categoryLabel,
     content: articleContent,
   });
@@ -337,12 +351,21 @@ export default async function PostArticleView({
       authors={post.authors}
       publishDateLabel={formatArticleDate(displayDate)}
       publishDateIso={displayDate.toISOString()}
-      readingTime={post.readingTime}
+      readingTime={seoSnapshot.readingTime}
       affiliateDisclosure={
         hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
       }
       body={
         <div className="tmbc-editorial-article-shell">
+          <BlogArticleCompass
+            headings={seoSnapshot.outline}
+            relatedPosts={relatedPosts.map((relatedPost) => ({
+              slug: relatedPost.slug,
+              title: relatedPost.title,
+              category: relatedPost.category,
+              excerpt: relatedPost.excerpt ? truncateAtWordBoundary(relatedPost.excerpt, 120) : null,
+            }))}
+          />
           <PostContent
             postId={post.id}
             content={articleContent}
@@ -470,8 +493,8 @@ export default async function PostArticleView({
       conversionCta={<BlogSoftCTA postId={post.id} postSlug={post.slug} postTitle={post.title} />}
       shareSection={
         <BlogShareBar
-          title={post.shareTitle?.trim() || post.title}
-          description={post.shareDescription?.trim() || subtitle || ''}
+          title={seoSnapshot.shareTitle}
+          description={seoSnapshot.shareDescription || subtitle || ''}
           url={shareUrl}
           imageUrl={featuredImageUrl}
           pinterestDescription={socialSnippets.pinterestDescription}

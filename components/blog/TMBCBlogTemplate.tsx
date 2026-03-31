@@ -77,16 +77,7 @@ export default function TMBCBlogTemplate({
 
               <div className="meta tmbc-blog-meta">
                 {primaryAuthor ? (
-                  primaryAuthor.slug ? (
-                    <a
-                      href={`/blog/author/${primaryAuthor.slug}`}
-                      className="font-medium text-[var(--tmbc-blog-charcoal)] underline decoration-[var(--tmbc-blog-blush)] underline-offset-4"
-                    >
-                      {primaryAuthor.name}
-                    </a>
-                  ) : (
-                    <span className="font-medium text-[var(--tmbc-blog-charcoal)]">{primaryAuthor.name}</span>
-                  )
+                  <span className="font-medium text-[var(--tmbc-blog-charcoal)]">{primaryAuthor.name}</span>
                 ) : null}
                 <span aria-hidden className="h-1 w-1 rounded-full bg-black/15" />
                 <time dateTime={publishDateIso}>{publishDateLabel}</time>
