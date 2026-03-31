@@ -29,6 +29,7 @@ import {
   type PostpartumAcademyModuleSlug,
 } from '@/lib/academy/postpartumModules';
 import { getDailyUseGearAcademySubmoduleCards } from '@/lib/academy/dailyUseGearAcademy';
+import { getRegistryWelcomeBoxesAcademySubmoduleCards } from '@/lib/academy/registryWelcomeBoxesAcademy';
 import { getNurseryFurnitureSubmoduleCards } from '@/lib/academy/nurseryFurnitureAcademy';
 import { getCarSeatFoundationsAcademySubmoduleCards } from '@/lib/academy/carSeatFoundationsAcademy';
 import { resolveAcademyProductExamples } from '@/lib/academy/productExampleResolver';
@@ -360,11 +361,11 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
   },
   'welcome-boxes-perks': {
     pathSlug: 'registry',
-    title: 'Welcome Boxes & Perks',
+    title: 'Welcome Boxes & Registry Perks',
     description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
     subhead: "The hidden benefits most parents don't fully use.",
     imagePath: REGISTRY_PATH_IMAGES.welcomeBox,
-    imageAlt: 'Welcome boxes and registry perks image for the Welcome Boxes & Perks academy module.',
+    imageAlt: 'Welcome boxes and registry perks image for the Welcome Boxes & Registry Perks academy module.',
     relatedSlug: null,
   },
   'rewards-completion-discounts': {
@@ -887,6 +888,18 @@ function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSe
       description:
         'Use these Daily Use Gear submodules to sort the products that shape movement, feeding, soothing, cleanup, and the smaller repeated parts of the day without overbuying the category.',
       cards: getDailyUseGearAcademySubmoduleCards(),
+    };
+  }
+
+  if (slug === 'welcome-boxes-perks') {
+    return {
+      title: 'Welcome Boxes & Registry Perks Sub Modules',
+      description:
+        'Use these welcome box submodules to understand qualification, platform fit, and which registry perks are actually worth the effort.',
+      cards: getRegistryWelcomeBoxesAcademySubmoduleCards().map((card) => ({
+        ...card,
+        ctaLabel: 'Open sub module ->',
+      })),
     };
   }
 

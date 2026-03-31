@@ -7,6 +7,10 @@ import {
   getDailyUseGearAcademySubmoduleCards,
 } from '@/lib/academy/dailyUseGearAcademy';
 import {
+  REGISTRY_WELCOME_BOXES_TITLE,
+  getRegistryWelcomeBoxesAcademySubmoduleCards,
+} from '@/lib/academy/registryWelcomeBoxesAcademy';
+import {
   NURSERY_FURNITURE_HUB_PATH,
   getNurseryFurnitureSubmoduleCards,
 } from '@/lib/academy/nurseryFurnitureAcademy';
@@ -30,7 +34,7 @@ import {
   logGuideStorageUnavailable,
 } from '@/lib/server/guideStorage';
 
-type AcademyEditorWorkspacePath = 'gear' | 'nursery';
+type AcademyEditorWorkspacePath = 'registry' | 'gear' | 'nursery';
 
 type AcademyEditorRouteSeed = {
   publicPath: `/${string}`;
@@ -61,6 +65,14 @@ export type AcademySubmoduleInventorySection = {
 };
 
 const ACADEMY_SUBMODULE_BLUEPRINTS = [
+  {
+    id: 'registry-welcome-boxes-perks',
+    title: REGISTRY_WELCOME_BOXES_TITLE,
+    description: 'Registry perk submodules that should stay editable from the Academy route map instead of living as hidden paths.',
+    pathSlug: 'registry' as const,
+    pathLabel: 'Registry',
+    cards: getRegistryWelcomeBoxesAcademySubmoduleCards(),
+  },
   {
     id: 'gear-daily-use-gear',
     title: DAILY_USE_GEAR_ACADEMY_TITLE,
@@ -96,6 +108,10 @@ const ACADEMY_SUBMODULE_BLUEPRINTS = [
 ] as const;
 
 function getAcademyCategory(pathSlug: AcademyEditorWorkspacePath): GuideCategory {
+  if (pathSlug === 'registry') {
+    return 'Registry Planning';
+  }
+
   return pathSlug === 'nursery' ? 'Nursery Planning' : 'Baby Gear Guides';
 }
 

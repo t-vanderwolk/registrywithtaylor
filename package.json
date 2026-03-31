@@ -20,6 +20,7 @@
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
     "seed:registry-sub-guides": "tsx scripts/seedRegistrySubGuides.ts",
     "seed:registry-academy-modules": "tsx scripts/seedRegistryAcademyModules.ts",
+    "seed:registry-welcome-boxes-submodules": "tsx scripts/seedRegistryWelcomeBoxesSubmodules.ts",
     "seed:gear-academy-modules": "tsx scripts/seedGearAcademyModules.ts",
     "seed:daily-use-gear-submodules": "tsx scripts/seedDailyUseGearSubmodules.ts",
     "seed:stroller-category-guides": "tsx scripts/seedStrollerCategoryGuides.ts",

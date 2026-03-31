@@ -23,6 +23,10 @@ import {
   isDailyUseGearAcademySubmoduleSlug,
 } from '@/lib/academy/dailyUseGearAcademy';
 import {
+  buildRegistryWelcomeBoxesAcademySubmoduleModule,
+  isRegistryWelcomeBoxesAcademySubmoduleSlug,
+} from '@/lib/academy/registryWelcomeBoxesAcademy';
+import {
   buildNurseryFurnitureAcademySubmoduleModule,
   isNurseryFurnitureCategorySlug,
 } from '@/lib/academy/nurseryFurnitureAcademy';
@@ -444,6 +448,14 @@ export async function getAcademyPreviewModuleFromPath(publicPath?: string | null
   }
 
   const [, academyPath, moduleSlug, submoduleSlug] = segments;
+
+  if (
+    academyPath === 'registry' &&
+    moduleSlug === 'welcome-boxes-perks' &&
+    isRegistryWelcomeBoxesAcademySubmoduleSlug(submoduleSlug)
+  ) {
+    return buildRegistryWelcomeBoxesAcademySubmoduleModule(submoduleSlug);
+  }
 
   if (academyPath === 'gear' && moduleSlug === 'daily-use-gear' && isDailyUseGearAcademySubmoduleSlug(submoduleSlug)) {
     return buildDailyUseGearAcademySubmoduleModule(submoduleSlug);

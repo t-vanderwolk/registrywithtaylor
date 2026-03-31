@@ -54,6 +54,9 @@ export const REGISTRY_PATH_IMAGES = {
   welcomeBox: '/assets/registrypath/welcomebox.png',
   insideWelcomeBox: '/assets/registrypath/insidewelcomebox.png',
   openingWelcomeBox: '/assets/registrypath/openingwelcomebox.png',
+  babyStore: '/assets/registrypath/babystore.png',
+  overwhelm: '/assets/registrypath/overwhelm.png',
+  research: '/assets/registrypath/research.png',
   rewards: '/assets/registrypath/rewards.png',
   smartBuying: '/assets/registrypath/smartbuying.jpeg',
   purchasingTimeline: '/assets/registrypath/calanderplan.png',
@@ -163,13 +166,13 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'Small decisions here affect everything that follows, from guest experience to returns to how easy it feels to finish the list later.',
       'If the setup feels cleaner now, the rest of the registry process usually gets quieter fast.',
     ],
-    nextModuleSlug: 'shop-local-get-support',
+    nextModuleSlug: 'welcome-boxes-perks',
     previousModuleSlug: null,
   },
   {
     title: 'Shop Local & Get Support',
     slug: 'shop-local-get-support',
-    moduleOrder: 2,
+    moduleOrder: 3,
     description:
       'Use local stores, hybrid shopping, and real expert guidance so registry decisions feel calmer, faster, and much less isolating.',
     subhead: 'Shop locally, think strategically, and stop trying to figure this out alone.',
@@ -255,17 +258,18 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'Support does not make this process more complicated. It makes it easier.',
       'That is not outsourcing the decision. That is making the decision with a smarter set of inputs.',
     ],
-    nextModuleSlug: 'welcome-boxes-perks',
-    previousModuleSlug: 'where-to-register',
+    nextModuleSlug: 'rewards-completion-discounts',
+    previousModuleSlug: 'welcome-boxes-perks',
   },
   {
-    title: 'Welcome Boxes & Perks',
+    title: 'Welcome Boxes & Registry Perks',
     slug: 'welcome-boxes-perks',
-    moduleOrder: 3,
+    moduleOrder: 2,
     description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
     subhead: "The hidden benefits most parents don't fully use.",
     imagePath: REGISTRY_PATH_IMAGES.welcomeBox,
-    imageAlt: 'Welcome boxes and registry perks editorial image for the Welcome Boxes & Perks module.',
+    imageAlt:
+      'Welcome boxes and registry perks editorial image for the Welcome Boxes & Registry Perks module.',
     intro: [
       'Many registries offer welcome boxes, but most families do not realize how to use them well.',
       'This is where your registry starts to give back.',
@@ -335,8 +339,8 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'But only if you approach it intentionally.',
       'The sample is useful. The discipline to not spiral into fifteen related purchases is even more useful.',
     ],
-    nextModuleSlug: 'rewards-completion-discounts',
-    previousModuleSlug: 'shop-local-get-support',
+    nextModuleSlug: 'shop-local-get-support',
+    previousModuleSlug: 'where-to-register',
   },
   {
     title: 'Loyalty, Rewards & Completion Discounts',
@@ -649,7 +653,7 @@ function createRegistryModule(module: RegistryAcademyModuleInput): RegistryAcade
 
 export const REGISTRY_ACADEMY_MODULES: RegistryAcademyModuleRecord[] = REGISTRY_ACADEMY_MODULE_INPUTS.map(
   createRegistryModule,
-);
+).sort((left, right) => left.moduleOrder - right.moduleOrder);
 
 export const REGISTRY_ACADEMY_MODULES_BY_SLUG = Object.fromEntries(
   REGISTRY_ACADEMY_MODULES.map((module) => [module.slug, module]),
