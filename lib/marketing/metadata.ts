@@ -4,6 +4,10 @@ export const SITE_NAME = 'Taylor-Made Baby Co.';
 export const SITE_URL = 'https://www.taylormadebabyco.com';
 export const SITE_LOGO_PATH = '/assets/logos/tmbcblocks2.png';
 export const SITE_LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;
+export const SITE_FAVICON_PATH = '/favicon.png';
+export const SITE_APPLE_ICON_PATH = '/apple-touch-icon.png';
+export const SITE_ICON_192_PATH = '/icon-192.png';
+export const SITE_ICON_512_PATH = '/icon-512.png';
 export const DEFAULT_SITE_TITLE = 'Taylor-Made Baby Co. | Baby Gear & Registry Guidance';
 export const DEFAULT_SITE_DESCRIPTION =
   'Personalized help with registries, strollers, car seats, nursery planning, and home prep. Expert guidance on what to buy, what to skip, and what can wait.';

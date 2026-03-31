@@ -348,6 +348,8 @@ export async function renderGuideRoute({
             logo: {
               '@type': 'ImageObject',
               url: SITE_LOGO_URL,
+              width: 1024,
+              height: 1024,
             },
           },
           image: articleImage ? [toAbsoluteUrl(articleImage)] : undefined,

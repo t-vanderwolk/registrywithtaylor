@@ -9,7 +9,10 @@ import {
   DEFAULT_OG_IMAGE_PATH,
   DEFAULT_SITE_DESCRIPTION,
   DEFAULT_SITE_TITLE,
-  SITE_LOGO_PATH,
+  SITE_APPLE_ICON_PATH,
+  SITE_FAVICON_PATH,
+  SITE_ICON_192_PATH,
+  SITE_ICON_512_PATH,
   SITE_LOGO_URL,
   SITE_NAME,
   SITE_URL,
@@ -29,6 +32,8 @@ const siteStructuredData = {
       logo: {
         '@type': 'ImageObject',
         url: SITE_LOGO_URL,
+        width: 1024,
+        height: 1024,
       },
     },
     {
@@ -41,6 +46,8 @@ const siteStructuredData = {
         logo: {
           '@type': 'ImageObject',
           url: SITE_LOGO_URL,
+          width: 1024,
+          height: 1024,
         },
       },
     },
@@ -57,10 +64,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: SITE_LOGO_PATH, type: 'image/png' },
+      { url: SITE_FAVICON_PATH, sizes: '48x48', type: 'image/png' },
+      { url: SITE_ICON_192_PATH, sizes: '192x192', type: 'image/png' },
+      { url: SITE_ICON_512_PATH, sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: [{ url: SITE_LOGO_PATH, type: 'image/png' }],
-    apple: [{ url: SITE_LOGO_PATH, type: 'image/png' }],
+    shortcut: [{ url: SITE_FAVICON_PATH, sizes: '48x48', type: 'image/png' }],
+    apple: [{ url: SITE_APPLE_ICON_PATH, sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     title: DEFAULT_SITE_TITLE,

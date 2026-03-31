@@ -1,5 +1,10 @@
 import type { MetadataRoute } from 'next';
-import { SITE_LOGO_PATH, SITE_URL } from '@/lib/marketing/metadata';
+import {
+  SITE_APPLE_ICON_PATH,
+  SITE_ICON_192_PATH,
+  SITE_ICON_512_PATH,
+  SITE_URL,
+} from '@/lib/marketing/metadata';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -13,14 +18,20 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#d889a0',
     icons: [
       {
-        src: SITE_LOGO_PATH,
-        sizes: '288x572',
+        src: SITE_ICON_192_PATH,
+        sizes: '192x192',
         type: 'image/png',
         purpose: 'any',
       },
       {
-        src: SITE_LOGO_PATH,
-        sizes: '288x572',
+        src: SITE_ICON_512_PATH,
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: SITE_APPLE_ICON_PATH,
+        sizes: '180x180',
         type: 'image/png',
         purpose: 'any',
       },
