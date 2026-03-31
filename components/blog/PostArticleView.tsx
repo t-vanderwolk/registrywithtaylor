@@ -356,7 +356,7 @@ export default async function PostArticleView({
         hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
       }
       body={
-        <div className="tmbc-editorial-article-shell">
+        <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:items-start lg:gap-8 xl:grid-cols-[17rem_minmax(0,1fr)] xl:gap-10">
           <BlogArticleCompass
             headings={seoSnapshot.outline}
             relatedPosts={relatedPosts.map((relatedPost) => ({
@@ -366,12 +366,14 @@ export default async function PostArticleView({
               excerpt: relatedPost.excerpt ? truncateAtWordBoundary(relatedPost.excerpt, 120) : null,
             }))}
           />
-          <PostContent
-            postId={post.id}
-            content={articleContent}
-            className="tmbc-blog-post-content mx-auto max-w-[72ch]"
-            ctaPartners={serializedCtaPartners}
-          />
+          <div className="tmbc-editorial-article-shell min-w-0">
+            <PostContent
+              postId={post.id}
+              content={articleContent}
+              className="tmbc-blog-post-content max-w-[72ch]"
+              ctaPartners={serializedCtaPartners}
+            />
+          </div>
         </div>
       }
       resources={
