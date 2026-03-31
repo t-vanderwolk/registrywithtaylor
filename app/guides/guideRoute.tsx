@@ -21,7 +21,7 @@ import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import { toGuideCardItemFromGuide, toGuideCardItemFromPillar } from '@/lib/guides/presentation';
 import { getGuideDisplayDate, isGuidePubliclyVisible } from '@/lib/guides/status';
 import { getGuidePillar, getRelatedGuidePillars } from '@/lib/marketing/siteContent';
-import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
+import { buildMarketingMetadata, SITE_LOGO_URL, SITE_URL } from '@/lib/marketing/metadata';
 import { guideArticleSelect, toGuideArticleRecord, type GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 import prisma from '@/lib/server/prisma';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
@@ -345,6 +345,10 @@ export async function renderGuideRoute({
             '@type': 'Organization',
             name: 'Taylor-Made Baby Co.',
             url: SITE_URL,
+            logo: {
+              '@type': 'ImageObject',
+              url: SITE_LOGO_URL,
+            },
           },
           image: articleImage ? [toAbsoluteUrl(articleImage)] : undefined,
           inLanguage: 'en-US',

@@ -63,16 +63,16 @@ type ModuleLayoutProps = {
 function Breadcrumbs({ items }: { items: AcademyBreadcrumbItem[] }) {
   return (
     <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">
-      <ol className="flex flex-wrap items-center gap-2">
+      <ol className="flex min-w-0 flex-wrap items-center gap-2 text-[0.68rem] tracking-[0.18em] sm:text-[0.72rem] sm:tracking-[0.22em]">
         {items.map((item, index) => (
-          <li key={`${item.label}-${index}`} className="inline-flex items-center gap-2">
+          <li key={`${item.label}-${index}`} className="inline-flex min-w-0 flex-wrap items-center gap-2">
             {index > 0 ? <span aria-hidden="true" className="text-[rgba(161,91,114,0.35)]">/</span> : null}
             {item.href ? (
-              <Link href={item.href} className="transition duration-200 hover:text-[#8F4C62]">
+              <Link href={item.href} className="max-w-full break-words transition duration-200 hover:text-[#8F4C62]">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-[#8F4C62]">{item.label}</span>
+              <span className="max-w-full break-words text-[#8F4C62]">{item.label}</span>
             )}
           </li>
         ))}
@@ -97,15 +97,15 @@ function NextStepCard({
   return (
     <Link
       href={href}
-      className="group tmbc-blog-soft-card flex h-full flex-col p-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(232,154,174,0.34)] hover:shadow-[0_24px_54px_rgba(70,53,58,0.08)] sm:p-6"
+      className="group tmbc-blog-soft-card flex h-full min-w-0 flex-col p-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(232,154,174,0.34)] hover:shadow-[0_24px_54px_rgba(70,53,58,0.08)] sm:p-6"
     >
       <p className="w-fit">
         <span className="tmbc-tag">{eyebrow}</span>
       </p>
-      <h3 className="mt-5 font-serif text-[clamp(1.45rem,2vw,1.9rem)] leading-[1.12] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
+      <h3 className="mt-5 break-words font-serif text-[clamp(1.45rem,2vw,1.9rem)] leading-[1.12] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
         {title}
       </h3>
-      <p className="mt-4 text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)]">{description}</p>
+      <p className="mt-4 break-words text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)]">{description}</p>
       <span className="mt-auto pt-6 text-sm uppercase tracking-[0.16em] text-[var(--tmbc-blog-rose)] transition duration-200 group-hover:translate-x-1">
         {ctaLabel}
       </span>
@@ -125,14 +125,14 @@ function SectionHeading({
   note?: string;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-3xl min-w-0">
       <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">{eyebrow}</p>
-      <h2 className="mt-4 font-serif text-[clamp(2.1rem,4vw,2.9rem)] leading-[1.1] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
+      <h2 className="mt-4 break-words font-serif text-[clamp(2.1rem,4vw,2.9rem)] leading-[1.1] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
         {title}
       </h2>
       <div className="mt-4 h-1 w-[78px] rounded-full bg-[linear-gradient(90deg,rgba(232,154,174,0.9)_0%,rgba(215,161,175,1)_100%)] shadow-[0_10px_24px_rgba(232,154,174,0.18)]" />
       {description ? (
-        <p className="mt-5 text-[1.05rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.08rem]">
+        <p className="mt-5 break-words text-[1.05rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.08rem]">
           {description}
         </p>
       ) : null}

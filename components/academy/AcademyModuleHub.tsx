@@ -68,13 +68,13 @@ function LinkCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col rounded-[1.7rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,247,250,0.92)_100%)] p-5 shadow-[0_20px_48px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(161,91,114,0.28)] hover:shadow-[0_28px_62px_rgba(58,36,43,0.12)] sm:p-6"
+      className="group flex h-full min-w-0 flex-col rounded-[1.7rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,247,250,0.92)_100%)] p-5 shadow-[0_20px_48px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(161,91,114,0.28)] hover:shadow-[0_28px_62px_rgba(58,36,43,0.12)] sm:p-6"
     >
       {eyebrow ? <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p> : null}
-      <h3 className="mt-4 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.04em] text-[#2F2430] sm:text-[1.75rem]">
+      <h3 className="mt-4 break-words font-serif text-[1.55rem] leading-[1.04] tracking-[-0.04em] text-[#2F2430] sm:text-[1.75rem]">
         {title}
       </h3>
-      <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55]">{description}</p>
+      <p className="mt-4 break-words text-[1rem] leading-8 text-[#5B4B55]">{description}</p>
       <span className="mt-auto pt-6 text-sm font-medium uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
         {ctaLabel}
       </span>
@@ -92,12 +92,12 @@ function SectionHeading({
   description?: string;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-3xl min-w-0">
       <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
-      <h2 className="mt-4 font-serif text-[2rem] leading-[0.98] tracking-[-0.05em] text-[#2F2430] sm:text-[2.65rem]">
+      <h2 className="mt-4 break-words font-serif text-[2rem] leading-[0.98] tracking-[-0.05em] text-[#2F2430] sm:text-[2.65rem]">
         {title}
       </h2>
-      {description ? <p className="mt-4 text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.05rem]">{description}</p> : null}
+      {description ? <p className="mt-4 break-words text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.05rem]">{description}</p> : null}
     </div>
   );
 }
@@ -145,18 +145,18 @@ export default function AcademyModuleHub({
       <div className="mx-auto max-w-6xl px-5 pb-10 sm:px-8 md:pb-12 lg:px-10">
         <section className="overflow-hidden rounded-[2.15rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(255,252,253,0.98)_0%,rgba(252,243,246,0.97)_45%,rgba(249,241,233,0.96)_100%)] shadow-[0_28px_72px_rgba(58,36,43,0.1)]">
           <div className="grid gap-0 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.92fr)]">
-            <div className="px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
+            <div className="min-w-0 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
               <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">{heroEyebrow}</p>
-              <h1 className="mt-4 max-w-[10ch] font-serif text-[2.45rem] leading-[0.92] tracking-[-0.06em] text-[#2F2430] sm:text-[4rem]">
+              <h1 className="mt-4 max-w-[10ch] break-words font-serif text-[2.2rem] leading-[0.92] tracking-[-0.06em] text-[#2F2430] sm:text-[4rem]">
                 {title}
               </h1>
-              <p className="mt-5 max-w-[42rem] text-[1.08rem] leading-8 text-[#4B3641] sm:text-[1.18rem] sm:leading-9">
+              <p className="mt-5 max-w-[42rem] break-words text-[1rem] leading-8 text-[#4B3641] sm:text-[1.18rem] sm:leading-9">
                 {deck}
               </p>
 
               <div className="mt-6 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.04rem]">
                 {intro.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p key={paragraph} className="break-words">{paragraph}</p>
                 ))}
               </div>
 
@@ -176,7 +176,7 @@ export default function AcademyModuleHub({
               </div>
             </div>
 
-            <div className="border-t border-[rgba(215,161,175,0.16)] bg-[linear-gradient(180deg,#fdf7f8_0%,#fffdf9_100%)] lg:border-l lg:border-t-0">
+            <div className="min-w-0 border-t border-[rgba(215,161,175,0.16)] bg-[linear-gradient(180deg,#fdf7f8_0%,#fffdf9_100%)] lg:border-l lg:border-t-0">
               <div className="relative aspect-[5/4] border-b border-[rgba(215,161,175,0.14)] bg-[linear-gradient(180deg,#f7efe6_0%,#f3e4dc_100%)]">
                 <Image
                   src={heroImageSrc}
@@ -191,7 +191,7 @@ export default function AcademyModuleHub({
               <div className="space-y-5 px-6 py-6 sm:px-8 sm:py-8">
                 <div className="rounded-[1.45rem] border border-[rgba(215,161,175,0.18)] bg-white/88 p-5 shadow-[0_18px_34px_rgba(58,36,43,0.06)]">
                   <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">Pull quote</p>
-                  <p className="mt-3 font-serif text-[1.38rem] leading-8 tracking-[-0.03em] text-[#4B3641]">{pullQuote}</p>
+                  <p className="mt-3 break-words font-serif text-[1.38rem] leading-8 tracking-[-0.03em] text-[#4B3641]">{pullQuote}</p>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">

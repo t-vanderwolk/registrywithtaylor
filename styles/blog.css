@@ -12,6 +12,7 @@
 .tmbc-blog-shell {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
   padding-top: clamp(1rem, 2vw, 1.5rem);
   padding-bottom: clamp(2rem, 4vw, 3rem);
 }
@@ -338,6 +339,7 @@
 .tmbc-blog-hero__divider {
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 
 .tmbc-blog-hero__eyebrow {
@@ -356,6 +358,7 @@
   letter-spacing: -0.045em;
   margin: 0;
   max-width: 13ch;
+  overflow-wrap: anywhere;
 }
 
 .tmbc-blog-hero .excerpt {
@@ -364,6 +367,7 @@
   color: var(--tmbc-blog-soft-text, #6b6768);
   margin-top: 22px;
   max-width: 41rem;
+  overflow-wrap: anywhere;
 }
 
 .tmbc-blog-hero .meta {
@@ -537,6 +541,10 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--tmbc-blog-soft-text, #6b6768);
+}
+
+.tmbc-blog-meta > * {
+  min-width: 0;
 }
 
 .tmbc-blog-hero__divider .tmbc-divider {

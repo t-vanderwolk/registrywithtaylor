@@ -15,6 +15,7 @@
     "seed:affiliate-partners": "tsx prisma/seed/affiliatePartners.ts",
     "seed:affiliate-programs": "tsx scripts/seedAffiliatePrograms.ts",
     "seo:published-blog-posts": "tsx scripts/optimizePublishedBlogSeo.ts",
+    "sync:published-blog-posts-from-production": "tsx scripts/syncPublishedBlogPostsFromProduction.ts",
     "seed:draft-posts": "tsx scripts/seedDraftBlogPosts.ts",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",

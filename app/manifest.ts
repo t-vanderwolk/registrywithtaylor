@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '@/lib/marketing/metadata';
+import { SITE_LOGO_PATH, SITE_URL } from '@/lib/marketing/metadata';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -13,14 +13,14 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#d889a0',
     icons: [
       {
-        src: '/assets/editorial/ribbonbow-app-192.png',
-        sizes: '192x192',
+        src: SITE_LOGO_PATH,
+        sizes: '288x572',
         type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/assets/editorial/ribbonbow-app-512.png',
-        sizes: '512x512',
+        src: SITE_LOGO_PATH,
+        sizes: '288x572',
         type: 'image/png',
         purpose: 'any',
       },

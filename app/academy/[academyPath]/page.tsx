@@ -57,16 +57,16 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
 
         <section className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
           <nav aria-label="Breadcrumb" className="academy-load-in academy-load-in--1 text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">
-            <ol className="flex flex-wrap items-center gap-2">
+            <ol className="flex min-w-0 flex-wrap items-center gap-2 text-[0.68rem] tracking-[0.18em] sm:text-[0.72rem] sm:tracking-[0.22em]">
               {pathData.breadcrumb.map((item, index) => (
-                <li key={`${item.label}-${index}`} className="inline-flex items-center gap-2">
+                <li key={`${item.label}-${index}`} className="inline-flex min-w-0 flex-wrap items-center gap-2">
                   {index > 0 ? <span aria-hidden="true" className="text-[rgba(161,91,114,0.34)]">/</span> : null}
                   {item.href ? (
-                    <Link href={item.href} className="transition duration-200 hover:text-[#8F4C62]">
+                    <Link href={item.href} className="max-w-full break-words transition duration-200 hover:text-[#8F4C62]">
                       {item.label}
                     </Link>
                   ) : (
-                    <span className="text-[#8F4C62]">{item.label}</span>
+                    <span className="max-w-full break-words text-[#8F4C62]">{item.label}</span>
                   )}
                 </li>
               ))}
@@ -77,12 +77,12 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
         <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 md:pb-20 lg:px-10">
           <div className="academy-load-in academy-load-in--2 overflow-hidden rounded-[2.25rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(135deg,rgba(255,252,253,0.98)_0%,rgba(252,242,246,0.97)_38%,rgba(249,240,231,0.96)_100%)] shadow-[0_28px_64px_rgba(58,36,43,0.10)]">
             <div className="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
-              <div className="px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
+              <div className="min-w-0 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">{pathData.title} Path</p>
-                <h1 className="mt-4 font-serif text-[2.35rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:text-[3.6rem]">
+                <h1 className="mt-4 break-words font-serif text-[2.1rem] leading-[0.96] tracking-[-0.05em] text-neutral-900 sm:text-[3.6rem]">
                   {pathData.heroTitle}
                 </h1>
-                <p className="mt-5 max-w-[42rem] text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">{pathData.heroDescription}</p>
+                <p className="mt-5 max-w-[42rem] break-words text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">{pathData.heroDescription}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <span className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(217,134,162,0.18)] bg-white/76 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62] shadow-[0_12px_26px_rgba(58,36,43,0.06)]">
                     Learn it in order. Buy later.
@@ -92,7 +92,7 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
                 <p className="academy-handwritten-aside mt-3">Read the sequence first. Shop after the thinking gets quieter.</p>
                 <div className="mt-6 max-w-[42rem] space-y-4 text-[1rem] leading-8 text-neutral-700">
                   {pathData.intro.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                    <p key={paragraph} className="break-words">{paragraph}</p>
                   ))}
                 </div>
               </div>

@@ -9,7 +9,7 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import { extractFaqEntries } from '@/lib/blog/contentText';
 import { buildBlogSeoSnapshot } from '@/lib/blog/seo';
 import { getPostDisplayDate } from '@/lib/blog/postStatus';
-import { SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
+import { SITE_LOGO_URL, SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogPostBySlug, getPublicRelatedBlogPosts } from '@/lib/server/publicBlog';
 
 export const dynamic = 'force-dynamic';
@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           url: SITE_URL,
           logo: {
             '@type': 'ImageObject',
-            url: `${SITE_URL}/assets/editorial/ribbonbow-app-192.png`,
+            url: SITE_LOGO_URL,
           },
         },
         image: featuredImageUrl ? [toAbsoluteUrl(featuredImageUrl)] : undefined,

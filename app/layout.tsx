@@ -9,6 +9,8 @@ import {
   DEFAULT_OG_IMAGE_PATH,
   DEFAULT_SITE_DESCRIPTION,
   DEFAULT_SITE_TITLE,
+  SITE_LOGO_PATH,
+  SITE_LOGO_URL,
   SITE_NAME,
   SITE_URL,
 } from '@/lib/marketing/metadata';
@@ -17,6 +19,33 @@ import Providers from './providers';
 
 const googleAnalyticsId = 'G-57M7FFGXKC';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const siteStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: SITE_LOGO_URL,
+      },
+    },
+    {
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: SITE_URL,
+      publisher: {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        logo: {
+          '@type': 'ImageObject',
+          url: SITE_LOGO_URL,
+        },
+      },
+    },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,11 +57,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/assets/editorial/ribbonbow-favicon-64.png', sizes: '64x64', type: 'image/png' },
-      { url: '/assets/editorial/ribbonbow-app-192.png', sizes: '192x192', type: 'image/png' },
+      { url: SITE_LOGO_PATH, type: 'image/png' },
     ],
-    shortcut: [{ url: '/assets/editorial/ribbonbow-favicon-64.png', sizes: '64x64', type: 'image/png' }],
-    apple: [{ url: '/assets/editorial/ribbonbow-apple-180.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: [{ url: SITE_LOGO_PATH, type: 'image/png' }],
+    apple: [{ url: SITE_LOGO_PATH, type: 'image/png' }],
   },
   openGraph: {
     title: DEFAULT_SITE_TITLE,
@@ -69,6 +97,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
+        />
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
