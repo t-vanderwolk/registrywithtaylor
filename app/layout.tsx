@@ -18,10 +18,10 @@ import {
   SITE_NAME,
   SITE_URL,
 } from '@/lib/marketing/metadata';
+import { GA_ID } from '@/lib/analytics/gtag';
 import './globals.css';
 import Providers from './providers';
 
-const googleAnalyticsId = 'G-57M7FFGXKC';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 const siteStructuredData = {
   '@context': 'https://schema.org',
@@ -125,10 +125,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Google Analytics */}
-        {googleAnalyticsId ? (
+        {GA_ID ? (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
 
@@ -138,7 +138,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag = gtag;
                 gtag('js', new Date());
-                gtag('config', '${googleAnalyticsId}', {
+                gtag('config', '${GA_ID}', {
                   send_page_view: false
                 });
               `}
