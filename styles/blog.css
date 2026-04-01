@@ -601,6 +601,12 @@
   z-index: 1;
 }
 
+.tmbc-blog.tmbc-blog--wide {
+  width: 100%;
+  max-width: min(100%, 88ch);
+  margin: 0;
+}
+
 .tmbc-blog-post-content > p:first-of-type {
   font-size: clamp(1.28rem, 2vw, 1.52rem);
   line-height: 1.72;

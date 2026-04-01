@@ -4,6 +4,7 @@ import SiteShell from '@/components/SiteShell';
 import {
   REGISTRY_WELCOME_BOXES_DECK,
   REGISTRY_WELCOME_BOXES_HUB_PATH,
+  REGISTRY_WELCOME_BOXES_LEARNING_HIGHLIGHTS,
   REGISTRY_WELCOME_BOXES_TITLE,
 } from '@/lib/academy/registryWelcomeBoxesAcademy';
 import { REGISTRY_PATH_IMAGES } from '@/lib/academy/registryModules';
@@ -15,6 +16,11 @@ export const metadata = buildMarketingMetadata({
   path: REGISTRY_WELCOME_BOXES_HUB_PATH,
   imagePath: REGISTRY_PATH_IMAGES.welcomeBox,
   imageAlt: 'Editorial registry welcome boxes image for Taylor-Made Baby Co.',
+  keywords: [
+    REGISTRY_WELCOME_BOXES_TITLE,
+    ...REGISTRY_WELCOME_BOXES_LEARNING_HIGHLIGHTS.slice(0, 4),
+  ],
+  category: 'TMBC Academy',
 });
 
 export default function RegistryWelcomeBoxesHubPage() {

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
@@ -11,6 +12,10 @@ import {
   getAcademyPathSlugs,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
+import {
+  buildAcademyBreadcrumbStructuredData,
+  buildAcademyCollectionStructuredData,
+} from '@/lib/academy/seo';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 type AcademyPathPageProps = {
@@ -38,6 +43,12 @@ export async function generateMetadata({ params }: AcademyPathPageProps): Promis
     path: `/academy/${academyPath}`,
     imagePath: pathData.imagePath as `/${string}`,
     imageAlt: pathData.imageAlt,
+    keywords: [
+      pathData.title,
+      ...pathData.moduleCards.map((moduleCard) => moduleCard.title).slice(0, 4),
+      ...pathData.learningHighlights.slice(0, 4),
+    ],
+    category: 'TMBC Academy',
   });
 }
 
@@ -49,10 +60,37 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
   }
 
   const pathData = await getAcademyPathData(academyPath);
+  const pathOverviewLine = `Inside this path: ${pathData.moduleCards
+    .map((moduleCard) => moduleCard.title)
+    .slice(0, 4)
+    .join(', ')}${pathData.moduleCards.length > 4 ? ', and more.' : '.'}`;
 
   return (
     <SiteShell currentPath={pathData.href}>
       <main className="site-main min-h-0 bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.16),transparent_24%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.3),transparent_28%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_34%,#fffdfa_100%)]">
+        <AcademyStructuredData
+          data={[
+            buildAcademyBreadcrumbStructuredData({
+              breadcrumbs: pathData.breadcrumb,
+              currentPath: pathData.href,
+            }),
+            buildAcademyCollectionStructuredData({
+              title: `${pathData.title} Path`,
+              description: pathData.heroDescription,
+              path: pathData.href,
+              breadcrumbs: pathData.breadcrumb,
+              items: pathData.moduleCards.map((moduleCard) => ({
+                href: moduleCard.href,
+                title: moduleCard.title,
+                description: moduleCard.description,
+              })),
+              keywords: [
+                pathData.title,
+                ...pathData.learningHighlights.slice(0, 5),
+              ],
+            }),
+          ]}
+        />
         <PageViewTracker path={pathData.href} pageType="guide" slug={`academy-${academyPath}`} title={pathData.title} />
 
         <section className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
@@ -83,6 +121,9 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
                   {pathData.heroTitle}
                 </h1>
                 <p className="mt-5 max-w-[42rem] break-words text-[1rem] leading-7 text-neutral-700 sm:text-[1.08rem] sm:leading-8">{pathData.heroDescription}</p>
+                <p className="mt-4 max-w-[42rem] break-words text-[0.98rem] leading-8 text-neutral-700 sm:text-[1rem]">
+                  {pathOverviewLine}
+                </p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <span className="inline-flex min-h-[40px] items-center rounded-full border border-[rgba(217,134,162,0.18)] bg-white/76 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62] shadow-[0_12px_26px_rgba(58,36,43,0.06)]">
                     Learn it in order. Buy later.

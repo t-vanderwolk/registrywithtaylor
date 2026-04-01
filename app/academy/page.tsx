@@ -1,11 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
 import Hero from '@/components/ui/Hero';
 import { getAcademyHomeData } from '@/lib/academy/content';
+import {
+  buildAcademyBreadcrumbStructuredData,
+  buildAcademyCollectionStructuredData,
+} from '@/lib/academy/seo';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+
+const home = getAcademyHomeData();
 
 export const metadata = buildMarketingMetadata({
   title: 'TMBC Baby Academy | Taylor-Made Baby Co.',
@@ -13,14 +20,34 @@ export const metadata = buildMarketingMetadata({
   path: '/academy',
   imagePath: '/assets/hero/hero-baby-editorial-v2.jpg',
   imageAlt: 'TMBC Baby Academy hero image.',
+  keywords: home.paths.map((path) => path.title),
+  category: 'TMBC Academy',
 });
 
 export default function AcademyHomePage() {
-  const home = getAcademyHomeData();
-
   return (
     <SiteShell currentPath="/academy">
       <main className="site-main min-h-0 bg-[radial-gradient(circle_at_top_right,rgba(232,154,174,0.16),transparent_24%),radial-gradient(circle_at_top_left,rgba(243,216,196,0.28),transparent_28%),linear-gradient(180deg,#fef9f7_0%,#fdf1f4_32%,#fffdfa_100%)]">
+        <AcademyStructuredData
+          data={[
+            buildAcademyBreadcrumbStructuredData({
+              breadcrumbs: [{ label: 'Academy' }],
+              currentPath: '/academy',
+            }),
+            buildAcademyCollectionStructuredData({
+              title: home.title,
+              description: home.description,
+              path: '/academy',
+              breadcrumbs: [{ label: 'Academy' }],
+              items: home.paths.map((pathCard) => ({
+                href: pathCard.href,
+                title: pathCard.title,
+                description: pathCard.description,
+              })),
+              keywords: home.paths.map((pathCard) => pathCard.title),
+            }),
+          ]}
+        />
         <PageViewTracker path="/academy" pageType="guide" slug="academy" title={home.title} />
 
         <Hero

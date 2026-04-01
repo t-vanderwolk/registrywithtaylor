@@ -1,21 +1,33 @@
+import type { Metadata } from 'next';
 import RegistryWelcomeBoxesSubmodulePage from '@/components/academy/RegistryWelcomeBoxesSubmodulePage';
 import SiteShell from '@/components/SiteShell';
 import {
   getRegistryWelcomeBoxesAcademySubmodule,
   getRegistryWelcomeBoxesAcademySubmodulePath,
 } from '@/lib/academy/registryWelcomeBoxesAcademy';
-import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
+import { getPublishedAcademyGuideForPath } from '@/lib/server/academyGuides';
 
 const submodule = getRegistryWelcomeBoxesAcademySubmodule('target');
 const path = getRegistryWelcomeBoxesAcademySubmodulePath('target');
 
-export const metadata = buildMarketingMetadata({
-  title: `${submodule.title} | Welcome Boxes & Registry Perks | TMBC Baby Academy`,
-  description: submodule.metadataDescription,
-  path,
-  imagePath: submodule.heroImageSrc,
-  imageAlt: submodule.heroImageAlt,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const academyGuide = await getPublishedAcademyGuideForPath(path);
+
+  return buildAcademyPageMetadata({
+    defaultTitle: `${submodule.title} | Welcome Boxes & Registry Perks | TMBC Baby Academy`,
+    description: submodule.metadataDescription,
+    path,
+    imagePath: submodule.heroImageSrc,
+    imageAlt: submodule.heroImageAlt,
+    keywords: [
+      submodule.title,
+      submodule.deck,
+      ...submodule.decisionBullets.slice(0, 4),
+    ],
+    guide: academyGuide,
+  });
+}
 
 export default function RegistryWelcomeBoxesTargetPage() {
   return (

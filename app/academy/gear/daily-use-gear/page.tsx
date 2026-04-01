@@ -4,6 +4,7 @@ import SiteShell from '@/components/SiteShell';
 import {
   DAILY_USE_GEAR_ACADEMY_DECK,
   DAILY_USE_GEAR_ACADEMY_HUB_PATH,
+  DAILY_USE_GEAR_ACADEMY_LEARNING_HIGHLIGHTS,
   DAILY_USE_GEAR_ACADEMY_TITLE,
 } from '@/lib/academy/dailyUseGearAcademy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -14,6 +15,11 @@ export const metadata = buildMarketingMetadata({
   path: DAILY_USE_GEAR_ACADEMY_HUB_PATH,
   imagePath: '/assets/editorial/babystuff.png',
   imageAlt: 'Editorial daily use baby gear image for Taylor-Made Baby Co.',
+  keywords: [
+    DAILY_USE_GEAR_ACADEMY_TITLE,
+    ...DAILY_USE_GEAR_ACADEMY_LEARNING_HIGHLIGHTS.slice(0, 4),
+  ],
+  category: 'TMBC Academy',
 });
 
 export default function DailyUseGearHubPage() {

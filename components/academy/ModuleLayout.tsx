@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -13,6 +14,10 @@ import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
+import {
+  buildAcademyBreadcrumbStructuredData,
+  buildAcademyLearningResourceStructuredData,
+} from '@/lib/academy/seo';
 import type {
   AcademyBreadcrumbItem,
   AcademyCoreSection,
@@ -255,6 +260,66 @@ function getModuleTypographyAccent(module: ModuleLayoutData) {
   }
 }
 
+function formatInlineList(items: string[]) {
+  if (items.length === 0) {
+    return '';
+  }
+
+  if (items.length === 1) {
+    return items[0];
+  }
+
+  if (items.length === 2) {
+    return `${items[0]} and ${items[1]}`;
+  }
+
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+function buildModuleFocusLine(module: ModuleLayoutData) {
+  const focusPoints = module.coreSections
+    .map((section) => section.title.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+
+  if (focusPoints.length === 0) {
+    return 'This TMBC Academy module is here to make the category clearer before the product tabs multiply.';
+  }
+
+  return `Inside this module: ${formatInlineList(focusPoints)}.`;
+}
+
+function buildModuleAcademyConnectionCards(
+  module: ModuleLayoutData,
+  pathLabel: string | undefined,
+) {
+  const pathTitle = pathLabel ? `${pathLabel} Path` : 'Academy Path';
+  const connectionCards = [
+    {
+      href: `/academy/${module.pathSlug}`,
+      title: pathTitle,
+      description: `Go back to the full ${pathLabel ?? 'Academy'} sequence if you want the wider decision map around this module.`,
+      ctaLabel: 'View path ->',
+      eyebrow: 'Path',
+    },
+    module.previous ? { ...module.previous, eyebrow: 'Previous' } : null,
+    module.next ? { ...module.next, eyebrow: 'Next' } : null,
+    module.related ? { ...module.related, eyebrow: 'Related' } : null,
+  ].filter(
+    (
+      card,
+    ): card is {
+      href: string;
+      title: string;
+      description: string;
+      ctaLabel: string;
+      eyebrow: string;
+    } => Boolean(card),
+  );
+
+  return Array.from(new Map(connectionCards.map((card) => [card.href, card])).values()).slice(0, 4);
+}
+
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
@@ -270,6 +335,8 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   );
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
+  const moduleFocusLine = buildModuleFocusLine(module);
+  const academyConnections = buildModuleAcademyConnectionCards(module, pathLabel);
   const travelSystemWidget =
     module.slug === 'travel-systems'
       ? await Promise.all([getTravelSystemStrollers(), getTravelSystemCarSeats()]).then(([strollers, carSeats]) => ({
@@ -282,9 +349,38 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
     module.related ? { label: `Related: ${module.related.title}`, href: module.related.href } : null,
     { label: 'Work with me', href: '/consultation' },
   ].filter((action): action is { label: string; href: string } => Boolean(action));
+  const structuredData = [
+    buildAcademyBreadcrumbStructuredData({
+      breadcrumbs: module.breadcrumb,
+      currentPath: module.href,
+    }),
+    buildAcademyLearningResourceStructuredData({
+      title: module.title,
+      description: module.description,
+      path: module.href,
+      breadcrumbs: module.breadcrumb,
+      keywords: [
+        module.title,
+        pathLabel ?? module.pathSlug,
+        module.subhead,
+      ],
+      teaches: [
+        ...module.decisionBullets,
+        ...module.coreSections.map((section) => section.title),
+      ],
+      hasPart:
+        module.submoduleSection?.cards.map((card) => ({
+          href: card.href,
+          title: card.title,
+          description: card.description,
+        })) ?? [],
+      learningResourceType: 'TMBC Academy Module',
+    }),
+  ];
 
   return (
     <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
+      <AcademyStructuredData data={structuredData} />
       <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 pb-20 pt-10 sm:px-6 md:pb-24 md:pt-12">
         <div className="space-y-12">
           <div className="academy-load-in academy-load-in--1 pt-2">
@@ -306,6 +402,9 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                 <p className="excerpt">{module.subhead}</p>
                 <p className="academy-handwritten-aside mt-5">{typographyAccent.hero}</p>
                 <p className="mt-4 max-w-[42rem] text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.04rem]">
+                  {moduleFocusLine}
+                </p>
+                <p className="mt-3 max-w-[42rem] text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1rem]">
                   Start with your real life, then let the choices get smaller.
                 </p>
               </div>
@@ -365,6 +464,29 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             showEyebrow
             showSignoff={false}
           />
+
+          {academyConnections.length > 0 ? (
+            <section className="space-y-6">
+              <SectionHeading
+                eyebrow="Keep Exploring"
+                title="Keep this decision connected in TMBC Academy"
+                description="If this category starts touching the next decision, these are the cleanest internal stops instead of opening fifteen new tabs and hoping for emotional support."
+              />
+
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                {academyConnections.map((card) => (
+                  <NextStepCard
+                    key={`${module.slug}-academy-${card.href}`}
+                    href={card.href}
+                    title={card.title}
+                    description={card.description}
+                    ctaLabel={card.ctaLabel}
+                    eyebrow={card.eyebrow}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section className="space-y-8">
             <SectionHeading

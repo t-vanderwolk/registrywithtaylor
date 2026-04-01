@@ -4,6 +4,7 @@ import SiteShell from '@/components/SiteShell';
 import {
   CAR_SEAT_FOUNDATIONS_ACADEMY_DECK,
   CAR_SEAT_FOUNDATIONS_ACADEMY_HUB_PATH,
+  CAR_SEAT_FOUNDATIONS_ACADEMY_LEARNING_HIGHLIGHTS,
   CAR_SEAT_FOUNDATIONS_ACADEMY_TITLE,
 } from '@/lib/academy/carSeatFoundationsAcademy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -14,6 +15,11 @@ export const metadata = buildMarketingMetadata({
   path: CAR_SEAT_FOUNDATIONS_ACADEMY_HUB_PATH,
   imagePath: '/assets/editorial/gear.jpg',
   imageAlt: 'Editorial car seat planning image for Taylor-Made Baby Co.',
+  keywords: [
+    CAR_SEAT_FOUNDATIONS_ACADEMY_TITLE,
+    ...CAR_SEAT_FOUNDATIONS_ACADEMY_LEARNING_HIGHLIGHTS.slice(0, 4),
+  ],
+  category: 'TMBC Academy',
 });
 
 export default function CarSeatFoundationsHubPage() {

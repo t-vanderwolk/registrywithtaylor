@@ -64,8 +64,8 @@ export default function TMBCBlogTemplate({
   return (
     <>
       <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
-        <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 sm:px-6">
-          <header className="tmbc-blog-hero">
+        <article className="tmbc-blog-shell mx-auto max-w-[92rem] px-5 sm:px-6 lg:px-8 xl:px-10">
+          <header className="tmbc-blog-hero mx-auto max-w-5xl">
             <div className="tmbc-blog-hero__inner">
               <div className="tmbc-blog-hero__eyebrow">
                 <CategoryTag label={categoryLabel} />
@@ -101,7 +101,7 @@ export default function TMBCBlogTemplate({
           </header>
 
           {featuredImageUrl ? (
-            <div className="tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
+            <div className="tmbc-blog-featured-frame relative mx-auto mb-10 aspect-[16/10] max-w-5xl overflow-hidden p-4 sm:mb-12 sm:p-5">
               <div className="relative h-full w-full">
                 <Image
                   src={featuredImageUrl}
@@ -116,7 +116,7 @@ export default function TMBCBlogTemplate({
             </div>
           ) : null}
 
-          {affiliateDisclosure ? <div className="mt-10">{affiliateDisclosure}</div> : null}
+          {affiliateDisclosure ? <div className="mx-auto mt-10 max-w-5xl">{affiliateDisclosure}</div> : null}
 
           <div className="mt-14">{body}</div>
 

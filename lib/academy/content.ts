@@ -1283,6 +1283,9 @@ export function getAcademySitemapPaths() {
     ),
     ...getStrollerFoundationsAcademySubmoduleCards().map((card) => card.href),
     ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => card.href),
+    ...getDailyUseGearAcademySubmoduleCards().map((card) => card.href),
+    ...getRegistryWelcomeBoxesAcademySubmoduleCards().map((card) => card.href),
+    ...getNurseryFurnitureSubmoduleCards().map((card) => card.href),
   ];
 }
 

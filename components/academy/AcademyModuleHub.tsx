@@ -1,9 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import type { AcademyBreadcrumbItem, AcademyModuleSlug, AcademyPathSlug } from '@/lib/academy/content';
+import {
+  buildAcademyBreadcrumbStructuredData,
+  buildAcademyCollectionStructuredData,
+} from '@/lib/academy/seo';
 
 export type AcademyModuleHubCard = {
   href: string;
@@ -102,6 +107,22 @@ function SectionHeading({
   );
 }
 
+function formatInlineList(items: string[]) {
+  if (items.length === 0) {
+    return '';
+  }
+
+  if (items.length === 1) {
+    return items[0];
+  }
+
+  if (items.length === 2) {
+    return `${items[0]} and ${items[1]}`;
+  }
+
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
 export default function AcademyModuleHub({
   pathSlug,
   moduleSlug,
@@ -136,8 +157,60 @@ export default function AcademyModuleHub({
   primaryCta,
   secondaryCta,
 }: AcademyModuleHubProps) {
+  const modulePath = `/academy/${pathSlug}/${moduleSlug}`;
+  const moduleOverviewLine = `Inside this module: ${formatInlineList(
+    submoduleCards.map((card) => card.title).slice(0, 4),
+  )}.`;
+  const pathLink =
+    breadcrumbs.find((item) => item.href === `/academy/${pathSlug}`) ??
+    breadcrumbs.find((item) => item.href?.startsWith('/academy/') && item.href !== '/academy' && item.href !== modulePath) ??
+    null;
+  const academyConnections = Array.from(
+    new Map(
+      [
+        pathLink
+          ? {
+              href: pathLink.href!,
+              title: pathLink.label,
+              description: `Go back to the wider ${pathLink.label} path if you want the bigger sequence around this module.`,
+              ctaLabel: 'View path ->',
+              eyebrow: 'Path',
+            }
+          : null,
+        ...nextLinks.map((link, index) => ({
+          ...link,
+          eyebrow: link.eyebrow ?? (index === 0 ? 'Next' : 'Related'),
+        })),
+      ]
+        .flatMap((card) => (card ? [[card.href, card] as const] : [])),
+    ).values(),
+  );
+  const structuredData = [
+    buildAcademyBreadcrumbStructuredData({
+      breadcrumbs,
+      currentPath: modulePath,
+    }),
+    buildAcademyCollectionStructuredData({
+      title,
+      description: deck,
+      path: modulePath,
+      breadcrumbs,
+      items: submoduleCards.map((card) => ({
+        href: card.href,
+        title: card.title,
+        description: card.description,
+      })),
+      keywords: [
+        heroEyebrow,
+        learningTitle,
+        ...learningHighlights.slice(0, 5),
+      ],
+    }),
+  ];
+
   return (
     <section className="min-h-0 bg-[radial-gradient(circle_at_top_left,rgba(244,224,209,0.7),transparent_30%),radial-gradient(circle_at_top_right,rgba(232,154,174,0.2),transparent_28%),linear-gradient(180deg,#fffdfa_0%,#fcf3f5_34%,#fffdf8_100%)]">
+      <AcademyStructuredData data={structuredData} />
       <div className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
         <GuideBreadcrumbs items={breadcrumbs} />
       </div>
@@ -152,6 +225,9 @@ export default function AcademyModuleHub({
               </h1>
               <p className="mt-5 max-w-[42rem] break-words text-[1rem] leading-8 text-[#4B3641] sm:text-[1.18rem] sm:leading-9">
                 {deck}
+              </p>
+              <p className="mt-4 max-w-[42rem] break-words text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1.02rem]">
+                {moduleOverviewLine}
               </p>
 
               <div className="mt-6 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.04rem]">
@@ -263,6 +339,22 @@ export default function AcademyModuleHub({
           ))}
         </div>
       </div>
+
+      {academyConnections.length > 0 ? (
+        <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+          <SectionHeading
+            eyebrow="Keep Exploring"
+            title="Keep this module connected in the Academy"
+            description="These are the cleanest internal jumps when you want the wider path, the next module, or the bridge between this decision and the one it starts tugging on."
+          />
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {academyConnections.map((card) => (
+              <LinkCard key={`${moduleSlug}-${card.href}`} {...card} />
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">

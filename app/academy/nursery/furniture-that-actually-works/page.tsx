@@ -1,7 +1,10 @@
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import NurseryFurnitureHub from '@/components/academy/NurseryFurnitureHub';
 import SiteShell from '@/components/SiteShell';
-import { NURSERY_FURNITURE_HUB_PATH } from '@/lib/academy/nurseryFurnitureAcademy';
+import {
+  NURSERY_FURNITURE_HUB_PATH,
+  NURSERY_FURNITURE_HUB_WHY_THIS_MATTERS,
+} from '@/lib/academy/nurseryFurnitureAcademy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -11,6 +14,11 @@ export const metadata = buildMarketingMetadata({
   path: NURSERY_FURNITURE_HUB_PATH,
   imagePath: '/assets/editorial/nursery2.png',
   imageAlt: 'Editorial nursery furniture image for Taylor-Made Baby Co.',
+  keywords: [
+    'Furniture That Actually Works',
+    ...NURSERY_FURNITURE_HUB_WHY_THIS_MATTERS.slice(0, 4),
+  ],
+  category: 'TMBC Academy',
 });
 
 export default function NurseryFurnitureHubPage() {

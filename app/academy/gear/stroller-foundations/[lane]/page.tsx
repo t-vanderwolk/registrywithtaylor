@@ -8,24 +8,11 @@ import {
   isStrollerFoundationsAcademySubmoduleSlug,
 } from '@/lib/academy/strollerFoundationsAcademy';
 import { STROLLER_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/strollerCluster';
-import { isRemoteImageUrl } from '@/lib/blog/images';
-import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
 import {
   getPublishedAcademyGuideForPath,
   mergeAcademyModuleWithGuideRecord,
 } from '@/lib/server/academyGuides';
-
-function resolveMetadataImagePath(preferredPath: string | null | undefined, fallbackPath: string) {
-  const normalizedPreferredPath = preferredPath?.trim();
-
-  if (!normalizedPreferredPath) {
-    return fallbackPath;
-  }
-
-  return normalizedPreferredPath.startsWith('/') || isRemoteImageUrl(normalizedPreferredPath)
-    ? normalizedPreferredPath
-    : fallbackPath;
-}
 
 type StrollerFoundationsLanePageProps = {
   params: Promise<{
@@ -49,20 +36,20 @@ export async function generateMetadata({
   const fallbackModule = buildStrollerFoundationsAcademySubmoduleModule(lane);
   const academyGuide = await getPublishedAcademyGuideForPath(fallbackModule.href);
   const module = academyGuide ? mergeAcademyModuleWithGuideRecord(fallbackModule, academyGuide) : fallbackModule;
-  const imagePath = resolveMetadataImagePath(
-    academyGuide?.ogImageUrl?.trim() || academyGuide?.heroImageUrl?.trim(),
-    module.imagePath,
-  );
-  const resolvedImagePath: `/${string}` = imagePath.startsWith('/')
-    ? (imagePath as `/${string}`)
-    : '/assets/editorial/strollers.png';
 
-  return buildMarketingMetadata({
-    title: `${module.title} | Stroller Foundations | TMBC Baby Academy`,
-    description: academyGuide?.seoDescription?.trim() || module.description,
+  return buildAcademyPageMetadata({
+    defaultTitle: `${module.title} | Stroller Foundations | TMBC Baby Academy`,
+    description: module.description,
     path: module.href as `/${string}`,
-    imagePath: resolvedImagePath,
-    imageAlt: academyGuide?.ogImageAlt?.trim() || academyGuide?.heroImageAlt?.trim() || module.imageAlt,
+    imagePath: module.imagePath,
+    imageAlt: module.imageAlt,
+    keywords: [
+      module.title,
+      'stroller foundations',
+      ...module.coreSections.map((section) => section.title).slice(0, 3),
+      ...module.decisionBullets.slice(0, 4),
+    ],
+    guide: academyGuide,
   });
 }
 

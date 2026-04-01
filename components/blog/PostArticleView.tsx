@@ -356,7 +356,7 @@ export default async function PostArticleView({
         hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
       }
       body={
-        <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:items-start lg:gap-8 xl:grid-cols-[17rem_minmax(0,1fr)] xl:gap-10">
+        <div className="lg:grid lg:grid-cols-[18.5rem_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[20rem_minmax(0,1fr)] xl:gap-12 2xl:grid-cols-[21rem_minmax(0,1fr)]">
           <BlogArticleCompass
             headings={seoSnapshot.outline}
             relatedPosts={relatedPosts.map((relatedPost) => ({
@@ -370,7 +370,7 @@ export default async function PostArticleView({
             <PostContent
               postId={post.id}
               content={articleContent}
-              className="tmbc-blog-post-content max-w-[72ch]"
+              className="tmbc-blog-post-content tmbc-blog--wide"
               ctaPartners={serializedCtaPartners}
             />
           </div>

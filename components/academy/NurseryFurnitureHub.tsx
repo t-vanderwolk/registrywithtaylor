@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideBulletSection from '@/components/guides/GuideBulletSection';
 import GuideCardRouter from '@/components/guides/GuideCardRouter';
@@ -10,7 +11,12 @@ import NextSteps from '@/components/guides/NextSteps';
 import SlideSection from '@/components/guides/SlideSection';
 import DecisionBlock from '@/components/guides/DecisionBlock';
 import {
+  buildAcademyBreadcrumbStructuredData,
+  buildAcademyCollectionStructuredData,
+} from '@/lib/academy/seo';
+import {
   getNurseryFurnitureCategoryCards,
+  NURSERY_FURNITURE_HUB_PATH,
   NURSERY_FURNITURE_HUB_DECISION_ITEMS,
   NURSERY_FURNITURE_HUB_NEXT_STEPS,
   NURSERY_FURNITURE_HUB_ORIENTATION_BODY,
@@ -28,16 +34,45 @@ const breadcrumbs = [
 ];
 
 const categoryCards = getNurseryFurnitureCategoryCards();
+const categoryOverviewLine = `Inside this module: ${categoryCards
+  .map((card) => card.title)
+  .slice(0, 6)
+  .join(', ')}.`;
 
 export default function NurseryFurnitureHub() {
+  const structuredData = [
+    buildAcademyBreadcrumbStructuredData({
+      breadcrumbs,
+      currentPath: NURSERY_FURNITURE_HUB_PATH,
+    }),
+    buildAcademyCollectionStructuredData({
+      title: 'Furniture That Actually Works',
+      description:
+        'Use the TMBC nursery furniture module to understand cribs, gliders, dressers and changing setups, diaper pails, baby monitors, and baby proofing with calmer, more practical decision logic.',
+      path: NURSERY_FURNITURE_HUB_PATH,
+      breadcrumbs,
+      items: categoryCards.map((card) => ({
+        href: card.href,
+        title: card.title,
+        description: card.description,
+      })),
+      keywords: [
+        'Furniture That Actually Works',
+        ...NURSERY_FURNITURE_HUB_WHY_THIS_MATTERS.slice(0, 4),
+      ],
+    }),
+  ];
+
   return (
-    <GuideSlideDeck
-      containerId="academy-nursery-furniture-carousel"
-      items={[...NURSERY_FURNITURE_HUB_SLIDES]}
-      backLink={{ href: '/academy/nursery', label: 'Back to Nursery Path' }}
-      journeyPathLabels={[...NURSERY_FURNITURE_JOURNEY_PATH]}
-    >
-      <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
+    <>
+      <AcademyStructuredData data={structuredData} />
+      <GuideSlideDeck
+        containerId="academy-nursery-furniture-carousel"
+        items={[...NURSERY_FURNITURE_HUB_SLIDES]}
+        backLink={{ href: '/academy/nursery', label: 'Back to Nursery Path' }}
+        journeyPathLabels={[...NURSERY_FURNITURE_JOURNEY_PATH]}
+      >
+        <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[0].id} background="ivory" innerClassName="max-w-none px-0 py-0">
         <div className="space-y-6">
           <div className="mx-auto w-full max-w-[1520px] px-6 pt-8 md:px-10 xl:px-12">
             <GuideBreadcrumbs items={breadcrumbs} />
@@ -53,6 +88,9 @@ export default function NurseryFurnitureHub() {
                       <h1 className="max-w-[12ch] text-[clamp(2.2rem,6.8vw,4.7rem)] font-medium leading-[0.95] tracking-[-0.05em] text-[#2F2430]">
                         Furniture That Actually Works
                       </h1>
+                      <p className="max-w-3xl text-[0.98rem] leading-8 text-[#5B4B55] md:text-[1.04rem]">
+                        {categoryOverviewLine}
+                      </p>
                     </div>
 
                     <div className="max-w-3xl space-y-3">
@@ -174,13 +212,14 @@ export default function NurseryFurnitureHub() {
         />
       </SlideSection>
 
-      <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[5].id} background="blush">
-        <NextSteps
-          title="Next Step"
-          description="Use this module to make the nursery function cleaner, then either go back to the sleep or atmosphere layer or move forward into the gear journey."
-          links={[...NURSERY_FURNITURE_HUB_NEXT_STEPS]}
-        />
-      </SlideSection>
-    </GuideSlideDeck>
+        <SlideSection id={NURSERY_FURNITURE_HUB_SLIDES[5].id} background="blush">
+          <NextSteps
+            title="Next Step"
+            description="Use this module to make the nursery function cleaner, then either go back to the sleep or atmosphere layer or move forward into the gear journey."
+            links={[...NURSERY_FURNITURE_HUB_NEXT_STEPS]}
+          />
+        </SlideSection>
+      </GuideSlideDeck>
+    </>
   );
 }

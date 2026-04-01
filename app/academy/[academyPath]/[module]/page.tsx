@@ -13,27 +13,11 @@ import {
   isAcademyModuleSlug,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
-import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
 import {
   getPublishedAcademyGuideForModule,
   mergeAcademyModuleWithGuideRecord,
 } from '@/lib/server/academyGuides';
-import { isRemoteImageUrl } from '@/lib/blog/images';
-
-function resolveMetadataImagePath(
-  preferredPath: string | null | undefined,
-  fallbackPath: string,
-) {
-  const normalizedPreferredPath = preferredPath?.trim();
-
-  if (!normalizedPreferredPath) {
-    return fallbackPath;
-  }
-
-  return normalizedPreferredPath.startsWith('/') || isRemoteImageUrl(normalizedPreferredPath)
-    ? normalizedPreferredPath
-    : fallbackPath;
-}
 
 type AcademyModulePageProps = {
   params: Promise<{
@@ -60,18 +44,19 @@ export async function generateMetadata({ params }: AcademyModulePageProps): Prom
   });
   const renderedModule = academyGuide ? mergeAcademyModuleWithGuideRecord(moduleData, academyGuide) : moduleData;
 
-  return buildMarketingMetadata({
-    title: `${renderedModule.title} | TMBC Baby Academy`,
-    description: academyGuide?.seoDescription?.trim() || renderedModule.description,
+  return buildAcademyPageMetadata({
+    defaultTitle: `${renderedModule.title} | TMBC Baby Academy`,
+    description: renderedModule.description,
     path: renderedModule.href as `/${string}`,
-    imagePath: resolveMetadataImagePath(
-      academyGuide?.ogImageUrl?.trim() || academyGuide?.heroImageUrl?.trim(),
-      renderedModule.imagePath,
-    ),
-    imageAlt:
-      academyGuide?.ogImageAlt?.trim() ||
-      academyGuide?.heroImageAlt?.trim() ||
-      renderedModule.imageAlt,
+    imagePath: renderedModule.imagePath,
+    imageAlt: renderedModule.imageAlt,
+    keywords: [
+      renderedModule.title,
+      renderedModule.subhead,
+      ...renderedModule.coreSections.map((section) => section.title).slice(0, 3),
+      ...renderedModule.decisionBullets.slice(0, 4),
+    ],
+    guide: academyGuide,
   });
 }
 
