@@ -38,8 +38,6 @@ export function getRevalidationPathsForGuide(
       isAcademyPublicPath(publicPath) ? '/academy' : null,
       academyPath,
       publicPath,
-      '/learn',
-      `/learn/${guide.slug}`,
       '/',
     ].filter((path): path is string => Boolean(path))),
   );
