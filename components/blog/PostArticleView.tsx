@@ -23,11 +23,13 @@ import JournalCard from '@/components/blog/JournalCard';
 import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
+import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { getBlogCategoryFallbackImage } from '@/lib/blog/images';
+import { buildBlogInternalLinkPlan } from '@/lib/internal-links/system';
 
 export type DownloadableResource = {
   title: string;
@@ -312,6 +314,21 @@ export default async function PostArticleView({
     category: categoryLabel,
     content: articleContent,
   });
+  const internalLinkPlan = buildBlogInternalLinkPlan({
+    post: {
+      slug: post.slug,
+      title: post.title,
+      category: post.category,
+      content: articleContent,
+      focusKeyword: post.focusKeyword,
+    },
+    relatedPosts: relatedPosts.map((relatedPost) => ({
+      slug: relatedPost.slug,
+      title: relatedPost.title,
+      category: relatedPost.category,
+      excerpt: relatedPost.excerpt,
+    })),
+  });
   const relatedPostsSection =
     relatedPosts.length > 0 ? (
       <section className="section-base border-t border-black/5" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
@@ -338,6 +355,14 @@ export default async function PostArticleView({
       </section>
     ) : null;
   const commentsSection = <PostCommentsSection postId={post.id} comments={post.comments} />;
+  const journeySection = (
+    <ConnectedContentSection
+      eyebrow="Keep The Next Step Obvious"
+      title="Turn this article into a cleaner TMBC path"
+      description="Move up into the guide, go deeper in the Academy, keep reading in the Journal, or bring the decision into one real conversation if you want the expert layer on top."
+      cards={internalLinkPlan.journeyCards}
+    />
+  );
 
   return (
     <BlogTrackingProvider value={{ postId: post.id, slug: post.slug, title: post.title }}>
@@ -372,6 +397,7 @@ export default async function PostArticleView({
               content={articleContent}
               className="tmbc-blog-post-content tmbc-blog--wide"
               ctaPartners={serializedCtaPartners}
+              contextualInternalLinks={internalLinkPlan.contextualLinks}
             />
           </div>
         </div>
@@ -492,6 +518,7 @@ export default async function PostArticleView({
         ) : undefined
       }
       discussionSection={commentsSection}
+      journeySection={journeySection}
       conversionCta={<BlogSoftCTA postId={post.id} postSlug={post.slug} postTitle={post.title} />}
       shareSection={
         <BlogShareBar

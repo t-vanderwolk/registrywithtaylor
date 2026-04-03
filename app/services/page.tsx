@@ -1,4 +1,5 @@
 import PageViewTracker from '@/components/analytics/PageViewTracker';
+import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 import SiteShell from '@/components/SiteShell';
@@ -9,6 +10,7 @@ import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
+import { getServicesJourneyCards } from '@/lib/internal-links/system';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { servicePackages } from '@/lib/marketing/siteContent';
 
@@ -105,6 +107,7 @@ const serviceFaqs: FAQEntry[] = [
 
 export default async function ServicesPage({ searchParams }: { searchParams?: SearchParams }) {
   const params = searchParams ? await searchParams : undefined;
+  const connectedJourneyCards = getServicesJourneyCards();
 
   return (
     <SiteShell currentPath="/services">
@@ -221,6 +224,16 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
               </MarketingSurface>
             ))}
           </div>
+        </MarketingSection>
+
+        <MarketingSection tone="blush" spacing="spacious">
+          <ConnectedContentSection
+            eyebrow="Keep The System Connected"
+            title="Use the guide, Academy, or journal when you want the decision sharper before we meet"
+            description="Services work best when you already know where the friction lives. These are the strongest places to get clearer first, or to keep the research calmer after a consult."
+            cards={connectedJourneyCards}
+            className="mx-auto max-w-6xl"
+          />
         </MarketingSection>
 
         <MarketingSection tone="ivory" spacing="spacious">

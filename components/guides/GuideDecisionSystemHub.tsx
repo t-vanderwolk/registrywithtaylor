@@ -27,6 +27,7 @@ import {
 } from '@/lib/guides/experience';
 import { getDefaultNextSteps, getGuideOrientation, getStandardGuideSlideItems, guideHubLinkToNextStepLink, normalizeGuideLinks, getFallbackCommonMistakes, dedupeTextItems } from '@/lib/guides/guideFlow';
 import { getDecisionHubPageConfig } from '@/lib/guides/guideDecisionSystem';
+import { getAcademyNextStepForGuide } from '@/lib/internal-links/system';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 export default function GuideDecisionSystemHub({
@@ -80,6 +81,13 @@ export default function GuideDecisionSystemHub({
   ];
   const nextSteps = normalizeGuideLinks(
     [
+      getAcademyNextStepForGuide({
+        href: sourceRoute as `/${string}`,
+        slug: guide.slug,
+        title: guide.title,
+        category: guide.category,
+        topicCluster: guide.topicCluster,
+      }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: '/guides',

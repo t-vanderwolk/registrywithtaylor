@@ -1,9 +1,25 @@
+import {
+  FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION,
+  FEEDING_SETUP_FLOW_ACADEMY_IMAGE_ALT,
+  FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH,
+  FEEDING_SETUP_FLOW_ACADEMY_SUBHEAD,
+  FEEDING_SETUP_FLOW_ACADEMY_TITLE,
+  FEEDING_SETUP_FLOW_CORE_SECTIONS,
+  FEEDING_SETUP_FLOW_DECISION_BULLETS,
+  FEEDING_SETUP_FLOW_MODULE_INTRO,
+  FEEDING_SETUP_FLOW_SOFT_CTA_BODY,
+  FEEDING_SETUP_FLOW_SOFT_CTA_LABEL,
+  FEEDING_SETUP_FLOW_SOFT_CTA_TITLE,
+  buildFeedingSetupFlowMarkdownContent,
+} from '@/lib/academy/feedingSetupFlowAcademy';
+
 export type GearAcademyModuleSlug =
   | 'how-to-think-about-baby-gear'
   | 'stroller-foundations'
   | 'car-seat-foundations'
   | 'travel-systems'
-  | 'daily-use-gear';
+  | 'daily-use-gear'
+  | 'feeding-setup-flow';
 
 type GearAcademyCoreSection = {
   title: string;
@@ -42,7 +58,11 @@ export type GearAcademyModuleRecord = {
 
 type GearAcademyModuleInput = Omit<GearAcademyModuleRecord, 'path' | 'totalModules' | 'markdownContent'>;
 
-const TOTAL_MODULES = 5;
+type GearAcademyModuleInputWithMarkdown = GearAcademyModuleInput & {
+  customMarkdownContent?: string;
+};
+
+const TOTAL_MODULES = 6;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
 function renderProductMarkdown(product: GearAcademyProductExample) {
@@ -61,7 +81,7 @@ function renderProductMarkdown(product: GearAcademyProductExample) {
   return lines.join('\n');
 }
 
-const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
+const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
   {
     title: 'How to Think About Baby Gear',
     slug: 'how-to-think-about-baby-gear',
@@ -403,8 +423,30 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInput[] = [
     softCtaLabel: 'A Note Before You Move Forward',
     softCtaTitle: 'This is where everything becomes real.',
     softCtaBody: ['And it is usually where personalized guidance makes the biggest difference.'],
-    nextModuleSlug: null,
+    nextModuleSlug: 'feeding-setup-flow',
     previousModuleSlug: 'travel-systems',
+  },
+  {
+    title: FEEDING_SETUP_FLOW_ACADEMY_TITLE,
+    slug: 'feeding-setup-flow',
+    moduleOrder: 6,
+    description: FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION,
+    subhead: FEEDING_SETUP_FLOW_ACADEMY_SUBHEAD,
+    imagePath: FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH,
+    imageAlt: FEEDING_SETUP_FLOW_ACADEMY_IMAGE_ALT,
+    intro: [...FEEDING_SETUP_FLOW_MODULE_INTRO],
+    coreSections: FEEDING_SETUP_FLOW_CORE_SECTIONS.map((section) => ({
+      ...section,
+      paragraphs: [...section.paragraphs],
+    })),
+    decisionBullets: [...FEEDING_SETUP_FLOW_DECISION_BULLETS],
+    products: [],
+    softCtaLabel: FEEDING_SETUP_FLOW_SOFT_CTA_LABEL,
+    softCtaTitle: FEEDING_SETUP_FLOW_SOFT_CTA_TITLE,
+    softCtaBody: [...FEEDING_SETUP_FLOW_SOFT_CTA_BODY],
+    nextModuleSlug: null,
+    previousModuleSlug: 'daily-use-gear',
+    customMarkdownContent: buildFeedingSetupFlowMarkdownContent(),
   },
 ];
 
@@ -476,16 +518,17 @@ function renderMarkdownContent(module: Omit<GearAcademyModuleRecord, 'markdownCo
   return lines.join('\n').trim();
 }
 
-function createGearModule(module: GearAcademyModuleInput): GearAcademyModuleRecord {
+function createGearModule(module: GearAcademyModuleInputWithMarkdown): GearAcademyModuleRecord {
+  const { customMarkdownContent, ...moduleData } = module;
   const record: Omit<GearAcademyModuleRecord, 'markdownContent'> = {
-    ...module,
+    ...moduleData,
     path: 'gear',
     totalModules: TOTAL_MODULES,
   };
 
   return {
     ...record,
-    markdownContent: renderMarkdownContent(record),
+    markdownContent: customMarkdownContent?.trim() || renderMarkdownContent(record),
   };
 }
 

@@ -1,0 +1,3855 @@
+{
+  "generatedAt": "2026-04-02T01:17:41.648Z",
+  "totals": {
+    "entries": 70,
+    "byKind": {
+      "academy": 55,
+      "blog": 7,
+      "guide": 7,
+      "service": 1
+    },
+    "pagesNeedingInboundSupport": 55
+  },
+  "entries": [
+    {
+      "href": "/academy",
+      "title": "TMBC Academy",
+      "kind": "academy",
+      "cluster": "general",
+      "outbound": [
+        {
+          "id": "academy-registry-path",
+          "href": "/academy/registry",
+          "title": "Registry Academy",
+          "description": "A structured path for platforms, perks, timing, and gifting strategy.",
+          "ctaLabel": "Explore Academy ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        },
+        {
+          "id": "academy-nursery-furniture",
+          "href": "/academy/nursery/furniture-that-actually-works",
+          "title": "Furniture That Actually Works",
+          "description": "Cribs, gliders, dressers, monitors, and the room pieces that need to work when you are tired.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-hub",
+          "href": "/guides",
+          "title": "TMBC Guide Hub",
+          "description": "Use the wider guide map when you want the order of decisions to get calmer before the narrower category does.",
+          "ctaLabel": "Open guide hub ->",
+          "eyebrow": "Guide Hub",
+          "kind": "guide",
+          "cluster": "general"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 1,
+      "inboundFrom": [
+        "/guides"
+      ]
+    },
+    {
+      "href": "/academy/gear",
+      "title": "Gear Path",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations",
+      "title": "Car Seat Foundations",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 1,
+      "inboundFrom": [
+        "/guides/car-seats"
+      ]
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/all-in-one-car-seats",
+      "title": "All-in-One Car Seats",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/booster-seats",
+      "title": "Booster Seats",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/convertible-car-seats",
+      "title": "Convertible Car Seats",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/infant-car-seats",
+      "title": "Infant Car Seats",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/rotating-car-seats",
+      "title": "Rotating Car Seats",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/car-seat-foundations/travel-lightweight-car-seats",
+      "title": "Travel & Lightweight Car Seats",
+      "kind": "academy",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-car-seats",
+          "href": "/guides/car-seats",
+          "title": "Car Seat Guide",
+          "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear",
+      "title": "Daily Use Gear",
+      "kind": "academy",
+      "cluster": "daily-gear",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "blog-highchairs",
+          "href": "/blog/best-highchairs-2026-real-life-guide",
+          "title": "The Best Highchairs of 2026",
+          "description": "A good next step once you know what matters more than the prettiest tray photo.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "daily-gear"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/baby-bath",
+      "title": "Baby Bath",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/carrier",
+      "title": "Carrier",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/daily-support-gear",
+      "title": "Daily Support Gear",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/highchair",
+      "title": "Highchair",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/pack-and-play",
+      "title": "Pack & Play",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/daily-use-gear/swing-bouncer",
+      "title": "Swing / Bouncer",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/how-to-think-about-baby-gear",
+      "title": "How to Think About Baby Gear",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations",
+      "title": "Stroller Foundations",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 6,
+      "inboundFrom": [
+        "/academy",
+        "/blog/best-full-size-strollers-2026",
+        "/blog/best-travel-strollers-2026",
+        "/guides/strollers",
+        "/guides/travel-with-baby",
+        "/services"
+      ]
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/compact-lightweight-strollers",
+      "title": "Compact",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/convertible-strollers",
+      "title": "Convertible",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/double-strollers",
+      "title": "Double",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/full-size-modular-strollers",
+      "title": "Full Size & Modular",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
+      "title": "Jogging",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/stroller-foundations/travel-strollers",
+      "title": "Travel",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/gear/travel-systems",
+      "title": "Travel Systems",
+      "kind": "academy",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery",
+      "title": "Nursery Path",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/atmosphere-and-safety",
+      "title": "Atmosphere & Safety",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works",
+      "title": "Furniture That Actually Works",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 3,
+      "inboundFrom": [
+        "/academy",
+        "/blog/nursery-setup-that-actually-works",
+        "/guides/nursery"
+      ]
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/baby-monitors",
+      "title": "Baby Monitors",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/baby-proofing",
+      "title": "Baby Proofing",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/cribs",
+      "title": "Cribs",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/diaper-pails",
+      "title": "Diaper Pails",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/dressers-changing",
+      "title": "Dressers & Changing",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/furniture-that-actually-works/gliders",
+      "title": "Gliders",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/layout-and-flow",
+      "title": "Layout & Flow",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/sleep-space-decisions",
+      "title": "Sleep Space Decisions",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/storage-and-organization",
+      "title": "Storage & Organization",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/nursery/vision-and-lifestyle",
+      "title": "Vision & Lifestyle Foundations",
+      "kind": "academy",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum",
+      "title": "Postpartum Path",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum/emotional-wellness-and-identity",
+      "title": "Emotional Wellness & Identity",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum/feeding-and-lactation",
+      "title": "Feeding & Lactation",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum/healing-and-recovery",
+      "title": "Healing & Recovery",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum/rest-and-sleep",
+      "title": "Rest & Sleep",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/postpartum/support-systems",
+      "title": "Support Systems",
+      "kind": "academy",
+      "cluster": "postpartum",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry",
+      "title": "Registry Path",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 4,
+      "inboundFrom": [
+        "/academy",
+        "/blog/best-highchairs-2026-real-life-guide",
+        "/guides/registry/where-to-register",
+        "/services"
+      ]
+    },
+    {
+      "href": "/academy/registry/baby-showers-gifting",
+      "title": "Baby Showers & Gifting Strategy",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/rewards-completion-discounts",
+      "title": "Loyalty, Rewards & Completion Discounts",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/shop-local-get-support",
+      "title": "Shop Local & Get Support",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/smart-purchasing-timeline",
+      "title": "Smart Purchasing Timeline",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/welcome-boxes-perks",
+      "title": "Welcome Boxes & Registry Perks",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 4,
+      "inboundFrom": [
+        "/blog/best-independent-baby-stores-rewards-programs-2026",
+        "/blog/target-baby-concierge-virtual-specialist-guide-2026",
+        "/blog/the-art-of-the-registry",
+        "/guides/registry"
+      ]
+    },
+    {
+      "href": "/academy/registry/welcome-boxes-perks/amazon",
+      "title": "Amazon Welcome Box",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/welcome-boxes-perks/babylist",
+      "title": "Babylist Hello Baby Box",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/welcome-boxes-perks/macrobaby",
+      "title": "MacroBaby Registry Gift Box",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/welcome-boxes-perks/target",
+      "title": "Target Welcome Kit",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/academy/registry/where-to-register",
+      "title": "Where to Register",
+      "kind": "academy",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/blog/best-full-size-strollers-2026",
+      "title": "The 5 Best Full-Size Strollers of 2026",
+      "kind": "blog",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Hub",
+          "description": "Start with the category map before you open another roundup tab.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Stroller Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-full-size-modular-strollers",
+          "href": "/guides/strollers/full-size-strollers",
+          "title": "Full-Size & Modular",
+          "description": "The everyday stroller lane for comfort, storage, and stronger daily performance.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Stroller Type",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/blog/best-highchairs-2026-real-life-guide",
+      "title": "The Best Highchairs of 2026",
+      "kind": "blog",
+      "cluster": "general",
+      "outbound": [
+        {
+          "id": "guide-minimalist-baby-registry",
+          "href": "/guides/registry",
+          "title": "Minimalist Baby Registry",
+          "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Preparation Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Best Strollers",
+          "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Gear Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-registry-path",
+          "href": "/academy/registry",
+          "title": "Registry Academy",
+          "description": "A structured path for platforms, perks, timing, and gifting strategy.",
+          "ctaLabel": "Explore Academy ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 1,
+      "inboundFrom": [
+        "/academy/gear/daily-use-gear"
+      ]
+    },
+    {
+      "href": "/blog/best-independent-baby-stores-rewards-programs-2026",
+      "title": "Best Independent Baby Store Programs & Perks",
+      "kind": "blog",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-minimalist-baby-registry",
+          "href": "/guides/registry",
+          "title": "Minimalist Baby Registry",
+          "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Preparation Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Best Strollers",
+          "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Gear Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-welcome-boxes",
+          "href": "/academy/registry/welcome-boxes-perks",
+          "title": "Welcome Boxes & Registry Perks",
+          "description": "Use this module when the free-box question is really a platform strategy question.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/blog/best-travel-strollers-2026",
+      "title": "The Best Travel Strollers of 2026",
+      "kind": "blog",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Hub",
+          "description": "Start with the category map before you open another roundup tab.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Stroller Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-travel-strollers",
+          "href": "/guides/strollers/travel-strollers",
+          "title": "Travel",
+          "description": "The fold-first category for airports, ride shares, and portability-heavy routines.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Stroller Type",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 19,
+      "inboundFrom": [
+        "/academy/gear",
+        "/academy/gear/car-seat-foundations/booster-seats",
+        "/academy/gear/daily-use-gear/baby-bath",
+        "/academy/gear/daily-use-gear/carrier",
+        "/academy/gear/daily-use-gear/daily-support-gear",
+        "/academy/gear/daily-use-gear/highchair",
+        "/academy/gear/daily-use-gear/pack-and-play",
+        "/academy/gear/daily-use-gear/swing-bouncer",
+        "/academy/gear/how-to-think-about-baby-gear",
+        "/academy/gear/stroller-foundations",
+        "/academy/gear/stroller-foundations/compact-lightweight-strollers",
+        "/academy/gear/stroller-foundations/convertible-strollers",
+        "/academy/gear/stroller-foundations/double-strollers",
+        "/academy/gear/stroller-foundations/full-size-modular-strollers",
+        "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
+        "/academy/gear/stroller-foundations/travel-strollers",
+        "/academy/gear/travel-systems",
+        "/guides/strollers",
+        "/guides/travel-with-baby"
+      ]
+    },
+    {
+      "href": "/blog/nursery-setup-that-actually-works",
+      "title": "Nursery Setup That Actually Works",
+      "kind": "blog",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-minimalist-baby-registry",
+          "href": "/guides/registry",
+          "title": "Minimalist Baby Registry",
+          "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Preparation Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Best Strollers",
+          "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Gear Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-nursery-furniture",
+          "href": "/academy/nursery/furniture-that-actually-works",
+          "title": "Furniture That Actually Works",
+          "description": "Cribs, gliders, dressers, monitors, and the room pieces that need to work when you are tired.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 14,
+      "inboundFrom": [
+        "/academy/nursery",
+        "/academy/nursery/atmosphere-and-safety",
+        "/academy/nursery/furniture-that-actually-works",
+        "/academy/nursery/furniture-that-actually-works/baby-monitors",
+        "/academy/nursery/furniture-that-actually-works/baby-proofing",
+        "/academy/nursery/furniture-that-actually-works/cribs",
+        "/academy/nursery/furniture-that-actually-works/diaper-pails",
+        "/academy/nursery/furniture-that-actually-works/dressers-changing",
+        "/academy/nursery/furniture-that-actually-works/gliders",
+        "/academy/nursery/layout-and-flow",
+        "/academy/nursery/sleep-space-decisions",
+        "/academy/nursery/storage-and-organization",
+        "/academy/nursery/vision-and-lifestyle",
+        "/guides/nursery"
+      ]
+    },
+    {
+      "href": "/blog/target-baby-concierge-virtual-specialist-guide-2026",
+      "title": "Target’s Baby Boutique Is Changing Everything",
+      "kind": "blog",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-minimalist-baby-registry",
+          "href": "/guides/registry",
+          "title": "Minimalist Baby Registry",
+          "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Preparation Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Best Strollers",
+          "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Gear Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-welcome-boxes",
+          "href": "/academy/registry/welcome-boxes-perks",
+          "title": "Welcome Boxes & Registry Perks",
+          "description": "Use this module when the free-box question is really a platform strategy question.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 0,
+      "inboundFrom": []
+    },
+    {
+      "href": "/blog/the-art-of-the-registry",
+      "title": "The Art of the Registry",
+      "kind": "blog",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-minimalist-baby-registry",
+          "href": "/guides/registry",
+          "title": "Minimalist Baby Registry",
+          "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Preparation Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-best-strollers",
+          "href": "/guides/strollers",
+          "title": "Best Strollers",
+          "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Baby Gear Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-welcome-boxes",
+          "href": "/academy/registry/welcome-boxes-perks",
+          "title": "Welcome Boxes & Registry Perks",
+          "description": "Use this module when the free-box question is really a platform strategy question.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 26,
+      "inboundFrom": [
+        "/academy/gear/car-seat-foundations",
+        "/academy/gear/car-seat-foundations/all-in-one-car-seats",
+        "/academy/gear/car-seat-foundations/convertible-car-seats",
+        "/academy/gear/car-seat-foundations/infant-car-seats",
+        "/academy/gear/car-seat-foundations/rotating-car-seats",
+        "/academy/gear/car-seat-foundations/travel-lightweight-car-seats",
+        "/academy/postpartum",
+        "/academy/postpartum/emotional-wellness-and-identity",
+        "/academy/postpartum/feeding-and-lactation",
+        "/academy/postpartum/healing-and-recovery",
+        "/academy/postpartum/rest-and-sleep",
+        "/academy/postpartum/support-systems",
+        "/academy/registry",
+        "/academy/registry/baby-showers-gifting",
+        "/academy/registry/rewards-completion-discounts",
+        "/academy/registry/shop-local-get-support",
+        "/academy/registry/smart-purchasing-timeline",
+        "/academy/registry/welcome-boxes-perks",
+        "/academy/registry/welcome-boxes-perks/amazon",
+        "/academy/registry/welcome-boxes-perks/babylist",
+        "/academy/registry/welcome-boxes-perks/macrobaby",
+        "/academy/registry/welcome-boxes-perks/target",
+        "/academy/registry/where-to-register",
+        "/guides/car-seats",
+        "/guides/registry",
+        "/guides/registry/where-to-register"
+      ]
+    },
+    {
+      "href": "/guides",
+      "title": "TMBC Guide Hub",
+      "kind": "guide",
+      "cluster": "general",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-nursery",
+          "href": "/guides/nursery",
+          "title": "Nursery Setup Guide",
+          "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "nursery"
+        },
+        {
+          "id": "academy-hub",
+          "href": "/academy",
+          "title": "TMBC Academy",
+          "description": "Use the Academy when you want the step-by-step learning layer behind the shorter guide or blog read.",
+          "ctaLabel": "Open Academy ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "general"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 2,
+      "inboundFrom": [
+        "/academy",
+        "/services"
+      ]
+    },
+    {
+      "href": "/guides/car-seats",
+      "title": "Car Seat Guide",
+      "kind": "guide",
+      "cluster": "car-seats",
+      "outbound": [
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "academy-car-seat-foundations",
+          "href": "/academy/gear/car-seat-foundations",
+          "title": "Car Seat Foundations",
+          "description": "Use this when the seat stage still needs to make sense before brand comparison begins.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "car-seats"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 6,
+      "inboundFrom": [
+        "/academy/gear/car-seat-foundations",
+        "/academy/gear/car-seat-foundations/all-in-one-car-seats",
+        "/academy/gear/car-seat-foundations/convertible-car-seats",
+        "/academy/gear/car-seat-foundations/infant-car-seats",
+        "/academy/gear/car-seat-foundations/rotating-car-seats",
+        "/academy/gear/car-seat-foundations/travel-lightweight-car-seats"
+      ]
+    },
+    {
+      "href": "/guides/nursery",
+      "title": "Nursery Setup Guide",
+      "kind": "guide",
+      "cluster": "nursery",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-nursery-furniture",
+          "href": "/academy/nursery/furniture-that-actually-works",
+          "title": "Furniture That Actually Works",
+          "description": "Cribs, gliders, dressers, monitors, and the room pieces that need to work when you are tired.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "nursery"
+        },
+        {
+          "id": "blog-nursery",
+          "href": "/blog/nursery-setup-that-actually-works",
+          "title": "Nursery Setup That Actually Works",
+          "description": "A practical read for room flow, changing zones, and the not-so-glamorous parts that matter fast.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "nursery"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 15,
+      "inboundFrom": [
+        "/academy/gear/daily-use-gear",
+        "/academy/nursery",
+        "/academy/nursery/atmosphere-and-safety",
+        "/academy/nursery/furniture-that-actually-works",
+        "/academy/nursery/furniture-that-actually-works/baby-monitors",
+        "/academy/nursery/furniture-that-actually-works/baby-proofing",
+        "/academy/nursery/furniture-that-actually-works/cribs",
+        "/academy/nursery/furniture-that-actually-works/diaper-pails",
+        "/academy/nursery/furniture-that-actually-works/dressers-changing",
+        "/academy/nursery/furniture-that-actually-works/gliders",
+        "/academy/nursery/layout-and-flow",
+        "/academy/nursery/sleep-space-decisions",
+        "/academy/nursery/storage-and-organization",
+        "/academy/nursery/vision-and-lifestyle",
+        "/guides"
+      ]
+    },
+    {
+      "href": "/guides/registry",
+      "title": "Baby Registry Guide",
+      "kind": "guide",
+      "cluster": "registry",
+      "outbound": [
+        {
+          "id": "guide-where-to-register",
+          "href": "/guides/registry/where-to-register",
+          "title": "Where to Register & Why",
+          "description": "Use this when the platform question matters more than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-welcome-boxes",
+          "href": "/academy/registry/welcome-boxes-perks",
+          "title": "Welcome Boxes & Registry Perks",
+          "description": "Use this module when the free-box question is really a platform strategy question.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 40,
+      "inboundFrom": [
+        "/academy/gear/daily-use-gear",
+        "/academy/nursery",
+        "/academy/nursery/atmosphere-and-safety",
+        "/academy/nursery/furniture-that-actually-works",
+        "/academy/nursery/furniture-that-actually-works/baby-monitors",
+        "/academy/nursery/furniture-that-actually-works/baby-proofing",
+        "/academy/nursery/furniture-that-actually-works/cribs",
+        "/academy/nursery/furniture-that-actually-works/diaper-pails",
+        "/academy/nursery/furniture-that-actually-works/dressers-changing",
+        "/academy/nursery/furniture-that-actually-works/gliders",
+        "/academy/nursery/layout-and-flow",
+        "/academy/nursery/sleep-space-decisions",
+        "/academy/nursery/storage-and-organization",
+        "/academy/nursery/vision-and-lifestyle",
+        "/academy/postpartum",
+        "/academy/postpartum/emotional-wellness-and-identity",
+        "/academy/postpartum/feeding-and-lactation",
+        "/academy/postpartum/healing-and-recovery",
+        "/academy/postpartum/rest-and-sleep",
+        "/academy/postpartum/support-systems",
+        "/academy/registry",
+        "/academy/registry/baby-showers-gifting",
+        "/academy/registry/rewards-completion-discounts",
+        "/academy/registry/shop-local-get-support",
+        "/academy/registry/smart-purchasing-timeline",
+        "/academy/registry/welcome-boxes-perks",
+        "/academy/registry/welcome-boxes-perks/amazon",
+        "/academy/registry/welcome-boxes-perks/babylist",
+        "/academy/registry/welcome-boxes-perks/macrobaby",
+        "/academy/registry/welcome-boxes-perks/target",
+        "/academy/registry/where-to-register",
+        "/blog/best-highchairs-2026-real-life-guide",
+        "/blog/best-independent-baby-stores-rewards-programs-2026",
+        "/blog/nursery-setup-that-actually-works",
+        "/blog/target-baby-concierge-virtual-specialist-guide-2026",
+        "/blog/the-art-of-the-registry",
+        "/guides",
+        "/guides/nursery",
+        "/guides/registry/where-to-register",
+        "/services"
+      ]
+    },
+    {
+      "href": "/guides/registry/where-to-register",
+      "title": "Where to Register & Why",
+      "kind": "guide",
+      "cluster": "general",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "academy-registry-path",
+          "href": "/academy/registry",
+          "title": "Registry Academy",
+          "description": "A structured path for platforms, perks, timing, and gifting strategy.",
+          "ctaLabel": "Explore Academy ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "blog-registry-art",
+          "href": "/blog/the-art-of-the-registry",
+          "title": "The Art of the Registry",
+          "description": "A calmer editorial take on what a registry is actually supposed to do.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "registry"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 12,
+      "inboundFrom": [
+        "/academy/registry",
+        "/academy/registry/baby-showers-gifting",
+        "/academy/registry/rewards-completion-discounts",
+        "/academy/registry/shop-local-get-support",
+        "/academy/registry/smart-purchasing-timeline",
+        "/academy/registry/welcome-boxes-perks",
+        "/academy/registry/welcome-boxes-perks/amazon",
+        "/academy/registry/welcome-boxes-perks/babylist",
+        "/academy/registry/welcome-boxes-perks/macrobaby",
+        "/academy/registry/welcome-boxes-perks/target",
+        "/academy/registry/where-to-register",
+        "/guides/registry"
+      ]
+    },
+    {
+      "href": "/guides/strollers",
+      "title": "Stroller Guide",
+      "kind": "guide",
+      "cluster": "strollers",
+      "outbound": [
+        {
+          "id": "guide-travel",
+          "href": "/guides/travel-with-baby",
+          "title": "Travel With Baby Guide",
+          "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "travel"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 34,
+      "inboundFrom": [
+        "/academy/gear",
+        "/academy/gear/car-seat-foundations/booster-seats",
+        "/academy/gear/daily-use-gear/baby-bath",
+        "/academy/gear/daily-use-gear/carrier",
+        "/academy/gear/daily-use-gear/daily-support-gear",
+        "/academy/gear/daily-use-gear/highchair",
+        "/academy/gear/daily-use-gear/pack-and-play",
+        "/academy/gear/daily-use-gear/swing-bouncer",
+        "/academy/gear/how-to-think-about-baby-gear",
+        "/academy/gear/stroller-foundations",
+        "/academy/gear/stroller-foundations/compact-lightweight-strollers",
+        "/academy/gear/stroller-foundations/convertible-strollers",
+        "/academy/gear/stroller-foundations/double-strollers",
+        "/academy/gear/stroller-foundations/full-size-modular-strollers",
+        "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
+        "/academy/gear/stroller-foundations/travel-strollers",
+        "/academy/gear/travel-systems",
+        "/academy/postpartum",
+        "/academy/postpartum/emotional-wellness-and-identity",
+        "/academy/postpartum/feeding-and-lactation",
+        "/academy/postpartum/healing-and-recovery",
+        "/academy/postpartum/rest-and-sleep",
+        "/academy/postpartum/support-systems",
+        "/blog/best-full-size-strollers-2026",
+        "/blog/best-highchairs-2026-real-life-guide",
+        "/blog/best-independent-baby-stores-rewards-programs-2026",
+        "/blog/best-travel-strollers-2026",
+        "/blog/nursery-setup-that-actually-works",
+        "/blog/target-baby-concierge-virtual-specialist-guide-2026",
+        "/blog/the-art-of-the-registry",
+        "/guides",
+        "/guides/registry/where-to-register",
+        "/guides/travel-with-baby",
+        "/services"
+      ]
+    },
+    {
+      "href": "/guides/travel-with-baby",
+      "title": "Travel With Baby Guide",
+      "kind": "guide",
+      "cluster": "travel",
+      "outbound": [
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        },
+        {
+          "id": "blog-travel-strollers",
+          "href": "/blog/best-travel-strollers-2026",
+          "title": "The Best Travel Strollers of 2026",
+          "description": "A tighter product list once the stroller lane is already clear.",
+          "ctaLabel": "Read article ->",
+          "eyebrow": "Journal",
+          "kind": "blog",
+          "cluster": "strollers"
+        },
+        {
+          "id": "services",
+          "href": "/services",
+          "title": "Work with Taylor",
+          "description": "Bring the shortlist, the registry, or the room plan into one calmer conversation when you want expert judgment instead of more tabs.",
+          "ctaLabel": "Explore services ->",
+          "eyebrow": "Services",
+          "kind": "service",
+          "cluster": "general"
+        }
+      ],
+      "inboundCount": 25,
+      "inboundFrom": [
+        "/academy/gear",
+        "/academy/gear/car-seat-foundations",
+        "/academy/gear/car-seat-foundations/all-in-one-car-seats",
+        "/academy/gear/car-seat-foundations/booster-seats",
+        "/academy/gear/car-seat-foundations/convertible-car-seats",
+        "/academy/gear/car-seat-foundations/infant-car-seats",
+        "/academy/gear/car-seat-foundations/rotating-car-seats",
+        "/academy/gear/car-seat-foundations/travel-lightweight-car-seats",
+        "/academy/gear/daily-use-gear/baby-bath",
+        "/academy/gear/daily-use-gear/carrier",
+        "/academy/gear/daily-use-gear/daily-support-gear",
+        "/academy/gear/daily-use-gear/highchair",
+        "/academy/gear/daily-use-gear/pack-and-play",
+        "/academy/gear/daily-use-gear/swing-bouncer",
+        "/academy/gear/how-to-think-about-baby-gear",
+        "/academy/gear/stroller-foundations",
+        "/academy/gear/stroller-foundations/compact-lightweight-strollers",
+        "/academy/gear/stroller-foundations/convertible-strollers",
+        "/academy/gear/stroller-foundations/double-strollers",
+        "/academy/gear/stroller-foundations/full-size-modular-strollers",
+        "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
+        "/academy/gear/stroller-foundations/travel-strollers",
+        "/academy/gear/travel-systems",
+        "/guides/car-seats",
+        "/guides/strollers"
+      ]
+    },
+    {
+      "href": "/services",
+      "title": "Work with Taylor",
+      "kind": "service",
+      "cluster": "general",
+      "outbound": [
+        {
+          "id": "guide-registry",
+          "href": "/guides/registry",
+          "title": "Baby Registry Guide",
+          "description": "Start with the registry structure before the list gets louder than it needs to.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "registry"
+        },
+        {
+          "id": "guide-strollers",
+          "href": "/guides/strollers",
+          "title": "Stroller Guide",
+          "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
+          "ctaLabel": "Open guide ->",
+          "eyebrow": "Guide",
+          "kind": "guide",
+          "cluster": "strollers"
+        },
+        {
+          "id": "guide-hub",
+          "href": "/guides",
+          "title": "TMBC Guide Hub",
+          "description": "Use the wider guide map when you want the order of decisions to get calmer before the narrower category does.",
+          "ctaLabel": "Open guide hub ->",
+          "eyebrow": "Guide Hub",
+          "kind": "guide",
+          "cluster": "general"
+        },
+        {
+          "id": "academy-registry-path",
+          "href": "/academy/registry",
+          "title": "Registry Academy",
+          "description": "A structured path for platforms, perks, timing, and gifting strategy.",
+          "ctaLabel": "Explore Academy ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "registry"
+        },
+        {
+          "id": "academy-stroller-foundations",
+          "href": "/academy/gear/stroller-foundations",
+          "title": "Stroller Foundations",
+          "description": "Start with the stroller lanes before a shortlist starts comparing products that were never solving the same job.",
+          "ctaLabel": "Explore module ->",
+          "eyebrow": "Academy",
+          "kind": "academy",
+          "cluster": "strollers"
+        }
+      ],
+      "inboundCount": 69,
+      "inboundFrom": [
+        "/academy",
+        "/academy/gear",
+        "/academy/gear/car-seat-foundations",
+        "/academy/gear/car-seat-foundations/all-in-one-car-seats",
+        "/academy/gear/car-seat-foundations/booster-seats",
+        "/academy/gear/car-seat-foundations/convertible-car-seats",
+        "/academy/gear/car-seat-foundations/infant-car-seats",
+        "/academy/gear/car-seat-foundations/rotating-car-seats",
+        "/academy/gear/car-seat-foundations/travel-lightweight-car-seats",
+        "/academy/gear/daily-use-gear",
+        "/academy/gear/daily-use-gear/baby-bath",
+        "/academy/gear/daily-use-gear/carrier",
+        "/academy/gear/daily-use-gear/daily-support-gear",
+        "/academy/gear/daily-use-gear/highchair",
+        "/academy/gear/daily-use-gear/pack-and-play",
+        "/academy/gear/daily-use-gear/swing-bouncer",
+        "/academy/gear/how-to-think-about-baby-gear",
+        "/academy/gear/stroller-foundations",
+        "/academy/gear/stroller-foundations/compact-lightweight-strollers",
+        "/academy/gear/stroller-foundations/convertible-strollers",
+        "/academy/gear/stroller-foundations/double-strollers",
+        "/academy/gear/stroller-foundations/full-size-modular-strollers",
+        "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
+        "/academy/gear/stroller-foundations/travel-strollers",
+        "/academy/gear/travel-systems",
+        "/academy/nursery",
+        "/academy/nursery/atmosphere-and-safety",
+        "/academy/nursery/furniture-that-actually-works",
+        "/academy/nursery/furniture-that-actually-works/baby-monitors",
+        "/academy/nursery/furniture-that-actually-works/baby-proofing",
+        "/academy/nursery/furniture-that-actually-works/cribs",
+        "/academy/nursery/furniture-that-actually-works/diaper-pails",
+        "/academy/nursery/furniture-that-actually-works/dressers-changing",
+        "/academy/nursery/furniture-that-actually-works/gliders",
+        "/academy/nursery/layout-and-flow",
+        "/academy/nursery/sleep-space-decisions",
+        "/academy/nursery/storage-and-organization",
+        "/academy/nursery/vision-and-lifestyle",
+        "/academy/postpartum",
+        "/academy/postpartum/emotional-wellness-and-identity",
+        "/academy/postpartum/feeding-and-lactation",
+        "/academy/postpartum/healing-and-recovery",
+        "/academy/postpartum/rest-and-sleep",
+        "/academy/postpartum/support-systems",
+        "/academy/registry",
+        "/academy/registry/baby-showers-gifting",
+        "/academy/registry/rewards-completion-discounts",
+        "/academy/registry/shop-local-get-support",
+        "/academy/registry/smart-purchasing-timeline",
+        "/academy/registry/welcome-boxes-perks",
+        "/academy/registry/welcome-boxes-perks/amazon",
+        "/academy/registry/welcome-boxes-perks/babylist",
+        "/academy/registry/welcome-boxes-perks/macrobaby",
+        "/academy/registry/welcome-boxes-perks/target",
+        "/academy/registry/where-to-register",
+        "/blog/best-full-size-strollers-2026",
+        "/blog/best-highchairs-2026-real-life-guide",
+        "/blog/best-independent-baby-stores-rewards-programs-2026",
+        "/blog/best-travel-strollers-2026",
+        "/blog/nursery-setup-that-actually-works",
+        "/blog/target-baby-concierge-virtual-specialist-guide-2026",
+        "/blog/the-art-of-the-registry",
+        "/guides",
+        "/guides/car-seats",
+        "/guides/nursery",
+        "/guides/registry",
+        "/guides/registry/where-to-register",
+        "/guides/strollers",
+        "/guides/travel-with-baby"
+      ]
+    }
+  ]
+}

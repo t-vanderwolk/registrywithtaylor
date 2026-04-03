@@ -30,6 +30,7 @@ import {
 import { getGuideSignOff } from '@/lib/guides/editorialSystem';
 import { dedupeTextItems, getDefaultNextSteps, getGuideOrientation, getStandardGuideSlideItems, normalizeGuideLinks } from '@/lib/guides/guideFlow';
 import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
+import { getAcademyNextStepForGuide } from '@/lib/internal-links/system';
 import {
   getStrollerAcademyFlowchart,
   getStrollerAcademyLane,
@@ -145,6 +146,13 @@ export default function StrollerAcademyHub({
   ];
   const nextSteps = normalizeGuideLinks(
     [
+      getAcademyNextStepForGuide({
+        href: sourceRoute as `/${string}`,
+        slug: guide.slug,
+        title: guide.title,
+        category: guide.category,
+        topicCluster: guide.topicCluster,
+      }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: getStrollerAcademyLane('convertible-strollers')?.href || '/guides/strollers/convertible-strollers',
@@ -159,9 +167,9 @@ export default function StrollerAcademyHub({
         stage: 'Compare' as const,
       },
       {
-        href: '/guides/car-seats',
-        label: 'Open Car Seats',
-        description: 'Use this once travel-system or infant-seat questions start affecting the stroller plan.',
+        href: '/academy/gear/car-seat-foundations',
+        label: 'Continue Into Car Seat Foundations',
+        description: 'Use the Academy module once travel-system or infant-seat questions start affecting the stroller plan.',
         stage: 'Refine' as const,
       },
       {

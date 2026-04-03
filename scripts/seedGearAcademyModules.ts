@@ -138,6 +138,15 @@ async function main() {
     const nextModule = module.nextModuleSlug
       ? GEAR_ACADEMY_MODULES.find((candidate) => candidate.slug === module.nextModuleSlug) ?? null
       : null;
+    const nextStep = nextModule
+      ? {
+          label: `Next Module: ${nextModule.title}`,
+          href: `/academy/gear/${nextModule.slug}`,
+        }
+      : {
+          label: 'Continue to Postpartum Path',
+          href: '/academy/postpartum',
+        };
 
     const data = {
       title: module.title,
@@ -178,8 +187,8 @@ async function main() {
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
-      nextStepCtaLabel: nextModule ? `Next Module: ${nextModule.title}` : 'Continue to Registry Path',
-      nextStepCtaHref: nextModule ? `/academy/gear/${nextModule.slug}` : '/academy/registry',
+      nextStepCtaLabel: nextStep.label,
+      nextStepCtaHref: nextStep.href,
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };
@@ -210,6 +219,16 @@ async function main() {
         { canonicalUrl: '/academy/registry/where-to-register' },
         { slug: 'academy-registry-where-to-register' },
         { slug: 'where-to-register' },
+      ],
+    },
+    select: { id: true },
+  });
+  const postpartumFeedingGuide = await prisma.guide.findFirst({
+    where: {
+      OR: [
+        { canonicalUrl: '/academy/postpartum/feeding-and-lactation' },
+        { slug: 'academy-postpartum-feeding-and-lactation' },
+        { slug: 'feeding-and-lactation' },
       ],
     },
     select: { id: true },
@@ -255,6 +274,8 @@ async function main() {
           module.previousModuleSlug ? seededGuideIdsBySlug.get(module.previousModuleSlug) ?? null : null,
           module.nextModuleSlug ? seededGuideIdsBySlug.get(module.nextModuleSlug) ?? null : null,
           module.slug === 'daily-use-gear' ? registryGuide?.id ?? null : null,
+          module.slug === 'feeding-setup-flow' ? registryGuide?.id ?? null : null,
+          module.slug === 'feeding-setup-flow' ? postpartumFeedingGuide?.id ?? null : null,
           ...(module.slug === 'stroller-foundations' ? strollerCategoryGuideIds : []),
           ...(module.slug === 'car-seat-foundations' ? carSeatCategoryGuideIds : []),
         ].filter((id): id is string => Boolean(id)),

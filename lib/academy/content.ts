@@ -495,6 +495,16 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imageAlt: 'Daily-use baby gear image for the Daily Use Gear academy module.',
     relatedSlug: 'where-to-register',
   },
+  'feeding-setup-flow': {
+    pathSlug: 'gear',
+    title: 'Feeding Setup & Flow',
+    description:
+      'Understand the main feeding pathways, what tools each one may require, what to buy now versus later, and how to build a feeding setup that supports real life without overbuying.',
+    subhead: 'You are not choosing isolated products. You are building the system that has to work in real life.',
+    imagePath: '/assets/editorial/feeding.png',
+    imageAlt: 'Editorial feeding setup image for the Feeding Setup & Flow academy module.',
+    relatedSlug: 'feeding-and-lactation',
+  },
   'car-seat-basics': {
     pathSlug: 'gear',
     title: 'Car Seat Foundations',
@@ -839,6 +849,25 @@ function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[]
         description:
           'Use this when portability is the point and you want a cleaner look at the travel-first options before you commit.',
         ctaLabel: 'Read journal post ->',
+      },
+    ];
+  }
+
+  if (slug === 'feeding-setup-flow') {
+    return [
+      {
+        href: '/guides/feeding',
+        title: 'Feeding Hub',
+        description:
+          'Use the wider feeding guide hub when you want the higher-level view of bottles, pumps, storage, and what can wait.',
+        ctaLabel: 'Open feeding guide ->',
+      },
+      {
+        href: '/guides/registry/where-to-register',
+        title: 'Registry Strategy',
+        description:
+          'Step back to registry structure if the bigger question is still where feeding gear should live and how much to buy before baby arrives.',
+        ctaLabel: 'Open registry guide ->',
       },
     ];
   }

@@ -36,6 +36,7 @@ import {
   guideCardToNextStepLink,
   normalizeGuideLinks,
 } from '@/lib/guides/guideFlow';
+import { buildGuideInternalLinkPlan, getAcademyNextStepForGuide } from '@/lib/internal-links/system';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 
 interface GuideEducationLayoutProps {
@@ -488,8 +489,22 @@ export default function GuideEducationLayout({
     recommendation: `${summarizeSection(section.content)} Start with this section.`,
     href: `${sourceRoute}#${section.id}`,
   }));
+  const guideLinkPlan = buildGuideInternalLinkPlan({
+    href: sourceRoute as `/${string}`,
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
   const nextSteps = normalizeGuideLinks(
     [
+      getAcademyNextStepForGuide({
+        href: sourceRoute as `/${string}`,
+        slug: guide.slug,
+        title: guide.title,
+        category: guide.category,
+        topicCluster: guide.topicCluster,
+      }),
       ...(guide.nextStepCtaHref
         ? [
             {
@@ -586,6 +601,7 @@ export default function GuideEducationLayout({
                   content={section.content}
                   className="guide-post-content guide-slide-content"
                   variant="guide"
+                  contextualInternalLinks={guideLinkPlan.contextualLinks}
                 />
               </div>
             </MarketingSurface>
@@ -634,6 +650,7 @@ export default function GuideEducationLayout({
                     content={section.content}
                     className="guide-post-content guide-slide-content"
                     variant="guide"
+                    contextualInternalLinks={guideLinkPlan.contextualLinks}
                   />
 
                   <GuideEditorialImage
@@ -693,6 +710,7 @@ export default function GuideEducationLayout({
                       content={stripLeadingGuideHeading(section.content)}
                       className="guide-post-content guide-slide-content"
                       variant="guide"
+                      contextualInternalLinks={guideLinkPlan.contextualLinks}
                     />
                   </div>
                 </MarketingSurface>

@@ -31,6 +31,8 @@ import {
   parseStyledBlock,
   type ParsedStyledBlock,
 } from '@/lib/blog/styledBlocks';
+import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
+import type { ContextualInternalLink } from '@/lib/internal-links/types';
 
 type PostContentProps = {
   postId: string;
@@ -50,6 +52,7 @@ type PostContentProps = {
       affiliatePid: string | null;
     }
   >;
+  contextualInternalLinks?: ContextualInternalLink[];
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -162,7 +165,14 @@ function parseGuideSignatureBlock(lines: string[], startIndex: number) {
   };
 }
 
-function renderInlineContent(text: string, keyPrefix: string, highlightBrandWordmark = false): ReactNode[] {
+function renderInlineContent(
+  text: string,
+  keyPrefix: string,
+  highlightBrandWordmark = false,
+  contextualInternalLinks: ContextualInternalLink[] = [],
+  usedInternalLinks?: Set<string>,
+  placement = 'inline',
+): ReactNode[] {
   const nodes: ReactNode[] = [];
   let remaining = text;
   let tokenIndex = 0;
@@ -174,6 +184,20 @@ function renderInlineContent(text: string, keyPrefix: string, highlightBrandWord
 
     if (highlightBrandWordmark) {
       nodes.push(...renderBrandWordmarkText(value, `${keyPrefix}-${suffix}`));
+      return;
+    }
+
+    if (contextualInternalLinks.length > 0 && usedInternalLinks) {
+      nodes.push(
+        ...renderTextWithInternalLinks({
+          text: value,
+          suggestions: contextualInternalLinks,
+          usedHrefs: usedInternalLinks,
+          keyPrefix: `${keyPrefix}-${suffix}`,
+          className: 'link-underline transition-colors duration-200 hover:text-neutral-900',
+          placement,
+        }),
+      );
       return;
     }
 
@@ -449,6 +473,7 @@ export default function PostContent({
   variant = 'default',
   highlightBrandWordmark = false,
   ctaPartners = {},
+  contextualInternalLinks = [],
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
@@ -465,6 +490,7 @@ export default function PostContent({
         let guideProductCount = 0;
         const slottedButtonIds = new Set<string>();
         const headingIdCounts = new Map<string, number>();
+        const usedInternalLinks = new Set<string>();
 
         while (i < lines.length) {
           const line = lines[i]?.trim() ?? '';
@@ -696,7 +722,14 @@ export default function PostContent({
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ul-${i}-${index}`} className="pl-1">
-                    {renderInlineContent(item, `${postId}-ul-inline-${i}-${index}`)}
+                    {renderInlineContent(
+                      item,
+                      `${postId}-ul-inline-${i}-${index}`,
+                      false,
+                      contextualInternalLinks,
+                      usedInternalLinks,
+                      'list',
+                    )}
                   </li>
                 ))}
               </ul>,
@@ -724,7 +757,14 @@ export default function PostContent({
               >
                 {items.map((item, index) => (
                   <li key={`${postId}-ol-${i}-${index}`} className="pl-1">
-                    {renderInlineContent(item, `${postId}-ol-inline-${i}-${index}`)}
+                    {renderInlineContent(
+                      item,
+                      `${postId}-ol-inline-${i}-${index}`,
+                      false,
+                      contextualInternalLinks,
+                      usedInternalLinks,
+                      'list',
+                    )}
                   </li>
                 ))}
               </ol>,
@@ -767,7 +807,14 @@ export default function PostContent({
                       : 'text-charcoal/85'
                 }
               >
-                {renderInlineContent(paragraphLines.join(' '), `${postId}-p-inline-${i}`)}
+                {renderInlineContent(
+                  paragraphLines.join(' '),
+                  `${postId}-p-inline-${i}`,
+                  false,
+                  contextualInternalLinks,
+                  usedInternalLinks,
+                  'body',
+                )}
               </p>,
             );
           }

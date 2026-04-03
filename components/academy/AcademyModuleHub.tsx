@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -9,6 +11,8 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
+import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
+import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 
 export type AcademyModuleHubCard = {
   href: string;
@@ -123,6 +127,29 @@ function formatInlineList(items: string[]) {
   return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 }
 
+function renderLinkedParagraphs(
+  paragraphs: string[],
+  suggestions: ReturnType<typeof buildAcademyInternalLinkPlan>['contextualLinks'],
+  keyPrefix: string,
+  paragraphClassName = 'break-words',
+): ReactNode[] {
+  const usedHrefs = new Set<string>();
+
+  return paragraphs.map((paragraph, index) => (
+    <p key={`${keyPrefix}-${index}`} className={paragraphClassName}>
+      {renderTextWithInternalLinks({
+        text: paragraph,
+        suggestions,
+        usedHrefs,
+        keyPrefix: `${keyPrefix}-${index}`,
+        maxLinks: 1,
+        className: 'link-underline transition-colors duration-200 hover:text-neutral-900',
+        placement: 'academy',
+      })}
+    </p>
+  ));
+}
+
 export default function AcademyModuleHub({
   pathSlug,
   moduleSlug,
@@ -185,6 +212,13 @@ export default function AcademyModuleHub({
         .flatMap((card) => (card ? [[card.href, card] as const] : [])),
     ).values(),
   );
+  const internalLinkPlan = buildAcademyInternalLinkPlan({
+    href: modulePath as `/${string}`,
+    pathSlug,
+    slug: moduleSlug,
+    title,
+    description: deck,
+  });
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
       breadcrumbs,
@@ -231,9 +265,7 @@ export default function AcademyModuleHub({
               </p>
 
               <div className="mt-6 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.04rem]">
-                {intro.map((paragraph) => (
-                  <p key={paragraph} className="break-words">{paragraph}</p>
-                ))}
+                {renderLinkedParagraphs(intro, internalLinkPlan.contextualLinks, `${moduleSlug}-hub-intro`)}
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -315,9 +347,7 @@ export default function AcademyModuleHub({
           <SectionHeading eyebrow="The TMBC Take" title={philosophyTitle} />
 
           <div className="mt-6 space-y-4 text-[1rem] leading-8 text-[#5B4B55]">
-            {philosophy.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {renderLinkedParagraphs(philosophy, internalLinkPlan.contextualLinks, `${moduleSlug}-hub-philosophy`)}
           </div>
 
           <GuideHandwrittenNote
@@ -357,6 +387,15 @@ export default function AcademyModuleHub({
       ) : null}
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <ConnectedContentSection
+          eyebrow="Keep The System Connected"
+          title="Use the guide, the journal, or direct support when the next question changes"
+          description="This module is one part of the bigger TMBC system. These are the best next stops when you want the wider decision map, a concrete example, or an advisor in the mix."
+          cards={internalLinkPlan.journeyCards}
+        />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
           <div className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
             <SectionHeading
@@ -367,11 +406,12 @@ export default function AcademyModuleHub({
 
             <div className="mt-6 rounded-[1.6rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.86)] p-5 sm:p-6">
               <div className="space-y-3">
-                {guidanceLines.map((line) => (
-                  <p key={line} className="text-[1.02rem] leading-8 text-[#4B3641] sm:text-[1.08rem] sm:leading-9">
-                    {line}
-                  </p>
-                ))}
+                {renderLinkedParagraphs(
+                  guidanceLines,
+                  internalLinkPlan.contextualLinks,
+                  `${moduleSlug}-hub-guidance`,
+                  'break-words text-[1.02rem] leading-8 text-[#4B3641] sm:text-[1.08rem] sm:leading-9',
+                )}
               </div>
             </div>
           </div>

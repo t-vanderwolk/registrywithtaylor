@@ -14,6 +14,7 @@ export const AnalyticsEvents = {
   BLOG_TO_CONTACT_CLICK: 'blog_to_contact_click',
   BLOG_TO_SERVICES_CLICK: 'blog_to_services_click',
   BLOG_AFFILIATE_CTA_CLICK: 'blog_affiliate_cta_click',
+  INTERNAL_LINK_CLICK: 'internal_link_click',
 } as const;
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents];

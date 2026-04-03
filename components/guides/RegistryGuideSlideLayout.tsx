@@ -43,6 +43,7 @@ import {
 } from '@/lib/guides/guideFlow';
 import { resolveGuideHeroImage } from '@/lib/guides/heroImages';
 import { getGuideHubConfig, type GuideNextGuideItem } from '@/lib/guides/hubs';
+import { buildGuideInternalLinkPlan, getAcademyNextStepForGuide } from '@/lib/internal-links/system';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
 
 const registryStepConfig = [
@@ -265,8 +266,22 @@ export default function RegistryGuideSlideLayout({
       href: `${sourceRoute}#${slideItems[6].id}`,
     },
   ];
+  const guideLinkPlan = buildGuideInternalLinkPlan({
+    href: sourceRoute as `/${string}`,
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
   const nextSteps = normalizeGuideLinks(
     [
+      getAcademyNextStepForGuide({
+        href: sourceRoute as `/${string}`,
+        slug: guide.slug,
+        title: guide.title,
+        category: guide.category,
+        topicCluster: guide.topicCluster,
+      }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
         href: '/guides',
@@ -369,6 +384,7 @@ export default function RegistryGuideSlideLayout({
                 content={stripSectionHeading(introSection.content)}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}
@@ -426,6 +442,7 @@ export default function RegistryGuideSlideLayout({
                 content={stripSectionHeading(whatThisGuideCoversSection.content)}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}
@@ -448,6 +465,7 @@ export default function RegistryGuideSlideLayout({
                   content={registrySystemBreakdown.introContent}
                   className="guide-post-content guide-slide-content"
                   variant="guide"
+                  contextualInternalLinks={guideLinkPlan.contextualLinks}
                 />
               ) : null}
             </div>
@@ -501,6 +519,7 @@ export default function RegistryGuideSlideLayout({
                 content={stripSectionHeading(decisionGuideSection.content)}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}
@@ -578,6 +597,7 @@ export default function RegistryGuideSlideLayout({
                 content={stripSectionHeading(nextStepsSection.content)}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}
@@ -604,6 +624,7 @@ export default function RegistryGuideSlideLayout({
                   content={stripSectionHeading(keyRuleSection.content)}
                   className="guide-post-content guide-slide-content"
                   variant="guide"
+                  contextualInternalLinks={guideLinkPlan.contextualLinks}
                 />
               </div>
             </MarketingSurface>

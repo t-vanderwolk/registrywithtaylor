@@ -54,15 +54,23 @@ export default function GuidesEducationHub() {
     },
   ];
   const nextSteps = normalizeGuideLinks(
-    masterFlowCards.slice(0, 4).map((card, index) => ({
-      href: card.href,
-      label: card.title,
-      description:
-        index === 0
-          ? 'Start here if the whole plan still feels noisy and you want the sequence to make more sense first.'
-          : `Use ${card.title} once the step before it already feels steadier.`,
-      stage: index === 0 ? 'Start' : 'Refine',
-    })),
+    [
+      ...masterFlowCards.slice(0, 3).map((card, index) => ({
+        href: card.href,
+        label: card.title,
+        description:
+          index === 0
+            ? 'Start here if the whole plan still feels noisy and you want the sequence to make more sense first.'
+            : `Use ${card.title} once the step before it already feels steadier.`,
+        stage: index === 0 ? ('Start' as const) : ('Refine' as const),
+      })),
+      {
+        href: '/academy',
+        label: 'Continue Into TMBC Academy',
+        description: 'Use the Academy when you want the deeper step-by-step learning layer behind the guide sequence.',
+        stage: 'Compare' as const,
+      },
+    ],
   );
   const whatThisIs =
     'A registry-first guide hub that turns baby prep into a sequence instead of a pile of categories with equally loud opinions.';

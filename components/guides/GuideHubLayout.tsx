@@ -39,6 +39,7 @@ import {
   normalizeGuideLinks,
 } from '@/lib/guides/guideFlow';
 import { getGuideHubConfig, getGuideNextGuideItems } from '@/lib/guides/hubs';
+import { buildGuideInternalLinkPlan, getAcademyNextStepForGuide } from '@/lib/internal-links/system';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import type { GuideArticleRecord } from '@/lib/server/guideArticleRecord';
@@ -192,8 +193,23 @@ export default function GuideHubLayout({
     );
   }
 
+  const guideLinkPlan = buildGuideInternalLinkPlan({
+    href: sourceRoute as `/${string}`,
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    topicCluster: guide.topicCluster,
+  });
+
   const nextSteps = normalizeGuideLinks(
     [
+      getAcademyNextStepForGuide({
+        href: sourceRoute as `/${string}`,
+        slug: guide.slug,
+        title: guide.title,
+        category: guide.category,
+        topicCluster: guide.topicCluster,
+      }),
       {
         href: '/guides',
         label: 'TMBC Education Hub',
@@ -307,6 +323,7 @@ export default function GuideHubLayout({
                 content={outline.preface}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}
@@ -318,6 +335,7 @@ export default function GuideHubLayout({
                 content={outline.sections[0].content}
                 className="guide-post-content guide-slide-content"
                 variant="guide"
+                contextualInternalLinks={guideLinkPlan.contextualLinks}
               />
             </MarketingSurface>
           ) : null}

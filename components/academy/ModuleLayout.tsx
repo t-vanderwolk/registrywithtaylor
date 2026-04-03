@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
+import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
@@ -14,10 +16,13 @@ import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
+import { slugify } from '@/lib/slugify';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
 } from '@/lib/academy/seo';
+import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
+import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 import type {
   AcademyBreadcrumbItem,
   AcademyCoreSection,
@@ -84,6 +89,32 @@ function Breadcrumbs({ items }: { items: AcademyBreadcrumbItem[] }) {
       </ol>
     </nav>
   );
+}
+
+function renderLinkedParagraphs(
+  paragraphs: string[],
+  suggestions: ReturnType<typeof buildAcademyInternalLinkPlan>['contextualLinks'],
+  keyPrefix: string,
+  maxLinksPerParagraph = 1,
+) : ReactNode[] {
+  const usedHrefs = new Set<string>();
+
+  return paragraphs.map((paragraph, index) => (
+    <p
+      key={`${keyPrefix}-${index}`}
+      className="break-words"
+    >
+      {renderTextWithInternalLinks({
+        text: paragraph,
+        suggestions,
+        usedHrefs,
+        keyPrefix: `${keyPrefix}-${index}`,
+        maxLinks: maxLinksPerParagraph,
+        className: 'link-underline transition-colors duration-200 hover:text-neutral-900',
+        placement: 'academy',
+      })}
+    </p>
+  ));
 }
 
 function NextStepCard({
@@ -337,6 +368,13 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const typographyAccent = getModuleTypographyAccent(module);
   const moduleFocusLine = buildModuleFocusLine(module);
   const academyConnections = buildModuleAcademyConnectionCards(module, pathLabel);
+  const internalLinkPlan = buildAcademyInternalLinkPlan({
+    href: module.href as `/${string}`,
+    pathSlug: module.pathSlug,
+    slug: module.slug,
+    title: module.title,
+    description: module.description,
+  });
   const travelSystemWidget =
     module.slug === 'travel-systems'
       ? await Promise.all([getTravelSystemStrollers(), getTravelSystemCarSeats()]).then(([strollers, carSeats]) => ({
@@ -448,9 +486,11 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           <section className="academy-load-in academy-load-in--4 tmbc-editorial-article-shell">
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>
             <article className="tmbc-blog tmbc-blog-post-content mt-6 max-w-none">
-              {module.intro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              {renderLinkedParagraphs(
+                module.intro,
+                internalLinkPlan.contextualLinks,
+                `${module.slug}-intro`,
+              )}
             </article>
           </section>
 
@@ -488,6 +528,13 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
+          <ConnectedContentSection
+            eyebrow="Keep It Connected"
+            title="Bridge this module back to the wider TMBC system"
+            description="Use the guide when you want the higher-level decision map, the journal when you want a concrete example, and services when you want the shortlist translated to your actual life."
+            cards={internalLinkPlan.journeyCards}
+          />
+
           <section className="space-y-8">
             <SectionHeading
               eyebrow="Core Considerations"
@@ -508,9 +555,11 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                     <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--tmbc-blog-rose)]">TMBC Focus</p>
                     <div className="tmbc-blog mt-6 max-w-none">
                       <h3 className="mt-0">{section.title}</h3>
-                      {section.paragraphs.map((paragraph) => (
-                        <p key={`${section.title}-${paragraph}`}>{paragraph}</p>
-                      ))}
+                      {renderLinkedParagraphs(
+                        section.paragraphs,
+                        internalLinkPlan.contextualLinks,
+                        `${module.slug}-${slugify(section.title)}`,
+                      )}
                     </div>
 
                     <figure className="mt-8">

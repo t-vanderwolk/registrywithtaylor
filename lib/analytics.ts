@@ -39,6 +39,7 @@ const GA_EVENT_CATEGORIES: Record<string, string> = {
   [AnalyticsEvents.BLOG_TO_CONTACT_CLICK]: 'conversion',
   [AnalyticsEvents.BLOG_TO_SERVICES_CLICK]: 'blog',
   [AnalyticsEvents.BLOG_AFFILIATE_CTA_CLICK]: 'affiliate',
+  [AnalyticsEvents.INTERNAL_LINK_CLICK]: 'navigation',
   guide_view: 'guides',
   guide_affiliate_click: 'affiliate',
   guide_to_consultation_click: 'conversion',
