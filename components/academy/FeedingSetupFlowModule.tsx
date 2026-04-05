@@ -18,12 +18,12 @@ import {
   FEEDING_SETUP_FLOW_FINAL_PARAGRAPHS,
   FEEDING_SETUP_FLOW_FRAMEWORK_PARAGRAPHS,
   FEEDING_SETUP_FLOW_FRAMEWORK_QUOTE,
-  FEEDING_SETUP_FLOW_FUTURE_MODULES,
   FEEDING_SETUP_FLOW_GENTLE_NOTE,
   FEEDING_SETUP_FLOW_HERO_INTRO,
   FEEDING_SETUP_FLOW_MILK_STORAGE_ITEMS,
   FEEDING_SETUP_FLOW_MODULE_INTRO,
   FEEDING_SETUP_FLOW_NEEDS,
+  FEEDING_SETUP_FLOW_NEXT_MODULES,
   FEEDING_SETUP_FLOW_PATHWAYS,
   FEEDING_SETUP_FLOW_PUMPING_CHECKLIST,
   FEEDING_SETUP_FLOW_PUMPING_PARAGRAPHS,
@@ -182,11 +182,12 @@ export default async function FeedingSetupFlowModule() {
           },
         ]
       : []),
-    ...FEEDING_SETUP_FLOW_FUTURE_MODULES.map((item) => ({
-      eyebrow: 'Coming Soon',
+    ...FEEDING_SETUP_FLOW_NEXT_MODULES.map((item, index) => ({
+      eyebrow: index === 0 ? 'Next Gear Layer' : 'Keep Building',
       title: item.title,
       description: item.description,
-      ctaLabel: 'Planned next layer',
+      ctaLabel: item.ctaLabel,
+      href: item.href,
     })),
     ...(module.related
       ? [

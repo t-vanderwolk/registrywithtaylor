@@ -237,10 +237,10 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     shortDescription: 'Build it step by step',
     heroTitle: 'Registry Path',
     heroDescription:
-      'Build your registry the right way, step by step, with a calmer plan for platforms, support, perks, timing, and gifting.',
+      'Build your registry in the right order, from first-pass essentials through platforms, support, perks, timing, cleanup, and gifting.',
     intro: [
       'This path is where registry planning gets more strategic and much less random.',
-      'You will decide where to register, where to get actual shopping support, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
+      'You will start with what belongs on the list first, then decide where to register, where to get actual shopping support, how to use the perks, when to buy, and how to keep the list from turning into a polite overbuying contest.',
     ],
     overallSummary: [
       'This path turns the registry into a system instead of one giant list. You are not just choosing products here. You are choosing where the list lives, where real support can come from, how it earns value back, and when it actually makes sense to buy.',
@@ -252,10 +252,11 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'How welcome boxes, perks, and samples can become useful product testing instead of random extras.',
       'How to time rewards, loyalty programs, and completion discounts so savings actually stack.',
       'How to phase purchases so you buy what matters first and let the rest wait for real need.',
+      'How to catch the registry mistakes that quietly create duplicate spending, clutter, and guest confusion.',
       'How to guide showers and gifting without making the registry harder for guests to shop.',
     ],
     moduleSectionDescription:
-      'Each module builds the registry from setup into perks, timing, and gifting strategy so the list gets smarter instead of longer.',
+      'Each module builds the registry from first-pass structure into setup, support, perks, timing, cleanup, and gifting so the list gets smarter instead of longer.',
     imagePath: '/assets/editorial/registry.jpg',
     imageAlt: 'Registry planning editorial image for TMBC Baby Academy.',
   },
@@ -293,7 +294,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'Understand before you choose, with a calmer path through the gear decisions that shape daily life most.',
     intro: [
       'Most gear overwhelm starts when parents compare products before they understand the category or the job that gear needs to do.',
-      'This path keeps the order calmer: first how to think, then stroller foundations, car seats, travel systems, and finally the gear that truly earns daily use.',
+      'This path keeps the order calmer: first how to think, then stroller foundations, car seats, travel systems, travel logistics, the gear that truly earns daily use, and the feeding systems that need to work in real life.',
     ],
     overallSummary: [
       'This path is about understanding before choosing. Instead of jumping straight into brands and features, you will start with fit, then work through the categories that shape daily life most.',
@@ -304,10 +305,12 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
       'How stroller categories differ, and how the compact-versus-full-size decision helps simplify the shortlist.',
       'How to make the infant-versus-convertible car seat decision with your vehicle and daily use in mind.',
       'How travel systems, adapters, and compatibility actually work in the early months.',
+      'How leaving the house changes what portability, cleanup, and transitions really matter.',
       'How to focus on the daily-use gear that truly earns a place in your routine.',
+      'How feeding setups, pumps, bottles, and cleanup work as connected systems instead of isolated products.',
     ],
     moduleSectionDescription:
-      'Each module narrows the gear conversation so you can understand the category first and compare products later, with much less noise.',
+      'Each module narrows the gear conversation so you can understand the category first, then compare products later with much less noise and much better timing.',
     imagePath: '/assets/editorial/gear.jpg',
     imageAlt: 'Editorial baby gear image for TMBC Baby Academy.',
   },
@@ -316,10 +319,10 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     shortDescription: 'Move through it with support',
     heroTitle: 'Postpartum Path',
     heroDescription:
-      'Move through recovery, feeding, rest, emotional change, and support with a calmer system for the adult side of early parenthood.',
+      'Move through recovery, home rhythm, feeding, rest, emotional change, and support with a calmer system for the adult side of early parenthood.',
     intro: [
       'Postpartum is often the least-prepared-for part of baby prep, which is a fairly brutal design flaw in the whole process.',
-      'This path gives recovery, feeding, rest, emotional wellness, and support their own real sequence so the household can prepare for the adult side of early parenthood too.',
+      'This path gives recovery, home rhythm, feeding, rest, emotional wellness, and support their own real sequence so the household can prepare for the adult side of early parenthood too.',
     ],
     overallSummary: [
       'This path brings the adult side of early parenthood back into the plan. Postpartum works better when it is treated like a chapter you move through with support, not a vague stretch you are supposed to absorb while caring for a newborn.',
@@ -327,6 +330,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     ],
     learningHighlights: [
       'What physical recovery actually looks like, what supports healing, and how to build a more realistic recovery rhythm.',
+      'How the first weeks at home actually move through the house, and what support keeps that rhythm more workable.',
       'How to think about breastfeeding, bottle feeding, and combination feeding with more flexibility and less guilt.',
       'How to set more realistic sleep expectations, share responsibilities, and protect rest without waiting for perfect schedules.',
       'How emotional shifts and identity changes show up in postpartum, and what helps them feel less isolating.',
@@ -340,6 +344,16 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
 };
 
 const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinition> = {
+  'what-to-register-first': {
+    pathSlug: 'registry',
+    title: 'What to Register First',
+    description:
+      'Build the first-pass registry around the jobs that need to work immediately, then let the maybes wait until real life gives you better information.',
+    subhead: 'Start with the jobs the house needs to do.',
+    imagePath: REGISTRY_PATH_IMAGES.registryPlanning,
+    imageAlt: 'Registry planning image for the What to Register First academy module.',
+    relatedSlug: 'how-to-think-about-baby-gear',
+  },
   'where-to-register': {
     pathSlug: 'registry',
     title: 'Where to Register',
@@ -385,6 +399,16 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imagePath: REGISTRY_PATH_IMAGES.purchasingTimeline,
     imageAlt: 'Registry purchasing timeline image for the Smart Purchasing Timeline academy module.',
     relatedSlug: null,
+  },
+  'mistakes-to-avoid': {
+    pathSlug: 'registry',
+    title: 'Registry Mistakes to Avoid',
+    description:
+      'Catch the common decisions that make a registry longer, noisier, and less useful before the list turns into a very polite clutter plan.',
+    subhead: 'This is the edit pass most registries need.',
+    imagePath: REGISTRY_PATH_IMAGES.overwhelm,
+    imageAlt: 'Registry mistakes image for the Registry Mistakes to Avoid academy module.',
+    relatedSlug: 'daily-use-gear',
   },
   'baby-showers-gifting': {
     pathSlug: 'registry',
@@ -486,6 +510,16 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imageAlt: 'Travel stroller fold image for the Travel Systems academy module.',
     relatedSlug: null,
   },
+  'travel-with-baby': {
+    pathSlug: 'gear',
+    title: 'Travel With Baby',
+    description:
+      'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
+    subhead: 'Leaving the house is its own gear category.',
+    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imageAlt: 'Travel with baby image for the Travel With Baby academy module.',
+    relatedSlug: null,
+  },
   'daily-use-gear': {
     pathSlug: 'gear',
     title: 'Daily Use Gear',
@@ -503,6 +537,26 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     subhead: 'You are not choosing isolated products. You are building the system that has to work in real life.',
     imagePath: '/assets/editorial/feeding.png',
     imageAlt: 'Editorial feeding setup image for the Feeding Setup & Flow academy module.',
+    relatedSlug: 'feeding-and-lactation',
+  },
+  'breast-pump': {
+    pathSlug: 'gear',
+    title: 'Breast Pump',
+    description:
+      'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
+    subhead: 'A pump is a tool, not a personality.',
+    imagePath: '/assets/editorial/feeding.png',
+    imageAlt: 'Breast pump planning image for the Breast Pump academy module.',
+    relatedSlug: 'feeding-and-lactation',
+  },
+  'bottles-and-baby-utensils': {
+    pathSlug: 'gear',
+    title: 'Bottles & Baby Utensils',
+    description:
+      'Build a calm bottle starting point, understand nipple flow and cleanup, and avoid buying a whole feeding drawer before your baby has an opinion.',
+    subhead: 'Bottles become a system faster than most parents expect.',
+    imagePath: '/assets/editorial/bottle-booties.png',
+    imageAlt: 'Bottles and baby utensils image for the Bottles & Baby Utensils academy module.',
     relatedSlug: 'feeding-and-lactation',
   },
   'car-seat-basics': {
@@ -523,6 +577,16 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     imagePath: '/assets/editorial/teddy-glow.png',
     imageAlt: 'Soft postpartum recovery image for the Healing & Recovery academy module.',
     relatedSlug: 'layout-and-flow',
+  },
+  'first-weeks-home-rhythm': {
+    pathSlug: 'postpartum',
+    title: 'First-Weeks Home Rhythm',
+    description:
+      'Plan how recovery, feeding, rest, visitors, meals, and household logistics actually move through the house so the first stretch feels more workable and less improvised.',
+    subhead: 'The house needs a rhythm before it needs perfection.',
+    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imageAlt: 'First-weeks home rhythm image for the First-Weeks Home Rhythm academy module.',
+    relatedSlug: 'feeding-setup-flow',
   },
   'feeding-and-lactation': {
     pathSlug: 'postpartum',
@@ -853,6 +917,25 @@ function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[]
     ];
   }
 
+  if (slug === 'travel-with-baby') {
+    return [
+      {
+        href: '/guides/travel-with-baby',
+        title: 'Travel Guide',
+        description:
+          'Use the wider travel hub when you want the fuller system for outings, packing, portability, and what deserves space away from home.',
+        ctaLabel: 'Open travel guide ->',
+      },
+      {
+        href: '/blog/best-travel-strollers-2026',
+        title: 'Best Travel Strollers of 2026',
+        description:
+          'Use this once portability is clearly part of the plan and you want the tighter shortlist of travel-first stroller options.',
+        ctaLabel: 'Read journal post ->',
+      },
+    ];
+  }
+
   if (slug === 'feeding-setup-flow') {
     return [
       {
@@ -868,6 +951,101 @@ function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[]
         description:
           'Step back to registry structure if the bigger question is still where feeding gear should live and how much to buy before baby arrives.',
         ctaLabel: 'Open registry guide ->',
+      },
+    ];
+  }
+
+  if (slug === 'breast-pump') {
+    return [
+      {
+        href: '/guides/feeding',
+        title: 'Feeding Hub',
+        description:
+          'Use the broader feeding hub when the bigger question is still how pumping fits with bottles, storage, and the rest of the feeding setup.',
+        ctaLabel: 'Open feeding guide ->',
+      },
+      {
+        href: '/guides/registry/essentials',
+        title: 'Registry Essentials',
+        description:
+          'Step back here if you are still deciding whether a pump belongs on the first-pass registry or on the later decision list.',
+        ctaLabel: 'Open registry guide ->',
+      },
+    ];
+  }
+
+  if (slug === 'bottles-and-baby-utensils') {
+    return [
+      {
+        href: '/guides/feeding',
+        title: 'Feeding Hub',
+        description:
+          'Use the feeding hub when you want the wider view of bottles, pumping, cleanup, and where the bottle system fits in the bigger plan.',
+        ctaLabel: 'Open feeding guide ->',
+      },
+      {
+        href: '/guides/registry/essentials',
+        title: 'Registry Essentials',
+        description:
+          'Use this when the bottle question is really a registry question about what belongs now versus later.',
+        ctaLabel: 'Open registry guide ->',
+      },
+    ];
+  }
+
+  if (slug === 'what-to-register-first') {
+    return [
+      {
+        href: '/guides/registry/essentials',
+        title: 'Registry Essentials Guide',
+        description:
+          'Use the guide-side essentials page when you want a companion view of the first-pass categories and the logic behind them.',
+        ctaLabel: 'Open essentials guide ->',
+      },
+      {
+        href: '/guides/registry',
+        title: 'Registry Hub',
+        description:
+          'Step back to the full registry hub if you want the wider map before you keep building the list.',
+        ctaLabel: 'Open registry hub ->',
+      },
+    ];
+  }
+
+  if (slug === 'mistakes-to-avoid') {
+    return [
+      {
+        href: '/guides/registry/mistakes',
+        title: 'Registry Mistakes Guide',
+        description:
+          'Use the guide-side version when you want the broader editorial read on where lists usually drift into clutter and duplicate spending.',
+        ctaLabel: 'Open mistakes guide ->',
+      },
+      {
+        href: '/guides/registry',
+        title: 'Registry Hub',
+        description:
+          'Step back to the hub if this edit pass makes you want the wider registry sequence again before you finish the list.',
+        ctaLabel: 'Open registry hub ->',
+      },
+    ];
+  }
+
+  if (slug === 'first-weeks-home-rhythm') {
+    return [
+      {
+        href: '/guides/postpartum',
+        title: 'Postpartum Hub',
+        description:
+          'Use the broader postpartum hub when you want the wider view of recovery, support, and what helps the adult side of early parenthood feel more workable.',
+        ctaLabel: 'Open postpartum hub ->',
+      },
+      {
+        href: '/guides/feeding',
+        title: 'Feeding Hub',
+        description:
+          'Use this when the home-rhythm question keeps intersecting with feeding setup, cleanup, and how the day actually gets organized.',
+        ctaLabel: 'Open feeding guide ->',
       },
     ];
   }

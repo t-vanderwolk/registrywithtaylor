@@ -18,8 +18,11 @@ export type GearAcademyModuleSlug =
   | 'stroller-foundations'
   | 'car-seat-foundations'
   | 'travel-systems'
+  | 'travel-with-baby'
   | 'daily-use-gear'
-  | 'feeding-setup-flow';
+  | 'feeding-setup-flow'
+  | 'breast-pump'
+  | 'bottles-and-baby-utensils';
 
 type GearAcademyCoreSection = {
   title: string;
@@ -62,7 +65,7 @@ type GearAcademyModuleInputWithMarkdown = GearAcademyModuleInput & {
   customMarkdownContent?: string;
 };
 
-const TOTAL_MODULES = 6;
+const TOTAL_MODULES = 9;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
 function renderProductMarkdown(product: GearAcademyProductExample) {
@@ -360,13 +363,102 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
         pros: ['Cross-brand flexibility', 'Useful when the best stroller and best seat are not the same brand'],
       },
     ],
-    nextModuleSlug: 'daily-use-gear',
+    nextModuleSlug: 'travel-with-baby',
     previousModuleSlug: 'car-seat-foundations',
+  },
+  {
+    title: 'Travel With Baby',
+    slug: 'travel-with-baby',
+    moduleOrder: 5,
+    description:
+      'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
+    subhead: 'Leaving the house is its own gear category.',
+    imagePath: '/assets/editorial/stroller-folds.jpg',
+    imageAlt: 'Editorial travel with baby image for the Travel With Baby module.',
+    intro: [
+      'Travel with a baby sounds like one category. It is actually several versions of the same question.',
+      'What needs to come with you, what can stay home, and which pieces make movement easier instead of more theatrical?',
+      'A grocery run, a weekend road trip, and an airport day are not asking the same thing from your gear.',
+      'This module is about building the portable version of your routine without packing for every possible emergency at once.',
+    ],
+    coreSections: [
+      {
+        title: 'Errands, trips, and flights need different setups',
+        imageSrc: '/assets/strollers/travel.png',
+        imageAlt: 'Packed diaper bag and travel gear arranged for different outing lengths.',
+        paragraphs: [
+          'Most travel stress starts when one setup is expected to solve every kind of outing.',
+          'Short local trips usually need a tight edit. Longer days need more feeding, sleep, and backup planning.',
+          'When you separate those lanes, the packing list usually gets smaller and much more usable.',
+        ],
+      },
+      {
+        title: 'Portability changes what earns a spot',
+        imageSrc: '/assets/editorial/stroller-folds.jpg',
+        imageAlt: 'Compact baby gear staged for portability and trunk space.',
+        paragraphs: [
+          'At home, bulk can feel manageable. In a trunk, overhead bin, or restaurant entryway, it becomes very persuasive very quickly.',
+          'Weight, fold, wipeability, and how fast something deploys matter more once you are moving with it.',
+          'Travel gear does not need to be impressive. It needs to be cooperative.',
+        ],
+      },
+      {
+        title: 'Build around the hardest transition',
+        imageSrc: '/assets/editorial/editorialstroller.png',
+        imageAlt: 'Parent transitioning between car, stroller, and carrier with baby gear.',
+        paragraphs: [
+          'Think about the most annoying repeat move in your week: stairs, parking lots, airport security, nap transfers, or feeding away from home.',
+          'That one friction point should shape the setup more than the longest feature list on the product page.',
+          'The calmest travel gear usually solves the hardest transition first and lets the rest stay simpler.',
+        ],
+      },
+      {
+        title: 'Travel gear should reduce duplicate jobs',
+        imageSrc: '/assets/editorial/organize.png',
+        imageAlt: 'Minimal travel kit showing multi-use baby gear and fewer duplicates.',
+        paragraphs: [
+          'Travel categories get expensive fast when every problem gets a dedicated item.',
+          'A tighter setup leans on multi-use pieces, clear packing zones, and one or two truly portable wins.',
+          'If two products are solving the same job, the lighter, easier-to-pack answer usually deserves first dibs.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Match the setup to the outing, not to the most dramatic travel scenario.',
+      'Let portability, cleanup, and speed matter more once the gear leaves the house.',
+      'Solve the hardest transition first.',
+      'Favor multi-use pieces over duplicate jobs.',
+      'Travel goes better when the kit is edited before it is packed.',
+    ],
+    products: [
+      {
+        name: 'Travel Stroller',
+        description: 'A portability-first option when lighter weight, smaller fold, and faster loading matter more than maximum comfort.',
+        pros: ['Helpful for flights and tighter trunks', 'Useful when carry weight matters'],
+      },
+      {
+        name: 'Structured Carrier',
+        description: 'A practical movement tool when hands-free portability solves more friction than wheels do.',
+        pros: ['Useful for stairs and crowded spaces', 'Helpful for faster transitions'],
+      },
+      {
+        name: 'Edited Diaper Bag Setup',
+        description: 'A bag strategy built around the real outing length so essentials stay easy to reach instead of getting buried under just-in-case clutter.',
+        pros: ['Supports faster packing', 'Keeps travel setups easier to maintain'],
+      },
+    ],
+    softCtaLabel: 'A Note Before You Move Forward',
+    softCtaTitle: 'Travel gear works best when it travels lightly.',
+    softCtaBody: [
+      'The setup does not need to cover every hypothetical moment. It needs to make the repeated ones less annoying.',
+    ],
+    nextModuleSlug: 'daily-use-gear',
+    previousModuleSlug: 'travel-systems',
   },
   {
     title: 'Daily Use Gear',
     slug: 'daily-use-gear',
-    moduleOrder: 5,
+    moduleOrder: 6,
     description: "The products you'll use every single day - and feel immediately if they're wrong.",
     subhead: 'The products that shape the routine fast.',
     imagePath: '/assets/editorial/babystuff.png',
@@ -424,12 +516,12 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     softCtaTitle: 'This is where everything becomes real.',
     softCtaBody: ['And it is usually where personalized guidance makes the biggest difference.'],
     nextModuleSlug: 'feeding-setup-flow',
-    previousModuleSlug: 'travel-systems',
+    previousModuleSlug: 'travel-with-baby',
   },
   {
     title: FEEDING_SETUP_FLOW_ACADEMY_TITLE,
     slug: 'feeding-setup-flow',
-    moduleOrder: 6,
+    moduleOrder: 7,
     description: FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION,
     subhead: FEEDING_SETUP_FLOW_ACADEMY_SUBHEAD,
     imagePath: FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH,
@@ -444,9 +536,187 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     softCtaLabel: FEEDING_SETUP_FLOW_SOFT_CTA_LABEL,
     softCtaTitle: FEEDING_SETUP_FLOW_SOFT_CTA_TITLE,
     softCtaBody: [...FEEDING_SETUP_FLOW_SOFT_CTA_BODY],
-    nextModuleSlug: null,
+    nextModuleSlug: 'breast-pump',
     previousModuleSlug: 'daily-use-gear',
     customMarkdownContent: buildFeedingSetupFlowMarkdownContent(),
+  },
+  {
+    title: 'Breast Pump',
+    slug: 'breast-pump',
+    moduleOrder: 8,
+    description:
+      'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
+    subhead: 'A pump is a tool, not a personality.',
+    imagePath: '/assets/editorial/feeding.png',
+    imageAlt: 'Editorial breast pump planning image for the Breast Pump module.',
+    intro: [
+      'Breast pumps get marketed like one purchase is about to solve your entire feeding future.',
+      'In real life, the right pump depends on how often you expect to use it, where you will use it, and whether it is supporting daily feeding or occasional flexibility.',
+      'Some families need one early. Some need one later. Some barely use one at all.',
+      'This module is here to make that decision feel more practical and much less identity-based.',
+    ],
+    coreSections: [
+      {
+        title: 'Start with the job, not the pump category',
+        imageSrc: '/assets/editorial/clipboard.png',
+        imageAlt: 'Breast pump parts and notes arranged around a practical feeding plan.',
+        paragraphs: [
+          'Ask what the pump is for before you compare features.',
+          'Is it supporting a return to work, occasional bottles, supply maintenance while away, or a more pump-heavy routine at home?',
+          'Once the job is clearer, the pump type usually gets easier to narrow.',
+        ],
+      },
+      {
+        title: 'Manual, wearable, and double electric answer different routines',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Different pump styles arranged to compare routine fit.',
+        paragraphs: [
+          'Manual pumps can be useful for occasional relief or backup. Wearables can help with mobility. Double electric pumps often make the most sense when pumping is repeated and time matters.',
+          'The best option is not the fanciest one. It is the one your real schedule can maintain.',
+          'If this is likely to become a regular routine, efficiency matters more than novelty very quickly.',
+        ],
+      },
+      {
+        title: 'Accessories can help, but they multiply fast',
+        imageSrc: '/assets/editorial/organize.png',
+        imageAlt: 'Breast pump accessories organized into essentials and extras.',
+        paragraphs: [
+          'A few support pieces can make pumping much easier: a pump bra, storage containers, a parts-drying plan, and a practical place to clean everything.',
+          'Extra flanges, extra bottles, extra cords, and extra backup kits have a way of appearing before the routine exists to justify them.',
+          'Start with the support pieces that reduce actual friction, then add duplicates only if repeated use proves the case.',
+        ],
+      },
+      {
+        title: 'Think through location before you buy for convenience',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Work and home pumping setup comparison.',
+        paragraphs: [
+          'A home-only setup has different needs than a work bag, commute, or travel setup.',
+          'Where you will pump, where parts will dry, and how milk gets stored will matter just as much as the motor specs.',
+          'A cleaner logistics plan usually beats a more expensive pump with no place to live.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Choose the pump based on the routine it is supporting.',
+      'If pumping is likely to be regular, efficiency matters fast.',
+      'Start with the accessories that reduce real friction.',
+      'Do not buy a backup ecosystem before you have a primary rhythm.',
+      'A workable location plan matters as much as the pump itself.',
+    ],
+    products: [
+      {
+        name: 'Double Electric Pump',
+        description: 'A practical fit when pumping is likely to happen regularly and time efficiency matters.',
+        pros: ['Useful for repeated pumping', 'Supports a stronger work or separation routine'],
+      },
+      {
+        name: 'Wearable Pump',
+        description: 'A flexibility-first option when mobility matters, as long as the routine and budget justify it.',
+        pros: ['Helpful for movement', 'Useful when convenience is worth the tradeoffs'],
+      },
+      {
+        name: 'Manual Pump',
+        description: 'A simpler option for occasional use, relief, or backup support when daily pumping is not the goal.',
+        pros: ['Lower-commitment tool', 'Useful as a backup or occasional helper'],
+      },
+    ],
+    softCtaLabel: 'A Note Before You Move Forward',
+    softCtaTitle: 'You do not need to buy every pumping accessory in one sitting.',
+    softCtaBody: [
+      'A strong starting setup plus a workable cleaning and storage plan will usually tell you what deserves to come next.',
+    ],
+    nextModuleSlug: 'bottles-and-baby-utensils',
+    previousModuleSlug: 'feeding-setup-flow',
+  },
+  {
+    title: 'Bottles & Baby Utensils',
+    slug: 'bottles-and-baby-utensils',
+    moduleOrder: 9,
+    description:
+      'Build a calm bottle starting point, understand nipple flow and cleanup, and avoid buying a whole feeding drawer before your baby has an opinion.',
+    subhead: 'Bottles become a system faster than most parents expect.',
+    imagePath: '/assets/editorial/bottle-booties.png',
+    imageAlt: 'Editorial bottles and baby utensils image for the Bottles & Baby Utensils module.',
+    intro: [
+      'Bottles seem like a small purchase until they quietly become a full countertop workflow.',
+      'The bottle itself matters, but so do nipple flow, cleaning, storage, and how many you actually need before the routine is real.',
+      'And despite the very confident packaging, babies do occasionally have their own opinions about the setup.',
+      'This module helps you start with enough support to function without building a museum of bottle experiments on day one.',
+    ],
+    coreSections: [
+      {
+        title: 'Start with one bottle system',
+        imageSrc: '/assets/editorial/bottle-booties.png',
+        imageAlt: 'A simple bottle starter set styled for clarity rather than excess.',
+        paragraphs: [
+          'A few bottles from one system usually gives you enough information to start.',
+          'Committing to multiple bottle styles before you have tried anything usually creates clutter, not confidence.',
+          'The calmer move is a starter setup, not a full shelf.',
+        ],
+      },
+      {
+        title: 'Nipple flow and baby response matter',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Bottle nipples arranged by flow stage in a clean layout.',
+        paragraphs: [
+          'Bottle acceptance is not just about the bottle shape. Nipple flow, pacing, and how feeds are offered matter too.',
+          'This is one reason it helps to buy small at first. Real use gives better information than optimistic bulk ordering.',
+          'If adjustments are needed, you want room to adjust without replacing an entire bottle ecosystem.',
+        ],
+      },
+      {
+        title: 'Cleanup determines whether the system feels easy',
+        imageSrc: '/assets/editorial/organize.png',
+        imageAlt: 'Bottle drying rack and brush arranged in a simple cleanup workflow.',
+        paragraphs: [
+          'A bottle setup is only as nice as it is to wash, dry, and reset while you are tired.',
+          'One brush, one drying area, and a practical storage zone usually matter more than extra accessories with very passionate marketing copy.',
+          'If the cleanup plan is messy, the whole category gets louder than it needs to be.',
+        ],
+      },
+      {
+        title: 'Utensils are often a later chapter',
+        imageSrc: PLACEHOLDER_IMAGE,
+        imageAlt: 'Minimal feeding utensils staged as a later-stage add-on rather than an early must-buy.',
+        paragraphs: [
+          'Spoons, bowls, snack containers, and other feeding tools usually make more sense once solids and routine timing are actually on the calendar.',
+          'It is fine to note them. It is usually unnecessary to stockpile them now.',
+          'The same rule applies: let the chapter arrive before the accessories audition for it.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Start with a bottle starter setup, not a giant bottle commitment.',
+      'Let nipple flow and baby response guide the next purchase.',
+      'Choose the system your cleanup routine can maintain.',
+      'Keep accessory creep on a short leash.',
+      'Many feeding utensils belong in the later chapter, not the day-one cart.',
+    ],
+    products: [
+      {
+        name: 'Bottle Starter Set',
+        description: 'A smaller set that gives you a real starting point without locking you into a full-system purchase too early.',
+        pros: ['Helps test fit before expanding', 'Keeps overbuying down'],
+      },
+      {
+        name: 'Drying Rack and Brush Setup',
+        description: 'A simple cleanup pair that supports the bottle routine more than a larger pile of single-use accessories.',
+        pros: ['Makes cleanup easier to repeat', 'Supports a cleaner counter workflow'],
+      },
+      {
+        name: 'Later-Stage Feeding Utensils',
+        description: 'A note-for-later category that usually earns space once solids and actual mealtime rhythm are closer.',
+        pros: ['Better bought with timing', 'Less likely to become premature clutter'],
+      },
+    ],
+    softCtaLabel: 'Final Thoughts',
+    softCtaTitle: 'The best bottle setup usually starts smaller than people expect.',
+    softCtaBody: [
+      'A clear starter system plus room to adjust will almost always age better than a large early purchase made in the dark.',
+    ],
+    nextModuleSlug: null,
+    previousModuleSlug: 'breast-pump',
   },
 ];
 
@@ -496,17 +766,17 @@ function renderMarkdownContent(module: Omit<GearAcademyModuleRecord, 'markdownCo
   }
 
   if (module.softCtaLabel && module.softCtaTitle) {
-    lines.push('---', '', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
+    lines.push('', '---', '', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
     (module.softCtaBody ?? []).forEach((paragraph) => {
       lines.push(paragraph, '');
     });
   }
 
-  lines.push('---', '', '## Next Steps', '');
+  lines.push('', '---', '', '## Next Steps', '');
   if (module.nextModuleSlug) {
     lines.push(`- Continue to ${getModuleTitle(module.nextModuleSlug)}`);
   } else {
-    lines.push('- Continue to Registry Path');
+    lines.push('- Continue to Postpartum Path');
   }
 
   if (module.previousModuleSlug) {

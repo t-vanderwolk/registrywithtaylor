@@ -351,6 +351,44 @@ function buildModuleAcademyConnectionCards(
   return Array.from(new Map(connectionCards.map((card) => [card.href, card])).values()).slice(0, 4);
 }
 
+function getEditorialLinkSectionCopy(editorialLinks: AcademyRelatedLink[]) {
+  const hasBlogLinks = editorialLinks.some((link) => link.href.startsWith('/blog/'));
+  const hasGuideLinks = editorialLinks.some((link) => link.href.startsWith('/guides/'));
+
+  if (hasBlogLinks && hasGuideLinks) {
+    return {
+      title: 'Continue with related TMBC reading',
+      description:
+        'Use these links when you want either the wider guide view or a more concrete editorial example after the framework gets clearer.',
+    };
+  }
+
+  if (hasGuideLinks) {
+    return {
+      title: 'Keep building through the TMBC guides',
+      description:
+        'Use these guide links when you want the wider hub, the next category, or the higher-level planning view around this module.',
+    };
+  }
+
+  return {
+    title: 'Continue in the Journal',
+    description: 'Use these TMBC journal posts when you want the category shortlist after the framework gets clearer.',
+  };
+}
+
+function getEditorialLinkEyebrow(href: string) {
+  if (href.startsWith('/guides/')) {
+    return 'Guide';
+  }
+
+  if (href.startsWith('/blog/')) {
+    return 'Journal';
+  }
+
+  return 'Related';
+}
+
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
@@ -368,6 +406,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const typographyAccent = getModuleTypographyAccent(module);
   const moduleFocusLine = buildModuleFocusLine(module);
   const academyConnections = buildModuleAcademyConnectionCards(module, pathLabel);
+  const editorialSectionCopy = getEditorialLinkSectionCopy(module.editorialLinks);
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: module.href as `/${string}`,
     pathSlug: module.pathSlug,
@@ -622,8 +661,8 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             <section className="space-y-6">
               <SectionHeading
                 eyebrow="Keep Reading"
-                title="Continue in the Journal"
-                description="Use these TMBC journal posts when you want the category shortlist after the framework gets clearer."
+                title={editorialSectionCopy.title}
+                description={editorialSectionCopy.description}
               />
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -634,7 +673,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                     title={link.title}
                     description={link.description}
                     ctaLabel={link.ctaLabel}
-                    eyebrow="Journal"
+                    eyebrow={getEditorialLinkEyebrow(link.href)}
                   />
                 ))}
               </div>

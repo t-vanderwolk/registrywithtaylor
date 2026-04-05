@@ -1,9 +1,11 @@
 export type RegistryAcademyModuleSlug =
+  | 'what-to-register-first'
   | 'where-to-register'
   | 'shop-local-get-support'
   | 'welcome-boxes-perks'
   | 'rewards-completion-discounts'
   | 'smart-purchasing-timeline'
+  | 'mistakes-to-avoid'
   | 'baby-showers-gifting';
 
 type RegistryAcademyCoreSection = {
@@ -43,7 +45,7 @@ export type RegistryAcademyModuleRecord = {
 
 type RegistryAcademyModuleInput = Omit<RegistryAcademyModuleRecord, 'path' | 'totalModules' | 'markdownContent'>;
 
-const TOTAL_MODULES = 6;
+const TOTAL_MODULES = 8;
 export const REGISTRY_PATH_IMAGES = {
   whereToRegister: '/assets/registrypath/universalregistry.png',
   guestGifting: '/assets/registrypath/gifts.png',
@@ -84,9 +86,99 @@ function renderProductMarkdown(product: RegistryAcademyProductExample) {
 
 const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
   {
+    title: 'What to Register First',
+    slug: 'what-to-register-first',
+    moduleOrder: 1,
+    description:
+      'Build the first-pass registry around the jobs that need to work immediately, then let the maybes wait until real life gives you better information.',
+    subhead: 'Start with the jobs the house needs to do.',
+    imagePath: REGISTRY_PATH_IMAGES.registryPlanning,
+    imageAlt: 'Registry planning editorial image for the What to Register First module.',
+    intro: [
+      'This is the part most registries skip.',
+      'Before you worry about perks, discount windows, or whether a muslin item has excellent branding, you need a first-pass structure.',
+      'The smartest registries start with the first stretch of daily life: where baby sleeps, how feeding works, how diapering works, how you move through the day, and what keeps the house functional when everyone is tired.',
+      'That list is usually shorter than people expect and much more useful.',
+      'The goal is not to make the registry look full. It is to make it work.',
+    ],
+    coreSections: [
+      {
+        title: 'Start with the first stretch of life at home',
+        imageSrc: REGISTRY_PATH_IMAGES.firstBuys,
+        imageAlt: 'Early registry planning setup focused on true first-stage needs.',
+        paragraphs: [
+          'Register first for the categories that support sleep, feeding, diapering, clothing, and one practical movement plan.',
+          'If an item solves a day-one or week-one job, it usually belongs earlier than the products attached to later routines or stronger marketing budgets.',
+          'The first-pass registry should make the house more workable, not just more decorated.',
+        ],
+      },
+      {
+        title: 'Separate essentials from later decisions',
+        imageSrc: REGISTRY_PATH_IMAGES.registryPlanning,
+        imageAlt: 'Registry list split into essentials and later decisions.',
+        paragraphs: [
+          'Some categories can be chosen with confidence before birth. Others depend on baby preference, your home rhythm, or a routine you have not lived yet.',
+          'That does not mean the later categories are bad. It just means they do not all belong on the same first-pass public list.',
+          'A private maybe-later note is often a stronger planning tool than a public registry crowded with uncertain categories.',
+        ],
+      },
+      {
+        title: 'Register by function, not by aisle',
+        imageSrc: REGISTRY_PATH_IMAGES.planning,
+        imageAlt: 'Registry categories organized by daily job instead of product aisle.',
+        paragraphs: [
+          'It helps to ask what daily jobs your home needs covered instead of shopping one retail category at a time.',
+          'That lens makes duplicate jobs easier to spot and usually keeps the list from collecting five products that all promise to solve one fairly ordinary moment.',
+          'Function-first planning is not boring. It is how the list gets useful.',
+        ],
+      },
+      {
+        title: 'Leave room for gifts and revisions',
+        imageSrc: REGISTRY_PATH_IMAGES.guestGifting,
+        imageAlt: 'A clear, edited registry designed to stay easy for guests to use.',
+        paragraphs: [
+          'A strong first registry draft still leaves room to edit after support, gifting, and better information arrive.',
+          'That is why the opening pass should be clear enough to shop and flexible enough to revise.',
+          'You are not writing the final version of parenthood here. You are creating a clean starting map.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Start with sleep, feeding, diapering, clothing, and one movement plan.',
+      'Keep day-one jobs on the public list first.',
+      'Move maybe-later categories to a private note instead of forcing them into the opening draft.',
+      'Use function to spot duplicate jobs early.',
+      'A cleaner first pass is easier to edit, easier to gift from, and easier to live with.',
+    ],
+    products: [
+      {
+        name: 'Sleep Setup',
+        description: 'A first-pass category that supports where baby will actually sleep and how the household resets at night.',
+        pros: ['Directly supports the newborn stage', 'Useful before decorative add-ons'],
+      },
+      {
+        name: 'Feeding Basics',
+        description: 'A practical starter category built around your most likely routine without buying every possible backup path at once.',
+        pros: ['Supports daily use', 'Keeps the list grounded in real function'],
+      },
+      {
+        name: 'Diapering and Daily Care Setup',
+        description: 'A workhorse category that helps the house function immediately once baby is home.',
+        pros: ['High early use', 'Usually clearer to decide before birth'],
+      },
+    ],
+    softCtaLabel: 'A Note Before You Move Forward',
+    softCtaTitle: 'A first-pass registry should feel a little boring on purpose.',
+    softCtaBody: [
+      'Useful tends to look calmer than the internet promised. That is usually a good sign.',
+    ],
+    nextModuleSlug: 'where-to-register',
+    previousModuleSlug: null,
+  },
+  {
     title: 'Where to Register',
     slug: 'where-to-register',
-    moduleOrder: 1,
+    moduleOrder: 2,
     description: 'Choose the registry setup that fits your perks, your guests, and how much flexibility you actually want.',
     subhead: 'Choosing the right platform matters more than most people realize.',
     imagePath: REGISTRY_PATH_IMAGES.whereToRegister,
@@ -166,8 +258,8 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'Small decisions here affect everything that follows, from guest experience to returns to how easy it feels to finish the list later.',
       'If the setup feels cleaner now, the rest of the registry process usually gets quieter fast.',
     ],
-    nextModuleSlug: 'welcome-boxes-perks',
-    previousModuleSlug: null,
+    nextModuleSlug: 'shop-local-get-support',
+    previousModuleSlug: 'what-to-register-first',
   },
   {
     title: 'Shop Local & Get Support',
@@ -258,13 +350,13 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'Support does not make this process more complicated. It makes it easier.',
       'That is not outsourcing the decision. That is making the decision with a smarter set of inputs.',
     ],
-    nextModuleSlug: 'rewards-completion-discounts',
-    previousModuleSlug: 'welcome-boxes-perks',
+    nextModuleSlug: 'welcome-boxes-perks',
+    previousModuleSlug: 'where-to-register',
   },
   {
     title: 'Welcome Boxes & Registry Perks',
     slug: 'welcome-boxes-perks',
-    moduleOrder: 2,
+    moduleOrder: 4,
     description: 'Use welcome boxes on purpose so they become product testing and early value, not random freebies you forget about.',
     subhead: "The hidden benefits most parents don't fully use.",
     imagePath: REGISTRY_PATH_IMAGES.welcomeBox,
@@ -299,7 +391,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
         paragraphs: [
           'Each platform has its own requirements, and that is where families often miss the window.',
           'Usually you need to create the registry, add items, and complete a few minimum actions before the box unlocks.',
-          'Usually you need to create the registry, add items, and complete a few minimum actions before the box unlocks.',
+          'That usually sounds simple until you realize there was a deadline, checklist percentage, or purchase minimum hiding in the fine print.',
           'That sounds simple until you assume it will happen automatically and then realize a deadline, purchase minimum, or checklist percentage was involved.',
           'Sign up early enough that you can meet those steps without scrambling later.',
           'This is one of those annoyingly administrative details that is much easier when handled early.',
@@ -339,13 +431,13 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'But only if you approach it intentionally.',
       'The sample is useful. The discipline to not spiral into fifteen related purchases is even more useful.',
     ],
-    nextModuleSlug: 'shop-local-get-support',
-    previousModuleSlug: 'where-to-register',
+    nextModuleSlug: 'rewards-completion-discounts',
+    previousModuleSlug: 'shop-local-get-support',
   },
   {
     title: 'Loyalty, Rewards & Completion Discounts',
     slug: 'rewards-completion-discounts',
-    moduleOrder: 4,
+    moduleOrder: 5,
     description: 'Use discounts, rewards, and timing together so you can save well without filling the house too early.',
     subhead: 'How to save without overbuying.',
     imagePath: REGISTRY_PATH_IMAGES.rewards,
@@ -425,7 +517,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
   {
     title: 'Smart Purchasing Timeline',
     slug: 'smart-purchasing-timeline',
-    moduleOrder: 5,
+    moduleOrder: 6,
     description: 'Buy in phases so the essentials get covered, the maybes stay flexible, and the discount windows still do their job.',
     subhead: 'When to buy matters just as much as what you buy.',
     imagePath: REGISTRY_PATH_IMAGES.purchasingTimeline,
@@ -493,13 +585,86 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'Buy in phases, use the windows well, and let real need do the editing.',
       'A better timeline usually creates a better list because fewer decisions get made in a rush.',
     ],
-    nextModuleSlug: 'baby-showers-gifting',
+    nextModuleSlug: 'mistakes-to-avoid',
     previousModuleSlug: 'rewards-completion-discounts',
+  },
+  {
+    title: 'Registry Mistakes to Avoid',
+    slug: 'mistakes-to-avoid',
+    moduleOrder: 7,
+    description:
+      'Catch the common decisions that make a registry longer, noisier, and less useful before the list turns into a very polite clutter plan.',
+    subhead: 'This is the edit pass most registries need.',
+    imagePath: REGISTRY_PATH_IMAGES.overwhelm,
+    imageAlt: 'Registry overwhelm editorial image for the Registry Mistakes to Avoid module.',
+    intro: [
+      'Most registry advice focuses on what to add.',
+      'This module is about what to catch before the list gets louder than your real life.',
+      'Because the problems are usually predictable: duplicate jobs, premature categories, platform choices that create friction, and a public list trying to solve too many uncertain chapters at once.',
+      'A better registry is often less about discovering new items and more about noticing what does not belong yet.',
+    ],
+    coreSections: [
+      {
+        title: 'Duplicate jobs make the list look prepared and feel messy',
+        imageSrc: REGISTRY_PATH_IMAGES.overwhelm,
+        imageAlt: 'Overbuilt registry setup showing duplicate baby gear categories.',
+        paragraphs: [
+          'The easiest mistake is solving the same job three different ways before the baby arrives.',
+          'This usually happens in soothing, seating, diapering, feeding, and small accessory categories where the products all sound essential in slightly different fonts.',
+          'When two items are doing the same job, the better move is usually to keep the stronger first option and let the backup idea wait.',
+        ],
+      },
+      {
+        title: 'Fantasy planning creates expensive confidence',
+        imageSrc: REGISTRY_PATH_IMAGES.research,
+        imageAlt: 'Registry research spiral represented by notes, tabs, and too many options.',
+        paragraphs: [
+          'Registries drift when they start planning for every possible version of parenthood at once.',
+          'That is how a newborn list starts carrying a six-month feeding chapter, a travel chapter you have not lived yet, and a room full of maybe-useful accessories.',
+          'Real planning feels calmer because it respects what you can know now and what you cannot.',
+        ],
+      },
+      {
+        title: 'Platform perks should not drive the whole list',
+        imageSrc: REGISTRY_PATH_IMAGES.rewards,
+        imageAlt: 'Registry perks and savings styled as a secondary tool, not the main strategy.',
+        paragraphs: [
+          'Welcome boxes, rewards, and completion discounts are useful. They are still secondary to building the right list.',
+          'A platform perk can nudge where you register. It should not pressure you into keeping items that no longer fit just because they were easy to add there.',
+          'The list should lead. The perk should support it.',
+        ],
+      },
+      {
+        title: 'Private maybes and public essentials should not be the same list',
+        imageSrc: REGISTRY_PATH_IMAGES.planning,
+        imageAlt: 'Registry plan separating public essentials from private later-stage ideas.',
+        paragraphs: [
+          'One of the easiest cleanups is moving uncertain categories off the public registry and into a later note.',
+          'That keeps the guest-facing list clearer and gives you room to make smarter decisions once the baby and routine are real.',
+          'A private maybe list is not indecision. It is restraint with better timing.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Cut duplicate jobs before you add more categories.',
+      'Do not build for every future chapter in the opening draft.',
+      'Use perks to support the plan, not to distort it.',
+      'Keep public essentials separate from private maybes.',
+      'Most registry cleanup is subtraction plus better timing.',
+    ],
+    products: [],
+    softCtaLabel: 'A Note Before You Move Forward',
+    softCtaTitle: 'A strong registry usually looks more edited by the end, not more crowded.',
+    softCtaBody: [
+      'If the list feels calmer after the cleanup pass, it is probably getting better.',
+    ],
+    nextModuleSlug: 'baby-showers-gifting',
+    previousModuleSlug: 'smart-purchasing-timeline',
   },
   {
     title: 'Baby Showers & Gifting Strategy',
     slug: 'baby-showers-gifting',
-    moduleOrder: 6,
+    moduleOrder: 8,
     description: 'Guide gifting clearly so guests can shop confidently, duplicates stay down, and the registry still feels easy to use.',
     subhead: 'How to guide what you receive without overcomplicating it.',
     imagePath: REGISTRY_PATH_IMAGES.babyShower,
@@ -568,7 +733,7 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
       'The easier the list is to understand, the more likely it is to bring in things you actually need.',
     ],
     nextModuleSlug: null,
-    previousModuleSlug: 'smart-purchasing-timeline',
+    previousModuleSlug: 'mistakes-to-avoid',
   },
 ];
 
@@ -617,12 +782,12 @@ function renderMarkdownContent(module: Omit<RegistryAcademyModuleRecord, 'markdo
     });
   }
 
-  lines.push('---', '', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
+  lines.push('', '---', '', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
   module.softCtaBody.forEach((paragraph) => {
     lines.push(paragraph, '');
   });
 
-  lines.push('---', '', '## Next Steps', '');
+  lines.push('', '---', '', '## Next Steps', '');
   if (module.nextModuleSlug) {
     lines.push(`- Continue to ${getModuleTitle(module.nextModuleSlug)}`);
   } else {

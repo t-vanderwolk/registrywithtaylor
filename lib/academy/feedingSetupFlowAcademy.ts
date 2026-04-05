@@ -237,16 +237,20 @@ export const FEEDING_SETUP_FLOW_TAKEAWAYS = [
 
 export const FEEDING_SETUP_FLOW_CLOSE = 'Start there.';
 
-export const FEEDING_SETUP_FLOW_FUTURE_MODULES = [
+export const FEEDING_SETUP_FLOW_NEXT_MODULES = [
   {
-    title: 'Breast Pump Module',
+    title: 'Breast Pump',
     description:
-      'This bridge module is designed to hand off into a deeper pump-specific Academy module when that layer is added to the Gear Journey.',
+      'Continue here for the pump-specific decision layer: when a pump makes sense, which type fits your routine, and what accessories can wait.',
+    href: '/academy/gear/breast-pump',
+    ctaLabel: 'Open breast pump module ->',
   },
   {
-    title: 'Bottles & Baby Utensils Module',
+    title: 'Bottles & Baby Utensils',
     description:
-      'This page is also built to sit just before a deeper bottle-and-feeding-tools module once that product layer is live in the Academy.',
+      'Use this next for the bottle-system layer: starter counts, nipple flow, cleanup, and what baby utensils usually belong in a later chapter.',
+    href: '/academy/gear/bottles-and-baby-utensils',
+    ctaLabel: 'Open bottle module ->',
   },
 ] as const;
 
@@ -333,7 +337,7 @@ export function buildFeedingSetupFlowMarkdownContent() {
     '',
     '---',
     '',
-    '## Module 6 of 6 · Gear',
+    '## Module 7 of 9 · Gear',
     '',
     ...FEEDING_SETUP_FLOW_HERO_INTRO.flatMap((paragraph) => [paragraph, '']),
     `> ${FEEDING_SETUP_FLOW_PULL_QUOTE}`,
@@ -437,6 +441,14 @@ export function buildFeedingSetupFlowMarkdownContent() {
     ...FEEDING_SETUP_FLOW_TAKEAWAYS.map((item) => `- ${item}`),
     '',
     FEEDING_SETUP_FLOW_CLOSE,
+    '',
+    '---',
+    '',
+    '## Next Steps',
+    '',
+    '- Continue to Breast Pump',
+    '- Continue to Bottles & Baby Utensils',
+    '- Back to Daily Use Gear',
   ];
 
   return lines.join('\n').trim();

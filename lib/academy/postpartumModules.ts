@@ -1,5 +1,6 @@
 export type PostpartumAcademyModuleSlug =
   | 'healing-and-recovery'
+  | 'first-weeks-home-rhythm'
   | 'feeding-and-lactation'
   | 'rest-and-sleep'
   | 'emotional-wellness-and-identity'
@@ -42,7 +43,7 @@ export type PostpartumAcademyModuleRecord = {
 
 type PostpartumAcademyModuleInput = Omit<PostpartumAcademyModuleRecord, 'path' | 'totalModules'>;
 
-const TOTAL_MODULES = 5;
+const TOTAL_MODULES = 6;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
 function createPostpartumModule(module: PostpartumAcademyModuleInput): PostpartumAcademyModuleRecord {
@@ -106,7 +107,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
     softCtaLabel: 'Before You Move Forward',
     softCtaTitle: 'You do not need a perfect plan.',
     softCtaBody: ['You need permission to recover.'],
-    nextModuleSlug: 'feeding-and-lactation',
+    nextModuleSlug: 'first-weeks-home-rhythm',
     previousModuleSlug: null,
     markdownContent: `# Healing & Recovery
 
@@ -114,7 +115,7 @@ What no one fully prepares you for.
 
 ---
 
-## Module 1 of 5 · Postpartum
+## Module 1 of 6 · Postpartum
 
 There's a moment after birth when everything slows down.
 
@@ -208,13 +209,158 @@ You need permission to recover.
 
 ## Next Steps
 
-- Continue to Feeding & Lactation
+- Continue to First-Weeks Home Rhythm
 - Back to Postpartum Path`,
+  }),
+  createPostpartumModule({
+    title: 'First-Weeks Home Rhythm',
+    slug: 'first-weeks-home-rhythm',
+    moduleOrder: 2,
+    description:
+      'Plan how recovery, feeding, rest, visitors, meals, and household logistics actually move through the house so the first stretch feels more workable and less improvised.',
+    subhead: 'The house needs a rhythm before it needs perfection.',
+    imagePath: '/assets/editorial/babyroom.png',
+    imageAlt: 'First-weeks home rhythm editorial image for the First-Weeks Home Rhythm module.',
+    intro: [
+      'The first weeks at home are rarely hard because you forgot one magical product.',
+      'They are hard because recovery, feeding, dishes, sleep, visitors, and basic household decisions all start colliding in the same rooms at the same time.',
+      'This module is about building a home rhythm that supports the adults as much as the baby.',
+    ],
+    coreSections: [
+      {
+        title: "What You're Actually Learning",
+        imageSrc: '/assets/editorial/babyroom.png',
+        imageAlt: 'Calm postpartum home setup with recovery, feeding, and household stations.',
+        paragraphs: [
+          'The goal is to think through how the first weeks will move through your home before you are too tired to redesign it politely.',
+          'You are learning where the repeated jobs happen, what needs to stay within reach, and which support systems matter more than one more basket ever will.',
+        ],
+      },
+      {
+        title: 'The Reality of the First Stretch',
+        imageSrc: '/assets/editorial/feeding.png',
+        imageAlt: 'Editorial scene showing the repeated rhythm of feeding, resting, and resetting at home.',
+        paragraphs: [
+          'The first weeks are usually a loop of feeding, recovery, rest, cleanup, and trying to remember whether anyone has eaten recently.',
+          'When the household expects perfect flow immediately, everything feels more chaotic. When the house is set up for repetition, the same days usually feel more survivable.',
+        ],
+      },
+      {
+        title: 'What Actually Helps',
+        imageSrc: '/assets/editorial/organize.png',
+        imageAlt: 'Simple home rhythm setup with hydration, snacks, laundry flow, and support notes.',
+        paragraphs: [
+          'Anchor stations, meal support, visible essentials, lower expectations, and clear help from other adults usually matter more than trying to keep the whole house functioning at pre-baby standards.',
+          'A human note belongs here too: if the feeding or recovery part feels physically or emotionally harder than expected, that is a good time to bring in your pediatrician, IBCLC, or another trusted provider.',
+        ],
+      },
+    ],
+    decisionBullets: [
+      'Build the house around repeated jobs, not ideal routines.',
+      'Keep recovery, feeding, and hydration support within easy reach.',
+      'Let meal help, laundry help, and visitor boundaries count as real support.',
+      'Lower the bar for household performance while the new rhythm is being built.',
+      'Ask for clinical or emotional support early when the stretch feels heavier than expected.',
+    ],
+    products: [],
+    softCtaLabel: 'Before You Move Forward',
+    softCtaTitle: 'The first weeks do not need to look polished.',
+    softCtaBody: ['They need to feel supported enough to repeat.'],
+    nextModuleSlug: 'feeding-and-lactation',
+    previousModuleSlug: 'healing-and-recovery',
+    markdownContent: `# First-Weeks Home Rhythm
+
+The house needs a rhythm before it needs perfection.
+
+---
+
+## Module 2 of 6 · Postpartum
+
+The first weeks at home are rarely hard because one tiny product was missing.
+
+They are hard because recovery, feeding, dishes, sleep, visitors, and basic household logistics all start happening at once.
+
+This module is about making the house easier to live in while that new rhythm is still taking shape.
+
+:::pullquote
+You do not need the house to run beautifully.
+
+You need it to support the adults holding the whole thing together.
+:::
+
+---
+
+## Core Considerations
+
+### What You're Actually Learning
+
+You are learning how the first weeks move through the home in real life:
+
+- where recovery happens
+- where feeding happens
+- what needs to stay within reach
+- what support should be arranged before everyone is tired
+
+![Calm postpartum home setup with recovery, feeding, and household stations.](/assets/editorial/babyroom.png)
+
+### The Reality of the First Stretch
+
+The early weeks are usually a loop:
+
+- feeding
+- recovering
+- resetting the space
+- finding small pockets of rest
+
+That rhythm is repetitive, not elegant.
+
+When the house is set up for repetition, the days usually feel more manageable.
+
+![Editorial scene showing the repeated rhythm of feeding, resting, and resetting at home.](/assets/editorial/feeding.png)
+
+### What Actually Helps
+
+What usually helps most:
+
+- anchor stations with visible essentials
+- meal support
+- lower housekeeping expectations
+- clear visitor boundaries
+- asking for support before things feel unmanageable
+
+If the feeding or recovery part feels physically or emotionally harder than expected, this is also a good time to bring in your pediatrician, IBCLC, or another trusted provider.
+
+![Simple home rhythm setup with hydration, snacks, laundry flow, and support notes.](/assets/editorial/organize.png)
+
+---
+
+## What This Means For You
+
+- Build the house around repeated jobs, not ideal routines.
+- Keep recovery, feeding, and hydration support close by.
+- Let practical household help count as real support.
+- Lower the bar for what the house needs to look like while the rhythm is forming.
+- Bring in trusted support early when the first stretch feels heavier than expected.
+
+---
+
+## Before You Move Forward
+
+The first weeks do not need to look polished.
+
+They need to feel supported enough to repeat.
+
+---
+
+## Next Steps
+
+- Continue to Feeding & Lactation
+- Back to Healing & Recovery`,
   }),
   createPostpartumModule({
     title: 'Feeding & Lactation',
     slug: 'feeding-and-lactation',
-    moduleOrder: 2,
+    moduleOrder: 3,
     description:
       'Understand breastfeeding, bottle feeding, and combination feeding with more flexibility, less guilt, and a calmer view of what support actually helps.',
     subhead: 'Without pressure or perfection.',
@@ -264,14 +410,14 @@ You need permission to recover.
     softCtaTitle: 'Feeding is not a test.',
     softCtaBody: ['It is a relationship.'],
     nextModuleSlug: 'rest-and-sleep',
-    previousModuleSlug: 'healing-and-recovery',
+    previousModuleSlug: 'first-weeks-home-rhythm',
     markdownContent: `# Feeding & Lactation
 
 Without pressure or perfection.
 
 ---
 
-## Module 2 of 5 · Postpartum
+## Module 3 of 6 · Postpartum
 
 Feeding your baby is one of the most emotional parts of postpartum.
 
@@ -352,12 +498,12 @@ It is a relationship.
 ## Next Steps
 
 - Continue to Rest & Sleep
-- Back to Healing & Recovery`,
+- Back to First-Weeks Home Rhythm`,
   }),
   createPostpartumModule({
     title: 'Rest & Sleep',
     slug: 'rest-and-sleep',
-    moduleOrder: 3,
+    moduleOrder: 4,
     description:
       'Build more realistic expectations, shared responsibility, and a steadier rest rhythm so sleep deprivation feels less personal and more manageable.',
     subhead: 'How to survive it without losing yourself.',
@@ -414,7 +560,7 @@ How to survive it without losing yourself.
 
 ---
 
-## Module 3 of 5 · Postpartum
+## Module 4 of 6 · Postpartum
 
 Sleep gets talked about a lot.
 
@@ -502,7 +648,7 @@ It is something you need.
   createPostpartumModule({
     title: 'Emotional Wellness & Identity',
     slug: 'emotional-wellness-and-identity',
-    moduleOrder: 4,
+    moduleOrder: 5,
     description:
       'Understand emotional shifts, identity changes, and the support conversations that make postpartum feel more human and less isolating.',
     subhead: 'The part no one talks about enough.',
@@ -559,7 +705,7 @@ The part no one talks about enough.
 
 ---
 
-## Module 4 of 5 · Postpartum
+## Module 5 of 6 · Postpartum
 
 This phase is not just physical.
 
@@ -643,7 +789,7 @@ You need to be supported.
   createPostpartumModule({
     title: 'Support Systems',
     slug: 'support-systems',
-    moduleOrder: 5,
+    moduleOrder: 6,
     description:
       'Build the support system around you with more intention, clearer asks, and less guilt so the first stretch does not depend on you carrying everything alone.',
     subhead: 'You were never meant to do this alone.',
@@ -700,7 +846,7 @@ You were never meant to do this alone.
 
 ---
 
-## Module 5 of 5 · Postpartum
+## Module 6 of 6 · Postpartum
 
 This is the module that changes everything.
 
