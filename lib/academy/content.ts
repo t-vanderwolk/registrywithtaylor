@@ -130,6 +130,8 @@ export type AcademyPathData = {
 export type AcademyModuleData = {
   slug: AcademyModuleSlug;
   pathSlug: AcademyPathSlug;
+  moduleType?: 'bridge' | 'standard';
+  enableDecisionRouting?: boolean;
   href: string;
   title: string;
   description: string;
@@ -190,6 +192,8 @@ type AcademyPathDefinition = {
 
 type AcademyModuleDefinition = {
   pathSlug: AcademyPathSlug;
+  moduleType?: 'bridge' | 'standard';
+  enableDecisionRouting?: boolean;
   title: string;
   description: string;
   subhead: string;
@@ -531,6 +535,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
   },
   'feeding-setup-flow': {
     pathSlug: 'gear',
+    moduleType: 'bridge',
+    enableDecisionRouting: true,
     title: 'Feeding Setup & Flow',
     description:
       'Understand the main feeding pathways, what tools each one may require, what to buy now versus later, and how to build a feeding setup that supports real life without overbuying.',
@@ -1553,6 +1559,8 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
   return {
     slug,
     pathSlug: definition.pathSlug,
+    moduleType: definition.moduleType,
+    enableDecisionRouting: definition.enableDecisionRouting ?? false,
     href: getAcademyModuleHref(definition.pathSlug, slug),
     title: definition.title,
     description: definition.description,

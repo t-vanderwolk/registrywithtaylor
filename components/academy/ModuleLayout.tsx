@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import FeedingDecisionRouter from '@/components/academy/FeedingDecisionRouter';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
@@ -39,6 +40,8 @@ import {
 export type ModuleLayoutData = {
   slug: string;
   pathSlug: AcademyModuleData['pathSlug'];
+  moduleType?: AcademyModuleData['moduleType'];
+  enableDecisionRouting?: AcademyModuleData['enableDecisionRouting'];
   href: string;
   title: string;
   description: string;
@@ -391,6 +394,7 @@ function getEditorialLinkEyebrow(href: string) {
 
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
+  const shouldRenderDecisionRouter = module.enableDecisionRouting === true;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
@@ -777,6 +781,8 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             description={buildDecisionBarDescription(module)}
             actions={decisionBarActions}
           />
+
+          {shouldRenderDecisionRouter ? <FeedingDecisionRouter /> : null}
 
           <section className="space-y-6">
             <SectionHeading eyebrow="Next Steps" title="Keep the path moving" note={typographyAccent.next} />

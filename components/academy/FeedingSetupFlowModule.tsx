@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
+import FeedingDecisionRouter from '@/components/academy/FeedingDecisionRouter';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
@@ -122,6 +123,7 @@ function ConnectionCard({ eyebrow, title, description, ctaLabel, href }: Connect
 
 export default async function FeedingSetupFlowModule() {
   const module = await getAcademyModuleData('feeding-setup-flow');
+  const shouldRenderDecisionRouter = module.enableDecisionRouting === true;
 
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
@@ -182,23 +184,14 @@ export default async function FeedingSetupFlowModule() {
           },
         ]
       : []),
-    ...FEEDING_SETUP_FLOW_NEXT_MODULES.map((item, index) => ({
-      eyebrow: index === 0 ? 'Next Gear Layer' : 'Keep Building',
-      title: item.title,
-      description: item.description,
-      ctaLabel: item.ctaLabel,
-      href: item.href,
-    })),
-    ...(module.related
-      ? [
-          {
-            eyebrow: 'Postpartum Support',
-            title: module.related.title,
-            description: module.related.description,
-            ctaLabel: 'Continue into postpartum ->',
-            href: module.related.href,
-          },
-        ]
+    ...(!shouldRenderDecisionRouter
+      ? FEEDING_SETUP_FLOW_NEXT_MODULES.map((item, index) => ({
+          eyebrow: index === 0 ? 'Next Gear Layer' : 'Keep Building',
+          title: item.title,
+          description: item.description,
+          ctaLabel: item.ctaLabel,
+          href: item.href,
+        }))
       : []),
     ...module.editorialLinks.map((link, index) => ({
       eyebrow: index === 0 ? 'Feeding Guide' : 'Registry Guide',
@@ -560,6 +553,8 @@ export default async function FeedingSetupFlowModule() {
           </div>
         </section>
 
+        {shouldRenderDecisionRouter ? <FeedingDecisionRouter /> : null}
+
         <section className="space-y-6">
           <SectionHeader
             eyebrow="Next Steps"
@@ -572,6 +567,18 @@ export default async function FeedingSetupFlowModule() {
             ))}
           </div>
         </section>
+
+        {module.related ? (
+          <section className="rounded-[1.75rem] border border-[rgba(215,161,175,0.18)] bg-white/90 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
+            <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Cross-path support</p>
+            <Link
+              href={module.related.href}
+              className="mt-4 inline-flex text-sm uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 hover:translate-x-1"
+            >
+              {`Continue to ${module.related.title} ->`}
+            </Link>
+          </section>
+        ) : null}
 
         <AcademyJourneyNavigator currentPathSlug="gear" currentModuleSlug={module.slug} />
       </div>
