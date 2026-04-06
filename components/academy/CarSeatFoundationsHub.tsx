@@ -29,7 +29,7 @@ export default function CarSeatFoundationsHub() {
       heroImageSrc="/assets/editorial/gear.jpg"
       heroImageAlt="Editorial car seat planning image for Taylor-Made Baby Co."
       pullQuote={CAR_SEAT_FOUNDATIONS_ACADEMY_PULL_QUOTE}
-      progress={{ current: 3, total: 5, label: 'Gear path progress' }}
+      progress={{ current: 3, total: 9, label: 'Gear path progress' }}
       learningTitle="How to choose the right category before the features get loud"
       learningDescription="This module is built around stage, fit, and real-life use so the car seat decision can get safer and simpler at the same time."
       learningHighlights={[...CAR_SEAT_FOUNDATIONS_ACADEMY_LEARNING_HIGHLIGHTS]}

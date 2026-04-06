@@ -2,7 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import FeedingDecisionRouter from '@/components/academy/FeedingDecisionRouter';
+import DecisionRouter from '@/components/academy/DecisionRouter';
+import DecisionTag from '@/components/academy/DecisionTag';
+import ProductInsightCard from '@/components/academy/ProductInsightCard';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
@@ -13,11 +15,19 @@ import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
-import ProductCard from '@/components/ui/ProductCard';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import { slugify } from '@/lib/slugify';
+import {
+  getAcademyPhaseLabel,
+  getConnectedAcademyPaths,
+  getModuleDecisionStatement,
+  getModuleWhyThisExists,
+  getProductInsights,
+  getQuickCheckLines,
+  getQuickCheckTags,
+} from '@/lib/academy/decisionSupport';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
@@ -394,7 +404,6 @@ function getEditorialLinkEyebrow(href: string) {
 
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
-  const shouldRenderDecisionRouter = module.enableDecisionRouting === true;
   const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
@@ -411,6 +420,16 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const moduleFocusLine = buildModuleFocusLine(module);
   const academyConnections = buildModuleAcademyConnectionCards(module, pathLabel);
   const editorialSectionCopy = getEditorialLinkSectionCopy(module.editorialLinks);
+  const phaseLabel = getAcademyPhaseLabel(module);
+  const decisionStatement = getModuleDecisionStatement(module);
+  const whyThisExists = getModuleWhyThisExists(module);
+  const quickCheckLines = getQuickCheckLines(module);
+  const quickCheckTags = getQuickCheckTags(module);
+  const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
+  const productInsights = getProductInsights({
+    ...module,
+    products: renderableProducts,
+  });
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: module.href as `/${string}`,
     pathSlug: module.pathSlug,
@@ -427,7 +446,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
       : null;
   const decisionBarActions = [
     module.next ? { label: `Next: ${module.next.title}`, href: module.next.href } : null,
-    module.related ? { label: `Related: ${module.related.title}`, href: module.related.href } : null,
     { label: 'Work with me', href: '/consultation' },
   ].filter((action): action is { label: string; href: string } => Boolean(action));
   const structuredData = [
@@ -477,7 +495,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
               <div className="tmbc-blog-hero__copy">
                 <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">
-                  Module {module.progress.current} of {module.progress.total}
+                  {phaseLabel}
                 </p>
                 <h1 className="text-[var(--tmbc-blog-charcoal)]">{module.title}</h1>
                 <p className="excerpt">{module.subhead}</p>
@@ -522,11 +540,26 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             <AcademyProgressBar
               current={module.progress.current}
               total={module.progress.total}
-              label={pathLabel ? `${pathLabel} path progress` : 'Academy module progress'}
+              label={phaseLabel}
+              stepLabel={`Module ${module.progress.current} of ${module.progress.total}`}
             />
           </section>
 
-          <section className="academy-load-in academy-load-in--4 tmbc-editorial-article-shell">
+          <section className="academy-load-in academy-load-in--4 tmbc-blog-soft-card px-6 py-6 sm:px-7">
+            <p className="text-sm text-[var(--tmbc-blog-soft-text)]">This module helps you decide:</p>
+            <h2 className="mt-3 max-w-3xl break-words font-serif text-[clamp(1.7rem,3vw,2.2rem)] leading-[1.08] tracking-[-0.04em] text-[var(--tmbc-blog-charcoal)]">
+              {decisionStatement}
+            </h2>
+            {quickCheckTags.length > 0 ? (
+              <div className="mt-5 flex flex-wrap gap-2">
+                {quickCheckTags.map((tag) => (
+                  <DecisionTag key={`${module.slug}-${tag}`} label={tag} />
+                ))}
+              </div>
+            ) : null}
+          </section>
+
+          <section className="academy-load-in academy-load-in--5 tmbc-editorial-article-shell">
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>
             <article className="tmbc-blog tmbc-blog-post-content mt-6 max-w-none">
               {renderLinkedParagraphs(
@@ -537,8 +570,16 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </article>
           </section>
 
+          <section className="academy-load-in academy-load-in--5 tmbc-blog-soft-card px-6 py-6 sm:px-7">
+            <SectionHeading
+              eyebrow="Why This Exists"
+              title="This category is here to make the decision smaller"
+              description={whyThisExists}
+            />
+          </section>
+
           <GuideHandwrittenNote
-            className="academy-load-in academy-load-in--5"
+            className="academy-load-in academy-load-in--6"
             eyebrow="Taylor's note"
             title={handwrittenNote.title}
             description={handwrittenNote.description}
@@ -630,6 +671,30 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </section>
 
+          <section className="mt-12 rounded-[1.9rem] border border-[rgba(215,161,175,0.16)] bg-[var(--tmbc-blog-ivory)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-7">
+            <h3 className="font-semibold text-[1.08rem] text-[var(--tmbc-blog-charcoal)]">Quick check</h3>
+            <p className="mt-2 text-sm leading-7 text-[var(--tmbc-blog-soft-text)]">
+              If this sounds like you, you&apos;re in the right place.
+            </p>
+            {quickCheckTags.length > 0 ? (
+              <div className="mt-5 flex flex-wrap gap-2">
+                {quickCheckTags.map((tag) => (
+                  <DecisionTag key={`${module.slug}-checkpoint-${tag}`} label={tag} />
+                ))}
+              </div>
+            ) : null}
+            {quickCheckLines.length > 0 ? (
+              <ul className="mt-5 space-y-3 text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
+                {quickCheckLines.map((line) => (
+                  <li key={`${module.slug}-checkpoint-${line}`} className="flex items-start gap-3">
+                    <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--tmbc-blog-rose)]" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </section>
+
           {travelSystemWidget ? (
             <section className="space-y-6">
               <SectionHeading
@@ -707,26 +772,29 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          {renderableProducts.length > 0 ? (
+          {productInsights.length > 0 ? (
             <section className="space-y-6">
               <SectionHeading
-                eyebrow="Product Examples"
-                title="Guided examples, not a ranking"
-                description="These are here to make the decision more concrete in real life. They are not meant to turn the module into a product list."
+                eyebrow="Grounding Examples"
+                title="Useful examples, not a shopping spiral"
+                description="These are here to keep the decision connected to real life. In some modules they are product examples. In others they are the starter categories worth pressure-testing before the list grows."
               />
 
               <div className="grid gap-6 lg:grid-cols-3">
-                {renderableProducts.slice(0, 3).map((product, index) => (
+                {productInsights.slice(0, 3).map((product, index) => (
                   <div key={`${module.slug}-${product.brand}-${product.name}-${index}`} className="academy-load-in" style={{ animationDelay: `${140 + index * 80}ms` }}>
-                    <ProductCard
+                    <ProductInsightCard
                       name={product.name}
                       brand={product.brand}
                       description={product.description}
-                      pros={product.pros}
+                      problemItSolves={product.problemItSolves}
+                      whenItFits={product.whenItFits}
+                      whenItDoesNotFit={product.whenItDoesNotFit}
                       affiliateUrl={product.affiliateUrl}
                       imageSrc={product.imageSrc}
                       imageAlt={product.imageAlt}
                       category={product.category}
+                      tag={product.tag}
                       guide={`${module.pathSlug}/${module.slug}`}
                       position={index + 1}
                     />
@@ -782,15 +850,36 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             actions={decisionBarActions}
           />
 
-          {shouldRenderDecisionRouter ? <FeedingDecisionRouter /> : null}
-
           <section className="space-y-6">
-            <SectionHeading eyebrow="Next Steps" title="Keep the path moving" note={typographyAccent.next} />
+            <SectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
+            <DecisionRouter module={module} />
+          </section>
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {module.previous ? <NextStepCard {...module.previous} /> : null}
-              {module.next ? <NextStepCard {...module.next} /> : null}
-              {module.related ? <NextStepCard {...module.related} /> : null}
+          <section className="space-y-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
+            <div>
+              <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Connected To</p>
+              <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
+                The Academy paths this decision touches next
+              </h3>
+              <p className="mt-3 max-w-3xl text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
+                You do not need to jump all three right now. This is just the cleaner map of where this decision tends to connect once real life starts narrowing the answer.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {connectedPaths.map((path) => (
+                <Link
+                  key={`${module.slug}-connected-${path.href}`}
+                  href={path.href}
+                  className={`inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 ${
+                    path.current
+                      ? 'border-[rgba(161,91,114,0.22)] bg-[rgba(252,241,245,0.96)] text-[#8F4C62]'
+                      : 'border-[rgba(215,161,175,0.18)] bg-white text-[var(--tmbc-blog-charcoal)] hover:border-[rgba(161,91,114,0.24)]'
+                  }`}
+                >
+                  {path.label}
+                </Link>
+              ))}
             </div>
           </section>
         </div>

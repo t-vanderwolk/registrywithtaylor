@@ -28,7 +28,7 @@ export default function DailyUseGearHub() {
       heroImageSrc="/assets/editorial/babystuff.png"
       heroImageAlt="Editorial baby gear image for Daily Use Gear."
       pullQuote={DAILY_USE_GEAR_ACADEMY_PULL_QUOTE}
-      progress={{ current: 5, total: 5, label: 'Gear path progress' }}
+      progress={{ current: 6, total: 9, label: 'Gear path progress' }}
       learningTitle="How to judge the products that touch the day most"
       learningDescription="This module is built around the categories that get used constantly, cleaned constantly, and felt immediately if the fit is wrong."
       learningHighlights={[...DAILY_USE_GEAR_ACADEMY_LEARNING_HIGHLIGHTS]}

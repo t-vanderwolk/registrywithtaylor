@@ -2,11 +2,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import DecisionRouter from '@/components/academy/DecisionRouter';
+import DecisionTag from '@/components/academy/DecisionTag';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import type { AcademyBreadcrumbItem, AcademyModuleSlug, AcademyPathSlug } from '@/lib/academy/content';
+import {
+  getAcademyPhaseLabel,
+  getConnectedAcademyPaths,
+  getModuleDecisionStatement,
+  getModuleWhyThisExists,
+  getQuickCheckLines,
+  getQuickCheckTags,
+} from '@/lib/academy/decisionSupport';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
@@ -184,10 +194,57 @@ export default function AcademyModuleHub({
   primaryCta,
   secondaryCta,
 }: AcademyModuleHubProps) {
+  const hubModule = {
+    slug: moduleSlug,
+    title,
+    description: deck,
+    subhead: deck,
+    pathSlug,
+    progress: {
+      current: progress.current,
+      total: progress.total,
+    },
+    decisionBullets: learningHighlights.slice(0, 3),
+    coreSections: [
+      {
+        title: learningTitle,
+        paragraphs: [learningDescription],
+      },
+      {
+        title: guidanceTitle,
+        paragraphs: guidanceLines.slice(0, 2),
+      },
+    ],
+    next: nextLinks[0]
+      ? {
+          href: nextLinks[0].href,
+          title: nextLinks[0].title,
+          description: nextLinks[0].description,
+          ctaLabel: nextLinks[0].ctaLabel,
+        }
+      : null,
+    related: nextLinks[1]
+      ? {
+          href: nextLinks[1].href,
+          title: nextLinks[1].title,
+          description: nextLinks[1].description,
+          ctaLabel: nextLinks[1].ctaLabel,
+        }
+      : null,
+    previous: null,
+    editorialLinks: [],
+    submoduleSection: null,
+  };
   const modulePath = `/academy/${pathSlug}/${moduleSlug}`;
   const moduleOverviewLine = `Inside this module: ${formatInlineList(
     submoduleCards.map((card) => card.title).slice(0, 4),
   )}.`;
+  const phaseLabel = getAcademyPhaseLabel(hubModule);
+  const decisionStatement = getModuleDecisionStatement(hubModule);
+  const whyThisExists = getModuleWhyThisExists(hubModule);
+  const quickCheckLines = getQuickCheckLines(hubModule);
+  const quickCheckTags = getQuickCheckTags(hubModule);
+  const connectedPaths = getConnectedAcademyPaths(pathSlug);
   const pathLink =
     breadcrumbs.find((item) => item.href === `/academy/${pathSlug}`) ??
     breadcrumbs.find((item) => item.href?.startsWith('/academy/') && item.href !== '/academy' && item.href !== modulePath) ??
@@ -254,6 +311,7 @@ export default function AcademyModuleHub({
           <div className="grid gap-0 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.92fr)]">
             <div className="min-w-0 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
               <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">{heroEyebrow}</p>
+              <p className="mt-3 text-[0.68rem] uppercase tracking-[0.24em] text-[#8F4C62]">{phaseLabel}</p>
               <h1 className="mt-4 max-w-[10ch] break-words font-serif text-[2.2rem] leading-[0.92] tracking-[-0.06em] text-[#2F2430] sm:text-[4rem]">
                 {title}
               </h1>
@@ -266,6 +324,20 @@ export default function AcademyModuleHub({
 
               <div className="mt-6 max-w-[44rem] space-y-4 text-[1rem] leading-8 text-[#5B4B55] sm:text-[1.04rem]">
                 {renderLinkedParagraphs(intro, internalLinkPlan.contextualLinks, `${moduleSlug}-hub-intro`)}
+              </div>
+
+              <div className="mt-6 rounded-[1.55rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.9)] px-5 py-5">
+                <p className="text-sm text-[#5B4B55]">This module helps you decide:</p>
+                <h2 className="mt-3 max-w-3xl break-words font-serif text-[1.55rem] leading-[1.1] tracking-[-0.04em] text-[#2F2430] sm:text-[1.8rem]">
+                  {decisionStatement}
+                </h2>
+                {quickCheckTags.length > 0 ? (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {quickCheckTags.map((tag) => (
+                      <DecisionTag key={`${moduleSlug}-hero-${tag}`} label={tag} />
+                    ))}
+                  </div>
+                ) : null}
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -304,9 +376,9 @@ export default function AcademyModuleHub({
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="rounded-[1.3rem] border border-[rgba(215,161,175,0.16)] bg-white/88 px-4 py-4">
-                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Academy progress</p>
+                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Academy phase</p>
                     <p className="mt-2 text-base font-medium leading-7 text-[#2F2430]">
-                      Module {progress.current} of {progress.total}
+                      {phaseLabel}
                     </p>
                   </div>
                   <div className="rounded-[1.3rem] border border-[rgba(215,161,175,0.16)] bg-white/88 px-4 py-4">
@@ -318,11 +390,26 @@ export default function AcademyModuleHub({
                 </div>
 
                 <div className="rounded-[1.55rem] border border-[rgba(215,161,175,0.16)] bg-white/84 px-5 py-5">
-                  <AcademyProgressBar current={progress.current} total={progress.total} label={progress.label} />
+                  <AcademyProgressBar
+                    current={progress.current}
+                    total={progress.total}
+                    label={phaseLabel}
+                    stepLabel={`Module ${progress.current} of ${progress.total}`}
+                  />
                 </div>
               </div>
             </div>
           </div>
+        </section>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
+          <SectionHeading
+            eyebrow="Why This Exists"
+            title="This module is here to make the bigger decision quieter"
+            description={whyThisExists}
+          />
         </section>
       </div>
 
@@ -357,6 +444,30 @@ export default function AcademyModuleHub({
             title={philosophyNoteTitle}
             description={<p>{philosophyNoteBody}</p>}
           />
+        </section>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(255,253,248,0.94)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-8 sm:py-8">
+          <h3 className="font-semibold text-[1.08rem] text-[#2F2430]">Quick check</h3>
+          <p className="mt-2 text-sm leading-7 text-[#5B4B55]">
+            If this sounds like you, you&apos;re in the right place.
+          </p>
+          {quickCheckTags.length > 0 ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {quickCheckTags.map((tag) => (
+                <DecisionTag key={`${moduleSlug}-quick-${tag}`} label={tag} />
+              ))}
+            </div>
+          ) : null}
+          <ul className="mt-5 space-y-3 text-[1rem] leading-8 text-[#4B3641]">
+            {quickCheckLines.map((line) => (
+              <li key={`${moduleSlug}-quick-${line}`} className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
 
@@ -427,12 +538,40 @@ export default function AcademyModuleHub({
       </div>
 
       <div className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
-        <SectionHeading eyebrow="Next Step" title={nextTitle} description={nextDescription} />
+        <SectionHeading eyebrow="Where To Go Next" title={nextTitle} description={nextDescription} />
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {nextLinks.map((card) => (
-            <LinkCard key={card.href} {...card} />
-          ))}
+        <div className="mt-8">
+          <DecisionRouter
+            module={hubModule}
+            options={nextLinks.slice(0, 2).map((card, index) => ({
+              title: card.title,
+              description: card.description,
+              href: card.href,
+              tag: index === 0 ? 'Most common path' : 'Skip this for now',
+            }))}
+          />
+        </div>
+
+        <div className="mt-8 rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
+          <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">Connected To</p>
+          <p className="mt-3 max-w-3xl text-[0.98rem] leading-8 text-[#5B4B55]">
+            You do not need every path next. This is the clearer map of where this module tends to connect once the decision starts touching the wider plan.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {connectedPaths.map((path) => (
+              <Link
+                key={`${moduleSlug}-connected-${path.href}`}
+                href={path.href}
+                className={`inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 ${
+                  path.current
+                    ? 'border-[rgba(161,91,114,0.22)] bg-[rgba(252,241,245,0.96)] text-[#8F4C62]'
+                    : 'border-[rgba(215,161,175,0.18)] bg-white text-[#2F2430] hover:border-[rgba(161,91,114,0.24)]'
+                }`}
+              >
+                {path.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

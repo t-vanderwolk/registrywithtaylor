@@ -8,6 +8,18 @@ type ResolvedProductCardImage = {
 const STROLLER_AND_CAR_SEAT_IMAGE = '/assets/editorial/gear.jpg' as const;
 const NURSERY_IMAGE = '/assets/editorial/nursery.jpg' as const;
 const REGISTRY_IMAGE = '/assets/editorial/registry.jpg' as const;
+const CONTRACTED_GEARPATH_IMAGES = {
+  colugo: '/assets/gearpath/cogulo.png',
+  ergobabyCarrier: '/assets/gearpath/carrierergobaby.png',
+  ergobabyOmni: '/assets/gearpath/omni.png',
+  momcozyAir1: '/assets/gearpath/momcozyair1.png',
+  momcozyBabyMonitor: '/assets/gearpath/momcozybabymonitor.png',
+  momcozyDiaperPail: '/assets/gearpath/momcozydiperpail.png',
+  momcozyHighChair: '/assets/gearpath/momcozyhighchair.png',
+  momcozyHospitalGrade: '/assets/gearpath/momcozyhospitalgrade.png',
+  momcozyMobileFlow: '/assets/gearpath/momcozymobileflow.png',
+  momcozyPureHug: '/assets/gearpath/momcozypurehug.png',
+} as const;
 const CAR_SEAT_PRODUCT_IMAGES = {
   alta: '/assets/car-seats/alta.png',
   aria: '/assets/car-seats/aria.png',
@@ -94,6 +106,96 @@ export function resolveProductCardImage({
   const normalizedBrand = normalizeValue(brand);
   const normalizedProductName = normalizeValue(productName);
   const normalizedKey = `${normalizedBrand} ${normalizedProductName}`;
+
+  if (includesAny(normalizedKey, ['colugo compact stroller', 'colugo stroller', 'colugo'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.colugo,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['omni classic', 'ergobaby omni', 'omni baby carrier'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.ergobabyOmni,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['ergobaby carrier', 'mesh baby carrier', '360 cool air mesh'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.ergobabyCarrier,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'momcozy' && includesAny(normalizedProductName, ['high chair'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyHighChair,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['momcozy air 1', 'air 1 wearable'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyAir1,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['hospital grade breast pump', 'momcozy hospital grade'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyHospitalGrade,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['mobile flow', 'momcozy mobile flow'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyMobileFlow,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['purehug', 'pure hug'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyPureHug,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'momcozy' && includesAny(normalizedProductName, ['baby monitor', 'monitor'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyBabyMonitor,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'momcozy' && includesAny(normalizedProductName, ['diaper pail', 'diper pail', 'pail'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.momcozyDiaperPail,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
 
   if (includesAny(normalizedKey, ['fox 5', 'fox5'])) {
     return {

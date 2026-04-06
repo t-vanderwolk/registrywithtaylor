@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
-import FeedingDecisionRouter from '@/components/academy/FeedingDecisionRouter';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import DecisionRouter from '@/components/academy/DecisionRouter';
+import DecisionTag from '@/components/academy/DecisionTag';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -35,6 +36,14 @@ import {
   FEEDING_SETUP_FLOW_WAIT_AND_SEE,
 } from '@/lib/academy/feedingSetupFlowAcademy';
 import { getAcademyModuleData } from '@/lib/academy/content';
+import {
+  getAcademyPhaseLabel,
+  getConnectedAcademyPaths,
+  getModuleDecisionStatement,
+  getModuleWhyThisExists,
+  getQuickCheckLines,
+  getQuickCheckTags,
+} from '@/lib/academy/decisionSupport';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
@@ -123,7 +132,12 @@ function ConnectionCard({ eyebrow, title, description, ctaLabel, href }: Connect
 
 export default async function FeedingSetupFlowModule() {
   const module = await getAcademyModuleData('feeding-setup-flow');
-  const shouldRenderDecisionRouter = module.enableDecisionRouting === true;
+  const phaseLabel = getAcademyPhaseLabel(module);
+  const decisionStatement = getModuleDecisionStatement(module);
+  const whyThisExists = getModuleWhyThisExists(module);
+  const quickCheckLines = getQuickCheckLines(module);
+  const quickCheckTags = getQuickCheckTags(module);
+  const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
 
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
@@ -184,15 +198,13 @@ export default async function FeedingSetupFlowModule() {
           },
         ]
       : []),
-    ...(!shouldRenderDecisionRouter
-      ? FEEDING_SETUP_FLOW_NEXT_MODULES.map((item, index) => ({
-          eyebrow: index === 0 ? 'Next Gear Layer' : 'Keep Building',
-          title: item.title,
-          description: item.description,
-          ctaLabel: item.ctaLabel,
-          href: item.href,
-        }))
-      : []),
+    ...FEEDING_SETUP_FLOW_NEXT_MODULES.map((item, index) => ({
+      eyebrow: index === 0 ? 'Next Gear Layer' : 'Keep Building',
+      title: item.title,
+      description: item.description,
+      ctaLabel: item.ctaLabel,
+      href: item.href,
+    })),
     ...module.editorialLinks.map((link, index) => ({
       eyebrow: index === 0 ? 'Feeding Guide' : 'Registry Guide',
       title: link.title,
@@ -260,7 +272,7 @@ export default async function FeedingSetupFlowModule() {
                 <PullQuote>{FEEDING_SETUP_FLOW_PULL_QUOTE}</PullQuote>
                 <div className="rounded-[1.6rem] border border-[rgba(215,161,175,0.18)] bg-white/90 px-5 py-5 shadow-[0_18px_40px_rgba(58,36,43,0.06)]">
                   <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">
-                    Module {module.progress.current} of {module.progress.total}
+                    {phaseLabel}
                   </p>
                   <p className="mt-3 text-[0.98rem] leading-7 text-[#5B4B55]">
                     This is the bridge module that turns feeding from a product pile into a calmer system.
@@ -277,12 +289,35 @@ export default async function FeedingSetupFlowModule() {
           <AcademyProgressBar
             current={module.progress.current}
             total={module.progress.total}
-            label="Gear path progress"
+            label={phaseLabel}
+            stepLabel={`Module ${module.progress.current} of ${module.progress.total}`}
           />
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl space-y-12 px-5 pb-20 sm:px-8 md:space-y-14 md:pb-24 lg:px-10">
+        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 px-6 py-7 shadow-[0_20px_44px_rgba(58,36,43,0.07)] sm:px-8">
+          <p className="text-sm text-[#5B4B55]">This module helps you decide:</p>
+          <h2 className="mt-3 max-w-3xl font-serif text-[1.85rem] leading-[1.08] tracking-[-0.04em] text-[#2F2430] sm:text-[2.2rem]">
+            {decisionStatement}
+          </h2>
+          {quickCheckTags.length > 0 ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {quickCheckTags.map((tag) => (
+                <DecisionTag key={`feeding-hero-${tag}`} label={tag} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+
+        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8">
+          <SectionHeader
+            eyebrow="Why This Exists"
+            title="Feeding gets easier when the system shows up before the shopping spiral"
+            description={whyThisExists}
+          />
+        </section>
+
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
           <div className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8 sm:py-8">
             <SectionHeader
@@ -391,6 +426,28 @@ export default async function FeedingSetupFlowModule() {
             </article>
           </div>
           <PullQuote>{FEEDING_SETUP_FLOW_BUY_NOW_QUOTE}</PullQuote>
+        </section>
+
+        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(255,253,248,0.94)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-8">
+          <h3 className="font-semibold text-[1.08rem] text-[#2F2430]">Quick check</h3>
+          <p className="mt-2 text-sm leading-7 text-[#5B4B55]">
+            If this sounds like you, you&apos;re in the right place.
+          </p>
+          {quickCheckTags.length > 0 ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {quickCheckTags.map((tag) => (
+                <DecisionTag key={`feeding-check-${tag}`} label={tag} />
+              ))}
+            </div>
+          ) : null}
+          <ul className="mt-5 space-y-3 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
+            {quickCheckLines.map((line) => (
+              <li key={`feeding-check-${line}`} className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
@@ -553,7 +610,14 @@ export default async function FeedingSetupFlowModule() {
           </div>
         </section>
 
-        {shouldRenderDecisionRouter ? <FeedingDecisionRouter /> : null}
+        <section className="space-y-6">
+          <SectionHeader
+            eyebrow="Where To Go Next"
+            title="Keep the feeding decision feeling guided"
+            description="This page is the bridge. These are the cleanest next stops once you know which part of feeding needs the deeper answer."
+          />
+          <DecisionRouter module={module} />
+        </section>
 
         <section className="space-y-6">
           <SectionHeader
@@ -568,17 +632,36 @@ export default async function FeedingSetupFlowModule() {
           </div>
         </section>
 
-        {module.related ? (
-          <section className="rounded-[1.75rem] border border-[rgba(215,161,175,0.18)] bg-white/90 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
-            <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Cross-path support</p>
+        <section className="rounded-[1.75rem] border border-[rgba(215,161,175,0.18)] bg-white/90 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
+          <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Connected To</p>
+          <p className="mt-4 max-w-3xl text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
+            You do not need every path next. This is the calmer map of where feeding decisions usually connect once the routine starts getting real.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {connectedPaths.map((path) => (
+              <Link
+                key={`feeding-connected-${path.href}`}
+                href={path.href}
+                className={`inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 ${
+                  path.current
+                    ? 'border-[rgba(161,91,114,0.22)] bg-[rgba(252,241,245,0.96)] text-[#8F4C62]'
+                    : 'border-[rgba(215,161,175,0.18)] bg-white text-[#2F2430] hover:border-[rgba(161,91,114,0.24)]'
+                }`}
+              >
+                {path.label}
+              </Link>
+            ))}
+          </div>
+
+          {module.related ? (
             <Link
               href={module.related.href}
-              className="mt-4 inline-flex text-sm uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 hover:translate-x-1"
+              className="mt-6 inline-flex text-sm uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 hover:translate-x-1"
             >
               {`Continue to ${module.related.title} ->`}
             </Link>
-          </section>
-        ) : null}
+          ) : null}
+        </section>
 
         <AcademyJourneyNavigator currentPathSlug="gear" currentModuleSlug={module.slug} />
       </div>

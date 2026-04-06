@@ -4,10 +4,12 @@ export default function AcademyProgressBar({
   current,
   total,
   label,
+  stepLabel,
 }: {
   current: number;
   total: number;
   label: string;
+  stepLabel?: string;
 }) {
   const safeTotal = Math.max(total, 1);
   const percent = Math.min(100, Math.max(0, Math.round((current / safeTotal) * 100)));
@@ -22,7 +24,7 @@ export default function AcademyProgressBar({
           </p>
         </div>
         <p className="inline-flex w-fit rounded-full border border-[rgba(215,161,175,0.24)] bg-white/82 px-3 py-1.5 text-sm font-medium text-[var(--tmbc-blog-charcoal)] shadow-[0_14px_28px_rgba(82,62,68,0.04)]">
-          {current}/{total}
+          {stepLabel ?? `Module ${current} of ${total}`}
         </p>
       </div>
       <div className="h-3 overflow-hidden rounded-full border border-[rgba(215,161,175,0.2)] bg-[rgba(255,247,249,0.94)] shadow-[inset_0_1px_3px_rgba(82,62,68,0.06)]">

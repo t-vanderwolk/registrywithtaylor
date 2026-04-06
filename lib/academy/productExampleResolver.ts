@@ -39,6 +39,20 @@ const SUPPORT_LOGOS = {
     'https://target.scene7.com/is/image/Target/GUEST_8fed714b-5ae7-4ca3-9d24-293ea2f643b6?wid=2160&qlt=80&fmt=pjpeg',
 } as const;
 
+const CONTRACTED_AFFILIATE_LINKS = {
+  colugo: 'https://www.tkqlhce.com/click-101548494-15872703',
+  momcozy: 'https://www.jdoqocy.com/click-101548494-17049857',
+} as const;
+
+const GEARPATH_IMAGES = {
+  colugo: '/assets/gearpath/cogulo.png',
+  ergobabyCarrier: '/assets/gearpath/carrierergobaby.png',
+  ergobabyOmni: '/assets/gearpath/omni.png',
+  momcozyAir1: '/assets/gearpath/momcozyair1.png',
+  momcozyHighChair: '/assets/gearpath/momcozyhighchair.png',
+  momcozyHospitalGrade: '/assets/gearpath/momcozyhospitalgrade.png',
+} as const;
+
 const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyProductOverride>>> = {
   'where-to-register': {
     [normalizeKey('Universal Registry Platform')]: {
@@ -274,20 +288,36 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       imageAlt: 'Bugaboo Dragonfly stroller.',
     },
   },
+  'travel-with-baby': {
+    [normalizeKey('Travel Stroller')]: {
+      name: 'Colugo Compact Stroller',
+      brand: 'Colugo',
+      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.colugo,
+      imageSrc: GEARPATH_IMAGES.colugo,
+      imageAlt: 'Colugo Compact Stroller.',
+    },
+    [normalizeKey('Structured Carrier')]: {
+      name: 'Omni Classic Mesh Baby Carrier',
+      brand: 'Ergobaby',
+      affiliateUrl: 'https://ergobaby.com/omni-classic-baby-carrier-mesh-soft-olive/',
+      imageSrc: GEARPATH_IMAGES.ergobabyCarrier,
+      imageAlt: 'Ergobaby Omni Classic Mesh Baby Carrier.',
+    },
+  },
   'daily-use-gear': {
     [normalizeKey('Baby Carrier')]: {
       name: 'Omni Classic Mesh Baby Carrier',
       brand: 'Ergobaby',
       affiliateUrl: 'https://ergobaby.com/omni-classic-baby-carrier-mesh-soft-olive/',
-      imageSrc: EDITORIAL_IMAGES.gearDaily,
-      imageAlt: 'Baby carrier example for daily use.',
+      imageSrc: GEARPATH_IMAGES.ergobabyOmni,
+      imageAlt: 'Ergobaby Omni Classic Mesh Baby Carrier.',
     },
     [normalizeKey('High Chair')]: {
-      name: 'Tripp Trapp High Chair Complete',
-      brand: 'Stokke',
-      affiliateUrl: 'https://www.babylist.com/gp/stokke-tripp-trapp-high-chair-complete-newborn-set/46319/1873945',
-      imageSrc: EDITORIAL_IMAGES.gearDaily,
-      imageAlt: 'High chair example for daily use.',
+      name: 'Momcozy High Chair',
+      brand: 'Momcozy',
+      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.momcozy,
+      imageSrc: GEARPATH_IMAGES.momcozyHighChair,
+      imageAlt: 'Momcozy high chair.',
     },
     [normalizeKey('Bouncer')]: {
       name: 'Bouncer Balance Soft',
@@ -295,6 +325,22 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       affiliateUrl: 'https://www.babylist.com/gp/babybjorn-bouncer-balance-soft/3252/1231695',
       imageSrc: EDITORIAL_IMAGES.gearDaily,
       imageAlt: 'Baby bouncer example for daily use.',
+    },
+  },
+  'breast-pump': {
+    [normalizeKey('Double Electric Pump')]: {
+      name: 'Momcozy Hospital-Grade Breast Pump',
+      brand: 'Momcozy',
+      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.momcozy,
+      imageSrc: GEARPATH_IMAGES.momcozyHospitalGrade,
+      imageAlt: 'Momcozy hospital-grade breast pump.',
+    },
+    [normalizeKey('Wearable Pump')]: {
+      name: 'Momcozy Air 1 Wearable Breast Pump',
+      brand: 'Momcozy',
+      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.momcozy,
+      imageSrc: GEARPATH_IMAGES.momcozyAir1,
+      imageAlt: 'Momcozy Air 1 wearable breast pump.',
     },
   },
 } as const;

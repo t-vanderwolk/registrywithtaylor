@@ -29,7 +29,7 @@ export default function StrollerFoundationsHub() {
       heroImageSrc="/assets/editorial/strollers.png"
       heroImageAlt="Editorial stroller planning image for Taylor-Made Baby Co."
       pullQuote={STROLLER_FOUNDATIONS_ACADEMY_PULL_QUOTE}
-      progress={{ current: 2, total: 5, label: 'Gear path progress' }}
+      progress={{ current: 2, total: 9, label: 'Gear path progress' }}
       learningTitle="How to choose the stroller lane before you compare the stroller models"
       learningDescription="This module is built to sort the main stroller lanes first, because that is usually where the shortlist starts acting more civilized."
       learningHighlights={[...STROLLER_FOUNDATIONS_ACADEMY_LEARNING_HIGHLIGHTS]}

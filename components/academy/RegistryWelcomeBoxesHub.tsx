@@ -22,14 +22,14 @@ export default function RegistryWelcomeBoxesHub() {
         { label: 'Registry', href: '/academy/registry' },
         { label: REGISTRY_WELCOME_BOXES_TITLE },
       ]}
-      heroEyebrow="Module 2 of 6 · Registry"
+      heroEyebrow="TMBC Registry Module"
       title={REGISTRY_WELCOME_BOXES_TITLE}
       deck={REGISTRY_WELCOME_BOXES_DECK}
       intro={[...REGISTRY_WELCOME_BOXES_HUB_INTRO]}
       heroImageSrc={REGISTRY_PATH_IMAGES.welcomeBox}
       heroImageAlt="Editorial registry welcome box image for Taylor-Made Baby Co."
       pullQuote={REGISTRY_WELCOME_BOXES_PULL_QUOTE}
-      progress={{ current: 2, total: 6, label: 'Registry path progress' }}
+      progress={{ current: 4, total: 8, label: 'Registry path progress' }}
       learningTitle="What you'll understand by the end of this module"
       learningDescription="This is the part of registry strategy that sounds small until you realize it reveals how each platform actually wants you to behave."
       learningHighlights={[...REGISTRY_WELCOME_BOXES_LEARNING_HIGHLIGHTS]}
