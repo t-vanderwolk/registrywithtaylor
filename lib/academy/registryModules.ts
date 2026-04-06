@@ -751,8 +751,6 @@ function renderMarkdownContent(module: Omit<RegistryAcademyModuleRecord, 'markdo
     '',
     module.subhead,
     '',
-    '---',
-    '',
     `## Module ${module.moduleOrder} of ${module.totalModules} · Registry`,
     '',
   ];
@@ -761,7 +759,7 @@ function renderMarkdownContent(module: Omit<RegistryAcademyModuleRecord, 'markdo
     lines.push(paragraph, '');
   });
 
-  lines.push('---', '', '## Core Considerations', '');
+  lines.push('## Core Considerations', '');
 
   module.coreSections.forEach((section) => {
     lines.push(`### ${section.title}`, '', `![${section.imageAlt}](${section.imageSrc})`, '');
@@ -770,24 +768,24 @@ function renderMarkdownContent(module: Omit<RegistryAcademyModuleRecord, 'markdo
     });
   });
 
-  lines.push('---', '', '## What This Means For You', '');
+  lines.push('## What This Means For You', '');
   module.decisionBullets.forEach((bullet) => {
     lines.push(`- ${bullet}`);
   });
 
   if (module.products.length > 0) {
-    lines.push('', '---', '', '## Examples That Support This Setup', '');
+    lines.push('', '## Examples That Support This Setup', '');
     module.products.forEach((product) => {
       lines.push(renderProductMarkdown(product), '');
     });
   }
 
-  lines.push('', '---', '', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
+  lines.push('', `## ${module.softCtaLabel}`, '', module.softCtaTitle, '');
   module.softCtaBody.forEach((paragraph) => {
     lines.push(paragraph, '');
   });
 
-  lines.push('', '---', '', '## Next Steps', '');
+  lines.push('', '## Next Steps', '');
   if (module.nextModuleSlug) {
     lines.push(`- Continue to ${getModuleTitle(module.nextModuleSlug)}`);
   } else {

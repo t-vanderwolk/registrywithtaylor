@@ -46,9 +46,17 @@ type PostpartumAcademyModuleInput = Omit<PostpartumAcademyModuleRecord, 'path' |
 const TOTAL_MODULES = 6;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 
+function stripMarkdownSeparators(value: string) {
+  return value
+    .replace(/^\s*-{3}\s*$/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function createPostpartumModule(module: PostpartumAcademyModuleInput): PostpartumAcademyModuleRecord {
   return {
     ...module,
+    markdownContent: stripMarkdownSeparators(module.markdownContent),
     path: 'postpartum',
     totalModules: TOTAL_MODULES,
   };
@@ -113,8 +121,6 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
 
 What no one fully prepares you for.
 
----
-
 ## Module 1 of 6 · Postpartum
 
 There's a moment after birth when everything slows down.
@@ -135,8 +141,6 @@ Postpartum is not something you "bounce back" from.
 It is something you move through.
 - Taylor-Made Baby Co.
 :::
-
----
 
 ## Core Considerations
 
@@ -189,23 +193,17 @@ What does my body need today?
 
 ![Simple postpartum support station with hydration and comfort items.](${PLACEHOLDER_IMAGE})
 
----
-
 ## What This Means For You
 
 - Recovery is not a performance.
 - Rest, hydration, and nourishment do more than pressure ever will.
 - Ask what your body needs today instead of whether you are keeping up.
 
----
-
 ## Before You Move Forward
 
 You do not need a perfect plan.
 
 You need permission to recover.
-
----
 
 ## Next Steps
 
@@ -272,8 +270,6 @@ You need permission to recover.
 
 The house needs a rhythm before it needs perfection.
 
----
-
 ## Module 2 of 6 · Postpartum
 
 The first weeks at home are rarely hard because one tiny product was missing.
@@ -287,8 +283,6 @@ You do not need the house to run beautifully.
 
 You need it to support the adults holding the whole thing together.
 :::
-
----
 
 ## Core Considerations
 
@@ -332,8 +326,6 @@ If the feeding or recovery part feels physically or emotionally harder than expe
 
 ![Simple home rhythm setup with hydration, snacks, laundry flow, and support notes.](/assets/editorial/organize.png)
 
----
-
 ## What This Means For You
 
 - Build the house around repeated jobs, not ideal routines.
@@ -342,15 +334,11 @@ If the feeding or recovery part feels physically or emotionally harder than expe
 - Lower the bar for what the house needs to look like while the rhythm is forming.
 - Bring in trusted support early when the first stretch feels heavier than expected.
 
----
-
 ## Before You Move Forward
 
 The first weeks do not need to look polished.
 
 They need to feel supported enough to repeat.
-
----
 
 ## Next Steps
 
@@ -415,8 +403,6 @@ They need to feel supported enough to repeat.
 
 Without pressure or perfection.
 
----
-
 ## Module 3 of 6 · Postpartum
 
 Feeding your baby is one of the most emotional parts of postpartum.
@@ -430,8 +416,6 @@ There is no one "right" way to feed your baby.
 
 There is only what works for you and your baby.
 :::
-
----
 
 ## Core Considerations
 
@@ -477,23 +461,17 @@ This is where responsiveness matters more than perfection.
 
 ![Organized feeding supplies and hydration support in a calm home setting.](${PLACEHOLDER_IMAGE})
 
----
-
 ## What This Means For You
 
 - There is no one right feeding identity to perform.
 - Support matters more than forcing a single plan to survive at all costs.
 - Adjusting the plan is often a sign of responsiveness, not failure.
 
----
-
 ## Before You Move Forward
 
 Feeding is not a test.
 
 It is a relationship.
-
----
 
 ## Next Steps
 
@@ -558,8 +536,6 @@ It is a relationship.
 
 How to survive it without losing yourself.
 
----
-
 ## Module 4 of 6 · Postpartum
 
 Sleep gets talked about a lot.
@@ -575,8 +551,6 @@ Sleep in postpartum is not about control.
 
 It is about support and rhythm.
 :::
-
----
 
 ## Core Considerations
 
@@ -622,23 +596,17 @@ You need enough support.
 
 ![Supportive overnight care setup with simple essentials close by.](${PLACEHOLDER_IMAGE})
 
----
-
 ## What This Means For You
 
 - Sleep deprivation needs support, not shame.
 - Shared responsibility changes the experience more than perfect scheduling does.
 - Rest is a real need, even when the day tries to treat it like a luxury.
 
----
-
 ## Before You Move Forward
 
 Rest is not something you earn.
 
 It is something you need.
-
----
 
 ## Next Steps
 
@@ -703,8 +671,6 @@ It is something you need.
 
 The part no one talks about enough.
 
----
-
 ## Module 5 of 6 · Postpartum
 
 This phase is not just physical.
@@ -718,8 +684,6 @@ You are not just caring for a baby.
 
 You are becoming a new version of yourself.
 :::
-
----
 
 ## Core Considerations
 
@@ -763,23 +727,17 @@ Support gets more effective once your needs have actual language around them.
 
 ![Supportive conversation and emotional care concept in an editorial home setting.](${PLACEHOLDER_IMAGE})
 
----
-
 ## What This Means For You
 
 - Emotional change is part of postpartum, not evidence that you are doing it badly.
 - Naming what you feel usually helps more than performing steadiness.
 - Support becomes more effective once your needs are spoken out loud.
 
----
-
 ## Before You Move Forward
 
 You do not need to have it together.
 
 You need to be supported.
-
----
 
 ## Next Steps
 
@@ -844,8 +802,6 @@ You need to be supported.
 
 You were never meant to do this alone.
 
----
-
 ## Module 6 of 6 · Postpartum
 
 This is the module that changes everything.
@@ -859,8 +815,6 @@ The difference between overwhelmed and supported is rarely the baby.
 
 It is the system around you.
 :::
-
----
 
 ## Core Considerations
 
@@ -908,23 +862,17 @@ It is how this works.
 
 ![Calm editorial scene representing shared care and postpartum support.](${PLACEHOLDER_IMAGE})
 
----
-
 ## What This Means For You
 
 - Support works better when your needs are specific enough to answer.
 - Help is easier to receive when you stop treating it like a debt.
 - The system around you shapes postpartum more than any single product does.
 
----
-
 ## Before You Move Forward
 
 This is where everything comes together.
 
 When you feel supported, everything else becomes easier.
-
----
 
 ## Next Steps
 
