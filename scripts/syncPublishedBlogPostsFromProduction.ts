@@ -48,6 +48,9 @@ type SourceAffiliatePartner = {
   brandId: string | null;
   programId: string | null;
   partnerType: string;
+  affiliateTier: string;
+  paymentRisk: boolean;
+  retailerFallback: string[];
   affiliatePid: string | null;
   baseUrl: string;
   routingPriority: number;
@@ -258,6 +261,9 @@ async function ensureAffiliatePartner(tx: TransactionClient, affiliate: SourceAf
       website: affiliate.website,
       affiliateLink: affiliate.affiliateLink,
       partnerType: affiliate.partnerType,
+      affiliateTier: affiliate.affiliateTier,
+      paymentRisk: affiliate.paymentRisk,
+      retailerFallback: affiliate.retailerFallback,
       affiliatePid: affiliate.affiliatePid,
       baseUrl: affiliate.baseUrl,
       routingPriority: affiliate.routingPriority,
@@ -279,6 +285,9 @@ async function ensureAffiliatePartner(tx: TransactionClient, affiliate: SourceAf
       website: affiliate.website,
       affiliateLink: affiliate.affiliateLink,
       partnerType: affiliate.partnerType,
+      affiliateTier: affiliate.affiliateTier,
+      paymentRisk: affiliate.paymentRisk,
+      retailerFallback: affiliate.retailerFallback,
       affiliatePid: affiliate.affiliatePid,
       baseUrl: affiliate.baseUrl,
       routingPriority: affiliate.routingPriority,
@@ -410,6 +419,9 @@ async function main() {
               brandId: true,
               programId: true,
               partnerType: true,
+              affiliateTier: true,
+              paymentRisk: true,
+              retailerFallback: true,
               affiliatePid: true,
               baseUrl: true,
               routingPriority: true,

@@ -1,4 +1,5 @@
 import type { AffiliateNetwork } from '@prisma/client';
+import type { AffiliateTier } from '@/lib/affiliatePartners';
 import type { BlogCategory } from '@/lib/blogCategories';
 import type { PostAuthorAssignment } from '@/lib/blog/authors';
 import type { CtaButton } from '@/lib/blog/ctaButtons';
@@ -11,6 +12,9 @@ export type AffiliatePartnerOption = {
   name: string;
   network: AffiliateNetwork;
   partnerType: string;
+  affiliateTier: AffiliateTier;
+  paymentRisk: boolean;
+  retailerFallback: string[];
   logoUrl?: string | null;
   baseUrl?: string | null;
   website?: string | null;

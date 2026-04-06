@@ -263,6 +263,9 @@ model AffiliatePartner {
   partnerType     String              @default("retailer")
   affiliatePid    String?
   baseUrl         String              @default("")
+  affiliateTier   String              @default("T3")
+  paymentRisk     Boolean             @default(false)
+  retailerFallback String[]           @default([])
   routingPriority Int                 @default(99)
   allowedContexts Json                @default("[\"blog\"]")
   affiliateLinks  AffiliateLink[]

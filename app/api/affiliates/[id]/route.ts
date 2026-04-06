@@ -1,6 +1,13 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { normalizeAffiliateContexts } from '@/lib/affiliatePartners';
+import {
+  getDefaultRetailerFallbacks,
+  inferAffiliatePaymentRisk,
+  inferAffiliateTier,
+  normalizeAffiliateContexts,
+  normalizeAffiliateTier,
+  normalizeRetailerFallbacks,
+} from '@/lib/affiliatePartners';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
@@ -52,6 +59,8 @@ const asRoutingPriority = (value: unknown) => {
   return 99;
 };
 
+const asBoolean = (value: unknown) => (typeof value === 'boolean' ? value : null);
+
 const hasOwn = (obj: object, key: string) => Object.prototype.hasOwnProperty.call(obj, key);
 
 export async function GET(
@@ -100,6 +109,27 @@ export async function PUT(
     : existing.commissionType;
   const nextCommissionRate = hasOwn(body, 'commissionRate') ? asText(body.commissionRate) : existing.commissionRate;
   const slugInput = hasOwn(body, 'slug') ? asText(body.slug) : existing.slug;
+  const nextPartnerType = hasOwn(body, 'partnerType') ? asText(body.partnerType) || 'retailer' : existing.partnerType;
+  const nextNotes = hasOwn(body, 'notes') ? asNullableText(body.notes) : existing.notes;
+  const nextRoutingPriority = hasOwn(body, 'routingPriority')
+    ? asRoutingPriority(body.routingPriority)
+    : existing.routingPriority;
+  const nextAffiliateTier = hasOwn(body, 'affiliateTier')
+    ? normalizeAffiliateTier(
+        body.affiliateTier,
+        inferAffiliateTier({
+          name: nextName,
+          notes: nextNotes,
+          routingPriority: nextRoutingPriority,
+        }),
+      )
+    : normalizeAffiliateTier(existing.affiliateTier);
+  const nextPaymentRisk = hasOwn(body, 'paymentRisk')
+    ? asBoolean(body.paymentRisk) ?? existing.paymentRisk
+    : existing.paymentRisk;
+  const nextRetailerFallback = hasOwn(body, 'retailerFallback')
+    ? normalizeRetailerFallbacks(body.retailerFallback, getDefaultRetailerFallbacks(nextPartnerType))
+    : normalizeRetailerFallbacks(existing.retailerFallback, getDefaultRetailerFallbacks(nextPartnerType));
 
   if (hasOwn(body, 'slug') && !slugInput) {
     return NextResponse.json({ error: 'slug cannot be empty' }, { status: 400 });
@@ -121,13 +151,16 @@ export async function PUT(
       advertiserId: hasOwn(body, 'advertiserId')
         ? asNullableText(body.advertiserId)
         : existing.advertiserId,
-      partnerType: hasOwn(body, 'partnerType') ? asText(body.partnerType) || 'retailer' : existing.partnerType,
+      partnerType: nextPartnerType,
       affiliatePid: hasOwn(body, 'affiliatePid') ? asNullableText(body.affiliatePid) : existing.affiliatePid,
       commissionType: nextCommissionType,
       commissionRate: nextCommissionRate,
       baseUrl: hasOwn(body, 'baseUrl')
         ? asText(body.baseUrl) || asText(body.website)
         : existing.baseUrl,
+      affiliateTier: nextAffiliateTier,
+      paymentRisk: nextPaymentRisk,
+      retailerFallback: nextRetailerFallback,
       logoUrl: hasOwn(body, 'logoUrl') ? asNullableText(body.logoUrl) : existing.logoUrl,
       website: hasOwn(body, 'website') ? asNullableText(body.website) : existing.website,
       affiliateLink: hasOwn(body, 'affiliateLink') ? asNullableText(body.affiliateLink) : existing.affiliateLink,
@@ -138,8 +171,8 @@ export async function PUT(
       sevenDayEpc: hasOwn(body, 'sevenDayEpc')
         ? asNullableFloat(body.sevenDayEpc)
         : existing.sevenDayEpc,
-      notes: hasOwn(body, 'notes') ? asNullableText(body.notes) : existing.notes,
-      routingPriority: hasOwn(body, 'routingPriority') ? asRoutingPriority(body.routingPriority) : existing.routingPriority,
+      notes: nextNotes,
+      routingPriority: nextRoutingPriority,
       allowedContexts: hasOwn(body, 'allowedContexts')
         ? normalizeAffiliateContexts(body.allowedContexts)
         : normalizeAffiliateContexts(existing.allowedContexts),

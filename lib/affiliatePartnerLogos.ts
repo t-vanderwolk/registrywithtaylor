@@ -41,6 +41,8 @@ const SCANNED_LOGO_SOURCES = [
   '/assets/logos/thebabybrew.png',
   '/assets/logos/tommee-tippee-logo.png',
   '/assets/logos/wayblogo.png',
+  '/affiliate-logos/mima.png',
+  '/affiliate-logos/veer.png',
 ] as const;
 
 function normalizeName(value: string) {
@@ -102,6 +104,8 @@ const EXACT_LOGO_ALIASES: Record<string, string> = {
   snugglemeorganic: '/assets/logos/snugglemeorganics.png',
   thebabysbrew: '/assets/logos/thebabybrew.png',
   tommeetippee: '/assets/logos/tommee-tippee-logo.png',
+  mima: '/affiliate-logos/mima.png',
+  veer: '/affiliate-logos/veer.png',
   wayb: '/assets/logos/wayblogo.png',
 };
 

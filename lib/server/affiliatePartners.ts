@@ -1,8 +1,12 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import {
+  type AffiliateTier,
   buildDefaultAffiliateCtaText,
   getAffiliateNetworkPriority,
+  getDefaultRetailerFallbacks,
+  normalizeAffiliateTier,
   normalizeAffiliateContexts,
+  normalizeRetailerFallbacks,
   resolveAffiliateDestinationUrl,
 } from '@/lib/affiliatePartners';
 import { resolveAffiliatePartnerLogoUrl } from '@/lib/affiliatePartnerLogos';
@@ -14,6 +18,9 @@ export type AffiliatePartnerOptionRecord = {
   name: string;
   network: AffiliateNetwork;
   partnerType: string;
+  affiliateTier: AffiliateTier;
+  paymentRisk: boolean;
+  retailerFallback: string[];
   baseUrl: string | null;
   website: string | null;
   logoUrl: string | null;
@@ -40,6 +47,9 @@ export async function listAffiliatePartnerOptions() {
       name: true,
       network: true,
       partnerType: true,
+      affiliateTier: true,
+      paymentRisk: true,
+      retailerFallback: true,
       baseUrl: true,
       website: true,
       logoUrl: true,
@@ -56,6 +66,12 @@ export async function listAffiliatePartnerOptions() {
       name: partner.name,
       network: partner.network,
       partnerType: partner.partnerType,
+      affiliateTier: normalizeAffiliateTier(partner.affiliateTier),
+      paymentRisk: partner.paymentRisk,
+      retailerFallback: normalizeRetailerFallbacks(
+        partner.retailerFallback,
+        getDefaultRetailerFallbacks(partner.partnerType),
+      ),
       baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
       website: cleanText(partner.website),
       logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
@@ -87,6 +103,9 @@ export async function getAffiliatePartnerLookup(partnerIds: string[]) {
       name: true,
       network: true,
       partnerType: true,
+      affiliateTier: true,
+      paymentRisk: true,
+      retailerFallback: true,
       baseUrl: true,
       website: true,
       logoUrl: true,
@@ -106,6 +125,12 @@ export async function getAffiliatePartnerLookup(partnerIds: string[]) {
           name: partner.name,
           network: partner.network,
           partnerType: partner.partnerType,
+          affiliateTier: normalizeAffiliateTier(partner.affiliateTier),
+          paymentRisk: partner.paymentRisk,
+          retailerFallback: normalizeRetailerFallbacks(
+            partner.retailerFallback,
+            getDefaultRetailerFallbacks(partner.partnerType),
+          ),
           baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
           website: cleanText(partner.website),
           logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
@@ -131,6 +156,9 @@ export async function listAdminAffiliatePartners() {
       name: true,
       network: true,
       partnerType: true,
+      affiliateTier: true,
+      paymentRisk: true,
+      retailerFallback: true,
       affiliatePid: true,
       baseUrl: true,
       website: true,
@@ -148,6 +176,12 @@ export async function listAdminAffiliatePartners() {
     baseUrl: cleanText(partner.baseUrl) ?? cleanText(partner.website),
     logoUrl: resolveAffiliatePartnerLogoUrl(partner.name, partner.logoUrl),
     allowedContexts: normalizeAffiliateContexts(partner.allowedContexts),
+    affiliateTier: normalizeAffiliateTier(partner.affiliateTier),
+    paymentRisk: partner.paymentRisk,
+    retailerFallback: normalizeRetailerFallbacks(
+      partner.retailerFallback,
+      getDefaultRetailerFallbacks(partner.partnerType),
+    ),
     suggestedCta: buildDefaultAffiliateCtaText({
       name: partner.name,
       partnerType: partner.partnerType,

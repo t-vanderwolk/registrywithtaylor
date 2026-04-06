@@ -1,5 +1,10 @@
 import prisma from '@/lib/server/prisma';
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
+import {
+  getDefaultRetailerFallbacks,
+  inferAffiliatePaymentRisk,
+  inferAffiliateTier,
+} from '@/lib/affiliatePartners';
 import { slugify } from '@/lib/slugify';
 
 type AffiliateSeed = {
@@ -13,7 +18,26 @@ type AffiliateSeed = {
   sevenDayEpc?: number;
   notes?: string;
   isActive?: boolean;
+  website?: string;
+  logoUrl?: string | null;
+  partnerType?: string;
+  routingPriority?: number;
+  allowedContexts?: string[];
 };
+
+function hostnameFor(value: string | null | undefined) {
+  const cleaned = value?.trim();
+
+  if (!cleaned) {
+    return null;
+  }
+
+  try {
+    return new URL(cleaned).hostname.replace(/^www\./, '');
+  } catch {
+    return null;
+  }
+}
 
 const affiliateCanon: AffiliateSeed[] = [
   {
@@ -134,7 +158,7 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionRate: 'SNOO Rental $25 / AU 4% / EU 4%',
   },
   {
-    name: 'ANB Baby NY',
+    name: 'ANB Baby',
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '4%',
@@ -180,6 +204,9 @@ const affiliateCanon: AffiliateSeed[] = [
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '10%',
+    notes: 'Tier 3 conditional risk-monitored brand.',
+    partnerType: 'brand',
+    routingPriority: 80,
   },
   {
     name: 'dadada Baby',
@@ -194,7 +221,7 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionRate: '0-10%',
   },
   {
-    name: 'ERGO Baby Carrier, Inc.',
+    name: 'Ergobaby',
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '0-20%',
@@ -242,7 +269,7 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionRate: '3-12%',
   },
   {
-    name: 'MyRegistry.com',
+    name: 'MyRegistry',
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.CPL,
     commissionRate: '$1.50 CPL',
@@ -254,7 +281,14 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionRate: '0-5%',
   },
   {
-    name: 'Owlet Baby Care',
+    name: 'Nanit',
+    network: AffiliateNetwork.AWIN,
+    commissionType: CommissionType.VARIABLE,
+    commissionRate: 'Varies',
+    notes: 'Tier 1 premium confidence builder.',
+  },
+  {
+    name: 'Owlet',
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '3%',
@@ -264,6 +298,13 @@ const affiliateCanon: AffiliateSeed[] = [
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '5%',
+  },
+  {
+    name: 'Veer',
+    network: AffiliateNetwork.AWIN,
+    commissionType: CommissionType.VARIABLE,
+    commissionRate: 'Varies',
+    notes: 'Tier 1 gear and mobility brand.',
   },
   {
     name: 'Petit from Poa',
@@ -282,6 +323,13 @@ const affiliateCanon: AffiliateSeed[] = [
     network: AffiliateNetwork.AWIN,
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '2%',
+  },
+  {
+    name: 'Belly Bandit',
+    network: AffiliateNetwork.AWIN,
+    commissionType: CommissionType.VARIABLE,
+    commissionRate: 'Varies',
+    notes: 'Tier 2 editorial and postpartum support brand.',
   },
   {
     name: "The Baby's Brew",
@@ -320,6 +368,20 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionRate: '3-10%',
   },
   {
+    name: 'Baby Brezza',
+    network: AffiliateNetwork.AWIN,
+    commissionType: CommissionType.VARIABLE,
+    commissionRate: 'Varies',
+    notes: 'Tier 2 high-conversion support brand.',
+  },
+  {
+    name: 'Mima',
+    network: AffiliateNetwork.AWIN,
+    commissionType: CommissionType.VARIABLE,
+    commissionRate: 'Varies',
+    notes: 'Tier 3 conditional risk-monitored brand.',
+  },
+  {
     name: 'Silver Cross',
     network: AffiliateNetwork.DIRECT,
     commissionType: CommissionType.PERCENTAGE,
@@ -343,25 +405,115 @@ const affiliateCanon: AffiliateSeed[] = [
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: '15%',
   },
+  {
+    name: 'Modern Nursery',
+    network: AffiliateNetwork.DIRECT,
+    commissionType: CommissionType.PERCENTAGE,
+    commissionRate: '5%',
+    notes: 'Retail fallback layer.',
+  },
+  {
+    name: 'Newborn Nursery Furniture',
+    network: AffiliateNetwork.DIRECT,
+    commissionType: CommissionType.PERCENTAGE,
+    commissionRate: '5%',
+    notes: 'Tier 1 nursery anchor purchase.',
+  },
 ];
 
 async function main() {
-  await prisma.affiliatePartner.deleteMany();
-  await prisma.affiliatePartner.createMany({
-    data: affiliateCanon.map((partner) => ({
-      ...partner,
-      slug: slugify(partner.name) || 'partner',
-      logoUrl: null,
-      website: null,
-      affiliateLink: null,
+  let created = 0;
+  let updated = 0;
+
+  for (const partner of affiliateCanon) {
+    const slug = slugify(partner.name) || 'partner';
+    const website = partner.website?.trim() || null;
+    const allowedDomain = hostnameFor(website);
+    const existing =
+      (await prisma.affiliatePartner.findUnique({
+        where: { slug },
+        select: {
+          id: true,
+          website: true,
+          baseUrl: true,
+          logoUrl: true,
+          affiliateLink: true,
+          partnerType: true,
+          routingPriority: true,
+          allowedContexts: true,
+          allowedDomains: true,
+        },
+      })) ??
+      (await prisma.affiliatePartner.findUnique({
+        where: {
+          name_network: {
+            name: partner.name,
+            network: partner.network,
+          },
+        },
+        select: {
+          id: true,
+          website: true,
+          baseUrl: true,
+          logoUrl: true,
+          affiliateLink: true,
+          partnerType: true,
+          routingPriority: true,
+          allowedContexts: true,
+          allowedDomains: true,
+        },
+      }));
+    const partnerType = partner.partnerType ?? existing?.partnerType ?? 'brand';
+    const routingPriority = partner.routingPriority ?? existing?.routingPriority ?? 99;
+    const affiliateTier = inferAffiliateTier({
+      name: partner.name,
+      notes: partner.notes,
+      routingPriority,
+    });
+    const paymentRisk = inferAffiliatePaymentRisk({
+      name: partner.name,
+      notes: partner.notes,
+      affiliateTier,
+    });
+
+    const data = {
+      name: partner.name,
+      slug,
+      network: partner.network,
       advertiserId: partner.advertiserId ?? null,
+      commissionType: partner.commissionType,
+      commissionRate: partner.commissionRate,
       category: partner.category ?? null,
       threeMonthEpc: partner.threeMonthEpc ?? null,
       sevenDayEpc: partner.sevenDayEpc ?? null,
       notes: partner.notes ?? null,
       isActive: partner.isActive ?? true,
-    })),
-  });
+      website: website ?? existing?.website ?? null,
+      baseUrl: website ?? existing?.baseUrl ?? existing?.website ?? '',
+      affiliateTier,
+      paymentRisk,
+      retailerFallback: getDefaultRetailerFallbacks(partnerType),
+      logoUrl: partner.logoUrl ?? existing?.logoUrl ?? null,
+      affiliateLink: existing?.affiliateLink ?? website ?? null,
+      partnerType,
+      routingPriority,
+      allowedContexts: partner.allowedContexts ?? existing?.allowedContexts ?? ['blog', 'guide', 'registry', 'academy'],
+      allowedDomains: allowedDomain ? [allowedDomain] : (existing?.allowedDomains ?? []),
+    };
+
+    if (existing) {
+      await prisma.affiliatePartner.update({
+        where: { id: existing.id },
+        data,
+      });
+      updated += 1;
+    } else {
+      await prisma.affiliatePartner.create({
+        data,
+      });
+      created += 1;
+    }
+  }
 
   const grouped = await prisma.affiliatePartner.groupBy({
     by: ['network'],
@@ -373,6 +525,8 @@ async function main() {
   for (const entry of grouped) {
     console.log(`- ${entry.network}: ${entry._count._all}`);
   }
+  console.log(`Created: ${created}`);
+  console.log(`Updated: ${updated}`);
 }
 
 main()

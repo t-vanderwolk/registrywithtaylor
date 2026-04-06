@@ -1,5 +1,10 @@
 import { AffiliateNetwork, CommissionType, PrismaClient } from '@prisma/client';
-import { resolveAffiliateDestinationUrl } from '@/lib/affiliatePartners';
+import {
+  getDefaultRetailerFallbacks,
+  inferAffiliatePaymentRisk,
+  inferAffiliateTier,
+  resolveAffiliateDestinationUrl,
+} from '@/lib/affiliatePartners';
 
 const prisma = new PrismaClient();
 
@@ -10,7 +15,7 @@ type DirectAffiliateSeed = {
   partnerType: string;
   affiliatePid: string | null;
   baseUrl: string;
-  logoUrl: string;
+  logoUrl?: string | null;
   commissionRate: string;
   routingPriority: number;
   allowedContexts: string[];
@@ -26,8 +31,8 @@ const DIRECT_PARTNERS: DirectAffiliateSeed[] = [
     baseUrl: 'https://www.silvercrossbaby.com',
     logoUrl: '/images/partners/silvercross.png',
     commissionRate: '15%',
-    routingPriority: 1,
-    allowedContexts: ['blog', 'registry'],
+    routingPriority: 10,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'BabyQuip',
@@ -38,8 +43,8 @@ const DIRECT_PARTNERS: DirectAffiliateSeed[] = [
     baseUrl: 'https://www.babyquip.com',
     logoUrl: '/images/partners/babyquip.png',
     commissionRate: '10%',
-    routingPriority: 1,
-    allowedContexts: ['blog', 'academy'],
+    routingPriority: 25,
+    allowedContexts: ['blog', 'guide', 'academy'],
   },
   {
     name: 'MacroBaby',
@@ -50,8 +55,8 @@ const DIRECT_PARTNERS: DirectAffiliateSeed[] = [
     baseUrl: 'https://www.macrobaby.com',
     logoUrl: '/images/partners/macrobaby.png',
     commissionRate: '5-10%',
-    routingPriority: 1,
-    allowedContexts: ['blog', 'registry'],
+    routingPriority: 30,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'Bebcare',
@@ -62,8 +67,32 @@ const DIRECT_PARTNERS: DirectAffiliateSeed[] = [
     baseUrl: 'https://bebcare.com',
     logoUrl: '/images/partners/bebcare.png',
     commissionRate: '15%',
-    routingPriority: 1,
-    allowedContexts: ['blog', 'registry'],
+    routingPriority: 10,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
+  },
+  {
+    name: 'Modern Nursery',
+    slug: 'modern-nursery',
+    network: AffiliateNetwork.DIRECT,
+    partnerType: 'retailer',
+    affiliatePid: null,
+    baseUrl: 'https://www.modernnursery.com',
+    logoUrl: null,
+    commissionRate: '5%',
+    routingPriority: 35,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
+  },
+  {
+    name: 'Newborn Nursery Furniture',
+    slug: 'newborn-nursery-furniture',
+    network: AffiliateNetwork.DIRECT,
+    partnerType: 'retailer',
+    affiliatePid: null,
+    baseUrl: 'https://newbornurseryfurniture.com',
+    logoUrl: null,
+    commissionRate: '5%',
+    routingPriority: 35,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
 ];
 
@@ -129,12 +158,12 @@ async function main() {
       where: { name: seed.name },
       update: {
         website: seed.baseUrl,
-        logoUrl: seed.logoUrl,
+        logoUrl: seed.logoUrl ?? null,
       },
       create: {
         name: seed.name,
         website: seed.baseUrl,
-        logoUrl: seed.logoUrl,
+        logoUrl: seed.logoUrl ?? null,
       },
       select: { id: true, name: true },
     });
@@ -165,6 +194,15 @@ async function main() {
       }) ?? seed.baseUrl;
 
     const allowedDomain = hostnameFor(seed.baseUrl);
+    const affiliateTier = inferAffiliateTier({
+      name: seed.name,
+      routingPriority: seed.routingPriority,
+    });
+    const paymentRisk = inferAffiliatePaymentRisk({
+      name: seed.name,
+      affiliateTier,
+    });
+    const retailerFallback = getDefaultRetailerFallbacks(seed.partnerType);
 
     const partner = await prisma.affiliatePartner.upsert({
       where: { slug: seed.slug },
@@ -177,7 +215,10 @@ async function main() {
         commissionRate: seed.commissionRate,
         baseUrl: seed.baseUrl,
         website: seed.baseUrl,
-        logoUrl: seed.logoUrl,
+        affiliateTier,
+        paymentRisk,
+        retailerFallback,
+        logoUrl: seed.logoUrl ?? null,
         affiliateLink: resolvedAffiliateLink,
         routingPriority: seed.routingPriority,
         allowedContexts: seed.allowedContexts,
@@ -196,7 +237,10 @@ async function main() {
         commissionRate: seed.commissionRate,
         baseUrl: seed.baseUrl,
         website: seed.baseUrl,
-        logoUrl: seed.logoUrl,
+        affiliateTier,
+        paymentRisk,
+        retailerFallback,
+        logoUrl: seed.logoUrl ?? null,
         affiliateLink: resolvedAffiliateLink,
         routingPriority: seed.routingPriority,
         allowedContexts: seed.allowedContexts,

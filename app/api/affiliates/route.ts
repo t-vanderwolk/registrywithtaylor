@@ -1,6 +1,13 @@
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { normalizeAffiliateContexts } from '@/lib/affiliatePartners';
+import {
+  getDefaultRetailerFallbacks,
+  inferAffiliatePaymentRisk,
+  inferAffiliateTier,
+  normalizeAffiliateContexts,
+  normalizeAffiliateTier,
+  normalizeRetailerFallbacks,
+} from '@/lib/affiliatePartners';
 import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
@@ -52,6 +59,8 @@ const asRoutingPriority = (value: unknown) => {
   return 99;
 };
 
+const asBoolean = (value: unknown) => (typeof value === 'boolean' ? value : null);
+
 export async function GET(req: NextRequest) {
   const token = await requireAdmin(req);
   if (!token) {
@@ -81,6 +90,28 @@ export async function POST(req: NextRequest) {
   const commissionType = asCommissionType(body.commissionType);
   const commissionRate = asText(body.commissionRate);
   const slugInput = asText(body.slug);
+  const partnerType = asText(body.partnerType) || 'retailer';
+  const notes = asNullableText(body.notes);
+  const routingPriority = asRoutingPriority(body.routingPriority);
+  const affiliateTier = normalizeAffiliateTier(
+    body.affiliateTier,
+    inferAffiliateTier({
+      name,
+      notes,
+      routingPriority,
+    }),
+  );
+  const paymentRisk =
+    asBoolean(body.paymentRisk) ??
+    inferAffiliatePaymentRisk({
+      name,
+      notes,
+      affiliateTier,
+    });
+  const retailerFallback = normalizeRetailerFallbacks(
+    body.retailerFallback,
+    getDefaultRetailerFallbacks(partnerType),
+  );
 
   if (!name || !network || !commissionType || !commissionRate) {
     return NextResponse.json(
@@ -95,19 +126,22 @@ export async function POST(req: NextRequest) {
       slug: await generateUniqueAffiliateSlug(slugInput || name),
       network,
       advertiserId: asNullableText(body.advertiserId),
-      partnerType: asText(body.partnerType) || 'retailer',
+      partnerType,
       affiliatePid: asNullableText(body.affiliatePid),
       commissionType,
       commissionRate,
       baseUrl: asText(body.baseUrl) || asText(body.website),
+      affiliateTier,
+      paymentRisk,
+      retailerFallback,
       logoUrl: asNullableText(body.logoUrl),
       website: asNullableText(body.website),
       affiliateLink: asNullableText(body.affiliateLink),
       category: asNullableText(body.category),
       threeMonthEpc: asNullableFloat(body.threeMonthEpc),
       sevenDayEpc: asNullableFloat(body.sevenDayEpc),
-      notes: asNullableText(body.notes),
-      routingPriority: asRoutingPriority(body.routingPriority),
+      notes,
+      routingPriority,
       allowedContexts: normalizeAffiliateContexts(body.allowedContexts),
       isActive: typeof body.isActive === 'boolean' ? body.isActive : true,
     },

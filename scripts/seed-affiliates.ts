@@ -1,4 +1,9 @@
 import { AffiliateNetwork, CommissionType, PrismaClient } from '@prisma/client';
+import {
+  getDefaultRetailerFallbacks,
+  inferAffiliatePaymentRisk,
+  inferAffiliateTier,
+} from '@/lib/affiliatePartners';
 
 const prisma = new PrismaClient();
 
@@ -8,6 +13,9 @@ type SeedPartner = {
   logoUrl: string;
   website: string;
   affiliateLink: string;
+  partnerType: string;
+  routingPriority: number;
+  allowedContexts: string[];
 };
 
 const CJ_PARTNERS: SeedPartner[] = [
@@ -17,6 +25,9 @@ const CJ_PARTNERS: SeedPartner[] = [
     affiliateLink: 'https://www.dpbolvw.net/click-101548494-15401958',
     website: 'https://www.albeebaby.com',
     logoUrl: '/affiliate-logos/albee-baby.png',
+    partnerType: 'retailer',
+    routingPriority: 35,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'Momcozy',
@@ -24,6 +35,9 @@ const CJ_PARTNERS: SeedPartner[] = [
     affiliateLink: 'https://www.jdoqocy.com/click-101548494-17049857',
     website: 'https://momcozy.com',
     logoUrl: '/affiliate-logos/momcozy.png',
+    partnerType: 'brand',
+    routingPriority: 55,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'SlumberPod',
@@ -31,6 +45,9 @@ const CJ_PARTNERS: SeedPartner[] = [
     affiliateLink: 'https://www.anrdoezrs.net/click-101548494-15871448',
     website: 'https://slumberpod.com',
     logoUrl: '/affiliate-logos/slumberpod.png',
+    partnerType: 'brand',
+    routingPriority: 60,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'Colugo',
@@ -38,6 +55,9 @@ const CJ_PARTNERS: SeedPartner[] = [
     affiliateLink: 'https://www.tkqlhce.com/click-101548494-15872703',
     website: 'https://colugo.com',
     logoUrl: '/affiliate-logos/colugo.png',
+    partnerType: 'brand',
+    routingPriority: 60,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
   {
     name: 'BC Babycare',
@@ -45,6 +65,9 @@ const CJ_PARTNERS: SeedPartner[] = [
     affiliateLink: 'https://www.tkqlhce.com/click-101548494-17126163',
     website: 'https://bcbabycare.com',
     logoUrl: '/affiliate-logos/bcbabycare.png',
+    partnerType: 'brand',
+    routingPriority: 60,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
   },
 ];
 
@@ -76,15 +99,31 @@ async function upsertPartner(partner: SeedPartner) {
         select: { id: true },
       });
 
+  const affiliateTier = inferAffiliateTier({
+    name: partner.name,
+    routingPriority: partner.routingPriority,
+  });
+  const paymentRisk = inferAffiliatePaymentRisk({
+    name: partner.name,
+    affiliateTier,
+  });
+
   const data = {
     name: partner.name,
     slug: partner.slug,
     logoUrl: partner.logoUrl,
     website: partner.website,
+    baseUrl: partner.website,
     affiliateLink: partner.affiliateLink,
     network: AffiliateNetwork.CJ,
+    partnerType: partner.partnerType,
+    affiliateTier,
+    paymentRisk,
+    retailerFallback: getDefaultRetailerFallbacks(partner.partnerType),
     commissionType: CommissionType.PERCENTAGE,
     commissionRate: 'Variable',
+    routingPriority: partner.routingPriority,
+    allowedContexts: partner.allowedContexts,
     isActive: true,
     allowedDomains: websiteDomains(partner.website),
   };

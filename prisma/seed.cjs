@@ -279,6 +279,15 @@ async function main() {
   console.log('🌸 Seeding direct affiliate partners…');
   runTsxScript('prisma/seed/affiliatePartners.ts');
 
+  console.log('🧷 Seeding CJ affiliate partners…');
+  runTsxScript('scripts/seed-affiliates.ts');
+
+  console.log('🧠 Seeding affiliate programs…');
+  runTsxScript('scripts/seedAffiliatePrograms.ts');
+
+  console.log('🗂️ Seeding affiliate canon…');
+  runTsxScript('scripts/seedAffiliateCanon.ts');
+
   console.log('📚 Seeding pillar guides…');
   runTsxScript('scripts/seedPillarGuides.ts', ['--publish']);
 

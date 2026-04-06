@@ -37,7 +37,14 @@ export default function AffiliatePartnerSelect({
     const matches = options.filter((partner) => {
       const matchesContext =
         context === 'all' || partner.allowedContexts.length === 0 || partner.allowedContexts.includes(context);
-      const haystack = [partner.name, partner.network, partner.partnerType, partner.slug].join(' ').toLowerCase();
+      const haystack = [
+        partner.name,
+        partner.network,
+        partner.partnerType,
+        partner.slug,
+        partner.affiliateTier,
+        partner.retailerFallback.join(' '),
+      ].join(' ').toLowerCase();
       return matchesContext && (!needle || haystack.includes(needle));
     });
 
@@ -101,7 +108,12 @@ export default function AffiliatePartnerSelect({
             name={selectedPartner.name}
             network={selectedPartner.network}
             logoUrl={selectedPartner.logoUrl}
-            meta={`${selectedPartner.partnerType} • ${selectedPartner.allowedContexts.join(', ') || 'all contexts'}`}
+            meta={[
+              selectedPartner.partnerType,
+              selectedPartner.affiliateTier,
+              selectedPartner.paymentRisk ? 'risk-monitored' : null,
+              selectedPartner.allowedContexts.join(', ') || 'all contexts',
+            ].filter(Boolean).join(' • ')}
             showNetwork
             size="sm"
           />
