@@ -428,8 +428,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Vision & Lifestyle Foundations',
     description: 'Start with your space and your real rhythm before the nursery turns into a shopping list.',
     subhead: 'Start with your space - not your shopping list.',
-    imagePath: '/assets/editorial/nursery.jpg',
-    imageAlt: 'Calm nursery editorial image for the Vision & Lifestyle Foundations academy module.',
+    imagePath: '/assets/nurserypath/vision.png',
+    imageAlt: 'Nursery vision image for the Vision & Lifestyle Foundations academy module.',
     relatedSlug: 'where-to-register',
   },
   'sleep-space-decisions': {
@@ -437,8 +437,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Sleep Space Decisions',
     description: 'Decide where your baby will actually sleep based on your space, your nights, and your comfort level.',
     subhead: 'Where your baby sleeps - and why it matters more than you think.',
-    imagePath: '/assets/editorial/babyincrib.png',
-    imageAlt: 'Baby sleep editorial image for the Sleep Space Decisions module.',
+    imagePath: '/assets/nurserypath/cribandclouds.png',
+    imageAlt: 'Crib and clouds image for the Sleep Space Decisions module.',
     relatedSlug: 'where-to-register',
   },
   'furniture-that-actually-works': {
@@ -446,8 +446,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Furniture That Actually Works',
     description: 'Choose the pieces that support your routine instead of filling the room for the sake of completion.',
     subhead: 'What you need - and what you do not.',
-    imagePath: '/assets/editorial/nursery2.png',
-    imageAlt: 'Nursery furniture editorial image for the Furniture That Actually Works module.',
+    imagePath: '/assets/nurserypath/nurseryprep.png',
+    imageAlt: 'Nursery prep image for the Furniture That Actually Works module.',
     relatedSlug: 'where-to-register',
   },
   'layout-and-flow': {
@@ -455,8 +455,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Layout & Flow',
     description: 'Design the room around movement, access, and nighttime usability before styling details take over.',
     subhead: 'How your nursery actually works in real life.',
-    imagePath: '/assets/editorial/nurseryzones.png',
-    imageAlt: 'Nursery zones editorial image for the Layout & Flow module.',
+    imagePath: '/assets/nurserypath/space.png',
+    imageAlt: 'Nursery layout image for the Layout & Flow module.',
     relatedSlug: 'healing-and-recovery',
   },
   'storage-and-organization': {
@@ -464,8 +464,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Storage & Organization',
     description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
     subhead: 'How to reduce chaos before it starts.',
-    imagePath: '/assets/editorial/clipboard.png',
-    imageAlt: 'Nursery organization editorial image for the Storage & Organization module.',
+    imagePath: '/assets/nurserypath/duplicate.png',
+    imageAlt: 'Nursery organization image for the Storage & Organization module.',
     relatedSlug: 'feeding-and-lactation',
   },
   'atmosphere-and-safety': {
@@ -473,7 +473,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Atmosphere & Safety',
     description: 'Bring the room together around calm, safety, and the kind of simplicity that still works at 2:14 AM.',
     subhead: 'How your nursery feels - and functions.',
-    imagePath: '/assets/editorial/teddy-glow.png',
+    imagePath: '/assets/nurserypath/serenenursery.png',
     imageAlt: 'Calm nursery atmosphere image for the Atmosphere & Safety module.',
     relatedSlug: 'stroller-foundations',
   },
@@ -482,8 +482,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'How to Think About Baby Gear',
     description: 'Understand how to choose baby gear based on your life, your routine, and real fit before the features start talking too loudly.',
     subhead: 'Before you choose anything, understand how to choose.',
-    imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Editorial baby gear image for the How to Think About Baby Gear academy module.',
+    imagePath: '/assets/gearpath/carrierergobaby.png',
+    imageAlt: 'Baby carrier image for the How to Think About Baby Gear academy module.',
     relatedSlug: 'where-to-register',
   },
   'stroller-foundations': {
@@ -492,8 +492,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Choose the stroller setup that fits your routine, your environment, and your storage reality, then use the compact-versus-full-size call to shrink the shortlist.',
     subhead: 'Not all strollers are built for the same life.',
-    imagePath: '/assets/editorial/strollers.png',
-    imageAlt: 'Editorial stroller planning image for the Stroller Foundations academy module.',
+    imagePath: '/assets/gearpath/cogulo.png',
+    imageAlt: 'Colugo stroller image for the Stroller Foundations academy module.',
     relatedSlug: null,
   },
   'car-seat-foundations': {
@@ -501,8 +501,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Car Seat Foundations',
     description: 'Use the car seat categories, your vehicle, and your routine to choose the safer everyday fit with less confusion.',
     subhead: 'Safety is the baseline. Fit is what matters next.',
-    imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Editorial car seat planning image for the Car Seat Foundations academy module.',
+    imagePath: '/assets/car-seats/piparx.png',
+    imageAlt: 'Car seat image for the Car Seat Foundations academy module.',
     relatedSlug: null,
   },
   'travel-systems': {
@@ -510,8 +510,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Travel Systems',
     description: 'Understand how stroller and car seat compatibility works so the setup stays practical instead of more complicated than it needs to be.',
     subhead: 'How your stroller and car seat actually work together.',
-    imagePath: '/assets/editorial/stroller-folds.jpg',
-    imageAlt: 'Travel stroller fold image for the Travel Systems academy module.',
+    imagePath: '/assets/strollers/mixxnext.png',
+    imageAlt: 'Travel system image for the Travel Systems academy module.',
     relatedSlug: null,
   },
   'travel-with-baby': {
@@ -520,8 +520,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
     subhead: 'Leaving the house is its own gear category.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
-    imageAlt: 'Travel with baby image for the Travel With Baby academy module.',
+    imagePath: '/assets/gearpath/cogulo.png',
+    imageAlt: 'Travel stroller image for the Travel With Baby academy module.',
     relatedSlug: null,
   },
   'daily-use-gear': {
@@ -529,8 +529,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Daily Use Gear',
     description: "The products you'll use every single day - and feel immediately if they're wrong.",
     subhead: 'The products that shape the routine fast.',
-    imagePath: '/assets/editorial/babystuff.png',
-    imageAlt: 'Daily-use baby gear image for the Daily Use Gear academy module.',
+    imagePath: '/assets/gearpath/momcozypurehug.png',
+    imageAlt: 'Daily-use baby carrier image for the Daily Use Gear academy module.',
     relatedSlug: 'where-to-register',
   },
   'feeding-setup-flow': {
@@ -551,8 +551,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
     subhead: 'A pump is a tool, not a personality.',
-    imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Breast pump planning image for the Breast Pump academy module.',
+    imagePath: '/assets/gearpath/lifestylepump.png',
+    imageAlt: 'Breast pump lifestyle image for the Breast Pump academy module.',
     relatedSlug: 'feeding-and-lactation',
   },
   'bottles-and-baby-utensils': {

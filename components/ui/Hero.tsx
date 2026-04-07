@@ -67,8 +67,6 @@ export default function Hero({
   children,
 }: HeroProps) {
   const resolvedContentStyle: CSSProperties = {
-    borderRadius: '32px',
-    padding: '3.5rem 3rem',
     ...contentStyle,
   };
 
@@ -129,7 +127,7 @@ export default function Hero({
 
       <div className={`hero-inner relative z-10 ${innerClassName}`.trim()} style={innerStyle}>
         <div
-          className={`hero-content ${staggerContent || !animateContent ? '' : 'animate-hero-fade'} marketing-hero-content ${contentClassName}`.trim()}
+          className={`hero-content rounded-[1.5rem] px-5 py-6 sm:rounded-[2rem] sm:px-7 sm:py-8 lg:px-10 lg:py-10 ${staggerContent || !animateContent ? '' : 'animate-hero-fade'} marketing-hero-content ${contentClassName}`.trim()}
           style={resolvedContentStyle}
         >
           {hasCustomContent ? (

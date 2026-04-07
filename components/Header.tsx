@@ -83,7 +83,7 @@ export default function Header({ currentPath }: HeaderProps) {
           zIndex: isGuideRoute ? 50 : 60,
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 md:px-10 md:py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 md:px-10 md:py-4">
           <Link
             href="/"
             className="max-w-[11.5rem] transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none"
@@ -122,7 +122,7 @@ export default function Header({ currentPath }: HeaderProps) {
           <button
             type="button"
             onClick={() => setOpen((currentOpen) => !currentOpen)}
-            className="flex flex-col gap-1 p-1 text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-charcoal md:hidden"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1 rounded-full border border-black/8 bg-white/60 p-1 text-charcoal shadow-[0_8px_20px_rgba(41,30,35,0.05)] backdrop-blur focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-charcoal md:hidden"
             aria-expanded={open}
             aria-controls="mobile-navigation"
             aria-label="Toggle menu"
@@ -153,7 +153,7 @@ export default function Header({ currentPath }: HeaderProps) {
         >
           <nav
             id="mobile-navigation"
-            className="flex flex-col gap-2 overflow-y-auto px-4 py-4 sm:px-6"
+            className="flex flex-col gap-1.5 overflow-y-auto px-4 py-4 sm:px-6"
             aria-label="Mobile navigation"
           >
             {navLinks.map((link) => (

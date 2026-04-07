@@ -42,7 +42,7 @@ export default function Footer({ currentPath = '' }: FooterProps) {
         )}
         <div className="space-y-2 text-center sm:text-left">
           <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/50">Taylor-Made Baby Co.</p>
-          <p className="body-copy--full text-sm leading-relaxed text-[var(--color-muted)]">
+          <p className="body-copy--full text-sm leading-7 text-[var(--color-muted)] sm:leading-relaxed">
             Expert baby gear guidance for modern families preparing for parenthood with clarity and confidence.
           </p>
         </div>

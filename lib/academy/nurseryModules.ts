@@ -42,7 +42,31 @@ export type NurseryAcademyModuleRecord = {
 };
 
 const TOTAL_MODULES = 6;
-const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+const NURSERY_ACADEMY_IMAGES = {
+  cribAndClouds: '/assets/nurserypath/cribandclouds.png',
+  cribAndToys: '/assets/nurserypath/cribandtopys.png',
+  dadadaCrib: '/assets/nurserypath/dadadacrib.png',
+  dadadaDresser: '/assets/nurserypath/dadadadresser.png',
+  duplicate: '/assets/nurserypath/duplicate.png',
+  joolBabyDiaperPail: '/assets/nurserypath/joolbabydiperpail.png',
+  miniVsStandardCrib: '/assets/nurserypath/minivsstandadcrib.png',
+  momcozyBabyMonitor: '/assets/nurserypath/momcozybabymonitor.png',
+  momcozyDiaperPail: '/assets/nurserypath/momcozydiperpail.png',
+  nanit: '/assets/nurserypath/nanit.png',
+  newton: '/assets/nurserypath/newton.png',
+  newtonMattress: '/assets/nurserypath/newtonmatress.png',
+  nurseryIdea: '/assets/nurserypath/nurseryidea.png',
+  nurseryPlanning: '/assets/nurserypath/nurseryplanning.png',
+  nurseryPlayroom: '/assets/nurserypath/nurseryplayroom.png',
+  nurseryPrep: '/assets/nurserypath/nurseryprep.png',
+  nurseryAtNight: '/assets/nurserypath/nurseyatnight.png',
+  owlet: '/assets/nurserypath/owlet.png',
+  sereneNursery: '/assets/nurserypath/serenenursery.png',
+  simpleNursery: '/assets/nurserypath/simple%20nursery.png',
+  space: '/assets/nurserypath/space.png',
+  tealNursery: '/assets/nurserypath/tealnursery.png',
+  vision: '/assets/nurserypath/vision.png',
+} as const;
 
 function renderProductMarkdown(product: NurseryAcademyProductExample) {
   const lines = [
@@ -139,8 +163,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 1,
     description: 'Start with your space, your routine, and the version of easy that actually fits your life.',
     subhead: 'Start with your space - not your shopping list.',
-    imagePath: '/assets/editorial/nursery.jpg',
-    imageAlt: 'Calm nursery image for the Vision & Lifestyle Foundations module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.vision,
+    imageAlt: 'Nursery vision board image for the Vision & Lifestyle Foundations module.',
     intro: [
       'Most parents begin preparing for a baby the same way. They start researching products.',
       'Strollers. Car seats. Monitors. Swings.',
@@ -151,8 +175,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'How you actually move through your day',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Soft editorial image of a calm morning routine in a neutral-toned home with natural light.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryPlanning,
+        imageAlt: 'Nursery planning image grounded in a real morning routine.',
         paragraphs: [
           'Most decisions do not fail because the product was wrong. They fail because it did not fit the way your day actually works.',
           'Maybe you move slowly in the mornings. Maybe you are getting out the door quickly. Maybe you spend most of your time at home. Maybe you are constantly in and out. Maybe you value simplicity, or maybe you are comfortable managing more setup.',
@@ -161,8 +185,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Where your baby will spend time',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal nursery corner with crib, soft lighting, and neutral textures.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryIdea,
+        imageAlt: 'Nursery corner image showing where baby time actually happens.',
         paragraphs: [
           'It is easy to imagine a perfectly styled nursery. In real life, babies spend time wherever you are.',
           'That might be your bedroom, the living room, a small corner of your home, or a fully dedicated nursery.',
@@ -171,8 +195,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'What easy means for you',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Close-up of a simple, uncluttered baby setup with soft textures and natural light.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.simpleNursery,
+        imageAlt: 'Simple uncluttered nursery setup with soft textures and natural light.',
         paragraphs: [
           'Everyone wants things to feel easy, but easy looks different depending on your lifestyle.',
           'For some families, easy means fewer products, minimal setup, and less to manage. For others, it means having multiple stations, feeling fully prepared, and optimizing convenience.',
@@ -181,8 +205,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'How your space supports you at night',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Dimly lit nursery scene with soft lamp lighting and calm nighttime atmosphere.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryAtNight,
+        imageAlt: 'Nursery at night with softer lighting and calmer flow.',
         paragraphs: [
           'Nighttime is where your setup matters most. This is when you are tired, adjusting, and moving through your space without thinking much about it.',
           'Small decisions become big ones at night: where the bassinet is placed, how accessible essentials are, and how your lighting is set up.',
@@ -204,9 +228,9 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
         pros: ['Good for parents who want a long-term, stable sleep solution', 'Prioritizes simplicity and longevity'],
       },
       {
-        name: 'Bassinet (Early Flexibility)',
-        description: 'A smaller sleep space that can stay close to you during the first months.',
-        pros: ['Good for room sharing and nighttime ease', 'Helps reduce movement during early weeks'],
+        name: 'Crib Mattress',
+        description: 'A mattress choice that supports how the sleep space actually functions, not just how the room photographs.',
+        pros: ['Supports the core sleep setup', 'Worth getting right before the room gets busier'],
       },
       {
         name: 'Dresser + Changing Setup',
@@ -229,8 +253,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 2,
     description: 'Decide where your baby will actually sleep based on your space, your nights, and your comfort level.',
     subhead: 'Where your baby sleeps - and why it matters more than you think.',
-    imagePath: '/assets/editorial/babyincrib.png',
-    imageAlt: 'Baby sleep editorial image for the Sleep Space Decisions module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.cribAndClouds,
+    imageAlt: 'Crib and cloud nursery image for the Sleep Space Decisions module.',
     intro: [
       'After understanding your space, the next decision becomes clearer: where will your baby actually sleep?',
       'This is one of the most talked-about topics and also one of the most overwhelming.',
@@ -240,8 +264,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Room sharing vs. separate space',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Soft nighttime bedroom scene with bassinet beside bed, warm low lighting.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.cribAndClouds,
+        imageAlt: 'Sleep-space image showing a softer room-sharing mood.',
         paragraphs: [
           'In the early months, many families choose to keep their baby close. This often looks like a bassinet or bedside sleeper next to your bed. Others prefer setting up a separate nursery from the beginning.',
           'Both approaches can work. What matters is how your space and routine support you.',
@@ -250,8 +274,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Bassinet vs. crib (and when each makes sense)',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal crib setup in a neutral nursery with soft textures and natural light.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.miniVsStandardCrib,
+        imageAlt: 'Mini crib versus standard crib comparison image.',
         paragraphs: [
           'A bassinet is usually an early-months solution. It is smaller, easier to move, and fits well beside your bed.',
           'A crib is the longer-term solution. It is more stable, more spacious, and designed to grow with your baby.',
@@ -260,8 +284,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Ease during nighttime care',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Dim nursery lighting with a soft lamp and organized essentials within reach.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.sereneNursery,
+        imageAlt: 'Serene nursery image showing calmer nighttime care flow.',
         paragraphs: [
           'Nighttime is where your setup becomes real. You are not thinking about design or aesthetics. You are moving through your space half-awake.',
           'That is where small choices matter: how easily you can reach your baby, whether you need to move rooms, how accessible the essentials are, and how your lighting is set up.',
@@ -270,8 +294,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Planning for transitions',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Crib in a nursery with soft daylight, suggesting a longer-term sleep setup.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.cribAndToys,
+        imageAlt: 'Crib setup suggesting the next sleep-space stage over time.',
         paragraphs: [
           'Your baby will not stay in the same sleep setup forever. Bassinet to crib. Room sharing to separate room. Those transitions happen over time.',
           'The mistake many parents make is trying to solve every stage at once.',
@@ -288,19 +312,19 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     ],
     products: [
       {
-        name: 'Bedside Bassinet',
-        description: 'A compact sleep space that stays within arm\'s reach.',
-        pros: ['Good for reducing movement during nighttime care', 'Supports room sharing in early months'],
-      },
-      {
         name: 'Full-Size Crib',
         description: 'A stable, long-term sleep solution.',
         pros: ['Good for families planning a dedicated nursery', 'Designed to grow with your baby'],
       },
       {
-        name: 'Convertible Crib',
-        description: 'A crib that transitions into toddler stages over time.',
-        pros: ['Good for long-term planning', 'Reduces the need for future furniture changes'],
+        name: 'Crib Mattress',
+        description: 'A practical sleep-surface choice that affects how the crib works every single night.',
+        pros: ['Supports the crib you actually use', 'Worth pressure-testing before the extras'],
+      },
+      {
+        name: 'Video Monitor',
+        description: 'A monitoring layer that helps some families feel more connected to the sleep space once the room and routine are in motion.',
+        pros: ['Useful for sleep-space visibility', 'Can support room-to-room confidence when it fits'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',
@@ -318,8 +342,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 3,
     description: 'Choose the pieces that support your routine instead of filling the room for the sake of completion.',
     subhead: 'What you need - and what you do not.',
-    imagePath: '/assets/editorial/nursery2.png',
-    imageAlt: 'Nursery furniture editorial image for the Furniture That Actually Works module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.nurseryPrep,
+    imageAlt: 'Nursery prep image for the Furniture That Actually Works module.',
     intro: [
       'Once your space and sleep setup are clear, furniture becomes much simpler.',
       'This is where many parents overbuy, not because they want to, but because it is hard to tell what actually matters.',
@@ -328,8 +352,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'What you will actually use every day',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal nursery setup with crib and dresser in neutral tones.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaCrib,
+        imageAlt: 'Convertible crib shown as a daily-use nursery anchor.',
         paragraphs: [
           'The most useful furniture is the furniture you touch daily.',
           'That usually means a crib or sleep space, a place to change your baby, and storage for clothing and essentials.',
@@ -338,8 +362,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Multi-purpose vs single-purpose',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Dresser with changing pad styled simply and functionally.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaDresser,
+        imageAlt: 'Dresser with changing setup styled simply and functionally.',
         paragraphs: [
           'A dresser with a changing pad can replace a separate changing table. A comfortable chair can replace multiple seating options.',
           'Choosing multi-purpose pieces reduces clutter and increases flexibility.',
@@ -348,8 +372,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Comfort vs necessity',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Soft glider chair near a window with warm natural light.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.tealNursery,
+        imageAlt: 'Nursery comfort corner with warm natural light.',
         paragraphs: [
           'Some items are not essential, but they still make a difference.',
           'A glider is the classic example. It is not required, but for many families it becomes one of the most-used pieces in the room.',
@@ -358,8 +382,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Planning for growth',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Convertible crib in a neutral nursery setting.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.newton,
+        imageAlt: 'Nursery setup showing how the room can grow over time.',
         paragraphs: [
           'Some furniture grows with your baby: convertible cribs, adaptable storage, flexible layouts. Other pieces are more temporary.',
           'Both approaches can work. What matters is choosing intentionally.',
@@ -385,9 +409,9 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
         pros: ['Combines storage and function', 'Reduces the need for extra furniture'],
       },
       {
-        name: 'Glider Chair',
-        description: 'A comfort-first piece for feeding, settling, and longer nighttime stretches.',
-        pros: ['Helpful during feeding and nighttime care', 'Optional, but often high-use'],
+        name: 'Diaper Pail',
+        description: 'A small but daily-use room fixture when the changing zone lives in the nursery and odor control needs a home.',
+        pros: ['Supports the nursery workflow', 'Useful when the changing setup happens in the room often'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',
@@ -405,8 +429,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 4,
     description: 'Design the room around movement, access, and nighttime usability before styling details take over.',
     subhead: 'How your nursery actually works in real life.',
-    imagePath: '/assets/editorial/nurseryzones.png',
-    imageAlt: 'Nursery zones editorial image for the Layout & Flow module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.space,
+    imageAlt: 'Nursery layout image for the Layout & Flow module.',
     intro: [
       'A beautiful nursery is one thing. A functional nursery is something else entirely.',
       'Layout determines how easy your day feels, and maybe more importantly, how your night feels.',
@@ -414,7 +438,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Movement through the space',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: NURSERY_ACADEMY_IMAGES.space,
         imageAlt: 'Open nursery layout with clear walking paths.',
         paragraphs: [
           'You should be able to move through your space without thinking, especially at night.',
@@ -424,8 +448,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Proximity of essentials',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Changing station with organized essentials within reach.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryPrep,
+        imageAlt: 'Nursery setup with essentials kept within easy reach.',
         paragraphs: [
           'Everything you use frequently should be within arm\'s reach.',
           'That reduces friction and makes the setup feel intuitive instead of performative.',
@@ -434,8 +458,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Lighting placement',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Soft lamp lighting in a calm nursery at night.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.vision,
+        imageAlt: 'Nursery lighting concept with calmer placement in mind.',
         paragraphs: [
           'Lighting should support both daytime visibility and nighttime calm.',
           'Harsh overhead lighting rarely helps in the middle of the night.',
@@ -444,7 +468,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Zones within the room',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryPlayroom,
         imageAlt: 'Nursery divided into sleep, care, and comfort zones.',
         paragraphs: [
           'Think in zones: sleep, care, and comfort.',
@@ -461,14 +485,19 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     ],
     products: [
       {
-        name: 'Soft Lighting Setup',
-        description: 'A calmer lighting layer for nighttime care.',
-        pros: ['Supports nighttime care', 'Reduces overstimulation'],
+        name: 'Dresser + Changing Setup',
+        description: 'A furniture anchor that helps the room move better by keeping storage and changing in one clear zone.',
+        pros: ['Improves reach and daily flow', 'Useful when the room needs one practical center'],
       },
       {
-        name: 'Changing Station Organizer',
-        description: 'A simple system that keeps repeat-use items within reach.',
-        pros: ['Keeps essentials close', 'Simplifies the routine'],
+        name: 'Baby Monitor',
+        description: 'A visibility tool that fits the room best when its placement supports how you move and check in from the spaces around it.',
+        pros: ['Supports room-to-room visibility', 'Helps monitor placement feel more intentional'],
+      },
+      {
+        name: 'Diaper Pail',
+        description: 'A workflow tool that belongs where the changing rhythm actually happens, not wherever it was easiest to tuck out of sight.',
+        pros: ['Keeps the changing zone tighter', 'Makes placement part of the routine, not an afterthought'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',
@@ -485,8 +514,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 5,
     description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
     subhead: 'How to reduce chaos before it starts.',
-    imagePath: '/assets/editorial/clipboard.png',
-    imageAlt: 'Nursery organization editorial image for the Storage & Organization module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.duplicate,
+    imageAlt: 'Nursery organization image for the Storage & Organization module.',
     intro: [
       'You do not need more storage. You need better organization.',
       'Most overwhelm comes from not knowing where things go or how quickly the room stops resetting itself.',
@@ -494,8 +523,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Accessibility',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Drawer organization with neatly folded baby clothes.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.duplicate,
+        imageAlt: 'Nursery setup showing what happens when categories start to duplicate.',
         paragraphs: [
           'You should be able to grab what you need quickly, especially during diaper changes or nighttime care.',
           'If the essentials are buried behind the someday layer, the system is doing the opposite of helping.',
@@ -503,8 +532,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Simplicity',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal storage bins in a clean nursery space.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.joolBabyDiaperPail,
+        imageAlt: 'Simple diaper-pail setup as part of a cleaner organization system.',
         paragraphs: [
           'The simpler your system is, the easier it is to maintain.',
           'Over-complicated setups usually look impressive for a week and then quietly fall apart.',
@@ -512,8 +541,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Growth over time',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Closet with staged baby clothing sizes.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.momcozyDiaperPail,
+        imageAlt: 'Nursery organization setup that can adapt as the routine changes.',
         paragraphs: [
           'Your storage needs will change quickly, so the better system is the one that can adapt without needing a total reset.',
           'Build for change instead of pretending the first arrangement is the final one.',
@@ -527,14 +556,14 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     ],
     products: [
       {
-        name: 'Drawer Organizers',
-        description: 'A simple layer that keeps the highest-use categories separated and easy to reset.',
-        pros: ['Keeps items separated', 'Easy to maintain'],
+        name: 'Dresser + Drawer Setup',
+        description: 'A storage anchor that keeps the highest-use categories easier to separate, reach, and reset.',
+        pros: ['Supports the reset layer of the room', 'Useful when storage needs to stay easy to maintain'],
       },
       {
-        name: 'Storage Bins',
-        description: 'Flexible organization that can move with the room as needs change.',
-        pros: ['Flexible organization', 'Useful across multiple stages'],
+        name: 'Diaper Pail',
+        description: 'A nursery-zone storage decision that quietly affects smell, workflow, and how many extra steps you take each day.',
+        pros: ['Supports daily reset and cleanup', 'Useful when the nursery handles a real volume of changes'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',
@@ -551,7 +580,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 6,
     description: 'Bring the room together around calm, safety, and the kind of simplicity that still works at 2:14 AM.',
     subhead: 'How your nursery feels - and functions.',
-    imagePath: '/assets/editorial/teddy-glow.png',
+    imagePath: NURSERY_ACADEMY_IMAGES.sereneNursery,
     imageAlt: 'Calm nursery atmosphere image for the Atmosphere & Safety module.',
     intro: [
       'This is where everything comes together.',
@@ -560,8 +589,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Lighting & mood',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Soft natural light in a neutral nursery space.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.tealNursery,
+        imageAlt: 'Soft natural light in a calm nursery space.',
         paragraphs: [
           'Lighting shapes how the space feels.',
           'Soft, warm lighting usually supports calm better than bright, hard lighting that makes the room feel more awake than it needs to.',
@@ -569,8 +598,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Sound environment',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Sound machine on a bedside table in nursery.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.momcozyBabyMonitor,
+        imageAlt: 'Nursery monitoring setup in a bedside-style room environment.',
         paragraphs: [
           'Sound can help create consistency, especially around sleep.',
           'The goal is not to over-engineer the room. It is to support a steadier environment where possible.',
@@ -578,8 +607,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Safe sleep basics',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal crib setup with safe sleep environment.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.newtonMattress,
+        imageAlt: 'Minimal crib setup with a safe-sleep mattress environment.',
         paragraphs: [
           'A simple, clear sleep space matters most.',
           'This is not the place for unnecessary additions. The setup usually gets stronger as it gets simpler.',
@@ -587,8 +616,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Simplicity over perfection',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Clean, uncluttered nursery space.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.owlet,
+        imageAlt: 'Clean nursery monitoring setup that supports simplicity over gadget sprawl.',
         paragraphs: [
           'The best nurseries are not the most decorated. They are the easiest to live in.',
           'When the room feels calm and clear, it usually asks less of you.',
@@ -602,14 +631,19 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     ],
     products: [
       {
-        name: 'Sound Machine',
-        description: 'A simple support piece for a more consistent sleep environment.',
-        pros: ['Supports a steady sleep environment'],
+        name: 'Crib Mattress',
+        description: 'A core safe-sleep choice that supports simplicity best when it quietly does its job night after night.',
+        pros: ['Supports the safe sleep setup directly'],
       },
       {
-        name: 'Blackout Curtains',
-        description: 'A useful layer when light control helps the room feel more settled.',
-        pros: ['Helps regulate sleep conditions'],
+        name: 'Video Monitor',
+        description: 'A visibility layer that can support calm when it is reliable, simple, and not trying to become the loudest thing in the room.',
+        pros: ['Supports visibility into the sleep space'],
+      },
+      {
+        name: 'Smart Monitor',
+        description: 'An extra monitoring layer for families who truly want it, as long as the added data still makes the room feel calmer instead of busier.',
+        pros: ['Can add reassurance when that layer genuinely helps'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',

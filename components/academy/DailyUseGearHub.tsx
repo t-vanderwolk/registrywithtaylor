@@ -25,8 +25,8 @@ export default function DailyUseGearHub() {
       title={DAILY_USE_GEAR_ACADEMY_TITLE}
       deck={DAILY_USE_GEAR_ACADEMY_DECK}
       intro={[...DAILY_USE_GEAR_ACADEMY_INTRO]}
-      heroImageSrc="/assets/editorial/babystuff.png"
-      heroImageAlt="Editorial baby gear image for Daily Use Gear."
+      heroImageSrc="/assets/gearpath/momcozypurehug.png"
+      heroImageAlt="Daily-use baby carrier image for Daily Use Gear."
       pullQuote={DAILY_USE_GEAR_ACADEMY_PULL_QUOTE}
       progress={{ current: 6, total: 9, label: 'Gear path progress' }}
       learningTitle="How to judge the products that touch the day most"

@@ -13,12 +13,24 @@ const CONTRACTED_GEARPATH_IMAGES = {
   ergobabyCarrier: '/assets/gearpath/carrierergobaby.png',
   ergobabyOmni: '/assets/gearpath/omni.png',
   momcozyAir1: '/assets/gearpath/momcozyair1.png',
-  momcozyBabyMonitor: '/assets/gearpath/momcozybabymonitor.png',
-  momcozyDiaperPail: '/assets/gearpath/momcozydiperpail.png',
   momcozyHighChair: '/assets/gearpath/momcozyhighchair.png',
   momcozyHospitalGrade: '/assets/gearpath/momcozyhospitalgrade.png',
   momcozyMobileFlow: '/assets/gearpath/momcozymobileflow.png',
   momcozyPureHug: '/assets/gearpath/momcozypurehug.png',
+  medelaInBra: '/assets/gearpath/medelainbra.png',
+  medelaPump: '/assets/gearpath/medelapump.png',
+  munchkinPump: '/assets/gearpath/munchkinpump.png',
+} as const;
+const CONTRACTED_NURSERYPATH_IMAGES = {
+  dadadaCrib: '/assets/nurserypath/dadadacrib.png',
+  dadadaDresser: '/assets/nurserypath/dadadadresser.png',
+  joolBabyDiaperPail: '/assets/nurserypath/joolbabydiperpail.png',
+  momcozyBabyMonitor: '/assets/nurserypath/momcozybabymonitor.png',
+  momcozyDiaperPail: '/assets/nurserypath/momcozydiperpail.png',
+  nanit: '/assets/nurserypath/nanit.png',
+  newton: '/assets/nurserypath/newton.png',
+  newtonMattress: '/assets/nurserypath/newtonmatress.png',
+  owlet: '/assets/nurserypath/owlet.png',
 } as const;
 const CAR_SEAT_PRODUCT_IMAGES = {
   alta: '/assets/car-seats/alta.png',
@@ -179,9 +191,39 @@ export function resolveProductCardImage({
     };
   }
 
+  if (
+    includesAny(normalizedKey, ['medela double electric', 'pump in style']) ||
+    (normalizedBrand === 'medela' && !includesAny(normalizedProductName, ['hands free', 'in bra']))
+  ) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.medelaPump,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['hands free', 'in bra', 'medela hands free'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.medelaInBra,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (includesAny(normalizedKey, ['munchkin manual breast pump', 'munchkin pump'])) {
+    return {
+      src: CONTRACTED_GEARPATH_IMAGES.munchkinPump,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
   if (normalizedBrand === 'momcozy' && includesAny(normalizedProductName, ['baby monitor', 'monitor'])) {
     return {
-      src: CONTRACTED_GEARPATH_IMAGES.momcozyBabyMonitor,
+      src: CONTRACTED_NURSERYPATH_IMAGES.momcozyBabyMonitor,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,
@@ -190,7 +232,70 @@ export function resolveProductCardImage({
 
   if (normalizedBrand === 'momcozy' && includesAny(normalizedProductName, ['diaper pail', 'diper pail', 'pail'])) {
     return {
-      src: CONTRACTED_GEARPATH_IMAGES.momcozyDiaperPail,
+      src: CONTRACTED_NURSERYPATH_IMAGES.momcozyDiaperPail,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'dadada baby' && includesAny(normalizedProductName, ['dresser', 'changing'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.dadadaDresser,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'dadada baby' || includesAny(normalizedKey, ['dadada crib', 'dadada baby full size crib'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.dadadaCrib,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'jool baby' || includesAny(normalizedKey, ['jool baby diaper pail'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.joolBabyDiaperPail,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'nanit' || includesAny(normalizedKey, ['nanit pro'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.nanit,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'newton baby' && includesAny(normalizedProductName, ['mattress'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.newtonMattress,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'newton baby') {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.newton,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
+  if (normalizedBrand === 'owlet' || includesAny(normalizedKey, ['owlet dream sock'])) {
+    return {
+      src: CONTRACTED_NURSERYPATH_IMAGES.owlet,
       alt: `${brand} ${productName}`,
       objectClassName: 'object-contain',
       isFallback: false,

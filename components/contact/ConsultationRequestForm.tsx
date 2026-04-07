@@ -1027,17 +1027,17 @@ export default function ConsultationRequestForm({
         onFocusCapture={handleFocusCapture}
         onSubmit={handleSubmit}
       >
-        <div className="sticky top-3 z-20 -mx-3 rounded-[1.35rem] border border-[rgba(47,36,48,0.08)] bg-[rgba(255,252,250,0.94)] px-3 py-4 shadow-[0_18px_42px_rgba(47,36,48,0.08)] backdrop-blur sm:-mx-4 sm:px-4">
+        <div className="sticky top-2 z-20 -mx-2 rounded-[1.2rem] border border-[rgba(47,36,48,0.08)] bg-[rgba(255,252,250,0.94)] px-3 py-3 shadow-[0_18px_42px_rgba(47,36,48,0.08)] backdrop-blur sm:top-3 sm:-mx-4 sm:rounded-[1.35rem] sm:px-4 sm:py-4">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
                 Step {currentStepIndex + 1} of {STEP_DEFINITIONS.length}
               </p>
-              <h2 className="mt-2 font-serif text-[1.55rem] leading-tight text-neutral-900 sm:text-[1.85rem]">
+              <h2 className="mt-1.5 font-serif text-[1.4rem] leading-tight text-neutral-900 sm:mt-2 sm:text-[1.85rem]">
                 {currentStep.title}
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-6 text-neutral-500">{currentStep.description}</p>
+            <p className="max-w-md text-[0.92rem] leading-6 text-neutral-500 sm:text-sm">{currentStep.description}</p>
           </div>
 
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-[rgba(47,36,48,0.08)]">
@@ -1047,7 +1047,7 @@ export default function ConsultationRequestForm({
             />
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-2">
+          <div className="mt-3 grid grid-cols-7 gap-1.5 sm:mt-4 sm:gap-2">
             {STEP_DEFINITIONS.map((step, index) => {
               const isComplete = index < currentStepIndex;
               const isActive = index === currentStepIndex;
@@ -1055,7 +1055,7 @@ export default function ConsultationRequestForm({
                 <div
                   key={step.id}
                   className={cx(
-                    'rounded-full px-2 py-1 text-center text-[0.62rem] uppercase tracking-[0.18em]',
+                    'rounded-full px-1.5 py-1 text-center text-[0.58rem] uppercase tracking-[0.14em] sm:px-2 sm:text-[0.62rem] sm:tracking-[0.18em]',
                     isActive
                       ? 'bg-[rgba(216,137,160,0.16)] text-[var(--color-accent-dark)]'
                       : isComplete
@@ -1070,18 +1070,18 @@ export default function ConsultationRequestForm({
           </div>
         </div>
 
-        <div className="space-y-6 rounded-[1.6rem] border border-[rgba(47,36,48,0.08)] bg-[linear-gradient(180deg,#fffdfb_0%,#fff8f7_100%)] p-5 shadow-[0_24px_60px_rgba(47,36,48,0.08)] sm:p-7">
-          <div className="space-y-3">
+        <div className="space-y-5 rounded-[1.4rem] border border-[rgba(47,36,48,0.08)] bg-[linear-gradient(180deg,#fffdfb_0%,#fff8f7_100%)] p-4 shadow-[0_24px_60px_rgba(47,36,48,0.08)] sm:space-y-6 sm:rounded-[1.6rem] sm:p-7">
+          <div className="space-y-2.5 sm:space-y-3">
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/78">
               {currentStep.eyebrow}
             </p>
-            <h3 className="font-serif text-[1.9rem] leading-[1.02] tracking-[-0.04em] text-neutral-900">
+            <h3 className="font-serif text-[1.65rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 sm:text-[1.9rem]">
               {currentStep.title}
             </h3>
           </div>
 
           {submitState.type === 'error' ? (
-            <div className="rounded-[1.2rem] border border-rose-200 bg-rose-50/90 px-5 py-4 text-sm leading-7 text-rose-800">
+            <div className="rounded-[1.1rem] border border-rose-200 bg-rose-50/90 px-4 py-3.5 text-sm leading-6 text-rose-800 sm:rounded-[1.2rem] sm:px-5 sm:py-4 sm:leading-7">
               {submitState.message}
             </div>
           ) : null}
@@ -1137,7 +1137,7 @@ export default function ConsultationRequestForm({
           )}
 
           {submitState.type !== 'success' ? (
-            <div className="flex flex-col-reverse gap-3 border-t border-[rgba(47,36,48,0.08)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col-reverse gap-3 border-t border-[rgba(47,36,48,0.08)] pt-5 sm:pt-6 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="button"
                 onClick={handleBack}
@@ -1153,7 +1153,7 @@ export default function ConsultationRequestForm({
               </button>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <p className="text-sm leading-6 text-neutral-500">
+                <p className="text-sm leading-6 text-neutral-500 sm:max-w-[17rem]">
                   {currentStep.id === 'review'
                     ? 'This intake becomes your pre-consult plan.'
                     : 'You do not need to have everything figured out.'}
@@ -1177,7 +1177,7 @@ export default function ConsultationRequestForm({
           ) : null}
         </div>
 
-        <div className="rounded-[1.2rem] bg-[rgba(255,248,249,0.86)] px-5 py-4 text-sm leading-7 text-neutral-600">
+        <div className="rounded-[1.1rem] bg-[rgba(255,248,249,0.86)] px-4 py-3.5 text-sm leading-6 text-neutral-600 sm:rounded-[1.2rem] sm:px-5 sm:py-4 sm:leading-7">
           This is meant to save time on both sides. You share the context once. I walk into the conversation already knowing what needs sorting.
         </div>
       </form>

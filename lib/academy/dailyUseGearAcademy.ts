@@ -192,8 +192,8 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'A bad one gives you shoulder pain, confusion, and a fabric situation you regret in real time.',
       'This module helps users understand the main types of carriers, when each one shines, and how to choose something that works for both baby and caregiver.',
     ],
-    heroImageSrc: '/assets/editorial/growing-with-confidence.jpg',
-    heroImageAlt: 'Caregiver holding baby close in a calm everyday moment.',
+    heroImageSrc: '/assets/gearpath/carrierergobaby.png',
+    heroImageAlt: 'Caregiver using an Ergobaby carrier in a calm everyday moment.',
     learn: {
       description:
         'Carrier categories sound interchangeable until you actually try them on. They are not. Each one solves a slightly different version of closeness, support, and convenience.',
@@ -281,8 +281,8 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'Then suddenly: the tray is annoying, the straps are impossible, and the tiny avocado pieces are somehow in architectural places.',
       'This module helps users understand what actually matters in a highchair beyond aesthetics.',
     ],
-    heroImageSrc: '/assets/editorial/feeding.png',
-    heroImageAlt: 'Editorial feeding setup with everyday mealtime gear.',
+    heroImageSrc: '/assets/gearpath/momcozyhighchair.png',
+    heroImageAlt: 'Momcozy highchair in an everyday mealtime setting.',
     learn: {
       description:
         'Most highchair regret is not about color. It is about posture, cleanup, and whether the chair still feels reasonable after the third meal of the day.',

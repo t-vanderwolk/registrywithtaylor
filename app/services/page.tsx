@@ -115,7 +115,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
         <PageViewTracker path="/services" pageType="services" />
 
         <Hero
-          className="homepage-hero"
+          className="homepage-hero services-hero"
           eyebrow="Advisory Services"
           title="Premium Baby Gear Guidance, Built Around Real-Life Fit"
           subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."

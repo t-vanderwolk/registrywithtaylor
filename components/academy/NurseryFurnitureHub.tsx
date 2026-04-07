@@ -139,8 +139,8 @@ export default function NurseryFurnitureHub() {
                   <div className="border-t border-[rgba(215,161,175,0.14)] bg-[linear-gradient(180deg,#fdf6f7_0%,#fffdfc_100%)] lg:border-l lg:border-t-0">
                     <div className="relative aspect-[4/3] border-b border-[rgba(215,161,175,0.14)] bg-[linear-gradient(180deg,#f7f1ea_0%,#efe5dc_100%)]">
                       <Image
-                        src="/assets/editorial/nursery2.png"
-                        alt="Editorial nursery furniture image."
+                        src="/assets/nurserypath/nurseryprep.png"
+                        alt="Nursery prep image for the furniture module."
                         fill
                         sizes="(min-width: 1024px) 42vw, 100vw"
                         className="object-contain p-6 md:p-8"

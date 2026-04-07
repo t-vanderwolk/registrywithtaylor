@@ -66,7 +66,37 @@ type GearAcademyModuleInputWithMarkdown = GearAcademyModuleInput & {
 };
 
 const TOTAL_MODULES = 9;
-const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+const GEAR_ACADEMY_IMAGES = {
+  carrierLifestyle: '/assets/gearpath/carrierergobaby.png',
+  colugoStroller: '/assets/gearpath/cogulo.png',
+  lifestyleInBraPump: '/assets/gearpath/lifestyleinbrapump.png',
+  lifestylePump: '/assets/gearpath/lifestylepump.png',
+  medelaInBra: '/assets/gearpath/medelainbra.png',
+  medelaPump: '/assets/gearpath/medelapump.png',
+  momcozyAir1: '/assets/gearpath/momcozyair1.png',
+  momcozyHighChair: '/assets/gearpath/momcozyhighchair.png',
+  momcozyHospitalGrade: '/assets/gearpath/momcozyhospitalgrade.png',
+  momcozyMobileFlow: '/assets/gearpath/momcozymobileflow.png',
+  momcozyPureHug: '/assets/gearpath/momcozypurehug.png',
+  munchkinPump: '/assets/gearpath/munchkinpump.png',
+  omniCarrier: '/assets/gearpath/omni.png',
+  carSeatCarrier: '/assets/car-seats/piparx.png',
+  carSeatBase: '/assets/car-seats/piparxbase.png',
+  compactStroller: '/assets/strollers/compact.png',
+  mixxNext: '/assets/strollers/mixxnext.png',
+  travelPacked: '/assets/strollers/travel.png',
+  bottleSystem: '/assets/editorial/bottle-booties.png',
+  gearOverview: '/assets/editorial/gear.jpg',
+  strollerComparison: '/assets/editorial/strollers.png',
+  strollerEveryday: '/assets/editorial/editorialstroller.png',
+  strollerFold: '/assets/editorial/stroller-folds.jpg',
+  strollerFullSize: '/assets/editorial/fullsize.png',
+  strollerCompact: '/assets/editorial/compact.png',
+  planningNotes: '/assets/editorial/clipboard.png',
+  organization: '/assets/editorial/organize.png',
+  fitBlueprint: '/assets/editorial/ipadblueprint.png',
+  infantStage: '/assets/editorial/welcome.png',
+} as const;
 
 function renderProductMarkdown(product: GearAcademyProductExample) {
   const lines = [
@@ -91,8 +121,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     moduleOrder: 1,
     description: 'Understand how to choose baby gear based on your life, your routine, and real fit before the features start talking too loudly.',
     subhead: 'Before you choose anything, understand how to choose.',
-    imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Editorial baby gear image for the How to Think About Baby Gear module.',
+    imagePath: GEAR_ACADEMY_IMAGES.carrierLifestyle,
+    imageAlt: 'Lifestyle image of a parent using a baby carrier in real life.',
     intro: [
       'Most parents start baby prep by asking what they should buy.',
       'The better question is what their life actually needs.',
@@ -102,8 +132,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Lifestyle first, products second',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal home entryway with stroller and natural light.',
+        imageSrc: GEAR_ACADEMY_IMAGES.carrierLifestyle,
+        imageAlt: 'Parent using everyday baby gear in a calm home setting.',
         paragraphs: [
           'Your daily life determines your gear, not trends, popularity, or reviews.',
           'Think about your car, your space, your routine, and how often you actually leave the house.',
@@ -112,8 +142,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Where most people go wrong',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Overwhelming baby store aisle concept with many options.',
+        imageSrc: GEAR_ACADEMY_IMAGES.gearOverview,
+        imageAlt: 'Edited baby gear setup that keeps the category grounded in real use.',
         paragraphs: [
           'Most parents buy too early, buy too much, or let trends do too much of the thinking.',
           'That usually creates clutter, regret, and a setup that feels busier than it needs to be.',
@@ -122,8 +152,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Simplicity wins long-term',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Clean, minimal gear setup in a neutral environment.',
+        imageSrc: GEAR_ACADEMY_IMAGES.omniCarrier,
+        imageAlt: 'Simple everyday baby carrier setup in a neutral environment.',
         paragraphs: [
           'The best setups are usually simpler than people expect.',
           'Fewer decisions, fewer products, and better fit almost always age better than a bigger pile of options.',
@@ -150,8 +180,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Choose the stroller setup that fits your routine, your environment, and your storage reality, then use the compact-versus-full-size call to shrink the shortlist.',
     subhead: 'Not all strollers are built for the same life.',
-    imagePath: '/assets/editorial/strollers.png',
-    imageAlt: 'Editorial stroller image for the Stroller Foundations module.',
+    imagePath: GEAR_ACADEMY_IMAGES.colugoStroller,
+    imageAlt: 'Colugo stroller image for the Stroller Foundations module.',
     intro: [
       'The biggest mistake parents make is choosing a stroller before understanding how they will use it.',
       'There is no best stroller.',
@@ -161,8 +191,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Full-size vs compact vs travel',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Three stroller types in soft neutral environment.',
+        imageSrc: GEAR_ACADEMY_IMAGES.strollerComparison,
+        imageAlt: 'Stroller comparison image showing different use cases.',
         paragraphs: [
           'Full-size strollers are usually about everyday comfort.',
           'Compact strollers balance size and usability. Travel strollers lean into portability.',
@@ -171,8 +201,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Where you will use it most',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Sidewalk and urban walking environment.',
+        imageSrc: GEAR_ACADEMY_IMAGES.strollerEveryday,
+        imageAlt: 'Stroller in an everyday walking environment.',
         paragraphs: [
           'Think about sidewalks, stores, travel days, and the errands you actually repeat.',
           'Your environment affects what feels smooth, what feels annoying, and what quietly becomes too much stroller.',
@@ -181,8 +211,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Storage and transport',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Stroller folded into car trunk.',
+        imageSrc: GEAR_ACADEMY_IMAGES.strollerFold,
+        imageAlt: 'Stroller folded for trunk storage.',
         paragraphs: [
           'Can it fit in your car easily, and can you lift it without resenting it by week two?',
           'Those questions sound unglamorous because they are. They are also daily questions.',
@@ -191,8 +221,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Everyday life vs occasional use',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Compact vs full-size visual comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.strollerFullSize,
+        imageAlt: 'Full-size stroller shown as an everyday-use option.',
         paragraphs: [
           'Full-size strollers usually make the most sense when the stroller has a real everyday job.',
           'Compact strollers make more sense when flexibility, smaller size, and easier loading matter more.',
@@ -201,8 +231,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Trade-offs that actually matter',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Stroller size comparison visual.',
+        imageSrc: GEAR_ACADEMY_IMAGES.strollerCompact,
+        imageAlt: 'Compact stroller shown as a portability-first option.',
         paragraphs: [
           'This choice is mostly about size versus portability and comfort versus convenience.',
           'Full-size usually wins some comfort and storage points. Compact usually wins many portability points.',
@@ -242,8 +272,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     moduleOrder: 3,
     description: 'Use the car seat categories, your vehicle, and your routine to choose the safer everyday fit with less confusion.',
     subhead: 'Safety is the baseline. Fit is what matters next.',
-    imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Editorial car seat planning image for the Car Seat Foundations module.',
+    imagePath: GEAR_ACADEMY_IMAGES.carSeatCarrier,
+    imageAlt: 'Infant car seat image for the Car Seat Foundations module.',
     intro: [
       'Car seats are one of the most important decisions you will make.',
       'Most confusion starts when people do not understand the categories first.',
@@ -252,8 +282,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Infant vs convertible',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Infant car seat vs convertible car seat comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.carSeatCarrier,
+        imageAlt: 'Infant car seat example for category comparison.',
         paragraphs: [
           'Infant seats are about portability and removability. Convertible seats are about longer-term use.',
           'Neither one wins in every situation because each comes with different trade-offs.',
@@ -262,8 +292,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Your car matters',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Car interior showing installed car seat.',
+        imageSrc: GEAR_ACADEMY_IMAGES.fitBlueprint,
+        imageAlt: 'Car seat fit and installation planning image.',
         paragraphs: [
           'Not all seats fit all cars equally well, and that matters more than many first-time parents expect.',
           'Space, angle, front-seat room, and vehicle layout all affect what feels workable.',
@@ -272,8 +302,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Ease of use',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Simple click-in car seat setup.',
+        imageSrc: GEAR_ACADEMY_IMAGES.carSeatBase,
+        imageAlt: 'Infant car seat base setup showing daily ease of use.',
         paragraphs: [
           'Daily usability matters right alongside safety because hard-to-use gear is more likely to create stress and inconsistency.',
           'Installation confidence, carrying, buckling, and the repeated in-and-out routine deserve real attention.',
@@ -307,8 +337,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     moduleOrder: 4,
     description: 'Understand how stroller and car seat compatibility works so the setup stays practical instead of more complicated than it needs to be.',
     subhead: 'How your stroller and car seat actually work together.',
-    imagePath: '/assets/editorial/stroller-folds.jpg',
-    imageAlt: 'Editorial travel system image for the Travel Systems module.',
+    imagePath: GEAR_ACADEMY_IMAGES.mixxNext,
+    imageAlt: 'Travel-system stroller image for the Travel Systems module.',
     intro: [
       'This is where a lot of parents get stuck because compatibility is not always obvious.',
       'The good news is that it gets much simpler once you understand how the connections work.',
@@ -317,8 +347,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Direct vs adapter systems',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Stroller and car seat connection setup.',
+        imageSrc: GEAR_ACADEMY_IMAGES.mixxNext,
+        imageAlt: 'Travel-system stroller showing a coordinated setup.',
         paragraphs: [
           'Some systems connect directly. Others need adapters to make the stroller and car seat work together.',
           'Direct systems are usually simpler. Adapter setups offer more flexibility.',
@@ -327,8 +357,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'When it matters',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Parent moving car seat from car to stroller.',
+        imageSrc: GEAR_ACADEMY_IMAGES.carSeatCarrier,
+        imageAlt: 'Infant car seat moving through a travel-system routine.',
         paragraphs: [
           'Travel systems matter most in the early months when the click-in convenience gets used regularly.',
           'If those quick transitions are a big part of your routine, this decision deserves more attention.',
@@ -337,8 +367,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Simplicity vs flexibility',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Clean minimal travel system setup.',
+        imageSrc: GEAR_ACADEMY_IMAGES.compactStroller,
+        imageAlt: 'Compact stroller image representing flexible travel-system planning.',
         paragraphs: [
           'Same-brand systems usually feel simpler. Cross-brand setups usually create more flexibility.',
           'The right answer depends on whether you want the cleanest path or the wider set of options.',
@@ -373,8 +403,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
     subhead: 'Leaving the house is its own gear category.',
-    imagePath: '/assets/editorial/stroller-folds.jpg',
-    imageAlt: 'Editorial travel with baby image for the Travel With Baby module.',
+    imagePath: GEAR_ACADEMY_IMAGES.colugoStroller,
+    imageAlt: 'Colugo stroller image for the Travel With Baby module.',
     intro: [
       'Travel with a baby sounds like one category. It is actually several versions of the same question.',
       'What needs to come with you, what can stay home, and which pieces make movement easier instead of more theatrical?',
@@ -394,8 +424,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Portability changes what earns a spot',
-        imageSrc: '/assets/editorial/stroller-folds.jpg',
-        imageAlt: 'Compact baby gear staged for portability and trunk space.',
+        imageSrc: GEAR_ACADEMY_IMAGES.colugoStroller,
+        imageAlt: 'Compact stroller staged for portability and trunk space.',
         paragraphs: [
           'At home, bulk can feel manageable. In a trunk, overhead bin, or restaurant entryway, it becomes very persuasive very quickly.',
           'Weight, fold, wipeability, and how fast something deploys matter more once you are moving with it.',
@@ -404,8 +434,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Build around the hardest transition',
-        imageSrc: '/assets/editorial/editorialstroller.png',
-        imageAlt: 'Parent transitioning between car, stroller, and carrier with baby gear.',
+        imageSrc: GEAR_ACADEMY_IMAGES.carrierLifestyle,
+        imageAlt: 'Parent moving through a baby-gear transition with carrier support.',
         paragraphs: [
           'Think about the most annoying repeat move in your week: stairs, parking lots, airport security, nap transfers, or feeding away from home.',
           'That one friction point should shape the setup more than the longest feature list on the product page.',
@@ -461,8 +491,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     moduleOrder: 6,
     description: "The products you'll use every single day - and feel immediately if they're wrong.",
     subhead: 'The products that shape the routine fast.',
-    imagePath: '/assets/editorial/babystuff.png',
-    imageAlt: 'Editorial daily-use baby gear image for the Daily Use Gear module.',
+    imagePath: GEAR_ACADEMY_IMAGES.momcozyPureHug,
+    imageAlt: 'Daily-use baby carrier image for the Daily Use Gear module.',
     intro: [
       'Not all gear matters equally.',
       'Some items become part of your daily rhythm. Others mostly sit there looking hopeful.',
@@ -471,8 +501,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'High-frequency items',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal baby gear setup used daily.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyPureHug,
+        imageAlt: 'Soft baby carrier shown as a high-frequency daily-use item.',
         paragraphs: [
           'Think about the categories that truly get used often, like carriers, feeding setups, and daily seating support.',
           'These are the items that shape the rhythm of ordinary days, not just the nursery shelf.',
@@ -481,8 +511,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Avoiding overbuying',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal vs clutter gear comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyHighChair,
+        imageAlt: 'High chair shown as one strong daily-use choice instead of duplicates.',
         paragraphs: [
           'The cleaner list focuses on what supports your real routine and skips the duplicate layers that mostly create clutter.',
           'A lot of daily-use categories get overbought because parents try to solve the same job in three different ways.',
@@ -502,14 +532,14 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
         pros: ['Useful for everyday movement', 'Often earns its place quickly'],
       },
       {
+        name: 'Soft Carrier',
+        description: 'A lower-bulk daily-use option when closeness, flexibility, and quick on-off support matter more than maximum structure.',
+        pros: ['Helpful for shorter repeated stretches', 'Useful when softness and lighter weight matter'],
+      },
+      {
         name: 'High Chair',
         description: 'A meaningful daily-use item once feeding rhythm becomes a repeated part of the day.',
         pros: ['Supports repeated feeding routines', 'Worth prioritizing when used often'],
-      },
-      {
-        name: 'Bouncer',
-        description: 'A helpful support item when you need one simple place to set baby down during the repeated parts of the day.',
-        pros: ['Useful for short daily moments', 'Helps when one safe, repeatable spot matters'],
       },
     ],
     softCtaLabel: 'A Note Before You Move Forward',
@@ -547,8 +577,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
     subhead: 'A pump is a tool, not a personality.',
-    imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Editorial breast pump planning image for the Breast Pump module.',
+    imagePath: GEAR_ACADEMY_IMAGES.lifestylePump,
+    imageAlt: 'Lifestyle breast pump image for the Breast Pump module.',
     intro: [
       'Breast pumps get marketed like one purchase is about to solve your entire feeding future.',
       'In real life, the right pump depends on how often you expect to use it, where you will use it, and whether it is supporting daily feeding or occasional flexibility.',
@@ -558,8 +588,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Start with the job, not the pump category',
-        imageSrc: '/assets/editorial/clipboard.png',
-        imageAlt: 'Breast pump parts and notes arranged around a practical feeding plan.',
+        imageSrc: GEAR_ACADEMY_IMAGES.lifestyleInBraPump,
+        imageAlt: 'Hands-free pumping routine shown in a real-life setting.',
         paragraphs: [
           'Ask what the pump is for before you compare features.',
           'Is it supporting a return to work, occasional bottles, supply maintenance while away, or a more pump-heavy routine at home?',
@@ -568,8 +598,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Manual, wearable, and double electric answer different routines',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Different pump styles arranged to compare routine fit.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyHospitalGrade,
+        imageAlt: 'Hospital-grade pump shown as one type in the routine-fit comparison.',
         paragraphs: [
           'Manual pumps can be useful for occasional relief or backup. Wearables can help with mobility. Double electric pumps often make the most sense when pumping is repeated and time matters.',
           'The best option is not the fanciest one. It is the one your real schedule can maintain.',
@@ -578,8 +608,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Accessories can help, but they multiply fast',
-        imageSrc: '/assets/editorial/organize.png',
-        imageAlt: 'Breast pump accessories organized into essentials and extras.',
+        imageSrc: GEAR_ACADEMY_IMAGES.medelaPump,
+        imageAlt: 'Breast pump setup shown with the gear that can multiply quickly.',
         paragraphs: [
           'A few support pieces can make pumping much easier: a pump bra, storage containers, a parts-drying plan, and a practical place to clean everything.',
           'Extra flanges, extra bottles, extra cords, and extra backup kits have a way of appearing before the routine exists to justify them.',
@@ -588,8 +618,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Think through location before you buy for convenience',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Work and home pumping setup comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.medelaInBra,
+        imageAlt: 'Wearable breast pump shown in a work-and-home routine context.',
         paragraphs: [
           'A home-only setup has different needs than a work bag, commute, or travel setup.',
           'Where you will pump, where parts will dry, and how milk gets stored will matter just as much as the motor specs.',
@@ -636,8 +666,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Build a calm bottle starting point, understand nipple flow and cleanup, and avoid buying a whole feeding drawer before your baby has an opinion.',
     subhead: 'Bottles become a system faster than most parents expect.',
-    imagePath: '/assets/editorial/bottle-booties.png',
-    imageAlt: 'Editorial bottles and baby utensils image for the Bottles & Baby Utensils module.',
+    imagePath: GEAR_ACADEMY_IMAGES.bottleSystem,
+    imageAlt: 'Bottle starter setup image for the Bottles & Baby Utensils module.',
     intro: [
       'Bottles seem like a small purchase until they quietly become a full countertop workflow.',
       'The bottle itself matters, but so do nipple flow, cleaning, storage, and how many you actually need before the routine is real.',
@@ -647,7 +677,7 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     coreSections: [
       {
         title: 'Start with one bottle system',
-        imageSrc: '/assets/editorial/bottle-booties.png',
+        imageSrc: GEAR_ACADEMY_IMAGES.bottleSystem,
         imageAlt: 'A simple bottle starter set styled for clarity rather than excess.',
         paragraphs: [
           'A few bottles from one system usually gives you enough information to start.',
@@ -657,8 +687,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Nipple flow and baby response matter',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Bottle nipples arranged by flow stage in a clean layout.',
+        imageSrc: GEAR_ACADEMY_IMAGES.bottleSystem,
+        imageAlt: 'Bottle nipples and bottle parts arranged as a starter system.',
         paragraphs: [
           'Bottle acceptance is not just about the bottle shape. Nipple flow, pacing, and how feeds are offered matter too.',
           'This is one reason it helps to buy small at first. Real use gives better information than optimistic bulk ordering.',
@@ -667,7 +697,7 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Cleanup determines whether the system feels easy',
-        imageSrc: '/assets/editorial/organize.png',
+        imageSrc: GEAR_ACADEMY_IMAGES.organization,
         imageAlt: 'Bottle drying rack and brush arranged in a simple cleanup workflow.',
         paragraphs: [
           'A bottle setup is only as nice as it is to wash, dry, and reset while you are tired.',
@@ -677,8 +707,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Utensils are often a later chapter',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Minimal feeding utensils staged as a later-stage add-on rather than an early must-buy.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyHighChair,
+        imageAlt: 'High chair shown as a later-stage feeding tool rather than an early must-buy.',
         paragraphs: [
           'Spoons, bowls, snack containers, and other feeding tools usually make more sense once solids and routine timing are actually on the calendar.',
           'It is fine to note them. It is usually unnecessary to stockpile them now.',
