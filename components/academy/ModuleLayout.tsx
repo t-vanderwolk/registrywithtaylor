@@ -590,13 +590,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          <ConnectedContentSection
-            eyebrow="Keep It Connected"
-            title="Bridge this module back to the wider TMBC system"
-            description="Use the guide when you want the higher-level decision map, the journal when you want a concrete example, and services when you want the shortlist translated to your actual life."
-            cards={internalLinkPlan.journeyCards}
-          />
-
           <section className="academy-load-in academy-load-in--5 tmbc-editorial-article-shell">
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>
             <article className="tmbc-blog tmbc-blog-post-content mt-6 max-w-none">
@@ -854,6 +847,13 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             <SectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
             <DecisionRouter module={module} />
           </section>
+
+          <ConnectedContentSection
+            eyebrow="Keep It Connected"
+            title="Bridge this module back to the wider TMBC system"
+            description="Use the guide when you want the higher-level decision map, the journal when you want a concrete example, and services when you want the shortlist translated to your actual life."
+            cards={internalLinkPlan.journeyCards}
+          />
 
           <section className="space-y-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
             <div>
