@@ -357,61 +357,52 @@ They need to feel supported enough to repeat.
     slug: 'feeding-and-lactation',
     moduleOrder: 3,
     description:
-      'Understand breastfeeding, bottle feeding, and combination feeding with more flexibility, less guilt, and a calmer view of what support actually helps.',
-    subhead: 'Without pressure or perfection.',
-    imagePath: BREASTFEEDING_IMAGES.lifestylePump,
-    imageAlt: 'Feeding and lactation lifestyle image for the Feeding & Lactation module.',
+      'Move through breastfeeding, bottle feeding, and combination feeding with more support, less pressure, and a steadier response when the original feeding plan changes.',
+    subhead: 'More support, less pressure.',
+    imagePath: BREASTFEEDING_IMAGES.formulaNara,
+    imageAlt: 'Flexible feeding setup image for the Feeding & Lactation module.',
     intro: [
       'Feeding your baby is one of the most emotional parts of postpartum.',
-      'Because it is not just about nutrition. It is also about expectations, identity, connection, and sometimes stress.',
-      'This module is here to make that conversation feel steadier and much less binary.',
+      'Because it is not just about nutrition. It is also about recovery, expectations, identity, connection, and sometimes grief when the plan changes.',
+      'This module is not the gear conversation. It is the support conversation.',
+      'It is here to make feeding feel steadier, more flexible, and much less loaded.',
     ],
     coreSections: [
       {
-        title: "What You're Actually Learning",
-        imageSrc: BREASTFEEDING_IMAGES.storageBottles,
-        imageAlt: 'Feeding setup with milk storage bottles and a calmer countertop workflow.',
+        title: 'This is about feeding, not proving anything',
+        imageSrc: BREASTFEEDING_IMAGES.lifestylePump,
+        imageAlt: 'Feeding moment shown in a real postpartum setting.',
         paragraphs: [
-          'The goal is to understand the basics of breastfeeding, bottle feeding, and combination feeding without turning any of them into a morality test.',
-          'You are learning what support helps, what flexibility looks like, and how to adjust when real life moves differently than the original plan.',
+          'The goal is to make room for breastfeeding, bottle feeding, formula feeding, or combination feeding without turning any of them into a morality test.',
+          'You are learning how to separate feeding from performance, how to stay responsive when the plan shifts, and how to keep the baby and the adults in the conversation at the same time.',
         ],
       },
       {
-        title: 'The Truth About Feeding',
+        title: 'Most feeding plans change in real life',
         imageSrc: BREASTFEEDING_IMAGES.formulaNara,
-        imageAlt: 'Feeding support setup that reflects formula or combination feeding in real life.',
+        imageAlt: 'Combination or formula feeding shown as a real-life feeding path.',
         paragraphs: [
-          'Most families do not follow one perfectly clean path. They adjust, pivot, and learn in real time.',
-          'That is not a sign that feeding is going badly. It is usually a sign that feeding is happening in real life, not in a hypothetical version of it.',
+          'Many families start with one idea and end up adjusting around latch, supply, recovery, work, sleep, baby preference, or simple sustainability.',
+          'That does not mean the feeding relationship failed. It usually means the original plan met real life and needed to become more honest.',
         ],
       },
       {
-        title: 'What Actually Helps',
-        imageSrc: BREASTFEEDING_IMAGES.storageBags,
-        imageAlt: 'Organized feeding supplies and milk storage support in a calm home setting.',
+        title: 'What actually helps is support earlier',
+        imageSrc: BREASTFEEDING_IMAGES.storageBottles,
+        imageAlt: 'Simple feeding setup organized to reduce friction during the postpartum stretch.',
         paragraphs: [
-          'Understanding your options early, having the right tools ready, lowering the pressure, and asking for support when needed all make a real difference.',
-          'Flexibility is not failure. It is often how families arrive at the setup that actually works for the baby and the adults.',
+          'What usually helps most is lower pressure, more observation, more rest support, and bringing in your pediatrician, IBCLC, or another trusted provider before the situation feels fully unsustainable.',
+          'When feeding becomes physically painful, emotionally heavy, or logistically chaotic, more support usually helps faster than more self-blame.',
         ],
       },
     ],
     decisionBullets: [
-      'There is no one right feeding identity to perform.',
-      'Support matters more than forcing a single plan to survive at all costs.',
-      'Adjusting the plan is often a sign of responsiveness, not failure.',
+      'Feed the baby, not the identity story.',
+      'Changes in plan are common and do not mean you failed.',
+      'Bring in support earlier when feeding feels physically or emotionally hard.',
+      'A recovering adult is part of the feeding equation too.',
     ],
-    products: [
-      {
-        name: 'Double Electric Pump',
-        description: 'A practical grounding example when pumping becomes a repeated part of the feeding rhythm and efficiency starts to matter.',
-        pros: ['Supports repeated pumping', 'Useful when feeding includes regular separation or pumping sessions'],
-      },
-      {
-        name: 'Milk Storage Bags',
-        description: 'A support tool that keeps expressed milk easier to store, organize, and hand off when pumping becomes part of the plan.',
-        pros: ['Makes milk storage easier to manage', 'Useful when expressed milk needs a simple workflow'],
-      },
-    ],
+    products: [],
     softCtaLabel: 'Before You Move Forward',
     softCtaTitle: 'Feeding is not a test.',
     softCtaBody: ['It is a relationship.'],
@@ -419,7 +410,7 @@ They need to feel supported enough to repeat.
     previousModuleSlug: 'first-weeks-home-rhythm',
     markdownContent: `# Feeding & Lactation
 
-Without pressure or perfection.
+More support, less pressure.
 
 ## Module 3 of 6 · Postpartum
 
@@ -427,7 +418,11 @@ Feeding your baby is one of the most emotional parts of postpartum.
 
 Because it is not just about nutrition.
 
-It is also about expectations, identity, connection, and sometimes stress.
+It is also about recovery, expectations, identity, connection, and sometimes grief when the plan changes.
+
+This module is not the gear conversation.
+
+It is the support conversation.
 
 :::pullquote
 There is no one "right" way to feed your baby.
@@ -437,53 +432,49 @@ There is only what works for you and your baby.
 
 ## Core Considerations
 
-### What You're Actually Learning
+### This Is About Feeding, Not Proving Anything
 
-This module is here to make the feeding conversation feel steadier and less loaded.
+This module is here to make feeding feel steadier and less loaded.
 
-You are learning:
+You are making room for breastfeeding, bottle feeding, formula feeding, or combination feeding without turning any of them into a morality test.
 
-- breastfeeding basics
-- bottle feeding strategies
-- combination feeding
-- how to adjust without guilt
+You are learning how to stay responsive when the plan shifts, how to protect the adult part of the equation, and how to stop treating feeding like a performance review.
 
-![Feeding setup with milk storage bottles and a calmer countertop workflow.](${BREASTFEEDING_IMAGES.storageBottles})
+![Feeding moment shown in a real postpartum setting.](${BREASTFEEDING_IMAGES.lifestylePump})
 
-### The Truth About Feeding
+### Most Feeding Plans Change In Real Life
 
 Most families do not follow one perfectly clean path.
 
-They adjust.
-They pivot.
-They learn in real time.
+They adjust around latch, supply, recovery, work, sleep, baby preference, or simple sustainability.
 
 :::callout
-Flexibility is not failure.
+Changing the plan is not a sign that feeding went wrong.
 
-It is how this actually works.
+It is usually a sign that the plan met real life.
 :::
 
-![Feeding support setup that reflects formula or combination feeding in real life.](${BREASTFEEDING_IMAGES.formulaNara})
+![Combination or formula feeding shown as a real-life feeding path.](${BREASTFEEDING_IMAGES.formulaNara})
 
-### What Actually Helps
+### What Actually Helps Is Support Earlier
 
 What usually helps most:
 
-- understanding your options early
-- having the right tools ready
-- lowering the pressure
-- asking for support when needed
+- lower pressure
+- more observation
+- more rest support
+- bringing in your pediatrician, IBCLC, or another trusted provider before the situation feels fully unsustainable
 
-This is where responsiveness matters more than perfection.
+When feeding becomes physically painful, emotionally heavy, or logistically chaotic, more support usually helps faster than more self-blame.
 
-![Organized feeding supplies and milk storage support in a calm home setting.](${BREASTFEEDING_IMAGES.storageBags})
+![Simple feeding setup organized to reduce friction during the postpartum stretch.](${BREASTFEEDING_IMAGES.storageBottles})
 
 ## What This Means For You
 
-- There is no one right feeding identity to perform.
-- Support matters more than forcing a single plan to survive at all costs.
-- Adjusting the plan is often a sign of responsiveness, not failure.
+- Feed the baby, not the identity story.
+- Changes in plan are common and do not mean you failed.
+- Bring in support earlier when feeding feels physically or emotionally hard.
+- A recovering adult is part of the feeding equation too.
 
 ## Before You Move Forward
 

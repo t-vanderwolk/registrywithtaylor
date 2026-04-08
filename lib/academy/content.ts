@@ -549,9 +549,9 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     pathSlug: 'gear',
     title: 'Breast Pump',
     description:
-      'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
+      'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories make the pumping workflow more practical instead of more complicated.',
     subhead: 'A pump is a tool, not a personality.',
-    imagePath: '/assets/gearpath/lifestylepump.png',
+    imagePath: '/assets/breastfeeding/lifestylepump.png',
     imageAlt: 'Breast pump lifestyle image for the Breast Pump academy module.',
     relatedSlug: 'feeding-and-lactation',
   },
@@ -598,10 +598,10 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     pathSlug: 'postpartum',
     title: 'Feeding & Lactation',
     description:
-      'Understand breastfeeding, bottle feeding, and combination feeding with more flexibility, less guilt, and a calmer view of what support actually helps.',
-    subhead: 'Without pressure or perfection.',
-    imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Feeding editorial image for the Feeding & Lactation academy module.',
+      'Move through breastfeeding, bottle feeding, and combination feeding with more support, less pressure, and a steadier response when the original feeding plan changes.',
+    subhead: 'More support, less pressure.',
+    imagePath: '/assets/breastfeeding/formulanara.png',
+    imageAlt: 'Flexible feeding image for the Feeding & Lactation academy module.',
     relatedSlug: 'storage-and-organization',
   },
   'rest-and-sleep': {

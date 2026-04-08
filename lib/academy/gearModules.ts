@@ -582,19 +582,19 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Decide if and when a pump belongs in your setup, which type matches your likely routine, and which accessories are practical instead of aspirational.',
     subhead: 'A pump is a tool, not a personality.',
-    imagePath: GEAR_ACADEMY_IMAGES.pumpLifestyle,
+    imagePath: GEAR_ACADEMY_IMAGES.lifestylePump,
     imageAlt: 'Lifestyle pumping image for the Breast Pump module.',
     intro: [
       'Breast pumps get marketed like one purchase is about to solve your entire feeding future.',
       'In real life, the right pump depends on how often you expect to use it, where you will use it, and whether it is supporting daily feeding or occasional flexibility.',
       'Some families need one early. Some need one later. Some barely use one at all.',
-      'This module is here to make that decision feel more practical and much less identity-based.',
+      'This module is the gear side of the decision: the pump, the setup, and the routine that has to work around real life.',
     ],
     coreSections: [
       {
         title: 'Start with the job, not the pump category',
-        imageSrc: GEAR_ACADEMY_IMAGES.lifestyleInBraPump,
-        imageAlt: 'Hands-free pumping routine shown in a real-life setting.',
+        imageSrc: GEAR_ACADEMY_IMAGES.pumpLifestyle,
+        imageAlt: 'Pumping routine shown in a real-life home setting.',
         paragraphs: [
           'Ask what the pump is for before you compare features.',
           'Is it supporting a return to work, occasional bottles, supply maintenance while away, or a more pump-heavy routine at home?',
@@ -603,8 +603,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Manual, wearable, and double electric answer different routines',
-        imageSrc: GEAR_ACADEMY_IMAGES.momcozyHospitalGrade,
-        imageAlt: 'Hospital-grade breast pump shown as one option in the routine-fit comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.medelaPump,
+        imageAlt: 'Double electric breast pump shown as one option in the routine-fit comparison.',
         paragraphs: [
           'Manual pumps can be useful for occasional relief or backup. Wearables can help with mobility. Double electric pumps often make the most sense when pumping is repeated and time matters.',
           'The best option is not the fanciest one. It is the one your real schedule can maintain.',
@@ -613,8 +613,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Accessories can help, but they multiply fast',
-        imageSrc: GEAR_ACADEMY_IMAGES.storageBagsMedela,
-        imageAlt: 'Milk storage bags and pumping accessories shown as the support gear that can multiply quickly.',
+        imageSrc: GEAR_ACADEMY_IMAGES.storageBottles,
+        imageAlt: 'Milk storage bottles and pumping accessories shown as the support gear that can multiply quickly.',
         paragraphs: [
           'A few support pieces can make pumping much easier: a pump bra, storage containers, a parts-drying plan, and a practical place to clean everything.',
           'Extra flanges, extra bottles, extra cords, and extra backup kits have a way of appearing before the routine exists to justify them.',
@@ -623,8 +623,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Think through location before you buy for convenience',
-        imageSrc: GEAR_ACADEMY_IMAGES.momcozyMobileFlow,
-        imageAlt: 'Wearable pump shown in a work-and-home routine context.',
+        imageSrc: GEAR_ACADEMY_IMAGES.medelaInBra,
+        imageAlt: 'Hands-free wearable pump shown in a work-and-home routine context.',
         paragraphs: [
           'A home-only setup has different needs than a work bag, commute, or travel setup.',
           'Where you will pump, where parts will dry, and how milk gets stored will matter just as much as the motor specs.',

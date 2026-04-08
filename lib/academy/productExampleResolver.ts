@@ -408,22 +408,6 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       imageAlt: 'Medela breast milk storage bags.',
     },
   },
-  'feeding-and-lactation': {
-    [normalizeKey('Double Electric Pump')]: {
-      name: 'Momcozy Hospital-Grade Breast Pump',
-      brand: 'Momcozy',
-      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.momcozy,
-      imageSrc: GEARPATH_IMAGES.momcozyHospitalGrade,
-      imageAlt: 'Momcozy hospital-grade breast pump.',
-    },
-    [normalizeKey('Milk Storage Bags')]: {
-      name: 'Medela Breast Milk Storage Bags',
-      brand: 'Medela',
-      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.medela,
-      imageSrc: GEARPATH_IMAGES.storageBags,
-      imageAlt: 'Breast milk storage bags.',
-    },
-  },
 } as const;
 
 export function resolveAcademyProductExamples<T extends AcademyProductExampleLike>(
