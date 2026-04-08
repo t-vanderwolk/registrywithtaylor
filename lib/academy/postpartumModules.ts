@@ -45,6 +45,13 @@ type PostpartumAcademyModuleInput = Omit<PostpartumAcademyModuleRecord, 'path' |
 
 const TOTAL_MODULES = 6;
 const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
+const BREASTFEEDING_IMAGES = {
+  formulaNara: '/assets/breastfeeding/formulanara.png',
+  lifestylePump: '/assets/breastfeeding/lifestylepump.png',
+  pumpLifestyle: '/assets/breastfeeding/pumplifestyle.png',
+  storageBags: '/assets/breastfeeding/storagebags.png',
+  storageBottles: '/assets/breastfeeding/storagebottttles.png',
+} as const;
 
 function stripMarkdownSeparators(value: string) {
   return value
@@ -352,8 +359,8 @@ They need to feel supported enough to repeat.
     description:
       'Understand breastfeeding, bottle feeding, and combination feeding with more flexibility, less guilt, and a calmer view of what support actually helps.',
     subhead: 'Without pressure or perfection.',
-    imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Feeding and lactation editorial image for the Feeding & Lactation module.',
+    imagePath: BREASTFEEDING_IMAGES.lifestylePump,
+    imageAlt: 'Feeding and lactation lifestyle image for the Feeding & Lactation module.',
     intro: [
       'Feeding your baby is one of the most emotional parts of postpartum.',
       'Because it is not just about nutrition. It is also about expectations, identity, connection, and sometimes stress.',
@@ -362,8 +369,8 @@ They need to feel supported enough to repeat.
     coreSections: [
       {
         title: "What You're Actually Learning",
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Feeding setup with bottles, burp cloths, and soft neutral styling.',
+        imageSrc: BREASTFEEDING_IMAGES.storageBottles,
+        imageAlt: 'Feeding setup with milk storage bottles and a calmer countertop workflow.',
         paragraphs: [
           'The goal is to understand the basics of breastfeeding, bottle feeding, and combination feeding without turning any of them into a morality test.',
           'You are learning what support helps, what flexibility looks like, and how to adjust when real life moves differently than the original plan.',
@@ -371,8 +378,8 @@ They need to feel supported enough to repeat.
       },
       {
         title: 'The Truth About Feeding',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Calm feeding corner arranged for flexibility and support.',
+        imageSrc: BREASTFEEDING_IMAGES.formulaNara,
+        imageAlt: 'Feeding support setup that reflects formula or combination feeding in real life.',
         paragraphs: [
           'Most families do not follow one perfectly clean path. They adjust, pivot, and learn in real time.',
           'That is not a sign that feeding is going badly. It is usually a sign that feeding is happening in real life, not in a hypothetical version of it.',
@@ -380,8 +387,8 @@ They need to feel supported enough to repeat.
       },
       {
         title: 'What Actually Helps',
-        imageSrc: PLACEHOLDER_IMAGE,
-        imageAlt: 'Organized feeding supplies and hydration support in a calm home setting.',
+        imageSrc: BREASTFEEDING_IMAGES.storageBags,
+        imageAlt: 'Organized feeding supplies and milk storage support in a calm home setting.',
         paragraphs: [
           'Understanding your options early, having the right tools ready, lowering the pressure, and asking for support when needed all make a real difference.',
           'Flexibility is not failure. It is often how families arrive at the setup that actually works for the baby and the adults.',
@@ -393,7 +400,18 @@ They need to feel supported enough to repeat.
       'Support matters more than forcing a single plan to survive at all costs.',
       'Adjusting the plan is often a sign of responsiveness, not failure.',
     ],
-    products: [],
+    products: [
+      {
+        name: 'Double Electric Pump',
+        description: 'A practical grounding example when pumping becomes a repeated part of the feeding rhythm and efficiency starts to matter.',
+        pros: ['Supports repeated pumping', 'Useful when feeding includes regular separation or pumping sessions'],
+      },
+      {
+        name: 'Milk Storage Bags',
+        description: 'A support tool that keeps expressed milk easier to store, organize, and hand off when pumping becomes part of the plan.',
+        pros: ['Makes milk storage easier to manage', 'Useful when expressed milk needs a simple workflow'],
+      },
+    ],
     softCtaLabel: 'Before You Move Forward',
     softCtaTitle: 'Feeding is not a test.',
     softCtaBody: ['It is a relationship.'],
@@ -430,7 +448,7 @@ You are learning:
 - combination feeding
 - how to adjust without guilt
 
-![Feeding setup with bottles, burp cloths, and soft neutral styling.](${PLACEHOLDER_IMAGE})
+![Feeding setup with milk storage bottles and a calmer countertop workflow.](${BREASTFEEDING_IMAGES.storageBottles})
 
 ### The Truth About Feeding
 
@@ -446,7 +464,7 @@ Flexibility is not failure.
 It is how this actually works.
 :::
 
-![Calm feeding corner arranged for flexibility and support.](${PLACEHOLDER_IMAGE})
+![Feeding support setup that reflects formula or combination feeding in real life.](${BREASTFEEDING_IMAGES.formulaNara})
 
 ### What Actually Helps
 
@@ -459,7 +477,7 @@ What usually helps most:
 
 This is where responsiveness matters more than perfection.
 
-![Organized feeding supplies and hydration support in a calm home setting.](${PLACEHOLDER_IMAGE})
+![Organized feeding supplies and milk storage support in a calm home setting.](${BREASTFEEDING_IMAGES.storageBags})
 
 ## What This Means For You
 

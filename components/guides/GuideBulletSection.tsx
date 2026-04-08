@@ -1,6 +1,11 @@
 import GuideEditorialImage from '@/components/guides/GuideEditorialImage';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideInkBadge from '@/components/guides/GuideInkBadge';
+import {
+  GUIDE_SECTION_FRAME_CLASSNAME,
+  GUIDE_SUPPORT_CARD_CLASSNAME,
+  GuideSectionHeading,
+} from '@/components/guides/GuidePrimitives';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 function getSectionAnnotation({
@@ -94,15 +99,9 @@ export default function GuideBulletSection({
 
   return (
     <RevealOnScroll>
-      <section className="rounded-[1.7rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] sm:rounded-[2rem] sm:p-6 md:p-8">
+      <section className={GUIDE_SECTION_FRAME_CLASSNAME}>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
-          <div className="space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">{eyebrow ?? title}</p>
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">{title}</h2>
-            {description ? (
-              <p className="max-w-4xl text-[1.06rem] leading-8 text-[#5B4B55] md:text-[1.14rem] md:leading-9">{description}</p>
-            ) : null}
-          </div>
+          <GuideSectionHeading eyebrow={eyebrow ?? title} title={title} description={description} />
 
           <GuideInkBadge label={annotation.badge} size="annotation" className="mt-0 shrink-0 sm:mt-[-0.35rem]" />
         </div>
@@ -111,7 +110,7 @@ export default function GuideBulletSection({
           {items.map((item) => (
             <div
               key={item}
-              className="rounded-[1.35rem] border border-[rgba(215,161,175,0.14)] bg-[rgba(252,247,249,0.9)] px-4 py-4"
+              className={`${GUIDE_SUPPORT_CARD_CLASSNAME} border-[rgba(215,161,175,0.14)] px-4 py-4`}
             >
               <p className="text-[1.04rem] leading-8 text-[#4B3641] md:text-[1.08rem]">{item}</p>
             </div>

@@ -1,6 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import {
+  AcademyConnectedPaths,
+  AcademyRouteCard,
+  AcademySectionHeading,
+} from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
@@ -128,66 +133,6 @@ function renderLinkedParagraphs(
       })}
     </p>
   ));
-}
-
-function NextStepCard({
-  href,
-  title,
-  description,
-  ctaLabel,
-  eyebrow = 'Module Link',
-}: {
-  href: string;
-  title: string;
-  description: string;
-  ctaLabel: string;
-  eyebrow?: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group tmbc-blog-soft-card flex h-full min-w-0 flex-col p-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(232,154,174,0.34)] hover:shadow-[0_24px_54px_rgba(70,53,58,0.08)] sm:p-6"
-    >
-      <p className="w-fit">
-        <span className="tmbc-tag">{eyebrow}</span>
-      </p>
-      <h3 className="mt-5 break-words font-serif text-[clamp(1.45rem,2vw,1.9rem)] leading-[1.12] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
-        {title}
-      </h3>
-      <p className="mt-4 break-words text-[1rem] leading-8 text-[var(--tmbc-blog-soft-text)]">{description}</p>
-      <span className="mt-auto pt-6 text-sm uppercase tracking-[0.16em] text-[var(--tmbc-blog-rose)] transition duration-200 group-hover:translate-x-1">
-        {ctaLabel}
-      </span>
-    </Link>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  note,
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-  note?: string;
-}) {
-  return (
-    <div className="max-w-3xl min-w-0">
-      <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">{eyebrow}</p>
-      <h2 className="mt-4 break-words font-serif text-[clamp(2.1rem,4vw,2.9rem)] leading-[1.1] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
-        {title}
-      </h2>
-      <div className="mt-4 h-1 w-[78px] rounded-full bg-[linear-gradient(90deg,rgba(232,154,174,0.9)_0%,rgba(215,161,175,1)_100%)] shadow-[0_10px_24px_rgba(232,154,174,0.18)]" />
-      {description ? (
-        <p className="mt-5 break-words text-[1.05rem] leading-8 text-[var(--tmbc-blog-soft-text)] sm:text-[1.08rem]">
-          {description}
-        </p>
-      ) : null}
-      {note ? <p className="academy-handwritten-aside mt-4">{note}</p> : null}
-    </div>
-  );
 }
 
 function buildDecisionChecklistSections(module: ModuleLayoutData) {
@@ -560,7 +505,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           </section>
 
           <section className="academy-load-in academy-load-in--5 tmbc-blog-soft-card px-6 py-6 sm:px-7">
-            <SectionHeading
+            <AcademySectionHeading
               eyebrow="Why This Exists"
               title="This category is here to make the decision smaller"
               description={whyThisExists}
@@ -569,7 +514,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {academyConnections.length > 0 ? (
             <section className="space-y-6">
-              <SectionHeading
+              <AcademySectionHeading
                 eyebrow="Keep Exploring"
                 title="Keep this decision connected in TMBC Academy"
                 description="If this category starts touching the next decision, these are the cleanest internal stops instead of opening fifteen new tabs and hoping for emotional support."
@@ -577,7 +522,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                 {academyConnections.map((card) => (
-                  <NextStepCard
+                  <AcademyRouteCard
                     key={`${module.slug}-academy-${card.href}`}
                     href={card.href}
                     title={card.title}
@@ -613,7 +558,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           />
 
           <section className="space-y-8">
-            <SectionHeading
+            <AcademySectionHeading
               eyebrow="Core Considerations"
               title="What actually shapes this decision"
               note={typographyAccent.section}
@@ -690,7 +635,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {travelSystemWidget ? (
             <section className="space-y-6">
-              <SectionHeading
+              <AcademySectionHeading
                 eyebrow="Compatibility Tool"
                 title="Travel system compatibility"
                 description="If the stroller question is dragging the infant seat decision around with it, use this here instead of opening twelve tabs and hoping the adapter story reveals itself. Start with the stroller or the infant seat, then see what actually works together."
@@ -721,7 +666,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {module.editorialLinks.length > 0 ? (
             <section className="space-y-6">
-              <SectionHeading
+              <AcademySectionHeading
                 eyebrow="Keep Reading"
                 title={editorialSectionCopy.title}
                 description={editorialSectionCopy.description}
@@ -729,7 +674,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {module.editorialLinks.map((link) => (
-                  <NextStepCard
+                  <AcademyRouteCard
                     key={`${module.slug}-${link.href}`}
                     href={link.href}
                     title={link.title}
@@ -744,7 +689,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {module.submoduleSection ? (
             <section className="space-y-6">
-              <SectionHeading
+              <AcademySectionHeading
                 eyebrow="Sub Modules"
                 title={module.submoduleSection.title}
                 description={module.submoduleSection.description}
@@ -752,7 +697,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {module.submoduleSection.cards.map((card) => (
-                  <NextStepCard
+                  <AcademyRouteCard
                     key={`${module.slug}-${card.href}`}
                     href={card.href}
                     title={card.title}
@@ -767,7 +712,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
 
           {productInsights.length > 0 ? (
             <section className="space-y-6">
-              <SectionHeading
+              <AcademySectionHeading
                 eyebrow="Grounding Examples"
                 title="Useful examples, not a shopping spiral"
                 description="These are here to keep the decision connected to real life. In some modules they are product examples. In others they are the starter categories worth pressure-testing before the list grows."
@@ -844,7 +789,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           />
 
           <section className="space-y-6">
-            <SectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
+            <AcademySectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
             <DecisionRouter module={module} />
           </section>
 
@@ -855,33 +800,10 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             cards={internalLinkPlan.journeyCards}
           />
 
-          <section className="space-y-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
-            <div>
-              <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Connected To</p>
-              <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-[var(--tmbc-blog-charcoal)]">
-                The Academy paths this decision touches next
-              </h3>
-              <p className="mt-3 max-w-3xl text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
-                You do not need to jump all three right now. This is just the cleaner map of where this decision tends to connect once real life starts narrowing the answer.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {connectedPaths.map((path) => (
-                <Link
-                  key={`${module.slug}-connected-${path.href}`}
-                  href={path.href}
-                  className={`inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 ${
-                    path.current
-                      ? 'border-[rgba(161,91,114,0.22)] bg-[rgba(252,241,245,0.96)] text-[#8F4C62]'
-                      : 'border-[rgba(215,161,175,0.18)] bg-white text-[var(--tmbc-blog-charcoal)] hover:border-[rgba(161,91,114,0.24)]'
-                  }`}
-                >
-                  {path.label}
-                </Link>
-              ))}
-            </div>
-          </section>
+          <AcademyConnectedPaths
+            description="You do not need to jump all three right now. This is just the cleaner map of where this decision tends to connect once real life starts narrowing the answer."
+            paths={connectedPaths}
+          />
         </div>
       </article>
     </section>

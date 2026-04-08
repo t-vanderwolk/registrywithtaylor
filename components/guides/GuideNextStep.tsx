@@ -119,22 +119,29 @@ export default function GuideNextStep({
     <Link
       href={href}
       className={[
-        'group rounded-[1.35rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.9)] p-4 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_50px_rgba(58,36,43,0.10)] sm:rounded-[1.5rem] sm:p-5',
+        'group flex h-full min-w-0 flex-col rounded-[1.5rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.92)] p-5 shadow-[0_16px_36px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(161,91,114,0.24)] hover:bg-white hover:shadow-[0_22px_52px_rgba(58,36,43,0.11)]',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      {stage ? (
-        <span className="inline-flex min-h-[32px] items-center rounded-full bg-[rgba(215,161,175,0.14)] px-3 py-1 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62]">
-          {stage}
-        </span>
-      ) : null}
-      <h3 className="mt-4 text-[1.28rem] font-medium leading-[1.14] tracking-[-0.02em] text-[#2F2430] md:text-[1.34rem]">{label}</h3>
-      <p className="mt-3 text-[1.02rem] leading-8 text-[#5B4B55] md:text-[1.06rem]">{description}</p>
-      <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-[#8F4C62]">
+      <div className="flex items-start justify-between gap-3">
+        <span className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Next step</span>
+        {stage ? (
+          <span className="inline-flex min-h-[32px] items-center rounded-full bg-[rgba(215,161,175,0.14)] px-3 py-1 text-[0.68rem] uppercase tracking-[0.22em] text-[#8F4C62]">
+            {stage}
+          </span>
+        ) : null}
+      </div>
+      <h3 className="mt-4 font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-[#2F2430] md:text-[1.5rem]">
+        {label}
+      </h3>
+      <p className="mt-3 text-base leading-8 text-[#5B4B55]">{description}</p>
+      <span className="mt-auto pt-5 text-sm font-medium uppercase tracking-[0.16em] text-[#8F4C62]">
         <span>Continue</span>
-        <span aria-hidden="true">-&gt;</span>
+        <span aria-hidden="true" className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
+          -&gt;
+        </span>
       </span>
     </Link>
   );

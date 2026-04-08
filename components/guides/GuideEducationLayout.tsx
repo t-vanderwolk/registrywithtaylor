@@ -9,6 +9,7 @@ import GuideHero from '@/components/guides/GuideHero';
 import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
 import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import { GuideSectionHeading } from '@/components/guides/GuidePrimitives';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideTableOfContents from '@/components/guides/GuideTableOfContents';
 import SlideSection from '@/components/guides/SlideSection';
@@ -620,15 +621,11 @@ export default function GuideEducationLayout({
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
-              The pieces that usually shape the real decision.
-            </h2>
-            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">
-              This is the main section of the guide. Read it like a guided editorial, not like a rush to check every box.
-            </p>
-          </div>
+          <GuideSectionHeading
+            eyebrow="What Matters"
+            title="The pieces that usually shape the real decision."
+            description="This is the main section of the guide. Read it like a guided editorial, not like a rush to check every box."
+          />
 
           <div className="space-y-10">
             {coreSections.map((section) => (

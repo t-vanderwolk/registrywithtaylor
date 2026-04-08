@@ -10,6 +10,7 @@ import GuideHero from '@/components/guides/GuideHero';
 import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
 import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import { GuideSectionHeading } from '@/components/guides/GuidePrimitives';
 import GuideNextGuides from '@/components/guides/GuideNextGuides';
 import RegistryGuideSlideLayout from '@/components/guides/RegistryGuideSlideLayout';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
@@ -346,15 +347,11 @@ export default function GuideHubLayout({
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
-              The category lanes that usually make the next decision clearer.
-            </h2>
-            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">
-              Use the cards below like a guided editorial map through the category, not like a shelf of disconnected options.
-            </p>
-          </div>
+          <GuideSectionHeading
+            eyebrow="What Matters"
+            title="The category lanes that usually make the next decision clearer."
+            description="Use the cards below like a guided editorial map through the category, not like a shelf of disconnected options."
+          />
 
           <GuideCategoryCards
             title={hubConfig!.cardsTitle}

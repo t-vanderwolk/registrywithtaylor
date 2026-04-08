@@ -10,6 +10,7 @@ import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideGlyph from '@/components/guides/GuideGlyph';
 import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
+import { GuideRouteCard, GuideSectionHeading } from '@/components/guides/GuidePrimitives';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import {
@@ -43,34 +44,6 @@ function HeroStat({
       <p className="text-[0.65rem] uppercase tracking-[0.22em] text-[#A15B72]">{label}</p>
       <p className="mt-2 text-sm font-medium leading-6 text-[#2F2430]">{value}</p>
     </div>
-  );
-}
-
-function NextStepCard({
-  href,
-  title,
-  description,
-  ctaLabel,
-  eyebrow = 'Next Step',
-}: {
-  href: string;
-  title: string;
-  description: string;
-  ctaLabel: string;
-  eyebrow?: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex h-full flex-col rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-5 shadow-[0_18px_55px_rgba(58,36,43,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(58,36,43,0.12)]"
-    >
-      <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#A15B72]">{eyebrow}</p>
-      <h3 className="mt-3 font-serif text-[1.38rem] leading-[1.05] tracking-[-0.03em] text-[#2F2430] sm:text-[1.55rem]">{title}</h3>
-      <p className="mt-3 text-[0.96rem] leading-7 text-[#5B4B55] sm:text-[0.98rem]">{description}</p>
-      <span className="mt-auto pt-5 text-sm font-semibold text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
-        {ctaLabel}
-      </span>
-    </Link>
   );
 }
 
@@ -488,16 +461,11 @@ export default function StrollerAcademyLanePage({
           />
 
           <section className="space-y-6">
-            <div className="max-w-3xl">
-              <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[#A15B72]">Next Steps</p>
-              <h2 className="mt-3 font-serif text-[2.1rem] leading-[0.97] tracking-[-0.04em] text-[#2F2430] sm:text-[2.4rem]">
-                Keep the path moving
-              </h2>
-            </div>
+            <GuideSectionHeading eyebrow="Next Steps" title="Keep the path moving" />
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {nextSteps.map((step) => (
-                <NextStepCard
+                <GuideRouteCard
                   key={`${step.href}-${step.label}`}
                   href={step.href}
                   title={step.label}

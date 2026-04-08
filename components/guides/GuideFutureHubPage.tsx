@@ -5,6 +5,11 @@ import GuideCategoryCards from '@/components/guides/GuideCategoryCards';
 import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
 import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import {
+  GUIDE_SECTION_FRAME_CLASSNAME,
+  GUIDE_SUPPORT_CARD_CLASSNAME,
+  GuideSectionHeading,
+} from '@/components/guides/GuidePrimitives';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import HubHero from '@/components/guides/HubHero';
 import SlideSection from '@/components/guides/SlideSection';
@@ -112,22 +117,18 @@ export default function GuideFutureHubPage({
       </SlideSection>
 
       <SlideSection id={slideItems[3].id} background="ivory">
-        <section className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-white/92 p-6 shadow-[0_18px_55px_rgba(58,36,43,0.08)] md:p-8">
-              <div className="space-y-3">
-                <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
-                <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
-                  This hub is being built around real questions, not filler.
-                </h2>
-            <p className="max-w-4xl text-base leading-8 text-[#5B4B55] md:text-lg">
-              Until the full pathway is live, these are the questions this section is being shaped to answer.
-            </p>
-          </div>
+        <section className={GUIDE_SECTION_FRAME_CLASSNAME}>
+          <GuideSectionHeading
+            eyebrow="What Matters"
+            title="This hub is being built around real questions, not filler."
+            description="Until the full pathway is live, these are the questions this section is being shaped to answer."
+          />
 
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {config.plannedTopics.map((topic) => (
               <div
                 key={topic}
-                className="rounded-[1.35rem] border border-[rgba(215,161,175,0.14)] bg-[rgba(252,247,249,0.9)] px-4 py-4"
+                className={`${GUIDE_SUPPORT_CARD_CLASSNAME} border-[rgba(215,161,175,0.14)] px-4 py-4`}
               >
                 <p className="text-base leading-7 text-[#4B3641]">{topic}</p>
               </div>

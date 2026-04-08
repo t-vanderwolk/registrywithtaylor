@@ -7,6 +7,7 @@ import GuideFaqAccordion from '@/components/guides/GuideFaqAccordion';
 import GuideJourneyFooter from '@/components/guides/GuideJourneyFooter';
 import GuideJourneyIntro from '@/components/guides/GuideJourneyIntro';
 import GuideLifestyleGallery from '@/components/guides/GuideLifestyleGallery';
+import { GuideSectionHeading } from '@/components/guides/GuidePrimitives';
 import GuideSlideDeck from '@/components/guides/GuideSlideDeck';
 import GuideComparisonBand from '@/components/guides/GuideComparisonBand';
 import HubDecisionCards from '@/components/guides/HubDecisionCards';
@@ -193,15 +194,11 @@ export default function GuideDecisionSystemHub({
 
       <SlideSection id={slideItems[3].id} background="ivory">
         <div className="space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A15B72]">What Matters</p>
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#2F2430] md:text-[2.35rem]">
-              The main routes that make the category feel smaller on purpose.
-            </h2>
-            <p className="text-base leading-8 text-[#5B4B55] md:text-lg">
-              Read this section like an editorial map: first the starting lanes, then the category grid, then the side-by-side tradeoffs.
-            </p>
-          </div>
+          <GuideSectionHeading
+            eyebrow="What Matters"
+            title="The main routes that make the category feel smaller on purpose."
+            description="Read this section like an editorial map: first the starting lanes, then the category grid, then the side-by-side tradeoffs."
+          />
 
           <HubDecisionCards
             eyebrow={config.decisionCards.eyebrow}

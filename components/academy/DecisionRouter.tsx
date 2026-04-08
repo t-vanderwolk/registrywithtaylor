@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import DecisionTag from '@/components/academy/DecisionTag';
+import { AcademyRouteCard } from '@/components/academy/AcademyPrimitives';
 import {
   getDecisionRouteOptions,
   type DecisionRouteOption,
@@ -39,19 +38,13 @@ type DecisionRouterModule = {
 
 function RouterCard({ option }: { option: DecisionRouteOption }) {
   return (
-    <Link
+    <AcademyRouteCard
       href={option.href}
-      className="group flex h-full min-w-0 flex-col rounded-[1.7rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(255,247,250,0.94)_100%)] p-5 shadow-[0_18px_44px_rgba(58,36,43,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(161,91,114,0.28)] hover:shadow-[0_24px_56px_rgba(58,36,43,0.12)] sm:p-6"
-    >
-      {option.tag ? <DecisionTag label={option.tag} className="w-fit" /> : null}
-      <h3 className="mt-4 break-words font-serif text-[1.42rem] leading-[1.08] tracking-[-0.04em] text-[#2F2430] sm:text-[1.56rem]">
-        {option.title}
-      </h3>
-      <p className="mt-4 break-words text-[0.98rem] leading-8 text-[#5B4B55]">{option.description}</p>
-      <span className="mt-auto pt-6 text-sm uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 group-hover:translate-x-1">
-        Continue here -&gt;
-      </span>
-    </Link>
+      title={option.title}
+      description={option.description}
+      ctaLabel="Continue here ->"
+      tag={option.tag}
+    />
   );
 }
 

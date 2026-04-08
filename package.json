@@ -32,6 +32,7 @@
     "seed:car-seat-category-guides": "tsx scripts/seedCarSeatCategoryGuides.ts",
     "seed:car-seat-product-catalog-modules": "tsx scripts/seedCarSeatProductCatalogModules.ts",
     "seed:nursery-academy-modules": "tsx scripts/seedNurseryAcademyModules.ts",
+    "seed:nursery-furniture-submodules": "tsx scripts/seedNurseryFurnitureSubmodules.ts",
     "seed:nursery-category-guides": "tsx scripts/seedNurseryCategoryGuides.ts",
     "seed:postpartum-academy-modules": "tsx scripts/seedPostpartumAcademyModules.ts"
   },
