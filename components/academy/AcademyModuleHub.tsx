@@ -9,15 +9,22 @@ import {
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
+import ProductInsightCard from '@/components/academy/ProductInsightCard';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
-import type { AcademyBreadcrumbItem, AcademyModuleSlug, AcademyPathSlug } from '@/lib/academy/content';
+import type {
+  AcademyBreadcrumbItem,
+  AcademyModuleSlug,
+  AcademyPathSlug,
+  AcademyProductExample,
+} from '@/lib/academy/content';
 import {
   getAcademyPhaseLabel,
   getConnectedAcademyPaths,
   getModuleDecisionStatement,
+  getProductInsights,
   getModuleWhyThisExists,
   getQuickCheckLines,
   getQuickCheckTags,
@@ -72,6 +79,7 @@ type AcademyModuleHubProps = {
   nextTitle: string;
   nextDescription: string;
   nextLinks: AcademyModuleHubCard[];
+  groundingExamples?: AcademyProductExample[];
   primaryCta: {
     href: string;
     label: string;
@@ -152,6 +160,7 @@ export default function AcademyModuleHub({
   nextTitle,
   nextDescription,
   nextLinks,
+  groundingExamples = [],
   primaryCta,
   secondaryCta,
 }: AcademyModuleHubProps) {
@@ -237,6 +246,13 @@ export default function AcademyModuleHub({
     title,
     description: deck,
   });
+  const groundingInsights =
+    groundingExamples.length > 0
+      ? getProductInsights({
+          ...hubModule,
+          products: groundingExamples,
+        })
+      : [];
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
       breadcrumbs,
@@ -447,6 +463,27 @@ export default function AcademyModuleHub({
           </ul>
         </section>
       </div>
+
+      {groundingInsights.length > 0 ? (
+        <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+          <AcademySectionHeading
+            eyebrow="Grounding Examples"
+            title="A few examples to keep this attached to real life"
+            description="These are here to make the category more concrete, not to turn the module into a product roundup."
+          />
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {groundingInsights.slice(0, 3).map((product, index) => (
+              <ProductInsightCard
+                key={`${moduleSlug}-grounding-${product.name}-${index}`}
+                {...product}
+                guide={moduleSlug}
+                position={index + 1}
+              />
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
         <AcademySectionHeading eyebrow="Submodules" title={submodulesTitle} description={submodulesDescription} />

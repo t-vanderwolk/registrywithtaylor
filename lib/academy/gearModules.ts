@@ -603,8 +603,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Manual, wearable, and double electric answer different routines',
-        imageSrc: GEAR_ACADEMY_IMAGES.medelaPump,
-        imageAlt: 'Double electric breast pump shown as one option in the routine-fit comparison.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyHospitalGrade,
+        imageAlt: 'Hospital-grade breast pump shown as one option in the routine-fit comparison.',
         paragraphs: [
           'Manual pumps can be useful for occasional relief or backup. Wearables can help with mobility. Double electric pumps often make the most sense when pumping is repeated and time matters.',
           'The best option is not the fanciest one. It is the one your real schedule can maintain.',
@@ -613,8 +613,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Accessories can help, but they multiply fast',
-        imageSrc: GEAR_ACADEMY_IMAGES.storageBottles,
-        imageAlt: 'Milk storage bottles and pumping accessories shown as the support gear that can multiply quickly.',
+        imageSrc: GEAR_ACADEMY_IMAGES.storageBagsMedela,
+        imageAlt: 'Milk storage bags and pumping accessories shown as the support gear that can multiply quickly.',
         paragraphs: [
           'A few support pieces can make pumping much easier: a pump bra, storage containers, a parts-drying plan, and a practical place to clean everything.',
           'Extra flanges, extra bottles, extra cords, and extra backup kits have a way of appearing before the routine exists to justify them.',
@@ -623,8 +623,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
       },
       {
         title: 'Think through location before you buy for convenience',
-        imageSrc: GEAR_ACADEMY_IMAGES.medelaInBra,
-        imageAlt: 'Hands-free wearable pump shown in a work-and-home routine context.',
+        imageSrc: GEAR_ACADEMY_IMAGES.momcozyMobileFlow,
+        imageAlt: 'Wearable pump shown in a work-and-home routine context.',
         paragraphs: [
           'A home-only setup has different needs than a work bag, commute, or travel setup.',
           'Where you will pump, where parts will dry, and how milk gets stored will matter just as much as the motor specs.',

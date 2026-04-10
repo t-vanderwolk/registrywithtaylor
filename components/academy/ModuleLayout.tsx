@@ -358,7 +358,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
       brand: product.brand,
       productName: product.name,
       name: product.name,
-    }),
+    }) || Boolean(product.imageSrc),
   );
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);

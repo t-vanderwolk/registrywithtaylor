@@ -32,6 +32,7 @@ export const NURSERY_FURNITURE_HUB_PULLQUOTE =
 
 export type NurseryFurnitureCategorySlug =
   | 'cribs'
+  | 'pack-and-play'
   | 'gliders'
   | 'dressers-changing'
   | 'diaper-pails'
@@ -73,8 +74,22 @@ type NurseryFurnitureNextStep = {
   stage: GuideStageLabel;
 };
 
+type NurseryFurnitureGroundingExample = ModuleLayoutData['products'][number];
+
+const NURSERY_FURNITURE_LINKS = {
+  dadadaBaby: 'https://dadadababy.com',
+  halo: 'https://www.halosleep.com',
+  hatch: 'https://www.hatch.co',
+  joolBaby: 'https://joolbaby.com',
+  momcozy: 'https://momcozy.com',
+  nanit: 'https://www.nanit.com',
+  newtonBaby: 'https://www.newtonbaby.com',
+  owlet: 'https://owletcare.com',
+} as const;
+
 const CATEGORY_ORDER: NurseryFurnitureCategorySlug[] = [
   'cribs',
+  'pack-and-play',
   'gliders',
   'dressers-changing',
   'diaper-pails',
@@ -143,7 +158,7 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Standard cribs: The straightforward full-size option for families who want simplicity and a familiar sleep setup.',
       'Mini cribs: Smaller-footprint cribs that work well in tighter rooms, shared spaces, or homes where every inch keeps receipts.',
       'Convertible cribs: Cribs designed to transition later, which can be useful, but are not automatically the smarter choice for every family.',
-      'Pack-and-play sleep setups: A flexible option for earlier months or room-sharing situations, but not a one-to-one crib replacement in every nursery.',
+      'Crib mattress pairing: The mattress is part of the sleep setup, not a side errand. Standard and mini sizes need the right match from the beginning.',
     ],
     whatActuallyMattersDescription:
       'This category should be judged by safety, fit, and how it behaves at night, not by whether it sounds like a future heirloom.',
@@ -174,12 +189,97 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
         recommendation: 'Choose a mini crib if it still covers the sleep timeline you want.',
       },
       {
+        condition: 'are choosing between standard and mini crib sizes',
+        recommendation: 'Choose the mattress at the same time so fit, airflow, and sheet size are solved together.',
+      },
+      {
         condition: 'want long-term use and are comfortable with the extra cost or later conversion pieces',
         recommendation: 'A convertible crib can make sense, but only if the current crib setup is still the better fit today.',
       },
       {
         condition: 'need early flexibility more than a permanent nursery sleep piece',
         recommendation: 'Start with a room-sharing sleep setup first and move to a crib when the timing is cleaner.',
+      },
+    ],
+  },
+  'pack-and-play': {
+    slug: 'pack-and-play',
+    title: 'Pack & Play',
+    description: 'flex sleep + backup setup',
+    metadataDescription:
+      'Learn how to choose a pack and play based on sleep use, portability, fold, and whether it is solving nursery flexibility, room sharing, or travel.',
+    icon: 'sleep',
+    heroEyebrow: 'Nursery Furniture',
+    heroImageSrc: '/assets/nurserypath/newtonnestcrib.png',
+    heroImageAlt: 'Portable crib and pack-and-play style sleep setup.',
+    orientation: [
+      'A pack and play is not just a travel item.',
+      'For some families, it is the flexible sleep space that quietly does the most work in the house.',
+      'This category gets easier once you decide whether it is solving nursery overflow, room sharing, travel, or all three.',
+      'The right one should feel easy to fold, easy to place, and easy to trust.',
+    ],
+    whatItDoes: {
+      description:
+        'A pack and play creates a portable sleep and set-down zone, which makes it useful for room sharing, secondary sleep spaces, travel, and homes that need more flexibility than a fixed crib can provide.',
+      intro: [
+        'This category earns its keep when you need one piece to move between jobs without turning every room into a second nursery.',
+        'The important question is not whether it can technically do a lot. It is whether the version you choose fits the way you actually plan to use it.',
+      ],
+      supportPoints: [
+        'Families planning to room share or create a secondary sleep zone outside the main nursery.',
+        'Parents who want a portable reset option for naps, travel, or time at another caregiver’s house.',
+        'Homes that need flexibility more than they need one more full-size furniture commitment.',
+        'Anyone trying to decide whether this belongs in the nursery plan, the travel plan, or both.',
+      ],
+      calloutBody:
+        'Start with the real job: daily secondary sleep, occasional travel, or room-to-room flexibility. That decision narrows the field fast.',
+      whatThisIs: 'A flexible sleep-and-set-down station, not just a folded rectangle living in the closet.',
+      whyItExists:
+        'Because some families need portability built into the nursery plan, and not every sleep decision wants a fixed-footprint answer.',
+    },
+    typesDescription:
+      'The main split here is whether you need a true daily-use secondary sleep space, a lighter travel-first option, or a playard with attachments that only matter for one short phase.',
+    types: [
+      'Classic playards: The familiar full-size foldable option for homes that want one flexible base and do not mind a bigger footprint.',
+      'Travel-crib style models: Lighter, simpler, and often better for families who care more about portability than add-ons.',
+      'Bassinet-attachment models: Useful if early room sharing is the goal, as long as you know how quickly the top level may be outgrown.',
+      'Multi-level systems with changers or accessories: Helpful for some families, but only when those attachments actually match the way the room will be used.',
+    ],
+    whatActuallyMattersDescription:
+      'This category works best when you judge it by fold, weight, sleep use, and how often you will move it instead of by how many accessories were clipped onto the box.',
+    whatActuallyMatters: [
+      'Whether it is approved and practical for the kind of sleep use you actually have in mind.',
+      'Fold simplicity, because irritation during setup does not get cuter on the third reset of the day.',
+      'Weight and footprint, especially if the whole point is flexibility.',
+      'How easy it is to clean, store, and move when the nursery is not the only room involved.',
+      'Whether the attachments help long enough to justify the bulk they add.',
+    ],
+    commonMistakesDescription:
+      'Pack-and-play regret usually comes from buying the most feature-stuffed version before deciding what the setup actually needs to do.',
+    commonMistakes: [
+      'Buying a giant all-in-one system when the real job was one simple backup sleep space.',
+      'Assuming every pack and play feels equally good to fold, carry, and reset.',
+      'Treating this like a permanent crib replacement without checking whether the sleep plan really supports that.',
+      'Paying for attachments that solve a very short phase and then stay attached to your resentment instead.',
+    ],
+    howToChooseDescription:
+      'Choose the version of flexibility that matches the real use case. The point is fewer compromises in motion, not more accessories on paper.',
+    howToChoose: [
+      {
+        condition: 'need a daily secondary sleep space or room-sharing backup',
+        recommendation: 'Choose a sturdier playard or travel crib that feels stable and easy to access at night.',
+      },
+      {
+        condition: 'mostly need something for travel or visiting another house',
+        recommendation: 'Choose the lighter, simpler fold before you chase extra attachments.',
+      },
+      {
+        condition: 'want the early-months convenience of a raised bassinet level',
+        recommendation: 'Choose a model with that feature only if you know the short use window still makes sense for your plan.',
+      },
+      {
+        condition: 'care most about long-term usability',
+        recommendation: 'Let fold, footprint, and how often you will actually move it decide the category.',
       },
     ],
   },
@@ -596,6 +696,7 @@ export const NURSERY_FURNITURE_HUB_WHO_THIS_IS_FOR = [
 
 export const NURSERY_FURNITURE_HUB_WHY_THIS_MATTERS = [
   'Sleep feels easier when the crib setup is safe, simple, and properly fitted.',
+  'Pack-and-play decisions matter when the nursery also needs portability, room-sharing flexibility, or a backup sleep plan.',
   'Feeding and soothing go better when the chair supports your body instead of decorating around it.',
   'Changing gets faster when diapers, wipes, and spare clothes live where your hands already are.',
   'Monitor and diaper-pail decisions look small until they start affecting every single day.',
@@ -607,6 +708,11 @@ export const NURSERY_FURNITURE_HUB_DECISION_ITEMS: DecisionBlockItem[] = [
     condition: 'need to solve the nighttime foundation first',
     recommendation: 'Start with cribs.',
     href: getNurseryFurnitureCategoryPath('cribs'),
+  },
+  {
+    condition: 'need nursery flexibility, room-sharing backup, or a more portable sleep zone',
+    recommendation: 'Open pack and play next.',
+    href: getNurseryFurnitureCategoryPath('pack-and-play'),
   },
   {
     condition: 'expect to feed, soothe, or settle in the nursery regularly',
@@ -650,6 +756,404 @@ export const NURSERY_FURNITURE_HUB_NEXT_STEPS: NurseryFurnitureNextStep[] = [
     'Decide',
   ),
 ];
+
+export const NURSERY_FURNITURE_HUB_GROUNDING_EXAMPLES: NurseryFurnitureGroundingExample[] = [
+  {
+    name: 'dadada Baby Convertible Crib',
+    brand: 'dadada Baby',
+    description: 'A crib grounding example for families who want the primary sleep setup to feel simple, stable, and not overly decorated.',
+    pros: ['Sleep-space anchor', 'Useful when the nursery needs one clear foundation piece'],
+    affiliateUrl: NURSERY_FURNITURE_LINKS.dadadaBaby,
+    category: 'Nursery furniture grounding example',
+    imageSrc: '/assets/nurserypath/dadadacrib.png',
+    imageAlt: 'dadada Baby convertible crib.',
+  },
+  {
+    name: 'dadada Baby Dresser + Changing Setup',
+    brand: 'dadada Baby',
+    description: 'A dual-purpose dresser example that keeps storage and changing in one zone instead of adding a second furniture decision unnecessarily.',
+    pros: ['Storage plus changing', 'Useful when one piece needs to work harder'],
+    affiliateUrl: NURSERY_FURNITURE_LINKS.dadadaBaby,
+    category: 'Nursery furniture grounding example',
+    imageSrc: '/assets/nurserypath/dadadadresser.png',
+    imageAlt: 'dadada Baby dresser and changing setup.',
+  },
+  {
+    name: 'Newton Baby Travel Crib & Play Yard',
+    brand: 'Newton Baby',
+    description: 'A portable sleep example for families who need a secondary nursery sleep zone, travel flexibility, or a room-sharing backup that still feels intentional.',
+    pros: ['Flexible sleep zone', 'Useful when portability is part of the plan'],
+    affiliateUrl: NURSERY_FURNITURE_LINKS.newtonBaby,
+    category: 'Nursery furniture grounding example',
+    imageSrc: '/assets/nurserypath/newtonnestcrib.png',
+    imageAlt: 'Newton Baby travel crib and play yard.',
+  },
+] as const;
+
+const NURSERY_FURNITURE_CATEGORY_PRODUCTS: Record<
+  NurseryFurnitureCategorySlug,
+  NurseryFurnitureGroundingExample[]
+> = {
+  cribs: [
+    {
+      name: 'dadada Baby Convertible Crib',
+      brand: 'dadada Baby',
+      description: 'A crib grounding example for families who want the main sleep space to feel stable, simple, and easy to live with at night.',
+      pros: ['Primary sleep anchor', 'Useful when the nursery needs one clear crib decision'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.dadadaBaby,
+      category: 'Crib grounding example',
+      imageSrc: '/assets/nurserypath/dadadacrib.png',
+      imageAlt: 'dadada Baby convertible crib.',
+    },
+    {
+      name: 'Newton Baby Original Crib Mattress',
+      brand: 'Newton Baby',
+      description: 'A crib mattress grounding example that keeps standard-size crib fit and the actual sleep surface part of the same decision.',
+      pros: ['Standard crib fit', 'Useful when you want to solve mattress pairing at the same time'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.newtonBaby,
+      category: 'Crib mattress grounding example',
+      imageSrc: '/assets/nurserypath/newtonmatress.png',
+      imageAlt: 'Newton Baby original crib mattress.',
+    },
+    {
+      name: 'Newton Baby Mini Crib Mattress',
+      brand: 'Newton Baby',
+      description: 'A mini crib mattress example for smaller-footprint nurseries where the mattress decision needs to stay as intentional as the crib itself.',
+      pros: ['Mini crib fit', 'Useful when square footage is tight but sleep still needs to feel solved'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.newtonBaby,
+      category: 'Crib mattress grounding example',
+      imageSrc: '/assets/nurserypath/minicribmatressnewton.png',
+      imageAlt: 'Newton Baby mini crib mattress.',
+    },
+  ],
+  'pack-and-play': [
+    {
+      name: 'Newton Baby Travel Crib & Play Yard',
+      brand: 'Newton Baby',
+      description: 'A pack-and-play grounding example for families who want a more intentional portable sleep zone instead of a pure backup item.',
+      pros: ['Portable sleep setup', 'Useful when travel or room-sharing flexibility is part of the nursery plan'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.newtonBaby,
+      category: 'Pack-and-play grounding example',
+      imageSrc: '/assets/nurserypath/newtonnestcrib.png',
+      imageAlt: 'Newton Baby travel crib and play yard.',
+    },
+    {
+      name: 'HALO Flex Portable Crib',
+      brand: 'HALO',
+      description: 'A lighter mesh-sided portable-crib example for families who need a secondary sleep setup that folds and moves without a huge nursery footprint.',
+      pros: ['Portable mesh setup', 'Useful when the room needs flexibility more than extra bulk'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.halo,
+      category: 'Pack-and-play grounding example',
+      imageSrc: '/assets/nurserypath/halominimeshcrib.png',
+      imageAlt: 'HALO portable crib or pack-and-play style setup.',
+    },
+  ],
+  gliders: [
+    {
+      name: 'Classic nursery glider setup',
+      brand: '',
+      description: 'A grounding example for the smoother, classic nursery-chair lane where feeding comfort and motion are the main jobs.',
+      pros: ['Comfort-focused seating', 'Useful when the nursery needs one reliable feeding chair'],
+      affiliateUrl: null,
+      category: 'Glider grounding example',
+      imageSrc: '/assets/nurserypath/serenenursery.png',
+      imageAlt: 'Classic nursery glider corner.',
+    },
+    {
+      name: 'Reclining support chair',
+      brand: '',
+      description: 'A more lounge-forward seating example for parents who want stronger body support during longer feeding or settling sessions.',
+      pros: ['Long-session support', 'Useful when comfort outranks compact footprint'],
+      affiliateUrl: null,
+      category: 'Glider grounding example',
+      imageSrc: '/assets/nurserypath/tealnursery.png',
+      imageAlt: 'Reclining nursery chair and glider example.',
+    },
+    {
+      name: 'Compact upholstered nursery chair',
+      brand: '',
+      description: 'A smaller-footprint chair example for rooms that need a feeding corner without letting the seating take over the entire layout.',
+      pros: ['Smaller footprint', 'Useful when the room needs a slimmer chair decision'],
+      affiliateUrl: null,
+      category: 'Glider grounding example',
+      imageSrc: '/assets/nurserypath/simple%20nursery.png',
+      imageAlt: 'Compact upholstered nursery chair example.',
+    },
+  ],
+  'dressers-changing': [
+    {
+      name: 'dadada Baby Dresser + Changing Setup',
+      brand: 'dadada Baby',
+      description: 'A dresser-and-changing example for families who want storage and diaper duty solved in one cleaner move.',
+      pros: ['Dual-purpose furniture', 'Useful when the room needs fewer larger pieces'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.dadadaBaby,
+      category: 'Changing setup grounding example',
+      imageSrc: '/assets/nurserypath/dadadadresser.png',
+      imageAlt: 'dadada Baby dresser and changing setup.',
+    },
+    {
+      name: 'Hatch Grow Changing Pad',
+      brand: 'Hatch',
+      description: 'A changing-pad example that keeps the dresser-top setup feeling more intentional when you want the changing surface to stay low-profile.',
+      pros: ['Dresser-top changing surface', 'Useful when you want changing built into the storage zone'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.hatch,
+      category: 'Changing setup grounding example',
+      imageSrc: '/assets/nurserypath/hatchchangingpad.png',
+      imageAlt: 'Hatch changing pad.',
+    },
+  ],
+  'diaper-pails': [
+    {
+      name: 'Jool Baby Diaper Pail',
+      brand: 'Jool Baby',
+      description: 'A diaper-pail grounding example for families who want the changing zone to stay easier without turning every bag change into drama.',
+      pros: ['Nursery odor control', 'Useful when the pail lives close to the station'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.joolBaby,
+      category: 'Diaper pail grounding example',
+      imageSrc: '/assets/nurserypath/joolbabydiperpail.png',
+      imageAlt: 'Jool Baby diaper pail.',
+    },
+    {
+      name: 'Momcozy Diaper Pail',
+      brand: 'Momcozy',
+      description: 'A standard-bag diaper-pail example for parents who want the daily routine to stay simpler over the long haul.',
+      pros: ['Simpler bag strategy', 'Useful when refill resentment is not on the wish list'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.momcozy,
+      category: 'Diaper pail grounding example',
+      imageSrc: '/assets/nurserypath/momcozydiperpail.png',
+      imageAlt: 'Momcozy diaper pail.',
+    },
+  ],
+  'baby-monitors': [
+    {
+      name: 'Nanit Pro Camera + Wall Mount',
+      brand: 'Nanit',
+      description: 'A WiFi-monitor grounding example for families who want app-based visibility and are comfortable with the extra setup that comes with it.',
+      pros: ['App-connected monitoring', 'Useful when remote access actually fits the routine'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.nanit,
+      category: 'Baby monitor grounding example',
+      imageSrc: '/assets/nurserypath/nanit.png',
+      imageAlt: 'Nanit Pro baby monitor.',
+    },
+    {
+      name: 'Owlet Dream Sock',
+      brand: 'Owlet',
+      description: 'A sensor-layer monitoring example for families who know they want more data and are comfortable managing another device relationship.',
+      pros: ['Additional monitoring layer', 'Useful when extra alerts genuinely help you rest'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.owlet,
+      category: 'Baby monitor grounding example',
+      imageSrc: '/assets/nurserypath/owlet.png',
+      imageAlt: 'Owlet Dream Sock monitoring example.',
+    },
+    {
+      name: 'Momcozy Baby Monitor',
+      brand: 'Momcozy',
+      description: 'A dedicated-monitor grounding example for families who want video visibility without turning the sleep space into one more app problem.',
+      pros: ['Dedicated monitor setup', 'Useful when simplicity outranks extra connectivity'],
+      affiliateUrl: NURSERY_FURNITURE_LINKS.momcozy,
+      category: 'Baby monitor grounding example',
+      imageSrc: '/assets/nurserypath/momcozybabymonitor.png',
+      imageAlt: 'Momcozy baby monitor.',
+    },
+  ],
+  'baby-proofing': [
+    {
+      name: 'Furniture anchoring pass',
+      brand: '',
+      description: 'A grounding example for the highest-impact safety move: anchoring the larger nursery pieces before curiosity decides to start testing leverage.',
+      pros: ['High-impact safety layer', 'Useful when the nursery has dressers, shelves, or tip-risk furniture'],
+      affiliateUrl: null,
+      category: 'Baby-proofing grounding example',
+      imageSrc: '/assets/nurserypath/dadadadresser.png',
+      imageAlt: 'Anchored dresser and nursery furniture safety example.',
+    },
+    {
+      name: 'Reach-zone floor sweep',
+      brand: '',
+      description: 'A grounding example for scanning the nursery from the lower, faster point of view your baby is about to adopt.',
+      pros: ['Floor-level safety edit', 'Useful when the room needs a calmer second pass before mobility ramps up'],
+      affiliateUrl: null,
+      category: 'Baby-proofing grounding example',
+      imageSrc: '/assets/nurserypath/nurseryplayroom.png',
+      imageAlt: 'Nursery reach-zone and mobility safety example.',
+    },
+    {
+      name: 'Cord and blind management pass',
+      brand: '',
+      description: 'A grounding example for the quiet hazards that rarely photograph like a problem and still deserve attention early.',
+      pros: ['Quiet-hazard cleanup', 'Useful when cords, monitors, lamps, or blinds are part of the room'],
+      affiliateUrl: null,
+      category: 'Baby-proofing grounding example',
+      imageSrc: '/assets/nurserypath/nurseyatnight.png',
+      imageAlt: 'Nursery cord and nighttime safety example.',
+    },
+  ],
+};
+
+const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
+  NurseryFurnitureCategorySlug,
+  {
+    types: { src: string; alt: string; caption: string };
+    matters: { src: string; alt: string; caption: string };
+    mistakes: { src: string; alt: string; caption: string };
+    choose: { src: string; alt: string; caption: string };
+  }
+> = {
+  cribs: {
+    types: {
+      src: '/assets/nurserypath/minivsstandadcrib.png',
+      alt: 'Mini crib and standard crib comparison image.',
+      caption: 'The size question gets quieter once the room footprint and sleep plan are both on the table.',
+    },
+    matters: {
+      src: '/assets/nurserypath/newtonmatress.png',
+      alt: 'Newton Baby crib mattress in a nursery setup.',
+      caption: 'The mattress is part of the crib decision, not a later errand you hope works out.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/cribandclouds.png',
+      alt: 'Styled nursery crib image.',
+      caption: 'Pretty stops mattering fast if the sleep setup is harder to use than it needs to be.',
+    },
+    choose: {
+      src: '/assets/nurserypath/criblifestyle.png',
+      alt: 'Crib lifestyle image in a calm nursery.',
+      caption: 'Choose the sleep setup that fits the room you are actually furnishing now.',
+    },
+  },
+  'pack-and-play': {
+    types: {
+      src: '/assets/nurserypath/halominimeshcrib.png',
+      alt: 'Portable crib and pack-and-play example.',
+      caption: 'This category gets easier once you know whether you care more about portability, sleep use, or attachments.',
+    },
+    matters: {
+      src: '/assets/nurserypath/newtonlifestyle.png',
+      alt: 'Portable sleep setup lifestyle image.',
+      caption: 'The strongest setup is the one that folds, moves, and resets without becoming a side project.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/space.png',
+      alt: 'Nursery space-planning image.',
+      caption: 'Buying more system than the room or routine actually needs is where this category gets bulky fast.',
+    },
+    choose: {
+      src: '/assets/nurserypath/nurseryplanning.png',
+      alt: 'Nursery planning image for flexible sleep setup.',
+      caption: 'Start with the job: room sharing, travel, or backup sleep. That does most of the narrowing for you.',
+    },
+  },
+  gliders: {
+    types: {
+      src: '/assets/nurserypath/tealnursery.png',
+      alt: 'Nursery chair and glider image.',
+      caption: 'The chair should match the way you plan to sit, feed, and settle, not just the rest of the room.',
+    },
+    matters: {
+      src: '/assets/nurserypath/simple%20nursery.png',
+      alt: 'Compact nursery chair example.',
+      caption: 'Arm support, seat depth, and getting up cleanly while holding a baby matter more than chair drama.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/nurseryidea.png',
+      alt: 'Styled nursery corner image.',
+      caption: 'A chair can look beautiful and still leave your back wondering why you did this to it.',
+    },
+    choose: {
+      src: '/assets/nurserypath/nurserylifestyle.png',
+      alt: 'Lived-in nursery seating lifestyle image.',
+      caption: 'Pick the chair you would still want during the fourth feed, not just the first photo.',
+    },
+  },
+  'dressers-changing': {
+    types: {
+      src: '/assets/nurserypath/dadadatopper.png',
+      alt: 'Dresser topper and changing setup example.',
+      caption: 'Most families are deciding between a dedicated changing piece and one better dual-purpose move.',
+    },
+    matters: {
+      src: '/assets/nurserypath/hatchchangingpad.png',
+      alt: 'Changing pad on dresser setup.',
+      caption: 'Reach, stability, and where the daily essentials already live do more of the work here than drawer count.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/changingpad.png',
+      alt: 'Changing setup image.',
+      caption: 'The setup gets annoying fast when storage and diaper duty live too far apart.',
+    },
+    choose: {
+      src: '/assets/nurserypath/milkstreettopper.png',
+      alt: 'Nursery dresser with topper example.',
+      caption: 'The cleanest choice usually solves storage and changing in one move.',
+    },
+  },
+  'diaper-pails': {
+    types: {
+      src: '/assets/nurserypath/momcozydiperpail.png',
+      alt: 'Momcozy diaper pail in a nursery.',
+      caption: 'The big tradeoff is usually odor control versus refill dependence, not whether the pail is especially exciting.',
+    },
+    matters: {
+      src: '/assets/nurserypath/joolbabydiperpail.png',
+      alt: 'Jool Baby diaper pail inside a nursery zone.',
+      caption: 'If the opening, emptying, and placement feel easy on the busiest day, the pail is doing its job.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/duplicate.png',
+      alt: 'Duplicate nursery gear image.',
+      caption: 'This is a category where overbuying often looks like paying for a fancier hassle.',
+    },
+    choose: {
+      src: '/assets/nurserypath/nurseyatnight.png',
+      alt: 'Nighttime nursery workflow image.',
+      caption: 'Choose the setup that keeps the changing zone quicker and less annoying in real use.',
+    },
+  },
+  'baby-monitors': {
+    types: {
+      src: '/assets/nurserypath/momcozybabymonitor.png',
+      alt: 'Dedicated baby monitor image.',
+      caption: 'The real choice is usually between simple dedicated monitoring, WiFi flexibility, or extra sensor layers.',
+    },
+    matters: {
+      src: '/assets/nurserypath/owlet.png',
+      alt: 'Owlet monitoring example.',
+      caption: 'Night usability and reliability matter more than how many app tabs the system can generate.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/nurseyatnight.png',
+      alt: 'Nighttime nursery monitoring image.',
+      caption: 'The wrong monitor gets exposed quickly once the room is dark and you just need the thing to work.',
+    },
+    choose: {
+      src: '/assets/nurserypath/nanit.png',
+      alt: 'Nanit monitor example.',
+      caption: 'Pick the type of reassurance that genuinely helps. More features are not automatically more useful.',
+    },
+  },
+  'baby-proofing': {
+    types: {
+      src: '/assets/nurserypath/dadadadresser.png',
+      alt: 'Anchored dresser and nursery furniture image.',
+      caption: 'Anchoring large furniture and handling obvious reach hazards are the first pass, not the final one.',
+    },
+    matters: {
+      src: '/assets/nurserypath/nurseryplayroom.png',
+      alt: 'Nursery floor-level safety image.',
+      caption: 'The calm version of baby proofing starts by looking at the room from the lower, faster point of view that is coming.',
+    },
+    mistakes: {
+      src: '/assets/nurserypath/nurseyatnight.png',
+      alt: 'Nighttime nursery safety image.',
+      caption: 'Waiting until mobility is already happening is usually how safety work turns into a rushed cleanup tour.',
+    },
+    choose: {
+      src: '/assets/nurserypath/nurseryplanning.png',
+      alt: 'Nursery planning image for staged baby proofing.',
+      caption: 'Think in layers: anchor first, edit the hazards next, then recheck when mobility changes.',
+    },
+  },
+};
 
 export function getNurseryFurnitureCategoryCards(): GuideHubLink[] {
   return CATEGORY_ORDER.map((slug) => {
@@ -697,6 +1201,7 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
   slug: NurseryFurnitureCategorySlug,
 ): ModuleLayoutData {
   const category = getNurseryFurnitureCategory(slug);
+  const sectionImages = NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES[slug];
   const currentIndex = CATEGORY_ORDER.indexOf(slug);
   const previousSlug = currentIndex > 0 ? CATEGORY_ORDER[currentIndex - 1] ?? null : null;
   const nextSlug = currentIndex >= 0 && currentIndex < CATEGORY_ORDER.length - 1 ? CATEGORY_ORDER[currentIndex + 1] ?? null : null;
@@ -729,30 +1234,30 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
       {
         title: 'Types',
         paragraphs: uniqueItems([category.typesDescription, ...category.types], 5),
-        imageSrc: '/assets/editorial/nursery2.png',
-        imageAlt: 'Nursery furniture planning editorial image.',
-        imageCaption: 'The category usually gets easier once the real job is clear.',
+        imageSrc: sectionImages.types.src,
+        imageAlt: sectionImages.types.alt,
+        imageCaption: sectionImages.types.caption,
       },
       {
         title: 'What actually matters',
         paragraphs: uniqueItems([category.whatActuallyMattersDescription, ...category.whatActuallyMatters], 6),
-        imageSrc: '/assets/editorial/organize.png',
-        imageAlt: 'Organized nursery setup with everyday essentials.',
-        imageCaption: 'The repeated parts of the routine should do more of the deciding.',
+        imageSrc: sectionImages.matters.src,
+        imageAlt: sectionImages.matters.alt,
+        imageCaption: sectionImages.matters.caption,
       },
       {
         title: 'Common mistakes',
         paragraphs: uniqueItems([category.commonMistakesDescription, ...category.commonMistakes], 5),
-        imageSrc: '/assets/editorial/teddy-glow.png',
-        imageAlt: 'Calm nursery lighting and atmosphere editorial image.',
-        imageCaption: 'Most regret here starts when future theory gets louder than current use.',
+        imageSrc: sectionImages.mistakes.src,
+        imageAlt: sectionImages.mistakes.alt,
+        imageCaption: sectionImages.mistakes.caption,
       },
       {
         title: 'How to choose',
         paragraphs: uniqueItems([category.howToChooseDescription, ...decisionItemsToParagraphs(category.howToChoose)], 5),
-        imageSrc: '/assets/editorial/clipboard.png',
-        imageAlt: 'Planning notes for nursery setup decisions.',
-        imageCaption: 'A calmer decision usually starts with the stage you are actually furnishing for.',
+        imageSrc: sectionImages.choose.src,
+        imageAlt: sectionImages.choose.alt,
+        imageCaption: sectionImages.choose.caption,
       },
     ],
     decisionTitle: 'What This Means For You',
@@ -763,7 +1268,7 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
       ],
       5,
     ),
-    products: [],
+    products: NURSERY_FURNITURE_CATEGORY_PRODUCTS[slug] ?? [],
     softCtaLabel: 'TMBC note',
     softCtaTitle: 'This piece should earn its space through repetition.',
     softCtaBody: [category.whatItDoes.calloutBody],

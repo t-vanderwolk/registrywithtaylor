@@ -12,13 +12,13 @@ const CONTRACTED_GEARPATH_IMAGES = {
   colugo: '/assets/gearpath/cogulo.png',
   ergobabyCarrier: '/assets/gearpath/carrierergobaby.png',
   ergobabyOmni: '/assets/gearpath/omni.png',
-  momcozyAir1: '/assets/gearpath/momcozyair1.png',
+  momcozyAir1: '/assets/breastfeeding/momcozyair1.png',
   momcozyHighChair: '/assets/gearpath/momcozyhighchair.png',
-  momcozyHospitalGrade: '/assets/gearpath/momcozyhospitalgrade.png',
-  momcozyMobileFlow: '/assets/gearpath/momcozymobileflow.png',
+  momcozyHospitalGrade: '/assets/breastfeeding/momcozyhospitalgrade.png',
+  momcozyMobileFlow: '/assets/breastfeeding/momcozymobileflow.png',
   momcozyPureHug: '/assets/gearpath/momcozypurehug.png',
-  medelaInBra: '/assets/gearpath/medelainbra.png',
-  medelaPump: '/assets/gearpath/medelapump.png',
+  medelaInBra: '/assets/breastfeeding/medelainbra.png',
+  medelaPump: '/assets/breastfeeding/medelapump.png',
   munchkinPump: '/assets/gearpath/munchkinpump.png',
 } as const;
 const CONTRACTED_NURSERYPATH_IMAGES = {
