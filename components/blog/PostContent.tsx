@@ -5,8 +5,8 @@ import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
+import BlogProductInsightCard from '@/components/blog/BlogProductInsightCard';
 import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
-import GuideProductExampleCard from '@/components/guides/GuideProductExampleCard';
 import { renderBrandWordmarkText } from '@/components/ui/BrandWordmark';
 import Advice from '@/components/content-widgets/Advice';
 import Callout from '@/components/content-widgets/Callout';
@@ -311,21 +311,49 @@ function renderGuideProductGrid(products: GuideProductBlock[], postId: string, s
             const position = startingPosition + chunkIndex * 3 + index + 1;
 
             return (
-              <GuideProductExampleCard
+              <BlogProductInsightCard
                 key={`${postId}-guide-product-${product.brand}-${product.productName}-${position}`}
                 name={product.productName}
                 brand={product.brand}
-                productName={product.productName}
                 imageSrc={product.imageUrl}
                 imageAlt={product.imageAlt}
-                affiliateUrl={product.affiliateLinks[0]?.url ?? null}
-                typeLabel={product.typeLabel}
-                whyItMatters={product.shortReview}
-                bestFor={product.bestFor}
-                standout={product.standout}
-                specGroups={product.specGroups}
-                notes={product.notes}
-                pros={product.pros}
+                description={product.shortReview}
+                details={[
+                  {
+                    label: 'Best for',
+                    content: product.bestFor,
+                  },
+                  {
+                    label: 'Standout',
+                    content:
+                      product.standout ||
+                      product.pros[0] ||
+                      product.notes?.[0] ||
+                      'A useful example to keep the category tied to real-life use.',
+                  },
+                  {
+                    label: 'What to know',
+                    content:
+                      product.specGroups && product.specGroups.length > 0 ? (
+                        <ul className="space-y-2">
+                          {product.specGroups
+                            .flatMap((group) => group.items)
+                            .filter(Boolean)
+                            .slice(0, 3)
+                            .map((item, detailIndex) => (
+                              <li key={`${postId}-${product.productName}-detail-${detailIndex}`} className="flex items-start gap-2.5">
+                                <span
+                                  aria-hidden="true"
+                                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent-dark)]/58"
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                        </ul>
+                      ) : product.notes?.[0] || product.pros[1] || 'The right fit is usually the one that supports the routine you will use most.',
+                  },
+                ]}
+                links={product.affiliateLinks}
                 category={product.typeLabel ?? 'Product Examples'}
                 position={position}
               />
@@ -438,6 +466,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         affiliateLinks={block.affiliateLinks}
         imageUrl={block.imageUrl}
         imageAlt={block.imageAlt}
+        position={index + 1}
       />
     );
   }
