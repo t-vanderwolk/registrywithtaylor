@@ -45,17 +45,21 @@ const TOTAL_MODULES = 6;
 const NURSERY_ACADEMY_IMAGES = {
   cribAndClouds: '/assets/nurserypath/cribandclouds.png',
   cribAndToys: '/assets/nurserypath/cribandtopys.png',
+  cribLifestyle: '/assets/nurserypath/criblifestyle.png',
   dadadaCrib: '/assets/nurserypath/dadadacrib.png',
   dadadaDresser: '/assets/nurserypath/dadadadresser.png',
   duplicate: '/assets/nurserypath/duplicate.png',
+  hatchSoundMachine: '/assets/nurserypath/hatchsoundmachine.png',
   joolBabyDiaperPail: '/assets/nurserypath/joolbabydiperpail.png',
   miniVsStandardCrib: '/assets/nurserypath/minivsstandadcrib.png',
   momcozyBabyMonitor: '/assets/nurserypath/momcozybabymonitor.png',
   momcozyDiaperPail: '/assets/nurserypath/momcozydiperpail.png',
   nanit: '/assets/nurserypath/nanit.png',
   newton: '/assets/nurserypath/newton.png',
+  newtonLifestyle: '/assets/nurserypath/newtonlifestyle.png',
   newtonMattress: '/assets/nurserypath/newtonmatress.png',
   nurseryIdea: '/assets/nurserypath/nurseryidea.png',
+  nurseryLifestyle: '/assets/nurserypath/nurserylifestyle.png',
   nurseryPlanning: '/assets/nurserypath/nurseryplanning.png',
   nurseryPlayroom: '/assets/nurserypath/nurseryplayroom.png',
   nurseryPrep: '/assets/nurserypath/nurseryprep.png',
@@ -294,8 +298,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Planning for transitions',
-        imageSrc: NURSERY_ACADEMY_IMAGES.cribAndToys,
-        imageAlt: 'Crib setup suggesting the next sleep-space stage over time.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.cribLifestyle,
+        imageAlt: 'Crib setup that supports the next sleep-space stage over time.',
         paragraphs: [
           'Your baby will not stay in the same sleep setup forever. Bassinet to crib. Room sharing to separate room. Those transitions happen over time.',
           'The mistake many parents make is trying to solve every stage at once.',
@@ -382,8 +386,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Planning for growth',
-        imageSrc: NURSERY_ACADEMY_IMAGES.newton,
-        imageAlt: 'Nursery setup showing how the room can grow over time.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.newtonLifestyle,
+        imageAlt: 'Nursery sleep setup that still feels useful as the room grows.',
         paragraphs: [
           'Some furniture grows with your baby: convertible cribs, adaptable storage, flexible layouts. Other pieces are more temporary.',
           'Both approaches can work. What matters is choosing intentionally.',
@@ -458,8 +462,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Lighting placement',
-        imageSrc: NURSERY_ACADEMY_IMAGES.vision,
-        imageAlt: 'Nursery lighting concept with calmer placement in mind.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryAtNight,
+        imageAlt: 'Nursery lighting setup with calmer nighttime placement.',
         paragraphs: [
           'Lighting should support both daytime visibility and nighttime calm.',
           'Harsh overhead lighting rarely helps in the middle of the night.',
@@ -541,8 +545,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Growth over time',
-        imageSrc: NURSERY_ACADEMY_IMAGES.momcozyDiaperPail,
-        imageAlt: 'Nursery organization setup that can adapt as the routine changes.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaDresser,
+        imageAlt: 'Nursery dresser setup that can adapt as storage needs change.',
         paragraphs: [
           'Your storage needs will change quickly, so the better system is the one that can adapt without needing a total reset.',
           'Build for change instead of pretending the first arrangement is the final one.',
@@ -589,8 +593,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Lighting & mood',
-        imageSrc: NURSERY_ACADEMY_IMAGES.tealNursery,
-        imageAlt: 'Soft natural light in a calm nursery space.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryAtNight,
+        imageAlt: 'Nursery with softer nighttime lighting and a calmer mood.',
         paragraphs: [
           'Lighting shapes how the space feels.',
           'Soft, warm lighting usually supports calm better than bright, hard lighting that makes the room feel more awake than it needs to.',
@@ -598,8 +602,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Sound environment',
-        imageSrc: NURSERY_ACADEMY_IMAGES.momcozyBabyMonitor,
-        imageAlt: 'Nursery monitoring setup in a bedside-style room environment.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.hatchSoundMachine,
+        imageAlt: 'Sound machine setup in a nursery sleep environment.',
         paragraphs: [
           'Sound can help create consistency, especially around sleep.',
           'The goal is not to over-engineer the room. It is to support a steadier environment where possible.',
@@ -616,8 +620,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Simplicity over perfection',
-        imageSrc: NURSERY_ACADEMY_IMAGES.owlet,
-        imageAlt: 'Clean nursery monitoring setup that supports simplicity over gadget sprawl.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.nurseryLifestyle,
+        imageAlt: 'Calm nursery lifestyle image that supports simplicity over clutter.',
         paragraphs: [
           'The best nurseries are not the most decorated. They are the easiest to live in.',
           'When the room feels calm and clear, it usually asks less of you.',

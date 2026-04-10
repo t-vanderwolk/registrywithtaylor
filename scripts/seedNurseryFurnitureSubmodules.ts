@@ -19,6 +19,7 @@ const NURSERY_FURNITURE_PARENT_PATH = '/academy/nursery/furniture-that-actually-
 const NURSERY_FURNITURE_PARENT_SLUG = 'furniture-that-actually-works';
 const NURSERY_FURNITURE_SUBMODULE_SLUGS: NurseryFurnitureCategorySlug[] = [
   'cribs',
+  'pack-and-play',
   'gliders',
   'dressers-changing',
   'diaper-pails',
