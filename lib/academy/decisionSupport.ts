@@ -146,7 +146,7 @@ const DECISION_STATEMENT_OVERRIDES: Record<string, string> = {
   'vision-and-lifestyle':
     'what kind of nursery actually fits your home, your taste, and your daily flow',
   'sleep-space-decisions':
-    'how the sleep setup should work before the rest of the room starts asking for furniture',
+    'how bassinets, mini cribs, pack and plays, and cribs should work together before one product tries to do every shift',
   'furniture-that-actually-works':
     'which nursery furniture pieces genuinely earn their space through repetition',
   'layout-and-flow':
@@ -182,9 +182,31 @@ const WHY_THIS_EXISTS_OVERRIDES: Record<string, string> = {
     'This category exists because registry regret usually comes from a handful of patterns, not one dramatic mistake.',
   'first-weeks-home-rhythm':
     'This category exists because the first weeks feel easier when recovery, feeding, food, visitors, and household expectations are treated like one shared system.',
+  'sleep-space-decisions':
+    'This category exists because newborn sleep rarely happens in one fixed place, and most of the overwhelm comes from thinking you need one perfect answer instead of a few setups that work together.',
 };
 
 const SPECIAL_ROUTE_OPTIONS: Record<string, DecisionRouteOption[]> = {
+  'sleep-space-decisions': [
+    {
+      title: 'Go deeper on pack and plays',
+      description: 'Open the flexible-sleep submodule if the real question is backup sleep, travel, or the everywhere-else lane.',
+      href: '/academy/nursery/furniture-that-actually-works/pack-and-play',
+      tag: 'Start Here',
+    },
+    {
+      title: 'Go deeper on cribs',
+      description: 'Open the crib submodule if the longer-term nursery anchor is the next layer you need to pressure-test.',
+      href: '/academy/nursery/furniture-that-actually-works/cribs',
+      tag: 'Most common path',
+    },
+    {
+      title: 'Keep the nursery path moving',
+      description: 'Step into the furniture module once the sleep system makes more sense than the one-product fantasy.',
+      href: '/academy/nursery/furniture-that-actually-works',
+      tag: 'Skip this for now',
+    },
+  ],
   'feeding-setup-flow': [
     {
       title: 'Planning to pump or combo feed?',

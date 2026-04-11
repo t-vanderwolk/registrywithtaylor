@@ -185,6 +185,14 @@ function buildDecisionBarDescription(module: ModuleLayoutData) {
 }
 
 function getModuleHandwrittenNote(module: ModuleLayoutData) {
+  if (module.slug === 'sleep-space-decisions') {
+    return {
+      title: 'You are not choosing one perfect sleep setup.',
+      description:
+        'Most newborns move between a few spaces. The calmer plan is understanding how those spaces work together before the shopping tabs start auditioning for soulmates.',
+    };
+  }
+
   switch (module.pathSlug) {
     case 'registry':
       return {
@@ -281,12 +289,29 @@ function buildModuleFocusLine(module: ModuleLayoutData) {
 function getEditorialLinkSectionCopy(editorialLinks: AcademyRelatedLink[]) {
   const hasBlogLinks = editorialLinks.some((link) => link.href.startsWith('/blog/'));
   const hasGuideLinks = editorialLinks.some((link) => link.href.startsWith('/guides/'));
+  const hasAcademyLinks = editorialLinks.some((link) => link.href.startsWith('/academy/'));
+
+  if (hasBlogLinks && hasAcademyLinks) {
+    return {
+      title: 'See how this works in real life',
+      description:
+        'Use these when you want the fuller editorial read plus the next nursery layers that make the framework feel more concrete.',
+    };
+  }
 
   if (hasBlogLinks && hasGuideLinks) {
     return {
       title: 'Continue with related TMBC reading',
       description:
         'Use these links when you want either the wider guide view or a more concrete editorial example after the framework gets clearer.',
+    };
+  }
+
+  if (hasAcademyLinks) {
+    return {
+      title: 'Keep the system connected',
+      description:
+        'Use these Academy links when you want the deeper module or submodule view without leaving the path entirely.',
     };
   }
 
@@ -305,6 +330,10 @@ function getEditorialLinkSectionCopy(editorialLinks: AcademyRelatedLink[]) {
 }
 
 function getEditorialLinkEyebrow(href: string) {
+  if (href.startsWith('/academy/')) {
+    return 'Academy';
+  }
+
   if (href.startsWith('/guides/')) {
     return 'Guide';
   }

@@ -197,26 +197,26 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
     },
   },
   'sleep-space-decisions': {
-    [normalizeKey('Full-Size Crib')]: {
+    [normalizeKey('Newton Baby Travel Crib & Play Yard')]: {
+      name: 'Newton Baby Travel Crib & Play Yard',
+      brand: 'Newton Baby',
+      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.newtonBaby,
+      imageSrc: NURSERYPATH_IMAGES.newtonNestCrib,
+      imageAlt: 'Newton Baby travel crib and play yard.',
+    },
+    [normalizeKey('HALO Flex Portable Crib')]: {
+      name: 'HALO Flex Portable Crib',
+      brand: 'HALO',
+      affiliateUrl: 'https://www.halosleep.com',
+      imageSrc: NURSERYPATH_IMAGES.haloMiniMeshCrib,
+      imageAlt: 'HALO Flex portable crib.',
+    },
+    [normalizeKey('dadada Baby Full-Size Crib')]: {
       name: 'dadada Baby Full-Size Crib',
       brand: 'dadada Baby',
       affiliateUrl: CONTRACTED_AFFILIATE_LINKS.dadadaBaby,
       imageSrc: NURSERYPATH_IMAGES.dadadaCrib,
       imageAlt: 'dadada Baby full-size crib.',
-    },
-    [normalizeKey('Crib Mattress')]: {
-      name: 'Newton Baby Original Crib Mattress',
-      brand: 'Newton Baby',
-      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.newtonBaby,
-      imageSrc: NURSERYPATH_IMAGES.newtonMattress,
-      imageAlt: 'Newton Baby crib mattress.',
-    },
-    [normalizeKey('Video Monitor')]: {
-      name: 'Nanit Pro Camera + Wall Mount',
-      brand: 'Nanit',
-      affiliateUrl: CONTRACTED_AFFILIATE_LINKS.nanit,
-      imageSrc: NURSERYPATH_IMAGES.nanit,
-      imageAlt: 'Nanit Pro baby monitor.',
     },
   },
   'furniture-that-actually-works': {

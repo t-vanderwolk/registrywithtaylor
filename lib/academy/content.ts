@@ -435,11 +435,12 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
   'sleep-space-decisions': {
     pathSlug: 'nursery',
     title: 'Sleep Space Decisions',
-    description: 'Decide where your baby will actually sleep based on your space, your nights, and your comfort level.',
-    subhead: 'Where your baby sleeps - and why it matters more than you think.',
+    description:
+      'Understand how bassinets, pack and plays, mini cribs, and cribs work together so the sleep plan feels calmer from the start.',
+    subhead: "Your baby won't sleep in just one place, and that's exactly how it should be.",
     imagePath: '/assets/nurserypath/cribandclouds.png',
     imageAlt: 'Crib and clouds image for the Sleep Space Decisions module.',
-    relatedSlug: 'where-to-register',
+    relatedSlug: 'layout-and-flow',
   },
   'furniture-that-actually-works': {
     pathSlug: 'nursery',
@@ -938,6 +939,32 @@ function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[]
         description:
           'Use this once portability is clearly part of the plan and you want the tighter shortlist of travel-first stroller options.',
         ctaLabel: 'Read journal post ->',
+      },
+    ];
+  }
+
+  if (slug === 'sleep-space-decisions') {
+    return [
+      {
+        href: '/blog/newborn-sleep-setups-bassinet-crib-pack-and-play',
+        title: 'Where Your Newborn Actually Sleeps',
+        description:
+          'Use the blog-side version when you want the same sleep-system philosophy in a more narrative, real-life read.',
+        ctaLabel: 'See how this works in real life ->',
+      },
+      {
+        href: '/academy/nursery/furniture-that-actually-works/pack-and-play',
+        title: 'Pack & Play Sub Module',
+        description:
+          'Go deeper here if the flexible-sleep lane is doing more of the work than the permanent nursery lane.',
+        ctaLabel: 'See how this works in real life ->',
+      },
+      {
+        href: '/academy/nursery/furniture-that-actually-works/cribs',
+        title: 'Cribs Sub Module',
+        description:
+          'Open the crib deep dive when the long-term nursery anchor is the part you want to pressure-test next.',
+        ctaLabel: 'See how this works in real life ->',
       },
     ];
   }
