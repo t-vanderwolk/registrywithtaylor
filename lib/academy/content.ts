@@ -464,8 +464,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Storage & Organization',
     description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
     subhead: 'How to reduce chaos before it starts.',
-    imagePath: '/assets/nurserypath/duplicate.png',
-    imageAlt: 'Nursery organization image for the Storage & Organization module.',
+    imagePath: '/assets/nurserypath/storage.png',
+    imageAlt: 'Nursery organization image showing a calmer storage setup with everyday essentials within reach.',
     relatedSlug: 'feeding-and-lactation',
   },
   'atmosphere-and-safety': {
@@ -541,8 +541,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Understand the main feeding pathways, what tools each one may require, what to buy now versus later, and how to build a feeding setup that supports real life without overbuying.',
     subhead: 'You are not choosing isolated products. You are building the system that has to work in real life.',
-    imagePath: '/assets/editorial/feeding.png',
-    imageAlt: 'Editorial feeding setup image for the Feeding Setup & Flow academy module.',
+    imagePath: '/assets/breastfeeding/formulanara.png',
+    imageAlt: 'Flexible feeding setup image for the Feeding Setup & Flow academy module.',
     relatedSlug: 'feeding-and-lactation',
   },
   'breast-pump': {
@@ -561,8 +561,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Build a calm bottle starting point, understand nipple flow and cleanup, and avoid buying a whole feeding drawer before your baby has an opinion.',
     subhead: 'Bottles become a system faster than most parents expect.',
-    imagePath: '/assets/editorial/bottle-booties.png',
-    imageAlt: 'Bottles and baby utensils image for the Bottles & Baby Utensils academy module.',
+    imagePath: '/assets/breastfeeding/storagebottttles.png',
+    imageAlt: 'Bottle starter system image for the Bottles & Baby Utensils academy module.',
     relatedSlug: 'feeding-and-lactation',
   },
   'car-seat-basics': {

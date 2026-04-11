@@ -29,6 +29,12 @@ export type DailyUseGearAcademySection = {
   groups?: DailyUseGearAcademySectionGroup[];
 };
 
+export type DailyUseGearAcademySectionImage = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 export type DailyUseGearAcademyNote = {
   eyebrow: string;
   title: string;
@@ -47,9 +53,17 @@ export type DailyUseGearAcademySubmoduleDefinition = {
   heroImageSrc: string;
   heroImageAlt: string;
   learn: DailyUseGearAcademySection;
+  purpose: DailyUseGearAcademySection;
   plan: DailyUseGearAcademySection;
   trySection: DailyUseGearAcademySection;
   buy: DailyUseGearAcademySection;
+  needReasons: string[];
+  skipReasons: string[];
+  sectionImages: {
+    purpose: DailyUseGearAcademySectionImage;
+    needs: DailyUseGearAcademySectionImage;
+    skip: DailyUseGearAcademySectionImage;
+  };
   decisionBullets: string[];
   note: DailyUseGearAcademyNote;
 };
@@ -136,32 +150,32 @@ function buildCoreSections(
 ): ModuleLayoutData['coreSections'] {
   return [
     {
-      title: 'Start with the category basics',
+      title: 'What the product is',
       paragraphs: flattenSectionParagraphs(submodule.learn),
       imageSrc: submodule.heroImageSrc,
       imageAlt: submodule.heroImageAlt,
-      imageCaption: 'Understanding the category first usually makes the shortlist much quieter.',
+      imageCaption: 'Understanding the product first usually makes the shortlist much quieter.',
     },
     {
-      title: 'What to think through before you choose',
-      paragraphs: flattenSectionParagraphs(submodule.plan),
-      imageSrc: '/assets/editorial/clipboard.png',
-      imageAlt: 'Planning notes for daily-use baby gear decisions.',
-      imageCaption: 'This is the part where the category gets smaller because your routine gets clearer.',
+      title: 'What the purpose of the product is',
+      paragraphs: flattenSectionParagraphs(submodule.purpose),
+      imageSrc: submodule.sectionImages.purpose.src,
+      imageAlt: submodule.sectionImages.purpose.alt,
+      imageCaption: submodule.sectionImages.purpose.caption,
     },
     {
-      title: 'What to pressure-test in real life',
-      paragraphs: flattenSectionParagraphs(submodule.trySection),
-      imageSrc: '/assets/editorial/ipadblueprint.png',
-      imageAlt: 'Testing notes for daily-use gear decisions.',
-      imageCaption: 'Testing the boring parts now usually prevents the louder regret later.',
+      title: 'Reasons a person needs it',
+      paragraphs: submodule.needReasons,
+      imageSrc: submodule.sectionImages.needs.src,
+      imageAlt: submodule.sectionImages.needs.alt,
+      imageCaption: submodule.sectionImages.needs.caption,
     },
     {
-      title: 'How to keep the purchase edited',
-      paragraphs: flattenSectionParagraphs(submodule.buy),
-      imageSrc: '/assets/editorial/organize.png',
-      imageAlt: 'Organized everyday baby gear setup.',
-      imageCaption: 'The best buy is usually the one that supports the routine without multiplying the category.',
+      title: 'Reasons a person would skip it',
+      paragraphs: submodule.skipReasons,
+      imageSrc: submodule.sectionImages.skip.src,
+      imageAlt: submodule.sectionImages.skip.alt,
+      imageCaption: submodule.sectionImages.skip.caption,
     },
   ];
 }
@@ -219,6 +233,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         },
       ],
     },
+    purpose: {
+      description:
+        'A carrier is there to keep baby close while giving the caregiver more freedom to move through the day without holding the entire shift in their arms.',
+      paragraphs: [
+        'The purpose is not to win a style category. It is to make naps, errands, house movement, and transition moments feel more workable.',
+        'A good carrier should support both bodies at the same time. If it only works for the baby or only works in theory, it is not doing the whole job.',
+      ],
+    },
     plan: {
       description:
         'Before you compare prints, clips, or tutorial views, get clear on the kind of carrying life you are actually planning for.',
@@ -253,6 +275,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       paragraphs: [
         'If another style becomes useful later, add it because real life asked for it, not because the category started looking collectible.',
       ],
+    },
+    needReasons: [
+      'You want hands-free support for naps, chores, errands, or getting through the house with one working arm again.',
+      'Your baby settles better with motion and closeness than with being set down repeatedly.',
+      'Multiple caregivers want one shared carry option that can become part of the everyday routine.',
+    ],
+    skipReasons: [
+      'You do not expect to babywear often enough to justify adding another category right now.',
+      'The fit or setup already feels fussy, and you know that friction means it will stay in the closet.',
+      'A stroller, bassinet, or arms-only routine already covers the real job you were trying to solve.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/gearpath/omni.png',
+        alt: 'Structured baby carrier shown as an everyday movement tool.',
+        caption: 'This category earns its place when it supports real movement, not just a very hopeful version of it.',
+      },
+      needs: {
+        src: '/assets/gearpath/carrierergobaby.png',
+        alt: 'Parent using a baby carrier during an everyday routine.',
+        caption: 'The strongest reason to own one is simple: it helps often enough to become part of the day.',
+      },
+      skip: {
+        src: '/assets/gearpath/momcozypurehug.png',
+        alt: 'Soft baby carrier shown as one optional way to carry, not an automatic need.',
+        caption: 'If the routine does not really call for it, this is a category you can skip without apology.',
+      },
     },
     decisionBullets: [
       'Start with caregiver fit before aesthetics.',
@@ -307,6 +356,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         },
       ],
     },
+    purpose: {
+      description:
+        'A highchair exists to support feeding posture, mealtime participation, and cleanup that does not become its own side hobby.',
+      paragraphs: [
+        'The real purpose is repeated feeding support. It should help the baby sit well, help you feed more easily, and reset without drama.',
+        'This is why the tray, footrest, straps, and wipe-down reality matter more than whether the silhouette feels design-forward.',
+      ],
+    },
     plan: {
       description:
         'A good highchair answer starts with your table, your floor space, and your cleanup tolerance, not with the prettiest photo.',
@@ -342,6 +399,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'If a highchair feels visually clean but operationally fussy, the visual part stops mattering quickly.',
       ],
     },
+    needReasons: [
+      'Your baby is approaching solids, and you want one stable feeding seat that can become part of the routine fast.',
+      'You want the feeding setup to support posture and table participation instead of balancing everything on wishful positioning.',
+      'Cleanup friction already feels like the real issue, and you want one seat that does not make it worse.',
+    ],
+    skipReasons: [
+      'Solids are still far enough away that the category does not need registry urgency yet.',
+      'Your space is so tight that waiting for the actual feeding rhythm will give you a better answer than buying the prettiest compromise now.',
+      'You already know you need a smaller or more travel-friendly feeding seat later rather than a full everyday highchair right away.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/gearpath/momcozyhighchair.png',
+        alt: 'Highchair shown as a repeated mealtime support tool.',
+        caption: 'A highchair should make repeated meals easier, not simply make the kitchen look more committed.',
+      },
+      needs: {
+        src: '/assets/gearpath/momcozyhighchair.png',
+        alt: 'Highchair positioned for everyday feeding.',
+        caption: 'If feeding is about to happen multiple times a day, this category earns real attention quickly.',
+      },
+      skip: {
+        src: '/assets/gearpath/momcozyhighchair.png',
+        alt: 'Highchair shown as a category that can wait until feeding timing is real.',
+        caption: 'This is an easy category to buy too early. Real timing usually gives the cleaner answer.',
+      },
+    },
     decisionBullets: [
       'Let posture and foot support matter.',
       'Choose around your table, floor space, and cleanup tolerance.',
@@ -369,8 +453,8 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       "They're not.",
       'This is a safety category and a routine category, which means the right setup can make bath time feel calm, and the wrong one can make it feel awkward fast.',
     ],
-    heroImageSrc: '/assets/editorial/welcome.png',
-    heroImageAlt: 'Editorial baby essentials image representing first-weeks routine support.',
+    heroImageSrc: '/assets/gearpath/babybathbabu.png',
+    heroImageAlt: 'Baby bath setup shown in a real bathroom environment.',
     learn: {
       description:
         'This category is less about luxury and more about keeping a wet, slippery routine feeling stable, safe, and manageable.',
@@ -393,6 +477,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
             'Supervision and safe handling matter more than every accessory in the aisle combined.',
           ],
         },
+      ],
+    },
+    purpose: {
+      description:
+        'A baby bath exists to make a slippery routine feel more stable, easier to handle, and less physically awkward for the adult doing it.',
+      paragraphs: [
+        'The goal is not a spa moment. It is safer support, better ergonomics, and one clear place where the washing routine happens.',
+        'The right setup should help you feel calmer around water, handling, and cleanup instead of adding another wobbly step to the process.',
       ],
     },
     plan: {
@@ -428,6 +520,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'You are not building a spa package. You are building a routine that feels calm when everyone is damp and ready to be done.',
       ],
     },
+    needReasons: [
+      'You want one supported, repeatable bathing setup instead of improvising around a slippery baby each time.',
+      'Your sink or tub setup needs more structure for safety or adult ergonomics to feel manageable.',
+      'Storage, drainage, and setup speed matter because bath time needs to reset cleanly once it is over.',
+    ],
+    skipReasons: [
+      'Your sink setup already works well enough that you do not need a separate bath system yet.',
+      'Space is tight, and waiting to see which bathing setup actually feels easiest will likely prevent a redundant purchase.',
+      'You already have a hand-me-down insert or tub that handles the job without needing a second version.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/gearpath/babybathbabu.png',
+        alt: 'Baby bath setup shown as a stable washing station.',
+        caption: 'The real job is calm handling and safe support, not creating a very tiny spa package.',
+      },
+      needs: {
+        src: '/assets/gearpath/babybathbabu.png',
+        alt: 'Baby bath setup shown in the kind of room where it has to work repeatedly.',
+        caption: 'This category makes sense when it removes enough awkwardness to make the routine feel safer and easier.',
+      },
+      skip: {
+        src: '/assets/gearpath/babybathbabu.png',
+        alt: 'Simple baby bath setup shown as an optional category rather than an automatic one.',
+        caption: 'If another bath setup already works, this is one of the easier categories to keep simple.',
+      },
+    },
     decisionBullets: [
       'Match the setup to where baby will actually be bathed.',
       'Keep stability and safety above accessories.',
@@ -455,8 +574,8 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'Sleep space. Travel crib. Containment zone. Backup plan.',
       'That flexibility is exactly why people buy the wrong one. This module helps users decide whether they need a true playard, a travel crib, or something simpler.',
     ],
-    heroImageSrc: '/assets/editorial/babyincrib.png',
-    heroImageAlt: 'Calm baby sleep setup that represents backup and travel sleep decisions.',
+    heroImageSrc: '/assets/gearpath/image.png',
+    heroImageAlt: 'Portable crib and room-sharing style sleep setup.',
     learn: {
       description:
         'This category only feels interchangeable from far away. Once you factor in weight, fold, sleep use, and travel, the differences matter quickly.',
@@ -479,6 +598,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
             'Fold style and intended use should match. The more often you move it, the more the fold becomes the story.',
           ],
         },
+      ],
+    },
+    purpose: {
+      description:
+        'A pack and play exists to give you a flexible sleep or set-down zone when one fixed crib does not cover the whole plan.',
+      paragraphs: [
+        'Sometimes that means room sharing. Sometimes it means travel. Sometimes it means one backup sleep setup that can move when the day does.',
+        'The purpose is not maximum accessories. It is portability, flexibility, and a second sleep answer that stays practical.',
       ],
     },
     plan: {
@@ -515,6 +642,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         'When the intended use is clear, the category gets much easier. When the intended use stays vague, the wrong version of "versatile" usually wins.',
       ],
     },
+    needReasons: [
+      'You need a room-sharing, backup-sleep, or travel setup that can move more easily than a full nursery crib.',
+      'A second sleep zone would make naps, travel, or another caregiver’s house feel much more workable.',
+      'You want one piece that can flex between jobs without adding another permanent furniture footprint.',
+    ],
+    skipReasons: [
+      'Your crib or bassinet plan already covers the real use case, and travel is too occasional to justify another large item.',
+      'The fold, weight, or footprint already sounds more annoying than helpful for the way you live.',
+      'You are paying for attachments or versatility you do not actually expect to use.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/nurserypath/newtonnestcrib.png',
+        alt: 'Portable crib shown as a flexible sleep solution.',
+        caption: 'The point is one flexible sleep answer, not a larger pile of attachments.',
+      },
+      needs: {
+        src: '/assets/nurserypath/newtonlifestyle.png',
+        alt: 'Portable sleep setup shown in a lived-in home environment.',
+        caption: 'This category earns its place when flexibility shows up often enough to matter.',
+      },
+      skip: {
+        src: '/assets/nurserypath/space.png',
+        alt: 'Room-planning image for deciding whether a pack-and-play belongs in the setup.',
+        caption: 'If the room, fold, or use case already feels vague, this is often a category to delay.',
+      },
+    },
     decisionBullets: [
       'Decide whether this is for travel, home backup, or daily sleep.',
       'Let fold, weight, and footprint matter if you will move it often.',
@@ -543,7 +697,7 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'This module helps users think realistically.',
     ],
     heroImageSrc: '/assets/editorial/babystuff.png',
-    heroImageAlt: 'Editorial baby gear image representing soothing and set-down stations.',
+    heroImageAlt: 'Everyday baby gear image representing soothing and set-down stations.',
     learn: {
       description:
         'These products can be useful, but they solve slightly different versions of soothing and hands-free support.',
@@ -565,6 +719,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
             'Safe use and supervision basics still apply even when the product is marketed as a sanity saver.',
           ],
         },
+      ],
+    },
+    purpose: {
+      description:
+        'A swing or bouncer exists to offer brief soothing help or one reliable place to set baby down while you do something else with your arms and brain.',
+      paragraphs: [
+        'The purpose is not guaranteed magic. It is a support tool for motion, settling, or short hands-free stretches when that would genuinely help.',
+        'This category works best when the expectations stay modest and the footprint earns its keep.',
       ],
     },
     plan: {
@@ -600,6 +762,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
         "Baby preference is real. A product can be well-designed and still not be your baby's thing. That is not failure. That is just baby math.",
       ],
     },
+    needReasons: [
+      'You want one safe, supervised set-down station in the main part of the house.',
+      'A little motion support would make soothing or short resets easier during the day.',
+      'You have space for one helper and want to test whether this kind of support fits your baby.',
+    ],
+    skipReasons: [
+      'You do not have the floor space for a category that may only help in one narrow part of the routine.',
+      'You already know you want to wait and see how your baby responds before buying motion gear.',
+      'You are hoping this will solve every hard moment, which is usually a sign to dial the expectation back before you buy.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/editorial/babystuff.png',
+        alt: 'Baby gear setup representing motion and set-down support tools.',
+        caption: 'Helpful is a realistic goal here. Miraculous is where the marketing starts freelancing.',
+      },
+      needs: {
+        src: '/assets/editorial/babystuff.png',
+        alt: 'Baby gear setup shown as one optional helper in the room.',
+        caption: 'This category makes the most sense when one supervised set-down option would noticeably help the day.',
+      },
+      skip: {
+        src: '/assets/editorial/babystuff.png',
+        alt: 'Baby gear image used to show that swings and bouncers are optional, not universal.',
+        caption: 'If the room or the expectation is already too crowded, this is an easy category to keep optional.',
+      },
+    },
     decisionBullets: [
       'Decide whether you need soothing help or simply a set-down station.',
       'Keep footprint and storage in view.',
@@ -627,8 +816,8 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'Daily support gear includes the pieces that make the routine flow: not glamorous, not headline-making, but deeply relevant once real life begins.',
       'This module is here to help users edit this category instead of letting it multiply on its own.',
     ],
-    heroImageSrc: '/assets/editorial/organize.png',
-    heroImageAlt: 'Organized everyday baby gear and household support setup.',
+    heroImageSrc: '/assets/breastfeeding/storagebottttles.png',
+    heroImageAlt: 'Organized daily support gear and feeding cleanup setup.',
     learn: {
       description:
         'This category is really about reducing friction in the repeated parts of the day. When it works, the room resets faster and the routine feels less chaotic.',
@@ -652,6 +841,14 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
             'Reducing the clutter points that build up fast when the routine has no clear reset plan.',
           ],
         },
+      ],
+    },
+    purpose: {
+      description:
+        'Daily support gear exists to remove friction from the repeated parts of the day that would otherwise keep falling apart in small, annoying ways.',
+      paragraphs: [
+        'This is the systems layer: cleanup helpers, changing support, storage, and the little tools that keep the basics from scattering all over the house.',
+        'The purpose is not to own every organizer. It is to make the most-used jobs faster to reset.',
       ],
     },
     plan: {
@@ -686,6 +883,33 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       paragraphs: [
         'Support gear becomes clutter fastest when it gets bought in theory. It becomes helpful when it answers a specific, repeated annoyance.',
       ],
+    },
+    needReasons: [
+      'The same supplies keep disappearing, piling up, or landing in the wrong room.',
+      'Bottle cleanup, changing, laundry, or reset points are already showing you exactly where the friction lives.',
+      'You need the routine to feel easier to repeat, not just more fully accessorized.',
+    ],
+    skipReasons: [
+      'The routine is not established yet, so you still need to see where the real friction points actually are.',
+      'Your existing storage or cleanup setup already works well enough without adding another organizing layer.',
+      'You are shopping for a fantasy of perfect organization instead of a specific repeated annoyance.',
+    ],
+    sectionImages: {
+      purpose: {
+        src: '/assets/breastfeeding/storagebottttles.png',
+        alt: 'Bottle and cleanup support items organized into a practical workflow.',
+        caption: 'Support gear earns its place when it helps the reset, not when it simply makes the drawer look ambitious.',
+      },
+      needs: {
+        src: '/assets/breastfeeding/storagebagsmedela.png',
+        alt: 'Support items arranged as part of a repeated cleanup and storage workflow.',
+        caption: 'This category matters once the same little friction points start repeating loudly.',
+      },
+      skip: {
+        src: '/assets/breastfeeding/storagebottttles.png',
+        alt: 'Organized daily support setup shown as a layer to add only when the routine asks for it.',
+        caption: 'If the routine has not shown you the problem yet, this category can wait without consequence.',
+      },
     },
     decisionBullets: [
       'Solve repeated friction instead of buying for hypothetical perfection.',

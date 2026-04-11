@@ -278,37 +278,6 @@ function buildModuleFocusLine(module: ModuleLayoutData) {
   return `Inside this module: ${formatInlineList(focusPoints)}.`;
 }
 
-function buildModuleAcademyConnectionCards(
-  module: ModuleLayoutData,
-  pathLabel: string | undefined,
-) {
-  const pathTitle = pathLabel ? `${pathLabel} Path` : 'Academy Path';
-  const connectionCards = [
-    {
-      href: `/academy/${module.pathSlug}`,
-      title: pathTitle,
-      description: `Go back to the full ${pathLabel ?? 'Academy'} sequence if you want the wider decision map around this module.`,
-      ctaLabel: 'View path ->',
-      eyebrow: 'Path',
-    },
-    module.previous ? { ...module.previous, eyebrow: 'Previous' } : null,
-    module.next ? { ...module.next, eyebrow: 'Next' } : null,
-    module.related ? { ...module.related, eyebrow: 'Related' } : null,
-  ].filter(
-    (
-      card,
-    ): card is {
-      href: string;
-      title: string;
-      description: string;
-      ctaLabel: string;
-      eyebrow: string;
-    } => Boolean(card),
-  );
-
-  return Array.from(new Map(connectionCards.map((card) => [card.href, card])).values()).slice(0, 4);
-}
-
 function getEditorialLinkSectionCopy(editorialLinks: AcademyRelatedLink[]) {
   const hasBlogLinks = editorialLinks.some((link) => link.href.startsWith('/blog/'));
   const hasGuideLinks = editorialLinks.some((link) => link.href.startsWith('/guides/'));
@@ -363,7 +332,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
   const moduleFocusLine = buildModuleFocusLine(module);
-  const academyConnections = buildModuleAcademyConnectionCards(module, pathLabel);
   const editorialSectionCopy = getEditorialLinkSectionCopy(module.editorialLinks);
   const phaseLabel = getAcademyPhaseLabel(module);
   const decisionStatement = getModuleDecisionStatement(module);
@@ -511,29 +479,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
               description={whyThisExists}
             />
           </section>
-
-          {academyConnections.length > 0 ? (
-            <section className="space-y-6">
-              <AcademySectionHeading
-                eyebrow="Keep Exploring"
-                title="Keep this decision connected in TMBC Academy"
-                description="If this category starts touching the next decision, these are the cleanest internal stops instead of opening fifteen new tabs and hoping for emotional support."
-              />
-
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                {academyConnections.map((card) => (
-                  <AcademyRouteCard
-                    key={`${module.slug}-academy-${card.href}`}
-                    href={card.href}
-                    title={card.title}
-                    description={card.description}
-                    ctaLabel={card.ctaLabel}
-                    eyebrow={card.eyebrow}
-                  />
-                ))}
-              </div>
-            </section>
-          ) : null}
 
           <section className="academy-load-in academy-load-in--5 tmbc-editorial-article-shell">
             <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>

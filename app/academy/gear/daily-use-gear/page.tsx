@@ -13,8 +13,8 @@ export const metadata = buildMarketingMetadata({
   title: `${DAILY_USE_GEAR_ACADEMY_TITLE} | Gear | TMBC Baby Academy`,
   description: DAILY_USE_GEAR_ACADEMY_DECK,
   path: DAILY_USE_GEAR_ACADEMY_HUB_PATH,
-  imagePath: '/assets/editorial/babystuff.png',
-  imageAlt: 'Editorial daily use baby gear image for Taylor-Made Baby Co.',
+  imagePath: '/assets/gearpath/momcozypurehug.png',
+  imageAlt: 'Daily use baby gear image for Taylor-Made Baby Co.',
   keywords: [
     DAILY_USE_GEAR_ACADEMY_TITLE,
     ...DAILY_USE_GEAR_ACADEMY_LEARNING_HIGHLIGHTS.slice(0, 4),

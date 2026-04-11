@@ -12,8 +12,8 @@ export const metadata = buildMarketingMetadata({
   description:
     'Use the TMBC nursery furniture module to understand cribs, gliders, dressers and changing setups, diaper pails, baby monitors, and baby proofing with calmer, more practical decision logic.',
   path: NURSERY_FURNITURE_HUB_PATH,
-  imagePath: '/assets/editorial/nursery2.png',
-  imageAlt: 'Editorial nursery furniture image for Taylor-Made Baby Co.',
+  imagePath: '/assets/nurserypath/nurseryprep.png',
+  imageAlt: 'Nursery furniture image for Taylor-Made Baby Co.',
   keywords: [
     'Furniture That Actually Works',
     ...NURSERY_FURNITURE_HUB_WHY_THIS_MATTERS.slice(0, 4),

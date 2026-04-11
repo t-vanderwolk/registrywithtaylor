@@ -4,9 +4,9 @@ export const FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION =
   'Understand the main feeding pathways, what tools each one may require, what to buy now versus later, and how to build a feeding setup that supports real life without overbuying.';
 export const FEEDING_SETUP_FLOW_ACADEMY_SUBHEAD =
   'You are not choosing isolated products. You are building the system that has to work on a regular Tuesday.';
-export const FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH = '/assets/editorial/feeding.png';
+export const FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH = '/assets/breastfeeding/formulanara.png';
 export const FEEDING_SETUP_FLOW_ACADEMY_IMAGE_ALT =
-  'Editorial feeding setup image for the Feeding Setup & Flow academy module.';
+  'Flexible feeding setup image showing a real-life combination of bottles and feeding support.';
 
 export const FEEDING_SETUP_FLOW_ACADEMY_KEYWORDS = [
   'feeding setup planning',
@@ -257,8 +257,8 @@ export const FEEDING_SETUP_FLOW_NEXT_MODULES = [
 export const FEEDING_SETUP_FLOW_CORE_SECTIONS = [
   {
     title: 'See the feeding paths before the products',
-    imageSrc: '/assets/editorial/feeding.png',
-    imageAlt: 'Editorial feeding setup image showing a calm, flexible routine.',
+    imageSrc: '/assets/breastfeeding/formulanara.png',
+    imageAlt: 'Flexible feeding setup image showing a calm, adaptable routine.',
     paragraphs: [
       'Breastfeeding, pumping, formula feeding, and combination feeding can each work. The point is not to predict the exact path perfectly before birth.',
       'The point is to understand what kinds of systems each path tends to need, so you can start with a cleaner setup and add more only if real life asks for it.',
@@ -267,8 +267,8 @@ export const FEEDING_SETUP_FLOW_CORE_SECTIONS = [
   },
   {
     title: 'Buy the starter setup, not every backup plan',
-    imageSrc: '/assets/editorial/bottle-booties.png',
-    imageAlt: 'Editorial feeding support image with bottles and practical accessories.',
+    imageSrc: '/assets/breastfeeding/storagebottttles.png',
+    imageAlt: 'Bottle starter setup image with practical feeding bottles and accessories.',
     paragraphs: [
       'A few bottles, one practical cleaning plan, and simple storage tools usually do more for you than buying three bottle systems and hoping one becomes destiny.',
       'If pumping is already likely, it makes sense to get the pump and its basic support pieces lined up. The extras can wait until the routine has a shape.',
@@ -277,8 +277,8 @@ export const FEEDING_SETUP_FLOW_CORE_SECTIONS = [
   },
   {
     title: 'Respect the boring parts',
-    imageSrc: '/assets/editorial/organize.png',
-    imageAlt: 'Organized feeding supplies with room for drying, storage, and cleanup.',
+    imageSrc: '/assets/breastfeeding/storagebagsmedela.png',
+    imageAlt: 'Feeding supplies organized around storage, cleanup, and repeat use.',
     paragraphs: [
       'Pumping, bottles, storage, and cleaning are not side chores. They are the infrastructure.',
       'Where parts dry, how milk gets stored, whether the counter has a system, and how often you have to wash everything will shape the experience more than a marketing feature list usually does.',
@@ -287,8 +287,8 @@ export const FEEDING_SETUP_FLOW_CORE_SECTIONS = [
   },
   {
     title: 'Build in layers',
-    imageSrc: '/assets/editorial/clipboard.png',
-    imageAlt: 'Planning notes for building a feeding setup over time.',
+    imageSrc: '/assets/breastfeeding/pumplifestyle.png',
+    imageAlt: 'Feeding setup shown as something that can be built over time.',
     paragraphs: [
       'The strongest feeding setups usually start smaller than parents expect.',
       'A realistic starting point plus the ability to adjust is more useful than trying to own every possible answer before the baby arrives.',

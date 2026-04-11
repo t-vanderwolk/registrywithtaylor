@@ -43,14 +43,24 @@ export type NurseryAcademyModuleRecord = {
 
 const TOTAL_MODULES = 6;
 const NURSERY_ACADEMY_IMAGES = {
+  audioMonitor: '/assets/nurserypath/audiomonitor.png',
   cribAndClouds: '/assets/nurserypath/cribandclouds.png',
   cribAndToys: '/assets/nurserypath/cribandtopys.png',
   cribLifestyle: '/assets/nurserypath/criblifestyle.png',
   dadadaCrib: '/assets/nurserypath/dadadacrib.png',
   dadadaDresser: '/assets/nurserypath/dadadadresser.png',
+  dresserAndRecliner: '/assets/nurserypath/dresserandrecliner.png',
   duplicate: '/assets/nurserypath/duplicate.png',
+  glider: '/assets/nurserypath/glider.png',
+  hatchGo: '/assets/nurserypath/hatchgo.png',
+  hatchProductExample: '/assets/nurserypath/hatchproductexample.png',
   hatchSoundMachine: '/assets/nurserypath/hatchsoundmachine.png',
   joolBabyDiaperPail: '/assets/nurserypath/joolbabydiperpail.png',
+  kiwiRecliner: '/assets/nurserypath/kiwirecliner.png',
+  miniCrib: '/assets/nurserypath/minicrib.png',
+  miniCribLifestyle: '/assets/nurserypath/minicriblifestyle.png',
+  miniCribLifestyle2: '/assets/nurserypath/minicriblifestyle2.png',
+  miniCribSize: '/assets/nurserypath/minicribsize.png',
   miniVsStandardCrib: '/assets/nurserypath/minivsstandadcrib.png',
   momcozyBabyMonitor: '/assets/nurserypath/momcozybabymonitor.png',
   momcozyDiaperPail: '/assets/nurserypath/momcozydiperpail.png',
@@ -64,11 +74,15 @@ const NURSERY_ACADEMY_IMAGES = {
   nurseryPlayroom: '/assets/nurserypath/nurseryplayroom.png',
   nurseryPrep: '/assets/nurserypath/nurseryprep.png',
   nurseryAtNight: '/assets/nurserypath/nurseyatnight.png',
+  origamiMiniCrib: '/assets/nurserypath/origamiminicrib.png',
   owlet: '/assets/nurserypath/owlet.png',
   sereneNursery: '/assets/nurserypath/serenenursery.png',
   simpleNursery: '/assets/nurserypath/simple%20nursery.png',
   space: '/assets/nurserypath/space.png',
+  storage: '/assets/nurserypath/storage.png',
+  storageBasket: '/assets/nurserypath/storagebasket.png',
   tealNursery: '/assets/nurserypath/tealnursery.png',
+  twinNursery: '/assets/nurserypath/twinnursery.png',
   vision: '/assets/nurserypath/vision.png',
 } as const;
 
@@ -278,8 +292,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Bassinet vs. crib (and when each makes sense)',
-        imageSrc: NURSERY_ACADEMY_IMAGES.miniVsStandardCrib,
-        imageAlt: 'Mini crib versus standard crib comparison image.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.miniCribSize,
+        imageAlt: 'Mini crib shown with dimensions for smaller-room planning.',
         paragraphs: [
           'A bassinet is usually an early-months solution. It is smaller, easier to move, and fits well beside your bed.',
           'A crib is the longer-term solution. It is more stable, more spacious, and designed to grow with your baby.',
@@ -298,8 +312,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Planning for transitions',
-        imageSrc: NURSERY_ACADEMY_IMAGES.cribLifestyle,
-        imageAlt: 'Crib setup that supports the next sleep-space stage over time.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.miniCribLifestyle2,
+        imageAlt: 'Mini crib shown in a bedroom setup that supports the next sleep-space stage over time.',
         paragraphs: [
           'Your baby will not stay in the same sleep setup forever. Bassinet to crib. Room sharing to separate room. Those transitions happen over time.',
           'The mistake many parents make is trying to solve every stage at once.',
@@ -366,8 +380,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Multi-purpose vs single-purpose',
-        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaDresser,
-        imageAlt: 'Dresser with changing setup styled simply and functionally.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.dresserAndRecliner,
+        imageAlt: 'Nursery dresser and chair shown as the kind of multi-purpose furniture mix that supports the room better.',
         paragraphs: [
           'A dresser with a changing pad can replace a separate changing table. A comfortable chair can replace multiple seating options.',
           'Choosing multi-purpose pieces reduces clutter and increases flexibility.',
@@ -376,8 +390,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Comfort vs necessity',
-        imageSrc: NURSERY_ACADEMY_IMAGES.tealNursery,
-        imageAlt: 'Nursery comfort corner with warm natural light.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.glider,
+        imageAlt: 'Nursery glider and ottoman shown as a comfort-focused nursery upgrade.',
         paragraphs: [
           'Some items are not essential, but they still make a difference.',
           'A glider is the classic example. It is not required, but for many families it becomes one of the most-used pieces in the room.',
@@ -518,8 +532,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 5,
     description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
     subhead: 'How to reduce chaos before it starts.',
-    imagePath: NURSERY_ACADEMY_IMAGES.duplicate,
-    imageAlt: 'Nursery organization image for the Storage & Organization module.',
+    imagePath: NURSERY_ACADEMY_IMAGES.storage,
+    imageAlt: 'Nursery organization image showing a calm storage setup with everyday essentials within reach.',
     intro: [
       'You do not need more storage. You need better organization.',
       'Most overwhelm comes from not knowing where things go or how quickly the room stops resetting itself.',
@@ -527,8 +541,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     coreSections: [
       {
         title: 'Accessibility',
-        imageSrc: NURSERY_ACADEMY_IMAGES.duplicate,
-        imageAlt: 'Nursery setup showing what happens when categories start to duplicate.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.storage,
+        imageAlt: 'Nursery storage tray keeping the highest-use essentials easy to reach.',
         paragraphs: [
           'You should be able to grab what you need quickly, especially during diaper changes or nighttime care.',
           'If the essentials are buried behind the someday layer, the system is doing the opposite of helping.',
@@ -536,8 +550,8 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Simplicity',
-        imageSrc: NURSERY_ACADEMY_IMAGES.joolBabyDiaperPail,
-        imageAlt: 'Simple diaper-pail setup as part of a cleaner organization system.',
+        imageSrc: NURSERY_ACADEMY_IMAGES.storageBasket,
+        imageAlt: 'Simple woven nursery storage basket shown as part of a maintainable organization system.',
         paragraphs: [
           'The simpler your system is, the easier it is to maintain.',
           'Over-complicated setups usually look impressive for a week and then quietly fall apart.',
@@ -603,7 +617,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       {
         title: 'Sound environment',
         imageSrc: NURSERY_ACADEMY_IMAGES.hatchSoundMachine,
-        imageAlt: 'Sound machine setup in a nursery sleep environment.',
+        imageAlt: 'Sound machine shown as part of a calmer nursery sound environment.',
         paragraphs: [
           'Sound can help create consistency, especially around sleep.',
           'The goal is not to over-engineer the room. It is to support a steadier environment where possible.',

@@ -44,13 +44,26 @@ export type PostpartumAcademyModuleRecord = {
 type PostpartumAcademyModuleInput = Omit<PostpartumAcademyModuleRecord, 'path' | 'totalModules'>;
 
 const TOTAL_MODULES = 6;
-const PLACEHOLDER_IMAGE = '/assets/placeholders/tmbc-guide-image-placeholder.svg';
 const BREASTFEEDING_IMAGES = {
   formulaNara: '/assets/breastfeeding/formulanara.png',
   lifestylePump: '/assets/breastfeeding/lifestylepump.png',
   pumpLifestyle: '/assets/breastfeeding/pumplifestyle.png',
   storageBags: '/assets/breastfeeding/storagebags.png',
   storageBottles: '/assets/breastfeeding/storagebottttles.png',
+} as const;
+const POSTPARTUM_IMAGES = {
+  healingIntro: '/assets/editorial/teddy-glow.png',
+  healingReality: '/assets/editorial/growing-with-confidence.jpg',
+  healingSupport: '/assets/editorial/babyroom.png',
+  restIntro: '/assets/editorial/growing-with-confidence.jpg',
+  restReality: '/assets/editorial/teddy-glow.png',
+  restSupport: '/assets/editorial/babyroom.png',
+  emotionalIntro: '/assets/editorial/notebook-bunny.png',
+  emotionalReality: '/assets/editorial/teddy-glow.png',
+  emotionalSupport: '/assets/editorial/growing-with-confidence.jpg',
+  supportIntro: '/assets/editorial/notebook-bunny.png',
+  supportLooksLike: '/assets/editorial/babyroom.png',
+  supportTruth: '/assets/editorial/growing-with-confidence.jpg',
 } as const;
 
 function stripMarkdownSeparators(value: string) {
@@ -87,7 +100,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
     coreSections: [
       {
         title: "What You're Actually Learning in This Module",
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.healingIntro,
         imageAlt: 'Postpartum recovery essentials and healing support in soft neutral tones.',
         paragraphs: [
           'This is not about doing recovery perfectly. It is about understanding what your body is moving through so you can support it more realistically.',
@@ -96,7 +109,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
       },
       {
         title: 'The Reality of Recovery',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.healingReality,
         imageAlt: 'Calm home recovery space with layered linens and water nearby.',
         paragraphs: [
           'Healing is not linear. Some days feel better. Some days do not. Both can be normal.',
@@ -105,7 +118,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
       },
       {
         title: 'What Actually Helps',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.healingSupport,
         imageAlt: 'Simple postpartum support station with hydration and comfort items.',
         paragraphs: [
           'Rest, hydration, nourishment, lower pressure, and early support usually help more than any attempt to power through it.',
@@ -164,7 +177,7 @@ By the end of this module, you should have a steadier picture of:
 - what feels normal and what may need more attention
 - how to build a more realistic recovery rhythm
 
-![Postpartum recovery essentials and healing support in soft neutral tones.](${PLACEHOLDER_IMAGE})
+![Postpartum recovery essentials and healing support in soft neutral tones.](${POSTPARTUM_IMAGES.healingIntro})
 
 ### The Reality of Recovery
 
@@ -181,7 +194,7 @@ You are not behind.
 You are healing.
 :::
 
-![Calm home recovery space with layered linens and water nearby.](${PLACEHOLDER_IMAGE})
+![Calm home recovery space with layered linens and water nearby.](${POSTPARTUM_IMAGES.healingReality})
 
 ### What Actually Helps
 
@@ -198,7 +211,7 @@ It is:
 
 What does my body need today?
 
-![Simple postpartum support station with hydration and comfort items.](${PLACEHOLDER_IMAGE})
+![Simple postpartum support station with hydration and comfort items.](${POSTPARTUM_IMAGES.healingSupport})
 
 ## What This Means For You
 
@@ -504,7 +517,7 @@ It is a relationship.
     coreSections: [
       {
         title: "What You're Learning",
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.restIntro,
         imageAlt: 'Calm bedside setup for postpartum rest with soft lighting.',
         paragraphs: [
           'This module is about realistic sleep expectations, how to structure rest, how to share responsibility, and how to protect your energy when uninterrupted sleep is not on the table.',
@@ -513,7 +526,7 @@ It is a relationship.
       },
       {
         title: 'The Reality',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.restReality,
         imageAlt: 'Soft nighttime recovery setup with chair, blanket, and lamp.',
         paragraphs: [
           'You will be tired. That is real. But tired does not have to mean unsupported.',
@@ -522,7 +535,7 @@ It is a relationship.
       },
       {
         title: 'What Actually Helps',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.restSupport,
         imageAlt: 'Supportive overnight care setup with simple essentials close by.',
         paragraphs: [
           'Shared responsibility, realistic expectations, flexible routines, and less pressure to create the perfect schedule all help.',
@@ -576,7 +589,7 @@ The point is not to produce a perfect schedule.
 
 It is to make the exhaustion feel more manageable and less personal.
 
-![Calm bedside setup for postpartum rest with soft lighting.](${PLACEHOLDER_IMAGE})
+![Calm bedside setup for postpartum rest with soft lighting.](${POSTPARTUM_IMAGES.restIntro})
 
 ### The Reality
 
@@ -586,7 +599,7 @@ That is real.
 
 But there are ways to make that tired feel more manageable.
 
-![Soft nighttime recovery setup with chair, blanket, and lamp.](${PLACEHOLDER_IMAGE})
+![Soft nighttime recovery setup with chair, blanket, and lamp.](${POSTPARTUM_IMAGES.restReality})
 
 ### What Actually Helps
 
@@ -603,7 +616,7 @@ You do not need perfect sleep.
 You need enough support.
 :::
 
-![Supportive overnight care setup with simple essentials close by.](${PLACEHOLDER_IMAGE})
+![Supportive overnight care setup with simple essentials close by.](${POSTPARTUM_IMAGES.restSupport})
 
 ## What This Means For You
 
@@ -639,7 +652,7 @@ It is something you need.
     coreSections: [
       {
         title: "What You're Learning",
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.emotionalIntro,
         imageAlt: 'Notebook, soft textiles, and a calm setting for reflection and support.',
         paragraphs: [
           'This module covers emotional shifts, identity changes, communication with your partner or support system, and how to recognize when you need more support than you currently have.',
@@ -648,7 +661,7 @@ It is something you need.
       },
       {
         title: 'The Reality',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.emotionalReality,
         imageAlt: 'Quiet postpartum reflection space in warm neutral tones.',
         paragraphs: [
           'You may feel overwhelmed, disconnected, emotional, unsure, or unlike yourself for a while. That can be part of the transition.',
@@ -657,7 +670,7 @@ It is something you need.
       },
       {
         title: 'What Actually Helps',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.emotionalSupport,
         imageAlt: 'Supportive conversation and emotional care concept in an editorial home setting.',
         paragraphs: [
           'Talking about it, asking for support, lowering expectations, and giving yourself room to adjust all help.',
@@ -707,7 +720,7 @@ You are learning about:
 - communication with your partner or support system
 - how to recognize when you need more support
 
-![Notebook, soft textiles, and a calm setting for reflection and support.](${PLACEHOLDER_IMAGE})
+![Notebook, soft textiles, and a calm setting for reflection and support.](${POSTPARTUM_IMAGES.emotionalIntro})
 
 ### The Reality
 
@@ -721,7 +734,7 @@ The hard part is often the pressure to look steadier than you actually feel.
 You are not alone in how you feel.
 :::
 
-![Quiet postpartum reflection space in warm neutral tones.](${PLACEHOLDER_IMAGE})
+![Quiet postpartum reflection space in warm neutral tones.](${POSTPARTUM_IMAGES.emotionalReality})
 
 ### What Actually Helps
 
@@ -734,7 +747,7 @@ What usually helps most:
 
 Support gets more effective once your needs have actual language around them.
 
-![Supportive conversation and emotional care concept in an editorial home setting.](${PLACEHOLDER_IMAGE})
+![Supportive conversation and emotional care concept in an editorial home setting.](${POSTPARTUM_IMAGES.emotionalSupport})
 
 ## What This Means For You
 
@@ -770,7 +783,7 @@ You need to be supported.
     coreSections: [
       {
         title: "What You're Learning",
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.supportIntro,
         imageAlt: 'Postpartum planning notes centered on support and shared responsibility.',
         paragraphs: [
           'This module covers how to build your support system, who to ask for help, how to communicate your needs, and how to accept help without guilt.',
@@ -779,7 +792,7 @@ You need to be supported.
       },
       {
         title: 'What Support Can Look Like',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.supportLooksLike,
         imageAlt: 'Support network concept with practical help layered around a new family.',
         paragraphs: [
           'Support can come from a partner, family, professionals, or community. It can look emotional, logistical, physical, or practical.',
@@ -788,7 +801,7 @@ You need to be supported.
       },
       {
         title: 'The Truth',
-        imageSrc: PLACEHOLDER_IMAGE,
+        imageSrc: POSTPARTUM_IMAGES.supportTruth,
         imageAlt: 'Calm editorial scene representing shared care and postpartum support.',
         paragraphs: [
           'You were not meant to do everything, know everything, or carry everything.',
@@ -838,7 +851,7 @@ You are learning:
 - how to communicate your needs
 - how to accept help without guilt
 
-![Postpartum planning notes centered on support and shared responsibility.](${PLACEHOLDER_IMAGE})
+![Postpartum planning notes centered on support and shared responsibility.](${POSTPARTUM_IMAGES.supportIntro})
 
 ### What Support Can Look Like
 
@@ -853,7 +866,7 @@ Sometimes the most useful support is not dramatic.
 
 It is dinner handled, laundry moved, a shift covered, or someone asking what would actually help instead of guessing.
 
-![Support network concept with practical help layered around a new family.](${PLACEHOLDER_IMAGE})
+![Support network concept with practical help layered around a new family.](${POSTPARTUM_IMAGES.supportLooksLike})
 
 ### The Truth
 
@@ -869,7 +882,7 @@ Asking for help is not weakness.
 It is how this works.
 :::
 
-![Calm editorial scene representing shared care and postpartum support.](${PLACEHOLDER_IMAGE})
+![Calm editorial scene representing shared care and postpartum support.](${POSTPARTUM_IMAGES.supportTruth})
 
 ## What This Means For You
 

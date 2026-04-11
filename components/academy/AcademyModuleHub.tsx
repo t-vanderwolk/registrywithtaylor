@@ -215,30 +215,6 @@ export default function AcademyModuleHub({
   const quickCheckLines = getQuickCheckLines(hubModule);
   const quickCheckTags = getQuickCheckTags(hubModule);
   const connectedPaths = getConnectedAcademyPaths(pathSlug);
-  const pathLink =
-    breadcrumbs.find((item) => item.href === `/academy/${pathSlug}`) ??
-    breadcrumbs.find((item) => item.href?.startsWith('/academy/') && item.href !== '/academy' && item.href !== modulePath) ??
-    null;
-  const academyConnections = Array.from(
-    new Map(
-      [
-        pathLink
-          ? {
-              href: pathLink.href!,
-              title: pathLink.label,
-              description: `Go back to the wider ${pathLink.label} path if you want the bigger sequence around this module.`,
-              ctaLabel: 'View path ->',
-              eyebrow: 'Path',
-            }
-          : null,
-        ...nextLinks.map((link, index) => ({
-          ...link,
-          eyebrow: link.eyebrow ?? (index === 0 ? 'Next' : 'Related'),
-        })),
-      ]
-        .flatMap((card) => (card ? [[card.href, card] as const] : [])),
-    ).values(),
-  );
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: modulePath as `/${string}`,
     pathSlug,
@@ -389,22 +365,6 @@ export default function AcademyModuleHub({
           />
         </section>
       </div>
-
-      {academyConnections.length > 0 ? (
-        <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-          <AcademySectionHeading
-            eyebrow="Keep Exploring"
-            title="Keep this module connected in the Academy"
-            description="These are the cleanest internal jumps when you want the wider path, the next module, or the bridge between this decision and the one it starts tugging on."
-          />
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {academyConnections.map((card) => (
-              <AcademyRouteCard key={`${moduleSlug}-${card.href}`} {...card} />
-            ))}
-          </div>
-        </div>
-      ) : null}
 
       <div className="mx-auto grid max-w-6xl gap-6 px-5 pb-12 sm:px-8 md:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] md:pb-16 lg:px-10">
         <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">

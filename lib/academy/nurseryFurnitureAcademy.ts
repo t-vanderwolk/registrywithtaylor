@@ -63,6 +63,7 @@ type NurseryFurnitureCategoryDefinition = {
   whatActuallyMatters: string[];
   commonMistakesDescription: string;
   commonMistakes: string[];
+  skipReasons: string[];
   howToChooseDescription: string;
   howToChoose: DecisionBlockItem[];
 };
@@ -177,6 +178,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Using decorative style as the lead decision instead of safe sleep and room usability.',
       'Buying the largest crib for a smaller room and then losing the easy walking path around it.',
     ],
+    skipReasons: [
+      'You are still in the room-sharing stage, and a bassinet or portable sleep setup solves the current season more cleanly.',
+      'The room footprint points more clearly to a mini crib or another smaller sleep setup than to a full-size crib right now.',
+      'You are shopping for future conversion stories before the current sleep setup feels honestly solved.',
+    ],
     howToChooseDescription:
       'Make the first decision about the sleep stage you are actually entering. Future flexibility only matters if the current setup works cleanly.',
     howToChoose: [
@@ -262,6 +268,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Treating this like a permanent crib replacement without checking whether the sleep plan really supports that.',
       'Paying for attachments that solve a very short phase and then stay attached to your resentment instead.',
     ],
+    skipReasons: [
+      'Your main crib or bassinet plan already covers the real use case, and travel or backup sleep is too occasional to justify another large item.',
+      'The fold, weight, or footprint already sounds more annoying than helpful for the way you live.',
+      'The add-ons are what look appealing, but the actual flexible sleep job still feels vague.',
+    ],
     howToChooseDescription:
       'Choose the version of flexibility that matches the real use case. The point is fewer compromises in motion, not more accessories on paper.',
     howToChoose: [
@@ -291,8 +302,8 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Learn how to choose a nursery glider based on comfort, arm support, feeding ergonomics, and long-session use instead of nursery aesthetics.',
     icon: 'home',
     heroEyebrow: 'Nursery Furniture',
-    heroImageSrc: '/assets/nurserypath/serenenursery.png',
-    heroImageAlt: 'Comfortable nursery corner in a calm room.',
+    heroImageSrc: '/assets/nurserypath/glider.png',
+    heroImageAlt: 'Nursery glider and ottoman setup.',
     orientation: [
       'A glider is not essential in the strictest sense.',
       'It is simply one of those products that becomes very important the minute you are feeding half awake for the fourth time that night.',
@@ -341,6 +352,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Ignoring arm height and then discovering feeding pillows have become a structural requirement.',
       'Buying a huge recliner for a small room and giving away the walking space.',
       'Assuming any comfortable living-room chair will automatically work as a nursery chair.',
+    ],
+    skipReasons: [
+      'You are not planning to feed or soothe in the nursery often enough to justify a dedicated chair there.',
+      'The room cannot handle the chair footprint without making the layout worse.',
+      'An existing chair already supports your body well enough, which means this category may not need another purchase.',
     ],
     howToChooseDescription:
       'Think about the sessions first. The right chair is the one you can keep using when you are tired, tucked in, and not in the mood to readjust six times.',
@@ -422,6 +438,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Forgetting to anchor the dresser once the setup is in place.',
       'Setting up the changing zone far from the rest of the daily supplies and creating extra steps every time.',
     ],
+    skipReasons: [
+      'You already have storage and changing solved separately in a way that works cleanly.',
+      'The room needs a slimmer changing solution than a dresser-top setup can provide.',
+      'You are choosing based on drawer fantasy instead of the actual changing workflow you plan to repeat.',
+    ],
     howToChooseDescription:
       'Start with the room size and the routine. The best setup usually solves changing and storage in one move.',
     howToChoose: [
@@ -502,6 +523,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Buying a very small pail and discovering it demands constant attention.',
       'Assuming a regular nursery trash can will feel identical in practice.',
     ],
+    skipReasons: [
+      'Trash access is already easy, and a dedicated pail would not improve the routine enough to matter.',
+      'You do not want one more refill or bag system to manage.',
+      'The changing setup is temporary or split across rooms, so one fixed pail would add more hassle than help.',
+    ],
     howToChooseDescription:
       'Decide how much odor control you need, how much upkeep you will tolerate, and how close the pail needs to live to the station.',
     howToChoose: [
@@ -580,6 +606,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Assuming WiFi is always better, even when a dedicated monitor would be more straightforward.',
       'Ignoring nighttime image quality and then discovering the monitor is not especially helpful after lights out.',
       'Buying the most feature-heavy system when a simpler one would have answered the actual need.',
+    ],
+    skipReasons: [
+      'You want the simplest possible sleep setup and do not need video, app, or sensor layers yet.',
+      'More alerts or data would likely raise your stress more than lower it.',
+      'Your home layout or sleep plan makes room sharing or direct listening enough for now.',
     ],
     howToChooseDescription:
       'Use the type of reassurance you actually want. More monitoring is not automatically better monitoring.',
@@ -663,6 +694,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Buying a giant kit first instead of handling furniture anchors and the clearest hazards immediately.',
       'Forgetting that gliders, cords, blinds, drawers, diaper caddies, and changing supplies can all become part of the problem.',
       'Treating baby proofing like a one-time install instead of an ongoing room check as your baby grows.',
+    ],
+    skipReasons: [
+      'Baby is not mobile yet, and the room still needs a lighter anchor-and-cord pass more than a full category rollout.',
+      'The nursery already has very few reachable hazards, so a targeted safety edit makes more sense than a giant kit.',
+      'You are being sold a full proofing system when the room really only needs a few concrete fixes.',
     ],
     howToChooseDescription:
       'Start with the highest-risk hazards now, then add the next layer before the room starts asking for it loudly.',
@@ -856,8 +892,8 @@ const NURSERY_FURNITURE_CATEGORY_PRODUCTS: Record<
       pros: ['Comfort-focused seating', 'Useful when the nursery needs one reliable feeding chair'],
       affiliateUrl: null,
       category: 'Glider grounding example',
-      imageSrc: '/assets/nurserypath/serenenursery.png',
-      imageAlt: 'Classic nursery glider corner.',
+      imageSrc: '/assets/nurserypath/glider.png',
+      imageAlt: 'Classic nursery glider and ottoman setup.',
     },
     {
       name: 'Reclining support chair',
@@ -866,8 +902,8 @@ const NURSERY_FURNITURE_CATEGORY_PRODUCTS: Record<
       pros: ['Long-session support', 'Useful when comfort outranks compact footprint'],
       affiliateUrl: null,
       category: 'Glider grounding example',
-      imageSrc: '/assets/nurserypath/tealnursery.png',
-      imageAlt: 'Reclining nursery chair and glider example.',
+      imageSrc: '/assets/nurserypath/kiwirecliner.png',
+      imageAlt: 'Reclining nursery chair with stronger arm and back support.',
     },
     {
       name: 'Compact upholstered nursery chair',
@@ -876,8 +912,8 @@ const NURSERY_FURNITURE_CATEGORY_PRODUCTS: Record<
       pros: ['Smaller footprint', 'Useful when the room needs a slimmer chair decision'],
       affiliateUrl: null,
       category: 'Glider grounding example',
-      imageSrc: '/assets/nurserypath/simple%20nursery.png',
-      imageAlt: 'Compact upholstered nursery chair example.',
+      imageSrc: '/assets/nurserypath/dresserandrecliner.png',
+      imageAlt: 'Compact nursery chair beside a dresser setup.',
     },
   ],
   'dressers-changing': [
@@ -898,8 +934,8 @@ const NURSERY_FURNITURE_CATEGORY_PRODUCTS: Record<
       pros: ['Dresser-top changing surface', 'Useful when you want changing built into the storage zone'],
       affiliateUrl: NURSERY_FURNITURE_LINKS.hatch,
       category: 'Changing setup grounding example',
-      imageSrc: '/assets/nurserypath/hatchchangingpad.png',
-      imageAlt: 'Hatch changing pad.',
+      imageSrc: '/assets/nurserypath/hatchproductexample.png',
+      imageAlt: 'Hatch Grow changing pad product example.',
     },
   ],
   'diaper-pails': [
@@ -1001,8 +1037,8 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
 > = {
   cribs: {
     types: {
-      src: '/assets/nurserypath/minivsstandadcrib.png',
-      alt: 'Mini crib and standard crib comparison image.',
+      src: '/assets/nurserypath/minicribsize.png',
+      alt: 'Mini crib size and footprint planning image.',
       caption: 'The size question gets quieter once the room footprint and sleep plan are both on the table.',
     },
     matters: {
@@ -1016,8 +1052,8 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
       caption: 'Pretty stops mattering fast if the sleep setup is harder to use than it needs to be.',
     },
     choose: {
-      src: '/assets/nurserypath/criblifestyle.png',
-      alt: 'Crib lifestyle image in a calm nursery.',
+      src: '/assets/nurserypath/minicriblifestyle.png',
+      alt: 'Mini crib lifestyle image in a calmer bedroom setup.',
       caption: 'Choose the sleep setup that fits the room you are actually furnishing now.',
     },
   },
@@ -1045,13 +1081,13 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
   },
   gliders: {
     types: {
-      src: '/assets/nurserypath/tealnursery.png',
-      alt: 'Nursery chair and glider image.',
+      src: '/assets/nurserypath/glider.png',
+      alt: 'Nursery glider and ottoman image.',
       caption: 'The chair should match the way you plan to sit, feed, and settle, not just the rest of the room.',
     },
     matters: {
-      src: '/assets/nurserypath/simple%20nursery.png',
-      alt: 'Compact nursery chair example.',
+      src: '/assets/nurserypath/kiwirecliner.png',
+      alt: 'Nursery recliner with stronger body support.',
       caption: 'Arm support, seat depth, and getting up cleanly while holding a baby matter more than chair drama.',
     },
     mistakes: {
@@ -1060,8 +1096,8 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
       caption: 'A chair can look beautiful and still leave your back wondering why you did this to it.',
     },
     choose: {
-      src: '/assets/nurserypath/nurserylifestyle.png',
-      alt: 'Lived-in nursery seating lifestyle image.',
+      src: '/assets/nurserypath/dresserandrecliner.png',
+      alt: 'Smaller-footprint nursery chair beside dresser setup.',
       caption: 'Pick the chair you would still want during the fourth feed, not just the first photo.',
     },
   },
@@ -1111,8 +1147,8 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
   },
   'baby-monitors': {
     types: {
-      src: '/assets/nurserypath/momcozybabymonitor.png',
-      alt: 'Dedicated baby monitor image.',
+      src: '/assets/nurserypath/audiomonitor.png',
+      alt: 'Dedicated audio baby monitor image.',
       caption: 'The real choice is usually between simple dedicated monitoring, WiFi flexibility, or extra sensor layers.',
     },
     matters: {
@@ -1184,10 +1220,6 @@ export function getNurseryFurnitureCategory(slug: NurseryFurnitureCategorySlug) 
   return NURSERY_FURNITURE_CATEGORIES[slug];
 }
 
-function decisionItemsToParagraphs(items: DecisionBlockItem[]) {
-  return items.map((item) => `If you ${item.condition}, ${item.recommendation}`);
-}
-
 function uniqueItems(items: Array<string | null | undefined>, maxItems?: number) {
   const deduped = items
     .map((item) => (typeof item === 'string' ? item.trim() : ''))
@@ -1222,42 +1254,43 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
     },
     coreSections: [
       {
-        title: 'What this does',
+        title: 'What the product is',
         paragraphs: uniqueItems(
-          [category.whatItDoes.description, ...category.whatItDoes.intro, category.whatItDoes.whyItExists],
-          4,
+          [
+            category.whatItDoes.whatThisIs,
+            ...category.whatItDoes.intro,
+            category.typesDescription,
+            ...category.types.slice(0, 2),
+          ],
+          5,
         ),
         imageSrc: category.heroImageSrc,
         imageAlt: category.heroImageAlt,
         imageCaption: category.whatItDoes.calloutBody,
       },
       {
-        title: 'Types',
-        paragraphs: uniqueItems([category.typesDescription, ...category.types], 5),
+        title: 'What the purpose of the product is',
+        paragraphs: uniqueItems(
+          [category.whatItDoes.description, category.whatItDoes.whyItExists, category.whatItDoes.calloutBody],
+          4,
+        ),
         imageSrc: sectionImages.types.src,
         imageAlt: sectionImages.types.alt,
         imageCaption: sectionImages.types.caption,
       },
       {
-        title: 'What actually matters',
-        paragraphs: uniqueItems([category.whatActuallyMattersDescription, ...category.whatActuallyMatters], 6),
+        title: 'Reasons a person needs it',
+        paragraphs: uniqueItems([...category.whatItDoes.supportPoints, ...category.whatActuallyMatters.slice(0, 2)], 5),
         imageSrc: sectionImages.matters.src,
         imageAlt: sectionImages.matters.alt,
         imageCaption: sectionImages.matters.caption,
       },
       {
-        title: 'Common mistakes',
-        paragraphs: uniqueItems([category.commonMistakesDescription, ...category.commonMistakes], 5),
+        title: 'Reasons a person would skip it',
+        paragraphs: uniqueItems([category.commonMistakesDescription, ...category.skipReasons], 5),
         imageSrc: sectionImages.mistakes.src,
         imageAlt: sectionImages.mistakes.alt,
         imageCaption: sectionImages.mistakes.caption,
-      },
-      {
-        title: 'How to choose',
-        paragraphs: uniqueItems([category.howToChooseDescription, ...decisionItemsToParagraphs(category.howToChoose)], 5),
-        imageSrc: sectionImages.choose.src,
-        imageAlt: sectionImages.choose.alt,
-        imageCaption: sectionImages.choose.caption,
       },
     ],
     decisionTitle: 'What This Means For You',
