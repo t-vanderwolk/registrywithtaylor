@@ -48,6 +48,9 @@ type NurseryFurnitureCategoryDefinition = {
   heroEyebrow: string;
   heroImageSrc: string;
   heroImageAlt: string;
+  overviewImageSrc?: string;
+  overviewImageAlt?: string;
+  overviewImageCaption?: string;
   orientation: string[];
   whatItDoes: {
     description: string;
@@ -127,8 +130,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Learn how to choose a crib based on safe sleep, mattress fit, nightly ease of use, and real room fit instead of convertibility hype.',
     icon: 'sleep',
     heroEyebrow: 'Nursery Furniture',
-    heroImageSrc: '/assets/nurserypath/dadadacrib.png',
-    heroImageAlt: 'dadada crib in a calm nursery setup.',
+    heroImageSrc: '/assets/nurserypath/criblifestyle.png',
+    heroImageAlt: 'Crib lifestyle image in a calm nursery setup.',
+    overviewImageSrc: '/assets/nurserypath/dadadaminicrib.png',
+    overviewImageAlt: 'Mini crib shown as part of the broader crib category.',
+    overviewImageCaption: 'The crib lane gets clearer when you separate room fit, mattress fit, and long-term use from conversion marketing.',
     orientation: [
       'A crib is the quiet center of the nursery.',
       'It does not need to impress anyone. It needs to make safe sleep feel straightforward at midnight.',
@@ -216,8 +222,11 @@ export const NURSERY_FURNITURE_CATEGORIES: Record<
       'Learn how to choose a pack and play based on sleep use, portability, fold, and whether it is solving nursery flexibility, room sharing, or travel.',
     icon: 'sleep',
     heroEyebrow: 'Nursery Furniture',
-    heroImageSrc: '/assets/nurserypath/newtonnestcrib.png',
+    heroImageSrc: '/assets/nurserypath/packandplay.png',
     heroImageAlt: 'Portable crib and pack-and-play style sleep setup.',
+    overviewImageSrc: '/assets/nurserypath/bedsidepackandplay.png',
+    overviewImageAlt: 'Pack-and-play used beside the bed as part of a flexible sleep setup.',
+    overviewImageCaption: 'This category is really about portability, flexibility, and whether the setup earns its place in daily life.',
     orientation: [
       'A pack and play is not just a travel item.',
       'For some families, it is the flexible sleep space that quietly does the most work in the house.',
@@ -1042,9 +1051,9 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
       caption: 'The size question gets quieter once the room footprint and sleep plan are both on the table.',
     },
     matters: {
-      src: '/assets/nurserypath/newtonmatress.png',
-      alt: 'Newton Baby crib mattress in a nursery setup.',
-      caption: 'The mattress is part of the crib decision, not a later errand you hope works out.',
+      src: '/assets/nurserypath/minivsstandadcrib.png',
+      alt: 'Mini crib and standard crib comparison image.',
+      caption: 'The right crib setup comes from matching the room, the sleep stage, and the footprint instead of defaulting to the biggest option.',
     },
     mistakes: {
       src: '/assets/nurserypath/cribandclouds.png',
@@ -1052,15 +1061,15 @@ const NURSERY_FURNITURE_CATEGORY_SECTION_IMAGES: Record<
       caption: 'Pretty stops mattering fast if the sleep setup is harder to use than it needs to be.',
     },
     choose: {
-      src: '/assets/nurserypath/minicriblifestyle.png',
-      alt: 'Mini crib lifestyle image in a calmer bedroom setup.',
-      caption: 'Choose the sleep setup that fits the room you are actually furnishing now.',
+      src: '/assets/nurserypath/dadadaminicrib.png',
+      alt: 'Mini crib example used to show room-fit crib thinking.',
+      caption: 'Choose the crib setup that fits the room you are actually furnishing now.',
     },
   },
   'pack-and-play': {
     types: {
-      src: '/assets/nurserypath/halominimeshcrib.png',
-      alt: 'Portable crib and pack-and-play example.',
+      src: '/assets/nurserypath/packplaystorage.png',
+      alt: 'Pack-and-play setup with practical storage and transport context.',
       caption: 'This category gets easier once you know whether you care more about portability, sleep use, or attachments.',
     },
     matters: {
@@ -1237,6 +1246,9 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
   const currentIndex = CATEGORY_ORDER.indexOf(slug);
   const previousSlug = currentIndex > 0 ? CATEGORY_ORDER[currentIndex - 1] ?? null : null;
   const nextSlug = currentIndex >= 0 && currentIndex < CATEGORY_ORDER.length - 1 ? CATEGORY_ORDER[currentIndex + 1] ?? null : null;
+  const overviewImageSrc = category.overviewImageSrc ?? category.heroImageSrc;
+  const overviewImageAlt = category.overviewImageAlt ?? category.heroImageAlt;
+  const overviewImageCaption = category.overviewImageCaption ?? category.whatItDoes.calloutBody;
 
   return {
     slug,
@@ -1264,9 +1276,9 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
           ],
           5,
         ),
-        imageSrc: category.heroImageSrc,
-        imageAlt: category.heroImageAlt,
-        imageCaption: category.whatItDoes.calloutBody,
+        imageSrc: overviewImageSrc,
+        imageAlt: overviewImageAlt,
+        imageCaption: overviewImageCaption,
       },
       {
         title: 'What the purpose of the product is',

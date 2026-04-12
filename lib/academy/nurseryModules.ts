@@ -44,11 +44,14 @@ export type NurseryAcademyModuleRecord = {
 const TOTAL_MODULES = 6;
 const NURSERY_ACADEMY_IMAGES = {
   audioMonitor: '/assets/nurserypath/audiomonitor.png',
+  bedsideBassinet: '/assets/nurserypath/bedsidebassinet.png',
+  bedsidePackAndPlay: '/assets/nurserypath/bedsidepackandplay.png',
   cribAndClouds: '/assets/nurserypath/cribandclouds.png',
   cribAndToys: '/assets/nurserypath/cribandtopys.png',
   cribLifestyle: '/assets/nurserypath/criblifestyle.png',
   dadadaCrib: '/assets/nurserypath/dadadacrib.png',
   dadadaDresser: '/assets/nurserypath/dadadadresser.png',
+  dadadaMiniCrib: '/assets/nurserypath/dadadaminicrib.png',
   dresserAndRecliner: '/assets/nurserypath/dresserandrecliner.png',
   duplicate: '/assets/nurserypath/duplicate.png',
   glider: '/assets/nurserypath/glider.png',
@@ -75,12 +78,16 @@ const NURSERY_ACADEMY_IMAGES = {
   nurseryPrep: '/assets/nurserypath/nurseryprep.png',
   nurseryAtNight: '/assets/nurserypath/nurseyatnight.png',
   origamiMiniCrib: '/assets/nurserypath/origamiminicrib.png',
+  overTheDoorOrganize: '/assets/nurserypath/overthedoororganize.png',
   owlet: '/assets/nurserypath/owlet.png',
+  packAndPlay: '/assets/nurserypath/packandplay.png',
+  packPlayStorage: '/assets/nurserypath/packplaystorage.png',
   sereneNursery: '/assets/nurserypath/serenenursery.png',
-  simpleNursery: '/assets/nurserypath/simple%20nursery.png',
+  simpleNursery: '/assets/nurserypath/simplenursery.png',
   space: '/assets/nurserypath/space.png',
   storage: '/assets/nurserypath/storage.png',
   storageBasket: '/assets/nurserypath/storagebasket.png',
+  storageLifestyle: '/assets/nurserypath/storagelifestyle.png',
   tealNursery: '/assets/nurserypath/tealnursery.png',
   twinNursery: '/assets/nurserypath/twinnursery.png',
   vision: '/assets/nurserypath/vision.png',
@@ -293,7 +300,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Bedside bassinets',
-        imageSrc: NURSERY_ACADEMY_IMAGES.miniCribLifestyle2,
+        imageSrc: NURSERY_ACADEMY_IMAGES.bedsideBassinet,
         imageAlt: 'Bedside sleep setup shown in the early-weeks stage.',
         paragraphs: [
           'Bedside bassinets are usually an early-weeks convenience play. They keep baby close, make nighttime feeds less theatrical, and can feel especially helpful in the first stretch.',
@@ -324,7 +331,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Mini cribs',
-        imageSrc: NURSERY_ACADEMY_IMAGES.miniCribLifestyle,
+        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaMiniCrib,
         imageAlt: 'Mini crib shown as a flexible room-to-room sleep setup.',
         paragraphs: [
           'Mini cribs are the most underrated option in this whole conversation.',
@@ -335,7 +342,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Pack and plays',
-        imageSrc: NURSERY_ACADEMY_IMAGES.newtonLifestyle,
+        imageSrc: NURSERY_ACADEMY_IMAGES.bedsidePackAndPlay,
         imageAlt: 'Portable sleep setup shown in a lived-in, flexible routine.',
         paragraphs: [
           'Pack and plays are the real-life MVP because they handle the everywhere-else lane.',
@@ -346,7 +353,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Standard cribs',
-        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaCrib,
+        imageSrc: NURSERY_ACADEMY_IMAGES.cribLifestyle,
         imageAlt: 'Standard crib shown as the long-term nursery anchor.',
         paragraphs: [
           'A standard crib is the long-term nursery anchor. You are buying a crib. That is it.',
@@ -576,7 +583,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
     moduleOrder: 5,
     description: 'Build an organization system that is easy to maintain before the room starts collecting quiet chaos.',
     subhead: 'How to reduce chaos before it starts.',
-    imagePath: NURSERY_ACADEMY_IMAGES.storage,
+    imagePath: NURSERY_ACADEMY_IMAGES.storageLifestyle,
     imageAlt: 'Nursery organization image showing a calm storage setup with everyday essentials within reach.',
     intro: [
       'You do not need more storage. You need better organization.',
@@ -603,7 +610,7 @@ export const NURSERY_ACADEMY_MODULES: NurseryAcademyModuleRecord[] = [
       },
       {
         title: 'Growth over time',
-        imageSrc: NURSERY_ACADEMY_IMAGES.dadadaDresser,
+        imageSrc: NURSERY_ACADEMY_IMAGES.overTheDoorOrganize,
         imageAlt: 'Nursery dresser setup that can adapt as storage needs change.',
         paragraphs: [
           'Your storage needs will change quickly, so the better system is the one that can adapt without needing a total reset.',
