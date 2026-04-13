@@ -521,7 +521,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
     subhead: 'Leaving the house is its own gear category.',
-    imagePath: '/assets/gearpath/cogulo.png',
+    imagePath: '/assets/gearpath/lifestyletravelstroller.png',
     imageAlt: 'Travel stroller image for the Travel With Baby academy module.',
     relatedSlug: null,
   },

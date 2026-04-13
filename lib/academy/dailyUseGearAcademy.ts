@@ -52,6 +52,9 @@ export type DailyUseGearAcademySubmoduleDefinition = {
   intro: string[];
   heroImageSrc: string;
   heroImageAlt: string;
+  overviewImageSrc?: string;
+  overviewImageAlt?: string;
+  overviewImageCaption?: string;
   learn: DailyUseGearAcademySection;
   purpose: DailyUseGearAcademySection;
   plan: DailyUseGearAcademySection;
@@ -148,13 +151,18 @@ function flattenSectionParagraphs(section: DailyUseGearAcademySection) {
 function buildCoreSections(
   submodule: DailyUseGearAcademySubmoduleDefinition,
 ): ModuleLayoutData['coreSections'] {
+  const overviewImageSrc = submodule.overviewImageSrc ?? submodule.heroImageSrc;
+  const overviewImageAlt = submodule.overviewImageAlt ?? submodule.heroImageAlt;
+  const overviewImageCaption =
+    submodule.overviewImageCaption ?? 'Understanding the product first usually makes the shortlist much quieter.';
+
   return [
     {
       title: 'What the product is',
       paragraphs: flattenSectionParagraphs(submodule.learn),
-      imageSrc: submodule.heroImageSrc,
-      imageAlt: submodule.heroImageAlt,
-      imageCaption: 'Understanding the product first usually makes the shortlist much quieter.',
+      imageSrc: overviewImageSrc,
+      imageAlt: overviewImageAlt,
+      imageCaption: overviewImageCaption,
     },
     {
       title: 'What the purpose of the product is',
@@ -574,8 +582,12 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
       'Sleep space. Travel crib. Containment zone. Backup plan.',
       'That flexibility is exactly why people buy the wrong one. This module helps users decide whether they need a true playard, a travel crib, or something simpler.',
     ],
-    heroImageSrc: '/assets/gearpath/image.png',
-    heroImageAlt: 'Portable crib and room-sharing style sleep setup.',
+    heroImageSrc: '/assets/gearpath/packandplaygraco.png',
+    heroImageAlt: 'Pack and play shown as a classic flexible playard setup.',
+    overviewImageSrc: '/assets/gearpath/sleeppackandplay.png',
+    overviewImageAlt: 'Pack and play used as a practical sleep setup.',
+    overviewImageCaption:
+      'This category gets easier once you separate true sleep use, travel use, and backup use instead of expecting one vague product label to explain all of it.',
     learn: {
       description:
         'This category only feels interchangeable from far away. Once you factor in weight, fold, sleep use, and travel, the differences matter quickly.',
@@ -654,18 +666,18 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
     ],
     sectionImages: {
       purpose: {
-        src: '/assets/nurserypath/newtonnestcrib.png',
-        alt: 'Portable crib shown as a flexible sleep solution.',
+        src: '/assets/gearpath/packplaytravelcrib.png',
+        alt: 'Travel-crib style setup shown as a flexible sleep solution.',
         caption: 'The point is one flexible sleep answer, not a larger pile of attachments.',
       },
       needs: {
-        src: '/assets/nurserypath/newtonlifestyle.png',
-        alt: 'Portable sleep setup shown in a lived-in home environment.',
+        src: '/assets/gearpath/travelcrib.png',
+        alt: 'Travel crib shown in a portability-first setup.',
         caption: 'This category earns its place when flexibility shows up often enough to matter.',
       },
       skip: {
-        src: '/assets/nurserypath/space.png',
-        alt: 'Room-planning image for deciding whether a pack-and-play belongs in the setup.',
+        src: '/assets/gearpath/toddlerpackandplay.png',
+        alt: 'Pack and play shown in a later-stage containment role.',
         caption: 'If the room, fold, or use case already feels vague, this is often a category to delay.',
       },
     },

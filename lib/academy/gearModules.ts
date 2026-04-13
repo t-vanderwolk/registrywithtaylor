@@ -69,6 +69,7 @@ const TOTAL_MODULES = 9;
 const GEAR_ACADEMY_IMAGES = {
   carrierLifestyle: '/assets/gearpath/carrierergobaby.png',
   colugoStroller: '/assets/gearpath/cogulo.png',
+  lifestyleTravelStroller: '/assets/gearpath/lifestyletravelstroller.png',
   formulaNara: '/assets/breastfeeding/formulanara.png',
   lifestyleInBraPump: '/assets/breastfeeding/lifestyleinbrapump.png',
   lifestylePump: '/assets/breastfeeding/lifestylepump.png',
@@ -408,8 +409,8 @@ const GEAR_ACADEMY_MODULE_INPUTS: GearAcademyModuleInputWithMarkdown[] = [
     description:
       'Plan for errands, road trips, flights, and everyday outings by focusing on portability, transitions, and what leaving the house actually asks your setup to do.',
     subhead: 'Leaving the house is its own gear category.',
-    imagePath: GEAR_ACADEMY_IMAGES.colugoStroller,
-    imageAlt: 'Colugo stroller image for the Travel With Baby module.',
+    imagePath: GEAR_ACADEMY_IMAGES.lifestyleTravelStroller,
+    imageAlt: 'Lifestyle travel stroller image for the Travel With Baby module.',
     intro: [
       'Travel with a baby sounds like one category. It is actually several versions of the same question.',
       'What needs to come with you, what can stay home, and which pieces make movement easier instead of more theatrical?',
