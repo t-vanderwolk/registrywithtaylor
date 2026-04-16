@@ -1,5 +1,6 @@
 import prisma from '@/lib/server/prisma';
 import { AffiliateNetwork, CommissionType } from '@prisma/client';
+import { getAffiliatePartnerLogo } from '@/lib/affiliatePartnerLogos';
 import {
   getDefaultRetailerFallbacks,
   inferAffiliatePaymentRisk,
@@ -37,6 +38,16 @@ function hostnameFor(value: string | null | undefined) {
   } catch {
     return null;
   }
+}
+
+function resolveCanonicalLogoUrl(name: string, logoUrl: string | null | undefined) {
+  const cleanedLogoUrl = logoUrl?.trim();
+  if (cleanedLogoUrl) {
+    return cleanedLogoUrl;
+  }
+
+  const resolvedLogo = getAffiliatePartnerLogo(name);
+  return resolvedLogo.isFallback ? null : resolvedLogo.src;
 }
 
 const affiliateCanon: AffiliateSeed[] = [
@@ -465,6 +476,7 @@ async function main() {
       }));
     const partnerType = partner.partnerType ?? existing?.partnerType ?? 'brand';
     const routingPriority = partner.routingPriority ?? existing?.routingPriority ?? 99;
+    const resolvedLogoUrl = resolveCanonicalLogoUrl(partner.name, partner.logoUrl);
     const affiliateTier = inferAffiliateTier({
       name: partner.name,
       notes: partner.notes,
@@ -493,7 +505,7 @@ async function main() {
       affiliateTier,
       paymentRisk,
       retailerFallback: getDefaultRetailerFallbacks(partnerType),
-      logoUrl: partner.logoUrl ?? existing?.logoUrl ?? null,
+      logoUrl: resolvedLogoUrl ?? existing?.logoUrl ?? null,
       affiliateLink: existing?.affiliateLink ?? website ?? null,
       partnerType,
       routingPriority,
