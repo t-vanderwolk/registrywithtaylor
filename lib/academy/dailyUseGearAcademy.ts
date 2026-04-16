@@ -62,6 +62,13 @@ export type DailyUseGearAcademySubmoduleDefinition = {
   buy: DailyUseGearAcademySection;
   needReasons: string[];
   skipReasons: string[];
+  coreSectionTitles?: {
+    learn?: string;
+    purpose?: string;
+    needs?: string;
+    skip?: string;
+  };
+  includeSkipSection?: boolean;
   sectionImages: {
     purpose: DailyUseGearAcademySectionImage;
     needs: DailyUseGearAcademySectionImage;
@@ -156,36 +163,41 @@ function buildCoreSections(
   const overviewImageCaption =
     submodule.overviewImageCaption ?? 'Understanding the product first usually makes the shortlist much quieter.';
 
-  return [
+  const sections: ModuleLayoutData['coreSections'] = [
     {
-      title: 'What the product is',
+      title: submodule.coreSectionTitles?.learn ?? 'What the product is',
       paragraphs: flattenSectionParagraphs(submodule.learn),
       imageSrc: overviewImageSrc,
       imageAlt: overviewImageAlt,
       imageCaption: overviewImageCaption,
     },
     {
-      title: 'What the purpose of the product is',
+      title: submodule.coreSectionTitles?.purpose ?? 'What the purpose of the product is',
       paragraphs: flattenSectionParagraphs(submodule.purpose),
       imageSrc: submodule.sectionImages.purpose.src,
       imageAlt: submodule.sectionImages.purpose.alt,
       imageCaption: submodule.sectionImages.purpose.caption,
     },
     {
-      title: 'Reasons a person needs it',
+      title: submodule.coreSectionTitles?.needs ?? 'Reasons a person needs it',
       paragraphs: submodule.needReasons,
       imageSrc: submodule.sectionImages.needs.src,
       imageAlt: submodule.sectionImages.needs.alt,
       imageCaption: submodule.sectionImages.needs.caption,
     },
-    {
-      title: 'Reasons a person would skip it',
+  ];
+
+  if ((submodule.includeSkipSection ?? true) && submodule.skipReasons.length > 0) {
+    sections.push({
+      title: submodule.coreSectionTitles?.skip ?? 'Reasons a person would skip it',
       paragraphs: submodule.skipReasons,
       imageSrc: submodule.sectionImages.skip.src,
       imageAlt: submodule.sectionImages.skip.alt,
       imageCaption: submodule.sectionImages.skip.caption,
-    },
-  ];
+    });
+  }
+
+  return sections;
 }
 
 export function getDailyUseGearAcademySubmodulePath(slug: DailyUseGearAcademySubmoduleSlug) {
@@ -329,121 +341,131 @@ const DAILY_USE_GEAR_ACADEMY_SUBMODULES: Record<
     order: 2,
     title: 'Highchair',
     cardSummary:
-      'Choose a highchair around posture, cleanup, and real mealtime use instead of just the silhouette.',
+      'Choose a highchair around posture, cleanup, longevity, and daily rhythm instead of just the silhouette.',
     metadataDescription:
-      'Use the TMBC Daily Use Gear highchair module to compare styles, understand posture and foot support, and choose a seat you do not dread cleaning.',
-    deck: 'This is where feeding happens - and where bad design gets very obvious, very fast.',
+      'Use the TMBC Daily Use Gear highchair module to think through posture, foot support, cleanup, longevity, and which type of highchair best fits your routine.',
+    deck: 'One of the most-used pieces of furniture in your home, which is exactly why the wrong one gets old fast.',
     intro: [
-      'A highchair seems simple until you start using it three times a day.',
-      'Then suddenly: the tray is annoying, the straps are impossible, and the tiny avocado pieces are somehow in architectural places.',
-      'This module helps users understand what actually matters in a highchair beyond aesthetics.',
+      'No one really tells you this, but the highchair quietly becomes one of the most-used pieces of furniture in your home.',
+      'Meals happen there. Snacks happen there. Tiny negotiations happen there. And if the chair is annoying, you will know quickly.',
+      'This module is here to help you choose the category of best for your space, your routine, and your tolerance for mess, without urgency or hype.',
     ],
     heroImageSrc: '/assets/gearpath/momcozyhighchair.png',
     heroImageAlt: 'Momcozy highchair in an everyday mealtime setting.',
+    overviewImageSrc: '/assets/gearpath/momcozyhighchair.png',
+    overviewImageAlt: 'Highchair shown in a calm everyday feeding setup.',
+    overviewImageCaption:
+      'The best highchair usually disappears into your routine instead of becoming one more thing you resent three meals a day.',
     learn: {
       description:
-        'Most highchair regret is not about color. It is about posture, cleanup, and whether the chair still feels reasonable after the third meal of the day.',
+        'This category gets easier once you stop asking which chair is universally best and start asking which lane fits your real life best.',
       groups: [
         {
-          title: 'Highchair styles',
+          title: 'The lanes that usually make sense',
           items: [
-            'Full-size highchairs: Usually the most obvious everyday feeding setup, with a larger footprint and a clearer tray system.',
-            'Compact or folding highchairs: Helpful when space is tight or the chair cannot live in the middle of the kitchen forever.',
-            'Grow-with-me styles: Designed to stay useful longer if you want one seat to work through more stages.',
-            'Minimalist styles: Visually clean, but not automatically easier to live with once straps, seams, and food start doing what food does.',
+            'Posture-first, long-term chairs: Best when adjustability, foot support, and longevity matter more than instant simplicity.',
+            'Design-forward everyday chairs: Best when the highchair lives in a shared space and you want it to feel intentional without turning into a giant plastic event.',
+            'Quietly practical budget chairs: Best when stable feeding support and easy cleanup matter more than owning the internet’s current favorite.',
+            'Compact or folding chairs: Best when square footage matters and the highchair cannot claim part of the room forever.',
           ],
         },
         {
           title: 'What actually matters during feeding',
           items: [
-            'Foot support matters because posture matters during feeding.',
-            'A usable tray matters because some trays remove easily and some act personally offended that you asked.',
-            'Wipeability matters more than "looks easy to clean." Smooth surfaces and simple seams beat wishful thinking.',
-            'Getting baby in and out should feel straightforward even when you are doing it one-handed with lunch on the counter.',
+            'Foot support matters because babies usually eat better when they are sitting well.',
+            'Seat and footrest adjustability matter because longevity is not just about what age range the box promises.',
+            'Cleanup matters more than aesthetics by about week two. Smooth surfaces and fewer crumb traps win.',
+            'A usable tray and straightforward straps matter because repeated friction is what turns a nice-looking chair into a daily complaint.',
           ],
         },
       ],
     },
     purpose: {
       description:
-        'A highchair exists to support feeding posture, mealtime participation, and cleanup that does not become its own side hobby.',
+        'A highchair affects posture, safety, cleanup, longevity, and how smoothly daily meals actually go.',
       paragraphs: [
-        'The real purpose is repeated feeding support. It should help the baby sit well, help you feed more easily, and reset without drama.',
-        'This is why the tray, footrest, straps, and wipe-down reality matter more than whether the silhouette feels design-forward.',
+        'This is one of the few gear categories that becomes real furniture. It shows up constantly, which is why the right one supports both baby’s body and your sanity.',
+        'The goal is not to find the perfect highchair. It is to choose one that fits your home well enough that it disappears into the routine instead of adding friction to it.',
       ],
     },
     plan: {
       description:
-        'A good highchair answer starts with your table, your floor space, and your cleanup tolerance, not with the prettiest photo.',
+        'Think in terms of your category of best, not the internet’s best.',
       groups: [
         {
           items: [
-            'How much space do you actually have?',
-            'Do you want baby right at the table or slightly separate?',
-            'Do you care about long-term use, or do you just want the cleanest feeding setup right now?',
-            'Is easy-clean your top priority above everything else?',
+            'How long do you want to use it?',
+            'How adjustable does it need to be?',
+            'Will it live in a shared, visible space?',
+            'How much daily cleanup are you actually willing to tolerate?',
           ],
         },
       ],
     },
     trySection: {
       description:
-        'The best test is not "does it look nice in the kitchen." It is "would I still like this after a week of solids."',
+        'The best test is not whether it looks nice in the kitchen. It is whether you would still like it after a week of solids.',
       groups: [
         {
           items: [
-            'Remove and reattach the tray.',
-            'Adjust the straps and see whether they feel intuitive or annoying.',
-            'Check how hard it is to wipe seams, fabric, and crevices.',
-            'See how easy it is to get baby in and out without turning the process into a small event.',
+            'Remove and reattach the tray one-handed if you can.',
+            'Check whether baby’s feet can actually be supported well.',
+            'Look closely at seams, straps, and fabric because that is where cleanup optimism goes to die.',
+            'See how easy it is to get baby in and out without turning every meal into a production.',
           ],
         },
       ],
     },
     buy: {
       description:
-        'Prioritize stability, a usable footrest, realistic cleanup, and how the chair behaves in the repeated parts of the day.',
+        'Prioritize posture, stability, cleanup, and how the chair behaves in the repeated parts of the day.',
       paragraphs: [
-        'If a highchair feels visually clean but operationally fussy, the visual part stops mattering quickly.',
+        'Expensive is not automatically better, and budget is not automatically regrettable. The right chair is the one you stop thinking about once meals get going.',
       ],
     },
     needReasons: [
-      'Your baby is approaching solids, and you want one stable feeding seat that can become part of the routine fast.',
-      'You want the feeding setup to support posture and table participation instead of balancing everything on wishful positioning.',
-      'Cleanup friction already feels like the real issue, and you want one seat that does not make it worse.',
+      'Solids are close, and you want one dependable feeding seat that can become part of the routine quickly.',
+      'You care about posture, foot support, and a setup that does not get outgrown emotionally in two months.',
+      'The chair will live in a shared space, so it needs to work for both the room and the daily mess.',
     ],
     skipReasons: [
-      'Solids are still far enough away that the category does not need registry urgency yet.',
-      'Your space is so tight that waiting for the actual feeding rhythm will give you a better answer than buying the prettiest compromise now.',
-      'You already know you need a smaller or more travel-friendly feeding seat later rather than a full everyday highchair right away.',
+      'Solids are still far enough away that this category does not need urgency yet.',
+      'Your space is so tight that waiting for the actual feeding rhythm will likely give you a cleaner answer than buying a pretty compromise now.',
+      'You already know a smaller, later-stage, or travel-friendly seat will make more sense than a full everyday highchair right away.',
     ],
+    coreSectionTitles: {
+      learn: 'What it is',
+      purpose: 'What it does',
+      needs: 'Why you need it',
+    },
+    includeSkipSection: false,
     sectionImages: {
       purpose: {
         src: '/assets/gearpath/momcozyhighchair.png',
-        alt: 'Highchair shown as a repeated mealtime support tool.',
-        caption: 'A highchair should make repeated meals easier, not simply make the kitchen look more committed.',
+        alt: 'Highchair shown as one of the most-used pieces of everyday family furniture.',
+        caption: 'A highchair should make repeated meals smoother, not just make the room look more prepared.',
       },
       needs: {
         src: '/assets/gearpath/momcozyhighchair.png',
-        alt: 'Highchair positioned for everyday feeding.',
-        caption: 'If feeding is about to happen multiple times a day, this category earns real attention quickly.',
+        alt: 'Highchair positioned for repeated daily feeding in a shared home space.',
+        caption: 'This category earns real attention quickly once you remember how often meals, snacks, and cleanup actually happen.',
       },
       skip: {
         src: '/assets/gearpath/momcozyhighchair.png',
-        alt: 'Highchair shown as a category that can wait until feeding timing is real.',
-        caption: 'This is an easy category to buy too early. Real timing usually gives the cleaner answer.',
+        alt: 'Highchair shown as a category that can wait until feeding timing and space needs are more concrete.',
+        caption: 'This is an easy category to buy too early. Real timing and real space constraints usually give the cleaner answer.',
       },
     },
     decisionBullets: [
-      'Let posture and foot support matter.',
-      'Choose around your table, floor space, and cleanup tolerance.',
-      'Test tray removal, straps, and wipe-down reality.',
-      'Buy the chair you will not dread using three times a day.',
+      'Start with posture and foot support.',
+      'Choose around your space, cleanup tolerance, and how visible the chair will be.',
+      'Think in terms of your category of best, not a universal best.',
+      'Buy the chair that disappears into routine instead of adding friction to it.',
     ],
     note: {
       eyebrow: 'TMBC note',
-      title: "The best highchair isn't the prettiest one. It's the one you don't dread cleaning.",
-      body: 'A feeding seat is a work surface. It is allowed to win because it handles breakfast well, not because it photographs beautifully.',
+      title: 'The best highchair is the one you stop thinking about.',
+      body: 'When the tray works, the cleanup is sane, and your baby sits well, you get to pay attention to the meal instead of the chair. That is the win.',
       tone: 'blush',
     },
   },
