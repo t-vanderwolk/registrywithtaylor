@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import DailyUseGearHub from '@/components/academy/DailyUseGearHub';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -26,12 +25,6 @@ export default function DailyUseGearHubPage() {
   return (
     <SiteShell currentPath={DAILY_USE_GEAR_ACADEMY_HUB_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={DAILY_USE_GEAR_ACADEMY_HUB_PATH}
-          pageType="guide"
-          slug="academy-gear-daily-use-gear-hub"
-          title={DAILY_USE_GEAR_ACADEMY_TITLE}
-        />
         <DailyUseGearHub />
       </main>
     </SiteShell>

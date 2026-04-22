@@ -130,7 +130,7 @@ function renderMarkdownContent(module: Omit<NurseryAcademyModuleRecord, 'markdow
     lines.push(paragraph, '');
   });
 
-  lines.push('## Core Considerations', '');
+  lines.push('## Signature Decision Map', '');
 
   module.coreSections.forEach((section) => {
     lines.push(`### ${section.title}`, '', `![${section.imageAlt}](${section.imageSrc})`, '');

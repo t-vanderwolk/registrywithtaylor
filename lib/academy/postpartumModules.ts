@@ -99,7 +99,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
     ],
     coreSections: [
       {
-        title: "What You're Actually Learning in This Module",
+        title: 'How recovery gets a clearer map',
         imageSrc: POSTPARTUM_IMAGES.healingIntro,
         imageAlt: 'Postpartum recovery essentials and healing support in soft neutral tones.',
         paragraphs: [
@@ -117,7 +117,7 @@ export const POSTPARTUM_ACADEMY_MODULES: PostpartumAcademyModuleRecord[] = [
         ],
       },
       {
-        title: 'What Actually Helps',
+        title: 'Support that helps recovery feel more realistic',
         imageSrc: POSTPARTUM_IMAGES.healingSupport,
         imageAlt: 'Simple postpartum support station with hydration and comfort items.',
         paragraphs: [
@@ -162,9 +162,9 @@ It is something you move through.
 - Taylor-Made Baby Co.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
-### What You're Actually Learning in This Module
+### How Recovery Gets A Clearer Map
 
 This is not about doing recovery perfectly.
 
@@ -196,7 +196,7 @@ You are healing.
 
 ![Calm home recovery space with layered linens and water nearby.](${POSTPARTUM_IMAGES.healingReality})
 
-### What Actually Helps
+### Support That Helps Recovery Feel More Realistic
 
 What usually helps is less glamorous and more practical:
 
@@ -246,7 +246,7 @@ You need permission to recover.
     ],
     coreSections: [
       {
-        title: "What You're Actually Learning",
+        title: 'How the first weeks move through the house',
         imageSrc: '/assets/editorial/babyroom.png',
         imageAlt: 'Calm postpartum home setup with recovery, feeding, and household stations.',
         paragraphs: [
@@ -264,7 +264,7 @@ You need permission to recover.
         ],
       },
       {
-        title: 'What Actually Helps',
+        title: 'Support that keeps the loop repeatable',
         imageSrc: '/assets/editorial/organize.png',
         imageAlt: 'Simple home rhythm setup with hydration, snacks, laundry flow, and support notes.',
         paragraphs: [
@@ -304,9 +304,9 @@ You do not need the house to run beautifully.
 You need it to support the adults holding the whole thing together.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
-### What You're Actually Learning
+### How The First Weeks Move Through The House
 
 You are learning how the first weeks move through the home in real life:
 
@@ -332,7 +332,7 @@ When the house is set up for repetition, the days usually feel more manageable.
 
 ![Editorial scene showing the repeated rhythm of feeding, resting, and resetting at home.](/assets/editorial/feeding.png)
 
-### What Actually Helps
+### Support That Keeps The Loop Repeatable
 
 What usually helps most:
 
@@ -400,7 +400,7 @@ They need to feel supported enough to repeat.
         ],
       },
       {
-        title: 'What actually helps is support earlier',
+        title: 'Bring support in before feeding feels unsustainable',
         imageSrc: BREASTFEEDING_IMAGES.storageBottles,
         imageAlt: 'Simple feeding setup organized to reduce friction during the postpartum stretch.',
         paragraphs: [
@@ -443,7 +443,7 @@ There is no one "right" way to feed your baby.
 There is only what works for you and your baby.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
 ### This Is About Feeding, Not Proving Anything
 
@@ -469,7 +469,7 @@ It is usually a sign that the plan met real life.
 
 ![Combination or formula feeding shown as a real-life feeding path.](${BREASTFEEDING_IMAGES.formulaNara})
 
-### What Actually Helps Is Support Earlier
+### Bring Support In Before Feeding Feels Unsustainable
 
 What usually helps most:
 
@@ -516,7 +516,7 @@ It is a relationship.
     ],
     coreSections: [
       {
-        title: "What You're Learning",
+        title: 'How rest becomes a shared plan',
         imageSrc: POSTPARTUM_IMAGES.restIntro,
         imageAlt: 'Calm bedside setup for postpartum rest with soft lighting.',
         paragraphs: [
@@ -534,7 +534,7 @@ It is a relationship.
         ],
       },
       {
-        title: 'What Actually Helps',
+        title: 'Support that protects rest',
         imageSrc: POSTPARTUM_IMAGES.restSupport,
         imageAlt: 'Supportive overnight care setup with simple essentials close by.',
         paragraphs: [
@@ -574,9 +574,9 @@ Sleep in postpartum is not about control.
 It is about support and rhythm.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
-### What You're Learning
+### How Rest Becomes A Shared Plan
 
 This module is about:
 
@@ -601,7 +601,7 @@ But there are ways to make that tired feel more manageable.
 
 ![Soft nighttime recovery setup with chair, blanket, and lamp.](${POSTPARTUM_IMAGES.restReality})
 
-### What Actually Helps
+### Support That Protects Rest
 
 What usually helps most:
 
@@ -651,7 +651,7 @@ It is something you need.
     ],
     coreSections: [
       {
-        title: "What You're Learning",
+        title: 'How to name the emotional shift',
         imageSrc: POSTPARTUM_IMAGES.emotionalIntro,
         imageAlt: 'Notebook, soft textiles, and a calm setting for reflection and support.',
         paragraphs: [
@@ -669,7 +669,7 @@ It is something you need.
         ],
       },
       {
-        title: 'What Actually Helps',
+        title: 'Support that makes the shift less lonely',
         imageSrc: POSTPARTUM_IMAGES.emotionalSupport,
         imageAlt: 'Supportive conversation and emotional care concept in an editorial home setting.',
         paragraphs: [
@@ -707,9 +707,9 @@ You are not just caring for a baby.
 You are becoming a new version of yourself.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
-### What You're Learning
+### How To Name The Emotional Shift
 
 This module helps make the emotional side of postpartum more nameable and less isolating.
 
@@ -736,7 +736,7 @@ You are not alone in how you feel.
 
 ![Quiet postpartum reflection space in warm neutral tones.](${POSTPARTUM_IMAGES.emotionalReality})
 
-### What Actually Helps
+### Support That Makes The Shift Less Lonely
 
 What usually helps most:
 
@@ -782,7 +782,7 @@ You need to be supported.
     ],
     coreSections: [
       {
-        title: "What You're Learning",
+        title: 'How to make help specific enough to use',
         imageSrc: POSTPARTUM_IMAGES.supportIntro,
         imageAlt: 'Postpartum planning notes centered on support and shared responsibility.',
         paragraphs: [
@@ -838,9 +838,9 @@ The difference between overwhelmed and supported is rarely the baby.
 It is the system around you.
 :::
 
-## Core Considerations
+## Signature Decision Map
 
-### What You're Learning
+### How To Make Help Specific Enough To Use
 
 This module helps you make support more visible and more usable.
 

@@ -7,10 +7,16 @@ import {
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionBlock from '@/components/academy/DecisionBlock';
+import DecisionFilter from '@/components/academy/DecisionFilter';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
 import ProductInsightCard from '@/components/academy/ProductInsightCard';
-import ConnectedContentSection from '@/components/content/ConnectedContentSection';
+import ScenarioBlock from '@/components/academy/ScenarioBlock';
+import StartHere from '@/components/academy/StartHere';
+import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
+import WhatMattersList from '@/components/academy/WhatMattersList';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -33,6 +39,7 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
+import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 
@@ -169,6 +176,7 @@ export default function AcademyModuleHub({
     title,
     description: deck,
     subhead: deck,
+    intro,
     pathSlug,
     progress: {
       current: progress.current,
@@ -202,7 +210,6 @@ export default function AcademyModuleHub({
         }
       : null,
     previous: null,
-    editorialLinks: [],
     submoduleSection: null,
   };
   const modulePath = `/academy/${pathSlug}/${moduleSlug}`;
@@ -214,6 +221,11 @@ export default function AcademyModuleHub({
   const whyThisExists = getModuleWhyThisExists(hubModule);
   const quickCheckLines = getQuickCheckLines(hubModule);
   const quickCheckTags = getQuickCheckTags(hubModule);
+  const signatureSystem = buildAcademySignatureSystem(hubModule, {
+    decisionStatement,
+    whyThisExists,
+    quickCheckLines,
+  });
   const connectedPaths = getConnectedAcademyPaths(pathSlug);
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: modulePath as `/${string}`,
@@ -356,35 +368,58 @@ export default function AcademyModuleHub({
         </section>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-          <AcademySectionHeading
-            eyebrow="Why This Exists"
-            title="This module is here to make the bigger decision quieter"
-            description={whyThisExists}
+      <div className="mx-auto max-w-6xl space-y-8 px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <StartHere
+          title={signatureSystem.startHere.title}
+          description={signatureSystem.startHere.description}
+        >
+          {renderLinkedParagraphs(
+            signatureSystem.startHere.paragraphs,
+            internalLinkPlan.contextualLinks,
+            `${moduleSlug}-hub-signature-start`,
+          )}
+        </StartHere>
+
+        <DecisionBlock
+          title={signatureSystem.decisionBlock.title}
+          description={signatureSystem.decisionBlock.description}
+          contrast={signatureSystem.decisionBlock.contrast}
+        >
+          {quickCheckTags.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {quickCheckTags.map((tag) => (
+                <DecisionTag key={`${moduleSlug}-quick-${tag}`} label={tag} />
+              ))}
+            </div>
+          ) : null}
+        </DecisionBlock>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <WhatMattersList
+            title={signatureSystem.whatMatters.title}
+            items={signatureSystem.whatMatters.items}
           />
-        </section>
-      </div>
+          <WhatDoesntMatterList
+            title={signatureSystem.whatDoesNotMatter.title}
+            items={signatureSystem.whatDoesNotMatter.items}
+          />
+        </div>
 
-      <div className="mx-auto grid max-w-6xl gap-6 px-5 pb-12 sm:px-8 md:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] md:pb-16 lg:px-10">
-        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-          <AcademySectionHeading eyebrow="What You'll Learn" title={learningTitle} description={learningDescription} />
+        <ScenarioBlock
+          title={signatureSystem.scenarios.title}
+          scenarios={signatureSystem.scenarios.items}
+        />
 
-          <ul className="mt-6 space-y-3">
-            {learningHighlights.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-[1.2rem] border border-[rgba(215,161,175,0.14)] bg-[rgba(252,247,249,0.86)] px-4 py-4"
-              >
-                <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
-                <span className="text-[1rem] leading-8 text-[#4B3641]">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <DecisionFilter
+          title={signatureSystem.decisionFilter.title}
+          chooseIf={signatureSystem.decisionFilter.chooseIf}
+          skipIf={signatureSystem.decisionFilter.skipIf}
+        />
+
+        <ClarityCallout insight={signatureSystem.clarityInsight} />
 
         <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,251,252,0.98)_0%,rgba(248,240,234,0.94)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-          <AcademySectionHeading eyebrow="The TMBC Take" title={philosophyTitle} />
+          <AcademySectionHeading eyebrow="TMBC Take" title={philosophyTitle} />
 
           <div className="mt-6 space-y-4 text-[1rem] leading-8 text-[#5B4B55]">
             {renderLinkedParagraphs(philosophy, internalLinkPlan.contextualLinks, `${moduleSlug}-hub-philosophy`)}
@@ -400,35 +435,11 @@ export default function AcademyModuleHub({
         </section>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(255,253,248,0.94)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-8 sm:py-8">
-          <h3 className="font-semibold text-[1.08rem] text-[#2F2430]">Quick check</h3>
-          <p className="mt-2 text-sm leading-7 text-[#5B4B55]">
-            If this sounds like you, you&apos;re in the right place.
-          </p>
-          {quickCheckTags.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {quickCheckTags.map((tag) => (
-                <DecisionTag key={`${moduleSlug}-quick-${tag}`} label={tag} />
-              ))}
-            </div>
-          ) : null}
-          <ul className="mt-5 space-y-3 text-[1rem] leading-8 text-[#4B3641]">
-            {quickCheckLines.map((line) => (
-              <li key={`${moduleSlug}-quick-${line}`} className="flex items-start gap-3">
-                <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
       {groundingInsights.length > 0 ? (
         <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
           <AcademySectionHeading
-            eyebrow="Grounding Examples"
-            title="A few examples to keep this attached to real life"
+            eyebrow="Product Examples"
+            title={`${title} examples to pressure-test`}
             description="These are here to make the category more concrete, not to turn the module into a product roundup."
           />
 
@@ -437,13 +448,22 @@ export default function AcademyModuleHub({
               <ProductInsightCard
                 key={`${moduleSlug}-grounding-${product.name}-${index}`}
                 {...product}
-                guide={moduleSlug}
                 position={index + 1}
               />
             ))}
           </div>
         </div>
       ) : null}
+
+      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <GuideHandwrittenNote
+          title={taylorNoteTitle}
+          description={<p>{taylorNoteBody}</p>}
+          presentation="margin"
+          showEyebrow
+          eyebrow="Taylor's note"
+        />
+      </div>
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
         <AcademySectionHeading eyebrow="Submodules" title={submodulesTitle} description={submodulesDescription} />
@@ -456,33 +476,23 @@ export default function AcademyModuleHub({
       </div>
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
-          <div className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-            <AcademySectionHeading
-              eyebrow={guidanceEyebrow}
-              title={guidanceTitle}
-              description={guidanceDescription}
-            />
+        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
+          <AcademySectionHeading
+            eyebrow={guidanceEyebrow}
+            title={guidanceTitle}
+            description={guidanceDescription}
+          />
 
-            <div className="mt-6 rounded-[1.6rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.86)] p-5 sm:p-6">
-              <div className="space-y-3">
-                {renderLinkedParagraphs(
-                  guidanceLines,
-                  internalLinkPlan.contextualLinks,
-                  `${moduleSlug}-hub-guidance`,
-                  'break-words text-[1.02rem] leading-8 text-[#4B3641] sm:text-[1.08rem] sm:leading-9',
-                )}
-              </div>
+          <div className="mt-6 rounded-[1.6rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.86)] p-5 sm:p-6">
+            <div className="space-y-3">
+              {renderLinkedParagraphs(
+                guidanceLines,
+                internalLinkPlan.contextualLinks,
+                `${moduleSlug}-hub-guidance`,
+                'break-words text-[1.02rem] leading-8 text-[#4B3641] sm:text-[1.08rem] sm:leading-9',
+              )}
             </div>
           </div>
-
-          <GuideHandwrittenNote
-            title={taylorNoteTitle}
-            description={<p>{taylorNoteBody}</p>}
-            presentation="margin"
-            showEyebrow
-            eyebrow="Taylor's note"
-          />
         </section>
       </div>
 
@@ -498,15 +508,6 @@ export default function AcademyModuleHub({
               href: card.href,
               tag: index === 0 ? 'Most common path' : 'Skip this for now',
             }))}
-          />
-        </div>
-
-        <div className="mt-8">
-          <ConnectedContentSection
-            eyebrow="Keep The System Connected"
-            title="Use the guide, the journal, or direct support when the next question changes"
-            description="This module is one part of the bigger TMBC system. These are the best next stops when you want the wider decision map, a concrete example, or an advisor in the mix."
-            cards={internalLinkPlan.journeyCards}
           />
         </div>
 

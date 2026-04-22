@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import CarSeatFoundationsHub from '@/components/academy/CarSeatFoundationsHub';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -26,12 +25,6 @@ export default function CarSeatFoundationsHubPage() {
   return (
     <SiteShell currentPath={CAR_SEAT_FOUNDATIONS_ACADEMY_HUB_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={CAR_SEAT_FOUNDATIONS_ACADEMY_HUB_PATH}
-          pageType="guide"
-          slug="academy-gear-car-seat-foundations-hub"
-          title={CAR_SEAT_FOUNDATIONS_ACADEMY_TITLE}
-        />
         <CarSeatFoundationsHub />
       </main>
     </SiteShell>

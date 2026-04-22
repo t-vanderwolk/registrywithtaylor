@@ -30,7 +30,7 @@ export default function RegistryWelcomeBoxesHub() {
       heroImageAlt="Editorial registry welcome box image for Taylor-Made Baby Co."
       pullQuote={REGISTRY_WELCOME_BOXES_PULL_QUOTE}
       progress={{ current: 4, total: 8, label: 'Registry path progress' }}
-      learningTitle="What you'll understand by the end of this module"
+      learningTitle="How welcome boxes reveal the platform underneath"
       learningDescription="This is the part of registry strategy that sounds small until you realize it reveals how each platform actually wants you to behave."
       learningHighlights={[...REGISTRY_WELCOME_BOXES_LEARNING_HIGHLIGHTS]}
       philosophyTitle="Use perks to understand the platform, not just the box"

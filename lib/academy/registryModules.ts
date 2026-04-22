@@ -759,7 +759,7 @@ function renderMarkdownContent(module: Omit<RegistryAcademyModuleRecord, 'markdo
     lines.push(paragraph, '');
   });
 
-  lines.push('## Core Considerations', '');
+  lines.push('## Signature Decision Map', '');
 
   module.coreSections.forEach((section) => {
     lines.push(`### ${section.title}`, '', `![${section.imageAlt}](${section.imageSrc})`, '');

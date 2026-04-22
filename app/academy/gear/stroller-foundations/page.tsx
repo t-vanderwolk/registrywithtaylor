@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import StrollerFoundationsHub from '@/components/academy/StrollerFoundationsHub';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -26,12 +25,6 @@ export default function StrollerFoundationsHubPage() {
   return (
     <SiteShell currentPath={STROLLER_FOUNDATIONS_ACADEMY_HUB_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={STROLLER_FOUNDATIONS_ACADEMY_HUB_PATH}
-          pageType="guide"
-          slug="academy-gear-stroller-foundations-hub"
-          title={STROLLER_FOUNDATIONS_ACADEMY_TITLE}
-        />
         <StrollerFoundationsHub />
       </main>
     </SiteShell>

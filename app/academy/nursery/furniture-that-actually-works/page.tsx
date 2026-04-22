@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import NurseryFurnitureHub from '@/components/academy/NurseryFurnitureHub';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -25,12 +24,6 @@ export default function NurseryFurnitureHubPage() {
   return (
     <SiteShell currentPath={NURSERY_FURNITURE_HUB_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={NURSERY_FURNITURE_HUB_PATH}
-          pageType="guide"
-          slug="academy-nursery-furniture-that-actually-works"
-          title="Furniture That Actually Works"
-        />
         <NurseryFurnitureHub />
       </main>
     </SiteShell>

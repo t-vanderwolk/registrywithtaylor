@@ -9,10 +9,6 @@ import {
 } from '@/lib/academy/strollerFoundationsAcademy';
 import { STROLLER_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/strollerCluster';
 import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
-import {
-  getPublishedAcademyGuideForPath,
-  mergeAcademyModuleWithGuideRecord,
-} from '@/lib/server/academyGuides';
 
 type StrollerFoundationsLanePageProps = {
   params: Promise<{
@@ -33,9 +29,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const fallbackModule = buildStrollerFoundationsAcademySubmoduleModule(lane);
-  const academyGuide = await getPublishedAcademyGuideForPath(fallbackModule.href);
-  const module = academyGuide ? mergeAcademyModuleWithGuideRecord(fallbackModule, academyGuide) : fallbackModule;
+  const module = buildStrollerFoundationsAcademySubmoduleModule(lane);
 
   return buildAcademyPageMetadata({
     defaultTitle: `${module.title} | Stroller Foundations | TMBC Baby Academy`,
@@ -49,7 +43,6 @@ export async function generateMetadata({
       ...module.coreSections.map((section) => section.title).slice(0, 3),
       ...module.decisionBullets.slice(0, 4),
     ],
-    guide: academyGuide,
   });
 }
 
@@ -62,19 +55,13 @@ export default async function StrollerFoundationsLanePage({
     notFound();
   }
 
-  const fallbackModule = buildStrollerFoundationsAcademySubmoduleModule(lane);
+  const module = buildStrollerFoundationsAcademySubmoduleModule(lane);
   const path = getStrollerFoundationsAcademySubmodulePath(lane);
-  const academyGuide = await getPublishedAcademyGuideForPath(path);
-  const module = academyGuide ? mergeAcademyModuleWithGuideRecord(fallbackModule, academyGuide) : fallbackModule;
 
   return (
     <SiteShell currentPath={path}>
       <main className="site-main min-h-0">
-        <AcademyModuleRenderer
-          module={module}
-          guide={academyGuide}
-          fallbackSlug={`academy-gear-stroller-foundations-${lane}`}
-        />
+        <AcademyModuleRenderer module={module} />
       </main>
     </SiteShell>
   );

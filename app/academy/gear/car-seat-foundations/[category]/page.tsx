@@ -9,10 +9,6 @@ import {
 } from '@/lib/academy/carSeatFoundationsAcademy';
 import { CAR_SEAT_CATEGORY_GUIDE_SLUGS } from '@/lib/guides/carSeatCategoryGuides';
 import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
-import {
-  getPublishedAcademyGuideForPath,
-  mergeAcademyModuleWithGuideRecord,
-} from '@/lib/server/academyGuides';
 
 type CarSeatFoundationsCategoryPageProps = {
   params: Promise<{
@@ -33,9 +29,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const fallbackModule = buildCarSeatFoundationsAcademySubmoduleModule(category);
-  const academyGuide = await getPublishedAcademyGuideForPath(fallbackModule.href);
-  const module = academyGuide ? mergeAcademyModuleWithGuideRecord(fallbackModule, academyGuide) : fallbackModule;
+  const module = buildCarSeatFoundationsAcademySubmoduleModule(category);
 
   return buildAcademyPageMetadata({
     defaultTitle: `${module.title} | Car Seat Foundations | TMBC Baby Academy`,
@@ -49,7 +43,6 @@ export async function generateMetadata({
       ...module.coreSections.map((section) => section.title).slice(0, 3),
       ...module.decisionBullets.slice(0, 4),
     ],
-    guide: academyGuide,
   });
 }
 
@@ -62,19 +55,13 @@ export default async function CarSeatFoundationsCategoryPage({
     notFound();
   }
 
-  const fallbackModule = buildCarSeatFoundationsAcademySubmoduleModule(category);
+  const module = buildCarSeatFoundationsAcademySubmoduleModule(category);
   const path = getCarSeatFoundationsAcademySubmodulePath(category);
-  const academyGuide = await getPublishedAcademyGuideForPath(path);
-  const module = academyGuide ? mergeAcademyModuleWithGuideRecord(fallbackModule, academyGuide) : fallbackModule;
 
   return (
     <SiteShell currentPath={path}>
       <main className="site-main min-h-0">
-        <AcademyModuleRenderer
-          module={module}
-          guide={academyGuide}
-          fallbackSlug={`academy-gear-car-seat-foundations-${category}`}
-        />
+        <AcademyModuleRenderer module={module} />
       </main>
     </SiteShell>
   );

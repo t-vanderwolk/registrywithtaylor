@@ -33,7 +33,6 @@ type DecisionRouterModule = {
       eyebrow?: string;
     }>;
   } | null;
-  editorialLinks?: AcademyRelatedLink[];
 };
 
 function RouterCard({ option }: { option: DecisionRouteOption }) {

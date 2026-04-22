@@ -7,23 +7,24 @@ import {
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionBlock from '@/components/academy/DecisionBlock';
+import DecisionFilter from '@/components/academy/DecisionFilter';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
 import ProductInsightCard from '@/components/academy/ProductInsightCard';
+import ScenarioBlock from '@/components/academy/ScenarioBlock';
+import StartHere from '@/components/academy/StartHere';
+import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
+import WhatMattersList from '@/components/academy/WhatMattersList';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
-import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
-import ChecklistCardSet from '@/components/guides/academy/ChecklistCardSet';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
 import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
-import GuideTrackedLink from '@/components/guides/GuideTrackedLink';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { isRemoteImageUrl } from '@/lib/blog/images';
-import { GuideAnalyticsEvents } from '@/lib/guides/events';
-import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
-import { slugify } from '@/lib/slugify';
 import {
   getAcademyPhaseLabel,
   getConnectedAcademyPaths,
@@ -37,6 +38,7 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
 } from '@/lib/academy/seo';
+import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 import type {
@@ -78,10 +80,8 @@ export type ModuleLayoutData = {
   previous: AcademyRelatedLink | null;
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
-  editorialLinks: AcademyRelatedLink[];
   submoduleSection: AcademySubmoduleSection | null;
   breadcrumb: AcademyBreadcrumbItem[];
-  trackingGuideId?: string | null;
 };
 
 type ModuleLayoutProps = {
@@ -133,39 +133,6 @@ function renderLinkedParagraphs(
       })}
     </p>
   ));
-}
-
-function buildDecisionChecklistSections(module: ModuleLayoutData) {
-  if (module.decisionBullets.length === 0) {
-    return [];
-  }
-
-  const midpoint = module.decisionBullets.length > 3 ? Math.ceil(module.decisionBullets.length / 2) : module.decisionBullets.length;
-  const primary = module.decisionBullets.slice(0, midpoint).map((bullet) => ({
-    label: bullet,
-    status: 'check' as const,
-  }));
-  const secondary = module.decisionBullets.slice(midpoint).map((bullet, index, collection) => ({
-    label: bullet,
-    status: index === collection.length - 1 ? ('ask' as const) : ('watch' as const),
-  }));
-
-  return [
-    {
-      title: 'Do First',
-      description: 'These are the moves that keep the rest of the module calmer and more useful.',
-      items: primary,
-    },
-    ...(secondary.length > 0
-      ? [
-          {
-            title: 'Keep In View',
-            description: 'Use these as the edit pass before the list, shortlist, or purchase gets bigger.',
-            items: secondary,
-          },
-        ]
-      : []),
-  ];
 }
 
 function buildDecisionBarDescription(module: ModuleLayoutData) {
@@ -286,87 +253,24 @@ function buildModuleFocusLine(module: ModuleLayoutData) {
   return `Inside this module: ${formatInlineList(focusPoints)}.`;
 }
 
-function getEditorialLinkSectionCopy(editorialLinks: AcademyRelatedLink[]) {
-  const hasBlogLinks = editorialLinks.some((link) => link.href.startsWith('/blog/'));
-  const hasGuideLinks = editorialLinks.some((link) => link.href.startsWith('/guides/'));
-  const hasAcademyLinks = editorialLinks.some((link) => link.href.startsWith('/academy/'));
-
-  if (hasBlogLinks && hasAcademyLinks) {
-    return {
-      title: 'See how this works in real life',
-      description:
-        'Use these when you want the fuller editorial read plus the next nursery layers that make the framework feel more concrete.',
-    };
-  }
-
-  if (hasBlogLinks && hasGuideLinks) {
-    return {
-      title: 'Continue with related TMBC reading',
-      description:
-        'Use these links when you want either the wider guide view or a more concrete editorial example after the framework gets clearer.',
-    };
-  }
-
-  if (hasAcademyLinks) {
-    return {
-      title: 'Keep the system connected',
-      description:
-        'Use these Academy links when you want the deeper module or submodule view without leaving the path entirely.',
-    };
-  }
-
-  if (hasGuideLinks) {
-    return {
-      title: 'Keep building through the TMBC guides',
-      description:
-        'Use these guide links when you want the wider hub, the next category, or the higher-level planning view around this module.',
-    };
-  }
-
-  return {
-    title: 'Continue in the Journal',
-    description: 'Use these TMBC journal posts when you want the category shortlist after the framework gets clearer.',
-  };
-}
-
-function getEditorialLinkEyebrow(href: string) {
-  if (href.startsWith('/academy/')) {
-    return 'Academy';
-  }
-
-  if (href.startsWith('/guides/')) {
-    return 'Guide';
-  }
-
-  if (href.startsWith('/blog/')) {
-    return 'Journal';
-  }
-
-  return 'Related';
-}
-
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
   const pathLabel = module.breadcrumb[1]?.label;
-  const decisionChecklistSections = buildDecisionChecklistSections(module);
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
-  const renderableProducts = module.products.filter((product) =>
-    hasResolvedGuideAffiliateUrl({
-      affiliateUrl: product.affiliateUrl,
-      brand: product.brand,
-      productName: product.name,
-      name: product.name,
-    }) || Boolean(product.imageSrc),
-  );
+  const renderableProducts = module.products.filter((product) => product.name.trim().length > 0);
   const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
   const moduleFocusLine = buildModuleFocusLine(module);
-  const editorialSectionCopy = getEditorialLinkSectionCopy(module.editorialLinks);
   const phaseLabel = getAcademyPhaseLabel(module);
   const decisionStatement = getModuleDecisionStatement(module);
   const whyThisExists = getModuleWhyThisExists(module);
   const quickCheckLines = getQuickCheckLines(module);
   const quickCheckTags = getQuickCheckTags(module);
+  const signatureSystem = buildAcademySignatureSystem(module, {
+    decisionStatement,
+    whyThisExists,
+    quickCheckLines,
+  });
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
   const productInsights = getProductInsights({
     ...module,
@@ -487,125 +391,56 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             />
           </section>
 
-          <section className="academy-load-in academy-load-in--4 tmbc-blog-soft-card px-6 py-6 sm:px-7">
-            <p className="text-sm text-[var(--tmbc-blog-soft-text)]">This module helps you decide:</p>
-            <h2 className="mt-3 max-w-3xl break-words font-serif text-[clamp(1.7rem,3vw,2.2rem)] leading-[1.08] tracking-[-0.04em] text-[var(--tmbc-blog-charcoal)]">
-              {decisionStatement}
-            </h2>
-            {quickCheckTags.length > 0 ? (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {quickCheckTags.map((tag) => (
-                  <DecisionTag key={`${module.slug}-${tag}`} label={tag} />
-                ))}
-              </div>
-            ) : null}
-          </section>
-
-          <section className="academy-load-in academy-load-in--5 tmbc-blog-soft-card px-6 py-6 sm:px-7">
-            <AcademySectionHeading
-              eyebrow="Why This Exists"
-              title="This category is here to make the decision smaller"
-              description={whyThisExists}
-            />
-          </section>
-
-          <section className="academy-load-in academy-load-in--5 tmbc-editorial-article-shell">
-            <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--tmbc-blog-rose)]">Editorial Intro</p>
-            <article className="tmbc-blog tmbc-blog-post-content mt-6 max-w-none">
+          <div className="academy-load-in academy-load-in--4 space-y-8">
+            <StartHere
+              title={signatureSystem.startHere.title}
+              description={signatureSystem.startHere.description}
+            >
               {renderLinkedParagraphs(
-                module.intro,
+                signatureSystem.startHere.paragraphs,
                 internalLinkPlan.contextualLinks,
-                `${module.slug}-intro`,
+                `${module.slug}-signature-start`,
               )}
-            </article>
-          </section>
+            </StartHere>
 
-          <GuideHandwrittenNote
-            className="academy-load-in academy-load-in--6"
-            eyebrow="Taylor's note"
-            title={handwrittenNote.title}
-            description={handwrittenNote.description}
-            presentation="margin"
-            size="compact"
-            showEyebrow
-            showSignoff={false}
-          />
+            <DecisionBlock
+              title={signatureSystem.decisionBlock.title}
+              description={signatureSystem.decisionBlock.description}
+              contrast={signatureSystem.decisionBlock.contrast}
+            >
+              {quickCheckTags.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {quickCheckTags.map((tag) => (
+                    <DecisionTag key={`${module.slug}-${tag}`} label={tag} />
+                  ))}
+                </div>
+              ) : null}
+            </DecisionBlock>
 
-          <section className="space-y-8">
-            <AcademySectionHeading
-              eyebrow="Core Considerations"
-              title="What actually shapes this decision"
-              note={typographyAccent.section}
+            <div className="grid gap-6 lg:grid-cols-2">
+              <WhatMattersList
+                title={signatureSystem.whatMatters.title}
+                items={signatureSystem.whatMatters.items}
+              />
+              <WhatDoesntMatterList
+                title={signatureSystem.whatDoesNotMatter.title}
+                items={signatureSystem.whatDoesNotMatter.items}
+              />
+            </div>
+
+            <ScenarioBlock
+              title={signatureSystem.scenarios.title}
+              scenarios={signatureSystem.scenarios.items}
             />
 
-            <div className="space-y-10">
-              {module.coreSections.map((section, index) => {
-                const shouldSkipSectionImageOptimization = isRemoteImageUrl(section.imageSrc);
+            <DecisionFilter
+              title={signatureSystem.decisionFilter.title}
+              chooseIf={signatureSystem.decisionFilter.chooseIf}
+              skipIf={signatureSystem.decisionFilter.skipIf}
+            />
 
-                return (
-                  <article
-                    key={section.title}
-                    className="academy-load-in tmbc-editorial-article-shell"
-                    style={{ animationDelay: `${120 + index * 80}ms` }}
-                  >
-                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--tmbc-blog-rose)]">TMBC Focus</p>
-                    <div className="tmbc-blog mt-6 max-w-none">
-                      <h3 className="mt-0">{section.title}</h3>
-                      {renderLinkedParagraphs(
-                        section.paragraphs,
-                        internalLinkPlan.contextualLinks,
-                        `${module.slug}-${slugify(section.title)}`,
-                      )}
-                    </div>
-
-                    <figure className="mt-8">
-                      <div className="tmbc-blog-featured-frame relative aspect-[16/10] overflow-hidden p-4 sm:p-5">
-                        <div className="relative h-full w-full">
-                          <Image
-                            src={section.imageSrc}
-                            alt={section.imageAlt}
-                            fill
-                            sizes="(min-width: 1024px) 896px, 100vw"
-                            className="object-contain"
-                            unoptimized={shouldSkipSectionImageOptimization}
-                          />
-                        </div>
-                      </div>
-                      {section.imageCaption ? (
-                        <figcaption className="px-1 pt-4 text-[13px] leading-6 text-[var(--tmbc-blog-soft-text)]">
-                          {section.imageCaption}
-                        </figcaption>
-                      ) : null}
-                    </figure>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="mt-12 rounded-[1.9rem] border border-[rgba(215,161,175,0.16)] bg-[var(--tmbc-blog-ivory)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-7">
-            <h3 className="font-semibold text-[1.08rem] text-[var(--tmbc-blog-charcoal)]">Quick check</h3>
-            <p className="mt-2 text-sm leading-7 text-[var(--tmbc-blog-soft-text)]">
-              If this sounds like you, you&apos;re in the right place.
-            </p>
-            {quickCheckTags.length > 0 ? (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {quickCheckTags.map((tag) => (
-                  <DecisionTag key={`${module.slug}-checkpoint-${tag}`} label={tag} />
-                ))}
-              </div>
-            ) : null}
-            {quickCheckLines.length > 0 ? (
-              <ul className="mt-5 space-y-3 text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
-                {quickCheckLines.map((line) => (
-                  <li key={`${module.slug}-checkpoint-${line}`} className="flex items-start gap-3">
-                    <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--tmbc-blog-rose)]" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </section>
+            <ClarityCallout insight={signatureSystem.clarityInsight} />
+          </div>
 
           {travelSystemWidget ? (
             <section className="space-y-6">
@@ -630,36 +465,47 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          {decisionChecklistSections.length > 0 ? (
-            <ChecklistCardSet
-              title={module.decisionTitle}
-              description="This is the shorter, more usable version of the module once you want the actual takeaways."
-              sections={decisionChecklistSections}
-            />
-          ) : null}
-
-          {module.editorialLinks.length > 0 ? (
+          {productInsights.length > 0 ? (
             <section className="space-y-6">
               <AcademySectionHeading
-                eyebrow="Keep Reading"
-                title={editorialSectionCopy.title}
-                description={editorialSectionCopy.description}
+                eyebrow="Product Examples"
+                title={`${module.title} examples to pressure-test`}
+                description="These are here to keep the decision connected to real life. They are examples, not a quiet invitation to turn the module into a shopping spiral."
               />
 
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {module.editorialLinks.map((link) => (
-                  <AcademyRouteCard
-                    key={`${module.slug}-${link.href}`}
-                    href={link.href}
-                    title={link.title}
-                    description={link.description}
-                    ctaLabel={link.ctaLabel}
-                    eyebrow={getEditorialLinkEyebrow(link.href)}
-                  />
+              <div className="grid gap-6 lg:grid-cols-3">
+                {productInsights.slice(0, 3).map((product, index) => (
+                  <div key={`${module.slug}-${product.brand}-${product.name}-${index}`} className="academy-load-in" style={{ animationDelay: `${140 + index * 80}ms` }}>
+                    <ProductInsightCard
+                      name={product.name}
+                      brand={product.brand}
+                      description={product.description}
+                      problemItSolves={product.problemItSolves}
+                      whenItFits={product.whenItFits}
+                      whenItDoesNotFit={product.whenItDoesNotFit}
+                      affiliateUrl={product.affiliateUrl}
+                      imageSrc={product.imageSrc}
+                      imageAlt={product.imageAlt}
+                      category={product.category}
+                      tag={product.tag}
+                      position={index + 1}
+                    />
+                  </div>
                 ))}
               </div>
             </section>
           ) : null}
+
+          <GuideHandwrittenNote
+            className="academy-load-in academy-load-in--6"
+            eyebrow="Taylor's note"
+            title={handwrittenNote.title}
+            description={handwrittenNote.description}
+            presentation="margin"
+            size="compact"
+            showEyebrow
+            showSignoff={false}
+          />
 
           {module.submoduleSection ? (
             <section className="space-y-6">
@@ -684,38 +530,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          {productInsights.length > 0 ? (
-            <section className="space-y-6">
-              <AcademySectionHeading
-                eyebrow="Grounding Examples"
-                title="Useful examples, not a shopping spiral"
-                description="These are here to keep the decision connected to real life. In some modules they are product examples. In others they are the starter categories worth pressure-testing before the list grows."
-              />
-
-              <div className="grid gap-6 lg:grid-cols-3">
-                {productInsights.slice(0, 3).map((product, index) => (
-                  <div key={`${module.slug}-${product.brand}-${product.name}-${index}`} className="academy-load-in" style={{ animationDelay: `${140 + index * 80}ms` }}>
-                    <ProductInsightCard
-                      name={product.name}
-                      brand={product.brand}
-                      description={product.description}
-                      problemItSolves={product.problemItSolves}
-                      whenItFits={product.whenItFits}
-                      whenItDoesNotFit={product.whenItDoesNotFit}
-                      affiliateUrl={product.affiliateUrl}
-                      imageSrc={product.imageSrc}
-                      imageAlt={product.imageAlt}
-                      category={product.category}
-                      tag={product.tag}
-                      guide={`${module.pathSlug}/${module.slug}`}
-                      position={index + 1}
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
-
           {hasSoftCta ? (
             <section className="space-y-5">
               <ExpertTipCallout
@@ -729,28 +543,12 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                   If you want help translating this module into a smarter shortlist or cleaner registry plan, this is the right point to get tailored guidance.
                 </p>
                 <div className="mt-6">
-                  {module.trackingGuideId ? (
-                    <GuideTrackedLink
-                      guideId={module.trackingGuideId}
-                      href="/consultation"
-                      event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
-                      sourceRoute={module.href}
-                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
-                      meta={{
-                        ctaLabel: 'Work with me',
-                        label: 'academy_work_with_me',
-                      }}
-                    >
-                      {'Work with me ->'}
-                    </GuideTrackedLink>
-                  ) : (
-                    <Link
-                      href="/consultation"
-                      className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
-                    >
-                      {'Work with me ->'}
-                    </Link>
-                  )}
+                  <Link
+                    href="/consultation"
+                    className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
+                  >
+                    {'Work with me ->'}
+                  </Link>
                 </div>
               </div>
             </section>
@@ -766,13 +564,6 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             <AcademySectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
             <DecisionRouter module={module} />
           </section>
-
-          <ConnectedContentSection
-            eyebrow="Keep It Connected"
-            title="Bridge this module back to the wider TMBC system"
-            description="Use the guide when you want the higher-level decision map, the journal when you want a concrete example, and services when you want the shortlist translated to your actual life."
-            cards={internalLinkPlan.journeyCards}
-          />
 
           <AcademyConnectedPaths
             description="You do not need to jump all three right now. This is just the cleaner map of where this decision tends to connect once real life starts narrowing the answer."

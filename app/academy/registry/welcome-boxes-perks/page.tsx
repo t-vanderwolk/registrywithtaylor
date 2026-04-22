@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import RegistryWelcomeBoxesHub from '@/components/academy/RegistryWelcomeBoxesHub';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -27,12 +26,6 @@ export default function RegistryWelcomeBoxesHubPage() {
   return (
     <SiteShell currentPath={REGISTRY_WELCOME_BOXES_HUB_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={REGISTRY_WELCOME_BOXES_HUB_PATH}
-          pageType="guide"
-          slug="academy-registry-welcome-boxes-perks-hub"
-          title={REGISTRY_WELCOME_BOXES_TITLE}
-        />
         <RegistryWelcomeBoxesHub />
       </main>
     </SiteShell>

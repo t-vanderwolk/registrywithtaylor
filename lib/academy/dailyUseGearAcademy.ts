@@ -1009,7 +1009,6 @@ export function buildDailyUseGearAcademySubmoduleModule(
     previous: navigation.previous,
     next: navigation.next,
     related: navigation.hub,
-    editorialLinks: [],
     submoduleSection: null,
     breadcrumb: [
       { label: 'Academy', href: '/academy' },

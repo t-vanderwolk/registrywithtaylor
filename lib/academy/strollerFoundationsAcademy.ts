@@ -270,7 +270,6 @@ export function buildStrollerFoundationsAcademySubmoduleModule(
           description: 'Return to the hub to compare the stroller lanes side by side.',
           ctaLabel: 'Back to hub ->',
         },
-    editorialLinks: [],
     submoduleSection: compareCards.length
       ? {
           title: 'Compare Nearby Stroller Lanes',

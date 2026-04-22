@@ -6,14 +6,11 @@ import {
   getRegistryWelcomeBoxesAcademySubmodulePath,
 } from '@/lib/academy/registryWelcomeBoxesAcademy';
 import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
-import { getPublishedAcademyGuideForPath } from '@/lib/server/academyGuides';
 
 const submodule = getRegistryWelcomeBoxesAcademySubmodule('macrobaby');
 const path = getRegistryWelcomeBoxesAcademySubmodulePath('macrobaby');
 
 export async function generateMetadata(): Promise<Metadata> {
-  const academyGuide = await getPublishedAcademyGuideForPath(path);
-
   return buildAcademyPageMetadata({
     defaultTitle: `${submodule.title} | Welcome Boxes & Registry Perks | TMBC Baby Academy`,
     description: submodule.metadataDescription,
@@ -25,7 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
       submodule.deck,
       ...submodule.decisionBullets.slice(0, 4),
     ],
-    guide: academyGuide,
   });
 }
 

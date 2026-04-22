@@ -7,7 +7,7 @@ export const NURSERY_FURNITURE_HUB_PATH = '/academy/nursery/furniture-that-actua
 
 export const NURSERY_FURNITURE_HUB_SLIDES = [
   { id: 'nursery-furniture-orientation', label: 'Orientation', shortLabel: 'Start' },
-  { id: 'nursery-furniture-what-this-is', label: 'What This Module Is', shortLabel: 'Why' },
+  { id: 'nursery-furniture-room-job', label: 'Room Job', shortLabel: 'Why' },
   { id: 'nursery-furniture-why-this-matters', label: 'Why This Matters', shortLabel: 'Matters' },
   { id: 'nursery-furniture-category-cards', label: 'Category Cards', shortLabel: 'Cards' },
   { id: 'nursery-furniture-how-to-approach', label: 'How To Approach This', shortLabel: 'Approach' },
@@ -1349,7 +1349,6 @@ export function buildNurseryFurnitureAcademySubmoduleModule(
       description: 'Return to the full furniture module map before opening another nursery category.',
       ctaLabel: 'Back to hub ->',
     },
-    editorialLinks: [],
     submoduleSection: null,
     breadcrumb: [
       { label: 'Academy', href: '/academy' },

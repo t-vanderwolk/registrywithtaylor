@@ -1,4 +1,3 @@
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import FeedingSetupFlowModule from '@/components/academy/FeedingSetupFlowModule';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -27,12 +26,6 @@ export default function FeedingSetupFlowPage() {
   return (
     <SiteShell currentPath={FEEDING_SETUP_FLOW_ACADEMY_PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={FEEDING_SETUP_FLOW_ACADEMY_PATH}
-          pageType="guide"
-          slug="academy-gear-feeding-setup-flow"
-          title={FEEDING_SETUP_FLOW_ACADEMY_TITLE}
-        />
         <FeedingSetupFlowModule />
       </main>
     </SiteShell>

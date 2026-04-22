@@ -89,8 +89,7 @@ export const FEEDING_SETUP_FLOW_NEEDS: FeedingSetupFlowNeedCard[] = [
       'a nursing pillow',
       'breast pads',
       'nipple care or recovery support',
-      'an optional milk catcher',
-      'an optional pump later if this becomes part of your routine',
+      'an optional milk catcher or pump later if this becomes part of your routine',
     ],
   },
   {
@@ -101,7 +100,7 @@ export const FEEDING_SETUP_FLOW_NEEDS: FeedingSetupFlowNeedCard[] = [
       'a pump bra',
       'a bottle system',
       'a cleaning setup',
-      'a cooler or transport plan if pumping away from home',
+      'a cooler or transport plan for pumping away from home',
     ],
   },
   {
@@ -136,12 +135,10 @@ export const FEEDING_SETUP_FLOW_BUY_NOW = [
 
 export const FEEDING_SETUP_FLOW_WAIT_AND_SEE = [
   'multiple bottle systems',
-  'extra bottle sizes',
-  'multiple nipple flows',
+  'extra bottle sizes or nipple flows before baby has tried one',
   'extra pump accessories',
   'specialty formula gear',
-  'large freezer stash systems',
-  'duplicate sterilizers',
+  'large freezer stash systems or duplicate sterilizers',
 ] as const;
 
 export const FEEDING_SETUP_FLOW_BUY_NOW_QUOTE =
@@ -340,7 +337,7 @@ export function buildFeedingSetupFlowMarkdownContent() {
     ...FEEDING_SETUP_FLOW_HERO_INTRO.flatMap((paragraph) => [paragraph, '']),
     `> ${FEEDING_SETUP_FLOW_PULL_QUOTE}`,
     '',
-    '## What This Module Is Really About',
+    '## Start With A Flexible Feeding System',
     '',
     ...FEEDING_SETUP_FLOW_MODULE_INTRO.flatMap((paragraph) => [paragraph, '']),
     FEEDING_SETUP_FLOW_GENTLE_NOTE,
@@ -357,7 +354,7 @@ export function buildFeedingSetupFlowMarkdownContent() {
       `Why it may appeal: ${pathway.appeal}`,
       '',
     ]),
-    '## What You May Need For Each Pathway',
+    '## Feeding Gear Categories By Pathway',
     '',
     ...FEEDING_SETUP_FLOW_NEEDS.flatMap((card) => [
       `### ${card.title}`,

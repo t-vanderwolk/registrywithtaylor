@@ -1,11 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import PageViewTracker from '@/components/analytics/PageViewTracker';
-import {
-  AcademyRouteCard,
-  AcademySectionHeading,
-} from '@/components/academy/AcademyPrimitives';
+import { AcademySectionHeading } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import CategoryTag from '@/components/blog/CategoryTag';
 import BlogDivider from '@/components/blog/BlogDivider';
@@ -18,7 +14,6 @@ import {
 } from '@/lib/academy/seo';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import type { AcademyBreadcrumbItem } from '@/lib/academy/content';
-import { getPublishedAcademyGuideForPath } from '@/lib/server/academyGuides';
 
 const PATH = '/academy/gear/daily-use-gear/pack-and-play' as const;
 const TITLE = 'Pack & Play';
@@ -145,25 +140,6 @@ const TOP_PICK_GROUPS = [
         imageAlt: 'Newton Baby Travel Crib & Play Yard in a calm bedroom setting.',
       },
     ],
-  },
-] as const;
-
-const CONNECTED_CONTENT = [
-  {
-    href: '/blog/blog-pack-and-play-vs-travel-crib',
-    title: 'Pack & Play vs Travel Crib',
-    description:
-      'Read the full editorial version if you want the longer explanation behind the same decision framework.',
-    ctaLabel: 'Read the blog ->',
-    eyebrow: 'Journal',
-  },
-  {
-    href: '/academy/nursery/sleep-space-decisions',
-    title: 'Sleep Space Decisions',
-    description:
-      'Open the nursery module if this choice is part of the bigger newborn sleep setup conversation.',
-    ctaLabel: 'Open the module ->',
-    eyebrow: 'Academy',
   },
 ] as const;
 
@@ -336,8 +312,6 @@ function TopPickCard({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const academyGuide = await getPublishedAcademyGuideForPath(PATH);
-
   return buildAcademyPageMetadata({
     defaultTitle: `${TITLE} | Daily Use Gear | TMBC Baby Academy`,
     description: DESCRIPTION,
@@ -351,7 +325,6 @@ export async function generateMetadata(): Promise<Metadata> {
       'travel crib',
       'daily use gear',
     ],
-    guide: academyGuide,
   });
 }
 
@@ -377,11 +350,6 @@ export default function DailyUseGearPackAndPlayPage() {
         'When structured, travel, or both makes the most sense',
         'How lifespan, portability, and setup friction affect the decision',
       ],
-      hasPart: CONNECTED_CONTENT.map((entry) => ({
-        href: entry.href,
-        title: entry.title,
-        description: entry.description,
-      })),
       learningResourceType: 'TMBC Academy Module',
     }),
   ];
@@ -389,13 +357,6 @@ export default function DailyUseGearPackAndPlayPage() {
   return (
     <SiteShell currentPath={PATH}>
       <main className="site-main min-h-0">
-        <PageViewTracker
-          path={PATH}
-          pageType="guide"
-          slug="academy-gear-daily-use-gear-pack-and-play"
-          title={TITLE}
-        />
-
         <section className="section-base" style={{ backgroundColor: 'var(--tmbc-blog-ivory)' }}>
           <AcademyStructuredData data={structuredData} />
 
@@ -650,25 +611,6 @@ export default function DailyUseGearPackAndPlayPage() {
                 </div>
               </section>
 
-              <section className="space-y-6">
-                <AcademySectionHeading
-                  eyebrow="Connected Content"
-                  title="Keep the decision connected"
-                  description="Use the blog for the editorial version of this exact comparison, and the nursery module when the larger sleep setup still needs sorting out."
-                />
-                <div className="grid gap-6 md:grid-cols-2">
-                  {CONNECTED_CONTENT.map((entry) => (
-                    <AcademyRouteCard
-                      key={entry.href}
-                      href={entry.href}
-                      title={entry.title}
-                      description={entry.description}
-                      ctaLabel={entry.ctaLabel}
-                      eyebrow={entry.eyebrow}
-                    />
-                  ))}
-                </div>
-              </section>
             </div>
           </article>
         </section>

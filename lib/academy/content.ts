@@ -44,7 +44,6 @@ import {
   type GuideSectionSubsection,
 } from '@/lib/guides/articleOutline';
 import { extractMarkdownListItems } from '@/lib/guides/guideFlow';
-import { hasResolvedGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import { CAR_SEAT_PRODUCT_GROUPS } from '@/lib/guides/carSeatProductCatalog';
 import type { GuideProductExampleData } from '@/lib/guides/productExamples';
 
@@ -153,10 +152,8 @@ export type AcademyModuleData = {
   previous: AcademyRelatedLink | null;
   next: AcademyRelatedLink | null;
   related: AcademyRelatedLink | null;
-  editorialLinks: AcademyRelatedLink[];
   submoduleSection: AcademySubmoduleSection | null;
   breadcrumb: AcademyBreadcrumbItem[];
-  trackingGuideId?: string | null;
 };
 
 export type AcademyHomePathCard = {
@@ -843,14 +840,7 @@ function buildCarSeatProductExample({
 }
 
 function filterRenderableAcademyProducts(products: AcademyProductExample[]) {
-  return products.filter((product) =>
-    hasResolvedGuideAffiliateUrl({
-      affiliateUrl: product.affiliateUrl,
-      brand: product.brand,
-      productName: product.name,
-      name: product.name,
-    }),
-  );
+  return products.filter((product) => product.name.trim().length > 0);
 }
 
 function getAcademyPathHref(pathSlug: AcademyPathSlug) {
@@ -883,207 +873,6 @@ function getRelatedLink(slug: AcademyModuleSlug, ctaLabel: string): AcademyRelat
     description: `${definition.description} Inside the ${pathDefinition.title} path.`,
     ctaLabel,
   };
-}
-
-function getAcademyEditorialLinks(slug: AcademyModuleSlug): AcademyRelatedLink[] {
-  if (slug === 'stroller-foundations') {
-    return [
-      {
-        href: '/blog/best-full-size-strollers-2026',
-        title: 'Best Full-Size Strollers of 2026',
-        description:
-          'Use this once you know the full-size lane is in play and you want a calmer shortlist of the strongest everyday contenders.',
-        ctaLabel: 'Read journal post ->',
-      },
-      {
-        href: '/blog/blog-best-compact-strollers-2026',
-        title: 'Best Compact Strollers of 2026',
-        description:
-          'Use this when the smaller-footprint lane is winning and you want the shortlist without turning it into another feature spiral.',
-        ctaLabel: 'Read journal post ->',
-      },
-      {
-        href: '/blog/best-convertible-single-to-double-strollers-2026',
-        title: 'Best Convertible Single-to-Double Strollers of 2026',
-        description:
-          'Use this if you are planning around growth and want to see which expandable stroller setups are actually worth the space.',
-        ctaLabel: 'Read journal post ->',
-      },
-    ];
-  }
-
-  if (slug === 'travel-systems') {
-    return [
-      {
-        href: '/blog/best-travel-strollers-2026',
-        title: 'Best Travel Strollers of 2026',
-        description:
-          'Use this when portability is the point and you want a cleaner look at the travel-first options before you commit.',
-        ctaLabel: 'Read journal post ->',
-      },
-    ];
-  }
-
-  if (slug === 'travel-with-baby') {
-    return [
-      {
-        href: '/guides/travel-with-baby',
-        title: 'Travel Guide',
-        description:
-          'Use the wider travel hub when you want the fuller system for outings, packing, portability, and what deserves space away from home.',
-        ctaLabel: 'Open travel guide ->',
-      },
-      {
-        href: '/blog/best-travel-strollers-2026',
-        title: 'Best Travel Strollers of 2026',
-        description:
-          'Use this once portability is clearly part of the plan and you want the tighter shortlist of travel-first stroller options.',
-        ctaLabel: 'Read journal post ->',
-      },
-    ];
-  }
-
-  if (slug === 'sleep-space-decisions') {
-    return [
-      {
-        href: '/blog/newborn-sleep-setups-bassinet-crib-pack-and-play',
-        title: 'Where Your Newborn Actually Sleeps',
-        description:
-          'Use the blog-side version when you want the same sleep-system philosophy in a more narrative, real-life read.',
-        ctaLabel: 'See how this works in real life ->',
-      },
-      {
-        href: '/academy/nursery/furniture-that-actually-works/pack-and-play',
-        title: 'Pack & Play Sub Module',
-        description:
-          'Go deeper here if the flexible-sleep lane is doing more of the work than the permanent nursery lane.',
-        ctaLabel: 'See how this works in real life ->',
-      },
-      {
-        href: '/academy/nursery/furniture-that-actually-works/cribs',
-        title: 'Cribs Sub Module',
-        description:
-          'Open the crib deep dive when the long-term nursery anchor is the part you want to pressure-test next.',
-        ctaLabel: 'See how this works in real life ->',
-      },
-    ];
-  }
-
-  if (slug === 'feeding-setup-flow') {
-    return [
-      {
-        href: '/guides/feeding',
-        title: 'Feeding Hub',
-        description:
-          'Use the wider feeding guide hub when you want the higher-level view of bottles, pumps, storage, and what can wait.',
-        ctaLabel: 'Open feeding guide ->',
-      },
-      {
-        href: '/guides/registry/where-to-register',
-        title: 'Registry Strategy',
-        description:
-          'Step back to registry structure if the bigger question is still where feeding gear should live and how much to buy before baby arrives.',
-        ctaLabel: 'Open registry guide ->',
-      },
-    ];
-  }
-
-  if (slug === 'breast-pump') {
-    return [
-      {
-        href: '/guides/feeding',
-        title: 'Feeding Hub',
-        description:
-          'Use the broader feeding hub when the bigger question is still how pumping fits with bottles, storage, and the rest of the feeding setup.',
-        ctaLabel: 'Open feeding guide ->',
-      },
-      {
-        href: '/guides/registry/essentials',
-        title: 'Registry Essentials',
-        description:
-          'Step back here if you are still deciding whether a pump belongs on the first-pass registry or on the later decision list.',
-        ctaLabel: 'Open registry guide ->',
-      },
-    ];
-  }
-
-  if (slug === 'bottles-and-baby-utensils') {
-    return [
-      {
-        href: '/guides/feeding',
-        title: 'Feeding Hub',
-        description:
-          'Use the feeding hub when you want the wider view of bottles, pumping, cleanup, and where the bottle system fits in the bigger plan.',
-        ctaLabel: 'Open feeding guide ->',
-      },
-      {
-        href: '/guides/registry/essentials',
-        title: 'Registry Essentials',
-        description:
-          'Use this when the bottle question is really a registry question about what belongs now versus later.',
-        ctaLabel: 'Open registry guide ->',
-      },
-    ];
-  }
-
-  if (slug === 'what-to-register-first') {
-    return [
-      {
-        href: '/guides/registry/essentials',
-        title: 'Registry Essentials Guide',
-        description:
-          'Use the guide-side essentials page when you want a companion view of the first-pass categories and the logic behind them.',
-        ctaLabel: 'Open essentials guide ->',
-      },
-      {
-        href: '/guides/registry',
-        title: 'Registry Hub',
-        description:
-          'Step back to the full registry hub if you want the wider map before you keep building the list.',
-        ctaLabel: 'Open registry hub ->',
-      },
-    ];
-  }
-
-  if (slug === 'mistakes-to-avoid') {
-    return [
-      {
-        href: '/guides/registry/mistakes',
-        title: 'Registry Mistakes Guide',
-        description:
-          'Use the guide-side version when you want the broader editorial read on where lists usually drift into clutter and duplicate spending.',
-        ctaLabel: 'Open mistakes guide ->',
-      },
-      {
-        href: '/guides/registry',
-        title: 'Registry Hub',
-        description:
-          'Step back to the hub if this edit pass makes you want the wider registry sequence again before you finish the list.',
-        ctaLabel: 'Open registry hub ->',
-      },
-    ];
-  }
-
-  if (slug === 'first-weeks-home-rhythm') {
-    return [
-      {
-        href: '/guides/postpartum',
-        title: 'Postpartum Hub',
-        description:
-          'Use the broader postpartum hub when you want the wider view of recovery, support, and what helps the adult side of early parenthood feel more workable.',
-        ctaLabel: 'Open postpartum hub ->',
-      },
-      {
-        href: '/guides/feeding',
-        title: 'Feeding Hub',
-        description:
-          'Use this when the home-rhythm question keeps intersecting with feeding setup, cleanup, and how the day actually gets organized.',
-        ctaLabel: 'Open feeding guide ->',
-      },
-    ];
-  }
-
-  return [];
 }
 
 function getAcademySubmoduleSection(slug: AcademyModuleSlug): AcademySubmoduleSection | null {
@@ -1609,7 +1398,6 @@ export async function getAcademyModuleData(slug: AcademyModuleSlug): Promise<Aca
     previous: previousSlug ? getRelatedLink(previousSlug, 'Previous module ->') : null,
     next: nextSlug ? getRelatedLink(nextSlug, 'Next module ->') : null,
     related: definition.relatedSlug ? getRelatedLink(definition.relatedSlug, 'Related module ->') : null,
-    editorialLinks: getAcademyEditorialLinks(slug),
     submoduleSection: getAcademySubmoduleSection(slug),
     breadcrumb: [
       { label: 'Academy', href: '/academy' },

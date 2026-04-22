@@ -7,8 +7,15 @@ import {
 } from '@/components/academy/AcademyPrimitives';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionBlock from '@/components/academy/DecisionBlock';
+import DecisionFilter from '@/components/academy/DecisionFilter';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
+import ScenarioBlock from '@/components/academy/ScenarioBlock';
+import StartHere from '@/components/academy/StartHere';
+import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
+import WhatMattersList from '@/components/academy/WhatMattersList';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -53,6 +60,7 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
 } from '@/lib/academy/seo';
+import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
 
 type ConnectionCardProps = {
   eyebrow: string;
@@ -63,9 +71,11 @@ type ConnectionCardProps = {
 };
 
 function BulletList({ items }: { items: readonly string[] }) {
+  const visibleItems = items.slice(0, 5);
+
   return (
     <ul className="space-y-3 text-[0.98rem] leading-7 text-[#5B4B55] sm:text-[1rem] sm:leading-8">
-      {items.map((item) => (
+      {visibleItems.map((item) => (
         <li key={item} className="flex items-start gap-3">
           <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
           <span>{item}</span>
@@ -105,6 +115,11 @@ export default async function FeedingSetupFlowModule() {
   const whyThisExists = getModuleWhyThisExists(module);
   const quickCheckLines = getQuickCheckLines(module);
   const quickCheckTags = getQuickCheckTags(module);
+  const signatureSystem = buildAcademySignatureSystem(module, {
+    decisionStatement,
+    whyThisExists,
+    quickCheckLines,
+  });
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
 
   const structuredData = [
@@ -117,7 +132,7 @@ export default async function FeedingSetupFlowModule() {
       description: module.description,
       path: module.href,
       breadcrumbs: module.breadcrumb,
-      keywords: [...module.decisionBullets, ...module.editorialLinks.map((link) => link.title)],
+      keywords: module.decisionBullets,
       teaches: [
         'The main feeding pathways and how flexible they can be.',
         'What tools each feeding pathway may require.',
@@ -144,11 +159,6 @@ export default async function FeedingSetupFlowModule() {
               },
             ]
           : []),
-        ...module.editorialLinks.map((link) => ({
-          href: link.href,
-          title: link.title,
-          description: link.description,
-        })),
       ],
       learningResourceType: 'TMBC Academy Module',
     }),
@@ -172,13 +182,6 @@ export default async function FeedingSetupFlowModule() {
       description: item.description,
       ctaLabel: item.ctaLabel,
       href: item.href,
-    })),
-    ...module.editorialLinks.map((link, index) => ({
-      eyebrow: index === 0 ? 'Feeding Guide' : 'Registry Guide',
-      title: link.title,
-      description: link.description,
-      ctaLabel: link.ctaLabel,
-      href: link.href,
     })),
   ];
 
@@ -264,60 +267,71 @@ export default async function FeedingSetupFlowModule() {
       </div>
 
       <div className="mx-auto max-w-6xl space-y-12 px-5 pb-20 sm:px-8 md:space-y-14 md:pb-24 lg:px-10">
-        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-white/92 px-6 py-7 shadow-[0_20px_44px_rgba(58,36,43,0.07)] sm:px-8">
-          <p className="text-sm text-[#5B4B55]">This module helps you decide:</p>
-          <h2 className="mt-3 max-w-3xl font-serif text-[1.85rem] leading-[1.08] tracking-[-0.04em] text-[#2F2430] sm:text-[2.2rem]">
-            {decisionStatement}
-          </h2>
-          {quickCheckTags.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {quickCheckTags.map((tag) => (
-                <DecisionTag key={`feeding-hero-${tag}`} label={tag} />
-              ))}
-            </div>
-          ) : null}
-        </section>
+        <div className="space-y-8">
+          <StartHere
+            title={signatureSystem.startHere.title}
+            description={signatureSystem.startHere.description}
+          >
+            {signatureSystem.startHere.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </StartHere>
 
-        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8">
-          <AcademySectionHeading
-            eyebrow="Why This Exists"
-            title="Feeding gets easier when the system shows up before the shopping spiral"
-            description={whyThisExists}
+          <DecisionBlock
+            title={signatureSystem.decisionBlock.title}
+            description={signatureSystem.decisionBlock.description}
+            contrast={signatureSystem.decisionBlock.contrast}
+          >
+            {quickCheckTags.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {quickCheckTags.map((tag) => (
+                  <DecisionTag key={`feeding-signature-${tag}`} label={tag} />
+                ))}
+              </div>
+            ) : null}
+          </DecisionBlock>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            <WhatMattersList
+              title={signatureSystem.whatMatters.title}
+              items={signatureSystem.whatMatters.items}
+            />
+            <WhatDoesntMatterList
+              title={signatureSystem.whatDoesNotMatter.title}
+              items={signatureSystem.whatDoesNotMatter.items}
+            />
+          </div>
+
+          <ScenarioBlock
+            title={signatureSystem.scenarios.title}
+            scenarios={signatureSystem.scenarios.items}
           />
-        </section>
 
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
-          <div className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8 sm:py-8">
-            <AcademySectionHeading
-              eyebrow="What This Module Is Really About"
-              title="Prepared in a realistic way"
-              description="This is not a module about being perfect. It is a module about understanding the jobs inside feeding before the registry or cart starts filling itself."
-            />
-            <div className="mt-6 space-y-4 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
-              {FEEDING_SETUP_FLOW_MODULE_INTRO.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
+          <DecisionFilter
+            title={signatureSystem.decisionFilter.title}
+            chooseIf={signatureSystem.decisionFilter.chooseIf}
+            skipIf={signatureSystem.decisionFilter.skipIf}
+          />
 
-          <div className="space-y-6">
-            <GuideHandwrittenNote
-              eyebrow="Taylor's note"
-              title="The goal is clarity, not commitment theater."
-              description="You can plan for feeding without forcing yourself into one identity before the baby is even here."
-              presentation="margin"
-              size="compact"
-              showEyebrow
-              showSignoff={false}
-            />
-            <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#FFFDF8_0%,#F8F0E8_100%)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
-              <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Keep in view</p>
-              <p className="mt-4 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
-                {FEEDING_SETUP_FLOW_GENTLE_NOTE}
-              </p>
-            </div>
+          <ClarityCallout insight={signatureSystem.clarityInsight} />
+
+          <GuideHandwrittenNote
+            eyebrow="Taylor's note"
+            title="The goal is clarity, not commitment theater."
+            description="You can plan for feeding without forcing yourself into one identity before the baby is even here."
+            presentation="margin"
+            size="compact"
+            showEyebrow
+            showSignoff={false}
+          />
+
+          <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#FFFDF8_0%,#F8F0E8_100%)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
+            <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Keep in view</p>
+            <p className="mt-4 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
+              {FEEDING_SETUP_FLOW_GENTLE_NOTE}
+            </p>
           </div>
-        </section>
+        </div>
 
         <section className="space-y-6">
           <AcademySectionHeading
@@ -347,8 +361,8 @@ export default async function FeedingSetupFlowModule() {
 
         <section className="space-y-6">
           <AcademySectionHeading
-            eyebrow="What You May Need"
-            title="Think in gear categories, not brands"
+            eyebrow="Feeding Gear Categories"
+            title="Name the job before you name the brand"
             description="Use may involve language on purpose here. This is the map, not the shopping list."
           />
           <div className="grid gap-6 md:grid-cols-2">
@@ -394,28 +408,6 @@ export default async function FeedingSetupFlowModule() {
             </article>
           </div>
           <PullQuote>{FEEDING_SETUP_FLOW_BUY_NOW_QUOTE}</PullQuote>
-        </section>
-
-        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(255,253,248,0.94)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.06)] sm:px-8">
-          <h3 className="font-semibold text-[1.08rem] text-[#2F2430]">Quick check</h3>
-          <p className="mt-2 text-sm leading-7 text-[#5B4B55]">
-            If this sounds like you, you&apos;re in the right place.
-          </p>
-          {quickCheckTags.length > 0 ? (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {quickCheckTags.map((tag) => (
-                <DecisionTag key={`feeding-check-${tag}`} label={tag} />
-              ))}
-            </div>
-          ) : null}
-          <ul className="mt-5 space-y-3 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
-            {quickCheckLines.map((line) => (
-              <li key={`feeding-check-${line}`} className="flex items-start gap-3">
-                <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#D986A2]" />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">

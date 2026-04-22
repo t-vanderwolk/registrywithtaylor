@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
 import Hero from '@/components/ui/Hero';
@@ -48,7 +47,6 @@ export default function AcademyHomePage() {
             }),
           ]}
         />
-        <PageViewTracker path="/academy" pageType="guide" slug="academy" title={home.title} />
 
         <Hero
           className="homepage-hero"

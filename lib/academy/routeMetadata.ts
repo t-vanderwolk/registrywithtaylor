@@ -2,18 +2,6 @@ import type { Metadata } from 'next';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-type AcademySeoGuideRecord = {
-  seoTitle?: string | null;
-  seoDescription?: string | null;
-  excerpt?: string | null;
-  targetKeyword?: string | null;
-  secondaryKeywords?: string[] | null;
-  ogImageUrl?: string | null;
-  heroImageUrl?: string | null;
-  ogImageAlt?: string | null;
-  heroImageAlt?: string | null;
-};
-
 type BuildAcademyPageMetadataInput = {
   defaultTitle: string;
   description: string;
@@ -23,7 +11,6 @@ type BuildAcademyPageMetadataInput = {
   keywords?: string[];
   category?: string;
   type?: 'website' | 'article';
-  guide?: AcademySeoGuideRecord | null;
 };
 
 export function resolveAcademyMetadataImagePath(
@@ -50,22 +37,14 @@ export function buildAcademyPageMetadata({
   keywords = [],
   category = 'TMBC Academy',
   type = 'article',
-  guide,
 }: BuildAcademyPageMetadataInput): Metadata {
-  const preferredImagePath = guide?.ogImageUrl?.trim() || guide?.heroImageUrl?.trim() || null;
-  const preferredImageAlt = guide?.ogImageAlt?.trim() || guide?.heroImageAlt?.trim() || null;
-
   return buildMarketingMetadata({
-    title: guide?.seoTitle?.trim() || defaultTitle,
-    description: guide?.seoDescription?.trim() || guide?.excerpt?.trim() || description,
+    title: defaultTitle,
+    description,
     path,
-    imagePath: resolveAcademyMetadataImagePath(preferredImagePath, imagePath),
-    imageAlt: preferredImageAlt || imageAlt,
-    keywords: [
-      ...keywords,
-      guide?.targetKeyword?.trim() || '',
-      ...(guide?.secondaryKeywords ?? []),
-    ].filter(Boolean),
+    imagePath: resolveAcademyMetadataImagePath(imagePath, imagePath),
+    imageAlt,
+    keywords: keywords.filter(Boolean),
     category,
     type,
   });

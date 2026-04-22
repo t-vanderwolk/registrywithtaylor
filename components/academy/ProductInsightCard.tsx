@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import DecisionTag from '@/components/academy/DecisionTag';
 import { resolveProductCardImage } from '@/lib/blog/productCardImages';
 import { isRemoteImageUrl } from '@/lib/blog/images';
-import { resolveGuideAffiliateUrl } from '@/lib/guides/resolveGuideAffiliateUrl';
 import type { DecisionTagLabel } from '@/lib/academy/decisionSupport';
 
 type ProductInsightCardProps = {
@@ -15,7 +13,6 @@ type ProductInsightCardProps = {
   whenItDoesNotFit: string;
   affiliateUrl: string | null;
   category: string;
-  guide?: string;
   position: number | string;
   imageSrc?: string | null;
   imageAlt?: string | null;
@@ -38,21 +35,13 @@ export default function ProductInsightCard({
   whenItFits,
   whenItDoesNotFit,
   affiliateUrl,
-  category,
-  guide,
-  position,
   imageSrc,
   imageAlt,
   tag,
 }: ProductInsightCardProps) {
   const productName = normalizeText(name) || 'Guided example';
   const brandLabel = normalizeText(brand);
-  const resolvedAffiliateUrl = resolveGuideAffiliateUrl({
-    affiliateUrl,
-    brand: brandLabel,
-    productName,
-    name: productName,
-  });
+  const resolvedAffiliateUrl = normalizeText(affiliateUrl) || null;
   const resolvedImage = resolveProductCardImage({
     brand: brandLabel,
     productName,
@@ -117,22 +106,16 @@ export default function ProductInsightCard({
 
           {resolvedAffiliateUrl ? (
             <div className="mt-auto pt-6">
-              <TrackedAffiliateLink
+              <a
                 href={resolvedAffiliateUrl}
-                ctaText="View option"
-                ariaLabel={`View option for ${productName}`}
+                aria-label={`View option for ${productName}`}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-charcoal transition duration-200 hover:translate-x-1 hover:text-neutral-900"
-                meta={{
-                  product: productName,
-                  brand: brandLabel,
-                  category,
-                  guide,
-                  position,
-                }}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
               >
                 <span>View option</span>
                 <span aria-hidden="true">&rarr;</span>
-              </TrackedAffiliateLink>
+              </a>
             </div>
           ) : null}
         </div>

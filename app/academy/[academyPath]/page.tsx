@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
-import PageViewTracker from '@/components/analytics/PageViewTracker';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -91,7 +90,6 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
             }),
           ]}
         />
-        <PageViewTracker path={pathData.href} pageType="guide" slug={`academy-${academyPath}`} title={pathData.title} />
 
         <section className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
           <nav aria-label="Breadcrumb" className="academy-load-in academy-load-in--1 text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">
@@ -167,9 +165,9 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
             </div>
 
             <div className="academy-load-in academy-load-in--4 rounded-[1.9rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,251,252,0.98)_0%,rgba(250,241,244,0.96)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8 sm:py-8">
-              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">What You&apos;ll Learn</p>
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Path Signals</p>
               <ul className="mt-5 space-y-3 text-[0.98rem] leading-7 text-neutral-700">
-                {pathData.learningHighlights.map((item) => (
+                {pathData.learningHighlights.slice(0, 5).map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#D986A2]" />
                     <span>{item}</span>
@@ -188,7 +186,7 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           <div className="max-w-3xl">
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Modules</p>
             <h2 className="mt-3 font-serif text-[1.95rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
-              What you&apos;ll learn, module by module
+              The clearest order through this path
             </h2>
             <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-right mt-4">one calm module at a time</p>
             <p className="mt-4 text-[0.98rem] leading-7 text-neutral-700 sm:text-[1rem] sm:leading-8">{pathData.moduleSectionDescription}</p>

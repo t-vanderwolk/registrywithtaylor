@@ -67,7 +67,6 @@ type DecisionSupportModule = {
       eyebrow?: string;
     }>;
   } | null;
-  editorialLinks?: AcademyRelatedLink[];
   products?: AcademyProductExample[];
 };
 

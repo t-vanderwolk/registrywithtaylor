@@ -270,7 +270,6 @@ export function buildCarSeatFoundationsAcademySubmoduleModule(
           description: 'Return to the hub to compare the categories side by side.',
           ctaLabel: 'Back to hub ->',
         },
-    editorialLinks: [],
     submoduleSection: compareCards.length
       ? {
           title: 'Compare Nearby Car Seat Categories',

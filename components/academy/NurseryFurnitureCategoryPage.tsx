@@ -20,7 +20,7 @@ const CATEGORY_SLIDES = [
   { id: 'orientation', label: 'Orientation', shortLabel: 'Start' },
   { id: 'what-it-does', label: 'What This Does', shortLabel: 'Job' },
   { id: 'types', label: 'Types', shortLabel: 'Types' },
-  { id: 'what-actually-matters', label: 'What Actually Matters', shortLabel: 'Matters' },
+  { id: 'fit-signals', label: 'Fit Signals', shortLabel: 'Fit' },
   { id: 'common-mistakes', label: 'Common Mistakes', shortLabel: 'Avoid' },
   { id: 'how-to-choose', label: 'How To Choose', shortLabel: 'Choose' },
   { id: 'next-step', label: 'Next Step', shortLabel: 'Next' },
@@ -162,8 +162,8 @@ export default function NurseryFurnitureCategoryPage({
 
       <SlideSection id={`academy-nursery-furniture-${slug}-${CATEGORY_SLIDES[3].id}`} background="ivory">
         <GuideBulletSection
-          eyebrow="What Actually Matters"
-          title="What Actually Matters"
+          eyebrow="Fit Signals"
+          title="The details that earn space"
           description={category.whatActuallyMattersDescription}
           items={category.whatActuallyMatters}
         />
