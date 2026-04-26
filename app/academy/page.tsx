@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
@@ -9,9 +10,11 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
+import { getCaseStudies } from '@/lib/caseStudies';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 const home = getAcademyHomeData();
+const featuredCaseStudies = getCaseStudies().slice(0, 3);
 
 export const metadata = buildMarketingMetadata({
   title: 'TMBC Baby Academy | Taylor-Made Baby Co.',
@@ -116,6 +119,15 @@ export default function AcademyHomePage() {
               </Link>
             ))}
           </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 md:pb-20 lg:px-10">
+          <CaseStudyCTA
+            studies={featuredCaseStudies}
+            eyebrow="Case Studies"
+            title="See the Academy framework in real homes"
+            description="These are not perfect-parent stories. They are practical examples of how the decisions change once space, routines, cars, travel, and bandwidth enter the room."
+          />
         </section>
 
         <section className="border-t border-black/5 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)]">

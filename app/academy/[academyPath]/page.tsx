@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import SiteShell from '@/components/SiteShell';
 import {
@@ -15,6 +16,7 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
+import { getCaseStudiesForAcademyPath } from '@/lib/caseStudies';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 type AcademyPathPageProps = {
@@ -59,6 +61,7 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
   }
 
   const pathData = await getAcademyPathData(academyPath);
+  const caseStudies = getCaseStudiesForAcademyPath(pathData.slug, 2);
   const pathOverviewLine = `Inside this path: ${pathData.moduleCards
     .map((moduleCard) => moduleCard.title)
     .slice(0, 4)
@@ -180,6 +183,14 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
 
         <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
           <AcademyJourneyNavigator currentPathSlug={pathData.slug} />
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
+          <CaseStudyCTA
+            studies={caseStudies}
+            title="See how this path plays out"
+            description="Use these real-life examples as a bridge between the path framework and the way your home actually works."
+          />
         </section>
 
         <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">

@@ -7,6 +7,7 @@ import {
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
 import DecisionBlock from '@/components/academy/DecisionBlock';
 import DecisionFilter from '@/components/academy/DecisionFilter';
@@ -40,6 +41,7 @@ import {
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
 import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
+import { getCaseStudiesForAcademyModule } from '@/lib/caseStudies';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 
@@ -226,6 +228,7 @@ export default function AcademyModuleHub({
     whyThisExists,
     quickCheckLines,
   });
+  const caseStudies = getCaseStudiesForAcademyModule(moduleSlug, pathSlug);
   const connectedPaths = getConnectedAcademyPaths(pathSlug);
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: modulePath as `/${string}`,
@@ -417,6 +420,12 @@ export default function AcademyModuleHub({
         />
 
         <ClarityCallout insight={signatureSystem.clarityInsight} />
+
+        <CaseStudyCTA
+          studies={caseStudies}
+          title="See how this plays out"
+          description="Use these real-life examples when the module makes sense, but you want to see the decision pressure-tested against an actual routine."
+        />
 
         <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,251,252,0.98)_0%,rgba(248,240,234,0.94)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
           <AcademySectionHeading eyebrow="TMBC Take" title={philosophyTitle} />

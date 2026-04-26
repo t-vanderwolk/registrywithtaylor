@@ -7,6 +7,7 @@ import {
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
 import DecisionBlock from '@/components/academy/DecisionBlock';
 import DecisionFilter from '@/components/academy/DecisionFilter';
@@ -53,6 +54,7 @@ import {
   getTravelSystemCarSeats,
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
+import { getCaseStudiesForAcademyModule } from '@/lib/caseStudies';
 
 export type ModuleLayoutData = {
   slug: string;
@@ -271,6 +273,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
     whyThisExists,
     quickCheckLines,
   });
+  const caseStudies = getCaseStudiesForAcademyModule(module.slug, module.pathSlug);
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
   const productInsights = getProductInsights({
     ...module,
@@ -440,6 +443,12 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             />
 
             <ClarityCallout insight={signatureSystem.clarityInsight} />
+
+            <CaseStudyCTA
+              studies={caseStudies}
+              title="See how this plays out"
+              description="The framework gets easier to use when you can see how it behaves in a real home, with real constraints and normal human levels of bandwidth."
+            />
           </div>
 
           {travelSystemWidget ? (

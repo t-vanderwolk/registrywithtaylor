@@ -7,6 +7,7 @@ import {
 } from '@/components/academy/AcademyPrimitives';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
 import DecisionBlock from '@/components/academy/DecisionBlock';
 import DecisionFilter from '@/components/academy/DecisionFilter';
@@ -61,6 +62,7 @@ import {
   buildAcademyLearningResourceStructuredData,
 } from '@/lib/academy/seo';
 import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
+import { getCaseStudiesForAcademyModule } from '@/lib/caseStudies';
 
 type ConnectionCardProps = {
   eyebrow: string;
@@ -120,6 +122,7 @@ export default async function FeedingSetupFlowModule() {
     whyThisExists,
     quickCheckLines,
   });
+  const caseStudies = getCaseStudiesForAcademyModule(module.slug, module.pathSlug);
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
 
   const structuredData = [
@@ -314,6 +317,12 @@ export default async function FeedingSetupFlowModule() {
           />
 
           <ClarityCallout insight={signatureSystem.clarityInsight} />
+
+          <CaseStudyCTA
+            studies={caseStudies}
+            title="See how this plays out"
+            description="Feeding decisions feel different once you can see what actually happens in a home, not just in a product category."
+          />
 
           <GuideHandwrittenNote
             eyebrow="Taylor's note"

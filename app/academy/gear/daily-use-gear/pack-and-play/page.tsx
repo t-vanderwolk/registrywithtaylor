@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { AcademySectionHeading } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
+import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import CategoryTag from '@/components/blog/CategoryTag';
 import BlogDivider from '@/components/blog/BlogDivider';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
@@ -14,6 +15,7 @@ import {
 } from '@/lib/academy/seo';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import type { AcademyBreadcrumbItem } from '@/lib/academy/content';
+import { getCaseStudiesForAcademyModule } from '@/lib/caseStudies';
 
 const PATH = '/academy/gear/daily-use-gear/pack-and-play' as const;
 const TITLE = 'Pack & Play';
@@ -329,6 +331,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function DailyUseGearPackAndPlayPage() {
+  const caseStudies = getCaseStudiesForAcademyModule('pack-and-play', 'gear');
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
       breadcrumbs: BREADCRUMBS,
@@ -574,6 +577,12 @@ export default function DailyUseGearPackAndPlayPage() {
                   ))}
                 </div>
               </section>
+
+              <CaseStudyCTA
+                studies={caseStudies}
+                title="See how this plays out"
+                description="Pack and play decisions get clearer once you know whether the job is home base, travel, or both."
+              />
 
               <section className="space-y-8">
                 <AcademySectionHeading

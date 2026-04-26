@@ -54,8 +54,8 @@ export default function Footer({ currentPath = '' }: FooterProps) {
             <span className="link-underline">taylor@taylormadebabyco.com</span>
           </a>
           <a
-            href="https://instagram.com/taylormadebabyco"
-            aria-label="Taylor-Made Baby Co. on Instagram (@taylormadebabyco)"
+            href="https://instagram.com/taylorbabyconcierge"
+            aria-label="Taylor-Made Baby Co. on Instagram (@taylorbabyconcierge)"
             target="_blank"
             rel="noreferrer"
             className="group inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[var(--color-muted)] transition hover:opacity-70"
