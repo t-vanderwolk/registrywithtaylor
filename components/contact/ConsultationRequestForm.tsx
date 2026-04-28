@@ -1028,7 +1028,7 @@ export default function ConsultationRequestForm({
         onSubmit={handleSubmit}
       >
         <div className="sticky top-2 z-20 -mx-2 rounded-[1.2rem] border border-[rgba(47,36,48,0.08)] bg-[rgba(255,252,250,0.94)] px-3 py-3 shadow-[0_18px_42px_rgba(47,36,48,0.08)] backdrop-blur sm:top-3 sm:-mx-4 sm:rounded-[1.35rem] sm:px-4 sm:py-4">
-          <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
                 Step {currentStepIndex + 1} of {STEP_DEFINITIONS.length}
@@ -1037,7 +1037,9 @@ export default function ConsultationRequestForm({
                 {currentStep.title}
               </h2>
             </div>
-            <p className="max-w-md text-[0.92rem] leading-6 text-neutral-500 sm:text-sm">{currentStep.description}</p>
+            <p className="max-w-md text-[0.92rem] leading-6 text-neutral-500 sm:text-right sm:text-sm">
+              {currentStep.description}
+            </p>
           </div>
 
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-[rgba(47,36,48,0.08)]">
@@ -1143,7 +1145,7 @@ export default function ConsultationRequestForm({
                 onClick={handleBack}
                 disabled={currentStepIndex === 0 || submitState.type === 'submitting'}
                 className={cx(
-                  'min-h-[48px] rounded-full px-5 py-3 text-sm font-semibold transition duration-200',
+                  'min-h-[48px] w-full rounded-full px-5 py-3 text-sm font-semibold transition duration-200 sm:w-auto',
                   currentStepIndex === 0
                     ? 'cursor-not-allowed border border-transparent bg-transparent text-neutral-300'
                     : 'border border-[rgba(47,36,48,0.12)] bg-white text-neutral-700 hover:shadow-sm',
@@ -1152,7 +1154,7 @@ export default function ConsultationRequestForm({
                 Back
               </button>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
                 <p className="text-sm leading-6 text-neutral-500 sm:max-w-[17rem]">
                   {currentStep.id === 'review'
                     ? 'This intake becomes your pre-consult plan.'
@@ -1163,12 +1165,12 @@ export default function ConsultationRequestForm({
                   <button
                     type="submit"
                     disabled={submitState.type === 'submitting'}
-                    className="btn btn--primary min-h-[48px] px-6"
+                    className="btn btn--primary min-h-[48px] w-full px-6 sm:w-auto"
                   >
                     {submitState.type === 'submitting' ? 'Sending your intake...' : submitLabel}
                   </button>
                 ) : (
-                  <button type="button" onClick={handleNext} className="btn btn--primary min-h-[48px] px-6">
+                  <button type="button" onClick={handleNext} className="btn btn--primary min-h-[48px] w-full px-6 sm:w-auto">
                     Continue
                   </button>
                 )}

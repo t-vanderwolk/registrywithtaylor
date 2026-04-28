@@ -121,15 +121,15 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."
           primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Explore the Academy', href: '/academy' }}
-          tagline="Registry Planning • Strollers • Infant Car Seats • Nursery Setup"
+          tagline="Registry Strategy • Strollers • Car Seats • Nursery Setup"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Baby registry and gear planning scene"
-          contentClassName="homepage-hero-content"
+          contentClassName="homepage-hero-content services-hero-content"
           ribbonClassName="translate-y-6 md:translate-y-8"
           staggerContent
         />
 
-        <MarketingSection tone="white" spacing="spacious">
+        <MarketingSection tone="white" spacing="spacious" className="services-page-section">
           <SectionIntro
             eyebrow="Who this is for"
             title="This is for parents who want better decisions, not just more information."
@@ -137,7 +137,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
             contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-3 md:gap-6">
             {fitMoments.map((moment) => (
               <MarketingSurface key={moment.title} className="h-full">
                 <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
@@ -163,6 +163,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           eyebrow="Ways to work with Taylor"
           title="Choose the level of advisor support that matches the decisions in front of you."
           description="The packages are designed around how much judgment and planning support you want in the mix, from one focused decision to full baby-preparation guidance."
+          className="services-page-section"
         />
 
         <div className="relative z-10 h-0 overflow-visible">
@@ -171,7 +172,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           </div>
         </div>
 
-        <MarketingSection tone="ivory" spacing="spacious">
+        <MarketingSection tone="ivory" spacing="spacious" className="services-page-section">
           <SectionIntro
             eyebrow="Optional Add-Ons"
             title="Additional support for the preparation areas that need a little more attention."
@@ -179,7 +180,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
             contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6">
             {optionalAddOns.map((addOn) => (
               <MarketingSurface
                 key={addOn.title}
@@ -203,7 +204,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           description="Good planning is not about making everything prettier. It is about making everything easier to live with."
         />
 
-        <MarketingSection tone="white" spacing="spacious">
+        <MarketingSection tone="white" spacing="spacious" className="services-page-section">
           <SectionIntro
             eyebrow="Why it works"
             title="Expert guidance feels different when it is grounded in compatibility, not just product features."
@@ -211,7 +212,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
             contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-3 md:gap-6">
             {engagementPrinciples.map((principle) => (
               <MarketingSurface key={principle.title} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
                 <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/78">
@@ -226,7 +227,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           </div>
         </MarketingSection>
 
-        <MarketingSection tone="blush" spacing="spacious">
+        <MarketingSection tone="blush" spacing="default" className="services-page-section">
           <ConnectedContentSection
             eyebrow="Keep The System Connected"
             title="Use the guide, Academy, or journal when you want the decision sharper before we meet"
@@ -236,7 +237,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           />
         </MarketingSection>
 
-        <MarketingSection tone="ivory" spacing="spacious">
+        <MarketingSection tone="ivory" spacing="default" className="services-page-section">
           <SectionIntro
             eyebrow="Common questions"
             title="A few answers before you book."
@@ -244,7 +245,7 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
             contentWidthClassName="max-w-4xl"
           />
 
-          <div className="mx-auto mt-10 max-w-4xl">
+          <div className="mx-auto mt-8 max-w-4xl sm:mt-10">
             <FAQAccordion items={serviceFaqs} className="bg-[#f7f2eb]" />
           </div>
         </MarketingSection>

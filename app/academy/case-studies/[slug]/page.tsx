@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { AcademyRouteCard } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import CaseStudyDecisions from '@/components/academy/CaseStudyDecisions';
@@ -13,7 +12,6 @@ import {
   getCaseStudies,
   getCaseStudyBySlug,
   getCaseStudyHref,
-  getCaseStudyLinkItems,
   getRelatedCaseStudies,
 } from '@/lib/caseStudies';
 import {
@@ -72,7 +70,6 @@ export default async function AcademyCaseStudyDetailPage({ params }: CaseStudyPa
     { label: study.title },
   ];
   const relatedStudies = getRelatedCaseStudies(study);
-  const academyLinks = getCaseStudyLinkItems(study);
 
   return (
     <SiteShell currentPath={path}>
@@ -94,11 +91,6 @@ export default async function AcademyCaseStudyDetailPage({ params }: CaseStudyPa
                 ...study.whatMatters.slice(0, 4),
               ],
               teaches: study.decisions.map((decision) => decision.title),
-              hasPart: academyLinks.map((link) => ({
-                href: link.href,
-                title: link.label,
-                description: `Academy module connected to ${study.title}.`,
-              })),
               learningResourceType: 'TMBC Academy Case Study',
             }),
           ]}
@@ -112,27 +104,6 @@ export default async function AcademyCaseStudyDetailPage({ params }: CaseStudyPa
           <CaseStudySnapshot study={study} />
           <CaseStudyDecisions study={study} />
           <CaseStudyScenarios study={study} />
-
-          <section className="space-y-6">
-            <div className="max-w-3xl">
-              <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#A15B72]">Connected Academy Modules</p>
-              <h2 className="mt-4 break-words font-serif text-[clamp(1.9rem,3.6vw,2.55rem)] leading-[1.08] tracking-[-0.04em] text-[#2F2430]">
-                Keep learning where this case study points
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {academyLinks.map((link) => (
-                <AcademyRouteCard
-                  key={link.href}
-                  href={link.href}
-                  eyebrow="Academy Module"
-                  title={link.label}
-                  description="Use this module to go deeper on the decision layer behind the case study."
-                  ctaLabel="Open module ->"
-                />
-              ))}
-            </div>
-          </section>
 
           <CaseStudyCTA
             studies={relatedStudies}

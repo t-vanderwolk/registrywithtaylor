@@ -14,7 +14,6 @@ import DecisionFilter from '@/components/academy/DecisionFilter';
 import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
 import ProductInsightCard from '@/components/academy/ProductInsightCard';
-import ScenarioBlock from '@/components/academy/ScenarioBlock';
 import StartHere from '@/components/academy/StartHere';
 import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
 import WhatMattersList from '@/components/academy/WhatMattersList';
@@ -407,11 +406,6 @@ export default function AcademyModuleHub({
             items={signatureSystem.whatDoesNotMatter.items}
           />
         </div>
-
-        <ScenarioBlock
-          title={signatureSystem.scenarios.title}
-          scenarios={signatureSystem.scenarios.items}
-        />
 
         <DecisionFilter
           title={signatureSystem.decisionFilter.title}
