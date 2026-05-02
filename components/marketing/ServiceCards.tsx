@@ -47,7 +47,7 @@ export default function ServiceCards({
   ctaLabel?: string;
 }) {
   return (
-    <MarketingSection tone="ivory" spacing="spacious" container={container} className={className}>
+    <MarketingSection tone="ivory" spacing="spacious" container={container} className={className} reveal={false}>
       <SectionIntro
         eyebrow={eyebrow}
         title={title}
