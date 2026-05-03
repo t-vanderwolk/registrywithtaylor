@@ -3,18 +3,15 @@ import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
-import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import {
+  GuideAnalyticsEvents,
+  GUIDE_TRACKABLE_PUBLIC_EVENT_NAMES,
+  normalizeGuideAnalyticsEventName,
+} from '@/lib/guides/events';
 import { logGuideEvent } from '@/lib/server/guideAnalytics';
 import { GUIDE_STORAGE_UNAVAILABLE_MESSAGE, isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 
-const allowedEvents = new Set<string>([
-  GuideAnalyticsEvents.VIEW,
-  GuideAnalyticsEvents.AFFILIATE_CLICK,
-  GuideAnalyticsEvents.TO_CONSULTATION_CLICK,
-  GuideAnalyticsEvents.TO_CONTACT_CLICK,
-  GuideAnalyticsEvents.TO_SERVICES_CLICK,
-  GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK,
-]);
+const allowedEvents = new Set<string>(GUIDE_TRACKABLE_PUBLIC_EVENT_NAMES);
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
@@ -70,6 +67,10 @@ export async function POST(
     if (!allowedEvents.has(event)) {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
+    const normalizedEvent = normalizeGuideAnalyticsEventName(event);
+    if (!normalizedEvent) {
+      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+    }
 
     const meta =
       (body as Record<string, unknown>).meta && typeof (body as Record<string, unknown>).meta === 'object'
@@ -80,7 +81,7 @@ export async function POST(
     const visitorHash = ip ? crypto.createHash('sha256').update(ip).digest('hex') : null;
 
     const updated =
-      event === GuideAnalyticsEvents.VIEW
+      normalizedEvent === GuideAnalyticsEvents.VIEW
         ? await prisma.guide.update({
             where: { id },
             data: { views: { increment: 1 } },
@@ -93,7 +94,7 @@ export async function POST(
 
     await logGuideEvent({
       guideId: id,
-      event,
+      event: normalizedEvent,
       sourceRoute,
       visitorHash,
       meta,

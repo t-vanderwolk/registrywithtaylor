@@ -1,24 +1,23 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  AcademyConnectedPaths,
-  AcademyRouteCard,
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionCard from '@/components/academy/DecisionCard';
 import DecisionBlock from '@/components/academy/DecisionBlock';
-import DecisionFilter from '@/components/academy/DecisionFilter';
-import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
+import HowToDecideBlock from '@/components/academy/HowToDecideBlock';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
 import StartHere from '@/components/academy/StartHere';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
 import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
 import WhatMattersList from '@/components/academy/WhatMattersList';
-import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
+import YouAreHereCard from '@/components/academy/YouAreHereCard';
 import {
   FEEDING_SETUP_FLOW_BOTTLE_PARAGRAPHS,
   FEEDING_SETUP_FLOW_BOTTLE_POINTS,
@@ -35,7 +34,6 @@ import {
   FEEDING_SETUP_FLOW_GENTLE_NOTE,
   FEEDING_SETUP_FLOW_HERO_INTRO,
   FEEDING_SETUP_FLOW_MILK_STORAGE_ITEMS,
-  FEEDING_SETUP_FLOW_MODULE_INTRO,
   FEEDING_SETUP_FLOW_NEEDS,
   FEEDING_SETUP_FLOW_NEXT_MODULES,
   FEEDING_SETUP_FLOW_PATHWAYS,
@@ -47,7 +45,7 @@ import {
   FEEDING_SETUP_FLOW_TAKEAWAYS,
   FEEDING_SETUP_FLOW_WAIT_AND_SEE,
 } from '@/lib/academy/feedingSetupFlowAcademy';
-import { getAcademyModuleData } from '@/lib/academy/content';
+import { getAcademyModuleData, getAcademyPathData } from '@/lib/academy/content';
 import {
   getAcademyPhaseLabel,
   getConnectedAcademyPaths,
@@ -97,20 +95,40 @@ function PullQuote({ children }: { children: string }) {
   );
 }
 
-function ConnectionCard({ eyebrow, title, description, ctaLabel, href }: ConnectionCardProps) {
-  return (
-    <AcademyRouteCard
-      href={href}
-      eyebrow={eyebrow}
-      title={title}
-      description={description}
-      ctaLabel={ctaLabel}
-    />
-  );
+function uniqueItems(items: Array<string | null | undefined>) {
+  return items
+    .map((item) => item?.trim() ?? '')
+    .filter(Boolean)
+    .filter((item, index, collection) => collection.indexOf(item) === index);
+}
+
+function buildInlineScenarioExamples(
+  signatureScenarios: string[],
+  caseStudies: Awaited<ReturnType<typeof getCaseStudiesForAcademyModule>>,
+) {
+  return uniqueItems([
+    ...signatureScenarios,
+    ...caseStudies.flatMap((study) =>
+      study.scenarios.slice(0, 1).map((scenario) => `${study.title}: ${scenario}`),
+    ),
+  ]).slice(0, 3);
+}
+
+function buildProgressMessage(currentIndex: number, total: number) {
+  if (currentIndex <= 0) {
+    return 'You are at the bridge step. The point is not to commit to a feeding identity today. It is to make the first setup calmer.';
+  }
+
+  if (currentIndex >= total - 1) {
+    return "You've completed this layer. Keep the next feeding decision as practical as this one became.";
+  }
+
+  return `You've completed ${currentIndex} ${currentIndex === 1 ? 'layer' : 'layers'}. Now keep the next one smaller than the internet wants it to be.`;
 }
 
 export default async function FeedingSetupFlowModule() {
   const module = await getAcademyModuleData('feeding-setup-flow');
+  const pathData = await getAcademyPathData(module.pathSlug);
   const phaseLabel = getAcademyPhaseLabel(module);
   const decisionStatement = getModuleDecisionStatement(module);
   const whyThisExists = getModuleWhyThisExists(module);
@@ -122,7 +140,14 @@ export default async function FeedingSetupFlowModule() {
     quickCheckLines,
   });
   const caseStudies = getCaseStudiesForAcademyModule(module.slug, module.pathSlug);
+  const inlineScenarios = buildInlineScenarioExamples(signatureSystem.scenarios.items, caseStudies);
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
+  const currentIndex = pathData.moduleCards.findIndex((card) => card.slug === module.slug);
+  const completedSteps = currentIndex > 0 ? pathData.moduleCards.slice(0, currentIndex) : [];
+  const progressMessage = buildProgressMessage(
+    currentIndex === -1 ? Math.max(module.progress.current - 1, 0) : currentIndex,
+    pathData.moduleCards.length || module.progress.total,
+  );
 
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
@@ -186,6 +211,22 @@ export default async function FeedingSetupFlowModule() {
       href: item.href,
     })),
   ];
+  const nextPrimary = connectionCards[0]
+    ? {
+        title: connectionCards[0].title,
+        description: connectionCards[0].description,
+        href: connectionCards[0].href ?? '/academy/gear',
+        ctaLabel: connectionCards[0].ctaLabel,
+      }
+    : null;
+  const nextSecondary = connectionCards[1]
+    ? {
+        title: connectionCards[1].title,
+        description: connectionCards[1].description,
+        href: connectionCards[1].href ?? '/academy/gear',
+        ctaLabel: connectionCards[1].ctaLabel,
+      }
+    : null;
 
   return (
     <section className="min-h-0 bg-[radial-gradient(circle_at_top_left,rgba(244,224,209,0.68),transparent_28%),radial-gradient(circle_at_top_right,rgba(232,154,174,0.22),transparent_30%),linear-gradient(180deg,#fffdfa_0%,#fcf3f5_34%,#fffdf8_100%)]">
@@ -193,6 +234,17 @@ export default async function FeedingSetupFlowModule() {
 
       <div className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
         <GuideBreadcrumbs items={module.breadcrumb} />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-8 sm:px-8 md:pb-10 lg:px-10">
+        <YouAreHereCard
+          trail={module.breadcrumb.map((item) => ({ title: item.label, href: item.href }))}
+          progressLabel={`Module ${module.progress.current} of ${module.progress.total}`}
+          currentTitle={module.title}
+          currentStepLabel={phaseLabel}
+          completedSteps={completedSteps}
+          nextStep={nextPrimary}
+        />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 pb-10 sm:px-8 md:pb-12 lg:px-10">
@@ -270,6 +322,12 @@ export default async function FeedingSetupFlowModule() {
 
       <div className="mx-auto max-w-6xl space-y-12 px-5 pb-20 sm:px-8 md:space-y-14 md:pb-24 lg:px-10">
         <div className="space-y-8">
+          <TaylorsNoteCard
+            title={signatureSystem.taylorsNote.title}
+            body={signatureSystem.taylorsNote.body}
+            supportingLine={signatureSystem.taylorsNote.supportingLine}
+          />
+
           <StartHere
             title={signatureSystem.startHere.title}
             description={signatureSystem.startHere.description}
@@ -301,32 +359,18 @@ export default async function FeedingSetupFlowModule() {
             <WhatDoesntMatterList
               title={signatureSystem.whatDoesNotMatter.title}
               items={signatureSystem.whatDoesNotMatter.items}
-            />
-          </div>
+              />
+            </div>
 
-          <DecisionFilter
-            title={signatureSystem.decisionFilter.title}
-            chooseIf={signatureSystem.decisionFilter.chooseIf}
-            skipIf={signatureSystem.decisionFilter.skipIf}
+          <HowToDecideBlock
+            title={signatureSystem.howToDecide.title}
+            intro={signatureSystem.howToDecide.description}
+            prioritize={signatureSystem.howToDecide.prioritize}
+            avoid={signatureSystem.howToDecide.avoid}
+            scenarios={inlineScenarios}
           />
 
           <ClarityCallout insight={signatureSystem.clarityInsight} />
-
-          <CaseStudyCTA
-            studies={caseStudies}
-            title="See how this plays out"
-            description="Feeding decisions feel different once you can see what actually happens in a home, not just in a product category."
-          />
-
-          <GuideHandwrittenNote
-            eyebrow="Taylor's note"
-            title="The goal is clarity, not commitment theater."
-            description="You can plan for feeding without forcing yourself into one identity before the baby is even here."
-            presentation="margin"
-            size="compact"
-            showEyebrow
-            showSignoff={false}
-          />
 
           <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#FFFDF8_0%,#F8F0E8_100%)] px-6 py-6 shadow-[0_18px_40px_rgba(58,36,43,0.07)]">
             <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Keep in view</p>
@@ -344,20 +388,14 @@ export default async function FeedingSetupFlowModule() {
           />
           <div className="grid gap-6 md:grid-cols-2">
             {FEEDING_SETUP_FLOW_PATHWAYS.map((pathway) => (
-              <article
+              <DecisionCard
                 key={pathway.title}
-                className="rounded-[1.8rem] border border-[rgba(215,161,175,0.16)] bg-white/92 px-6 py-6 shadow-[0_18px_42px_rgba(58,36,43,0.07)]"
-              >
-                <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Pathway</p>
-                <h3 className="mt-4 font-serif text-[1.6rem] leading-[1.04] tracking-[-0.04em] text-[#2F2430]">
-                  {pathway.title}
-                </h3>
-                <div className="mt-4 space-y-3 text-[0.98rem] leading-8 text-[#5B4B55] sm:text-[1rem]">
-                  <p>{pathway.description}</p>
-                  <p>{pathway.setup}</p>
-                  <p>{pathway.appeal}</p>
-                </div>
-              </article>
+                eyebrow="Pathway"
+                title={pathway.title}
+                paragraphs={[pathway.description, pathway.setup, pathway.appeal]}
+                example={inlineScenarios[0]}
+                tone="white"
+              />
             ))}
           </div>
         </section>
@@ -563,52 +601,22 @@ export default async function FeedingSetupFlowModule() {
               </p>
             </div>
 
-            <GuideHandwrittenNote
-              eyebrow="One more thing"
+            <TaylorsNoteCard
               title="Feeding gets lighter when the plan can flex."
-              description="The strongest setup usually looks less like buying confidence and more like leaving yourself room to adapt without starting over."
-              tone="white"
-              showEyebrow
+              body="The strongest setup usually looks less like buying confidence and more like leaving yourself room to adapt without starting over."
+              supportingLine="You do not need to solve every version of feeding before baby has even weighed in."
             />
           </div>
         </section>
 
-        <section className="space-y-6">
-          <AcademySectionHeading
-            eyebrow="Where To Go Next"
-            title="Keep the feeding decision feeling guided"
-            description="This page is the bridge. These are the cleanest next stops once you know which part of feeding needs the deeper answer."
-          />
-          <DecisionRouter module={module} />
-        </section>
-
-        <section className="space-y-6">
-          <AcademySectionHeading
-            eyebrow="Next Steps"
-            title="Keep this module connected to the rest of the system"
-            description="This page is the bridge. These are the cleanest next stops once you know which part of feeding needs the deeper answer."
-          />
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {connectionCards.map((card) => (
-              <ConnectionCard key={`${card.eyebrow}-${card.title}`} {...card} />
-            ))}
-          </div>
-        </section>
-
-        <section className="space-y-6">
-          <AcademyConnectedPaths
-            description="You do not need every path next. This is the calmer map of where feeding decisions usually connect once the routine starts getting real."
-            paths={connectedPaths}
-          />
-          {module.related ? (
-            <Link
-              href={module.related.href}
-              className="mt-6 inline-flex text-sm uppercase tracking-[0.16em] text-[#8F4C62] transition duration-200 hover:translate-x-1"
-            >
-              {`Continue to ${module.related.title} ->`}
-            </Link>
-          ) : null}
-        </section>
+        <NextBestDecisionCard
+          title="Now that this feels clearer, here is what matters next"
+          description="This module is the bridge. These are the cleanest next stops once you know which part of feeding needs the deeper answer."
+          progressMessage={progressMessage}
+          primary={nextPrimary}
+          secondary={nextSecondary}
+          connectedPaths={connectedPaths}
+        />
 
         <AcademyJourneyNavigator currentPathSlug="gear" currentModuleSlug={module.slug} />
       </div>

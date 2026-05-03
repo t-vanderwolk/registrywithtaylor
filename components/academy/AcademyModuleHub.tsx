@@ -2,30 +2,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import {
-  AcademyConnectedPaths,
   AcademyRouteCard,
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionCard from '@/components/academy/DecisionCard';
 import DecisionBlock from '@/components/academy/DecisionBlock';
-import DecisionFilter from '@/components/academy/DecisionFilter';
-import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
+import HowToDecideBlock from '@/components/academy/HowToDecideBlock';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
 import ProductInsightCard from '@/components/academy/ProductInsightCard';
 import StartHere from '@/components/academy/StartHere';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
 import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
 import WhatMattersList from '@/components/academy/WhatMattersList';
 import GuideBreadcrumbs from '@/components/guides/GuideBreadcrumbs';
-import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
+import YouAreHereCard from '@/components/academy/YouAreHereCard';
 import type {
   AcademyBreadcrumbItem,
   AcademyModuleSlug,
   AcademyPathSlug,
   AcademyProductExample,
 } from '@/lib/academy/content';
+import { getAcademyPathData } from '@/lib/academy/content';
 import {
   getAcademyPhaseLabel,
   getConnectedAcademyPaths,
@@ -114,6 +115,13 @@ function formatInlineList(items: string[]) {
   return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 }
 
+function uniqueItems(items: Array<string | null | undefined>) {
+  return items
+    .map((item) => item?.trim() ?? '')
+    .filter(Boolean)
+    .filter((item, index, collection) => collection.indexOf(item) === index);
+}
+
 function renderLinkedParagraphs(
   paragraphs: string[],
   suggestions: ReturnType<typeof buildAcademyInternalLinkPlan>['contextualLinks'],
@@ -137,7 +145,47 @@ function renderLinkedParagraphs(
   ));
 }
 
-export default function AcademyModuleHub({
+function buildInlineScenarioExamples(
+  signatureScenarios: string[],
+  caseStudies: Awaited<ReturnType<typeof getCaseStudiesForAcademyModule>>,
+) {
+  return uniqueItems([
+    ...signatureScenarios,
+    ...caseStudies.flatMap((study) =>
+      study.scenarios.slice(0, 1).map((scenario) => `${study.title}: ${scenario}`),
+    ),
+  ]).slice(0, 3);
+}
+
+function buildProgressMessage(currentIndex: number, total: number) {
+  if (currentIndex <= 0) {
+    return 'You are at the first layer inside this path. Start with the loudest decision and let the rest wait its turn.';
+  }
+
+  if (currentIndex >= total - 1) {
+    return "You've completed this layer. Now use it to make the next one less dramatic.";
+  }
+
+  return `You've completed ${currentIndex} ${currentIndex === 1 ? 'layer' : 'layers'}. The next step should feel smaller from here.`;
+}
+
+function buildNextDecisionLinks(
+  nextLinks: AcademyModuleHubCard[],
+  pathSlug: AcademyPathSlug,
+) {
+  const primary = nextLinks[0] ?? null;
+  const secondary =
+    nextLinks[1] ?? {
+      href: `/academy/${pathSlug}`,
+      title: `Back to the ${pathSlug} path`,
+      description: 'Zoom back out if you want the wider map before you choose the next detailed layer.',
+      ctaLabel: 'View path ->',
+    };
+
+  return { primary, secondary };
+}
+
+export default async function AcademyModuleHub({
   pathSlug,
   moduleSlug,
   breadcrumbs,
@@ -172,6 +220,7 @@ export default function AcademyModuleHub({
   primaryCta,
   secondaryCta,
 }: AcademyModuleHubProps) {
+  const pathData = await getAcademyPathData(pathSlug);
   const hubModule = {
     slug: moduleSlug,
     title,
@@ -228,6 +277,7 @@ export default function AcademyModuleHub({
     quickCheckLines,
   });
   const caseStudies = getCaseStudiesForAcademyModule(moduleSlug, pathSlug);
+  const inlineScenarios = buildInlineScenarioExamples(signatureSystem.scenarios.items, caseStudies);
   const connectedPaths = getConnectedAcademyPaths(pathSlug);
   const internalLinkPlan = buildAcademyInternalLinkPlan({
     href: modulePath as `/${string}`,
@@ -243,6 +293,13 @@ export default function AcademyModuleHub({
           products: groundingExamples,
         })
       : [];
+  const currentIndex = pathData.moduleCards.findIndex((card) => card.slug === moduleSlug);
+  const completedSteps = currentIndex > 0 ? pathData.moduleCards.slice(0, currentIndex) : [];
+  const { primary: nextPrimary, secondary: nextSecondary } = buildNextDecisionLinks(nextLinks, pathSlug);
+  const progressMessage = buildProgressMessage(
+    currentIndex === -1 ? Math.max(progress.current - 1, 0) : currentIndex,
+    pathData.moduleCards.length || progress.total,
+  );
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
       breadcrumbs,
@@ -271,6 +328,17 @@ export default function AcademyModuleHub({
       <AcademyStructuredData data={structuredData} />
       <div className="mx-auto max-w-6xl px-5 pb-8 pt-10 sm:px-8 md:pb-10 md:pt-14 lg:px-10">
         <GuideBreadcrumbs items={breadcrumbs} />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-8 sm:px-8 md:pb-10 lg:px-10">
+        <YouAreHereCard
+          trail={breadcrumbs.map((item) => ({ title: item.label, href: item.href }))}
+          progressLabel={`Module ${progress.current} of ${progress.total}`}
+          currentTitle={title}
+          currentStepLabel={phaseLabel}
+          completedSteps={completedSteps}
+          nextStep={nextPrimary}
+        />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 pb-10 sm:px-8 md:pb-12 lg:px-10">
@@ -371,6 +439,12 @@ export default function AcademyModuleHub({
       </div>
 
       <div className="mx-auto max-w-6xl space-y-8 px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
+        <TaylorsNoteCard
+          title={signatureSystem.taylorsNote.title}
+          body={signatureSystem.taylorsNote.body}
+          supportingLine={signatureSystem.taylorsNote.supportingLine}
+        />
+
         <StartHere
           title={signatureSystem.startHere.title}
           description={signatureSystem.startHere.description}
@@ -407,35 +481,47 @@ export default function AcademyModuleHub({
           />
         </div>
 
-        <DecisionFilter
-          title={signatureSystem.decisionFilter.title}
-          chooseIf={signatureSystem.decisionFilter.chooseIf}
-          skipIf={signatureSystem.decisionFilter.skipIf}
+        <section className="space-y-6">
+          <AcademySectionHeading
+            eyebrow="Decision Sections"
+            title="Use the right context before you move into submodules"
+            description="This is the part that should make the submodule choice easier, not busier."
+          />
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            <DecisionCard
+              eyebrow="Decision layer 1"
+              title={learningTitle}
+              paragraphs={[learningDescription, ...learningHighlights.slice(0, 2)]}
+              example={inlineScenarios[0]}
+              tone="white"
+            />
+            <DecisionCard
+              eyebrow="Decision layer 2"
+              title={philosophyTitle}
+              paragraphs={[...philosophy, philosophyNoteBody]}
+              example={inlineScenarios[1]}
+              tone="ivory"
+            />
+            <DecisionCard
+              eyebrow={guidanceEyebrow}
+              title={guidanceTitle}
+              paragraphs={[guidanceDescription, ...guidanceLines]}
+              example={inlineScenarios[2]}
+              tone="blush"
+            />
+          </div>
+        </section>
+
+        <HowToDecideBlock
+          title={signatureSystem.howToDecide.title}
+          intro={signatureSystem.howToDecide.description}
+          prioritize={signatureSystem.howToDecide.prioritize}
+          avoid={signatureSystem.howToDecide.avoid}
+          scenarios={inlineScenarios}
         />
 
         <ClarityCallout insight={signatureSystem.clarityInsight} />
-
-        <CaseStudyCTA
-          studies={caseStudies}
-          title="See how this plays out"
-          description="Use these real-life examples when the module makes sense, but you want to see the decision pressure-tested against an actual routine."
-        />
-
-        <section className="rounded-[1.85rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,251,252,0.98)_0%,rgba(248,240,234,0.94)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-          <AcademySectionHeading eyebrow="TMBC Take" title={philosophyTitle} />
-
-          <div className="mt-6 space-y-4 text-[1rem] leading-8 text-[#5B4B55]">
-            {renderLinkedParagraphs(philosophy, internalLinkPlan.contextualLinks, `${moduleSlug}-hub-philosophy`)}
-          </div>
-
-          <GuideHandwrittenNote
-            className="mt-6"
-            tone="linen"
-            size="compact"
-            title={philosophyNoteTitle}
-            description={<p>{philosophyNoteBody}</p>}
-          />
-        </section>
       </div>
 
       {groundingInsights.length > 0 ? (
@@ -459,12 +545,10 @@ export default function AcademyModuleHub({
       ) : null}
 
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <GuideHandwrittenNote
+        <TaylorsNoteCard
           title={taylorNoteTitle}
-          description={<p>{taylorNoteBody}</p>}
-          presentation="margin"
-          showEyebrow
-          eyebrow="Taylor's note"
+          body={taylorNoteBody}
+          supportingLine={philosophyNoteTitle}
         />
       </div>
 
@@ -478,45 +562,14 @@ export default function AcademyModuleHub({
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-16 lg:px-10">
-        <section className="rounded-[1.9rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_20px_48px_rgba(58,36,43,0.08)] sm:px-8 sm:py-8">
-          <AcademySectionHeading
-            eyebrow={guidanceEyebrow}
-            title={guidanceTitle}
-            description={guidanceDescription}
-          />
-
-          <div className="mt-6 rounded-[1.6rem] border border-[rgba(215,161,175,0.16)] bg-[rgba(252,247,249,0.86)] p-5 sm:p-6">
-            <div className="space-y-3">
-              {renderLinkedParagraphs(
-                guidanceLines,
-                internalLinkPlan.contextualLinks,
-                `${moduleSlug}-hub-guidance`,
-                'break-words text-[1.02rem] leading-8 text-[#4B3641] sm:text-[1.08rem] sm:leading-9',
-              )}
-            </div>
-          </div>
-        </section>
-      </div>
-
       <div className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
-        <AcademySectionHeading eyebrow="Where To Go Next" title={nextTitle} description={nextDescription} />
-
-        <div className="mt-8">
-          <DecisionRouter
-            module={hubModule}
-            options={nextLinks.slice(0, 2).map((card, index) => ({
-              title: card.title,
-              description: card.description,
-              href: card.href,
-              tag: index === 0 ? 'Most common path' : 'Skip this for now',
-            }))}
-          />
-        </div>
-
-        <AcademyConnectedPaths
-          description="You do not need every path next. This is the clearer map of where this module tends to connect once the decision starts touching the wider plan."
-          paths={connectedPaths}
+        <NextBestDecisionCard
+          title={nextTitle}
+          description={nextDescription}
+          progressMessage={progressMessage}
+          primary={nextPrimary}
+          secondary={nextSecondary}
+          connectedPaths={connectedPaths}
         />
       </div>
     </section>

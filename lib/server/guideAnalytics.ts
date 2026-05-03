@@ -1,6 +1,9 @@
 import { Prisma } from '@prisma/client';
 import prisma from '@/lib/server/prisma';
-import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import {
+  GuideAnalyticsEvents,
+  getGuideAnalyticsEventAliases,
+} from '@/lib/guides/events';
 import { getAcademyGuideScopeWhere } from '@/lib/server/academyGuides';
 import {
   GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
@@ -77,6 +80,7 @@ export async function getGuideAnalyticsCountsByGuide(guideIds: string[], since?:
 
   let eventCounts;
   let uniqueVisitors;
+  const viewEvents = getGuideAnalyticsEventAliases(GuideAnalyticsEvents.VIEW);
   try {
     [eventCounts, uniqueVisitors] = await Promise.all([
       prisma.guideAnalytics.groupBy({
@@ -89,7 +93,9 @@ export async function getGuideAnalyticsCountsByGuide(guideIds: string[], since?:
       prisma.guideAnalytics.findMany({
         where: {
           ...where,
-          event: GuideAnalyticsEvents.VIEW,
+          event: {
+            in: viewEvents,
+          },
           visitorHash: {
             not: null,
           },
@@ -117,28 +123,28 @@ export async function getGuideAnalyticsCountsByGuide(guideIds: string[], since?:
   for (const row of eventCounts) {
     const bucket = countsMap.get(row.guideId) ?? emptyCounts();
 
-    if (row.event === GuideAnalyticsEvents.VIEW) {
-      bucket.views = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.VIEW).includes(row.event)) {
+      bucket.views += row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.AFFILIATE_CLICK) {
-      bucket.affiliateClicks = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.AFFILIATE_CLICK).includes(row.event)) {
+      bucket.affiliateClicks += row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.TO_CONSULTATION_CLICK) {
-      bucket.consultationClicks = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.TO_CONSULTATION_CLICK).includes(row.event)) {
+      bucket.consultationClicks += row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.TO_CONTACT_CLICK) {
-      bucket.contactClicks = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.TO_CONTACT_CLICK).includes(row.event)) {
+      bucket.contactClicks += row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.TO_SERVICES_CLICK) {
-      bucket.servicesClicks = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.TO_SERVICES_CLICK).includes(row.event)) {
+      bucket.servicesClicks += row._count._all;
     }
 
-    if (row.event === GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK) {
-      bucket.newsletterClicks = row._count._all;
+    if (getGuideAnalyticsEventAliases(GuideAnalyticsEvents.NEWSLETTER_CTA_CLICK).includes(row.event)) {
+      bucket.newsletterClicks += row._count._all;
     }
 
     countsMap.set(row.guideId, bucket);
@@ -269,7 +275,9 @@ export async function getGuideAnalyticsDashboard({
                 },
               }
             : {}),
-          event: GuideAnalyticsEvents.AFFILIATE_CLICK,
+          event: {
+            in: getGuideAnalyticsEventAliases(GuideAnalyticsEvents.AFFILIATE_CLICK),
+          },
         },
         orderBy: [{ createdAt: 'desc' }],
         select: {

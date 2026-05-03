@@ -127,10 +127,10 @@ export default async function AdminAnalyticsPage() {
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
+              <Link href="/admin/academy/analytics">Academy analytics</Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
-              <Link href="/admin/guides/analytics">Guide analytics</Link>
+              <Link href="/admin/academy">Manage academy</Link>
             </AdminButton>
             <AdminButton asChild variant="secondary">
               <Link href="/admin/blog">Manage blog</Link>
@@ -258,32 +258,32 @@ export default async function AdminAnalyticsPage() {
       </AdminSurface>
 
       <AdminHeader
-        eyebrow="Guide + Academy Engagement"
-        title="Guide and academy views with consultation conversion"
-        subtitle="The funnel now runs through editorial content and academy modules. Use the shared guide analytics layer to measure what moves readers toward action."
+        eyebrow="Academy Engagement"
+        title="Academy views with conversion signals"
+        subtitle="The unified learning-content model runs through the same analytics layer. Use it to measure what moves readers toward action."
       />
 
-      <section className="admin-kpi-grid" aria-label="Guide engagement metrics">
-        <AdminKpiCard label="Guide views" value={guideAnalytics.summary.totalViews.toLocaleString()} />
-        <AdminKpiCard label="Guide engagement" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
-        <AdminKpiCard label="Guide to book" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
-        <AdminKpiCard label="Guide to book rate" value={guideToConsultationConversion} />
-        <AdminKpiCard label="Guide to contact" value={guideAnalytics.summary.totalContactClicks.toLocaleString()} />
-        <AdminKpiCard label="Guide to services" value={guideAnalytics.summary.totalServicesClicks.toLocaleString()} />
+      <section className="admin-kpi-grid" aria-label="Academy engagement metrics">
+        <AdminKpiCard label="Academy Views" value={guideAnalytics.summary.totalViews.toLocaleString()} />
+        <AdminKpiCard label="Academy Actions" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
+        <AdminKpiCard label="Academy Conversions" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
+        <AdminKpiCard label="Academy conversion rate" value={guideToConsultationConversion} />
+        <AdminKpiCard label="Academy contacts" value={guideAnalytics.summary.totalContactClicks.toLocaleString()} />
+        <AdminKpiCard label="Academy services" value={guideAnalytics.summary.totalServicesClicks.toLocaleString()} />
       </section>
 
       <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Top guide and academy conversion sources</h2>
+        <h2 className="admin-h2">Top academy conversion sources</h2>
         <AdminTable
           density="compact"
           columns={[
-            { key: 'guide', label: 'Guide' },
+            { key: 'content', label: 'Learning Content' },
             { key: 'views', label: 'Views', align: 'right' },
-            { key: 'book', label: 'Book Clicks', align: 'right' },
+            { key: 'book', label: 'Conversions', align: 'right' },
             { key: 'contact', label: 'Contact Clicks', align: 'right' },
             { key: 'services', label: 'Services Clicks', align: 'right' },
           ]}
-          emptyState={<p className="admin-body p-6">No guide or academy conversion data yet.</p>}
+          emptyState={<p className="admin-body p-6">No academy conversion data yet.</p>}
         >
           {guideAnalytics.topGuides.slice(0, 8).map((guide) => (
             <tr key={guide.guideId} className="admin-row">

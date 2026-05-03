@@ -44,7 +44,7 @@ import {
 import { slugify } from '@/lib/slugify';
 
 type SaveMode = 'debounced' | 'immediate' | 'manual';
-type GuideEditorVariant = 'guide' | 'academyModule';
+type GuideEditorVariant = 'learningContent' | 'academyModule';
 type GuideContentFormatAction =
   | 'h2'
   | 'h3'
@@ -248,7 +248,7 @@ function getSavedText({
     return `Saved at ${new Date(savedAt).toLocaleTimeString()}`;
   }
 
-  return hasPersistedGuide ? 'Autosave is on.' : 'Create the guide on first save.';
+  return hasPersistedGuide ? 'Autosave is on.' : 'Create the record on first save.';
 }
 
 function getScheduleError(status: GuideStatusValue, scheduledFor?: Date | string | null) {
@@ -262,7 +262,7 @@ function getScheduleError(status: GuideStatusValue, scheduledFor?: Date | string
 
   const scheduledDate = new Date(scheduledFor);
   if (Number.isNaN(scheduledDate.getTime()) || scheduledDate.getTime() <= Date.now()) {
-    return 'Scheduled guides must use a future date and time.';
+    return 'Scheduled records must use a future date and time.';
   }
 
   return undefined;
@@ -511,7 +511,7 @@ function validateGuideState(guide: GuideState) {
 
   for (const image of extractGuideMarkdownImages(guide.content)) {
     if (!isValidImageUrl(image.src)) {
-      return 'Inline guide image URLs must start with http://, https://, or /.';
+      return 'Inline image URLs must start with http://, https://, or /.';
     }
   }
 
@@ -618,9 +618,9 @@ export default function GuideEditor({
   affiliatePartnerOptions,
   relatedGuideOptions,
   mediaLibrary = [],
-  adminBasePath = '/admin/guides',
+  adminBasePath = '/admin/academy',
   listingHref,
-  editorVariant = 'guide',
+  editorVariant = 'learningContent',
 }: {
   initialGuide: PersistedGuideRecord;
   authorOptions: AuthorOption[];
@@ -889,7 +889,7 @@ export default function GuideEditor({
       const json = await response.json().catch(() => null);
 
       if (!response.ok || !json?.id) {
-        setSaveError(typeof json?.error === 'string' ? json.error : 'Unable to save guide changes.');
+        setSaveError(typeof json?.error === 'string' ? json.error : 'Unable to save learning content changes.');
         return false;
       }
 
@@ -915,7 +915,7 @@ export default function GuideEditor({
 
       return true;
     } catch (error) {
-      setSaveError(error instanceof Error ? error.message : 'Unable to save guide changes.');
+      setSaveError(error instanceof Error ? error.message : 'Unable to save learning content changes.');
       return false;
     } finally {
       isSavingRef.current = false;
@@ -959,7 +959,7 @@ export default function GuideEditor({
 
   function handleStatusChange(nextStatus: GuideStatusValue) {
     if (nextStatus === 'PUBLISHED' && !combineGuideContent(guide).trim()) {
-      setSaveError('Add guide content before publishing.');
+      setSaveError('Add content before publishing.');
       return;
     }
 
@@ -1126,7 +1126,7 @@ export default function GuideEditor({
     if (hasTemplateContent) {
       setHelperNotice({
         tone: 'warning',
-        message: 'Template content only inserts into a blank guide. Clear the current guide draft first.',
+        message: 'Template content only inserts into a blank draft. Clear the current draft first.',
       });
       setTemplateSelection('blank');
       return;
@@ -1146,7 +1146,7 @@ export default function GuideEditor({
     if (combineGuideContent(currentGuide).trim()) {
       setHelperNotice({
         tone: 'warning',
-        message: 'Template content only inserts into a blank guide. Clear the current guide draft first.',
+        message: 'Template content only inserts into a blank draft. Clear the current draft first.',
       });
       closeTemplateModal();
       return;
@@ -1348,7 +1348,7 @@ export default function GuideEditor({
     insertGuideContentBlockAtCursor(snippet.content, 'debounced');
     setHelperNotice({
       tone: 'success',
-      message: `${snippet.name} inserted into the guide draft.`,
+      message: `${snippet.name} inserted into the draft.`,
     });
   }
 
@@ -1372,7 +1372,7 @@ export default function GuideEditor({
     if (block) {
       setHelperNotice({
         tone: 'success',
-        message: `${block.label} inserted into the guide draft.`,
+        message: `${block.label} inserted into the draft.`,
       });
     }
   }
@@ -1584,12 +1584,12 @@ export default function GuideEditor({
     <AdminSurface className="admin-stack gap-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="admin-stack gap-1.5">
-          <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Academy Module' : 'Guide Start'}</p>
+          <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Academy Module' : 'Learning Content'}</p>
           <h2 className="admin-h2">{isAcademyModuleEditor ? 'Live Module Structure' : 'Start From Template'}</h2>
           <p className="admin-body">
             {isAcademyModuleEditor
               ? 'This editor maps directly to the live academy renderer. Build the module with the exact sections below, then use preview to confirm the public layout.'
-              : 'Load either a guide framework or one of the blog editor starters into the draft before you refine it for search and authority.'}
+              : 'Load either a learning-content framework or one of the blog editor starters into the draft before you refine it for search and authority.'}
           </p>
         </div>
 
@@ -1652,15 +1652,15 @@ export default function GuideEditor({
               <AdminField
                 label="Start From Template"
                 htmlFor="guide-template-select"
-                help="Templates only insert into a blank guide draft. Blog editor starters are included here too."
+                help="Templates only insert into a blank draft. Blog editor starters are included here too."
               >
                 <AdminSelect
                   id="guide-template-select"
                   value={templateSelection}
                   onChange={(event) => handleTemplateSelection(event.target.value as TemplateSelectValue)}
                 >
-                  <option value="blank">Blank Guide</option>
-                  <optgroup label="Guide templates">
+                  <option value="blank">Blank Draft</option>
+                  <optgroup label="Learning content templates">
                     {guideTemplateOptions.map((template) => (
                       <option key={template.id} value={template.id}>
                         {template.label}
@@ -1680,7 +1680,7 @@ export default function GuideEditor({
               {selectedTemplateOption ? (
                 <div className="rounded-[20px] border border-[var(--admin-color-border)] bg-white p-4">
                   <p className="admin-label">
-                    {selectedTemplateOption.source === 'blog' ? 'Blog editor template' : 'Guide template'}
+                    {selectedTemplateOption.source === 'blog' ? 'Blog editor template' : 'Learning content template'}
                   </p>
                   {selectedTemplateOption.description ? (
                     <p className="admin-micro mt-2">{selectedTemplateOption.description}</p>
@@ -1710,7 +1710,7 @@ export default function GuideEditor({
       <div className="admin-stack gap-1.5">
         <p className="admin-eyebrow">Publish</p>
         <h2 className="admin-h2">{GUIDE_STATUS_LABELS[guide.status]}</h2>
-        <p className="admin-body">Guides move from private drafts to scheduled or published authority pages.</p>
+        <p className="admin-body">Learning content moves from private drafts to scheduled or published authority pages.</p>
       </div>
 
       <AdminField label="Status" htmlFor="guide-status">
@@ -1727,7 +1727,7 @@ export default function GuideEditor({
         <AdminField
           label="Scheduled for"
           htmlFor="guide-scheduled-for"
-          help="Use your local time. Scheduled guides stay private until this moment."
+          help="Use your local time. Scheduled records stay private until this moment."
           error={scheduleError}
         >
           <AdminInput
@@ -1761,9 +1761,9 @@ export default function GuideEditor({
   const metaSurface = (
     <AdminSurface className="admin-stack gap-4">
       <div className="admin-stack gap-1.5">
-        <p className="admin-eyebrow">Guide Metadata</p>
+        <p className="admin-eyebrow">Content Metadata</p>
         <h2 className="admin-h2">Routing and ownership</h2>
-        <p className="admin-body">Keep the guide slug, category, cluster, and author aligned from the start.</p>
+        <p className="admin-body">Keep the slug, category, cluster, and author aligned from the start.</p>
       </div>
 
       <AdminField label="Slug" htmlFor="guide-slug" help="If left empty, the API will generate one from the title.">
@@ -1775,7 +1775,7 @@ export default function GuideEditor({
         />
       </AdminField>
 
-      <AdminField label="Guide category" htmlFor="guide-category">
+      <AdminField label="Content category" htmlFor="guide-category">
         <AdminSelect
           id="guide-category"
           value={guide.category}
@@ -1870,7 +1870,7 @@ export default function GuideEditor({
         ) : (
           <>
             <p className="admin-micro">Target keyword: {guide.targetKeyword || 'Not set'}</p>
-            <p className="admin-micro">Related guides: {guide.relatedGuideIds.length}</p>
+            <p className="admin-micro">Related records: {guide.relatedGuideIds.length}</p>
             <p className="admin-micro">Affiliate modules: {guide.affiliateModules.length}</p>
           </>
         )}
@@ -1887,7 +1887,7 @@ export default function GuideEditor({
               })}
               target="_blank"
             >
-              View public guide
+              View public page
             </Link>
           </AdminButton>
         </div>
@@ -1901,7 +1901,7 @@ export default function GuideEditor({
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
             <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Basics' : 'Core Content'}</p>
-            <h2 className="admin-h2">{isAcademyModuleEditor ? 'Academy module basics' : 'Guide basics'}</h2>
+            <h2 className="admin-h2">{isAcademyModuleEditor ? 'Academy module basics' : 'Learning content basics'}</h2>
             <p className="admin-body">
               {isAcademyModuleEditor
                 ? 'These fields feed the live academy hero, path cards, and module summary before the markdown sections render below.'
@@ -1928,7 +1928,7 @@ export default function GuideEditor({
             help={
               isAcademyModuleEditor
                 ? 'Used on academy path pages, live module summaries, and social previews.'
-                : 'Used on the guide index and social previews.'
+                : 'Used on learning-content listings and social previews.'
             }
           >
             <AdminTextarea
@@ -1944,7 +1944,7 @@ export default function GuideEditor({
                 )
               }
               className="min-h-[140px]"
-              placeholder="An editor-style summary of what this guide helps parents decide."
+              placeholder="An editor-style summary of what this record helps parents decide."
             />
           </AdminField>
 
@@ -2028,7 +2028,7 @@ export default function GuideEditor({
             <p className="admin-body">
               {isAcademyModuleEditor
                 ? 'These fields shape search, sharing, and admin discoverability. They do not replace the academy module body sections.'
-                : 'This layer controls how the guide is framed for search, sharing, and internal discovery.'}
+                : 'This layer controls how the record is framed for search, sharing, and internal discovery.'}
             </p>
           </div>
 
@@ -2099,7 +2099,7 @@ export default function GuideEditor({
                 )
               }
               className="min-h-[140px]"
-              placeholder="A clear guide to infant car seats, compatibility, and everyday fit."
+              placeholder="A clear take on infant car seats, compatibility, and everyday fit."
             />
           </AdminField>
 
@@ -2216,7 +2216,7 @@ export default function GuideEditor({
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
             <p className="admin-eyebrow">Internal linking</p>
-            <h2 className="admin-h2">Related guides and notes</h2>
+            <h2 className="admin-h2">Related content and notes</h2>
           </div>
 
           <AdminField label="Internal linking notes" htmlFor="guide-internal-link-notes" help="Private notes for future link building.">
@@ -2233,14 +2233,14 @@ export default function GuideEditor({
                 )
               }
               className="min-h-[140px]"
-              placeholder="Link from stroller comparison, travel stroller, and registry timing guides."
+              placeholder="Link from stroller comparison, travel stroller, and registry timing content."
             />
           </AdminField>
 
           <div className="admin-stack gap-3">
-            <p className="admin-label">Related guides</p>
+            <p className="admin-label">Related learning content</p>
             {relatedOptions.length === 0 ? (
-              <p className="admin-micro">No other guide records available yet.</p>
+              <p className="admin-micro">No other learning-content records available yet.</p>
             ) : (
               <div className="space-y-3 rounded-[24px] border border-[var(--admin-color-border)] bg-white p-4">
                 {relatedOptions.map((relatedGuide) => {
@@ -2348,12 +2348,12 @@ export default function GuideEditor({
 
         <AdminSurface className="admin-stack gap-4">
           <div className="admin-stack gap-1.5">
-            <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Structure' : 'Guide Structure'}</p>
+            <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Module Structure' : 'Content Structure'}</p>
             <h2 className="admin-h2">{isAcademyModuleEditor ? 'Academy markdown' : 'Long-form content'}</h2>
             <p className="admin-body">
               {isAcademyModuleEditor
                 ? 'Write the academy module in one field, but keep the heading structure exact. The live academy layout converts these sections into widgets and editorial cards.'
-                : 'Write the full guide in one continuous field. Use markdown headings to create structure where it actually helps the reader.'}
+                : 'Write the full record in one continuous field. Use markdown headings to create structure where it actually helps the reader.'}
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <p className={`admin-micro ${wordCountToneClass}`}>Word Count: {wordCount.toLocaleString()}</p>
@@ -2451,7 +2451,7 @@ export default function GuideEditor({
                 <div className="admin-stack gap-1">
                   <p className="admin-eyebrow">Editorial Images</p>
                   <p className="admin-micro">
-                    Academy modules and guide layouts read these markdown image rows directly. Swap placeholder URLs here instead of digging through the draft.
+                    Academy modules and learning-content layouts read these markdown image rows directly. Swap placeholder URLs here instead of digging through the draft.
                   </p>
                 </div>
 
@@ -2551,7 +2551,7 @@ export default function GuideEditor({
 
                         {image.src ? (
                           <div className="overflow-hidden rounded-[20px] border border-[var(--admin-color-border)] bg-[rgba(251,248,245,0.8)]">
-                            <img src={image.src} alt={image.alt || 'Guide editorial preview'} className="h-auto w-full" />
+                            <img src={image.src} alt={image.alt || 'Learning content editorial preview'} className="h-auto w-full" />
                           </div>
                         ) : null}
                       </div>
@@ -2561,11 +2561,11 @@ export default function GuideEditor({
               </div>
 
               <div className="admin-stack gap-1">
-                <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Insert Guide Section' : 'Insert Section'}</p>
+                <p className="admin-eyebrow">{isAcademyModuleEditor ? 'Insert Content Section' : 'Insert Section'}</p>
                 <p className="admin-micro">
                   {isAcademyModuleEditor
                     ? 'Use these generic TMBC sections when you need extra framing inside a module. The academy-specific scaffold buttons live above.'
-                    : 'Drop a ready-made TMBC section into the guide draft at the current cursor position.'}
+                    : 'Drop a ready-made TMBC section into the draft at the current cursor position.'}
                 </p>
               </div>
 
@@ -2584,8 +2584,8 @@ export default function GuideEditor({
               </div>
 
               <div className="admin-stack gap-1">
-                <p className="admin-eyebrow">Guide Widgets</p>
-                <p className="admin-micro">Insert richer content blocks that render as visual guide widgets on the public page.</p>
+                <p className="admin-eyebrow">Content Widgets</p>
+                <p className="admin-micro">Insert richer content blocks that render as visual learning-content widgets on the public page.</p>
               </div>
 
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -2622,7 +2622,7 @@ export default function GuideEditor({
                   )
                 }
                 className="min-h-[720px]"
-                placeholder="## Introduction&#10;&#10;Start the guide here...&#10;&#10;## What to look for&#10;&#10;Build the rest of the guide in one continuous draft."
+                placeholder="## Introduction&#10;&#10;Start the draft here...&#10;&#10;## What to look for&#10;&#10;Build the rest of the record in one continuous draft."
               />
             </div>
           </AdminField>
@@ -2772,7 +2772,7 @@ export default function GuideEditor({
                     'debounced',
                   )
                 }
-                placeholder="This guide may include affiliate links."
+                placeholder="This learning-content record may include affiliate links."
               />
             </AdminField>
           </div>
@@ -3068,7 +3068,7 @@ export default function GuideEditor({
         <AdminButton asChild variant="secondary" size="sm">
           <Link href={resolvedListingHref}>Back to workspace</Link>
         </AdminButton>
-        <p className="admin-micro">Guide workspace: structure on the left, workflow controls on the right.</p>
+        <p className="admin-micro">Academy workspace: structure on the left, workflow controls on the right.</p>
       </div>
 
       {(saveError || uploadError || uploadFeedback) && (
@@ -3197,7 +3197,7 @@ export default function GuideEditor({
               <p className="admin-eyebrow">Insert template content?</p>
               <h2 id="guide-template-dialog-title" className="admin-h2">Insert template content?</h2>
               <p className="admin-body">
-                This will populate the guide draft with the{' '}
+                This will populate the current draft with the{' '}
                 {GUIDE_TEMPLATES[pendingTemplateId].name.toLowerCase()} starter structure.
               </p>
             </div>

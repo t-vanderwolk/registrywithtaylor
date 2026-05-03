@@ -48,6 +48,23 @@ export type AcademySignatureSystem = {
     title: string;
     items: string[];
   };
+  taylorsNote: {
+    title: string;
+    body: string;
+    supportingLine: string;
+  };
+  howToDecide: {
+    title: string;
+    description: string;
+    prioritize: Array<{
+      condition: string;
+      recommendation: string;
+    }>;
+    avoid: Array<{
+      condition: string;
+      recommendation: string;
+    }>;
+  };
   decisionFilter: {
     title: string;
     chooseIf: string[];
@@ -94,6 +111,10 @@ function ensureSentence(value: string) {
   }
 
   return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+}
+
+function stripTrailingPunctuation(value: string) {
+  return value.trim().replace(/[.!?]+$/, '');
 }
 
 function limitWords(value: string, maxWords: number) {
@@ -252,6 +273,113 @@ function buildSkipIf(module: SignatureModuleInput, doesNotMatter: string[]) {
   ].map(ensureSentence), 5);
 }
 
+function getTaylorNote(module: SignatureModuleInput) {
+  const focus = lowerFirst(getPrimaryFocus(module));
+
+  switch (module.pathSlug) {
+    case 'registry':
+      return {
+        title: 'Most parents do not need a bigger registry. They need a calmer first pass.',
+        body: `This is usually the point where ${module.title.toLowerCase()} starts sounding like a productivity project. It does not need to. Let the first weeks, your home, and your actual bandwidth do more of the editing.`,
+        supportingLine: 'You are not behind. The list just needs better order.',
+      };
+    case 'nursery':
+      return {
+        title: 'This part gets easier once the room stops trying to impress anyone.',
+        body: `${module.title} works better when the nighttime route, the room size, and the repeat-use jobs get the deciding vote. Pretty is welcome. Functional while tired is the part that keeps earning itself.`,
+        supportingLine: 'You do not need showroom logic. You need real-room logic.',
+      };
+    case 'gear':
+      return {
+        title: 'This confuses almost everyone at first. You do not need to solve the whole category today.',
+        body: `Start with ${focus}, not with the product page that yells the loudest. Once the routine gets a vote, the shortlist usually calms down on its own.`,
+        supportingLine: 'Fit first. Features can wait their turn.',
+      };
+    case 'postpartum':
+      return {
+        title: 'This is where people quietly expect themselves to be more fine than they really are.',
+        body: `${module.title} is about making the adult side of early parenthood more supported and less improvised. The stronger plan is the one that assumes real energy, real emotions, and real limits.`,
+        supportingLine: 'Support is not extra credit. It is part of the plan.',
+      };
+    default:
+      return {
+        title: 'This does not need to be louder to get clearer.',
+        body: `Use ${module.title.toLowerCase()} to make the next decision smaller, not to open more tabs.`,
+        supportingLine: 'One honest layer at a time is enough.',
+      };
+  }
+}
+
+function getPrioritizeRecommendation(module: SignatureModuleInput, index: number) {
+  const recommendationsByPath: Record<AcademyPathSlug, string[]> = {
+    registry: [
+      'Prioritize the option that keeps the registry easier to shop and easier to live with.',
+      'Prioritize the item or setup that helps in the first stretch, not the theoretical later one.',
+      'Prioritize the version that stays editable once real life gives you better information.',
+    ],
+    nursery: [
+      'Prioritize the option that makes the room easier to move through when you are tired.',
+      'Prioritize the version that earns its footprint more than once a day.',
+      'Prioritize flow, reach, and repeat use before styling details.',
+    ],
+    gear: [
+      'Prioritize the option that fits your actual routine without needing heroic optimism.',
+      'Prioritize everyday fit over the feature list that only sounds impressive online.',
+      'Prioritize the version you would still willingly use in a parking lot, trunk, or hallway.',
+    ],
+    postpartum: [
+      'Prioritize the option that lowers the daily lift for the adults in the room.',
+      'Prioritize the support that is repeatable, specific, and easy to accept.',
+      'Prioritize the plan that works with real energy, not imaginary energy.',
+    ],
+  };
+
+  const options = recommendationsByPath[module.pathSlug];
+  return options[index % options.length];
+}
+
+function getAvoidRecommendation(module: SignatureModuleInput, index: number) {
+  const recommendationsByPath: Record<AcademyPathSlug, string[]> = {
+    registry: [
+      'Avoid the version that only makes the list look more complete.',
+      'Avoid adding it now if the first-pass jobs are still not clear.',
+      'Avoid the setup that sounds efficient but makes the list harder for guests to use.',
+    ],
+    nursery: [
+      'Avoid the version that fills the room faster than it helps the route.',
+      'Avoid the item that looks lovely but adds one more obstacle at 2:14 AM.',
+      'Avoid giving decorative logic more power than daily logic.',
+    ],
+    gear: [
+      'Avoid the option that solves someone else’s week better than yours.',
+      'Avoid the heavier, more featured version if the routine does not actually need it.',
+      'Avoid letting portability, cleanup, or storage become tomorrow’s problem.',
+    ],
+    postpartum: [
+      'Avoid the plan that depends on you quietly pushing through.',
+      'Avoid treating support like a backup option instead of part of the base plan.',
+      'Avoid the version that works only if no one needs rest, help, or flexibility.',
+    ],
+  };
+
+  const options = recommendationsByPath[module.pathSlug];
+  return options[index % options.length];
+}
+
+function buildRulePairs(
+  items: string[],
+  module: SignatureModuleInput,
+  kind: 'prioritize' | 'avoid',
+) {
+  return items.slice(0, 3).map((item, index) => ({
+    condition: stripTrailingPunctuation(item),
+    recommendation:
+      kind === 'prioritize'
+        ? getPrioritizeRecommendation(module, index)
+        : getAvoidRecommendation(module, index),
+  }));
+}
+
 function getClarityInsight(pathSlug: AcademyPathSlug) {
   switch (pathSlug) {
     case 'registry':
@@ -288,6 +416,9 @@ export function buildAcademySignatureSystem(
   context: SignatureContext,
 ): AcademySignatureSystem {
   const whatDoesNotMatter = buildDoesNotMatter(module);
+  const chooseIf = buildChooseIf(module, context.quickCheckLines ?? []);
+  const skipIf = buildSkipIf(module, whatDoesNotMatter);
+  const taylorsNote = getTaylorNote(module);
 
   return {
     startHere: {
@@ -312,10 +443,19 @@ export function buildAcademySignatureSystem(
       title: `${module.title} in real life`,
       items: buildScenarios(module),
     },
+    taylorsNote,
+    howToDecide: {
+      title: `How to decide ${module.title.toLowerCase()} in real life`,
+      description: `Use the real constraint first. The right answer usually gets quieter once ${lowerFirst(
+        getPrimaryFocus(module),
+      )} has a vote.`,
+      prioritize: buildRulePairs(chooseIf, module, 'prioritize'),
+      avoid: buildRulePairs(skipIf, module, 'avoid'),
+    },
     decisionFilter: {
       title: `A cleaner yes or no for ${module.title.toLowerCase()}`,
-      chooseIf: buildChooseIf(module, context.quickCheckLines ?? []),
-      skipIf: buildSkipIf(module, whatDoesNotMatter),
+      chooseIf,
+      skipIf,
     },
     clarityInsight: getClarityInsight(module.pathSlug),
   };

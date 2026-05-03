@@ -82,7 +82,7 @@ function mapApiGuide(
 
   return {
     id: String(payload.id),
-    title: typeof payload.title === 'string' ? payload.title : 'Untitled guide',
+    title: typeof payload.title === 'string' ? payload.title : 'Untitled record',
     slug: typeof payload.slug === 'string' ? payload.slug : '',
     canonicalUrl: typeof payload.canonicalUrl === 'string' ? payload.canonicalUrl : null,
     status: payload.status as GuideStatusValue,
@@ -116,10 +116,10 @@ export default function GuideWorkspace({
   categoryOptions,
   itemLabel = 'guide',
   itemsLabel = 'guides',
-  editorBasePath = '/admin/guides',
+  editorBasePath = '/admin/academy',
   newHref,
   showCreateAction = true,
-  primaryColumnLabel = 'Guide',
+  primaryColumnLabel = 'Learning Content',
 }: {
   guides: AdminGuideRow[];
   filters: GuideWorkspaceFilters;
@@ -145,6 +145,7 @@ export default function GuideWorkspace({
   const [notice, setNotice] = useState<Notice | null>(null);
   const [busyKey, setBusyKey] = useState<string | null>(null);
   const resolvedNewHref = newHref ?? `${editorBasePath}/new`;
+  const singularLabel = formatLabel(itemLabel);
 
   useEffect(() => {
     setRows(guides);
@@ -209,7 +210,7 @@ export default function GuideWorkspace({
     const payload = (await response.json().catch(() => null)) as Record<string, unknown> | null;
 
     if (!response.ok || !payload?.id) {
-      throw new Error(typeof payload?.error === 'string' ? payload.error : 'Unable to update the guide.');
+      throw new Error(typeof payload?.error === 'string' ? payload.error : `Unable to update the ${itemLabel}.`);
     }
 
     const existing = rows.find((row) => row.id === postId);
@@ -234,15 +235,15 @@ export default function GuideWorkspace({
       const payload = (await response.json().catch(() => null)) as Record<string, unknown> | null;
 
       if (!response.ok || !payload?.id) {
-        throw new Error(typeof payload?.error === 'string' ? payload.error : 'Unable to duplicate the guide.');
+        throw new Error(typeof payload?.error === 'string' ? payload.error : `Unable to duplicate the ${itemLabel}.`);
       }
 
-      setNotice({ tone: 'success', message: 'Draft duplicated. Opening the copy.' });
+      setNotice({ tone: 'success', message: `${singularLabel} duplicated. Opening the copy.` });
       router.push(`${editorBasePath}/${payload.id}/edit`);
     } catch (error) {
       setNotice({
         tone: 'error',
-        message: error instanceof Error ? error.message : 'Unable to duplicate the guide.',
+        message: error instanceof Error ? error.message : `Unable to duplicate the ${itemLabel}.`,
       });
     } finally {
       setBusyKey(null);
@@ -267,14 +268,14 @@ export default function GuideWorkspace({
       const payload = (await response.json().catch(() => null)) as { error?: string } | null;
 
       if (!response.ok) {
-        throw new Error(payload?.error || 'Unable to delete the guide.');
+        throw new Error(payload?.error || `Unable to delete the ${itemLabel}.`);
       }
 
-      await refreshWithNotice({ tone: 'success', message: 'Guide deleted.' });
+      await refreshWithNotice({ tone: 'success', message: `${singularLabel} deleted.` });
     } catch (error) {
       setNotice({
         tone: 'error',
-        message: error instanceof Error ? error.message : 'Unable to delete the guide.',
+        message: error instanceof Error ? error.message : `Unable to delete the ${itemLabel}.`,
       });
     } finally {
       setBusyKey(null);
@@ -299,7 +300,7 @@ export default function GuideWorkspace({
     } catch (error) {
       setNotice({
         tone: 'error',
-        message: error instanceof Error ? error.message : 'Unable to update the guide.',
+        message: error instanceof Error ? error.message : `Unable to update the ${itemLabel}.`,
       });
     } finally {
       setBusyKey(null);
@@ -351,7 +352,7 @@ export default function GuideWorkspace({
         <AdminSelect
           value={filters.sort}
           onChange={(event) => updateFilters({ sort: event.target.value as GuideWorkspaceFilters['sort'], page: 1 })}
-          aria-label="Sort guides"
+          aria-label={`Sort ${itemsLabel}`}
         >
           <option value="updated">Recently updated</option>
           <option value="publishedAt">Publish date</option>
@@ -470,7 +471,7 @@ export default function GuideWorkspace({
               <td className="admin-micro">
                 <div className="admin-stack gap-1">
                   <span>{guide.performance.views.toLocaleString()} views</span>
-                  <span>{guide.performance.consultationClicks.toLocaleString()} consult clicks</span>
+                  <span>{guide.performance.consultationClicks.toLocaleString()} book clicks</span>
                   <span>{guide.performance.affiliateClicks.toLocaleString()} affiliate clicks</span>
                 </div>
               </td>
@@ -490,7 +491,7 @@ export default function GuideWorkspace({
                       void setGuideStatus(
                         guide.id,
                         isPublished ? 'DRAFT' : 'PUBLISHED',
-                        isPublished ? 'Guide moved back to draft.' : 'Guide published.',
+                        isPublished ? `${singularLabel} moved back to draft.` : `${singularLabel} published.`,
                       )
                     }
                   >
@@ -512,7 +513,7 @@ export default function GuideWorkspace({
                     variant="ghost"
                     size="sm"
                     disabled={busyKey !== null || isArchived}
-                    onClick={() => void setGuideStatus(guide.id, 'ARCHIVED', 'Guide archived.')}
+                    onClick={() => void setGuideStatus(guide.id, 'ARCHIVED', `${singularLabel} archived.`)}
                   >
                     {busyKey === `archived:${guide.id}` ? 'Working...' : 'Archive'}
                   </AdminButton>

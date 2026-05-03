@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
 import SiteShell from '@/components/SiteShell';
 import Hero from '@/components/ui/Hero';
 import { getAcademyHomeData } from '@/lib/academy/content';
@@ -10,11 +10,32 @@ import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
 } from '@/lib/academy/seo';
-import { getCaseStudies } from '@/lib/caseStudies';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 const home = getAcademyHomeData();
-const featuredCaseStudies = getCaseStudies().slice(0, 3);
+const ENTRY_PATHS = [
+  {
+    title: "I don't know where to start",
+    description:
+      'Start with the first-pass registry layer so the list gets clearer before the product tabs start multiplying.',
+    href: '/academy/registry/what-to-register-first',
+    ctaLabel: 'Start here ->',
+  },
+  {
+    title: 'I feel overwhelmed by gear',
+    description:
+      'Start with the thinking layer first. That is usually where the gear conversation gets quieter.',
+    href: '/academy/gear/how-to-think-about-baby-gear',
+    ctaLabel: 'Calm the gear layer ->',
+  },
+  {
+    title: 'I already started a registry',
+    description:
+      'Start with the cleanup pass so the list stops growing faster than the logic behind it.',
+    href: '/academy/registry/mistakes-to-avoid',
+    ctaLabel: 'Tighten the list ->',
+  },
+] as const;
 
 export const metadata = buildMarketingMetadata({
   title: 'TMBC Baby Academy | Taylor-Made Baby Co.',
@@ -71,12 +92,51 @@ export default function AcademyHomePage() {
           staggerContent
         />
 
+        <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 md:py-14 lg:px-10">
+          <TaylorsNoteCard
+            title="This is usually where baby prep starts to feel like a group project in your head."
+            body="You do not need to solve registry, nursery, gear, and postpartum all at once. Start with the decision that feels loudest, then let the next one stay smaller."
+            supportingLine="The Academy works best when you follow the order, not when you open twelve tabs and call that a system."
+          />
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 pb-8 sm:px-8 md:pb-10 lg:px-10">
+          <div className="rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-8 shadow-[0_22px_50px_rgba(58,36,43,0.08)] sm:px-8 md:px-10">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Start With Your Situation</p>
+            <h2 className="mt-3 max-w-[18ch] font-serif text-[1.95rem] leading-[0.98] tracking-[-0.05em] text-neutral-900 sm:text-[2.7rem]">
+              Choose the entry point that sounds most like your brain right now
+            </h2>
+            <p className="mt-5 max-w-[44rem] text-[0.98rem] leading-7 text-neutral-700 sm:text-[1.04rem] sm:leading-8">
+              Most parents do not need more content. They need the right first move.
+            </p>
+
+            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+              {ENTRY_PATHS.map((entryPath) => (
+                <Link
+                  key={entryPath.title}
+                  href={entryPath.href}
+                  className="group flex h-full flex-col rounded-[1.7rem] border border-[rgba(215,161,175,0.18)] bg-white/88 px-5 py-5 transition duration-200 hover:-translate-y-1 hover:border-[rgba(161,91,114,0.24)] hover:bg-white hover:shadow-[0_20px_42px_rgba(58,36,43,0.08)]"
+                >
+                  <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Entry path</p>
+                  <h3 className="mt-4 font-serif text-[1.45rem] leading-[1.06] tracking-[-0.04em] text-neutral-900">
+                    {entryPath.title}
+                  </h3>
+                  <p className="mt-4 text-[0.98rem] leading-7 text-neutral-700">{entryPath.description}</p>
+                  <span className="mt-auto pt-5 text-sm font-semibold text-neutral-900 transition duration-200 group-hover:translate-x-1">
+                    {entryPath.ctaLabel}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 md:py-20 lg:px-10">
           <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Choose Your Path</p>
               <h2 className="mt-3 font-serif text-[1.95rem] leading-[0.98] tracking-[-0.05em] text-neutral-900 sm:text-[2.7rem]">
-                Start where the decision feels loudest
+                Choose the path that makes the next decision quieter
               </h2>
             </div>
             <p className="academy-script-note academy-script-note--tilt-right max-w-[11ch] text-left lg:text-right">
@@ -121,36 +181,15 @@ export default function AcademyHomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 md:pb-20 lg:px-10">
-          <CaseStudyCTA
-            studies={featuredCaseStudies}
-            eyebrow="Case Studies"
-            title="See the Academy framework in real homes"
-            description="These are not perfect-parent stories. They are practical examples of how the decisions change once space, routines, cars, travel, and bandwidth enter the room."
-          />
-        </section>
-
         <section className="border-t border-black/5 bg-[linear-gradient(180deg,#fffdfa_0%,#f7efe6_100%)]">
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 md:py-20 lg:px-10">
-            <div className="rounded-[2rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(255,248,251,0.9)_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(58,36,43,0.08)] sm:px-8 md:px-10">
-              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">How TMBC Academy Works</p>
-              <h2 className="mt-3 max-w-[18ch] font-serif text-[1.95rem] leading-[0.98] tracking-[-0.05em] text-neutral-900 sm:text-[2.7rem]">
-                {home.explanationTitle}
-              </h2>
-              <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left mt-4">
-                one thoughtful layer at a time
-              </p>
-              <p className="mt-5 max-w-[44rem] text-[0.98rem] leading-7 text-neutral-700 sm:text-[1.04rem] sm:leading-8">{home.explanationBody}</p>
-              <div className="mt-8 max-w-lg">
-                <GuideHandwrittenNote
-                  eyebrow="Taylor's note"
-                  title="Start with the layer underneath the decision."
-                  description="That is usually the moment baby prep stops feeling like a pile and starts feeling like a plan."
-                  presentation="margin"
-                  showEyebrow
-                />
-              </div>
-            </div>
+            <NextBestDecisionCard
+              title={home.explanationTitle}
+              description={home.explanationBody}
+              progressMessage="You do not need the whole Academy at once. You need the next clean step."
+              primary={ENTRY_PATHS[0]}
+              secondary={ENTRY_PATHS[1]}
+            />
           </div>
         </section>
       </main>

@@ -32,7 +32,7 @@ export default function AcademySubmoduleInventory({
       <div className="admin-stack gap-2">
         <h2 className="text-lg font-semibold text-admin">Academy submodule map</h2>
         <p className="admin-copy max-w-3xl">
-          Every Academy submodule lives here now, whether the guide record already exists or still needs its first draft.
+          Every Academy submodule lives here now, whether the learning-content record already exists or still needs its first draft.
           Use this map to create route-locked drafts without guessing canonical paths.
         </p>
       </div>
@@ -81,7 +81,7 @@ export default function AcademySubmoduleInventory({
                         <span className="admin-micro">
                           {item.recordTitle
                             ? `Editor record: ${item.recordTitle} · Updated ${formatDateTime(item.updatedAt)}`
-                            : 'No guide record yet. Create the first draft from this route.'}
+                            : 'No learning-content record yet. Create the first draft from this route.'}
                         </span>
                       </div>
                     </div>
@@ -95,15 +95,15 @@ export default function AcademySubmoduleInventory({
                       {item.existingGuideId ? (
                         <>
                           <AdminButton asChild variant="secondary" size="sm">
-                            <Link href={`/admin/guides/${item.existingGuideId}/edit`}>Edit</Link>
+                            <Link href={`/admin/academy/${item.existingGuideId}/edit`}>Edit</Link>
                           </AdminButton>
                           <AdminButton asChild variant="ghost" size="sm">
-                            <Link href={`/admin/guides/${item.existingGuideId}/preview`}>Preview</Link>
+                            <Link href={`/admin/academy/${item.existingGuideId}/preview`}>Preview</Link>
                           </AdminButton>
                         </>
                       ) : (
                         <AdminButton asChild variant="primary" size="sm">
-                          <Link href={`/admin/guides/new?scope=academy&path=${encodeURIComponent(item.publicPath)}`}>Create draft</Link>
+                          <Link href={`/admin/academy/new?path=${encodeURIComponent(item.publicPath)}`}>Create draft</Link>
                         </AdminButton>
                       )}
                       <AdminButton asChild variant="ghost" size="sm">

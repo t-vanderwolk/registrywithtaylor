@@ -25,10 +25,13 @@ export function getRevalidationPathsForGuide(
 
   return Array.from(
     new Set([
+      '/admin/academy',
+      '/admin/academy/analytics',
+      `/admin/academy/${guide.id}`,
+      `/admin/academy/${guide.id}/edit`,
+      `/admin/academy/${guide.id}/preview`,
       '/admin/guides',
       '/admin/guides/analytics',
-      isAcademyPublicPath(publicPath) ? '/admin/guides?scope=academy' : null,
-      isAcademyPublicPath(publicPath) ? '/admin/guides/analytics?scope=academy' : null,
       `/admin/guides/${guide.id}`,
       `/admin/guides/${guide.id}/edit`,
       `/admin/guides/${guide.id}/preview`,

@@ -113,7 +113,7 @@ export default async function AdminDashboardPage() {
           <AdminKpiCard
             label="Total Web Traffic"
             value={totalTrackedTraffic.toLocaleString()}
-            hint="Tracked blog post and guide views"
+            hint="Tracked blog post and academy views"
           />
           <AdminKpiCard
             label="Blog Views"
@@ -121,19 +121,19 @@ export default async function AdminDashboardPage() {
             hint="Public journal article traffic"
           />
           <AdminKpiCard
-            label="Guide + Academy Views"
+            label="Academy Views"
             value={totalGuideViews.toLocaleString()}
-            hint={guideAnalytics.storageReady ? 'Public guide and academy traffic' : 'Guide analytics unavailable'}
+            hint={guideAnalytics.storageReady ? 'Public learning-content traffic' : 'Academy analytics unavailable'}
           />
           <AdminKpiCard
-            label="Guide + Academy Engagement"
+            label="Academy Actions"
             value={guideAnalytics.summary.totalEngagement.toLocaleString()}
-            hint="Guide and academy CTA plus affiliate clicks"
+            hint="Academy CTA and affiliate clicks"
           />
           <AdminKpiCard
-            label="Guide + Academy to Book"
+            label="Academy Conversions"
             value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()}
-            hint="Consultation clicks from guide and academy content"
+            hint="Consultation clicks from academy content"
           />
         </section>
         <div className="admin-stack gap-2">
@@ -142,9 +142,9 @@ export default async function AdminDashboardPage() {
               ? `Top traffic sources: ${
                   mostViewedPost ? `${mostViewedPost.title} (${mostViewedPost.views.toLocaleString()} blog views)` : 'No blog traffic yet'
                 } · ${
-                  topGuide ? `${topGuide.title} (${topGuide.views.toLocaleString()} guide views)` : 'No guide traffic yet'
+                  topGuide ? `${topGuide.title} (${topGuide.views.toLocaleString()} academy views)` : 'No academy traffic yet'
                 }`
-              : 'Traffic totals will start filling in as public blog posts and guides collect views.'}
+              : 'Traffic totals will start filling in as public blog posts and academy content collect views.'}
           </p>
           {!guideAnalytics.storageReady && guideAnalytics.storageMessage ? (
             <p className="admin-micro">{guideAnalytics.storageMessage}</p>
@@ -155,32 +155,23 @@ export default async function AdminDashboardPage() {
             <Link href="/admin/analytics">Open analytics overview</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides?scope=academy">Academy editor</Link>
+            <Link href="/admin/academy">Academy editor</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides/analytics">Open guide analytics</Link>
+            <Link href="/admin/academy/analytics">Academy analytics</Link>
           </AdminButton>
         </div>
       </AdminSurface>
 
       <AdminSurface variant="muted" className="admin-stack gap-3">
         <p className="admin-eyebrow">Quick links</p>
-        <p className="admin-body">Guides in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
+        <p className="admin-body">Learning content in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides?scope=academy">Manage academy</Link>
+            <Link href="/admin/academy">Manage academy</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides/analytics?scope=academy">Academy analytics</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides">Manage guides</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/guides/analytics">Guide analytics</Link>
+            <Link href="/admin/academy/analytics">Academy analytics</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/blog">Manage blog</Link>

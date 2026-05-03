@@ -2,16 +2,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { AcademySectionHeading } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
 import AcademyJourneyNavigator from '@/components/academy/AcademyJourneyNavigator';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
-import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
+import DecisionCard from '@/components/academy/DecisionCard';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
+import YouAreHereCard from '@/components/academy/YouAreHereCard';
 import SiteShell from '@/components/SiteShell';
 import {
   getAcademyPathData,
   getAcademyPathSlugs,
   isAcademyPathSlug,
 } from '@/lib/academy/content';
+import { getConnectedAcademyPaths } from '@/lib/academy/decisionSupport';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyCollectionStructuredData,
@@ -62,6 +66,7 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
 
   const pathData = await getAcademyPathData(academyPath);
   const caseStudies = getCaseStudiesForAcademyPath(pathData.slug, 2);
+  const connectedPaths = getConnectedAcademyPaths(pathData.slug);
   const pathOverviewLine = `Inside this path: ${pathData.moduleCards
     .map((moduleCard) => moduleCard.title)
     .slice(0, 4)
@@ -113,6 +118,23 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           </nav>
         </section>
 
+        <section className="mx-auto max-w-6xl px-5 pb-8 sm:px-8 md:pb-10 lg:px-10">
+          <YouAreHereCard
+            trail={pathData.breadcrumb.map((item) => ({ title: item.label, href: item.href }))}
+            progressLabel={`${pathData.moduleCards.length} modules in this path`}
+            currentTitle={`${pathData.title} Path`}
+            currentStepLabel={pathData.shortDescription}
+            nextStep={
+              pathData.moduleCards[0]
+                ? {
+                    title: pathData.moduleCards[0].title,
+                    href: pathData.moduleCards[0].href,
+                  }
+                : null
+            }
+          />
+        </section>
+
         <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 md:pb-20 lg:px-10">
           <div className="academy-load-in academy-load-in--2 overflow-hidden rounded-[2.25rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(135deg,rgba(255,252,253,0.98)_0%,rgba(252,242,246,0.97)_38%,rgba(249,240,231,0.96)_100%)] shadow-[0_28px_64px_rgba(58,36,43,0.10)]">
             <div className="grid gap-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
@@ -154,6 +176,14 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
         </section>
 
         <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
+          <TaylorsNoteCard
+            title={`Read the ${pathData.title.toLowerCase()} path in order and the later decisions usually stop trying to run ahead.`}
+            body={`Most parents want to skip to products. This path works better when you start with context, let the framework do some editing, and only then move into the smaller choices.`}
+            supportingLine={pathOverviewLine}
+          />
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
             <div className="academy-load-in academy-load-in--3 rounded-[1.9rem] border border-[rgba(226,150,173,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,248,251,0.92)_100%)] px-6 py-7 shadow-[0_18px_40px_rgba(58,36,43,0.07)] sm:px-8 sm:py-8">
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Overall Summary</p>
@@ -185,13 +215,30 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
           <AcademyJourneyNavigator currentPathSlug={pathData.slug} />
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
-          <CaseStudyCTA
-            studies={caseStudies}
-            title="See how this path plays out"
-            description="Use these real-life examples as a bridge between the path framework and the way your home actually works."
-          />
-        </section>
+        {caseStudies.length > 0 ? (
+          <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 md:pb-14 lg:px-10">
+            <AcademySectionHeading
+              eyebrow="Real-Life Lens"
+              title="How this path starts making sense in actual homes"
+              description="The framework stays the same. The pressure points just change depending on the house, the car, the routine, and the bandwidth."
+            />
+
+            <div className="mt-8 grid gap-6 lg:grid-cols-2">
+              {caseStudies.map((study, index) => (
+                <DecisionCard
+                  key={study.slug}
+                  eyebrow={study.title}
+                  title={study.snapshot.bestFirstMove}
+                  paragraphs={[study.startingPoint, study.realLife]}
+                  example={study.scenarios[0]}
+                  imageSrc={study.imageSrc}
+                  imageAlt={study.imageAlt}
+                  tone={index % 2 === 0 ? 'white' : 'ivory'}
+                />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
           <div className="max-w-3xl">
@@ -226,16 +273,31 @@ export default async function AcademyPathPage({ params }: AcademyPathPageProps) 
               </Link>
             ))}
           </div>
+        </section>
 
-          <div className="mt-10 max-w-lg">
-            <GuideHandwrittenNote
-              eyebrow="Little reminder"
-              title="Read the path in order. It works better that way."
-              description="The goal is not to consume more content. The goal is to make the next decision feel smaller and smarter."
-              presentation="margin"
-              showEyebrow
-            />
-          </div>
+        <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
+          <NextBestDecisionCard
+            title="Now that the path feels clearer, start with the first module"
+            description="This is the point where browsing starts to become a plan. Begin at the top and let each module shrink the next one."
+            progressMessage="You do not need to finish the whole path today. You just need to start in the right place."
+            primary={
+              pathData.moduleCards[0]
+                ? {
+                    title: pathData.moduleCards[0].title,
+                    description: pathData.moduleCards[0].description,
+                    href: pathData.moduleCards[0].href,
+                    ctaLabel: pathData.moduleCards[0].ctaLabel,
+                  }
+                : null
+            }
+            secondary={{
+              title: 'Back to Academy',
+              description: 'Zoom back out if another path is actually the louder question right now.',
+              href: '/academy',
+              ctaLabel: 'View all Academy paths ->',
+            }}
+            connectedPaths={connectedPaths}
+          />
         </section>
       </main>
     </SiteShell>

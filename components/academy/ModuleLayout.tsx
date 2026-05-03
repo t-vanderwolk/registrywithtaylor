@@ -2,27 +2,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import {
-  AcademyConnectedPaths,
   AcademyRouteCard,
   AcademySectionHeading,
 } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
 import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionCard from '@/components/academy/DecisionCard';
 import DecisionBlock from '@/components/academy/DecisionBlock';
-import DecisionFilter from '@/components/academy/DecisionFilter';
-import DecisionRouter from '@/components/academy/DecisionRouter';
 import DecisionTag from '@/components/academy/DecisionTag';
+import HowToDecideBlock from '@/components/academy/HowToDecideBlock';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
 import ProductInsightCard from '@/components/academy/ProductInsightCard';
 import StartHere from '@/components/academy/StartHere';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
 import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
 import WhatMattersList from '@/components/academy/WhatMattersList';
+import YouAreHereCard from '@/components/academy/YouAreHereCard';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import ExpertTipCallout from '@/components/guides/academy/ExpertTipCallout';
-import SaveDecisionBar from '@/components/guides/academy/SaveDecisionBar';
-import GuideHandwrittenNote from '@/components/guides/GuideHandwrittenNote';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
@@ -42,6 +41,7 @@ import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import { buildAcademyInternalLinkPlan } from '@/lib/internal-links/system';
 import type {
+  AcademyModuleCard,
   AcademyBreadcrumbItem,
   AcademyCoreSection,
   AcademyModuleData,
@@ -49,6 +49,7 @@ import type {
   AcademyRelatedLink,
   AcademySubmoduleSection,
 } from '@/lib/academy/content';
+import { getAcademyPathData } from '@/lib/academy/content';
 import {
   getTravelSystemCarSeats,
   getTravelSystemStrollers,
@@ -152,44 +153,6 @@ function buildDecisionBarDescription(module: ModuleLayoutData) {
   return 'If you want help turning this into a cleaner plan, this is the right point to get a second opinion.';
 }
 
-function getModuleHandwrittenNote(module: ModuleLayoutData) {
-  if (module.slug === 'sleep-space-decisions') {
-    return {
-      title: 'You are not choosing one perfect sleep setup.',
-      description:
-        'Most newborns move between a few spaces. The calmer plan is understanding how those spaces work together before the shopping tabs start auditioning for soulmates.',
-    };
-  }
-
-  switch (module.pathSlug) {
-    case 'registry':
-      return {
-        title: 'A calmer registry is usually a shorter registry.',
-        description: 'The point is not to impress anyone. The point is to make the list feel useful when the boxes actually arrive.',
-      };
-    case 'nursery':
-      return {
-        title: 'Pretty is welcome. Functional at 2:14 AM is better.',
-        description: 'If the room works when you are tired, you made the right design decision.',
-      };
-    case 'gear':
-      return {
-        title: 'The right gear decision usually gets quieter, not louder.',
-        description: 'Once the category fits your real life, the product page drama tends to calm down on its own.',
-      };
-    case 'postpartum':
-      return {
-        title: 'Support counts too. It is not the side note.',
-        description: 'A good plan makes room for recovery, feeding rhythm, and the adult part of the transition too.',
-      };
-    default:
-      return {
-        title: 'A little clarity now saves a lot of random later.',
-        description: 'That is the whole TMBC angle.',
-      };
-  }
-}
-
 function getModuleTypographyAccent(module: ModuleLayoutData) {
   switch (module.pathSlug) {
     case 'registry':
@@ -241,6 +204,13 @@ function formatInlineList(items: string[]) {
   return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 }
 
+function uniqueItems(items: Array<string | null | undefined>) {
+  return items
+    .map((item) => item?.trim() ?? '')
+    .filter(Boolean)
+    .filter((item, index, collection) => collection.indexOf(item) === index);
+}
+
 function buildModuleFocusLine(module: ModuleLayoutData) {
   const focusPoints = module.coreSections
     .map((section) => section.title.trim())
@@ -254,12 +224,68 @@ function buildModuleFocusLine(module: ModuleLayoutData) {
   return `Inside this module: ${formatInlineList(focusPoints)}.`;
 }
 
+function buildInlineScenarioExamples(
+  signatureScenarios: string[],
+  caseStudies: Awaited<ReturnType<typeof getCaseStudiesForAcademyModule>>,
+) {
+  return uniqueItems([
+    ...signatureScenarios,
+    ...caseStudies.flatMap((study) =>
+      study.scenarios.slice(0, 1).map((scenario) => `${study.title}: ${scenario}`),
+    ),
+  ]).slice(0, 3);
+}
+
+function buildProgressMessage(currentIndex: number, total: number) {
+  if (currentIndex <= 0) {
+    return 'You are at the first layer. You do not need the whole path solved before this part gets simpler.';
+  }
+
+  if (currentIndex >= total - 1) {
+    return "You've completed this layer. Let the next decision stay small on purpose.";
+  }
+
+  return `You've completed ${currentIndex} ${currentIndex === 1 ? 'layer' : 'layers'}. Now keep the next one cleaner than the last one felt.`;
+}
+
+function buildNextDecisionLinks(
+  module: ModuleLayoutData,
+  pathCards: AcademyModuleCard[],
+  currentIndex: number,
+) {
+  const primary =
+    module.next
+      ? module.next
+      : pathCards[currentIndex + 1]
+        ? {
+            href: pathCards[currentIndex + 1].href,
+            title: pathCards[currentIndex + 1].title,
+            description: pathCards[currentIndex + 1].description,
+            ctaLabel: pathCards[currentIndex + 1].ctaLabel,
+          }
+        : null;
+
+  const secondary =
+    module.related
+      ? module.related
+      : pathCards[0]
+        ? {
+            href: `/academy/${module.pathSlug}`,
+            title: `Back to the ${module.pathSlug} path`,
+            description: 'Zoom back out if you want the wider map before you choose the next detailed layer.',
+            ctaLabel: 'View path ->',
+          }
+        : null;
+
+  return { primary, secondary };
+}
+
 export default async function ModuleLayout({ module }: ModuleLayoutProps) {
+  const pathData = await getAcademyPathData(module.pathSlug);
   const pathLabel = module.breadcrumb[1]?.label;
   const hasSoftCta = Boolean(module.softCtaTitle.trim() || module.softCtaBody.some((paragraph) => paragraph.trim()));
   const shouldSkipHeroImageOptimization = isRemoteImageUrl(module.imagePath);
   const renderableProducts = module.products.filter((product) => product.name.trim().length > 0);
-  const handwrittenNote = getModuleHandwrittenNote(module);
   const typographyAccent = getModuleTypographyAccent(module);
   const moduleFocusLine = buildModuleFocusLine(module);
   const phaseLabel = getAcademyPhaseLabel(module);
@@ -273,6 +299,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
     quickCheckLines,
   });
   const caseStudies = getCaseStudiesForAcademyModule(module.slug, module.pathSlug);
+  const inlineScenarios = buildInlineScenarioExamples(signatureSystem.scenarios.items, caseStudies);
   const connectedPaths = getConnectedAcademyPaths(module.pathSlug);
   const productInsights = getProductInsights({
     ...module,
@@ -292,10 +319,17 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
           carSeats,
         }))
       : null;
-  const decisionBarActions = [
-    module.next ? { label: `Next: ${module.next.title}`, href: module.next.href } : null,
-    { label: 'Work with me', href: '/consultation' },
-  ].filter((action): action is { label: string; href: string } => Boolean(action));
+  const currentIndex = pathData.moduleCards.findIndex((card) => card.slug === module.slug);
+  const completedSteps = currentIndex > 0 ? pathData.moduleCards.slice(0, currentIndex) : [];
+  const { primary: nextPrimary, secondary: nextSecondary } = buildNextDecisionLinks(
+    module,
+    pathData.moduleCards,
+    currentIndex,
+  );
+  const progressMessage = buildProgressMessage(
+    currentIndex === -1 ? Math.max(module.progress.current - 1, 0) : currentIndex,
+    pathData.moduleCards.length || module.progress.total,
+  );
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
       breadcrumbs: module.breadcrumb,
@@ -334,7 +368,18 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             <Breadcrumbs items={module.breadcrumb} />
           </div>
 
-          <header className="academy-load-in academy-load-in--2 tmbc-blog-hero">
+          <div className="academy-load-in academy-load-in--2">
+            <YouAreHereCard
+              trail={module.breadcrumb.map((item) => ({ title: item.label, href: item.href }))}
+              progressLabel={`Module ${module.progress.current} of ${module.progress.total}`}
+              currentTitle={module.title}
+              currentStepLabel={phaseLabel}
+              completedSteps={completedSteps}
+              nextStep={nextPrimary}
+            />
+          </div>
+
+          <header className="academy-load-in academy-load-in--3 tmbc-blog-hero">
             <div className="tmbc-blog-hero__inner">
               <div className="tmbc-blog-hero__eyebrow flex flex-wrap items-center gap-3">
                 <CategoryTag label="TMBC Academy" />
@@ -370,7 +415,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </header>
 
-          <div className="academy-load-in academy-load-in--2 tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
+          <div className="academy-load-in academy-load-in--3 tmbc-blog-featured-frame relative mb-10 aspect-[16/10] overflow-hidden p-4 sm:mb-12 sm:p-5">
             <div className="relative h-full w-full">
               <Image
                 src={module.imagePath}
@@ -384,7 +429,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </div>
           </div>
 
-          <section className="academy-load-in academy-load-in--3 blog-section-soft px-4 sm:px-6">
+          <section className="academy-load-in academy-load-in--4 blog-section-soft px-4 sm:px-6">
             <AcademyProgressBar
               current={module.progress.current}
               total={module.progress.total}
@@ -393,7 +438,13 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             />
           </section>
 
-          <div className="academy-load-in academy-load-in--4 space-y-8">
+          <div className="academy-load-in academy-load-in--5 space-y-8">
+            <TaylorsNoteCard
+              title={signatureSystem.taylorsNote.title}
+              body={signatureSystem.taylorsNote.body}
+              supportingLine={signatureSystem.taylorsNote.supportingLine}
+            />
+
             <StartHere
               title={signatureSystem.startHere.title}
               description={signatureSystem.startHere.description}
@@ -430,19 +481,41 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
               />
             </div>
 
-            <DecisionFilter
-              title={signatureSystem.decisionFilter.title}
-              chooseIf={signatureSystem.decisionFilter.chooseIf}
-              skipIf={signatureSystem.decisionFilter.skipIf}
+            {module.coreSections.length > 0 ? (
+              <section className="space-y-6">
+                <AcademySectionHeading
+                  eyebrow="Decision Sections"
+                  title="Use the right context before the shortlist gets loud again"
+                  description="This is the educational layer behind the choice. Nothing here needs to feel like homework. It just needs to make the next move more obvious."
+                />
+
+                <div className="grid gap-6">
+                  {module.coreSections.map((section, index) => (
+                    <DecisionCard
+                      key={`${module.slug}-${section.title}-${index}`}
+                      eyebrow={`Decision layer ${index + 1}`}
+                      title={section.title}
+                      paragraphs={section.paragraphs}
+                      example={inlineScenarios[index % Math.max(inlineScenarios.length, 1)]}
+                      imageSrc={section.imageSrc}
+                      imageAlt={section.imageAlt}
+                      imageCaption={section.imageCaption}
+                      tone={index % 3 === 1 ? 'blush' : index % 3 === 2 ? 'ivory' : 'white'}
+                    />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            <HowToDecideBlock
+              title={signatureSystem.howToDecide.title}
+              intro={signatureSystem.howToDecide.description}
+              prioritize={signatureSystem.howToDecide.prioritize}
+              avoid={signatureSystem.howToDecide.avoid}
+              scenarios={inlineScenarios}
             />
 
             <ClarityCallout insight={signatureSystem.clarityInsight} />
-
-            <CaseStudyCTA
-              studies={caseStudies}
-              title="See how this plays out"
-              description="The framework gets easier to use when you can see how it behaves in a real home, with real constraints and normal human levels of bandwidth."
-            />
           </div>
 
           {travelSystemWidget ? (
@@ -499,21 +572,10 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          <GuideHandwrittenNote
-            className="academy-load-in academy-load-in--6"
-            eyebrow="Taylor's note"
-            title={handwrittenNote.title}
-            description={handwrittenNote.description}
-            presentation="margin"
-            size="compact"
-            showEyebrow
-            showSignoff={false}
-          />
-
           {module.submoduleSection ? (
             <section className="space-y-6">
               <AcademySectionHeading
-                eyebrow="Sub Modules"
+                eyebrow="Keep Building"
                 title={module.submoduleSection.title}
                 description={module.submoduleSection.description}
               />
@@ -557,20 +619,13 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
             </section>
           ) : null}
 
-          <SaveDecisionBar
-            title="Keep the right next step obvious."
+          <NextBestDecisionCard
+            title="Now that this feels clearer, here is what matters next"
             description={buildDecisionBarDescription(module)}
-            actions={decisionBarActions}
-          />
-
-          <section className="space-y-6">
-            <AcademySectionHeading eyebrow="Where To Go Next" title="Keep the path feeling guided" note={typographyAccent.next} />
-            <DecisionRouter module={module} />
-          </section>
-
-          <AcademyConnectedPaths
-            description="You do not need to jump all three right now. This is just the cleaner map of where this decision tends to connect once real life starts narrowing the answer."
-            paths={connectedPaths}
+            progressMessage={progressMessage || typographyAccent.next}
+            primary={nextPrimary}
+            secondary={nextSecondary}
+            connectedPaths={connectedPaths}
           />
         </div>
       </article>

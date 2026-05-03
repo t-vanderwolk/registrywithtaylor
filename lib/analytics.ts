@@ -40,6 +40,20 @@ const GA_EVENT_CATEGORIES: Record<string, string> = {
   [AnalyticsEvents.BLOG_TO_SERVICES_CLICK]: 'blog',
   [AnalyticsEvents.BLOG_AFFILIATE_CTA_CLICK]: 'affiliate',
   [AnalyticsEvents.INTERNAL_LINK_CLICK]: 'navigation',
+  academy_view: 'academy',
+  academy_action_affiliate_click: 'academy',
+  academy_action_contact_click: 'academy',
+  academy_action_services_click: 'academy',
+  academy_action_newsletter_click: 'academy',
+  academy_conversion: 'academy',
+  academy_created: 'academy_admin',
+  academy_updated: 'academy_admin',
+  academy_saved_draft: 'academy_admin',
+  academy_previewed: 'academy_admin',
+  academy_published: 'academy_admin',
+  academy_unpublished: 'academy_admin',
+  academy_duplicated: 'academy_admin',
+  academy_archived: 'academy_admin',
   guide_view: 'guides',
   guide_affiliate_click: 'affiliate',
   guide_to_consultation_click: 'conversion',
@@ -138,6 +152,7 @@ const getGaEventLabel = (eventName: string, payload: AnalyticsPayload) => {
       );
     case AnalyticsEvents.BLOG_AFFILIATE_CTA_CLICK:
     case AnalyticsEvents.AFFILIATE_OUTBOUND_CLICK:
+    case 'academy_action_affiliate_click':
     case 'guide_affiliate_click':
       return (
         getStringPayloadValue(payload, 'productName') ??
@@ -147,6 +162,8 @@ const getGaEventLabel = (eventName: string, payload: AnalyticsPayload) => {
         getSourceLabelFromPayload(payload)
       );
     case AnalyticsEvents.GUIDE_DOWNLOAD:
+    case 'academy_view':
+    case 'academy_action_newsletter_click':
     case 'guide_view':
     case 'guide_newsletter_cta_click':
       return (

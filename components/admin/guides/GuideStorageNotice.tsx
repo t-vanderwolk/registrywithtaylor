@@ -13,8 +13,8 @@ export default function GuideStorageNotice({
   return (
     <AdminSurface className="admin-stack gap-4">
       <div className="admin-stack gap-2">
-        <p className="admin-eyebrow">Guide Setup Required</p>
-        <h2 className="admin-h2">The guide workspace is waiting on its database tables.</h2>
+        <p className="admin-eyebrow">Academy Setup Required</p>
+        <h2 className="admin-h2">The learning content workspace is waiting on its database tables.</h2>
         <p className="admin-body">{GUIDE_STORAGE_UNAVAILABLE_MESSAGE}</p>
       </div>
       <div className="flex flex-wrap gap-2">

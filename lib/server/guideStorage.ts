@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 export const GUIDE_STORAGE_UNAVAILABLE_MESSAGE =
-  'Guide storage is not available yet. Add and apply the Prisma migration that creates the Guide and GuideAnalytics tables before using the Guide workspace.';
+  'Academy storage is not available yet. Add and apply the Prisma migration that creates the Guide and GuideAnalytics tables used by the Academy workspace.';
 
 const GUIDE_TABLE_MARKERS = ['Guide', 'GuideAnalytics'];
 

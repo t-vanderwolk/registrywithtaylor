@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
 
-type AdminGuidePageProps = {
+type AdminAcademyPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function AdminGuideRedirectPage({ params }: AdminGuidePageProps) {
+export default async function AdminAcademyRedirectPage({ params }: AdminAcademyPageProps) {
   const { id } = await params;
   redirect(`/admin/academy/${id}/edit`);
 }

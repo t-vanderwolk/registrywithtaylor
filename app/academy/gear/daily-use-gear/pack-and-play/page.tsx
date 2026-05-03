@@ -3,18 +3,37 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { AcademySectionHeading } from '@/components/academy/AcademyPrimitives';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
-import CaseStudyCTA from '@/components/academy/CaseStudyCTA';
+import ClarityCallout from '@/components/academy/ClarityCallout';
+import DecisionBlock from '@/components/academy/DecisionBlock';
+import HowToDecideBlock from '@/components/academy/HowToDecideBlock';
+import NextBestDecisionCard from '@/components/academy/NextBestDecisionCard';
+import StartHere from '@/components/academy/StartHere';
+import TaylorsNoteCard from '@/components/academy/TaylorsNoteCard';
+import WhatDoesntMatterList from '@/components/academy/WhatDoesntMatterList';
+import WhatMattersList from '@/components/academy/WhatMattersList';
+import YouAreHereCard from '@/components/academy/YouAreHereCard';
 import CategoryTag from '@/components/blog/CategoryTag';
 import BlogDivider from '@/components/blog/BlogDivider';
 import AcademyProgressBar from '@/components/guides/academy/AcademyProgressBar';
 import SiteShell from '@/components/SiteShell';
+import {
+  buildDailyUseGearAcademySubmoduleModule,
+  getDailyUseGearAcademySubmoduleCards,
+  getDailyUseGearAcademySubmoduleNavigation,
+} from '@/lib/academy/dailyUseGearAcademy';
+import {
+  getConnectedAcademyPaths,
+  getModuleDecisionStatement,
+  getModuleWhyThisExists,
+  getQuickCheckLines,
+} from '@/lib/academy/decisionSupport';
 import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
 import {
   buildAcademyBreadcrumbStructuredData,
   buildAcademyLearningResourceStructuredData,
 } from '@/lib/academy/seo';
+import { buildAcademySignatureSystem } from '@/lib/academy/signatureSystem';
 import { isRemoteImageUrl } from '@/lib/blog/images';
-import type { AcademyBreadcrumbItem } from '@/lib/academy/content';
 import { getCaseStudiesForAcademyModule } from '@/lib/caseStudies';
 
 const PATH = '/academy/gear/daily-use-gear/pack-and-play' as const;
@@ -26,13 +45,6 @@ const DESCRIPTION =
 const HERO_IMAGE = '/assets/gearpath/travelcribcicco.png';
 const HERO_ALT =
   'Portable travel crib set up in a real living space beside a family kitchen.';
-
-const BREADCRUMBS: AcademyBreadcrumbItem[] = [
-  { label: 'Academy', href: '/academy' },
-  { label: 'Gear', href: '/academy/gear' },
-  { label: 'Daily Use Gear', href: '/academy/gear/daily-use-gear' },
-  { label: TITLE },
-];
 
 const WHAT_IT_IS_PARAGRAPHS = [
   'A pack and play is not one exact product. It is a category of portable sleep-and-set-down spaces that includes sturdier playards and lighter travel cribs.',
@@ -145,11 +157,11 @@ const TOP_PICK_GROUPS = [
   },
 ] as const;
 
-function Breadcrumbs() {
+function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
   return (
     <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">
       <ol className="flex min-w-0 flex-wrap items-center gap-2 text-[0.68rem] tracking-[0.18em] sm:text-[0.72rem] sm:tracking-[0.22em]">
-        {BREADCRUMBS.map((item, index) => (
+        {items.map((item, index) => (
           <li key={`${item.label}-${index}`} className="inline-flex min-w-0 flex-wrap items-center gap-2">
             {index > 0 ? <span aria-hidden="true" className="text-[rgba(161,91,114,0.35)]">/</span> : null}
             {item.href ? (
@@ -247,7 +259,7 @@ function TypeCard({
   );
 }
 
-function DecisionCard({
+function ChoiceCard({
   title,
   result,
   body,
@@ -306,11 +318,40 @@ function TopPickCard({
         <p className="mt-4 text-[0.98rem] leading-8 text-[#5B4B55]">{descriptor}</p>
         <p className="mt-4 text-[0.95rem] leading-7 text-[#5B4B55]">{detail}</p>
         <span className="mt-auto inline-flex min-h-[42px] items-center justify-center rounded-full border border-[rgba(215,161,175,0.24)] bg-white/82 px-4 py-2 text-center text-[0.68rem] uppercase tracking-[0.16em] text-[var(--tmbc-blog-soft-text)]">
-          Affiliate link placeholder
+          Product example
         </span>
       </div>
     </article>
   );
+}
+
+function uniqueItems(items: Array<string | null | undefined>) {
+  return items
+    .map((item) => item?.trim() ?? '')
+    .filter(Boolean)
+    .filter((item, index, collection) => collection.indexOf(item) === index);
+}
+
+function buildInlineScenarios(
+  signatureScenarios: string[],
+  caseStudies: ReturnType<typeof getCaseStudiesForAcademyModule>,
+) {
+  return uniqueItems([
+    ...signatureScenarios,
+    ...caseStudies.flatMap((study) => study.scenarios.slice(0, 1).map((scenario) => `${study.title}: ${scenario}`)),
+  ]).slice(0, 3);
+}
+
+function buildProgressMessage(currentIndex: number, total: number) {
+  if (currentIndex <= 0) {
+    return 'You are early in the Daily Use Gear layer. The point is to buy the real job, not the most flexible-sounding label.';
+  }
+
+  if (currentIndex >= total - 1) {
+    return "You've completed this layer. Let the next decision stay as specific as this one became.";
+  }
+
+  return `You've completed ${currentIndex} ${currentIndex === 1 ? 'layer' : 'layers'}. Now keep the next one smaller than the category label makes it sound.`;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -330,18 +371,31 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function DailyUseGearPackAndPlayPage() {
+export default async function DailyUseGearPackAndPlayPage() {
+  const module = buildDailyUseGearAcademySubmoduleModule('pack-and-play');
+  const signatureSystem = buildAcademySignatureSystem(module, {
+    decisionStatement: getModuleDecisionStatement(module),
+    whyThisExists: getModuleWhyThisExists(module),
+    quickCheckLines: getQuickCheckLines(module),
+  });
+  const submoduleCards = getDailyUseGearAcademySubmoduleCards();
+  const navigation = getDailyUseGearAcademySubmoduleNavigation('pack-and-play');
+  const currentIndex = submoduleCards.findIndex((card) => card.href === PATH);
+  const completedSteps = currentIndex > 0 ? submoduleCards.slice(0, currentIndex) : [];
+  const progressMessage = buildProgressMessage(currentIndex, submoduleCards.length);
+  const connectedPaths = getConnectedAcademyPaths('gear');
   const caseStudies = getCaseStudiesForAcademyModule('pack-and-play', 'gear');
+  const inlineScenarios = buildInlineScenarios(signatureSystem.scenarios.items, caseStudies);
   const structuredData = [
     buildAcademyBreadcrumbStructuredData({
-      breadcrumbs: BREADCRUMBS,
+      breadcrumbs: module.breadcrumb,
       currentPath: PATH,
     }),
     buildAcademyLearningResourceStructuredData({
       title: TITLE,
       description: DESCRIPTION,
       path: PATH,
-      breadcrumbs: BREADCRUMBS,
+      breadcrumbs: module.breadcrumb,
       keywords: [
         TITLE,
         'pack and play vs travel crib',
@@ -366,8 +420,17 @@ export default function DailyUseGearPackAndPlayPage() {
           <article className="tmbc-blog-shell mx-auto max-w-4xl px-5 pb-20 pt-10 sm:px-6 md:pb-24 md:pt-12">
             <div className="space-y-12">
               <div className="pt-2">
-                <Breadcrumbs />
+                <Breadcrumbs items={module.breadcrumb} />
               </div>
+
+              <YouAreHereCard
+                trail={module.breadcrumb.map((item) => ({ title: item.label, href: item.href }))}
+                progressLabel={`Module ${module.progress.current} of ${module.progress.total} in Daily Use Gear`}
+                currentTitle={TITLE}
+                currentStepLabel="Daily Use Gear submodule"
+                completedSteps={completedSteps.map((card) => ({ title: card.title, href: card.href }))}
+                nextStep={navigation.next ? { title: navigation.next.title, href: navigation.next.href } : null}
+              />
 
               <header className="tmbc-blog-hero">
                 <div className="tmbc-blog-hero__inner">
@@ -422,35 +485,61 @@ export default function DailyUseGearPackAndPlayPage() {
 
               <section className="blog-section-soft px-4 sm:px-6">
                 <AcademyProgressBar
-                  current={4}
-                  total={6}
-                  label="You are in the Gear buildout phase"
-                  stepLabel="Module 4 of 6"
+                  current={module.progress.current}
+                  total={module.progress.total}
+                  label="You are in the Daily Use Gear buildout phase"
+                  stepLabel={`Module ${module.progress.current} of ${module.progress.total}`}
                 />
               </section>
 
-              <section className="tmbc-blog-soft-card px-6 py-6 sm:px-7">
-                <AcademySectionHeading
-                  eyebrow="Orientation Note"
-                  title="Pack and play is doing too much work as a phrase"
-                  description={
-                    <>
-                      <p>
-                        People use it as shorthand for a structured playard, a travel crib, a main-floor sleep setup,
-                        and a backup sleep plan. Those are related ideas. They are not one identical product.
-                      </p>
-                      <p className="mt-4">
-                        That is how families end up buying a heavy home-base setup for travel, or a lightweight travel
-                        crib expecting it to replace a daily-use station with storage, changer, and newborn help.
-                      </p>
-                    </>
-                  }
+              <div className="space-y-8">
+                <TaylorsNoteCard
+                  title={signatureSystem.taylorsNote.title}
+                  body={signatureSystem.taylorsNote.body}
+                  supportingLine={signatureSystem.taylorsNote.supportingLine}
                 />
-              </section>
+
+                <StartHere
+                  title={signatureSystem.startHere.title}
+                  description={signatureSystem.startHere.description}
+                >
+                  {signatureSystem.startHere.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </StartHere>
+
+                <DecisionBlock
+                  title={signatureSystem.decisionBlock.title}
+                  description={signatureSystem.decisionBlock.description}
+                  contrast={signatureSystem.decisionBlock.contrast}
+                >
+                  <div className="space-y-4 text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
+                    <p>
+                      People use it as shorthand for a structured playard, a travel crib, a main-floor sleep setup,
+                      and a backup sleep plan. Those are related ideas. They are not one identical product.
+                    </p>
+                    <p>
+                      That is how families end up buying a heavy home-base setup for travel, or a lightweight travel
+                      crib expecting it to replace a daily-use station with storage, changer, and newborn help.
+                    </p>
+                  </div>
+                </DecisionBlock>
+
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <WhatMattersList
+                    title={signatureSystem.whatMatters.title}
+                    items={signatureSystem.whatMatters.items}
+                  />
+                  <WhatDoesntMatterList
+                    title={signatureSystem.whatDoesNotMatter.title}
+                    items={signatureSystem.whatDoesNotMatter.items}
+                  />
+                </div>
+              </div>
 
               <section className="tmbc-editorial-article-shell">
                 <AcademySectionHeading
-                  eyebrow="What It Is"
+                  eyebrow="Decision Section"
                   title="What a pack and play actually is"
                   description="This is a category, not one universal product. Start there and the rest gets easier."
                 />
@@ -468,7 +557,7 @@ export default function DailyUseGearPackAndPlayPage() {
 
               <section className="space-y-6">
                 <AcademySectionHeading
-                  eyebrow="Two Types"
+                  eyebrow="Decision Section"
                   title="The two versions that matter most"
                   description="This is the split that usually clarifies the entire category."
                 />
@@ -489,7 +578,7 @@ export default function DailyUseGearPackAndPlayPage() {
 
               <section className="tmbc-editorial-article-shell">
                 <AcademySectionHeading
-                  eyebrow="How It Works"
+                  eyebrow="Supporting Context"
                   title="Why the stages matter"
                   description="A lot of the difference comes down to whether you need newborn convenience, lower-level use later, or just lighter portability."
                 />
@@ -508,7 +597,7 @@ export default function DailyUseGearPackAndPlayPage() {
 
               <section className="tmbc-editorial-article-shell">
                 <AcademySectionHeading
-                  eyebrow="Pro Tips"
+                  eyebrow="Supporting Context"
                   title="Check the little details before they become daily annoyances"
                   description="This is one of those categories where friction gets loud quickly."
                 />
@@ -526,7 +615,7 @@ export default function DailyUseGearPackAndPlayPage() {
 
               <section className="tmbc-editorial-article-shell">
                 <AcademySectionHeading
-                  eyebrow="Lifespan"
+                  eyebrow="Supporting Context"
                   title="This category changes as baby changes"
                   description="The right question is not just whether it works now. It is whether it still makes sense after the newborn stage ends."
                 />
@@ -542,33 +631,55 @@ export default function DailyUseGearPackAndPlayPage() {
                 />
               </section>
 
-              <section className="tmbc-editorial-article-shell">
-                <AcademySectionHeading
-                  eyebrow="Real Life"
-                  title="What this often looks like in real houses"
-                  description="The neatest answer on paper is not always the one that works best once the routine gets real."
-                />
-                <article className="tmbc-blog mt-6 max-w-none">
-                  {REAL_LIFE_PARAGRAPHS.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </article>
-                <SectionFigure
-                  src="/assets/nurserypath/bedsidepackandplay.png"
-                  alt="Pack and play style sleep setup beside an adult bed in a bedroom."
-                  caption="Sometimes this category is not about travel at all. Sometimes it is the sleep setup that makes a room-sharing plan work."
-                />
-              </section>
+              <HowToDecideBlock
+                title="Choose structured, travel, or both based on the actual job"
+                intro="You do not need a complicated scoring system here. You need the version of flexible that still feels believable in your routine."
+                prioritize={[
+                  {
+                    condition: 'this setup will stay open in your bedroom, living room, or main floor most days',
+                    recommendation:
+                      'Prioritize a structured playard with the raised sleep surface or storage features you will genuinely use.',
+                  },
+                  {
+                    condition: 'you will move it between houses, closets, or trips often enough to notice the carry every time',
+                    recommendation:
+                      'Prioritize a travel crib with a simpler fold, lighter carry, and fewer built-in extras.',
+                  },
+                  {
+                    condition: 'home use and travel are two separate jobs in your week',
+                    recommendation:
+                      'Prioritize clarity over minimalism. Two answers can be more practical than one compromised answer.',
+                  },
+                ]}
+                avoid={[
+                  {
+                    condition: 'you are buying the phrase "pack and play" without naming the actual use case',
+                    recommendation:
+                      'Avoid assuming every version handles home sleep, travel, and daily setup with equal grace.',
+                  },
+                  {
+                    condition: 'the heavier version is already sounding annoying to fold, carry, or store',
+                    recommendation:
+                      'Avoid talking yourself into features you will resent every time the setup has to move.',
+                  },
+                  {
+                    condition: 'you want one item to cover every stage and every location perfectly',
+                    recommendation:
+                      'Avoid shopping for a fantasy of universal versatility. Decide which compromise you mind less.',
+                  },
+                ]}
+                scenarios={inlineScenarios}
+              />
 
               <section className="space-y-6">
                 <AcademySectionHeading
-                  eyebrow="Decision Framework"
-                  title="Make the choice the easy way"
-                  description="You do not need a complicated scoring rubric here."
+                  eyebrow="Decision Section"
+                  title="When one answer becomes two jobs"
+                  description="This is usually the part that makes the category click."
                 />
                 <div className="grid gap-6 md:grid-cols-3">
                   {DECISION_CARDS.map((card) => (
-                    <DecisionCard
+                    <ChoiceCard
                       key={card.title}
                       title={card.title}
                       result={card.result}
@@ -576,17 +687,20 @@ export default function DailyUseGearPackAndPlayPage() {
                     />
                   ))}
                 </div>
+                <div className="tmbc-blog-soft-card px-6 py-6 sm:px-7">
+                  <div className="space-y-4 text-[0.98rem] leading-8 text-[var(--tmbc-blog-soft-text)]">
+                    {REAL_LIFE_PARAGRAPHS.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
               </section>
 
-              <CaseStudyCTA
-                studies={caseStudies}
-                title="See how this plays out"
-                description="Pack and play decisions get clearer once you know whether the job is home base, travel, or both."
-              />
+              <ClarityCallout insight="You do not need the most versatile-sounding option. You need the one you will still like after the third fold of the day." />
 
               <section className="space-y-8">
                 <AcademySectionHeading
-                  eyebrow="Taylor's Top Picks"
+                  eyebrow="Product Examples"
                   title="A short grid, on purpose"
                   description="You do not need twelve options here. You need a clean example of each lane."
                 />
@@ -620,6 +734,28 @@ export default function DailyUseGearPackAndPlayPage() {
                 </div>
               </section>
 
+              <NextBestDecisionCard
+                title="Now that this feels clearer, here is what matters next"
+                description="Keep the Daily Use Gear sequence moving while this category is still sorted in your head."
+                progressMessage={progressMessage}
+                primary={
+                  navigation.next
+                    ? {
+                        title: navigation.next.title,
+                        description: navigation.next.description,
+                        href: navigation.next.href,
+                        ctaLabel: navigation.next.ctaLabel,
+                      }
+                    : null
+                }
+                secondary={{
+                  title: navigation.hub.title,
+                  description: navigation.hub.description,
+                  href: navigation.hub.href,
+                  ctaLabel: navigation.hub.ctaLabel,
+                }}
+                connectedPaths={connectedPaths}
+              />
             </div>
           </article>
         </section>
