@@ -44,12 +44,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   }
 
-  const data = (await response.json().catch(() => null)) as { title?: string } | null;
+  const data = (await response.json().catch(() => null)) as { title?: string; detail?: string } | null;
   const title = data?.title ?? '';
 
   if (title === 'Member Exists') {
     return NextResponse.json({ success: true });
   }
 
+  console.error('Mailchimp subscribe error:', data?.title, data?.detail);
   return NextResponse.json({ error: 'Unable to subscribe. Please try again.' }, { status: 500 });
 }
