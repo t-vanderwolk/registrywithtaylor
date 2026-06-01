@@ -18,6 +18,7 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
+import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const revalidate = 3600;
@@ -483,6 +484,12 @@ export default function HomePage() {
         </div>
 
         <HomeServicesSection />
+
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
+          <div className="mx-auto max-w-3xl px-6">
+            <NewsletterCapture />
+          </div>
+        </section>
 
         <HomeTransitionSection
           eyebrow="What this solves"

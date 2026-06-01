@@ -20,6 +20,7 @@ type TMBCBlogTemplateProps = {
   gallery?: ReactNode;
   affiliateCta?: ReactNode;
   journeySection?: ReactNode;
+  newsletterCapture?: ReactNode;
   discussionSection?: ReactNode;
   conversionCta?: ReactNode;
   shareSection: ReactNode;
@@ -54,6 +55,7 @@ export default function TMBCBlogTemplate({
   gallery,
   affiliateCta,
   journeySection,
+  newsletterCapture,
   discussionSection,
   conversionCta,
   shareSection,
@@ -126,6 +128,7 @@ export default function TMBCBlogTemplate({
           {gallery ? gallery : null}
           {affiliateCta ? affiliateCta : null}
           {journeySection ? <div className="mt-16">{journeySection}</div> : null}
+          {newsletterCapture ? <div className="mt-16">{newsletterCapture}</div> : null}
           {discussionSection ? <div className="mt-16">{discussionSection}</div> : null}
 
           {conversionCta ? <div className="mt-16">{conversionCta}</div> : null}

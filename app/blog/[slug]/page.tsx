@@ -5,6 +5,7 @@ import SiteShell from '@/components/SiteShell';
 import PostArticleView, {
   extractDownloadableResource,
 } from '@/components/blog/PostArticleView';
+import NewsletterCapture from '@/components/email/NewsletterCapture';
 import FinalCTA from '@/components/layout/FinalCTA';
 import { extractFaqEntries } from '@/lib/blog/contentText';
 import { buildBlogSeoSnapshot } from '@/lib/blog/seo';
@@ -233,7 +234,11 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <PostArticleView post={post} relatedPosts={relatedPosts} />
+        <PostArticleView
+          post={post}
+          relatedPosts={relatedPosts}
+          newsletterCapture={<NewsletterCapture />}
+        />
         <FinalCTA />
       </main>
     </SiteShell>

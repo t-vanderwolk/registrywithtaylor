@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
 import { BlogTrackingProvider } from '@/components/analytics/TrackingContext';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
@@ -241,10 +242,12 @@ export default async function PostArticleView({
   post,
   relatedPosts = [],
   trackView = true,
+  newsletterCapture,
 }: {
   post: PostArticleRecord;
   relatedPosts?: PostArticleRelatedPost[];
   trackView?: boolean;
+  newsletterCapture?: React.ReactNode;
 }) {
   const categoryLabel = getBlogCategoryLabel(post.category);
   const normalizedContent = sanitizeLegacyArticleContent(post.content, {
@@ -369,6 +372,7 @@ export default async function PostArticleView({
       <BlogViewTracker postId={post.id} slug={post.slug} title={post.title} enabled={trackView} />
 
       <TMBCBlogTemplate
+      newsletterCapture={newsletterCapture}
       featuredImageUrl={featuredImageUrl}
       title={post.title}
       categoryLabel={categoryLabel}
