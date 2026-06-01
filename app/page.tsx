@@ -19,8 +19,6 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Co. | Expert Baby Gear Guidance for Expecting Parents',
   description:

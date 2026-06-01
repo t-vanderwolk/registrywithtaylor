@@ -12,7 +12,7 @@ import { getPostDisplayDate } from '@/lib/blog/postStatus';
 import { SITE_LOGO_URL, SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogPostBySlug, getPublicRelatedBlogPosts } from '@/lib/server/publicBlog';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 type BlogPostParams = {
   params: Promise<{ slug: string }>;

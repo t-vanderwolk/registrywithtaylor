@@ -9,7 +9,7 @@ import type { BlogCategory } from '@/lib/blogCategories';
 import { SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Baby Gear Journal — Taylor-Made Baby Co.',
