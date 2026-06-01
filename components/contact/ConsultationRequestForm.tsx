@@ -2,7 +2,7 @@
 
 import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import type { FocusEvent, FormEvent, ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getClientPageAnalyticsContext, trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import {
@@ -29,7 +29,6 @@ import {
 } from '@/lib/consultation/intake';
 
 type ConsultationRequestFormProps = {
-  errorCode?: string | null;
   returnPath?: string;
   successPath?: string;
   submitLabel?: string;
@@ -414,12 +413,13 @@ function ReviewItem({ label, value }: { label: string; value: string | string[] 
 }
 
 export default function ConsultationRequestForm({
-  errorCode,
   returnPath = '/consultation',
   successPath = '/consultation/confirmation',
   submitLabel = 'Book a Consultation',
 }: ConsultationRequestFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const errorCode = searchParams.get('error');
   const formStartedRef = useRef(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const successRedirectTimeoutRef = useRef<number | null>(null);

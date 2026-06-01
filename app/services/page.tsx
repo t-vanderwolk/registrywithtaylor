@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
@@ -22,8 +23,6 @@ export const metadata = buildMarketingMetadata({
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Taylor-Made Baby Co. advisory services.',
 });
-
-type SearchParams = Promise<{ error?: string }> | undefined;
 
 const fitMoments = [
   {
@@ -105,8 +104,7 @@ const serviceFaqs: FAQEntry[] = [
   },
 ] as const;
 
-export default async function ServicesPage({ searchParams }: { searchParams?: SearchParams }) {
-  const params = searchParams ? await searchParams : undefined;
+export default function ServicesPage() {
   const connectedJourneyCards = getServicesJourneyCards();
 
   return (
@@ -250,12 +248,13 @@ export default async function ServicesPage({ searchParams }: { searchParams?: Se
           </div>
         </MarketingSection>
 
-        <ConsultationRequestSection
-          errorCode={params?.error ?? null}
-          returnPath="/services#request-a-consult"
-          successPath="/consultation/confirmation"
-          submitLabel="Request a Consultation"
-        />
+        <Suspense>
+          <ConsultationRequestSection
+            returnPath="/services#request-a-consult"
+            successPath="/consultation/confirmation"
+            submitLabel="Request a Consultation"
+          />
+        </Suspense>
       </main>
     </SiteShell>
   );

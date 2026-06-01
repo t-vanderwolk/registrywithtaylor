@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
@@ -19,6 +20,8 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
+export const revalidate = 3600;
+
 export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Co. | Expert Baby Gear Guidance for Expecting Parents',
   description:
@@ -27,8 +30,6 @@ export const metadata = buildMarketingMetadata({
   imagePath: '/assets/hero/hero-01.jpg',
   imageAlt: 'Taylor-Made Baby Co. baby gear planning editorial image.',
 });
-
-type SearchParams = Promise<{ error?: string }> | undefined;
 
 type TimelineStep = {
   stepLabel: string;
@@ -371,9 +372,7 @@ function PreparationPartnerCard({ partner }: { partner: PreparationPartner }) {
   );
 }
 
-export default async function HomePage({ searchParams }: { searchParams?: SearchParams }) {
-  const params = searchParams ? await searchParams : undefined;
-
+export default function HomePage() {
   return (
     <SiteShell currentPath="/">
       <main className="site-main">
@@ -641,12 +640,13 @@ export default async function HomePage({ searchParams }: { searchParams?: Search
           titleClassName="max-w-[22ch]"
         />
 
-        <ConsultationRequestSection
-          errorCode={params?.error ?? null}
-          returnPath="/#request-a-consult"
-          successPath="/consultation/confirmation"
-          submitLabel="Request a Consultation"
-        />
+        <Suspense>
+          <ConsultationRequestSection
+            returnPath="/#request-a-consult"
+            successPath="/consultation/confirmation"
+            submitLabel="Request a Consultation"
+          />
+        </Suspense>
       </main>
     </SiteShell>
   );

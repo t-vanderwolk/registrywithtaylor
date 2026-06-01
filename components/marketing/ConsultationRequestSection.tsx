@@ -6,7 +6,6 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 type ConsultationRequestSectionProps = {
   id?: string;
-  errorCode?: string | null;
   returnPath?: string;
   successPath?: string;
   submitLabel?: string;
@@ -14,7 +13,6 @@ type ConsultationRequestSectionProps = {
 
 export default function ConsultationRequestSection({
   id = 'request-a-consult',
-  errorCode = null,
   returnPath = '/#request-a-consult',
   successPath = '/consultation/confirmation',
   submitLabel = 'Request a Consultation',
@@ -62,7 +60,6 @@ export default function ConsultationRequestSection({
 
               <div className="relative">
                 <ConsultationRequestForm
-                  errorCode={errorCode}
                   returnPath={returnPath}
                   successPath={successPath}
                   submitLabel={submitLabel}
