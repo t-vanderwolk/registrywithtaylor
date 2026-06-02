@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
+import AuthorBio from '@/components/blog/AuthorBio';
 import BlogDivider from '@/components/blog/BlogDivider';
 import CategoryTag from '@/components/blog/CategoryTag';
 import { isRemoteImageUrl } from '@/lib/blog/images';
@@ -128,6 +129,7 @@ export default function TMBCBlogTemplate({
           {gallery ? gallery : null}
           {affiliateCta ? affiliateCta : null}
           {journeySection ? <div className="mt-16">{journeySection}</div> : null}
+          <AuthorBio />
           {newsletterCapture ? <div className="mt-16">{newsletterCapture}</div> : null}
           {discussionSection ? <div className="mt-16">{discussionSection}</div> : null}
 

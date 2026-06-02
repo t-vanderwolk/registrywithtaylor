@@ -381,9 +381,7 @@ export default async function PostArticleView({
       publishDateLabel={formatArticleDate(displayDate)}
       publishDateIso={displayDate.toISOString()}
       readingTime={seoSnapshot.readingTime}
-      affiliateDisclosure={
-        hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined
-      }
+      affiliateDisclosure={undefined}
       body={
         <div className="lg:grid lg:grid-cols-[18.5rem_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[20rem_minmax(0,1fr)] xl:gap-12 2xl:grid-cols-[21rem_minmax(0,1fr)]">
           <BlogArticleCompass
@@ -400,6 +398,7 @@ export default async function PostArticleView({
               postId={post.id}
               content={articleContent}
               className="tmbc-blog-post-content tmbc-blog--wide"
+              afterFirstParagraph={hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined}
               ctaPartners={serializedCtaPartners}
               contextualInternalLinks={internalLinkPlan.contextualLinks}
             />

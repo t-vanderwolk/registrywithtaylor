@@ -40,6 +40,7 @@ type PostContentProps = {
   className?: string;
   variant?: 'default' | 'plain' | 'guide';
   highlightBrandWordmark?: boolean;
+  afterFirstParagraph?: ReactNode;
   ctaPartners?: Record<
     string,
     {
@@ -501,6 +502,7 @@ export default function PostContent({
   className,
   variant = 'default',
   highlightBrandWordmark = false,
+  afterFirstParagraph,
   ctaPartners = {},
   contextualInternalLinks = [],
 }: PostContentProps) {
@@ -846,6 +848,10 @@ export default function PostContent({
                 )}
               </p>,
             );
+
+            if (paragraphCount === 1 && afterFirstParagraph) {
+              nodes.push(<div key={`${postId}-after-first-p`}>{afterFirstParagraph}</div>);
+            }
           }
         }
 
