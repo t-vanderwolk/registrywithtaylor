@@ -19,20 +19,20 @@ const startHereCards: StartHereCard[] = [
     description:
       "Start with a simple, structured plan so you're not trying to figure everything out at once.",
     ctaLabel: 'Start My Plan',
-    href: '/guides/registry',
+    href: '/consultation',
   },
   {
     title: 'I Want to Build My Registry',
     description: 'Follow a step-by-step system to choose what you need - and when to buy it.',
     ctaLabel: 'Build My Registry',
-    href: '/guides/registry',
+    href: '/academy/registry/what-to-register-first',
   },
   {
     title: "I'm Comparing Gear",
     description:
       'Explore strollers, car seats, and gear with guidance that focuses on real-life use.',
     ctaLabel: 'Explore Gear',
-    href: '/guides/strollers',
+    href: '/academy/gear/stroller-foundations',
   },
 ];
 

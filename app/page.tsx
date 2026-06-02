@@ -1,23 +1,13 @@
-import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
-import RibbonDivider from '@/components/layout/RibbonDivider';
 import HomeAuthorityStrip from '@/components/home/HomeAuthorityStrip';
-import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import SiteShell from '@/components/SiteShell';
-import HomeServicesSection from '@/components/home/HomeServicesSection';
-import HomeTransitionSection from '@/components/home/HomeTransitionSection';
-import ConsultationRequestSection from '@/components/marketing/ConsultationRequestSection';
-import EcosystemFlow from '@/components/marketing/EcosystemFlow';
-import RegistryEcosystemMap from '@/components/marketing/RegistryEcosystemMap';
 import StartHereSection from '@/components/marketing/StartHereSection';
-import CheckIcon from '@/components/ui/CheckIcon';
-import EditorialIllustration from '@/components/ui/EditorialIllustration';
 import Hero from '@/components/ui/Hero';
-import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
-import SectionIntro from '@/components/ui/SectionIntro';
+import EditorialIllustration from '@/components/ui/EditorialIllustration';
+import CheckIcon from '@/components/ui/CheckIcon';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -32,29 +22,6 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'Taylor-Made Baby Co. baby gear planning editorial image.',
 });
 
-type TimelineStep = {
-  stepLabel: string;
-  title: string;
-  description: string;
-  emphasis?: string;
-  bullets?: string[];
-};
-
-type JourneyStep = {
-  stepLabel: string;
-  title: string;
-  description: string;
-};
-
-type PreparationPartner = {
-  name: string;
-  logoSrc: string;
-  logoAlt: string;
-  width: number;
-  height: number;
-  logoClassName: string;
-};
-
 type AdvisorExperienceCard = {
   title: string;
   logoSrc?: string;
@@ -66,84 +33,16 @@ type AdvisorExperienceCard = {
   wordmarkClassName?: string;
 };
 
-const timelineSteps: TimelineStep[] = [
-  {
-    stepLabel: 'Step 1',
-    title: 'Education First',
-    description:
-      'Understanding the categories first helps you avoid adding products that will not actually fit your lifestyle.',
-    emphasis: "The goal is not a bigger registry. It's a smarter one.",
-  },
-  {
-    stepLabel: 'Step 2',
-    title: 'Smart Registry Setup',
-    description: 'Registering strategically unlocks valuable perks.',
-    bullets: [
-      'Welcome box registrations',
-      'Retailer registry rewards',
-      'Loyalty program points',
-      'Brand welcome gifts',
-    ],
-  },
-  {
-    stepLabel: 'Step 3',
-    title: 'Intentional Purchasing',
-    description: 'Timing purchases strategically helps families save hundreds.',
-    bullets: [
-      'Price matching opportunities',
-      'Brand rebates',
-      'Seasonal sales',
-      'Reward stacking',
-      'Registry completion discounts',
-    ],
-  },
-  {
-    stepLabel: 'Step 4',
-    title: 'Avoid Hidden Costs',
-    description: 'Many families unknowingly spend hundreds on shipping and handling.',
-    bullets: [
-      'Furniture freight charges',
-      'Custom order lead times',
-      'Unexpected delivery fees',
-      'Missed in-store discounts',
-    ],
-  },
-];
+type AdvisorFocusItem = {
+  title: string;
+  iconSrc: string;
+  iconAlt: string;
+  width: number;
+  height: number;
+  iconClassName: string;
+};
 
-const journeySteps: JourneyStep[] = [
-  {
-    stepLabel: 'Step 1',
-    title: 'Start the Intake',
-    description:
-      'Begin with the guided consultation form so Taylor can see your due date, lifestyle, registry status, and the decisions already taking up too much space in your head.',
-  },
-  {
-    stepLabel: 'Step 2',
-    title: 'Taylor Reviews It',
-    description:
-      'Before the call, your notes get reviewed so the conversation starts with context instead of ten minutes of backstory and frantic catch-up.',
-  },
-  {
-    stepLabel: 'Step 3',
-    title: 'Free 30 Minutes',
-    description:
-      'You meet one-on-one with Taylor for a complimentary 30-minute conversation focused on your actual questions, not a generic baby gear script.',
-  },
-  {
-    stepLabel: 'Step 4',
-    title: 'Leave Clearer',
-    description:
-      'You walk away knowing what to focus on first, what can wait, and which gear directions actually fit your home, routine, and budget.',
-  },
-  {
-    stepLabel: 'Step 5',
-    title: 'Choose Next Support',
-    description:
-      'From there, you can keep moving with the Academy, use the guidance on your own, or continue into deeper private planning if you want more hands-on support.',
-  },
-];
-
-const advisorFocusAreas = [
+const advisorFocusAreas: AdvisorFocusItem[] = [
   {
     title: 'Stroller Strategy',
     iconSrc: '/assets/icons/gear-plan.png',
@@ -237,66 +136,11 @@ const authorityStripLogos = [
   },
 ] as const;
 
-const preparationPartners: PreparationPartner[] = [
-  {
-    name: 'AZ Childproofers',
-    logoSrc: '/assets/logos/azchildproof.png',
-    logoAlt: 'AZ Childproofers logo',
-    width: 201,
-    height: 201,
-    logoClassName: 'max-h-12',
-  },
-  {
-    name: 'Lani Car Seats',
-    logoSrc: '/assets/logos/lanicarseat.png',
-    logoAlt: 'Lani Car Seats logo',
-    width: 490,
-    height: 490,
-    logoClassName: 'max-h-12',
-  },
-  {
-    name: 'Albee Baby',
-    logoSrc: '/assets/brand/albeebaby.png',
-    logoAlt: 'Albee Baby logo',
-    width: 574,
-    height: 108,
-    logoClassName: 'max-h-8',
-  },
-] as const;
-
-function TimelineStepCard({ stepLabel, title, description, emphasis, bullets }: TimelineStep) {
-  return (
-    <MarketingSurface className="h-full rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fcf7f4_100%)]">
-      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">{stepLabel}</p>
-      <h3 className="mt-4 font-serif text-[1.6rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-        {title}
-      </h3>
-      <p className="mt-4 max-w-none text-[0.98rem] leading-8 text-neutral-700">{description}</p>
-      {emphasis ? (
-        <p className="mt-4 max-w-none font-medium leading-8 text-neutral-800">{emphasis}</p>
-      ) : null}
-      {bullets?.length ? (
-        <ul className="mt-5 space-y-3">
-          {bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-3">
-              <span
-                aria-hidden="true"
-                className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent-dark)]"
-              />
-              <span className="max-w-none text-[0.95rem] leading-7 text-neutral-700">{bullet}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </MarketingSurface>
-  );
-}
-
 function AdvisorFocusCard({
   item,
   delayMs = 0,
 }: {
-  item: (typeof advisorFocusAreas)[number];
+  item: AdvisorFocusItem;
   delayMs?: number;
 }) {
   return (
@@ -354,25 +198,6 @@ function AdvisorExperienceCard({ card, delayMs = 0 }: { card: AdvisorExperienceC
   );
 }
 
-function PreparationPartnerCard({ partner }: { partner: PreparationPartner }) {
-  return (
-    <MarketingSurface className="flex h-full min-h-[13rem] flex-col items-center justify-center rounded-[1.9rem] bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f8_100%)] text-center">
-      <div className="flex h-16 items-center justify-center">
-        <Image
-          src={partner.logoSrc}
-          alt={partner.logoAlt}
-          width={partner.width}
-          height={partner.height}
-          sizes="(min-width: 1024px) 12rem, 40vw"
-          className={['h-auto w-auto object-contain', partner.logoClassName].join(' ')}
-          loading="lazy"
-        />
-      </div>
-      <p className="mt-6 text-[0.72rem] uppercase tracking-[0.2em] text-black/55">{partner.name}</p>
-    </MarketingSurface>
-  );
-}
-
 export default function HomePage() {
   return (
     <SiteShell currentPath="/">
@@ -393,8 +218,6 @@ export default function HomePage() {
         />
 
         <StartHereSection />
-
-        <RegistryEcosystemMap />
 
         <HomeAuthorityStrip
           text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
@@ -468,192 +291,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        <HomeTransitionSection
-          eyebrow="Why this exists"
-          title="Most parents don't need more options. They need clarity."
-          body="That's what this is designed to provide."
-          secondaryLine="A calmer point of view, a shorter path through the noise, and help that still feels practical when life gets busy."
-          tone="linen"
-          cta={{ href: '/guides/strollers', label: 'Explore real product guidance' }}
-        />
-
-        <div className="relative z-10 h-0 overflow-visible">
-          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
-            <RibbonDivider />
-          </div>
-        </div>
-
-        <HomeServicesSection />
-
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
             <NewsletterCapture />
           </div>
         </section>
-
-        <HomeTransitionSection
-          eyebrow="What this solves"
-          title="Instead of guessing, overbuying, or second-guessing every decision..."
-          body="This gives you a clear path forward."
-          secondaryLine="Not louder advice. Just a better sequence for figuring out what actually fits your life."
-          tone="ivory"
-          cta={{ href: '/academy', label: 'Not sure where to begin? Start here' }}
-        />
-
-        <HomeEditorialBreak
-          imageSrc="/assets/editorial/registry.jpg"
-          imageAlt="Registry planning notebook and checklist on a linen table."
-          tone="linen"
-          eyebrow="Registry perspective"
-          title="The list works better when life comes first."
-          description="A good registry is not a trophy. It is a plan for what will actually help once baby is here."
-        />
-
-        <EcosystemFlow
-          id="journey"
-          eyebrow="How it starts"
-          title="How the first free 30-minute conversation works"
-          description="The first step is the intake form. That gives Taylor enough context to make the complimentary conversation specific, calm, and actually useful instead of broad and forgettable."
-          steps={journeySteps}
-          cta={{ href: '/consultation', label: 'Start the Intake' }}
-        />
-
-        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="relative isolate">
-              <div className="relative z-10">
-                <SectionIntro
-                  align="left"
-                  spacing="tight"
-                  title="Why this helps"
-                  description="Most parents are told to just start a registry. But thoughtful preparation means understanding when to register, where to register, and how to take advantage of the perks most families do not know exist."
-                  contentWidthClassName="max-w-4xl"
-                  titleClassName="max-w-[12ch]"
-                  descriptionClassName="max-w-[44rem]"
-                />
-              </div>
-            </div>
-
-            <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {timelineSteps.map((step, index) => (
-                <RevealOnScroll key={step.stepLabel} delayMs={index * 70}>
-                  <TimelineStepCard {...step} />
-                </RevealOnScroll>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-white py-24 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionIntro
-              spacing="tight"
-              title="Trusted Preparation Partners"
-              description="Taylor-Made Baby works alongside trusted specialists to help families prepare safely and confidently."
-              contentWidthClassName="max-w-4xl"
-            />
-
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {preparationPartners.map((partner, index) => (
-                <RevealOnScroll key={partner.name} delayMs={index * 70}>
-                  <PreparationPartnerCard partner={partner} />
-                </RevealOnScroll>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fbf7f3_0%,#f2e9e1_100%)] py-28">
-          <div className="pointer-events-none absolute inset-x-0 top-8 h-40 bg-[radial-gradient(circle_at_center,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_72%)] blur-3xl" />
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="relative overflow-hidden rounded-[2.35rem] border border-[rgba(215,161,175,0.24)] bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(253,247,248,0.96)_48%,rgba(249,243,238,0.98)_100%)] shadow-[0_28px_72px_rgba(65,46,53,0.08)]">
-              <div className="pointer-events-none absolute right-[-4rem] top-[-3rem] h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_72%)]" />
-              <div className="pointer-events-none absolute left-[-3rem] bottom-[-4rem] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(196,156,94,0.12)_0%,rgba(196,156,94,0)_72%)]" />
-              <RevealOnScroll>
-                <div className="relative grid gap-8 px-6 py-8 sm:px-8 md:px-10 md:py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-                  <div className="max-w-3xl">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Academy
-                    </p>
-                    <h3 className="mt-4 max-w-[14ch] font-serif text-[2.2rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.6rem]">
-                      Start with the Academy.
-                    </h3>
-                    <p className="mt-5 max-w-[40rem] text-[1.02rem] leading-8 text-neutral-700">
-                      If you are not ready to book anything yet, this is the best place to begin.
-                    </p>
-                    <p className="mt-4 max-w-[42rem] text-[1.02rem] leading-8 text-neutral-700">
-                      TMBC Baby Academy walks you through strollers, car seats, registry planning, nursery decisions, and postpartum preparation in a calmer order, so you can understand what matters before you buy anything.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {['Strollers', 'Car Seats', 'Registry Planning', 'Nursery'].map((topic) => (
-                        <span
-                          key={topic}
-                          className="inline-flex min-h-[40px] items-center rounded-full border border-[#E8A2B6]/55 bg-[rgba(255,246,249,0.96)] px-4 py-2 text-sm text-[#B96C87] shadow-[0_8px_18px_rgba(217,134,162,0.08)]"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
-                      <div className="relative inline-flex items-center justify-center px-4 py-2">
-                        <span className="pointer-events-none absolute inset-x-0 inset-y-1 rounded-full border-[2.5px] border-[#E38AA7]/82 rotate-[-8deg]" />
-                        <span className="pointer-events-none absolute inset-x-2 inset-y-0 rounded-full border border-[#E9A1B7]/72 rotate-[6deg]" />
-                        <span
-                          className="relative text-[1.3rem] leading-none text-[#D986A2] sm:text-[1.45rem]"
-                          style={{ fontFamily: '"Caveat", cursive' }}
-                        >
-                          Start Here
-                        </span>
-                      </div>
-                      <Link href="/academy" className="btn btn--primary">
-                        Explore the Academy
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="rounded-[1.8rem] border border-[rgba(215,161,175,0.2)] bg-white/88 p-5 shadow-[0_16px_36px_rgba(65,46,53,0.06)]">
-                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
-                      Best place to begin
-                    </p>
-                    <p className="mt-4 font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
-                      Start with your question, not the product list.
-                    </p>
-                    <div className="mt-5 space-y-3 text-sm leading-7 text-neutral-700">
-                      <p>Use the hub when you want calmer answers before you commit to anything.</p>
-                      <p>Pick the category that feels the most immediate and let the rest narrow from there.</p>
-                    </div>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            </div>
-          </div>
-        </section>
-
-        <HomeEditorialBreak
-          imageSrc="/assets/editorial/toys-rainbow.png"
-          imageAlt="Soft editorial still life with baby toys and a rainbow motif."
-          tone="blush"
-          eyebrow="A calmer next step"
-          title="You do not have to figure it all out today."
-          description="Some of the best decisions happen after the panic leaves the room."
-        />
-
-        <HomeTransitionSection
-          eyebrow="A calmer next step"
-          title="Most families come to me feeling unsure where to start."
-          body="This is where we make it simple."
-          secondaryLine="We'll figure out what actually fits your life."
-          tone="blush"
-          titleClassName="max-w-[22ch]"
-        />
-
-        <Suspense>
-          <ConsultationRequestSection
-            returnPath="/#request-a-consult"
-            successPath="/consultation/confirmation"
-            submitLabel="Request a Consultation"
-          />
-        </Suspense>
       </main>
     </SiteShell>
   );
