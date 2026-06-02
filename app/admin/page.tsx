@@ -5,8 +5,10 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
+import AdminTable from '@/components/admin/ui/AdminTable';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import { getNewsletterAnalytics } from '@/lib/server/mailchimp';
 import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
@@ -22,6 +24,7 @@ export default async function AdminDashboardPage() {
     blogViews,
     mostViewedPost,
     guideAnalytics,
+    newsletter,
   ] = await Promise.all([
     prisma.consultationRequest.groupBy({
       by: ['status'],
@@ -57,6 +60,7 @@ export default async function AdminDashboardPage() {
       },
     }),
     getGuideAnalyticsDashboard(),
+    getNewsletterAnalytics(),
   ]);
 
   const consultationCountByStatus = consultationStatusCounts.reduce<Record<string, number>>((acc, row) => {
@@ -173,6 +177,121 @@ export default async function AdminDashboardPage() {
           </AdminButton>
         </div>
       </AdminSurface>
+
+      {newsletter.configured ? (
+        <AdminSurface className="admin-stack gap-5">
+          <h2 className="admin-h2">Newsletter</h2>
+
+          {newsletter.error ? (
+            <p className="admin-micro">{newsletter.error}</p>
+          ) : newsletter.audience ? (
+            <>
+              <section className="admin-kpi-grid md:grid-cols-3 xl:grid-cols-6" aria-label="Newsletter metrics">
+                <AdminKpiCard
+                  label="Subscribers"
+                  value={newsletter.audience.totalSubscribers.toLocaleString()}
+                  hint="Active audience"
+                />
+                <AdminKpiCard
+                  label="Unsubscribed"
+                  value={newsletter.audience.unsubscribed.toLocaleString()}
+                  hint="All-time opt-outs"
+                />
+                <AdminKpiCard
+                  label="Cleaned"
+                  value={newsletter.audience.cleaned.toLocaleString()}
+                  hint="Bounced or invalid"
+                />
+                <AdminKpiCard
+                  label="Avg open rate"
+                  value={`${(newsletter.audience.openRate * 100).toFixed(1)}%`}
+                  hint="Across all campaigns"
+                />
+                <AdminKpiCard
+                  label="Avg click rate"
+                  value={`${(newsletter.audience.clickRate * 100).toFixed(1)}%`}
+                  hint="Across all campaigns"
+                />
+                <AdminKpiCard
+                  label="Campaigns sent"
+                  value={newsletter.audience.campaignCount.toLocaleString()}
+                  hint={newsletter.audience.lastSubDate ? `Last sub ${new Date(newsletter.audience.lastSubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}` : undefined}
+                />
+              </section>
+
+              {newsletter.growthHistory.length > 0 ? (
+                <div className="admin-stack gap-3">
+                  <p className="admin-eyebrow">Subscriber growth · last {newsletter.growthHistory.length} months</p>
+                  <AdminTable
+                    density="compact"
+                    columns={[
+                      { key: 'month', label: 'Month' },
+                      { key: 'subscribed', label: 'New', align: 'right' },
+                      { key: 'unsubscribed', label: 'Lost', align: 'right' },
+                      { key: 'net', label: 'Net', align: 'right' },
+                    ]}
+                  >
+                    {newsletter.growthHistory.map((row) => (
+                      <tr key={row.month} className="admin-row">
+                        <td className="text-admin">{row.month}</td>
+                        <td className="text-right text-admin">+{row.subscribed}</td>
+                        <td className="text-right admin-micro">{row.unsubscribed > 0 ? `−${row.unsubscribed}` : '—'}</td>
+                        <td className={`text-right text-admin font-medium ${row.net >= 0 ? '' : 'text-rose-600'}`}>
+                          {row.net >= 0 ? `+${row.net}` : String(row.net)}
+                        </td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </div>
+              ) : null}
+
+              {newsletter.recentCampaigns.length > 0 ? (
+                <div className="admin-stack gap-3">
+                  <p className="admin-eyebrow">Recent campaigns</p>
+                  <AdminTable
+                    density="comfortable"
+                    columns={[
+                      { key: 'campaign', label: 'Campaign' },
+                      { key: 'sent', label: 'Sent', align: 'right' },
+                      { key: 'opens', label: 'Unique opens', align: 'right' },
+                      { key: 'openRate', label: 'Open rate', align: 'right' },
+                      { key: 'clicks', label: 'Clicks', align: 'right' },
+                      { key: 'clickRate', label: 'Click rate', align: 'right' },
+                    ]}
+                  >
+                    {newsletter.recentCampaigns.map((campaign) => (
+                      <tr key={campaign.id} className="admin-row">
+                        <td>
+                          <div className="admin-stack gap-0.5">
+                            <p className="text-admin">{campaign.title}</p>
+                            {campaign.subjectLine && campaign.subjectLine !== campaign.title ? (
+                              <p className="admin-micro">{campaign.subjectLine}</p>
+                            ) : null}
+                            {campaign.sentAt ? (
+                              <p className="admin-micro">
+                                {new Date(campaign.sentAt).toLocaleDateString('en-US', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                  year: 'numeric',
+                                })}
+                              </p>
+                            ) : null}
+                          </div>
+                        </td>
+                        <td className="text-right text-admin">{campaign.emailsSent.toLocaleString()}</td>
+                        <td className="text-right text-admin">{campaign.uniqueOpens.toLocaleString()}</td>
+                        <td className="text-right text-admin">{`${(campaign.openRate * 100).toFixed(1)}%`}</td>
+                        <td className="text-right text-admin">{campaign.clicks.toLocaleString()}</td>
+                        <td className="text-right text-admin">{`${(campaign.clickRate * 100).toFixed(1)}%`}</td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </div>
+              ) : null}
+            </>
+          ) : null}
+        </AdminSurface>
+      ) : null}
 
       <AdminSurface variant="muted" className="admin-stack gap-3">
         <p className="admin-eyebrow">Quick links</p>

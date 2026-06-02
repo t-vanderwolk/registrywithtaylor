@@ -45,24 +45,6 @@ const funnelStages = [
   },
 ] as const;
 
-const dashboardPreviews = [
-  {
-    name: 'Member Dashboard Preview',
-    route: '/dashboard/reviewer#member-preview',
-    focus: 'Progress cards, Academy path navigation, saved decisions, and next-step guidance.',
-  },
-  {
-    name: 'Mentor Dashboard Preview',
-    route: '/dashboard/reviewer#mentor-preview',
-    focus: 'Workflow structure, client queues, session preparation, and follow-up rhythm using anonymized examples.',
-  },
-  {
-    name: 'Admin Dashboard Preview',
-    route: '/admin',
-    focus: 'Navigation, aggregate metrics, content architecture, and analytics summaries without administrative controls.',
-  },
-] as const;
-
 const roleMatrix = [
   { role: 'Admin', read: 'Yes', create: 'Yes', update: 'Yes', delete: 'Yes' },
   { role: 'Mentor', read: 'Not yet scoped', create: 'Not yet scoped', update: 'Not yet scoped', delete: 'No' },
@@ -254,43 +236,18 @@ export default async function ReviewerDashboardPage() {
           </AdminTable>
         </AdminSurface>
 
-        <div className="grid gap-4 xl:grid-cols-2">
-          <AdminSurface className="admin-stack">
-            <AdminHeader eyebrow="Dashboard Architecture" title="Preview surfaces" />
-            <div className="admin-stack gap-3">
-              {dashboardPreviews.map((preview, index) => (
-                <div
-                  key={preview.name}
-                  id={index === 0 ? 'member-preview' : index === 1 ? 'mentor-preview' : undefined}
-                  className="rounded-[20px] border border-[var(--admin-color-border)] bg-white/78 p-4"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div className="admin-stack gap-1">
-                      <h2 className="admin-h2 text-[1.2rem]">{preview.name}</h2>
-                      <p className="admin-body">{preview.focus}</p>
-                    </div>
-                    <AdminButton asChild variant="ghost" size="sm">
-                      <Link href={preview.route}>Open</Link>
-                    </AdminButton>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </AdminSurface>
-
-          <AdminSurface className="admin-stack">
-            <AdminHeader eyebrow="Analytics Summary" title="Aggregate signals" />
-            <section className="admin-kpi-grid md:grid-cols-2" aria-label="Reviewer analytics summary">
-              <AdminKpiCard label="Academy actions" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
-              <AdminKpiCard label="Academy conversions" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
-              <AdminKpiCard label="Academy conversion rate" value={academyConversionRate} />
-              <AdminKpiCard label="Estimated revenue" value={`$${Math.round(revenueAnalytics.summary.totalEstimatedRevenue).toLocaleString()}`} />
-            </section>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/analytics">Open analytics summary</Link>
-            </AdminButton>
-          </AdminSurface>
-        </div>
+        <AdminSurface className="admin-stack">
+          <AdminHeader eyebrow="Analytics Summary" title="Aggregate signals" />
+          <section className="admin-kpi-grid md:grid-cols-2" aria-label="Reviewer analytics summary">
+            <AdminKpiCard label="Academy actions" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
+            <AdminKpiCard label="Academy conversions" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
+            <AdminKpiCard label="Academy conversion rate" value={academyConversionRate} />
+            <AdminKpiCard label="Estimated revenue" value={`$${Math.round(revenueAnalytics.summary.totalEstimatedRevenue).toLocaleString()}`} />
+          </section>
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/analytics">Open analytics summary</Link>
+          </AdminButton>
+        </AdminSurface>
 
         <div className="grid gap-4 xl:grid-cols-2">
           <AdminSurface className="admin-stack">
