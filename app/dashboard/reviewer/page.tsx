@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AffiliatePartnerIdentity from '@/components/admin/AffiliatePartnerIdentity';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
@@ -6,12 +7,17 @@ import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
+import StatusPill from '@/components/admin/ui/StatusPill';
+import { AFFILIATE_NETWORK_LABELS, formatAffiliateNetworks } from '@/lib/affiliateBrands';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
+import { BLOG_STAGES, BLOG_STAGE_LABELS, type BlogStageValue } from '@/lib/blog/postStage';
 import { getAcademyHomeData, getAcademyPathData, getAcademyPathSlugs } from '@/lib/academy/content';
 import { servicePackages } from '@/lib/marketing/siteContent';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import prisma from '@/lib/server/prisma';
+import { listPlannerPosts } from '@/lib/server/adminBlog';
+import { listAdminAffiliatePartners } from '@/lib/server/affiliatePartners';
 import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
@@ -81,6 +87,10 @@ export default async function ReviewerDashboardPage() {
     revenueAnalytics,
     consultationStatusCounts,
     inquiryStatusCounts,
+    plannerPosts,
+    affiliatePartners,
+    affiliateBrands,
+    shortLinks,
   ] = await Promise.all([
     prisma.post.count(),
     prisma.post.groupBy({
@@ -97,6 +107,54 @@ export default async function ReviewerDashboardPage() {
       by: ['status'],
       _count: { _all: true },
     }),
+    listPlannerPosts(),
+    listAdminAffiliatePartners(),
+    prisma.brand.findMany({
+      orderBy: [{ name: 'asc' }],
+      include: {
+        programs: {
+          orderBy: [{ network: 'asc' }, { createdAt: 'asc' }],
+          include: {
+            links: {
+              where: { code: null },
+              orderBy: [{ createdAt: 'asc' }],
+            },
+          },
+        },
+        legacyPartners: {
+          orderBy: [{ network: 'asc' }, { name: 'asc' }],
+          select: {
+            id: true,
+            name: true,
+            network: true,
+            commissionRate: true,
+            isActive: true,
+            logoUrl: true,
+            affiliateLink: true,
+          },
+        },
+      },
+    }),
+    prisma.affiliateLink.findMany({
+      where: { code: { not: null } },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        partner: { select: { id: true, name: true, network: true } },
+        program: {
+          select: {
+            id: true,
+            network: true,
+            brand: { select: { id: true, name: true } },
+          },
+        },
+        _count: { select: { clicks: true } },
+        clicks: {
+          select: { createdAt: true },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
+      },
+    }),
   ]);
 
   const blogStatusCounts = postsByStatus.reduce<Record<PostStatusValue, number>>(
@@ -109,6 +167,18 @@ export default async function ReviewerDashboardPage() {
   const consultationTotal = consultationStatusCounts.reduce((sum, row) => sum + row._count._all, 0);
   const inquiryTotal = inquiryStatusCounts.reduce((sum, row) => sum + row._count._all, 0);
   const moduleCount = academyPaths.reduce((sum, path) => sum + path.moduleCards.length, 0);
+
+  const plannerByStage = BLOG_STAGES.reduce<Record<BlogStageValue, typeof plannerPosts>>((acc, stage) => {
+    acc[stage] = plannerPosts.filter((post) => post.stage === stage);
+    return acc;
+  }, {} as Record<BlogStageValue, typeof plannerPosts>);
+
+  const siteOrigin = process.env.NEXTAUTH_URL?.replace(/\/$/, '') || '';
+
+  const formatLinkDate = (value: Date | null | undefined) => {
+    if (!value) return '—';
+    return value.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
   const academyConversionRate =
     guideAnalytics.summary.totalViews > 0
       ? `${((guideAnalytics.summary.totalConsultationClicks / guideAnalytics.summary.totalViews) * 100).toFixed(1)}%`
@@ -344,6 +414,259 @@ export default async function ReviewerDashboardPage() {
             </AdminTable>
           </AdminSurface>
         </div>
+
+        {/* Content Planner — read-only pipeline */}
+        <AdminSurface className="admin-stack">
+          <AdminHeader
+            eyebrow="Publish"
+            title="Content planner"
+            subtitle="Read-only view of the post pipeline across all stages."
+            actions={
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/blog/planner">Open full planner</Link>
+              </AdminButton>
+            }
+          />
+          <div className="grid gap-4 xl:grid-cols-3">
+            {BLOG_STAGES.map((stage) => (
+              <AdminSurface key={stage} variant="muted" className="admin-stack gap-3">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="admin-eyebrow">{BLOG_STAGE_LABELS[stage]}</p>
+                  <span className="admin-chip">{plannerByStage[stage].length}</span>
+                </div>
+                {plannerByStage[stage].length === 0 ? (
+                  <p className="admin-micro">No posts in this stage.</p>
+                ) : (
+                  <div className="admin-stack gap-2">
+                    {plannerByStage[stage].map((post) => (
+                      <div
+                        key={post.id}
+                        className="rounded-[20px] border border-[var(--admin-color-border)] bg-white p-3"
+                      >
+                        <div className="flex flex-wrap items-start justify-between gap-2">
+                          <div className="admin-stack gap-0.5 min-w-0">
+                            <p className="text-sm font-medium text-admin truncate">{post.title}</p>
+                            <p className="admin-micro">{post.category}</p>
+                            {post.focusKeyword ? <span className="admin-chip">{post.focusKeyword}</span> : null}
+                          </div>
+                          <StatusPill status={post.status} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </AdminSurface>
+            ))}
+          </div>
+        </AdminSurface>
+
+        {/* Affiliate Canon — brand catalog read-only */}
+        <AdminSurface className="admin-stack">
+          <AdminHeader
+            eyebrow="Affiliate Partners"
+            title="Brand and network management"
+            subtitle="Read-only view of canonical brands, affiliate programs, and destination links."
+            actions={
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/affiliates">Open affiliate canon</Link>
+              </AdminButton>
+            }
+          />
+          {affiliateBrands.length === 0 ? (
+            <p className="admin-micro">No affiliate brands yet.</p>
+          ) : (
+            <AdminTable
+              density="comfortable"
+              columns={[
+                { key: 'brand', label: 'Brand' },
+                { key: 'programs', label: 'Programs' },
+                { key: 'links', label: 'Links' },
+                { key: 'legacy', label: 'Legacy partner map' },
+              ]}
+            >
+              {affiliateBrands.map((brand) => {
+                const programNetworks = brand.programs.map((p) => p.network);
+                return (
+                  <tr key={brand.id} className="admin-row">
+                    <td>
+                      <div className="admin-stack gap-2">
+                        <AffiliatePartnerIdentity
+                          name={brand.name}
+                          logoUrl={brand.logoUrl}
+                          meta={brand.website ? brand.website.replace(/^https?:\/\//, '') : null}
+                        />
+                        {programNetworks.length > 0 ? (
+                          <p className="admin-micro">{formatAffiliateNetworks(programNetworks)}</p>
+                        ) : null}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="admin-stack gap-2">
+                        {brand.programs.length === 0 ? (
+                          <span className="admin-micro">No programs</span>
+                        ) : (
+                          brand.programs.map((program) => (
+                            <div key={program.id} className="admin-stack gap-1">
+                              <p className="text-admin">
+                                {AFFILIATE_NETWORK_LABELS[program.network]}
+                                {program.campaignId ? ` • ${program.campaignId}` : ''}
+                              </p>
+                              <p className="admin-micro">
+                                {program.commission ?? 'Commission pending'}
+                                {program.cookieLength ? ` • ${program.cookieLength}` : ''}
+                              </p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="admin-stack gap-2">
+                        {brand.programs.flatMap((p) => p.links).length === 0 ? (
+                          <span className="admin-micro">No canonical links</span>
+                        ) : (
+                          brand.programs.flatMap((p) =>
+                            p.links.map((link) => (
+                              <div key={link.id} className="admin-stack gap-1">
+                                <p className="text-admin">{link.name ?? 'Shop'}</p>
+                                <p className="admin-micro break-all">{link.url ?? link.destinationUrl ?? '—'}</p>
+                              </div>
+                            )),
+                          )
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="admin-stack gap-2">
+                        {brand.legacyPartners.length === 0 ? (
+                          <span className="admin-micro">No legacy partner mappings</span>
+                        ) : (
+                          brand.legacyPartners.map((partner) => (
+                            <AffiliatePartnerIdentity
+                              key={partner.id}
+                              name={partner.name}
+                              network={partner.network}
+                              logoUrl={partner.logoUrl}
+                              size="sm"
+                              showNetwork
+                              meta={partner.isActive ? partner.commissionRate : 'Inactive'}
+                            />
+                          ))
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </AdminTable>
+          )}
+        </AdminSurface>
+
+        {/* Affiliate Partners — partner cards read-only */}
+        <AdminSurface className="admin-stack">
+          <AdminHeader
+            eyebrow="Monetize"
+            title="Affiliate partners"
+            subtitle="Read-only view of partner tiers, networks, routing priority, and commission rates."
+            actions={
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/partners">Open partners</Link>
+              </AdminButton>
+            }
+          />
+          {affiliatePartners.length === 0 ? (
+            <p className="admin-micro">No affiliate partners yet.</p>
+          ) : (
+            <AdminTable
+              density="comfortable"
+              columns={[
+                { key: 'partner', label: 'Partner' },
+                { key: 'tier', label: 'Tier' },
+                { key: 'commission', label: 'Commission' },
+                { key: 'priority', label: 'Priority', align: 'right' },
+                { key: 'contexts', label: 'Contexts' },
+                { key: 'status', label: 'Status' },
+              ]}
+            >
+              {affiliatePartners.map((partner) => (
+                <tr key={partner.id} className="admin-row">
+                  <td>
+                    <AffiliatePartnerIdentity
+                      name={partner.name}
+                      network={partner.network}
+                      logoUrl={partner.logoUrl}
+                      showNetwork
+                      meta={partner.partnerType}
+                    />
+                  </td>
+                  <td>
+                    <div className="flex flex-wrap gap-1">
+                      <span className="admin-chip">{partner.affiliateTier}</span>
+                      {partner.paymentRisk ? <span className="admin-chip admin-chip--draft">Risk</span> : null}
+                    </div>
+                  </td>
+                  <td className="admin-micro">{partner.commissionRate}</td>
+                  <td className="text-right admin-micro">{partner.routingPriority}</td>
+                  <td className="admin-micro">{partner.allowedContexts.join(', ') || 'all'}</td>
+                  <td className="admin-micro">{partner.isActive ? 'Active' : 'Inactive'}</td>
+                </tr>
+              ))}
+            </AdminTable>
+          )}
+        </AdminSurface>
+
+        {/* Short Links — read-only link table */}
+        <AdminSurface className="admin-stack">
+          <AdminHeader
+            eyebrow="Affiliate Links"
+            title="Short links"
+            subtitle="Read-only view of generated affiliate short links and click performance."
+            actions={
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/affiliate-links">Open short links</Link>
+              </AdminButton>
+            }
+          />
+          <AdminTable
+            density="comfortable"
+            columns={[
+              { key: 'link', label: 'Short URL' },
+              { key: 'partner', label: 'Partner' },
+              { key: 'context', label: 'Context' },
+              { key: 'clicks', label: 'Clicks', align: 'right' },
+              { key: 'lastClicked', label: 'Last clicked', align: 'right' },
+            ]}
+          >
+            {shortLinks.map((link) => {
+              const shortUrl = siteOrigin ? `${siteOrigin}/r/${link.code!}` : `/r/${link.code!}`;
+              const lastClickedAt = link.clicks[0]?.createdAt ?? null;
+              return (
+                <tr key={link.id} className="admin-row">
+                  <td>
+                    <div className="admin-stack gap-1">
+                      <Link href={shortUrl} target="_blank" className="admin-table-code hover:opacity-80">
+                        {shortUrl}
+                      </Link>
+                      <p className="admin-micro truncate">→ {link.destinationUrl ?? link.url ?? '—'}</p>
+                    </div>
+                  </td>
+                  <td>
+                    {link.partner ? (
+                      <AffiliatePartnerIdentity name={link.partner.name} network={link.partner.network} size="sm" />
+                    ) : link.program ? (
+                      <AffiliatePartnerIdentity name={link.program.brand.name} network={link.program.network} size="sm" />
+                    ) : (
+                      '—'
+                    )}
+                  </td>
+                  <td className="admin-micro">{link.label || '—'}</td>
+                  <td className="text-right">{link._count.clicks}</td>
+                  <td className="text-right admin-micro">{formatLinkDate(lastClickedAt)}</td>
+                </tr>
+              );
+            })}
+          </AdminTable>
+        </AdminSurface>
 
         <AdminSurface className="admin-stack">
           <AdminHeader
