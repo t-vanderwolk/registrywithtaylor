@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
 import { consultationConfirmationTemplate } from '@/lib/email/templates/consultationConfirmation';
 import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import {
@@ -129,6 +130,12 @@ function buildFieldErrors(state: ReturnType<typeof normalizeConsultationIntakeDr
 }
 
 export async function POST(req: NextRequest) {
+  try {
+    await rejectReviewerMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   const formData = await req.formData().catch(() => null);
   if (!formData) {
     return wantsJsonResponse(req)

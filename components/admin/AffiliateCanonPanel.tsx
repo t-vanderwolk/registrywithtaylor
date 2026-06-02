@@ -259,6 +259,7 @@ const formatCommissionRate = (value: number | null | undefined) => {
 };
 
 export default async function AffiliateCanonPanel() {
+  await requireAdminSession();
   const uploadsEnabled = isStorageConfigured();
 
   const [brands, brandOptions, programOptions, partnerOptions] = await Promise.all([

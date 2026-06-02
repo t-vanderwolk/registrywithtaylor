@@ -224,6 +224,36 @@ async function resolveSeedAuthor() {
   return fallbackUser;
 }
 
+async function seedReviewerAccount() {
+  const email = 'reviewer@taylormadebabyco.com';
+  const password = process.env.REVIEWER_PASSWORD;
+
+  if (!password) {
+    console.warn('Skipping reviewer seed because REVIEWER_PASSWORD is not set.');
+    return null;
+  }
+
+  const hashed = await bcrypt.hash(password, 10);
+
+  // Temporary reviewer account. Remove after external audit concludes.
+  const reviewer = await prisma.user.upsert({
+    where: { email },
+    update: {
+      password: hashed,
+      role: Role.REVIEWER,
+    },
+    create: {
+      email,
+      password: hashed,
+      role: Role.REVIEWER,
+    },
+    select: { id: true, email: true, role: true },
+  });
+
+  console.log(`Temporary reviewer account ready: ${reviewer.email}`);
+  return reviewer;
+}
+
 async function seedStarterPosts(authorId) {
   const createdTitles = [];
 
@@ -275,6 +305,8 @@ async function main() {
     console.log(`Seed author ready: ${author.email}`);
     await seedStarterPosts(author.id);
   }
+
+  await seedReviewerAccount();
 
   console.log('🌸 Seeding direct affiliate partners…');
   runTsxScript('prisma/seed/affiliatePartners.ts');

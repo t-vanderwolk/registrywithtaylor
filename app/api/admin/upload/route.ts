@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAllowedMediaMimeType, MAX_MEDIA_FILE_SIZE_BYTES } from '@/lib/media';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import { uploadToStorage } from '@/lib/server/storage';
@@ -25,7 +25,13 @@ const getRequestIp = (req: NextRequest) => {
 };
 
 export async function POST(req: NextRequest) {
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   if (!token) {
     return unauthorizedResponse();
   }

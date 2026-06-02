@@ -6,6 +6,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminKpiStrip from '@/components/admin/blog/AdminKpiStrip';
 import BlogWorkspace from '@/components/admin/blog/BlogWorkspace';
 import { listAdminPosts, parseAdminBlogListParams } from '@/lib/server/adminBlog';
+import { requireAdminViewSession } from '@/lib/server/session';
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>> | undefined;
 
@@ -16,6 +17,8 @@ export default async function AdminBlogIndex({
 }: {
   searchParams?: SearchParams;
 }) {
+  const session = await requireAdminViewSession();
+  const readOnly = session.user.role === 'REVIEWER';
   const params = parseAdminBlogListParams(searchParams ? await searchParams : undefined);
   const result = await listAdminPosts(params);
 
@@ -24,15 +27,23 @@ export default async function AdminBlogIndex({
       <AdminHeader
         eyebrow="Publish"
         title="Blog command center"
-        subtitle="Manage the library, move posts through the pipeline, and ship updates without leaving the workspace."
+        subtitle={
+          readOnly
+            ? 'Review the editorial library, status mix, and content strategy without changing production records.'
+            : 'Manage the library, move posts through the pipeline, and ship updates without leaving the workspace.'
+        }
         actions={
           <>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/blog/planner">Planner</Link>
-            </AdminButton>
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/blog/new">New Post</Link>
-            </AdminButton>
+            {!readOnly ? (
+              <>
+                <AdminButton asChild variant="secondary">
+                  <Link href="/admin/blog/planner">Planner</Link>
+                </AdminButton>
+                <AdminButton asChild variant="primary">
+                  <Link href="/admin/blog/new">New Post</Link>
+                </AdminButton>
+              </>
+            ) : null}
           </>
         }
       />
@@ -64,6 +75,7 @@ export default async function AdminBlogIndex({
             totalCount: result.pagination.totalCount,
           }}
           categoryOptions={result.categoryOptions}
+          readOnly={readOnly}
         />
       </AdminSurface>
     </AdminStack>

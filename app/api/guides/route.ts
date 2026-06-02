@@ -1,6 +1,12 @@
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  canAccessAdminView,
+  forbiddenResponse,
+  getRequestToken,
+  requireAdminMutation,
+  unauthorizedResponse,
+} from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { normalizeGuideCategory } from '@/lib/guides/categories';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
@@ -25,7 +31,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     const token = await getRequestToken(req);
-    const where = token?.role === 'ADMIN' ? undefined : getPublicGuideWhere();
+    const where = canAccessAdminView(token?.role) ? undefined : getPublicGuideWhere();
 
     const guides = await prisma.guide.findMany({
       where,
@@ -55,7 +61,12 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const token = await requireAdmin(req);
+    let token;
+    try {
+      token = await requireAdminMutation(req);
+    } catch (error) {
+      return forbiddenResponse(error);
+    }
 
     if (!token?.id) {
       return unauthorizedResponse();

@@ -8,7 +8,7 @@ import {
   normalizeAffiliateTier,
   normalizeRetailerFallbacks,
 } from '@/lib/affiliatePartners';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { forbiddenResponse, requireAdmin, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { generateUniqueAffiliateSlug } from '@/lib/server/affiliateSlug';
 import prisma from '@/lib/server/prisma';
 
@@ -75,7 +75,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   if (!token) {
     return unauthorizedResponse();
   }

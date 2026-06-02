@@ -7,10 +7,13 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
+  const session = await requireAdminViewSession();
+  const readOnly = session.user.role === 'REVIEWER';
   const [
     consultationStatusCounts,
     inquiryStatusCounts,
@@ -75,8 +78,12 @@ export default async function AdminDashboardPage() {
     <AdminStack gap="xl">
       <AdminHeader
         eyebrow="Overview"
-        title="Admin dashboard"
-        subtitle="Monitor consultation workflow, tracked web traffic, and the queues that keep the business moving."
+        title={readOnly ? 'Admin dashboard preview' : 'Admin dashboard'}
+        subtitle={
+          readOnly
+            ? 'Review aggregate workflow, traffic, and architecture signals without opening private customer records.'
+            : 'Monitor consultation workflow, tracked web traffic, and the queues that keep the business moving.'
+        }
       />
 
       <AdminSurface className="admin-stack gap-5">
@@ -86,11 +93,13 @@ export default async function AdminDashboardPage() {
           <AdminKpiCard label="Scheduled" value={String(consultationCountByStatus.scheduled ?? 0)} />
           <AdminKpiCard label="Completed" value={String(consultationCountByStatus.completed ?? 0)} />
         </section>
-        <div>
-          <AdminButton asChild variant="primary">
-            <Link href="/admin/consultations">Open consultation inbox</Link>
-          </AdminButton>
-        </div>
+        {!readOnly ? (
+          <div>
+            <AdminButton asChild variant="primary">
+              <Link href="/admin/consultations">Open consultation inbox</Link>
+            </AdminButton>
+          </div>
+        ) : null}
       </AdminSurface>
 
       <AdminSurface className="admin-stack gap-5">
@@ -100,11 +109,13 @@ export default async function AdminDashboardPage() {
           <AdminKpiCard label="Reviewed" value={String(inquiryCountByStatus.reviewed ?? 0)} />
           <AdminKpiCard label="Completed" value={String(inquiryCountByStatus.completed ?? 0)} />
         </section>
-        <div>
-          <AdminButton asChild variant="primary">
-            <Link href="/admin/inquiries">Open inquiry inbox</Link>
-          </AdminButton>
-        </div>
+        {!readOnly ? (
+          <div>
+            <AdminButton asChild variant="primary">
+              <Link href="/admin/inquiries">Open inquiry inbox</Link>
+            </AdminButton>
+          </div>
+        ) : null}
       </AdminSurface>
 
       <AdminSurface className="admin-stack gap-5">
@@ -155,7 +166,7 @@ export default async function AdminDashboardPage() {
             <Link href="/admin/analytics">Open analytics overview</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">Academy editor</Link>
+            <Link href="/admin/academy">{readOnly ? 'Academy structure' : 'Academy editor'}</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/academy/analytics">Academy analytics</Link>
@@ -168,20 +179,22 @@ export default async function AdminDashboardPage() {
         <p className="admin-body">Learning content in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">Manage academy</Link>
+            <Link href="/admin/academy">{readOnly ? 'Academy overview' : 'Manage academy'}</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/academy/analytics">Academy analytics</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/blog">Manage blog</Link>
+            <Link href="/admin/blog">{readOnly ? 'Blog overview' : 'Manage blog'}</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/analytics">View analytics</Link>
           </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/inquiries">View inquiries</Link>
-          </AdminButton>
+          {!readOnly ? (
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/inquiries">View inquiries</Link>
+            </AdminButton>
+          ) : null}
         </div>
       </AdminSurface>
     </AdminStack>

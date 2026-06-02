@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
 const normalizeEvent = (type: unknown) => {
@@ -25,6 +26,12 @@ export async function POST(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
+  try {
+    await rejectReviewerMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   const { id } = await context.params;
   const body = await req.json();
   const event = normalizeEvent(body.type);

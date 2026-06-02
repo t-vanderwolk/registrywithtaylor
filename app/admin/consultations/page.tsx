@@ -9,6 +9,7 @@ import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
 import { readConsultationIntakeSummary } from '@/lib/consultation/intake';
+import { requireAdminSession } from '@/lib/server/session';
 
 type SearchParams = Promise<{ status?: string }> | undefined;
 type StatusFilter = 'all' | 'new' | 'responded' | 'scheduled' | 'completed';
@@ -59,6 +60,7 @@ const toChipClassName = (status: string | null) => {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminConsultationsPage({ searchParams }: { searchParams?: SearchParams }) {
+  await requireAdminSession();
   const params = searchParams ? await searchParams : undefined;
   const statusFilter = normalizeStatusFilter(params?.status);
 

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parseAdminBlogListParams, listAdminPosts } from '@/lib/server/adminBlog';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { requireAdminOrReviewer, unauthorizedResponse } from '@/lib/server/apiAuth';
 
 export async function GET(req: NextRequest) {
-  const token = await requireAdmin(req);
+  const token = await requireAdminOrReviewer(req);
 
   if (!token) {
     return unauthorizedResponse();

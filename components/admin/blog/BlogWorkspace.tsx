@@ -5,7 +5,7 @@ import { startTransition, useDeferredValue, useEffect, useMemo, useState, useTra
 import { usePathname, useRouter } from 'next/navigation';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
 import AdminButton from '@/components/admin/ui/AdminButton';
-import AdminTable from '@/components/admin/ui/AdminTable';
+import AdminTable, { type AdminTableColumn } from '@/components/admin/ui/AdminTable';
 import StatusPill from '@/components/admin/ui/StatusPill';
 import BulkActionsBar from '@/components/admin/blog/BulkActionsBar';
 import FilterBar from '@/components/admin/blog/FilterBar';
@@ -83,6 +83,7 @@ export default function BlogWorkspace({
   filters,
   pagination,
   categoryOptions,
+  readOnly = false,
 }: {
   posts: BlogWorkspacePost[];
   filters: BlogWorkspaceFilters;
@@ -92,6 +93,7 @@ export default function BlogWorkspace({
     totalCount: number;
   };
   categoryOptions: string[];
+  readOnly?: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -121,6 +123,25 @@ export default function BlogWorkspace({
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const allVisibleSelected = rows.length > 0 && rows.every((row) => selectedSet.has(row.id));
+  const tableColumns = useMemo<AdminTableColumn[]>(() => {
+    const columns: AdminTableColumn[] = [
+        { key: 'title', label: 'Title' },
+        { key: 'status', label: 'Status' },
+        { key: 'stage', label: 'Stage' },
+        { key: 'category', label: 'Category' },
+        { key: 'keyword', label: 'Focus Keyword' },
+        { key: 'updated', label: 'Updated' },
+        { key: 'publishedAt', label: 'Published At' },
+        { key: 'featured', label: 'Featured' },
+        { key: 'actions', label: 'Quick Actions', align: 'right' },
+    ];
+
+    if (!readOnly) {
+      columns.unshift({ key: 'select', label: '', className: 'w-12' });
+    }
+
+    return columns;
+  }, [readOnly]);
 
   function updateFilters(partial: Partial<BlogWorkspaceFilters>) {
     const next = { ...filters, ...partial };
@@ -294,32 +315,34 @@ export default function BlogWorkspace({
         onSortChange={(value) => updateFilters({ sort: value, page: 1 })}
       />
 
-      <BulkActionsBar
-        selectedCount={selectedIds.length}
-        categoryOptions={categoryOptions}
-        onApplyStage={(value) => void runBulkAction({ action: 'set-stage', stage: value }, `Updated the stage on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
-        onApplyCategory={(value) => void runBulkAction({ action: 'set-category', category: value }, `Updated the category on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
-        onPublish={() => {
-          if (window.confirm(`Publish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
-            void runBulkAction({ action: 'publish' }, `Published ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
-          }
-        }}
-        onUnpublish={() => {
-          if (window.confirm(`Unpublish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
-            void runBulkAction({ action: 'unpublish' }, `Moved ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'} back to draft.`);
-          }
-        }}
-        onArchive={() => {
-          if (window.confirm(`Archive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
-            void runBulkAction({ action: 'archive' }, `Archived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
-          }
-        }}
-        onUnarchive={() => {
-          if (window.confirm(`Unarchive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
-            void runBulkAction({ action: 'unarchive' }, `Unarchived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
-          }
-        }}
-      />
+      {!readOnly ? (
+        <BulkActionsBar
+          selectedCount={selectedIds.length}
+          categoryOptions={categoryOptions}
+          onApplyStage={(value) => void runBulkAction({ action: 'set-stage', stage: value }, `Updated the stage on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
+          onApplyCategory={(value) => void runBulkAction({ action: 'set-category', category: value }, `Updated the category on ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`)}
+          onPublish={() => {
+            if (window.confirm(`Publish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+              void runBulkAction({ action: 'publish' }, `Published ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+            }
+          }}
+          onUnpublish={() => {
+            if (window.confirm(`Unpublish ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+              void runBulkAction({ action: 'unpublish' }, `Moved ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'} back to draft.`);
+            }
+          }}
+          onArchive={() => {
+            if (window.confirm(`Archive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+              void runBulkAction({ action: 'archive' }, `Archived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+            }
+          }}
+          onUnarchive={() => {
+            if (window.confirm(`Unarchive ${selectedIds.length} selected post${selectedIds.length === 1 ? '' : 's'}?`)) {
+              void runBulkAction({ action: 'unarchive' }, `Unarchived ${selectedIds.length} post${selectedIds.length === 1 ? '' : 's'}.`);
+            }
+          }}
+        />
+      ) : null}
 
       {notice ? (
         <div
@@ -335,45 +358,36 @@ export default function BlogWorkspace({
 
       <AdminTable
         density="comfortable"
-        columns={[
-          { key: 'select', label: '', className: 'w-12' },
-          { key: 'title', label: 'Title' },
-          { key: 'status', label: 'Status' },
-          { key: 'stage', label: 'Stage' },
-          { key: 'category', label: 'Category' },
-          { key: 'keyword', label: 'Focus Keyword' },
-          { key: 'updated', label: 'Updated' },
-          { key: 'publishedAt', label: 'Published At' },
-          { key: 'featured', label: 'Featured' },
-          { key: 'actions', label: 'Quick Actions', align: 'right' },
-        ]}
+        columns={tableColumns}
         emptyState={
           <AdminEmptyState
             title="No posts match filters"
             hint="Try loosening filters or start a new post."
-            action={
+            action={!readOnly ? (
               <AdminButton asChild variant="primary" size="sm">
                 <Link href="/admin/blog/new">New Post</Link>
               </AdminButton>
-            }
+            ) : undefined}
           />
         }
       >
         {rows.map((post) => (
           <tr key={post.id} className="admin-row">
-            <td>
-              <input
-                aria-label={`Select ${post.title}`}
-                type="checkbox"
-                checked={selectedSet.has(post.id)}
-                onChange={(event) =>
-                  setSelectedIds((current) =>
-                    event.target.checked ? Array.from(new Set([...current, post.id])) : current.filter((id) => id !== post.id),
-                  )
-                }
-                className="h-4 w-4 rounded border-[var(--admin-color-border)]"
-              />
-            </td>
+            {!readOnly ? (
+              <td>
+                <input
+                  aria-label={`Select ${post.title}`}
+                  type="checkbox"
+                  checked={selectedSet.has(post.id)}
+                  onChange={(event) =>
+                    setSelectedIds((current) =>
+                      event.target.checked ? Array.from(new Set([...current, post.id])) : current.filter((id) => id !== post.id),
+                    )
+                  }
+                  className="h-4 w-4 rounded border-[var(--admin-color-border)]"
+                />
+              </td>
+            ) : null}
             <td>
               <div className="admin-stack gap-1">
                 <p className="text-sm font-medium text-admin">{post.title}</p>
@@ -397,79 +411,85 @@ export default function BlogWorkspace({
             <td>{post.featured ? <span className="admin-chip admin-chip--published">Featured</span> : <span className="admin-chip">No</span>}</td>
             <td>
               <div className="flex flex-wrap justify-end gap-2">
-                <AdminButton asChild size="sm" variant="secondary">
-                  <Link href={`/admin/blog/${post.id}/edit`}>Edit</Link>
-                </AdminButton>
+                {!readOnly ? (
+                  <AdminButton asChild size="sm" variant="secondary">
+                    <Link href={`/admin/blog/${post.id}/edit`}>Edit</Link>
+                  </AdminButton>
+                ) : null}
                 <AdminButton asChild size="sm" variant="secondary">
                   <Link href={`/admin/blog/${post.id}/preview`}>Preview</Link>
                 </AdminButton>
-                <AdminButton
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => void duplicatePost(post.id)}
-                  disabled={busyKey === `duplicate:${post.id}` || isPending}
-                >
-                  Duplicate
-                </AdminButton>
-                <AdminButton
-                  size="sm"
-                  variant="ghost"
-                  onClick={() =>
-                    void updateSinglePost(post.id, {
-                      status: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
-                      stage: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
-                    }).then(async (updated) => {
-                      await refreshWithNotice({
-                        tone: 'success',
-                        message: updated.status === 'PUBLISHED' ? 'Post published.' : 'Post moved to draft.',
-                      });
-                    }).catch((error) =>
-                      setNotice({
-                        tone: 'error',
-                        message: error instanceof Error ? error.message : 'Unable to update the post.',
-                      }),
-                    )
-                  }
-                  disabled={busyKey !== null || isPending}
-                >
-                  {post.status === 'PUBLISHED' ? 'Unpublish' : 'Publish'}
-                </AdminButton>
-                <AdminButton
-                  size="sm"
-                  variant={post.status === 'ARCHIVED' ? 'secondary' : 'danger'}
-                  onClick={() => {
-                    const nextArchived = post.status !== 'ARCHIVED';
-                    if (!window.confirm(`${nextArchived ? 'Archive' : 'Unarchive'} "${post.title}"?`)) {
-                      return;
-                    }
+                {!readOnly ? (
+                  <>
+                    <AdminButton
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => void duplicatePost(post.id)}
+                      disabled={busyKey === `duplicate:${post.id}` || isPending}
+                    >
+                      Duplicate
+                    </AdminButton>
+                    <AdminButton
+                      size="sm"
+                      variant="ghost"
+                      onClick={() =>
+                        void updateSinglePost(post.id, {
+                          status: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
+                          stage: post.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED',
+                        }).then(async (updated) => {
+                          await refreshWithNotice({
+                            tone: 'success',
+                            message: updated.status === 'PUBLISHED' ? 'Post published.' : 'Post moved to draft.',
+                          });
+                        }).catch((error) =>
+                          setNotice({
+                            tone: 'error',
+                            message: error instanceof Error ? error.message : 'Unable to update the post.',
+                          }),
+                        )
+                      }
+                      disabled={busyKey !== null || isPending}
+                    >
+                      {post.status === 'PUBLISHED' ? 'Unpublish' : 'Publish'}
+                    </AdminButton>
+                    <AdminButton
+                      size="sm"
+                      variant={post.status === 'ARCHIVED' ? 'secondary' : 'danger'}
+                      onClick={() => {
+                        const nextArchived = post.status !== 'ARCHIVED';
+                        if (!window.confirm(`${nextArchived ? 'Archive' : 'Unarchive'} "${post.title}"?`)) {
+                          return;
+                        }
 
-                    void updateSinglePost(post.id, {
-                      status: nextArchived ? 'ARCHIVED' : 'DRAFT',
-                      stage: nextArchived ? 'ARCHIVED' : 'DRAFT',
-                    }).then(async () => {
-                      await refreshWithNotice({
-                        tone: 'success',
-                        message: nextArchived ? 'Post archived.' : 'Post unarchived.',
-                      });
-                    }).catch((error) =>
-                      setNotice({
-                        tone: 'error',
-                        message: error instanceof Error ? error.message : 'Unable to update the post.',
-                      }),
-                    );
-                  }}
-                  disabled={busyKey !== null || isPending}
-                >
-                  {post.status === 'ARCHIVED' ? 'Unarchive' : 'Archive'}
-                </AdminButton>
-                <AdminButton
-                  size="sm"
-                  variant="danger"
-                  onClick={() => void deletePost(post.id)}
-                  disabled={busyKey === `delete:${post.id}` || isPending}
-                >
-                  Delete
-                </AdminButton>
+                        void updateSinglePost(post.id, {
+                          status: nextArchived ? 'ARCHIVED' : 'DRAFT',
+                          stage: nextArchived ? 'ARCHIVED' : 'DRAFT',
+                        }).then(async () => {
+                          await refreshWithNotice({
+                            tone: 'success',
+                            message: nextArchived ? 'Post archived.' : 'Post unarchived.',
+                          });
+                        }).catch((error) =>
+                          setNotice({
+                            tone: 'error',
+                            message: error instanceof Error ? error.message : 'Unable to update the post.',
+                          }),
+                        );
+                      }}
+                      disabled={busyKey !== null || isPending}
+                    >
+                      {post.status === 'ARCHIVED' ? 'Unarchive' : 'Archive'}
+                    </AdminButton>
+                    <AdminButton
+                      size="sm"
+                      variant="danger"
+                      onClick={() => void deletePost(post.id)}
+                      disabled={busyKey === `delete:${post.id}` || isPending}
+                    >
+                      Delete
+                    </AdminButton>
+                  </>
+                ) : null}
               </div>
             </td>
           </tr>
@@ -478,17 +498,21 @@ export default function BlogWorkspace({
 
       {rows.length > 0 ? (
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <label className="flex items-center gap-2 text-sm text-admin">
-            <input
-              type="checkbox"
-              checked={allVisibleSelected}
-              onChange={(event) =>
-                setSelectedIds(event.target.checked ? rows.map((row) => row.id) : [])
-              }
-              className="h-4 w-4 rounded border-[var(--admin-color-border)]"
-            />
-            Select all visible
-          </label>
+          {!readOnly ? (
+            <label className="flex items-center gap-2 text-sm text-admin">
+              <input
+                type="checkbox"
+                checked={allVisibleSelected}
+                onChange={(event) =>
+                  setSelectedIds(event.target.checked ? rows.map((row) => row.id) : [])
+                }
+                className="h-4 w-4 rounded border-[var(--admin-color-border)]"
+              />
+              Select all visible
+            </label>
+          ) : (
+            <p className="admin-micro">Reviewer Mode: post controls are read-only.</p>
+          )}
 
           <div className="flex items-center gap-3">
             <p className="admin-micro">

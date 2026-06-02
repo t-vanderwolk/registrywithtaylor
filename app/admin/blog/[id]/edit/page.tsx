@@ -11,6 +11,7 @@ import { listBlogAuthorOptions } from '@/lib/server/blogAuthors';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 import { postEditorSelect, toPostEditorRecord } from '@/lib/server/postEditorRecord';
 import prisma from '@/lib/server/prisma';
+import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,6 +20,7 @@ type EditPostProps = {
 };
 
 export default async function EditPostPage({ params }: EditPostProps) {
+  await requireAdminSession();
   const { id } = await params;
   const post = await prisma.post.findUnique({
     where: { id },

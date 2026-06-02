@@ -444,6 +444,7 @@ model Compatibility {
 enum Role {
   USER
   ADMIN
+  REVIEWER
 }
 
 enum PostStatus {

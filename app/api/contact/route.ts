@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
 import { contactConfirmationTemplate } from '@/lib/email/templates/contactConfirmation';
 import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 
@@ -65,6 +66,12 @@ const getRequestIp = (req: NextRequest) => {
 };
 
 export async function POST(req: NextRequest) {
+  try {
+    await rejectReviewerMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   const ip = getRequestIp(req);
   const rateLimit = consumeRateLimit({
     route: '/api/contact',

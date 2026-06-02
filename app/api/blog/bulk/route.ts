@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { deriveLifecycleAndStage, revalidatePostPaths } from '@/lib/server/blogMutation';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
 const asText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
@@ -19,7 +19,12 @@ type BulkAction =
   | 'unarchive';
 
 export async function POST(req: NextRequest) {
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
 
   if (!token) {
     return unauthorizedResponse();

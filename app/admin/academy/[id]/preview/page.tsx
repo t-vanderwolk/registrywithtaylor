@@ -15,6 +15,7 @@ import { getAcademyPreviewModuleFromGuide } from '@/lib/server/academyGuides';
 import { logGuideEvent } from '@/lib/server/guideAnalytics';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import prisma from '@/lib/server/prisma';
+import { requireAdminViewSession } from '@/lib/server/session';
 import '../../../../../styles/blog.css';
 
 export const dynamic = 'force-dynamic';
@@ -24,6 +25,8 @@ type AdminAcademyPreviewPageProps = {
 };
 
 export default async function AdminAcademyPreviewPage({ params }: AdminAcademyPreviewPageProps) {
+  const session = await requireAdminViewSession();
+  const readOnly = session.user.role === 'REVIEWER';
   const { id } = await params;
 
   let guide = null;
@@ -67,24 +70,26 @@ export default async function AdminAcademyPreviewPage({ params }: AdminAcademyPr
       }
     : null;
 
-  try {
-    await logGuideEvent({
-      guideId: guide.id,
-      event: GuideAnalyticsEvents.GUIDE_PREVIEWED,
-      sourceRoute: `/admin/academy/${guide.id}/preview`,
-      meta: {
-        guide_id: guide.id,
-        guide_title: guide.title,
-        guide_slug: guide.slug,
-        guide_category: guide.category,
-        author_id: guide.author.id,
-        status: guide.status,
-        source_route: `/admin/academy/${guide.id}/preview`,
-      },
-    });
-  } catch (error) {
-    if (!isGuideStorageUnavailableError(error)) {
-      throw error;
+  if (!readOnly) {
+    try {
+      await logGuideEvent({
+        guideId: guide.id,
+        event: GuideAnalyticsEvents.GUIDE_PREVIEWED,
+        sourceRoute: `/admin/academy/${guide.id}/preview`,
+        meta: {
+          guide_id: guide.id,
+          guide_title: guide.title,
+          guide_slug: guide.slug,
+          guide_category: guide.category,
+          author_id: guide.author.id,
+          status: guide.status,
+          source_route: `/admin/academy/${guide.id}/preview`,
+        },
+      });
+    } catch (error) {
+      if (!isGuideStorageUnavailableError(error)) {
+        throw error;
+      }
     }
   }
 
@@ -132,8 +137,13 @@ export default async function AdminAcademyPreviewPage({ params }: AdminAcademyPr
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href={`/admin/academy/${guide.id}/edit`}>Back to editor</Link>
+              <Link href="/admin/academy">{readOnly ? 'Back to Academy structure' : 'Back to Academy'}</Link>
             </AdminButton>
+            {!readOnly ? (
+              <AdminButton asChild variant="secondary">
+                <Link href={`/admin/academy/${guide.id}/edit`}>Back to editor</Link>
+              </AdminButton>
+            ) : null}
             {isGuidePubliclyVisible(guide.status, guide.scheduledFor) ? (
               <AdminButton asChild variant="ghost">
                 <Link href={publicPath} target="_blank">

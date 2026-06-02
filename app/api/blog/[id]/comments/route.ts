@@ -5,6 +5,7 @@ import {
   normalizePostCommentSubmission,
 } from '@/lib/blog/postComments';
 import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { publicPostCommentSelect, toBlogPostComment } from '@/lib/server/postComments';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
@@ -56,6 +57,12 @@ export async function POST(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
+  try {
+    await rejectReviewerMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   const ip = getRequestIp(req);
   const rateLimit = consumeRateLimit({
     route: '/api/blog/comments',

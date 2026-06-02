@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import {
@@ -37,6 +38,12 @@ export async function POST(
   context: { params: Promise<{ id: string }> },
 ) {
   try {
+    try {
+      await rejectReviewerMutation(req);
+    } catch (error) {
+      return forbiddenResponse(error);
+    }
+
     const { id } = await context.params;
     const ip = getRequestIp(req);
     const rateLimit = consumeRateLimit({

@@ -4,7 +4,13 @@ import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { getPublicPostWhere } from '@/lib/blog/postStatus';
 import { DEFAULT_BLOG_CATEGORY, normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
-import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  canAccessAdminView,
+  forbiddenResponse,
+  getRequestToken,
+  requireAdminMutation,
+  unauthorizedResponse,
+} from '@/lib/server/apiAuth';
 import {
   resolveAffiliateBrandIdsFromLegacyAffiliateIds,
   resolveLegacyAffiliateIdsFromBrandIds,
@@ -64,7 +70,7 @@ const asImageArray = (value: unknown): ImageInput[] => {
 
 export async function GET(req: NextRequest) {
   const token = await getRequestToken(req);
-  const where = token?.role === 'ADMIN' ? undefined : getPublicPostWhere();
+  const where = canAccessAdminView(token?.role) ? undefined : getPublicPostWhere();
 
   const posts = await prisma.post.findMany({
     where,
@@ -80,7 +86,12 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
 
   if (!token?.id) {
     return unauthorizedResponse();

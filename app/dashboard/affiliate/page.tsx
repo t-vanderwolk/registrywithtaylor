@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import AffiliateAnalyticsCharts from '@/components/dashboard/affiliate/AffiliateAnalyticsCharts';
 import { getAffiliateAnalyticsDashboard } from '@/lib/server/affiliateAnalyticsDashboard';
-import { requireAdminSession } from '@/lib/server/session';
+import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
@@ -64,12 +64,20 @@ function DashboardTable({
 }
 
 export default async function AffiliateDashboardPage() {
-  await requireAdminSession('/dashboard/affiliate');
+  const session = await requireAdminViewSession('/dashboard/affiliate');
+  const readOnly = session.user.role === 'REVIEWER';
   const analytics = await getAffiliateAnalyticsDashboard();
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#fffaf8_0%,#fdf4f6_52%,#f7efe8_100%)] px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-8">
+        {readOnly ? (
+          <div className="rounded-[1.25rem] border border-[rgba(139,95,18,0.22)] bg-white/90 px-5 py-4 text-sm text-charcoal/72 shadow-[0_14px_34px_rgba(58,36,43,0.06)]">
+            <strong className="mr-2 uppercase tracking-[0.18em] text-charcoal">Reviewer Mode · Read-only Access</strong>
+            Aggregate affiliate summaries only.
+          </div>
+        ) : null}
+
         <section className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(253,247,248,0.96)_48%,rgba(249,241,236,0.98)_100%)] p-6 shadow-[0_24px_60px_rgba(58,36,43,0.08)] sm:p-8">
           <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/68">Affiliate Analytics</p>
           <h1 className="mt-4 max-w-3xl font-serif text-[2.4rem] leading-[0.98] tracking-[-0.05em] text-charcoal sm:text-[3.2rem]">

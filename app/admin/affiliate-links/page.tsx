@@ -131,6 +131,7 @@ export default async function AdminAffiliateLinksPage({
 }: {
   searchParams?: SearchParams;
 }) {
+  await requireAdminSession();
   const params = searchParams ? await searchParams : undefined;
   const sort = normalizeSort(params?.sort);
   const createdCode = params?.created ? params.created.trim() : '';

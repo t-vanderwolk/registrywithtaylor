@@ -3,7 +3,7 @@ import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { generateUniqueSlug } from '@/lib/server/blog';
 import { resolveAffiliateBrandIdsFromLegacyAffiliateIds } from '@/lib/server/affiliateBrands';
 import { revalidatePostPaths } from '@/lib/server/blogMutation';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 
 export async function POST(
@@ -11,7 +11,12 @@ export async function POST(
   context: { params: Promise<{ id: string }> },
 ) {
   const { id } = await context.params;
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
 
   if (!token?.id) {
     return unauthorizedResponse();

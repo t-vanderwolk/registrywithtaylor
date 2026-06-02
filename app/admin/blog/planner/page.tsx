@@ -4,10 +4,12 @@ import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import PlannerBoard from '@/components/admin/blog/PlannerBoard';
 import { listPlannerPosts } from '@/lib/server/adminBlog';
+import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminBlogPlannerPage() {
+  await requireAdminSession();
   const posts = await listPlannerPosts();
 
   return (

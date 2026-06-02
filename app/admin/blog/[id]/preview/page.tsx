@@ -9,6 +9,7 @@ import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { postArticleSelect, toPostArticleRecord } from '@/lib/server/postArticleRecord';
 import { blogTokenStyles } from '@/styles/tmbcBlogTokens';
 import prisma from '@/lib/server/prisma';
+import { requireAdminViewSession } from '@/lib/server/session';
 import '../../../../../styles/blog.css';
 
 export const dynamic = 'force-dynamic';
@@ -18,6 +19,8 @@ type AdminBlogPreviewPageProps = {
 };
 
 export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewPageProps) {
+  const session = await requireAdminViewSession();
+  const readOnly = session.user.role === 'REVIEWER';
   const { id } = await params;
 
   const post = await prisma.post.findUnique({
@@ -68,8 +71,13 @@ export default async function AdminBlogPreviewPage({ params }: AdminBlogPreviewP
         actions={
           <>
             <AdminButton asChild variant="secondary">
-              <Link href={`/admin/blog/${post.id}/edit`}>Back to editor</Link>
+              <Link href="/admin/blog">{readOnly ? 'Back to blog overview' : 'Back to posts'}</Link>
             </AdminButton>
+            {!readOnly ? (
+              <AdminButton asChild variant="secondary">
+                <Link href={`/admin/blog/${post.id}/edit`}>Back to editor</Link>
+              </AdminButton>
+            ) : null}
             {isPostPubliclyVisible(post.status, post.scheduledFor) ? (
               <AdminButton asChild variant="ghost">
                 <Link href={`/blog/${post.slug}`} target="_blank">

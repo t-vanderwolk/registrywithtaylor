@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
+import { getRequestToken, isReviewerRole } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import { getHostname, isDomainAllowed, isHttps } from '@/lib/server/urlSafety';
@@ -46,6 +47,8 @@ export async function GET(
   context: { params: Promise<{ code: string }> },
 ) {
   const { code } = await context.params;
+  const token = await getRequestToken(request);
+  const isReviewer = isReviewerRole(token?.role);
   const requestId = request.headers.get('x-request-id')?.trim() || crypto.randomUUID();
   const ipAddress = getClientIpAddress(request) ?? 'unknown';
 
@@ -173,12 +176,13 @@ export async function GET(
     });
 
     const userAgent = request.headers.get('user-agent');
-    if (isBotUserAgent(userAgent)) {
-      logger.debug('affiliate_redirect_bot_skipped_click', {
+    if (isBotUserAgent(userAgent) || isReviewer) {
+      logger.debug('affiliate_redirect_skipped_click', {
         requestId,
         code: link.code,
         partnerId: link.partnerId,
         programId: link.programId,
+        reason: isReviewer ? 'reviewer' : 'bot',
       });
       return NextResponse.redirect(resolvedDestinationUrl, { status: 302 });
     }

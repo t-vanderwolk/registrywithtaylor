@@ -9,6 +9,7 @@ import GuideStorageNotice from '@/components/admin/guides/GuideStorageNotice';
 import GuideWorkspace from '@/components/admin/guides/GuideWorkspace';
 import { listAdminGuidesSafe, parseAdminGuideListParams } from '@/lib/server/adminGuides';
 import { getAcademySubmoduleInventorySafe } from '@/lib/server/academyEditorWorkspace';
+import { requireAdminViewSession } from '@/lib/server/session';
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>> | undefined;
 
@@ -19,6 +20,8 @@ export default async function AdminAcademyIndexPage({
 }: {
   searchParams?: SearchParams;
 }) {
+  const session = await requireAdminViewSession();
+  const readOnly = session.user.role === 'REVIEWER';
   const baseParams = parseAdminGuideListParams(searchParams ? await searchParams : undefined);
   const params = { ...baseParams, scope: 'all' as const };
   const result = await listAdminGuidesSafe(params);
@@ -31,15 +34,21 @@ export default async function AdminAcademyIndexPage({
       <AdminHeader
         eyebrow="Academy"
         title="Academy workspace"
-        subtitle="Manage Academy modules and learning-content records in one system while keeping public Academy and guide URLs intact."
+        subtitle={
+          readOnly
+            ? 'Inspect Academy modules, hub structure, and learning-content records without changing production content.'
+            : 'Manage Academy modules and learning-content records in one system while keeping public Academy and guide URLs intact.'
+        }
         actions={
           <>
             <AdminButton asChild variant="secondary">
               <Link href="/admin/academy/analytics">Academy analytics</Link>
             </AdminButton>
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/academy/new">Create Learning Content</Link>
-            </AdminButton>
+            {!readOnly ? (
+              <AdminButton asChild variant="primary">
+                <Link href="/admin/academy/new">Create Learning Content</Link>
+              </AdminButton>
+            ) : null}
           </>
         }
       />
@@ -78,6 +87,7 @@ export default async function AdminAcademyIndexPage({
               primaryColumnLabel="Learning Content"
               editorBasePath="/admin/academy"
               newHref="/admin/academy/new"
+              readOnly={readOnly}
             />
           </AdminSurface>
         </>

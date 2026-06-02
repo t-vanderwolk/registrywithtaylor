@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { generateUniqueGuideSlug } from '@/lib/server/guides';
@@ -14,7 +14,12 @@ export async function POST(
 ) {
   try {
     const { id } = await context.params;
-    const token = await requireAdmin(req);
+    let token;
+    try {
+      token = await requireAdminMutation(req);
+    } catch (error) {
+      return forbiddenResponse(error);
+    }
 
     if (!token?.id) {
       return unauthorizedResponse();

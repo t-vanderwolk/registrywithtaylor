@@ -4,7 +4,13 @@ import { estimateReadingTimeFromContent } from '@/lib/blog/contentText';
 import { isPostPubliclyVisible } from '@/lib/blog/postStatus';
 import { normalizeBlogCategory } from '@/lib/blogCategories';
 import { generateUniqueSlug } from '@/lib/server/blog';
-import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  canAccessAdminView,
+  forbiddenResponse,
+  getRequestToken,
+  requireAdminMutation,
+  unauthorizedResponse,
+} from '@/lib/server/apiAuth';
 import {
   resolveAffiliateBrandIdsFromLegacyAffiliateIds,
   resolveLegacyAffiliateIdsFromBrandIds,
@@ -79,7 +85,7 @@ export async function GET(
   }
 
   if (
-    token?.role !== 'ADMIN' &&
+    !canAccessAdminView(token?.role) &&
     !isPostPubliclyVisible(post.status, post.scheduledFor)
   ) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -93,7 +99,12 @@ export async function PUT(
   context: { params: Promise<{ id: string }> },
 ) {
   const { id } = await context.params;
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
 
   if (!token) {
     return unauthorizedResponse();
@@ -282,7 +293,12 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> },
 ) {
   const { id } = await context.params;
-  const token = await requireAdmin(req);
+  let token;
+  try {
+    token = await requireAdminMutation(req);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
 
   if (!token) {
     return unauthorizedResponse();

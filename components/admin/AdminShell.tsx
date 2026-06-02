@@ -21,28 +21,45 @@ export default function AdminShell({
   children,
   brand,
   sections,
+  isReviewerMode = false,
 }: {
   children: ReactNode;
   brand: string;
   sections: NavSection[];
+  isReviewerMode?: boolean;
 }) {
   const pathname = usePathname() ?? '/admin';
 
   return (
     <div className="admin-page">
       <AdminContainer className="admin-stack" >
+        {isReviewerMode ? (
+          <div className="admin-reviewer-banner" role="status">
+            <span>Reviewer Mode · Read-only Access</span>
+            <span>No create, edit, publish, delete, invite, assign, sync, or send actions are available.</span>
+          </div>
+        ) : null}
+
         <AdminSurface variant="muted" className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="admin-stack gap-1.5">
-            <p className="admin-eyebrow">Admin Portal</p>
+            <p className="admin-eyebrow">{isReviewerMode ? 'Reviewer Portal' : 'Admin Portal'}</p>
             <p className="admin-h2">{brand}</p>
           </div>
           <div className="flex items-center gap-2">
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/academy/new">New Academy Draft</Link>
-            </AdminButton>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/blog/new">New Post</Link>
-            </AdminButton>
+            {!isReviewerMode ? (
+              <>
+                <AdminButton asChild variant="primary">
+                  <Link href="/admin/academy/new">New Academy Draft</Link>
+                </AdminButton>
+                <AdminButton asChild variant="secondary">
+                  <Link href="/admin/blog/new">New Post</Link>
+                </AdminButton>
+              </>
+            ) : (
+              <AdminButton asChild variant="primary">
+                <Link href="/dashboard/reviewer">Reviewer Home</Link>
+              </AdminButton>
+            )}
             <AdminButton asChild variant="secondary">
               <Link href="/">View site</Link>
             </AdminButton>
@@ -80,7 +97,9 @@ export default function AdminShell({
               </div>
               <div className="admin-divider" />
               <p className="admin-micro">
-                Academy and learning-content records publish through the authority layer while posts continue through the journal flow.
+                {isReviewerMode
+                  ? 'Reviewer access is built for inspection only. Production data changes stay off the table.'
+                  : 'Academy and learning-content records publish through the authority layer while posts continue through the journal flow.'}
               </p>
             </AdminSurface>
           </aside>

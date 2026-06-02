@@ -11,6 +11,7 @@ import { listGuideRelationOptions } from '@/lib/server/guides';
 import { listImageMediaLibrary } from '@/lib/server/mediaLibrary';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import prisma from '@/lib/server/prisma';
+import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,6 +20,7 @@ type EditAcademyPageProps = {
 };
 
 export default async function EditAcademyPage({ params }: EditAcademyPageProps) {
+  await requireAdminSession();
   const { id } = await params;
   let guide = null;
   try {

@@ -120,6 +120,7 @@ export default function GuideWorkspace({
   newHref,
   showCreateAction = true,
   primaryColumnLabel = 'Learning Content',
+  readOnly = false,
 }: {
   guides: AdminGuideRow[];
   filters: GuideWorkspaceFilters;
@@ -135,6 +136,7 @@ export default function GuideWorkspace({
   newHref?: string;
   showCreateAction?: boolean;
   primaryColumnLabel?: string;
+  readOnly?: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -413,7 +415,7 @@ export default function GuideWorkspace({
           <AdminEmptyState
             title={`No ${itemsLabel} found`}
             hint={showCreateAction ? `Start with a new ${itemLabel} or loosen the filters.` : 'Loosen the filters or confirm the records have been seeded.'}
-            action={showCreateAction ? (
+            action={showCreateAction && !readOnly ? (
               <AdminButton asChild variant="primary" size="sm">
                 <Link href={resolvedNewHref}>Create New {formatLabel(itemLabel)}</Link>
               </AdminButton>
@@ -434,7 +436,10 @@ export default function GuideWorkspace({
             <tr key={guide.id} className="admin-row">
               <td>
                 <div className="admin-stack gap-1">
-                  <Link href={`${editorBasePath}/${guide.id}/edit`} className="text-admin transition hover:opacity-75">
+                  <Link
+                    href={readOnly ? `${editorBasePath}/${guide.id}/preview` : `${editorBasePath}/${guide.id}/edit`}
+                    className="text-admin transition hover:opacity-75"
+                  >
                     {guide.title}
                   </Link>
                   <span className="admin-table-code">{publicRoute}</span>
@@ -477,54 +482,62 @@ export default function GuideWorkspace({
               </td>
               <td>
                 <div className="flex flex-wrap gap-2">
-                  <AdminButton asChild variant="secondary" size="sm">
-                    <Link href={`${editorBasePath}/${guide.id}/edit`}>Edit</Link>
-                  </AdminButton>
+                  {!readOnly ? (
+                    <AdminButton asChild variant="secondary" size="sm">
+                      <Link href={`${editorBasePath}/${guide.id}/edit`}>Edit</Link>
+                    </AdminButton>
+                  ) : null}
                   <AdminButton asChild variant="ghost" size="sm">
                     <Link href={`${editorBasePath}/${guide.id}/preview`}>Preview</Link>
                   </AdminButton>
-                  <AdminButton
-                    variant={isPublished ? 'secondary' : 'primary'}
-                    size="sm"
-                    disabled={busyKey !== null}
-                    onClick={() =>
-                      void setGuideStatus(
-                        guide.id,
-                        isPublished ? 'DRAFT' : 'PUBLISHED',
-                        isPublished ? `${singularLabel} moved back to draft.` : `${singularLabel} published.`,
-                      )
-                    }
-                  >
-                    {busyKey === `${isPublished ? 'draft' : 'published'}:${guide.id}`
-                      ? 'Working...'
-                      : isPublished
-                        ? 'Unpublish'
-                        : 'Publish'}
-                  </AdminButton>
-                  <AdminButton
-                    variant="secondary"
-                    size="sm"
-                    disabled={busyKey !== null}
-                    onClick={() => void duplicateGuide(guide.id)}
-                  >
-                    {busyKey === `duplicate:${guide.id}` ? 'Working...' : 'Duplicate'}
-                  </AdminButton>
-                  <AdminButton
-                    variant="ghost"
-                    size="sm"
-                    disabled={busyKey !== null || isArchived}
-                    onClick={() => void setGuideStatus(guide.id, 'ARCHIVED', `${singularLabel} archived.`)}
-                  >
-                    {busyKey === `archived:${guide.id}` ? 'Working...' : 'Archive'}
-                  </AdminButton>
-                  <AdminButton
-                    variant="danger"
-                    size="sm"
-                    disabled={busyKey !== null}
-                    onClick={() => void deleteGuide(guide.id)}
-                  >
-                    {busyKey === `delete:${guide.id}` ? 'Working...' : 'Delete'}
-                  </AdminButton>
+                  {!readOnly ? (
+                    <>
+                      <AdminButton
+                        variant={isPublished ? 'secondary' : 'primary'}
+                        size="sm"
+                        disabled={busyKey !== null}
+                        onClick={() =>
+                          void setGuideStatus(
+                            guide.id,
+                            isPublished ? 'DRAFT' : 'PUBLISHED',
+                            isPublished ? `${singularLabel} moved back to draft.` : `${singularLabel} published.`,
+                          )
+                        }
+                      >
+                        {busyKey === `${isPublished ? 'draft' : 'published'}:${guide.id}`
+                          ? 'Working...'
+                          : isPublished
+                            ? 'Unpublish'
+                            : 'Publish'}
+                      </AdminButton>
+                      <AdminButton
+                        variant="secondary"
+                        size="sm"
+                        disabled={busyKey !== null}
+                        onClick={() => void duplicateGuide(guide.id)}
+                      >
+                        {busyKey === `duplicate:${guide.id}` ? 'Working...' : 'Duplicate'}
+                      </AdminButton>
+                      <AdminButton
+                        variant="ghost"
+                        size="sm"
+                        disabled={busyKey !== null || isArchived}
+                        onClick={() => void setGuideStatus(guide.id, 'ARCHIVED', `${singularLabel} archived.`)}
+                      >
+                        {busyKey === `archived:${guide.id}` ? 'Working...' : 'Archive'}
+                      </AdminButton>
+                      <AdminButton
+                        variant="danger"
+                        size="sm"
+                        disabled={busyKey !== null}
+                        onClick={() => void deleteGuide(guide.id)}
+                      >
+                        {busyKey === `delete:${guide.id}` ? 'Working...' : 'Delete'}
+                      </AdminButton>
+                    </>
+                  ) : (
+                    <span className="admin-chip">Read-only</span>
+                  )}
                 </div>
               </td>
             </tr>

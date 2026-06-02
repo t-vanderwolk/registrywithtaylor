@@ -8,6 +8,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
 import AdminEmptyState from '@/components/admin/patterns/AdminEmptyState';
+import { requireAdminSession } from '@/lib/server/session';
 
 type SearchParams = Promise<{ status?: string }> | undefined;
 type StatusFilter = 'all' | 'new' | 'reviewed' | 'completed';
@@ -71,6 +72,7 @@ const toServiceLabel = (service: string | null) => {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminInquiriesPage({ searchParams }: { searchParams?: SearchParams }) {
+  await requireAdminSession();
   const params = searchParams ? await searchParams : undefined;
   const statusFilter = normalizeStatusFilter(params?.status);
 

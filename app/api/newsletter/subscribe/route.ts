@@ -1,8 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 
 const DC = 'us22';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  try {
+    await rejectReviewerMutation(request);
+  } catch (error) {
+    return forbiddenResponse(error);
+  }
+
   const apiKey = process.env.MAILCHIMP_API_KEY;
   const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 

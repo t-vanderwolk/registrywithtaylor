@@ -1,6 +1,12 @@
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { getRequestToken, requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
+import {
+  canAccessAdminView,
+  forbiddenResponse,
+  getRequestToken,
+  requireAdminMutation,
+  unauthorizedResponse,
+} from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { normalizeGuideCategory } from '@/lib/guides/categories';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
@@ -40,11 +46,11 @@ export async function GET(
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    if (token?.role !== 'ADMIN' && !isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
+    if (!canAccessAdminView(token?.role) && !isGuidePubliclyVisible(guide.status, guide.scheduledFor)) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    if (token?.role !== 'ADMIN') {
+    if (!canAccessAdminView(token?.role)) {
       return unauthorizedResponse();
     }
 
@@ -64,7 +70,12 @@ export async function PUT(
 ) {
   try {
     const { id } = await context.params;
-    const token = await requireAdmin(req);
+    let token;
+    try {
+      token = await requireAdminMutation(req);
+    } catch (error) {
+      return forbiddenResponse(error);
+    }
 
     if (!token?.id) {
       return unauthorizedResponse();
@@ -296,7 +307,12 @@ export async function DELETE(
 ) {
   try {
     const { id } = await context.params;
-    const token = await requireAdmin(req);
+    let token;
+    try {
+      token = await requireAdminMutation(req);
+    } catch (error) {
+      return forbiddenResponse(error);
+    }
 
     if (!token?.id) {
       return unauthorizedResponse();
