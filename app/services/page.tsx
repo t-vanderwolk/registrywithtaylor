@@ -252,7 +252,7 @@ export default function ServicesPage() {
           <ConsultationRequestSection
             returnPath="/services#request-a-consult"
             successPath="/consultation/confirmation"
-            submitLabel="Request a Consultation"
+            submitLabel="Book a Consultation"
           />
         </Suspense>
       </main>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -62,7 +63,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           className="homepage-hero"
           eyebrow="Contact"
           title="Get in Touch"
-          subtitle="Whether you need help with a registry, gear decision, nursery setup, or home prep, I'm here to help you sort the next step."
+          subtitle="For general inquiries, questions, and partnership opportunities. This form is for general contact — not for booking sessions."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact consultation workspace"
           contentClassName="homepage-hero-content"
@@ -70,6 +71,17 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         />
 
         <MarketingSection tone="white" spacing="default" container="narrow">
+          <RevealOnScroll>
+            <div className="mx-auto mb-8 max-w-2xl rounded-[1.45rem] border border-[rgba(215,161,175,0.28)] bg-[linear-gradient(180deg,rgba(255,246,249,0.98)_0%,rgba(255,240,245,0.96)_100%)] px-6 py-5 shadow-[0_8px_24px_rgba(72,49,56,0.05)]">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/80">Looking to book a consultation?</p>
+              <p className="mt-2 text-[0.97rem] leading-7 text-neutral-700">
+                The booking form is separate.{' '}
+                <Link href="/consultation" className="link-underline font-medium text-[var(--color-accent-dark)]">
+                  Start here →
+                </Link>
+              </p>
+            </div>
+          </RevealOnScroll>
           <RevealOnScroll>
             <MarketingSurface className="mx-auto max-w-2xl space-y-6">
               <ContactInquiryForm

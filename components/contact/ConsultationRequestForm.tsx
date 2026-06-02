@@ -423,6 +423,10 @@ export default function ConsultationRequestForm({
   const formStartedRef = useRef(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const successRedirectTimeoutRef = useRef<number | null>(null);
+  const [showStep0, setShowStep0] = useState(true);
+  const [step0State, setStep0State] = useState({ firstName: '', email: '', dueDate: '' });
+  const [step0Errors, setStep0Errors] = useState<Record<string, string>>({});
+  const [step0Submitting, setStep0Submitting] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formState, setFormState] = useState<ConsultationIntakeState>(CONSULTATION_INTAKE_INITIAL_STATE);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -511,6 +515,39 @@ export default function ConsultationRequestForm({
 
   const scrollToTop = () => {
     containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleStep0Continue = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const errors: Record<string, string> = {};
+    if (!step0State.firstName.trim()) errors.firstName = 'First name is required.';
+    if (!step0State.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(step0State.email)) {
+      errors.email = 'A valid email address is required.';
+    }
+    if (Object.keys(errors).length > 0) {
+      setStep0Errors(errors);
+      return;
+    }
+    setStep0Errors({});
+    setStep0Submitting(true);
+    try {
+      await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: step0State.email, firstName: step0State.firstName }),
+      });
+    } catch {
+      // Silently continue — newsletter subscribe failure should not block the intake
+    }
+    setFormState((current) => ({
+      ...current,
+      name: step0State.firstName,
+      email: step0State.email,
+      dueDate: step0State.dueDate || current.dueDate,
+    }));
+    setStep0Submitting(false);
+    setShowStep0(false);
+    scrollToTop();
   };
 
   const validateStep = (stepId: StepId) => {
@@ -1017,6 +1054,113 @@ export default function ConsultationRequestForm({
         return null;
     }
   };
+
+  if (showStep0) {
+    return (
+      <div ref={containerRef} className="space-y-6">
+        <form className="space-y-6" noValidate onSubmit={handleStep0Continue}>
+          <div className="sticky top-2 z-20 -mx-2 rounded-[1.2rem] border border-[rgba(47,36,48,0.08)] bg-[rgba(255,252,250,0.94)] px-3 py-3 shadow-[0_18px_42px_rgba(47,36,48,0.08)] backdrop-blur sm:top-3 sm:-mx-4 sm:rounded-[1.35rem] sm:px-4 sm:py-4">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
+                  Getting started
+                </p>
+                <h2 className="mt-1.5 font-serif text-[1.4rem] leading-tight text-neutral-900 sm:mt-2 sm:text-[1.85rem]">
+                  {"Let's get started"}
+                </h2>
+              </div>
+              <p className="max-w-md text-[0.92rem] leading-6 text-neutral-500 sm:text-right sm:text-sm">
+                A few quick details before your intake
+              </p>
+            </div>
+            <div className="mt-4 h-2 overflow-hidden rounded-full bg-[rgba(47,36,48,0.08)]">
+              <div className="h-full w-0 rounded-full bg-[linear-gradient(90deg,#d889a0_0%,#c97691_100%)]" />
+            </div>
+            <div className="mt-3 flex items-center gap-2 sm:mt-4">
+              <div className="rounded-full bg-[rgba(216,137,160,0.16)] px-2 py-1 text-[0.58rem] uppercase tracking-[0.14em] text-[var(--color-accent-dark)] sm:px-2 sm:text-[0.62rem] sm:tracking-[0.18em]">
+                Getting started
+              </div>
+              {STEP_DEFINITIONS.map((_, index) => (
+                <div
+                  key={index}
+                  className="rounded-full bg-transparent px-1.5 py-1 text-center text-[0.58rem] uppercase tracking-[0.14em] text-neutral-300 sm:px-2 sm:text-[0.62rem] sm:tracking-[0.18em]"
+                >
+                  {index + 1}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-5 rounded-[1.4rem] border border-[rgba(47,36,48,0.08)] bg-[linear-gradient(180deg,#fffdfb_0%,#fff8f7_100%)] p-4 shadow-[0_24px_60px_rgba(47,36,48,0.08)] sm:space-y-6 sm:rounded-[1.6rem] sm:p-7">
+            <div className="space-y-2.5 sm:space-y-3">
+              <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[var(--color-accent-dark)]/78">
+                Getting started
+              </p>
+              <h3 className="font-serif text-[1.65rem] leading-[1.02] tracking-[-0.04em] text-neutral-900 sm:text-[1.9rem]">
+                {"Let's get started"}
+              </h3>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2">
+              <FieldShell label="First name" htmlFor="step0-first-name" error={step0Errors.firstName}>
+                <input
+                  id="step0-first-name"
+                  type="text"
+                  value={step0State.firstName}
+                  onChange={(e) => setStep0State((s) => ({ ...s, firstName: e.target.value }))}
+                  autoComplete="given-name"
+                  className={cx(
+                    'w-full rounded-[1.15rem] border bg-white px-4 py-3.5 text-base text-neutral-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition duration-200 focus:outline-none focus:ring-2 focus:ring-[rgba(216,137,160,0.28)] sm:text-[0.98rem]',
+                    step0Errors.firstName ? 'border-rose-300 bg-rose-50/40' : 'border-[rgba(47,36,48,0.12)]',
+                  )}
+                />
+              </FieldShell>
+              <FieldShell label="Email" htmlFor="step0-email" error={step0Errors.email}>
+                <input
+                  id="step0-email"
+                  type="email"
+                  value={step0State.email}
+                  onChange={(e) => setStep0State((s) => ({ ...s, email: e.target.value }))}
+                  autoComplete="email"
+                  inputMode="email"
+                  className={cx(
+                    'w-full rounded-[1.15rem] border bg-white px-4 py-3.5 text-base text-neutral-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition duration-200 focus:outline-none focus:ring-2 focus:ring-[rgba(216,137,160,0.28)] sm:text-[0.98rem]',
+                    step0Errors.email ? 'border-rose-300 bg-rose-50/40' : 'border-[rgba(47,36,48,0.12)]',
+                  )}
+                />
+              </FieldShell>
+            </div>
+
+            <FieldShell label="Due date or baby's birthday" htmlFor="step0-due-date" optional>
+              <input
+                id="step0-due-date"
+                type="text"
+                value={step0State.dueDate}
+                onChange={(e) => setStep0State((s) => ({ ...s, dueDate: e.target.value }))}
+                placeholder="MM/DD/YYYY"
+                autoComplete="off"
+                className="w-full rounded-[1.15rem] border border-[rgba(47,36,48,0.12)] bg-white px-4 py-3.5 text-base text-neutral-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition duration-200 focus:outline-none focus:ring-2 focus:ring-[rgba(216,137,160,0.28)] sm:text-[0.98rem]"
+              />
+            </FieldShell>
+
+            <div className="flex flex-col-reverse gap-3 border-t border-[rgba(47,36,48,0.08)] pt-5 sm:flex-row sm:items-center sm:justify-end sm:pt-6">
+              <button
+                type="submit"
+                disabled={step0Submitting}
+                className="btn btn--primary min-h-[48px] w-full px-6 sm:w-auto"
+              >
+                {step0Submitting ? 'Just a moment...' : 'Continue to intake →'}
+              </button>
+            </div>
+          </div>
+
+          <div className="rounded-[1.1rem] bg-[rgba(255,248,249,0.86)] px-4 py-3.5 text-sm leading-6 text-neutral-600 sm:rounded-[1.2rem] sm:px-5 sm:py-4 sm:leading-7">
+            This is meant to save time on both sides. You share the context once. I walk into the conversation already knowing what needs sorting.
+          </div>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className="space-y-6">

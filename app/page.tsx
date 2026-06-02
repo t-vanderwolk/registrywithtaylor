@@ -208,7 +208,7 @@ export default function HomePage() {
           className="homepage-hero"
           title="Private Baby Planning & Registry Guidance for Growing Families"
           subtitle="Expert baby gear guidance to help you choose thoughtfully, prepare your home, and start parenthood with confidence."
-          primaryCta={{ label: 'Schedule a Consultation', href: '/contact' }}
+          primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Start with Academy', href: '/academy' }}
           tagline="Strollers | Car Seats | Registry | Nursery Setup"
           image="/assets/hero/hero-01.jpg"
