@@ -1,8 +1,9 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { getDashboardPathForRole } from '@/lib/auth/roleRouting';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -11,11 +12,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const callbackUrl = useMemo(
-    () => searchParams.get('callbackUrl') || '/admin',
-    [searchParams],
-  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,7 +22,6 @@ export default function LoginForm() {
       redirect: false,
       email,
       password,
-      callbackUrl,
     });
 
     setIsSubmitting(false);
@@ -36,7 +31,14 @@ export default function LoginForm() {
       return;
     }
 
-    router.push(callbackUrl);
+    const explicitCallback = searchParams.get('callbackUrl');
+    if (explicitCallback) {
+      router.push(explicitCallback);
+      return;
+    }
+
+    const session = await getSession();
+    router.push(getDashboardPathForRole(session?.user?.role as string | undefined));
   };
 
   return (
@@ -44,9 +46,9 @@ export default function LoginForm() {
       <section className="container" style={{ padding: '5rem 0' }}>
         <div className="card">
           <p className="eyebrow">Sign In</p>
-          <h1 style={{ marginBottom: '1rem' }}>Admin access</h1>
+          <h1 style={{ marginBottom: '1rem' }}>Platform Access</h1>
           <p className="body-copy">
-            Please use the email and password you created for admin access. Reach out if you need a reset.
+            Sign in with your approved Taylor-Made Baby Co. account. Reach out if you need a reset.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
