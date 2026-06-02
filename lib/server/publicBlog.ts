@@ -16,6 +16,7 @@ const publicBlogIndexSelect = {
   readingTime: true,
   featuredImageUrl: true,
   coverImage: true,
+  featured: true,
   featuredImage: {
     select: {
       url: true,
@@ -94,6 +95,7 @@ export type PublicBlogIndexRecord = {
   readingTime: number | null;
   featuredImageUrl: string | null;
   coverImage: string | null;
+  featured: boolean;
   featuredImage: {
     url: string;
   } | null;
@@ -157,6 +159,7 @@ function toLegacyIndexRecord(post: Prisma.PostGetPayload<{ select: typeof legacy
     readingTime: null,
     featuredImageUrl: null,
     coverImage: null,
+    featured: false,
     featuredImage: null,
     publishedAt: null,
     scheduledFor: null,

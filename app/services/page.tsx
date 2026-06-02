@@ -164,6 +164,48 @@ export default function ServicesPage() {
           className="services-page-section"
         />
 
+        <MarketingSection tone="white" spacing="spacious" className="services-page-section">
+          <SectionIntro
+            eyebrow="How it works"
+            title="What happens between booking and your first session."
+            description="Every engagement is built the same way — so you walk in already feeling prepared, not scrambling to catch up."
+            contentWidthClassName="max-w-4xl"
+          />
+
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+            {[
+              {
+                step: 'Step 1',
+                title: 'Fill out the intake',
+                description: 'Share your home, routine, and goals before we meet.',
+              },
+              {
+                step: 'Step 2',
+                title: 'Taylor reviews',
+                description: 'Every intake is read before your session, not during it.',
+              },
+              {
+                step: 'Step 3',
+                title: 'Your session',
+                description: 'Focused entirely on your specific questions and decisions.',
+              },
+              {
+                step: 'Step 4',
+                title: 'Your follow-up plan',
+                description: 'A written summary of what to do next and in what order.',
+              },
+            ].map((item) => (
+              <MarketingSurface key={item.step} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">{item.step}</p>
+                <h3 className="mt-4 font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                  {item.title}
+                </h3>
+                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{item.description}</p>
+              </MarketingSurface>
+            ))}
+          </div>
+        </MarketingSection>
+
         <div className="relative z-10 h-0 overflow-visible">
           <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
             <RibbonDivider />

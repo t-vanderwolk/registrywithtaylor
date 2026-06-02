@@ -60,6 +60,7 @@ type BlogPost = {
   excerpt: string | null;
   content: string;
   readingTime: number | null;
+  featured: boolean;
   featuredImageUrl: string | null;
   coverImage: string | null;
   featuredImage: {
@@ -75,6 +76,7 @@ type BlogIndexPost = {
   title: string;
   slug: string;
   category: BlogCategory;
+  featured: boolean;
   excerpt: string;
   coverImage: string | null;
   dateLabel: string;
@@ -123,6 +125,7 @@ export default async function BlogPage() {
     title: post.title,
     slug: post.slug,
     category: post.category,
+    featured: post.featured,
     excerpt: toExcerpt(post.excerpt, post.content, 170),
     coverImage: post.featuredImage?.url ?? post.featuredImageUrl ?? post.coverImage,
     dateLabel: formatDate(getPostDisplayDate(post)),
