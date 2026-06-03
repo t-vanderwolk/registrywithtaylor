@@ -10,9 +10,13 @@ type WorkbookPrompt = {
 
 type MiniWorkbookProps = {
   prompts: WorkbookPrompt[];
+  subtitle?: string;
 };
 
-export default function MiniWorkbook({ prompts }: MiniWorkbookProps) {
+export default function MiniWorkbook({
+  prompts,
+  subtitle = 'Take a few minutes to reflect before moving on.',
+}: MiniWorkbookProps) {
   const [answers, setAnswers] = useState<Record<string, string>>(
     Object.fromEntries(prompts.map((p) => [p.id, ''])),
   );
@@ -33,7 +37,7 @@ export default function MiniWorkbook({ prompts }: MiniWorkbookProps) {
           Mini Workbook
         </p>
         <p className="mt-2 font-serif text-[1.25rem] leading-tight tracking-[-0.02em] text-neutral-900 sm:text-[1.45rem]">
-          Before adding another product to your registry, answer these three questions:
+          {subtitle}
         </p>
       </div>
 

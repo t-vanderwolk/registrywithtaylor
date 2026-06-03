@@ -50,9 +50,9 @@ const freeLessons: LessonCardData[] = [
     description:
       'Understand stroller types, key features, and what actually matters for your lifestyle.',
     estimatedMinutes: 18,
-    href: null,
-    badge: 'Coming Soon',
-    available: false,
+    href: '/learn/stroller-foundations',
+    badge: 'Free Lesson',
+    available: true,
   },
 ];
 

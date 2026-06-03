@@ -1,12 +1,14 @@
 import SiteShell from '@/components/SiteShell';
 import LessonDivider from '@/components/learn/LessonDivider';
 import LessonHeader from '@/components/learn/LessonHeader';
+import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
 import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
 import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
+import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -23,6 +25,8 @@ export const metadata = buildMarketingMetadata({
     'registry foundations',
   ],
 });
+
+const LESSON_NUMBER = 1;
 
 const registryCategories = [
   'Sleep',
@@ -98,7 +102,14 @@ export default function ArtOfTheRegistryPage() {
           title="The Art of the Registry"
           lessonLabel="Free Preview Lesson"
           estimatedMinutes={15}
-          progressLabel="Lesson 1 of 3 Free Preview Lessons"
+          progressLabel={`Lesson ${LESSON_NUMBER} of ${FREE_PREVIEW_LESSON_COUNT} Free Preview Lessons`}
+        />
+
+        {/* Lesson nav strip */}
+        <LessonNavStrip
+          current={LESSON_NUMBER}
+          total={FREE_PREVIEW_LESSON_COUNT}
+          lessons={FREE_PREVIEW_LESSONS}
         />
 
         {/* Main lesson body */}
@@ -125,7 +136,7 @@ export default function ArtOfTheRegistryPage() {
             <LessonDivider />
 
             {/* 3 — Core Lesson */}
-            <div className="space-y-12">
+            <div className="space-y-14">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/72">
                 Core Lesson
               </p>
@@ -262,7 +273,10 @@ export default function ArtOfTheRegistryPage() {
             </TaylorsNote>
 
             {/* 5 — Mini Workbook */}
-            <MiniWorkbook prompts={workbookPrompts} />
+            <MiniWorkbook
+              subtitle="Before adding another product to your registry, answer these three questions:"
+              prompts={workbookPrompts}
+            />
 
             {/* 6 — Key Takeaways */}
             <KeyTakeaways items={keyTakeaways} />

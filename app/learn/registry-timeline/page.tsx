@@ -1,12 +1,14 @@
 import SiteShell from '@/components/SiteShell';
 import LessonDivider from '@/components/learn/LessonDivider';
 import LessonHeader from '@/components/learn/LessonHeader';
+import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
 import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
 import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
+import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -23,6 +25,8 @@ export const metadata = buildMarketingMetadata({
     'registry checklist by month',
   ],
 });
+
+const LESSON_NUMBER = 2;
 
 // ─── Timeline phase data ──────────────────────────────────────────────────────
 
@@ -93,7 +97,7 @@ const timelinePhases: TimelinePhase[] = [
       'Price-match anything you have already purchased if better prices appeared',
       'Stock essentials: diapers, wipes, feeding supplies, postpartum recovery items',
     ],
-    note: 'Most families leave completion discounts on the table because they do not know the window is limited. Check each retailer\'s policy now.',
+    note: "Most families leave completion discounts on the table because they do not know the window is limited. Check each retailer's policy now.",
   },
   {
     weeks: '36–40 weeks',
@@ -158,32 +162,15 @@ export default function RegistryTimelinePage() {
           title="The Registry Timeline"
           lessonLabel="Free Preview Lesson"
           estimatedMinutes={12}
-          progressLabel="Lesson 2 of 3 Free Preview Lessons"
+          progressLabel={`Lesson ${LESSON_NUMBER} of ${FREE_PREVIEW_LESSON_COUNT} Free Preview Lessons`}
         />
 
         {/* Lesson nav strip */}
-        <div className="border-b border-[rgba(0,0,0,0.05)] bg-white px-5 py-3 sm:px-8">
-          <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-            <a
-              href="/learn/art-of-the-registry"
-              className="flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.16em] text-neutral-400 transition-colors duration-200 hover:text-[var(--color-accent-dark)]"
-            >
-              <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5" aria-hidden="true">
-                <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Lesson 1
-            </a>
-            <span className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
-              Lesson 2 of 3
-            </span>
-            <span className="flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.16em] text-neutral-300">
-              Lesson 3
-              <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5" aria-hidden="true">
-                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </div>
-        </div>
+        <LessonNavStrip
+          current={LESSON_NUMBER}
+          total={FREE_PREVIEW_LESSON_COUNT}
+          lessons={FREE_PREVIEW_LESSONS}
+        />
 
         {/* Main lesson body */}
         <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
@@ -211,7 +198,7 @@ export default function RegistryTimelinePage() {
             <LessonDivider />
 
             {/* 3 — Core Lesson */}
-            <div className="space-y-16">
+            <div className="space-y-14">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/72">
                 Core Lesson
               </p>
@@ -263,7 +250,7 @@ export default function RegistryTimelinePage() {
                     </div>
                   )}
 
-                  {/* Divider between phases (not after last) */}
+                  {/* Connector between phases */}
                   {index < timelinePhases.length - 1 && (
                     <div
                       aria-hidden="true"
@@ -293,7 +280,10 @@ export default function RegistryTimelinePage() {
             </TaylorsNote>
 
             {/* 5 — Mini Workbook */}
-            <MiniWorkbook prompts={workbookPrompts} />
+            <MiniWorkbook
+              subtitle="Reflect on where you are in the registry timeline right now:"
+              prompts={workbookPrompts}
+            />
 
             {/* 6 — Key Takeaways */}
             <KeyTakeaways items={keyTakeaways} />
