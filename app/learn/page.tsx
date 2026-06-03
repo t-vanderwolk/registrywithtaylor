@@ -40,9 +40,9 @@ const freeLessons: LessonCardData[] = [
     description:
       'A month-by-month guide so you know exactly when to register and what to do when.',
     estimatedMinutes: 12,
-    href: null,
-    badge: 'Coming Soon',
-    available: false,
+    href: '/learn/registry-timeline',
+    badge: 'Free Lesson',
+    available: true,
   },
   {
     lessonNumber: 3,
