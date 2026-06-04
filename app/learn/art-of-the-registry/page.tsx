@@ -1,6 +1,7 @@
 import SiteShell from '@/components/SiteShell';
 import LessonDivider from '@/components/learn/LessonDivider';
 import LessonHeader from '@/components/learn/LessonHeader';
+import LessonImage from '@/components/learn/LessonImage';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
 import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
@@ -123,6 +124,13 @@ export default function ArtOfTheRegistryPage() {
                 The goal is not to collect products. The goal is to build a registry that makes the
                 first stretch of life at home more workable — for both of you.
               </p>
+
+              <LessonImage
+                src="/assets/registrypath/registry.png"
+                alt="Registry planning setup — the starting point for building an intentional baby registry"
+                priority
+              />
+
               <p>
                 This lesson is the foundation. It covers what the registry path teaches, why the
                 order matters, and what it looks like to approach this with intention instead of
@@ -148,6 +156,13 @@ export default function ArtOfTheRegistryPage() {
                   The smartest first-pass registry is not the most complete one. It is the most
                   functional one.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/pregnantplanning.png"
+                  alt="Expectant parent planning what the home needs before baby arrives"
+                  caption="The first-pass registry should make the house more workable, not just look more complete."
+                />
+
                 <p>
                   Before worrying about perks, discount windows, or whether something has excellent
                   branding, you need a first-pass structure built around the first stretch of daily
@@ -180,6 +195,13 @@ export default function ArtOfTheRegistryPage() {
                   easy the list is to manage, and — most importantly — how easy it is for the
                   people actually trying to buy from it.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/universalregistry.png"
+                  alt="Universal registry platform setup showing one list across multiple stores"
+                  caption="Single-retailer vs. universal — the choice depends on your guests, not just your preferences."
+                />
+
                 <p>
                   Single-retailer registries often offer stronger perks and a cleaner guest
                   checkout path. Universal registries give you flexibility when your list genuinely
@@ -202,6 +224,13 @@ export default function ArtOfTheRegistryPage() {
                   The shift that actually changes things is realizing you do not need more research.
                   You need better guidance.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/strollershopping.png"
+                  alt="Shopping at a local baby store where you can test gear in person"
+                  caption="Local stores let you test in person, compare side by side, and ask questions that apply to your actual life."
+                />
+
                 <p>
                   If there is a locally owned baby store near you, start there. You can test
                   strollers in person, compare car seats side by side, feel the materials, and ask
@@ -223,6 +252,13 @@ export default function ArtOfTheRegistryPage() {
                   Most registries come with welcome boxes and perk programs. Most families do not
                   fully use them — or use them the wrong way.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/insidewelcomebox.png"
+                  alt="Inside a registry welcome box — sample products for testing before committing to full sizes"
+                  caption="A sample is data. Treat it like data."
+                />
+
                 <p>
                   Welcome boxes are product testing opportunities, not registry jackpots. The
                   samples inside let you try a bottle, a diaper, or a wipe before committing to a
@@ -236,6 +272,14 @@ export default function ArtOfTheRegistryPage() {
                   box does not arrive automatically just because you created the registry. The
                   administrative detail is easy to handle early and annoying to chase after.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/completiondiscount.png"
+                  alt="Completion discount window — the cleanup pass for buying remaining registry items at a reduced cost"
+                  caption="Completion discounts are most useful when the list has already been edited by real gifts and changing priorities."
+                  aspectRatio="16/9"
+                />
+
                 <p>
                   Completion discounts and reward programs are where registry savings actually
                   compound. The window exists to help you buy the remaining essentials at a reduced
@@ -251,6 +295,13 @@ export default function ArtOfTheRegistryPage() {
                   One of the most common registry mistakes is buying everything too early. That
                   creates unnecessary spending, clutter, and regret, usually in that order.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/calanderplan.png"
+                  alt="Calendar-based registry purchasing timeline — buying in phases instead of all at once"
+                  caption="A smarter timeline gives the registry room to work before the boxes start stacking up."
+                />
+
                 <p>
                   A smarter timeline gives the registry room to work before the boxes start
                   stacking up. That looks like:
@@ -278,9 +329,16 @@ export default function ArtOfTheRegistryPage() {
               <LessonSection stepNumber={6} title="The edit pass is where the registry gets useful">
                 <p>
                   Most registry advice focuses on what to add. The more useful conversation is
-                  about what to catch before the list gets louder than your real life. The common
-                  problems are predictable:
+                  about what to catch before the list gets louder than your real life.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/overwhelm.png"
+                  alt="Registry overwhelm — what happens when the list grows faster than the logic behind it"
+                  caption="The problems are predictable once you know what to look for."
+                />
+
+                <p>The common problems are predictable:</p>
                 <ul className="mt-4 space-y-2.5">
                   {registryMistakes.map((mistake) => (
                     <li key={mistake} className="flex items-start gap-3">
@@ -307,6 +365,13 @@ export default function ArtOfTheRegistryPage() {
                   everyone involved. When it is confusing, gifting gets creative in ways that are
                   not always especially helpful.
                 </p>
+
+                <LessonImage
+                  src="/assets/registrypath/gifts.png"
+                  alt="Baby shower gifts — what a clear, well-structured registry makes possible"
+                  caption="Clarity is generous on both sides of the shower invitation."
+                />
+
                 <p>
                   Clear categories, a reasonable price spread, and a list that feels edited instead
                   of infinite — that is what makes a registry easy to give from. Most guests want
