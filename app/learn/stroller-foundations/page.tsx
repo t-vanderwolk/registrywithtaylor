@@ -1,6 +1,7 @@
 import SiteShell from '@/components/SiteShell';
 import LessonDivider from '@/components/learn/LessonDivider';
 import LessonHeader from '@/components/learn/LessonHeader';
+import LessonImage from '@/components/learn/LessonImage';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
 import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
@@ -12,165 +13,247 @@ import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/les
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Stroller Foundations — Free Lesson | Taylor-Made Baby Academy',
+  title: 'The Stroller Equation — Free Lesson | Taylor-Made Baby Academy',
   description:
-    'Understand stroller types, what actually matters in a stroller decision, and how to match a stroller to your real lifestyle. Free preview lesson from Taylor-Made Baby Co.',
+    'The best stroller is not universal — it depends entirely on your life. Learn the variables and all six stroller categories so you can solve the equation with your own data. Free preview lesson from Taylor-Made Baby Co.',
   path: '/learn/stroller-foundations',
-  imagePath: '/assets/editorial/stroller-folds.jpg',
-  imageAlt: 'Stroller foundations lesson preview',
+  imagePath: '/assets/editorial/strollers.png',
+  imageAlt: 'The Stroller Equation lesson preview',
   keywords: [
     'how to choose a stroller',
     'stroller buying guide',
-    'best stroller for lifestyle',
+    'best stroller for my lifestyle',
     'stroller types explained',
+    'full size vs compact stroller',
   ],
 });
 
 const LESSON_NUMBER = 3;
 
-// ─── Lesson data ──────────────────────────────────────────────────────────────
+// ─── Life variables ────────────────────────────────────────────────────────────
 
-type StrollerType = {
-  type: string;
-  bestFor: string;
-  tradeoff: string;
+type StrollerVariable = {
+  label: string;
+  why: string;
 };
 
-const strollerTypes: StrollerType[] = [
+const strollerVariables: StrollerVariable[] = [
   {
-    type: 'Full-size / Modular',
-    bestFor: 'Versatility from newborn through toddler; adaptable seat systems',
-    tradeoff: 'Heavier and larger trunk footprint than lighter options',
+    label: 'Where you live and what your routes look like',
+    why: 'City sidewalks, suburban neighborhoods, gravel paths, grass, and broken pavement all ask for different things from a wheel.',
   },
   {
-    type: 'Lightweight / Everyday',
-    bestFor: 'Daily use, easy car loading, travel — once baby can hold their head up',
-    tradeoff: 'Not always suitable for newborns without a specific infant insert or car seat adapter',
+    label: 'Walk-heavy vs. car-heavy week',
+    why: 'A walk-heavy family uses what the bigger frame gives back. A car-heavy family folds and lifts it constantly — and feels that weight every single time.',
   },
   {
-    type: 'Travel System',
-    bestFor: 'Stroller and car seat sold or designed together for seamless clicks in and out',
-    tradeoff: 'Car seat compatibility must be verified before purchase',
+    label: 'How tight is your storage',
+    why: 'Trunk size, closet depth, building stairs, narrow elevators, and whether someone else has to fit it in their car too. Abstract size becomes very real friction quickly.',
   },
   {
-    type: 'Jogger',
-    bestFor: 'Active parents who run or walk trails; fixed front wheel provides stability',
-    tradeoff: 'Too wide and rigid for tight urban spaces or small trunks',
+    label: 'Who folds it most — and how many times a day',
+    why: 'A fold that feels fine in a showroom feels completely different on your seventh errand of the week. The person doing the loading gets a vote.',
   },
   {
-    type: 'Double',
-    bestFor: 'Two children close in age; side-by-side or tandem configurations',
-    tradeoff: 'Significantly wider; most doors and some elevators are narrow',
-  },
-];
-
-const whatMatters = [
-  {
-    factor: 'Fold mechanics',
-    detail:
-      'You will fold this stroller dozens of times per week. A complicated or two-handed fold gets old fast. Test the fold before buying whenever possible.',
+    label: 'How often you travel',
+    why: 'Flights, ride shares, visiting family, and grandparent drop-offs are all part of the stroller brief if they happen regularly.',
   },
   {
-    factor: 'Weight',
-    detail:
-      'You will lift this into your trunk regularly, often while holding a baby. The difference between 15 lbs and 28 lbs is not abstract — it compounds over time.',
+    label: 'Two seats — now, soon, or not at all',
+    why: 'Current two-seat needs, near-term sibling planning, and vague someday thinking are three completely different calculations. Be honest about which one you are actually solving for.',
   },
   {
-    factor: 'Footprint folded',
-    detail:
-      'The stroller needs to fit both in your car trunk and in your front entrance, hallway, or elevator. Measure before committing.',
+    label: 'Your car seat compatibility needs',
+    why: 'If you plan to click an infant seat into the stroller frame, that compatibility has to be confirmed before you buy either product. Finding out after is a very expensive lesson.',
   },
   {
-    factor: 'Recline for newborns',
-    detail:
-      'Infants need to lie flat or at a very low recline. Verify that the specific stroller supports safe newborn positioning, or that the car seat adapter is available.',
-  },
-  {
-    factor: 'Terrain capability',
-    detail:
-      'Sidewalk-only living is different from gravel paths, beach boardwalks, or snowy winters. Wheel size and suspension matter here.',
-  },
-  {
-    factor: 'Car seat compatibility',
-    detail:
-      'If you plan to use the stroller as part of a travel system, confirm that your car seat brand and model is compatible before buying either product.',
-  },
-  {
-    factor: 'Seat longevity',
-    detail:
-      'Check the weight and height limit. A stroller your child outgrows at 18 months may not serve you as long as you think.',
+    label: 'Budget — and what the price difference actually buys',
+    why: 'More money usually buys lighter weight, smoother fold, stronger push quality, and a longer-lived frame. It does not always buy the right category.',
   },
 ];
 
-const whatDoesNotMatter = [
-  'Cup holder placement — convenient, but not a deciding factor',
-  'Color and aesthetics — every stroller gets dirty within weeks',
-  'Social media popularity — what performs well in a flat city may be wrong for your terrain',
-  'Feature count — more adjustments usually means more weight and complexity',
-  'Brand prestige alone — fit for your actual life matters more than the name on the frame',
+// ─── Stroller categories ───────────────────────────────────────────────────────
+
+type StrollerCategory = {
+  name: string;
+  tagline: string;
+  imageSrc: string;
+  imageAlt: string;
+  imageCaption: string;
+  definition: string;
+  rightFor: string[];
+  tradeoff: string;
+  passIf: string;
+};
+
+const strollerCategories: StrollerCategory[] = [
+  {
+    name: 'Full Size / Modular',
+    tagline: 'The everyday workhorse for families who will actually use what a bigger frame gives back.',
+    imageSrc: '/assets/editorial/fullsizemodular.png',
+    imageAlt: 'Full size modular stroller — the primary everyday stroller with strong push quality and basket capacity.',
+    imageCaption: 'If the stroller shows up four days a week, comfort is not indulgent. It is workflow.',
+    definition:
+      'Full-size strollers are built for repeated daily use. Better push quality, larger baskets, more recline, and longer seat longevity. You get more stroller — and you feel that in every lift.',
+    rightFor: [
+      'Walk-heavy routines where you push for long stretches, not just parking lots',
+      'Longer outings where seat comfort, canopy coverage, and basket access matter',
+      'Families with open storage — large trunk, garage, or dedicated stroller space',
+      'Parents who want one capable primary stroller and are fine living with more frame to get it',
+    ],
+    tradeoff:
+      'More weight, more trunk presence, and a bigger fold. The families who regret this category are usually the ones who bought it for the aesthetic and then lived a car-heavy life.',
+    passIf:
+      'Your week is mostly quick errands and the stroller gets folded three times a day. Full-size earns its keep through use, not through ownership.',
+  },
+  {
+    name: 'Compact / Mid-Size',
+    tagline: 'The convenience lane for families who want the stroller to fit their life a little more quietly.',
+    imageSrc: '/assets/editorial/compact.png',
+    imageAlt: 'Compact lightweight stroller — easier fold, lighter lift, less trunk drama for everyday use.',
+    imageCaption: 'Compact is not the consolation prize. For a lot of families, it is the grown-up answer.',
+    definition:
+      'Compact strollers are lighter, fold smaller, and move through parking lots and tight spaces without the drama. You give up some basket depth and push quality, but most families in this lane never miss what they traded away.',
+    rightFor: [
+      'Car-heavy routines where the stroller gets folded and lifted frequently',
+      'Smaller trunks, tighter storage, or shared caregiver use',
+      'Families who prioritize easy exits over long-outing comfort',
+      'Parents who want a stroller they will actually reach for instead of dreading',
+    ],
+    tradeoff:
+      'Smaller basket, less substantial seat feel, and a trade-off on push quality over longer distances. Some compact strollers also have a shorter seat longevity than full-size models.',
+    passIf:
+      'Your week includes long daily walks and you will genuinely miss the larger seat, better suspension, and bigger basket. Compact wins on convenience, not capability.',
+  },
+  {
+    name: 'Travel',
+    tagline: 'The fold-first lane for families who need the stroller to disappear quickly between places.',
+    imageSrc: '/assets/strollers/travel.png',
+    imageAlt: 'Travel stroller — compact fold designed for flights, ride shares, and families who move between places.',
+    imageCaption: 'The best travel stroller makes transit feel lighter. The worst one is just a small stroller that is annoying in two ways instead of one.',
+    definition:
+      'Travel strollers are built for transit — airports, ride shares, grandparents\' houses, and any situation where the fold, carry weight, and storage footprint are the whole point. The push experience usually gets quiet when portability is the job.',
+    rightFor: [
+      'Families who travel by plane regularly and want cabin-bag portability or easy gate check',
+      'Ride-share households where the stroller gets pulled in and out of strangers\' trunks',
+      'Grandparent-adjacent families who need the stroller to live at multiple homes',
+      'Parents who want a genuine second stroller for travel while a primary handles daily life',
+    ],
+    tradeoff:
+      'A smaller fold usually means less basket, less suspension, and a more minimal seat. A travel stroller that earns its keep in transit often feels like it is working harder at the destination.',
+    passIf:
+      'Travel is occasional and a compact stroller would solve the same problem with more everyday capability. Travel-first only pays off when transit friction is genuinely the recurring job.',
+  },
+  {
+    name: 'Single-to-Double Convertible',
+    tagline: 'The planning-ahead lane — but only when the second seat has an actual job to do.',
+    imageSrc: '/assets/strollers/convertable.png',
+    imageAlt: 'Convertible stroller frame that expands from single to double configuration for sibling use.',
+    imageCaption: 'Planning ahead is smart. Paying a daily bulk tax for a maybe is not.',
+    definition:
+      'Convertible strollers are designed to start as a single and expand to accommodate a second child later. This category splits into two distinct approaches — and understanding the difference matters before you buy.',
+    rightFor: [
+      'Families with a real, near-term sibling timeline who want one strategic purchase',
+      'Parents who want to delay a second major stroller purchase without compromising too early',
+      'Households where the expansion path is specific, not vague future planning',
+    ],
+    tradeoff:
+      'You live with more frame, more weight, and more complexity before the second seat ever arrives. A convertible that starts too bulky as a single rarely earns back the goodwill once the second seat finally shows up.',
+    passIf:
+      'The sibling timeline is still fuzzy. Buying bulk for a someday you cannot date usually creates daily frustration long before it creates any value.',
+  },
+  {
+    name: 'Double',
+    tagline: 'Two seats now — built for twins, close age gaps, and current sibling reality.',
+    imageSrc: '/assets/editorial/double-strollers.jpg',
+    imageAlt: 'Double stroller for twins or two children close in age — current two-seat capacity solved honestly.',
+    imageCaption: 'Two seats now is a very different question than flexibility later. Buy for the problem you actually have.',
+    definition:
+      'Double strollers are built for two riders today. Twins, close age gaps, or two children who genuinely both need seats on regular outings. This is a different brief than convertible planning — it is solving a current, present-tense problem.',
+    rightFor: [
+      'Twins or multiples from day one',
+      'Two children close enough in age that both need a seat on most outings',
+      'Families who need a dedicated solution now, not a future-flexible frame today',
+    ],
+    tradeoff:
+      'Width, weight, and harder maneuvering. Most doubles do not fit neatly through standard doorways. Tight spaces, narrow aisles, and small elevators become real daily friction.',
+    passIf:
+      'Only one child rides most of the time. A dedicated double is a lot of daily size to carry for the one afternoon a week both kids are in strollers.',
+  },
+  {
+    name: 'Jogging / All-Terrain',
+    tagline: 'Built for the families where rough ground or real running is actually part of the routine.',
+    imageSrc: '/assets/strollers/revolution.png',
+    imageAlt: 'Jogging stroller with larger wheels and suspension designed for running and rough terrain.',
+    imageCaption: 'If the ground is doing the arguing, bigger wheels may be the calmer answer.',
+    definition:
+      'Jogging and all-terrain strollers have larger wheels, stronger suspension, and a fixed or lockable front wheel for stability at speed. They are built for routes that defeat smaller wheels — trails, gravel, broken sidewalks, grass, and actual running.',
+    rightFor: [
+      'Parents who actively run and want a stroller that keeps up with real jogging pace',
+      'Outdoor-heavy families whose routes regularly include rough terrain',
+      'Neighborhoods where broken sidewalks, curb gaps, or unpaved paths are the norm',
+    ],
+    tradeoff:
+      'More bulk, larger fold, and a wider frame that becomes conspicuous in stores, restaurants, and tighter urban spaces. A jogging stroller that never jogs is a very large errand cart.',
+    passIf:
+      'Your routes are mostly smooth surfaces and the appeal is the rugged look rather than a genuine terrain or running need. The bulk only makes sense when the ground earns it.',
+  },
 ];
 
-const lifestyleQuestions = [
-  'Do you live in a city, suburb, or rural area?',
-  'How often do you use public transit, narrow elevators, or crowded spaces?',
-  'Do you have stairs at home, in your building, or in places you visit often?',
-  'What is your car trunk size — and have you actually measured it?',
-  'Do you plan to jog or do trail walking with the stroller?',
-  'Will you travel frequently by plane with this stroller?',
-  'Do you have or plan to have a second child soon?',
+// ─── Convertible sub-types ─────────────────────────────────────────────────────
+
+const convertibleTypes = [
+  {
+    type: 'Modular Frame Systems',
+    detail:
+      'The frame is the product. You build around it. These strollers accept multiple interchangeable seat modules — parent-facing, forward-facing, infant bassinet, car seat adapter, and a second expandable seat — all on the same platform. The frame does not change. The configuration does. Think of it as a stroller system more than a stroller.',
+    examples: 'Think UPPAbaby VISTA, Bugaboo Fox, Nuna Demi Grow — frames designed to accept multiple seat types from the same brand ecosystem.',
+  },
+  {
+    type: 'Seat-Specific Convertible',
+    detail:
+      'The stroller comes with a primary seat that works for one child, and a specific second seat product is designed to attach to that exact frame. Less modular — the expansion path is more defined and usually narrower. You are not building a system; you are adding one specific seat to one specific stroller.',
+    examples: 'Frames where the second seat or glider board has one clear attachment point and the expansion options do not flex much beyond the brand\'s designated solution.',
+  },
 ];
 
-const budgetTiers = [
-  {
-    range: '$150–$350',
-    label: 'Entry-level',
-    description: 'Functional and safe. Heavier, fewer adjustment points, basic fold mechanics.',
-  },
-  {
-    range: '$350–$700',
-    label: 'Mid-range',
-    description:
-      'Better fold quality, lighter weight, more flexibility in seating configurations and adapter options.',
-  },
-  {
-    range: '$700+',
-    label: 'Premium',
-    description:
-      'Smoother ride, longer longevity, stronger brand ecosystem with accessories and adapters. Worth it only if the specific features match how you will actually use it.',
-  },
-];
+// ─── Workbook & takeaways ──────────────────────────────────────────────────────
 
 const workbookPrompts = [
   {
-    id: 'stroller-use',
-    label: 'Where will this stroller be used most? Describe your typical routine.',
+    id: 'your-routine',
+    label: 'Describe a typical week. Is it more walk-heavy or car-heavy? How often does the stroller actually get folded?',
     placeholder:
-      'City sidewalks, suburban trails, airport travel, neighborhood walks, parking lots, narrow apartment hallways...',
+      'Neighborhood walks daily, grocery runs by car, two trips to the park, one errand-heavy afternoon — be specific about what the stroller actually needs to do...',
   },
   {
-    id: 'car-situation',
-    label: 'What is your car situation, and how much trunk space do you have?',
+    id: 'storage-situation',
+    label: 'What does your storage actually look like — trunk, hallway, elevator, stairs?',
     placeholder:
-      'SUV with large trunk, sedan with small trunk, no car, ride-share only, measure if you have not already...',
+      'Sedan with a small trunk, third-floor walkup, narrow apartment entry, no garage — measure if you have not already...',
   },
   {
-    id: 'stroller-draw',
-    label: 'What stroller type or price point have you been drawn to — and what has been driving that?',
+    id: 'two-seats',
+    label: 'Do you need two seats now, on a real near-term timeline, or is this still a vague someday?',
     placeholder:
-      'Instagram recommendations, a friend had it, price felt right, looks compact — be honest about what is behind the pull...',
+      'Second child due in X months, already have a toddler + newborn, single child and no plans for siblings, somewhere in between — be honest about which calculation you are actually solving...',
   },
 ];
 
 const keyTakeaways = [
-  'Start with your lifestyle and your trunk, not the stroller model.',
-  'Most families need one primary stroller; some need a primary plus a lightweight for travel.',
-  'Weight, fold quality, and folded footprint matter more than most listed features.',
-  'Car seat compatibility must be confirmed before buying both products.',
-  'Test the fold in person whenever possible — it is a daily interaction.',
-  'The right stroller is the one you will actually use without dreading it.',
+  'There is no best stroller. There is only the right stroller for your specific life.',
+  'Plug in your variables before you look at a single model — route, storage, fold frequency, travel, and family timing.',
+  'Walk-heavy families get value from full size. Car-heavy families usually get sanity from compact.',
+  'Travel strollers solve transit friction. They are not an upgrade on compact — they are a different job.',
+  'Convertible strollers only make sense when the second seat has a real, near-term timeline behind it.',
+  'Modular systems give you seat configuration flexibility. Seat-specific convertibles give you one defined expansion path.',
+  'Double strollers solve a current problem. Do not buy one for a maybe.',
+  'Jogging and all-terrain earn their bulk only when the ground or pace actually demands it.',
+  'Test the fold yourself. In your trunk. Without the brand rep stepping in to help.',
+
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function StrollerFoundationsPage() {
   return (
@@ -181,11 +264,11 @@ export default function StrollerFoundationsPage() {
           breadcrumbs={[
             { label: 'Academy', href: '/learn' },
             { label: 'Gear Foundations', href: null },
-            { label: 'Stroller Foundations', href: null },
+            { label: 'The Stroller Equation', href: null },
           ]}
-          title="Stroller Foundations"
+          title="The Stroller Equation"
           lessonLabel="Free Preview Lesson"
-          estimatedMinutes={18}
+          estimatedMinutes={20}
           progressLabel={`Lesson ${LESSON_NUMBER} of ${FREE_PREVIEW_LESSON_COUNT} Free Preview Lessons`}
         />
 
@@ -201,19 +284,33 @@ export default function StrollerFoundationsPage() {
           <div className="space-y-14">
 
             {/* 1 — Overview */}
-            <LessonSection eyebrow="Overview" title="The most emotionally charged gear decision — simplified.">
+            <LessonSection eyebrow="Overview" title="The best stroller for someone else might be completely wrong for you.">
               <p>
-                Strollers are one of the most researched, most debated, and most over-complicated
-                gear decisions expecting parents face. The combination of wide price ranges,
-                hundreds of options, and unsolicited opinions from everyone around you makes it
-                easy to spend weeks in research paralysis without getting any closer to a clear
-                answer.
+                Strollers are one of the most researched and most emotionally charged gear
+                decisions in the whole baby prep process. People spend weeks in comparison tabs,
+                come out more confused than when they started, and eventually buy whatever an
+                influencer recommended to someone in a different city with a different car and
+                a completely different life.
+              </p>
+
+              <LessonImage
+                src="/assets/editorial/strollers.png"
+                alt="Stroller options — the category is wide because the lives using them are wide"
+                priority
+              />
+
+              <p>
+                The category is wide because the lives using strollers are wide. A stroller that
+                is perfect for a walk-heavy urban family with a large trunk is genuinely wrong for
+                a car-heavy suburban family with a small sedan and two kids. Neither family is
+                confused. They just have different variables.
               </p>
               <p>
-                This lesson will not tell you which stroller to buy. What it will do is give you
-                a framework for narrowing the category to the options that actually make sense for
-                your home, your car, and your daily routine — so when you do look at specific
-                models, you are comparing the right things.
+                This lesson is about the equation, not the answer. First you will learn all the
+                variables that shape a stroller decision. Then you will get a clear breakdown of
+                every category — full size, compact, travel, single-to-double convertible (and
+                the two very different types within that), double, and jogging. Once the equation
+                is clear, the right category usually resolves faster than the internet made it look.
               </p>
             </LessonSection>
 
@@ -228,34 +325,31 @@ export default function StrollerFoundationsPage() {
                 Core Lesson
               </p>
 
-              {/* 3.1 — The five types */}
-              <LessonSection stepNumber={1} title="The Five Stroller Types — and What Each One Is Actually For">
+              {/* 3.1 — The variables */}
+              <LessonSection stepNumber={1} title="Plug in your variables before you look at a single model">
                 <p>
-                  Most stroller confusion starts with mixing up categories. A jogger is designed
-                  for running and is too wide for most city apartments. A full-size modular is
-                  built for longevity and versatility but may be overkill if your priority is
-                  easy folding. Understanding what each type is built for makes elimination
-                  faster than comparison.
+                  Most stroller shopping starts too late — at the product comparison stage — before
+                  anyone has answered the questions that actually determine which category fits.
+                  These are the variables that change the answer. Yours are different from everyone
+                  else&apos;s. That is the point.
                 </p>
 
                 <div className="mt-6 space-y-3">
-                  {strollerTypes.map((item) => (
+                  {strollerVariables.map((variable, index) => (
                     <div
-                      key={item.type}
+                      key={variable.label}
                       className="rounded-[1.1rem] border border-[rgba(215,161,175,0.18)] bg-white px-5 py-4 shadow-[0_4px_14px_rgba(72,49,56,0.04)]"
                     >
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-5">
-                        <p className="min-w-[10rem] font-serif text-[1rem] font-semibold leading-tight tracking-[-0.015em] text-neutral-900 sm:text-[1.05rem]">
-                          {item.type}
-                        </p>
-                        <div className="space-y-1.5 min-w-0">
-                          <p className="text-[0.9rem] leading-[1.7] text-neutral-600">
-                            <span className="font-medium text-neutral-700">Best for:</span>{' '}
-                            {item.bestFor}
+                      <div className="flex gap-4">
+                        <span className="mt-0.5 shrink-0 font-serif text-[1.05rem] font-semibold leading-tight text-[var(--color-accent-dark)]">
+                          {index + 1}.
+                        </span>
+                        <div className="min-w-0 space-y-1.5">
+                          <p className="font-semibold text-[0.95rem] leading-tight text-neutral-900">
+                            {variable.label}
                           </p>
-                          <p className="text-[0.88rem] leading-[1.65] text-neutral-400">
-                            <span className="font-medium text-neutral-500">Trade-off:</span>{' '}
-                            {item.tradeoff}
+                          <p className="text-[0.88rem] leading-[1.7] text-neutral-500">
+                            {variable.why}
                           </p>
                         </div>
                       </div>
@@ -264,143 +358,139 @@ export default function StrollerFoundationsPage() {
                 </div>
 
                 <p className="mt-5">
-                  Most families only need one stroller. Some benefit from a primary (full-size
-                  or modular) and a lightweight option for travel once the baby is old enough.
-                  Buying two strollers before birth is rarely necessary.
+                  If you answer these questions honestly, you will eliminate more stroller
+                  categories than any comparison article ever will. The equation gets faster
+                  the more specific your variables are.
                 </p>
               </LessonSection>
 
-              {/* 3.2 — What actually matters */}
-              <LessonSection stepNumber={2} title="What Actually Matters When You Are Evaluating Options">
+              {/* 3.2 — The categories */}
+              <LessonSection stepNumber={2} title="The six stroller categories — what each one actually solves">
                 <p>
-                  Most stroller spec sheets emphasize features. The factors that actually
-                  determine whether you will enjoy using a stroller day-to-day are different.
+                  Each category is built for a different job. Understanding what job a stroller
+                  was designed to do makes it easy to tell whether that job matches your actual
+                  week — or belongs to someone else&apos;s.
                 </p>
 
-                <div className="mt-6 space-y-4">
-                  {whatMatters.map((item) => (
-                    <div key={item.factor} className="flex gap-4">
-                      <div
-                        aria-hidden="true"
-                        className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(232,154,174,0.1)] text-[var(--color-accent-dark)]"
-                      >
-                        <svg viewBox="0 0 12 12" fill="currentColor" className="h-2.5 w-2.5">
-                          <circle cx="6" cy="6" r="3" />
-                        </svg>
-                      </div>
-                      <div className="min-w-0 space-y-1">
-                        <p className="text-[0.95rem] font-semibold text-neutral-800">{item.factor}</p>
-                        <p className="text-[0.9rem] leading-[1.72] text-neutral-600">{item.detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </LessonSection>
+                <div className="mt-8 space-y-12">
+                  {strollerCategories.map((category) => (
+                    <div key={category.name} className="space-y-5">
 
-              {/* 3.3 — What doesn't matter */}
-              <LessonSection stepNumber={3} title="What Does Not Actually Matter">
-                <p>
-                  The stroller market is full of features designed to look important on a spec
-                  sheet but that have little bearing on daily usability. Recognizing them helps
-                  you filter faster.
-                </p>
-                <ul className="mt-5 space-y-3">
-                  {whatDoesNotMatter.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[0.97rem] leading-[1.75] text-neutral-600">
-                      <span
-                        aria-hidden="true"
-                        className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-300"
+                      {/* Category header */}
+                      <div className="space-y-1">
+                        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]">
+                          Stroller Category
+                        </p>
+                        <h3 className="font-serif text-[1.55rem] leading-[1.04] tracking-[-0.03em] text-neutral-900 sm:text-[1.8rem]">
+                          {category.name}
+                        </h3>
+                        <p className="text-[0.97rem] italic leading-[1.7] text-neutral-500">
+                          {category.tagline}
+                        </p>
+                      </div>
+
+                      {/* Category image */}
+                      <LessonImage
+                        src={category.imageSrc}
+                        alt={category.imageAlt}
+                        caption={category.imageCaption}
                       />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </LessonSection>
 
-              {/* 3.4 — Lifestyle-match framework */}
-              <LessonSection stepNumber={4} title="The Lifestyle-Match Framework">
-                <p>
-                  Before looking at any specific model, answer these questions honestly. Your
-                  answers will eliminate more options than any review, comparison article, or
-                  recommendation from someone whose life looks different from yours.
-                </p>
-
-                <div className="mt-6 space-y-2.5">
-                  {lifestyleQuestions.map((question, index) => (
-                    <div
-                      key={question}
-                      className="flex items-start gap-4 rounded-[0.9rem] border border-[rgba(215,161,175,0.15)] bg-[rgba(255,248,249,0.8)] px-4 py-3.5"
-                    >
-                      <span className="mt-0.5 font-handwritten-print text-[1.1rem] leading-none text-[var(--color-accent-dark)]/70">
-                        {index + 1}.
-                      </span>
-                      <p className="text-[0.92rem] leading-[1.7] text-neutral-700">{question}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-5">
-                  If you have answered these questions and a specific stroller type or model
-                  still keeps coming up as the right fit, that is meaningful signal. If you are
-                  still unsure, that is useful information too — it means you need more clarity
-                  on one of these lifestyle factors before the stroller decision gets easier.
-                </p>
-              </LessonSection>
-
-              {/* 3.5 — The car seat question */}
-              <LessonSection stepNumber={5} title="The Car Seat Question">
-                <p>
-                  Stroller and car seat decisions are more connected than most parents realize
-                  at first. If you plan to use your stroller as part of a travel system —
-                  clicking the infant car seat directly into the stroller frame — you need to
-                  confirm that your specific car seat and stroller are compatible before buying
-                  either one.
-                </p>
-                <p>
-                  Some strollers come sold as a travel system. Others accept universal car seat
-                  adapters. Some popular car seat brands have limited stroller compatibility.
-                  Finding out after the fact is a common and frustrating mistake.
-                </p>
-                <div className="mt-5 rounded-[1rem] border border-[rgba(196,156,94,0.2)] bg-[rgba(252,248,242,0.9)] px-5 py-4 text-[0.88rem] leading-[1.75] text-neutral-600">
-                  <span className="mr-1.5 font-semibold text-[var(--color-gold-soft)]">CPST note:</span>
-                  Before purchasing any infant car seat, consider having a certified Child
-                  Passenger Safety Technician (CPST) verify proper fit for your specific
-                  vehicle. Car seat fit varies by vehicle model. Taylor is a certified CPST and
-                  this is part of what she covers in consultations.
-                </div>
-              </LessonSection>
-
-              {/* 3.6 — Budget */}
-              <LessonSection stepNumber={6} title="Budget and Premium: What the Price Difference Actually Buys">
-                <p>
-                  The stroller market spans a wide price range. Understanding what the money
-                  actually buys — and where the meaningful quality differences are — prevents
-                  both overpaying and frustrating under-buying.
-                </p>
-
-                <div className="mt-6 space-y-3">
-                  {budgetTiers.map((tier) => (
-                    <div
-                      key={tier.range}
-                      className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1 rounded-[1.1rem] border border-[rgba(215,161,175,0.18)] bg-white px-5 py-4 shadow-[0_4px_14px_rgba(72,49,56,0.04)] sm:grid-cols-[6rem_auto_1fr]"
-                    >
-                      <span className="text-[0.78rem] font-semibold text-[var(--color-accent-dark)] sm:row-span-2">
-                        {tier.range}
-                      </span>
-                      <span className="font-serif text-[1rem] font-semibold leading-tight text-neutral-900">
-                        {tier.label}
-                      </span>
-                      <p className="col-span-2 text-[0.9rem] leading-[1.7] text-neutral-600 sm:col-span-1">
-                        {tier.description}
+                      {/* Definition */}
+                      <p className="text-[1rem] leading-[1.85] text-neutral-600">
+                        {category.definition}
                       </p>
+
+                      {/* Convertible sub-types inline */}
+                      {category.name === 'Single-to-Double Convertible' && (
+                        <div className="space-y-3 rounded-[1.25rem] border border-[rgba(215,161,175,0.2)] bg-[rgba(255,248,249,0.6)] px-5 py-5 sm:px-6">
+                          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]">
+                            Two distinct types — and the difference matters
+                          </p>
+                          {convertibleTypes.map((type) => (
+                            <div key={type.type} className="space-y-1.5 border-t border-[rgba(215,161,175,0.18)] pt-4 first:border-0 first:pt-0">
+                              <p className="font-semibold text-[0.95rem] text-neutral-800">
+                                {type.type}
+                              </p>
+                              <p className="text-[0.9rem] leading-[1.75] text-neutral-600">
+                                {type.detail}
+                              </p>
+                              <p className="text-[0.83rem] leading-[1.65] text-neutral-400">
+                                {type.examples}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Right for */}
+                      <div className="space-y-2">
+                        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                          Right for
+                        </p>
+                        <ul className="space-y-2">
+                          {category.rightFor.map((item) => (
+                            <li key={item} className="flex items-start gap-3 text-[0.93rem] leading-[1.75] text-neutral-600">
+                              <span
+                                aria-hidden="true"
+                                className="mt-[0.48rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent-dark)]"
+                              />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Tradeoff + Pass if */}
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <div className="rounded-[1rem] border border-[rgba(215,161,175,0.18)] bg-white px-4 py-3.5">
+                          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                            The tradeoff
+                          </p>
+                          <p className="mt-1.5 text-[0.88rem] leading-[1.72] text-neutral-600">
+                            {category.tradeoff}
+                          </p>
+                        </div>
+                        <div className="rounded-[1rem] border border-[rgba(215,161,175,0.18)] bg-white px-4 py-3.5">
+                          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                            Pass if
+                          </p>
+                          <p className="mt-1.5 text-[0.88rem] leading-[1.72] text-neutral-600">
+                            {category.passIf}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
+              </LessonSection>
 
-                <p className="mt-5">
-                  The right stroller is not the most expensive one you can justify. It is the
-                  one you will actually use without dreading the fold, the lift, or the fit
-                  in your space.
+              {/* 3.3 — One universal rule */}
+              <LessonSection stepNumber={3} title="One rule that applies to every category">
+                <p>
+                  Test the fold yourself. In your trunk. Without the brand representative stepping
+                  in to help. If you cannot fold it cleanly and lift it into your car in under
+                  ten seconds without a tutorial, you will dread that interaction every single day.
+                </p>
+
+                <LessonImage
+                  src="/assets/editorial/stroller-folds.jpg"
+                  alt="Stroller fold and lift — the test that tells you more than any spec sheet or showroom demo"
+                  caption="The fold is a daily interaction. Test it like one."
+                />
+
+                <p>
+                  The other thing worth knowing: weight on a spec sheet feels very different from
+                  weight in a parking lot at 6 PM when you are holding the baby, the diaper bag,
+                  and your own unraveling patience. The difference between 18 lbs and 26 lbs is
+                  not abstract. It compounds over weeks.
+                </p>
+                <p>
+                  Car seat compatibility deserves a separate check before you buy anything.
+                  If you plan to click an infant seat into the stroller frame, confirm that your
+                  specific car seat model is compatible with your specific stroller model before
+                  you purchase either one. Not the brand. The model. Finding out after is a very
+                  expensive and very avoidable lesson.
                 </p>
               </LessonSection>
             </div>
@@ -410,23 +500,26 @@ export default function StrollerFoundationsPage() {
             {/* 4 — Taylor's Note */}
             <TaylorsNote>
               <p>
-                When I work with families on stroller decisions, I almost always start with two
-                questions: What is your trunk size? And how often will you be lifting this into
-                your car? Those two questions eliminate more options than any spec sheet. A
-                stroller that feels effortless at a Strolleria showroom can feel like a workout
-                after three weeks of daily loading.
+                When I work with families on strollers, I almost never start with the stroller.
+                I start with the trunk. Then I ask who is doing the folding and how often. Then I
+                ask whether the week is mostly car-heavy or walk-heavy. By the time I have those
+                three answers, at least two or three categories have already eliminated themselves.
               </p>
               <p>
-                The families who end up happiest with their strollers are the ones who chose for
-                their real life — not for the aesthetic, not for the brand, and not because it
-                is what their favorite influencer pushed last month. Your lifestyle is the filter.
-                Everything else is noise.
+                The families who end up happiest with their strollers are not the ones who bought
+                the most popular option. They are the ones who bought the option that matched their
+                actual week — the route they walk, the car they drive, the storage they have, and
+                the lifestyle they are actually living, not the one that photographs best.
+              </p>
+              <p>
+                Your variables are the whole equation. The category resolves itself once you know
+                what you are actually solving for.
               </p>
             </TaylorsNote>
 
             {/* 5 — Mini Workbook */}
             <MiniWorkbook
-              subtitle="Before you look at a single stroller model, answer these three questions honestly:"
+              subtitle="Before comparing a single stroller model, answer these three questions with your actual life in mind:"
               prompts={workbookPrompts}
             />
 

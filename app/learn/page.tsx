@@ -46,10 +46,10 @@ const freeLessons: LessonCardData[] = [
   },
   {
     lessonNumber: 3,
-    title: 'Stroller Foundations',
+    title: 'The Stroller Equation',
     description:
-      'Understand stroller types, key features, and what actually matters for your lifestyle.',
-    estimatedMinutes: 18,
+      'The best stroller for someone else might be completely wrong for you. Learn the variables and all six categories so you can solve the equation with your own life.',
+    estimatedMinutes: 20,
     href: '/learn/stroller-foundations',
     badge: 'Free Lesson',
     available: true,

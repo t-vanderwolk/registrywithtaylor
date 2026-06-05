@@ -17,7 +17,7 @@ export const FREE_PREVIEW_LESSONS: LessonNavLesson[] = [
   },
   {
     number: 3,
-    title: 'Stroller Foundations',
+    title: 'The Stroller Equation',
     href: '/learn/stroller-foundations',
   },
 ];
