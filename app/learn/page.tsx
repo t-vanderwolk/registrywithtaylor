@@ -36,11 +36,11 @@ const freeLessons: LessonCardData[] = [
   },
   {
     lessonNumber: 2,
-    title: 'The Registry Timeline',
+    title: 'Nursery Foundations',
     description:
-      'A month-by-month guide so you know exactly when to register and what to do when.',
-    estimatedMinutes: 12,
-    href: '/learn/registry-timeline',
+      'Everything you need to know about sleep spaces, furniture, layout, storage, and safety — before you buy a thing.',
+    estimatedMinutes: 18,
+    href: '/learn/nursery-foundations',
     badge: 'Free Lesson',
     available: true,
   },
