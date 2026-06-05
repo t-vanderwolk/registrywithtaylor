@@ -174,6 +174,11 @@ const nextConfig = {
     return [
       ...academyGuideRedirects,
       {
+        source: '/blog/untitled-post-5',
+        destination: '/blog/nuna-demi-icon-has-arrived',
+        permanent: true,
+      },
+      {
         source: '/book',
         destination: '/consultation',
         permanent: true,
