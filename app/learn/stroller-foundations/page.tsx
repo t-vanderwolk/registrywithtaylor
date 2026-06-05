@@ -9,6 +9,7 @@ import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
+import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -84,6 +85,7 @@ type StrollerCategory = {
   rightFor: string[];
   tradeoff: string;
   passIf: string;
+  blogLink?: { href: string; title: string; description: string };
 };
 
 const strollerCategories: StrollerCategory[] = [
@@ -105,6 +107,11 @@ const strollerCategories: StrollerCategory[] = [
       'More weight, more trunk presence, and a bigger fold. The families who regret this category are usually the ones who bought it for the aesthetic and then lived a car-heavy life.',
     passIf:
       'Your week is mostly quick errands and the stroller gets folded three times a day. Full-size earns its keep through use, not through ownership.',
+    blogLink: {
+      href: '/blog/best-full-size-strollers-2026',
+      title: 'The 5 Best Full-Size Strollers of 2026',
+      description: 'A real-life comparison of the top full-size strollers — push feel, basket, fold, and who each one actually fits.',
+    },
   },
   {
     name: 'Compact / Mid-Size',
@@ -124,6 +131,11 @@ const strollerCategories: StrollerCategory[] = [
       'Smaller basket, less substantial seat feel, and a trade-off on push quality over longer distances. Some compact strollers also have a shorter seat longevity than full-size models.',
     passIf:
       'Your week includes long daily walks and you will genuinely miss the larger seat, better suspension, and bigger basket. Compact wins on convenience, not capability.',
+    blogLink: {
+      href: '/blog/blog-best-compact-strollers-2026',
+      title: 'The Best Compact Strollers of 2026',
+      description: 'A practical guide to the compact lane — which ones fold cleanest, weigh least, and still feel like enough stroller.',
+    },
   },
   {
     name: 'Travel',
@@ -143,6 +155,11 @@ const strollerCategories: StrollerCategory[] = [
       'A smaller fold usually means less basket, less suspension, and a more minimal seat. A travel stroller that earns its keep in transit often feels like it is working harder at the destination.',
     passIf:
       'Travel is occasional and a compact stroller would solve the same problem with more everyday capability. Travel-first only pays off when transit friction is genuinely the recurring job.',
+    blogLink: {
+      href: '/blog/best-travel-strollers-2026',
+      title: 'The Best Travel Strollers of 2026',
+      description: 'A real-life breakdown of the travel stroller lane — what folds small enough, carries well, and still pushes decently once you get there.',
+    },
   },
   {
     name: 'Single-to-Double Convertible',
@@ -179,6 +196,11 @@ const strollerCategories: StrollerCategory[] = [
       'Width, weight, and harder maneuvering. Most doubles do not fit neatly through standard doorways. Tight spaces, narrow aisles, and small elevators become real daily friction.',
     passIf:
       'Only one child rides most of the time. A dedicated double is a lot of daily size to carry for the one afternoon a week both kids are in strollers.',
+    blogLink: {
+      href: '/blog/bugaboo-donkey-6-stroller-release',
+      title: 'The Bugaboo Donkey 6 Has Arrived',
+      description: 'A closer look at the updated Donkey 6 — what changed, what it is actually designed for, and who it fits.',
+    },
   },
   {
     name: 'Jogging / All-Terrain',
@@ -460,6 +482,15 @@ export default function StrollerFoundationsPage() {
                           </p>
                         </div>
                       </div>
+
+                      {/* Per-category blog link */}
+                      {category.blogLink && (
+                        <LessonBlogLink
+                          href={category.blogLink.href}
+                          title={category.blogLink.title}
+                          description={category.blogLink.description}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -492,6 +523,11 @@ export default function StrollerFoundationsPage() {
                   you purchase either one. Not the brand. The model. Finding out after is a very
                   expensive and very avoidable lesson.
                 </p>
+                <LessonBlogLink
+                  href="/blog/taylor-made-baby-co-lani-car-seat-partnership"
+                  title="Taylor-Made Baby Co. Announces Partnership with Lani Car Seat Installation Specialist"
+                  description="Why car seat installation matters, what a CPST actually checks, and how to get it done right before baby arrives."
+                />
               </LessonSection>
             </div>
 

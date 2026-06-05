@@ -9,6 +9,7 @@ import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
+import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -244,6 +245,11 @@ export default function ArtOfTheRegistryPage() {
                   situation. An influencer tells you it changed their whole life before breakfast.
                   You do not need louder recommendations. You need better filters.
                 </p>
+                <LessonBlogLink
+                  href="/blog/target-baby-concierge-virtual-specialist-guide-2026"
+                  title="Target's Baby Boutique Is Changing Everything"
+                  description="What most parents do not know yet about Target's baby specialist program — and how to actually use it."
+                />
               </LessonSection>
 
               {/* 3.4 */}
@@ -287,6 +293,11 @@ export default function ArtOfTheRegistryPage() {
                   that might have been gifted or cut. Patience is often the highest-yield registry
                   strategy.
                 </p>
+                <LessonBlogLink
+                  href="/blog/blog-free-baby-welcome-boxes-newborn-clubs-2026"
+                  title="The Taylor-Made Guide to Free Baby Welcome Boxes & Newborn Clubs (2026)"
+                  description="Every registry welcome box, what is actually inside them, and how to qualify before the window closes."
+                />
               </LessonSection>
 
               {/* 3.5 */}

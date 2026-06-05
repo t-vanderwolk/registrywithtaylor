@@ -9,6 +9,7 @@ import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
+import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -223,6 +224,11 @@ export default function NurseryFoundationsPage() {
                   alt="Standard crib in a nursery setting — the long-term sleep anchor in a multi-piece system"
                   caption="A standard crib is the long-term anchor. It does not need to be the only piece."
                 />
+                <LessonBlogLink
+                  href="/blog/blog-newborn-sleep-setups-bassinet-crib-pack-and-play"
+                  title="Where Your Newborn Actually Sleeps: Bassinet vs Crib vs Pack and Play"
+                  description="A real-life breakdown of which sleep setup works when — and how most families end up using more than one."
+                />
 
                 <p>
                   The four main sleep setups and what they each handle:
@@ -263,6 +269,11 @@ export default function NurseryFoundationsPage() {
                   src="/assets/nurserypath/packandplay.png"
                   alt="Pack and play portable sleep setup — the everywhere-else lane for travel, secondary sleep, and flexible daily use"
                   caption="Pack and plays are the real-life MVP because they handle the everywhere-else lane."
+                />
+                <LessonBlogLink
+                  href="/blog/blog-pack-and-play-vs-travel-crib"
+                  title="Pack and Play vs Travel Crib: What Actually Works"
+                  description="A side-by-side breakdown of when a pack and play makes more sense than a travel crib — and what families actually use."
                 />
               </LessonSection>
 
@@ -329,6 +340,11 @@ export default function NurseryFoundationsPage() {
                   src="/assets/nurserypath/dadadadresser.png"
                   alt="Nursery dresser with changing setup — storage and diapering solved in one furniture move"
                   caption="The dresser-plus-topper setup is the strongest long-term value move in this whole category."
+                />
+                <LessonBlogLink
+                  href="/blog/blog-best-diaper-pails-2026"
+                  title="The Taylor-Made Best Diaper Pails of 2026: Plastic vs Steel"
+                  description="A real-life comparison of diaper pail systems — what actually controls odor, what the refill costs add up to, and which one is worth it."
                 />
               </LessonSection>
 
