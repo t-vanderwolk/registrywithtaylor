@@ -12,8 +12,8 @@ export const FREE_PREVIEW_LESSONS: LessonNavLesson[] = [
   },
   {
     number: 2,
-    title: 'The Registry Timeline',
-    href: '/learn/registry-timeline',
+    title: 'Nursery Foundations',
+    href: '/learn/nursery-foundations',
   },
   {
     number: 3,
