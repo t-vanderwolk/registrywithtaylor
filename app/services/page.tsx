@@ -1,10 +1,9 @@
-import { Suspense } from 'react';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 import SiteShell from '@/components/SiteShell';
-import ConsultationRequestSection from '@/components/marketing/ConsultationRequestSection';
+import NewsletterCapture from '@/components/email/NewsletterCapture';
 import ServiceCards from '@/components/marketing/ServiceCards';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
@@ -290,13 +289,11 @@ export default function ServicesPage() {
           </div>
         </MarketingSection>
 
-        <Suspense>
-          <ConsultationRequestSection
-            returnPath="/services#request-a-consult"
-            successPath="/consultation/confirmation"
-            submitLabel="Book a Consultation"
-          />
-        </Suspense>
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
+          <div className="mx-auto max-w-3xl px-6">
+            <NewsletterCapture />
+          </div>
+        </section>
       </main>
     </SiteShell>
   );

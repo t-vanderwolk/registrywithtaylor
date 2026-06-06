@@ -95,14 +95,7 @@ export default function LearnPage() {
           </RevealOnScroll>
         </MarketingSection>
 
-        {/* Footer CTA */}
-        <FinalCTA
-          eyebrow="Have questions first?"
-          title="Book a consultation to get expert guidance tailored to your home and timeline."
-          description="One conversation can help you figure out what to focus on, what to skip, and what can wait."
-          ctaLabel="Book a Consultation"
-          ctaHref="/consultation"
-        />
+        <FinalCTA />
       </main>
     </SiteShell>
   );

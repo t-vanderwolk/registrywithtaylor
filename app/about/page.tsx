@@ -48,6 +48,19 @@ export default async function AboutPage() {
         <MarketingSection tone="white" spacing="spacious" container="default">
           <div className="mx-auto max-w-3xl space-y-8">
             <RevealOnScroll>
+              <div className="flex justify-center">
+                <Image
+                  src="/assets/taylor.jpeg"
+                  alt="Taylor Vanderwolk, Baby Gear Expert and Registry Consultant"
+                  width={280}
+                  height={340}
+                  className="rounded-2xl object-cover shadow-md"
+                  priority
+                />
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll>
               <H2 className="font-serif text-neutral-900">
                 A Baby Gear Expert in the Details
               </H2>

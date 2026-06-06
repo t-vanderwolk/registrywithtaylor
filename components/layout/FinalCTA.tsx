@@ -1,36 +1,11 @@
-import CTASection from '@/components/marketing/CTASection';
+import NewsletterCapture from '@/components/email/NewsletterCapture';
 
-type FinalCTAProps = {
-  className?: string;
-  eyebrow?: string;
-  title?: string;
-  description?: string;
-  ctaLabel?: string;
-  ctaHref?: string;
-  note?: string;
-  ctaAnalyticsLabel?: string;
-};
-
-export default function FinalCTA({
-  className = '',
-  eyebrow = 'Ready when you are',
-  title = 'Book a consultation when you want expert eyes on your baby gear plan.',
-  description = 'One thoughtful conversation can help you sort registry strategy, gear decisions, nursery setup, and what can wait.',
-  ctaLabel = 'Book a Consultation',
-  ctaHref = '/consultation',
-  note = 'Authority first. Consultation when you need it.',
-  ctaAnalyticsLabel,
-}: FinalCTAProps) {
+export default function FinalCTA() {
   return (
-    <CTASection
-      className={className}
-      eyebrow={eyebrow}
-      title={title}
-      description={description}
-      primaryHref={ctaHref}
-      primaryLabel={ctaLabel}
-      primaryAnalyticsLabel={ctaAnalyticsLabel}
-      note={note}
-    />
+    <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
+      <div className="mx-auto max-w-3xl px-6">
+        <NewsletterCapture />
+      </div>
+    </section>
   );
 }

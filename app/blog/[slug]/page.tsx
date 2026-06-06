@@ -6,7 +6,6 @@ import PostArticleView, {
   extractDownloadableResource,
 } from '@/components/blog/PostArticleView';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
-import FinalCTA from '@/components/layout/FinalCTA';
 import { extractFaqEntries } from '@/lib/blog/contentText';
 import { buildBlogSeoSnapshot } from '@/lib/blog/seo';
 import { getPostDisplayDate } from '@/lib/blog/postStatus';
@@ -239,7 +238,6 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           relatedPosts={relatedPosts}
           newsletterCapture={<NewsletterCapture />}
         />
-        <FinalCTA />
       </main>
     </SiteShell>
   );
