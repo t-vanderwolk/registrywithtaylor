@@ -41,7 +41,7 @@ export default function LessonCTA({
             {primaryLabel}
           </Link>
         ) : (
-          <Link href="/learn/pricing" className="btn btn--primary w-full sm:w-auto">
+          <Link href="/learn/waitlist" className="btn btn--primary w-full sm:w-auto">
             {primaryLabel}
           </Link>
         )}

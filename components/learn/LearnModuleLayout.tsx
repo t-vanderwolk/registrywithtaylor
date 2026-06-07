@@ -201,11 +201,11 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
   // Fetch path data for nav strip
   const pathData = await getAcademyPathData(module.pathSlug);
 
-  // Build lesson nav list from module cards
+  // Build lesson nav list — normalise /academy/* hrefs to /learn/*
   const lessonNavLessons = pathData.moduleCards.map((card, index) => ({
     number: index + 1,
     title: card.title,
-    href: card.href as string,
+    href: (card.href as string).replace(/^\/academy\//, '/learn/'),
   }));
 
   const currentIndex = pathData.moduleCards.findIndex((c) => c.slug === module.slug);
@@ -220,17 +220,22 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
   // Workbook prompts derived from decision bullets
   const workbookPrompts = buildWorkbookPrompts(module.decisionBullets, module.slug);
 
-  // Next lesson for CTA
-  const nextCard =
-    module.next ??
-    (pathData.moduleCards[currentIndex + 1]
-      ? {
-          href: pathData.moduleCards[currentIndex + 1].href,
-          title: pathData.moduleCards[currentIndex + 1].title,
-          description: pathData.moduleCards[currentIndex + 1].description,
-          ctaLabel: 'Next module →',
-        }
-      : null);
+  // Next lesson for CTA — normalise any /academy/* hrefs to /learn/*
+  const toLearnHref = (href: string) => href.replace(/^\/academy\//, '/learn/');
+
+  const nextCard = (() => {
+    const raw =
+      module.next ??
+      (pathData.moduleCards[currentIndex + 1]
+        ? {
+            href: pathData.moduleCards[currentIndex + 1].href,
+            title: pathData.moduleCards[currentIndex + 1].title,
+            description: pathData.moduleCards[currentIndex + 1].description,
+            ctaLabel: 'Next module →',
+          }
+        : null);
+    return raw ? { ...raw, href: toLearnHref(raw.href) } : null;
+  })();
 
   // Path label
   const pathLabel = PathBadge({ pathSlug: module.pathSlug });
@@ -389,13 +394,13 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
           />
 
           {/* 10. Related / cross-path link (if exists and different from next) */}
-          {module.related && module.related.href !== (nextCard?.href ?? '') && (
+          {module.related && toLearnHref(module.related.href) !== (nextCard?.href ?? '') && (
             <div className="rounded-[1.25rem] border border-[rgba(215,161,175,0.18)] bg-white/80 px-6 py-5 shadow-[0_8px_20px_rgba(72,49,56,0.04)]">
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/72">
                 Also connected
               </p>
               <a
-                href={module.related.href}
+                href={toLearnHref(module.related.href)}
                 className="group mt-3 flex items-start justify-between gap-4"
               >
                 <div>

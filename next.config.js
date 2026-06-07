@@ -1,34 +1,37 @@
 /**
  * /academy → /learn consolidation redirects.
  *
- * Standard modules and path hubs now live under /learn.
- * Submodule branch pages (stroller lanes, car seat categories, nursery
- * furniture subcategories, welcome box platforms, daily-use gear items)
- * stay at /academy/* for now — they don't yet have /learn/* equivalents.
- * Those will be added when the full /learn/[path]/[module]/[submodule]
- * route layer is built.
+ * All Academy content — path hubs, standard modules, and submodule branches —
+ * now has canonical /learn/* URLs. These 301s preserve SEO equity.
+ *
+ * Order matters: more-specific patterns (3-segment) must come before
+ * the 2-segment wildcard catch-alls so Next.js matches them first.
  */
 const academyToLearnRedirects = [
   // ─── Academy home ───────────────────────────────────────────────────────
   { source: '/academy', destination: '/learn', permanent: true },
 
-  // ─── Registry ───────────────────────────────────────────────────────────
+  // ─── Registry submodule branches (3-segment, before 2-segment catch-all)
+  { source: '/academy/registry/welcome-boxes-perks/:platform', destination: '/learn/registry/welcome-boxes-perks/:platform', permanent: true },
+
+  // ─── Registry path hub + standard modules ───────────────────────────────
   { source: '/academy/registry', destination: '/learn/registry', permanent: true },
-  // welcome-boxes-perks hub IS a standard module slug → safe to redirect
-  // welcome-boxes-perks/:platform submodules stay at /academy/* (no /learn route yet)
   { source: '/academy/registry/:module', destination: '/learn/registry/:module', permanent: true },
 
-  // ─── Nursery ────────────────────────────────────────────────────────────
+  // ─── Nursery submodule branches (3-segment) ─────────────────────────────
+  { source: '/academy/nursery/furniture-that-actually-works/:category', destination: '/learn/nursery/furniture-that-actually-works/:category', permanent: true },
+
+  // ─── Nursery path hub + standard modules ────────────────────────────────
   { source: '/academy/nursery', destination: '/learn/nursery', permanent: true },
-  // furniture-that-actually-works hub IS a standard module slug → safe to redirect
-  // furniture-that-actually-works/:category submodules stay at /academy/*
   { source: '/academy/nursery/:module', destination: '/learn/nursery/:module', permanent: true },
 
-  // ─── Gear ───────────────────────────────────────────────────────────────
+  // ─── Gear submodule branches (3-segment) ────────────────────────────────
+  { source: '/academy/gear/stroller-foundations/:lane', destination: '/learn/gear/stroller-foundations/:lane', permanent: true },
+  { source: '/academy/gear/car-seat-foundations/:category', destination: '/learn/gear/car-seat-foundations/:category', permanent: true },
+  { source: '/academy/gear/daily-use-gear/:item', destination: '/learn/gear/daily-use-gear/:item', permanent: true },
+
+  // ─── Gear path hub + standard modules ───────────────────────────────────
   { source: '/academy/gear', destination: '/learn/gear', permanent: true },
-  // Hub modules (stroller-foundations, car-seat-foundations, daily-use-gear,
-  // feeding-setup-flow) ARE standard module slugs → safe to redirect.
-  // Their child pages (/:lane, /:category, /:item) stay at /academy/* for now.
   { source: '/academy/gear/:module', destination: '/learn/gear/:module', permanent: true },
 
   // ─── Postpartum ─────────────────────────────────────────────────────────

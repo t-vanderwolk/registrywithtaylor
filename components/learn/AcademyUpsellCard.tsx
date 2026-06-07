@@ -38,16 +38,16 @@ export default function AcademyUpsellCard() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <Link href="/learn/pricing" className="btn btn--primary w-full sm:w-auto">
-              See Academy Pricing
+            <Link href="/learn/waitlist" className="btn btn--primary w-full sm:w-auto">
+              Join the Waitlist
             </Link>
-            <Link href="/learn" className="btn btn--secondary w-full sm:w-auto">
-              Start Free
+            <Link href="/learn/pricing" className="btn btn--secondary w-full sm:w-auto">
+              See Pricing
             </Link>
           </div>
 
           <p className="mt-4 text-[0.72rem] uppercase tracking-[0.16em] text-neutral-400">
-            Three free preview lessons. No account required to start.
+            Enrollment opening soon. Free preview lessons available now.
           </p>
         </div>
 

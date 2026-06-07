@@ -54,13 +54,18 @@ export type LearnHubLayoutProps = {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
+/** Normalise any /academy/* hrefs to their /learn/* canonical equivalents. */
+function toLearnHref(href: string) {
+  return href.replace(/^\/academy\//, '/learn/');
+}
+
 function SubmoduleGrid({ cards }: { cards: LearnHubCard[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card) => (
         <a
           key={card.href}
-          href={card.href}
+          href={toLearnHref(card.href)}
           className="group flex flex-col gap-3 rounded-[1.25rem] border border-[rgba(215,161,175,0.22)] bg-white p-5 shadow-[0_8px_24px_rgba(72,49,56,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(72,49,56,0.09)]"
         >
           {card.eyebrow && (
@@ -141,7 +146,7 @@ export default async function LearnHubLayout({
   const lessonNavLessons = pathData.moduleCards.map((card, index) => ({
     number: index + 1,
     title: card.title,
-    href: card.href as string,
+    href: toLearnHref(card.href as string),
   }));
 
   const currentIndex = pathData.moduleCards.findIndex((c) => c.slug === moduleSlug);
@@ -162,7 +167,7 @@ export default async function LearnHubLayout({
       path: canonicalPath,
       breadcrumbs: breadcrumbs.map((b) => ({ label: b.label, href: b.href })),
       items: submoduleCards.map((c) => ({
-        href: c.href,
+        href: toLearnHref(c.href),
         title: c.title,
         description: c.description,
       })),
@@ -240,7 +245,9 @@ export default async function LearnHubLayout({
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-accent-dark)]/72">
                 Keep Moving
               </p>
-              <NextLinksBar links={nextLinks} />
+              <NextLinksBar
+                links={nextLinks.map((l) => ({ ...l, href: toLearnHref(l.href) }))}
+              />
             </div>
           )}
 
@@ -249,7 +256,7 @@ export default async function LearnHubLayout({
             heading="Ready to go deeper?"
             body="The full Taylor-Made Baby Academy walks you through every decision in this category and connects it to the rest of your baby prep."
             primaryLabel={primaryCta.label}
-            primaryHref={primaryCta.href}
+            primaryHref={toLearnHref(primaryCta.href)}
             secondaryLabel="Back to Academy"
             secondaryHref="/learn"
           />

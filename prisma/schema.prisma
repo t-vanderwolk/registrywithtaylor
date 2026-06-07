@@ -444,6 +444,19 @@ model Compatibility {
 
 // ─── Academy / Learn models ───────────────────────────────────────────────────
 
+// Academy waitlist — email addresses collected before the full Academy opens.
+model WaitlistEntry {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  dueDate   DateTime?
+  source    String    @default("academy-waitlist")
+  createdAt DateTime  @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
 // A learner account is separate from the admin User model.
 // Created on signup via the /learn enrollment flow.
 // subscriptionTier: "free" | "academy" | "academy_plus" | "concierge"

@@ -1335,16 +1335,17 @@ export function getLearnSitemapPaths() {
 }
 
 /**
- * Submodule branch pages that still live at /academy/*.
- * These don't have /learn/* equivalents yet — no redirect loop.
+ * Canonical /learn/* paths for all submodule branch pages.
+ * Converts /academy/* hrefs from card data to /learn/* equivalents.
  */
 export function getSubmoduleSitemapPaths() {
+  const toLearn = (href: string) => href.replace(/^\/academy\//, '/learn/');
   return [
-    ...getStrollerFoundationsAcademySubmoduleCards().map((card) => card.href),
-    ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => card.href),
-    ...getDailyUseGearAcademySubmoduleCards().map((card) => card.href),
-    ...getRegistryWelcomeBoxesAcademySubmoduleCards().map((card) => card.href),
-    ...getNurseryFurnitureSubmoduleCards().map((card) => card.href),
+    ...getStrollerFoundationsAcademySubmoduleCards().map((card) => toLearn(card.href)),
+    ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => toLearn(card.href)),
+    ...getDailyUseGearAcademySubmoduleCards().map((card) => toLearn(card.href)),
+    ...getRegistryWelcomeBoxesAcademySubmoduleCards().map((card) => toLearn(card.href)),
+    ...getNurseryFurnitureSubmoduleCards().map((card) => toLearn(card.href)),
   ];
 }
 
