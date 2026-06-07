@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import ModuleLayout from '@/components/academy/ModuleLayout';
+import LearnModuleLayout from '@/components/learn/LearnModuleLayout';
 import SiteShell from '@/components/SiteShell';
 import {
   getAcademyModuleData,
@@ -65,7 +65,7 @@ export default async function AcademyModulePage({ params }: AcademyModulePagePro
   return (
     <SiteShell currentPath={moduleData.href}>
       <main className="site-main min-h-0">
-        <ModuleLayout module={moduleData} />
+        <LearnModuleLayout module={moduleData} />
       </main>
     </SiteShell>
   );
