@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
@@ -6,107 +7,125 @@ import Hero from '@/components/ui/Hero';
 import { H2 } from '@/components/ui/MarketingHeading';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionDivider from '@/components/ui/SectionDivider';
+import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'FAQ — Taylor-Made Baby Co.',
+  title: 'Frequently Asked Questions | Taylor-Made Baby Co.',
   description:
-    'Frequently asked questions about Taylor-Made Baby Co.\'s services, process, and support.',
+    'Answers to the most common questions about baby gear guidance, registry consulting, car seat checks, the free consultation, and the TMBC Academy.',
   path: '/faq',
   imagePath: '/assets/hero/hero-05.jpg',
-  imageAlt: 'Frequently asked questions',
+  imageAlt: 'Frequently asked questions about Taylor-Made Baby Co.',
+  keywords: [
+    'is baby gear consultation free',
+    'what does a baby concierge do',
+    'baby registry help',
+    'car seat check Scottsdale',
+    'TMBC Academy',
+  ],
 });
 
-const complimentaryConsultationFaqs: FAQEntry[] = [
+const consultationFaqs: FAQEntry[] = [
   {
-    question: 'Is the consultation really complimentary?',
+    question: 'Is the consultation really free?',
     answer:
-      'Yes. The personal 1:1 video consultation is free. There is no cost to submit a request.',
+      'Yes. The initial 1:1 video consultation is complimentary. There is no cost to submit a request or meet with Taylor for the first time. The consultation is how we figure out which level of support actually fits your situation.',
   },
   {
-    question: 'Do I need to register anywhere first?',
+    question: 'What happens during the consultation?',
     answer:
-      'No. You can submit a consultation request directly and we can begin from wherever you are in the process.',
+      'Taylor reviews your registry, your space, your lifestyle, and your timeline. Together you identify what decisions need to be made, what can wait, and which package — if any — makes sense for where you are.',
   },
   {
-    question: 'Will I be meeting with you directly?',
-    answer: 'Yes. You will meet with me personally for your consultation.',
+    question: 'Will I be meeting with Taylor directly?',
+    answer: 'Yes. Every consultation is with Taylor personally.',
   },
   {
-    question: 'What happens during the session?',
+    question: 'What should I bring to the consultation?',
     answer:
-      "We review your registry, your space, your lifestyle, and your timeline. Together, we identify what's essential, what may be unnecessary, and what best supports how you actually live. The goal is clarity - not more things.",
+      'Come with your registry (even if it is unfinished), your biggest questions, and a general sense of your space and vehicle. You do not need to have anything figured out — that is what the session is for.',
   },
   {
-    question: 'How long is the consultation?',
+    question: 'Do I have to buy anything after the consultation?',
     answer:
-      'Most sessions are 30 minutes. Occasionally, they may run slightly longer depending on your needs.',
-  },
-  {
-    question: 'What should I prepare beforehand?',
-    answer:
-      "Come with your registry (even if it's unfinished), your biggest questions, and a sense of your space. You don't need to have everything figured out - that's what the session is for.",
-  },
-  {
-    question: "Can you help if I haven't built my registry yet?",
-    answer:
-      "Yes. We can start from zero. I'll help you prioritize what matters first based on your lifestyle, space, and timeline.",
-  },
-  {
-    question: 'What retailers can we use?',
-    answer:
-      'We can evaluate any retailer and compare options based on what best fits your needs.',
+      'No. The consultation is genuinely no-pressure. Some families book a package afterward. Some leave with enough clarity to move forward on their own. Both outcomes are fine.',
   },
 ];
 
-const afterConsultationFaqs: FAQEntry[] = [
+const servicesFaqs: FAQEntry[] = [
   {
-    question: 'What happens after our session?',
+    question: 'What is included in the Focused Session?',
     answer:
-      'Some families feel fully confident moving forward independently. Others choose continued support through Taylor-Made Baby Co. for more structured, private planning. There is no obligation either way.',
+      'One 60-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $149.',
   },
   {
-    question: 'Am I required to book private services?',
+    question: 'What is included in the Signature Package?',
     answer:
-      'No. The complimentary consultation stands on its own. If you\'d like additional support - nursery planning, registry refinement, gear strategy, or ongoing guidance - those services are available separately through Taylor-Made Baby Co.',
+      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $547.',
   },
   {
-    question: 'What is the difference between the free consultation and private planning?',
+    question: 'What is the Private Concierge?',
     answer:
-      'The free consultation is a fit and clarity session. Private planning provides deeper, ongoing support tailored to your home, registry, and purchasing decisions.',
+      'Ongoing advisor access scoped to your specific decisions, timeline, and preparation stage. The Private Concierge includes everything in the Signature Package plus extended support as priorities evolve. Pricing starts at $997 and is discussed during an initial scoping conversation. Use the contact form to start that conversation.',
+  },
+  {
+    question: 'Are the sessions virtual or in person?',
+    answer:
+      'Both options are available. Sessions can be conducted virtually from anywhere, or in person for clients in the Scottsdale, Arizona area.',
+  },
+  {
+    question: 'What about Lani Car Seats and AZ Childproofers — are those available outside Arizona?',
+    answer:
+      'Yes. Both partners offer virtual services for clients outside Arizona. In-person services are available for Arizona clients.',
   },
 ];
 
-const privatePlanningFaqs: FAQEntry[] = [
+const carSeatFaqs: FAQEntry[] = [
   {
-    question: 'What do private services include?',
+    question: 'What is a CPST?',
     answer:
-      'Private services may include registry refinement, nursery layout and design guidance, product comparison and gear strategy, personal shopping support, and ongoing planning sessions. Each engagement is tailored to your family.',
+      'A Certified Passenger Safety Technician (CPST) is a nationally certified specialist trained in the correct installation and use of child safety seats. Taylor holds this certification, which means car seat guidance at Taylor-Made Baby Co. is grounded in real safety training — not just product preference.',
   },
   {
-    question: 'Do you work with families outside Scottsdale?',
+    question: 'Can Taylor help me choose and install a car seat?',
     answer:
-      'Yes. Most consultations are virtual and available nationwide. In-home support may be available for select clients.',
+      'Yes. Car seat selection, comparison, and installation guidance are included in the Signature Package and Private Concierge through Taylor\'s partnership with Lani Car Seats. Standalone car seat help is also available as an add-on.',
+  },
+];
+
+const academyFaqs: FAQEntry[] = [
+  {
+    question: 'What is the TMBC Academy?',
+    answer:
+      'The Academy is a free, structured educational resource built around the decisions expecting parents face — registry strategy, nursery setup, gear selection, and postpartum preparation. It is organized into paths and modules that are meant to be followed in order. No sign-up is required.',
   },
   {
-    question: 'Do you receive commission on products you recommend?',
-    answer:
-      'I may receive affiliate compensation from certain retail partners, but recommendations are always based on what fits your lifestyle, space, and priorities - not on commission. Clarity and trust come first.',
+    question: 'Is the Academy free?',
+    answer: 'Yes. All Academy modules are free and publicly accessible.',
   },
   {
-    question: 'How do I know if private planning is right for me?',
+    question: 'How is the Academy different from a consultation?',
     answer:
-      "If you're looking for continued structure, thoughtful decision-making, and a calm, guided approach to preparation - private planning may be a strong fit. If you're unsure, begin with your complimentary consultation.",
+      'The Academy gives you the framework and context. A consultation applies that framework to your specific home, car, routines, and registry. Most families find that doing some Academy modules before a consultation makes the session more focused and useful.',
+  },
+];
+
+const generalFaqs: FAQEntry[] = [
+  {
+    question: 'What areas does Taylor serve?',
+    answer:
+      'Taylor-Made Baby Co. serves families virtually across the United States. In-person services are available in the Scottsdale, Arizona area.',
   },
   {
-    question: 'Do you offer nursery design, or just layout + function?',
+    question: 'How do I get started?',
     answer:
-      'Both. We start with calm function and safety, then refine the aesthetic so the space supports real daily flow.',
+      'The best starting point is a free consultation. Submit a request through the consultation page and Taylor will follow up directly. If you are not ready to book, the Academy and Journal are both available without any commitment.',
   },
   {
-    question: "What does 'white-glove' support mean?",
+    question: 'How long does it take to hear back after submitting a consultation request?',
     answer:
-      'Priority scheduling, ongoing guidance, and direct support as decisions evolve throughout your pregnancy.',
+      'Taylor personally reviews every request and follows up within 24 hours.',
   },
 ];
 
@@ -117,9 +136,8 @@ export default function FAQPage() {
         <Hero
           className="homepage-hero"
           eyebrow="FAQ"
-          title="Frequently Asked Questions"
-          subtitle="A little clarity before we begin."
-          tagline="Baby Gear Guidance • Registry Strategy • Calm Preparation for Modern Families"
+          title="Questions, answered."
+          subtitle="Everything you need to know before booking, browsing the Academy, or reaching out."
           image="/assets/hero/hero-05.jpg"
           imageAlt=""
           contentClassName="homepage-hero-content"
@@ -132,42 +150,78 @@ export default function FAQPage() {
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
-                  <H2 className="text-neutral-900">
-                    Complimentary Consultation
-                  </H2>
+                  <H2 className="text-neutral-900">About the Free Consultation</H2>
                 </div>
-
-                <FAQAccordion items={complimentaryConsultationFaqs} />
+                <FAQAccordion items={consultationFaqs} />
               </div>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={100}>
+            <RevealOnScroll delayMs={80}>
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
-                  <H2 className="text-neutral-900">
-                    After the Consultation
-                  </H2>
+                  <H2 className="text-neutral-900">About the Services and Packages</H2>
                 </div>
-
-                <FAQAccordion items={afterConsultationFaqs} />
+                <FAQAccordion items={servicesFaqs} />
               </div>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={180}>
+            <RevealOnScroll delayMs={120}>
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
-                  <H2 className="text-neutral-900">
-                    Private Planning Services
-                  </H2>
+                  <H2 className="text-neutral-900">About Car Seat Guidance</H2>
                 </div>
+                <FAQAccordion items={carSeatFaqs} />
+              </div>
+            </RevealOnScroll>
 
-                <FAQAccordion items={privatePlanningFaqs} />
+            <RevealOnScroll delayMs={160}>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">About the Academy</H2>
+                </div>
+                <FAQAccordion items={academyFaqs} />
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delayMs={200}>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">General Questions</H2>
+                </div>
+                <FAQAccordion items={generalFaqs} />
               </div>
             </RevealOnScroll>
           </div>
         </MarketingSection>
+
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
+          <div className="mx-auto max-w-3xl px-6 text-center">
+            <h2 className="font-serif text-[2rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[2.5rem]">
+              Still have a question?
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-neutral-600">
+              Reach out directly or book the free consultation — either way, Taylor responds personally.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/consultation"
+                className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                <MotionCtaContent>Book a Consultation</MotionCtaContent>
+              </Link>
+              <Link
+                href="/contact"
+                className="btn btn--secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                <MotionCtaContent>Contact Taylor</MotionCtaContent>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         <FinalCTA />
       </main>

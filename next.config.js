@@ -183,11 +183,6 @@ const nextConfig = {
         destination: '/consultation',
         permanent: true,
       },
-      {
-        source: '/faq',
-        destination: '/consultation',
-        permanent: true,
-      },
     ];
   },
 };
