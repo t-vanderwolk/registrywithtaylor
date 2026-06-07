@@ -106,7 +106,7 @@ function mapPartnerRecord(partner: PartnerRecordBase): AffiliatePartnerOptionRec
   } satisfies AffiliatePartnerOptionRecord;
 }
 
-export async function listAffiliatePartnerOptions() {
+export async function listAffiliatePartnerOptions(): Promise<AffiliatePartnerOptionRecord[]> {
   try {
     const partners = await prisma.affiliatePartner.findMany({
       where: {
