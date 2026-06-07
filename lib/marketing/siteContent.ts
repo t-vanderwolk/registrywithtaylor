@@ -18,6 +18,10 @@ export type ServicePackage = {
   key: 'focused-session' | 'signature-planning' | 'concierge-support';
   eyebrow: string;
   title: string;
+  /** Display price, e.g. "$199" */
+  price: string;
+  /** Optional qualifier shown before the price, e.g. "Starting at" */
+  priceNote?: string;
   summary: string;
   description: string;
   bestFor: string;
@@ -232,6 +236,7 @@ export const servicePackages: ServicePackage[] = [
     key: 'focused-session',
     eyebrow: 'One Decision',
     title: 'Focused Session',
+    price: '$199',
     summary: 'A strategic session for one registry or gear decision that needs expert clarity now.',
     description:
       'Ideal for parents narrowing down a stroller, comparing infant car seats, cleaning up a registry category, or deciding what actually belongs on the list.',
@@ -246,6 +251,7 @@ export const servicePackages: ServicePackage[] = [
     key: 'signature-planning',
     eyebrow: 'Full Baby Prep',
     title: 'Signature Package',
+    price: '$497',
     summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
     description:
       'This package is for families who want a calm framework for the full prep picture, not just one answer in isolation.',
@@ -262,6 +268,8 @@ export const servicePackages: ServicePackage[] = [
     key: 'concierge-support',
     eyebrow: 'Ongoing Advisor Access',
     title: 'Private Concierge',
+    price: '$997',
+    priceNote: 'Starting at',
     summary: 'Premium ongoing guidance for families who want Taylor in the mix as decisions keep moving.',
     description:
       'Designed for families who want expert eyes on evolving short lists, store prep, product comparisons, and next-step decisions over time.',

@@ -100,7 +100,25 @@ export default function ServiceCards({
                 >
                   {pkg.title}
                 </h3>
-                <p className="mt-2 max-w-none text-[0.94rem] leading-6 text-neutral-600 sm:leading-7">{pkg.summary}</p>
+
+                {/* Price */}
+                <div className={['mt-3 flex items-baseline gap-1.5', pkg.featured ? 'justify-center' : ''].join(' ')}>
+                  {pkg.priceNote && (
+                    <span className="text-[0.72rem] uppercase tracking-[0.14em] text-neutral-400">
+                      {pkg.priceNote}
+                    </span>
+                  )}
+                  <span
+                    className={[
+                      'font-serif leading-none tracking-[-0.04em] text-neutral-900',
+                      pkg.featured ? 'text-[2.2rem]' : 'text-[1.9rem]',
+                    ].join(' ')}
+                  >
+                    {pkg.price}
+                  </span>
+                </div>
+
+                <p className="mt-2.5 max-w-none text-[0.94rem] leading-6 text-neutral-600 sm:leading-7">{pkg.summary}</p>
               </div>
 
               <p className="mt-4 max-w-none text-[0.96rem] leading-6 text-neutral-700 sm:mt-5 sm:leading-7">{pkg.description}</p>
