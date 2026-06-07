@@ -41,8 +41,7 @@ export default function LessonCTA({
             {primaryLabel}
           </Link>
         ) : (
-          /* TODO: Replace with payment gate link once pricing is configured */
-          <Link href="/services" className="btn btn--primary w-full sm:w-auto">
+          <Link href="/learn/pricing" className="btn btn--primary w-full sm:w-auto">
             {primaryLabel}
           </Link>
         )}

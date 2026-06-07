@@ -1,9 +1,14 @@
-import ModuleLayout, { type ModuleLayoutData } from '@/components/academy/ModuleLayout';
+import LearnModuleLayout, { type LearnModuleData } from '@/components/learn/LearnModuleLayout';
 
+/**
+ * AcademyModuleRenderer now delegates to LearnModuleLayout.
+ * Used by stroller lane pages, car seat category pages,
+ * and DailyUseGearSubmodulePage.
+ */
 export default function AcademyModuleRenderer({
   module,
 }: {
-  module: ModuleLayoutData;
+  module: LearnModuleData;
 }) {
-  return <ModuleLayout module={module} />;
+  return <LearnModuleLayout module={module} />;
 }

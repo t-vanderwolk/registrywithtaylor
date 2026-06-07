@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type WorkbookPrompt = {
   id: string;
@@ -11,23 +11,131 @@ type WorkbookPrompt = {
 type MiniWorkbookProps = {
   prompts: WorkbookPrompt[];
   subtitle?: string;
+  /** Academy path slug — used to namespace saved responses. */
+  pathSlug?: string;
+  /** Academy module slug — used to namespace saved responses. */
+  moduleSlug?: string;
 };
+
+// ─── Guest token helpers ──────────────────────────────────────────────────────
+
+/** Get or create a stable anonymous token stored in localStorage. */
+function getOrCreateGuestToken(): string | null {
+  try {
+    const key = 'tmbc_guest_token';
+    const existing = localStorage.getItem(key);
+    if (existing) return existing;
+    const token = `guest_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    localStorage.setItem(key, token);
+    return token;
+  } catch {
+    // localStorage unavailable (SSR, private browsing, etc.)
+    return null;
+  }
+}
+
+// ─── API helpers ──────────────────────────────────────────────────────────────
+
+async function saveResponse({
+  pathSlug,
+  moduleSlug,
+  promptId,
+  response,
+  guestToken,
+}: {
+  pathSlug: string;
+  moduleSlug: string;
+  promptId: string;
+  response: string;
+  guestToken: string | null;
+}) {
+  if (!guestToken) return; // nothing to persist without a token
+
+  await fetch('/api/learn/workbook', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pathSlug, moduleSlug, promptId, response, guestToken }),
+  });
+}
+
+async function fetchSavedResponses({
+  pathSlug,
+  moduleSlug,
+  guestToken,
+}: {
+  pathSlug: string;
+  moduleSlug: string;
+  guestToken: string | null;
+}): Promise<Record<string, string>> {
+  if (!guestToken) return {};
+
+  try {
+    const res = await fetch(
+      `/api/learn/workbook?pathSlug=${pathSlug}&moduleSlug=${moduleSlug}&guestToken=${guestToken}`,
+    );
+    const data = await res.json();
+    return data.responses ?? {};
+  } catch {
+    return {};
+  }
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MiniWorkbook({
   prompts,
   subtitle = 'Take a few minutes to reflect before moving on.',
+  pathSlug,
+  moduleSlug,
 }: MiniWorkbookProps) {
   const [answers, setAnswers] = useState<Record<string, string>>(
     Object.fromEntries(prompts.map((p) => [p.id, ''])),
   );
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const guestTokenRef = useRef<string | null>(null);
 
-  const handleSave = () => {
-    // TODO: Connect to user progress API when authentication is added.
-    console.log('Mini workbook answers (unsaved):', answers);
+  // Load saved responses on mount (client only)
+  useEffect(() => {
+    guestTokenRef.current = getOrCreateGuestToken();
+
+    if (!pathSlug || !moduleSlug || !guestTokenRef.current) return;
+
+    fetchSavedResponses({
+      pathSlug,
+      moduleSlug,
+      guestToken: guestTokenRef.current,
+    }).then((saved) => {
+      if (Object.keys(saved).length > 0) {
+        setAnswers((prev) => ({ ...prev, ...saved }));
+      }
+    });
+  }, [pathSlug, moduleSlug]);
+
+  const handleSave = useCallback(async () => {
+    setSaving(true);
+
+    if (pathSlug && moduleSlug) {
+      const token = guestTokenRef.current;
+
+      // Fire off all prompt saves in parallel
+      await Promise.all(
+        prompts.map((prompt) =>
+          saveResponse({
+            pathSlug,
+            moduleSlug,
+            promptId: prompt.id,
+            response: answers[prompt.id] ?? '',
+            guestToken: token,
+          }),
+        ),
+      );
+    }
+
+    setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
-  };
+  }, [pathSlug, moduleSlug, prompts, answers]);
 
   return (
     <div className="overflow-hidden rounded-[1.45rem] border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(253,247,244,0.96)_100%)] shadow-[0_12px_34px_rgba(72,49,56,0.06)]">
@@ -74,8 +182,9 @@ export default function MiniWorkbook({
           <button
             type="button"
             onClick={handleSave}
+            disabled={saving}
             className={[
-              'inline-flex min-h-[44px] items-center rounded-full px-6 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-all duration-200',
+              'inline-flex min-h-[44px] items-center rounded-full px-6 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-70',
               saved
                 ? 'bg-[rgba(232,154,174,0.14)] text-[var(--color-accent-dark)]'
                 : 'bg-[var(--color-accent-dark)] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] hover:bg-[#c76b82]',
@@ -83,7 +192,7 @@ export default function MiniWorkbook({
               .filter(Boolean)
               .join(' ')}
           >
-            {saved ? 'Saved ✓' : 'Save Reflection'}
+            {saved ? 'Saved ✓' : saving ? 'Saving…' : 'Save Reflection'}
           </button>
         </div>
       </div>

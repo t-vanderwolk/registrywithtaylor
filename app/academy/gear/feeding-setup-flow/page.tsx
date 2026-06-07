@@ -1,5 +1,6 @@
-import FeedingSetupFlowModule from '@/components/academy/FeedingSetupFlowModule';
+import LearnModuleLayout from '@/components/learn/LearnModuleLayout';
 import SiteShell from '@/components/SiteShell';
+import { getAcademyModuleData } from '@/lib/academy/content';
 import {
   FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION,
   FEEDING_SETUP_FLOW_ACADEMY_IMAGE_ALT,
@@ -11,7 +12,7 @@ import {
 import { buildAcademyPageMetadata } from '@/lib/academy/routeMetadata';
 
 export const metadata = buildAcademyPageMetadata({
-  defaultTitle: `${FEEDING_SETUP_FLOW_ACADEMY_TITLE} | Gear | TMBC Baby Academy`,
+  defaultTitle: `${FEEDING_SETUP_FLOW_ACADEMY_TITLE} | Gear | Taylor-Made Baby Academy`,
   description: FEEDING_SETUP_FLOW_ACADEMY_DESCRIPTION,
   path: FEEDING_SETUP_FLOW_ACADEMY_PATH,
   imagePath: FEEDING_SETUP_FLOW_ACADEMY_IMAGE_PATH,
@@ -22,11 +23,13 @@ export const metadata = buildAcademyPageMetadata({
   ],
 });
 
-export default function FeedingSetupFlowPage() {
+export default async function FeedingSetupFlowPage() {
+  const moduleData = await getAcademyModuleData('feeding-setup-flow');
+
   return (
     <SiteShell currentPath={FEEDING_SETUP_FLOW_ACADEMY_PATH}>
       <main className="site-main min-h-0">
-        <FeedingSetupFlowModule />
+        <LearnModuleLayout module={moduleData} />
       </main>
     </SiteShell>
   );

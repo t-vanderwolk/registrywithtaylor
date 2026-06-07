@@ -29,7 +29,12 @@ import type {
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type LearnModuleData = {
-  slug: AcademyModuleData['slug'];
+  /**
+   * Module slug. Typed as string (not the narrower AcademyModuleSlug union)
+   * so submodule builders whose slugs aren't in the union type
+   * (stroller lanes, car seat categories, etc.) can pass through without casting.
+   */
+  slug: string;
   pathSlug: AcademyModuleData['pathSlug'];
   href: string;
   title: string;
@@ -347,6 +352,8 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             <MiniWorkbook
               subtitle="Before moving on, reflect on these questions:"
               prompts={workbookPrompts}
+              pathSlug={module.pathSlug}
+              moduleSlug={module.slug}
             />
           )}
 

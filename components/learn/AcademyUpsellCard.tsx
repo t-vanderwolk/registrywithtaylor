@@ -38,14 +38,16 @@ export default function AcademyUpsellCard() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            {/* TODO: Replace /services with full /learn payment gate once pricing is configured */}
-            <Link href="/services" className="btn btn--primary w-full sm:w-auto">
-              Explore the Full Academy
+            <Link href="/learn/pricing" className="btn btn--primary w-full sm:w-auto">
+              See Academy Pricing
+            </Link>
+            <Link href="/learn" className="btn btn--secondary w-full sm:w-auto">
+              Start Free
             </Link>
           </div>
 
           <p className="mt-4 text-[0.72rem] uppercase tracking-[0.16em] text-neutral-400">
-            Currently available through private advisory services
+            Three free preview lessons. No account required to start.
           </p>
         </div>
 
