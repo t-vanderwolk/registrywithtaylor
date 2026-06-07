@@ -78,6 +78,21 @@ export default function ConsultationPage() {
           </RevealOnScroll>
         </MarketingSection>
 
+        <MarketingSection tone="ivory" spacing="default" container="narrow">
+          <RevealOnScroll>
+            <figure className="mx-auto max-w-2xl py-2 text-center">
+              <blockquote>
+                <p className="font-serif text-[1.7rem] leading-[1.15] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
+                  &ldquo;Taylor and I laughed the whole time but still able to get it done! Support I didn&rsquo;t know I needed!&rdquo;
+                </p>
+              </blockquote>
+              <figcaption className="mt-6 text-[0.72rem] uppercase tracking-[0.18em] text-black/50">
+                Expecting parent
+              </figcaption>
+            </figure>
+          </RevealOnScroll>
+        </MarketingSection>
+
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>
             <MarketingSurface className="mx-auto max-w-5xl space-y-6">

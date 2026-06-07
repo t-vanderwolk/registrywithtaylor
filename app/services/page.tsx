@@ -7,6 +7,7 @@ import NewsletterCapture from '@/components/email/NewsletterCapture';
 import ServiceCards from '@/components/marketing/ServiceCards';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
+import TwoTierTestimonials from '@/components/marketing/TwoTierTestimonials';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
@@ -77,6 +78,49 @@ const optionalAddOns = [
   {
     title: 'Sibling and Animal Introduction Prep',
     description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
+  },
+] as const;
+
+const servicesStrolleriaReviews = [
+  {
+    quote: "Taylor took what could have been a very overwhelming experience and made it so simple and easy. She spent 3+ hours with me as we talked through the pros/cons of each brand and was so patient and kind... Corporate, if you're reading this, time to give Taylor a promotion/raise!",
+    name: 'Amanda M.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: "She listened to what we were looking for, and was so honest and transparent about all of the baby gear we were considering. We ended up buying something completely different than our 'online research' because of her help.",
+    name: 'Kathryn G.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'She is truly a wealth of knowledge and guided us in the right direction based on our individual needs and preferences. Not only did we leave feeling confident in our selections, but Taylor made the entire process fun and exciting.',
+    name: 'Caihlan S.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'We came in not knowing what we wanted and Taylor listened to our preferences/lifestyle and provided us with great recommendations. She definitely made the process less overwhelming for us.',
+    name: 'Talie W.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'Taylor showed us more options than we would have known to ask about, which led to us completely changing what we wanted for our whole stroller setup.',
+    name: 'Jennifer R.',
+    source: 'Strolleria client',
+  },
+] as const;
+
+const servicesAnonymousQuotes = [
+  {
+    quote: "Taylor's knowledge made us more comfortable understanding the landscape of baby gear — what we actually need and what we don't — and how to build a system that works for our needs.",
+    attribution: 'First-time parent',
+  },
+  {
+    quote: 'Taylor has been great with providing structure and clarity on the items I need to get and when.',
+    attribution: 'Expecting parent',
+  },
+  {
+    quote: 'Taylor was AMAZING going through our registry and providing expert recommendations!',
+    attribution: 'First-time parent',
   },
 ] as const;
 
@@ -288,6 +332,15 @@ export default function ServicesPage() {
             <FAQAccordion items={serviceFaqs} className="bg-[#f7f2eb]" />
           </div>
         </MarketingSection>
+
+        <TwoTierTestimonials
+          eyebrow="Client Stories"
+          title="What families say"
+          strolleriaReviews={servicesStrolleriaReviews}
+          anonymousQuotes={servicesAnonymousQuotes}
+          anonymousColumns={3}
+          className="services-page-section"
+        />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">

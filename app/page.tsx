@@ -4,6 +4,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import HomeAuthorityStrip from '@/components/home/HomeAuthorityStrip';
 import SiteShell from '@/components/SiteShell';
 import StartHereSection from '@/components/marketing/StartHereSection';
+import TwoTierTestimonials from '@/components/marketing/TwoTierTestimonials';
 import Hero from '@/components/ui/Hero';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import EditorialIllustration from '@/components/ui/EditorialIllustration';
@@ -109,6 +110,53 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
     width: 1065,
     height: 228,
     logoClassName: 'max-h-8',
+  },
+] as const;
+
+const homepageStrolleriaReviews = [
+  {
+    quote: "Taylor took what could have been a very overwhelming experience and made it so simple and easy. She spent 3+ hours with me as we talked through the pros/cons of each brand and was so patient and kind... Corporate, if you're reading this, time to give Taylor a promotion/raise!",
+    name: 'Amanda M.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: "She listened to what we were looking for, and was so honest and transparent about all of the baby gear we were considering. We ended up buying something completely different than our 'online research' because of her help.",
+    name: 'Kathryn G.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'She is truly a wealth of knowledge and guided us in the right direction based on our individual needs and preferences. Not only did we leave feeling confident in our selections, but Taylor made the entire process fun and exciting.',
+    name: 'Caihlan S.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'We came in not knowing what we wanted and Taylor listened to our preferences/lifestyle and provided us with great recommendations. She definitely made the process less overwhelming for us.',
+    name: 'Talie W.',
+    source: 'Strolleria client',
+  },
+  {
+    quote: 'Taylor showed us more options than we would have known to ask about, which led to us completely changing what we wanted for our whole stroller setup.',
+    name: 'Jennifer R.',
+    source: 'Strolleria client',
+  },
+] as const;
+
+const homepageAnonymousQuotes = [
+  {
+    quote: "Taylor was phenomenal. I'm recommending this service and especially her to my online group of Intended Parents through surrogacy. She truly understands this unique pathway to parenthood. 10/10!",
+    attribution: 'Expecting parent',
+  },
+  {
+    quote: "Taylor's knowledge made us more comfortable understanding the landscape of baby gear — what we actually need and what we don't — and how to build a system that works for our needs.",
+    attribution: 'First-time parent',
+  },
+  {
+    quote: "Taylor and I laughed the whole time but still able to get it done! Support I didn't know I needed!",
+    attribution: 'Expecting parent',
+  },
+  {
+    quote: 'Talking with Taylor made me feel more confident about my registry and she gave a lot of helpful suggestions.',
+    attribution: 'First-time expecting parent',
   },
 ] as const;
 
@@ -290,6 +338,15 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <TwoTierTestimonials
+          eyebrow="Client Stories"
+          title="What families say about working with Taylor"
+          description={<em>&ldquo;You don&rsquo;t have to figure this out alone.&rdquo;</em>}
+          strolleriaReviews={homepageStrolleriaReviews}
+          anonymousQuotes={homepageAnonymousQuotes}
+          anonymousColumns={2}
+        />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
