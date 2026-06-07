@@ -1303,6 +1303,7 @@ export function getAcademyModuleParams() {
   );
 }
 
+/** @deprecated Use getLearnSitemapPaths() + getSubmoduleSitemapPaths() instead. */
 export function getAcademySitemapPaths() {
   return [
     '/academy',
@@ -1310,6 +1311,35 @@ export function getAcademySitemapPaths() {
     ...ACADEMY_PATH_ORDER.flatMap((pathSlug) =>
       ACADEMY_PATH_MODULES[pathSlug].map((moduleSlug) => getAcademyModuleHref(pathSlug, moduleSlug)),
     ),
+    ...getStrollerFoundationsAcademySubmoduleCards().map((card) => card.href),
+    ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => card.href),
+    ...getDailyUseGearAcademySubmoduleCards().map((card) => card.href),
+    ...getRegistryWelcomeBoxesAcademySubmoduleCards().map((card) => card.href),
+    ...getNurseryFurnitureSubmoduleCards().map((card) => card.href),
+  ];
+}
+
+/**
+ * Canonical /learn paths for the sitemap.
+ * Path hubs and standard modules now live at /learn/*.
+ */
+export function getLearnSitemapPaths() {
+  return [
+    '/learn',
+    '/learn/pricing',
+    ...ACADEMY_PATH_ORDER.map((pathSlug) => `/learn/${pathSlug}`),
+    ...ACADEMY_PATH_ORDER.flatMap((pathSlug) =>
+      ACADEMY_PATH_MODULES[pathSlug].map((moduleSlug) => `/learn/${pathSlug}/${moduleSlug}`),
+    ),
+  ];
+}
+
+/**
+ * Submodule branch pages that still live at /academy/*.
+ * These don't have /learn/* equivalents yet — no redirect loop.
+ */
+export function getSubmoduleSitemapPaths() {
+  return [
     ...getStrollerFoundationsAcademySubmoduleCards().map((card) => card.href),
     ...getCarSeatFoundationsAcademySubmoduleCards().map((card) => card.href),
     ...getDailyUseGearAcademySubmoduleCards().map((card) => card.href),

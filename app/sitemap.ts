@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next';
-import { getAcademySitemapPaths } from '@/lib/academy/content';
+import {
+  getLearnSitemapPaths,
+  getSubmoduleSitemapPaths,
+} from '@/lib/academy/content';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 
@@ -9,14 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     { url: buildUrl('/'), changeFrequency: 'weekly', priority: 1.0 },
     { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/academy'), changeFrequency: 'weekly', priority: 0.9 },
     { url: buildUrl('/blog'), changeFrequency: 'daily', priority: 0.9 },
   ];
-  let blogEntries: MetadataRoute.Sitemap = [];
 
+  let blogEntries: MetadataRoute.Sitemap = [];
   try {
     const posts = await getPublicBlogIndexPosts(new Date());
-
     blogEntries = posts
       .filter((post) => post.slug && !post.slug.startsWith('untitled-post'))
       .map((post) => ({
@@ -29,15 +30,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Failed to build blog sitemap entries.', error);
   }
 
-  const academyEntries = getAcademySitemapPaths().map((entry) => ({
-    url: buildUrl(entry),
+  // /learn/* — canonical paths for path hubs and standard modules
+  const learnEntries: MetadataRoute.Sitemap = getLearnSitemapPaths().map((path) => ({
+    url: buildUrl(path),
     changeFrequency: 'monthly' as const,
-    priority: entry.split('/').length <= 3 ? 0.8 : 0.6,
+    priority: path === '/learn' ? 0.9 : path.split('/').length === 3 ? 0.85 : 0.75,
+  }));
+
+  // /academy/gear/stroller-foundations/:lane etc. — submodule branches that
+  // don't yet have /learn/* equivalents. Served directly, no redirect loop.
+  const submoduleEntries: MetadataRoute.Sitemap = getSubmoduleSitemapPaths().map((path) => ({
+    url: buildUrl(path),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
   }));
 
   return Array.from(
     new Map(
-      [...staticEntries, ...academyEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [...staticEntries, ...learnEntries, ...submoduleEntries, ...blogEntries].map((entry) => [
+        entry.url,
+        entry,
+      ]),
     ).values(),
   );
 }
