@@ -150,6 +150,18 @@ const academyGuideRedirects = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    // Allow any external HTTPS image source.
+    // This site references affiliate product images, blog embeds, partner logos,
+    // and editorial images from many different CDNs — enumerating every hostname
+    // isn't sustainable for a content/affiliate platform.
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
   // Use the classic compiler (Webpack/SWC) instead of Turbopack
   async redirects() {
     return [
