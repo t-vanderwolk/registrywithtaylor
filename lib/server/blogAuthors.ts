@@ -106,7 +106,7 @@ export function formatContributionLabel(authors: BlogAuthorProfile[]) {
   };
 }
 
-export async function listBlogAuthorOptions() {
+export async function listBlogAuthorOptions(): Promise<BlogAuthorOption[]> {
   const users = await prisma.user.findMany({
     orderBy: [{ name: 'asc' }, { email: 'asc' }],
     select: {

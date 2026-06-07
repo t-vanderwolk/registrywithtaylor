@@ -444,11 +444,9 @@ model Compatibility {
 
 // ─── Academy / Learn models ───────────────────────────────────────────────────
 
-/**
- * A learner account is separate from the admin User model.
- * Created on signup via the /learn enrollment flow.
- * subscriptionTier: "free" | "academy" | "academy_plus" | "concierge"
- */
+// A learner account is separate from the admin User model.
+// Created on signup via the /learn enrollment flow.
+// subscriptionTier: "free" | "academy" | "academy_plus" | "concierge"
 model Learner {
   id               String           @id @default(cuid())
   email            String           @unique
@@ -464,10 +462,8 @@ model Learner {
   @@index([subscriptionTier])
 }
 
-/**
- * One WorkbookSession per learner per Academy path.
- * e.g. learnerId=abc, pathSlug="registry"
- */
+// One WorkbookSession per learner per Academy path.
+// e.g. learnerId=abc, pathSlug="registry"
 model WorkbookSession {
   id          String             @id @default(cuid())
   learnerId   String?            // null = anonymous / guest session
@@ -486,10 +482,8 @@ model WorkbookSession {
   @@index([pathSlug])
 }
 
-/**
- * One row per workbook prompt answer.
- * promptId maps to a static prompt definition in the lesson TypeScript.
- */
+// One row per workbook prompt answer.
+// promptId maps to a static prompt definition in the lesson TypeScript.
 model WorkbookResponse {
   id        String          @id @default(cuid())
   sessionId String
