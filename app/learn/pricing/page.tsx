@@ -5,7 +5,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'Academy Pricing | Taylor-Made Baby Academy',
   description:
-    'Start free with preview lessons, or unlock the complete Taylor-Made Baby Academy — registry, nursery, gear, and postpartum — with workbooks, certificates, and mentor access.',
+    'Start free with preview lessons, or unlock the complete Taylor-Made Baby Academy — registry, nursery, gear, and postpartum — with workbooks, certificates, and downloadable resources.',
   path: '/learn/pricing',
   imagePath: '/assets/editorial/registry.jpg',
   imageAlt: 'Taylor-Made Baby Academy pricing',
@@ -61,28 +61,6 @@ const tiers = [
     ],
     highlight: true,
   },
-  {
-    id: 'mentor',
-    badge: 'Premium',
-    name: 'Academy + Mentor',
-    price: '$329',
-    period: 'per year or $49/mo',
-    description:
-      'Everything in Academy, plus monthly group Q&A with Taylor and async workbook review.',
-    cta: {
-      label: 'Apply for mentor access',
-      href: '/consultation',
-      variant: 'secondary' as const,
-    },
-    features: [
-      'Everything in Academy',
-      'Monthly live group Q&A with Taylor',
-      'Workbook review by a TMBC mentor',
-      'Async question thread',
-      'Priority consultation scheduling',
-    ],
-    highlight: false,
-  },
 ] as const;
 
 const faqs = [
@@ -97,10 +75,6 @@ const faqs = [
   {
     q: 'What is a path certificate?',
     a: 'When you complete all modules in a path (registry, nursery, gear, or postpartum), you receive a digital certificate you can save and share. The TMBC Fully Prepared certificate is issued when all four paths are done.',
-  },
-  {
-    q: 'What does mentor access include?',
-    a: 'A monthly live group call with Taylor where you can ask questions about your specific situation. Your workbook responses are also reviewed by a trained TMBC mentor, with written feedback returned within five business days.',
   },
   {
     q: 'Is there a 1:1 option with Taylor?',
@@ -141,8 +115,8 @@ export default function LearnPricingPage() {
 
         {/* ─── Tier grid ──────────────────────────────────────────────── */}
         <section id="tiers" className="px-5 py-16 sm:px-8 sm:py-20">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-6 lg:grid-cols-3">
+          <div className="mx-auto max-w-3xl">
+            <div className="grid gap-6 sm:grid-cols-2">
               {tiers.map((tier) => (
                 <div
                   key={tier.id}

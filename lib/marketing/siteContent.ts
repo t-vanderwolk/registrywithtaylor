@@ -245,6 +245,7 @@ export const servicePackages: ServicePackage[] = [
       'One focused baby gear or planning topic',
       'Expert shortlist and recommendation logic',
       'Clear buy-now, skip, or wait guidance',
+      'Full Academy access included',
     ],
   },
   {
@@ -261,6 +262,7 @@ export const servicePackages: ServicePackage[] = [
       'Stroller and car seat recommendations',
       'Nursery planning and home-readiness guidance',
       'A smarter purchasing timeline',
+      'Full Academy access included',
     ],
     featured: true,
   },
@@ -278,6 +280,7 @@ export const servicePackages: ServicePackage[] = [
       'Ongoing baby gear and registry guidance',
       'Support as priorities and questions evolve',
       'Store-visit prep and follow-up decision help',
+      'Full Academy access included',
     ],
   },
 ];
