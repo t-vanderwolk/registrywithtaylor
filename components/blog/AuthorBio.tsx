@@ -9,7 +9,7 @@ export default function AuthorBio() {
           Taylor Vanderwolk
         </p>
         <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
-          Taylor Vanderwolk is a baby gear specialist and registry consultant. She works as a Tot Squad advisor, Target
+          Taylor Vanderwolk is a Baby Gear Expert and registry consultant. She works as a Tot Squad advisor, Target
           Baby Concierge, and independent consultant at Taylor-Made Baby Co.
         </p>
         <div className="mt-5">

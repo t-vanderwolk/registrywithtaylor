@@ -13,8 +13,8 @@ function ServiceDetailCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-[1.05rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#fcf8f4_0%,#f8efe6_100%)] p-3 sm:rounded-2xl sm:p-4">
-      <p className="text-[0.68rem] uppercase tracking-[0.18em] text-black/45">{title}</p>
+    <div className="rounded-xl border border-[rgba(198,167,94,0.14)] bg-[linear-gradient(180deg,#fdf9f3_0%,#f9f2e5_100%)] p-3 sm:p-4">
+      <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-gold-soft)]/70">{title}</p>
       <div className="mt-3.5 space-y-2.5 sm:mt-4">
         {items.map((item) => (
           <div key={item} className="flex items-start gap-3.5 sm:gap-4">
@@ -60,86 +60,83 @@ export default function ServiceCards({
           <article
             key={pkg.key}
             className={[
-              'flex h-full min-w-0 flex-col rounded-[1.3rem] border bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(55,40,46,0.08)] sm:rounded-2xl sm:p-5 lg:p-7',
+              'flex h-full min-w-0 flex-col rounded-[1.6rem] border p-5 transition duration-300 hover:-translate-y-1 sm:p-6 lg:p-8',
               pkg.featured
-                ? 'relative order-first border-[rgba(216,137,160,0.34)] shadow-[0_24px_70px_rgba(216,137,160,0.12)] lg:order-none lg:-translate-y-2 lg:scale-[1.02]'
-                : 'border-[rgba(0,0,0,0.06)]',
+                ? 'relative order-first border-[rgba(198,167,94,0.42)] bg-[linear-gradient(160deg,#fdfaf5_0%,#faf4e8_100%)] shadow-[0_28px_72px_rgba(198,167,94,0.13)] lg:order-none lg:-translate-y-2 lg:scale-[1.02]'
+                : 'border-[rgba(0,0,0,0.07)] bg-[#fdfbf8] shadow-[0_8px_28px_rgba(55,40,46,0.05)] hover:shadow-[0_22px_52px_rgba(55,40,46,0.08)]',
             ].join(' ')}
           >
             {pkg.featured ? (
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-[16%] top-5 h-16 rounded-full bg-[radial-gradient(circle,rgba(232,154,174,0.18)_0%,rgba(232,154,174,0)_74%)] blur-2xl"
+                className="pointer-events-none absolute inset-x-[10%] top-6 h-20 rounded-full bg-[radial-gradient(circle,rgba(198,167,94,0.14)_0%,rgba(198,167,94,0)_72%)] blur-3xl"
               />
             ) : null}
 
             <div className="relative">
-              {pkg.featured ? (
-                <p className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/78">
-                  Most Popular
-                </p>
-              ) : null}
-
-              <div className="flex flex-col items-start gap-3">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+              {/* Eyebrow + optional badge */}
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[0.65rem] uppercase tracking-[0.28em] text-neutral-400">
                   {pkg.eyebrow}
                 </p>
+                {pkg.featured ? (
+                  <span className="rounded-full border border-[rgba(198,167,94,0.32)] bg-[rgba(198,167,94,0.08)] px-2.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-[var(--color-gold-soft)]">
+                    Most Requested
+                  </span>
+                ) : null}
               </div>
 
-              <div
+              {/* Thin gold rule */}
+              <div className={['mt-4 h-px w-8', pkg.featured ? 'bg-[var(--color-gold-soft)]' : 'bg-neutral-200'].join(' ')} />
+
+              {/* Title */}
+              <h3
                 className={[
-                  'mt-4 rounded-[1.1rem] border border-white/80 bg-[linear-gradient(180deg,#ffffff_0%,#fff6f3_100%)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:rounded-2xl sm:p-4',
-                  pkg.featured ? 'bg-[linear-gradient(180deg,#ffffff_0%,#fff1f4_100%)] text-center shadow-[0_14px_34px_rgba(216,137,160,0.08)]' : '',
+                  'mt-4 font-[family-name:var(--font-accent)] font-medium leading-[1.02] tracking-[-0.01em] text-neutral-900',
+                  pkg.featured ? 'text-[2.1rem] sm:text-[2.4rem]' : 'text-[1.7rem] sm:text-[1.95rem]',
                 ].join(' ')}
               >
-                <h3
+                {pkg.title}
+              </h3>
+
+              {/* Price */}
+              <div className={['mt-3 flex items-baseline gap-2', pkg.featured ? '' : ''].join(' ')}>
+                {pkg.priceNote && (
+                  <span className="text-[0.65rem] uppercase tracking-[0.16em] text-neutral-400">
+                    {pkg.priceNote}
+                  </span>
+                )}
+                <span
                   className={[
-                    'font-serif leading-[1.06] tracking-[-0.035em] text-neutral-900',
-                    pkg.featured ? 'mx-auto max-w-[14rem] text-[1.72rem] sm:text-[2rem]' : 'text-[1.5rem] sm:text-[1.75rem]',
+                    'font-[family-name:var(--font-accent)] font-medium leading-none tracking-[-0.03em] text-[var(--color-gold-soft)]',
+                    pkg.featured ? 'text-[2.85rem]' : 'text-[2.4rem]',
                   ].join(' ')}
                 >
-                  {pkg.title}
-                </h3>
-
-                {/* Price */}
-                <div className={['mt-3 flex items-baseline gap-1.5', pkg.featured ? 'justify-center' : ''].join(' ')}>
-                  {pkg.priceNote && (
-                    <span className="text-[0.72rem] uppercase tracking-[0.14em] text-neutral-400">
-                      {pkg.priceNote}
-                    </span>
-                  )}
-                  <span
-                    className={[
-                      'font-serif leading-none tracking-[-0.04em] text-neutral-900',
-                      pkg.featured ? 'text-[2.2rem]' : 'text-[1.9rem]',
-                    ].join(' ')}
-                  >
-                    {pkg.price}
-                  </span>
-                </div>
-
-                <p className="mt-2.5 max-w-none text-[0.94rem] leading-6 text-neutral-600 sm:leading-7">{pkg.summary}</p>
+                  {pkg.price}
+                </span>
               </div>
 
-              <p className="mt-4 max-w-none text-[0.96rem] leading-6 text-neutral-700 sm:mt-5 sm:leading-7">{pkg.description}</p>
+              {/* Summary */}
+              <p className="mt-4 max-w-none border-t border-neutral-100 pt-4 text-[0.93rem] leading-6 text-neutral-600 sm:leading-7">
+                {pkg.summary}
+              </p>
 
-              <div className="mt-5 space-y-3 sm:mt-6 sm:space-y-4">
+              <p className="mt-3 max-w-none text-[0.93rem] leading-6 text-neutral-500 sm:leading-7">{pkg.description}</p>
+
+              <div className="mt-5 space-y-2.5 sm:mt-6">
                 <ServiceDetailCard title="Best for" items={[pkg.bestFor]} />
                 <ServiceDetailCard title="What this includes" items={pkg.bullets} />
               </div>
             </div>
 
-            <div className="mt-auto pt-5 sm:pt-7">
-              <p className="text-[0.92rem] leading-6 text-neutral-500">
-                Advisor-led support for the decisions that are not getting clearer on their own.
-              </p>
+            <div className="mt-auto pt-6 sm:pt-8">
               <Link
                 href={ctaHref}
                 className={[
-                  'mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-shadow duration-200 hover:shadow-[0_16px_34px_rgba(55,40,46,0.08)]',
+                  'inline-flex min-h-[46px] w-full items-center justify-center rounded-full border px-5 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.14em] transition duration-200',
                   pkg.featured
-                    ? 'bg-[var(--color-accent-dark)] text-white shadow-[0_16px_34px_rgba(55,40,46,0.12)]'
-                    : 'border border-[rgba(196,156,94,0.18)] bg-white text-neutral-900 hover:shadow-sm',
+                    ? 'border-[rgba(198,167,94,0.6)] bg-[linear-gradient(135deg,#c8aa5e_0%,#b8974b_100%)] text-white shadow-[0_14px_32px_rgba(198,167,94,0.28)] hover:-translate-y-px hover:shadow-[0_18px_40px_rgba(198,167,94,0.34)]'
+                    : 'border-[rgba(198,167,94,0.22)] bg-white text-neutral-800 hover:border-[rgba(198,167,94,0.44)] hover:bg-[rgba(198,167,94,0.04)]',
                 ].join(' ')}
               >
                 <MotionCtaContent>{ctaLabel}</MotionCtaContent>

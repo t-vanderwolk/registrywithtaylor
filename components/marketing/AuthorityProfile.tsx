@@ -38,7 +38,7 @@ type AuthorityProfileProps = {
 };
 
 export default function AuthorityProfile({
-  title = 'Meet Your Baby Gear Advisor',
+  title = 'Meet Your Baby Gear Expert',
   description = 'Taylor translates baby gear noise into confident decisions by combining product expertise, real retail context, and private planning guidance.',
   experience,
   expertise,

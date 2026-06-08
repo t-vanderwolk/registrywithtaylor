@@ -46,9 +46,8 @@ const tiers = [
     description:
       'Every module across all four paths. Workbooks, certificates, and downloadable resources included.',
     cta: {
-      label: 'Join the Academy',
-      // TODO: Replace with Stripe checkout URL once payment is configured
-      href: '/consultation',
+      label: 'Join the Waitlist',
+      href: '/learn/waitlist',
       variant: 'primary' as const,
     },
     features: [

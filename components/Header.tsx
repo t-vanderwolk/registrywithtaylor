@@ -116,7 +116,7 @@ export default function Header({ currentPath }: HeaderProps) {
               href="/consultation"
               className="btn btn--primary min-h-[44px] px-5 py-2 text-[0.68rem] tracking-[0.18em]"
             >
-              Book a Consultation
+              Book a Free Consultation
             </Link>
           </nav>
 
@@ -176,7 +176,7 @@ export default function Header({ currentPath }: HeaderProps) {
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >
-              Book a Consultation
+              Book a Free Consultation
             </Link>
           </nav>
         </div>

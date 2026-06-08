@@ -236,7 +236,7 @@ export const servicePackages: ServicePackage[] = [
     key: 'focused-session',
     eyebrow: 'One Decision',
     title: 'Focused Session',
-    price: '$199',
+    price: '$149',
     summary: 'A strategic session for one registry or gear decision that needs expert clarity now.',
     description:
       'Ideal for parents narrowing down a stroller, comparing infant car seats, cleaning up a registry category, or deciding what actually belongs on the list.',
@@ -251,7 +251,7 @@ export const servicePackages: ServicePackage[] = [
     key: 'signature-planning',
     eyebrow: 'Full Baby Prep',
     title: 'Signature Package',
-    price: '$497',
+    price: '$547',
     summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
     description:
       'This package is for families who want a calm framework for the full prep picture, not just one answer in isolation.',

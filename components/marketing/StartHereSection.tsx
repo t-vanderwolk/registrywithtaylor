@@ -17,22 +17,22 @@ const startHereCards: StartHereCard[] = [
   {
     title: "I Don't Know Where to Start",
     description:
-      "Start with a simple, structured plan so you're not trying to figure everything out at once.",
-    ctaLabel: 'Start My Plan',
+      "Book a free 30-minute consultation and Taylor will help you figure out exactly what you need — and in what order.",
+    ctaLabel: 'Book a Free Consult',
     href: '/consultation',
   },
   {
     title: 'I Want to Build My Registry',
-    description: 'Follow a step-by-step system to choose what you need - and when to buy it.',
-    ctaLabel: 'Build My Registry',
-    href: '/academy/registry/what-to-register-first',
+    description: 'Follow a step-by-step system to choose what you need and when to buy it. Start with a free lesson — no account required.',
+    ctaLabel: 'Start Free Lesson',
+    href: '/learn/art-of-the-registry',
   },
   {
     title: "I'm Comparing Gear",
     description:
-      'Explore strollers, car seats, and gear with guidance that focuses on real-life use.',
-    ctaLabel: 'Explore Gear',
-    href: '/academy/gear/stroller-foundations',
+      'Learn how to think about strollers and car seats before you touch a product list. Free lesson, no account required.',
+    ctaLabel: 'Start Free Lesson',
+    href: '/learn/stroller-foundations',
   },
 ];
 

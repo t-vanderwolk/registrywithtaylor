@@ -256,7 +256,7 @@ export default function HomePage() {
           className="homepage-hero"
           title="Private Baby Planning & Registry Guidance for Growing Families"
           subtitle="Expert baby gear guidance to help you choose thoughtfully, prepare your home, and start parenthood with confidence."
-          primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
+          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Start with Academy', href: '/academy' }}
           tagline="Strollers | Car Seats | Registry | Nursery Setup"
           image="/assets/hero/hero-01.jpg"
@@ -280,7 +280,7 @@ export default function HomePage() {
                   <div className="relative z-[1] max-w-[40rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                     <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      Meet Your Baby Gear Advisor
+                      Meet Your Baby Gear Expert
                     </h2>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       I have spent years helping families sort strollers, car seats, registries, and nursery decisions
@@ -333,6 +333,68 @@ export default function HomePage() {
                       <AdvisorFocusCard key={item.title} item={item} delayMs={index * 60} />
                     ))}
                   </div>
+                </div>
+              </RevealOnScroll>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Trusted Prep Partners ────────────────────────────────── */}
+        <section className="bg-white py-14 md:py-20">
+          <div className="mx-auto max-w-4xl px-6">
+            <RevealOnScroll>
+              <p className="text-center text-[0.68rem] uppercase tracking-[0.28em] text-black/40">
+                Trusted Prep Partners
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-center text-[0.95rem] leading-7 text-neutral-500">
+                Services Taylor recommends and works alongside for car seat safety and home childproofing.
+              </p>
+            </RevealOnScroll>
+
+            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+              {/* Lani Car Seats */}
+              <RevealOnScroll delayMs={60}>
+                <div className="flex h-full flex-col items-center rounded-[1.4rem] border border-[rgba(198,167,94,0.18)] bg-[linear-gradient(180deg,#fdfbf8_0%,#f9f4ec_100%)] px-7 py-8 text-center shadow-[0_12px_32px_rgba(55,40,46,0.05)]">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[rgba(198,167,94,0.18)] bg-white shadow-[0_6px_18px_rgba(55,40,46,0.06)]">
+                    <Image
+                      src="/assets/logos/lanicarseat.png"
+                      alt="Lani Car Seats logo"
+                      width={490}
+                      height={490}
+                      sizes="80px"
+                      className="h-12 w-12 rounded-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-serif text-[1.2rem] leading-snug tracking-[-0.02em] text-neutral-900">
+                    Lani Car Seats
+                  </h3>
+                  <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
+                    CPST-certified car seat installation and safety checks — available virtually and in the Phoenix area. Included with the Signature Package.
+                  </p>
+                </div>
+              </RevealOnScroll>
+
+              {/* AZ Childproofers */}
+              <RevealOnScroll delayMs={120}>
+                <div className="flex h-full flex-col items-center rounded-[1.4rem] border border-[rgba(198,167,94,0.18)] bg-[linear-gradient(180deg,#fdfbf8_0%,#f9f4ec_100%)] px-7 py-8 text-center shadow-[0_12px_32px_rgba(55,40,46,0.05)]">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[rgba(198,167,94,0.18)] bg-white shadow-[0_6px_18px_rgba(55,40,46,0.06)]">
+                    <Image
+                      src="/assets/logos/azchildproof.png"
+                      alt="AZ Childproofers logo"
+                      width={201}
+                      height={201}
+                      sizes="80px"
+                      className="h-12 w-12 rounded-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-serif text-[1.2rem] leading-snug tracking-[-0.02em] text-neutral-900">
+                    AZ Childproofers
+                  </h3>
+                  <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
+                    Professional childproofing assessments and installations for Arizona families. Complimentary quote included with the Signature Package.
+                  </p>
                 </div>
               </RevealOnScroll>
             </div>

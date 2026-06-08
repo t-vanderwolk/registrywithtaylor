@@ -79,7 +79,7 @@ export default function HeroSection({
           <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white/70 shadow-[0_24px_70px_rgba(0,0,0,0.08)]">
             <div className="absolute inset-x-6 top-6 z-[1] flex flex-wrap gap-2">
               <span className="rounded-full bg-black/70 px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-white">
-                Baby Gear Advisor
+                Baby Gear Expert
               </span>
               <span className="rounded-full bg-white/88 px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-neutral-800">
                 Baby Preparation Advisor
