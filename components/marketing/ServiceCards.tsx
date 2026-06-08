@@ -13,8 +13,8 @@ function ServiceDetailCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-xl border border-[rgba(198,167,94,0.14)] bg-[linear-gradient(180deg,#fdf9f3_0%,#f9f2e5_100%)] p-3 sm:p-4">
-      <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-gold-soft)]/70">{title}</p>
+    <div className="rounded-xl border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,#fff8f9_0%,#fdf0f3_100%)] p-3 sm:p-4">
+      <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/70">{title}</p>
       <div className="mt-3.5 space-y-2.5 sm:mt-4">
         {items.map((item) => (
           <div key={item} className="flex items-start gap-3.5 sm:gap-4">
