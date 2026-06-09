@@ -22,21 +22,6 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'Taylor-Made Baby Co. advisory services.',
 });
 
-const fitMoments = [
-  {
-    title: 'You want expert judgment',
-    description: 'Not another list of links, but a clearer sense of what actually deserves your attention.',
-  },
-  {
-    title: 'You want decisions matched to real life',
-    description: 'Your car, storage, travel habits, budget, and room layout should shape the recommendations.',
-  },
-  {
-    title: 'You want to buy with confidence',
-    description: 'The goal is a better plan, fewer mismatched purchases, and less second-guessing.',
-  },
-] as const;
-
 const engagementPrinciples = [
   {
     title: 'Decision guidance first',
@@ -157,7 +142,7 @@ export default function ServicesPage() {
           eyebrow="Advisory Services"
           title="Premium Baby Gear Guidance, Built Around Real-Life Fit"
           subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."
-          primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
+          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Explore the Academy', href: '/academy' }}
           tagline="Registry Strategy • Strollers • Car Seats • Nursery Setup"
           image="/assets/hero/hero-03.jpg"
@@ -167,34 +152,11 @@ export default function ServicesPage() {
           staggerContent
         />
 
-        <MarketingSection tone="white" spacing="spacious" className="services-page-section">
-          <SectionIntro
-            eyebrow="Who this is for"
-            title="This is for parents who want better decisions, not just more information."
-            description="If you want real guidance instead of researching in circles, this is where Taylor helps make the next decisions feel clearer."
-            contentWidthClassName="max-w-4xl"
-          />
-
-          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-3 md:gap-6">
-            {fitMoments.map((moment) => (
-              <MarketingSurface key={moment.title} className="h-full">
-                <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                  {moment.title}
-                </h3>
-                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{moment.description}</p>
-              </MarketingSurface>
-            ))}
+        <div className="relative z-10 h-0 overflow-visible">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
+            <RibbonDivider />
           </div>
-        </MarketingSection>
-
-        <HomeEditorialBreak
-          imageSrc="/assets/editorial/stroller-folds.jpg"
-          imageAlt="A stroller being folded in a calm editorial moment that emphasizes real-life gear use."
-          tone="linen"
-          eyebrow="Real-life over showroom life"
-          title="The right pick should work in the parking lot too."
-          description="If it folds badly, fits awkwardly, or annoys you by day three, the feature list is not going to save it."
-        />
+        </div>
 
         <ServiceCards
           packages={servicePackages}
@@ -203,54 +165,6 @@ export default function ServicesPage() {
           description="The packages are designed around how much judgment and planning support you want in the mix, from one focused decision to full baby-preparation guidance."
           className="services-page-section"
         />
-
-        <MarketingSection tone="white" spacing="spacious" className="services-page-section">
-          <SectionIntro
-            eyebrow="How it works"
-            title="What happens between booking and your first session."
-            description="Every engagement is built the same way — so you walk in already feeling prepared, not scrambling to catch up."
-            contentWidthClassName="max-w-4xl"
-          />
-
-          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
-            {[
-              {
-                step: 'Step 1',
-                title: 'Fill out the intake',
-                description: 'Share your home, routine, and goals before we meet.',
-              },
-              {
-                step: 'Step 2',
-                title: 'Taylor reviews',
-                description: 'Every intake is read before your session, not during it.',
-              },
-              {
-                step: 'Step 3',
-                title: 'Your session',
-                description: 'Focused entirely on your specific questions and decisions.',
-              },
-              {
-                step: 'Step 4',
-                title: 'Your follow-up plan',
-                description: 'A written summary of what to do next and in what order.',
-              },
-            ].map((item) => (
-              <MarketingSurface key={item.step} className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">{item.step}</p>
-                <h3 className="mt-4 font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                  {item.title}
-                </h3>
-                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{item.description}</p>
-              </MarketingSurface>
-            ))}
-          </div>
-        </MarketingSection>
-
-        <div className="relative z-10 h-0 overflow-visible">
-          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
-            <RibbonDivider />
-          </div>
-        </div>
 
         <MarketingSection tone="ivory" spacing="spacious" className="services-page-section">
           <SectionIntro

@@ -1,51 +1,20 @@
-import { Suspense } from 'react';
-import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
-import ConsultationRequestForm from '@/components/contact/ConsultationRequestForm';
-import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
+import ConsultationSimpleForm from '@/components/contact/ConsultationSimpleForm';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
-import SectionDivider from '@/components/ui/SectionDivider';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Book a Consultation - Taylor-Made Baby Co.',
+  title: 'Book a Free Consultation — Taylor-Made Baby Co.',
   description:
-    'Request a consultation with Taylor for expert baby gear, registry, and baby-preparation guidance.',
+    'Request a free 30-minute consultation with Taylor for expert baby gear, registry, and baby-preparation guidance.',
   path: '/consultation',
   imagePath: '/assets/hero/hero-06.jpg',
   imageAlt: 'Free consultation request form',
 });
-
-const consultationFaqs: FAQEntry[] = [
-  {
-    question: 'Is the consultation really complimentary?',
-    answer:
-      'Yes. The personal 1:1 video consultation is free. There is no cost to submit a request.',
-  },
-  {
-    question: 'Will I be meeting with you directly?',
-    answer: 'Yes. You will meet with me personally for your consultation.',
-  },
-  {
-    question: 'What happens during the session?',
-    answer:
-      "We review your registry, your space, your lifestyle, and your timeline. Together, we identify what's essential, what may be unnecessary, and what best supports how you actually live. The goal is clarity — not more things.",
-  },
-  {
-    question: "Can you help if I haven't built my registry yet?",
-    answer:
-      "Yes. We can start from zero. I'll help you prioritize what matters first based on your lifestyle, space, and timeline.",
-  },
-  {
-    question: 'What should I prepare beforehand?',
-    answer:
-      "Come with your registry (even if it's unfinished), your biggest questions, and a sense of your space. You don't need to have everything figured out — that's what the session is for.",
-  },
-];
 
 export default function ConsultationPage() {
   return (
@@ -55,58 +24,82 @@ export default function ConsultationPage() {
 
         <Hero
           className="homepage-hero"
-          eyebrow="Consultation"
-          title="Book a Consultation"
-          subtitle="Walk through a guided intake, share what is actually going on in your home and registry, and Taylor will follow up with a session that starts from real context instead of guesswork."
+          eyebrow="Free Consultation"
+          title="Let's figure out what you actually need."
+          subtitle="Share a few details and I'll follow up personally within 24 hours. You'll receive an intake form by email — it helps me come to our call fully prepared, so every minute counts."
           image="/assets/hero/hero-06.jpg"
-          imageAlt="Consultation planning form"
+          imageAlt="Consultation planning"
           contentClassName="homepage-hero-content"
           staggerContent
         />
 
         <MarketingSection tone="white" spacing="default" container="narrow">
           <RevealOnScroll>
-            <div className="mx-auto max-w-3xl space-y-6">
-              <div>
-                <SectionDivider />
-                <h2 className="font-serif text-[1.7rem] leading-tight tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
-                  A few questions before you start
-                </h2>
+            <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[1fr_minmax(0,1.6fr)] lg:items-start lg:gap-12">
+
+              {/* Left: what to expect */}
+              <div className="space-y-7">
+                <div>
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">What to expect</p>
+                  <h2 className="mt-4 font-serif text-[1.6rem] leading-[1.1] tracking-[-0.03em] text-neutral-900">
+                    Simple. Personal. No pressure.
+                  </h2>
+                </div>
+
+                <div className="space-y-5">
+                  {[
+                    {
+                      step: '01',
+                      title: 'Submit this form',
+                      body: "Just your name, email, and what's on your mind. Takes under a minute.",
+                    },
+                    {
+                      step: '02',
+                      title: 'Complete your intake',
+                      body: "You'll receive an intake form by email. Fill it out so I can come to our call fully prepared.",
+                    },
+                    {
+                      step: '03',
+                      title: 'Free 30-minute call',
+                      body: 'We connect directly — just you and me — to talk through your situation and figure out the best next step together.',
+                    },
+                  ].map((item) => (
+                    <div key={item.step} className="flex gap-4">
+                      <span className="mt-0.5 shrink-0 font-serif text-[0.85rem] text-[var(--color-accent-dark)]/70">
+                        {item.step}
+                      </span>
+                      <div>
+                        <p className="font-medium text-neutral-900">{item.title}</p>
+                        <p className="mt-1 text-[0.9rem] leading-6 text-neutral-500">{item.body}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <figure className="border-l-2 border-[var(--color-accent-dark)]/30 pl-4">
+                  <blockquote className="font-serif text-[1.1rem] leading-relaxed tracking-[-0.01em] text-neutral-700">
+                    &ldquo;Taylor and I laughed the whole time but still able to get it done! Support I didn&rsquo;t know I needed.&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-2 text-[0.72rem] uppercase tracking-[0.18em] text-black/40">
+                    Expecting parent
+                  </figcaption>
+                </figure>
               </div>
-              <FAQAccordion items={consultationFaqs} />
+
+              {/* Right: form */}
+              <RevealOnScroll delayMs={80}>
+                <MarketingSurface className="space-y-6">
+                  <div>
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Get started</p>
+                    <h3 className="mt-3 font-serif text-[1.5rem] leading-[1.1] tracking-[-0.02em] text-neutral-900">
+                      Request your free consultation
+                    </h3>
+                  </div>
+                  <ConsultationSimpleForm />
+                </MarketingSurface>
+              </RevealOnScroll>
+
             </div>
-          </RevealOnScroll>
-        </MarketingSection>
-
-        <MarketingSection tone="ivory" spacing="default" container="narrow">
-          <RevealOnScroll>
-            <figure className="mx-auto max-w-2xl py-2 text-center">
-              <blockquote>
-                <p className="font-serif text-[1.7rem] leading-[1.15] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
-                  &ldquo;Taylor and I laughed the whole time but still able to get it done! Support I didn&rsquo;t know I needed!&rdquo;
-                </p>
-              </blockquote>
-              <figcaption className="mt-6 text-[0.72rem] uppercase tracking-[0.18em] text-black/50">
-                Expecting parent
-              </figcaption>
-            </figure>
-          </RevealOnScroll>
-        </MarketingSection>
-
-        <MarketingSection tone="white" spacing="default" container="narrow">
-          <RevealOnScroll>
-            <MarketingSurface className="mx-auto max-w-5xl space-y-6">
-              <Suspense>
-                <ConsultationRequestForm />
-              </Suspense>
-
-              <p className="text-center text-sm text-neutral-600">
-                Prefer to read the process first?{' '}
-                <Link href="/#journey" className="link-underline">
-                  View the Journey
-                </Link>
-              </p>
-            </MarketingSurface>
           </RevealOnScroll>
         </MarketingSection>
       </main>

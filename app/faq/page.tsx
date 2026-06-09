@@ -98,11 +98,12 @@ const academyFaqs: FAQEntry[] = [
   {
     question: 'What is the TMBC Academy?',
     answer:
-      'The Academy is a free, structured educational resource built around the decisions expecting parents face — registry strategy, nursery setup, gear selection, and postpartum preparation. It is organized into paths and modules that are meant to be followed in order. No sign-up is required.',
+      'The Academy is a structured educational resource built around the decisions expecting parents face — registry strategy, nursery setup, gear selection, and postpartum preparation. It is organized into paths and modules that are meant to be followed in order. Three complete lessons are free with no account required. Full Academy access (all 29 modules, workbooks, and certificates) requires enrollment.',
   },
   {
     question: 'Is the Academy free?',
-    answer: 'Yes. All Academy modules are free and publicly accessible.',
+    answer:
+      'Three complete lessons are free with no account required — The Art of the Registry, Nursery Foundations, and The Stroller Equation. Each includes a mini workbook and key takeaways. Full Academy access across all 29 modules requires enrollment. See the Academy pricing page for details.',
   },
   {
     question: 'How is the Academy different from a consultation?',

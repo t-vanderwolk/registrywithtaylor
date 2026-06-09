@@ -160,6 +160,44 @@ const homepageAnonymousQuotes = [
   },
 ] as const;
 
+const fitMoments = [
+  {
+    title: 'You want expert judgment',
+    description: 'Not another list of links, but a clearer sense of what actually deserves your attention.',
+  },
+  {
+    title: 'You want decisions matched to real life',
+    description: 'Your car, storage, travel habits, budget, and room layout should shape the recommendations.',
+  },
+  {
+    title: 'You want to buy with confidence',
+    description: 'The goal is a better plan, fewer mismatched purchases, and less second-guessing.',
+  },
+] as const;
+
+const howItWorks = [
+  {
+    step: 'Step 1',
+    title: 'Fill out the intake',
+    description: 'Share your home, routine, car, and goals so Taylor can come prepared.',
+  },
+  {
+    step: 'Step 2',
+    title: 'Taylor reviews',
+    description: 'Every intake is personally read before we get on a call — not skimmed during it.',
+  },
+  {
+    step: 'Step 3',
+    title: 'Free 30-minute chat',
+    description: 'We connect directly — just you and Taylor — to talk through your situation and figure out together what kind of support makes the most sense.',
+  },
+  {
+    step: 'Step 4',
+    title: 'Choose your path',
+    description: 'Book the package that fits your decision stage, or keep building at your own pace through the Academy.',
+  },
+] as const;
+
 const authorityStripLogos = [
   {
     src: '/assets/logos/strolleria.png',
@@ -339,6 +377,55 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── Who this is for ─────────────────────────────────────── */}
+        <section className="bg-[linear-gradient(180deg,#fff_0%,#fdf9f6_100%)] py-14 md:py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <RevealOnScroll>
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Who this is for</p>
+              <h2 className="mt-4 font-serif text-[2rem] leading-[1.0] tracking-[-0.04em] text-neutral-900 sm:text-[2.5rem]">
+                This is for parents who want better decisions, not just more information.
+              </h2>
+            </RevealOnScroll>
+            <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-3 md:gap-6">
+              {fitMoments.map((moment, i) => (
+                <RevealOnScroll key={moment.title} delayMs={i * 60}>
+                  <div className="h-full rounded-[1.35rem] border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(252,247,244,0.93)_100%)] p-6 shadow-[0_8px_24px_rgba(72,49,56,0.05)]">
+                    <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                      {moment.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-neutral-700">{moment.description}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── How it works ────────────────────────────────────────── */}
+        <section className="bg-[linear-gradient(180deg,#fdf9f6_0%,#f7f3ef_100%)] py-14 md:py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <RevealOnScroll>
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">How it works</p>
+              <h2 className="mt-4 font-serif text-[2rem] leading-[1.0] tracking-[-0.04em] text-neutral-900 sm:text-[2.5rem]">
+                What happens between booking and your first session.
+              </h2>
+            </RevealOnScroll>
+            <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+              {howItWorks.map((item, i) => (
+                <RevealOnScroll key={item.step} delayMs={i * 60}>
+                  <div className="h-full rounded-[1.35rem] border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(252,247,244,0.93)_100%)] p-6 shadow-[0_8px_24px_rgba(72,49,56,0.05)]">
+                    <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">{item.step}</p>
+                    <h3 className="mt-4 font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-neutral-700">{item.description}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── Trusted Prep Partners ────────────────────────────────── */}
         <section className="bg-white py-14 md:py-20">
           <div className="mx-auto max-w-4xl px-6">
@@ -410,7 +497,7 @@ export default function HomePage() {
           anonymousColumns={2}
         />
 
-        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,#f7efe6_100%)] py-20 md:py-24">
+        <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,var(--color-paper)_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
             <NewsletterCapture />
           </div>

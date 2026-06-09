@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
 import { consultationConfirmationTemplate } from '@/lib/email/templates/consultationConfirmation';
@@ -5,128 +6,61 @@ import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
 import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
-import {
-  BUDGET_RANGE_OPTIONS,
-  CONSULT_TYPE_OPTIONS,
-  DAY_TO_DAY_OPTIONS,
-  FIRST_TIME_PARENT_OPTIONS,
-  HOME_TYPE_OPTIONS,
-  MEETING_PREFERENCE_OPTIONS,
-  PRIORITY_OPTIONS,
-  REGISTRY_PLATFORM_OPTIONS,
-  REGISTRY_STATUS_OPTIONS,
-  STORAGE_SPACE_OPTIONS,
-  YES_NO_OPTIONS,
-  HELP_TOPIC_OPTIONS,
-  FEEDING_PLAN_OPTIONS,
-  buildConsultationIntakeSummary,
-  buildConsultationLegacyMessage,
-  getChoiceLabelForValue,
-  normalizeConsultationIntakeDraft,
-} from '@/lib/consultation/intake';
 
 export const runtime = 'nodejs';
 
-const asText = (value: FormDataEntryValue | null) => (typeof value === 'string' ? value.trim() : '');
-
-const asInternalPath = (value: FormDataEntryValue | null, fallback: string) => {
-  const text = asText(value);
-  if (!text || !text.startsWith('/') || text.startsWith('//')) {
-    return fallback;
-  }
-
-  return text;
-};
-
-const asOptionalDate = (value: FormDataEntryValue | null) => {
-  const text = asText(value);
-  if (!text) {
-    return { value: null, error: false } as const;
-  }
-
-  const parsed = new Date(`${text}T00:00:00`);
-  if (Number.isNaN(parsed.getTime())) {
-    return { value: null, error: true } as const;
-  }
-
-  return { value: parsed, error: false } as const;
-};
+const asText = (value: FormDataEntryValue | null) =>
+  typeof value === 'string' ? value.trim() : '';
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-const isValidPhone = (value: string) => value.replace(/\D/g, '').length >= 7;
-
 const getRequestIp = (req: NextRequest) => {
-  const forwardedFor = req.headers.get('x-forwarded-for');
-  if (forwardedFor) {
-    const [first] = forwardedFor.split(',');
-    if (first?.trim()) {
-      return first.trim();
-    }
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) {
+    const [first] = forwarded.split(',');
+    if (first?.trim()) return first.trim();
   }
-
-  const realIp = req.headers.get('x-real-ip');
-  if (realIp?.trim()) {
-    return realIp.trim();
-  }
-
-  return null;
+  return req.headers.get('x-real-ip') ?? null;
 };
 
-const wantsJsonResponse = (req: NextRequest) =>
-  req.headers.get('x-tmbc-form-mode') === 'async' || req.headers.get('accept')?.includes('application/json');
-
-const redirectToPath = (req: NextRequest, path: string, error?: string) => {
-  const url = new URL(path, req.url);
-  if (error) {
-    url.searchParams.set('error', error);
-  }
-
-  return NextResponse.redirect(url, { status: 303 });
-};
+const wantsJson = (req: NextRequest) =>
+  req.headers.get('x-tmbc-form-mode') === 'async' ||
+  req.headers.get('accept')?.includes('application/json');
 
 const jsonError = (message: string, status: number, fieldErrors?: Record<string, string>) =>
-  NextResponse.json(
-    {
-      error: message,
-      fieldErrors: fieldErrors ?? {},
-    },
-    { status },
-  );
+  NextResponse.json({ error: message, fieldErrors: fieldErrors ?? {} }, { status });
 
-const buildAdminMessage = (entries: Array<string | null>) => {
-  const sections = entries.map((entry) => entry?.trim()).filter(Boolean);
-  return sections.length > 0 ? sections.join('\n\n') : 'No additional intake message was provided.';
-};
+async function addMailchimpConsultationTag(email: string, name: string) {
+  const apiKey = process.env.MAILCHIMP_API_KEY;
+  const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
+  const dc = 'us22';
 
-function buildFieldErrors(state: ReturnType<typeof normalizeConsultationIntakeDraft>) {
-  const fieldErrors: Record<string, string> = {};
+  if (!apiKey || !audienceId) return;
 
-  if (!state.name) fieldErrors.name = 'Full name helps me know who I am planning for.';
-  if (!state.email) fieldErrors.email = 'Email gives me a way to follow up directly.';
-  if (!state.phone) fieldErrors.phone = 'A phone number helps keep scheduling simple.';
-  if (!state.dueDate) fieldErrors.dueDate = 'This helps me tailor the timing of your session.';
-  if (!state.parentStage) fieldErrors.parentStage = 'Tell me where you are in the parenting timeline.';
-  if (!state.homeType) fieldErrors.homeType = 'This helps narrow what will actually fit your space.';
-  if (!state.hasStairs) fieldErrors.hasStairs = 'This helps me understand the daily lift factor.';
-  if (!state.dayToDayMode) fieldErrors.dayToDayMode = 'Your routine matters more than brand hype.';
-  if (!state.storageSpace) fieldErrors.storageSpace = 'Storage limits change a lot of recommendations.';
-  if (!state.registryStatus) fieldErrors.registryStatus = 'A quick registry status check keeps the session practical.';
-  if (!state.hasGear) fieldErrors.hasGear = 'This keeps me from recommending what you already solved.';
-  if (state.helpTopics.length === 0) fieldErrors.helpTopics = 'Pick at least one area you want real clarity on.';
-  if (state.registryStatus !== 'no' && state.registryPlatforms.length === 0) {
-    fieldErrors.registryPlatforms = 'If you have a registry started, tell me where it lives.';
-  }
-  if (state.priorities.length === 0) fieldErrors.priorities = 'Choose at least one priority so I know what to optimize for.';
-  if (!state.budgetRange) fieldErrors.budgetRange = 'Budget context keeps the recommendations grounded.';
-  if (!state.hasPets) fieldErrors.hasPets = 'This helps with fabrics, floors, and general chaos planning.';
-  if (!state.hasAdditionalCaregivers) {
-    fieldErrors.hasAdditionalCaregivers = 'Let me know whether more than one adult will be using the gear.';
-  }
-  if (!state.meetingPreference) fieldErrors.meetingPreference = 'Tell me how you would prefer to meet.';
-  if (!state.consultType) fieldErrors.consultType = 'Pick the support format that feels closest to what you need.';
+  const hash = createHash('md5').update(email.toLowerCase()).digest('hex');
+  const firstName = name.split(' ')[0] ?? name;
+  const auth = `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`;
+  const headers = { Authorization: auth, 'Content-Type': 'application/json' };
 
-  return fieldErrors;
+  // Upsert subscriber
+  await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${audienceId}/members/${hash}`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      email_address: email,
+      status_if_new: 'subscribed',
+      merge_fields: { FNAME: firstName },
+    }),
+  }).catch(() => null);
+
+  // Add "Consultation Lead" tag (triggers Mailchimp automation)
+  await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${audienceId}/members/${hash}/tags`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      tags: [{ name: 'Consultation Lead', status: 'active' }],
+    }),
+  }).catch(() => null);
 }
 
 export async function POST(req: NextRequest) {
@@ -138,15 +72,19 @@ export async function POST(req: NextRequest) {
 
   const formData = await req.formData().catch(() => null);
   if (!formData) {
-    return wantsJsonResponse(req)
-      ? jsonError('Please try submitting the form again.', 400)
-      : redirectToPath(req, '/consultation', 'invalid-form');
+    return jsonError('Please try submitting the form again.', 400);
   }
 
-  const returnPath = asInternalPath(formData.get('returnPath'), '/consultation');
-  const successPath = asInternalPath(formData.get('successPath'), '/consultation/confirmation');
-  const wantsJson = wantsJsonResponse(req);
+  const successPath = '/consultation/confirmation';
 
+  // Honeypot
+  if (asText(formData.get('company')).length > 0) {
+    return wantsJson(req)
+      ? NextResponse.json({ success: true, redirectTo: successPath })
+      : NextResponse.redirect(new URL(successPath, req.url), 303);
+  }
+
+  // Rate limit
   const ip = getRequestIp(req);
   const rateLimit = consumeRateLimit({
     route: '/api/consultation-request',
@@ -156,160 +94,66 @@ export async function POST(req: NextRequest) {
   });
 
   if (!rateLimit.allowed) {
-    return wantsJson
+    return wantsJson(req)
       ? jsonError('Too many requests were submitted. Please try again shortly.', 429)
-      : redirectToPath(req, returnPath, 'rate-limit');
+      : NextResponse.redirect(new URL('/consultation?error=rate-limit', req.url), 303);
   }
 
-  if (asText(formData.get('company')).length > 0) {
-    return wantsJson
-      ? NextResponse.json({ success: true, redirectTo: successPath })
-      : redirectToPath(req, successPath);
-  }
+  const name = asText(formData.get('name'));
+  const email = asText(formData.get('email'));
+  const phone = asText(formData.get('phone'));
+  const sessionGoals = asText(formData.get('sessionGoals'));
 
-  const state = normalizeConsultationIntakeDraft({
-    name: asText(formData.get('name')),
-    email: asText(formData.get('email')),
-    phone: asText(formData.get('phone')),
-    dueDate: asText(formData.get('dueDate')),
-    parentStage: asText(formData.get('parentStage')),
-    homeType: asText(formData.get('homeType')),
-    hasStairs: asText(formData.get('hasStairs')),
-    dayToDayMode: asText(formData.get('dayToDayMode')),
-    storageSpace: asText(formData.get('storageSpace')),
-    lifestyleNotes: asText(formData.get('lifestyleNotes')),
-    registryStatus: asText(formData.get('registryStatus')),
-    registryPlatforms: formData.getAll('registryPlatforms').filter((value): value is string => typeof value === 'string'),
-    hasGear: asText(formData.get('hasGear')),
-    ownedGearNotes: asText(formData.get('ownedGearNotes')),
-    helpTopics: formData.getAll('helpTopics').filter((value): value is string => typeof value === 'string'),
-    priorities: formData.getAll('priorities').filter((value): value is string => typeof value === 'string'),
-    budgetRange: asText(formData.get('budgetRange')),
-    feedingPlans: formData.getAll('feedingPlans').filter((value): value is string => typeof value === 'string'),
-    hasPets: asText(formData.get('hasPets')),
-    hasAdditionalCaregivers: asText(formData.get('hasAdditionalCaregivers')),
-    caregiverNotes: asText(formData.get('caregiverNotes')),
-    meetingPreference: asText(formData.get('meetingPreference')),
-    consultType: asText(formData.get('consultType')),
-    preferredTiming: asText(formData.get('preferredTiming')),
-    sessionGoals: asText(formData.get('sessionGoals')),
-    overwhelmNotes: asText(formData.get('overwhelmNotes')),
-  });
+  const fieldErrors: Record<string, string> = {};
+  if (!name) fieldErrors.name = "Your name helps me know who I'm planning for.";
+  if (!email) fieldErrors.email = 'An email gives me a way to follow up directly.';
+  else if (!isValidEmail(email)) fieldErrors.email = 'Please enter a valid email address.';
 
-  if (!state.name || !state.email) {
-    return wantsJson
-      ? jsonError('Name and email are required.', 400, buildFieldErrors(state))
-      : redirectToPath(req, returnPath, 'required');
-  }
-
-  if (!isValidEmail(state.email)) {
-    return wantsJson
-      ? jsonError('Please enter a valid email address.', 400, { email: 'Please enter a valid email address.' })
-      : redirectToPath(req, returnPath, 'invalid-email');
-  }
-
-  if (!isValidPhone(state.phone)) {
-    return wantsJson
-      ? jsonError('Please enter a valid phone number.', 400, { phone: 'Please enter a valid phone number.' })
-      : redirectToPath(req, returnPath, 'invalid-form');
-  }
-
-  const dueDate = asOptionalDate(formData.get('dueDate'));
-  if (dueDate.error) {
-    return wantsJson
-      ? jsonError('Please enter a valid due date or birthday.', 400, { dueDate: 'Please enter a valid date.' })
-      : redirectToPath(req, returnPath, 'invalid-date');
-  }
-
-  const fieldErrors = buildFieldErrors(state);
   if (Object.keys(fieldErrors).length > 0) {
-    return wantsJson
-      ? jsonError('A few details are still missing. Please review the highlighted step and try again.', 400, fieldErrors)
-      : redirectToPath(req, returnPath, 'required');
+    return wantsJson(req)
+      ? jsonError('A couple of fields need attention.', 400, fieldErrors)
+      : NextResponse.redirect(new URL('/consultation?error=required', req.url), 303);
   }
 
-  const intakeSummary = buildConsultationIntakeSummary(state);
-  const legacyMessage =
-    buildConsultationLegacyMessage(intakeSummary) ||
-    asText(formData.get('message')) ||
-    state.sessionGoals ||
-    state.overwhelmNotes ||
-    null;
-
-  const consultation = await prisma.consultationRequest.create({
+  // Save minimal record
+  await prisma.consultationRequest.create({
     data: {
-      name: state.name,
-      email: state.email,
-      dueDate: dueDate.value,
+      name,
+      email,
+      dueDate: null,
       city: null,
-      babyNumber: getChoiceLabelForValue(FIRST_TIME_PARENT_OPTIONS, state.parentStage),
-      message: legacyMessage,
-      intakeSummary,
+      babyNumber: null,
+      message: sessionGoals || null,
+      intakeSummary: undefined,
     },
     select: { id: true },
   });
 
-  const adminMessage = buildAdminMessage([
-    legacyMessage,
-    state.lifestyleNotes ? `Lifestyle notes: ${state.lifestyleNotes}` : null,
-    state.ownedGearNotes ? `Existing gear: ${state.ownedGearNotes}` : null,
-    state.caregiverNotes ? `Caregiver notes: ${state.caregiverNotes}` : null,
-  ]);
+  // Add to Mailchimp with consultation tag
+  await addMailchimpConsultationTag(email, name);
 
-  const emailResults = await Promise.allSettled([
+  // Notify client + Taylor
+  await Promise.allSettled([
     sendEmail({
-      to: state.email,
-      subject: 'Your consultation inquiry is in — Taylor-Made Baby Co.',
-      html: consultationConfirmationTemplate({ name: state.name }),
+      to: email,
+      subject: 'Your intake form is ready — Taylor-Made Baby Co.',
+      html: consultationConfirmationTemplate({ name }),
     }),
     sendEmail({
       to: getAdminEmail(),
-      replyTo: state.email,
-      subject: 'New TMBC Inquiry',
+      replyTo: email,
+      subject: 'New TMBC Consultation Request',
       html: adminNotificationTemplate({
-        name: state.name,
-        email: state.email,
+        name,
+        email,
         type: 'consultation',
-        message: adminMessage,
-        details: [
-          ...(state.phone ? [{ label: 'Phone', value: state.phone }] : []),
-          ...(intakeSummary.personalBasics.dueDateOrBirthday
-            ? [{ label: 'Due Date', value: intakeSummary.personalBasics.dueDateOrBirthday }]
-            : []),
-          ...(intakeSummary.personalBasics.firstTimeParent
-            ? [{ label: 'Parent Stage', value: intakeSummary.personalBasics.firstTimeParent }]
-            : []),
-          ...(intakeSummary.bookingAndGoals.consultType
-            ? [{ label: 'Consult Type', value: intakeSummary.bookingAndGoals.consultType }]
-            : []),
-          ...(intakeSummary.bookingAndGoals.meetingPreference
-            ? [{ label: 'Meeting', value: intakeSummary.bookingAndGoals.meetingPreference }]
-            : []),
-          ...(intakeSummary.quickView.topConcerns.length > 0
-            ? [{ label: 'Help Topics', value: intakeSummary.quickView.topConcerns.join(', ') }]
-            : []),
-          ...(intakeSummary.quickView.registryPlatforms.length > 0
-            ? [{ label: 'Registry Platforms', value: intakeSummary.quickView.registryPlatforms.join(', ') }]
-            : []),
-          ...(intakeSummary.quickView.budgetRange
-            ? [{ label: 'Budget', value: intakeSummary.quickView.budgetRange }]
-            : []),
-        ],
+        message: sessionGoals || 'No additional notes provided.',
+        details: phone ? [{ label: 'Phone', value: phone }] : [],
       }),
     }),
   ]);
 
-  emailResults.forEach((result, index) => {
-    if (result.status === 'rejected') {
-      console.error('Consultation inquiry email failed to send.', {
-        consultationId: consultation.id,
-        emailType: index === 0 ? 'user_confirmation' : 'admin_notification',
-        error: result.reason,
-      });
-    }
-  });
-
-  return wantsJson
+  return wantsJson(req)
     ? NextResponse.json({ success: true, redirectTo: successPath })
-    : redirectToPath(req, successPath);
+    : NextResponse.redirect(new URL(successPath, req.url), 303);
 }

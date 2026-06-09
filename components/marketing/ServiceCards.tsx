@@ -62,14 +62,14 @@ export default function ServiceCards({
             className={[
               'flex h-full min-w-0 flex-col rounded-[1.6rem] border p-5 transition duration-300 hover:-translate-y-1 sm:p-6 lg:p-8',
               pkg.featured
-                ? 'relative order-first border-[rgba(198,167,94,0.42)] bg-[linear-gradient(160deg,#fdfaf5_0%,#faf4e8_100%)] shadow-[0_28px_72px_rgba(198,167,94,0.13)] lg:order-none lg:-translate-y-2 lg:scale-[1.02]'
-                : 'border-[rgba(0,0,0,0.07)] bg-[#fdfbf8] shadow-[0_8px_28px_rgba(55,40,46,0.05)] hover:shadow-[0_22px_52px_rgba(55,40,46,0.08)]',
+                ? 'relative border-[rgba(212,123,145,0.38)] bg-[linear-gradient(160deg,#fdf8f9_0%,#faeef2_100%)] shadow-[0_28px_72px_rgba(212,123,145,0.12)] lg:-translate-y-2 lg:scale-[1.02]'
+                : 'border-[rgba(0,0,0,0.07)] bg-[#fdfbfc] shadow-[0_8px_28px_rgba(55,40,46,0.05)] hover:shadow-[0_22px_52px_rgba(55,40,46,0.08)]',
             ].join(' ')}
           >
             {pkg.featured ? (
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-[10%] top-6 h-20 rounded-full bg-[radial-gradient(circle,rgba(198,167,94,0.14)_0%,rgba(198,167,94,0)_72%)] blur-3xl"
+                className="pointer-events-none absolute inset-x-[10%] top-6 h-20 rounded-full bg-[radial-gradient(circle,rgba(212,123,145,0.14)_0%,rgba(212,123,145,0)_72%)] blur-3xl"
               />
             ) : null}
 
@@ -80,14 +80,14 @@ export default function ServiceCards({
                   {pkg.eyebrow}
                 </p>
                 {pkg.featured ? (
-                  <span className="rounded-full border border-[rgba(198,167,94,0.32)] bg-[rgba(198,167,94,0.08)] px-2.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-[var(--color-gold-soft)]">
+                  <span className="rounded-full border border-[rgba(212,123,145,0.32)] bg-[rgba(212,123,145,0.08)] px-2.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
                     Most Requested
                   </span>
                 ) : null}
               </div>
 
               {/* Thin gold rule */}
-              <div className={['mt-4 h-px w-8', pkg.featured ? 'bg-[var(--color-gold-soft)]' : 'bg-neutral-200'].join(' ')} />
+              <div className={['mt-4 h-px w-8', pkg.featured ? 'bg-[var(--color-accent-dark)]' : 'bg-neutral-200'].join(' ')} />
 
               {/* Title */}
               <h3
@@ -108,7 +108,7 @@ export default function ServiceCards({
                 )}
                 <span
                   className={[
-                    'font-[family-name:var(--font-accent)] font-medium leading-none tracking-[-0.03em] text-[var(--color-gold-soft)]',
+                    'font-[family-name:var(--font-accent)] font-medium leading-none tracking-[-0.03em] text-[var(--color-accent-dark)]',
                     pkg.featured ? 'text-[2.85rem]' : 'text-[2.4rem]',
                   ].join(' ')}
                 >
@@ -135,8 +135,8 @@ export default function ServiceCards({
                 className={[
                   'inline-flex min-h-[46px] w-full items-center justify-center rounded-full border px-5 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.14em] transition duration-200',
                   pkg.featured
-                    ? 'border-[rgba(198,167,94,0.6)] bg-[linear-gradient(135deg,#c8aa5e_0%,#b8974b_100%)] text-white shadow-[0_14px_32px_rgba(198,167,94,0.28)] hover:-translate-y-px hover:shadow-[0_18px_40px_rgba(198,167,94,0.34)]'
-                    : 'border-[rgba(198,167,94,0.22)] bg-white text-neutral-800 hover:border-[rgba(198,167,94,0.44)] hover:bg-[rgba(198,167,94,0.04)]',
+                    ? 'border-[rgba(212,123,145,0.6)] bg-[linear-gradient(135deg,#d47b91_0%,#be607a_100%)] text-white shadow-[0_14px_32px_rgba(212,123,145,0.28)] hover:-translate-y-px hover:shadow-[0_18px_40px_rgba(212,123,145,0.34)]'
+                    : 'border-[rgba(212,123,145,0.22)] bg-white text-neutral-800 hover:border-[rgba(212,123,145,0.44)] hover:bg-[rgba(212,123,145,0.04)]',
                 ].join(' ')}
               >
                 <MotionCtaContent>{ctaLabel}</MotionCtaContent>
