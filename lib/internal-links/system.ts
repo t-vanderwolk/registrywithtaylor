@@ -442,6 +442,26 @@ function getAcademyContextualLinksForCluster(cluster: InternalLinkCluster): Cont
   }
 }
 
+function getBlogContextualLinksForCluster(cluster: InternalLinkCluster): ContextualInternalLink[] {
+  switch (cluster) {
+    case 'registry':
+      return [ACADEMY_LIBRARY.welcomeBoxes, BLOG_LIBRARY.registry, BLOG_LIBRARY.welcomeBoxes, BLOG_LIBRARY.independentStores];
+    case 'strollers':
+    case 'travel':
+      return [ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers, BLOG_LIBRARY.fullSizeStrollers];
+    case 'car-seats':
+      return [ACADEMY_LIBRARY.carSeatFoundations];
+    case 'nursery':
+      return [ACADEMY_LIBRARY.nurseryFurniture, BLOG_LIBRARY.nursery];
+    case 'daily-gear':
+      return [ACADEMY_LIBRARY.dailyUseGear, BLOG_LIBRARY.highchairs];
+    case 'postpartum':
+      return [BLOG_LIBRARY.registry, ACADEMY_LIBRARY.registry];
+    default:
+      return [ACADEMY_LIBRARY.welcomeBoxes, BLOG_LIBRARY.registry];
+  }
+}
+
 function getGuideContextualLinksForCluster(cluster: InternalLinkCluster): ContextualInternalLink[] {
   switch (cluster) {
     case 'registry':
@@ -495,16 +515,9 @@ export function buildBlogInternalLinkPlan({
   }).map(toGuideCardItemLink);
   const academyCard = getAcademyCardForCluster(cluster);
   const relatedCards = relatedPosts.slice(0, 2).map(toRelatedBlogCard);
-  const matchedGuideLinks = guideCards
-    .map((card) => {
-      const match = Object.values(GUIDE_LIBRARY).find((target) => target.href === card.href);
-      return match ?? null;
-    })
-    .filter(Boolean) as ContextualInternalLink[];
-  const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>([
-    ...getAcademyContextualLinksForCluster(cluster),
-    ...matchedGuideLinks,
-  ]).slice(0, 4);
+  const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>(
+    getBlogContextualLinksForCluster(cluster),
+  ).slice(0, 4);
   const journeyCards = dedupeCards([
     ...guideCards.slice(0, 2),
     academyCard,
