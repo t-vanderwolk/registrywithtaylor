@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
 
 type NavLink = {
   label: string;
@@ -21,7 +22,17 @@ type HeaderProps = {
 };
 
 export default function Header({ currentPath }: HeaderProps) {
+  const { data: session } = useSession();
   const [open, setOpen] = useState(false);
+
+  const dashboardHref =
+    session?.user?.role === 'ADMIN' || session?.user?.role === 'REVIEWER'
+      ? '/admin'
+      : '/dashboard';
+  const dashboardLabel =
+    session?.user?.role === 'ADMIN' || session?.user?.role === 'REVIEWER'
+      ? 'Admin'
+      : 'My Academy';
   const headerRef = useRef<HTMLElement | null>(null);
   const isGuideRoute =
     currentPath === '/guides' ||
@@ -112,6 +123,28 @@ export default function Header({ currentPath }: HeaderProps) {
               );
             })}
 
+            {session ? (
+              <>
+                <Link
+                  href={dashboardHref}
+                  className={getLinkClassName(dashboardHref)}
+                >
+                  {dashboardLabel}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="text-[0.72rem] uppercase tracking-[0.18em] text-charcoal/60 transition-colors hover:text-charcoal"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link href="/login" className={getLinkClassName('/login')}>
+                Sign in
+              </Link>
+            )}
+
             <Link
               href="/consultation"
               className="btn btn--primary min-h-[44px] px-5 py-2 text-[0.68rem] tracking-[0.18em]"
@@ -169,6 +202,36 @@ export default function Header({ currentPath }: HeaderProps) {
                 {link.label}
               </Link>
             ))}
+
+            {session ? (
+              <>
+                <Link
+                  href={dashboardHref}
+                  className={getLinkClassName(dashboardHref, true)}
+                  tabIndex={open ? 0 : -1}
+                  onClick={() => setOpen(false)}
+                >
+                  {dashboardLabel}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => { setOpen(false); signOut({ callbackUrl: '/' }); }}
+                  tabIndex={open ? 0 : -1}
+                  className="inline-flex min-h-[44px] items-center text-[0.95rem] uppercase tracking-[0.12em] text-charcoal/60 transition-colors hover:text-charcoal"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className={getLinkClassName('/login', true)}
+                tabIndex={open ? 0 : -1}
+                onClick={() => setOpen(false)}
+              >
+                Sign in
+              </Link>
+            )}
 
             <Link
               href="/consultation"

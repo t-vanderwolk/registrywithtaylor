@@ -31,14 +31,18 @@ export default function LoginForm() {
       return;
     }
 
+    const session = await getSession();
+    const rolePath = getDashboardPathForRole(session?.user?.role as string | undefined);
+
     const explicitCallback = searchParams.get('callbackUrl');
-    if (explicitCallback) {
+    // If the callback is a gated learn path, go to the dashboard first
+    // (the new JWT with tier will let them through when they navigate from there).
+    if (explicitCallback && !explicitCallback.startsWith('/learn/')) {
       router.push(explicitCallback);
       return;
     }
 
-    const session = await getSession();
-    router.push(getDashboardPathForRole(session?.user?.role as string | undefined));
+    router.push(rolePath);
   };
 
   return (

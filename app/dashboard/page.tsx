@@ -6,6 +6,7 @@ import SiteShell from '@/components/SiteShell';
 import { authOptions } from '@/lib/server/authOptions';
 import { getAcademyHomeData } from '@/lib/academy/content';
 import prisma from '@/lib/server/prisma';
+import ChangePasswordForm from './ChangePasswordForm';
 
 export const dynamic = 'force-dynamic';
 
@@ -220,6 +221,9 @@ export default async function MemberDashboardPage() {
               ))}
             </div>
           </section>
+
+          {/* ── Password change ──────────────────────────────────────────── */}
+          <ChangePasswordForm />
 
           {/* ── Footer links ─────────────────────────────────────────────── */}
           <footer className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(215,161,175,0.2)] pt-8">

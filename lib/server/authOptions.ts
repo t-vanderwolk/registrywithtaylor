@@ -39,20 +39,24 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id   = user.id;
         token.role = user.role;
+        token.email = user.email ?? '';
+        // Cache enrollment tier so middleware can check it without a DB lookup.
+        const learner = await prisma.learner.findUnique({
+          where:  { email: user.email ?? '' },
+          select: { subscriptionTier: true },
+        });
+        token.tier = learner?.subscriptionTier ?? null;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token.id) {
-        session.user.id = token.id as string;
-      }
-
-      if (token.role) {
-        session.user.role = token.role as Role;
-      }
-
+      session.user.id   = token.id as string;
+      session.user.role = token.role as Role;
+      session.user.tier = token.tier ?? null;
+      // Ensure email is always present on the session
+      if (token.email) session.user.email = token.email;
       return session;
     },
   },

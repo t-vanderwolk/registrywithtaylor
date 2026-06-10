@@ -91,18 +91,23 @@ export async function middleware(req: NextRequest) {
 
   // ── Academy module gate ────────────────────────────────────────────────────
   //
-  // All /learn/[path]/[module] and deeper routes are gated behind enrollment.
-  // Unauthenticated users are redirected to /learn/waitlist — never 401.
-  //
-  // The tmbc_enrolled cookie is set when a user purchases or is granted access.
-  // During the waitlist phase (before launch) no cookie is ever issued, so
-  // every gated page redirects to the waitlist.
+  // Access is granted if:
+  //   (a) the user has the legacy tmbc_enrolled cookie, OR
+  //   (b) they have an active session with a paid enrollment tier.
+  // Free-tier and unauthenticated users are redirected to /learn/waitlist.
   if (isLearnGated(pathname)) {
     const enrolled = req.cookies.get('tmbc_enrolled');
-    if (!enrolled?.value) {
-      return NextResponse.redirect(new URL('/learn/waitlist', req.url));
+    if (enrolled?.value) {
+      return NextResponse.next();
     }
-    return NextResponse.next();
+
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    const PAID_TIERS = new Set(['academy', 'academy_plus', 'concierge']);
+    if (token?.tier && PAID_TIERS.has(token.tier as string)) {
+      return NextResponse.next();
+    }
+
+    return NextResponse.redirect(new URL('/learn/waitlist', req.url));
   }
 
   return NextResponse.next();
