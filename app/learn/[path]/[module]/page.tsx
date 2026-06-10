@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import LearnModuleLayout from '@/components/learn/LearnModuleLayout';
+import TrackProgress from '@/components/learn/TrackProgress';
 import SiteShell from '@/components/SiteShell';
 import {
   getAcademyModuleData,
@@ -83,6 +84,7 @@ export default async function LearnModulePage({ params }: LearnModulePageProps) 
 
   return (
     <SiteShell currentPath={`/learn/${path}/${module}`}>
+      <TrackProgress pathSlug={path} moduleSlug={module} />
       <main className="site-main min-h-0">
         <LearnModuleLayout module={learnModuleData} />
       </main>

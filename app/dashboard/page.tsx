@@ -54,17 +54,35 @@ export default async function MemberDashboardPage() {
 
   const email = session.user.email ?? '';
 
-  // Look up enrollment tier and display name in parallel.
-  const [learner, user] = await Promise.all([
+  // Look up enrollment tier, display name, and module progress in parallel.
+  const [learner, user, progressRows] = await Promise.all([
     prisma.learner.findUnique({
       where: { email },
-      select: { name: true, subscriptionTier: true, dueDate: true },
+      select: { id: true, name: true, subscriptionTier: true, dueDate: true },
     }),
     prisma.user.findUnique({
       where: { id: session.user.id },
       select: { name: true },
     }),
+    // We fetch this unconditionally; it returns [] if no learner/progress yet.
+    prisma.lessonProgress.groupBy({
+      by: ['pathSlug'],
+      where: {
+        learner: { email },
+      },
+      _count: { moduleSlug: true },
+    }),
   ]);
+
+  // Map pathSlug → modules visited
+  const progressByPath: Record<string, number> = {};
+  for (const row of progressRows) {
+    progressByPath[row.pathSlug] = row._count.moduleSlug;
+  }
+
+  const PATH_TOTALS: Record<string, number> = {
+    registry: 8, nursery: 6, gear: 9, postpartum: 6,
+  };
 
   const tier = learner?.subscriptionTier ?? null;
   const fullAccess = hasFullAccess(tier);
@@ -131,9 +149,12 @@ export default async function MemberDashboardPage() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               {academyHome.paths.map((path) => {
-                const locked = !fullAccess;
-                // Locked users land on pricing; full-access users enter the gated path.
-                const href = locked ? '/learn/pricing' : `/learn/${path.slug}`;
+                const locked        = !fullAccess;
+                const href          = locked ? '/learn/pricing' : `/learn/${path.slug}`;
+                const visited       = progressByPath[path.slug] ?? 0;
+                const total         = PATH_TOTALS[path.slug] ?? 0;
+                const pct           = total > 0 ? Math.min(100, Math.round((visited / total) * 100)) : 0;
+                const hasProgress   = visited > 0;
 
                 return (
                   <article
@@ -172,7 +193,27 @@ export default async function MemberDashboardPage() {
                         {path.description}
                       </p>
 
-                      <div className="mt-5">
+                      {/* Progress bar — only shown for unlocked paths with activity */}
+                      {!locked && hasProgress && (
+                        <div className="mt-4">
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-[0.7rem] text-neutral-400">
+                              {visited} of {total} modules visited
+                            </span>
+                            <span className="text-[0.7rem] font-medium text-[var(--color-accent-dark)]">
+                              {pct}%
+                            </span>
+                          </div>
+                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-100">
+                            <div
+                              className="h-full rounded-full bg-[var(--color-accent)] transition-all duration-500"
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="mt-4">
                         <Link
                           href={href}
                           className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[0.85rem] font-semibold transition-opacity duration-150 hover:opacity-80 ${
@@ -181,7 +222,7 @@ export default async function MemberDashboardPage() {
                               : 'bg-[var(--color-accent)] text-white'
                           }`}
                         >
-                          {locked ? 'Upgrade to access' : 'Enter path →'}
+                          {locked ? 'Upgrade to access' : hasProgress ? 'Continue →' : 'Enter path →'}
                         </Link>
                       </div>
                     </div>

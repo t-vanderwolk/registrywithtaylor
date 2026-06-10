@@ -17,14 +17,59 @@ export const metadata = {
 export default async function AdminMembersPage() {
   await requireAdminSession('/admin/members');
 
-  const [waitlist, learners] = await Promise.all([
+  const [waitlist, learners, progressRows, workbookRows] = await Promise.all([
     prisma.waitlistEntry.findMany({
       orderBy: { createdAt: 'desc' },
     }),
     prisma.learner.findMany({
       orderBy: { createdAt: 'desc' },
     }),
+    // Module visits per learner × path
+    prisma.lessonProgress.groupBy({
+      by: ['learnerId', 'pathSlug'],
+      _count:  { moduleSlug: true },
+      _max:    { lastSeenAt: true },
+    }),
+    // Workbook engagement per learner × path
+    prisma.workbookSession.groupBy({
+      by: ['learnerId', 'pathSlug'],
+      where: { learnerId: { not: null } },
+      _count: { moduleSlug: true },
+    }),
   ]);
+
+  // Build a map: learnerId → { pathSlug → { modules, lastSeenAt } }
+  type PathProgress = { modules: number; lastSeenAt: Date | null; workbookModules: number };
+  const progressMap = new Map<string, Map<string, PathProgress>>();
+
+  for (const row of progressRows) {
+    if (!progressMap.has(row.learnerId)) progressMap.set(row.learnerId, new Map());
+    progressMap.get(row.learnerId)!.set(row.pathSlug, {
+      modules:      row._count.moduleSlug,
+      lastSeenAt:   row._max.lastSeenAt ?? null,
+      workbookModules: 0,
+    });
+  }
+  for (const row of workbookRows) {
+    if (!row.learnerId) continue;
+    const byPath = progressMap.get(row.learnerId);
+    if (byPath?.has(row.pathSlug)) {
+      byPath.get(row.pathSlug)!.workbookModules = row._count.moduleSlug;
+    }
+  }
+
+  // Convert to serialisable shape for the client component
+  const progressByLearner: Record<string, Record<string, { modules: number; lastSeenAt: string | null; workbookModules: number }>> = {};
+  for (const [learnerId, byPath] of progressMap) {
+    progressByLearner[learnerId] = {};
+    for (const [pathSlug, data] of byPath) {
+      progressByLearner[learnerId][pathSlug] = {
+        modules:         data.modules,
+        lastSeenAt:      data.lastSeenAt?.toISOString() ?? null,
+        workbookModules: data.workbookModules,
+      };
+    }
+  }
 
   const pending  = waitlist.filter((e) => e.status === 'pending');
   const approved = waitlist.filter((e) => e.status === 'approved');
@@ -58,12 +103,12 @@ export default async function AdminMembersPage() {
           <AdminHeader
             eyebrow={`${learners.length} enrolled`}
             title="Enrolled Members"
-            subtitle="All Learner records — one per enrolled member regardless of approval source."
+            subtitle="Module visits recorded automatically when a member opens a lesson. Workbook = modules with saved responses."
           />
           {learners.length === 0 ? (
             <p className="admin-micro">No enrolled members yet.</p>
           ) : (
-            <EnrolledTable learners={learners} />
+            <EnrolledTable learners={learners} progressByLearner={progressByLearner} />
           )}
         </AdminSurface>
 

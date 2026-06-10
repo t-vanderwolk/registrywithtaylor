@@ -464,18 +464,37 @@ model WaitlistEntry {
 // Created on signup via the /learn enrollment flow.
 // subscriptionTier: "free" | "academy" | "academy_plus" | "concierge"
 model Learner {
-  id               String           @id @default(cuid())
-  email            String           @unique
+  id               String            @id @default(cuid())
+  email            String            @unique
   name             String?
   dueDate          DateTime?
   babyNumber       Int?
-  subscriptionTier String           @default("free")
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  subscriptionTier String            @default("free")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   workbookSessions WorkbookSession[]
+  lessonProgress   LessonProgress[]
 
   @@index([email])
   @@index([subscriptionTier])
+}
+
+// Tracks when a member has visited an Academy module page.
+// One row per learner × path × module — upserted on each visit.
+model LessonProgress {
+  id         String   @id @default(cuid())
+  learnerId  String
+  pathSlug   String   // "registry" | "nursery" | "gear" | "postpartum"
+  moduleSlug String
+  visitCount Int      @default(1)
+  startedAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now()) @updatedAt
+  learner    Learner  @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+
+  @@unique([learnerId, pathSlug, moduleSlug])
+  @@index([learnerId])
+  @@index([pathSlug])
+  @@index([lastSeenAt])
 }
 
 // One WorkbookSession per learner per Academy path.
