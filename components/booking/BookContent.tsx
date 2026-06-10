@@ -1,12 +1,13 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import Script from 'next/script';
+import { useEffect, useRef } from 'react';
 
 export default function BookContent() {
   const searchParams = useSearchParams();
   const name  = searchParams.get('name')  ?? '';
   const email = searchParams.get('email') ?? '';
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   const calendlyUrl =
     'https://calendly.com/registrywithtaylor/30min' +
@@ -14,6 +15,33 @@ export default function BookContent() {
     `&email=${encodeURIComponent(email)}` +
     '&background_color=fbf7f4' +
     '&primary_color=D889A0';
+
+  useEffect(() => {
+    const el = widgetRef.current;
+    if (!el) return;
+
+    // Remove any previous Calendly iframe so re-renders stay clean
+    el.innerHTML = '';
+
+    function initWidget() {
+      if (typeof (window as any).Calendly !== 'undefined') {
+        (window as any).Calendly.initInlineWidget({
+          url: calendlyUrl,
+          parentElement: el,
+        });
+      }
+    }
+
+    if (typeof (window as any).Calendly !== 'undefined') {
+      initWidget();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.onload = initWidget;
+      document.head.appendChild(script);
+    }
+  }, [calendlyUrl]);
 
   return (
     <>
@@ -31,16 +59,11 @@ export default function BookContent() {
         </p>
       </div>
 
-      {/* Calendly inline widget — auto-inits on script load */}
+      {/* Calendly inline widget */}
       <div
-        className="calendly-inline-widget mx-auto w-full"
-        data-url={calendlyUrl}
+        ref={widgetRef}
+        className="mx-auto w-full"
         style={{ minWidth: '320px', height: '700px', maxWidth: '900px' }}
-      />
-
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
       />
     </>
   );
