@@ -8,6 +8,8 @@ export const metadata = buildMarketingMetadata({
   description:
     'Pick a time that works for you. Your free 30-minute consultation with Taylor is just one step away.',
   path: '/book',
+  imagePath: '/assets/hero/hero-06.jpg',
+  imageAlt: 'Schedule a consultation with Taylor-Made Baby Co.',
 });
 
 export default function BookPage() {
