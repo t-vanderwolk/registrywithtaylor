@@ -22,6 +22,10 @@ export type ServicePackage = {
   price: string;
   /** Optional qualifier shown before the price, e.g. "Starting at" */
   priceNote?: string;
+  /** Meeting count label, e.g. "1 session" or "3 sessions" */
+  meetings: string;
+  /** Duration per session, e.g. "60 min" or "60 min each" */
+  sessionLength: string;
   summary: string;
   description: string;
   bestFor: string;
@@ -237,6 +241,8 @@ export const servicePackages: ServicePackage[] = [
     eyebrow: 'One Decision',
     title: 'Focused Session',
     price: '$149',
+    meetings: '1 session',
+    sessionLength: '90 min',
     summary: 'A strategic session for one registry or gear decision that needs expert clarity now.',
     description:
       'Ideal for parents narrowing down a stroller, comparing infant car seats, cleaning up a registry category, or deciding what actually belongs on the list.',
@@ -245,7 +251,8 @@ export const servicePackages: ServicePackage[] = [
       'One focused baby gear or planning topic',
       'Expert shortlist and recommendation logic',
       'Clear buy-now, skip, or wait guidance',
-      'Full Academy access included',
+      'Written summary with shortlist and recommendations',
+      'Full Academy access included ($97 value)',
     ],
   },
   {
@@ -253,6 +260,8 @@ export const servicePackages: ServicePackage[] = [
     eyebrow: 'Full Baby Prep',
     title: 'Signature Package',
     price: '$547',
+    meetings: '3 sessions',
+    sessionLength: '90 min each',
     summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
     description:
       'This package is for families who want a calm framework for the full prep picture, not just one answer in isolation.',
@@ -262,7 +271,10 @@ export const servicePackages: ServicePackage[] = [
       'Stroller and car seat recommendations',
       'Nursery planning and home-readiness guidance',
       'A smarter purchasing timeline',
-      'Full Academy access included',
+      'Car seat check through Lani Car Seats',
+      'Complimentary childproofing quote from AZ Childproofers',
+      'Written plan included after each session',
+      'Full Academy access included ($97 value)',
     ],
     featured: true,
   },
@@ -272,15 +284,18 @@ export const servicePackages: ServicePackage[] = [
     title: 'Private Concierge',
     price: '$997',
     priceNote: 'Starting at',
+    meetings: 'Monthly sessions',
+    sessionLength: '90 min each',
     summary: 'Premium ongoing guidance for families who want Taylor in the mix as decisions keep moving.',
     description:
       'Designed for families who want expert eyes on evolving short lists, store prep, product comparisons, and next-step decisions over time.',
     bestFor: 'Families who want an advisor relationship, not just a one-time consult.',
     bullets: [
+      'Everything included in the Signature Package',
       'Ongoing baby gear and registry guidance',
       'Support as priorities and questions evolve',
       'Store-visit prep and follow-up decision help',
-      'Full Academy access included',
+      'Full Academy access included ($97 value)',
     ],
   },
 ];

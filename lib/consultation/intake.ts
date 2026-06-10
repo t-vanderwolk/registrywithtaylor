@@ -92,8 +92,8 @@ export const MEETING_PREFERENCE_OPTIONS: ConsultationChoiceOption[] = [
 ];
 
 export const CONSULT_TYPE_OPTIONS: ConsultationChoiceOption[] = [
-  { value: 'focused-edit', label: 'Focused Edit' },
-  { value: 'signature-plan', label: 'Signature Edit' },
+  { value: 'focused-edit', label: 'Focused Session' },
+  { value: 'signature-plan', label: 'Signature Package' },
   { value: 'private-concierge', label: 'Private Concierge' },
   { value: 'not-sure', label: 'Not sure yet' },
 ];

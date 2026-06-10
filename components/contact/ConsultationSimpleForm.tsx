@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function ConsultationSimpleForm() {
+  const router = useRouter();
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -32,7 +34,12 @@ export default function ConsultationSimpleForm() {
       };
 
       if (res.ok && json.success) {
-        setSubmitState('success');
+        const name  = (data.get('name')  as string) ?? '';
+        const email = (data.get('email') as string) ?? '';
+        router.push(
+          `/book?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`
+        );
+        return;
       } else {
         setFieldErrors(json.fieldErrors ?? {});
         setErrorMessage(json.error ?? 'Something went wrong. Please try again.');

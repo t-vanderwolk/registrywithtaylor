@@ -20,12 +20,12 @@ export const metadata = buildMarketingMetadata({
 
 const serviceConfig = {
   'focused-edit': {
-    label: 'Focused Edit',
+    label: 'Focused Session',
     intro: 'A practical review of your registry, gear shortlist, or one baby-prep decision.',
     fields: ['registryLink', 'dueDate', 'topConcerns'],
   },
   'signature-plan': {
-    label: 'Signature Edit',
+    label: 'Signature Package',
     intro: 'Hands-on support across registry strategy, nursery setup, and baby gear decisions.',
     fields: ['dueDate', 'homeType', 'budgetRange', 'biggestStress'],
   },

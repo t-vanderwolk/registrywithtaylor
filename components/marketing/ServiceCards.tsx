@@ -55,7 +55,7 @@ export default function ServiceCards({
         contentWidthClassName="max-w-4xl"
       />
 
-      <div className="mt-7 grid gap-4 sm:mt-10 sm:gap-6 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.08fr)_minmax(0,0.96fr)] lg:items-stretch lg:gap-7">
+      <div className="mt-7 grid gap-4 sm:mt-10 sm:gap-6 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.08fr)_minmax(0,0.96fr)] lg:items-stretch lg:gap-7" id="packages">
         {packages.map((pkg) => (
           <article
             key={pkg.key}
@@ -116,6 +116,20 @@ export default function ServiceCards({
                 </span>
               </div>
 
+              {/* Meeting details */}
+              <div className="mt-3 flex items-center gap-1.5">
+                <span className={[
+                  'inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em]',
+                  pkg.featured
+                    ? 'border-[rgba(212,123,145,0.28)] bg-[rgba(212,123,145,0.07)] text-[var(--color-accent-dark)]'
+                    : 'border-[rgba(0,0,0,0.08)] bg-neutral-50 text-neutral-500',
+                ].join(' ')}>
+                  {pkg.meetings}
+                </span>
+                <span className="text-neutral-300">·</span>
+                <span className="text-[0.72rem] text-neutral-400">{pkg.sessionLength}</span>
+              </div>
+
               {/* Summary */}
               <p className="mt-4 max-w-none border-t border-neutral-100 pt-4 text-[0.93rem] leading-6 text-neutral-600 sm:leading-7">
                 {pkg.summary}
@@ -145,6 +159,13 @@ export default function ServiceCards({
           </article>
         ))}
       </div>
+
+      {/* Upgrade note */}
+      <p className="mx-auto mt-7 max-w-2xl text-center text-[0.85rem] leading-7 text-neutral-500 sm:mt-8">
+        Already have a package and want to move up?{' '}
+        <span className="text-neutral-700">You pay only the difference</span> — not the full price of the next tier.
+        Reach out and Taylor will take care of it.
+      </p>
     </MarketingSection>
   );
 }

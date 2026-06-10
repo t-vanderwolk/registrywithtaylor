@@ -194,11 +194,15 @@ export default function LearnPricingPage() {
             </div>
 
             <p className="mt-6 text-center text-[0.8rem] text-neutral-400">
-              Prices shown in USD. Concierge 1:1 sessions available separately —{' '}
+              Prices shown in USD. Full Academy access is included with all TMBC service packages —{' '}
+              <Link href="/services" className="underline underline-offset-2 hover:text-neutral-600">
+                see services
+              </Link>
+              . 1:1 consultation sessions available separately —{' '}
               <Link href="/consultation" className="underline underline-offset-2 hover:text-neutral-600">
                 book a consultation
-              </Link>{' '}
-              to apply.
+              </Link>
+              .
             </p>
           </div>
         </section>

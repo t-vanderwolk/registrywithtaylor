@@ -27,7 +27,7 @@ const homeServiceCards: HomeServiceCard[] = [
   {
     key: 'focused-edit',
     eyebrow: 'One Decision',
-    title: 'Focused Edit',
+    title: 'Focused Session',
     subtitle: '90-minute private consultation',
     description: 'For families who want clarity on a few high-stakes gear or registry decisions.',
     detailGroups: [
@@ -45,7 +45,7 @@ const homeServiceCards: HomeServiceCard[] = [
   {
     key: 'signature-plan',
     eyebrow: 'Full Baby Prep',
-    title: 'Signature Edit',
+    title: 'Signature Package',
     subtitle: 'Complete baby planning experience',
     description: 'A guided planning process for families who want registry, nursery, and home prep decisions to work together.',
     detailGroups: [
@@ -72,7 +72,7 @@ const homeServiceCards: HomeServiceCard[] = [
     detailGroups: [
       {
         title: 'Includes everything in',
-        items: ['Focused Edit', 'Signature Edit'],
+        items: ['Focused Session', 'Signature Package'],
       },
       {
         title: 'Plus',

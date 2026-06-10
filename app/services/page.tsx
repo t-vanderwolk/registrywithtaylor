@@ -40,29 +40,35 @@ const engagementPrinciples = [
 const optionalAddOns = [
   {
     title: 'Nursery Layout Planning',
+    price: '$79',
     description: 'Furniture placement, room flow, and sleep environment guidance.',
   },
   {
     title: 'Registry Refresh',
+    price: '$79',
     description: 'Review and refine your registry after your baby shower or later in pregnancy.',
   },
   {
     title: 'Baby Gear Troubleshooting',
+    price: '$59',
     description: 'Help with strollers, carriers, monitors, feeding gear, and everyday gear questions.',
   },
   {
     title: 'Travel With Baby Planning',
+    price: '$59',
     description: 'Guidance on travel strollers, car seats, and flying with an infant.',
   },
   {
     title: 'Postpartum Preparation',
+    price: '$79',
     description: 'Support planning feeding stations, recovery supplies, and home organization.',
   },
   {
     title: 'Sibling and Animal Introduction Prep',
+    price: '$59',
     description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
   },
-] as const;
+];
 
 const servicesStrolleriaReviews = [
   {
@@ -180,10 +186,15 @@ export default function ServicesPage() {
                 key={addOn.title}
                 className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]"
               >
-                <h3 className="font-serif text-[1.5rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                  {addOn.title}
-                </h3>
-                <p className="mt-4 max-w-none text-sm leading-7 text-neutral-700">{addOn.description}</p>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-serif text-[1.4rem] leading-[1.1] tracking-[-0.03em] text-neutral-900">
+                    {addOn.title}
+                  </h3>
+                  <span className="shrink-0 font-[family-name:var(--font-accent)] text-[1.35rem] font-medium leading-none tracking-[-0.02em] text-[var(--color-accent-dark)]">
+                    {addOn.price}
+                  </span>
+                </div>
+                <p className="mt-3 max-w-none text-sm leading-7 text-neutral-700">{addOn.description}</p>
               </MarketingSurface>
             ))}
           </div>

@@ -57,7 +57,7 @@ const servicesFaqs: FAQEntry[] = [
   {
     question: 'What is included in the Focused Session?',
     answer:
-      'One 60-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $149.',
+      'One 90-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $149.',
   },
   {
     question: 'What is included in the Signature Package?',
@@ -98,12 +98,12 @@ const academyFaqs: FAQEntry[] = [
   {
     question: 'What is the TMBC Academy?',
     answer:
-      'The Academy is a structured educational resource built around the decisions expecting parents face — registry strategy, nursery setup, gear selection, and postpartum preparation. It is organized into paths and modules that are meant to be followed in order. Three complete lessons are free with no account required. Full Academy access (all 29 modules, workbooks, and certificates) requires enrollment.',
+      'The Academy is a structured educational resource built around the decisions expecting parents face — registry strategy, nursery setup, gear selection, and postpartum preparation. It is organized into paths and modules that are meant to be followed in order. Three complete lessons are free with no account required. Full Academy access (all 29 modules, workbooks, and certificates) is included with every TMBC service package, or available separately for $97.',
   },
   {
     question: 'Is the Academy free?',
     answer:
-      'Three complete lessons are free with no account required — The Art of the Registry, Nursery Foundations, and The Stroller Equation. Each includes a mini workbook and key takeaways. Full Academy access across all 29 modules requires enrollment. See the Academy pricing page for details.',
+      'Three complete lessons are free with no account required — The Art of the Registry, Nursery Foundations, and The Stroller Equation. Each includes a mini workbook and key takeaways. Full Academy access across all 29 modules is included with every TMBC service package, or available separately for $97. See the Academy pricing page for details.',
   },
   {
     question: 'How is the Academy different from a consultation?',
