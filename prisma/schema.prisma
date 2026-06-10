@@ -445,16 +445,19 @@ model Compatibility {
 // ─── Academy / Learn models ───────────────────────────────────────────────────
 
 // Academy waitlist — email addresses collected before the full Academy opens.
+// status: "pending" (default) | "approved" | "rejected"
 model WaitlistEntry {
   id        String    @id @default(cuid())
   email     String    @unique
   name      String?
   dueDate   DateTime?
   source    String    @default("academy-waitlist")
+  status    String    @default("pending")
   createdAt DateTime  @default(now())
 
   @@index([email])
   @@index([createdAt])
+  @@index([status])
 }
 
 // A learner account is separate from the admin User model.

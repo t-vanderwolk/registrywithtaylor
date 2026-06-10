@@ -9,10 +9,5 @@ ADD COLUMN "seoTitle" TEXT,
 ADD COLUMN "seoDescription" TEXT,
 ADD COLUMN "canonicalUrl" TEXT;
 
--- Backfill existing rows into the editorial stage pipeline.
-UPDATE "Post"
-SET "stage" = CASE
-  WHEN "archivedAt" IS NOT NULL OR "status" = 'ARCHIVED'::"PostStatus" THEN 'ARCHIVED'::"BlogStage"
-  WHEN "publishedAt" IS NOT NULL OR "status" = 'PUBLISHED'::"PostStatus" THEN 'PUBLISHED'::"BlogStage"
-  ELSE 'DRAFT'::"BlogStage"
-END;
+-- Backfill omitted: stage column has DEFAULT 'DRAFT', which covers all existing rows.
+-- (archivedAt, publishedAt, and PostStatus are added in the following migration.)

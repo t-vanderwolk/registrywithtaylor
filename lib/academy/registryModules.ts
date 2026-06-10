@@ -391,7 +391,6 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
         paragraphs: [
           'Each platform has its own requirements, and that is where families often miss the window.',
           'Usually you need to create the registry, add items, and complete a few minimum actions before the box unlocks.',
-          'That usually sounds simple until you realize there was a deadline, checklist percentage, or purchase minimum hiding in the fine print.',
           'That sounds simple until you assume it will happen automatically and then realize a deadline, purchase minimum, or checklist percentage was involved.',
           'Sign up early enough that you can meet those steps without scrambling later.',
           'This is one of those annoyingly administrative details that is much easier when handled early.',
@@ -563,7 +562,6 @@ const REGISTRY_ACADEMY_MODULE_INPUTS: RegistryAcademyModuleInput[] = [
         imageAlt: 'Calendar-style visual in neutral tones.',
         paragraphs: [
           'Use registry milestones, discount windows, and real needs to guide the timing.',
-          'That usually means registering early, letting gifts come in, then closing the gaps closer to the due date.',
           'That usually means deciding certain categories early, purchasing the must-haves with delivery time in mind, and saving some categories for the completion-discount phase.',
           'The calmer approach is to buy in phases, not in one dramatic weekend.',
           'Your future self does not need a garage full of unopened certainty.',

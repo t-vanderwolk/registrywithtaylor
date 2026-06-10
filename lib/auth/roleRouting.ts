@@ -4,7 +4,9 @@ export function getDashboardPathForRole(role: string | null | undefined): string
       return '/admin';
     case 'REVIEWER':
       return '/dashboard/reviewer';
+    case 'USER':
+      return '/dashboard';
     default:
-      return '/';
+      return '/dashboard';
   }
 }

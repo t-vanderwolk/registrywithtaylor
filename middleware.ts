@@ -11,7 +11,7 @@ function canAccessAdminView(role: string | undefined): boolean {
 function getDashboardPath(role: string | undefined): string {
   if (role === 'ADMIN') return '/admin';
   if (role === 'REVIEWER') return '/dashboard/reviewer';
-  return '/';
+  return '/dashboard';
 }
 
 /**
@@ -58,6 +58,19 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // ── Member dashboard guard ─────────────────────────────────────────────────
+  if (pathname === '/dashboard') {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    if (!token) {
+      const loginUrl = new URL('/login', req.url);
+      loginUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next();
+  }
+
   // ── Reviewer dashboard guard ───────────────────────────────────────────────
   if (pathname.startsWith('/dashboard/reviewer')) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -98,6 +111,7 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*',
+    '/dashboard',
     '/dashboard/reviewer/:path*',
     // Gate all /learn/* routes (the handler checks the public-path whitelist)
     '/learn/:path+',
