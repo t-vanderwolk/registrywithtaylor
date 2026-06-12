@@ -1,0 +1,144 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/typography' as *;
+
+.wrap {
+  margin-top: 1.75rem;
+  border-radius: $radius-soft;
+  border: 1px solid rgba(215, 161, 175, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 248, 249, 0.95) 0%,
+    rgba(252, 240, 244, 0.9) 100%
+  );
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include sm {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+// ── Left: big number ──────────────────────────────────────────────────────────
+
+.countBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.days {
+  font-family: $font-serif;
+  font-size: clamp(2.6rem, 6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-accent-dark);
+}
+
+.daysLabel {
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  opacity: 0.75;
+  padding-bottom: 0.2rem;
+}
+
+// ── Right: detail + progress ──────────────────────────────────────────────────
+
+.detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.headline {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.2rem;
+}
+
+.sub {
+  @extend %t-micro;
+  font-size: 0.78rem;
+  margin: 0 0 0.75rem;
+  color: #737373;
+}
+
+.trackWrap {
+  @include progress-track;
+  height: 5px;
+}
+
+.trackFill {
+  @include progress-fill;
+  background: linear-gradient(
+    90deg,
+    rgba(232, 154, 174, 0.6) 0%,
+    var(--color-accent) 100%
+  );
+}
+
+// ── Arrived state ─────────────────────────────────────────────────────────────
+
+.arrived {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.arrivedEmoji {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.arrivedText {
+  strong {
+    display: block;
+    font-family: $font-sans;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.15rem;
+  }
+
+  span {
+    @extend %t-micro;
+  }
+}
+
+// ── No date prompt ────────────────────────────────────────────────────────────
+
+.prompt {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.promptText {
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  color: #737373;
+  margin: 0;
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-accent-dark);
+    font-weight: 700;
+    font-size: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { opacity: 0.75; }
+  }
+}

@@ -16,7 +16,6 @@ import PathCard from './components/PathCard';
 import ContinueLearning from './components/ContinueLearning';
 import WorkbookPanel from './components/WorkbookPanel';
 import PDFLibrary from './components/PDFLibrary';
-import ChangePasswordForm from './ChangePasswordForm';
 
 export const dynamic = 'force-dynamic';
 
@@ -66,7 +65,7 @@ export default async function MemberDashboardPage() {
   const [learner, user, progressRows, recentRows, noteRows] = await Promise.all([
     prisma.learner.findUnique({
       where:  { email },
-      select: { id: true, name: true, subscriptionTier: true, dueDate: true },
+      select: { id: true, name: true, partnerName: true, subscriptionTier: true, dueDate: true },
     }),
     prisma.user.findUnique({
       where:  { id: session.user.id },
@@ -100,11 +99,8 @@ export default async function MemberDashboardPage() {
   const tierLabel  = tier ? (TIER_LABELS[tier] ?? tier) : null;
   const firstName  = getFirstName(learner?.name, user?.name, email);
 
-  const dueDateLabel = learner?.dueDate
-    ? new Date(learner.dueDate).toLocaleDateString('en-US', {
-        month: 'long', year: 'numeric',
-      })
-    : null;
+  const dueDateIso   = learner?.dueDate?.toISOString() ?? null;
+  const partnerName  = learner?.partnerName ?? null;
 
   const progressByPath: Record<string, number> = {};
   for (const row of progressRows) {
@@ -151,9 +147,10 @@ export default async function MemberDashboardPage() {
 
           <DashboardHero
             firstName={firstName}
+            partnerName={partnerName}
             tierLabel={tierLabel}
             tier={tier}
-            dueDateLabel={dueDateLabel}
+            dueDateIso={dueDateIso}
           />
 
           {/* ── Path grid ──────────────────────────────────────────────────── */}
@@ -228,9 +225,6 @@ export default async function MemberDashboardPage() {
 
           {/* ── PDF library ─────────────────────────────────────────────────── */}
           <PDFLibrary hasFullAccess={fullAccess} />
-
-          {/* ── Password change ──────────────────────────────────────────────── */}
-          <ChangePasswordForm />
 
           {/* ── Footer ──────────────────────────────────────────────────────── */}
           <footer

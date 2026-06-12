@@ -468,6 +468,7 @@ model Learner {
   id               String            @id @default(cuid())
   email            String            @unique
   name             String?
+  partnerName      String?
   dueDate          DateTime?
   babyNumber       Int?
   subscriptionTier String            @default("free")
