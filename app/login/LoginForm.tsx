@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { getSession, signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
@@ -95,6 +96,28 @@ export default function LoginForm() {
             <button type="submit" className="btn btn--primary" disabled={isSubmitting}>
               {isSubmitting ? 'Signing in…' : 'Login'}
             </button>
+
+            <p
+              style={{
+                marginTop: '1rem',
+                textAlign: 'center',
+                fontSize: '0.83rem',
+                color: '#737373',
+              }}
+            >
+              Don&apos;t have an account?{' '}
+              <Link
+                href="/register"
+                style={{
+                  color: 'var(--color-accent-dark)',
+                  fontWeight: 600,
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '2px',
+                }}
+              >
+                Create one free
+              </Link>
+            </p>
           </form>
         </div>
       </section>

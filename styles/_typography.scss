@@ -1,0 +1,58 @@
+@use 'variables' as *;
+
+// ─── Shared typographic patterns used across dashboard components ─────────────
+
+// Large serif display — hero greeting, path names
+%t-display {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+}
+
+// Section heading — card titles, panel headings
+%t-heading {
+  font-family: $font-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+
+// Eyebrow label above headings
+%t-eyebrow {
+  font-family: $font-sans;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+
+// Body copy — descriptions, paragraph text
+%t-body {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #737373;
+}
+
+// Small / micro — labels, timestamps, counts
+%t-micro {
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #a3a3a3;
+}
+
+// Tier badge / chip text
+%t-chip {
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}

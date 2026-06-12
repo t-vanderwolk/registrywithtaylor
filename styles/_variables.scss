@@ -1,0 +1,39 @@
+// ─── TMBC Design Tokens ───────────────────────────────────────────────────────
+// These forward the CSS custom properties already defined in globals.css.
+// Use these SCSS vars for compile-time checks; at runtime they resolve to CSS vars.
+
+// Colors
+$color-ivory:        var(--color-ivory);
+$color-accent:       var(--color-accent);       // #e89aae
+$color-accent-dark:  var(--color-accent-dark);
+$color-soft-blush:   var(--color-soft-blush);
+$color-warm-neutral: var(--color-warm-neutral);
+$color-card-bg:      var(--color-card-bg);
+$color-card-border:  var(--color-card-border);
+$tmbc-soft-pink:     var(--tmbc-soft-pink);
+$tmbc-blush:         var(--tmbc-blush);
+
+// Typography
+$font-serif:  var(--font-serif);  // Playfair Display
+$font-sans:   var(--font-sans);   // Nunito
+$font-accent: var(--font-accent); // Cormorant Garamond
+
+// Spacing
+$radius-card:  1.75rem;
+$radius-pill:  999px;
+$radius-soft:  1.25rem;
+
+// Shadows
+$shadow-card:       0 18px 44px rgba(58, 36, 43, 0.06);
+$shadow-card-hover: 0 22px 56px rgba(58, 36, 43, 0.10);
+$shadow-panel:      0 8px 24px rgba(58, 36, 43, 0.05);
+
+// Z-index
+$z-above: 1;
+$z-modal: 100;
+
+// Breakpoints (mirrors Tailwind defaults used in project)
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;

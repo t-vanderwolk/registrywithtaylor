@@ -1,0 +1,220 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/typography' as *;
+
+.page {
+  min-height: 100dvh;
+  background: $color-ivory;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+  padding: 3rem 1.25rem;
+  gap: 3rem;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+    padding: 5rem 2rem;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+// ── Left editorial column ─────────────────────────────────────────────────────
+
+.editorial {
+  display: none;
+
+  @include md {
+    display: block;
+    position: sticky;
+    top: 5rem;
+  }
+}
+
+.editorialEyebrow {
+  @extend %t-eyebrow;
+  margin-bottom: 1rem;
+}
+
+.editorialTitle {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin: 0 0 1.25rem;
+}
+
+.editorialBody {
+  @extend %t-body;
+  margin: 0 0 2rem;
+}
+
+.pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.pillarIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.pillarText {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #525252;
+}
+
+// ── Right form column ─────────────────────────────────────────────────────────
+
+.formWrap {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(215, 161, 175, 0.18);
+  border-radius: $radius-card;
+  box-shadow: $shadow-card;
+  padding: 2rem 1.5rem;
+
+  @include sm {
+    padding: 2.5rem 2rem;
+  }
+}
+
+.formEyebrow {
+  @extend %t-eyebrow;
+  margin-bottom: 0.5rem;
+}
+
+.formTitle {
+  font-family: $font-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem;
+}
+
+.formSubtext {
+  @extend %t-body;
+  margin: 0 0 1.75rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #404040;
+}
+
+.input {
+  font-family: $font-sans;
+  font-size: 0.92rem;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(215, 161, 175, 0.35);
+  border-radius: 0.625rem;
+  padding: 0.65rem 0.875rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(232, 154, 174, 0.18);
+  }
+
+  &::placeholder {
+    color: #a3a3a3;
+  }
+}
+
+.submitBtn {
+  @include btn-primary;
+  width: 100%;
+  justify-content: center;
+  font-size: 0.92rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.error {
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.07);
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.success {
+  text-align: center;
+  padding: 2rem 0;
+
+  .successIcon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: $font-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    @extend %t-body;
+    margin: 0 0 1.5rem;
+  }
+}
+
+.loginLink {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  color: #737373;
+
+  a {
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}

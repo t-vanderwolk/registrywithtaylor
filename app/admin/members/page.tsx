@@ -71,9 +71,10 @@ export default async function AdminMembersPage() {
     }
   }
 
-  const pending  = waitlist.filter((e) => e.status === 'pending');
-  const approved = waitlist.filter((e) => e.status === 'approved');
-  const rejected = waitlist.filter((e) => e.status === 'rejected');
+  type WEntry = (typeof waitlist)[number];
+  const pending  = waitlist.filter((e: WEntry) => e.status === 'pending');
+  const approved = waitlist.filter((e: WEntry) => e.status === 'approved');
+  const rejected = waitlist.filter((e: WEntry) => e.status === 'rejected');
 
   return (
     <main className="admin-page">
