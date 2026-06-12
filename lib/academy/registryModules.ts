@@ -50,7 +50,7 @@ export const REGISTRY_PATH_IMAGES = {
   whereToRegister: '/assets/registrypath/universalregistry.png',
   guestGifting: '/assets/registrypath/gifts.png',
   planning: '/assets/registrypath/planning.png',
-  shopLocal: '/assets/registrypath/strollershopping.png',
+  shopLocal: '/assets/registrypath/babystore.png',
   hybridSupport: '/assets/registrypath/coupleplanning.png',
   expertGuidance: '/assets/registrypath/influencerexpert.png',
   welcomeBox: '/assets/registrypath/welcomebox.png',

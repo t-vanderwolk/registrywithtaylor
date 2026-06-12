@@ -3,7 +3,6 @@ import LessonDivider from '@/components/learn/LessonDivider';
 import LessonHeader from '@/components/learn/LessonHeader';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
-import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
 import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
@@ -191,9 +190,6 @@ export default function RegistryTimelinePage() {
                 once. You need to do the right things at the right time.
               </p>
             </LessonSection>
-
-            {/* 2 — Video placeholder */}
-            <LessonVideoPlaceholder />
 
             <LessonDivider />
 

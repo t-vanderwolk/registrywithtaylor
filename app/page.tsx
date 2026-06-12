@@ -11,6 +11,7 @@ import EditorialIllustration from '@/components/ui/EditorialIllustration';
 import CheckIcon from '@/components/ui/CheckIcon';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import PodcastFeature from '@/components/marketing/PodcastFeature';
 
 export const revalidate = 3600;
 
@@ -487,6 +488,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <PodcastFeature />
 
         <TwoTierTestimonials
           eyebrow="Client Stories"

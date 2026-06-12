@@ -562,10 +562,11 @@ li {
   color: var(--color-muted);
 }
 
-/* img {
+img {
   max-width: 100%;
   display: block;
-} */
+  height: auto;
+}
 
 .site {
   min-height: 100vh;

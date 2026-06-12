@@ -14,6 +14,7 @@ import {
 } from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
+import PodcastFeature from '@/components/marketing/PodcastFeature';
 
 export const metadata = buildMarketingMetadata({
   title: 'About — Taylor-Made Baby Co.',
@@ -221,6 +222,8 @@ export default async function AboutPage() {
             </RevealOnScroll>
           </div>
         </MarketingSection>
+
+        <PodcastFeature />
 
         <MarketingSection tone="white" container="wide" spacing="default">
           <div className="max-w-6xl mx-auto text-center space-y-10">

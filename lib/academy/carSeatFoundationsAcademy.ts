@@ -75,7 +75,7 @@ const SECTION_IMAGES = {
     caption: 'The right car seat needs to make sense in the vehicle and in the repeated loading routine.',
   },
   test: {
-    src: '/assets/editorial/growing-with-confidence.jpg',
+    src: '/assets/car-seats/piparx.png',
     alt: 'Parent moving through daily life with confidence.',
     caption: 'Good fit should feel steadier in daily use, not just smarter in theory.',
   },

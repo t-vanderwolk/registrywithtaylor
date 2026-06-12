@@ -4,7 +4,6 @@ import LessonHeader from '@/components/learn/LessonHeader';
 import LessonImage from '@/components/learn/LessonImage';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
-import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
 import TaylorsNote from '@/components/learn/TaylorsNote';
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
@@ -165,9 +164,6 @@ export default function NurseryFoundationsPage() {
                 safety instead of a category checklist.
               </p>
             </LessonSection>
-
-            {/* 2 — Video placeholder */}
-            <LessonVideoPlaceholder />
 
             <LessonDivider />
 

@@ -8,7 +8,7 @@ import LessonHeader from '@/components/learn/LessonHeader';
 import LessonImage from '@/components/learn/LessonImage';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
-import LessonVideoPlaceholder from '@/components/learn/LessonVideoPlaceholder';
+// LessonVideoPlaceholder removed — no video placeholders in the UI
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import TaylorsNote from '@/components/learn/TaylorsNote';
 import AcademyStructuredData from '@/components/academy/AcademyStructuredData';
@@ -108,31 +108,62 @@ function PathBadge({ pathSlug }: { pathSlug: string }) {
 
 function SubmoduleGrid({ section }: { section: AcademySubmoduleSection }) {
   return (
-    <div className="space-y-6">
-      <LessonSection eyebrow="Keep Building" title={section.title}>
-        <p>{section.description}</p>
-      </LessonSection>
+    <div className="space-y-7">
+      {/* Section header */}
+      <div className="rounded-[1.25rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(255,248,250,0.9)_0%,rgba(255,255,255,0.97)_100%)] px-6 py-6 sm:px-8">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/72">
+          Keep Building
+        </p>
+        <h2 className="mt-2 font-serif text-[1.35rem] leading-tight tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">
+          {section.title}
+        </h2>
+        <p className="mt-2.5 text-[0.95rem] leading-[1.75] text-neutral-500">
+          {section.description}
+        </p>
+      </div>
+
+      {/* Cards grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {section.cards.map((card) => (
+        {section.cards.map((card, i) => (
           <a
             key={card.href}
             href={card.href}
-            className="group flex flex-col gap-3 rounded-[1.25rem] border border-[rgba(215,161,175,0.22)] bg-white p-5 shadow-[0_8px_24px_rgba(72,49,56,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(72,49,56,0.09)]"
+            className="group relative flex flex-col gap-3.5 overflow-hidden rounded-[1.25rem] border border-[rgba(215,161,175,0.22)] bg-white p-5 shadow-[0_8px_24px_rgba(72,49,56,0.05)] transition-all duration-250 hover:-translate-y-1 hover:border-[rgba(215,161,175,0.4)] hover:shadow-[0_20px_48px_rgba(72,49,56,0.1)]"
           >
+            {/* Card accent strip */}
+            <div
+              className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 rounded-t-[1.25rem] bg-[linear-gradient(90deg,var(--color-accent)_0%,rgba(215,161,175,0.4)_100%)] transition-transform duration-300 group-hover:scale-x-100"
+              aria-hidden
+            />
+
+            {/* Step badge */}
+            <span
+              aria-hidden="true"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[rgba(232,154,174,0.3)] bg-[rgba(232,154,174,0.1)] font-sans text-[0.7rem] font-bold text-[var(--color-accent-dark)]"
+            >
+              {i + 1}
+            </span>
+
             {card.eyebrow && (
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/72">
+              <p className="text-[0.63rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/65">
                 {card.eyebrow}
               </p>
             )}
-            <h3 className="font-serif text-[1.15rem] leading-tight tracking-[-0.025em] text-neutral-900">
+
+            <h3 className="font-serif text-[1.12rem] leading-tight tracking-[-0.025em] text-neutral-900 transition-colors group-hover:text-[var(--color-accent-dark)]">
               {card.title}
             </h3>
-            <p className="flex-1 text-[0.9rem] leading-relaxed text-neutral-600">
+
+            <p className="flex-1 text-[0.88rem] leading-relaxed text-neutral-500">
               {card.description}
             </p>
-            <span className="text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition-transform duration-200 group-hover:translate-x-0.5">
-              {card.ctaLabel}
-            </span>
+
+            <div className="flex items-center gap-1 text-[0.76rem] font-semibold text-[var(--color-accent-dark)]">
+              <span>{card.ctaLabel}</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden>
+                →
+              </span>
+            </div>
           </a>
         ))}
       </div>
@@ -277,6 +308,8 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
           href: b.href ?? null,
         }))}
         title={module.title}
+        subhead={module.subhead}
+        description={module.description}
         lessonLabel={pathLabel}
         estimatedMinutes={estimatedMinutes}
         progressLabel={`Module ${module.progress.current} of ${module.progress.total}`}
@@ -308,35 +341,86 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             )}
           </LessonSection>
 
-          {/* 2. Video placeholder */}
-          <LessonVideoPlaceholder />
+          {/* 2. What you'll learn */}
+          {module.decisionBullets.length > 0 && (
+            <div className="rounded-[1.45rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(135deg,rgba(255,248,250,0.95)_0%,rgba(255,255,255,0.98)_100%)] px-6 py-7 shadow-[0_8px_24px_rgba(72,49,56,0.06)] sm:px-8">
+              <div className="flex items-center gap-2.5">
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(232,154,174,0.18)]"
+                >
+                  <svg viewBox="0 0 12 12" fill="none" className="h-3 w-3" aria-hidden>
+                    <path d="M2 6.5l2.5 2.5 5.5-5.5" stroke="var(--color-accent)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/72">
+                  What you&apos;ll learn
+                </p>
+              </div>
+              <h2 className="mt-3 font-serif text-[1.2rem] leading-tight tracking-[-0.025em] text-neutral-900 sm:text-[1.35rem]">
+                {module.decisionTitle}
+              </h2>
+              <ul className="mt-5 space-y-3">
+                {module.decisionBullets.map((bullet, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.42rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"
+                    />
+                    <span className="text-[0.95rem] leading-[1.7] text-neutral-600">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <LessonDivider />
 
           {/* 3. Core lesson sections */}
           {module.coreSections.length > 0 && (
-            <div className="space-y-14">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/72">
-                Core Lesson
-              </p>
+            <div className="space-y-10">
+              <div className="flex items-center gap-3">
+                <div
+                  className="h-px flex-1 rounded-full"
+                  style={{ background: 'linear-gradient(90deg, rgba(215,161,175,0.35) 0%, transparent 100%)' }}
+                  aria-hidden
+                />
+                <p className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/65">
+                  Core Lesson
+                </p>
+                <div
+                  className="h-px flex-1 rounded-full"
+                  style={{ background: 'linear-gradient(270deg, rgba(215,161,175,0.35) 0%, transparent 100%)' }}
+                  aria-hidden
+                />
+              </div>
 
               {module.coreSections.map((section, index) => (
-                <LessonSection
+                <div
                   key={`section-${index}`}
-                  stepNumber={index + 1}
-                  title={section.title}
+                  className="relative rounded-[1.35rem] border border-[rgba(215,161,175,0.14)] bg-white/70 px-6 py-7 shadow-[0_6px_20px_rgba(72,49,56,0.04)] backdrop-blur-sm sm:px-8 sm:py-8"
                 >
-                  {section.imageSrc && (
-                    <LessonImage
-                      src={section.imageSrc}
-                      alt={section.imageAlt}
-                      caption={section.imageCaption}
-                    />
-                  )}
-                  {section.paragraphs.map((paragraph, pIndex) => (
-                    <p key={`section-${index}-p-${pIndex}`}>{paragraph}</p>
-                  ))}
-                </LessonSection>
+                  {/* Left accent stripe */}
+                  <div
+                    className="absolute left-0 top-8 h-10 w-0.5 rounded-r-full bg-[var(--color-accent)]"
+                    aria-hidden
+                  />
+                  <LessonSection
+                    stepNumber={index + 1}
+                    title={section.title}
+                  >
+                    {section.imageSrc && (
+                      <LessonImage
+                        src={section.imageSrc}
+                        alt={section.imageAlt}
+                        caption={section.imageCaption}
+                      />
+                    )}
+                    {section.paragraphs.map((paragraph, pIndex) => (
+                      <p key={`section-${index}-p-${pIndex}`}>{paragraph}</p>
+                    ))}
+                  </LessonSection>
+                </div>
               ))}
             </div>
           )}

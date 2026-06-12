@@ -53,17 +53,17 @@ const BREASTFEEDING_IMAGES = {
 } as const;
 const POSTPARTUM_IMAGES = {
   healingIntro: '/assets/editorial/teddy-glow.png',
-  healingReality: '/assets/editorial/growing-with-confidence.jpg',
+  healingReality: '/assets/editorial/organize.png',
   healingSupport: '/assets/editorial/babyroom.png',
-  restIntro: '/assets/editorial/growing-with-confidence.jpg',
+  restIntro: '/assets/editorial/babyincrib.png',
   restReality: '/assets/editorial/teddy-glow.png',
   restSupport: '/assets/editorial/babyroom.png',
   emotionalIntro: '/assets/editorial/notebook-bunny.png',
   emotionalReality: '/assets/editorial/teddy-glow.png',
-  emotionalSupport: '/assets/editorial/growing-with-confidence.jpg',
+  emotionalSupport: '/assets/editorial/bunny-gift.png',
   supportIntro: '/assets/editorial/notebook-bunny.png',
   supportLooksLike: '/assets/editorial/babyroom.png',
-  supportTruth: '/assets/editorial/growing-with-confidence.jpg',
+  supportTruth: '/assets/editorial/bear-blocks.png',
 } as const;
 
 function stripMarkdownSeparators(value: string) {
@@ -507,8 +507,8 @@ It is a relationship.
     description:
       'Build more realistic expectations, shared responsibility, and a steadier rest rhythm so sleep deprivation feels less personal and more manageable.',
     subhead: 'How to survive it without losing yourself.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
-    imageAlt: 'Rest and sleep editorial image for the Rest & Sleep module.',
+    imagePath: '/assets/editorial/babyincrib.png',
+    imageAlt: 'Baby resting in crib editorial image for the Rest & Sleep module.',
     intro: [
       'Sleep gets talked about a lot, but not always honestly.',
       'This phase is not about perfect sleep. It is about getting through it with more support and less self-blame.',
@@ -773,7 +773,7 @@ You need to be supported.
     description:
       'Build the support system around you with more intention, clearer asks, and less guilt so the first stretch does not depend on you carrying everything alone.',
     subhead: 'You were never meant to do this alone.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imagePath: '/assets/editorial/bear-blocks.png',
     imageAlt: 'Support systems editorial image for the Support Systems module.',
     intro: [
       'This is the module that changes everything because support is not optional. It is essential.',

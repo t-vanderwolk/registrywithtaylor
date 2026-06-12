@@ -339,7 +339,7 @@ const ACADEMY_PATH_DEFINITIONS: Record<AcademyPathSlug, AcademyPathDefinition> =
     ],
     moduleSectionDescription:
       'Each module helps turn the adult side of early parenthood into something more structured, more supportive, and much less dependent on winging it.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imagePath: '/assets/editorial/babyroom.png',
     imageAlt: 'Postpartum and early parenthood editorial image for TMBC Baby Academy.',
   },
 };
@@ -568,8 +568,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     title: 'Car Seat Foundations',
     description: 'Use the car seat categories, your vehicle, and your routine to choose the safer everyday fit with less confusion.',
     subhead: 'Safety is the baseline. Fit is what matters next.',
-    imagePath: '/assets/editorial/gear.jpg',
-    imageAlt: 'Editorial car seat planning image for the Car Seat Foundations academy module.',
+    imagePath: '/assets/car-seats/piparx.png',
+    imageAlt: 'Car seat product image for the Car Seat Foundations academy module.',
     relatedSlug: null,
   },
   'healing-and-recovery': {
@@ -588,8 +588,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Plan how recovery, feeding, rest, visitors, meals, and household logistics actually move through the house so the first stretch feels more workable and less improvised.',
     subhead: 'The house needs a rhythm before it needs perfection.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
-    imageAlt: 'First-weeks home rhythm image for the First-Weeks Home Rhythm academy module.',
+    imagePath: '/assets/registrypath/coupleplanning.png',
+    imageAlt: 'Couple planning together image for the First-Weeks Home Rhythm academy module.',
     relatedSlug: 'feeding-setup-flow',
   },
   'feeding-and-lactation': {
@@ -608,8 +608,8 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Build more realistic expectations, shared responsibility, and a steadier rest rhythm so sleep deprivation feels less personal and more manageable.',
     subhead: 'How to survive it without losing yourself.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
-    imageAlt: 'Rest and sleep image for the Rest & Sleep academy module.',
+    imagePath: '/assets/editorial/babyincrib.png',
+    imageAlt: 'Baby resting in crib image for the Rest & Sleep academy module.',
     relatedSlug: 'sleep-space-decisions',
   },
   'emotional-wellness-and-identity': {
@@ -628,7 +628,7 @@ const ACADEMY_MODULE_DEFINITIONS: Record<AcademyModuleSlug, AcademyModuleDefinit
     description:
       'Build the support system around you with more intention, clearer asks, and less guilt so the first stretch does not depend on you carrying everything alone.',
     subhead: 'You were never meant to do this alone.',
-    imagePath: '/assets/editorial/growing-with-confidence.jpg',
+    imagePath: '/assets/editorial/bear-blocks.png',
     imageAlt: 'Support systems image for the Support Systems academy module.',
     relatedSlug: 'shop-local-get-support',
   },
@@ -1161,8 +1161,8 @@ async function buildTravelSystemsModule() {
           ...(await getSectionParagraphs(GUIDE_FILES.travelStroller, 'Expert Advice', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.travelStroller, 'Real-Life Fit', 2)),
         ], 4),
-        imageSrc: '/assets/editorial/growing-with-confidence.jpg',
-        imageAlt: 'Parent traveling confidently with baby gear.',
+        imageSrc: '/assets/editorial/babystuff.png',
+        imageAlt: 'Baby gear and travel essentials editorial image.',
         imageCaption: 'Families are usually happiest when the setup solves the most stressful part of the trip first.',
       }),
     ],

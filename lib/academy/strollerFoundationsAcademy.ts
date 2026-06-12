@@ -75,7 +75,7 @@ const SECTION_IMAGES = {
     caption: 'The right stroller should feel honest in the trunk, the hallway, and the tired part of the week.',
   },
   test: {
-    src: '/assets/editorial/growing-with-confidence.jpg',
+    src: '/assets/editorial/editorialstroller.png',
     alt: 'Parent moving through daily life with baby gear.',
     caption: 'Real-life friction usually shows itself within a few practical questions.',
   },
