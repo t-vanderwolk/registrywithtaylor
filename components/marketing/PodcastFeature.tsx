@@ -48,7 +48,7 @@ export default function PodcastFeature() {
             title="BabyQuip Tiny Travels Podcast – Taylor-Made Baby Co. Episode"
             src="https://open.spotify.com/embed/episode/7e2c0icuRxEKotUPdB0aOS?utm_source=generator&theme=0"
             width="100%"
-            height="352"
+            height="152"
             style={{ display: 'block', borderRadius: '1.25rem' }}
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"

@@ -9,8 +9,15 @@ import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
+import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = buildMarketingMetadata({
   title: 'The Stroller Equation — Free Lesson | Taylor-Made Baby Academy',
@@ -276,7 +283,12 @@ const keyTakeaways = [
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
-export default function StrollerFoundationsPage() {
+export default async function StrollerFoundationsPage() {
+  const [strollers, carSeats] = await Promise.all([
+    getTravelSystemStrollers(),
+    getTravelSystemCarSeats(),
+  ]);
+
   return (
     <SiteShell currentPath="/learn">
       <main className="site-main" style={{ backgroundColor: '#faf9f6' }}>
@@ -524,6 +536,27 @@ export default function StrollerFoundationsPage() {
                   title="Taylor-Made Baby Co. Announces Partnership with Lani Car Seat Installation Specialist"
                   description="Why car seat installation matters, what a CPST actually checks, and how to get it done right before baby arrives."
                 />
+              </LessonSection>
+
+              {/* 3.4 — Travel System Compatibility Tool */}
+              <LessonSection
+                stepNumber={4}
+                eyebrow="Interactive Tool"
+                title="Check your specific stroller-to-car-seat fit"
+              >
+                <p>
+                  If you are planning to click an infant car seat into your stroller frame,
+                  compatibility has to be confirmed at the model level — not just brand-to-brand.
+                  Finding out after you have purchased both is a very avoidable lesson.
+                </p>
+                <p>
+                  Use this tool to check which infant car seats work with your stroller, or start
+                  with the car seat and see which strollers support it. Where an adapter is
+                  involved, the tool tells you which one.
+                </p>
+                <div className="mt-6">
+                  <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
+                </div>
               </LessonSection>
             </div>
 
