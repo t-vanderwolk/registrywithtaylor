@@ -478,7 +478,13 @@ export default async function PostArticleView({
               {post.affiliateBrands.map((brand) => {
                 const fallbackLogo = getAffiliatePartnerLogo(brand.name);
                 const logoSrc = brand.logoUrl?.trim() || fallbackLogo.src;
-                const href = brand.shopUrl?.trim() || brand.website?.trim();
+                const rawShopUrl = brand.shopUrl?.trim();
+                if (!rawShopUrl && process.env.NODE_ENV !== 'production') {
+                  console.warn(
+                    `[affiliate] brand "${brand.name}" has no shopUrl — Shop CTA will not render`,
+                  );
+                }
+                const href = rawShopUrl || undefined;
                 const networkLabel = formatAffiliateNetworks(brand.networks);
 
                 return (

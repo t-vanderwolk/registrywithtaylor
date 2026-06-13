@@ -1,6 +1,5 @@
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
-import RibbonDivider from '@/components/layout/RibbonDivider';
 import SiteShell from '@/components/SiteShell';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import ServiceCards from '@/components/marketing/ServiceCards';
@@ -157,12 +156,6 @@ export default function ServicesPage() {
           ribbonClassName="translate-y-6 md:translate-y-8"
           staggerContent
         />
-
-        <div className="relative z-10 h-0 overflow-visible">
-          <div className="pointer-events-none absolute left-1/2 top-0 z-20 w-screen -translate-x-1/2 -translate-y-1/2">
-            <RibbonDivider />
-          </div>
-        </div>
 
         <ServiceCards
           packages={servicePackages}
