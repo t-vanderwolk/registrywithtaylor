@@ -10,6 +10,7 @@ import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
+import StrollerBrandFinder from '@/components/tools/StrollerBrandFinder';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import {
@@ -556,6 +557,21 @@ export default async function StrollerFoundationsPage() {
                 </p>
                 <div className="mt-6">
                   <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
+                </div>
+              </LessonSection>
+              {/* 3.5 — Brand discovery tool */}
+              <LessonSection
+                stepNumber={5}
+                eyebrow="Discovery Tool"
+                title="Find strollers by the brand you already have in mind"
+              >
+                <p>
+                  Most parents arrive at the category conversation already holding a brand.
+                  That is fine — brand familiarity is a real signal. Use this tool to explore
+                  which models within a brand actually match the brief you built in Steps 1 and 2.
+                </p>
+                <div className="mt-6">
+                  <StrollerBrandFinder />
                 </div>
               </LessonSection>
             </div>
