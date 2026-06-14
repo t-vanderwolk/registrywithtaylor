@@ -31,7 +31,7 @@ type EducationHubPathStep = {
 export type FutureGuideHubSlug = 'essentials' | 'feeding' | 'postpartum';
 
 export type FutureGuideHubConfig = {
-  path: string;
+  path: `/${string}`;
   eyebrow: string;
   title: string;
   description: string;
