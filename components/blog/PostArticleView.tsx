@@ -24,7 +24,6 @@ import JournalCard from '@/components/blog/JournalCard';
 import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
-import ConnectedContentSection from '@/components/content/ConnectedContentSection';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
 import MarketingSurface from '@/components/ui/MarketingSurface';
@@ -358,15 +357,6 @@ export default async function PostArticleView({
       </section>
     ) : null;
   const commentsSection = <PostCommentsSection postId={post.id} comments={post.comments} />;
-  const journeySection = (
-    <ConnectedContentSection
-      eyebrow="Keep The Next Step Obvious"
-      title="Turn this article into a cleaner TMBC path"
-      description="Move up into the guide, go deeper in the Academy, keep reading in the Journal, or bring the decision into one real conversation if you want the expert layer on top."
-      cards={internalLinkPlan.journeyCards}
-    />
-  );
-
   return (
     <BlogTrackingProvider value={{ postId: post.id, slug: post.slug, title: post.title }}>
       <BlogViewTracker postId={post.id} slug={post.slug} title={post.title} enabled={trackView} />
@@ -527,7 +517,6 @@ export default async function PostArticleView({
         ) : undefined
       }
       discussionSection={commentsSection}
-      journeySection={journeySection}
       conversionCta={<BlogSoftCTA postId={post.id} postSlug={post.slug} postTitle={post.title} />}
       shareSection={
         <BlogShareBar

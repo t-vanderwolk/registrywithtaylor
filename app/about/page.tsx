@@ -225,7 +225,7 @@ export default async function AboutPage() {
 
         <PodcastFeature />
 
-        <MarketingSection tone="white" container="wide" spacing="default">
+        <MarketingSection tone="white" container="wide" spacing="default" reveal={false}>
           <div className="max-w-6xl mx-auto text-center space-y-10">
             <RevealOnScroll>
               <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">
