@@ -9,16 +9,8 @@ import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
-import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
-import StrollerBrandFinder from '@/components/tools/StrollerBrandFinder';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import {
-  getTravelSystemCarSeats,
-  getTravelSystemStrollers,
-} from '@/lib/server/travelSystemCompatibility';
-
-export const dynamic = 'force-dynamic';
 
 export const metadata = buildMarketingMetadata({
   title: 'The Stroller Equation — Free Lesson | Taylor-Made Baby Academy',
@@ -284,12 +276,7 @@ const keyTakeaways = [
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function StrollerFoundationsPage() {
-  const [strollers, carSeats] = await Promise.all([
-    getTravelSystemStrollers(),
-    getTravelSystemCarSeats(),
-  ]);
-
+export default function StrollerFoundationsPage() {
   return (
     <SiteShell currentPath="/learn">
       <main className="site-main" style={{ backgroundColor: '#faf9f6' }}>
@@ -539,41 +526,6 @@ export default async function StrollerFoundationsPage() {
                 />
               </LessonSection>
 
-              {/* 3.4 — Travel System Compatibility Tool */}
-              <LessonSection
-                stepNumber={4}
-                eyebrow="Interactive Tool"
-                title="Check your specific stroller-to-car-seat fit"
-              >
-                <p>
-                  If you are planning to click an infant car seat into your stroller frame,
-                  compatibility has to be confirmed at the model level — not just brand-to-brand.
-                  Finding out after you have purchased both is a very avoidable lesson.
-                </p>
-                <p>
-                  Use this tool to check which infant car seats work with your stroller, or start
-                  with the car seat and see which strollers support it. Where an adapter is
-                  involved, the tool tells you which one.
-                </p>
-                <div className="mt-6">
-                  <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
-                </div>
-              </LessonSection>
-              {/* 3.5 — Brand discovery tool */}
-              <LessonSection
-                stepNumber={5}
-                eyebrow="Discovery Tool"
-                title="Find strollers by the brand you already have in mind"
-              >
-                <p>
-                  Most parents arrive at the category conversation already holding a brand.
-                  That is fine — brand familiarity is a real signal. Use this tool to explore
-                  which models within a brand actually match the brief you built in Steps 1 and 2.
-                </p>
-                <div className="mt-6">
-                  <StrollerBrandFinder />
-                </div>
-              </LessonSection>
             </div>
 
             <LessonDivider />

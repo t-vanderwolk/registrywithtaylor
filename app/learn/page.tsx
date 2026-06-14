@@ -7,8 +7,15 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
+import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { getAcademyPathData, getAcademyPathSlugs } from '@/lib/academy/content';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = buildMarketingMetadata({
   title: 'Taylor-Made Baby Academy',
@@ -69,9 +76,13 @@ const PATH_ACCENTS: Record<string, { eyebrow: string; badge: string }> = {
 };
 
 export default async function LearnPage() {
-  // Fetch all 4 paths for the path grid
+  // Fetch all 4 paths for the path grid + travel system tool data
   const pathSlugs = getAcademyPathSlugs();
-  const paths = await Promise.all(pathSlugs.map((slug) => getAcademyPathData(slug)));
+  const [paths, strollers, carSeats] = await Promise.all([
+    Promise.all(pathSlugs.map((slug) => getAcademyPathData(slug))),
+    getTravelSystemStrollers(),
+    getTravelSystemCarSeats(),
+  ]);
 
   return (
     <SiteShell currentPath="/learn">
@@ -102,6 +113,26 @@ export default async function LearnPage() {
                 <FreeLessonCard lesson={lesson} />
               </RevealOnScroll>
             ))}
+          </div>
+        </MarketingSection>
+
+        {/* ─── Travel System Compatibility Tool (free) ────────────────── */}
+        <MarketingSection
+          id="travel-system"
+          tone="ivory"
+          spacing="spacious"
+          reveal={false}
+        >
+          <RevealOnScroll>
+            <SectionIntro
+              eyebrow="Free Tool"
+              title="Check stroller-to-car-seat compatibility."
+              description="Confirm your specific stroller and infant car seat work together before you buy either one. Where an adapter is required, the tool tells you which one."
+              contentWidthClassName="max-w-3xl"
+            />
+          </RevealOnScroll>
+          <div className="mt-10">
+            <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
           </div>
         </MarketingSection>
 
