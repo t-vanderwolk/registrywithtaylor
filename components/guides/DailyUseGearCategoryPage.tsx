@@ -33,7 +33,7 @@ export default function DailyUseGearCategoryPage({
   const category = getDailyUseGearCategory(slug);
   const path = `${DAILY_USE_GEAR_HUB_PATH}/${slug}`;
   const breadcrumbs = [
-    { label: 'TMBC Guides', href: '/guides' },
+    { label: 'TMBC Guides', href: '/learn' },
     { label: 'Daily Use Gear', href: DAILY_USE_GEAR_HUB_PATH },
     { label: category.title },
   ];

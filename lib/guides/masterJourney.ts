@@ -1,6 +1,6 @@
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import { getGuidePath, getGuideParentSlug, resolveGuideSlugFromRouteSegment } from '@/lib/guides/routing';
-import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
+import { getRegistrySubGuideBySlug } from '@/lib/learn/registry/where-to-registerSubguides';
 
 export const TMBC_GUIDE_JOURNEY_STORAGE_KEY = 'tmbc-guide-journey';
 

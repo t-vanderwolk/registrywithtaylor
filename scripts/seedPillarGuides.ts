@@ -229,7 +229,7 @@ async function main() {
       newsletterCtaDescription: null,
       newsletterCtaHref: null,
       nextStepCtaLabel: 'Explore More Guides',
-      nextStepCtaHref: '/guides',
+      nextStepCtaHref: '/learn',
       founderSignatureEnabled: false,
       founderSignatureText: null,
     };

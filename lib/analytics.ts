@@ -188,7 +188,7 @@ export function getAnalyticsPageType(path: string): AnalyticsPageType {
   }
 
   if (
-    normalizedPath === '/guides' ||
+    normalizedPath === '/learn' ||
     normalizedPath.startsWith('/guides/') ||
     normalizedPath === '/academy' ||
     normalizedPath.startsWith('/academy/')

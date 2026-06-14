@@ -7,7 +7,7 @@ function withAnchor(path: string, id: string) {
 
 const NURSERY_PATHS = {
   cribs: '/guides/best-cribs-guide',
-  dressers: '/guides/nursery-storage-guide',
+  dressers: '/learn/nursery/vision-and-lifestyle-storage-guide',
   changing: '/guides/changing-table-guide',
   sleep: '/guides/baby-sleep-setup-guide',
 } as const;

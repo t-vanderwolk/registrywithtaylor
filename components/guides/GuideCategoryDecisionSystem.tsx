@@ -100,7 +100,7 @@ export default function GuideCategoryDecisionSystem({
     <GuideSlideDeck
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({
         slug: guide.slug,
         path: sourceRoute,

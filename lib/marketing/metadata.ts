@@ -79,7 +79,7 @@ function buildScopedKeywords(path: BuildMarketingMetadataInput['path']) {
     scopedKeywords.push('baby gear journal', 'baby gear article', 'registry advice');
   }
 
-  if (path.startsWith('/guides')) {
+  if (path.startsWith('/learn')) {
     scopedKeywords.push('baby gear guide', 'product guidance', 'registry help');
   }
 

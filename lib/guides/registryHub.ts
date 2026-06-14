@@ -6,9 +6,9 @@ function withAnchor(path: string, id: string) {
 }
 
 const REGISTRY_PATHS = {
-  essentials: '/guides/baby-registry-essentials',
-  nursery: '/guides/nursery-registry-guide',
-  feeding: '/guides/feeding-registry-guide',
+  essentials: '/learn/registry/where-to-register-essentials',
+  nursery: '/learn/nursery/vision-and-lifestyle-registry-guide',
+  feeding: '/learn/postpartum/feeding-and-lactation-registry-guide',
   gear: '/guides/gear-registry-guide',
 } as const;
 

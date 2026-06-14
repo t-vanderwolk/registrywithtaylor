@@ -526,7 +526,7 @@ export default function GuideEducationLayout({
     <GuideSlideDeck
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({
         slug: guide.slug,
         path: sourceRoute,
@@ -542,7 +542,7 @@ export default function GuideEducationLayout({
 
           <GuideHero
             slug={guide.slug}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            parentLink={{ href: '/learn', label: 'TMBC Education Hub' }}
             eyebrow={guide.category}
             category={guide.category}
             title={guide.title}

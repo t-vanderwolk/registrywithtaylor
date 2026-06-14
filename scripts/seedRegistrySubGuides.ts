@@ -6,7 +6,7 @@ import {
   REGISTRY_GUIDE_TOPIC_CLUSTER,
   getRegistrySubGuideBySlug,
   getRegistrySubGuideSlugs,
-} from '@/lib/guides/registrySubguides';
+} from '@/lib/learn/registry/where-to-registerSubguides';
 import { getGuidePath } from '@/lib/guides/routing';
 import prisma from '@/lib/server/prisma';
 
@@ -131,7 +131,7 @@ async function main() {
       targetKeyword: guide.targetKeyword,
       secondaryKeywords: [...guide.secondaryKeywords],
       internalLinkNotes:
-        'Seeded from lib/guides/registrySubguides.ts. Review registry retailer details and perk language when partner terms change.',
+        'Seeded from lib/learn/registry/where-to-registerSubguides.ts. Review registry retailer details and perk language when partner terms change.',
       tableOfContentsEnabled: true,
       faqItems: guide.faqItems as Prisma.InputJsonValue,
       affiliateDisclosureEnabled: false,

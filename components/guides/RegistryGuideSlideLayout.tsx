@@ -110,7 +110,7 @@ function parseRegistryRouteButtonGroups(content: string) {
 
   for (const line of lines) {
     const headingMatch = line.match(/^([^:]+):$/);
-    if (headingMatch && !line.includes('/guides')) {
+    if (headingMatch && !line.includes('/learn')) {
       currentGroup = {
         label: headingMatch[1]?.trim() ?? 'Start here',
         links: [],
@@ -135,7 +135,7 @@ function parseRegistryRouteButtonGroups(content: string) {
     for (const match of matches) {
       currentGroup.links.push({
         label: match[1]?.trim() ?? 'Open guide',
-        href: match[2]?.trim() ?? '/guides',
+        href: match[2]?.trim() ?? '/learn',
       });
     }
   }
@@ -284,7 +284,7 @@ export default function RegistryGuideSlideLayout({
       }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
-        href: '/guides',
+        href: '/learn',
         label: 'TMBC Education Hub',
         description: 'Return to the wider guide system if a different category needs to be solved next.',
         stage: 'Start' as const,
@@ -344,7 +344,7 @@ export default function RegistryGuideSlideLayout({
     <GuideSlideDeck
       containerId="registry-guide-slide-container"
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({
         slug: guide.slug,
         path: sourceRoute,
@@ -369,7 +369,7 @@ export default function RegistryGuideSlideLayout({
               { label: 'Published', value: formatArticleDate(displayDate) },
               { label: 'Phases', value: String(registrySystemSteps.length || 7) },
             ]}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            parentLink={{ href: '/learn', label: 'TMBC Education Hub' }}
             imageSrc={registryHeroImage.src}
             imageAlt={registryHeroImage.alt}
             imageAspectClassName="aspect-[16/11]"

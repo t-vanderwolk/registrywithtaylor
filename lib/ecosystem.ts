@@ -21,7 +21,7 @@ export const TMBC_ECOSYSTEM_STEPS: EcosystemStep[] = [
     label: 'ROUTINE',
     title: 'Set Up Daily Life',
     description: "Focus on feeding, diapering, and the routines you'll use every day.",
-    href: '/guides/feeding',
+    href: '/learn/postpartum/feeding-and-lactation',
   },
   {
     step: '03',
@@ -35,14 +35,14 @@ export const TMBC_ECOSYSTEM_STEPS: EcosystemStep[] = [
     label: 'LEARN',
     title: 'Understand Your Options',
     description: 'Explore categories and understand what matters before making decisions.',
-    href: '/guides',
+    href: '/learn',
   },
   {
     step: '05',
     label: 'SAVE',
     title: 'Plan Your Purchases',
     description: 'Use timing, rewards, and strategy to make smarter buying decisions.',
-    href: '/guides/registry/perks',
+    href: '/learn/registry/welcome-boxes-perks',
   },
   {
     step: '06',
@@ -56,7 +56,7 @@ export const TMBC_ECOSYSTEM_STEPS: EcosystemStep[] = [
     label: 'FINALIZE',
     title: 'Finalize With Confidence',
     description: 'Make final adjustments with clarity, not pressure.',
-    href: '/guides/postpartum',
+    href: '/learn/postpartum/healing-and-recovery',
   },
 ] as const;
 
@@ -93,15 +93,15 @@ export function getGuideEcosystemCurrentStep({
   const normalizedPath = path?.trim().toLowerCase() ?? '';
   const normalizedCategory = category?.trim().toLowerCase() ?? '';
 
-  if (normalizedPath === '/guides' || normalizedSlug === 'guides-hub') {
+  if (normalizedPath === '/learn' || normalizedSlug === 'guides-hub') {
     return 1;
   }
 
-  if (normalizedSlug === 'nursery-setup-guide' || normalizedPath === '/guides/nursery' || normalizedCategory === 'nursery') {
+  if (normalizedSlug === 'nursery-setup-guide' || normalizedPath === '/learn/nursery/vision-and-lifestyle' || normalizedCategory === 'nursery') {
     return 3;
   }
 
-  if (normalizedSlug === 'feeding' || normalizedPath === '/guides/feeding' || normalizedCategory === 'feeding') {
+  if (normalizedSlug === 'feeding' || normalizedPath === '/learn/postpartum/feeding-and-lactation' || normalizedCategory === 'feeding') {
     return 2;
   }
 
@@ -116,18 +116,18 @@ export function getGuideEcosystemCurrentStep({
 
   if (
     normalizedSlug === 'minimalist-baby-registry' ||
-    normalizedPath === '/guides/registry' ||
-    normalizedPath.startsWith('/guides/registry/') ||
+    normalizedPath === '/learn/registry/where-to-register' ||
+    normalizedPath.startsWith('/learn/registry/where-to-register/') ||
     normalizedCategory === 'registry'
   ) {
     return 1;
   }
 
-  if (STROLLER_SLUGS.has(normalizedSlug) || normalizedPath === '/guides/strollers' || normalizedPath.startsWith('/guides/strollers/')) {
+  if (STROLLER_SLUGS.has(normalizedSlug) || normalizedPath === '/learn/gear/stroller-foundations' || normalizedPath.startsWith('/learn/gear/stroller-foundations/')) {
     return 6;
   }
 
-  if (CAR_SEAT_SLUGS.has(normalizedSlug) || normalizedPath === '/guides/car-seats' || normalizedPath.startsWith('/guides/car-seats/')) {
+  if (CAR_SEAT_SLUGS.has(normalizedSlug) || normalizedPath === '/learn/gear/car-seat-foundations' || normalizedPath.startsWith('/learn/gear/car-seat-foundations/')) {
     return 6;
   }
 
@@ -135,11 +135,11 @@ export function getGuideEcosystemCurrentStep({
     return 6;
   }
 
-  if (normalizedSlug === 'essentials' || normalizedPath === '/guides/essentials') {
+  if (normalizedSlug === 'essentials' || normalizedPath === '/learn') {
     return 2;
   }
 
-  if (normalizedSlug === 'postpartum' || normalizedPath === '/guides/postpartum') {
+  if (normalizedSlug === 'postpartum' || normalizedPath === '/learn/postpartum/healing-and-recovery') {
     return 7;
   }
 

@@ -3054,7 +3054,7 @@ export default function GuideEditor({
                     'debounced',
                   )
                 }
-                placeholder="/guides"
+                placeholder="/learn"
               />
             </AdminField>
           </div>

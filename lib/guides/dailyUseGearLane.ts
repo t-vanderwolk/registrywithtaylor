@@ -2,7 +2,7 @@ import type { GuideStageLabel } from '@/lib/guides/guideFlow';
 import type { DecisionBlockItem } from '@/components/guides/DecisionBlock';
 import type { GuideHubIconKey, GuideHubLink } from '@/lib/guides/hubs';
 
-export const DAILY_USE_GEAR_HUB_PATH = '/guides/daily-use-gear' as const;
+export const DAILY_USE_GEAR_HUB_PATH = '/learn/gear/daily-use-gear' as const;
 
 export const DAILY_USE_GEAR_HUB_SLIDES = [
   { id: 'daily-use-gear-orientation', label: 'Orientation', shortLabel: 'Start' },
@@ -558,7 +558,7 @@ export const DAILY_USE_GEAR_HUB_DECISION_ITEMS: DailyUseGearHubDecisionItem[] = 
 export const DAILY_USE_GEAR_HUB_NEXT_STEPS: DailyUseGearNextStep[] = [
   {
     label: 'Back: Travel With Baby',
-    href: '/guides/travel-with-baby',
+    href: '/learn/gear/travel-systems',
     description: 'Use Travel first if leaving the house still feels harder than the at-home routine.',
     stage: 'Compare',
   },

@@ -134,7 +134,7 @@ export default function GuideStickyNav({
   );
   const journeyPath = (pathLabels ?? []).filter(Boolean).join(' -> ');
   const currentLane = pathLabels?.[1] ?? activeItem?.label ?? 'Guide';
-  const resolvedBackLink = backLink ?? { href: '/guides', label: 'Back to TMBC Hub' };
+  const resolvedBackLink = backLink ?? { href: '/learn', label: 'Back to TMBC Hub' };
 
   if (!resolvedBackLink && items.length === 0) {
     return null;

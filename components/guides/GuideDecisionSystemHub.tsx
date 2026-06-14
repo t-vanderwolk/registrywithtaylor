@@ -91,7 +91,7 @@ export default function GuideDecisionSystemHub({
       }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
-        href: '/guides',
+        href: '/learn',
         label: 'TMBC Education Hub',
         description: 'Return to the broader guide map if you need a different category first.',
         stage: 'Start' as const,
@@ -134,7 +134,7 @@ export default function GuideDecisionSystemHub({
     <GuideSlideDeck
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({
         slug: guide.slug,
         path: sourceRoute,
@@ -150,7 +150,7 @@ export default function GuideDecisionSystemHub({
 
           <HubHero
             slug={guide.slug}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            parentLink={{ href: '/learn', label: 'TMBC Education Hub' }}
             eyebrow={config.hero.eyebrow}
             category={guide.category}
             title={config.hero.title}

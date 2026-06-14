@@ -1,7 +1,7 @@
 import type { GuideHubLink } from '@/lib/guides/hubs';
-import { getNurserySubGuideBySlug } from '@/lib/guides/nurserySubguides';
+import { getNurserySubGuideBySlug } from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
 import { getGuidePath, getGuideParentSlug, resolveGuideSlugFromRouteSegment } from '@/lib/guides/routing';
-import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
+import { getRegistrySubGuideBySlug } from '@/lib/learn/registry/where-to-registerSubguides';
 import { getFutureGuideHubConfig, type FutureGuideHubSlug } from '@/lib/guides/educationHub';
 import { getMasterGuideFlowCards } from '@/lib/guides/masterJourney';
 import { getPreferredStrollerBlogSlugs } from '@/lib/guides/strollerCluster';
@@ -33,7 +33,7 @@ const CORE_GUIDE_ROUTE_CARDS: readonly CoreGuideRouteCard[] = [
     slug: 'feeding',
     title: 'Feeding',
     description: 'Build one workable feeding setup before you buy backup systems for every possible scenario.',
-    href: '/guides/feeding',
+    href: '/learn/postpartum/feeding-and-lactation',
     icon: 'bag',
     imageSrc: '/assets/editorial/feeding.png',
     imageAlt: 'Editorial feeding image for Taylor-Made Baby Co.',
@@ -42,7 +42,7 @@ const CORE_GUIDE_ROUTE_CARDS: readonly CoreGuideRouteCard[] = [
     slug: 'postpartum',
     title: 'Postpartum',
     description: 'Make room for recovery, support, and the adult part of the plan too.',
-    href: '/guides/postpartum',
+    href: '/learn/postpartum/healing-and-recovery',
     icon: 'layers',
     imageSrc: '/assets/editorial/teddy-glow.png',
     imageAlt: 'Editorial postpartum support image for Taylor-Made Baby Co.',
@@ -51,7 +51,7 @@ const CORE_GUIDE_ROUTE_CARDS: readonly CoreGuideRouteCard[] = [
     slug: 'essentials',
     title: 'Essentials',
     description: 'Keep the list grounded in what earns space in the first stretch of real life.',
-    href: '/guides/essentials',
+    href: '/learn',
     icon: 'book',
     imageSrc: '/assets/editorial/babystuff.png',
     imageAlt: 'Editorial baby essentials image for Taylor-Made Baby Co.',
@@ -494,7 +494,7 @@ export function getGuideBreadcrumbs({
   topicCluster?: string | null;
 }): GuideBreadcrumbItem[] {
   const resolvedSlug = resolveGuideSlugFromRouteSegment(slug);
-  const breadcrumbs: GuideBreadcrumbItem[] = [{ label: 'TMBC Guides', href: '/guides' }];
+  const breadcrumbs: GuideBreadcrumbItem[] = [{ label: 'TMBC Guides', href: '/learn' }];
 
   if (resolvedSlug === 'guides-hub') {
     breadcrumbs.push({ label: title?.trim() || 'Guide Hub' });

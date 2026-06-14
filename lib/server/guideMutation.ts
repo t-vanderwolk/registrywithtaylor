@@ -35,7 +35,7 @@ export function getRevalidationPathsForGuide(
       `/admin/guides/${guide.id}`,
       `/admin/guides/${guide.id}/edit`,
       `/admin/guides/${guide.id}/preview`,
-      '/guides',
+      '/learn',
       parentSlug ? `/guides/${parentSlug}` : null,
       `/guides/${guide.slug}`,
       isAcademyPublicPath(publicPath) ? '/academy' : null,

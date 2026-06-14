@@ -155,13 +155,13 @@ export default function StrollerAcademyHub({
       }),
       ...getDefaultNextSteps({ slug: guide.slug, topicCluster: guide.topicCluster }),
       {
-        href: getStrollerAcademyLane('convertible-strollers')?.href || '/guides/strollers/convertible-strollers',
+        href: getStrollerAcademyLane('convertible-strollers')?.href || '/learn/gear/stroller-foundations/convertible-strollers',
         label: 'Open the Convertible Lane',
         description: 'A strong next read if future-family planning is part of the stroller decision.',
         stage: 'Decide' as const,
       },
       {
-        href: getStrollerAcademyLane('compact-lightweight-strollers')?.href || '/guides/strollers/compact-strollers',
+        href: getStrollerAcademyLane('compact-lightweight-strollers')?.href || '/learn/gear/stroller-foundations/compact-lightweight-strollers',
         label: 'Compare Compact',
         description: 'Use this when storage and easier loading are the real friction.',
         stage: 'Compare' as const,
@@ -173,7 +173,7 @@ export default function StrollerAcademyHub({
         stage: 'Refine' as const,
       },
       {
-        href: '/guides/registry',
+        href: '/learn/registry/where-to-register',
         label: 'Return to Registry',
         description: 'Use the stroller lane you chose to keep the registry shortlist calmer.',
         stage: 'Refine' as const,
@@ -200,7 +200,7 @@ export default function StrollerAcademyHub({
     <GuideSlideDeck
       containerId={`guide-slide-deck-${guide.slug}`}
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({
         slug: guide.slug,
         path: sourceRoute,
@@ -227,7 +227,7 @@ export default function StrollerAcademyHub({
               { label: 'Stroller lanes', value: String(lanes.length) },
               { label: 'Quick start', value: `${readingTime} min` },
             ]}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            parentLink={{ href: '/learn', label: 'TMBC Education Hub' }}
             imageSrc={displayHeroImage.src}
             imageAlt={displayHeroImage.alt}
             imageAspectClassName="aspect-[16/11]"

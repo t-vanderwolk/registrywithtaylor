@@ -2,12 +2,12 @@ import { stripMarkdown } from '@/lib/blog/contentText';
 import type { GuideOutline } from '@/lib/guides/articleOutline';
 import { getFutureGuideHubConfig } from '@/lib/guides/educationHub';
 import { getGuideNextGuideItems } from '@/lib/guides/hubs';
-import { getNurserySubGuideBySlug } from '@/lib/guides/nurserySubguides';
+import { getNurserySubGuideBySlug } from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import { getNextGuideLane } from '@/lib/guides/masterJourney';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuidePath, getGuideParentSlug } from '@/lib/guides/routing';
-import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
+import { getRegistrySubGuideBySlug } from '@/lib/learn/registry/where-to-registerSubguides';
 
 export const GUIDE_STAGE_LABELS = ['Start', 'Compare', 'Optimize', 'Decide', 'Refine'] as const;
 
@@ -134,25 +134,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
 > = {
   'nursery-setup-guide': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the main guide map if a different planning category should come first.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Continue into the daily routine setup once the room plan is doing its job.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Choose where to register once the room and storage realities are clearer.',
       stage: 'Decide',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Move into gear comparison once the home setup and registry sequence feel steadier.',
       stage: 'Compare',
@@ -160,25 +160,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   feeding: [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the wider planning map if another category needs attention first.',
       stage: 'Start',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Step back to the room and station setup if the routine still needs a better home base.',
       stage: 'Start',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Use the feeding routine to make the registry platform and list structure cleaner.',
       stage: 'Decide',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Continue into gear comparison once the daily-use workflow is clearer.',
       stage: 'Compare',
@@ -186,25 +186,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   essentials: [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the broader guide system if a different foundation guide should come first.',
       stage: 'Start',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Use the room setup to decide what deserves day-one space and what can wait.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Move into feeding when the everyday-use items need more structure.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Use the essentials filter to build a calmer first-pass registry.',
       stage: 'Decide',
@@ -212,25 +212,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   postpartum: [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the guide map if a different setup category should come next.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Keep the early routine practical by pairing recovery planning with feeding setup.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Revisit the room setup if the recovery workflow still needs calmer support.',
       stage: 'Start',
     },
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Use the recovery plan to trim what belongs on the list and what does not.',
       stage: 'Decide',
@@ -238,7 +238,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'travel-with-baby': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the guide map if another category deserves attention before the next trip.',
       stage: 'Start',
@@ -264,7 +264,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'daily-use-gear': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the guide map if another lane deserves attention before you finalize the shortlist.',
       stage: 'Start',
@@ -290,25 +290,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'minimalist-baby-registry': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the wider guide system if another foundation guide should happen first.',
       stage: 'Start',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Use the room plan to decide what earns space on the registry.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Move into feeding once the registry structure is calm enough to support the routine details.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Choose the registry platform once the system itself feels clear.',
       stage: 'Decide',
@@ -316,25 +316,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   minimalist: [
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Return to the parent registry path when you need the wider sequence again.',
       stage: 'Start',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Use the room setup to tighten what really deserves space and budget.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Carry the minimalist filter into one of the highest-duplicate routine categories.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Use the same filter when major gear starts competing for space and attention.',
       stage: 'Compare',
@@ -342,25 +342,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   mistakes: [
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Return to the parent registry guide when you need the bigger system again.',
       stage: 'Start',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Sort the platform decision after the common list mistakes are easier to spot.',
       stage: 'Decide',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Use the same mistake filter when room planning starts turning into extra product pressure.',
       stage: 'Start',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Apply the cleanup mindset to one of the easiest categories to overbuild.',
       stage: 'Optimize',
@@ -368,25 +368,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'where-to-register': [
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Return to the parent registry path if you need the wider decision order again.',
       stage: 'Start',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Continue into stroller comparison once the registry platform and return logic are clear.',
       stage: 'Compare',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Step back into feeding if those daily-use decisions still need more structure.',
       stage: 'Optimize',
     },
     {
-      href: '/guides/registry/perks',
+      href: '/learn/registry/welcome-boxes-perks',
       label: 'Registry Perks',
       description: 'Use the platform decision to make the perks strategy practical instead of distracting.',
       stage: 'Optimize',
@@ -394,25 +394,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   timeline: [
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Return to the parent registry map if you need the wider sequence again.',
       stage: 'Start',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Choose the registry platform once the timing plan is calmer and more realistic.',
       stage: 'Decide',
     },
     {
-      href: '/guides/nursery',
+      href: '/learn/nursery/vision-and-lifestyle',
       label: 'Nursery Guide',
       description: 'Use the timing plan to decide which room pieces deserve the earliest attention.',
       stage: 'Start',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Move into gear comparison once the purchase order is working for you.',
       stage: 'Compare',
@@ -420,25 +420,25 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   perks: [
     {
-      href: '/guides/registry',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Guide',
       description: 'Return to the parent registry path if the system itself needs a wider reset.',
       stage: 'Start',
     },
     {
-      href: '/guides/registry/where-to-register',
+      href: '/learn/registry/where-to-register',
       label: 'Registry Strategy',
       description: 'Use the retailer choice to make the perks actually useful instead of noisy.',
       stage: 'Decide',
     },
     {
-      href: '/guides/strollers',
+      href: '/learn/gear/stroller-foundations',
       label: 'Stroller Guide',
       description: 'Carry the savings strategy into one of the biggest purchase categories.',
       stage: 'Compare',
     },
     {
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       label: 'Feeding Guide',
       description: 'Apply the same filter to a daily-use category that can get expensive fast.',
       stage: 'Optimize',
@@ -446,7 +446,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'best-strollers': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the broader guide system if another category needs to come first.',
       stage: 'Start',
@@ -536,7 +536,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: '/guides/travel-with-baby',
+      href: '/learn/gear/travel-systems',
       label: 'Travel With Baby Guide',
       description: 'Use the broader travel routine to test whether the stroller is solving the right problem.',
       stage: 'Optimize',
@@ -614,7 +614,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: '/guides/travel-with-baby',
+      href: '/learn/gear/travel-systems',
       label: 'Travel With Baby Guide',
       description: 'Pressure-test how much outdoor or away-from-home friction the stroller really needs to solve.',
       stage: 'Optimize',
@@ -628,7 +628,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
   ],
   'best-infant-car-seats': [
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Return to the broader guide system if another category needs to come first.',
       stage: 'Start',
@@ -744,13 +744,13 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: '/guides/travel-with-baby',
+      href: '/learn/gear/travel-systems',
       label: 'Travel With Baby Guide',
       description: 'Use the real routine outside the driveway to pressure-test what matters most.',
       stage: 'Optimize',
     },
     {
-      href: '/guides',
+      href: '/learn',
       label: 'TMBC Academy',
       description: 'Step back to the broader guide system if another category should come first.',
       stage: 'Start',
@@ -796,7 +796,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Compare',
     },
     {
-      href: '/guides/travel-with-baby',
+      href: '/learn/gear/travel-systems',
       label: 'Travel With Baby Guide',
       description: 'Use the broader travel routine to pressure-test whether the lighter seat solves the right problem.',
       stage: 'Optimize',

@@ -202,7 +202,7 @@ export default function RegistryEcosystemMap() {
 
           <motion.div variants={cardVariants} className="flex justify-center">
             <Link
-              href="/guides/registry"
+              href="/learn/registry/where-to-register"
               className="inline-flex min-h-[48px] items-center rounded-full border border-[rgba(215,161,175,0.22)] bg-white/88 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-dark)] shadow-[0_14px_28px_rgba(58,36,43,0.06)] transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_18px_34px_rgba(58,36,43,0.08)]"
             >
               <MotionCtaContent align="start" showArrow underline>

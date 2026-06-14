@@ -416,7 +416,7 @@ export async function renderGuideRoute({
           title={pillar.title}
           subtitle={pillar.overview}
           primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
-          secondaryCta={{ label: 'Explore the Guides', href: '/guides' }}
+          secondaryCta={{ label: 'Explore the Guides', href: '/learn' }}
           tagline={pillar.shortTitle}
           image={fallbackGuideHeroImage}
           imageAlt={pillar.imageAlt}

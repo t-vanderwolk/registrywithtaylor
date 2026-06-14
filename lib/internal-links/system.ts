@@ -52,7 +52,7 @@ const SERVICES_CARD: InternalLinkCard = {
 
 const GUIDE_HUB_CARD: InternalLinkCard = {
   id: 'guide-hub',
-  href: '/guides',
+  href: '/learn',
   title: 'TMBC Guide Hub',
   description: 'Use the wider guide map when you want the order of decisions to get calmer before the narrower category does.',
   ctaLabel: 'Open guide hub ->',

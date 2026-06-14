@@ -21,7 +21,7 @@ import {
 } from '@/lib/guides/dailyUseGearLane';
 
 const breadcrumbs = [
-  { label: 'TMBC Guides', href: '/guides' },
+  { label: 'TMBC Guides', href: '/learn' },
   { label: 'Daily Use Gear' },
 ];
 
@@ -32,7 +32,7 @@ export default function DailyUseGearHub() {
     <GuideSlideDeck
       containerId="daily-use-gear-hub-carousel"
       items={[...DAILY_USE_GEAR_HUB_SLIDES]}
-      backLink={{ href: '/guides/travel-with-baby', label: 'Back to Travel' }}
+      backLink={{ href: '/learn/gear/travel-systems', label: 'Back to Travel' }}
       ecosystemCurrentStep={6}
       journeyPathLabels={[...DAILY_USE_GEAR_JOURNEY_PATH]}
     >

@@ -61,7 +61,7 @@ export default function GuideFutureHubPage({
     <GuideSlideDeck
       containerId={`guide-slide-deck-${config.path.replace(/\//g, '-')}`}
       items={slideItems}
-      backLink={{ href: '/guides', label: 'Back to TMBC Hub' }}
+      backLink={{ href: '/learn', label: 'Back to TMBC Hub' }}
       ecosystemCurrentStep={getGuideEcosystemCurrentStep({ slug, path: config.path, category: config.eyebrow })}
       journeyPathLabels={journeyPath}
     >
@@ -73,7 +73,7 @@ export default function GuideFutureHubPage({
 
           <HubHero
             slug={slug}
-            parentLink={{ href: '/guides', label: 'TMBC Education Hub' }}
+            parentLink={{ href: '/learn', label: 'TMBC Education Hub' }}
             eyebrow={config.eyebrow}
             category={config.eyebrow}
             title={config.title}

@@ -6,7 +6,7 @@ import {
   getRegistrySubGuideBySlug,
   getRegistrySubGuideRelatedGuides,
   getRegistrySubGuideSlugs,
-} from '@/lib/guides/registrySubguides';
+} from '@/lib/learn/registry/where-to-registerSubguides';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 type RegistrySubGuidePageProps = {

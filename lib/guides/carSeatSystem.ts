@@ -65,7 +65,7 @@ export const CAR_SEAT_SYSTEM_PATHS = {
   rotating: getGuidePath({ slug: 'rotating-car-seats' }),
   travelLightweight: getGuidePath({ slug: 'travel-lightweight-car-seats' }),
   strollerHub: getGuidePath({ slug: 'best-strollers' }),
-  guideLibrary: '/guides',
+  guideLibrary: '/learn',
 } as const;
 
 const BOOSTER_HUB_ANCHOR = `${CAR_SEAT_SYSTEM_PATHS.hub}#booster-seats`;

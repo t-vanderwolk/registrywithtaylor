@@ -35,7 +35,7 @@ export default function Header({ currentPath }: HeaderProps) {
       : 'My Academy';
   const headerRef = useRef<HTMLElement | null>(null);
   const isGuideRoute =
-    currentPath === '/guides' ||
+    currentPath === '/learn' ||
     currentPath.startsWith('/guides/') ||
     currentPath === '/academy' ||
     currentPath.startsWith('/academy/');

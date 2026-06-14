@@ -1,12 +1,12 @@
 import type { GuideCardItem } from '@/lib/guides/presentation';
 
 export const REGISTRY_SUBGUIDE_PATHS = {
-  minimalist: '/guides/registry/minimalist',
-  essentials: '/guides/registry/essentials',
-  mistakes: '/guides/registry/mistakes',
-  'where-to-register': '/guides/registry/where-to-register',
-  timeline: '/guides/registry/timeline',
-  perks: '/guides/registry/perks',
+  minimalist: '/learn/registry/where-to-register',
+  essentials: '/learn/registry/where-to-register',
+  mistakes: '/learn/registry/where-to-register',
+  'where-to-register': '/learn/registry/where-to-register',
+  timeline: '/learn/registry-timeline',
+  perks: '/learn/registry/welcome-boxes-perks',
 } as const;
 
 export const REGISTRY_GUIDE_PARENT_SLUG = 'minimalist-baby-registry';
@@ -93,7 +93,7 @@ const DEFAULT_GUIDE_IMAGE = '/assets/hero/hero-baby-editorial.jpg';
 const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   {
     slug: 'minimalist-baby-registry',
-    href: '/guides/registry',
+    href: '/learn/registry/where-to-register',
     title: 'Registry Hub',
     description: 'Return to the full registry decision hub.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -102,7 +102,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'best-strollers',
-    href: '/guides/strollers',
+    href: '/learn/gear/stroller-foundations',
     title: 'Stroller Guide',
     description: 'Use this once you are ready to narrow stroller tradeoffs.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -111,7 +111,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'best-infant-car-seats',
-    href: '/guides/car-seats',
+    href: '/learn/gear/car-seat-foundations',
     title: 'Car Seat Guide',
     description: 'Use this when you are ready to sort infant and convertible seat fit.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -120,7 +120,7 @@ const REGISTRY_NEXT_STEP_GUIDES: GuideCardItem[] = [
   },
   {
     slug: 'nursery-setup-guide',
-    href: '/guides/nursery',
+    href: '/learn/nursery/vision-and-lifestyle',
     title: 'Nursery Guide',
     description: 'Use this when the room plan starts affecting the registry list.',
     imageSrc: DEFAULT_GUIDE_IMAGE,
@@ -133,10 +133,10 @@ function buildNextStepsSection() {
   return [
     '## Next Steps',
     '',
-    '- [Return to the Registry Hub](/guides/registry)',
-    '- [Compare stroller options](/guides/strollers)',
-    '- [Compare car seat options](/guides/car-seats)',
-    '- [Plan the nursery setup](/guides/nursery)',
+    '- [Return to the Registry Hub](/learn/registry/where-to-register)',
+    '- [Compare stroller options](/learn/gear/stroller-foundations)',
+    '- [Compare car seat options](/learn/gear/car-seat-foundations)',
+    '- [Plan the nursery setup](/learn/nursery/vision-and-lifestyle)',
   ].join('\n');
 }
 
@@ -221,7 +221,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'minimalist baby registry',
     secondaryKeywords: ['baby registry guide', 'what to put on a baby registry', 'registry planning', 'registry essentials'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'mistakes'],
-    nextStepCtaHref: '/guides/registry',
+    nextStepCtaHref: '/learn/registry/where-to-register',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
       orientation: [
@@ -375,7 +375,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'registry essentials',
     secondaryKeywords: ['what to register for first', 'baby registry checklist', 'newborn essentials', 'registry basics'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'mistakes', 'timeline'],
-    nextStepCtaHref: '/guides/registry',
+    nextStepCtaHref: '/learn/registry/where-to-register',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
       orientation: [
@@ -540,7 +540,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'baby registry mistakes',
     secondaryKeywords: ['registry mistakes to avoid', 'common registry mistakes', 'how to build a baby registry', 'registry planning tips'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'where-to-register'],
-    nextStepCtaHref: '/guides/registry',
+    nextStepCtaHref: '/learn/registry/where-to-register',
     nextStepCtaLabel: 'Return to the Registry Hub',
     content: buildRegistrySubGuideContent({
       orientation: [
@@ -694,7 +694,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'where to register for a baby registry',
     secondaryKeywords: ['best baby registry', 'Target vs Amazon vs Babylist registry', 'baby registry comparison', 'registry completion discount'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'timeline', 'perks'],
-    nextStepCtaHref: '/guides/strollers',
+    nextStepCtaHref: '/learn/gear/stroller-foundations',
     nextStepCtaLabel: 'Continue to the Stroller Guide',
     content: buildRegistrySubGuideContent({
       orientation: [
@@ -835,7 +835,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'when to buy baby registry items',
     secondaryKeywords: ['baby registry timeline', 'when to build a baby registry', 'when to buy nursery furniture', 'completion discount timing'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'essentials', 'where-to-register'],
-    nextStepCtaHref: '/guides/registry/where-to-register',
+    nextStepCtaHref: '/learn/registry/where-to-register',
     nextStepCtaLabel: 'Compare Registry Retailers',
     content: buildRegistrySubGuideContent({
       orientation: [
@@ -972,7 +972,7 @@ const REGISTRY_SUBGUIDE_PAGES: Record<RegistrySubGuideSlug, RegistrySubGuidePage
     targetKeyword: 'baby registry perks',
     secondaryKeywords: ['registry welcome boxes', 'baby registry completion discount', 'Target registry welcome kit', 'Babylist Hello Baby Box'],
     relatedSlugs: [REGISTRY_GUIDE_PARENT_SLUG, 'where-to-register', 'timeline'],
-    nextStepCtaHref: '/guides/registry/where-to-register',
+    nextStepCtaHref: '/learn/registry/where-to-register',
     nextStepCtaLabel: 'Compare Registry Retailers',
     content: buildRegistrySubGuideContent({
       orientation: [

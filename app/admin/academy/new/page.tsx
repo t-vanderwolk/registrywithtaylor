@@ -104,7 +104,7 @@ export default async function NewAcademyPage({
           newsletterCtaDescription: '',
           newsletterCtaHref: '',
           nextStepCtaLabel: academySeed ? 'Continue through the Academy' : 'Explore related learning content',
-          nextStepCtaHref: academySeed ? '/academy' : '/guides',
+          nextStepCtaHref: academySeed ? '/academy' : '/learn',
           founderSignatureEnabled: false,
           founderSignatureText: '',
           relatedGuideIds: [],

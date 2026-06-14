@@ -6,7 +6,7 @@ function withAnchor(path: string, id: string) {
 }
 
 const TRAVEL_PATHS = {
-  strollers: '/guides/travel-strollers-guide',
+  strollers: '/learn/gear/travel-systems-guide',
   carSeats: '/guides/travel-car-seats-guide',
   carriers: '/guides/baby-carriers-guide',
   essentials: '/guides/travel-essentials-guide',

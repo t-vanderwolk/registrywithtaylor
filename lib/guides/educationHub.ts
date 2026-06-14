@@ -46,15 +46,15 @@ export type FutureGuideHubConfig = {
 };
 
 const GUIDE_PATHS = {
-  guidesHub: '/guides',
+  guidesHub: '/learn',
   registry: getGuidePath({ slug: 'minimalist-baby-registry' }),
   strollers: getGuidePath({ slug: 'best-strollers' }),
   carSeats: getGuidePath({ slug: 'best-infant-car-seats' }),
   nursery: getGuidePath({ slug: 'nursery-setup-guide' }),
   travel: getGuidePath({ slug: 'travel-with-baby' }),
-  essentials: '/guides/essentials' as const,
-  feeding: '/guides/feeding' as const,
-  postpartum: '/guides/postpartum' as const,
+  essentials: '/learn' as const,
+  feeding: '/learn/postpartum/feeding-and-lactation' as const,
+  postpartum: '/learn/postpartum/healing-and-recovery' as const,
 } as const;
 
 export const guidesEducationHubContent = {
@@ -232,7 +232,7 @@ export const guidesEducationHubContent = {
       {
         title: 'Registry Strategy',
         description: 'Use registry setup logic to choose where to register before the perks and store dashboards start leading the plan.',
-        href: '/guides/registry/where-to-register',
+        href: '/learn/registry/where-to-register',
         icon: 'strategy',
       },
     ] satisfies GuideHubLink[],
@@ -319,7 +319,7 @@ const futureGuideHubConfigs: Record<FutureGuideHubSlug, FutureGuideHubConfig> = 
       {
         title: 'Registry Strategy',
         description: 'Choose where to register before the perks, returns, and platform tradeoffs start influencing the whole plan.',
-        href: '/guides/registry/where-to-register',
+        href: '/learn/registry/where-to-register',
         icon: 'strategy',
       },
       {

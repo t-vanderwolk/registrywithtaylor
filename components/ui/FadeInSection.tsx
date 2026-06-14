@@ -32,7 +32,7 @@ export default function FadeInSection({
   const pathname = usePathname();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const disableAnimatedReveal =
-    pathname?.startsWith('/guides') ||
+    pathname?.startsWith('/learn') ||
     pathname?.startsWith('/academy') ||
     pathname?.startsWith('/blog');
   const isInView = useInView(sectionRef, {

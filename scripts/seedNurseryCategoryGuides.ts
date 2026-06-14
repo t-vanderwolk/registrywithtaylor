@@ -8,7 +8,7 @@ import {
   NURSERY_GUIDE_TOPIC_CLUSTER,
   NURSERY_SUBGUIDE_DEFINITIONS,
   type NurserySubGuideDefinition,
-} from '@/lib/guides/nurserySubguides';
+} from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
 import { getGuidePath } from '@/lib/guides/routing';
 import prisma from '@/lib/server/prisma';
 

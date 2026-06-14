@@ -6,7 +6,7 @@ export const NURSERY_SUBGUIDE_DEFINITIONS = [
     key: 'sleepSetup',
     slug: 'nursery-sleep-setup',
     routeSegment: 'sleep-setup',
-    path: '/guides/nursery/sleep-setup',
+    path: '/learn/nursery/sleep-space-decisions',
     title: 'Nursery Sleep Setup',
     cardTitle: 'Sleep Setup',
     description:
@@ -22,7 +22,7 @@ export const NURSERY_SUBGUIDE_DEFINITIONS = [
     key: 'changingStation',
     slug: 'nursery-changing-station',
     routeSegment: 'changing-station',
-    path: '/guides/nursery/changing-station',
+    path: '/learn/nursery/storage-and-organization',
     title: 'Changing Station Guide',
     cardTitle: 'Changing Station',
     description:
@@ -38,7 +38,7 @@ export const NURSERY_SUBGUIDE_DEFINITIONS = [
     key: 'furniture',
     slug: 'nursery-furniture',
     routeSegment: 'furniture',
-    path: '/guides/nursery/furniture',
+    path: '/learn/nursery/furniture-that-actually-works',
     title: 'Nursery Furniture Guide',
     cardTitle: 'Nursery Furniture',
     description:
@@ -54,7 +54,7 @@ export const NURSERY_SUBGUIDE_DEFINITIONS = [
     key: 'storage',
     slug: 'nursery-storage',
     routeSegment: 'storage',
-    path: '/guides/nursery/storage',
+    path: '/learn/nursery/storage-and-organization',
     title: 'Nursery Storage Guide',
     cardTitle: 'Storage',
     description:

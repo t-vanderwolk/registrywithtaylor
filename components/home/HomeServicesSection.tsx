@@ -193,7 +193,7 @@ export default function HomeServicesSection() {
         <RevealOnScroll delayMs={180}>
           <div className="mt-10 flex justify-center">
             <Link
-              href="/guides/strollers"
+              href="/learn/gear/stroller-foundations"
               className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(196,156,94,0.16)] bg-white/78 px-5 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm"
             >
               <MotionCtaContent showArrow>Explore real product guidance</MotionCtaContent>

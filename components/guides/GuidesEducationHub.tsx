@@ -37,19 +37,19 @@ export default function GuidesEducationHub() {
     {
       title: 'Essentials',
       description: 'Use the essentials filter when you want fewer assumptions and a calmer first-weeks baseline.',
-      href: '/guides/essentials',
+      href: '/learn',
       icon: 'book' as const,
     },
     {
       title: 'Feeding',
       description: 'Build one practical feeding setup before you buy backup systems for every possible outcome.',
-      href: '/guides/feeding',
+      href: '/learn/postpartum/feeding-and-lactation',
       icon: 'bag' as const,
     },
     {
       title: 'Postpartum',
       description: 'Make room for recovery, support, and the adult part of the plan too.',
-      href: '/guides/postpartum',
+      href: '/learn/postpartum/healing-and-recovery',
       icon: 'layers' as const,
     },
   ];
@@ -107,7 +107,7 @@ export default function GuidesEducationHub() {
                   title="Start Your Baby Prep the Right Way"
                   description="TMBC works best as a guided decision platform, not a content pile. Start with Registry, move into Nursery, then let Strollers, Car Seats, Travel, and Daily Use Gear enter the conversation in the right order."
                   note="Some baby prep gets complicated because the categories show up in the wrong order. Registry first fixes more than it gets credit for."
-                  primaryCta={{ href: '/guides/registry', label: 'Start with Registry' }}
+                  primaryCta={{ href: '/learn/registry/where-to-register', label: 'Start with Registry' }}
                   secondaryCta={{ href: `#${HUB_SLIDES[1].id}`, label: 'See the 6-step flow' }}
                   stageItems={masterFlowCards.map((card, index) => ({
                     id: card.slug,
@@ -206,22 +206,22 @@ export default function GuidesEducationHub() {
               {
                 condition: 'need the whole plan to make more sense before you buy much of anything',
                 recommendation: 'Start with Registry. It gives the rest of the prep work a steadier order.',
-                href: '/guides/registry',
+                href: '/learn/registry/where-to-register',
               },
               {
                 condition: 'already know the room setup is the part creating friction',
                 recommendation: 'Move into Nursery next. That usually sharpens what belongs in the home and what can wait.',
-                href: '/guides/nursery',
+                href: '/learn/nursery/vision-and-lifestyle',
               },
               {
                 condition: 'are ready to compare the large mobility gear',
                 recommendation: 'Open Strollers first, then Car Seats once the stroller lane is clear enough to judge compatibility calmly.',
-                href: '/guides/strollers',
+                href: '/learn/gear/stroller-foundations',
               },
               {
                 condition: 'mostly need the away-from-home setup after the big decisions are steadier',
                 recommendation: 'Travel should hand off to Daily Use Gear before you move into actual buying.',
-                href: '/guides/travel-with-baby',
+                href: '/learn/gear/travel-systems',
               },
             ]}
           />

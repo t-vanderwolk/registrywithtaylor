@@ -49,7 +49,7 @@
         },
         {
           "id": "guide-hub",
-          "href": "/guides",
+          "href": "/learn",
           "title": "TMBC Guide Hub",
           "description": "Use the wider guide map when you want the order of decisions to get calmer before the narrower category does.",
           "ctaLabel": "Open guide hub ->",
@@ -70,7 +70,7 @@
       ],
       "inboundCount": 1,
       "inboundFrom": [
-        "/guides"
+        "/learn"
       ]
     },
     {
@@ -81,7 +81,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -91,7 +91,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -131,7 +131,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -141,7 +141,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -172,7 +172,7 @@
       ],
       "inboundCount": 1,
       "inboundFrom": [
-        "/guides/car-seats"
+        "/learn/gear/car-seat-foundations"
       ]
     },
     {
@@ -183,7 +183,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -193,7 +193,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -233,7 +233,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -243,7 +243,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -283,7 +283,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -293,7 +293,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -333,7 +333,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -343,7 +343,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -383,7 +383,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -393,7 +393,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -433,7 +433,7 @@
       "outbound": [
         {
           "id": "guide-car-seats",
-          "href": "/guides/car-seats",
+          "href": "/learn/gear/car-seat-foundations",
           "title": "Car Seat Guide",
           "description": "A calmer explanation of the seat stages before specs and installs start shouting over each other.",
           "ctaLabel": "Open guide ->",
@@ -443,7 +443,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -483,7 +483,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -493,7 +493,7 @@
         },
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -533,7 +533,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -543,7 +543,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -583,7 +583,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -593,7 +593,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -633,7 +633,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -643,7 +643,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -683,7 +683,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -693,7 +693,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -733,7 +733,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -743,7 +743,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -783,7 +783,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -793,7 +793,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -833,7 +833,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -843,7 +843,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -883,7 +883,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -893,7 +893,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -927,8 +927,8 @@
         "/academy",
         "/blog/best-full-size-strollers-2026",
         "/blog/best-travel-strollers-2026",
-        "/guides/strollers",
-        "/guides/travel-with-baby",
+        "/learn/gear/stroller-foundations",
+        "/learn/gear/travel-systems",
         "/services"
       ]
     },
@@ -940,7 +940,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -950,7 +950,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -990,7 +990,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1000,7 +1000,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1040,7 +1040,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1050,7 +1050,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1090,7 +1090,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1100,7 +1100,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1140,7 +1140,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1150,7 +1150,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1190,7 +1190,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1200,7 +1200,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1240,7 +1240,7 @@
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1250,7 +1250,7 @@
         },
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -1290,7 +1290,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1300,7 +1300,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1340,7 +1340,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1350,7 +1350,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1390,7 +1390,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1400,7 +1400,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1433,7 +1433,7 @@
       "inboundFrom": [
         "/academy",
         "/blog/nursery-setup-that-actually-works",
-        "/guides/nursery"
+        "/learn/nursery/vision-and-lifestyle"
       ]
     },
     {
@@ -1444,7 +1444,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1454,7 +1454,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1494,7 +1494,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1504,7 +1504,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1544,7 +1544,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1554,7 +1554,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1594,7 +1594,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1604,7 +1604,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1644,7 +1644,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1654,7 +1654,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1694,7 +1694,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1704,7 +1704,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1744,7 +1744,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1754,7 +1754,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1794,7 +1794,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1804,7 +1804,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1844,7 +1844,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1854,7 +1854,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1894,7 +1894,7 @@
       "outbound": [
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -1904,7 +1904,7 @@
         },
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1944,7 +1944,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -1954,7 +1954,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -1994,7 +1994,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2004,7 +2004,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2044,7 +2044,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2054,7 +2054,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2094,7 +2094,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2104,7 +2104,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2144,7 +2144,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2154,7 +2154,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2194,7 +2194,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2204,7 +2204,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2244,7 +2244,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2254,7 +2254,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2287,7 +2287,7 @@
       "inboundFrom": [
         "/academy",
         "/blog/best-highchairs-2026-real-life-guide",
-        "/guides/registry/where-to-register",
+        "/learn/registry/where-to-register",
         "/services"
       ]
     },
@@ -2299,7 +2299,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2309,7 +2309,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2349,7 +2349,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2359,7 +2359,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2399,7 +2399,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2409,7 +2409,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2449,7 +2449,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2459,7 +2459,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2499,7 +2499,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2509,7 +2509,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2543,7 +2543,7 @@
         "/blog/best-independent-baby-stores-rewards-programs-2026",
         "/blog/target-baby-concierge-virtual-specialist-guide-2026",
         "/blog/the-art-of-the-registry",
-        "/guides/registry"
+        "/learn/registry/where-to-register"
       ]
     },
     {
@@ -2554,7 +2554,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2564,7 +2564,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2604,7 +2604,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2614,7 +2614,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2654,7 +2654,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2664,7 +2664,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2704,7 +2704,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2714,7 +2714,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2754,7 +2754,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -2764,7 +2764,7 @@
         },
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -2804,7 +2804,7 @@
       "outbound": [
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Hub",
           "description": "Start with the category map before you open another roundup tab.",
           "ctaLabel": "Open guide ->",
@@ -2814,7 +2814,7 @@
         },
         {
           "id": "guide-full-size-modular-strollers",
-          "href": "/guides/strollers/full-size-strollers",
+          "href": "/learn/gear/stroller-foundations/full-size-modular-strollers",
           "title": "Full-Size & Modular",
           "description": "The everyday stroller lane for comfort, storage, and stronger daily performance.",
           "ctaLabel": "Open guide ->",
@@ -2854,7 +2854,7 @@
       "outbound": [
         {
           "id": "guide-minimalist-baby-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Minimalist Baby Registry",
           "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
           "ctaLabel": "Open guide ->",
@@ -2864,7 +2864,7 @@
         },
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Best Strollers",
           "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
           "ctaLabel": "Open guide ->",
@@ -2906,7 +2906,7 @@
       "outbound": [
         {
           "id": "guide-minimalist-baby-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Minimalist Baby Registry",
           "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
           "ctaLabel": "Open guide ->",
@@ -2916,7 +2916,7 @@
         },
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Best Strollers",
           "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
           "ctaLabel": "Open guide ->",
@@ -2956,7 +2956,7 @@
       "outbound": [
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Hub",
           "description": "Start with the category map before you open another roundup tab.",
           "ctaLabel": "Open guide ->",
@@ -2966,7 +2966,7 @@
         },
         {
           "id": "guide-travel-strollers",
-          "href": "/guides/strollers/travel-strollers",
+          "href": "/learn/gear/stroller-foundations/travel-strollers",
           "title": "Travel",
           "description": "The fold-first category for airports, ride shares, and portability-heavy routines.",
           "ctaLabel": "Open guide ->",
@@ -3014,8 +3014,8 @@
         "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
         "/academy/gear/stroller-foundations/travel-strollers",
         "/academy/gear/travel-systems",
-        "/guides/strollers",
-        "/guides/travel-with-baby"
+        "/learn/gear/stroller-foundations",
+        "/learn/gear/travel-systems"
       ]
     },
     {
@@ -3026,7 +3026,7 @@
       "outbound": [
         {
           "id": "guide-minimalist-baby-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Minimalist Baby Registry",
           "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
           "ctaLabel": "Open guide ->",
@@ -3036,7 +3036,7 @@
         },
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Best Strollers",
           "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
           "ctaLabel": "Open guide ->",
@@ -3080,7 +3080,7 @@
         "/academy/nursery/sleep-space-decisions",
         "/academy/nursery/storage-and-organization",
         "/academy/nursery/vision-and-lifestyle",
-        "/guides/nursery"
+        "/learn/nursery/vision-and-lifestyle"
       ]
     },
     {
@@ -3091,7 +3091,7 @@
       "outbound": [
         {
           "id": "guide-minimalist-baby-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Minimalist Baby Registry",
           "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
           "ctaLabel": "Open guide ->",
@@ -3101,7 +3101,7 @@
         },
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Best Strollers",
           "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
           "ctaLabel": "Open guide ->",
@@ -3141,7 +3141,7 @@
       "outbound": [
         {
           "id": "guide-minimalist-baby-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Minimalist Baby Registry",
           "description": "Build a registry around what fits your home, timeline, and actual daily life instead of generic checklists.",
           "ctaLabel": "Open guide ->",
@@ -3151,7 +3151,7 @@
         },
         {
           "id": "guide-best-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Best Strollers",
           "description": "A calmer way to narrow down full-size, travel, compact, and everyday stroller decisions.",
           "ctaLabel": "Open guide ->",
@@ -3205,20 +3205,20 @@
         "/academy/registry/welcome-boxes-perks/macrobaby",
         "/academy/registry/welcome-boxes-perks/target",
         "/academy/registry/where-to-register",
-        "/guides/car-seats",
-        "/guides/registry",
-        "/guides/registry/where-to-register"
+        "/learn/gear/car-seat-foundations",
+        "/learn/registry/where-to-register",
+        "/learn/registry/where-to-register"
       ]
     },
     {
-      "href": "/guides",
+      "href": "/learn",
       "title": "TMBC Guide Hub",
       "kind": "guide",
       "cluster": "general",
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -3228,7 +3228,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -3238,7 +3238,7 @@
         },
         {
           "id": "guide-nursery",
-          "href": "/guides/nursery",
+          "href": "/learn/nursery/vision-and-lifestyle",
           "title": "Nursery Setup Guide",
           "description": "Good nursery planning starts with room flow, storage, and the tired version of real life.",
           "ctaLabel": "Open guide ->",
@@ -3274,14 +3274,14 @@
       ]
     },
     {
-      "href": "/guides/car-seats",
+      "href": "/learn/gear/car-seat-foundations",
       "title": "Car Seat Guide",
       "kind": "guide",
       "cluster": "car-seats",
       "outbound": [
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -3331,14 +3331,14 @@
       ]
     },
     {
-      "href": "/guides/nursery",
+      "href": "/learn/nursery/vision-and-lifestyle",
       "title": "Nursery Setup Guide",
       "kind": "guide",
       "cluster": "nursery",
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -3393,18 +3393,18 @@
         "/academy/nursery/sleep-space-decisions",
         "/academy/nursery/storage-and-organization",
         "/academy/nursery/vision-and-lifestyle",
-        "/guides"
+        "/learn"
       ]
     },
     {
-      "href": "/guides/registry",
+      "href": "/learn/registry/where-to-register",
       "title": "Baby Registry Guide",
       "kind": "guide",
       "cluster": "registry",
       "outbound": [
         {
           "id": "guide-where-to-register",
-          "href": "/guides/registry/where-to-register",
+          "href": "/learn/registry/where-to-register",
           "title": "Where to Register & Why",
           "description": "Use this when the platform question matters more than the product list.",
           "ctaLabel": "Open guide ->",
@@ -3481,21 +3481,21 @@
         "/blog/nursery-setup-that-actually-works",
         "/blog/target-baby-concierge-virtual-specialist-guide-2026",
         "/blog/the-art-of-the-registry",
-        "/guides",
-        "/guides/nursery",
-        "/guides/registry/where-to-register",
+        "/learn",
+        "/learn/nursery/vision-and-lifestyle",
+        "/learn/registry/where-to-register",
         "/services"
       ]
     },
     {
-      "href": "/guides/registry/where-to-register",
+      "href": "/learn/registry/where-to-register",
       "title": "Where to Register & Why",
       "kind": "guide",
       "cluster": "general",
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -3505,7 +3505,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -3557,18 +3557,18 @@
         "/academy/registry/welcome-boxes-perks/macrobaby",
         "/academy/registry/welcome-boxes-perks/target",
         "/academy/registry/where-to-register",
-        "/guides/registry"
+        "/learn/registry/where-to-register"
       ]
     },
     {
-      "href": "/guides/strollers",
+      "href": "/learn/gear/stroller-foundations",
       "title": "Stroller Guide",
       "kind": "guide",
       "cluster": "strollers",
       "outbound": [
         {
           "id": "guide-travel",
-          "href": "/guides/travel-with-baby",
+          "href": "/learn/gear/travel-systems",
           "title": "Travel With Baby Guide",
           "description": "Use this when the decision has one foot in daily life and the other in airports, trunks, or family trips.",
           "ctaLabel": "Open guide ->",
@@ -3639,21 +3639,21 @@
         "/blog/nursery-setup-that-actually-works",
         "/blog/target-baby-concierge-virtual-specialist-guide-2026",
         "/blog/the-art-of-the-registry",
-        "/guides",
-        "/guides/registry/where-to-register",
-        "/guides/travel-with-baby",
+        "/learn",
+        "/learn/registry/where-to-register",
+        "/learn/gear/travel-systems",
         "/services"
       ]
     },
     {
-      "href": "/guides/travel-with-baby",
+      "href": "/learn/gear/travel-systems",
       "title": "Travel With Baby Guide",
       "kind": "guide",
       "cluster": "travel",
       "outbound": [
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -3717,8 +3717,8 @@
         "/academy/gear/stroller-foundations/jogging-all-terrain-strollers",
         "/academy/gear/stroller-foundations/travel-strollers",
         "/academy/gear/travel-systems",
-        "/guides/car-seats",
-        "/guides/strollers"
+        "/learn/gear/car-seat-foundations",
+        "/learn/gear/stroller-foundations"
       ]
     },
     {
@@ -3729,7 +3729,7 @@
       "outbound": [
         {
           "id": "guide-registry",
-          "href": "/guides/registry",
+          "href": "/learn/registry/where-to-register",
           "title": "Baby Registry Guide",
           "description": "Start with the registry structure before the list gets louder than it needs to.",
           "ctaLabel": "Open guide ->",
@@ -3739,7 +3739,7 @@
         },
         {
           "id": "guide-strollers",
-          "href": "/guides/strollers",
+          "href": "/learn/gear/stroller-foundations",
           "title": "Stroller Guide",
           "description": "Use the pillar guide when the stroller category still feels bigger than the product list.",
           "ctaLabel": "Open guide ->",
@@ -3749,7 +3749,7 @@
         },
         {
           "id": "guide-hub",
-          "href": "/guides",
+          "href": "/learn",
           "title": "TMBC Guide Hub",
           "description": "Use the wider guide map when you want the order of decisions to get calmer before the narrower category does.",
           "ctaLabel": "Open guide hub ->",
@@ -3842,13 +3842,13 @@
         "/blog/nursery-setup-that-actually-works",
         "/blog/target-baby-concierge-virtual-specialist-guide-2026",
         "/blog/the-art-of-the-registry",
-        "/guides",
-        "/guides/car-seats",
-        "/guides/nursery",
-        "/guides/registry",
-        "/guides/registry/where-to-register",
-        "/guides/strollers",
-        "/guides/travel-with-baby"
+        "/learn",
+        "/learn/gear/car-seat-foundations",
+        "/learn/nursery/vision-and-lifestyle",
+        "/learn/registry/where-to-register",
+        "/learn/registry/where-to-register",
+        "/learn/gear/stroller-foundations",
+        "/learn/gear/travel-systems"
       ]
     }
   ]
