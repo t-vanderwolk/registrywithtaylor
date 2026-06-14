@@ -2,12 +2,12 @@ import { stripMarkdown } from '@/lib/blog/contentText';
 import type { GuideOutline } from '@/lib/guides/articleOutline';
 import { getFutureGuideHubConfig } from '@/lib/guides/educationHub';
 import { getGuideNextGuideItems } from '@/lib/guides/hubs';
-import { getNurserySubGuideBySlug } from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
+import { getNurserySubGuideBySlug } from '@/lib/guides/nurserySubguides';
 import type { GuideHubLink } from '@/lib/guides/hubs';
 import { getNextGuideLane } from '@/lib/guides/masterJourney';
 import type { GuideCardItem } from '@/lib/guides/presentation';
 import { getGuidePath, getGuideParentSlug } from '@/lib/guides/routing';
-import { getRegistrySubGuideBySlug } from '@/lib/learn/registry/where-to-registerSubguides';
+import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
 
 export const GUIDE_STAGE_LABELS = ['Start', 'Compare', 'Optimize', 'Decide', 'Refine'] as const;
 

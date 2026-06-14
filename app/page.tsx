@@ -435,11 +435,11 @@ export default function HomePage() {
                 Trusted Prep Partners
               </p>
               <p className="mx-auto mt-3 max-w-xl text-center text-[0.95rem] leading-7 text-neutral-500">
-                Services Taylor recommends and works alongside for car seat safety and home childproofing.
+                Services Taylor recommends and works alongside for car seat safety, home childproofing, and newborn sleep.
               </p>
             </RevealOnScroll>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {/* Lani Car Seats */}
               <RevealOnScroll delayMs={60}>
                 <div className="flex h-full flex-col items-center rounded-[1.4rem] border border-[rgba(198,167,94,0.18)] bg-[linear-gradient(180deg,#fdfbf8_0%,#f9f4ec_100%)] px-7 py-8 text-center shadow-[0_12px_32px_rgba(55,40,46,0.05)]">
@@ -484,6 +484,34 @@ export default function HomePage() {
                     Professional childproofing assessments and installations for Arizona families. Complimentary quote included with the Signature Package.
                   </p>
                 </div>
+              </RevealOnScroll>
+
+              {/* Tiny Toes Newborn */}
+              <RevealOnScroll delayMs={180}>
+                <a
+                  href="https://www.tinytoesnewborn.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-full flex-col items-center rounded-[1.4rem] border border-[rgba(198,167,94,0.18)] bg-[linear-gradient(180deg,#fdfbf8_0%,#f9f4ec_100%)] px-7 py-8 text-center shadow-[0_12px_32px_rgba(55,40,46,0.05)] transition duration-200 hover:shadow-[0_16px_40px_rgba(55,40,46,0.08)]"
+                >
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[rgba(198,167,94,0.18)] bg-white shadow-[0_6px_18px_rgba(55,40,46,0.06)]">
+                    <Image
+                      src="/assets/logos/tinytoessleep.jpeg"
+                      alt="Tiny Toes Newborn logo"
+                      width={200}
+                      height={200}
+                      sizes="80px"
+                      className="h-12 w-12 rounded-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-serif text-[1.2rem] leading-snug tracking-[-0.02em] text-neutral-900">
+                    Tiny Toes Newborn
+                  </h3>
+                  <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
+                    Newborn sleep consulting and support for families navigating the fourth trimester. Free consultation included with every service package.
+                  </p>
+                </a>
               </RevealOnScroll>
             </div>
           </div>

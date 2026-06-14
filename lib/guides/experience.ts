@@ -1,7 +1,7 @@
 import type { GuideHubLink } from '@/lib/guides/hubs';
-import { getNurserySubGuideBySlug } from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
+import { getNurserySubGuideBySlug } from '@/lib/guides/nurserySubguides';
 import { getGuidePath, getGuideParentSlug, resolveGuideSlugFromRouteSegment } from '@/lib/guides/routing';
-import { getRegistrySubGuideBySlug } from '@/lib/learn/registry/where-to-registerSubguides';
+import { getRegistrySubGuideBySlug } from '@/lib/guides/registrySubguides';
 import { getFutureGuideHubConfig, type FutureGuideHubSlug } from '@/lib/guides/educationHub';
 import { getMasterGuideFlowCards } from '@/lib/guides/masterJourney';
 import { getPreferredStrollerBlogSlugs } from '@/lib/guides/strollerCluster';

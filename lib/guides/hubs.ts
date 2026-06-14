@@ -1,7 +1,7 @@
 import type { GuideTocItem } from '@/lib/guides/articleOutline';
 import type { GuideCardItem } from '@/lib/guides/presentation';
-import { NURSERY_SUBGUIDE_PATHS } from '@/lib/learn/nursery/vision-and-lifestyleSubguides';
-import { getRegistrySubGuideGridItems, REGISTRY_SUBGUIDE_PATHS } from '@/lib/learn/registry/where-to-registerSubguides';
+import { NURSERY_SUBGUIDE_PATHS } from '@/lib/guides/nurserySubguides';
+import { getRegistrySubGuideGridItems, REGISTRY_SUBGUIDE_PATHS } from '@/lib/guides/registrySubguides';
 import { toCondensedGuideCardTitle } from '@/lib/guides/presentation';
 import { getGuidePath } from '@/lib/guides/routing';
 
