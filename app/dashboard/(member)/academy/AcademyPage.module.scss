@@ -32,7 +32,7 @@
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 400;
   letter-spacing: -0.03em;
-  color: $color-charcoal;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.1;
 }
@@ -63,7 +63,7 @@
 .overallLabel {
   font-family: $font-sans;
   font-size: 0.8rem;
-  color: $color-charcoal;
+  color: #1a1a1a;
   opacity: 0.65;
 }
 
@@ -73,11 +73,11 @@
   gap: 1rem;
   flex-wrap: wrap;
   background: $tmbc-soft-pink;
-  border-radius: $radius-lg;
+  border-radius: $radius-soft;
   padding: 0.875rem 1.25rem;
   font-family: $font-sans;
   font-size: 0.875rem;
-  color: $color-charcoal;
+  color: #1a1a1a;
 }
 
 .upgradeLink {
@@ -105,7 +105,7 @@
 .pathCard {
   background: #fff;
   border: 1px solid rgba(215, 161, 175, 0.18);
-  border-radius: $radius-xl;
+  border-radius: $radius-card;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -136,14 +136,14 @@
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: -0.02em;
-  color: $color-charcoal;
+  color: #1a1a1a;
   margin: 0 0 0.25rem;
 }
 
 .pathDesc {
   font-family: $font-sans;
   font-size: 0.82rem;
-  color: $color-charcoal;
+  color: #1a1a1a;
   opacity: 0.62;
   margin: 0;
   line-height: 1.5;
@@ -210,11 +210,11 @@
   align-items: center;
   gap: 0.625rem;
   padding: 0.45rem 0.5rem;
-  border-radius: $radius-md;
+  border-radius: 0.625rem;
   text-decoration: none;
   font-family: $font-sans;
   font-size: 0.83rem;
-  color: $color-charcoal;
+  color: #1a1a1a;
   transition: background 120ms ease;
 
   .moduleArrow {
