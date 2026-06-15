@@ -194,8 +194,9 @@ export default function MemberDashboardClient({
       <footer className={styles.footer}>
         <p className={styles.footerText}>Taylor-Made Baby Academy</p>
         <nav className={styles.footerNav} aria-label="Dashboard footer">
-          <Link href="/learn" className={styles.footerLink}>Academy home</Link>
-          <Link href="/consultation" className={styles.footerLink}>Book a consultation</Link>
+          <Link href="/dashboard/academy" className={styles.footerLink}>All courses</Link>
+          <Link href="/dashboard/tools"   className={styles.footerLink}>Travel system tool</Link>
+          <Link href="/consultation"      className={styles.footerLink}>Book a consultation</Link>
         </nav>
       </footer>
 

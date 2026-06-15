@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import styles from './MemberLayout.module.scss';
 
 const NAV_ITEMS = [
-  { href: '/dashboard',              label: 'Dashboard' },
-  { href: '/learn',                  label: 'Academy'   },
-  { href: '/tools/travel-system',    label: 'Tools'     },
-  { href: '/consultation',           label: 'Consult'   },
+  { href: '/dashboard',           label: 'Home'    },
+  { href: '/dashboard/academy',   label: 'Academy' },
+  { href: '/dashboard/tools',     label: 'Tools'   },
+  { href: '/consultation',        label: 'Consult' },
 ] as const;
 
 function MemberNav({ pathname, onClose }: { pathname: string; onClose?: () => void }) {
@@ -59,9 +60,13 @@ export default function MemberLayout({ children }: { children: React.ReactNode }
 
           {/* Actions */}
           <div className={styles.actions}>
-            <Link href="/consultation" className={styles.ctaBtn}>
-              Book consultation
-            </Link>
+            <button
+              type="button"
+              className={styles.signOutBtn}
+              onClick={() => signOut({ callbackUrl: '/login' })}
+            >
+              Sign out
+            </button>
 
             {/* Hamburger */}
             <button
@@ -83,13 +88,13 @@ export default function MemberLayout({ children }: { children: React.ReactNode }
           <div className={styles.mobileMenu}>
             <MemberNav pathname={pathname} onClose={() => setMenuOpen(false)} />
             <div className={styles.mobileActions}>
-              <Link
-                href="/consultation"
-                className={styles.ctaBtn}
-                onClick={() => setMenuOpen(false)}
+              <button
+                type="button"
+                className={styles.signOutBtn}
+                onClick={() => signOut({ callbackUrl: '/login' })}
               >
-                Book a free consultation →
-              </Link>
+                Sign out
+              </button>
             </div>
           </div>
         )}

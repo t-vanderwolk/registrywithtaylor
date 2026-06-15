@@ -67,8 +67,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // ── Member dashboard guard ─────────────────────────────────────────────────
-  if (pathname === '/dashboard') {
+  // ── Member dashboard guard (all /dashboard/* except reviewer) ─────────────
+  if (pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/reviewer')) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     if (!token) {
@@ -127,6 +127,7 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*',
+    '/dashboard/:path*',
     '/dashboard',
     '/dashboard/reviewer/:path*',
     // Gate all /learn/* routes (the handler checks the public-path whitelist)

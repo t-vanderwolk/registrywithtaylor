@@ -37,8 +37,8 @@ export default function AcademyProgressCard({
           <p className={styles.eyebrow}>Progress</p>
           <h2 className={styles.heading}>Your Academy</h2>
         </div>
-        <Link href="/learn" className={styles.academyLink}>
-          Go to Academy →
+        <Link href="/dashboard/academy" className={styles.academyLink}>
+          All modules →
         </Link>
       </div>
 

@@ -44,7 +44,7 @@ export default async function AdminMembersPage() {
     prisma.registry.groupBy({
       by:    ['userId'],
       _count: { id: true },
-    }),
+    }).catch(() => []),
   ]);
 
   // ── Build progress map: learnerId → { pathSlug → PathProgress } ─────────────

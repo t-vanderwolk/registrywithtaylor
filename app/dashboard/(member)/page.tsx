@@ -72,7 +72,7 @@ export default async function MemberDashboardPage() {
         where:   { userId },
         orderBy: { updatedAt: 'desc' },
         select:  { pathSlug: true, moduleSlug: true, content: true, updatedAt: true },
-      }),
+      }).catch(() => []),
       // Member registries
       prisma.registry.findMany({
         where:   { userId },
@@ -82,7 +82,7 @@ export default async function MemberDashboardPage() {
           itemCount: true, completedCount: true, notes: true,
           createdAt: true, updatedAt: true,
         },
-      }),
+      }).catch(() => []),
       // Consultation count
       prisma.consultationRequest.count({
         where: { email },

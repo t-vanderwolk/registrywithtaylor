@@ -1,0 +1,310 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eyebrow {
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  opacity: 0.7;
+}
+
+.heading {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: $color-charcoal;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.overallProgress {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.overallTrack {
+  flex: 1;
+  max-width: 20rem;
+  height: 6px;
+  background: rgba(215, 161, 175, 0.18);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.overallFill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 99px;
+  transition: width 500ms ease;
+}
+
+.overallLabel {
+  font-family: $font-sans;
+  font-size: 0.8rem;
+  color: $color-charcoal;
+  opacity: 0.65;
+}
+
+.upgradeBanner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: $tmbc-soft-pink;
+  border-radius: $radius-lg;
+  padding: 0.875rem 1.25rem;
+  font-family: $font-sans;
+  font-size: 0.875rem;
+  color: $color-charcoal;
+}
+
+.upgradeLink {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ─── Path grid ────────────────────────────────────────────────────────────────
+
+.pathGrid {
+  display: grid;
+  gap: 1.5rem;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// ─── Path card ────────────────────────────────────────────────────────────────
+
+.pathCard {
+  background: #fff;
+  border: 1px solid rgba(215, 161, 175, 0.18);
+  border-radius: $radius-xl;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 24px rgba(58, 36, 43, 0.05);
+}
+
+.pathHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.pathIcon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.pathMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.pathTitle {
+  font-family: $font-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: $color-charcoal;
+  margin: 0 0 0.25rem;
+}
+
+.pathDesc {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: $color-charcoal;
+  opacity: 0.62;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.pathBadge {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  background: $tmbc-soft-pink;
+  border-radius: $radius-pill;
+  padding: 0.25rem 0.625rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.lockedBadge {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  background: $color-ivory;
+  border-radius: $radius-pill;
+  padding: 0.25rem 0.625rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ─── Progress bar ─────────────────────────────────────────────────────────────
+
+.pathTrack {
+  height: 4px;
+  background: rgba(215, 161, 175, 0.18);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.pathFill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 99px;
+  transition: width 500ms ease;
+}
+
+// ─── Module list ──────────────────────────────────────────────────────────────
+
+.moduleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.moduleItem {
+  display: block;
+}
+
+.moduleLink,
+.moduleLocked {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: $radius-md;
+  text-decoration: none;
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  color: $color-charcoal;
+  transition: background 120ms ease;
+
+  .moduleArrow {
+    margin-left: auto;
+    color: var(--color-accent-dark);
+    opacity: 0;
+    font-size: 0.8rem;
+    transition: opacity 120ms ease;
+  }
+}
+
+.moduleLink {
+  &:hover {
+    background: $tmbc-soft-pink;
+
+    .moduleArrow { opacity: 1; }
+  }
+}
+
+.moduleLocked {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.moduleDone {
+  .moduleDot { color: var(--color-accent-dark); }
+}
+
+.moduleDot {
+  font-size: 0.75rem;
+  width: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+  color: #bbb;
+}
+
+.moduleTitle {
+  flex: 1;
+  line-height: 1.4;
+}
+
+// ─── Path CTA ─────────────────────────────────────────────────────────────────
+
+.pathCta {
+  padding-top: 0.25rem;
+}
+
+.startBtn {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid var(--color-accent-dark);
+  border-radius: $radius-pill;
+  transition: background 150ms ease, color 150ms ease;
+
+  &:hover {
+    background: var(--color-accent-dark);
+    color: #fff;
+  }
+}
+
+.unlockBtn {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #888;
+  text-decoration: none;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: $radius-pill;
+  transition: border-color 150ms ease, color 150ms ease;
+
+  &:hover {
+    border-color: var(--color-accent-dark);
+    color: var(--color-accent-dark);
+  }
+}
+
+.completeChip {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2d8c4e;
+  background: #edfaf2;
+  border-radius: $radius-pill;
+  padding: 0.35rem 0.875rem;
+}
