@@ -25,17 +25,34 @@ function amazonDp(asin: string): string {
   return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_TAG}`;
 }
 
+// ─── Babylist Impact affiliate tracking ───────────────────────────────────────
+// All babylist.com destination URLs are routed through the Impact tracker so
+// clicks are attributed to the TMBC publisher account.
+//
+// Tracking base:  https://babylist.pxf.io/c/6560395/1056628/13580
+// Destination:    ?u=<URL-encoded babylist.com path>
+// Partner ID:     &partnerpropertyid=7490466
+
+const BABYLIST_TRACKER_BASE = 'https://babylist.pxf.io/c/6560395/1056628/13580';
+const BABYLIST_PARTNER_ID   = '7490466';
+
+function babylistTracked(destUrl: string): string {
+  return `${BABYLIST_TRACKER_BASE}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER_ID}`;
+}
+
 // Babylist confirmed deep links (brand:::model → babylist product page)
 // To get a new ID: find product on babylist.com → hover the "Add to registry" button
 // → URL contains /gp/[slug]/[product-id]/[variant-id]
 const BABYLIST_CONFIRMED: Record<string, string> = {
   // Strollers
-  'Bugaboo:::Butterfly':
+  'Bugaboo:::Butterfly': babylistTracked(
     'https://www.babylist.com/gp/bugaboo-butterfly-complete-stroller/25163/1154565',
+  ),
 
   // Car seats
-  'Nuna:::PIPA RX':
+  'Nuna:::PIPA RX': babylistTracked(
     'https://www.babylist.com/gp/nuna-pipa-rx/16140/310275',
+  ),
 };
 
 // ─── Main lookup table ────────────────────────────────────────────────────────
@@ -45,7 +62,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
 
   // Bugaboo
   'Bugaboo:::Fox 5': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Fox 5 stroller'),
   },
   'Bugaboo:::Butterfly': {
@@ -53,155 +70,155 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     amazonUrl: amazonSearch('Bugaboo Butterfly stroller'),
   },
   'Bugaboo:::Butterfly 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Butterfly 2 stroller'),
   },
   'Bugaboo:::Donkey 6': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Donkey 6 stroller'),
   },
   'Bugaboo:::Bee 6': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Bee 6 stroller'),
   },
   'Bugaboo:::Dragonfly': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Dragonfly stroller'),
   },
   'Bugaboo:::Lynx': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Lynx stroller'),
   },
   'Bugaboo:::Kangaroo': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Kangaroo stroller'),
   },
 
   // Nuna
   'Nuna:::MIXX next': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna MIXX next stroller'),
   },
   'Nuna:::TRVL lx': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna TRVL lx stroller'),
   },
   'Nuna:::DEMI next': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna DEMI next stroller'),
   },
   'Nuna:::TRIV next': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna TRIV next stroller'),
   },
   'Nuna:::TAVO next': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna TAVO next stroller'),
   },
   'Nuna:::SWIV': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna SWIV stroller'),
   },
   'Nuna:::TRVL Dubl': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=nuna'),
     amazonUrl: amazonSearch('Nuna TRVL Dubl stroller'),
   },
 
   // UPPAbaby
   'UPPAbaby:::Vista V2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonDp('B08H2GXCWK'),
   },
   'UPPAbaby:::Vista V3': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Vista V3 stroller'),
   },
   'UPPAbaby:::Cruz V2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonDp('B08H2GXCWK'),
   },
   'UPPAbaby:::Cruz V3': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Cruz V3 stroller'),
   },
   'UPPAbaby:::Minu V2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Minu V2 stroller'),
   },
   'UPPAbaby:::Minu V3': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Minu V3 stroller'),
   },
   'UPPAbaby:::Ridge': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Ridge stroller'),
   },
 
   // CYBEX
   'CYBEX:::Balios S Lux': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Balios S Lux stroller'),
   },
   'CYBEX:::Gazelle S': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Gazelle S stroller'),
   },
   'CYBEX:::Libelle': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Libelle stroller'),
   },
   'CYBEX:::Priam': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Priam stroller'),
   },
   'CYBEX:::Mios': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Mios stroller'),
   },
   'CYBEX:::Eezy S Twist': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Eezy S Twist stroller'),
   },
   'CYBEX:::Melio': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Melio stroller'),
   },
   'CYBEX:::Beezy': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Beezy stroller'),
   },
   'CYBEX:::Coya': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Coya stroller'),
   },
   'CYBEX:::Eos': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Eos stroller'),
   },
 
   // Silver Cross
   'Silver Cross:::Reef 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Reef 2 stroller'),
   },
   'Silver Cross:::Wave 3': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Wave 3 stroller'),
   },
   'Silver Cross:::Jet 5': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Jet 5 stroller'),
   },
   'Silver Cross:::Clic': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Clic stroller'),
   },
   'Silver Cross:::Dune 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Dune 2 stroller'),
   },
   'Silver Cross:::Comet': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Comet stroller'),
   },
   'Silver Cross:::Jet Double': {
@@ -210,55 +227,55 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
 
   // Mockingbird
   'Mockingbird:::Single 3.0': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=mockingbird',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=mockingbird'),
     amazonUrl: amazonSearch('Mockingbird Single 3.0 stroller'),
   },
   'Mockingbird:::Single-to-Double 3.0': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=mockingbird',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=mockingbird'),
     amazonUrl: amazonSearch('Mockingbird Single to Double 3.0 stroller'),
   },
 
   // Baby Jogger
   'Baby Jogger:::City Select 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City Select 2 stroller'),
   },
   'Baby Jogger:::City Tour 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City Tour 2 stroller'),
   },
   'Baby Jogger:::City Mini 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonDp('B08C9XSM1V'),
   },
   'Baby Jogger:::City Mini GT2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City Mini GT2 stroller'),
   },
   'Baby Jogger:::City Mini Double': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City Mini Double stroller'),
   },
   'Baby Jogger:::City Sights': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City Sights stroller'),
   },
 
   // BOB
   'BOB:::Revolution Flex 3.0': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bob',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
     amazonUrl: amazonSearch('BOB Revolution Flex 3.0 jogging stroller'),
   },
   'BOB:::Revolution Flex 3.0 Duallie': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bob',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
     amazonUrl: amazonSearch('BOB Revolution Flex 3.0 Duallie'),
   },
   'BOB:::Wayfinder': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bob',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
     amazonUrl: amazonSearch('BOB Wayfinder jogging stroller'),
   },
   'BOB:::Rambler': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bob',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
     amazonUrl: amazonSearch('BOB Rambler jogging stroller'),
   },
   'BOB:::Alterrain Pro': {
@@ -270,61 +287,61 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
 
   // Bumbleride
   'Bumbleride:::Indie': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bumbleride',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bumbleride'),
     amazonUrl: amazonSearch('Bumbleride Indie stroller'),
   },
   'Bumbleride:::Speed': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bumbleride',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bumbleride'),
     amazonUrl: amazonSearch('Bumbleride Speed stroller'),
   },
   'Bumbleride:::Indie Twin': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bumbleride',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bumbleride'),
     amazonUrl: amazonSearch('Bumbleride Indie Twin stroller'),
   },
   'Bumbleride:::Era': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=bumbleride',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bumbleride'),
     amazonUrl: amazonSearch('Bumbleride Era stroller'),
   },
 
   // Stokke
   'Stokke:::Yoyo 3': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=stokke',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=stokke'),
     amazonUrl: amazonSearch('Stokke Yoyo 3 stroller'),
   },
 
   // Thule
   'Thule:::Urban Glide 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=thule',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=thule'),
     amazonUrl: amazonSearch('Thule Urban Glide 2 jogging stroller'),
   },
   'Thule:::Urban Glide 2 Double': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=thule',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=thule'),
     amazonUrl: amazonSearch('Thule Urban Glide 2 Double stroller'),
   },
   'Thule:::Sleek': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=thule',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=thule'),
     amazonUrl: amazonSearch('Thule Sleek stroller'),
   },
 
   // Joolz
   'Joolz:::Hub 2': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=joolz',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
     amazonUrl: amazonSearch('Joolz Hub 2 stroller'),
   },
   'Joolz:::Hub': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=joolz',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
     amazonUrl: amazonSearch('Joolz Hub stroller'),
   },
   'Joolz:::Day': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=joolz',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
     amazonUrl: amazonSearch('Joolz Day stroller'),
   },
   'Joolz:::Geo': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=joolz',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
     amazonUrl: amazonSearch('Joolz Geo stroller'),
   },
   'Joolz:::Aer+': {
-    babylistUrl: 'https://www.babylist.com/store/strollers?brand=joolz',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
     amazonUrl: amazonSearch('Joolz Aer+ travel stroller'),
   },
 
@@ -396,115 +413,115 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     amazonUrl: amazonSearch('Nuna PIPA RX infant car seat'),
   },
   'Nuna:::PIPA Lite RX': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=nuna'),
     amazonUrl: amazonSearch('Nuna PIPA Lite RX infant car seat'),
   },
   'Nuna:::PIPA urbn': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=nuna'),
     amazonUrl: amazonSearch('Nuna PIPA urbn infant car seat'),
   },
   'Nuna:::PIPA Aire rx': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=nuna',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=nuna'),
     amazonUrl: amazonSearch('Nuna PIPA Aire rx infant car seat'),
   },
 
   // Bugaboo
   'Bugaboo:::Turtle Air': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Turtle Air by Nuna infant car seat'),
   },
   'Bugaboo:::Turtle One': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=bugaboo',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Turtle One by Nuna infant car seat'),
   },
 
   // UPPAbaby
   'UPPAbaby:::Aria': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Aria infant car seat'),
   },
   'UPPAbaby:::Aria V2': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Aria V2 infant car seat'),
   },
   'UPPAbaby:::Mesa Max': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=uppababy',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
     amazonUrl: amazonSearch('UPPAbaby Mesa Max infant car seat'),
   },
 
   // CYBEX
   'CYBEX:::Aton G': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=cybex',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=cybex'),
     amazonUrl: amazonSearch('CYBEX Aton G infant car seat'),
   },
 
   // Silver Cross
   'Silver Cross:::Glide Plus 360': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Glide Plus 360 infant car seat'),
   },
   'Silver Cross:::Dream i-Size': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=silver-cross',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=silver-cross'),
     amazonUrl: amazonSearch('Silver Cross Dream i-Size infant car seat'),
   },
 
   // Britax
   'Britax:::Willow S': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=britax',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=britax'),
     amazonUrl: amazonSearch('Britax Willow S infant car seat'),
   },
   'Britax:::Cypress S': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=britax',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=britax'),
     amazonUrl: amazonSearch('Britax Cypress S infant car seat'),
   },
 
   // Baby Jogger
   'Baby Jogger:::City GO 2': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=baby-jogger',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=baby-jogger'),
     amazonUrl: amazonSearch('Baby Jogger City GO 2 infant car seat'),
   },
 
   // Maxi-Cosi
   'Maxi-Cosi:::Mico Luxe': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=maxi-cosi',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
     amazonUrl: amazonSearch('Maxi-Cosi Mico Luxe infant car seat'),
   },
   'Maxi-Cosi:::Mico Pro': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=maxi-cosi',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
     amazonUrl: amazonSearch('Maxi-Cosi Mico Pro infant car seat'),
   },
   'Maxi-Cosi:::Coral XP': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=maxi-cosi',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
     amazonUrl: amazonSearch('Maxi-Cosi Coral XP infant car seat'),
   },
   'Maxi-Cosi:::Peri 180': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=maxi-cosi',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
     amazonUrl: amazonSearch('Maxi-Cosi Peri 180 infant car seat'),
   },
 
   // Chicco
   'Chicco:::KeyFit 35': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=chicco',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=chicco'),
     amazonUrl: amazonSearch('Chicco KeyFit 35 infant car seat'),
   },
   'Chicco:::Fit2': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=chicco',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=chicco'),
     amazonUrl: amazonSearch('Chicco Fit2 infant car seat'),
   },
 
   // Clek
   'Clek:::Liing': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=clek',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=clek'),
     amazonUrl: amazonSearch('Clek Liing infant car seat'),
   },
   'Clek:::Liingo': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=clek',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=clek'),
     amazonUrl: amazonSearch('Clek Liingo infant car seat'),
   },
 
   // Stokke
   'Stokke:::PIPA': {
-    babylistUrl: 'https://www.babylist.com/store/car-seats?brand=stokke',
+    babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=stokke'),
     amazonUrl: amazonSearch('Stokke PIPA infant car seat'),
   },
 

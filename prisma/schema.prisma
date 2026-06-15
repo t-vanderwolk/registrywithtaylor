@@ -24,6 +24,7 @@ model User {
   posts          Post[]         @relation("PrimaryPostAuthor")
   authoredPosts  PostAuthor[]
   moduleNotes    ModuleNote[]
+  registries     Registry[]
 }
 
 model Post {
@@ -534,7 +535,38 @@ model WorkbookResponse {
   @@index([sessionId])
 }
 
+// ─── Member registry links ────────────────────────────────────────────────────
+// Members submit their registry URLs so Taylor can review them before
+// a consultation. One User can have multiple Registry records (one per platform).
+
+model Registry {
+  id             String   @id @default(cuid())
+  userId         String
+  platform       Platform
+  name           String?
+  url            String
+  itemCount      Int?
+  completedCount Int?
+  notes          String?
+  isPublic       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([platform])
+}
+
 // ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Platform {
+  BABYLIST
+  AMAZON
+  TARGET
+  BUYBUYBABY
+  WALMART
+  OTHER
+}
 
 enum Role {
   USER

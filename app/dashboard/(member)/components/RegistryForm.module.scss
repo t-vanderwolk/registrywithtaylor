@@ -1,0 +1,122 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.form {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border-radius: $radius-soft;
+  border: 1px solid rgba(215, 161, 175, 0.28);
+  background: rgba(255, 253, 252, 0.95);
+
+  @include sm {
+    padding: 1.5rem;
+  }
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.formTitle {
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.cancelBtn {
+  font-family: $font-sans;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+
+  &:hover { color: #444; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+// ─── Fields ───────────────────────────────────────────────────────────────────
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+  margin-bottom: 1.1rem;
+}
+
+.label {
+  font-family: $font-sans;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.optional {
+  font-weight: 400;
+  color: #aaa;
+}
+
+.input {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid rgba(215, 161, 175, 0.3);
+  border-radius: 0.625rem;
+  padding: 0.6rem 0.875rem;
+  width: 100%;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &::placeholder { color: #bbb; }
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba(215, 161, 175, 0.2);
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 4rem;
+  line-height: 1.6;
+}
+
+// ─── Error ────────────────────────────────────────────────────────────────────
+
+.error {
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  color: #c00;
+  margin: 0 0 1rem;
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.submitBtn {
+  @include btn-primary;
+  font-size: 0.85rem;
+}

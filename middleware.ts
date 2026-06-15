@@ -40,6 +40,15 @@ function isLearnGated(pathname: string): boolean {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // ── Registry API guard ────────────────────────────────────────────────────
+  if (pathname.startsWith('/api/registry')) {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    return NextResponse.next();
+  }
+
   // ── Admin guard ────────────────────────────────────────────────────────────
   if (pathname.startsWith('/admin')) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -124,5 +133,9 @@ export const config = {
     '/learn/:path+',
     // Gate all /academy/* routes — /academy itself (the landing page) is public
     '/academy/:path+',
+    // Registry API — also protected at the route level, but middleware adds
+    // an early 401 layer so unauthenticated requests never reach the handler
+    '/api/registry',
+    '/api/registry/:path*',
   ],
 };

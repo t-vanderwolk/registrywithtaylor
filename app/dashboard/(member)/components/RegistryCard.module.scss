@@ -1,0 +1,194 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: $radius-soft;
+  border: 1px solid rgba(215, 161, 175, 0.18);
+  background: rgba(255, 255, 255, 0.85);
+  transition: box-shadow 180ms ease;
+
+  &:hover {
+    box-shadow: $shadow-panel;
+  }
+
+  @include sm {
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+// ─── Icon ─────────────────────────────────────────────────────────────────────
+
+.iconWrap {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  background: var(--platform-bg, rgba(215, 161, 175, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+// ─── Content ──────────────────────────────────────────────────────────────────
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.platformLabel {
+  font-family: $font-sans;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.name {
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  font-family: $font-sans;
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: #888;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  transition: background 130ms ease, color 130ms ease, border-color 130ms ease;
+
+  &:hover {
+    background: $tmbc-soft-pink;
+    color: var(--color-accent-dark);
+    border-color: rgba(215, 161, 175, 0.3);
+  }
+}
+
+.deleteBtn {
+  &:hover {
+    background: rgba(204, 0, 0, 0.07);
+    color: #c00;
+    border-color: rgba(204, 0, 0, 0.2);
+  }
+}
+
+.deleteConfirmBtn {
+  color: #c00;
+  border-color: rgba(204, 0, 0, 0.3);
+
+  &:hover {
+    background: rgba(204, 0, 0, 0.1);
+    color: #c00;
+    border-color: rgba(204, 0, 0, 0.4);
+  }
+}
+
+.confirmRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.confirmText {
+  font-family: $font-sans;
+  font-size: 0.77rem;
+  color: #c00;
+  font-weight: 600;
+}
+
+// ─── URL ──────────────────────────────────────────────────────────────────────
+
+.url {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+
+  &:hover { opacity: 1; }
+}
+
+// ─── Progress ─────────────────────────────────────────────────────────────────
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.progressTrack {
+  @include progress-track;
+}
+
+.progressFill {
+  @include progress-fill;
+}
+
+.progressLabel {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+// ─── Notes ────────────────────────────────────────────────────────────────────
+
+.notes {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: #777;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0.6rem 0.875rem;
+  border-left: 2px solid rgba(215, 161, 175, 0.4);
+  border-radius: 0 0.25rem 0.25rem 0;
+  background: rgba(215, 161, 175, 0.05);
+}

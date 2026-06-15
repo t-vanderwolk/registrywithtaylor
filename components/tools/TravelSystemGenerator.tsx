@@ -170,11 +170,17 @@ function AffiliateBuyButtons({ brand, model }: { brand: string; model: string })
           href={links.babylistUrl}
           target="_blank"
           rel="sponsored nofollow noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeOpacity="0.5" />
-            <path d="M4.5 7h5M7 4.5l2.5 2.5L7 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Babylist heart logo */}
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+            <path
+              d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
+              fill="#f26b8a"
+              stroke="#f26b8a"
+              strokeWidth="0.5"
+              strokeLinejoin="round"
+            />
           </svg>
           View on Babylist
         </a>
@@ -184,11 +190,15 @@ function AffiliateBuyButtons({ brand, model }: { brand: string; model: string })
           href={links.amazonUrl}
           target="_blank"
           rel="sponsored nofollow noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(0,0,0,0.09)] bg-white px-4 py-2 text-[0.78rem] font-semibold text-neutral-700 transition duration-150 hover:bg-neutral-50"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(0,0,0,0.09)] bg-white px-4 py-2 text-[0.78rem] font-semibold text-neutral-700 transition duration-150 hover:bg-neutral-50"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeOpacity="0.4" />
-            <path d="M4.5 7h5M7 4.5l2.5 2.5L7 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Amazon "a" + smile logo */}
+          <svg width="18" height="15" viewBox="0 0 18 15" fill="none" aria-hidden="true">
+            <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
+            {/* orange smile arc — control point kept inside viewBox */}
+            <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+            {/* arrowhead at end of arc */}
+            <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           </svg>
           Check price on Amazon
         </a>

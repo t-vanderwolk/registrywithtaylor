@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import AdminTable from '@/components/admin/ui/AdminTable';
 
 type Learner = {
@@ -71,9 +72,13 @@ function ProgressBar({ value, total }: { value: number; total: number }) {
 export default function EnrolledTable({
   learners,
   progressByLearner,
+  registryCountByEmail,
+  userIdByEmail,
 }: {
-  learners: Learner[];
-  progressByLearner: Record<string, Record<string, PathProgress>>;
+  learners:              Learner[];
+  progressByLearner:     Record<string, Record<string, PathProgress>>;
+  registryCountByEmail:  Record<string, number>;
+  userIdByEmail:         Record<string, string>;
 }) {
   return (
     <AdminTable
@@ -81,6 +86,7 @@ export default function EnrolledTable({
       columns={[
         { key: 'email',      label: 'Member' },
         { key: 'tier',       label: 'Tier' },
+        { key: 'registries', label: 'Registries' },
         { key: 'registry',   label: 'Registry' },
         { key: 'nursery',    label: 'Nursery' },
         { key: 'gear',       label: 'Gear' },
@@ -90,8 +96,10 @@ export default function EnrolledTable({
       ]}
     >
       {learners.map((learner) => {
-        const byPath   = progressByLearner[learner.id] ?? {};
-        const lastSeenAt = Object.values(byPath)
+        const byPath         = progressByLearner[learner.id] ?? {};
+        const registryCount  = registryCountByEmail[learner.email] ?? 0;
+        const userId         = userIdByEmail[learner.email] ?? null;
+        const lastSeenAt     = Object.values(byPath)
           .map((p) => p.lastSeenAt)
           .filter(Boolean)
           .sort()
@@ -104,12 +112,31 @@ export default function EnrolledTable({
               {learner.name && (
                 <div className="admin-micro mt-0.5 text-neutral-400">{learner.name}</div>
               )}
+              {userId && (
+                <Link
+                  href={`/admin/members/${userId}`}
+                  className="admin-micro mt-0.5 text-[var(--color-accent-dark)] underline hover:opacity-75"
+                >
+                  View details →
+                </Link>
+              )}
             </td>
 
             <td>
               <span className={TIER_CLASSES[learner.subscriptionTier] ?? 'admin-chip'}>
                 {learner.subscriptionTier}
               </span>
+            </td>
+
+            {/* ── Registries column ─────────────────────────────────────────── */}
+            <td>
+              {registryCount > 0 ? (
+                <span className="admin-chip admin-chip--published">
+                  {registryCount} saved
+                </span>
+              ) : (
+                <span className="admin-micro text-neutral-300">—</span>
+              )}
             </td>
 
             {(['registry', 'nursery', 'gear', 'postpartum'] as const).map((path) => {

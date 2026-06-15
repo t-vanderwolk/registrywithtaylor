@@ -17,7 +17,7 @@ export const metadata = {
 export default async function AdminMembersPage() {
   await requireAdminSession('/admin/members');
 
-  const [waitlist, learners, progressRows, workbookRows] = await Promise.all([
+  const [waitlist, learners, progressRows, workbookRows, users, registryCounts] = await Promise.all([
     prisma.waitlistEntry.findMany({
       orderBy: { createdAt: 'desc' },
     }),
@@ -36,17 +36,27 @@ export default async function AdminMembersPage() {
       where: { learnerId: { not: null } },
       _count: { moduleSlug: true },
     }),
+    // User records to bridge Learner.email → User.id → Registry
+    prisma.user.findMany({
+      select: { id: true, email: true },
+    }),
+    // Registry counts by User.id
+    prisma.registry.groupBy({
+      by:    ['userId'],
+      _count: { id: true },
+    }),
   ]);
 
-  // Build a map: learnerId → { pathSlug → { modules, lastSeenAt } }
+  // ── Build progress map: learnerId → { pathSlug → PathProgress } ─────────────
+
   type PathProgress = { modules: number; lastSeenAt: Date | null; workbookModules: number };
   const progressMap = new Map<string, Map<string, PathProgress>>();
 
   for (const row of progressRows) {
     if (!progressMap.has(row.learnerId)) progressMap.set(row.learnerId, new Map());
     progressMap.get(row.learnerId)!.set(row.pathSlug, {
-      modules:      row._count.moduleSlug,
-      lastSeenAt:   row._max.lastSeenAt ?? null,
+      modules:         row._count.moduleSlug,
+      lastSeenAt:      row._max.lastSeenAt ?? null,
       workbookModules: 0,
     });
   }
@@ -59,7 +69,10 @@ export default async function AdminMembersPage() {
   }
 
   // Convert to serialisable shape for the client component
-  const progressByLearner: Record<string, Record<string, { modules: number; lastSeenAt: string | null; workbookModules: number }>> = {};
+  const progressByLearner: Record<
+    string,
+    Record<string, { modules: number; lastSeenAt: string | null; workbookModules: number }>
+  > = {};
   for (const [learnerId, byPath] of progressMap) {
     progressByLearner[learnerId] = {};
     for (const [pathSlug, data] of byPath) {
@@ -70,6 +83,28 @@ export default async function AdminMembersPage() {
       };
     }
   }
+
+  // ── Registry counts: learnerId.email → count ─────────────────────────────────
+
+  // Map User.id → count
+  const registryCountByUserId: Record<string, number> = {};
+  for (const row of registryCounts) {
+    registryCountByUserId[row.userId] = row._count.id;
+  }
+  // Map User.email → User.id
+  const userIdByEmail: Record<string, string> = {};
+  for (const u of users) {
+    userIdByEmail[u.email] = u.id;
+  }
+  // Map Learner.email → registryCount (via User.id)
+  const registryCountByEmail: Record<string, number> = {};
+  for (const learner of learners) {
+    const uid   = userIdByEmail[learner.email];
+    const count = uid ? (registryCountByUserId[uid] ?? 0) : 0;
+    if (count > 0) registryCountByEmail[learner.email] = count;
+  }
+
+  // ── Waitlist splits ──────────────────────────────────────────────────────────
 
   type WEntry = (typeof waitlist)[number];
   const pending  = waitlist.filter((e: WEntry) => e.status === 'pending');
@@ -109,7 +144,12 @@ export default async function AdminMembersPage() {
           {learners.length === 0 ? (
             <p className="admin-micro">No enrolled members yet.</p>
           ) : (
-            <EnrolledTable learners={learners} progressByLearner={progressByLearner} />
+            <EnrolledTable
+              learners={learners}
+              progressByLearner={progressByLearner}
+              registryCountByEmail={registryCountByEmail}
+              userIdByEmail={userIdByEmail}
+            />
           )}
         </AdminSurface>
 
