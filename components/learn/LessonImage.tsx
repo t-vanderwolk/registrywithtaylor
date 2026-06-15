@@ -4,37 +4,35 @@ type LessonImageProps = {
   src: string;
   alt: string;
   caption?: string;
+  /** @deprecated — no longer enforces a crop ratio; kept for call-site compat */
   aspectRatio?: '16/9' | '4/3' | '3/2';
   priority?: boolean;
-};
-
-const aspectClasses = {
-  '16/9': 'aspect-video',
-  '4/3': 'aspect-[4/3]',
-  '3/2': 'aspect-[3/2]',
 };
 
 export default function LessonImage({
   src,
   alt,
   caption,
-  aspectRatio = '4/3',
   priority = false,
 }: LessonImageProps) {
   return (
-    <figure className="my-1">
-      <div
-        className={`relative w-full overflow-hidden rounded-[1.35rem] border border-[rgba(215,161,175,0.18)] shadow-[0_12px_32px_rgba(58,36,43,0.07)] ${aspectClasses[aspectRatio]}`}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority={priority}
-          className="object-cover"
-          sizes="(min-width: 896px) 800px, 100vw"
-        />
-      </div>
+    <figure className="my-6">
+      <Image
+        src={src}
+        alt={alt}
+        width={1200}
+        height={900}
+        priority={priority}
+        sizes="(min-width: 768px) 700px, 100vw"
+        style={{
+          width: '100%',
+          height: 'auto',
+          display: 'block',
+          borderRadius: '1.35rem',
+          boxShadow: '0 12px 32px rgba(58,36,43,0.07)',
+          border: '1px solid rgba(215,161,175,0.18)',
+        }}
+      />
       {caption && (
         <figcaption className="mt-2.5 text-center text-[0.77rem] leading-snug text-neutral-400">
           {caption}

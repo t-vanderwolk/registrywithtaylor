@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Fragment } from 'react';
 import type { ReactNode } from 'react';
 
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
@@ -323,25 +324,10 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
       />
 
       {/* ─── Main lesson body ──────────────────────────────────────────── */}
-      <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
+      <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
         <div className="space-y-14">
 
-          {/* 1. Overview */}
-          <LessonSection eyebrow="Overview" title={module.subhead}>
-            {module.intro.map((paragraph, index) => (
-              <p key={`intro-${index}`}>{paragraph}</p>
-            ))}
-            {module.imagePath && (
-              <LessonImage
-                src={module.imagePath}
-                alt={module.imageAlt}
-                priority
-                aspectRatio="4/3"
-              />
-            )}
-          </LessonSection>
-
-          {/* 2. What you'll learn */}
+          {/* 1. What you'll learn — teaser card before the article */}
           {module.decisionBullets.length > 0 && (
             <div className="rounded-[1.45rem] border border-[rgba(232,154,174,0.22)] bg-[linear-gradient(135deg,rgba(255,248,250,0.95)_0%,rgba(255,255,255,0.98)_100%)] px-6 py-7 shadow-[0_8px_24px_rgba(72,49,56,0.06)] sm:px-8">
               <div className="flex items-center gap-2.5">
@@ -374,56 +360,40 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             </div>
           )}
 
-          <LessonDivider />
+          {/* 2. Prose — intro + all core sections as editorial article */}
+          <div className="tmbc-blog">
+            {/* Intro paragraphs — first gets the larger lead treatment */}
+            {module.intro.map((paragraph, index) => (
+              <p key={`intro-${index}`}>{paragraph}</p>
+            ))}
 
-          {/* 3. Core lesson sections */}
-          {module.coreSections.length > 0 && (
-            <div className="space-y-10">
-              <div className="flex items-center gap-3">
-                <div
-                  className="h-px flex-1 rounded-full"
-                  style={{ background: 'linear-gradient(90deg, rgba(215,161,175,0.35) 0%, transparent 100%)' }}
-                  aria-hidden
-                />
-                <p className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/65">
-                  Core Lesson
-                </p>
-                <div
-                  className="h-px flex-1 rounded-full"
-                  style={{ background: 'linear-gradient(270deg, rgba(215,161,175,0.35) 0%, transparent 100%)' }}
-                  aria-hidden
-                />
-              </div>
+            {/* Intro image */}
+            {module.imagePath && (
+              <LessonImage
+                src={module.imagePath}
+                alt={module.imageAlt}
+                priority
+                aspectRatio="4/3"
+              />
+            )}
 
-              {module.coreSections.map((section, index) => (
-                <div
-                  key={`section-${index}`}
-                  className="relative rounded-[1.35rem] border border-[rgba(215,161,175,0.14)] bg-white/70 px-6 py-7 shadow-[0_6px_20px_rgba(72,49,56,0.04)] backdrop-blur-sm sm:px-8 sm:py-8"
-                >
-                  {/* Left accent stripe */}
-                  <div
-                    className="absolute left-0 top-8 h-10 w-0.5 rounded-r-full bg-[var(--color-accent)]"
-                    aria-hidden
+            {/* Core sections as h2 + p — blog CSS handles all styling */}
+            {module.coreSections.map((section, index) => (
+              <Fragment key={`section-${index}`}>
+                <h2>{section.title}</h2>
+                {section.imageSrc && (
+                  <LessonImage
+                    src={section.imageSrc}
+                    alt={section.imageAlt ?? ''}
+                    caption={section.imageCaption}
                   />
-                  <LessonSection
-                    stepNumber={index + 1}
-                    title={section.title}
-                  >
-                    {section.imageSrc && (
-                      <LessonImage
-                        src={section.imageSrc}
-                        alt={section.imageAlt}
-                        caption={section.imageCaption}
-                      />
-                    )}
-                    {section.paragraphs.map((paragraph, pIndex) => (
-                      <p key={`section-${index}-p-${pIndex}`}>{paragraph}</p>
-                    ))}
-                  </LessonSection>
-                </div>
-              ))}
-            </div>
-          )}
+                )}
+                {section.paragraphs.map((paragraph, pIndex) => (
+                  <p key={`p-${index}-${pIndex}`}>{paragraph}</p>
+                ))}
+              </Fragment>
+            ))}
+          </div>
 
           <LessonDivider />
 
