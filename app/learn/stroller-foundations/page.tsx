@@ -565,7 +565,7 @@ export default function StrollerFoundationsPage() {
               body="The full Taylor-Made Baby Academy goes deeper on strollers, car seats, nursery setup, registry strategy, and postpartum preparation — all in the same calm, practical format."
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
-              secondaryLabel="Book a Consultation"
+              secondaryLabel="Book a Free Consultation"
               secondaryHref="/consultation"
             />
           </div>

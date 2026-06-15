@@ -290,7 +290,7 @@ export default function RegistryTimelinePage() {
               body="The full Taylor-Made Baby Academy walks you step by step through registry planning, nursery setup, gear decisions, and postpartum preparation."
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
-              secondaryLabel="Book a Consultation"
+              secondaryLabel="Book a Free Consultation"
               secondaryHref="/consultation"
             />
           </div>

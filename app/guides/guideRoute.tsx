@@ -415,7 +415,7 @@ export async function renderGuideRoute({
           eyebrow={pillar.eyebrow}
           title={pillar.title}
           subtitle={pillar.overview}
-          primaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
+          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
           secondaryCta={{ label: 'Explore the Guides', href: '/learn' }}
           tagline={pillar.shortTitle}
           image={fallbackGuideHeroImage}

@@ -20,7 +20,7 @@ export default function HeroSection({
   title,
   description,
   primaryCtaHref = '/consultation',
-  primaryCtaLabel = 'Book a Consultation',
+  primaryCtaLabel = 'Book a Free Consultation',
   secondaryCtaHref = '/academy',
   secondaryCtaLabel = 'Explore the Academy',
   highlights = [],

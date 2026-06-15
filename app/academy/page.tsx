@@ -13,6 +13,67 @@ import {
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 const home = getAcademyHomeData();
+
+const ACADEMY_PATHS_PREVIEW = [
+  {
+    slug: 'registry',
+    label: 'Registry Path',
+    title: 'The Art of the Registry',
+    modules: [
+      { title: 'What to Register First', subhead: 'Think in daily jobs, not shopping categories.' },
+      { title: 'Where to Register', subhead: 'Choose the platform, not the branding.' },
+      { title: 'Shop Local & Get Support', subhead: 'Some gear requires physical contact. Most does not.' },
+      { title: 'Welcome Boxes & Registry Perks', subhead: 'Treat samples like research data, not free stuff.' },
+      { title: 'Loyalty, Rewards & Completion Discounts', subhead: 'The completion discount works best when you use it last.' },
+      { title: 'Smart Purchasing Timeline', subhead: 'Three phases of baby buying, and what belongs in each one.' },
+      { title: 'Registry Mistakes to Avoid', subhead: 'Five named traps that make registries longer without making them better.' },
+      { title: 'Baby Showers & Gifting Strategy', subhead: 'The shower is a logistics event. Plan it like one.' },
+    ],
+  },
+  {
+    slug: 'gear',
+    label: 'Gear Path',
+    title: 'Baby Gear, Simplified',
+    modules: [
+      { title: 'How to Think About Baby Gear', subhead: 'Three variables. Every gear decision, forever.' },
+      { title: 'Stroller Foundations', subhead: 'Choose your lane, then choose your stroller.' },
+      { title: 'Car Seat Foundations', subhead: 'Understand the stage architecture, then let your car decide.' },
+      { title: 'Travel Systems', subhead: 'Compatibility is a yes or no question. Plan it like one.' },
+      { title: 'Travel With Baby', subhead: 'Four kinds of travel. Four different setups.' },
+      { title: 'Daily Use Gear', subhead: 'Ask how often before you ask how much.' },
+      { title: 'Feeding Setup & Flow', subhead: 'You are not choosing isolated products. You are building the system that has to work on a regular Tuesday.' },
+      { title: 'Breast Pump', subhead: 'Choose the pump for the frequency, not the feature list.' },
+      { title: 'Bottles & Baby Utensils', subhead: 'Nipple flow first. Quantity second. Brand last.' },
+    ],
+  },
+  {
+    slug: 'nursery',
+    label: 'Nursery Path',
+    title: 'Nursery That Works',
+    modules: [
+      { title: 'Vision & Lifestyle Foundations', subhead: 'Four questions before any product decisions.' },
+      { title: 'Sleep Space Decisions', subhead: 'Four sleep jobs. Not one perfect product.' },
+      { title: 'Furniture That Actually Works', subhead: 'Three pieces. One real decision. One honest evaluation.' },
+      { title: 'Layout & Flow', subhead: 'Design the room for 2 AM, and it works fine at noon too.' },
+      { title: 'Storage & Organization', subhead: 'Not how tidy it looks. How fast it resets.' },
+      { title: 'Atmosphere & Safety', subhead: 'Safe sleep is what you remove. Atmosphere is what you add.' },
+    ],
+  },
+  {
+    slug: 'postpartum',
+    label: 'Postpartum Path',
+    title: 'The Fourth Trimester',
+    modules: [
+      { title: 'Healing & Recovery', subhead: 'Three phases. Not one blob called "recovery."' },
+      { title: 'First-Weeks Home Rhythm', subhead: 'The anchor station approach to surviving the first stretch.' },
+      { title: 'Feeding & Lactation', subhead: 'A fed baby is the goal. The path is yours to choose.' },
+      { title: 'Rest & Sleep', subhead: 'Sleep debt is a logistics problem, not a personal one.' },
+      { title: 'Emotional Wellness & Identity', subhead: 'Baby blues, PPD, and the identity shift that does not have a name.' },
+      { title: 'Support Systems', subhead: 'Specific asks, built before you need them.' },
+    ],
+  },
+] as const;
+
 const ENTRY_PATHS = [
   {
     title: "I don't know where to start",
@@ -78,7 +139,7 @@ export default function AcademyHomePage() {
           title={home.title}
           subtitle={home.description}
           primaryCta={{ label: 'Start with Registry', href: '/academy/registry' }}
-          secondaryCta={{ label: 'Book a Consultation', href: '/consultation' }}
+          secondaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
           tagline="Registry • Nursery • Gear • Postpartum"
           image="/assets/hero/hero-baby-editorial-v2.jpg"
           imageAlt="TMBC Baby Academy hero image"
@@ -178,6 +239,59 @@ export default function AcademyHomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section className="border-t border-black/5 bg-[#fffbf9]">
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 md:py-20 lg:px-10">
+            <div className="mb-10 max-w-2xl">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#A15B72]">Inside the Academy</p>
+              <h2 className="mt-3 font-serif text-[1.95rem] leading-[0.98] tracking-[-0.05em] text-neutral-900 sm:text-[2.7rem]">
+                29 modules. Four paths. One decision at a time.
+              </h2>
+              <p className="mt-5 text-[0.98rem] leading-7 text-neutral-600">
+                Each module covers one concept clearly. The paths build in order — start wherever the noise is loudest.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {ACADEMY_PATHS_PREVIEW.map((path) => (
+                <div
+                  key={path.slug}
+                  className="rounded-[1.75rem] border border-[rgba(226,150,173,0.16)] bg-white px-7 py-7 shadow-[0_16px_40px_rgba(58,36,43,0.06)]"
+                >
+                  <p className="text-[0.67rem] uppercase tracking-[0.22em] text-[#A15B72]">
+                    {path.label} · {path.modules.length} modules
+                  </p>
+                  <h3 className="mt-2 font-serif text-[1.35rem] tracking-[-0.03em] text-neutral-900">
+                    {path.title}
+                  </h3>
+                  <ul className="mt-5">
+                    {path.modules.map((module, i) => (
+                      <li
+                        key={module.title}
+                        className="flex items-start gap-3 border-t border-black/[0.05] py-3 first:border-0 first:pt-0"
+                      >
+                        <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(217,134,162,0.12)] text-[0.65rem] font-semibold text-[#A15B72]">
+                          {i + 1}
+                        </span>
+                        <div>
+                          <p className="text-[0.95rem] font-medium leading-snug text-neutral-900">{module.title}</p>
+                          <p className="mt-0.5 text-[0.84rem] italic leading-snug text-neutral-500">{module.subhead}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-8 text-center text-[0.9rem] text-neutral-500">
+              Full Academy access unlocks when enrollment opens.{' '}
+              <Link href="/learn/waitlist" className="font-medium text-neutral-900 underline underline-offset-2">
+                Join the waitlist →
+              </Link>
+            </p>
           </div>
         </section>
 

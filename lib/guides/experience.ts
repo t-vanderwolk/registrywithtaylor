@@ -621,7 +621,7 @@ export function getGuideBlogRecommendations({
 export function getGuideConsultationCta(label?: string | null) {
   return {
     href: '/consultation',
-    label: label?.trim() || 'Book a Consultation',
+    label: label?.trim() || 'Book a Free Consultation',
   };
 }
 

@@ -283,7 +283,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
     },
     {
       href: '/consultation',
-      label: 'Book a Consultation',
+      label: 'Book a Free Consultation',
       description: 'Get help turning the calmer daily-use plan into the actual shortlist and buy-now decisions.',
       stage: 'Refine',
     },
@@ -1137,7 +1137,7 @@ export function getDefaultNextSteps({
   const masterNextLink = masterNextLane
     ? {
         href: masterNextLane.href,
-        label: masterNextLane.slug === 'buy' ? 'Book a Consultation' : `Next: ${masterNextLane.title}`,
+        label: masterNextLane.slug === 'buy' ? 'Book a Free Consultation' : `Next: ${masterNextLane.title}`,
         description:
           masterNextLane.slug === 'buy'
             ? 'You have reached the end of the core TMBC path. Book support when you want help turning the clearer plan into an actual shortlist and buying decision.'

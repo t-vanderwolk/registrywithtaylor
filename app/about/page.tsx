@@ -77,8 +77,8 @@ export default async function AboutPage() {
             <RevealOnScroll delayMs={120}>
               <div className="space-y-6 text-left">
                 <Body className="text-neutral-700">
-                  Here&apos;s the tea: baby gear gets confusing fast, and the early decisions matter more than they
-                  look at first.
+                  Baby gear decisions arrive fast and compound quickly. The early choices shape the first year in ways
+                  most families only understand after the fact.
                 </Body>
 
                 <Body className="text-neutral-700">

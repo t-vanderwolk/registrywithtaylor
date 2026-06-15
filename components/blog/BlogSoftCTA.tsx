@@ -87,9 +87,9 @@ export default function BlogSoftCTA({
             href="/book"
             className="btn btn--primary w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
             data-analytics-managed="true"
-            onClick={() => trackBlogCta('/book', 'Book a Consultation')}
+            onClick={() => trackBlogCta('/book', 'Book a Free Consultation')}
           >
-            <MotionCtaContent>Book a Consultation</MotionCtaContent>
+            <MotionCtaContent>Book a Free Consultation</MotionCtaContent>
           </Link>
           <Link
             href="/contact"

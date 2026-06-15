@@ -98,7 +98,7 @@ export default async function NewAcademyPage({
           affiliateDisclosurePlacement: 'before_affiliates',
           affiliateModules: [],
           consultationCtaEnabled: true,
-          consultationCtaLabel: 'Book a Consultation',
+          consultationCtaLabel: 'Book a Free Consultation',
           newsletterCtaEnabled: false,
           newsletterCtaLabel: '',
           newsletterCtaDescription: '',

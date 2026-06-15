@@ -75,7 +75,7 @@ export default function AuthorityProfile({
 
           <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
             <Link href="/consultation" className="btn btn--primary w-full sm:w-auto">
-              <MotionCtaContent>Book a Consultation</MotionCtaContent>
+              <MotionCtaContent>Book a Free Consultation</MotionCtaContent>
             </Link>
           </div>
         </div>

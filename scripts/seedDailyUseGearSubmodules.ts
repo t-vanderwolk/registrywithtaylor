@@ -233,7 +233,7 @@ async function main() {
       affiliateDisclosurePlacement: 'before_affiliates',
       affiliateModules: [] as Prisma.InputJsonValue,
       consultationCtaEnabled: true,
-      consultationCtaLabel: 'Book a Consultation',
+      consultationCtaLabel: 'Book a Free Consultation',
       newsletterCtaEnabled: false,
       newsletterCtaLabel: null,
       newsletterCtaDescription: null,

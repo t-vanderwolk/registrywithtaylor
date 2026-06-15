@@ -15,7 +15,7 @@ export default function ConsultationRequestSection({
   id = 'request-a-consult',
   returnPath = '/#request-a-consult',
   successPath = '/consultation/confirmation',
-  submitLabel = 'Book a Consultation',
+  submitLabel = 'Book a Free Consultation',
 }: ConsultationRequestSectionProps) {
   return (
     <section
@@ -31,7 +31,7 @@ export default function ConsultationRequestSection({
             <div className="max-w-[32rem] sm:max-w-[36rem]">
               <div className="relative z-10">
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/78">
-                  Book a Consultation
+                  Book a Free Consultation
                 </p>
                 <h2 className="mt-4 font-serif text-[1.85rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
                   Start with confidence.

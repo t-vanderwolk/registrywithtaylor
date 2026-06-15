@@ -25,7 +25,7 @@ export default function CTASection({
   title = 'Book a consultation when you want expert eyes on your baby gear plan.',
   description = 'Taylor-Made Baby Co. is built to help expecting parents make better baby gear and preparation decisions with far less second-guessing.',
   primaryHref = '/consultation',
-  primaryLabel = 'Book a Consultation',
+  primaryLabel = 'Book a Free Consultation',
   secondaryHref = '/academy',
   secondaryLabel = 'Explore the Academy',
   primaryAnalyticsLabel,

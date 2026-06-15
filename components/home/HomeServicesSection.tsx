@@ -182,7 +182,7 @@ export default function HomeServicesSection() {
                         : 'border border-[rgba(196,156,94,0.18)] bg-white text-neutral-900 hover:shadow-sm',
                     ].join(' ')}
                   >
-                    <MotionCtaContent>Book a Consultation</MotionCtaContent>
+                    <MotionCtaContent>Book a Free Consultation</MotionCtaContent>
                   </Link>
                 </div>
               </article>

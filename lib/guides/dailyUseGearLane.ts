@@ -563,7 +563,7 @@ export const DAILY_USE_GEAR_HUB_NEXT_STEPS: DailyUseGearNextStep[] = [
     stage: 'Compare',
   },
   {
-    label: 'Book a Consultation',
+    label: 'Book a Free Consultation',
     href: '/consultation',
     description: 'Once the daily-use gear is clearer, get help turning the calmer plan into the actual shortlist.',
     stage: 'Refine',
@@ -576,7 +576,7 @@ export function getDailyUseGearNextStep(slug: DailyUseGearCategorySlug): DailyUs
 
   if (!nextSlug) {
     return {
-      label: 'Book a Consultation',
+      label: 'Book a Free Consultation',
       href: '/consultation',
       description: 'You reached the end of the lane. This is the right point to turn the clearer daily-use plan into real buying decisions.',
       stage: 'Refine',
