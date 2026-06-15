@@ -18,13 +18,20 @@ export async function GET(_req: Request, { params: paramsPromise }: RouteContext
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const [user, learner, registries, progressRows, workbookRows, consultations] = await Promise.all([
-    prisma.user.findUnique({
-      where:  { id: userId },
-      select: { id: true, name: true, email: true, role: true, createdAt: true },
-    }),
-    prisma.learner.findFirst({
-      where:  { user: { id: userId } },
+  // Phase 1: fetch the user — we need email to bridge to Learner
+  const user = await prisma.user.findUnique({
+    where:  { id: userId },
+    select: { id: true, name: true, email: true, role: true, createdAt: true },
+  });
+
+  if (!user) {
+    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+  }
+
+  // Phase 2: parallel queries keyed on userId or user.email
+  const [learner, registries, progressRows, workbookRows, consultationsByEmail] = await Promise.all([
+    prisma.learner.findUnique({
+      where:  { email: user.email },
       select: {
         id: true, email: true, name: true, partnerName: true,
         dueDate: true, subscriptionTier: true, createdAt: true,
@@ -40,6 +47,7 @@ export async function GET(_req: Request, { params: paramsPromise }: RouteContext
         },
       },
     }).catch(() => null),
+
     prisma.registry.findMany({
       where:   { userId },
       orderBy: { createdAt: 'asc' },
@@ -48,42 +56,35 @@ export async function GET(_req: Request, { params: paramsPromise }: RouteContext
         itemCount: true, completedCount: true, notes: true, createdAt: true,
       },
     }),
+
     prisma.lessonProgress.groupBy({
       by:    ['pathSlug'],
-      where: { learner: { user: { id: userId } } },
+      where: { learner: { email: user.email } },
       _count: { moduleSlug: true },
       _max:   { lastSeenAt: true },
-    }),
+    }).catch(() => []),
+
     prisma.workbookSession.groupBy({
       by:    ['pathSlug'],
-      where: { learner: { user: { id: userId } } },
+      where: { learner: { email: user.email } },
       _count: { moduleSlug: true },
-    }),
+    }).catch(() => []),
+
     prisma.consultationRequest.findMany({
-      where:   { email: '' }, // will be replaced by user email below
+      where:   { email: user.email },
       orderBy: { createdAt: 'desc' },
-      select:  { id: true, status: true, createdAt: true, dueDate: true },
+      select:  { id: true, status: true, createdAt: true, dueDate: true, message: true },
       take:    10,
     }).catch(() => []),
   ]);
 
-  if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
-  }
-
-  // Fetch consultations by email (ConsultationRequest has no userId FK)
-  const consultationsByEmail = await prisma.consultationRequest.findMany({
-    where:   { email: user.email },
-    orderBy: { createdAt: 'desc' },
-    select:  { id: true, status: true, createdAt: true, dueDate: true, message: true },
-    take:    10,
-  }).catch(() => []);
+  // ── Derived ─────────────────────────────────────────────────────────────────
 
   const progressByPath: Record<string, { modules: number; lastSeenAt: string | null }> = {};
   for (const row of progressRows) {
     progressByPath[row.pathSlug] = {
-      modules:     row._count.moduleSlug,
-      lastSeenAt:  row._max.lastSeenAt?.toISOString() ?? null,
+      modules:    row._count.moduleSlug,
+      lastSeenAt: row._max.lastSeenAt?.toISOString() ?? null,
     };
   }
 
@@ -107,9 +108,9 @@ export async function GET(_req: Request, { params: paramsPromise }: RouteContext
             lastSeenAt: p.lastSeenAt.toISOString(),
           })),
           workbookSessions: learner.workbookSessions.map((s) => ({
-            pathSlug:        s.pathSlug,
-            moduleSlug:      s.moduleSlug,
-            responseCount:   s._count.responses,
+            pathSlug:      s.pathSlug,
+            moduleSlug:    s.moduleSlug,
+            responseCount: s._count.responses,
           })),
         }
       : null,
