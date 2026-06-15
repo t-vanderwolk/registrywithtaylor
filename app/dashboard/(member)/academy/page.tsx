@@ -56,9 +56,9 @@ export default async function AcademyDashboardPage() {
 
   // Group modules by path (preserving order)
   const modulesByPath: Record<string, string[]> = {};
-  for (const { pathSlug, moduleSlug } of allParams) {
-    if (!modulesByPath[pathSlug]) modulesByPath[pathSlug] = [];
-    modulesByPath[pathSlug].push(moduleSlug);
+  for (const { academyPath, module: moduleSlug } of allParams) {
+    if (!modulesByPath[academyPath]) modulesByPath[academyPath] = [];
+    modulesByPath[academyPath].push(moduleSlug);
   }
 
   const totalModules    = allParams.length;
