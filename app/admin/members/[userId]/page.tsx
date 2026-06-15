@@ -9,7 +9,7 @@ import { requireAdminSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
-type Props = { params: { userId: string } };
+type Props = { params: Promise<{ userId: string }> };
 
 const PATH_TOTALS: Record<string, number> = {
   registry: 8, nursery: 6, gear: 9, postpartum: 6,
@@ -54,10 +54,9 @@ function ProgressBar({ value, total }: { value: number; total: number }) {
   );
 }
 
-export default async function AdminMemberDetailPage({ params }: Props) {
-  await requireAdminSession(`/admin/members/${params.userId}`);
-
-  const { userId } = params;
+export default async function AdminMemberDetailPage({ params: paramsPromise }: Props) {
+  const { userId } = await paramsPromise;
+  await requireAdminSession(`/admin/members/${userId}`);
 
   // Phase 1: fetch the user (we need email to look up Learner)
   const user = await prisma.user.findUnique({
