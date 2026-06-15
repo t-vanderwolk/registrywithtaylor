@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { Fragment } from 'react';
 import type { ReactNode } from 'react';
 
 import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
 
+import AccordionSections from '@/components/learn/AccordionSections';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonDivider from '@/components/learn/LessonDivider';
@@ -11,6 +11,7 @@ import LessonHeader from '@/components/learn/LessonHeader';
 import LessonImage from '@/components/learn/LessonImage';
 import LessonNavStrip from '@/components/learn/LessonNavStrip';
 import LessonSection from '@/components/learn/LessonSection';
+import MarkCompleteButton from '@/components/learn/MarkCompleteButton';
 // LessonVideoPlaceholder removed — no video placeholders in the UI
 import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import TaylorsNote from '@/components/learn/TaylorsNote';
@@ -376,9 +377,9 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             </div>
           )}
 
-          {/* 2. Prose — intro + all core sections as editorial article */}
+          {/* 2. Prose — intro paragraphs, subhead, and intro image */}
           <div className="tmbc-blog">
-            {/* Intro paragraphs — first gets the larger lead treatment */}
+            {/* Intro paragraphs */}
             {module.intro.map((paragraph, index) => (
               <p key={`intro-${index}`}>{paragraph}</p>
             ))}
@@ -397,35 +398,17 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
                 aspectRatio="4/3"
               />
             )}
+          </div>
 
-            {/* Core sections as h2 + p — blog CSS handles all styling */}
-            {module.coreSections.map((section, index) => (
-              <Fragment key={`section-${index}`}>
-                <h2>{section.title}</h2>
-                {section.imageSrc && (
-                  <LessonImage
-                    src={section.imageSrc}
-                    alt={section.imageAlt ?? ''}
-                    caption={section.imageCaption ?? undefined}
-                  />
-                )}
-                {section.paragraphs.map((paragraph, pIndex) => (
-                  <p key={`p-${index}-${pIndex}`}>{paragraph}</p>
-                ))}
-                {/* Pull quote after every other section (2nd, 4th, 6th…) */}
-                {index % 2 === 1 && section.paragraphs.length > 0 && (
-                  <blockquote className="tmbc-quote">
-                    {extractFirstSentence(section.paragraphs[section.paragraphs.length - 1])}
-                  </blockquote>
-                )}
-              </Fragment>
-            ))}
+          {/* 3. Core sections as interactive accordion */}
+          {module.coreSections.length > 0 && (
+            <AccordionSections sections={module.coreSections} />
+          )}
 
-            {/* xoxo, T sign-off */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', color: '#D986A2' }}>
-              <div style={{ width: '8rem' }}>
-                <GuideSignoffMark className="h-auto w-full" />
-              </div>
+          {/* Sign-off mark */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem', color: '#D986A2' }}>
+            <div style={{ width: '8rem' }}>
+              <GuideSignoffMark className="h-auto w-full" />
             </div>
           </div>
 
@@ -463,7 +446,10 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             <SubmoduleGrid section={module.submoduleSection} />
           )}
 
-          {/* 9. Lesson CTA */}
+          {/* 9. Mark complete */}
+          <MarkCompleteButton pathSlug={module.pathSlug} moduleSlug={module.slug} />
+
+          {/* 10. Lesson CTA */}
           <LessonCTA
             heading={
               nextCard
@@ -481,7 +467,7 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             secondaryHref="/consultation"
           />
 
-          {/* 10. Related / cross-path link (if exists and different from next) */}
+          {/* 11. Related / cross-path link (if exists and different from next) */}
           {module.related && toLearnHref(module.related.href) !== (nextCard?.href ?? '') && (
             <div className="rounded-[1.25rem] border border-[rgba(215,161,175,0.18)] bg-white/80 px-6 py-5 shadow-[0_8px_20px_rgba(72,49,56,0.04)]">
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/72">
