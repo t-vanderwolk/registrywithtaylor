@@ -3,11 +3,12 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
 
-type RouteContext = { params: { userId: string } };
+type RouteContext = { params: Promise<{ userId: string }> };
 
 // ─── GET /api/admin/member/[userId] ──────────────────────────────────────────
 
-export async function GET(_req: Request, { params }: RouteContext) {
+export async function GET(_req: Request, { params: paramsPromise }: RouteContext) {
+  const { userId } = await paramsPromise;
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -16,8 +17,6 @@ export async function GET(_req: Request, { params }: RouteContext) {
   if (session.user.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
-
-  const { userId } = params;
 
   const [user, learner, registries, progressRows, workbookRows, consultations] = await Promise.all([
     prisma.user.findUnique({
