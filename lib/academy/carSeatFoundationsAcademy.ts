@@ -64,25 +64,10 @@ export const CAR_SEAT_FOUNDATIONS_ACADEMY_HUB_NEXT_LINKS: AcademyModuleHubCard[]
 ];
 
 const SECTION_IMAGES = {
-  fit: {
-    src: '/assets/editorial/gear.jpg',
-    alt: 'Editorial car seat planning image.',
-    caption: 'The stage question usually settles the category before the feature list gets a vote.',
-  },
-  tradeoff: {
-    src: '/assets/editorial/ipadblueprint.png',
-    alt: 'Car seat planning and installation editorial image.',
-    caption: 'The right car seat needs to make sense in the vehicle and in the repeated loading routine.',
-  },
   test: {
     src: '/assets/car-seats/piparx.png',
     alt: 'Parent moving through daily life with confidence.',
     caption: 'Good fit should feel steadier in daily use, not just smarter in theory.',
-  },
-  compare: {
-    src: '/assets/editorial/welcome.png',
-    alt: 'Editorial image for category comparison and early-stage planning.',
-    caption: 'Comparison helps when the categories are adjacent. It does not help when the stage question is still blurry.',
   },
 } as const;
 
@@ -190,16 +175,10 @@ export function buildCarSeatFoundationsAcademySubmoduleModule(
       {
         title: 'When it tends to feel right',
         paragraphs: uniqueItems([lane.worksForSummary, ...lane.worksForBullets], 5),
-        imageSrc: SECTION_IMAGES.fit.src,
-        imageAlt: SECTION_IMAGES.fit.alt,
-        imageCaption: SECTION_IMAGES.fit.caption,
       },
       {
         title: 'Where it gets over-assigned',
         paragraphs: uniqueItems([lane.notBestFitSummary, ...lane.notBestFitBullets], 5),
-        imageSrc: SECTION_IMAGES.tradeoff.src,
-        imageAlt: SECTION_IMAGES.tradeoff.alt,
-        imageCaption: SECTION_IMAGES.tradeoff.caption,
       },
       {
         title: 'What to pressure-test before you buy',
@@ -217,9 +196,6 @@ export function buildCarSeatFoundationsAcademySubmoduleModule(
           ],
           3,
         ),
-        imageSrc: SECTION_IMAGES.compare.src,
-        imageAlt: SECTION_IMAGES.compare.alt,
-        imageCaption: SECTION_IMAGES.compare.caption,
       },
     ],
     decisionTitle: 'What This Means For You',

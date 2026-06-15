@@ -497,9 +497,9 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                       title={section.title}
                       paragraphs={section.paragraphs}
                       example={inlineScenarios[index % Math.max(inlineScenarios.length, 1)]}
-                      imageSrc={section.imageSrc}
-                      imageAlt={section.imageAlt}
-                      imageCaption={section.imageCaption}
+                      imageSrc={section.imageSrc ?? undefined}
+                      imageAlt={section.imageAlt ?? undefined}
+                      imageCaption={section.imageCaption ?? undefined}
                       tone={index % 3 === 1 ? 'blush' : index % 3 === 2 ? 'ivory' : 'white'}
                     />
                   ))}

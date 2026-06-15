@@ -64,9 +64,9 @@ export type AcademyBreadcrumbItem = {
 export type AcademyCoreSection = {
   title: string;
   paragraphs: string[];
-  imageSrc: string;
-  imageAlt: string;
-  imageCaption?: string;
+  imageSrc?: string | null;
+  imageAlt?: string | null;
+  imageCaption?: string | null;
 };
 
 export type AcademyProductExample = {
@@ -1131,9 +1131,6 @@ async function buildTravelSystemsModule() {
           ...(await getSubsectionParagraphs(GUIDE_FILES.travel, 'Core Content', 'Travel is really about transitions', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.travelStroller, 'Why This Category Feels Overwhelming', 1)),
         ], 3),
-        imageSrc: '/assets/editorial/gear.jpg',
-        imageAlt: 'Baby travel planning image.',
-        imageCaption: 'The hardest repeated transition should shape the setup more than the smallest spec sheet number.',
       }),
       buildCoreSection({
         title: 'The stroller should match the trip',
@@ -1161,9 +1158,6 @@ async function buildTravelSystemsModule() {
           ...(await getSectionParagraphs(GUIDE_FILES.travelStroller, 'Expert Advice', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.travelStroller, 'Real-Life Fit', 2)),
         ], 4),
-        imageSrc: '/assets/editorial/babystuff.png',
-        imageAlt: 'Baby gear and travel essentials editorial image.',
-        imageCaption: 'Families are usually happiest when the setup solves the most stressful part of the trip first.',
       }),
     ],
     decisionBullets,
@@ -1198,9 +1192,6 @@ async function buildCarSeatBasicsModule() {
           ...(await getSectionParagraphs(GUIDE_FILES.carSeat, 'What This Is', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.carSeat, 'What People Get Wrong', 1)),
         ], 3),
-        imageSrc: '/assets/editorial/gear.jpg',
-        imageAlt: 'Car seat stage planning image.',
-        imageCaption: 'The category gets calmer once the stage is clear enough to filter the rest.',
       }),
       buildCoreSection({
         title: 'Infant seats are about portability',
@@ -1208,9 +1199,6 @@ async function buildCarSeatBasicsModule() {
           ...(await getSubsectionParagraphs(GUIDE_FILES.carSeat, 'Core Content', 'Infant seats are about portability, not superiority', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.infantCarSeat, 'Base vs Baseless Installation', 2)),
         ], 4),
-        imageSrc: '/assets/editorial/welcome.png',
-        imageAlt: 'Infant stage editorial image.',
-        imageCaption: 'Portability can be incredibly helpful. It is still not mandatory for every family.',
       }),
       buildCoreSection({
         title: 'Convertible and all-in-one seats answer a different question',
@@ -1218,9 +1206,6 @@ async function buildCarSeatBasicsModule() {
           ...(await getSectionParagraphs(GUIDE_FILES.convertibleCarSeat, 'What Convertible Actually Solves', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.allInOneCarSeat, 'What All-in-One Actually Solves', 2)),
         ], 4),
-        imageSrc: '/assets/editorial/bear-blocks.png',
-        imageAlt: 'Long-run planning image for car seat stages.',
-        imageCaption: 'Installed-seat convenience and long-run coverage are not the same thing, even when the category names sound efficient.',
       }),
       buildCoreSection({
         title: 'Fit and installation confidence matter most',
@@ -1228,9 +1213,6 @@ async function buildCarSeatBasicsModule() {
           ...(await getSubsectionParagraphs(GUIDE_FILES.carSeat, 'Core Content', 'Fit and installation confidence matter most', 2)),
           ...(await getSectionParagraphs(GUIDE_FILES.infantCarSeat, 'What Actually Matters in Real Life', 1)),
         ], 3),
-        imageSrc: '/assets/editorial/ipadblueprint.png',
-        imageAlt: 'Car seat planning and fit image.',
-        imageCaption: 'The right answer is the seat that fits your child, your vehicle, and your real week well enough to use correctly every time.',
       }),
     ],
     decisionBullets,

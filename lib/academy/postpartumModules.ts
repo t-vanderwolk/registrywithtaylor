@@ -8,8 +8,8 @@ export type PostpartumAcademyModuleSlug =
 
 type PostpartumAcademyCoreSection = {
   title: string;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc?: string | null;
+  imageAlt?: string | null;
   paragraphs: string[];
 };
 
@@ -302,8 +302,6 @@ The six-week mark does not mean you are done. Know the phases, use the practical
       },
       {
         title: 'Meals as infrastructure, not luxury',
-        imageSrc: '/assets/editorial/bunny-gift.png',
-        imageAlt: 'Postpartum meal support and food as practical household infrastructure.',
         paragraphs: [
           'The postpartum period is physiologically demanding. Recovery requires calories. Breastfeeding requires additional calories. The adults in the house need to eat regularly even when regular meal preparation is not happening.',
           'Meal support is not a luxury for people with help. It is infrastructure. The options are: meals prepared ahead and frozen before the birth, a meal train coordinated with family and friends, food delivery, or a combination.',
@@ -314,8 +312,6 @@ The six-week mark does not mean you are done. Know the phases, use the practical
       },
       {
         title: 'The visitor protocol — converting guests into help',
-        imageSrc: '/assets/editorial/bear-blocks.png',
-        imageAlt: 'Postpartum support concept showing guests as helpers rather than audience.',
         paragraphs: [
           'Visitors during the first weeks fall into two categories: people who come to hold the baby while you perform okayness, and people who come to make the house function better so you can rest.',
           'The default is the first category. Visitors arrive, you hand them the baby, someone makes tea, everyone talks, and when they leave the house has not materially improved. You are also more tired than before they arrived because social performance is work.',

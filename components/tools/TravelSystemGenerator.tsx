@@ -543,7 +543,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               ) : null}
 
               {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-6 grid gap-4">
+                <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
+                  <div className="grid gap-4">
                   {result.compatibleCarSeats.map((seat) => (
                     <article
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
@@ -593,6 +594,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       <AffiliateBuyButtons brand={seat.brand} model={seat.model} />
                     </article>
                   ))}
+                  </div>
                 </div>
               ) : (
                 <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">
@@ -636,7 +638,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               ) : null}
 
               {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-6 grid gap-4">
+                <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
+                  <div className="grid gap-4">
                   {result.compatibleStrollers.map((stroller) => (
                     <article
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
@@ -689,6 +692,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} />
                     </article>
                   ))}
+                  </div>
                 </div>
               ) : (
                 <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 type WorkbookPrompt = {
   id: string;
@@ -19,7 +20,6 @@ type MiniWorkbookProps = {
 
 // ─── Guest token helpers ──────────────────────────────────────────────────────
 
-/** Get or create a stable anonymous token stored in localStorage. */
 function getOrCreateGuestToken(): string | null {
   try {
     const key = 'tmbc_guest_token';
@@ -29,14 +29,14 @@ function getOrCreateGuestToken(): string | null {
     localStorage.setItem(key, token);
     return token;
   } catch {
-    // localStorage unavailable (SSR, private browsing, etc.)
     return null;
   }
 }
 
 // ─── API helpers ──────────────────────────────────────────────────────────────
 
-async function saveResponse({
+/** Save a single prompt response for unauthenticated (guest) users. */
+async function saveGuestResponse({
   pathSlug,
   moduleSlug,
   promptId,
@@ -49,8 +49,7 @@ async function saveResponse({
   response: string;
   guestToken: string | null;
 }) {
-  if (!guestToken) return; // nothing to persist without a token
-
+  if (!guestToken) return;
   await fetch('/api/learn/workbook', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -58,7 +57,7 @@ async function saveResponse({
   });
 }
 
-async function fetchSavedResponses({
+async function fetchGuestResponses({
   pathSlug,
   moduleSlug,
   guestToken,
@@ -68,7 +67,6 @@ async function fetchSavedResponses({
   guestToken: string | null;
 }): Promise<Record<string, string>> {
   if (!guestToken) return {};
-
   try {
     const res = await fetch(
       `/api/learn/workbook?pathSlug=${pathSlug}&moduleSlug=${moduleSlug}&guestToken=${guestToken}`,
@@ -80,6 +78,23 @@ async function fetchSavedResponses({
   }
 }
 
+/** Save all prompt answers as one ModuleNote for authenticated users. */
+async function saveModuleNote({
+  pathSlug,
+  moduleSlug,
+  content,
+}: {
+  pathSlug: string;
+  moduleSlug: string;
+  content: string;
+}) {
+  await fetch('/api/workbook', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pathSlug, moduleSlug, content }),
+  });
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MiniWorkbook({
@@ -88,6 +103,9 @@ export default function MiniWorkbook({
   pathSlug,
   moduleSlug,
 }: MiniWorkbookProps) {
+  const { status } = useSession();
+  const isAuthenticated = status === 'authenticated';
+
   const [answers, setAnswers] = useState<Record<string, string>>(
     Object.fromEntries(prompts.map((p) => [p.id, ''])),
   );
@@ -95,33 +113,50 @@ export default function MiniWorkbook({
   const [saving, setSaving] = useState(false);
   const guestTokenRef = useRef<string | null>(null);
 
-  // Load saved responses on mount (client only)
+  // For guests only: init token + load prior responses
   useEffect(() => {
+    if (isAuthenticated || !pathSlug || !moduleSlug) return;
+
     guestTokenRef.current = getOrCreateGuestToken();
+    if (!guestTokenRef.current) return;
 
-    if (!pathSlug || !moduleSlug || !guestTokenRef.current) return;
-
-    fetchSavedResponses({
+    fetchGuestResponses({
       pathSlug,
       moduleSlug,
       guestToken: guestTokenRef.current,
-    }).then((saved) => {
-      if (Object.keys(saved).length > 0) {
-        setAnswers((prev) => ({ ...prev, ...saved }));
+    }).then((savedResponses) => {
+      if (Object.keys(savedResponses).length > 0) {
+        setAnswers((prev) => ({ ...prev, ...savedResponses }));
       }
     });
-  }, [pathSlug, moduleSlug]);
+  }, [pathSlug, moduleSlug, isAuthenticated]);
 
   const handleSave = useCallback(async () => {
+    if (!pathSlug || !moduleSlug) return;
+
+    const hasContent = prompts.some((p) => (answers[p.id] ?? '').trim().length > 0);
+    if (!hasContent) return;
+
     setSaving(true);
 
-    if (pathSlug && moduleSlug) {
-      const token = guestTokenRef.current;
+    if (isAuthenticated) {
+      // Combine all answers into a single formatted string for the dashboard workbook
+      const content = prompts
+        .map((p) => {
+          const answer = (answers[p.id] ?? '').trim();
+          if (!answer) return null;
+          return `${p.label}\n${answer}`;
+        })
+        .filter(Boolean)
+        .join('\n\n');
 
-      // Fire off all prompt saves in parallel
+      await saveModuleNote({ pathSlug, moduleSlug, content });
+    } else {
+      // Guest: save each prompt individually via guestToken
+      const token = guestTokenRef.current;
       await Promise.all(
         prompts.map((prompt) =>
-          saveResponse({
+          saveGuestResponse({
             pathSlug,
             moduleSlug,
             promptId: prompt.id,
@@ -134,8 +169,8 @@ export default function MiniWorkbook({
 
     setSaving(false);
     setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
-  }, [pathSlug, moduleSlug, prompts, answers]);
+    setTimeout(() => setSaved(false), 4000);
+  }, [pathSlug, moduleSlug, prompts, answers, isAuthenticated]);
 
   return (
     <div className="overflow-hidden rounded-[1.45rem] border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(253,247,244,0.96)_100%)] shadow-[0_12px_34px_rgba(72,49,56,0.06)]">
@@ -177,7 +212,9 @@ export default function MiniWorkbook({
 
         <div className="flex flex-col items-start gap-3 border-t border-[rgba(0,0,0,0.06)] pt-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[0.82rem] leading-6 text-neutral-400">
-            Your reflections stay private and help guide your session.
+            {isAuthenticated
+              ? 'Your reflections are saved to your dashboard workbook.'
+              : 'Your reflections stay private and help guide your session.'}
           </p>
           <button
             type="button"
@@ -192,7 +229,13 @@ export default function MiniWorkbook({
               .filter(Boolean)
               .join(' ')}
           >
-            {saved ? 'Saved ✓' : saving ? 'Saving…' : 'Save Reflection'}
+            {saved
+              ? isAuthenticated
+                ? 'Saved to Dashboard ✓'
+                : 'Saved ✓'
+              : saving
+              ? 'Saving…'
+              : 'Save Reflection'}
           </button>
         </div>
       </div>

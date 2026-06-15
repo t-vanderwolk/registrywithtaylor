@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 import type { ReactNode } from 'react';
 
+import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
+
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonDivider from '@/components/learn/LessonDivider';
@@ -81,6 +83,20 @@ function buildWorkbookPrompts(bullets: string[], moduleSlug: string) {
     placeholder:
       'Take a moment to think through this before moving to the next module...',
   }));
+}
+
+/**
+ * Extract the first complete sentence from a paragraph for use as a pull quote.
+ * Falls back to a 150-char truncation if the first sentence is missing or very long.
+ */
+function extractFirstSentence(text: string): string {
+  const match = text.match(/^[^.!?]+[.!?]/);
+  if (match && match[0].length >= 20 && match[0].length <= 200) {
+    return match[0].trim();
+  }
+  if (text.length <= 160) return text;
+  const truncated = text.slice(0, 160).replace(/\s+\S+$/, '');
+  return `${truncated}…`;
 }
 
 /**
@@ -367,6 +383,11 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
               <p key={`intro-${index}`}>{paragraph}</p>
             ))}
 
+            {/* Opening pull quote — module subhead as editorial hook */}
+            {module.subhead && (
+              <blockquote className="tmbc-quote">{module.subhead}</blockquote>
+            )}
+
             {/* Intro image */}
             {module.imagePath && (
               <LessonImage
@@ -385,14 +406,27 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
                   <LessonImage
                     src={section.imageSrc}
                     alt={section.imageAlt ?? ''}
-                    caption={section.imageCaption}
+                    caption={section.imageCaption ?? undefined}
                   />
                 )}
                 {section.paragraphs.map((paragraph, pIndex) => (
                   <p key={`p-${index}-${pIndex}`}>{paragraph}</p>
                 ))}
+                {/* Pull quote after every other section (2nd, 4th, 6th…) */}
+                {index % 2 === 1 && section.paragraphs.length > 0 && (
+                  <blockquote className="tmbc-quote">
+                    {extractFirstSentence(section.paragraphs[section.paragraphs.length - 1])}
+                  </blockquote>
+                )}
               </Fragment>
             ))}
+
+            {/* xoxo, T sign-off */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', color: '#D986A2' }}>
+              <div style={{ width: '8rem' }}>
+                <GuideSignoffMark className="h-auto w-full" />
+              </div>
+            </div>
           </div>
 
           <LessonDivider />
