@@ -388,16 +388,6 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             {module.subhead && (
               <blockquote className="tmbc-quote">{module.subhead}</blockquote>
             )}
-
-            {/* Intro image */}
-            {module.imagePath && (
-              <LessonImage
-                src={module.imagePath}
-                alt={module.imageAlt}
-                priority
-                aspectRatio="4/3"
-              />
-            )}
           </div>
 
           {/* 3. Core sections as interactive accordion */}
