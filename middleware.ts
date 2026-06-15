@@ -89,13 +89,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // ── Academy module gate ────────────────────────────────────────────────────
+  // ── Shared enrollment check (used by /learn and /academy gates) ──────────
   //
   // Access is granted if:
   //   (a) the user has the legacy tmbc_enrolled cookie, OR
   //   (b) they have an active session with a paid enrollment tier.
   // Free-tier and unauthenticated users are redirected to /learn/waitlist.
-  if (isLearnGated(pathname)) {
+  const needsEnrollmentCheck = isLearnGated(pathname) || pathname.startsWith('/academy/');
+
+  if (needsEnrollmentCheck) {
     const enrolled = req.cookies.get('tmbc_enrolled');
     if (enrolled?.value) {
       return NextResponse.next();
@@ -120,5 +122,7 @@ export const config = {
     '/dashboard/reviewer/:path*',
     // Gate all /learn/* routes (the handler checks the public-path whitelist)
     '/learn/:path+',
+    // Gate all /academy/* routes — /academy itself (the landing page) is public
+    '/academy/:path+',
   ],
 };

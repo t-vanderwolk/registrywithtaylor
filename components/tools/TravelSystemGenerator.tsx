@@ -19,6 +19,7 @@ import {
   TRAVEL_SYSTEM_STROLLER_PATTERNS,
   type TravelSystemEcosystemType,
 } from '@/lib/travelSystemBrandInsights';
+import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -154,6 +155,44 @@ function ModeToggle({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function AffiliateBuyButtons({ brand, model }: { brand: string; model: string }) {
+  const links = getAffiliateLinks(brand, model);
+  if (!links.babylistUrl && !links.amazonUrl) return null;
+
+  return (
+    <div className="mt-4 flex flex-wrap gap-2">
+      {links.babylistUrl ? (
+        <a
+          href={links.babylistUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeOpacity="0.5" />
+            <path d="M4.5 7h5M7 4.5l2.5 2.5L7 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          View on Babylist
+        </a>
+      ) : null}
+      {links.amazonUrl ? (
+        <a
+          href={links.amazonUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(0,0,0,0.09)] bg-white px-4 py-2 text-[0.78rem] font-semibold text-neutral-700 transition duration-150 hover:bg-neutral-50"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeOpacity="0.4" />
+            <path d="M4.5 7h5M7 4.5l2.5 2.5L7 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Check price on Amazon
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -540,6 +579,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       {seat.notes ? (
                         <p className="mt-4 text-sm leading-7 text-neutral-700">{seat.notes}</p>
                       ) : null}
+
+                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} />
                     </article>
                   ))}
                 </div>
@@ -634,6 +675,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       {stroller.notes ? (
                         <p className="mt-3 text-sm leading-7 text-neutral-700">{stroller.notes}</p>
                       ) : null}
+
+                      <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} />
                     </article>
                   ))}
                 </div>

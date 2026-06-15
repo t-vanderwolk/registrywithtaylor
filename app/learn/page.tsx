@@ -7,13 +7,8 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionIntro from '@/components/ui/SectionIntro';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FinalCTA from '@/components/layout/FinalCTA';
-import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import { getAcademyPathData, getAcademyPathSlugs } from '@/lib/academy/content';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import {
-  getTravelSystemCarSeats,
-  getTravelSystemStrollers,
-} from '@/lib/server/travelSystemCompatibility';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,13 +71,8 @@ const PATH_ACCENTS: Record<string, { eyebrow: string; badge: string }> = {
 };
 
 export default async function LearnPage() {
-  // Fetch all 4 paths for the path grid + travel system tool data
   const pathSlugs = getAcademyPathSlugs();
-  const [paths, strollers, carSeats] = await Promise.all([
-    Promise.all(pathSlugs.map((slug) => getAcademyPathData(slug))),
-    getTravelSystemStrollers(),
-    getTravelSystemCarSeats(),
-  ]);
+  const paths = await Promise.all(pathSlugs.map((slug) => getAcademyPathData(slug)));
 
   return (
     <SiteShell currentPath="/learn">
@@ -116,7 +106,7 @@ export default async function LearnPage() {
           </div>
         </MarketingSection>
 
-        {/* ─── Travel System Compatibility Tool (free) ────────────────── */}
+        {/* ─── Travel System Compatibility Tool (CTA to dedicated page) ─ */}
         <MarketingSection
           id="travel-system"
           tone="ivory"
@@ -124,16 +114,43 @@ export default async function LearnPage() {
           reveal={false}
         >
           <RevealOnScroll>
-            <SectionIntro
-              eyebrow="Free Tool"
-              title="Check stroller-to-car-seat compatibility."
-              description="Confirm your specific stroller and infant car seat work together before you buy either one. Where an adapter is required, the tool tells you which one."
-              contentWidthClassName="max-w-3xl"
-            />
+            <div className="mx-auto max-w-3xl">
+              <SectionIntro
+                eyebrow="Free Tool"
+                title="Check stroller-to-car-seat compatibility."
+                description="Confirm your specific stroller and infant car seat work together before you buy either one. Where an adapter is required, the tool tells you which one."
+                contentWidthClassName="max-w-3xl"
+              />
+            </div>
           </RevealOnScroll>
-          <div className="mt-10">
-            <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
-          </div>
+          <RevealOnScroll delayMs={80}>
+            <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#fffdfa_0%,#fbf2ec_100%)] p-8 shadow-[0_20px_60px_rgba(55,40,46,0.06)]">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-accent-dark)]/80">
+                Travel System Checker
+              </p>
+              <h3 className="mt-3 font-serif text-[1.8rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
+                Stroller-first or car seat-first — it works either way.
+              </h3>
+              <p className="mt-4 text-[1rem] leading-[1.85] text-neutral-700">
+                Pick your stroller to see which infant seats fit, or start with the car seat to find
+                compatible strollers. The tool flags when an adapter is needed and links to current pricing on Babylist and Amazon.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/tools/travel-system"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
+                >
+                  Open the Compatibility Tool
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+              <p className="mt-5 text-[0.78rem] text-neutral-500">
+                Free to use. No account required. Covers 50+ strollers and 25+ infant car seats.
+              </p>
+            </div>
+          </RevealOnScroll>
         </MarketingSection>
 
         {/* ─── Full Academy path grid ─────────────────────────────────── */}
