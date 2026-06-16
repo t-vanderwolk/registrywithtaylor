@@ -15,9 +15,9 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN null;
 END $$;
 
--- ─── 2. Registry table ────────────────────────────────────────────────────────
+-- ─── 2. Registry table (idempotent) ──────────────────────────────────────────
 
-CREATE TABLE "Registry" (
+CREATE TABLE IF NOT EXISTS "Registry" (
   "id"             TEXT        NOT NULL,
   "userId"         TEXT        NOT NULL,
   "platform"       "Platform"  NOT NULL,
@@ -33,16 +33,19 @@ CREATE TABLE "Registry" (
   CONSTRAINT "Registry_pkey" PRIMARY KEY ("id")
 );
 
--- ─── 3. Foreign key ───────────────────────────────────────────────────────────
+-- ─── 3. Foreign key (idempotent) ─────────────────────────────────────────────
 
-ALTER TABLE "Registry"
-  ADD CONSTRAINT "Registry_userId_fkey"
-  FOREIGN KEY ("userId")
-  REFERENCES "User"("id")
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+DO $$ BEGIN
+  ALTER TABLE "Registry"
+    ADD CONSTRAINT "Registry_userId_fkey"
+    FOREIGN KEY ("userId")
+    REFERENCES "User"("id")
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN null;
+END $$;
 
--- ─── 4. Indexes ───────────────────────────────────────────────────────────────
+-- ─── 4. Indexes (idempotent) ──────────────────────────────────────────────────
 
-CREATE INDEX "Registry_userId_idx"   ON "Registry"("userId");
-CREATE INDEX "Registry_platform_idx" ON "Registry"("platform");
+CREATE INDEX IF NOT EXISTS "Registry_userId_idx"   ON "Registry"("userId");
+CREATE INDEX IF NOT EXISTS "Registry_platform_idx" ON "Registry"("platform");
