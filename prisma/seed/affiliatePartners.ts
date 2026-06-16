@@ -19,9 +19,25 @@ type DirectAffiliateSeed = {
   commissionRate: string;
   routingPriority: number;
   allowedContexts: string[];
+  /** Override the auto-generated affiliate URL (e.g. when the network uses a
+   *  non-standard param like Amazon's ?tag= instead of ?affiliate_pid=). */
+  directAffiliateLink?: string | null;
 };
 
 const DIRECT_PARTNERS: DirectAffiliateSeed[] = [
+  {
+    name: 'Amazon',
+    slug: 'amazon',
+    network: AffiliateNetwork.DIRECT,
+    partnerType: 'retailer',
+    affiliatePid: 'taylormadebab-20',
+    baseUrl: 'https://www.amazon.com',
+    logoUrl: '/assets/logos/amazon.png',
+    commissionRate: '3-10%',
+    routingPriority: 20,
+    allowedContexts: ['blog', 'guide', 'registry', 'academy'],
+    directAffiliateLink: 'https://www.amazon.com/?tag=taylormadebab-20',
+  },
   {
     name: 'Silver Cross',
     slug: 'silver-cross',
@@ -188,6 +204,7 @@ async function main() {
     });
 
     const resolvedAffiliateLink =
+      seed.directAffiliateLink ??
       resolveAffiliateDestinationUrl({
         baseUrl: seed.baseUrl,
         affiliatePid: seed.affiliatePid,
