@@ -6,16 +6,14 @@
 --            and references one of the supported Platform enum values.
 -- ─────────────────────────────────────────────────────────────────────────────
 
--- ─── 1. Platform enum ─────────────────────────────────────────────────────────
+-- ─── 1. Platform enum (idempotent — may already exist) ───────────────────────
 
-CREATE TYPE "Platform" AS ENUM (
-  'BABYLIST',
-  'AMAZON',
-  'TARGET',
-  'BUYBUYBABY',
-  'WALMART',
-  'OTHER'
-);
+DO $$ BEGIN
+  CREATE TYPE "Platform" AS ENUM (
+    'BABYLIST', 'AMAZON', 'TARGET', 'BUYBUYBABY', 'WALMART', 'OTHER'
+  );
+EXCEPTION WHEN duplicate_object THEN null;
+END $$;
 
 -- ─── 2. Registry table ────────────────────────────────────────────────────────
 
