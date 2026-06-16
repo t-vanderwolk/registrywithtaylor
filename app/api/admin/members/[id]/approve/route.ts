@@ -3,6 +3,11 @@ import bcrypt from 'bcryptjs';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { sendEmail, getAdminEmail } from '@/lib/email/sendEmail';
+import {
+  memberApprovalTemplate,
+  adminApprovalBackupTemplate,
+} from '@/lib/email/templates/memberApproval';
 
 /**
  * POST /api/admin/members/[id]/approve
@@ -79,6 +84,34 @@ export async function POST(
       },
     });
   });
+
+  // 4. Send credentials email to member + backup copy to admin
+  // Non-critical: don't fail the approval if email errors
+  const siteUrl = (process.env.NEXTAUTH_URL ?? 'https://taylormadebabyco.com').replace(/\/$/, '');
+  const loginUrl = `${siteUrl}/login`;
+
+  await Promise.allSettled([
+    sendEmail({
+      to:      entry.email,
+      subject: "You're in — Taylor-Made Baby Academy",
+      html:    memberApprovalTemplate({
+        name:         entry.name,
+        email:        entry.email,
+        tempPassword,
+        loginUrl,
+      }),
+    }),
+    sendEmail({
+      to:      getAdminEmail(),
+      subject: `Academy approval: ${entry.email}`,
+      html:    adminApprovalBackupTemplate({
+        name:         entry.name,
+        email:        entry.email,
+        tempPassword,
+        tier,
+      }),
+    }),
+  ]);
 
   return NextResponse.json({ ok: true, tempPassword, tier, email: entry.email });
 }

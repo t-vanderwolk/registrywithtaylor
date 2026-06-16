@@ -465,9 +465,9 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
               </p>
               <a
                 href={toLearnHref(module.related.href)}
-                className="group mt-3 flex items-start justify-between gap-4"
+                className="group mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
               >
-                <div>
+                <div className="min-w-0">
                   <p className="font-serif text-[1.1rem] leading-tight tracking-[-0.02em] text-neutral-900">
                     {module.related.title}
                   </p>
@@ -475,7 +475,7 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
                     {module.related.description}
                   </p>
                 </div>
-                <span className="mt-1 shrink-0 text-sm font-semibold text-[var(--color-accent-dark)] transition-transform duration-200 group-hover:translate-x-0.5">
+                <span className="shrink-0 text-sm font-semibold text-[var(--color-accent-dark)] transition-transform duration-200 group-hover:translate-x-0.5">
                   {module.related.ctaLabel}
                 </span>
               </a>

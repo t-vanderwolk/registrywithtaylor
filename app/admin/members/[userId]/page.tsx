@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -76,7 +77,7 @@ export default async function AdminMemberDetailPage({ params: paramsPromise }: P
       },
     }).catch(() => null),
 
-    prisma.registry.findMany({
+    registryDelegate.findMany({
       where:   { userId },
       orderBy: { createdAt: 'asc' },
       select: {

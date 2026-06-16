@@ -1,4 +1,5 @@
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminStack from '@/components/admin/ui/AdminStack';
@@ -41,7 +42,7 @@ export default async function AdminMembersPage() {
       select: { id: true, email: true },
     }),
     // Registry counts by User.id
-    prisma.registry.groupBy({
+    registryDelegate.groupBy({
       by:    ['userId'],
       _count: { id: true },
     }).catch(() => []),

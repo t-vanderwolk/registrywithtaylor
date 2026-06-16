@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 
 type RouteContext = { params: Promise<{ userId: string }> };
 
@@ -48,7 +49,7 @@ export async function GET(_req: Request, { params: paramsPromise }: RouteContext
       },
     }).catch(() => null),
 
-    prisma.registry.findMany({
+    registryDelegate.findMany({
       where:   { userId },
       orderBy: { createdAt: 'asc' },
       select: {

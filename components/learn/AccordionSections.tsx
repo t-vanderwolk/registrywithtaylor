@@ -132,7 +132,7 @@ function AccordionItem({
                     src={section.imageSrc}
                     alt={section.imageAlt ?? ''}
                     fill
-                    className="object-cover"
+                    className="object-contain p-4"
                     sizes="(min-width: 768px) 600px, 100vw"
                   />
                   {section.imageCaption && (

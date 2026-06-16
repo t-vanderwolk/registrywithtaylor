@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 
 const VALID_PLATFORMS = ['BABYLIST', 'AMAZON', 'TARGET', 'BUYBUYBABY', 'WALMART', 'OTHER'] as const;
 type Platform = (typeof VALID_PLATFORMS)[number];
@@ -28,7 +29,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const registries = await prisma.registry.findMany({
+  const registries = await registryDelegate.findMany({
     where:   { userId: session.user.id },
     orderBy: { createdAt: 'asc' },
     select: {
@@ -78,7 +79,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const registry = await prisma.registry.create({
+  const registry = await registryDelegate.create({
     data: {
       userId:    session.user.id,
       platform:  platform as Platform,

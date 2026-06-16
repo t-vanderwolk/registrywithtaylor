@@ -133,10 +133,10 @@ export default function WaitlistTable({
 
                 <td>
                   {result?.tempPassword ? (
-                    // Show temp password with copy prompt
+                    // Approval succeeded — login email was sent automatically
                     <div className="admin-stack gap-1">
                       <p className="text-[0.72rem] font-medium text-[var(--admin-color-success,#3a7a52)]">
-                        Approved ✓
+                        Approved ✓ — login email sent
                       </p>
                       <div className="flex items-center gap-2">
                         <code className="rounded bg-neutral-100 px-2 py-0.5 text-[0.78rem] font-mono text-neutral-700">
@@ -151,7 +151,7 @@ export default function WaitlistTable({
                         </button>
                       </div>
                       <p className="text-[0.7rem] text-neutral-400">
-                        Share with member — shown once only.
+                        Backup copy emailed to you.
                       </p>
                     </div>
                   ) : result?.error ? (

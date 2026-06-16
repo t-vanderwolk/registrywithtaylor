@@ -8,6 +8,7 @@ import {
   isAcademyModuleSlug,
 } from '@/lib/academy/content';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 import MemberDashboardClient from './components/MemberDashboardClient';
 
 export const dynamic = 'force-dynamic';
@@ -74,7 +75,7 @@ export default async function MemberDashboardPage() {
         select:  { pathSlug: true, moduleSlug: true, content: true, updatedAt: true },
       }).catch(() => []),
       // Member registries
-      prisma.registry.findMany({
+      registryDelegate.findMany({
         where:   { userId },
         orderBy: { createdAt: 'asc' },
         select: {

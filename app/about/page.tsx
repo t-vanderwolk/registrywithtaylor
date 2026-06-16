@@ -6,15 +6,31 @@ import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
-import { FALLBACK_AFFILIATE_PARTNER_LOGO_SRC } from '@/lib/affiliatePartnerLogos';
-import { isRemoteImageUrl } from '@/lib/blog/images';
 import {
   WHAT_I_HELP_FAMILIES_CHOOSE_ITEMS,
   WHAT_I_HELP_FAMILIES_CHOOSE_TITLE,
 } from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { listAffiliatePartnerOptions } from '@/lib/server/affiliatePartners';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
+
+// ─── Static affiliate partner list ────────────────────────────────────────────
+const ABOUT_PAGE_PARTNERS: { name: string; logo: string; href?: string }[] = [
+  { name: 'Silver Cross', logo: '/assets/logos/silver-cross-logo-1.webp', href: 'https://www.silvercrossus.com' },
+  { name: 'mima', logo: '/affiliate-logos/mima.png', href: 'https://www.mimakids.com' },
+  { name: 'Babylist', logo: '/assets/logos/babylist.png', href: 'https://www.babylist.com' },
+  { name: 'macrobaby', logo: '/assets/logos/macrobaby-logo.webp', href: 'https://www.macrobaby.com' },
+  { name: 'Momcozy', logo: '/assets/logos/momcozy.png', href: 'https://www.momcozy.com' },
+  { name: 'Baby Brezza', logo: '/assets/logos/babybrezzalogo.png', href: 'https://www.babybrezza.com' },
+  { name: 'BabyQuip', logo: '/assets/logos/babyquip.png', href: 'https://www.babyquip.com' },
+  { name: 'dadada Baby', logo: '/assets/logos/dadadadalogo.png', href: 'https://dadadababy.com' },
+  { name: 'Ergobaby', logo: '/assets/logos/ergobabylogo.png', href: 'https://www.ergobaby.com' },
+  { name: 'Happiest Baby', logo: '/assets/logos/happiestbaby-logo.png', href: 'https://www.happiestbaby.com' },
+  { name: 'Jool Baby', logo: '/assets/logos/joolbabylogo.png', href: 'https://joolbaby.com' },
+  { name: 'Kyte Baby', logo: '/assets/logos/kytebaby-logo.png', href: 'https://kytebaby.com' },
+  { name: 'Munchkin', logo: '/assets/logos/munchkin.png', href: 'https://www.munchkin.com' },
+  { name: 'Nanit', logo: '/assets/logos/nanit.png', href: 'https://www.nanit.com' },
+  { name: 'Veer', logo: '/affiliate-logos/veer.png', href: 'https://www.veercycle.com' },
+];
 
 export const metadata = buildMarketingMetadata({
   title: 'About — Taylor-Made Baby Co.',
@@ -25,12 +41,7 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'About Taylor-Made Baby Co.',
 });
 
-export default async function AboutPage() {
-  const affiliatePartners = await listAffiliatePartnerOptions();
-  const partnersWithLogos = affiliatePartners.filter(
-    (partner) => partner.logoUrl && partner.logoUrl !== FALLBACK_AFFILIATE_PARTNER_LOGO_SRC,
-  );
-
+export default function AboutPage() {
   return (
     <SiteShell currentPath="/about">
       <main className="site-main">
@@ -234,41 +245,39 @@ export default async function AboutPage() {
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={100}>
-              <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
-                {partnersWithLogos.map((partner) => {
-                  const href = partner.defaultDestinationUrl ?? partner.website;
-                  const logo = (
-                    <div className="flex min-h-[4.75rem] min-w-[10.5rem] items-center justify-center px-4 py-3 md:min-h-[5.25rem] md:min-w-[11.5rem]">
+              <div className="grid grid-cols-3 gap-6 sm:grid-cols-5 sm:gap-8">
+                {ABOUT_PAGE_PARTNERS.map((partner) => {
+                  const inner = (
+                    <div className="flex h-16 items-center justify-center px-2 sm:h-20">
                       <Image
-                        src={partner.logoUrl ?? FALLBACK_AFFILIATE_PARTNER_LOGO_SRC}
+                        src={partner.logo}
                         alt={partner.name}
-                        width={220}
-                        height={72}
-                        className="h-auto max-h-10 w-auto max-w-[9.5rem] object-contain opacity-90 transition duration-200 group-hover:opacity-100 md:max-h-12 md:max-w-[10.5rem]"
+                        width={160}
+                        height={56}
+                        className="h-8 w-auto max-w-full object-contain opacity-75 transition duration-200 group-hover:opacity-100 sm:h-10 md:h-12"
                         loading="lazy"
-                        unoptimized={isRemoteImageUrl(partner.logoUrl)}
                       />
                     </div>
                   );
 
-                  if (!href) {
+                  if (!partner.href) {
                     return (
-                      <div key={partner.id} className="inline-flex items-center justify-center">
-                        {logo}
+                      <div key={partner.name} className="flex items-center justify-center">
+                        {inner}
                       </div>
                     );
                   }
 
                   return (
                     <a
-                      key={partner.id}
-                      href={href}
+                      key={partner.name}
+                      href={partner.href}
                       target="_blank"
                       rel="sponsored nofollow noopener noreferrer"
-                      className="group inline-flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+                      className="group flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
                       aria-label={`Visit ${partner.name}`}
                     >
-                      {logo}
+                      {inner}
                     </a>
                   );
                 })}

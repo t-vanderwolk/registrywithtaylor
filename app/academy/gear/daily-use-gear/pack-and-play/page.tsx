@@ -95,7 +95,7 @@ const TYPE_CARDS = [
     label: 'Portable',
     imageSrc: '/assets/gearpath/travelcribcicco.png',
     imageAlt: 'Lightweight mesh travel crib set up in a home for portable everyday use.',
-    imageFit: 'cover' as const,
+    imageFit: 'contain' as const,
     paragraphs: [
       'This is the lighter, simpler lane.',
       'Usually less bulky, easier to carry, and better when this setup will actually move between houses, trips, and closets.',

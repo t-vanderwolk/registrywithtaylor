@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -63,7 +64,7 @@ export default async function AdminDashboardPage() {
     }),
     getGuideAnalyticsDashboard(),
     getNewsletterAnalytics(),
-    prisma.registry.count().catch(() => 0),
+    registryDelegate.count().catch(() => 0),
     prisma.learner.count().catch(() => 0),
   ]);
 

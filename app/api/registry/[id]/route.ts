@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { registryDelegate } from '@/lib/server/prismaRegistry';
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -15,7 +16,7 @@ export async function PATCH(req: Request, { params: paramsPromise }: RouteContex
   }
 
   // Verify ownership
-  const existing = await prisma.registry.findUnique({
+  const existing = await registryDelegate.findUnique({
     where:  { id },
     select: { userId: true },
   });
@@ -55,7 +56,7 @@ export async function PATCH(req: Request, { params: paramsPromise }: RouteContex
   if (completedCount !== undefined) data.completedCount = typeof completedCount === 'number' && completedCount >= 0 ? completedCount : null;
   if (notes !== undefined)          data.notes          = typeof notes === 'string' ? notes.trim() || null : null;
 
-  const registry = await prisma.registry.update({
+  const registry = await registryDelegate.update({
     where: { id },
     data,
   });
@@ -73,7 +74,7 @@ export async function DELETE(_req: Request, { params: paramsPromise }: RouteCont
   }
 
   // Verify ownership
-  const existing = await prisma.registry.findUnique({
+  const existing = await registryDelegate.findUnique({
     where:  { id },
     select: { userId: true },
   });
@@ -85,7 +86,7 @@ export async function DELETE(_req: Request, { params: paramsPromise }: RouteCont
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  await prisma.registry.delete({ where: { id } });
+  await registryDelegate.delete({ where: { id } });
 
   return NextResponse.json({ success: true });
 }
