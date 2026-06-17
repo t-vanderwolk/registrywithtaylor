@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -30,8 +31,8 @@ type Question = {
 type StrollerRecommendation = {
   name: string;
   tagline: string;
-  shopUrl: string;
-  shopLabel: string;
+  brand: string;
+  model: string;
 };
 
 type CategoryResult = {
@@ -292,20 +293,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'Bugaboo Fox 5',
         tagline: 'Best-in-class push quality. The benchmark full-size.',
-        shopUrl: 'https://www.macrobaby.com/products/bugaboo-fox-5-complete',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Bugaboo',
+        model: 'Fox 5',
       },
       {
         name: 'Nuna MIXX Next',
         tagline: 'Reversible seat, one-hand fold, grows to a second child.',
-        shopUrl: 'https://www.macrobaby.com/collections/nuna-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Nuna',
+        model: 'MIXX next',
       },
       {
         name: 'Silver Cross Reef 2',
         tagline: 'Premium full-size comfort with genuine seat longevity into toddlerhood.',
-        shopUrl: 'https://www.silvercrossus.com/product/reef-2-stroller/',
-        shopLabel: 'Shop at Silver Cross',
+        brand: 'Silver Cross',
+        model: 'Reef 2',
       },
     ],
   },
@@ -333,20 +334,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'Bugaboo Dragonfly',
         tagline: 'Compact city stroller. Smaller footprint, still a real everyday push.',
-        shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Bugaboo',
+        model: 'Dragonfly',
       },
       {
         name: 'Nuna TRIV Next',
         tagline: 'Lightweight, reversible seat, one-hand fold under 20 lbs.',
-        shopUrl: 'https://www.macrobaby.com/collections/nuna-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Nuna',
+        model: 'TRIV next',
       },
       {
         name: 'Cybex Mios',
         tagline: 'Sleek mid-size with modular seat and urban maneuverability.',
-        shopUrl: 'https://www.macrobaby.com/collections/cybex-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'CYBEX',
+        model: 'Mios',
       },
     ],
   },
@@ -374,20 +375,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'Babyzen YOYO2',
         tagline: 'The gold standard. Fits overhead bin on most airlines.',
-        shopUrl: 'https://www.macrobaby.com/collections/babyzen',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'BABYZEN',
+        model: 'YOYO2',
       },
       {
         name: 'Silver Cross Clic',
         tagline: 'Standing fold, 13 lbs, genuinely compact.',
-        shopUrl: 'https://www.silvercrossus.com/product/clic-compact-travel-stroller/',
-        shopLabel: 'Shop at Silver Cross',
+        brand: 'Silver Cross',
+        model: 'Clic',
       },
       {
         name: 'Bugaboo Butterfly',
         tagline: 'One-motion fold, 19 lbs — the most airline-ready Bugaboo.',
-        shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Bugaboo',
+        model: 'Butterfly',
       },
     ],
   },
@@ -413,20 +414,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'Bugaboo Donkey 6',
         tagline: 'The benchmark convertible. Mono to duo seamlessly.',
-        shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Bugaboo',
+        model: 'Donkey 6',
       },
       {
         name: 'Nuna DEMI Next',
         tagline: 'Side-by-side double configuration, born as a single.',
-        shopUrl: 'https://www.macrobaby.com/collections/nuna-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Nuna',
+        model: 'DEMI next',
       },
       {
         name: 'Cybex Gazelle S',
         tagline: 'Modular expansion, compact for a convertible.',
-        shopUrl: 'https://www.macrobaby.com/collections/cybex-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'CYBEX',
+        model: 'Gazelle S',
       },
     ],
   },
@@ -453,20 +454,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'Bugaboo Donkey 6',
         tagline: 'Widest in-class basket. Still manageable for a double.',
-        shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Bugaboo',
+        model: 'Donkey 6',
       },
       {
         name: 'Baby Jogger City Select 2',
         tagline: 'Inline configuration — fits through more doorways.',
-        shopUrl: 'https://www.albeebaby.com/baby-jogger-city-select-2.html',
-        shopLabel: 'Shop at Albee Baby',
+        brand: 'Baby Jogger',
+        model: 'City Select 2',
       },
       {
         name: 'Nuna DEMI Next',
         tagline: 'Side-by-side comfort, surprisingly manageable.',
-        shopUrl: 'https://www.macrobaby.com/collections/nuna-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'Nuna',
+        model: 'DEMI next',
       },
     ],
   },
@@ -491,20 +492,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       {
         name: 'BOB Revolution Flex 3.0',
         tagline: 'The running stroller. Suspension built for actual pace.',
-        shopUrl: 'https://www.albeebaby.com/bob-revolution-flex-30-duallie.html',
-        shopLabel: 'Shop at Albee Baby',
+        brand: 'BOB',
+        model: 'Revolution Flex 3.0',
       },
       {
         name: 'Thule Urban Glide 2',
         tagline: 'Lighter than BOB, smoother on-road, still trail-capable.',
-        shopUrl: 'https://www.albeebaby.com/thule-urban-glide-2.html',
-        shopLabel: 'Shop at Albee Baby',
+        brand: 'Thule',
+        model: 'Urban Glide 2',
       },
       {
         name: 'UPPAbaby Ridge',
         tagline: 'Jogging-capable with a full-size seat. Best of both worlds.',
-        shopUrl: 'https://www.macrobaby.com/collections/uppababy-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        brand: 'UPPAbaby',
+        model: 'Ridge',
       },
     ],
   },
@@ -705,14 +706,41 @@ export default function StrollerQuiz() {
                 )}
                 <p style={styles.pickName}>{pick.name}</p>
                 <p style={styles.pickTagline}>{pick.tagline}</p>
-                <a
-                  href={pick.shopUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ ...styles.shopBtn, background: result.accentColor }}
-                >
-                  {pick.shopLabel} →
-                </a>
+                {(() => {
+                  const links = getAffiliateLinks(pick.brand, pick.model);
+                  return (
+                    <div style={styles.shopBtnRow}>
+                      {links.babylistUrl && (
+                        <a
+                          href={links.babylistUrl}
+                          target="_blank"
+                          rel="sponsored nofollow noopener noreferrer"
+                          style={styles.shopBtnBabylist}
+                        >
+                          <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                            <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
+                          </svg>
+                          Babylist
+                        </a>
+                      )}
+                      {links.amazonUrl && (
+                        <a
+                          href={links.amazonUrl}
+                          target="_blank"
+                          rel="sponsored nofollow noopener noreferrer"
+                          style={styles.shopBtnAmazon}
+                        >
+                          <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                            <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
+                            <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                            <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                          </svg>
+                          Amazon
+                        </a>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             ))}
           </div>
@@ -1051,18 +1079,41 @@ const styles: Record<string, React.CSSProperties> = {
     lineHeight: 1.4,
     flex: 1,
   },
-  shopBtn: {
-    display: 'block',
-    textAlign: 'center',
+  shopBtnRow: {
+    display: 'flex',
+    gap: '0.4rem',
+    marginTop: '0.5rem',
+    flexWrap: 'wrap',
+  },
+  shopBtnBabylist: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.35rem',
     fontFamily: 'var(--font-sans)',
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
     fontWeight: 700,
-    color: '#fff',
-    padding: '0.6rem 1rem',
+    color: '#c45075',
+    padding: '0.45rem 0.85rem',
     borderRadius: '999px',
     textDecoration: 'none',
-    letterSpacing: '0.02em',
-    marginTop: '0.5rem',
+    border: '1px solid rgba(215,161,175,0.4)',
+    background: 'rgba(255,249,246,0.92)',
+    whiteSpace: 'nowrap' as const,
+  },
+  shopBtnAmazon: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.35rem',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.75rem',
+    fontWeight: 600,
+    color: '#1a1a1a',
+    padding: '0.45rem 0.85rem',
+    borderRadius: '999px',
+    textDecoration: 'none',
+    border: '1px solid rgba(0,0,0,0.1)',
+    background: '#fff',
+    whiteSpace: 'nowrap' as const,
   },
   blogLink: {
     display: 'block',

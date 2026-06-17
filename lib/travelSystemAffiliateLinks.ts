@@ -303,6 +303,16 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     amazonUrl: amazonSearch('Bumbleride Era stroller'),
   },
 
+  // BABYZEN
+  'BABYZEN:::YOYO2': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?q=babyzen+yoyo'),
+    amazonUrl: amazonSearch('Babyzen YOYO2 stroller'),
+  },
+  'BABYZEN:::YOYO Origin': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?q=babyzen+yoyo'),
+    amazonUrl: amazonSearch('Babyzen YOYO Origin stroller'),
+  },
+
   // Stokke
   'Stokke:::Yoyo 3': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=stokke'),
