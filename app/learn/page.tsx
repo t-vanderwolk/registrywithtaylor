@@ -153,6 +153,51 @@ export default async function LearnPage() {
           </RevealOnScroll>
         </MarketingSection>
 
+        {/* ─── Stroller Matchmaker Quiz (CTA to dedicated page) ──────── */}
+        <MarketingSection
+          id="stroller-quiz"
+          tone="white"
+          spacing="spacious"
+          reveal={false}
+        >
+          <RevealOnScroll>
+            <div className="mx-auto max-w-3xl">
+              <SectionIntro
+                eyebrow="Free Tool"
+                title="Find your stroller category."
+                description="There is no universal best stroller — only the one that fits your actual life. Answer 7 questions and we'll match you to the right category with specific picks."
+                contentWidthClassName="max-w-3xl"
+              />
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll delayMs={80}>
+            <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#fffdfa_0%,#fbf2ec_100%)] p-8 shadow-[0_20px_60px_rgba(55,40,46,0.06)]">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-[var(--color-accent-dark)]/80">
+                Stroller Matchmaker
+              </p>
+              <h3 className="mt-3 font-serif text-[1.8rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
+                Six categories. One that actually fits your life.
+              </h3>
+              <p className="mt-4 text-[1rem] leading-[1.85] text-neutral-700">
+                Full size, compact, travel, single-to-double convertible, double, or jogging — each one solves a different job. The quiz matches you to the right category and gives you Taylor's top picks in that lane.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/tools/stroller-quiz"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
+                >
+                  Take the Quiz
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+              <p className="mt-5 text-[0.78rem] text-neutral-500">
+                Free to use. No account required. Takes about 2 minutes.</p>
+            </div>
+          </RevealOnScroll>
+        </MarketingSection>
+
         {/* ─── Full Academy path grid ─────────────────────────────────── */}
         <section className="border-t border-[rgba(0,0,0,0.05)] px-5 py-14 sm:px-8 sm:py-20" style={{ backgroundColor: '#faf9f6' }}>
           <div className="mx-auto max-w-6xl">
