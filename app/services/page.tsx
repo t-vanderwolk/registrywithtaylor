@@ -39,32 +39,32 @@ const engagementPrinciples = [
 const optionalAddOns = [
   {
     title: 'Nursery Layout Planning',
-    price: '$79',
+    price: '$149',
     description: 'Furniture placement, room flow, and sleep environment guidance.',
   },
   {
     title: 'Registry Refresh',
-    price: '$79',
+    price: '$149',
     description: 'Review and refine your registry after your baby shower or later in pregnancy.',
   },
   {
     title: 'Baby Gear Troubleshooting',
-    price: '$59',
+    price: '$99',
     description: 'Help with strollers, carriers, monitors, feeding gear, and everyday gear questions.',
   },
   {
     title: 'Travel With Baby Planning',
-    price: '$59',
+    price: '$99',
     description: 'Guidance on travel strollers, car seats, and flying with an infant.',
   },
   {
     title: 'Postpartum Preparation',
-    price: '$79',
+    price: '$149',
     description: 'Support planning feeding stations, recovery supplies, and home organization.',
   },
   {
     title: 'Sibling and Animal Introduction Prep',
-    price: '$59',
+    price: '$99',
     description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
   },
 ];

@@ -57,17 +57,17 @@ const servicesFaqs: FAQEntry[] = [
   {
     question: 'What is included in the Focused Session?',
     answer:
-      'One 90-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $149.',
+      'One 90-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $199.',
   },
   {
     question: 'What is included in the Signature Package?',
     answer:
-      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $547.',
+      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $797 – $997.',
   },
   {
     question: 'What is the Private Concierge?',
     answer:
-      'Ongoing advisor access scoped to your specific decisions, timeline, and preparation stage. The Private Concierge includes everything in the Signature Package plus extended support as priorities evolve. Pricing starts at $997 and is discussed during an initial scoping conversation. Use the contact form to start that conversation.',
+      'Ongoing advisor access scoped to your specific decisions, timeline, and preparation stage. The Private Concierge includes everything in the Signature Package plus extended support as priorities evolve. Pricing starts at $1,997 and is discussed during an initial scoping conversation. Use the contact form to start that conversation.',
   },
   {
     question: 'Are the sessions virtual or in person?',
