@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminButton from '@/components/admin/ui/AdminButton';
+import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
 
 type NavLink = { label: string; href: string };
 type NavSection = { label: string; links: NavLink[] };
@@ -48,6 +49,7 @@ export default function AdminShell({
           <div className="flex items-center gap-2">
             {!isReviewerMode ? (
               <>
+                <AdminNotificationBell />
                 <AdminButton asChild variant="primary">
                   <Link href="/admin/academy/new">New Academy Draft</Link>
                 </AdminButton>
