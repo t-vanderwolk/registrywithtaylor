@@ -8,7 +8,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'Stroller Matchmaker Quiz | Taylor-Made Baby Co.',
   description:
-    'Answer 7 quick questions and find your stroller category — full size, compact, travel, convertible, double, or jogging. Specific product picks included.',
+    'Answer 8 quick questions and find your stroller category — full size, compact, travel, convertible, double, or jogging. Specific product picks included.',
   path: '/tools/stroller-quiz',
   imagePath: '/assets/editorial/strollers.png',
   imageAlt: 'Stroller Matchmaker Quiz',
@@ -32,7 +32,7 @@ export default function StrollerQuizPage() {
           <SectionIntro
             eyebrow="Free Tool"
             title="Stroller Matchmaker"
-            description="There is no universal best stroller — only the one that fits your actual life. Answer 7 questions and we'll match you to one of the six stroller categories, with specific picks for your result."
+            description="There is no universal best stroller — only the one that fits your actual life. Answer 8 questions and we'll match you to one of the six stroller categories, with specific picks for your result."
             contentWidthClassName="max-w-2xl"
           />
 

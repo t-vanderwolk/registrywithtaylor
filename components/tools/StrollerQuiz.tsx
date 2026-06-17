@@ -156,6 +156,34 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
+    id: 'system',
+    question: 'Does your stroller need to work as a complete newborn system?',
+    subtext:
+      'Modular strollers have a bassinet that attaches to the frame, a reversible or removable seat, and infant car seat click-in with adapters. Travel strollers typically skip all of this in favor of fold.',
+    answers: [
+      {
+        label: 'Yes — bassinet, reversible seat, and car seat adapters all matter',
+        sublabel: 'I want one frame that handles every stage from newborn',
+        scores: { compact: 4, 'full-size': 2 },
+      },
+      {
+        label: 'Car seat compatibility yes, full bassinet is less important',
+        sublabel: 'Adapter support matters; I can solve the bassinet phase separately',
+        scores: { compact: 3, 'full-size': 1 },
+      },
+      {
+        label: 'No — I just need it to fold small and be easy to carry',
+        sublabel: 'Portability is the whole job; I\'ll solve newborn stage another way',
+        scores: { travel: 4 },
+      },
+      {
+        label: 'I already have a newborn solution sorted',
+        sublabel: 'Bassinet and car seat aren\'t factors in my stroller decision',
+        scores: { travel: 1, compact: 1, 'full-size': 1 },
+      },
+    ],
+  },
+  {
     id: 'priority',
     question: 'What matters most to you in a stroller?',
     subtext: 'Pick your actual priority, not the answer that sounds best.',
@@ -274,10 +302,10 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         shopLabel: 'Shop at MacroBaby',
       },
       {
-        name: 'Cybex Mios',
-        tagline: 'Sleek, compact-feeling full-size with strong urban push.',
-        shopUrl: 'https://www.macrobaby.com/collections/cybex-strollers',
-        shopLabel: 'Shop at MacroBaby',
+        name: 'Silver Cross Reef 2',
+        tagline: 'Premium full-size comfort with genuine seat longevity into toddlerhood.',
+        shopUrl: 'https://www.silvercrossus.com/product/reef-2-stroller/',
+        shopLabel: 'Shop at Silver Cross',
       },
     ],
   },
@@ -303,20 +331,20 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     blogTitle: 'The Best Compact Strollers of 2026',
     picks: [
       {
-        name: 'Bugaboo Butterfly',
-        tagline: 'One-motion fold, 19 lbs, airport-ready.',
+        name: 'Bugaboo Dragonfly',
+        tagline: 'Compact city stroller. Smaller footprint, still a real everyday push.',
         shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
         shopLabel: 'Shop at MacroBaby',
       },
       {
-        name: 'Silver Cross Reef 2',
-        tagline: 'Refined compact feel with genuine full-size seat longevity.',
-        shopUrl: 'https://www.silvercrossus.com/product/reef-2-stroller/',
-        shopLabel: 'Shop at Silver Cross',
+        name: 'Nuna TRIV Next',
+        tagline: 'Lightweight, reversible seat, one-hand fold under 20 lbs.',
+        shopUrl: 'https://www.macrobaby.com/collections/nuna-strollers',
+        shopLabel: 'Shop at MacroBaby',
       },
       {
-        name: 'Cybex Gazelle S',
-        tagline: 'Mid-size that expands to a double — best of both lanes.',
+        name: 'Cybex Mios',
+        tagline: 'Sleek mid-size with modular seat and urban maneuverability.',
         shopUrl: 'https://www.macrobaby.com/collections/cybex-strollers',
         shopLabel: 'Shop at MacroBaby',
       },
@@ -356,8 +384,8 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         shopLabel: 'Shop at Silver Cross',
       },
       {
-        name: 'Bugaboo Dragonfly',
-        tagline: 'Smaller footprint, city-first, still a real stroller.',
+        name: 'Bugaboo Butterfly',
+        tagline: 'One-motion fold, 19 lbs — the most airline-ready Bugaboo.',
         shopUrl: 'https://www.macrobaby.com/collections/bugaboo-strollers',
         shopLabel: 'Shop at MacroBaby',
       },
@@ -371,14 +399,15 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#b5922a',
     accentBg: '#fdf8ee',
     description:
-      'Convertible strollers start as a single and expand to accommodate a second child later. They are built for families with a real, near-term sibling timeline who want one strategic purchase — not a vague future plan. You live with more frame before the second seat arrives, so the timeline needs to be honest.',
+      'Convertible strollers start as a single and expand to accommodate a second child later. The ones worth buying are modular: both seats are the same seat — not a smaller sibling seat bolted on — and the frame in single mode typically gains an extra basket or cargo attachment where the second seat will eventually live. True modular convertibles include the Cybex Gazelle S, Nuna DEMI Next, Bugaboo Donkey 6, and Veer Switchback and Roll. This is what makes them a strategic purchase rather than a compromise. You live with more frame before the second seat arrives, so the sibling timeline needs to be real.',
     rightFor: [
       'Families with a real, near-term sibling timeline (within 2–3 years)',
-      'Parents who want to delay a second major stroller purchase without compromising too early',
+      'Parents who want one frame that grows rather than buying a separate double later',
       'Households where the expansion path is specific, not a hopeful maybe',
+      'Buyers who want equal comfort for both children — a true modular design uses the same seat for child one and child two',
     ],
     watchOut:
-      'If the sibling timeline is still fuzzy, a convertible adds daily bulk in exchange for future flexibility you might not need. Buy it for the plan you actually have, not the possibility.',
+      'Not all convertibles are created equal. Avoid designs where the second seat is noticeably smaller or less reclined — that\'s not a true modular convertible, it\'s a compromise. The Silver Cross Wave, UPPAbaby Vista, Orbit Baby G5, and Bugaboo Kangaroo all fall into this category: they expand, but the second seat is a different (typically smaller) seat. If the sibling timeline is still fuzzy, a convertible adds daily bulk in exchange for future flexibility you may not need.',
     imageSrc: '/assets/strollers/convertable.png',
     picks: [
       {
@@ -472,9 +501,9 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         shopLabel: 'Shop at Albee Baby',
       },
       {
-        name: 'Cybex Eezy S Twist+',
-        tagline: 'All-terrain capable without full jogging bulk.',
-        shopUrl: 'https://www.macrobaby.com/collections/cybex-strollers',
+        name: 'UPPAbaby Ridge',
+        tagline: 'Jogging-capable with a full-size seat. Best of both worlds.',
+        shopUrl: 'https://www.macrobaby.com/collections/uppababy-strollers',
         shopLabel: 'Shop at MacroBaby',
       },
     ],
@@ -551,7 +580,7 @@ export default function StrollerQuiz() {
         <div style={styles.introIcon}>🛒</div>
         <h2 style={styles.introTitle}>Find Your Stroller Category</h2>
         <p style={styles.introSubtext}>
-          There is no universal best stroller — only the one that fits your actual life. Answer 7
+          There is no universal best stroller — only the one that fits your actual life. Answer 8
           quick questions and we'll match you to one of the six stroller categories, with specific
           picks for your result.
         </p>

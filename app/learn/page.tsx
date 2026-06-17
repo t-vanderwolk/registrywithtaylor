@@ -165,7 +165,7 @@ export default async function LearnPage() {
               <SectionIntro
                 eyebrow="Free Tool"
                 title="Find your stroller category."
-                description="There is no universal best stroller — only the one that fits your actual life. Answer 7 questions and we'll match you to the right category with specific picks."
+                description="There is no universal best stroller — only the one that fits your actual life. Answer 8 questions and we'll match you to the right category with specific picks."
                 contentWidthClassName="max-w-3xl"
               />
             </div>
