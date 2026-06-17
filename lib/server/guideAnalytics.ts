@@ -5,6 +5,7 @@ import {
   getGuideAnalyticsEventAliases,
 } from '@/lib/guides/events';
 import { getAcademyGuideScopeWhere } from '@/lib/server/academyGuides';
+import { getPreviewModuleScopeWhere } from '@/lib/server/academyAnalytics';
 import {
   GUIDE_STORAGE_UNAVAILABLE_MESSAGE,
   isGuideStorageUnavailableError,
@@ -29,7 +30,7 @@ export type GuideAnalyticsCounts = {
   newsletterClicks: number;
 };
 
-export type GuideAnalyticsScope = 'all' | 'academy';
+export type GuideAnalyticsScope = 'all' | 'academy' | 'preview';
 
 const emptyCounts = (): GuideAnalyticsCounts => ({
   views: 0,
@@ -249,7 +250,12 @@ export async function getGuideAnalyticsDashboard({
 } = {}): Promise<GuideAnalyticsDashboard> {
   let guides;
   let affiliateClickEvents;
-  const scopeWhere = scope === 'academy' ? getAcademyGuideScopeWhere() : undefined;
+  const scopeWhere =
+    scope === 'academy'
+      ? getAcademyGuideScopeWhere()
+      : scope === 'preview'
+        ? getPreviewModuleScopeWhere()
+        : undefined;
   try {
     [guides, affiliateClickEvents] = await Promise.all([
       prisma.guide.findMany({

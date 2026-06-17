@@ -11,6 +11,7 @@ import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import TrackPreviewView from '@/components/learn/TrackPreviewView';
 
 export const metadata = buildMarketingMetadata({
   title: 'The Art of the Registry — Free Lesson | Taylor-Made Baby Academy',
@@ -86,6 +87,7 @@ const workbookPrompts = [
 export default function ArtOfTheRegistryPage() {
   return (
     <SiteShell currentPath="/learn">
+      <TrackPreviewView slug="art-of-the-registry" />
       <main className="site-main" style={{ backgroundColor: '#faf9f6' }}>
         {/* Lesson Header */}
         <LessonHeader

@@ -11,6 +11,7 @@ import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import TrackPreviewView from '@/components/learn/TrackPreviewView';
 
 export const metadata = buildMarketingMetadata({
   title: 'The Stroller Equation — Free Lesson | Taylor-Made Baby Academy',
@@ -279,6 +280,7 @@ const keyTakeaways = [
 export default function StrollerFoundationsPage() {
   return (
     <SiteShell currentPath="/learn">
+      <TrackPreviewView slug="stroller-foundations" />
       <main className="site-main" style={{ backgroundColor: '#faf9f6' }}>
         {/* Lesson Header */}
         <LessonHeader

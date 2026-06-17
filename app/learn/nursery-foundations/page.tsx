@@ -11,6 +11,7 @@ import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import TrackPreviewView from '@/components/learn/TrackPreviewView';
 
 export const metadata = buildMarketingMetadata({
   title: 'Nursery Foundations — Free Lesson | Taylor-Made Baby Academy',
@@ -112,6 +113,7 @@ const workbookPrompts = [
 export default function NurseryFoundationsPage() {
   return (
     <SiteShell currentPath="/learn">
+      <TrackPreviewView slug="nursery-foundations" />
       <main className="site-main" style={{ backgroundColor: '#faf9f6' }}>
         {/* Lesson Header */}
         <LessonHeader
