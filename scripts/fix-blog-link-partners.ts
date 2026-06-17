@@ -91,7 +91,7 @@ async function main() {
     if (!partner) {
       // Collect for grouped report
       if (!unmatchedByHost[hostname]) unmatchedByHost[hostname] = [];
-      unmatchedByHost[hostname].push({ code: link.code, name: link.name ?? '', url: destUrl });
+      unmatchedByHost[hostname].push({ code: link.code ?? '', name: link.name ?? '', url: destUrl });
       unmatched++;
       continue;
     }
