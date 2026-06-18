@@ -260,7 +260,7 @@ export const servicePackages: ServicePackage[] = [
     key: 'signature-planning',
     eyebrow: 'Full Baby Prep',
     title: 'Signature Package',
-    price: '$797 – $997',
+    price: '$797',
     meetings: '3 sessions',
     sessionLength: '90 min each',
     summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
