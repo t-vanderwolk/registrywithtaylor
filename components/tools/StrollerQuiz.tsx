@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { TRAVEL_SYSTEM_ENTITIES, type StrollerCategory, type TravelSystemEntity } from '@/lib/guides/travelSystemCompatibility';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -567,6 +568,19 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
   return sorted[0]![0];
 }
 
+// ─── Category → strollerCategory mapping ──────────────────────────────────────
+
+const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
+  'full-size':   ['full-size', 'full-size-non-modular'],
+  'compact':     ['compact'],
+  'travel':      ['travel'],
+  'convertible': ['convertible-modular', 'convertible-non-modular'],
+  'double':      ['double'],
+  'jogging':     ['jogging', 'wagon'],
+};
+
+const ALL_STROLLERS: TravelSystemEntity[] = TRAVEL_SYSTEM_ENTITIES.filter((e) => e.type === 'stroller');
+
 // ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function StrollerQuiz() {
@@ -575,6 +589,7 @@ export default function StrollerQuiz() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [selected, setSelected] = useState<number | null>(null);
   const [result, setResult] = useState<CategoryResult | null>(null);
+  const [showAllStrollers, setShowAllStrollers] = useState(false);
 
   const question = QUESTIONS[currentQ]!;
   const progress = ((currentQ) / QUESTIONS.length) * 100;
@@ -604,6 +619,7 @@ export default function StrollerQuiz() {
     setAnswers({});
     setSelected(null);
     setResult(null);
+    setShowAllStrollers(false);
   }
 
   if (step === 'intro') {
@@ -785,6 +801,64 @@ export default function StrollerQuiz() {
             ))}
           </div>
         </div>
+
+        {/* Browse all strollers in this category */}
+        {(() => {
+          const matchedTypes = CATEGORY_TO_STROLLER_TYPES[result.key];
+          const pickModels = new Set(result.picks.map((p) => `${p.brand}:::${p.model}`));
+          const categoryStrollers = ALL_STROLLERS.filter(
+            (s) => s.strollerCategory && matchedTypes.includes(s.strollerCategory) && !pickModels.has(`${s.brand}:::${s.shortLabel}`)
+          );
+          if (categoryStrollers.length === 0) return null;
+          const INITIAL_COUNT = 6;
+          const visible = showAllStrollers ? categoryStrollers : categoryStrollers.slice(0, INITIAL_COUNT);
+          return (
+            <div style={styles.allStrollersSection}>
+              <p style={styles.allStrollersLabel}>All strollers in this category</p>
+              <div style={styles.allStrollersGrid}>
+                {visible.map((s) => {
+                  const links = getAffiliateLinks(s.brand, s.shortLabel);
+                  return (
+                    <div key={s.id} style={styles.allStrollerCard}>
+                      <p style={styles.allStrollerBrand}>{s.brand}</p>
+                      <p style={styles.allStrollerModel}>{s.shortLabel}</p>
+                      <div style={styles.shopBtnRow}>
+                        {links.babylistUrl && (
+                          <a href={links.babylistUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnBabylist}>
+                            <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                              <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
+                            </svg>
+                            Babylist
+                          </a>
+                        )}
+                        {links.amazonUrl && (
+                          <a href={links.amazonUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnAmazon}>
+                            <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                              <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
+                              <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                              <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                            </svg>
+                            Amazon
+                          </a>
+                        )}
+                        {!links.babylistUrl && !links.amazonUrl && (
+                          <span style={styles.allStrollerNoLink}>Search online</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {categoryStrollers.length > INITIAL_COUNT && (
+                <button style={styles.showAllBtn} onClick={() => setShowAllStrollers((v) => !v)}>
+                  {showAllStrollers
+                    ? `Show fewer`
+                    : `Show all ${categoryStrollers.length} options →`}
+                </button>
+              )}
+            </div>
+          );
+        })()}
 
         {/* Blog link */}
         {result.blogHref && (
@@ -1172,6 +1246,66 @@ const styles: Record<string, React.CSSProperties> = {
     border: '1px solid rgba(0,0,0,0.1)',
     background: '#fff',
     whiteSpace: 'nowrap' as const,
+  },
+  allStrollersSection: {
+    marginBottom: '1.5rem',
+    borderTop: '1px solid #efcad1',
+    paddingTop: '1.5rem',
+  },
+  allStrollersLabel: {
+    fontFamily: 'var(--font-serif)',
+    fontSize: '1.1rem',
+    fontWeight: 600,
+    color: '#3d2328',
+    marginBottom: '1rem',
+  },
+  allStrollersGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+    gap: '0.75rem',
+    marginBottom: '1rem',
+  },
+  allStrollerCard: {
+    background: '#fdfaf9',
+    border: '1px solid #efcad1',
+    borderRadius: '1rem',
+    padding: '0.85rem 1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.2rem',
+  },
+  allStrollerBrand: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.7rem',
+    fontWeight: 600,
+    color: '#a07880',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase' as const,
+  },
+  allStrollerModel: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.875rem',
+    fontWeight: 700,
+    color: '#3d2328',
+    marginBottom: '0.35rem',
+  },
+  allStrollerNoLink: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.7rem',
+    color: '#a07880',
+    fontStyle: 'italic',
+  },
+  showAllBtn: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.8rem',
+    fontWeight: 600,
+    color: 'var(--color-accent, #e89aae)',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '0.25rem 0',
+    textDecoration: 'underline',
+    textUnderlineOffset: '2px',
   },
   blogLink: {
     display: 'block',

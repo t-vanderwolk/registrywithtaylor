@@ -415,6 +415,93 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     amazonUrl: amazonSearch('Romer Tura stroller'),
   },
 
+  // Baby Jogger (additional)
+  'Baby Jogger:::Summit X3': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
+    amazonUrl: amazonSearch('Baby Jogger Summit X3 jogging stroller'),
+  },
+
+  // BABYZEN (additional)
+  'BABYZEN:::YOYO+': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?q=babyzen+yoyo'),
+    amazonUrl: amazonSearch('Babyzen YOYO Plus stroller'),
+  },
+
+  // Britax
+  'Britax:::B-Clever': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=britax'),
+    amazonUrl: amazonSearch('Britax B-Clever stroller'),
+  },
+  'Britax:::B-Lively': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=britax'),
+    amazonUrl: amazonSearch('Britax B-Lively stroller'),
+  },
+
+  // Bugaboo (additional)
+  'Bugaboo:::Ant': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    amazonUrl: amazonSearch('Bugaboo Ant travel stroller'),
+  },
+  'Bugaboo:::Bee 5': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    amazonUrl: amazonSearch('Bugaboo Bee 5 stroller'),
+  },
+  'Bugaboo:::Donkey 3': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    amazonUrl: amazonSearch('Bugaboo Donkey 3 stroller'),
+  },
+  'Bugaboo:::Fox 2': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    amazonUrl: amazonSearch('Bugaboo Fox 2 stroller'),
+  },
+
+  // Joovy
+  'Joovy:::Caboose S': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
+    amazonUrl: amazonSearch('Joovy Caboose S tandem stroller'),
+  },
+  'Joovy:::Caboose Ultralight Graphite': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
+    amazonUrl: amazonSearch('Joovy Caboose Ultralight Graphite stroller'),
+  },
+  'Joovy:::Qool': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
+    amazonUrl: amazonSearch('Joovy Qool stroller'),
+  },
+  'Joovy:::Twin Roo+': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
+    amazonUrl: amazonSearch('Joovy Twin Roo Plus double stroller'),
+  },
+
+  // Kinderkraft
+  'Kinderkraft:::Lila': {
+    amazonUrl: amazonSearch('Kinderkraft Lila stroller'),
+  },
+  'Kinderkraft:::Tayla': {
+    amazonUrl: amazonSearch('Kinderkraft Tayla stroller'),
+  },
+
+  // Mima (additional)
+  'Mima:::Xari Sport': {
+    amazonUrl: amazonSearch('Mima Xari Sport stroller'),
+  },
+
+  // Silver Cross (additional)
+  'Silver Cross:::Reef': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
+    amazonUrl: amazonSearch('Silver Cross Reef stroller'),
+  },
+  'Silver Cross:::Wave': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
+    amazonUrl: amazonSearch('Silver Cross Wave stroller'),
+  },
+
+  // Thule (additional)
+  'Thule:::Glide 2': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=thule'),
+    amazonUrl: amazonSearch('Thule Glide 2 jogging stroller'),
+  },
+
   // ── CAR SEATS ──────────────────────────────────────────────────────────────
 
   // Nuna

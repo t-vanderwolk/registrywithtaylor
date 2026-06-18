@@ -7,6 +7,7 @@ type PlanningPackage = {
   serviceKey: 'focused-edit' | 'signature-plan' | 'private-concierge';
   eyebrow: string;
   title: string;
+  price?: string;
   summary: string;
   description: string;
   features: string[];
@@ -35,6 +36,7 @@ const planningPackages: PlanningPackage[] = [
     serviceKey: 'signature-plan',
     eyebrow: 'Full Prep Support',
     title: 'The Signature Package',
+    price: '$797',
     summary: 'For families who want help across the full baby-prep picture.',
     description:
       'This package covers the big categories together, from registry structure and gear choices to nursery planning and a practical purchase timeline.',
@@ -113,7 +115,13 @@ export default function PlanningPackageCards({ className = '' }: { className?: s
                 {pkg.title}
               </H3>
 
-              <p className="mt-3 text-base leading-7 text-neutral-600">
+              {pkg.price && (
+                <p className="mt-3 font-serif text-2xl text-[var(--color-accent-dark)]">
+                  {pkg.price}
+                </p>
+              )}
+
+              <p className={pkg.price ? 'mt-2 text-base leading-7 text-neutral-600' : 'mt-3 text-base leading-7 text-neutral-600'}>
                 {pkg.summary}
               </p>
 
