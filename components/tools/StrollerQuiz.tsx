@@ -19,6 +19,8 @@ type Answer = {
   label: string;
   sublabel?: string;
   scores: AnswerScore;
+  /** If set, the final result is restricted to one of these categories regardless of other scores. */
+  forceCategories?: CategoryKey[];
 };
 
 type Question = {
@@ -33,6 +35,7 @@ type StrollerRecommendation = {
   tagline: string;
   brand: string;
   model: string;
+  imageSrc?: string;
 };
 
 type CategoryResult = {
@@ -73,6 +76,7 @@ const QUESTIONS: Question[] = [
         label: 'Twins or multiples',
         sublabel: 'Two seats from the start',
         scores: { double: 5 },
+        forceCategories: ['double', 'convertible'],
       },
       {
         label: 'One now, sibling likely soon',
@@ -295,18 +299,21 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'Best-in-class push quality. The benchmark full-size.',
         brand: 'Bugaboo',
         model: 'Fox 5',
+        imageSrc: '/assets/strollers/fox5.png',
       },
       {
         name: 'Nuna MIXX Next',
         tagline: 'Reversible seat, one-hand fold, grows to a second child.',
         brand: 'Nuna',
         model: 'MIXX next',
+        imageSrc: '/assets/strollers/mixxnext.png',
       },
       {
         name: 'Silver Cross Reef 2',
         tagline: 'Premium full-size comfort with genuine seat longevity into toddlerhood.',
         brand: 'Silver Cross',
         model: 'Reef 2',
+        imageSrc: '/assets/strollers/reef.png',
       },
     ],
   },
@@ -342,12 +349,14 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'Lightweight, reversible seat, one-hand fold under 20 lbs.',
         brand: 'Nuna',
         model: 'TRIV next',
+        imageSrc: '/assets/strollers/triv.png',
       },
       {
         name: 'Cybex Mios',
         tagline: 'Sleek mid-size with modular seat and urban maneuverability.',
         brand: 'CYBEX',
         model: 'Mios',
+        imageSrc: '/assets/strollers/mios.png',
       },
     ],
   },
@@ -389,6 +398,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'One-motion fold, 19 lbs — the most airline-ready Bugaboo.',
         brand: 'Bugaboo',
         model: 'Butterfly',
+        imageSrc: '/assets/strollers/butterfly.png',
       },
     ],
   },
@@ -416,6 +426,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'The benchmark convertible. Mono to duo seamlessly.',
         brand: 'Bugaboo',
         model: 'Donkey 6',
+        imageSrc: '/assets/strollers/donkey.png',
       },
       {
         name: 'Nuna DEMI Next',
@@ -428,6 +439,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'Modular expansion, compact for a convertible.',
         brand: 'CYBEX',
         model: 'Gazelle S',
+        imageSrc: '/assets/strollers/gazelle.png',
       },
     ],
   },
@@ -456,6 +468,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'Widest in-class basket. Still manageable for a double.',
         brand: 'Bugaboo',
         model: 'Donkey 6',
+        imageSrc: '/assets/strollers/donkey.png',
       },
       {
         name: 'Baby Jogger City Select 2',
@@ -494,18 +507,21 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         tagline: 'The running stroller. Suspension built for actual pace.',
         brand: 'BOB',
         model: 'Revolution Flex 3.0',
+        imageSrc: '/assets/strollers/revolution.png',
       },
       {
         name: 'Thule Urban Glide 2',
         tagline: 'Lighter than BOB, smoother on-road, still trail-capable.',
         brand: 'Thule',
         model: 'Urban Glide 2',
+        imageSrc: '/assets/strollers/urbnglide.png',
       },
       {
         name: 'UPPAbaby Ridge',
         tagline: 'Jogging-capable with a full-size seat. Best of both worlds.',
         brand: 'UPPAbaby',
         model: 'Ridge',
+        imageSrc: '/assets/strollers/ridge.png',
       },
     ],
   },
@@ -523,6 +539,8 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
     jogging: 0,
   };
 
+  let allowedCategories: CategoryKey[] | null = null;
+
   for (const [questionId, answerIndex] of Object.entries(answers)) {
     const question = QUESTIONS.find((q) => q.id === questionId);
     if (!question) continue;
@@ -531,9 +549,22 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
     for (const [cat, pts] of Object.entries(answer.scores) as [CategoryKey, number][]) {
       totals[cat] += pts;
     }
+    if (answer.forceCategories) {
+      // Intersect with any previously accumulated constraint
+      allowedCategories = allowedCategories
+        ? allowedCategories.filter((k) => answer.forceCategories!.includes(k))
+        : [...answer.forceCategories];
+    }
   }
 
-  return (Object.entries(totals).sort((a, b) => b[1] - a[1])[0]![0]) as CategoryKey;
+  const sorted = (Object.entries(totals) as [CategoryKey, number][]).sort((a, b) => b[1] - a[1]);
+
+  if (allowedCategories && allowedCategories.length > 0) {
+    const constrained = sorted.filter(([k]) => allowedCategories!.includes(k));
+    if (constrained.length > 0) return constrained[0]![0];
+  }
+
+  return sorted[0]![0];
 }
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -701,6 +732,15 @@ export default function StrollerQuiz() {
           <div style={styles.picksGrid}>
             {result.picks.map((pick, i) => (
               <div key={i} style={styles.pickCard}>
+                {pick.imageSrc && (
+                  <div style={styles.pickImgWrap}>
+                    <img
+                      src={pick.imageSrc}
+                      alt={pick.name}
+                      style={styles.pickImg}
+                    />
+                  </div>
+                )}
                 {i === 0 && (
                   <span style={{ ...styles.pickBadge, background: result.accentColor }}>Top Pick</span>
                 )}
@@ -1052,6 +1092,24 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     gap: '0.5rem',
     boxShadow: '0 4px 16px rgba(58,36,43,0.05)',
+    overflow: 'hidden',
+  },
+  pickImgWrap: {
+    width: '100%',
+    height: '140px',
+    background: '#fdf8f5',
+    borderRadius: '0.75rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '0.25rem',
+    overflow: 'hidden',
+  },
+  pickImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain' as const,
+    padding: '0.5rem',
   },
   pickBadge: {
     display: 'inline-block',
