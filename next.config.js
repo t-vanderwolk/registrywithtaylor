@@ -108,6 +108,22 @@ const nextConfig = {
         destination: '/blog/nuna-demi-icon-has-arrived',
         permanent: true,
       },
+      // ─── Legacy pages no longer at these URLs ────────────────────────────────
+      {
+        source: '/request-invite',
+        destination: '/learn/waitlist',
+        permanent: true,
+      },
+      {
+        source: '/experience',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/car-seats-simplified',
+        destination: '/learn/gear/car-seat-foundations',
+        permanent: true,
+      },
     ];
   },
 };
