@@ -94,25 +94,37 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
   const carSeatList = opts.limit ? carSeats.slice(0, opts.limit) : carSeats;
 
   for (const s of strollerList) {
-    const name = nameOf(s);
-    // Hand-mapped SKU wins — fetch it exactly, skip fuzzy matching.
-    const match = s.babylistSku
-      ? await getBabylistItem(s.babylistSku)
-      : await findBabylistProduct(name, s.brand);
-    if (!match) {
-      report.strollers.notFound += 1;
-      report.strollers.notFoundNames.push(name);
-      // Clear any stale match written by a previous, looser run.
-      if (!opts.dryRun) {
-        await prisma.stroller
-          .update({
-            where: { id: s.id },
-            data: { babylistSku: null, babylistUrl: null, babylistPrice: null, babylistImage: null },
-          })
-          .catch(() => undefined);
-      }
-      continue;
-    }
+   const name = nameOf(s);
+
+// Prefer hand-mapped SKU, but do NOT depend on Impact's single-item endpoint.
+// If the SKU lookup fails, fall back to local catalog search.
+let match = s.babylistSku ? await getBabylistItem(s.babylistSku).catch(() => null) : null;
+
+if (!match) {
+  match = await findBabylistProduct(name, s.brand);
+}
+
+if (!match) {
+  report.strollers.notFound += 1;
+  report.strollers.notFoundNames.push(name);
+
+  // Clear any stale match written by a previous, looser run.
+  if (!opts.dryRun) {
+    await prisma.stroller
+      .update({
+        where: { id: s.id },
+        data: {
+          babylistSku: null,
+          babylistUrl: null,
+          babylistPrice: null,
+          babylistImage: null,
+        },
+      })
+      .catch(() => undefined);
+  }
+
+  continue;
+}
     report.strollers.synced += 1;
     const data = {
       babylistSku: match.CatalogItemId,
