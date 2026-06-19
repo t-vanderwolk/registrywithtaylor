@@ -67,9 +67,18 @@ function buildUrl(
 ): string {
   const url = new URL(`${BASE_URL}${path}`);
 
-  // Do NOT add apiVersion here.
-  // Impact rejects apiVersion as a search param on Catalogs/ItemSearch.
-  // The API version is sent through the ImpactAPIVersion header instead.
+  /**
+   * Do NOT add apiVersion as a URL query param.
+   *
+   * Impact rejected:
+   *   apiVersion
+   *   CatalogId
+   *   PageIndex
+   *
+   * on /Catalogs/ItemSearch.
+   *
+   * API version is sent through the ImpactAPIVersion header instead.
+   */
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== '') {
       url.searchParams.set(key, String(value));
@@ -107,6 +116,7 @@ async function impactGet<T>(url: string, attempt = 0): Promise<T | null> {
 
   if (!res.ok) {
     const body = await res.text().catch(() => '');
+
     throw new Error(
       `Impact.com request failed ${res.status} ${res.statusText} for ${url}${
         body ? ` — ${body.slice(0, 300)}` : ''
@@ -125,35 +135,13 @@ const accountPath = (suffix: string) => {
   return `/Mediapartners/${ACCOUNT_SID}${suffix}`;
 };
 
+const normalize = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
 // ── PUBLIC FUNCTIONS ──────────────────────────────────────────────────────────
-
-/**
- * Search Babylist products by keyword.
- *
- * GET /Mediapartners/{AccountSID}/Catalogs/ItemSearch
- *
- * Important:
- * Impact rejected apiVersion, CatalogId, and PageIndex as query params
- * on this endpoint, so we only send Query and PageSize here.
- *
- * Since CatalogId cannot be sent to ItemSearch, we filter returned results
- * to Babylist catalog 8981 after receiving the response.
- */
-export async function searchBabylistProducts(
-  query: string,
-  options: { pageSize?: number; pageIndex?: number } = {},
-): Promise<ImpactCatalogItem[]> {
-  const pageSize = Math.min(options.pageSize ?? 50, 100);
-
-  const url = buildUrl(accountPath('/Catalogs/ItemSearch'), {
-    Query: query,
-    PageSize: pageSize,
-  });
-
-  const data = await impactGet<CatalogItemsResponse>(url);
-
-  return (data?.Items ?? []).filter((item) => item.CatalogId === BABYLIST_CATALOG_ID);
-}
 
 /**
  * Fetch a single Babylist catalog item by CatalogItemId/SKU.
@@ -207,11 +195,85 @@ export async function* listBabylistItems(
   } while (pageIndex <= numPages);
 }
 
-const normalize = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
+// ── LOCAL BABYLIST SEARCH ─────────────────────────────────────────────────────
+
+let babylistCatalogCache: ImpactCatalogItem[] | null = null;
+
+async function getAllBabylistItemsCached(): Promise<ImpactCatalogItem[]> {
+  if (babylistCatalogCache) return babylistCatalogCache;
+
+  const allItems: ImpactCatalogItem[] = [];
+
+  for await (const page of listBabylistItems({ pageSize: 100 })) {
+    allItems.push(...page);
+  }
+
+  babylistCatalogCache = allItems;
+
+  if (isDev) {
+    console.log(`[impact] cached ${allItems.length} Babylist catalog items`);
+  }
+
+  return allItems;
+}
+
+/**
+ * Search Babylist products locally.
+ *
+ * Impact's /Catalogs/ItemSearch endpoint rejected plain text queries like:
+ *   "Bugaboo Bugaboo Fox 5"
+ *
+ * So instead, we load the Babylist catalog through the normal paginated
+ * /Catalogs/8981/Items endpoint and search locally.
+ */
+export async function searchBabylistProducts(
+  query: string,
+  options: { pageSize?: number; pageIndex?: number } = {},
+): Promise<ImpactCatalogItem[]> {
+  const pageSize = Math.min(options.pageSize ?? 50, 100);
+  const normalizedQuery = normalize(query);
+  const queryTokens = normalizedQuery.split(' ').filter(Boolean);
+
+  if (queryTokens.length === 0) return [];
+
+  const items = await getAllBabylistItemsCached();
+
+  const scored = items
+    .filter((item) => item.CatalogId === BABYLIST_CATALOG_ID)
+    .map((item) => {
+      const itemName = normalize(item.Name ?? '');
+      const itemManufacturer = normalize(item.Manufacturer ?? '');
+
+      const haystack = normalize(
+        [
+          item.Name,
+          item.Manufacturer,
+          item.Description,
+          ...(item.Bullets ?? []),
+          ...(item.Labels ?? []),
+        ]
+          .filter(Boolean)
+          .join(' '),
+      );
+
+      let score = 0;
+
+      for (const token of queryTokens) {
+        if (haystack.includes(token)) score += 1;
+        if (itemName.includes(token)) score += 2;
+        if (itemManufacturer.includes(token)) score += 1;
+      }
+
+      if (itemName === normalizedQuery) score += 10;
+      if (itemName.includes(normalizedQuery)) score += 5;
+
+      return { item, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, pageSize).map(({ item }) => item);
+}
 
 /**
  * Find the single best Babylist match for a product name.
