@@ -400,12 +400,44 @@ model Stroller {
   model           String
   displayName     String?
   summary         String?
+  // ── Babylist (Impact.com) sync fields ──
+  babylistSku       String?
+  babylistUrl       String?
+  babylistPrice     Float?
+  babylistImage     String?
+  babylistUpdatedAt DateTime?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   compatibilities Compatibility[]
+  spec            StrollerSpec?
 
   @@unique([brand, model], name: "brand_model")
   @@index([brand])
+}
+
+model StrollerSpec {
+  id                  String    @id @default(cuid())
+  strollerId          String    @unique
+  stroller            Stroller  @relation(fields: [strollerId], references: [id], onDelete: Cascade)
+  // ── Babylist (Impact.com) API data ──
+  babylistSku         String?
+  babylistUrl         String?
+  babylistPrice       Float?
+  babylistImage       String?
+  babylistUpdatedAt   DateTime?
+  // ── Quiz filter dimensions (manually curated, nullable until filled) ──
+  priceRange          String?   // "budget" | "mid" | "premium" | "luxury"
+  lifestyle           String[]  @default([]) // ["city","suburban","trail","travel"]
+  foldType            String?   // "one-hand" | "compact" | "standard"
+  isExpandable        Boolean   @default(false)
+  maxWeightLbs        Int?
+  ownWeightLbs        Float?
+  suitableFromBirth   Boolean   @default(true)
+  suitableForJogging  Boolean   @default(false)
+  budgetMin           Int?
+  budgetMax           Int?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 }
 
 model CarSeat {
@@ -415,6 +447,12 @@ model CarSeat {
   displayName     String?
   seatType        CarSeatType            @default(INFANT)
   summary         String?
+  // ── Babylist (Impact.com) sync fields ──
+  babylistSku       String?
+  babylistUrl       String?
+  babylistPrice     Float?
+  babylistImage     String?
+  babylistUpdatedAt DateTime?
   createdAt       DateTime                @default(now())
   updatedAt       DateTime                @updatedAt
   compatibilities Compatibility[]
@@ -433,6 +471,12 @@ model Compatibility {
   adapterType       String?
   notes             String?
   confidence        CompatibilityConfidence  @default(HIGH)
+  // ── Babylist (Impact.com) adapter sync fields ──
+  adapterBabylistUrl String?
+  adapterPrice       Float?
+  adapterImage       String?
+  adapterBabylistSku String?
+  adapterUpdatedAt   DateTime?
   createdAt         DateTime                 @default(now())
   updatedAt         DateTime                 @updatedAt
   stroller          Stroller                 @relation(fields: [strollerId], references: [id], onDelete: Cascade)
