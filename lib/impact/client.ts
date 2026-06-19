@@ -275,75 +275,94 @@ export async function searchBabylistProducts(
   return scored.slice(0, pageSize).map(({ item }) => item);
 }
 
+// Catalog items that are accessories / parts — never the stroller or car seat itself.
+const ACCESSORY_DENYLIST = [
+  'adapter', 'cup holder', 'cupholder', 'tray', 'travel bag', 'storage bag',
+  'carry bag', 'seat liner', 'liner', 'footmuff', 'bassinet', 'rocker',
+  'second seat', 'rumble seat', 'organizer', 'organiser', 'cage', 'parasol',
+  'rain cover', 'rain shield', 'weather shield', 'sun shade', 'sunshade',
+  'snack', 'cushion', 'mosquito', 'replacement', 'wheel', 'tire', 'glider board',
+  'ride along', 'stand', 'caddy', 'console', 'hook', 'cover only', 'bundle',
+];
+
+// Generic version / line suffixes that don't identify a specific product.
+const MODEL_STOPWORDS = new Set([
+  'next', 'lux', 'plus', 'pro', 'complete', 'stroller', 'pushchair', 'mini',
+  'max', 'gt', 'gt2', 'gt3', 'v1', 'v2', 'v3', 's', 'lx', 'the', 'and',
+  '1', '2', '3', '4', '5', '6', 'i', 'ii', 'iii',
+]);
+
+const isAccessoryItem = (name: string): boolean => {
+  const n = ` ${name.toLowerCase()} `;
+  return ACCESSORY_DENYLIST.some((kw) => n.includes(kw));
+};
+
 /**
  * Find the single best Babylist match for a product name.
  *
- * Optionally scopes the search by manufacturer.
- * Used to match DB stroller/car seat names to feed entries.
+ * Strict matching to avoid false positives against a 9k-item catalog that's
+ * mostly accessories:
+ *   - excludes accessory/part items (cup holders, adapters, bags, bassinets…)
+ *   - requires the manufacturer to agree
+ *   - requires every DISTINCTIVE model token (brand + version words removed) to
+ *     be present, so "CYBEX Libelle" can't match "Cybex MIOS Stroller"
+ * Returns null when nothing clears the bar (caller falls back to the static link).
  */
 export async function findBabylistProduct(
   name: string,
   manufacturer?: string,
 ): Promise<ImpactCatalogItem | null> {
-  const query = manufacturer ? `${manufacturer} ${name}` : name;
+  const lowerName = name.toLowerCase();
+  const lowerMaker = manufacturer?.toLowerCase() ?? '';
+  // Avoid "Bugaboo Bugaboo Fox 5" when the name already leads with the brand.
+  const query =
+    manufacturer && !lowerName.startsWith(lowerMaker) ? `${manufacturer} ${name}` : name;
 
   const items = await searchBabylistProducts(query, { pageSize: 50 });
   if (items.length === 0) return null;
 
-  const targetTokens = new Set(normalize(name).split(' ').filter(Boolean));
+  const brandTokens = new Set(normalize(manufacturer ?? '').split(' ').filter(Boolean));
+  const nameTokens = normalize(name).split(' ').filter(Boolean);
+  const distinctiveTokens = nameTokens.filter(
+    (t) => !brandTokens.has(t) && !MODEL_STOPWORDS.has(t) && t.length >= 3,
+  );
   const wantManufacturer = manufacturer ? normalize(manufacturer) : null;
+  const exactTarget = normalize(name);
 
   let best: ImpactCatalogItem | null = null;
   let bestScore = -1;
 
   for (const item of items) {
+    if (isAccessoryItem(item.Name ?? '')) continue;
+
     const itemName = normalize(item.Name ?? '');
     const itemTokens = new Set(itemName.split(' ').filter(Boolean));
 
-    let overlap = 0;
-
-    for (const token of targetTokens) {
-      if (itemTokens.has(token)) overlap += 1;
-    }
-
-    const coverage = targetTokens.size > 0 ? overlap / targetTokens.size : 0;
-
-    let score = coverage;
-
+    // Manufacturer must agree.
     if (wantManufacturer) {
       const itemMaker = normalize(item.Manufacturer ?? '');
-
-      if (
-        itemMaker &&
-        (itemMaker.includes(wantManufacturer) || wantManufacturer.includes(itemMaker))
-      ) {
-        score += 0.5;
-      } else if (itemMaker) {
-        score -= 0.25;
-      }
+      const brandOk =
+        (itemMaker && (itemMaker.includes(wantManufacturer) || wantManufacturer.includes(itemMaker))) ||
+        itemName.includes(wantManufacturer);
+      if (!brandOk) continue;
     }
 
-    if (itemName === normalize(name)) {
-      score += 0.5;
+    // Every distinctive model token must appear (the real differentiator).
+    if (distinctiveTokens.length > 0) {
+      const allPresent = distinctiveTokens.every((t) => itemTokens.has(t) || itemName.includes(t));
+      if (!allPresent) continue;
     }
+
+    // Among the survivors, prefer the closest overall name.
+    let overlap = 0;
+    for (const t of nameTokens) if (itemTokens.has(t)) overlap += 1;
+    let score = nameTokens.length > 0 ? overlap / nameTokens.length : 0;
+    if (itemName === exactTarget) score += 1;
+    if (/\b(stroller|car seat|travel system|pushchair)\b/.test(itemName)) score += 0.25;
 
     if (score > bestScore) {
       bestScore = score;
       best = item;
-    }
-  }
-
-  if (best) {
-    const bestTokens = new Set(normalize(best.Name ?? '').split(' ').filter(Boolean));
-
-    let overlap = 0;
-
-    for (const token of targetTokens) {
-      if (bestTokens.has(token)) overlap += 1;
-    }
-
-    if (targetTokens.size > 0 && overlap / targetTokens.size < 0.5) {
-      return null;
     }
   }
 

@@ -98,6 +98,15 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
     if (!match) {
       report.strollers.notFound += 1;
       report.strollers.notFoundNames.push(name);
+      // Clear any stale match written by a previous, looser run.
+      if (!opts.dryRun) {
+        await prisma.stroller
+          .update({
+            where: { id: s.id },
+            data: { babylistSku: null, babylistUrl: null, babylistPrice: null, babylistImage: null },
+          })
+          .catch(() => undefined);
+      }
       continue;
     }
     report.strollers.synced += 1;
@@ -126,6 +135,15 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
     if (!match) {
       report.carSeats.notFound += 1;
       report.carSeats.notFoundNames.push(name);
+      // Clear any stale match written by a previous, looser run.
+      if (!opts.dryRun) {
+        await prisma.carSeat
+          .update({
+            where: { id: c.id },
+            data: { babylistSku: null, babylistUrl: null, babylistPrice: null, babylistImage: null },
+          })
+          .catch(() => undefined);
+      }
       continue;
     }
     report.carSeats.synced += 1;
@@ -248,6 +266,15 @@ async function syncFull(opts: SyncOptions, report: SyncReport) {
     if (!match) {
       report.strollers.notFound += 1;
       report.strollers.notFoundNames.push(name);
+      // Clear any stale match written by a previous, looser run.
+      if (!opts.dryRun) {
+        await prisma.stroller
+          .update({
+            where: { id: s.id },
+            data: { babylistSku: null, babylistUrl: null, babylistPrice: null, babylistImage: null },
+          })
+          .catch(() => undefined);
+      }
       continue;
     }
     report.strollers.synced += 1;
