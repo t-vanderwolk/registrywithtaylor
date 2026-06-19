@@ -966,15 +966,15 @@ export default function StrollerQuiz() {
           <div style={styles.picksGrid}>
             {result.picks.map((pick, i) => (
               <div key={i} style={styles.pickCard}>
-                {pick.imageSrc && (
-                  <div style={styles.pickImgWrap}>
-                    <img
-                      src={pick.imageSrc}
-                      alt={pick.name}
-                      style={styles.pickImg}
-                    />
-                  </div>
-                )}
+                {(() => {
+                  // Prefer the live Babylist product photo when this pick is synced.
+                  const imgSrc = pickData[`${pick.brand}:::${pick.model}`]?.babylistImage ?? pick.imageSrc;
+                  return imgSrc ? (
+                    <div style={styles.pickImgWrap}>
+                      <img src={imgSrc} alt={pick.name} style={styles.pickImg} />
+                    </div>
+                  ) : null;
+                })()}
                 {i === 0 && (
                   <span style={{ ...styles.pickBadge, background: result.accentColor }}>Top Pick</span>
                 )}

@@ -687,3 +687,19 @@ model ModuleNote {
   @@index([userId])
   @@index([pathSlug])
 }
+
+// ─── Babylist catalog mirror ──────────────────────────────────────────────────
+// Local copy of the Babylist (Impact) catalog, refreshed by
+// scripts/cacheBabylistCatalog.ts. Powers fast admin SKU search, since Impact's
+// ItemSearch endpoint can't be used for keyword queries.
+model BabylistCatalogItem {
+  sku          String   @id // Impact CatalogItemId
+  name         String
+  manufacturer String?
+  url          String
+  imageUrl     String?
+  price        Float?
+  updatedAt    DateTime @updatedAt
+
+  @@index([manufacturer])
+}

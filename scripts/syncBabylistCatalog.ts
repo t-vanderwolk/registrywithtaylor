@@ -19,8 +19,10 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { PrismaClient } from '@prisma/client';
 import {
+  findBabylistNearbyCandidates,
   findBabylistProduct,
-  getBabylistItem,
+  findBabylistProductBySku,
+  hasStrictBabylistBrandMatch,
   listBabylistItems,
   searchBabylistProducts,
   type ImpactCatalogItem,
@@ -54,6 +56,226 @@ const priceOf = (item: ImpactCatalogItem): number | null => {
 
 const nameOf = (row: { brand: string; model: string; displayName: string | null }) =>
   row.displayName?.trim() || `${row.brand} ${row.model}`.trim();
+
+const VALIDATION_STOPWORDS = new Set([
+  'baby', 'stroller', 'car', 'seat', 'infant', 'series', 'system', 'travel',
+  'and', 'by', 'the', 'next', 'lx', 'v2', 'v3', '2', '3', '4', '5', '6', 's',
+  'g', 't',
+]);
+
+const STROLLER_REJECT_CAR_SEAT_TOKENS = new Set([
+  'rava', 'mesa', 'pipa', 'keyfit', 'liing', 'cloud', 'aton', 'willow', 'cypress',
+]);
+
+const STROLLER_ONLY_TOKENS = new Set(['stroller', 'pushchair', 'pram', 'wagon']);
+const CAR_SEAT_TOKENS = new Set([
+  'car', 'seat', 'infant', 'convertible', 'booster', 'rava', 'mesa', 'pipa',
+  'keyfit', 'liing', 'cloud', 'aton', 'willow', 'cypress',
+]);
+
+const ACCESSORY_ONLY_PATTERNS = [
+  /\badapter(s)?\b/,
+  /\bcup\s*holder\b/,
+  /\bcupholder\b/,
+  /\btray\b/,
+  /\btravel\s+bag\b/,
+  /\bstorage\s+bag\b/,
+  /\bcarry\s+bag\b/,
+  /\bseat\s+liner\b/,
+  /\bliner\b/,
+  /\bfootmuff\b/,
+  /\bsecond\s+seat\b/,
+  /\brumble\s+seat\b/,
+  /\borganizer\b/,
+  /\borganiser\b/,
+  /\brain\s+(cover|shield)\b/,
+  /\bweather\s+shield\b/,
+  /\bglider\s+board\b/,
+  /\bride\s+along\b/,
+  /\breplacement\b/,
+  /\bwheel\b/,
+  /\btire\b/,
+  /\bstrap\b/,
+];
+
+const normalizeForValidation = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+const validationTokens = (value: string) =>
+  normalizeForValidation(value).split(' ').filter(Boolean);
+
+const hasToken = (tokens: Set<string>, values: Set<string>) => {
+  for (const token of values) {
+    if (tokens.has(token)) return true;
+  }
+  return false;
+};
+
+const hasAccessoryOnlyPattern = (normalizedName: string) => {
+  if (/\bbase\b/.test(normalizedName) && !/\b(infant\s+)?car\s+seat\b/.test(normalizedName)) {
+    return true;
+  }
+
+  return ACCESSORY_ONLY_PATTERNS.some((pattern) => pattern.test(normalizedName));
+};
+
+function validateStoredSkuMatch({
+  name,
+  brand,
+  typeLabel,
+  item,
+}: {
+  name: string;
+  brand: string;
+  typeLabel: string;
+  item: ImpactCatalogItem;
+}): { valid: boolean; reason: string } {
+  const nameTokens = validationTokens(name);
+  const brandTokens = new Set(validationTokens(brand));
+  const modelTokens = Array.from(
+    new Set(
+      nameTokens.filter(
+        (token) =>
+          token.length >= 3 &&
+          !brandTokens.has(token) &&
+          !VALIDATION_STOPWORDS.has(token),
+      ),
+    ),
+  );
+
+  if (modelTokens.length === 0) {
+    return { valid: false, reason: 'no meaningful DB model tokens' };
+  }
+
+  const itemName = normalizeForValidation(item.Name ?? '');
+  const itemNameTokens = new Set(validationTokens(item.Name ?? ''));
+  const matchingModelTokens = modelTokens.filter(
+    (token) => itemNameTokens.has(token) || itemName.includes(token),
+  );
+
+  if (matchingModelTokens.length === 0) {
+    return {
+      valid: false,
+      reason: `missing model token (${modelTokens.join(', ')})`,
+    };
+  }
+
+  const brandMatched = hasStrictBabylistBrandMatch(
+    brand,
+    item.Name ?? '',
+    item.Manufacturer ?? '',
+  );
+  const isTravelSystem =
+    itemName.includes('travel system') ||
+    (itemNameTokens.has('travel') && itemNameTokens.has('system'));
+  const type = typeLabel.toLowerCase();
+
+  if (hasAccessoryOnlyPattern(itemName)) {
+    return { valid: false, reason: 'cached item looks accessory-only' };
+  }
+
+  if (type === 'stroller') {
+    const hasCarSeatOnlyTerm = hasToken(itemNameTokens, STROLLER_REJECT_CAR_SEAT_TOKENS);
+    if (hasCarSeatOnlyTerm && !isTravelSystem) {
+      return { valid: false, reason: 'cached item looks car-seat-only' };
+    }
+  }
+
+  if (type === 'car seat') {
+    const hasStrollerOnlyTerm = hasToken(itemNameTokens, STROLLER_ONLY_TOKENS);
+    const hasCarSeatTerm = hasToken(itemNameTokens, CAR_SEAT_TOKENS);
+    if (hasStrollerOnlyTerm && !hasCarSeatTerm && !isTravelSystem) {
+      return { valid: false, reason: 'cached item looks stroller-only' };
+    }
+  }
+
+  return {
+    valid: true,
+    reason: `matched model token (${matchingModelTokens.join(', ')}), brand=${brandMatched ? 'yes' : 'no'}`,
+  };
+}
+
+async function logNearbyBabylistCandidates({
+  name,
+  brand,
+  label,
+}: {
+  name: string;
+  brand: string;
+  label: string;
+}) {
+  const candidates = await findBabylistNearbyCandidates(name, brand, 5);
+
+  if (candidates.length === 0) {
+    console.warn(`[babylist-sync] ${label}: no nearby cached catalog candidates`);
+    return;
+  }
+
+  console.warn(`[babylist-sync] ${label}: nearby cached catalog candidates:`);
+  for (const candidate of candidates) {
+    const { item, score, matchedTokens, brandMatched } = candidate;
+    console.warn(
+      `  - ${item.Name} (${item.Manufacturer || 'unknown maker'}, ${item.CatalogItemId}; score=${score.toFixed(2)}, brand=${brandMatched ? 'yes' : 'no'}, tokens=${matchedTokens.join(',') || 'none'})`,
+    );
+  }
+}
+
+async function resolveBabylistMatch({
+  name,
+  brand,
+  storedSku,
+  typeLabel,
+  fallbackSearch,
+}: {
+  name: string;
+  brand: string;
+  storedSku?: string | null;
+  typeLabel: string;
+  fallbackSearch?: () => ImpactCatalogItem | Promise<ImpactCatalogItem | null> | null;
+}): Promise<ImpactCatalogItem | null> {
+  const label = `${typeLabel} ${name}`;
+  const sku = storedSku?.trim();
+
+  if (sku) {
+    console.log(`[babylist-sync] ${label}: checking cached catalog for stored SKU ${sku}`);
+
+    const skuMatch = await findBabylistProductBySku(sku);
+    if (skuMatch) {
+      const validation = validateStoredSkuMatch({ name, brand, typeLabel, item: skuMatch });
+      if (!validation.valid) {
+        console.warn(
+          `[babylist-sync] ${label}: stored SKU ${sku} matched ${skuMatch.Name} but failed validation; falling back to local search (${validation.reason})`,
+        );
+      } else {
+        console.log(
+          `[babylist-sync] ${label}: stored SKU ${sku} matched cached catalog item ${skuMatch.Name} (${skuMatch.CatalogItemId}; ${validation.reason})`,
+        );
+        return skuMatch;
+      }
+    } else {
+      console.log(
+        `[babylist-sync] ${label}: stored SKU ${sku} not found in cached catalog; falling back to local search`,
+      );
+    }
+  }
+
+  const fallbackMatch = await (fallbackSearch
+    ? fallbackSearch()
+    : findBabylistProduct(name, brand));
+  if (fallbackMatch) {
+    console.log(
+      `[babylist-sync] ${label}: local search matched ${fallbackMatch.Name} (${fallbackMatch.CatalogItemId})`,
+    );
+    return fallbackMatch;
+  }
+
+  console.warn(`[babylist-sync] ${label}: no Babylist match found`);
+  await logNearbyBabylistCandidates({ name, brand, label });
+  return null;
+}
 
 // ── Adapter name parsing ─────────────────────────────────────────────────────
 const STROLLER_KEYWORDS = [
@@ -94,37 +316,35 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
   const carSeatList = opts.limit ? carSeats.slice(0, opts.limit) : carSeats;
 
   for (const s of strollerList) {
-   const name = nameOf(s);
+    const name = nameOf(s);
+    const match = await resolveBabylistMatch({
+      name,
+      brand: s.brand,
+      storedSku: s.babylistSku,
+      typeLabel: 'stroller',
+    });
 
-// Prefer hand-mapped SKU, but do NOT depend on Impact's single-item endpoint.
-// If the SKU lookup fails, fall back to local catalog search.
-let match = s.babylistSku ? await getBabylistItem(s.babylistSku).catch(() => null) : null;
+    if (!match) {
+      report.strollers.notFound += 1;
+      report.strollers.notFoundNames.push(name);
 
-if (!match) {
-  match = await findBabylistProduct(name, s.brand);
-}
+      // Clear any stale match written by a previous, looser run.
+      if (!opts.dryRun) {
+        await prisma.stroller
+          .update({
+            where: { id: s.id },
+            data: {
+              babylistSku: null,
+              babylistUrl: null,
+              babylistPrice: null,
+              babylistImage: null,
+            },
+          })
+          .catch(() => undefined);
+      }
 
-if (!match) {
-  report.strollers.notFound += 1;
-  report.strollers.notFoundNames.push(name);
-
-  // Clear any stale match written by a previous, looser run.
-  if (!opts.dryRun) {
-    await prisma.stroller
-      .update({
-        where: { id: s.id },
-        data: {
-          babylistSku: null,
-          babylistUrl: null,
-          babylistPrice: null,
-          babylistImage: null,
-        },
-      })
-      .catch(() => undefined);
-  }
-
-  continue;
-}
+      continue;
+    }
     report.strollers.synced += 1;
     const data = {
       babylistSku: match.CatalogItemId,
@@ -147,9 +367,12 @@ if (!match) {
 
   for (const c of carSeatList) {
     const name = nameOf(c);
-    const match = c.babylistSku
-      ? await getBabylistItem(c.babylistSku)
-      : await findBabylistProduct(name, c.brand);
+    const match = await resolveBabylistMatch({
+      name,
+      brand: c.brand,
+      storedSku: c.babylistSku,
+      typeLabel: 'car seat',
+    });
     if (!match) {
       report.carSeats.notFound += 1;
       report.carSeats.notFoundNames.push(name);
@@ -280,7 +503,13 @@ async function syncFull(opts: SyncOptions, report: SyncReport) {
   });
   for (const s of strollers) {
     const name = nameOf(s);
-    const match = s.babylistSku ? await getBabylistItem(s.babylistSku) : localMatch(name, s.brand);
+    const match = await resolveBabylistMatch({
+      name,
+      brand: s.brand,
+      storedSku: s.babylistSku,
+      typeLabel: 'stroller',
+      fallbackSearch: () => localMatch(name, s.brand),
+    });
     if (!match) {
       report.strollers.notFound += 1;
       report.strollers.notFoundNames.push(name);

@@ -332,6 +332,11 @@ export default async function AdminDashboardPage() {
           </AdminButton>
           {!readOnly ? (
             <AdminButton asChild variant="secondary">
+              <Link href="/admin/babylist">Babylist SKUs</Link>
+            </AdminButton>
+          ) : null}
+          {!readOnly ? (
+            <AdminButton asChild variant="secondary">
               <Link href="/admin/inquiries">View inquiries</Link>
             </AdminButton>
           ) : null}

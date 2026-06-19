@@ -141,6 +141,71 @@ const normalize = (value: string) =>
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 
+const tokensOf = (value: string) => normalize(value).split(' ').filter(Boolean);
+
+const WEAK_BRAND_TOKENS = new Set(['baby', 'cross', 'kids', 'co', 'company', 'the']);
+
+const STRICT_BRAND_ALIASES: Record<string, string[]> = {
+  'baby jogger': ['baby jogger'],
+  'silver cross': ['silver cross'],
+  bob: ['bob', 'bob gear'],
+  'bob gear': ['bob', 'bob gear'],
+  uppababy: ['uppababy'],
+  cybex: ['cybex'],
+  nuna: ['nuna'],
+  bugaboo: ['bugaboo'],
+  joie: ['joie'],
+};
+
+const hasTokenSequence = (haystackTokens: string[], needleTokens: string[]) => {
+  if (needleTokens.length === 0 || needleTokens.length > haystackTokens.length) {
+    return false;
+  }
+
+  for (let start = 0; start <= haystackTokens.length - needleTokens.length; start += 1) {
+    const matches = needleTokens.every(
+      (token, index) => haystackTokens[start + index] === token,
+    );
+    if (matches) return true;
+  }
+
+  return false;
+};
+
+/**
+ * Strict brand matching for diagnostics.
+ *
+ * Multi-word brands must match as full normalized phrases. Single-token brands
+ * must match as exact tokens, never loose substrings, and weak standalone brand
+ * tokens are ignored unless they are part of a known phrase alias.
+ */
+export function hasStrictBabylistBrandMatch(
+  brand: string,
+  itemName: string,
+  itemManufacturer = '',
+): boolean {
+  const normalizedBrand = normalize(brand);
+  if (!normalizedBrand) return false;
+
+  const haystackTokens = tokensOf(`${itemManufacturer} ${itemName}`);
+  if (haystackTokens.length === 0) return false;
+
+  const aliases = STRICT_BRAND_ALIASES[normalizedBrand] ?? [normalizedBrand];
+
+  return aliases.some((alias) => {
+    const aliasTokens = tokensOf(alias);
+    if (aliasTokens.length === 0) return false;
+
+    if (aliasTokens.length === 1) {
+      const [token] = aliasTokens;
+      if (!token || WEAK_BRAND_TOKENS.has(token)) return false;
+      return haystackTokens.includes(token);
+    }
+
+    return hasTokenSequence(haystackTokens, aliasTokens);
+  });
+}
+
 // ── PUBLIC FUNCTIONS ──────────────────────────────────────────────────────────
 
 /**
@@ -218,6 +283,35 @@ async function getAllBabylistItemsCached(): Promise<ImpactCatalogItem[]> {
 }
 
 /**
+ * Resolve a Babylist catalog item from the cached catalog list.
+ *
+ * This deliberately does NOT call /Catalogs/8981/Items/{sku}; Impact has
+ * rejected bare CatalogItemId values on that endpoint for Babylist.
+ */
+export async function findBabylistProductBySku(
+  sku: string,
+): Promise<ImpactCatalogItem | null> {
+  const trimmed = sku.trim();
+  if (!trimmed) return null;
+
+  const candidateIds = new Set([
+    trimmed,
+    trimmed.startsWith(`product_${BABYLIST_CATALOG_ID}_`)
+      ? trimmed
+      : `product_${BABYLIST_CATALOG_ID}_${trimmed}`,
+  ]);
+  const items = await getAllBabylistItemsCached();
+
+  return (
+    items.find(
+      (item) =>
+        item.CatalogId === BABYLIST_CATALOG_ID &&
+        (candidateIds.has(item.CatalogItemId) || candidateIds.has(item.Id)),
+    ) ?? null
+  );
+}
+
+/**
  * Search Babylist products locally.
  *
  * Impact's /Catalogs/ItemSearch endpoint rejected plain text queries like:
@@ -292,10 +386,95 @@ const MODEL_STOPWORDS = new Set([
   '1', '2', '3', '4', '5', '6', 'i', 'ii', 'iii',
 ]);
 
+const NEARBY_CANDIDATE_WEAK_TOKENS = new Set([
+  ...MODEL_STOPWORDS,
+  'baby', 'car', 'seat', 'infant', 'series', 'system', 'travel', 'by',
+  'g', 't', 'kids', 'co', 'company', 'cross',
+]);
+
 const isAccessoryItem = (name: string): boolean => {
   const n = ` ${name.toLowerCase()} `;
   return ACCESSORY_DENYLIST.some((kw) => n.includes(kw));
 };
+
+export interface BabylistCandidateDiagnostic {
+  item: ImpactCatalogItem;
+  score: number;
+  matchedTokens: string[];
+  brandMatched: boolean;
+}
+
+/**
+ * Return nearby catalog candidates for diagnostics when strict matching fails.
+ * This uses the cached list endpoint data and scores by brand/name token overlap.
+ */
+export async function findBabylistNearbyCandidates(
+  name: string,
+  manufacturer?: string,
+  limit = 5,
+): Promise<BabylistCandidateDiagnostic[]> {
+  const nameTokens = tokensOf(name);
+  const brandTokens = new Set(tokensOf(manufacturer ?? ''));
+  const meaningfulNameTokens = nameTokens.filter(
+    (token) =>
+      token.length >= 3 &&
+      !brandTokens.has(token) &&
+      !NEARBY_CANDIDATE_WEAK_TOKENS.has(token),
+  );
+  const exactTarget = normalize(name);
+
+  if (meaningfulNameTokens.length === 0 && brandTokens.size === 0) return [];
+
+  const items = await getAllBabylistItemsCached();
+
+  return items
+    .filter((item) => item.CatalogId === BABYLIST_CATALOG_ID)
+    .map((item) => {
+      const itemName = normalize(item.Name ?? '');
+      const itemManufacturer = normalize(item.Manufacturer ?? '');
+      const itemTokens = new Set(
+        `${itemName} ${itemManufacturer}`.split(' ').filter(Boolean),
+      );
+
+      const matchedTokens = meaningfulNameTokens.filter(
+        (token) => itemTokens.has(token) || itemName.includes(token),
+      );
+      const brandMatched = hasStrictBabylistBrandMatch(
+        manufacturer ?? '',
+        item.Name ?? '',
+        item.Manufacturer ?? '',
+      );
+
+      let score =
+        meaningfulNameTokens.length > 0
+          ? matchedTokens.length / meaningfulNameTokens.length
+          : 0;
+      if (brandMatched) score += 1;
+      if (exactTarget && itemName.includes(exactTarget)) score += 0.5;
+      if (isAccessoryItem(item.Name ?? '')) score -= 0.15;
+
+      return { item, score, matchedTokens, brandMatched };
+    })
+    .filter(({ brandMatched, matchedTokens, score }) => {
+      if (score <= 0) return false;
+      return brandMatched || matchedTokens.length > 0;
+    })
+    .sort((a, b) => {
+      if (a.brandMatched !== b.brandMatched) return b.brandMatched ? 1 : -1;
+      return b.score - a.score;
+    })
+    .filter(({ item }, index, candidates) => {
+      const key = item.CatalogItemId || item.Id || `${item.Name}:${item.Url}`;
+      return candidates.findIndex(({ item: candidateItem }) => {
+        const candidateKey =
+          candidateItem.CatalogItemId ||
+          candidateItem.Id ||
+          `${candidateItem.Name}:${candidateItem.Url}`;
+        return candidateKey === key;
+      }) === index;
+    })
+    .slice(0, limit);
+}
 
 /**
  * Find the single best Babylist match for a product name.
