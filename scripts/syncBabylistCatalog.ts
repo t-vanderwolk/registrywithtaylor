@@ -20,6 +20,7 @@ import path from 'node:path';
 import { PrismaClient } from '@prisma/client';
 import {
   findBabylistProduct,
+  getBabylistItem,
   listBabylistItems,
   searchBabylistProducts,
   type ImpactCatalogItem,
@@ -85,8 +86,8 @@ function parseAdapterName(name: string): { strollerKeywords: string[]; carSeatBr
 // ── Stroller / car seat sync ─────────────────────────────────────────────────
 async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
   const [strollers, carSeats] = await Promise.all([
-    prisma.stroller.findMany({ select: { id: true, brand: true, model: true, displayName: true } }),
-    prisma.carSeat.findMany({ select: { id: true, brand: true, model: true, displayName: true } }),
+    prisma.stroller.findMany({ select: { id: true, brand: true, model: true, displayName: true, babylistSku: true } }),
+    prisma.carSeat.findMany({ select: { id: true, brand: true, model: true, displayName: true, babylistSku: true } }),
   ]);
 
   const strollerList = opts.limit ? strollers.slice(0, opts.limit) : strollers;
@@ -94,7 +95,10 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
 
   for (const s of strollerList) {
     const name = nameOf(s);
-    const match = await findBabylistProduct(name, s.brand);
+    // Hand-mapped SKU wins — fetch it exactly, skip fuzzy matching.
+    const match = s.babylistSku
+      ? await getBabylistItem(s.babylistSku)
+      : await findBabylistProduct(name, s.brand);
     if (!match) {
       report.strollers.notFound += 1;
       report.strollers.notFoundNames.push(name);
@@ -131,7 +135,9 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
 
   for (const c of carSeatList) {
     const name = nameOf(c);
-    const match = await findBabylistProduct(name, c.brand);
+    const match = c.babylistSku
+      ? await getBabylistItem(c.babylistSku)
+      : await findBabylistProduct(name, c.brand);
     if (!match) {
       report.carSeats.notFound += 1;
       report.carSeats.notFoundNames.push(name);
@@ -170,7 +176,7 @@ async function syncAdapters(opts: SyncOptions, report: SyncReport) {
 
   // Load DB once for in-memory matching.
   const [strollers, carSeats, compatibilities] = await Promise.all([
-    prisma.stroller.findMany({ select: { id: true, brand: true, model: true, displayName: true } }),
+    prisma.stroller.findMany({ select: { id: true, brand: true, model: true, displayName: true, babylistSku: true } }),
     prisma.carSeat.findMany({ select: { id: true, brand: true } }),
     prisma.compatibility.findMany({ select: { id: true, strollerId: true, carSeatId: true } }),
   ]);
@@ -258,11 +264,11 @@ async function syncFull(opts: SyncOptions, report: SyncReport) {
   };
 
   const strollers = await prisma.stroller.findMany({
-    select: { id: true, brand: true, model: true, displayName: true },
+    select: { id: true, brand: true, model: true, displayName: true, babylistSku: true },
   });
   for (const s of strollers) {
     const name = nameOf(s);
-    const match = localMatch(name, s.brand);
+    const match = s.babylistSku ? await getBabylistItem(s.babylistSku) : localMatch(name, s.brand);
     if (!match) {
       report.strollers.notFound += 1;
       report.strollers.notFoundNames.push(name);

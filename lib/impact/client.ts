@@ -326,6 +326,10 @@ export async function findBabylistProduct(
   const distinctiveTokens = nameTokens.filter(
     (t) => !brandTokens.has(t) && !MODEL_STOPWORDS.has(t) && t.length >= 3,
   );
+  // If the name is only brand + generic words (e.g. "Egg Stroller"), still require
+  // the non-brand tokens (e.g. "stroller") so it can't match "Robin's Egg Bow".
+  const requiredTokens =
+    distinctiveTokens.length > 0 ? distinctiveTokens : nameTokens.filter((t) => !brandTokens.has(t));
   const wantManufacturer = manufacturer ? normalize(manufacturer) : null;
   const exactTarget = normalize(name);
 
@@ -347,9 +351,9 @@ export async function findBabylistProduct(
       if (!brandOk) continue;
     }
 
-    // Every distinctive model token must appear (the real differentiator).
-    if (distinctiveTokens.length > 0) {
-      const allPresent = distinctiveTokens.every((t) => itemTokens.has(t) || itemName.includes(t));
+    // Every required model token must appear (the real differentiator).
+    if (requiredTokens.length > 0) {
+      const allPresent = requiredTokens.every((t) => itemTokens.has(t) || itemName.includes(t));
       if (!allPresent) continue;
     }
 

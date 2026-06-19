@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { TRAVEL_SYSTEM_ENTITIES, type StrollerCategory, type TravelSystemEntity } from '@/lib/guides/travelSystemCompatibility';
 
@@ -787,6 +787,26 @@ export default function StrollerQuiz() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [selected, setSelected] = useState<number | null>(null);
   const [result, setResult] = useState<CategoryResult | null>(null);
+  const [pickData, setPickData] = useState<
+    Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
+  >({});
+
+  // When a result is shown, pull live Babylist price/link for its picks from the
+  // synced DB. Unmatched picks come back as nulls and fall back to the static map.
+  useEffect(() => {
+    if (!result) return;
+    const items = result.picks.map((p) => `${p.brand}:::${p.model}`).join(',');
+    let cancelled = false;
+    fetch(`/api/babylist/lookup?items=${encodeURIComponent(items)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((payload) => {
+        if (!cancelled && payload?.results) setPickData(payload.results);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [result]);
   const [showAllStrollers, setShowAllStrollers] = useState(false);
 
   const question = QUESTIONS[currentQ]!;
@@ -962,11 +982,22 @@ export default function StrollerQuiz() {
                 <p style={styles.pickTagline}>{pick.tagline}</p>
                 {(() => {
                   const links = getAffiliateLinks(pick.brand, pick.model);
+                  const live = pickData[`${pick.brand}:::${pick.model}`];
+                  const babylistUrl = live?.babylistUrl ?? links.babylistUrl ?? null;
                   return (
+                    <>
+                      {live?.babylistPrice ? (
+                        <p style={{ margin: '0.15rem 0 0.55rem', fontSize: '0.98rem', fontWeight: 700, color: 'var(--gold)' }}>
+                          ${live.babylistPrice.toFixed(2)}
+                          <span style={{ marginLeft: '0.4rem', fontSize: '0.6rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#9b9499' }}>
+                            via Babylist
+                          </span>
+                        </p>
+                      ) : null}
                     <div style={styles.shopBtnRow}>
-                      {links.babylistUrl && (
+                      {babylistUrl && (
                         <a
-                          href={links.babylistUrl}
+                          href={babylistUrl}
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
                           style={styles.shopBtnBabylist}
@@ -993,6 +1024,7 @@ export default function StrollerQuiz() {
                         </a>
                       )}
                     </div>
+                    </>
                   );
                 })()}
               </div>
