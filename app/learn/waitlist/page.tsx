@@ -134,7 +134,7 @@ export default function WaitlistPage() {
                       <div className="mt-7 flex flex-col gap-3">
                         <Link
                           href="/learn/art-of-the-registry"
-                          className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] transition-all hover:bg-[#c76b82]"
+                          className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(216,137,160,0.28)] transition-all hover:bg-[var(--color-cta-pink-hover)]"
                         >
                           Start Free Lesson 1
                         </Link>
@@ -210,7 +210,7 @@ export default function WaitlistPage() {
                         <button
                           type="submit"
                           disabled={status === 'submitting'}
-                          className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] transition-all hover:bg-[#c76b82] disabled:cursor-not-allowed disabled:opacity-60"
+                          className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(216,137,160,0.28)] transition-all hover:bg-[var(--color-cta-pink-hover)] disabled:cursor-not-allowed disabled:opacity-60"
                         >
                           {status === 'submitting' ? 'Joining…' : 'Join the Waitlist'}
                         </button>

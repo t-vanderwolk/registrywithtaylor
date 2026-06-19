@@ -61,6 +61,48 @@ const tiers = [
     ],
     highlight: true,
   },
+  {
+    id: 'academy-annual',
+    badge: 'Best Value',
+    name: 'Academy — Annual',
+    price: '$329',
+    period: 'per year',
+    description:
+      'Everything in the Academy plan, billed yearly with a full year of content updates included.',
+    cta: {
+      label: 'Join the Waitlist',
+      href: '/learn/waitlist',
+      variant: 'secondary' as const,
+    },
+    features: [
+      'Everything in the Academy plan',
+      'All 29 modules across 4 paths',
+      'A full year of content updates included',
+      'Best long-term value',
+    ],
+    highlight: false,
+  },
+  {
+    id: 'academy-concierge',
+    badge: 'Academy + Support',
+    name: 'Academy Concierge',
+    price: '$49',
+    period: 'per month',
+    description:
+      'Full Academy access plus ongoing, lightweight guidance. This is an Academy tier — separate from the Private Concierge consulting service ($1,997/mo).',
+    cta: {
+      label: 'Join the Waitlist',
+      href: '/learn/waitlist',
+      variant: 'secondary' as const,
+    },
+    features: [
+      'All 29 Academy modules across 4 paths',
+      'Everything in the Academy plan',
+      'Ongoing Academy guidance',
+      'Distinct from Private Concierge (1:1 consulting)',
+    ],
+    highlight: false,
+  },
 ] as const;
 
 const faqs = [
@@ -180,7 +222,7 @@ export default function LearnPricingPage() {
                       className={[
                         'block w-full rounded-full py-3.5 text-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-all duration-200',
                         tier.cta.variant === 'primary'
-                          ? 'bg-[var(--color-accent-dark)] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] hover:bg-[#c76b82]'
+                          ? 'bg-[var(--color-cta-pink)] text-white shadow-[0_8px_20px_rgba(216,137,160,0.28)] hover:bg-[var(--color-cta-pink-hover)]'
                           : 'border border-[rgba(215,161,175,0.3)] bg-white text-[var(--color-accent-dark)] hover:bg-[rgba(232,154,174,0.06)]',
                       ]
                         .filter(Boolean)

@@ -6,6 +6,7 @@
 $color-ivory:        var(--color-ivory);
 $color-accent:       var(--color-accent);       // #e89aae
 $color-accent-dark:  var(--color-accent-dark);
+$color-cta-pink:     var(--color-cta-pink);      // #D889A0 — canonical CTA pink
 $color-soft-blush:   var(--color-soft-blush);
 $color-warm-neutral: var(--color-warm-neutral);
 $color-card-bg:      var(--color-card-bg);
@@ -31,7 +32,7 @@ $shadow-panel:      0 8px 24px rgba(58, 36, 43, 0.05);
 // Discovery tool / editorial accent colors
 $color-nursery:     #7a9e7e; // sage green
 $color-nursery-bg:  #f0f4f1; // pale sage background
-$color-gold:        #b5922a; // warm gold
+$color-gold:        #C6A75E; // warm gold — aligned with --gold in globals.css
 $color-gold-light:  #f7eedb; // pale gold background
 $color-deep-rose:   #8b3a4a; // deep rose accent
 

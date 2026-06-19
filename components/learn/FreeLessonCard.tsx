@@ -68,7 +68,7 @@ export default function FreeLessonCard({ lesson }: FreeLessonCardProps) {
         {available && href ? (
           <Link
             href={href}
-            className="inline-flex min-h-[40px] items-center rounded-full bg-[var(--color-accent-dark)] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_8px_20px_rgba(212,123,145,0.3)] transition-all duration-200 hover:bg-[#c76b82] hover:shadow-[0_12px_26px_rgba(212,123,145,0.4)]"
+            className="inline-flex min-h-[40px] items-center rounded-full bg-[var(--color-cta-pink)] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_8px_20px_rgba(216,137,160,0.3)] transition-all duration-200 hover:bg-[var(--color-cta-pink-hover)] hover:shadow-[0_12px_26px_rgba(216,137,160,0.4)]"
           >
             Start Lesson
           </Link>

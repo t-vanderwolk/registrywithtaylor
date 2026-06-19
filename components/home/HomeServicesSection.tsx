@@ -178,7 +178,7 @@ export default function HomeServicesSection() {
                     className={[
                       'mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-shadow duration-200 hover:shadow-[0_16px_34px_rgba(55,40,46,0.08)]',
                       service.featured
-                        ? 'bg-[var(--color-accent-dark)] text-white shadow-[0_16px_34px_rgba(55,40,46,0.12)]'
+                        ? 'bg-[var(--color-cta-pink)] text-white shadow-[0_16px_34px_rgba(55,40,46,0.12)]'
                         : 'border border-[rgba(196,156,94,0.18)] bg-white text-neutral-900 hover:shadow-sm',
                     ].join(' ')}
                   >

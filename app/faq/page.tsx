@@ -62,7 +62,7 @@ const servicesFaqs: FAQEntry[] = [
   {
     question: 'What is included in the Signature Package?',
     answer:
-      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $797 – $997.',
+      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $797.',
   },
   {
     question: 'What is the Private Concierge?',

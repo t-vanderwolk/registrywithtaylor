@@ -224,7 +224,7 @@ export default function MiniWorkbook({
               'inline-flex min-h-[44px] items-center rounded-full px-6 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-70',
               saved
                 ? 'bg-[rgba(232,154,174,0.14)] text-[var(--color-accent-dark)]'
-                : 'bg-[var(--color-accent-dark)] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] hover:bg-[#c76b82]',
+                : 'bg-[var(--color-cta-pink)] text-white shadow-[0_8px_20px_rgba(216,137,160,0.28)] hover:bg-[var(--color-cta-pink-hover)]',
             ]
               .filter(Boolean)
               .join(' ')}

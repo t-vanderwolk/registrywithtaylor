@@ -138,7 +138,7 @@ export default async function LearnPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/tools/travel-system"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
                 >
                   Open the Compatibility Tool
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -184,7 +184,7 @@ export default async function LearnPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/tools/stroller-quiz"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.9rem] font-semibold text-white shadow-[0_8px_20px_rgba(55,40,46,0.18)] transition duration-200 hover:opacity-90"
                 >
                   Take the Quiz
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -216,7 +216,7 @@ export default async function LearnPage() {
               </div>
               <Link
                 href="/learn/pricing"
-                className="inline-flex min-h-[44px] shrink-0 items-center rounded-full bg-[var(--color-accent-dark)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(212,123,145,0.28)] transition-all duration-200 hover:bg-[#c76b82]"
+                className="inline-flex min-h-[44px] shrink-0 items-center rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_20px_rgba(216,137,160,0.28)] transition-all duration-200 hover:bg-[var(--color-cta-pink-hover)]"
               >
                 See pricing
               </Link>

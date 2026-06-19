@@ -377,6 +377,8 @@ a:hover .link-underline::after {
   --color-border: #eadbdd;
   --color-accent: var(--tmbc-rose);
   --color-accent-dark: #d47b91;
+  --color-cta-pink: #D889A0;
+  --color-cta-pink-hover: #C76B82;
   --font-serif: "Playfair Display", ui-serif, Georgia, serif;
   --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -757,15 +759,15 @@ img {
 }
 
 .btn--primary {
-  background: #d889a0;
+  background: var(--color-cta-pink);
   color: #ffffff;
   box-shadow: 0 10px 24px rgba(216, 137, 160, 0.24);
 }
 
 .btn--primary:hover {
-  background: #cb7892;
+  background: var(--color-cta-pink-hover);
   transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(203, 120, 146, 0.28);
+  box-shadow: 0 14px 30px rgba(216, 137, 160, 0.28);
 }
 
 .btn--ghost {

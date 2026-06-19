@@ -77,7 +77,7 @@ export default function NewsletterCapture() {
           <button
             type="submit"
             disabled={submitState === 'submitting'}
-            className="shrink-0 rounded-full bg-[var(--color-accent-dark)] px-7 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-l-none sm:rounded-r-full"
+            className="shrink-0 rounded-full bg-[var(--color-cta-pink)] px-7 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-l-none sm:rounded-r-full"
           >
             {submitState === 'submitting' ? 'Sending…' : 'Send It'}
           </button>
