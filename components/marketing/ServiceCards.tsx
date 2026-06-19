@@ -149,8 +149,8 @@ export default function ServiceCards({
                 className={[
                   'inline-flex min-h-[46px] w-full items-center justify-center rounded-full border px-5 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.14em] transition duration-200',
                   pkg.featured
-                    ? 'border-[rgba(212,123,145,0.6)] bg-[linear-gradient(135deg,#d47b91_0%,#be607a_100%)] text-white shadow-[0_14px_32px_rgba(212,123,145,0.28)] hover:-translate-y-px hover:shadow-[0_18px_40px_rgba(212,123,145,0.34)]'
-                    : 'border-[rgba(212,123,145,0.22)] bg-white text-neutral-800 hover:border-[rgba(212,123,145,0.44)] hover:bg-[rgba(212,123,145,0.04)]',
+                    ? 'border-[rgba(216,137,160,0.6)] bg-[linear-gradient(135deg,var(--color-cta-pink)_0%,var(--color-cta-pink-hover)_100%)] text-white shadow-[0_14px_32px_rgba(216,137,160,0.28)] hover:-translate-y-px hover:shadow-[0_18px_40px_rgba(216,137,160,0.34)]'
+                    : 'border-[rgba(216,137,160,0.22)] bg-white text-neutral-800 hover:border-[rgba(216,137,160,0.44)] hover:bg-[rgba(216,137,160,0.04)]',
                 ].join(' ')}
               >
                 <MotionCtaContent>{ctaLabel}</MotionCtaContent>

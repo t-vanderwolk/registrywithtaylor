@@ -63,7 +63,7 @@ const tiers = [
   },
   {
     id: 'academy-annual',
-    badge: 'Best Value',
+    badge: 'Annual',
     name: 'Academy — Annual',
     price: '$329',
     period: 'per year',
@@ -78,7 +78,7 @@ const tiers = [
       'Everything in the Academy plan',
       'All 29 modules across 4 paths',
       'A full year of content updates included',
-      'Best long-term value',
+      'Billed once per year',
     ],
     highlight: false,
   },
@@ -111,16 +111,20 @@ const faqs = [
     a: 'Yes. Three full lessons are free with no account required — The Art of the Registry, Nursery Foundations, and The Stroller Equation. Each includes a mini workbook and key takeaways.',
   },
   {
-    q: 'What is the difference between one-time and monthly?',
-    a: 'The one-time price gives you lifetime access to the Academy content as it exists today, plus updates for one year. The monthly option gives you the same access with a lower upfront commitment.',
+    q: 'What is the difference between the one-time, monthly, and annual plans?',
+    a: 'Every paid plan unlocks the full Academy — all 29 modules, workbooks, certificates, and downloads. The one-time payment gives you lifetime access to today\'s content plus a year of updates. The monthly plan is the lowest upfront commitment and bills for as long as you stay subscribed. The annual plan bills once per year and includes a full year of content updates.',
   },
   {
     q: 'What is a path certificate?',
     a: 'When you complete all modules in a path (registry, nursery, gear, or postpartum), you receive a digital certificate you can save and share. The TMBC Fully Prepared certificate is issued when all four paths are done.',
   },
   {
+    q: 'What is the Academy Concierge tier?',
+    a: 'It is an Academy subscription ($49/mo) that adds ongoing, lightweight guidance on top of full Academy access. It is not the same as the Private Concierge — that is Taylor\'s one-on-one consulting service, which starts at $1,997/mo. Academy Concierge is self-guided learning with extra support; Private Concierge is hands-on advisory.',
+  },
+  {
     q: 'Is there a 1:1 option with Taylor?',
-    a: 'Yes. Private consultation sessions are available separately through the Concierge service. Use the consultation form to apply.',
+    a: 'Yes. One-on-one work with Taylor is the Private Concierge consulting service — separate from the Academy, and distinct from the Academy Concierge tier above — starting at $1,997/mo. Use the consultation form to apply.',
   },
 ] as const;
 

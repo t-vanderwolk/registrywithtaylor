@@ -12,7 +12,8 @@ type CategoryKey =
   | 'travel'
   | 'convertible'
   | 'double'
-  | 'jogging';
+  | 'jogging'
+  | 'double-jogging';
 
 type AnswerScore = Partial<Record<CategoryKey, number>>;
 
@@ -59,213 +60,368 @@ type CategoryResult = {
 
 const QUESTIONS: Question[] = [
   {
-    id: 'kids',
-    question: 'How many children will this stroller serve?',
-    subtext: 'Be honest about your current situation, not your someday plan.',
+    id: 'family',
+    question: 'Who is going to be riding in the stroller?',
+    subtext: 'Think about the next year or two of your life, not someday.',
     answers: [
       {
-        label: 'One baby on the way',
-        sublabel: 'No sibling plans in the near future',
+        label: 'Just one little one',
+        sublabel: 'No siblings joining anytime soon',
         scores: { 'full-size': 1, compact: 1, travel: 1, jogging: 1 },
       },
       {
-        label: 'Two kids close in age',
-        sublabel: 'Both need a seat most outings — now',
-        scores: { double: 5 },
-      },
-      {
-        label: 'Twins or multiples',
-        sublabel: 'Two seats from the start',
-        scores: { double: 5 },
-        forceCategories: ['double', 'convertible'],
-      },
-      {
-        label: 'One now, sibling likely soon',
-        sublabel: 'Real timeline, not a vague someday',
+        label: 'One now — but another baby is in the near-term plan',
+        sublabel: 'A real timeline, within a couple of years',
         scores: { convertible: 4, 'full-size': 1 },
+      },
+      {
+        label: 'Two little ones who both still need to ride',
+        sublabel: 'Both kids, most outings, right now',
+        scores: { double: 6 },
+        forceCategories: ['double', 'double-jogging'],
+      },
+      {
+        label: 'Twins or more on the way',
+        sublabel: 'Two seats needed from day one',
+        scores: { double: 6 },
+        forceCategories: ['double', 'double-jogging', 'convertible'],
       },
     ],
   },
   {
-    id: 'lifestyle',
-    question: 'What does a typical week look like for you?',
-    subtext: 'Pick the option that most honestly describes your actual days.',
+    id: 'home',
+    question: 'Which of these sounds the most like where you live?',
     answers: [
       {
-        label: 'Lots of walks — stroller gets real use',
-        sublabel: 'Parks, neighborhood loops, errands on foot',
+        label: 'Apartment or condo — space is tight',
+        sublabel: 'Every extra inch counts',
+        scores: { compact: 3, travel: 2 },
+      },
+      {
+        label: 'A house in the suburbs',
+        sublabel: 'A yard, a driveway, room to spread out',
         scores: { 'full-size': 3, jogging: 1 },
       },
       {
-        label: 'Mostly driving to places',
-        sublabel: 'Stroller gets folded in and out of the car often',
+        label: 'Right in the city',
+        sublabel: 'Sidewalks, transit, lots of people',
         scores: { compact: 3, travel: 1 },
       },
       {
-        label: 'City life — transit, tight spaces, stairs',
-        sublabel: 'Elevators, buses, cramped sidewalks',
+        label: 'Out in the country or pretty spread out',
+        sublabel: 'We drive just about everywhere',
+        scores: { 'full-size': 2, jogging: 1, compact: 1 },
+      },
+    ],
+  },
+  {
+    id: 'getaround',
+    question: 'On a normal day, how do you mostly get from place to place?',
+    answers: [
+      {
+        label: 'On foot',
+        sublabel: 'Walking the neighborhood, errands close by',
+        scores: { 'full-size': 3, jogging: 1 },
+      },
+      {
+        label: 'In the car',
+        sublabel: 'We drive to most things',
+        scores: { compact: 3, travel: 1 },
+      },
+      {
+        label: 'Public transit',
+        sublabel: 'Buses, trains, and subways',
         scores: { compact: 2, travel: 2 },
       },
       {
-        label: 'Active — I run or hike regularly',
-        sublabel: 'Trails, gravel, or I want to jog with baby',
-        scores: { jogging: 4 },
+        label: 'A mix of walking and driving',
+        sublabel: 'A little of both, depending on the day',
+        scores: { 'full-size': 1, compact: 1 },
+      },
+    ],
+  },
+  {
+    id: 'car',
+    question: 'What is your car situation?',
+    answers: [
+      {
+        label: 'Small car — the trunk fills up fast',
+        sublabel: 'Whatever I get has to pack down',
+        scores: { compact: 3, travel: 2 },
+      },
+      {
+        label: 'Midsize car or a small SUV',
+        sublabel: 'A decent trunk, nothing huge',
+        scores: { 'full-size': 1, compact: 1, convertible: 1 },
+      },
+      {
+        label: 'Big SUV, truck, or minivan',
+        sublabel: 'Plenty of room back there',
+        scores: { 'full-size': 2, jogging: 1, convertible: 1 },
+      },
+      {
+        label: 'We don\'t really use a car',
+        sublabel: 'Walking and transit are our default',
+        scores: { compact: 2, travel: 1 },
       },
     ],
   },
   {
     id: 'storage',
-    question: 'Where will this stroller live?',
-    subtext: 'Storage reality matters more than people expect.',
+    question: 'Where will the stroller usually live at home?',
     answers: [
       {
-        label: 'Garage or large closet — no problem',
-        sublabel: 'Space is not a daily constraint',
+        label: 'By the door in a small entryway',
+        sublabel: 'It can\'t be a big thing in the way',
+        scores: { compact: 3, travel: 1 },
+      },
+      {
+        label: 'A garage, mudroom, or roomy closet',
+        sublabel: 'Plenty of space to park it',
         scores: { 'full-size': 2, jogging: 2, convertible: 1 },
       },
       {
-        label: 'Apartment or small space',
-        sublabel: 'Compact fold is non-negotiable',
-        scores: { compact: 3, travel: 2 },
+        label: 'Wherever it fits — space is limited',
+        sublabel: 'Smaller is safer for us',
+        scores: { compact: 2, travel: 1 },
       },
       {
-        label: 'Small car trunk',
-        sublabel: 'It has to fit without rearranging everything',
-        scores: { compact: 2, travel: 2 },
-      },
-      {
-        label: 'Multiple homes or caregivers',
-        sublabel: 'Needs to travel between grandparents, daycare, etc.',
+        label: 'It\'ll move between our place and others\'',
+        sublabel: 'Grandparents, daycare, or two homes',
         scores: { travel: 3, compact: 1 },
       },
     ],
   },
   {
-    id: 'travel',
-    question: 'How often do you travel by plane or rideshare?',
+    id: 'active',
+    question: 'How would you describe your outdoor life?',
+    subtext: 'Picture what you\'ll actually do, not what you hope to.',
     answers: [
       {
-        label: 'Rarely or never',
-        sublabel: 'We mostly stay local',
-        scores: { 'full-size': 2, jogging: 1 },
+        label: 'I want to run or jog with the baby',
+        sublabel: 'Keeping up my pace matters to me',
+        scores: { jogging: 5, 'double-jogging': 5 },
       },
       {
-        label: 'A few trips a year',
-        sublabel: 'Occasional flights, not a defining factor',
-        scores: { compact: 2, 'full-size': 1 },
+        label: 'Lots of outdoor time — trails, parks, the beach',
+        sublabel: 'We\'re outside in all kinds of places',
+        scores: { jogging: 3, 'full-size': 1, 'double-jogging': 3 },
       },
       {
-        label: 'Frequently — we fly or rideshare regularly',
-        sublabel: 'Gate check, ride-share friendly is essential',
-        scores: { travel: 4, compact: 1 },
+        label: 'Mostly easy walks on smooth paths',
+        sublabel: 'Sidewalks, paved trails, the mall',
+        scores: { 'full-size': 2, compact: 1 },
+      },
+      {
+        label: 'We\'re honestly more of an indoor family',
+        sublabel: 'Quick trips out, not long adventures',
+        scores: { compact: 2, travel: 1 },
       },
     ],
   },
   {
-    id: 'system',
-    question: 'Does your stroller need to work as a complete newborn system?',
-    subtext:
-      'Modular strollers have a bassinet that attaches to the frame, a reversible or removable seat, and infant car seat click-in with adapters. Travel strollers typically skip all of this in favor of fold.',
+    id: 'ground',
+    question: 'What is the ground like where you\'ll walk the most?',
     answers: [
       {
-        label: 'Yes — bassinet, reversible seat, and car seat adapters all matter',
-        sublabel: 'I want one frame that handles every stage from newborn',
-        scores: { compact: 4, 'full-size': 2 },
+        label: 'Smooth and paved',
+        sublabel: 'Sidewalks, shops, flat paths',
+        scores: { compact: 2, 'full-size': 1 },
       },
       {
-        label: 'Car seat compatibility yes, full bassinet is less important',
-        sublabel: 'Adapter support matters; I can solve the bassinet phase separately',
-        scores: { compact: 3, 'full-size': 1 },
+        label: 'Bumpy — gravel, grass, dirt, or cobblestones',
+        sublabel: 'Little wheels would get stuck',
+        scores: { jogging: 3, 'full-size': 1, 'double-jogging': 2 },
       },
       {
-        label: 'No — I just need it to fold small and be easy to carry',
-        sublabel: 'Portability is the whole job; I\'ll solve newborn stage another way',
-        scores: { travel: 4 },
+        label: 'Hilly — lots of up and down',
+        sublabel: 'A good push really matters here',
+        scores: { 'full-size': 2, jogging: 2, 'double-jogging': 1 },
       },
       {
-        label: 'I already have a newborn solution sorted',
-        sublabel: 'Bassinet and car seat aren\'t factors in my stroller decision',
-        scores: { travel: 1, compact: 1, 'full-size': 1 },
+        label: 'Snow or rough weather part of the year',
+        sublabel: 'It needs to handle the seasons',
+        scores: { jogging: 2, 'full-size': 1 },
+      },
+    ],
+  },
+  {
+    id: 'flights',
+    question: 'How often do you picture flying with the baby?',
+    answers: [
+      {
+        label: 'Pretty often',
+        sublabel: 'We travel, or family lives far away',
+        scores: { travel: 4, compact: 1 },
+      },
+      {
+        label: 'A couple of trips a year',
+        sublabel: 'Now and then, not constantly',
+        scores: { compact: 2, travel: 1 },
+      },
+      {
+        label: 'Rarely or never',
+        sublabel: 'We mostly stay close to home',
+        scores: { 'full-size': 2, jogging: 1 },
+      },
+    ],
+  },
+  {
+    id: 'caregivers',
+    question: 'Besides you, who will be pushing the stroller?',
+    answers: [
+      {
+        label: 'Mostly just me and my partner',
+        sublabel: 'It pretty much stays with us',
+        scores: { 'full-size': 1, compact: 1 },
+      },
+      {
+        label: 'Grandparents, a nanny, or daycare — often',
+        sublabel: 'It needs to be easy for anyone to fold',
+        scores: { compact: 2, travel: 2 },
+      },
+      {
+        label: 'It\'ll bounce between a few different people',
+        sublabel: 'Lots of hands, lots of different cars',
+        scores: { travel: 3, compact: 1 },
+      },
+      {
+        label: 'Not totally sure yet',
+        sublabel: 'Still figuring that part out',
+        scores: { compact: 1, 'full-size': 1 },
+      },
+    ],
+  },
+  {
+    id: 'outings',
+    question: 'What does a typical outing look like for you?',
+    answers: [
+      {
+        label: 'Quick in-and-out',
+        sublabel: 'A store run, an appointment, a short errand',
+        scores: { compact: 3, travel: 1 },
+      },
+      {
+        label: 'Long days out',
+        sublabel: 'Parks, the zoo, shopping, all-day adventures',
+        scores: { 'full-size': 3 },
+      },
+      {
+        label: 'Mostly walks to get out of the house',
+        sublabel: 'Fresh air and a change of scenery',
+        scores: { 'full-size': 2, jogging: 1 },
+      },
+      {
+        label: 'A bit of everything',
+        sublabel: 'It really depends on the day',
+        scores: { 'full-size': 1, compact: 1 },
+      },
+    ],
+  },
+  {
+    id: 'frustration',
+    question: 'Day to day, what would frustrate you the most?',
+    subtext: 'There are no wrong answers here — just go with your gut.',
+    answers: [
+      {
+        label: 'Wrestling something heavy in and out of the car',
+        sublabel: 'Lifting and folding all day would wear me out',
+        scores: { compact: 3, travel: 2 },
+      },
+      {
+        label: 'A stroller that gets stuck on bumpy ground',
+        sublabel: 'I need it to roll over just about anything',
+        scores: { jogging: 3, 'double-jogging': 3 },
+      },
+      {
+        label: 'Having to buy a second stroller later on',
+        sublabel: 'I\'d rather get it right the first time',
+        scores: { convertible: 3, 'full-size': 1 },
+      },
+      {
+        label: 'A cramped seat my baby outgrows quickly',
+        sublabel: 'Comfort and lasting a while matter to me',
+        scores: { 'full-size': 3 },
+      },
+    ],
+  },
+  {
+    id: 'horizon',
+    question: 'How long do you want this stroller to last?',
+    answers: [
+      {
+        label: 'Just the early months, then we\'ll see',
+        sublabel: 'Happy to reassess down the road',
+        scores: { compact: 2, travel: 1 },
+      },
+      {
+        label: 'Years — well into the toddler stage',
+        sublabel: 'One stroller we can really live with',
+        scores: { 'full-size': 3, convertible: 1 },
+      },
+      {
+        label: 'Long enough to grow with another kid',
+        sublabel: 'Planning for a bigger family',
+        scores: { convertible: 3 },
+      },
+      {
+        label: 'No strong feeling either way',
+        sublabel: 'Whatever makes the most sense',
+        scores: { 'full-size': 1, compact: 1 },
       },
     ],
   },
   {
     id: 'priority',
-    question: 'What matters most to you in a stroller?',
-    subtext: 'Pick your actual priority, not the answer that sounds best.',
+    question: 'If you could only have one, what matters most?',
+    subtext: 'Go with the one you\'d actually pick.',
     answers: [
       {
-        label: 'Push quality and basket size',
-        sublabel: 'Smooth ride, easy to load, comfortable for long walks',
-        scores: { 'full-size': 3 },
-      },
-      {
-        label: 'Easy fold and lighter weight',
-        sublabel: 'Quick in and out, less mental overhead daily',
+        label: 'Easy and light — grab it and go',
+        sublabel: 'Quick fold, simple to carry',
         scores: { compact: 3, travel: 1 },
       },
       {
-        label: 'Handles any terrain I throw at it',
-        sublabel: 'Rough ground, gravel, grass — I need real wheels',
-        scores: { jogging: 4 },
+        label: 'A smooth, comfy ride for the baby',
+        sublabel: 'Cushioned, roomy, and nice to push',
+        scores: { 'full-size': 3 },
       },
       {
-        label: 'Room to grow with my family',
-        sublabel: 'Expandable, adaptable, long investment horizon',
+        label: 'Tough enough for anything',
+        sublabel: 'Weather, terrain, the great outdoors',
+        scores: { jogging: 4, 'double-jogging': 4 },
+      },
+      {
+        label: 'Room to grow with our family',
+        sublabel: 'It can turn into a double later on',
         scores: { convertible: 3, 'full-size': 1 },
       },
     ],
   },
   {
     id: 'budget',
-    question: 'What is your budget for a stroller?',
-    subtext: 'More money usually buys lighter weight and better push — not necessarily the right category.',
+    question: 'Last one — what feels comfortable to spend?',
+    subtext: 'There is a great option at every level. This just narrows the picks.',
     answers: [
       {
-        label: 'Under $400',
-        sublabel: 'Value-forward pick',
+        label: 'Keep it budget-friendly',
+        sublabel: 'Around $300 or less',
         scores: { compact: 2, travel: 1 },
       },
       {
-        label: '$400 – $800',
-        sublabel: 'Mid-range sweet spot',
+        label: 'Somewhere in the middle',
+        sublabel: 'Roughly $300 to $800',
         scores: { compact: 1, 'full-size': 1, travel: 1, jogging: 1 },
       },
       {
-        label: '$800 – $1,200',
-        sublabel: 'Premium territory',
-        scores: { 'full-size': 2, jogging: 1, convertible: 1 },
+        label: 'Happy to invest in something that lasts',
+        sublabel: '$800 and up',
+        scores: { 'full-size': 2, convertible: 1, jogging: 1 },
       },
       {
-        label: '$1,200+',
-        sublabel: 'Top-tier investment',
-        scores: { 'full-size': 2, convertible: 2 },
-      },
-    ],
-  },
-  {
-    id: 'dealbreaker',
-    question: 'What would you absolutely hate to deal with daily?',
-    answers: [
-      {
-        label: 'A heavy, bulky stroller I have to muscle into my trunk',
-        sublabel: 'Weight and fold size are my top concern',
-        scores: { compact: 3, travel: 2 },
-      },
-      {
-        label: 'A stroller that can\'t handle rough ground',
-        sublabel: 'I need real suspension and bigger wheels',
-        scores: { jogging: 3 },
-      },
-      {
-        label: 'Outgrowing it too fast or having to buy a second',
-        sublabel: 'I want this to last or expand',
-        scores: { convertible: 3, 'full-size': 1 },
-      },
-      {
-        label: 'A tight, cramped seat that doesn\'t recline well',
-        sublabel: 'Baby comfort and longevity matter',
-        scores: { 'full-size': 3 },
+        label: 'Budget is not really a factor',
+        sublabel: 'Just match me to the best fit',
+        scores: { 'full-size': 1, compact: 1, travel: 1, jogging: 1, convertible: 1 },
       },
     ],
   },
@@ -282,7 +438,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#8b3a4a',
     accentBg: '#fdf0f2',
     description:
-      'Full-size strollers are built for families who will actually use what a bigger frame gives back — better push quality, a large basket, deeper recline, and a seat that lasts well into toddlerhood. You pay for it in weight and fold size, but families who use it daily never regret it.',
+      'This is the comfortable, do-it-all stroller — a smooth ride, a big basket for everything you end up carrying, and a roomy seat that stays comfy from newborn naps well into the toddler years. It is bigger and heavier to fold, but if you are out with it most days, that trade is an easy one to live with.',
     rightFor: [
       'Walk-heavy routines where you push for long stretches, not just parking lots',
       'Longer outings where basket access, canopy coverage, and recline matter',
@@ -326,7 +482,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#6b7fa8',
     accentBg: '#f0f3f8',
     description:
-      'Compact strollers are lighter, fold smaller, and move through parking lots and tight spaces without the drama. You give up some basket depth and push quality over distance, but most families in this lane never miss what they traded away — because what they gained is daily ease.',
+      'Lighter, folds smaller, and slips through tight spaces and parking lots without a fight. You give up a little room and a little cushion on long walks, but most families never miss it — what they get instead is a stroller that is genuinely easy to grab and go every single day.',
     rightFor: [
       'Car-heavy routines where the stroller gets folded and lifted constantly',
       'Smaller trunks, tighter storage, or multiple caregivers sharing the stroller',
@@ -369,7 +525,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#5a8a6a',
     accentBg: '#f0f5f1',
     description:
-      'Travel strollers are built for transit — airports, ride shares, grandparents\' houses, and any situation where the fold, carry weight, and storage footprint are the whole point. The push experience takes a back seat when portability is the job.',
+      'Made for life on the move — airports, taxis, and grandparents\' houses, anywhere the stroller needs to fold tiny and weigh almost nothing. It is not the plushest ride, but when getting through a gate or into a trunk is the whole point, nothing else comes close.',
     rightFor: [
       'Families who fly regularly and want cabin-bag portability or easy gate check',
       'Ride-share households where the stroller moves in and out of strangers\' trunks',
@@ -411,15 +567,15 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#b5922a',
     accentBg: '#fdf8ee',
     description:
-      'Convertible strollers start as a single and expand to accommodate a second child later. The ones worth buying are modular: both seats are the same seat — not a smaller sibling seat bolted on — and the frame in single mode typically gains an extra basket or cargo attachment where the second seat will eventually live. True modular convertibles include the Cybex Gazelle S, Nuna DEMI Next, Bugaboo Donkey 6, and Veer Switchback and Roll. This is what makes them a strategic purchase rather than a compromise. You live with more frame before the second seat arrives, so the sibling timeline needs to be real.',
+      'This is the one stroller that becomes two. It starts as a single and adds a second seat when your next baby arrives, so you do not have to buy a whole new stroller down the road. The best ones give both kids the same comfortable seat — not a roomy seat for one and a cramped add-on for the other. It does mean pushing a slightly bigger frame before that second baby shows up, so it pays off most when another little one is a real plan, not a maybe.',
     rightFor: [
-      'Families with a real, near-term sibling timeline (within 2–3 years)',
-      'Parents who want one frame that grows rather than buying a separate double later',
-      'Households where the expansion path is specific, not a hopeful maybe',
-      'Buyers who want equal comfort for both children — a true modular design uses the same seat for child one and child two',
+      'Families who already know a second baby is coming in the next couple of years',
+      'Parents who would rather buy once than add a separate double stroller later',
+      'Anyone who wants both kids to ride in the same comfortable seat',
+      'Homes with room to handle a slightly larger frame in the meantime',
     ],
     watchOut:
-      'Not all convertibles are created equal. Avoid designs where the second seat is noticeably smaller or less reclined — that\'s not a true modular convertible, it\'s a compromise. The Silver Cross Wave, UPPAbaby Vista, Orbit Baby G5, and Bugaboo Kangaroo all fall into this category: they expand, but the second seat is a different (typically smaller) seat. If the sibling timeline is still fuzzy, a convertible adds daily bulk in exchange for future flexibility you may not need.',
+      'If a second baby is still a someday-maybe, this is a lot of stroller to push around in the meantime — a simpler single now (and a double later, only if you need it) can be the easier path. And when you do shop, check that both seats are equally roomy and comfortable; some so-called convertibles give the second child a noticeably smaller seat.',
     imageSrc: '/assets/strollers/convertable.png',
     picks: [
       {
@@ -452,7 +608,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#8a5a88',
     accentBg: '#f5f0f5',
     description:
-      'Double strollers are built for two riders today — twins, close age gaps, or two children who genuinely both need seats on most outings. This is a different brief than convertible planning. You are solving a current, present-tense problem, and the stroller is sized for it.',
+      'Two seats, ready right now — for twins, or two little ones close enough in age that they both still need to ride. This is not planning for someday; it is solving today, and the whole stroller is built around carrying two.',
     rightFor: [
       'Twins or multiples from day one',
       'Two children close enough in age that both need a seat on most outings',
@@ -465,23 +621,22 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     blogTitle: 'The Bugaboo Donkey 6 Has Arrived',
     picks: [
       {
-        name: 'Bugaboo Donkey 6',
-        tagline: 'Widest in-class basket. Still manageable for a double.',
-        brand: 'Bugaboo',
-        model: 'Donkey 6',
-        imageSrc: '/assets/strollers/donkey.png',
-      },
-      {
-        name: 'Baby Jogger City Select 2',
-        tagline: 'Inline configuration — fits through more doorways.',
+        name: 'Baby Jogger City Mini GT2 Double',
+        tagline: 'A roomy everyday double that still folds with one hand.',
         brand: 'Baby Jogger',
-        model: 'City Select 2',
+        model: 'City Mini GT2 Double',
       },
       {
-        name: 'Nuna DEMI Next',
-        tagline: 'Side-by-side comfort, surprisingly manageable.',
+        name: 'Nuna TRVL Dubl',
+        tagline: 'A lighter, compact double that is easy to fold and store.',
         brand: 'Nuna',
-        model: 'DEMI next',
+        model: 'TRVL Dubl',
+      },
+      {
+        name: 'Silver Cross Jet Double',
+        tagline: 'One of the most compact folds in a side-by-side double.',
+        brand: 'Silver Cross',
+        model: 'Jet Double',
       },
     ],
   },
@@ -493,7 +648,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     accentColor: '#4a7a5a',
     accentBg: '#eef4f0',
     description:
-      'Jogging and all-terrain strollers have larger wheels, stronger suspension, and a fixed or lockable front wheel for stability at speed. They are built for routes that defeat smaller wheels — trails, gravel, broken sidewalks, grass, and actual running pace.',
+      'Big, sturdy wheels and a bouncy frame built to roll right over the stuff that stops smaller strollers cold — trails, gravel, grass, broken sidewalks, and an actual running pace. If you want to jog with the baby, or you are simply outside on rough ground a lot, this is your lane.',
     rightFor: [
       'Parents who actively run and want a stroller that keeps up with real jogging pace',
       'Outdoor-heavy families whose routes regularly include rough terrain',
@@ -526,6 +681,47 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
       },
     ],
   },
+  'double-jogging': {
+    key: 'double-jogging',
+    name: 'Double Jogger',
+    tagline: 'Two seats, built to run.',
+    emoji: '🏃‍♀️',
+    accentColor: '#3f7d83',
+    accentBg: '#e9f3f3',
+    description:
+      'Two seats side by side on big, air-filled wheels — built to roll over trails, gravel, and a real running pace with both kids along for the ride. If you run (or just spend a lot of time on rough ground) and you have two little ones, this is the rare stroller made for exactly that.',
+    rightFor: [
+      'Parents of two who actually run, jog, or power-walk',
+      'Two kids plus lots of trails, gravel, grass, or broken sidewalks',
+      'Active families who are not ready to give up the outdoors with a second baby',
+      'Anyone who needs one stroller for both kids and rough ground',
+    ],
+    watchOut:
+      'These are wide and heavy — among the widest strollers on the road. Measure your doorways, car trunk, and storage before you buy, and know it is overkill if you never actually run or hit rough ground.',
+    imageSrc: '/assets/strollers/urbnglide.png',
+    picks: [
+      {
+        name: 'BOB Revolution Flex 3.0 Duallie',
+        tagline: 'The classic running double — plush suspension, smooth at speed.',
+        brand: 'BOB',
+        model: 'Revolution Flex 3.0 Duallie',
+        imageSrc: '/assets/strollers/revolution.png',
+      },
+      {
+        name: 'Thule Urban Glide 2 Double',
+        tagline: 'Lighter and nimble for a double — easy to steer one-handed.',
+        brand: 'Thule',
+        model: 'Urban Glide 2 Double',
+        imageSrc: '/assets/strollers/urbnglide.png',
+      },
+      {
+        name: 'Bumbleride Indie Twin',
+        tagline: 'All-terrain double with air tires and a smooth, sturdy push.',
+        brand: 'Bumbleride',
+        model: 'Indie Twin',
+      },
+    ],
+  },
 };
 
 // ─── Scoring ───────────────────────────────────────────────────────────────────
@@ -538,6 +734,7 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
     convertible: 0,
     double: 0,
     jogging: 0,
+    'double-jogging': 0,
   };
 
   let allowedCategories: CategoryKey[] | null = null;
@@ -577,6 +774,7 @@ const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
   'convertible': ['convertible-modular', 'convertible-non-modular'],
   'double':      ['double'],
   'jogging':     ['jogging', 'wagon'],
+  'double-jogging': ['double-jogging'],
 };
 
 const ALL_STROLLERS: TravelSystemEntity[] = TRAVEL_SYSTEM_ENTITIES.filter((e) => e.type === 'stroller');
@@ -626,11 +824,11 @@ export default function StrollerQuiz() {
     return (
       <div style={styles.card}>
         <div style={styles.introIcon}>🛒</div>
-        <h2 style={styles.introTitle}>Find Your Stroller Category</h2>
+        <h2 style={styles.introTitle}>Find the Stroller That Fits Your Life</h2>
         <p style={styles.introSubtext}>
-          There is no universal best stroller — only the one that fits your actual life. Answer 8
-          quick questions and we'll match you to one of the six stroller categories, with specific
-          picks for your result.
+          There is no single best stroller — only the one that fits your actual life. Answer a
+          handful of quick questions about your days, and we'll match you to the kind of stroller
+          that fits, with specific picks for your result.
         </p>
         <div style={styles.categoryPreview}>
           {Object.values(CATEGORIES).map((cat) => (
@@ -642,7 +840,7 @@ export default function StrollerQuiz() {
         <button style={styles.primaryBtn} onClick={() => setStep('quiz')}>
           Start the Quiz →
         </button>
-        <p style={styles.timeNote}>Takes about 2 minutes</p>
+        <p style={styles.timeNote}>Takes about 3 minutes</p>
       </div>
     );
   }

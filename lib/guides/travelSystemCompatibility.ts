@@ -11,6 +11,7 @@ export type StrollerCategory =
   | 'convertible-modular'
   | 'convertible-non-modular'
   | 'double'
+  | 'double-jogging'
   | 'jogging'
   | 'wagon';
 
@@ -22,6 +23,7 @@ export const STROLLER_CATEGORY_LABELS: Record<StrollerCategory, string> = {
   'convertible-modular': 'Single-to-Double (Modular)',
   'convertible-non-modular': 'Single-to-Double (Non-Modular)',
   'double': 'Double',
+  'double-jogging': 'Double Jogger',
   'jogging': 'Jogging / All-Terrain',
   'wagon': 'Wagon',
 };
@@ -283,6 +285,39 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     aliases: ['bob revolution', 'revolution flex', 'bob revolution flex', 'revolution flex 3.0', 'bob revolution flex 3.0'],
   },
   {
+    id: 'bob-alterrain-pro-duallie',
+    type: 'stroller',
+    brand: 'BOB',
+    label: 'BOB Alterrain Duallie',
+    shortLabel: 'Alterrain Duallie',
+    description: 'Double jogging stroller',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
+    aliases: ['alterrain duallie', 'bob alterrain duallie', 'bob alterrain pro duallie'],
+  },
+  {
+    id: 'baby-jogger-summit-x3-double',
+    type: 'stroller',
+    brand: 'Baby Jogger',
+    label: 'Baby Jogger Summit X3 Double',
+    shortLabel: 'Summit X3 Double',
+    description: 'Double jogging stroller',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
+    aliases: ['summit x3 double', 'baby jogger summit x3 double'],
+  },
+  {
+    id: 'thule-chariot-cross-2',
+    type: 'stroller',
+    brand: 'Thule',
+    label: 'Thule Chariot Cross 2',
+    shortLabel: 'Chariot Cross 2',
+    description: 'Double multisport jogging stroller',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
+    aliases: ['chariot cross', 'chariot cross 2', 'thule chariot cross 2'],
+  },
+  {
     id: 'bob-renegade-wagon',
     type: 'stroller',
     brand: 'BOB',
@@ -379,8 +414,8 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     label: 'Bumbleride Indie Twin',
     shortLabel: 'Indie Twin',
     description: 'Double all-terrain stroller',
-    icon: 'double',
-    strollerCategory: 'double',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
     aliases: ['indie twin', 'bumbleride indie twin'],
   },
   {
@@ -757,8 +792,8 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     label: 'BOB Revolution Flex 3.0 Duallie',
     shortLabel: 'Revolution Flex Duallie',
     description: 'Double jogging stroller',
-    icon: 'double',
-    strollerCategory: 'double',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
     aliases: ['duallie', 'revolution flex duallie', 'bob revolution duallie', 'bob revolution flex 3.0 duallie'],
   },
   // ── Britax ───────────────────────────────────────────────────────────────────
@@ -1097,9 +1132,9 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     brand: 'Nuna',
     label: 'Nuna SWIV',
     shortLabel: 'SWIV',
-    description: 'Double stroller',
-    icon: 'double',
-    strollerCategory: 'double',
+    description: 'Compact modular stroller',
+    icon: 'stroller',
+    strollerCategory: 'compact',
     aliases: ['swiv', 'nuna swiv'],
   },
   {
@@ -1224,8 +1259,8 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     label: 'Thule Urban Glide 2 Double',
     shortLabel: 'Urban Glide 2 Double',
     description: 'Double jogging stroller',
-    icon: 'double',
-    strollerCategory: 'double',
+    icon: 'terrain',
+    strollerCategory: 'double-jogging',
     aliases: ['urban glide 2 double', 'thule urban glide 2 double'],
   },
   // ── UPPAbaby (additional) ────────────────────────────────────────────────────
