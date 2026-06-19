@@ -58,6 +58,70 @@ type StrollerCompatibilityRow = {
   confidence: string;
 };
 
+// ── Babylist (Impact.com) enrichment ──────────────────────────────────────────
+type BabylistFields = {
+  babylistUrl: string | null;
+  babylistPrice: number | null;
+  babylistImage: string | null;
+};
+
+const EMPTY_BABYLIST: BabylistFields = { babylistUrl: null, babylistPrice: null, babylistImage: null };
+
+const babylistKey = (brand: string, model: string) => `${brand.toLowerCase()}:::${model.toLowerCase()}`;
+
+type BabylistLookupRow = {
+  brand: string;
+  model: string;
+  babylistUrl: string | null;
+  babylistPrice: number | null;
+  babylistImage: string | null;
+};
+
+/** Build a brand:::model → Babylist-fields map for the given table (one query). */
+async function loadBabylistMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, BabylistFields>> {
+  try {
+    const rows =
+      table === 'Stroller'
+        ? await prisma.$queryRaw<BabylistLookupRow[]>`
+            SELECT "brand", "model", "babylistUrl", "babylistPrice", "babylistImage" FROM "Stroller"
+          `
+        : await prisma.$queryRaw<BabylistLookupRow[]>`
+            SELECT "brand", "model", "babylistUrl", "babylistPrice", "babylistImage" FROM "CarSeat"
+          `;
+
+    const map = new Map<string, BabylistFields>();
+    for (const row of rows) {
+      map.set(babylistKey(row.brand, row.model), {
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+      });
+    }
+    return map;
+  } catch (error) {
+    // If the babylist columns aren't there yet (pre-migration), degrade gracefully.
+    if (hasMissingTravelSystemSchema(error)) return new Map();
+    throw error;
+  }
+}
+
+/** Attach synced Babylist url/price/image to each result; prefer the real product photo. */
+function enrichWithBabylist<T extends { brand: string; model: string; imageUrl?: string | null }>(
+  items: T[],
+  map: Map<string, BabylistFields>,
+): T[] {
+  return items.map((item) => {
+    const bl = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_BABYLIST;
+    return {
+      ...item,
+      babylistUrl: bl.babylistUrl,
+      babylistPrice: bl.babylistPrice,
+      babylistImage: bl.babylistImage,
+      imageUrl: bl.babylistImage ?? item.imageUrl ?? null,
+    };
+  });
+}
+
 const DIRECT_DEFAULT_BRANDS = new Set([
   'cybex',
   'joie',
@@ -497,7 +561,7 @@ export async function getTravelSystemCompatibility(
       displayName: getDisplayName(stroller.brand, stroller.model, stroller.displayName),
       summary: stroller.summary,
     },
-    compatibleCarSeats,
+    compatibleCarSeats: enrichWithBabylist(compatibleCarSeats, await loadBabylistMap('CarSeat')),
   };
 }
 
@@ -621,6 +685,6 @@ export async function getTravelSystemCompatibilityByCarSeat(
       displayName: getDisplayName(carSeat.brand, carSeat.model, carSeat.displayName),
       summary: carSeat.summary,
     },
-    compatibleStrollers,
+    compatibleStrollers: enrichWithBabylist(compatibleStrollers, await loadBabylistMap('Stroller')),
   };
 }

@@ -26,6 +26,9 @@ export type CompatibleCarSeatResult = {
   confidence: CompatibilityConfidence;
   imageUrl?: string | null;
   imageAlt?: string | null;
+  babylistUrl?: string | null;
+  babylistPrice?: number | null;
+  babylistImage?: string | null;
 };
 
 export type TravelSystemCompatibilityResponse = {
@@ -45,6 +48,9 @@ export type CompatibleStrollerResult = {
   confidence: CompatibilityConfidence;
   imageUrl?: string | null;
   imageAlt?: string | null;
+  babylistUrl?: string | null;
+  babylistPrice?: number | null;
+  babylistImage?: string | null;
 };
 
 export type TravelSystemCompatibilityByCarSeatResponse = {

@@ -1,0 +1,75 @@
+{
+  "mode": "targeted",
+  "runAt": "2026-06-19T18:28:14.895Z",
+  "dryRun": true,
+  "strollers": {
+    "synced": 6,
+    "notFound": 14,
+    "notFoundNames": [
+      "Bugaboo Fox 5",
+      "Bugaboo Donkey 6",
+      "Nuna TRVL lx",
+      "UPPAbaby Minu V2",
+      "CYBEX Gazelle S",
+      "Silver Cross Reef 2",
+      "Silver Cross Wave 3",
+      "Silver Cross Jet 5",
+      "Baby Jogger City Select 2",
+      "Baby Jogger City Tour 2",
+      "Baby Jogger City Mini 2",
+      "Baby Jogger City Mini GT2",
+      "Baby Jogger City Mini Double",
+      "Baby Jogger City Sights"
+    ]
+  },
+  "carSeats": {
+    "synced": 3,
+    "notFound": 17,
+    "notFoundNames": [
+      "Bugaboo Turtle Air by Nuna",
+      "Bugaboo Turtle One by Nuna",
+      "Nuna PIPA RX",
+      "Nuna PIPA urbn",
+      "UPPAbaby Mesa Max",
+      "CYBEX Aton G",
+      "Britax Willow S",
+      "Chicco KeyFit 35",
+      "Joie Infant Seat Series",
+      "Orbit Baby G5 Infant Seat",
+      "Peg Perego Primo Viaggio 4-35",
+      "Romer Infant Seat Series",
+      "Britax Cypress S",
+      "Chicco Fit2",
+      "Clek Liing",
+      "Clek Liingo",
+      "CYBEX Cloud T"
+    ]
+  },
+  "adapters": {
+    "synced": 0,
+    "compatibilityRowsUpdated": 0,
+    "unmatched": [
+      "Graco Premier Modes Nest2Grow Stroller Second Seat in Midtown",
+      "Zoe Journey Car Seat Adapter in Black Nuna, Maxi Cosi, Cybex, Britax - Black",
+      "Mompush Meteor 2 Stroller in Gray Size 33.9\" x 25.2\" x 16.7\"",
+      "Romer Sera Bassinet for Tura Stroller in Pearl | Recycled",
+      "Mockingbird Single-to-Double Stroller 3.0 and Bassinet Bundle in Sea",
+      "Graco Premier Modes Nest2Grow Stroller Second Seat in Midtown",
+      "Zoe Journey Car Seat Adapter in Black Nuna, Maxi Cosi, Cybex, Britax - Black",
+      "Mompush Meteor 2 Stroller in Gray Size 33.9\" x 25.2\" x 16.7\"",
+      "Romer Sera Bassinet for Tura Stroller in Pearl | Recycled",
+      "Mockingbird Single-to-Double Stroller 3.0 and Bassinet Bundle in Sea",
+      "Graco Premier Modes Nest2Grow Stroller Second Seat in Midtown",
+      "Zoe Journey Car Seat Adapter in Black Nuna, Maxi Cosi, Cybex, Britax - Black",
+      "Mompush Meteor 2 Stroller in Gray Size 33.9\" x 25.2\" x 16.7\"",
+      "Romer Sera Bassinet for Tura Stroller in Pearl | Recycled",
+      "Mockingbird Single-to-Double Stroller 3.0 and Bassinet Bundle in Sea",
+      "Graco Premier Modes Nest2Grow Stroller Second Seat in Midtown",
+      "Zoe Journey Car Seat Adapter in Black Nuna, Maxi Cosi, Cybex, Britax - Black",
+      "Mompush Meteor 2 Stroller in Gray Size 33.9\" x 25.2\" x 16.7\"",
+      "Romer Sera Bassinet for Tura Stroller in Pearl | Recycled",
+      "Mockingbird Single-to-Double Stroller 3.0 and Bassinet Bundle in Sea"
+    ]
+  },
+  "durationMs": 267850
+}

@@ -159,15 +159,25 @@ function ModeToggle({
   );
 }
 
-function AffiliateBuyButtons({ brand, model }: { brand: string; model: string }) {
+function AffiliateBuyButtons({
+  brand,
+  model,
+  babylistUrl,
+}: {
+  brand: string;
+  model: string;
+  babylistUrl?: string | null;
+}) {
   const links = getAffiliateLinks(brand, model);
-  if (!links.babylistUrl && !links.amazonUrl) return null;
+  // DB-synced Babylist link wins; fall back to the static map until the sync runs.
+  const resolvedBabylistUrl = babylistUrl ?? links.babylistUrl ?? null;
+  if (!resolvedBabylistUrl && !links.amazonUrl) return null;
 
   return (
     <div className="mt-4 flex flex-wrap gap-2">
-      {links.babylistUrl ? (
+      {resolvedBabylistUrl ? (
         <a
-          href={links.babylistUrl}
+          href={resolvedBabylistUrl}
           target="_blank"
           rel="sponsored nofollow noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
@@ -556,6 +566,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                           <h4 className="mt-2 font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                             {seat.displayName}
                           </h4>
+                          {seat.babylistPrice ? (
+                            <p className="mt-1.5 text-[0.95rem] font-semibold text-[var(--gold)]">
+                              ${seat.babylistPrice.toFixed(2)}
+                              <span className="ml-1.5 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
+                                via Babylist
+                              </span>
+                            </p>
+                          ) : null}
                         </div>
                         <span
                           className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] ${compatibilityBadgeClasses(seat.compatibilityType)}`}
@@ -591,7 +609,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         <p className="mt-4 text-sm leading-7 text-neutral-700">{seat.notes}</p>
                       ) : null}
 
-                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} />
+                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} babylistUrl={seat.babylistUrl} />
                     </article>
                   ))}
                   </div>
@@ -651,6 +669,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                           <h4 className="mt-2 font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                             {stroller.displayName}
                           </h4>
+                          {stroller.babylistPrice ? (
+                            <p className="mt-1.5 text-[0.95rem] font-semibold text-[var(--gold)]">
+                              ${stroller.babylistPrice.toFixed(2)}
+                              <span className="ml-1.5 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
+                                via Babylist
+                              </span>
+                            </p>
+                          ) : null}
                         </div>
                         <span
                           className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] ${compatibilityBadgeClasses(stroller.compatibilityType)}`}
@@ -689,7 +715,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         <p className="mt-3 text-sm leading-7 text-neutral-700">{stroller.notes}</p>
                       ) : null}
 
-                      <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} />
+                      <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} babylistUrl={stroller.babylistUrl} />
                     </article>
                   ))}
                   </div>
