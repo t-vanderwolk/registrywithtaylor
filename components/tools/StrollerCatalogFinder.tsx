@@ -13,6 +13,12 @@ type FinderStroller = { model: string; category: StrollerCategory };
 type FinderType = { key: StrollerCategory; label: string; items: FinderStroller[] };
 type FinderBrand = { brand: string; count: number; types: FinderType[] };
 
+// Brand logos. Brands listed here show their logo; the rest show the brand name.
+// Drop a file in /public/assets/logos and add the brand to extend this.
+const BRAND_LOGOS: Record<string, string> = {
+  'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
+};
+
 // Order types so the brand view reads from everyday → specialty.
 const TYPE_ORDER: StrollerCategory[] = [
   'full-size',
@@ -96,7 +102,12 @@ export default function StrollerCatalogFinder() {
               onClick={() => setSelected(b.brand)}
               className="flex flex-col items-start gap-1 rounded-[1.1rem] border border-[rgba(215,161,175,0.22)] bg-white px-5 py-4 text-left shadow-[0_4px_14px_rgba(72,49,56,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(72,49,56,0.08)]"
             >
-              <span className="font-serif text-[1.15rem] text-neutral-900">{b.brand}</span>
+              {BRAND_LOGOS[b.brand] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="h-7 w-auto max-w-[7.5rem] object-contain" />
+              ) : (
+                <span className="font-serif text-[1.15rem] text-neutral-900">{b.brand}</span>
+              )}
               <span className="text-[0.75rem] text-neutral-400">
                 {b.count} stroller{b.count === 1 ? '' : 's'}
               </span>
@@ -116,9 +127,18 @@ export default function StrollerCatalogFinder() {
       >
         ← All brands
       </button>
-      <h3 className="mt-3 font-serif text-[1.9rem] leading-tight tracking-[-0.02em] text-neutral-900">
-        {current.brand}
-      </h3>
+      {BRAND_LOGOS[current.brand] ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={BRAND_LOGOS[current.brand]}
+          alt={current.brand}
+          className="mt-3 h-10 w-auto max-w-[12rem] object-contain"
+        />
+      ) : (
+        <h3 className="mt-3 font-serif text-[1.9rem] leading-tight tracking-[-0.02em] text-neutral-900">
+          {current.brand}
+        </h3>
+      )}
       <p className="mt-1 text-[0.82rem] text-neutral-400">
         {current.count} strollers · live prices &amp; links via Babylist
       </p>
