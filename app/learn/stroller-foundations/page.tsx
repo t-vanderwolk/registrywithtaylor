@@ -93,7 +93,7 @@ const strollerCategories: StrollerCategory[] = [
   {
     name: 'Full Size / Modular',
     tagline: 'The everyday workhorse for families who will actually use what a bigger frame gives back.',
-    imageSrc: '/assets/editorial/fullsizemodular.png',
+    imageSrc: '/assets/strollers/mixxnext.png',
     imageAlt: 'Full size modular stroller — the primary everyday stroller with strong push quality and basket capacity.',
     imageCaption: 'If the stroller shows up four days a week, comfort is not indulgent. It is workflow.',
     definition:
@@ -141,7 +141,7 @@ const strollerCategories: StrollerCategory[] = [
   {
     name: 'Travel',
     tagline: 'The fold-first lane for families who need the stroller to disappear quickly between places.',
-    imageSrc: '/assets/strollers/travel.png',
+    imageSrc: '/assets/strollers/butterfly.png',
     imageAlt: 'Travel stroller — compact fold designed for flights, ride shares, and families who move between places.',
     imageCaption: 'The best travel stroller makes transit feel lighter. The worst one is just a small stroller that is annoying in two ways instead of one.',
     definition:
@@ -206,7 +206,7 @@ const strollerCategories: StrollerCategory[] = [
   {
     name: 'Jogging / All-Terrain',
     tagline: 'Built for the families where rough ground or real running is actually part of the routine.',
-    imageSrc: '/assets/strollers/revolution.png',
+    imageSrc: '/assets/strollers/urbnglide.png',
     imageAlt: 'Jogging stroller with larger wheels and suspension designed for running and rough terrain.',
     imageCaption: 'If the ground is doing the arguing, bigger wheels may be the calmer answer.',
     definition:
@@ -227,16 +227,16 @@ const strollerCategories: StrollerCategory[] = [
 
 const convertibleTypes = [
   {
-    type: 'Modular Frame Systems',
+    type: 'Modular Frame Systems (Modular)',
     detail:
-      'The frame is the product. You build around it. These strollers accept multiple interchangeable seat modules — parent-facing, forward-facing, infant bassinet, car seat adapter, and a second expandable seat — all on the same platform. The frame does not change. The configuration does. Think of it as a stroller system more than a stroller.',
-    examples: 'Think UPPAbaby VISTA, Bugaboo Fox, Nuna Demi Grow — frames designed to accept multiple seat types from the same brand ecosystem.',
+      'The frame is the product, and the second seat is part of the system by design. These strollers are built from the start to carry multiple interchangeable modules on the same platform — bassinet, reversible toddler seat, car seat adapter, and an expandable second seat. You are buying a system meant to grow, and the move to two seats is core to how it was engineered, not added on later.',
+    examples: 'Think Nuna Demi Grow or the Bugaboo Donkey — single strollers designed around growth, where carrying two children is built into the platform itself.',
   },
   {
-    type: 'Seat-Specific Convertible',
+    type: 'Seat-Specific Convertible (Non-Modular)',
     detail:
-      'The stroller comes with a primary seat that works for one child, and a specific second seat product is designed to attach to that exact frame. Less modular — the expansion path is more defined and usually narrower. You are not building a system; you are adding one specific seat to one specific stroller.',
-    examples: 'Frames where the second seat or glider board has one clear attachment point and the expansion options do not flex much beyond the brand\'s designated solution.',
+      'This is a single-first stroller that becomes a double only by adding one specific second seat made for that exact frame. The base was designed as a single; the second seat is a deliberate add-on, not a core module. The expansion path is real but narrow — one defined second seat, one attachment point — so it stays lighter and simpler as a single and converts when you actually need it.',
+    examples: 'Think UPPAbaby VISTA — a single-first frame that converts to a double by adding one specific second seat (the RumbleSeat), not by swapping interchangeable modules. That is what makes it non-modular.',
   },
 ];
 
@@ -278,12 +278,15 @@ const keyTakeaways = [
 
 // ─── Shoppable Babylist picks — one representative stroller per category ─────────
 const babylistStrollerPicks: BabylistPreviewItem[] = [
-  { label: 'Full Size / Modular', brand: 'UPPAbaby', model: 'Vista V2', blurb: 'The benchmark full-size system — strong push, big basket.', imageFallback: '/assets/editorial/fullsizemodular.png' },
+  { label: 'Full Size / Modular', brand: 'Nuna', model: 'MIXX next', blurb: 'A reversible-seat full-size frame with premium push quality.', imageFallback: '/assets/strollers/mixxnext.png' },
   { label: 'Compact / Mid-Size', brand: 'Nuna', model: 'TRIV next', blurb: 'Nuna quality in a lighter, trunk-friendly frame.', imageFallback: '/assets/editorial/compact.png' },
   { label: 'Travel', brand: 'Bugaboo', model: 'Butterfly', blurb: 'One-hand fold that fits most overhead bins.', imageFallback: '/assets/strollers/butterfly.png' },
-  { label: 'Single-to-Double Convertible', brand: 'Nuna', model: 'DEMI next', blurb: 'Expands to two seats on the same frame.', imageFallback: '/assets/strollers/convertable.png' },
-  { label: 'Double', brand: 'Bugaboo', model: 'Donkey 6', blurb: 'Side-by-side that still narrows through doorways.', imageFallback: '/assets/editorial/double-strollers.jpg' },
+  { label: 'Single-to-Double (Modular)', brand: 'Bugaboo', model: 'Donkey 6', blurb: 'A modular single that grows to a side-by-side double on the same frame.', imageFallback: '/assets/strollers/donkey.png' },
+  { label: 'Single-to-Double (Non-Modular)', brand: 'UPPAbaby', model: 'Vista V2', blurb: 'A single-first frame that converts to a double by adding one specific second seat (the RumbleSeat).', imageFallback: '/assets/editorial/fullsizemodular.png' },
+  { label: 'Double', brand: 'Baby Jogger', model: 'City Mini Double', blurb: 'A true side-by-side double, built for two from day one.', imageFallback: '/assets/editorial/double-strollers.jpg' },
   { label: 'Jogging / All-Terrain', brand: 'Thule', model: 'Urban Glide 2', blurb: 'Smooth at running pace and over rough ground.', imageFallback: '/assets/strollers/revolution.png' },
+  { label: 'Double Jogger', brand: 'Thule', model: 'Urban Glide 2 Double', blurb: 'Two seats at running pace, smooth over rough ground.', imageFallback: '/assets/strollers/revolution.png' },
+  { label: 'Double Travel', brand: 'Nuna', model: 'TRVL Dubl', blurb: 'A lightweight double that still folds down for transit.', imageFallback: '/assets/strollers/travel.png' },
 ];
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
