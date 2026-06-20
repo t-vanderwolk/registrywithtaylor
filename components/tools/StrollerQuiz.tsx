@@ -772,7 +772,7 @@ const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
   'compact':     ['compact'],
   'travel':      ['travel'],
   'convertible': ['convertible-modular', 'convertible-non-modular'],
-  'double':      ['double'],
+  'double':      ['double', 'double-travel'],
   'jogging':     ['jogging', 'wagon'],
   'double-jogging': ['double-jogging'],
 };

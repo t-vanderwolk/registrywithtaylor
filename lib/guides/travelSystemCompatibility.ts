@@ -11,6 +11,7 @@ export type StrollerCategory =
   | 'convertible-modular'
   | 'convertible-non-modular'
   | 'double'
+  | 'double-travel'
   | 'double-jogging'
   | 'jogging'
   | 'wagon';
@@ -23,6 +24,7 @@ export const STROLLER_CATEGORY_LABELS: Record<StrollerCategory, string> = {
   'convertible-modular': 'Single-to-Double (Modular)',
   'convertible-non-modular': 'Single-to-Double (Non-Modular)',
   'double': 'Double',
+  'double-travel': 'Double Travel',
   'double-jogging': 'Double Jogger',
   'jogging': 'Jogging / All-Terrain',
   'wagon': 'Wagon',
@@ -1145,8 +1147,19 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'TRVL Dubl',
     description: 'Double travel stroller',
     icon: 'double',
-    strollerCategory: 'double',
+    strollerCategory: 'double-travel',
     aliases: ['trvl dubl', 'nuna trvl dubl'],
+  },
+  {
+    id: 'uppababy-minu-duo',
+    type: 'stroller',
+    brand: 'UPPAbaby',
+    label: 'UPPAbaby Minu Duo',
+    shortLabel: 'Minu Duo',
+    description: 'Lightweight double travel stroller',
+    icon: 'double',
+    strollerCategory: 'double-travel',
+    aliases: ['minu duo', 'uppababy minu duo'],
   },
   // ── Orbit Baby (additional) ──────────────────────────────────────────────────
   {
@@ -1203,7 +1216,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Jet Double',
     description: 'Double travel stroller',
     icon: 'double',
-    strollerCategory: 'double',
+    strollerCategory: 'double-travel',
     aliases: ['jet double', 'silver cross jet double'],
   },
   {

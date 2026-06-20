@@ -12,6 +12,7 @@ import LessonBlogLink from '@/components/learn/LessonBlogLink';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import TrackPreviewView from '@/components/learn/TrackPreviewView';
+import BabylistPreviewProducts, { type BabylistPreviewItem } from '@/components/learn/BabylistPreviewProducts';
 
 export const metadata = buildMarketingMetadata({
   title: 'The Stroller Equation — Free Lesson | Taylor-Made Baby Academy',
@@ -275,6 +276,16 @@ const keyTakeaways = [
 
 ];
 
+// ─── Shoppable Babylist picks — one representative stroller per category ─────────
+const babylistStrollerPicks: BabylistPreviewItem[] = [
+  { label: 'Full Size / Modular', brand: 'UPPAbaby', model: 'Vista V2', blurb: 'The benchmark full-size system — strong push, big basket.', imageFallback: '/assets/editorial/fullsizemodular.png' },
+  { label: 'Compact / Mid-Size', brand: 'Nuna', model: 'TRIV next', blurb: 'Nuna quality in a lighter, trunk-friendly frame.', imageFallback: '/assets/editorial/compact.png' },
+  { label: 'Travel', brand: 'Bugaboo', model: 'Butterfly', blurb: 'One-hand fold that fits most overhead bins.', imageFallback: '/assets/strollers/butterfly.png' },
+  { label: 'Single-to-Double Convertible', brand: 'Nuna', model: 'DEMI next', blurb: 'Expands to two seats on the same frame.', imageFallback: '/assets/strollers/convertable.png' },
+  { label: 'Double', brand: 'Bugaboo', model: 'Donkey 6', blurb: 'Side-by-side that still narrows through doorways.', imageFallback: '/assets/editorial/double-strollers.jpg' },
+  { label: 'Jogging / All-Terrain', brand: 'Thule', model: 'Urban Glide 2', blurb: 'Smooth at running pace and over rough ground.', imageFallback: '/assets/strollers/revolution.png' },
+];
+
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function StrollerFoundationsPage() {
@@ -493,6 +504,12 @@ export default function StrollerFoundationsPage() {
                   ))}
                 </div>
               </LessonSection>
+
+              {/* 3.2b — A real pick in each category, shoppable on Babylist */}
+              <BabylistPreviewProducts
+                heading="A real pick in each category"
+                items={babylistStrollerPicks}
+              />
 
               {/* 3.3 — One universal rule */}
               <LessonSection stepNumber={3} title="One rule that applies to every category">
