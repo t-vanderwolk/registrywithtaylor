@@ -14,7 +14,9 @@ type StrollerModel = {
   tagline: string;
   priceRange: string;
   highlights: string[];
-  /** TODO: replace '#' with real affiliate URL before launch */
+  /** DB Stroller "model" used to look up live Babylist data, when it differs from the display name. */
+  lookupModel?: string;
+  /** Legacy static affiliate URL — superseded by babylistAffiliateUrl; kept to avoid touching every entry. */
   shopUrl: string;
 };
 
@@ -81,6 +83,7 @@ const BRANDS: StrollerBrand[] = [
       {
         id: 'nuna-trvl',
         name: 'TRVL',
+        lookupModel: 'TRVL lx',
         category: 'Travel',
         tagline: 'A thoughtfully designed travel stroller that does not feel stripped down.',
         priceRange: '$700–$800',
@@ -343,6 +346,7 @@ const BRANDS: StrollerBrand[] = [
       {
         id: 'cybex-gazelle-s2',
         name: 'Gazelle S2',
+        lookupModel: 'Gazelle S',
         category: 'Single-to-Double Convertible',
         tagline:
           'A modular system with more seat configuration options than most in its class.',
@@ -417,7 +421,7 @@ export default function StrollerBrandFinder() {
   // to a synced stroller get a live price + exact affiliate link; the rest fall
   // back to the static range and a brand-level affiliate link.
   useEffect(() => {
-    const items = BRANDS.flatMap((b) => b.models.map((m) => `${b.name}:::${m.name}`));
+    const items = BRANDS.flatMap((b) => b.models.map((m) => `${b.name}:::${m.lookupModel ?? m.name}`));
     fetch(`/api/babylist/lookup?items=${encodeURIComponent(items.join(','))}`)
       .then((r) => (r.ok ? r.json() : { results: {} }))
       .then((d) => setLive(d.results ?? {}))
@@ -430,7 +434,7 @@ export default function StrollerBrandFinder() {
 
   const selectedLive =
     selectedBrand && selectedModel
-      ? live[`${selectedBrand.name}:::${selectedModel.name}`]
+      ? live[`${selectedBrand.name}:::${selectedModel.lookupModel ?? selectedModel.name}`]
       : undefined;
   const selectedShopUrl =
     selectedBrand && selectedModel
@@ -534,6 +538,18 @@ export default function StrollerBrandFinder() {
                 {/* Model name + brand */}
                 <h3 className={styles.resultName}>{selectedModel.name}</h3>
                 <p className={styles.resultBrandLine}>by {selectedBrand.name}</p>
+
+                {/* Live Babylist product photo when this model is synced */}
+                {selectedLive?.babylistImage ? (
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '0.6rem 0 0.2rem' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={selectedLive.babylistImage}
+                      alt={selectedModel.name}
+                      style={{ maxHeight: '190px', width: 'auto', objectFit: 'contain' }}
+                    />
+                  </div>
+                ) : null}
 
                 {/* Tagline */}
                 <p className={styles.resultTagline}>{selectedModel.tagline}</p>
