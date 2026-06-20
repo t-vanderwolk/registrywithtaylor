@@ -96,6 +96,16 @@ const ACCESSORY_ONLY_PATTERNS = [
   /\bwheel\b/,
   /\btire\b/,
   /\bstrap\b/,
+  /\bbackpack\b/,
+  /\bbumper\b/,
+  /\bbelly\s+bar\b/,
+  /\bbassinet\b/,
+  /\bbasket\b/,
+  /\binsert\b/,
+  /\bnewborn\s+(pack|insert|nest|kit)\b/,
+  /\bsibling\s+seat\b/,
+  /\bbottle\s+cage\b/,
+  /\bfabric\b/,
 ];
 
 const normalizeForValidation = (value: string) =>
@@ -266,10 +276,18 @@ async function resolveBabylistMatch({
     ? fallbackSearch()
     : findBabylistProduct(name, brand));
   if (fallbackMatch) {
-    console.log(
-      `[babylist-sync] ${label}: local search matched ${fallbackMatch.Name} (${fallbackMatch.CatalogItemId})`,
+    // Hold the local-search fallback to the same bar as a stored SKU: it must
+    // carry a real model token and not be an accessory/adapter/wrong type.
+    const validation = validateStoredSkuMatch({ name, brand, typeLabel, item: fallbackMatch });
+    if (validation.valid) {
+      console.log(
+        `[babylist-sync] ${label}: local search matched ${fallbackMatch.Name} (${fallbackMatch.CatalogItemId}; ${validation.reason})`,
+      );
+      return fallbackMatch;
+    }
+    console.warn(
+      `[babylist-sync] ${label}: local search candidate ${fallbackMatch.Name} rejected (${validation.reason})`,
     );
-    return fallbackMatch;
   }
 
   console.warn(`[babylist-sync] ${label}: no Babylist match found`);
