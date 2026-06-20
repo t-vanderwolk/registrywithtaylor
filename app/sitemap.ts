@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.75 },
     { url: buildUrl('/tools/travel-system'), changeFrequency: 'monthly', priority: 0.75 },
+    { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'monthly', priority: 0.75 },
     { url: buildUrl('/privacy'), changeFrequency: 'yearly', priority: 0.3 },
   ];
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
+import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import styles from './StrollerBrandFinder.module.scss';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -408,10 +409,33 @@ function getBadgeStyle(category: string) {
 export default function StrollerBrandFinder() {
   const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
+  const [live, setLive] = useState<
+    Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
+  >({});
+
+  // Pull live Babylist price/link for every model once on mount. Models that map
+  // to a synced stroller get a live price + exact affiliate link; the rest fall
+  // back to the static range and a brand-level affiliate link.
+  useEffect(() => {
+    const items = BRANDS.flatMap((b) => b.models.map((m) => `${b.name}:::${m.name}`));
+    fetch(`/api/babylist/lookup?items=${encodeURIComponent(items.join(','))}`)
+      .then((r) => (r.ok ? r.json() : { results: {} }))
+      .then((d) => setLive(d.results ?? {}))
+      .catch(() => undefined);
+  }, []);
 
   const selectedBrand = BRANDS.find((b) => b.id === selectedBrandId) ?? null;
   const selectedModel  = selectedBrand?.models.find((m) => m.id === selectedModelId) ?? null;
   const badgeStyle     = selectedModel ? getBadgeStyle(selectedModel.category) : null;
+
+  const selectedLive =
+    selectedBrand && selectedModel
+      ? live[`${selectedBrand.name}:::${selectedModel.name}`]
+      : undefined;
+  const selectedShopUrl =
+    selectedBrand && selectedModel
+      ? babylistAffiliateUrl(selectedBrand.name, selectedModel.name, 'stroller', selectedLive?.babylistUrl)
+      : '#';
 
   function selectBrand(id: string) {
     if (selectedBrandId === id) return;
@@ -531,28 +555,42 @@ export default function StrollerBrandFinder() {
                 {/* Footer: price + CTA */}
                 <div className={styles.resultFooter}>
                   <p>
-                    <span className={styles.resultPriceLabel}>Price range </span>
-                    <span className={styles.resultPrice}>{selectedModel.priceRange}</span>
+                    <span className={styles.resultPriceLabel}>Price </span>
+                    {selectedLive?.babylistPrice != null ? (
+                      <span className={styles.resultPrice}>
+                        ${selectedLive.babylistPrice.toFixed(2)}
+                        <span
+                          style={{
+                            marginLeft: '0.35rem',
+                            fontSize: '0.62rem',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.14em',
+                            color: '#9b9499',
+                          }}
+                        >
+                          via Babylist
+                        </span>
+                      </span>
+                    ) : (
+                      <span className={styles.resultPrice}>{selectedModel.priceRange}</span>
+                    )}
                   </p>
 
-                  {selectedModel.shopUrl && selectedModel.shopUrl !== '#' ? (
-                    <TrackedAffiliateLink
-                      href={selectedModel.shopUrl}
-                      ctaText={`Shop ${selectedModel.name}`}
-                      className={styles.shopCta}
-                      ariaLabel={`Shop the ${selectedBrand.name} ${selectedModel.name}`}
-                      meta={{
-                        brand: selectedBrand.name,
-                        product: selectedModel.name,
-                        category: selectedModel.category,
-                        position: 'stroller-brand-finder',
-                      } as Parameters<typeof TrackedAffiliateLink>[0]['meta']}
-                    >
-                      Shop {selectedModel.name} →
-                    </TrackedAffiliateLink>
-                  ) : (
-                    <span className={styles.shopCtaNote}>Affiliate link coming soon</span>
-                  )}
+                  <TrackedAffiliateLink
+                    href={selectedShopUrl}
+                    ctaText={`Shop ${selectedModel.name}`}
+                    className={styles.shopCta}
+                    ariaLabel={`Shop the ${selectedBrand.name} ${selectedModel.name}`}
+                    meta={{
+                      brand: selectedBrand.name,
+                      product: selectedModel.name,
+                      category: selectedModel.category,
+                      position: 'stroller-brand-finder',
+                    } as Parameters<typeof TrackedAffiliateLink>[0]['meta']}
+                  >
+                    Shop {selectedModel.name} →
+                  </TrackedAffiliateLink>
                 </div>
               </div>
             </div>

@@ -191,6 +191,15 @@ export default async function LearnPage() {
                     <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
+                <Link
+                  href="/tools/stroller-finder"
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--color-cta-pink)] px-6 py-3 text-[0.9rem] font-semibold text-[var(--color-accent-dark)] transition duration-200 hover:bg-[rgba(216,137,160,0.08)]"
+                >
+                  Browse by brand
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               </div>
               <p className="mt-5 text-[0.78rem] text-neutral-500">
                 Free to use. No account required. Takes about 2 minutes.</p>
