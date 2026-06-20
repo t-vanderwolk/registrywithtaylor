@@ -47,6 +47,7 @@ export interface CatalogItemsResponse {
   '@pageindex': string;
   '@pagesize': string;
   '@total': string;
+  '@nextpageuri'?: string;
 }
 
 // ── INTERNAL: auth + fetch with retry ─────────────────────────────────────────
@@ -239,25 +240,27 @@ export async function* listBabylistItems(
   options: { pageSize?: number } = {},
 ): AsyncGenerator<ImpactCatalogItem[]> {
   const pageSize = Math.min(options.pageSize ?? 100, 100);
-  let pageIndex = 1;
-  let numPages = 1;
 
-  do {
-    const url = buildUrl(accountPath(`/Catalogs/${BABYLIST_CATALOG_ID}/Items`), {
-      PageSize: pageSize,
-      PageIndex: pageIndex,
-    });
+  // The catalog Items endpoint IGNORES PageIndex; it paginates with a cursor
+  // exposed as @nextpageuri (…&AfterId=<cursor>). Follow that relative link
+  // until it comes back empty. (A page cap guards against an unexpected loop.)
+  let nextUri = buildUrl(
+    accountPath(`/Catalogs/${BABYLIST_CATALOG_ID}/Items`),
+    { PageSize: pageSize },
+  );
 
-    const data = await impactGet<CatalogItemsResponse>(url);
+  for (let guard = 0; guard < 1000; guard += 1) {
+    const data = await impactGet<CatalogItemsResponse>(nextUri);
 
     if (!data || data.Items.length === 0) return;
 
-    numPages = Number.parseInt(data['@numpages'] ?? '1', 10) || 1;
-
     yield data.Items;
 
-    pageIndex += 1;
-  } while (pageIndex <= numPages);
+    const next = data['@nextpageuri'];
+    if (!next) return;
+
+    nextUri = `${BASE_URL}${next}`;
+  }
 }
 
 // ── LOCAL BABYLIST SEARCH ─────────────────────────────────────────────────────

@@ -347,7 +347,7 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
     }
     report.strollers.synced += 1;
     const data = {
-      babylistSku: match.CatalogItemId,
+      babylistSku: match.Id,
       babylistUrl: match.Url, // use as-is — already affiliate-tracked
       babylistPrice: priceOf(match),
       babylistImage: match.ImageUrl || null,
@@ -393,7 +393,7 @@ async function syncStrollersAndCarSeats(opts: SyncOptions, report: SyncReport) {
       await prisma.carSeat.update({
         where: { id: c.id },
         data: {
-          babylistSku: match.CatalogItemId,
+          babylistSku: match.Id,
           babylistUrl: match.Url,
           babylistPrice: priceOf(match),
           babylistImage: match.ImageUrl || null,
@@ -455,7 +455,7 @@ async function syncAdapters(opts: SyncOptions, report: SyncReport) {
       adapterBabylistUrl: adapter.Url,
       adapterPrice: priceOf(adapter),
       adapterImage: adapter.ImageUrl || null,
-      adapterBabylistSku: adapter.CatalogItemId,
+      adapterBabylistSku: adapter.Id,
       adapterUpdatedAt: new Date(),
     };
     for (const row of rows) {
@@ -527,7 +527,7 @@ async function syncFull(opts: SyncOptions, report: SyncReport) {
     report.strollers.synced += 1;
     if (!opts.dryRun) {
       const data = {
-        babylistSku: match.CatalogItemId,
+        babylistSku: match.Id,
         babylistUrl: match.Url,
         babylistPrice: priceOf(match),
         babylistImage: match.ImageUrl || null,

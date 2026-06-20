@@ -33,10 +33,10 @@ async function main() {
 
   for await (const page of listBabylistItems({ pageSize: 100 })) {
     for (const item of page) {
-      if (!item.CatalogItemId) continue;
+      if (!item.Id) continue;
       const price = Number.parseFloat(item.CurrentPrice);
-      seen.set(item.CatalogItemId, {
-        sku: item.CatalogItemId,
+      seen.set(item.Id, {
+        sku: item.Id,
         name: item.Name ?? '',
         manufacturer: item.Manufacturer || null,
         url: item.Url ?? '',
