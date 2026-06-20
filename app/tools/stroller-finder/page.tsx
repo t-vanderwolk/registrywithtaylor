@@ -1,7 +1,7 @@
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
-import StrollerBrandFinder from '@/components/tools/StrollerBrandFinder';
+import StrollerCatalogFinder from '@/components/tools/StrollerCatalogFinder';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
@@ -24,12 +24,12 @@ export default function StrollerFinderPage() {
           <SectionIntro
             eyebrow="Tool"
             title="Stroller Finder"
-            description="Browse by brand to compare models, see what makes each one stand out, and shop the ones that fit."
+            description="Every stroller, sorted by brand and then by type — with live Babylist prices, photos, and links."
             contentWidthClassName="max-w-4xl"
           />
 
           <div className="mt-10">
-            <StrollerBrandFinder />
+            <StrollerCatalogFinder />
           </div>
         </MarketingSection>
       </main>
