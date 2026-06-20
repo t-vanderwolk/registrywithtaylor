@@ -19,7 +19,7 @@ import {
   TRAVEL_SYSTEM_STROLLER_PATTERNS,
   type TravelSystemEcosystemType,
 } from '@/lib/travelSystemBrandInsights';
-import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -163,38 +163,38 @@ function AffiliateBuyButtons({
   brand,
   model,
   babylistUrl,
+  kind = 'stroller',
 }: {
   brand: string;
   model: string;
   babylistUrl?: string | null;
+  kind?: 'stroller' | 'carSeat';
 }) {
   const links = getAffiliateLinks(brand, model);
-  // DB-synced Babylist link wins; fall back to the static map until the sync runs.
-  const resolvedBabylistUrl = babylistUrl ?? links.babylistUrl ?? null;
-  if (!resolvedBabylistUrl && !links.amazonUrl) return null;
+  // Every product gets a Babylist affiliate link (synced exact URL wins, then
+  // static map, then a tracked brand listing). Amazon shows alongside it.
+  const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
 
   return (
     <div className="mt-4 flex flex-wrap gap-2">
-      {resolvedBabylistUrl ? (
-        <a
-          href={resolvedBabylistUrl}
-          target="_blank"
-          rel="sponsored nofollow noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
-        >
-          {/* Babylist heart logo */}
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-            <path
-              d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
-              fill="#f26b8a"
-              stroke="#f26b8a"
-              strokeWidth="0.5"
-              strokeLinejoin="round"
-            />
-          </svg>
-          View on Babylist
-        </a>
-      ) : null}
+      <a
+        href={resolvedBabylistUrl}
+        target="_blank"
+        rel="sponsored nofollow noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
+      >
+        {/* Babylist heart logo */}
+        <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+          <path
+            d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
+            fill="#f26b8a"
+            stroke="#f26b8a"
+            strokeWidth="0.5"
+            strokeLinejoin="round"
+          />
+        </svg>
+        View on Babylist
+      </a>
       {links.amazonUrl ? (
         <a
           href={links.amazonUrl}
@@ -609,7 +609,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         <p className="mt-4 text-sm leading-7 text-neutral-700">{seat.notes}</p>
                       ) : null}
 
-                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} babylistUrl={seat.babylistUrl} />
+                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} babylistUrl={seat.babylistUrl} kind="carSeat" />
                     </article>
                   ))}
                   </div>

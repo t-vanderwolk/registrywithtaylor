@@ -647,3 +647,30 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
 export function getAffiliateLinks(brand: string, model: string): ProductAffiliateLinks {
   return TRAVEL_SYSTEM_AFFILIATE_LINKS[`${brand}:::${model}`] ?? {};
 }
+
+function brandSlug(brand: string): string {
+  return brand
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Always returns a Babylist affiliate-tracked URL for a product, in priority:
+ *   1. the exact synced product URL (already affiliate-tracked by Impact), else
+ *   2. the confirmed/brand link from the static map (affiliate-tracked), else
+ *   3. an affiliate-tracked Babylist brand listing as a last resort.
+ * Use this so every buy CTA carries the TMBC Babylist affiliate code.
+ */
+export function babylistAffiliateUrl(
+  brand: string,
+  model: string,
+  kind: 'stroller' | 'carSeat' = 'stroller',
+  syncedUrl?: string | null,
+): string {
+  if (syncedUrl) return syncedUrl;
+  const fromMap = getAffiliateLinks(brand, model).babylistUrl;
+  if (fromMap) return fromMap;
+  const path = kind === 'carSeat' ? 'car-seats' : 'strollers';
+  return babylistTracked(`https://www.babylist.com/store/${path}?brand=${brandSlug(brand)}`);
+}

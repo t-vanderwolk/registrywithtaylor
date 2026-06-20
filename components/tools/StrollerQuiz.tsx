@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { TRAVEL_SYSTEM_ENTITIES, type StrollerCategory, type TravelSystemEntity } from '@/lib/guides/travelSystemCompatibility';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -983,7 +983,7 @@ export default function StrollerQuiz() {
                 {(() => {
                   const links = getAffiliateLinks(pick.brand, pick.model);
                   const live = pickData[`${pick.brand}:::${pick.model}`];
-                  const babylistUrl = live?.babylistUrl ?? links.babylistUrl ?? null;
+                  const babylistUrl = babylistAffiliateUrl(pick.brand, pick.model, 'stroller', live?.babylistUrl);
                   return (
                     <>
                       {live?.babylistPrice ? (
@@ -1048,19 +1048,18 @@ export default function StrollerQuiz() {
               <div style={styles.allStrollersGrid}>
                 {visible.map((s) => {
                   const links = getAffiliateLinks(s.brand, s.shortLabel);
+                  const babylistUrl = babylistAffiliateUrl(s.brand, s.shortLabel, 'stroller');
                   return (
                     <div key={s.id} style={styles.allStrollerCard}>
                       <p style={styles.allStrollerBrand}>{s.brand}</p>
                       <p style={styles.allStrollerModel}>{s.shortLabel}</p>
                       <div style={styles.shopBtnRow}>
-                        {links.babylistUrl && (
-                          <a href={links.babylistUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnBabylist}>
-                            <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                              <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
-                            </svg>
-                            Babylist
-                          </a>
-                        )}
+                        <a href={babylistUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnBabylist}>
+                          <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                            <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
+                          </svg>
+                          Babylist
+                        </a>
                         {links.amazonUrl && (
                           <a href={links.amazonUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnAmazon}>
                             <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
@@ -1070,9 +1069,6 @@ export default function StrollerQuiz() {
                             </svg>
                             Amazon
                           </a>
-                        )}
-                        {!links.babylistUrl && !links.amazonUrl && (
-                          <span style={styles.allStrollerNoLink}>Search online</span>
                         )}
                       </div>
                     </div>
