@@ -99,13 +99,12 @@ const ACCESSORY_ONLY_PATTERNS = [
   /\bbackpack\b/,
   /\bbumper\b/,
   /\bbelly\s+bar\b/,
-  /\bbassinet\b/,
+  /\bbassinet\s+(stand|fabric|bundle|adapter|adapters|insert|cover)\b/,
   /\bbasket\b/,
   /\binsert\b/,
   /\bnewborn\s+(pack|insert|nest|kit)\b/,
   /\bsibling\s+seat\b/,
   /\bbottle\s+cage\b/,
-  /\bfabric\b/,
 ];
 
 const normalizeForValidation = (value: string) =>
@@ -508,7 +507,13 @@ async function syncFull(opts: SyncOptions, report: SyncReport) {
       for (const t of target) if (tokens.has(t)) overlap += 1;
       let score = target.size ? overlap / target.size : 0;
       if (norm(item.Manufacturer ?? '').includes(norm(brand))) score += 0.25;
-      if (score > bestScore) {
+      // Take the best-scoring candidate that ALSO passes validation, so an
+      // accessory that outscores the real stroller by a hair can't win the
+      // slot and block it — keep scanning for the genuine product.
+      if (
+        score > bestScore &&
+        validateStoredSkuMatch({ name, brand, typeLabel: 'stroller', item }).valid
+      ) {
         bestScore = score;
         best = item;
       }
