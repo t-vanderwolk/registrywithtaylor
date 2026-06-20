@@ -183,7 +183,7 @@ const strollerCategories: StrollerCategory[] = [
   {
     name: 'Double',
     tagline: 'Two seats now — built for twins, close age gaps, and current sibling reality.',
-    imageSrc: '/assets/editorial/double-strollers.jpg',
+    imageSrc: '/assets/strollers/inditwin.png',
     imageAlt: 'Double stroller for twins or two children close in age — current two-seat capacity solved honestly.',
     imageCaption: 'Two seats now is a very different question than flexibility later. Buy for the problem you actually have.',
     definition:
@@ -278,15 +278,15 @@ const keyTakeaways = [
 
 // ─── Shoppable Babylist picks — one representative stroller per category ─────────
 const babylistStrollerPicks: BabylistPreviewItem[] = [
-  { label: 'Full Size / Modular', brand: 'Nuna', model: 'MIXX next', blurb: 'A reversible-seat full-size frame with premium push quality.', imageFallback: '/assets/strollers/mixxnext.png' },
-  { label: 'Compact / Mid-Size', brand: 'Nuna', model: 'TRIV next', blurb: 'Nuna quality in a lighter, trunk-friendly frame.', imageFallback: '/assets/editorial/compact.png' },
-  { label: 'Travel', brand: 'Bugaboo', model: 'Butterfly', blurb: 'One-hand fold that fits most overhead bins.', imageFallback: '/assets/strollers/butterfly.png' },
-  { label: 'Single-to-Double (Modular)', brand: 'Bugaboo', model: 'Donkey 6', blurb: 'A modular single that grows to a side-by-side double on the same frame.', imageFallback: '/assets/strollers/donkey.png' },
-  { label: 'Single-to-Double (Non-Modular)', brand: 'UPPAbaby', model: 'Vista V2', blurb: 'A single-first frame that converts to a double by adding one specific second seat (the RumbleSeat).', imageFallback: '/assets/editorial/fullsizemodular.png' },
-  { label: 'Double', brand: 'Baby Jogger', model: 'City Mini Double', blurb: 'A true side-by-side double, built for two from day one.', imageFallback: '/assets/editorial/double-strollers.jpg' },
-  { label: 'Jogging / All-Terrain', brand: 'Thule', model: 'Urban Glide 2', blurb: 'Smooth at running pace and over rough ground.', imageFallback: '/assets/strollers/revolution.png' },
-  { label: 'Double Jogger', brand: 'Thule', model: 'Urban Glide 2 Double', blurb: 'Two seats at running pace, smooth over rough ground.', imageFallback: '/assets/strollers/revolution.png' },
-  { label: 'Double Travel', brand: 'Nuna', model: 'TRVL Dubl', blurb: 'A lightweight double that still folds down for transit.', imageFallback: '/assets/strollers/travel.png' },
+  { label: 'Full Size / Modular', brand: 'Nuna', model: 'MIXX next', blurb: 'Big-stroller push and basket without the big-stroller workout. The reversible seat is the quiet flex.', imageFallback: '/assets/strollers/mixxnext.png' },
+  { label: 'Compact / Mid-Size', brand: 'Nuna', model: 'TRIV next', blurb: 'Nuna polish, minus the trunk wrestling — lighter, folds smaller, still feels like a real stroller.', imageFallback: '/assets/strollers/triv.png' },
+  { label: 'Travel', brand: 'Bugaboo', model: 'Butterfly', blurb: 'Folds one-handed and practically disappears into the overhead bin. Your rideshare driver thanks you.', imageFallback: '/assets/strollers/butterfly.png' },
+  { label: 'Travel · Double', brand: 'Nuna', model: 'TRVL Dubl', blurb: 'Two seats that still fold down for the airport — a combo that barely exists, and here it is.', imageFallback: '/assets/strollers/trvllx.png' },
+  { label: 'Single-to-Double (Modular)', brand: 'Bugaboo', model: 'Donkey 6', blurb: 'Starts as a single, grows side-by-side when kid number two shows up. A system, not a second purchase.', imageFallback: '/assets/strollers/donkey.png' },
+  { label: 'Single-to-Double (Non-Modular)', brand: 'UPPAbaby', model: 'Vista V2', blurb: 'Becomes a double by adding one specific seat (the RumbleSeat) — not a whole new stroller, not a whole new budget.', imageFallback: '/assets/editorial/fullsizemodular.png' },
+  { label: 'Double', brand: 'Baby Jogger', model: 'City Mini Double', blurb: 'Two seats, one frame, zero pretending one kid will just walk. One-hand fold, because hour two is real.', imageFallback: '/assets/editorial/double-strollers.jpg' },
+  { label: 'Jogging / All-Terrain', brand: 'Thule', model: 'Urban Glide 2', blurb: 'Made for actual running and busted sidewalks. Lock the front wheel and go.', imageFallback: '/assets/strollers/urbnglide.png' },
+  { label: 'Jogging · Double', brand: 'Thule', model: 'Urban Glide 2 Double', blurb: 'The run, now seating two. Same smooth ride, double the precious cargo.', imageFallback: '/assets/strollers/urbnglide.png' },
 ];
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
