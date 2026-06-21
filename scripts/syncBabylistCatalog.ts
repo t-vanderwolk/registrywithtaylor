@@ -90,11 +90,14 @@ const ACCESSORY_ONLY_PATTERNS = [
   /\borganiser\b/,
   /\brain\s+(cover|shield)\b/,
   /\bweather\s+shield\b/,
-  /\bboard\b/,
+  /board\b/,
   /\bride\s+along\b/,
   /\bcanopy\b/,
   /\bsun\s*shade\b/,
   /\bparasol\b/,
+  /\bcarry\s*cot\b/,
+  /\bcot\b/,
+  /\bpram\b/,
   /\breplacement\b/,
   /\bwheel\b/,
   /\btire\b/,
@@ -204,9 +207,15 @@ function validateStoredSkuMatch({
     }
   }
 
+  // A shared model word alone (e.g. "bee", "egg") must not match a different
+  // brand's product — Skip Hop "Follow-Bee" toy, Carter's "Bee" outfit, etc.
+  if (!brandMatched) {
+    return { valid: false, reason: `brand does not match (${brand})` };
+  }
+
   return {
     valid: true,
-    reason: `matched model token (${matchingModelTokens.join(', ')}), brand=${brandMatched ? 'yes' : 'no'}`,
+    reason: `matched model token (${matchingModelTokens.join(', ')}), brand=yes`,
   };
 }
 

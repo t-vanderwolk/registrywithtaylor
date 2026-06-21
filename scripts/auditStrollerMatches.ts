@@ -15,7 +15,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const ACCESSORY_HINT =
-  /\b(adapter|adapters|cup\s*holder|cupholder|tray|bassinet|bumper|backpack|insert|rain\s*cover|footmuff|liner|board|organi[sz]er|second\s*seat|sibling\s*seat|snack|bottle\s*cage|stand|wheel|tire|strap|carry\s*bag|travel\s*bag|canopy|sun\s*shade|parasol|fabric|cover|walker)\b/i;
+  /\b(adapter|adapters|cup\s*holder|cupholder|tray|bassinet\s+(stand|fabric|bundle|adapter)|bumper|backpack|rain\s*cover|footmuff|liner|board\b|organi[sz]er|second\s*seat|sibling\s*seat|snack|bottle\s*cage|carry\s*bag|travel\s*bag|canopy|sun\s*shade|parasol|walker)\b/i;
 
 function uniq(values: (string | null)[]): string[] {
   return [...new Set(values.filter((v): v is string => Boolean(v)))];
