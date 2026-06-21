@@ -130,7 +130,13 @@ const hasToken = (tokens: Set<string>, values: Set<string>) => {
 };
 
 const hasAccessoryOnlyPattern = (normalizedName: string) => {
-  if (/\bbase\b/.test(normalizedName) && !/\b(infant\s+)?car\s+seat\b/.test(normalizedName)) {
+  // "Base" as the product = a standalone car-seat base (a spare). Allow it only
+  // when the listing is the seat sold WITH a base ("... with base"); reject
+  // "Car Seat Base", "PIPA Base", "Base Next", "Base for X", etc.
+  if (
+    /\bbase\b/.test(normalizedName) &&
+    !/\b(?:with|and|plus|includes?|including)\s+(?:a\s+|the\s+)?base\b/.test(normalizedName)
+  ) {
     return true;
   }
 
@@ -190,6 +196,12 @@ function validateStoredSkuMatch({
 
   if (hasAccessoryOnlyPattern(itemName)) {
     return { valid: false, reason: 'cached item looks accessory-only' };
+  }
+
+  // Reject travel-system bundles — only a standalone stroller or car seat should
+  // show as the product. A bundle photo (and its bundle price) isn't either one.
+  if (isTravelSystem) {
+    return { valid: false, reason: 'travel system bundle (stroller + car seat)' };
   }
 
   if (type === 'stroller') {
