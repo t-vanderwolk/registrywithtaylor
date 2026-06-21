@@ -14,6 +14,47 @@ import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
+type AdminNavLink = { href: string; label: string; editorOnly?: boolean };
+
+// Grouped admin navigation surfaced in the dashboard Quick links.
+// editorOnly links are hidden for read-only (reviewer) admins.
+const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
+  {
+    title: 'Content',
+    links: [
+      { href: '/admin/academy', label: 'Academy' },
+      { href: '/admin/blog', label: 'Blog' },
+      { href: '/admin/blog/planner', label: 'Blog planner', editorOnly: true },
+      { href: '/admin/guides', label: 'Guides' },
+      { href: '/admin/media', label: 'Media library', editorOnly: true },
+    ],
+  },
+  {
+    title: 'People',
+    links: [
+      { href: '/admin/members', label: 'Members' },
+      { href: '/admin/consultations', label: 'Consultations' },
+      { href: '/admin/inquiries', label: 'Inquiries', editorOnly: true },
+    ],
+  },
+  {
+    title: 'Commerce',
+    links: [
+      { href: '/admin/affiliates', label: 'Affiliates', editorOnly: true },
+      { href: '/admin/affiliate-links', label: 'Affiliate links', editorOnly: true },
+      { href: '/admin/partners', label: 'Partners', editorOnly: true },
+    ],
+  },
+  {
+    title: 'Insights & tools',
+    links: [
+      { href: '/admin/analytics', label: 'Analytics' },
+      { href: '/admin/academy/analytics', label: 'Academy analytics' },
+      { href: '/admin/babylist', label: 'Babylist SKUs', editorOnly: true },
+    ],
+  },
+];
+
 export default async function AdminDashboardPage() {
   const session = await requireAdminViewSession();
   const readOnly = session.user.role === 'REVIEWER';
@@ -314,32 +355,26 @@ export default async function AdminDashboardPage() {
         </AdminSurface>
       ) : null}
 
-      <AdminSurface variant="muted" className="admin-stack gap-3">
+      <AdminSurface variant="muted" className="admin-stack gap-4">
         <p className="admin-eyebrow">Quick links</p>
         <p className="admin-body">Learning content in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
-        <div className="flex flex-wrap items-center gap-2">
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">{readOnly ? 'Academy overview' : 'Manage academy'}</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy/analytics">Academy analytics</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/blog">{readOnly ? 'Blog overview' : 'Manage blog'}</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/analytics">View analytics</Link>
-          </AdminButton>
-          {!readOnly ? (
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/babylist">Babylist SKUs</Link>
-            </AdminButton>
-          ) : null}
-          {!readOnly ? (
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/inquiries">View inquiries</Link>
-            </AdminButton>
-          ) : null}
+        <div className="admin-stack gap-4">
+          {ADMIN_NAV_GROUPS.map((group) => {
+            const links = group.links.filter((link) => !link.editorOnly || !readOnly);
+            if (links.length === 0) return null;
+            return (
+              <div key={group.title} className="admin-stack gap-2">
+                <p className="admin-eyebrow opacity-60">{group.title}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {links.map((link) => (
+                    <AdminButton key={link.href} asChild variant="secondary">
+                      <Link href={link.href}>{link.label}</Link>
+                    </AdminButton>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </AdminSurface>
     </AdminStack>
