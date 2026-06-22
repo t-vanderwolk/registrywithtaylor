@@ -267,6 +267,35 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     setLoading(false);
   }, [lookupMode]);
 
+  // Deep-link entry: /tools/travel-system?strollerBrand=…&strollerModel=… pre-
+  // selects that stroller. This powers the finder's "check compatible infant car
+  // seats" CTA. Stroller is the default mode, so setting the value alone runs the
+  // lookup without tripping the mode-reset effect above. Runs once on mount.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const brand = params.get('strollerBrand');
+    const model = params.get('strollerModel');
+    if (brand && model) setSelectedValue(`${brand}:::${model}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep the URL in sync with the selected stroller so a specific compatibility
+  // result is shareable and bookmarkable — shoppers and retailers can send the
+  // exact link. (replaceState: no history spam, no navigation.)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    url.searchParams.delete('strollerBrand');
+    url.searchParams.delete('strollerModel');
+    if (lookupMode === 'stroller' && selectedValue) {
+      const { brand, model } = parseOptionValue(selectedValue);
+      url.searchParams.set('strollerBrand', brand);
+      url.searchParams.set('strollerModel', model);
+    }
+    window.history.replaceState(null, '', url.toString());
+  }, [lookupMode, selectedValue]);
+
   const filteredStrollers = deferredSearchQuery
     ? strollers.filter((stroller) => {
         const haystack = `${stroller.brand} ${stroller.model} ${stroller.displayName}`.toLowerCase();
@@ -503,15 +532,19 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 className="w-full rounded-[1rem] border border-[rgba(0,0,0,0.08)] bg-white px-4 py-3 text-[0.98rem] text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-blush)]"
               >
                 <option value="">{lookupMode === 'stroller' ? 'Choose a stroller' : 'Choose an infant car seat'}</option>
-                {Object.entries(optionGroups).map(([brand, options]) => (
-                  <optgroup key={brand} label={brand}>
-                    {options.map((option) => (
-                      <option key={buildOptionValue(option)} value={buildOptionValue(option)}>
-                        {option.model}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(optionGroups)
+                  .sort(([a], [b]) => a.localeCompare(b))
+                  .map(([brand, options]) => (
+                    <optgroup key={brand} label={brand}>
+                      {[...options]
+                        .sort((a, b) => a.model.localeCompare(b.model))
+                        .map((option) => (
+                          <option key={buildOptionValue(option)} value={buildOptionValue(option)}>
+                            {option.model}
+                          </option>
+                        ))}
+                    </optgroup>
+                  ))}
               </select>
             </div>
           </div>

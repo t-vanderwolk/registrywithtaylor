@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
@@ -8,7 +9,13 @@ const BRAND_LOGOS: Record<string, string> = {
   'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
 };
 
-type FinderProduct = { name: string; price: number | null; image: string | null; affiliateUrl: string | null };
+type FinderProduct = {
+  name: string;
+  model: string;
+  price: number | null;
+  image: string | null;
+  affiliateUrl: string | null;
+};
 type FinderType = { category: string; label: string; products: FinderProduct[] };
 type FinderBrand = { brand: string; count: number; types: FinderType[] };
 
@@ -131,16 +138,28 @@ export default function StrollerCatalogFinder() {
                     ) : (
                       <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
                     )}
-                    {item.affiliateUrl ? (
-                      <a
-                        href={item.affiliateUrl}
-                        target="_blank"
-                        rel="sponsored nofollow noopener noreferrer"
-                        className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-4 py-2 text-[0.76rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
-                      >
-                        Shop on Babylist →
-                      </a>
-                    ) : null}
+                    <div className="mt-auto flex flex-col gap-2 pt-1.5">
+                      {item.affiliateUrl ? (
+                        <a
+                          href={item.affiliateUrl}
+                          target="_blank"
+                          rel="sponsored nofollow noopener noreferrer"
+                          className="inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-4 py-2 text-[0.76rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
+                        >
+                          Shop on Babylist →
+                        </a>
+                      ) : null}
+                      {item.model ? (
+                        <Link
+                          href={`/tools/travel-system?strollerBrand=${encodeURIComponent(
+                            current.brand,
+                          )}&strollerModel=${encodeURIComponent(item.model)}`}
+                          className="inline-flex w-fit items-center gap-1.5 text-[0.73rem] font-semibold text-[var(--color-accent-dark)] transition hover:underline"
+                        >
+                          Check compatible infant car seats →
+                        </Link>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               ))}

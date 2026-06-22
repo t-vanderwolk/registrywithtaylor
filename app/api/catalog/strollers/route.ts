@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -32,7 +33,16 @@ type CatalogProductRow = {
   enrichment: { productType: string | null } | null;
 };
 
-type FinderProduct = { name: string; price: number | null; image: string | null; affiliateUrl: string | null };
+// `model` is the parsed model name used to deep-link into the travel-system
+// checker (brand + model → /api/compatibility), so the finder's "check
+// compatibility" CTA lands on the same brand:::model key the checker resolves.
+type FinderProduct = {
+  name: string;
+  model: string;
+  price: number | null;
+  image: string | null;
+  affiliateUrl: string | null;
+};
 
 /**
  * GET /api/catalog/strollers
@@ -81,6 +91,7 @@ export async function GET() {
     if (!byCat.has(category)) byCat.set(category, []);
     byCat.get(category)!.push({
       name: r.title,
+      model: parseStrollerModel(r.title, brand),
       price: r.price,
       image: r.imageUrl,
       affiliateUrl: r.affiliateUrl,

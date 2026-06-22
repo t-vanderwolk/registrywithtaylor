@@ -17,6 +17,7 @@
  */
 import prismaBase from '@/lib/server/prisma';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 
 // New models land in the generated client on `prisma generate`; cast keeps tsc green.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,17 +33,6 @@ function parseArgs() {
 // Strollers — bundles, car-seat carriers/frames, bassinets, accessories.
 const NOISE_RE =
   /travel system|\bsnap-?n-?go\b|car ?seat carrier|\bbassinet\b|\bcot\b|\badapter\b|footboard|conversion kit|\bframe\b|\bboard\b|transport bag|\bbag\b|organizer|snack tray|\btray\b|rain cover|sun ?shade|\bcanopy\b|parasol|cup ?holder|seat liner|\bwheel\b|\btire\b|\bbasket\b|\bcaddy\b|footmuff|\bcover\b/i;
-
-/** Derive a clean model from the catalog title: drop the brand prefix, the word
- *  "Stroller" and anything after it, and a trailing " in <colour>". */
-export function parseStrollerModel(title: string, brand: string): string {
-  let m = title.trim().replace(/^["'\s]+|["'\s]+$/g, ''); // strip stray feed quoting
-  if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) m = m.slice(brand.length);
-  m = m.replace(/\bstrollers?\b.*$/i, ''); // drop "Stroller…" and everything after
-  m = m.replace(/\s+in\s+[^,]+$/i, ''); // drop trailing " in <colour>"
-  m = m.replace(/[–—-]\s*$/g, ''); // trailing dash
-  return m.replace(/\s{2,}/g, ' ').trim();
-}
 
 /** Normalized key so "Hub²" / "Hub" and "Vista V2" / "vista v2" don't duplicate. */
 function normKey(brand: string, model: string): string {
