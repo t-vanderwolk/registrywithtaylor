@@ -254,6 +254,9 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   const [result, setResult] = useState<LookupResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lookup, setLookup] = useState<
+    Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
+  >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
   useEffect(() => {
@@ -366,6 +369,61 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       controller.abort();
     };
   }, [lookupMode, selectedValue]);
+
+  // Pull fresh Babylist price/image/link for the result's products from the same
+  // /api/babylist/lookup the matchmaker quiz uses; prefer it over the synced fields.
+  useEffect(() => {
+    if (!result) {
+      setLookup({});
+      return;
+    }
+    const products =
+      result.queryType === 'stroller'
+        ? [result.stroller, ...result.compatibleCarSeats]
+        : [result.carSeat, ...result.compatibleStrollers];
+    const items = products.map((p) => `${p.brand}:::${p.model}`).join(',');
+    if (!items) return;
+    let cancelled = false;
+    fetch(`/api/babylist/lookup?items=${encodeURIComponent(items)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d?.results) setLookup(d.results);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [result]);
+
+  // Merge fresh catalog fields onto each result row (same shape → cards unchanged).
+  const mergedCarSeats =
+    result?.queryType === 'stroller'
+      ? result.compatibleCarSeats.map((seat) => {
+          const m = lookup[`${seat.brand}:::${seat.model}`];
+          return m
+            ? {
+                ...seat,
+                babylistPrice: m.babylistPrice ?? seat.babylistPrice,
+                imageUrl: m.babylistImage ?? seat.imageUrl,
+                babylistUrl: m.babylistUrl ?? seat.babylistUrl,
+              }
+            : seat;
+        })
+      : [];
+  const mergedStrollers =
+    result?.queryType === 'carSeat'
+      ? result.compatibleStrollers.map((stroller) => {
+          const m = lookup[`${stroller.brand}:::${stroller.model}`];
+          return m
+            ? {
+                ...stroller,
+                babylistPrice: m.babylistPrice ?? stroller.babylistPrice,
+                imageUrl: m.babylistImage ?? stroller.imageUrl,
+                babylistUrl: m.babylistUrl ?? stroller.babylistUrl,
+              }
+            : stroller;
+        })
+      : [];
 
   const selectorEyebrow = lookupMode === 'stroller' ? 'Stroller selector' : 'Car seat selector';
   const selectorTitle =
@@ -555,7 +613,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               {result.compatibleCarSeats.length > 0 ? (
                 <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
                   <div className="grid gap-4">
-                  {result.compatibleCarSeats.map((seat) => (
+                  {mergedCarSeats.map((seat) => (
                     <article
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
                       className="rounded-[1.5rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcfaf6_100%)] p-5 shadow-[0_12px_28px_rgba(0,0,0,0.03)]"
@@ -658,7 +716,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               {result.compatibleStrollers.length > 0 ? (
                 <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
                   <div className="grid gap-4">
-                  {result.compatibleStrollers.map((stroller) => (
+                  {mergedStrollers.map((stroller) => (
                     <article
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
                       className="rounded-[1.5rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcfaf6_100%)] p-5 shadow-[0_12px_28px_rgba(0,0,0,0.03)]"

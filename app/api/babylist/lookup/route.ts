@@ -44,21 +44,22 @@ export async function GET(request: NextRequest) {
 
   if (pairs.length === 0) return NextResponse.json({ results: {} });
 
-  const rows = await prisma.stroller
-    .findMany({
-      select: {
-        brand: true,
-        model: true,
-        babylistSku: true,
-        babylistUrl: true,
-        babylistPrice: true,
-        babylistImage: true,
-      },
-    })
-    .catch(
-      () =>
-        [] as Array<{ brand: string; model: string; babylistSku: string | null } & BabylistFields>,
-    );
+  // Look up across both strollers and car seats so the travel-system checker
+  // (which lists both sides of a combo) and the matchmaker quiz share one API.
+  type LookupRow = { brand: string; model: string; babylistSku: string | null } & BabylistFields;
+  const [strollerRows, carSeatRows] = await Promise.all([
+    prisma.stroller
+      .findMany({
+        select: { brand: true, model: true, babylistSku: true, babylistUrl: true, babylistPrice: true, babylistImage: true },
+      })
+      .catch(() => [] as LookupRow[]),
+    prisma.carSeat
+      .findMany({
+        select: { brand: true, model: true, babylistSku: true, babylistUrl: true, babylistPrice: true, babylistImage: true },
+      })
+      .catch(() => [] as LookupRow[]),
+  ]);
+  const rows: LookupRow[] = [...strollerRows, ...carSeatRows];
 
   // Pull the fresh catalog rows for every linked SKU in one query. The catalog
   // client model is generated on the Heroku build, so cast to keep tsc green.
