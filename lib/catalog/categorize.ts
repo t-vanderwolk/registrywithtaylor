@@ -25,6 +25,9 @@ type Rule = {
   journey?: ParentJourney;
   /** Base confidence when matched in title/brand only (path matches score higher). */
   conf?: number;
+  /** Brand/model override we trust regardless of where it matched — keeps the
+   *  confidence at `conf` (no title-match cap) so it isn't flagged for review. */
+  strong?: boolean;
 };
 
 // Ordered most-specific → most-general. First match wins.
@@ -47,7 +50,13 @@ const RULES: Rule[] = [
   { re: /\bcar ?seats?\b/, category: 'Car Seats', productType: 'infant car seat', conf: 0.6 },
 
   // ── Strollers ──
-  { re: /joolz hub\S{0,2}\s+stroller/, category: 'Strollers', productType: 'compact stroller', conf: 0.8 },
+  // Model overrides (before the generic type rules). Babylist mis-paths some
+  // strollers — the UPPAbaby Vista is a single-to-double convertible, not a
+  // full-size, even though the feed files it under "Full Size Strollers". Match
+  // Vista only when it co-occurs with that full-size path so accessories
+  // (RumbleSeat, bassinet, adapters) — filed under other paths — are untouched.
+  { re: /\bvista\b[\s\S]*full.?size|full.?size[\s\S]*\bvista\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.9, strong: true },
+  { re: /joolz hub\S{0,2}\s+stroller/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
   { re: /\bumbrella strollers?\b|g-?lux|g-?lite|\bmaclaren\b|3dlite|\bliteway\b/, category: 'Strollers', productType: 'umbrella stroller', conf: 0.7 },
   { re: /\bfull.?size strollers?\b/, category: 'Strollers', productType: 'full-size stroller' },
   { re: /\b(jogging|jogger) strollers?\b/, category: 'Strollers', productType: 'jogging stroller' },
@@ -140,9 +149,10 @@ export function categorizeProduct(input: {
     if (!rule.re.test(haystack)) continue;
 
     // A match in Babylist's own product_type path is the strongest signal.
+    // `strong` rules are trusted brand/model overrides — keep their conf as-is.
     const inPath = path.length > 0 && rule.re.test(path);
     const base = rule.conf ?? 0.9;
-    const confidence = inPath ? Math.max(base, 0.85) : Math.min(base, 0.65);
+    const confidence = rule.strong ? base : inPath ? Math.max(base, 0.85) : Math.min(base, 0.65);
 
     return {
       tmbcCategory: rule.category,

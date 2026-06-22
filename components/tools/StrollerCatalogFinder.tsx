@@ -9,6 +9,22 @@ const BRAND_LOGOS: Record<string, string> = {
   'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
 };
 
+// Everyday → specialty ordering for the category view (matches the API).
+const CATEGORY_ORDER = [
+  'full-size',
+  'full-size-non-modular',
+  'compact',
+  'travel',
+  'convertible-modular',
+  'convertible-non-modular',
+  'double',
+  'double-travel',
+  'double-jogging',
+  'jogging',
+  'wagon',
+  'umbrella',
+];
+
 type FinderProduct = {
   name: string;
   model: string;
@@ -19,6 +35,8 @@ type FinderProduct = {
 type FinderType = { category: string; label: string; products: FinderProduct[] };
 type FinderBrand = { brand: string; count: number; types: FinderType[] };
 type FlatProduct = FinderProduct & { brand: string; label: string };
+type CategoryGroup = { category: string; label: string; products: FlatProduct[] };
+type Mode = 'brand' | 'category';
 
 function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
@@ -81,7 +99,9 @@ function ProductCard({
 export default function StrollerCatalogFinder() {
   const [brands, setBrands] = useState<FinderBrand[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [mode, setMode] = useState<Mode>('brand');
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [query, setQuery] = useState('');
 
   // Strollers come straight from the local affiliate catalog, bucketed by type.
@@ -95,6 +115,23 @@ export default function StrollerCatalogFinder() {
 
   const totalCount = useMemo(() => brands.reduce((n, b) => n + b.count, 0), [brands]);
   const q = query.trim().toLowerCase();
+
+  // Regroup the brand → type → product tree into category → products.
+  const categories = useMemo<CategoryGroup[]>(() => {
+    const map = new Map<string, CategoryGroup>();
+    for (const b of brands) {
+      for (const t of b.types) {
+        if (!map.has(t.category)) map.set(t.category, { category: t.category, label: t.label, products: [] });
+        for (const p of t.products) map.get(t.category)!.products.push({ ...p, brand: b.brand, label: t.label });
+      }
+    }
+    return [...map.values()]
+      .map((g) => ({
+        ...g,
+        products: g.products.sort((a, b) => a.brand.localeCompare(b.brand) || a.model.localeCompare(b.model)),
+      }))
+      .sort((a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category));
+  }, [brands]);
 
   const searchResults = useMemo<FlatProduct[]>(() => {
     if (!q) return [];
@@ -111,35 +148,64 @@ export default function StrollerCatalogFinder() {
     return out.sort((a, b) => a.brand.localeCompare(b.brand) || a.model.localeCompare(b.model));
   }, [q, brands]);
 
-  const current = brands.find((b) => b.brand === selected) ?? null;
+  function switchMode(next: Mode) {
+    setMode(next);
+    setSelectedBrand(null);
+    setSelectedCategory(null);
+  }
+
+  const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
+  const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
 
   return (
     <section className="tool-shell">
       {/* Header */}
       <div className="flex flex-col gap-3">
         <span className="tool-eyebrow">Stroller finder</span>
-        <h2 className="tool-title">Browse every stroller, by brand</h2>
+        <h2 className="tool-title">Find your stroller — by brand or by type</h2>
         <p className="tool-lead">
           {loading
             ? 'Loading the live catalog…'
-            : `${totalCount} strollers across ${brands.length} brands — live prices and links from Babylist. Search a name, or pick a brand to see every model sorted by type.`}
+            : `${totalCount} strollers across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of stroller you need.`}
         </p>
       </div>
 
-      {/* Search */}
       {!loading && brands.length > 0 ? (
-        <div className="mt-6 max-w-md">
-          <label htmlFor="finder-search" className="tool-label">
-            Search strollers
-          </label>
-          <input
-            id="finder-search"
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Try Vista, Cruz, City Mini, YOYO…"
-            className="tool-input"
-          />
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          {/* Mode toggle */}
+          <div className="tool-segment w-full max-w-[22rem]">
+            <button
+              type="button"
+              aria-pressed={mode === 'brand'}
+              onClick={() => switchMode('brand')}
+              className="tool-segment__btn"
+            >
+              <span className="tool-segment__label">By brand</span>
+            </button>
+            <button
+              type="button"
+              aria-pressed={mode === 'category'}
+              onClick={() => switchMode('category')}
+              className="tool-segment__btn"
+            >
+              <span className="tool-segment__label">By type</span>
+            </button>
+          </div>
+
+          {/* Search */}
+          <div className="w-full sm:max-w-xs">
+            <label htmlFor="finder-search" className="tool-label">
+              Search strollers
+            </label>
+            <input
+              id="finder-search"
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Try Vista, Cruz, City Mini, YOYO…"
+              className="tool-input"
+            />
+          </div>
         </div>
       ) : null}
 
@@ -156,7 +222,7 @@ export default function StrollerCatalogFinder() {
             No strollers available yet — the catalog import hasn’t run, or all matches are hidden.
           </p>
         ) : q ? (
-          /* ── Search results ── */
+          /* ── Search results (mode-independent) ── */
           <div className="tool-fade-up">
             <p className="tool-eyebrow-bar mb-4 text-[0.7rem] text-neutral-500">
               {searchResults.length} result{searchResults.length === 1 ? '' : 's'} for “{query.trim()}”
@@ -177,8 +243,57 @@ export default function StrollerCatalogFinder() {
               </p>
             )}
           </div>
-        ) : !current ? (
-          /* ── Brand grid ── */
+        ) : mode === 'category' ? (
+          /* ── Browse by category ── */
+          !currentCategory ? (
+            <div className="tool-fade-up">
+              <p className="tool-eyebrow-bar mb-4 text-[0.7rem]">Browse by type</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {categories.map((c) => (
+                  <button
+                    key={c.category}
+                    type="button"
+                    onClick={() => setSelectedCategory(c.category)}
+                    className="tool-card tool-card--interactive items-start gap-1 px-5 py-4 text-left"
+                  >
+                    <span className="font-serif text-[1.12rem] leading-tight text-neutral-900">{c.label}</span>
+                    <span className="text-[0.72rem] text-neutral-400">
+                      {c.products.length} stroller{c.products.length === 1 ? '' : 's'}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="tool-fade-up">
+              <nav className="flex items-center gap-1.5 text-[0.78rem]">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory(null)}
+                  className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
+                >
+                  All types
+                </button>
+                <span className="text-neutral-300">/</span>
+                <span className="text-neutral-500">{currentCategory.label}</span>
+              </nav>
+              <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
+                <h3 className="font-serif text-[1.9rem] leading-tight tracking-[-0.02em] text-neutral-900">
+                  {currentCategory.label}
+                </h3>
+                <span className="tool-chip">
+                  {currentCategory.products.length} stroller{currentCategory.products.length === 1 ? '' : 's'}
+                </span>
+              </div>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {currentCategory.products.map((p, i) => (
+                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand />
+                ))}
+              </div>
+            </div>
+          )
+        ) : /* ── Browse by brand ── */
+        !currentBrand ? (
           <div className="tool-fade-up">
             <p className="tool-eyebrow-bar mb-4 text-[0.7rem]">Browse by brand</p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -186,7 +301,7 @@ export default function StrollerCatalogFinder() {
                 <button
                   key={b.brand}
                   type="button"
-                  onClick={() => setSelected(b.brand)}
+                  onClick={() => setSelectedBrand(b.brand)}
                   className="tool-card tool-card--interactive items-start gap-1 px-5 py-4 text-left"
                 >
                   {BRAND_LOGOS[b.brand] ? (
@@ -203,44 +318,46 @@ export default function StrollerCatalogFinder() {
             </div>
           </div>
         ) : (
-          /* ── Single brand ── */
           <div className="tool-fade-up">
-            {/* Breadcrumb */}
             <nav className="flex items-center gap-1.5 text-[0.78rem]">
               <button
                 type="button"
-                onClick={() => setSelected(null)}
+                onClick={() => setSelectedBrand(null)}
                 className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
               >
                 All brands
               </button>
               <span className="text-neutral-300">/</span>
-              <span className="text-neutral-500">{current.brand}</span>
+              <span className="text-neutral-500">{currentBrand.brand}</span>
             </nav>
 
             <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
-              {BRAND_LOGOS[current.brand] ? (
+              {BRAND_LOGOS[currentBrand.brand] ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={BRAND_LOGOS[current.brand]} alt={current.brand} className="h-10 w-auto max-w-[12rem] object-contain" />
+                <img
+                  src={BRAND_LOGOS[currentBrand.brand]}
+                  alt={currentBrand.brand}
+                  className="h-10 w-auto max-w-[12rem] object-contain"
+                />
               ) : (
                 <h3 className="font-serif text-[1.9rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                  {current.brand}
+                  {currentBrand.brand}
                 </h3>
               )}
               <span className="tool-chip">
-                {current.count} stroller{current.count === 1 ? '' : 's'}
+                {currentBrand.count} stroller{currentBrand.count === 1 ? '' : 's'}
               </span>
             </div>
 
             <div className="mt-8 space-y-10">
-              {current.types.map((t) => (
+              {currentBrand.types.map((t) => (
                 <div key={t.category}>
                   <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
                     {t.label}
                   </p>
                   <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {t.products.map((item, i) => (
-                      <ProductCard key={`${item.name}-${i}`} brand={current.brand} product={item} />
+                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} />
                     ))}
                   </div>
                 </div>
