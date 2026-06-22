@@ -9,6 +9,8 @@ import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
+import BabylistPreviewProducts, { type BabylistPreviewItem } from '@/components/learn/BabylistPreviewProducts';
+import { babylistShopLink } from '@/lib/travelSystemAffiliateLinks';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import TrackPreviewView from '@/components/learn/TrackPreviewView';
@@ -29,6 +31,41 @@ export const metadata = buildMarketingMetadata({
 });
 
 const LESSON_NUMBER = 1;
+
+// Babylist Try-It Kits — sampler boxes that fit the core registry strategy of
+// trying before committing to multiples. Curated cards with affiliate links;
+// the first three are direct product pages, the last opens the full category.
+const tryKitPicks: BabylistPreviewItem[] = [
+  {
+    label: 'The famous one',
+    name: 'Babylist Bottle Box',
+    href: babylistShopLink('https://www.babylist.com/gp/babylist-bottle-box-5-bottles-1764018277/74195/2473615'),
+    blurb:
+      'Babies are shockingly opinionated about bottles. Try five of the most popular before you commit to a full case of the one they’ll reject on principle.',
+  },
+  {
+    label: 'Paci politics',
+    name: 'Babylist Pacifier Box',
+    href: babylistShopLink('https://www.babylist.com/gp/babylist-pacifier-box-1771599713/78890/2812744'),
+    blurb:
+      'Every baby has a paci hill they’ll die on. Sample the top contenders instead of buying a six-pack of the shape they hate.',
+  },
+  {
+    label: 'Cult favorite',
+    name: 'BIBS Try-It Pacifier Collection',
+    href: babylistShopLink('https://www.babylist.com/gp/bibs-try-it-pacifier-collection/24087/1004544'),
+    blurb:
+      'Four BIBS styles in one box — the cult-favorite paci, minus the guessing game about which shape actually wins.',
+  },
+  {
+    label: 'See the rest',
+    name: 'All Try-It Kits',
+    href: babylistShopLink('https://www.babylist.com/store/try-it-kits'),
+    priceNote: 'Browse all kits',
+    blurb:
+      'The whole try-before-you-buy lineup. The smartest line on any registry — let the samples lose so the full sets don’t have to.',
+  },
+];
 
 const firstPassCategories = [
   'Where baby sleeps',
@@ -396,6 +433,11 @@ export default function ArtOfTheRegistryPage() {
             </div>
 
             {/* Divider */}
+            <LessonDivider />
+
+            {/* Babylist Try-It Kits — try before you commit to multiples */}
+            <BabylistPreviewProducts heading="Babylist Try-It Kits" items={tryKitPicks} />
+
             <LessonDivider />
 
             {/* 4 — Taylor's Note */}
