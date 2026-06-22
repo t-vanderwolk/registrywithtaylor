@@ -13,6 +13,8 @@
     "db:bootstrap": "prisma migrate deploy && prisma db seed",
     "catalog:import": "tsx scripts/importAffiliateCatalog.ts",
     "catalog:import-dry": "tsx scripts/importAffiliateCatalog.ts --dry-run",
+    "catalog:recategorize": "tsx scripts/recategorizeAffiliateCatalog.ts",
+    "catalog:recategorize-dry": "tsx scripts/recategorizeAffiliateCatalog.ts --dry-run",
     "seed:affiliate-canon": "tsx scripts/seedAffiliateCanon.ts",
     "seed:affiliates": "tsx scripts/seed-affiliates.ts",
     "seed:affiliate-partners": "tsx prisma/seed/affiliatePartners.ts",
