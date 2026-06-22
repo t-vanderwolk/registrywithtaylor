@@ -12,7 +12,7 @@ export const metadata = buildMarketingMetadata({
   description:
     'Free baby-prep tools and lessons: the stroller quiz, the travel-system compatibility checker, the stroller finder, and complete preview lessons on registries, nurseries, and strollers.',
   path: '/resources',
-  imagePath: '/assets/editorial/gear.jpg',
+  imagePath: '/assets/hero/hero-04.jpg',
   imageAlt: 'Free baby gear tools and lessons from Taylor-Made Baby Co.',
 });
 
@@ -123,7 +123,7 @@ export default function ResourcesPage() {
           title="Tools and free lessons"
           subtitle="A few things to help you think clearly before you buy — interactive tools and complete preview lessons, all free and no account required."
           primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
-          image="/assets/editorial/gear.jpg"
+          image="/assets/hero/hero-04.jpg"
           imageAlt="Baby gear planning resources"
           contentClassName="homepage-hero-content"
           staggerContent
