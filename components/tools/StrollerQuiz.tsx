@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { TRAVEL_SYSTEM_ENTITIES, type StrollerCategory, type TravelSystemEntity } from '@/lib/guides/travelSystemCompatibility';
+import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -769,7 +770,7 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
 
 const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
   'full-size':   ['full-size', 'full-size-non-modular'],
-  'compact':     ['compact'],
+  'compact':     ['compact', 'umbrella'],
   'travel':      ['travel'],
   'convertible': ['convertible-modular', 'convertible-non-modular'],
   'double':      ['double', 'double-travel'],
@@ -777,7 +778,11 @@ const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
   'double-jogging': ['double-jogging'],
 };
 
-const ALL_STROLLERS: TravelSystemEntity[] = TRAVEL_SYSTEM_ENTITIES.filter((e) => e.type === 'stroller');
+// The browse list is sourced from the live affiliate catalog (same /api/catalog/
+// strollers the finder uses), shaped brand → type → products.
+type CatalogProduct = { name: string; model: string; price: number | null; image: string | null; affiliateUrl: string | null };
+type CatalogType = { category: StrollerCategory; label: string; products: CatalogProduct[] };
+type CatalogBrand = { brand: string; count: number; types: CatalogType[] };
 
 // ─── Component ─────────────────────────────────────────────────────────────────
 
@@ -790,6 +795,21 @@ export default function StrollerQuiz() {
   const [pickData, setPickData] = useState<
     Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
   >({});
+  // The full per-category browse list comes straight from the affiliate catalog.
+  const [catalogBrands, setCatalogBrands] = useState<CatalogBrand[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/catalog/strollers')
+      .then((r) => (r.ok ? r.json() : { brands: [] }))
+      .then((d) => {
+        if (!cancelled) setCatalogBrands(Array.isArray(d.brands) ? d.brands : []);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // When a result is shown, pull live Babylist price/link for its picks from the
   // synced DB. Unmatched picks come back as nulls and fall back to the static map.
@@ -1032,27 +1052,52 @@ export default function StrollerQuiz() {
           </div>
         </div>
 
-        {/* Browse all strollers in this category */}
+        {/* Browse all strollers in this category — live from the affiliate catalog */}
         {(() => {
           const matchedTypes = CATEGORY_TO_STROLLER_TYPES[result.key];
-          const pickModels = new Set(result.picks.map((p) => `${p.brand}:::${p.model}`));
-          const categoryStrollers = ALL_STROLLERS.filter(
-            (s) => s.strollerCategory && matchedTypes.includes(s.strollerCategory) && !pickModels.has(`${s.brand}:::${s.shortLabel}`)
-          );
+          const pickModels = new Set(result.picks.map((p) => `${p.brand}:::${p.model}`.toLowerCase()));
+          const seen = new Set<string>();
+          const categoryStrollers = catalogBrands
+            .flatMap((b) =>
+              b.types
+                .filter((t) => matchedTypes.includes(t.category))
+                .flatMap((t) => t.products.map((p) => ({ ...p, brand: b.brand }))),
+            )
+            .filter((p) => {
+              const key = `${p.brand}:::${p.model}`.toLowerCase();
+              if (!p.model || pickModels.has(key) || seen.has(key)) return false;
+              seen.add(key);
+              return true;
+            });
           if (categoryStrollers.length === 0) return null;
           const INITIAL_COUNT = 6;
           const visible = showAllStrollers ? categoryStrollers : categoryStrollers.slice(0, INITIAL_COUNT);
           return (
             <div style={styles.allStrollersSection}>
               <p style={styles.allStrollersLabel}>All strollers in this category</p>
+              <p style={styles.allStrollersSublabel}>
+                Every {result.name.toLowerCase()} stroller in our live catalog — prices and links straight from Babylist.
+              </p>
               <div style={styles.allStrollersGrid}>
-                {visible.map((s) => {
-                  const links = getAffiliateLinks(s.brand, s.shortLabel);
-                  const babylistUrl = babylistAffiliateUrl(s.brand, s.shortLabel, 'stroller');
+                {visible.map((s, i) => {
+                  const links = getAffiliateLinks(s.brand, s.model);
+                  const babylistUrl = babylistAffiliateUrl(s.brand, s.model, 'stroller', s.affiliateUrl);
                   return (
-                    <div key={s.id} style={styles.allStrollerCard}>
+                    <div key={`${s.brand}-${s.model}-${i}`} style={styles.allStrollerCard}>
+                      {s.image ? (
+                        <div style={styles.allStrollerImgWrap}>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={s.image} alt={s.name} style={styles.pickImg} />
+                        </div>
+                      ) : null}
                       <p style={styles.allStrollerBrand}>{s.brand}</p>
-                      <p style={styles.allStrollerModel}>{s.shortLabel}</p>
+                      <p style={styles.allStrollerModel}>{s.model}</p>
+                      {s.price != null ? (
+                        <p style={styles.allStrollerPrice}>
+                          ${s.price.toFixed(2)}
+                          <span style={styles.allStrollerPriceNote}>via Babylist</span>
+                        </p>
+                      ) : null}
                       <div style={styles.shopBtnRow}>
                         <a href={babylistUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnBabylist}>
                           <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
@@ -1071,6 +1116,14 @@ export default function StrollerQuiz() {
                           </a>
                         )}
                       </div>
+                      <Link
+                        href={`/tools/travel-system?strollerBrand=${encodeURIComponent(
+                          s.brand,
+                        )}&strollerModel=${encodeURIComponent(s.model)}`}
+                        style={styles.compatLink}
+                      >
+                        Check compatible infant car seats →
+                      </Link>
                     </div>
                   );
                 })}
@@ -1483,7 +1536,49 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '1.1rem',
     fontWeight: 600,
     color: '#3d2328',
+    marginBottom: '0.35rem',
+  },
+  allStrollersSublabel: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.82rem',
+    color: '#8a6068',
+    lineHeight: 1.55,
     marginBottom: '1rem',
+  },
+  allStrollerImgWrap: {
+    width: '100%',
+    height: '120px',
+    background: '#fdf8f5',
+    borderRadius: '0.65rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '0.5rem',
+    overflow: 'hidden',
+  },
+  allStrollerPrice: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.9rem',
+    fontWeight: 700,
+    color: 'var(--gold)',
+    margin: '0 0 0.35rem',
+  },
+  allStrollerPriceNote: {
+    marginLeft: '0.4rem',
+    fontSize: '0.58rem',
+    fontWeight: 600,
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.14em',
+    color: '#9b9499',
+  },
+  compatLink: {
+    display: 'inline-block',
+    marginTop: '0.55rem',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.73rem',
+    fontWeight: 700,
+    color: 'var(--color-accent-dark, #8b3a4a)',
+    textDecoration: 'none',
   },
   allStrollersGrid: {
     display: 'grid',
