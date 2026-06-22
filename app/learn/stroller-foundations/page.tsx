@@ -299,7 +299,7 @@ export default function StrollerFoundationsPage() {
         {/* Lesson Header */}
         <LessonHeader
           breadcrumbs={[
-            { label: 'Academy', href: '/learn' },
+            { label: 'Resources', href: '/resources' },
             { label: 'Gear Foundations', href: null },
             { label: 'The Stroller Equation', href: null },
           ]}
@@ -588,7 +588,7 @@ export default function StrollerFoundationsPage() {
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
               secondaryLabel="Book a Registry Consult"
-              secondaryHref="/consultation"
+              secondaryHref="/book"
             />
           </div>
         </div>

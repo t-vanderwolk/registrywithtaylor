@@ -171,7 +171,7 @@ export default function NurseryFoundationsPage() {
         {/* Lesson Header */}
         <LessonHeader
           breadcrumbs={[
-            { label: 'Academy', href: '/learn' },
+            { label: 'Resources', href: '/resources' },
             { label: 'Nursery', href: null },
             { label: 'Nursery Foundations', href: null },
           ]}
@@ -547,7 +547,7 @@ export default function NurseryFoundationsPage() {
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
               secondaryLabel="Book a Registry Consult"
-              secondaryHref="/consultation"
+              secondaryHref="/book"
             />
           </div>
         </div>

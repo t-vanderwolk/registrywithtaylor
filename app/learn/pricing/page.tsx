@@ -245,7 +245,7 @@ export default function LearnPricingPage() {
                 see services
               </Link>
               . 1:1 consultation sessions available separately —{' '}
-              <Link href="/consultation" className="underline underline-offset-2 hover:text-neutral-600">
+              <Link href="/book" className="underline underline-offset-2 hover:text-neutral-600">
                 book a consultation
               </Link>
               .

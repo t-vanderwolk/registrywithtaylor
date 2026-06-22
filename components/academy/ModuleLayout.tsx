@@ -609,7 +609,7 @@ export default async function ModuleLayout({ module }: ModuleLayoutProps) {
                 </p>
                 <div className="mt-6">
                   <Link
-                    href="/consultation"
+                    href="/book"
                     className="inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[rgba(232,154,174,0.34)] bg-[linear-gradient(135deg,#d889a0_0%,#c97691_100%)] px-5 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_16px_34px_rgba(216,137,160,0.22)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98] hover:shadow-[0_20px_38px_rgba(203,120,146,0.26)] sm:w-auto"
                   >
                     {'Work with me ->'}

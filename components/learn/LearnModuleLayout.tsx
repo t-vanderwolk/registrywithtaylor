@@ -454,7 +454,7 @@ export default async function LearnModuleLayout({ module }: { module: LearnModul
             primaryLabel={nextCard ? `Next: ${nextCard.title}` : 'Return to Academy'}
             primaryHref={nextCard?.href ?? '/learn'}
             secondaryLabel="Book a Registry Consult"
-            secondaryHref="/consultation"
+            secondaryHref="/book"
           />
 
           {/* 11. Related / cross-path link (if exists and different from next) */}

@@ -620,7 +620,7 @@ export function getGuideBlogRecommendations({
 
 export function getGuideConsultationCta(label?: string | null) {
   return {
-    href: '/consultation',
+    href: '/book',
     label: label?.trim() || 'Book a Free Consultation',
   };
 }

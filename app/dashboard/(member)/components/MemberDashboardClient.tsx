@@ -196,7 +196,7 @@ export default function MemberDashboardClient({
         <nav className={styles.footerNav} aria-label="Dashboard footer">
           <Link href="/dashboard/academy" className={styles.footerLink}>All courses</Link>
           <Link href="/dashboard/tools"   className={styles.footerLink}>Travel system tool</Link>
-          <Link href="/consultation"      className={styles.footerLink}>Book a consultation</Link>
+          <Link href="/book"      className={styles.footerLink}>Book a consultation</Link>
         </nav>
       </footer>
 

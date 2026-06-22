@@ -34,7 +34,7 @@ export default function ServiceCards({
   description = 'Services are positioned as advisor support, not generic consulting. Every option is designed to move families from too much input to a clearer plan.',
   className = '',
   container = 'default',
-  ctaHref = '/consultation',
+  ctaHref = '/book',
   ctaLabel = 'Book a Registry Consult',
 }: {
   packages: ServicePackage[];

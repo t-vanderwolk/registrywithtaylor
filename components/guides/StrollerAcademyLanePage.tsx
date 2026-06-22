@@ -432,7 +432,7 @@ export default function StrollerAcademyLanePage({
                 <div className="mt-5">
                   <GuideTrackedLink
                     guideId={guide.id}
-                    href="/consultation"
+                    href="/book"
                     event={GuideAnalyticsEvents.TO_CONSULTATION_CLICK}
                     sourceRoute={sourceRoute}
                     className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
@@ -456,7 +456,7 @@ export default function StrollerAcademyLanePage({
               compareLinks[0]
                 ? { label: `Compare ${compareLinks[0].shortTitle}`, href: compareLinks[0].href }
                 : { label: 'Compare Another Lane', href: '/academy/gear/stroller-foundations' },
-              { label: 'Work with me', href: '/consultation' },
+              { label: 'Work with me', href: '/book' },
             ]}
           />
 

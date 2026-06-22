@@ -35,7 +35,7 @@ const funnelStages = [
   },
   {
     stage: 'Connect',
-    route: '/consultation',
+    route: '/book',
     focus: 'Consultation request flow, contact forms, and conversion handoff.',
   },
   {

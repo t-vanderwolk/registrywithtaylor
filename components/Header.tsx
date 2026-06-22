@@ -13,6 +13,7 @@ const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
+  { label: 'Resources', href: '/resources' },
   ...(ACADEMY_ENABLED ? [{ label: 'Academy', href: '/academy' }] : []),
   { label: 'Journal', href: '/blog' },
   { label: 'Contact', href: '/contact' },
@@ -33,9 +34,7 @@ export default function Header({ currentPath }: HeaderProps) {
   const dashboardLabel =
     session?.user?.role === 'ADMIN' || session?.user?.role === 'REVIEWER'
       ? 'Admin'
-      : ACADEMY_ENABLED
-        ? 'My Academy'
-        : 'My Account';
+      : 'My Academy';
   const headerRef = useRef<HTMLElement | null>(null);
   const isGuideRoute =
     currentPath === '/learn' ||

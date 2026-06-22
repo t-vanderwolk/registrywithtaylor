@@ -76,7 +76,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/80">Looking to book a consultation?</p>
               <p className="mt-2 text-[0.97rem] leading-7 text-neutral-700">
                 The booking form is separate.{' '}
-                <Link href="/consultation" className="link-underline font-medium text-[var(--color-accent-dark)]">
+                <Link href="/book" className="link-underline font-medium text-[var(--color-accent-dark)]">
                   Start here →
                 </Link>
               </p>

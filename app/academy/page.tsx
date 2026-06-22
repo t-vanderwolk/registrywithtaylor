@@ -139,7 +139,7 @@ export default function AcademyHomePage() {
           title={home.title}
           subtitle={home.description}
           primaryCta={{ label: 'Start with Registry', href: '/academy/registry' }}
-          secondaryCta={{ label: 'Book a Registry Consult', href: '/consultation' }}
+          secondaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
           tagline="Registry • Nursery • Gear • Postpartum"
           image="/assets/hero/hero-baby-editorial-v2.jpg"
           imageAlt="TMBC Baby Academy hero image"

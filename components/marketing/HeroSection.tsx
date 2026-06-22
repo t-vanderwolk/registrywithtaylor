@@ -19,7 +19,7 @@ export default function HeroSection({
   eyebrow = 'Taylor-Made Baby Co.',
   title,
   description,
-  primaryCtaHref = '/consultation',
+  primaryCtaHref = '/book',
   primaryCtaLabel = 'Book a Registry Consult',
   secondaryCtaHref = '/academy',
   secondaryCtaLabel = 'Explore the Academy',

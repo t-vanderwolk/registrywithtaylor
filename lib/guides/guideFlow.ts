@@ -282,7 +282,7 @@ const CURATED_NEXT_STEP_LINKS: Record<
       stage: 'Decide',
     },
     {
-      href: '/consultation',
+      href: '/book',
       label: 'Book a Free Consultation',
       description: 'Get help turning the calmer daily-use plan into the actual shortlist and buy-now decisions.',
       stage: 'Refine',

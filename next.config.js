@@ -124,6 +124,17 @@ const nextConfig = {
         destination: '/learn/gear/car-seat-foundations',
         permanent: true,
       },
+      // /consultation funnel retired — all booking goes through /book (Calendly).
+      {
+        source: '/consultation',
+        destination: '/book',
+        permanent: true,
+      },
+      {
+        source: '/consultation/:path*',
+        destination: '/book',
+        permanent: true,
+      },
     ];
   },
 };

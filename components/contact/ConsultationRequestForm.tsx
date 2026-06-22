@@ -413,7 +413,7 @@ function ReviewItem({ label, value }: { label: string; value: string | string[] 
 }
 
 export default function ConsultationRequestForm({
-  returnPath = '/consultation',
+  returnPath = '/book',
   successPath = '/consultation/confirmation',
   submitLabel = 'Book a Registry Consult',
 }: ConsultationRequestFormProps) {

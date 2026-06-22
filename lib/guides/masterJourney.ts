@@ -82,7 +82,7 @@ export const TMBC_BUY_STEP = {
   label: 'Buy',
   title: 'Buy With Confidence',
   description: 'Book guidance when you want help turning the calmer plan into an actual shortlist and buying decision.',
-  href: '/consultation',
+  href: '/book',
   icon: 'strategy',
 } as const;
 

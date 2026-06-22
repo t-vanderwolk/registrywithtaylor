@@ -67,7 +67,7 @@ export default function ConsultationRequestSection({
 
                 <p className="mt-6 text-center text-sm text-neutral-600">
                   Prefer to review the full page first?{' '}
-                  <Link href="/consultation" className="link-underline">
+                  <Link href="/book" className="link-underline">
                     View consultation details
                   </Link>
                 </p>

@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { href: '/dashboard',           label: 'Home'    },
   { href: '/dashboard/academy',   label: 'Academy' },
   { href: '/dashboard/tools',     label: 'Tools'   },
-  { href: '/consultation',        label: 'Consult' },
+  { href: '/book',        label: 'Consult' },
 ] as const;
 
 function MemberNav({ pathname, onClose }: { pathname: string; onClose?: () => void }) {

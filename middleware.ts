@@ -41,9 +41,11 @@ function isLearnGated(pathname: string): boolean {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // ── Academy temporarily disabled (launch phase) ────────────────────────────
-  // Redirect every Academy-facing route to the services page. All Academy code,
-  // routes, and data are preserved — re-enable via NEXT_PUBLIC_ACADEMY_ENABLED=true.
+  // ── Academy in launch-phase hidden state ───────────────────────────────────
+  // Academy is hidden from the public, with two exceptions:
+  //   (a) the three free preview modules stay public (surfaced on /resources), and
+  //   (b) signed-in members keep access to their modules from the dashboard.
+  // Everyone else hitting an Academy route is sent to /services.
   if (
     !isAcademyEnabled() &&
     (pathname === '/academy' ||
@@ -51,7 +53,19 @@ export async function middleware(req: NextRequest) {
       pathname === '/learn' ||
       pathname.startsWith('/learn/'))
   ) {
-    return NextResponse.redirect(new URL('/services', req.url));
+    const isPublicPreview =
+      pathname === '/learn/art-of-the-registry' ||
+      pathname === '/learn/nursery-foundations' ||
+      pathname === '/learn/stroller-foundations';
+
+    if (!isPublicPreview) {
+      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+      if (!token) {
+        return NextResponse.redirect(new URL('/services', req.url));
+      }
+      // Signed-in members fall through to the enrollment gate below.
+    }
+    // Public preview modules fall through (whitelisted as public in the gate).
   }
 
   // ── Registry API guard ────────────────────────────────────────────────────

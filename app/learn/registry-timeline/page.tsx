@@ -291,7 +291,7 @@ export default function RegistryTimelinePage() {
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
               secondaryLabel="Book a Registry Consult"
-              secondaryHref="/consultation"
+              secondaryHref="/book"
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ const footerLinks = [
   { label: 'Journal', href: '/blog' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Consultation', href: '/consultation' },
+  { label: 'Book', href: '/book' },
 ];
 
 export default function Footer() {
