@@ -667,6 +667,32 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         <p className="mt-4 text-sm leading-7 text-neutral-700">{seat.notes}</p>
                       ) : null}
 
+                      {seat.adapterRequired && (seat.adapterImage || seat.adapterUrl) ? (
+                        <div className="mt-4 flex items-center gap-3 rounded-[1rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] p-3">
+                          {seat.adapterImage ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={seat.adapterImage} alt="" className="h-12 w-12 shrink-0 rounded-lg bg-white object-contain p-1" />
+                          ) : null}
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[0.62rem] uppercase tracking-[0.16em] text-neutral-500">Adapter needed</p>
+                            <p className="truncate text-[0.85rem] font-semibold text-neutral-900">{seat.adapterType ?? 'Adapter'}</p>
+                            {seat.adapterPrice != null ? (
+                              <p className="text-[0.78rem] font-semibold text-[var(--gold)]">${seat.adapterPrice.toFixed(2)}</p>
+                            ) : null}
+                          </div>
+                          {seat.adapterUrl ? (
+                            <a
+                              href={seat.adapterUrl}
+                              target="_blank"
+                              rel="sponsored nofollow noopener noreferrer"
+                              className="shrink-0 rounded-full bg-[var(--color-cta-pink)] px-3.5 py-2 text-[0.72rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
+                            >
+                              Shop adapter →
+                            </a>
+                          ) : null}
+                        </div>
+                      ) : null}
+
                       <AffiliateBuyButtons brand={seat.brand} model={seat.model} babylistUrl={seat.babylistUrl} kind="carSeat" />
                     </article>
                   ))}
@@ -771,6 +797,32 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       ) : null}
                       {stroller.notes ? (
                         <p className="mt-3 text-sm leading-7 text-neutral-700">{stroller.notes}</p>
+                      ) : null}
+
+                      {stroller.adapterRequired && (stroller.adapterImage || stroller.adapterUrl) ? (
+                        <div className="mt-4 flex items-center gap-3 rounded-[1rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] p-3">
+                          {stroller.adapterImage ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={stroller.adapterImage} alt="" className="h-12 w-12 shrink-0 rounded-lg bg-white object-contain p-1" />
+                          ) : null}
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[0.62rem] uppercase tracking-[0.16em] text-neutral-500">Adapter needed</p>
+                            <p className="truncate text-[0.85rem] font-semibold text-neutral-900">{stroller.adapterType ?? 'Adapter'}</p>
+                            {stroller.adapterPrice != null ? (
+                              <p className="text-[0.78rem] font-semibold text-[var(--gold)]">${stroller.adapterPrice.toFixed(2)}</p>
+                            ) : null}
+                          </div>
+                          {stroller.adapterUrl ? (
+                            <a
+                              href={stroller.adapterUrl}
+                              target="_blank"
+                              rel="sponsored nofollow noopener noreferrer"
+                              className="shrink-0 rounded-full bg-[var(--color-cta-pink)] px-3.5 py-2 text-[0.72rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
+                            >
+                              Shop adapter →
+                            </a>
+                          ) : null}
+                        </div>
                       ) : null}
 
                       <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} babylistUrl={stroller.babylistUrl} />

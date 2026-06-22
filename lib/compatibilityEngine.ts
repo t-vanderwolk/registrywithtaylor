@@ -22,6 +22,9 @@ export type CompatibleCarSeatResult = {
   compatibilityType: CompatibilityType;
   adapterRequired: boolean;
   adapterType: string | null;
+  adapterImage?: string | null;
+  adapterUrl?: string | null;
+  adapterPrice?: number | null;
   notes: string | null;
   confidence: CompatibilityConfidence;
   imageUrl?: string | null;
@@ -44,6 +47,9 @@ export type CompatibleStrollerResult = {
   compatibilityType: CompatibilityType;
   adapterRequired: boolean;
   adapterType: string | null;
+  adapterImage?: string | null;
+  adapterUrl?: string | null;
+  adapterPrice?: number | null;
   notes: string | null;
   confidence: CompatibilityConfidence;
   imageUrl?: string | null;

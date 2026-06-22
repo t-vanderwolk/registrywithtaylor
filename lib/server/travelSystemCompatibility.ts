@@ -41,6 +41,9 @@ type CarSeatCompatibilityRow = {
   compatibilityType: string;
   adapterRequired: boolean;
   adapterType: string | null;
+  adapterBabylistUrl: string | null;
+  adapterImage: string | null;
+  adapterPrice: number | null;
   notes: string | null;
   confidence: string;
 };
@@ -54,6 +57,9 @@ type StrollerCompatibilityRow = {
   compatibilityType: string;
   adapterRequired: boolean;
   adapterType: string | null;
+  adapterBabylistUrl: string | null;
+  adapterImage: string | null;
+  adapterPrice: number | null;
   notes: string | null;
   confidence: string;
 };
@@ -452,6 +458,9 @@ export async function getTravelSystemCompatibility(
         compat."compatibilityType"::text AS "compatibilityType",
         compat."adapterRequired" AS "adapterRequired",
         compat."adapterType" AS "adapterType",
+        compat."adapterBabylistUrl" AS "adapterBabylistUrl",
+        compat."adapterImage" AS "adapterImage",
+        compat."adapterPrice" AS "adapterPrice",
         compat."notes" AS "notes",
         compat."confidence"::text AS "confidence"
       FROM "Compatibility" AS compat
@@ -501,6 +510,9 @@ export async function getTravelSystemCompatibility(
         compatibilityType: normalizeCompatibilityType(row.compatibilityType),
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(stroller.brand, row.brand, row.adapterRequired, row.adapterType, row.notes),
+        adapterImage: row.adapterImage,
+        adapterUrl: row.adapterBabylistUrl,
+        adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
         imageUrl: resolvedImage?.src ?? null,
@@ -604,6 +616,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
         compat."compatibilityType"::text AS "compatibilityType",
         compat."adapterRequired" AS "adapterRequired",
         compat."adapterType" AS "adapterType",
+        compat."adapterBabylistUrl" AS "adapterBabylistUrl",
+        compat."adapterImage" AS "adapterImage",
+        compat."adapterPrice" AS "adapterPrice",
         compat."notes" AS "notes",
         compat."confidence"::text AS "confidence"
       FROM "Compatibility" AS compat
@@ -646,6 +661,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
         compatibilityType: normalizeCompatibilityType(row.compatibilityType),
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(row.brand, carSeat.brand, row.adapterRequired, row.adapterType, row.notes),
+        adapterImage: row.adapterImage,
+        adapterUrl: row.adapterBabylistUrl,
+        adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
         imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,

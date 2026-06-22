@@ -47,6 +47,7 @@ const RULES: Rule[] = [
   { re: /\bcar ?seats?\b/, category: 'Car Seats', productType: 'infant car seat', conf: 0.6 },
 
   // ── Strollers ──
+  { re: /joolz hub\S{0,2}\s+stroller/, category: 'Strollers', productType: 'compact stroller', conf: 0.8 },
   { re: /\bumbrella strollers?\b|g-?lux|g-?lite|\bmaclaren\b|3dlite|\bliteway\b/, category: 'Strollers', productType: 'umbrella stroller', conf: 0.7 },
   { re: /\bfull.?size strollers?\b/, category: 'Strollers', productType: 'full-size stroller' },
   { re: /\b(jogging|jogger) strollers?\b/, category: 'Strollers', productType: 'jogging stroller' },
