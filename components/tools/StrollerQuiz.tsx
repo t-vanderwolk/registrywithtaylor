@@ -862,7 +862,7 @@ export default function StrollerQuiz() {
 
   if (step === 'intro') {
     return (
-      <div style={styles.card}>
+      <div className="tool-shell" style={{ maxWidth: 760, margin: '0 auto' }}>
         <div style={styles.introIcon}>🛒</div>
         <h2 style={styles.introTitle}>Find the Stroller That Fits Your Life</h2>
         <p style={styles.introSubtext}>
@@ -887,7 +887,7 @@ export default function StrollerQuiz() {
 
   if (step === 'quiz') {
     return (
-      <div style={styles.card}>
+      <div className="tool-shell" style={{ maxWidth: 760, margin: '0 auto' }}>
         {/* Progress */}
         <div style={styles.progressBar}>
           <div style={{ ...styles.progressFill, width: `${progress}%` }} />
@@ -1227,7 +1227,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   progressFill: {
     height: '100%',
-    background: 'var(--color-accent, #e89aae)',
+    background: 'linear-gradient(90deg, var(--color-cta-pink, #D889A0), var(--color-accent, #e89aae))',
     borderRadius: '999px',
     transition: 'width 0.35s ease',
   },
@@ -1275,8 +1275,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   answerCardSelected: {
     background: '#fef0f3',
-    borderColor: 'var(--color-accent, #e89aae)',
-    boxShadow: '0 0 0 2px rgba(232,154,174,0.25)',
+    borderColor: 'var(--color-cta-pink, #D889A0)',
+    boxShadow: '0 0 0 2px rgba(216,137,160,0.3)',
   },
   answerLabel: {
     fontFamily: 'var(--font-sans)',
@@ -1309,12 +1309,13 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '0.9rem',
     fontWeight: 700,
     color: '#fff',
-    background: 'var(--color-accent, #e89aae)',
+    background: 'var(--color-cta-pink, #D889A0)',
     border: 'none',
     borderRadius: '999px',
-    padding: '0.75rem 1.75rem',
+    padding: '0.8rem 1.9rem',
     cursor: 'pointer',
     letterSpacing: '0.02em',
+    boxShadow: '0 8px 20px rgba(216,137,160,0.26)',
     transition: 'background 0.15s ease',
     display: 'block',
   },
@@ -1438,13 +1439,13 @@ const styles: Record<string, React.CSSProperties> = {
   pickCard: {
     position: 'relative',
     background: '#fff',
-    border: '1px solid #efcad1',
+    border: '1px solid rgba(215,161,175,0.2)',
     borderRadius: '1.25rem',
     padding: '1.25rem',
     display: 'flex',
     flexDirection: 'column',
     gap: '0.5rem',
-    boxShadow: '0 4px 16px rgba(58,36,43,0.05)',
+    boxShadow: '0 6px 18px rgba(72,49,56,0.05)',
     overflow: 'hidden',
   },
   pickImgWrap: {
@@ -1587,13 +1588,14 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: '1rem',
   },
   allStrollerCard: {
-    background: '#fdfaf9',
-    border: '1px solid #efcad1',
-    borderRadius: '1rem',
-    padding: '0.85rem 1rem',
+    background: '#fff',
+    border: '1px solid rgba(215,161,175,0.2)',
+    borderRadius: '1.25rem',
+    padding: '1rem',
     display: 'flex',
     flexDirection: 'column',
     gap: '0.2rem',
+    boxShadow: '0 6px 18px rgba(72,49,56,0.05)',
   },
   allStrollerBrand: {
     fontFamily: 'var(--font-sans)',

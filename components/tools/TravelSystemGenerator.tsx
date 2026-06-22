@@ -120,41 +120,30 @@ function ModeToggle({
   onChange: (nextMode: LookupMode) => void;
 }) {
   return (
-    <div className="rounded-[1.2rem] border border-[rgba(0,0,0,0.08)] bg-[#fcfaf7] p-1.5">
-      <div className="grid gap-1 sm:grid-cols-2">
-        {([
-          {
-            id: 'stroller',
-            label: 'Stroller First',
-            description: 'Choose the stroller, then see which infant seats fit it.',
-          },
-          {
-            id: 'carSeat',
-            label: 'Car Seat First',
-            description: 'Choose the infant seat, then see which strollers support it.',
-          },
-        ] as const).map((option) => {
-          const isActive = mode === option.id;
-
-          return (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => onChange(option.id)}
-              className={`rounded-[1rem] px-4 py-3 text-left transition duration-200 ${
-                isActive
-                  ? 'bg-white shadow-[0_10px_24px_rgba(0,0,0,0.06)]'
-                  : 'hover:bg-white/70'
-              }`}
-            >
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/82">
-                {option.label}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-neutral-700">{option.description}</p>
-            </button>
-          );
-        })}
-      </div>
+    <div className="tool-segment">
+      {([
+        {
+          id: 'stroller',
+          label: 'Stroller First',
+          description: 'Choose the stroller, then see which infant seats fit it.',
+        },
+        {
+          id: 'carSeat',
+          label: 'Car Seat First',
+          description: 'Choose the infant seat, then see which strollers support it.',
+        },
+      ] as const).map((option) => (
+        <button
+          key={option.id}
+          type="button"
+          aria-pressed={mode === option.id}
+          onClick={() => onChange(option.id)}
+          className="tool-segment__btn"
+        >
+          <span className="tool-segment__label">{option.label}</span>
+          <span className="tool-segment__hint">{option.description}</span>
+        </button>
+      ))}
     </div>
   );
 }
@@ -487,7 +476,16 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       : 'No infant car seat matches that search yet. Try the brand name or the core model name.';
 
   return (
-    <section className="overflow-hidden rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,#fffdfa_0%,#fbf2ec_100%)] p-6 shadow-[0_20px_60px_rgba(55,40,46,0.06)] md:p-8">
+    <section className="tool-shell">
+      <div className="mb-6 flex flex-col gap-3">
+        <span className="tool-eyebrow">Travel system checker</span>
+        <h2 className="tool-title">Find the infant car seats that fit your stroller</h2>
+        <p className="tool-lead">
+          Pick your stroller or your infant seat — we’ll show every match in our live compatibility
+          library, flag direct fits versus the ones that need an adapter, and surface the exact
+          adapter to buy. Prices and links straight from Babylist.
+        </p>
+      </div>
       <ModeToggle mode={lookupMode} onChange={setLookupMode} />
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
@@ -502,10 +500,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
 
           <div className="mt-6 space-y-5">
             <div className="space-y-2">
-              <label
-                htmlFor={searchId}
-                className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-neutral-600"
-              >
+              <label htmlFor={searchId} className="tool-label">
                 {searchLabel}
               </label>
               <input
@@ -514,22 +509,19 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full rounded-[1rem] border border-[rgba(0,0,0,0.08)] bg-[#fcfaf7] px-4 py-3 text-[0.98rem] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-blush)]"
+                className="tool-input"
               />
             </div>
 
             <div className="space-y-2">
-              <label
-                htmlFor={selectId}
-                className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-neutral-600"
-              >
+              <label htmlFor={selectId} className="tool-label">
                 {selectLabel}
               </label>
               <select
                 id={selectId}
                 value={selectedValue}
                 onChange={(event) => setSelectedValue(event.target.value)}
-                className="w-full rounded-[1rem] border border-[rgba(0,0,0,0.08)] bg-white px-4 py-3 text-[0.98rem] text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-blush)]"
+                className="tool-select"
               >
                 <option value="">{lookupMode === 'stroller' ? 'Choose a stroller' : 'Choose an infant car seat'}</option>
                 {Object.entries(optionGroups)
@@ -624,6 +616,27 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   {result.compatibleCarSeats.length} option{result.compatibleCarSeats.length === 1 ? '' : 's'}
                 </div>
               </div>
+
+              {result.compatibleCarSeats.length > 0 ? (
+                <div className="mt-5 grid grid-cols-3 gap-2.5">
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">{result.compatibleCarSeats.length}</p>
+                    <p className="tool-stat__label">Compatible</p>
+                  </div>
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">
+                      {result.compatibleCarSeats.filter((s) => s.compatibilityType === 'DIRECT').length}
+                    </p>
+                    <p className="tool-stat__label">Direct fit</p>
+                  </div>
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">
+                      {result.compatibleCarSeats.filter((s) => s.adapterRequired).length}
+                    </p>
+                    <p className="tool-stat__label">Need adapter</p>
+                  </div>
+                </div>
+              ) : null}
 
               {activeInsight ? (
                 <div className="mt-5 grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)]">
@@ -753,6 +766,27 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   {result.compatibleStrollers.length} option{result.compatibleStrollers.length === 1 ? '' : 's'}
                 </div>
               </div>
+
+              {result.compatibleStrollers.length > 0 ? (
+                <div className="mt-5 grid grid-cols-3 gap-2.5">
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">{result.compatibleStrollers.length}</p>
+                    <p className="tool-stat__label">Compatible</p>
+                  </div>
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">
+                      {result.compatibleStrollers.filter((s) => s.compatibilityType === 'DIRECT').length}
+                    </p>
+                    <p className="tool-stat__label">Direct fit</p>
+                  </div>
+                  <div className="tool-stat">
+                    <p className="tool-stat__num">
+                      {result.compatibleStrollers.filter((s) => s.adapterRequired).length}
+                    </p>
+                    <p className="tool-stat__label">Need adapter</p>
+                  </div>
+                </div>
+              ) : null}
 
               {activeInsight ? (
                 <div className="mt-5 grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)]">

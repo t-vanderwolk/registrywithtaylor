@@ -2995,3 +2995,308 @@ img {
   background: linear-gradient(90deg, rgba(232, 154, 174, 0.9) 0%, rgba(215, 161, 175, 1) 100%);
   box-shadow: 0 10px 24px rgba(232, 154, 174, 0.18);
 }
+
+/* =========================================================================
+   STROLLER TOOLS — shared design system (finder · quiz · travel-system)
+   One visual language across all three: shell, header, cards, buttons,
+   controls, badges. Mobile-first, subtle motion, reduced-motion aware.
+   ========================================================================= */
+
+.tool-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(215, 161, 175, 0.22);
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(248, 228, 232, 0.5) 0%, rgba(255, 255, 255, 0) 44%),
+    linear-gradient(180deg, #fffdfb 0%, #fbf2ec 100%);
+  box-shadow: 0 24px 60px rgba(72, 49, 56, 0.07);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+@media (max-width: 640px) {
+  .tool-shell { border-radius: 1.25rem; }
+}
+
+.tool-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+
+.tool-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 3.4vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #2b2327;
+}
+
+.tool-lead {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.4vw, 1.04rem);
+  line-height: 1.7;
+  color: #6f636a;
+  max-width: 58ch;
+}
+
+.tool-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(215, 161, 175, 0.2);
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(72, 49, 56, 0.05);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.tool-card--interactive { cursor: pointer; }
+
+.tool-card--interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(215, 161, 175, 0.42);
+  box-shadow: 0 18px 38px rgba(72, 49, 56, 0.1);
+}
+
+.tool-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 9.5rem;
+  padding: 0.85rem;
+  background: linear-gradient(180deg, #fffdfb 0%, #fbf5f1 100%);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.tool-card__media img { max-height: 100%; width: auto; object-fit: contain; }
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.62rem 1.1rem;
+  min-height: 2.6rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tool-btn--primary {
+  background: var(--color-cta-pink);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(216, 137, 160, 0.26);
+}
+.tool-btn--primary:hover {
+  background: var(--color-cta-pink-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(216, 137, 160, 0.32);
+}
+
+.tool-btn--ghost {
+  background: rgba(255, 249, 246, 0.9);
+  color: var(--color-accent-dark);
+  border-color: rgba(215, 161, 175, 0.4);
+}
+.tool-btn--ghost:hover {
+  background: #fff;
+  border-color: rgba(215, 161, 175, 0.7);
+}
+
+.tool-btn--text {
+  background: transparent;
+  color: var(--color-accent-dark);
+  padding: 0.3rem 0;
+  min-height: 0;
+}
+.tool-btn--text:hover { text-decoration: underline; }
+
+.tool-btn--block { width: 100%; }
+
+.tool-input,
+.tool-select {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 0.8rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  color: #2b2327;
+  min-height: 3rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.tool-input::placeholder { color: #a99ea3; }
+.tool-input:focus,
+.tool-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(232, 154, 174, 0.18);
+}
+
+.tool-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7a6e74;
+  margin-bottom: 0.45rem;
+}
+
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(215, 161, 175, 0.3);
+  background: rgba(243, 226, 232, 0.6);
+  padding: 0.28rem 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+
+.tool-eyebrow-bar {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9a8e94;
+}
+
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.3rem 0.72rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tool-badge--direct { border-color: rgba(123,169,138,0.24); background: rgba(141,189,156,0.18); color: rgba(60,99,73,0.98); }
+.tool-badge--adapter { border-color: rgba(196,156,94,0.26); background: rgba(227,190,120,0.18); color: rgba(124,90,39,0.98); }
+.tool-badge--limited { border-color: rgba(196,156,94,0.2); background: rgba(227,190,120,0.14); color: rgba(124,90,39,0.98); }
+.tool-badge--locked { border-color: rgba(126,125,131,0.2); background: rgba(215,212,219,0.3); color: rgba(77,77,84,0.96); }
+.tool-badge--incompatible { border-color: rgba(189,95,95,0.24); background: rgba(226,135,135,0.16); color: rgba(149,68,68,0.98); }
+
+.tool-segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fbf4f0;
+  padding: 0.35rem;
+}
+.tool-segment__btn {
+  border: none;
+  border-radius: 0.85rem;
+  background: transparent;
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+.tool-segment__btn[aria-pressed="true"] {
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+.tool-segment__btn[aria-pressed="false"]:hover { background: rgba(255,255,255,0.6); }
+.tool-segment__label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+.tool-segment__hint {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #6f636a;
+}
+
+.tool-price {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+.tool-price__note {
+  margin-left: 0.4rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #a99ea3;
+}
+
+.tool-stat {
+  border-radius: 1rem;
+  background: rgba(251, 247, 244, 0.9);
+  border: 1px solid rgba(0,0,0,0.04);
+  padding: 0.7rem 0.9rem;
+  text-align: center;
+}
+.tool-stat__num {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #2b2327;
+}
+.tool-stat__label {
+  margin-top: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a8e94;
+}
+
+@keyframes toolPulse { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+.tool-skeleton {
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg,#fff 0%,#fcfaf6 100%);
+  border: 1px solid rgba(0,0,0,0.05);
+  animation: toolPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes toolFadeUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+.tool-fade-up { animation: toolFadeUp 360ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card,
+  .tool-btn,
+  .tool-card--interactive:hover,
+  .tool-btn--primary:hover { transition: none; transform: none; }
+  .tool-skeleton { animation: none; }
+  .tool-fade-up { animation: none; }
+}
