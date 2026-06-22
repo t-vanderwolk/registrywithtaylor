@@ -14,7 +14,8 @@ export type StrollerCategory =
   | 'double-travel'
   | 'double-jogging'
   | 'jogging'
-  | 'wagon';
+  | 'wagon'
+  | 'umbrella';
 
 export const STROLLER_CATEGORY_LABELS: Record<StrollerCategory, string> = {
   'full-size': 'Full Size / Modular',
@@ -28,6 +29,7 @@ export const STROLLER_CATEGORY_LABELS: Record<StrollerCategory, string> = {
   'double-jogging': 'Double Jogger',
   'jogging': 'Jogging / All-Terrain',
   'wagon': 'Wagon',
+  'umbrella': 'Umbrella',
 };
 
 export type TravelSystemEntity = {

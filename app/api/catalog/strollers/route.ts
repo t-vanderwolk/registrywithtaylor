@@ -19,6 +19,7 @@ const TYPE_ORDER: StrollerCategory[] = [
   'double-jogging',
   'jogging',
   'wagon',
+  'umbrella',
 ];
 
 type CatalogProductRow = {

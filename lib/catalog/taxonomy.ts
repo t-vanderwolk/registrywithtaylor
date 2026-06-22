@@ -47,6 +47,7 @@ export const PRODUCT_TYPES = [
   'single-to-double stroller',
   'double stroller',
   'wagon',
+  'umbrella stroller',
   'stroller accessory',
   'infant car seat',
   'convertible car seat',

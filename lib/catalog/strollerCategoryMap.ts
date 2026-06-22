@@ -14,6 +14,7 @@ const PRODUCT_TYPE_TO_CATEGORY: Record<string, StrollerCategory> = {
   'double stroller': 'double',
   'single-to-double stroller': 'convertible-modular',
   wagon: 'wagon',
+  'umbrella stroller': 'umbrella',
 };
 
 export function strollerCategoryFromProductType(
