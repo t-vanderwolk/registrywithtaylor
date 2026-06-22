@@ -44,6 +44,7 @@ const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
       { href: '/admin/affiliates', label: 'Affiliates', editorOnly: true },
       { href: '/admin/affiliate-links', label: 'Affiliate links', editorOnly: true },
       { href: '/admin/partners', label: 'Partners', editorOnly: true },
+      { href: '/admin/catalog', label: 'Catalog', editorOnly: true },
     ],
   },
   {

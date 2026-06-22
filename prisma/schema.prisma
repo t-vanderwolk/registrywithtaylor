@@ -703,3 +703,118 @@ model BabylistCatalogItem {
 
   @@index([manufacturer])
 }
+
+// ─── Affiliate catalog (full store) ──────────────────────────────────────────
+// Rich mirror of the entire affiliate catalog (Babylist via Impact, catalog
+// 8981) — the foundation for product tools, registry guidance, product cards,
+// and compatibility logic. Raw feed data lives here; TMBC editorial/enrichment
+// lives in ProductEnrichment so a sync NEVER overwrites Taylor's manual work.
+// Built alongside BabylistCatalogItem (the thin stroller cache), which stays.
+model AffiliateCatalogProduct {
+  id              String    @id @default(cuid())
+  provider        String    @default("babylist_impact")
+  catalogId       String    @default("8981")
+  externalId      String    // feed `id` (Impact item id / prodsku)
+  sku             String?
+  gtin            String?
+  brand           String?
+  title           String
+  description     String?
+  rawCategory     String?   // feed google_product_category (unreliable — not used to categorize)
+  productTypePath String?   // feed `product_type` — Babylist's own path; the categorization signal
+  price           Float?
+  salePrice       Float?
+  currency        String    @default("USD")
+  imageUrl        String?
+  productUrl      String?   // decoded landing URL (babylist.com product page), if extracted
+  affiliateUrl    String?   // feed `link` — pre-tracked affiliate URL, stored EXACTLY as provided
+  availability    String?
+  inStock         Boolean   @default(true)
+  itemGroupId     String?
+  color           String?
+  material        String?
+  size            String?
+  gender          String?
+  ageGroup        String?
+  retailer        String    @default("Babylist")
+  rawPayload      Json?
+  feedHash        String?
+  firstSeenAt     DateTime  @default(now())
+  lastSyncedAt    DateTime  @default(now())
+  lastChangedAt   DateTime?
+  isActiveInFeed  Boolean   @default(true)
+
+  enrichment      ProductEnrichment?
+
+  @@unique([provider, externalId])
+  @@index([brand])
+  @@index([title])
+  @@index([sku])
+  @@index([productTypePath])
+  @@index([isActiveInFeed])
+  @@index([lastSyncedAt])
+}
+
+// TMBC editorial / enrichment layer. A sync may CREATE these and set
+// auto-categorized values, but once reviewStatus is REVIEWED (or a human edits),
+// the sync must NOT overwrite the TMBC-controlled fields below.
+model ProductEnrichment {
+  id                String   @id @default(cuid())
+  rawProductId      String   @unique
+  rawProduct        AffiliateCatalogProduct @relation(fields: [rawProductId], references: [id], onDelete: Cascade)
+
+  canonicalBrand    String?
+  canonicalName     String?
+  slug              String?  @unique
+
+  // Taxonomy (strings; canonical lists live in lib/catalog/taxonomy.ts)
+  tmbcCategory      String?
+  tmbcSubcategory   String?
+  productType       String?
+  parentJourney     String?
+  registryPriority  String?
+  lifecycleStage    String?
+
+  // Visibility + recommendation status
+  visibility        String   @default("auto")
+  isPublic          Boolean  @default(false)
+  isFeatured        Boolean  @default(false)
+  isTaylorPick      Boolean  @default(false)
+  isRecommended     Boolean  @default(false)
+  isWorthKnowing    Boolean  @default(false)
+  isSkipForMost     Boolean  @default(false)
+
+  // Review workflow
+  needsReview       Boolean  @default(true)
+  reviewStatus      CatalogReviewStatus @default(AUTO_CATEGORIZED)
+  confidenceScore   Float?
+
+  // Editorial
+  editorialSummary  String?
+  taylorsNote       String?
+  internalNotes     String?
+  tags              String[] @default([])
+  useCaseTags       String[] @default([])
+  lifestyleTags     String[] @default([])
+  compatibilityTags String[] @default([])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  reviewedAt        DateTime?
+  reviewedBy        String?
+
+  @@index([tmbcCategory])
+  @@index([productType])
+  @@index([parentJourney])
+  @@index([reviewStatus])
+  @@index([needsReview])
+  @@index([isTaylorPick])
+  @@index([isPublic])
+}
+
+enum CatalogReviewStatus {
+  AUTO_CATEGORIZED
+  NEEDS_REVIEW
+  REVIEWED
+  HIDDEN
+}
