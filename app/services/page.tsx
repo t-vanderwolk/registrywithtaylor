@@ -110,9 +110,9 @@ export default function ServicesPage() {
 
         <Hero
           className="homepage-hero services-hero"
-          eyebrow="Introductory Registry Consults Now Open"
-          title="Registry Consult — $75"
-          subtitle="Bring me the registry chaos. I’ll help you find the first clear path through it — a focused, 45-minute virtual session for expecting parents starting, editing, or making sense of a baby registry."
+          eyebrow="Introductory Registry Consults Now Open · $75"
+          title="Let’s make sense of your registry"
+          subtitle="Bring me the registry chaos and I’ll help you find the first clear path through it — a focused, 45-minute virtual Registry Consult ($75) for expecting parents starting, editing, or making sense of a baby registry."
           primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
           secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
           tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"

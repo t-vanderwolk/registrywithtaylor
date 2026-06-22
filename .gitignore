@@ -5,3 +5,4 @@ node_modules
 dev.db
 tsconfig.tsbuildinfo
 scripts/output/*.json
+scripts/output/babylist-feed.txt
