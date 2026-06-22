@@ -40,6 +40,15 @@ function babylistTracked(destUrl: string): string {
   return `${BABYLIST_TRACKER_BASE}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER_ID}`;
 }
 
+/**
+ * Affiliate-tracked link to any babylist.com page (product or store category).
+ * Use for curated picks that live outside the stroller/car-seat catalogue — e.g.
+ * nursery essentials — where there's no synced SKU to resolve.
+ */
+export function babylistShopLink(destUrl: string): string {
+  return babylistTracked(destUrl);
+}
+
 // Babylist confirmed deep links (brand:::model → babylist product page)
 // To get a new ID: find product on babylist.com → hover the "Add to registry" button
 // → URL contains /gp/[slug]/[product-id]/[variant-id]

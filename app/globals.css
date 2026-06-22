@@ -2939,3 +2939,59 @@ img {
     padding-right: 1rem;
   }
 }
+
+/* ── Free-preview lesson typography ───────────────────────────────────────────
+   Mirrors the blog post type scale (.tmbc-blog) so the /learn preview modules
+   read like an article: Inter body at blog size/leading in charcoal, Playfair
+   section headings with the signature rose underline bar. Applied via the
+   shared Lesson* components (LessonSection title + body, LessonHeader). */
+.lesson-prose {
+  font-family: var(--tmbc-blog-body, "Inter", sans-serif);
+  color: color-mix(in srgb, #2b2b2b 90%, white 10%);
+  letter-spacing: 0.004em;
+}
+
+.lesson-prose p {
+  font-size: 1.08rem;
+  line-height: 1.88;
+}
+
+.lesson-prose strong {
+  color: #2b2b2b;
+  font-weight: 600;
+}
+
+/* Scope link styling to inline text links (inside paragraphs / list items) so
+   nested card links like LessonBlogLink keep their own no-underline treatment. */
+.lesson-prose :where(p, li) a {
+  color: #2b2b2b;
+  font-weight: 600;
+  text-decoration-line: underline;
+  text-decoration-color: rgba(215, 161, 175, 0.92);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.lesson-prose :where(p, li) a:hover {
+  color: var(--color-accent-dark);
+  text-decoration-color: rgba(196, 156, 94, 0.6);
+}
+
+.lesson-heading {
+  font-family: var(--tmbc-blog-headline, "Playfair Display", serif);
+  color: #2b2b2b;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.lesson-heading::after {
+  content: "";
+  display: block;
+  width: 78px;
+  height: 4px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(232, 154, 174, 0.9) 0%, rgba(215, 161, 175, 1) 100%);
+  box-shadow: 0 10px 24px rgba(232, 154, 174, 0.18);
+}

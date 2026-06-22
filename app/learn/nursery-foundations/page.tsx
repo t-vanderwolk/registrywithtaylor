@@ -9,6 +9,8 @@ import MiniWorkbook from '@/components/learn/MiniWorkbook';
 import KeyTakeaways from '@/components/learn/KeyTakeaways';
 import LessonCTA from '@/components/learn/LessonCTA';
 import LessonBlogLink from '@/components/learn/LessonBlogLink';
+import BabylistPreviewProducts, { type BabylistPreviewItem } from '@/components/learn/BabylistPreviewProducts';
+import { babylistShopLink } from '@/lib/travelSystemAffiliateLinks';
 import { FREE_PREVIEW_LESSONS, FREE_PREVIEW_LESSON_COUNT } from '@/lib/learn/lessons';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import TrackPreviewView from '@/components/learn/TrackPreviewView';
@@ -107,6 +109,57 @@ const workbookPrompts = [
     label: 'Can you walk from the door to the crib and back in the dark without thinking about it?',
     placeholder:
       'Where are the clear paths? Where are the obstacles? What needs to move or be within arm\'s reach before the room is truly functional...',
+  },
+];
+
+// Shoppable nursery essentials — curated picks with Babylist affiliate links.
+// These live outside the stroller/car-seat catalogue, so each carries its own
+// Babylist link + image (no live lookup). Momcozy is a direct product page; the
+// rest open the curated Babylist store category.
+const nurseryPicks: BabylistPreviewItem[] = [
+  {
+    label: 'Diaper duty',
+    name: 'Momcozy Diaper Pail',
+    image: '/assets/nurserypath/momcozydiperpail.png',
+    href: babylistShopLink('https://www.babylist.com/gp/momcozy-diaper-pail/82628/3260380'),
+    blurb:
+      'Triple-seal lid, holds about 60 diapers, and takes regular trash bags — so the nursery smells like a baby, not like what the baby did.',
+  },
+  {
+    label: 'Small-footprint sleep',
+    name: 'Mini crib',
+    image: '/assets/nurserypath/minicrib.png',
+    href: babylistShopLink('https://www.babylist.com/store/cribs'),
+    priceNote: 'Browse mini cribs',
+    blurb:
+      'The most underrated piece in the room. It rolls where a full crib won’t fit and quietly outlasts the bassinet you almost bought instead.',
+  },
+  {
+    label: 'The 3 AM chair',
+    name: 'Nursery glider',
+    image: '/assets/nurserypath/glider.png',
+    href: babylistShopLink('https://www.babylist.com/store/seating'),
+    priceNote: 'Browse gliders',
+    blurb:
+      'You’ll log more hours here than anywhere else in the house. Buy the one that reclines, glides, and doesn’t squeak once everyone’s finally asleep.',
+  },
+  {
+    label: 'Changing station',
+    name: 'Dresser + changer',
+    image: '/assets/nurserypath/dadadadresser.png',
+    href: babylistShopLink('https://www.babylist.com/store/dressers-and-changers'),
+    priceNote: 'Browse changing dressers',
+    blurb:
+      'A dresser that moonlights as a changing table — one footprint, two jobs, and it keeps earning its space long after the diaper years end.',
+  },
+  {
+    label: 'Keep it together',
+    name: 'Organization system',
+    image: '/assets/nurserypath/storage.png',
+    href: babylistShopLink('https://www.babylist.com/store/nursery-organization'),
+    priceNote: 'Browse storage',
+    blurb:
+      'Bins, baskets, and a system simple enough to keep up on no sleep. Less clutter, less hunting for the size-1 diapers at midnight.',
   },
 ];
 
@@ -238,7 +291,7 @@ export default function NurseryFoundationsPage() {
                         aria-hidden="true"
                         className="mt-[0.5rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent-dark)]"
                       />
-                      <span className="text-[1rem] leading-[1.85] text-neutral-600">{piece}</span>
+                      <span className="text-[1.08rem] leading-[1.88] text-[#2b2b2b]/90">{piece}</span>
                     </li>
                   ))}
                 </ul>
@@ -367,7 +420,7 @@ export default function NurseryFoundationsPage() {
                         aria-hidden="true"
                         className="mt-[0.5rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent-dark)]"
                       />
-                      <span className="text-[1rem] leading-[1.85] text-neutral-600">{principle}</span>
+                      <span className="text-[1.08rem] leading-[1.88] text-[#2b2b2b]/90">{principle}</span>
                     </li>
                   ))}
                 </ul>
@@ -449,6 +502,11 @@ export default function NurseryFoundationsPage() {
                 />
               </LessonSection>
             </div>
+
+            <LessonDivider />
+
+            {/* Shop the nursery essentials on Babylist */}
+            <BabylistPreviewProducts heading="The nursery shortlist" items={nurseryPicks} />
 
             <LessonDivider />
 

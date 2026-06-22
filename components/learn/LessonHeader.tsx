@@ -72,7 +72,7 @@ export default function LessonHeader({
         </div>
 
         {/* Title */}
-        <h1 className="mt-6 font-serif text-[2.1rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.7rem] lg:text-[3.1rem]">
+        <h1 className="mt-6 font-serif text-[2.1rem] leading-[0.98] tracking-[-0.04em] text-[#2b2b2b] sm:text-[2.7rem] lg:text-[3.1rem]">
           {title}
         </h1>
 

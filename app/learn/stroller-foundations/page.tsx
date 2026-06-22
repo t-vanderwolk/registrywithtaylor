@@ -431,7 +431,7 @@ export default function StrollerFoundationsPage() {
                       />
 
                       {/* Definition */}
-                      <p className="text-[1rem] leading-[1.85] text-neutral-600">
+                      <p className="text-[1.08rem] leading-[1.88] text-[#2b2b2b]/90">
                         {category.definition}
                       </p>
 

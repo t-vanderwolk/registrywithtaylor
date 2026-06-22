@@ -38,22 +38,22 @@ export default function LessonSection({
         </div>
       )}
 
-      {/* Title */}
+      {/* Title — blog h2 styling: Playfair, charcoal, rose underline bar */}
       <h2
         className={[
-          'font-serif leading-[1.04] tracking-[-0.035em] text-neutral-900',
+          'lesson-heading',
           hasStep
-            ? 'text-[1.45rem] sm:text-[1.75rem]'
-            : 'text-[1.6rem] sm:text-[2rem]',
+            ? 'text-[1.7rem] sm:text-[2.05rem]'
+            : 'text-[1.95rem] sm:text-[2.45rem]',
         ].join(' ')}
       >
         {title}
       </h2>
 
-      {/* Body */}
+      {/* Body — blog prose: Inter, charcoal, 1.08rem / 1.88 line-height */}
       <div
         className={[
-          'space-y-4 text-[1rem] leading-[1.85] text-neutral-600',
+          'lesson-prose space-y-6',
           hasStep ? 'pl-0 sm:pl-11' : '',
         ].join(' ')}
       >

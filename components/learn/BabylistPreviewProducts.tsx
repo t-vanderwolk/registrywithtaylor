@@ -6,12 +6,19 @@ import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 export type BabylistPreviewItem = {
   /** Section/category label shown above the product name. */
   label: string;
-  brand: string;
-  model: string;
   blurb?: string;
+  /** Catalogue items (strollers / car seats): resolve live price + photo + link. */
+  brand?: string;
+  model?: string;
+  kind?: 'stroller' | 'carSeat';
   /** Editorial image used until the live Babylist product photo loads (or if unsynced). */
   imageFallback?: string;
-  kind?: 'stroller' | 'carSeat';
+  /** Curated items (e.g. nursery): supply title + Babylist link + image directly. */
+  name?: string;
+  href?: string;
+  image?: string;
+  /** Small note shown in place of a live price (e.g. "Shop the category"). */
+  priceNote?: string;
 };
 
 type Live = { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null };
@@ -29,10 +36,15 @@ export default function BabylistPreviewProducts({
   heading?: string;
   items: BabylistPreviewItem[];
 }) {
-  const key = items.map((i) => `${i.brand}:::${i.model}`).join(',');
+  // Only catalogue items (brand + model, no explicit href) need the live lookup.
+  const key = items
+    .filter((i) => i.brand && i.model && !i.href)
+    .map((i) => `${i.brand}:::${i.model}`)
+    .join(',');
   const [live, setLive] = useState<Record<string, Live>>({});
 
   useEffect(() => {
+    if (!key) return;
     fetch(`/api/babylist/lookup?items=${encodeURIComponent(key)}`)
       .then((r) => (r.ok ? r.json() : { results: {} }))
       .then((d) => setLive(d.results ?? {}))
@@ -55,27 +67,29 @@ export default function BabylistPreviewProducts({
 
       <div className="grid gap-4 sm:grid-cols-2">
         {items.map((item) => {
-          const info = live[`${item.brand}:::${item.model}`];
-          const href = babylistAffiliateUrl(item.brand, item.model, item.kind ?? 'stroller', info?.babylistUrl);
-          const img = info?.babylistImage ?? item.imageFallback ?? null;
+          const info =
+            item.brand && item.model && !item.href ? live[`${item.brand}:::${item.model}`] : undefined;
+          const title = item.name ?? `${item.brand ?? ''} ${item.model ?? ''}`.trim();
+          const href =
+            item.href ??
+            babylistAffiliateUrl(item.brand ?? '', item.model ?? '', item.kind ?? 'stroller', info?.babylistUrl);
+          const img = item.image ?? info?.babylistImage ?? item.imageFallback ?? null;
           return (
             <div
-              key={`${item.brand}-${item.model}`}
+              key={`${item.label}-${title}`}
               className="flex flex-col overflow-hidden rounded-[1.1rem] border border-[rgba(215,161,175,0.2)] bg-white shadow-[0_4px_14px_rgba(72,49,56,0.04)]"
             >
               {img ? (
                 <div className="flex h-44 w-full items-center justify-center bg-[rgba(251,247,244,0.7)] p-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={`${item.brand} ${item.model}`} className="max-h-full w-auto object-contain" />
+                  <img src={img} alt={title} className="max-h-full w-auto object-contain" />
                 </div>
               ) : null}
               <div className="flex flex-1 flex-col gap-1.5 px-5 py-4">
                 <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
                   {item.label}
                 </p>
-                <p className="font-serif text-[1.12rem] leading-tight text-neutral-900">
-                  {item.brand} {item.model}
-                </p>
+                <p className="font-serif text-[1.12rem] leading-tight text-neutral-900">{title}</p>
                 {item.blurb ? (
                   <p className="text-[0.85rem] leading-[1.6] text-neutral-500">{item.blurb}</p>
                 ) : null}
@@ -85,6 +99,10 @@ export default function BabylistPreviewProducts({
                     <span className="ml-1.5 text-[0.6rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
                       via Babylist
                     </span>
+                  </p>
+                ) : item.priceNote ? (
+                  <p className="mt-0.5 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
+                    {item.priceNote}
                   </p>
                 ) : null}
                 <a
