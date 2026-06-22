@@ -8,12 +8,12 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Book a Free Consultation — Taylor-Made Baby Co.',
+  title: 'Book a Registry Consult — Taylor-Made Baby Co.',
   description:
-    'Request a free 30-minute consultation with Taylor for expert baby gear, registry, and baby-preparation guidance.',
+    'Book a 45-minute Registry Consult with Taylor for expert baby gear, registry, and baby-preparation guidance.',
   path: '/consultation',
   imagePath: '/assets/hero/hero-06.jpg',
-  imageAlt: 'Free consultation request form',
+  imageAlt: 'Registry Consult request form',
 });
 
 export default function ConsultationPage() {
@@ -24,7 +24,7 @@ export default function ConsultationPage() {
 
         <Hero
           className="homepage-hero"
-          eyebrow="Free Consultation"
+          eyebrow="Registry Consult"
           title="Let's figure out what you actually need."
           subtitle="Share a few details and I'll follow up personally within 24 hours. You'll receive an intake form by email — it helps me come to our call fully prepared, so every minute counts."
           image="/assets/hero/hero-06.jpg"
@@ -60,8 +60,8 @@ export default function ConsultationPage() {
                     },
                     {
                       step: '03',
-                      title: 'Free 30-minute call',
-                      body: 'We connect directly — just you and me — to talk through your situation and figure out the best next step together.',
+                      title: 'Your 45-minute Registry Consult',
+                      body: 'We connect directly — just you and me — to work through your registry and the decisions that matter most next.',
                     },
                   ].map((item) => (
                     <div key={item.step} className="flex gap-4">
@@ -92,7 +92,7 @@ export default function ConsultationPage() {
                   <div>
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Get started</p>
                     <h3 className="mt-3 font-serif text-[1.5rem] leading-[1.1] tracking-[-0.02em] text-neutral-900">
-                      Request your free consultation
+                      Request your Registry Consult
                     </h3>
                   </div>
                   <ConsultationSimpleForm />

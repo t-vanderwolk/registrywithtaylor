@@ -5,6 +5,7 @@ import {
 } from '@/lib/academy/content';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
 
@@ -13,7 +14,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/'), changeFrequency: 'weekly', priority: 1.0 },
     { url: buildUrl('/about'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/academy'), changeFrequency: 'monthly', priority: 0.8 },
+    ...(isAcademyEnabled()
+      ? [{ url: buildUrl('/academy'), changeFrequency: 'monthly' as const, priority: 0.8 }]
+      : []),
     { url: buildUrl('/blog'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
@@ -38,20 +41,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Failed to build blog sitemap entries.', error);
   }
 
-  // /learn/* — canonical paths for path hubs and standard modules
-  const learnEntries: MetadataRoute.Sitemap = getLearnSitemapPaths().map((path) => ({
-    url: buildUrl(path),
-    changeFrequency: 'monthly' as const,
-    priority: path === '/learn' ? 0.9 : path.split('/').length === 3 ? 0.85 : 0.75,
-  }));
+  // /learn/* + /academy/* — only included while Academy is publicly enabled.
+  const academyOn = isAcademyEnabled();
 
-  // /academy/gear/stroller-foundations/:lane etc. — submodule branches that
-  // don't yet have /learn/* equivalents. Served directly, no redirect loop.
-  const submoduleEntries: MetadataRoute.Sitemap = getSubmoduleSitemapPaths().map((path) => ({
-    url: buildUrl(path),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
+  const learnEntries: MetadataRoute.Sitemap = academyOn
+    ? getLearnSitemapPaths().map((path) => ({
+        url: buildUrl(path),
+        changeFrequency: 'monthly' as const,
+        priority: path === '/learn' ? 0.9 : path.split('/').length === 3 ? 0.85 : 0.75,
+      }))
+    : [];
+
+  const submoduleEntries: MetadataRoute.Sitemap = academyOn
+    ? getSubmoduleSitemapPaths().map((path) => ({
+        url: buildUrl(path),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+      }))
+    : [];
 
   return Array.from(
     new Map(

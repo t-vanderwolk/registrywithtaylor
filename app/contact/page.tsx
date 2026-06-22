@@ -20,18 +20,18 @@ export const metadata = buildMarketingMetadata({
 
 const serviceConfig = {
   'focused-edit': {
-    label: 'Focused Session',
-    intro: 'A practical review of your registry, gear shortlist, or one baby-prep decision.',
+    label: 'Registry Consult',
+    intro: 'A focused 45-minute session on your registry and the biggest product decisions.',
     fields: ['registryLink', 'dueDate', 'topConcerns'],
   },
   'signature-plan': {
-    label: 'Signature Package',
-    intro: 'Hands-on support across registry strategy, nursery setup, and baby gear decisions.',
+    label: 'Longer-term planning',
+    intro: 'Ongoing support across registry strategy, nursery setup, and baby gear decisions.',
     fields: ['dueDate', 'homeType', 'budgetRange', 'biggestStress'],
   },
   'private-concierge': {
-    label: 'Private Concierge',
-    intro: 'Continued expert help as you sort registry, gear, and home-prep details.',
+    label: 'Full baby planning',
+    intro: 'Continued, hands-on help as you sort registry, gear, and home-prep details.',
     fields: ['dueDate', 'location', 'levelOfSupport', 'timeline'],
   },
 } as const;

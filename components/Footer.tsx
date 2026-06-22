@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import LuxuryIconFrame from '@/components/ui/LuxuryIconFrame';
+import { ACADEMY_ENABLED } from '@/lib/featureFlags';
 
 const footerLinks = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
-  { label: 'Academy', href: '/academy' },
+  ...(ACADEMY_ENABLED ? [{ label: 'Academy', href: '/academy' }] : []),
   { label: 'Journal', href: '/blog' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },

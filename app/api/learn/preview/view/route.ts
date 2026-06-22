@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { logGuideEvent } from '@/lib/server/guideAnalytics';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 const PREVIEW_MODULE_SLUGS = [
   'art-of-the-registry',
@@ -25,6 +26,10 @@ function isPreviewSlug(value: unknown): value is PreviewModuleSlug {
 // Logs a view event for a free preview lesson.
 // Upserts a Guide record on first call so tracking works without a separate seed step.
 export async function POST(req: Request) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   let body: unknown;
   try {
     body = await req.json();

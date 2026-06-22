@@ -429,11 +429,11 @@ export default function CarSeatAcademyLanePage({
                     sourceRoute={sourceRoute}
                     className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#A15B72] px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#8F4C62]"
                     meta={{
-                      ctaLabel: guide.consultationCtaLabel || 'Book a Free Consultation',
+                      ctaLabel: guide.consultationCtaLabel || 'Book a Registry Consult',
                       label: 'car_seat_lane_consultation',
                     }}
                   >
-                    {guide.consultationCtaLabel || 'Book a Free Consultation'}
+                    {guide.consultationCtaLabel || 'Book a Registry Consult'}
                   </GuideTrackedLink>
                 </div>
               </div>

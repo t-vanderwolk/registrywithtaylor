@@ -415,7 +415,7 @@ function ReviewItem({ label, value }: { label: string; value: string | string[] 
 export default function ConsultationRequestForm({
   returnPath = '/consultation',
   successPath = '/consultation/confirmation',
-  submitLabel = 'Book a Free Consultation',
+  submitLabel = 'Book a Registry Consult',
 }: ConsultationRequestFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();

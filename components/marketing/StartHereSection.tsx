@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { fadeIn, fadeInUp } from '@/lib/animation';
+import { ACADEMY_ENABLED } from '@/lib/featureFlags';
 
 type StartHereCard = {
   title: string;
@@ -17,23 +18,43 @@ const startHereCards: StartHereCard[] = [
   {
     title: "I Don't Know Where to Start",
     description:
-      "Book a free 30-minute consultation and Taylor will help you figure out exactly what you need — and in what order.",
-    ctaLabel: 'Book a Free Consult',
-    href: '/consultation',
+      "Book a Registry Consult and Taylor will help you figure out exactly what you need — and in what order.",
+    ctaLabel: 'Book a Registry Consult',
+    href: '/book',
   },
-  {
-    title: 'I Want to Build My Registry',
-    description: 'Follow a step-by-step system to choose what you need and when to buy it. Start with a free lesson — no account required.',
-    ctaLabel: 'Start Free Lesson',
-    href: '/learn/art-of-the-registry',
-  },
-  {
-    title: "I'm Comparing Gear",
-    description:
-      'Learn how to think about strollers and car seats before you touch a product list. Free lesson, no account required.',
-    ctaLabel: 'Start Free Lesson',
-    href: '/learn/stroller-foundations',
-  },
+  ...(ACADEMY_ENABLED
+    ? [
+        {
+          title: 'I Want to Build My Registry',
+          description:
+            'Follow a step-by-step system to choose what you need and when to buy it. Start with a free lesson — no account required.',
+          ctaLabel: 'Start Free Lesson',
+          href: '/learn/art-of-the-registry',
+        },
+        {
+          title: "I'm Comparing Gear",
+          description:
+            'Learn how to think about strollers and car seats before you touch a product list. Free lesson, no account required.',
+          ctaLabel: 'Start Free Lesson',
+          href: '/learn/stroller-foundations',
+        },
+      ]
+    : [
+        {
+          title: 'I Want to Build My Registry',
+          description:
+            'Read the registry guides in the Journal — strategy, timing, and what actually belongs on the list.',
+          ctaLabel: 'Read the Journal',
+          href: '/blog',
+        },
+        {
+          title: "I'm Comparing Gear",
+          description:
+            'Compare strollers by brand and type — with prices, photos, and where to buy — in the Stroller Finder.',
+          ctaLabel: 'Open the Stroller Finder',
+          href: '/tools/stroller-finder',
+        },
+      ]),
 ];
 
 const cardStaggerVariants: Variants = {

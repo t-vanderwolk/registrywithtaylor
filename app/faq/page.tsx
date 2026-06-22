@@ -9,11 +9,12 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionDivider from '@/components/ui/SectionDivider';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 export const metadata = buildMarketingMetadata({
   title: 'Frequently Asked Questions | Taylor-Made Baby Co.',
   description:
-    'Answers to the most common questions about baby gear guidance, registry consulting, car seat checks, the free consultation, and the TMBC Academy.',
+    'Answers to common questions about baby gear guidance, registry consulting, car seat guidance, and the $75 Registry Consult.',
   path: '/faq',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'Frequently asked questions about Taylor-Made Baby Co.',
@@ -28,56 +29,51 @@ export const metadata = buildMarketingMetadata({
 
 const consultationFaqs: FAQEntry[] = [
   {
-    question: 'Is the consultation really free?',
+    question: 'What is the Registry Consult?',
     answer:
-      'Yes. The initial 1:1 video consultation is complimentary. There is no cost to submit a request or meet with Taylor for the first time. The consultation is how we figure out which level of support actually fits your situation.',
+      'A focused 45-minute virtual session for expecting parents who want help starting, editing, or making sense of their baby registry. It is $75, and you leave with personalized guidance and follow-up notes on your next best steps.',
   },
   {
-    question: 'What happens during the consultation?',
+    question: 'What happens during the session?',
     answer:
-      'Taylor reviews your registry, your space, your lifestyle, and your timeline. Together you identify what decisions need to be made, what can wait, and which package — if any — makes sense for where you are.',
+      'Taylor reviews your registry, your space, your lifestyle, and your timeline, then helps you narrow the biggest product decisions and get clear on what you actually need for the first few months.',
   },
   {
     question: 'Will I be meeting with Taylor directly?',
-    answer: 'Yes. Every consultation is with Taylor personally.',
+    answer: 'Yes. Every session is with Taylor personally.',
   },
   {
-    question: 'What should I bring to the consultation?',
+    question: 'What should I bring?',
     answer:
       'Come with your registry (even if it is unfinished), your biggest questions, and a general sense of your space and vehicle. You do not need to have anything figured out — that is what the session is for.',
   },
   {
-    question: 'Do I have to buy anything after the consultation?',
+    question: 'Is this a full buildout or concierge package?',
     answer:
-      'No. The consultation is genuinely no-pressure. Some families book a package afterward. Some leave with enough clarity to move forward on their own. Both outcomes are fine.',
+      'No. This is a focused entry session, not a full concierge package — we use the time to get clear on what matters most next. If you want longer-term support with your registry, nursery, gear decisions, or full baby planning, reach out through the contact form and Taylor will point you toward the right level of support.',
   },
 ];
 
 const servicesFaqs: FAQEntry[] = [
   {
-    question: 'What is included in the Focused Session?',
+    question: 'How much is the Registry Consult, and how long is it?',
     answer:
-      'One 90-minute session focused on a single gear or registry decision. Taylor builds a shortlist, walks through the recommendation logic, and gives clear buy-now, skip, or wait guidance. A written summary is included after the session. The Focused Session is $199.',
+      'The Registry Consult is $75 for a focused 45-minute virtual session. It is the one paid service offered right now — a simple, expert-led way to get unstuck on your registry.',
   },
   {
-    question: 'What is included in the Signature Package?',
+    question: 'What can Taylor help with in the session?',
     answer:
-      'Three 90-minute sessions structured across registry strategy, stroller and car seat decisions, nursery planning, and purchase timing. The Signature Package also includes a car seat check with Lani Car Seats and a complimentary childproofing quote from AZ Childproofers. A written plan is included after each session. The Signature Package is $797.',
+      'Starting a registry from scratch, reviewing one that suddenly feels too long, and narrowing down stroller, car seat, feeding, sleep, and nursery basics — plus avoiding duplicates, unnecessary products, and trendy-but-not-useful items.',
   },
   {
-    question: 'What is the Private Concierge?',
+    question: 'What if I want more than one session or ongoing support?',
     answer:
-      'Ongoing advisor access scoped to your specific decisions, timeline, and preparation stage. The Private Concierge includes everything in the Signature Package plus extended support as priorities evolve. Pricing starts at $1,997 and is discussed during an initial scoping conversation. Use the contact form to start that conversation.',
+      'Reach out through the contact form. Taylor offers deeper, longer-term support for registry, nursery, stroller and car seat decisions, and full baby planning, and will help point you toward the right level.',
   },
   {
-    question: 'Are the sessions virtual or in person?',
+    question: 'Is the session virtual or in person?',
     answer:
-      'Both options are available. Sessions can be conducted virtually from anywhere, or in person for clients in the Scottsdale, Arizona area.',
-  },
-  {
-    question: 'What about Lani Car Seats and AZ Childproofers — are those available outside Arizona?',
-    answer:
-      'Yes. Both partners offer virtual services for clients outside Arizona. In-person services are available for Arizona clients.',
+      'The Registry Consult is virtual, so you can join from anywhere. In-person support in the Scottsdale, Arizona area is available on request through the contact form.',
   },
 ];
 
@@ -90,7 +86,7 @@ const carSeatFaqs: FAQEntry[] = [
   {
     question: 'Can Taylor help me choose and install a car seat?',
     answer:
-      'Yes. Car seat selection, comparison, and installation guidance are included in the Signature Package and Private Concierge through Taylor\'s partnership with Lani Car Seats. Standalone car seat help is also available as an add-on.',
+      'Yes. Car seat selection and comparison can be part of your Registry Consult, and Taylor partners with Lani Car Seats (a CPST service) for hands-on installation and safety checks. For deeper car seat support, reach out through the contact form.',
   },
 ];
 
@@ -121,7 +117,7 @@ const generalFaqs: FAQEntry[] = [
   {
     question: 'How do I get started?',
     answer:
-      'The best starting point is a free consultation. Submit a request through the consultation page and Taylor will follow up directly. If you are not ready to book, the Academy and Journal are both available without any commitment.',
+      'The best starting point is a Registry Consult — book a time and Taylor will follow up directly. If you are not ready to book, the Journal is available without any commitment.',
   },
   {
     question: 'How long does it take to hear back after submitting a consultation request?',
@@ -131,6 +127,7 @@ const generalFaqs: FAQEntry[] = [
 ];
 
 export default function FAQPage() {
+  const academyEnabled = isAcademyEnabled();
   return (
     <SiteShell currentPath="/faq">
       <main className="site-main">
@@ -138,7 +135,7 @@ export default function FAQPage() {
           className="homepage-hero"
           eyebrow="FAQ"
           title="Questions, answered."
-          subtitle="Everything you need to know before booking, browsing the Academy, or reaching out."
+          subtitle={academyEnabled ? 'Everything you need to know before booking, browsing the Academy, or reaching out.' : 'Everything you need to know before booking your consult or reaching out.'}
           image="/assets/hero/hero-05.jpg"
           imageAlt=""
           contentClassName="homepage-hero-content"
@@ -151,7 +148,7 @@ export default function FAQPage() {
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
-                  <H2 className="text-neutral-900">About the Free Consultation</H2>
+                  <H2 className="text-neutral-900">About the Registry Consult</H2>
                 </div>
                 <FAQAccordion items={consultationFaqs} />
               </div>
@@ -161,7 +158,7 @@ export default function FAQPage() {
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
-                  <H2 className="text-neutral-900">About the Services and Packages</H2>
+                  <H2 className="text-neutral-900">About the Service</H2>
                 </div>
                 <FAQAccordion items={servicesFaqs} />
               </div>
@@ -177,15 +174,17 @@ export default function FAQPage() {
               </div>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={160}>
-              <div className="space-y-6">
-                <div>
-                  <SectionDivider />
-                  <H2 className="text-neutral-900">About the Academy</H2>
+            {academyEnabled ? (
+              <RevealOnScroll delayMs={160}>
+                <div className="space-y-6">
+                  <div>
+                    <SectionDivider />
+                    <H2 className="text-neutral-900">About the Academy</H2>
+                  </div>
+                  <FAQAccordion items={academyFaqs} />
                 </div>
-                <FAQAccordion items={academyFaqs} />
-              </div>
-            </RevealOnScroll>
+              </RevealOnScroll>
+            ) : null}
 
             <RevealOnScroll delayMs={200}>
               <div className="space-y-6">
@@ -205,14 +204,14 @@ export default function FAQPage() {
               Still have a question?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-neutral-600">
-              Reach out directly or book the free consultation — either way, Taylor responds personally.
+              Reach out directly or book a Registry Consult — either way, Taylor responds personally.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/consultation"
+                href="/book"
                 className="btn btn--primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
               >
-                <MotionCtaContent>Book a Free Consultation</MotionCtaContent>
+                <MotionCtaContent>Book a Registry Consult</MotionCtaContent>
               </Link>
               <Link
                 href="/contact"

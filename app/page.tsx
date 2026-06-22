@@ -12,6 +12,7 @@ import CheckIcon from '@/components/ui/CheckIcon';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
+import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
 
 export const revalidate = 3600;
 
@@ -179,23 +180,23 @@ const fitMoments = [
 const howItWorks = [
   {
     step: 'Step 1',
-    title: 'Fill out the intake',
-    description: 'Share your home, routine, car, and goals so Taylor can come prepared.',
+    title: 'Book your consult',
+    description: 'Grab a time and share a bit about your home, routine, car, and where your registry stands right now.',
   },
   {
     step: 'Step 2',
-    title: 'Taylor reviews',
-    description: 'Every intake is personally read before we get on a call — not skimmed during it.',
+    title: 'Taylor preps',
+    description: 'Every intake is personally read before we meet — so the session starts with momentum, not catch-up.',
   },
   {
     step: 'Step 3',
-    title: 'Free 30-minute chat',
-    description: 'We connect directly — just you and Taylor — to talk through your situation and figure out together what kind of support makes the most sense.',
+    title: '45-minute session',
+    description: 'We talk through your registry, narrow the biggest product decisions, and get clear on what you actually need first.',
   },
   {
     step: 'Step 4',
-    title: 'Choose your path',
-    description: 'Book the package that fits your decision stage, or keep building at your own pace through the Academy.',
+    title: 'Follow-up notes',
+    description: 'You leave with written next steps. Want longer-term support? Reach out through the contact form and Taylor will point you to the right level.',
   },
 ] as const;
 
@@ -295,8 +296,8 @@ export default function HomePage() {
           className="homepage-hero"
           title="Private Baby Planning & Registry Guidance for Growing Families"
           subtitle="Expert baby gear guidance to help you choose thoughtfully, prepare your home, and start parenthood with confidence."
-          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
-          secondaryCta={{ label: 'Start with Academy', href: '/academy' }}
+          primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
+          secondaryCta={{ label: 'Read the Journal', href: '/blog' }}
           tagline="Strollers | Car Seats | Registry | Nursery Setup"
           image="/assets/hero/hero-01.jpg"
           imageAlt="Curated baby gear arranged for planning and comparison"
@@ -427,6 +428,8 @@ export default function HomePage() {
           </div>
         </section>
 
+        <RegistryConsultOffer variant="compact" />
+
         {/* ── Trusted Prep Partners ────────────────────────────────── */}
         <section className="bg-white py-14 md:py-20">
           <div className="mx-auto max-w-4xl px-6">
@@ -458,7 +461,7 @@ export default function HomePage() {
                     Lani Car Seats
                   </h3>
                   <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
-                    CPST-certified car seat installation and safety checks — available virtually and in the Phoenix area. Included with the Signature Package.
+                    CPST-certified car seat installation and safety checks — available virtually and in the Phoenix area.
                   </p>
                 </div>
               </RevealOnScroll>
@@ -481,7 +484,7 @@ export default function HomePage() {
                     AZ Childproofers
                   </h3>
                   <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
-                    Professional childproofing assessments and installations for Arizona families. Complimentary quote included with the Signature Package.
+                    Professional childproofing assessments and installations for Arizona families.
                   </p>
                 </div>
               </RevealOnScroll>
@@ -509,7 +512,7 @@ export default function HomePage() {
                     Tiny Toes Newborn
                   </h3>
                   <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
-                    Newborn sleep consulting and support for families navigating the fourth trimester. Free consultation included with every service package.
+                    Newborn sleep consulting and support for families navigating the fourth trimester.
                   </p>
                 </a>
               </RevealOnScroll>

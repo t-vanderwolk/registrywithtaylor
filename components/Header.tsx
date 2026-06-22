@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { ACADEMY_ENABLED } from '@/lib/featureFlags';
 
 type NavLink = {
   label: string;
@@ -12,7 +13,7 @@ const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
-  { label: 'Academy', href: '/academy' },
+  ...(ACADEMY_ENABLED ? [{ label: 'Academy', href: '/academy' }] : []),
   { label: 'Journal', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -32,7 +33,9 @@ export default function Header({ currentPath }: HeaderProps) {
   const dashboardLabel =
     session?.user?.role === 'ADMIN' || session?.user?.role === 'REVIEWER'
       ? 'Admin'
-      : 'My Academy';
+      : ACADEMY_ENABLED
+        ? 'My Academy'
+        : 'My Account';
   const headerRef = useRef<HTMLElement | null>(null);
   const isGuideRoute =
     currentPath === '/learn' ||
@@ -146,10 +149,10 @@ export default function Header({ currentPath }: HeaderProps) {
             )}
 
             <Link
-              href="/consultation"
+              href="/book"
               className="btn btn--primary min-h-[44px] px-5 py-2 text-[0.68rem] tracking-[0.18em]"
             >
-              Book a Free Consultation
+              Book a Registry Consult
             </Link>
           </nav>
 
@@ -234,12 +237,12 @@ export default function Header({ currentPath }: HeaderProps) {
             )}
 
             <Link
-              href="/consultation"
+              href="/book"
               className="btn btn--primary mt-2 w-full justify-center"
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >
-              Book a Free Consultation
+              Book a Registry Consult
             </Link>
           </nav>
         </div>

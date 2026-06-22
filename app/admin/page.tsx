@@ -11,10 +11,11 @@ import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import { getNewsletterAnalytics } from '@/lib/server/mailchimp';
 import { requireAdminViewSession } from '@/lib/server/session';
+import { isAcademyAdminEnabled } from '@/lib/featureFlags';
 
 export const dynamic = 'force-dynamic';
 
-type AdminNavLink = { href: string; label: string; editorOnly?: boolean };
+type AdminNavLink = { href: string; label: string; editorOnly?: boolean; academyOnly?: boolean };
 
 // Grouped admin navigation surfaced in the dashboard Quick links.
 // editorOnly links are hidden for read-only (reviewer) admins.
@@ -22,7 +23,7 @@ const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
   {
     title: 'Content',
     links: [
-      { href: '/admin/academy', label: 'Academy' },
+      { href: '/admin/academy', label: 'Academy', academyOnly: true },
       { href: '/admin/blog', label: 'Blog' },
       { href: '/admin/blog/planner', label: 'Blog planner', editorOnly: true },
       { href: '/admin/guides', label: 'Guides' },
@@ -49,7 +50,7 @@ const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
     title: 'Insights & tools',
     links: [
       { href: '/admin/analytics', label: 'Analytics' },
-      { href: '/admin/academy/analytics', label: 'Academy analytics' },
+      { href: '/admin/academy/analytics', label: 'Academy analytics', academyOnly: true },
       { href: '/admin/babylist', label: 'Babylist SKUs', editorOnly: true },
     ],
   },
@@ -58,6 +59,7 @@ const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
 export default async function AdminDashboardPage() {
   const session = await requireAdminViewSession();
   const readOnly = session.user.role === 'REVIEWER';
+  const academyAdminEnabled = isAcademyAdminEnabled();
   const [
     consultationStatusCounts,
     inquiryStatusCounts,
@@ -152,21 +154,23 @@ export default async function AdminDashboardPage() {
         ) : null}
       </AdminSurface>
 
-      <AdminSurface className="admin-stack gap-5">
-        <h2 className="admin-h2">Academy Members</h2>
-        <section className="admin-kpi-grid md:grid-cols-3" aria-label="Academy member metrics">
-          <AdminKpiCard label="Enrolled Members"       value={String(totalMembers)}    hint="Active learners" />
-          <AdminKpiCard label="Registry Submissions"   value={String(totalRegistries)} hint="Total registries saved by members" />
-          <AdminKpiCard label="Avg Registries / Member" value={totalMembers > 0 ? (totalRegistries / totalMembers).toFixed(1) : '0'} hint="Engagement indicator" />
-        </section>
-        {!readOnly ? (
-          <div>
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/members">Open members panel</Link>
-            </AdminButton>
-          </div>
-        ) : null}
-      </AdminSurface>
+      {academyAdminEnabled ? (
+        <AdminSurface className="admin-stack gap-5">
+          <h2 className="admin-h2">Academy Members</h2>
+          <section className="admin-kpi-grid md:grid-cols-3" aria-label="Academy member metrics">
+            <AdminKpiCard label="Enrolled Members"       value={String(totalMembers)}    hint="Active learners" />
+            <AdminKpiCard label="Registry Submissions"   value={String(totalRegistries)} hint="Total registries saved by members" />
+            <AdminKpiCard label="Avg Registries / Member" value={totalMembers > 0 ? (totalRegistries / totalMembers).toFixed(1) : '0'} hint="Engagement indicator" />
+          </section>
+          {!readOnly ? (
+            <div>
+              <AdminButton asChild variant="primary">
+                <Link href="/admin/members">Open members panel</Link>
+              </AdminButton>
+            </div>
+          ) : null}
+        </AdminSurface>
+      ) : null}
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Contact Inquiries</h2>
@@ -186,7 +190,10 @@ export default async function AdminDashboardPage() {
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Web Traffic</h2>
-        <section className="admin-kpi-grid md:grid-cols-3 xl:grid-cols-5" aria-label="Web traffic metrics">
+        <section
+          className={`admin-kpi-grid md:grid-cols-3 ${academyAdminEnabled ? 'xl:grid-cols-5' : 'xl:grid-cols-2'}`}
+          aria-label="Web traffic metrics"
+        >
           <AdminKpiCard
             label="Total Web Traffic"
             value={totalTrackedTraffic.toLocaleString()}
@@ -197,21 +204,25 @@ export default async function AdminDashboardPage() {
             value={totalBlogViews.toLocaleString()}
             hint="Public journal article traffic"
           />
-          <AdminKpiCard
-            label="Academy Views"
-            value={totalGuideViews.toLocaleString()}
-            hint={guideAnalytics.storageReady ? 'Public learning-content traffic' : 'Academy analytics unavailable'}
-          />
-          <AdminKpiCard
-            label="Academy Actions"
-            value={guideAnalytics.summary.totalEngagement.toLocaleString()}
-            hint="Academy CTA and affiliate clicks"
-          />
-          <AdminKpiCard
-            label="Academy Conversions"
-            value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()}
-            hint="Consultation clicks from academy content"
-          />
+          {academyAdminEnabled ? (
+            <>
+              <AdminKpiCard
+                label="Academy Views"
+                value={totalGuideViews.toLocaleString()}
+                hint={guideAnalytics.storageReady ? 'Public learning-content traffic' : 'Academy analytics unavailable'}
+              />
+              <AdminKpiCard
+                label="Academy Actions"
+                value={guideAnalytics.summary.totalEngagement.toLocaleString()}
+                hint="Academy CTA and affiliate clicks"
+              />
+              <AdminKpiCard
+                label="Academy Conversions"
+                value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()}
+                hint="Consultation clicks from academy content"
+              />
+            </>
+          ) : null}
         </section>
         <div className="admin-stack gap-2">
           <p className="admin-body">
@@ -360,7 +371,9 @@ export default async function AdminDashboardPage() {
         <p className="admin-body">Learning content in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
         <div className="admin-stack gap-4">
           {ADMIN_NAV_GROUPS.map((group) => {
-            const links = group.links.filter((link) => !link.editorOnly || !readOnly);
+            const links = group.links.filter(
+              (link) => (!link.editorOnly || !readOnly) && (!link.academyOnly || academyAdminEnabled),
+            );
             if (links.length === 0) return null;
             return (
               <div key={group.title} className="admin-stack gap-2">

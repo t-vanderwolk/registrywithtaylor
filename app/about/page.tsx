@@ -50,7 +50,7 @@ export default function AboutPage() {
           eyebrow="Meet Taylor"
           title="A Baby Gear Expert for the Real-Life Details of Early Parenthood"
           subtitle="I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast."
-          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
+          primaryCta={{ label: 'Book a Registry Consult', href: '/consultation' }}
           image="/assets/hero/hero-05.jpg"
           imageAlt="Soft baby essentials arranged for planning"
           contentClassName="homepage-hero-content"

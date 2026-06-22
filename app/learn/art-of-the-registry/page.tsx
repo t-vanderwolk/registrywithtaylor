@@ -477,7 +477,7 @@ export default function ArtOfTheRegistryPage() {
               body="The full Taylor-Made Baby Academy walks you step by step through registry planning, nursery setup, gear decisions, and postpartum preparation."
               primaryLabel="Unlock the Complete Academy"
               primaryHref={null}
-              secondaryLabel="Book a Free Consultation"
+              secondaryLabel="Book a Registry Consult"
               secondaryHref="/consultation"
             />
           </div>

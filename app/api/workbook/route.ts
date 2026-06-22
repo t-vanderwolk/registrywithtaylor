@@ -2,11 +2,16 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 // ─── GET /api/workbook?path=&module= ─────────────────────────────────────────
 // Returns the saved note for this user × path × module, or null.
 
 export async function GET(req: Request) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ note: null }, { status: 200 });
@@ -38,6 +43,10 @@ export async function GET(req: Request) {
 // Upserts a ModuleNote for the logged-in user.
 
 export async function POST(req: Request) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Not authenticated.' }, { status: 401 });

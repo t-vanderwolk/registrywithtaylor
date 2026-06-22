@@ -2,7 +2,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import HomeEditorialBreak from '@/components/home/HomeEditorialBreak';
 import SiteShell from '@/components/SiteShell';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
-import ServiceCards from '@/components/marketing/ServiceCards';
+import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
 import MarketingSection from '@/components/layout/MarketingSection';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import TwoTierTestimonials from '@/components/marketing/TwoTierTestimonials';
@@ -10,12 +10,11 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
-import { servicePackages } from '@/lib/marketing/siteContent';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Baby Gear Advisory Services | Taylor-Made Baby Co.',
+  title: 'Registry Consult ($75) | Taylor-Made Baby Co.',
   description:
-    'Advisor-led baby gear and baby preparation services for registry planning, stroller and car seat decisions, nursery setup, and purchase timing.',
+    'Book a focused 45-minute virtual Registry Consult ($75) — expert help starting, editing, or making sense of your baby registry, from strollers and car seats to feeding, sleep, and nursery basics.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Taylor-Made Baby Co. advisory services.',
@@ -35,39 +34,6 @@ const engagementPrinciples = [
     description: 'You leave with a smarter shortlist, more confidence, and a better sense of what to buy now, later, or not at all.',
   },
 ] as const;
-
-const optionalAddOns = [
-  {
-    title: 'Nursery Layout Planning',
-    price: '$149',
-    description: 'Furniture placement, room flow, and sleep environment guidance.',
-  },
-  {
-    title: 'Registry Refresh',
-    price: '$149',
-    description: 'Review and refine your registry after your baby shower or later in pregnancy.',
-  },
-  {
-    title: 'Baby Gear Troubleshooting',
-    price: '$99',
-    description: 'Help with strollers, carriers, monitors, feeding gear, and everyday gear questions.',
-  },
-  {
-    title: 'Travel With Baby Planning',
-    price: '$99',
-    description: 'Guidance on travel strollers, car seats, and flying with an infant.',
-  },
-  {
-    title: 'Postpartum Preparation',
-    price: '$149',
-    description: 'Support planning feeding stations, recovery supplies, and home organization.',
-  },
-  {
-    title: 'Sibling and Animal Introduction Prep',
-    price: '$99',
-    description: 'Guidance for smoother introductions, safer transitions, and realistic prep before baby comes home.',
-  },
-];
 
 const servicesStrolleriaReviews = [
   {
@@ -114,24 +80,24 @@ const servicesAnonymousQuotes = [
 
 const serviceFaqs: FAQEntry[] = [
   {
-    question: 'Where should I start if I am not sure which package fits?',
+    question: 'What happens in a Registry Consult?',
     answer:
-      'Start with a consultation. That conversation helps Taylor understand your decision stage, the categories in play, and which level of support makes the most sense.',
+      'A focused 45-minute virtual session. We start, edit, or make sense of your registry together — narrowing the biggest product decisions and getting clear on what you actually need for the first few months. You leave with follow-up notes and your next best steps.',
   },
   {
-    question: 'What kinds of decisions can Taylor help with?',
+    question: 'What can Taylor help with in the session?',
     answer:
-      'Common topics include strollers, infant car seats, registry strategy, nursery setup, travel gear, and the timing of what to buy now versus later.',
+      'Starting a registry from scratch, reviewing one that suddenly feels too long, and narrowing down stroller, car seat, feeding, sleep, and nursery basics — plus avoiding duplicates, unnecessary products, and trendy-but-not-useful items.',
   },
   {
-    question: 'Do these services work virtually?',
+    question: 'Is this a full buildout or concierge package?',
     answer:
-      'Yes. The advisory model is designed to work virtually, with recommendations shaped around your real home, vehicle, and routine.',
+      'No — this is a focused entry session, not a full concierge package. We use the time to get clear on what matters most next. If you want longer-term support with your registry, nursery, gear decisions, or full baby planning, reach out through the contact form and Taylor will point you toward the right level of support.',
   },
   {
-    question: 'How is this different from generic consulting?',
+    question: 'Does the session work virtually?',
     answer:
-      'The service is positioned as advisor support: category expertise, recommendation logic, and lifestyle-fit guidance applied to the decisions that matter most.',
+      'Yes. It is built to work virtually, with guidance shaped around your real home, vehicle, and routine.',
   },
 ] as const;
 
@@ -144,12 +110,12 @@ export default function ServicesPage() {
 
         <Hero
           className="homepage-hero services-hero"
-          eyebrow="Advisory Services"
-          title="Premium Baby Gear Guidance, Built Around Real-Life Fit"
-          subtitle="Taylor-Made Baby Co. offers advisor-led support for registry strategy, stroller and car seat decisions, nursery setup, and the purchase timing that makes the whole process feel more manageable."
-          primaryCta={{ label: 'Book a Free Consultation', href: '/consultation' }}
-          secondaryCta={{ label: 'Explore the Academy', href: '/academy' }}
-          tagline="Registry Strategy • Strollers • Car Seats • Nursery Setup"
+          eyebrow="Introductory Registry Consults Now Open"
+          title="Registry Consult — $75"
+          subtitle="Bring me the registry chaos. I’ll help you find the first clear path through it — a focused, 45-minute virtual session for expecting parents starting, editing, or making sense of a baby registry."
+          primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
+          secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
+          tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"
           image="/assets/hero/hero-03.jpg"
           imageAlt="Baby registry and gear planning scene"
           contentClassName="homepage-hero-content services-hero-content"
@@ -157,41 +123,7 @@ export default function ServicesPage() {
           staggerContent
         />
 
-        <ServiceCards
-          packages={servicePackages}
-          eyebrow="Ways to work with Taylor"
-          title="Choose the level of advisor support that matches the decisions in front of you."
-          description="The packages are designed around how much judgment and planning support you want in the mix, from one focused decision to full baby-preparation guidance."
-          className="services-page-section"
-        />
-
-        <MarketingSection tone="ivory" spacing="spacious" className="services-page-section">
-          <SectionIntro
-            eyebrow="Optional Add-Ons"
-            title="Additional support for the preparation areas that need a little more attention."
-            description="These add-ons are available when you want help with one specific layer of planning without turning it into a larger engagement."
-            contentWidthClassName="max-w-4xl"
-          />
-
-          <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6">
-            {optionalAddOns.map((addOn) => (
-              <MarketingSurface
-                key={addOn.title}
-                className="h-full bg-[linear-gradient(180deg,#ffffff_0%,#fdf7f4_100%)]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-serif text-[1.4rem] leading-[1.1] tracking-[-0.03em] text-neutral-900">
-                    {addOn.title}
-                  </h3>
-                  <span className="shrink-0 font-[family-name:var(--font-accent)] text-[1.35rem] font-medium leading-none tracking-[-0.02em] text-[var(--color-accent-dark)]">
-                    {addOn.price}
-                  </span>
-                </div>
-                <p className="mt-3 max-w-none text-sm leading-7 text-neutral-700">{addOn.description}</p>
-              </MarketingSurface>
-            ))}
-          </div>
-        </MarketingSection>
+        <RegistryConsultOffer variant="full" className="services-page-section" />
 
         <HomeEditorialBreak
           imageSrc="/assets/editorial/nursery.jpg"

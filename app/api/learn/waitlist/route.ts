@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const prisma = require('@/lib/server/prisma').default as any;
 
 export async function POST(request: NextRequest) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   let body: { email?: string; name?: string; dueDate?: string; source?: string };
 
   try {

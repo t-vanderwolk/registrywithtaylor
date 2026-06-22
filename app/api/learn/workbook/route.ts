@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prismaBase from '@/lib/server/prisma';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 /**
  * The Prisma client type doesn't yet include WorkbookSession / WorkbookResponse
@@ -30,6 +31,10 @@ type WorkbookSaveBody = {
 // ─── POST /api/learn/workbook ─────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   let body: WorkbookSaveBody;
 
   try {
@@ -99,6 +104,10 @@ export async function POST(request: NextRequest) {
 // ─── GET /api/learn/workbook?pathSlug=&moduleSlug=&guestToken= ────────────────
 
 export async function GET(request: NextRequest) {
+  if (!isAcademyEnabled()) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   const { searchParams } = new URL(request.url);
   const pathSlug = searchParams.get('pathSlug');
   const moduleSlug = searchParams.get('moduleSlug');

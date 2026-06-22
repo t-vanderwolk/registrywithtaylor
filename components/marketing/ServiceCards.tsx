@@ -35,7 +35,7 @@ export default function ServiceCards({
   className = '',
   container = 'default',
   ctaHref = '/consultation',
-  ctaLabel = 'Book a Free Consultation',
+  ctaLabel = 'Book a Registry Consult',
 }: {
   packages: ServicePackage[];
   eyebrow?: string;

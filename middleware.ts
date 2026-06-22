@@ -1,6 +1,7 @@
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { isAcademyEnabled } from '@/lib/featureFlags';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -39,6 +40,19 @@ function isLearnGated(pathname: string): boolean {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // ── Academy temporarily disabled (launch phase) ────────────────────────────
+  // Redirect every Academy-facing route to the services page. All Academy code,
+  // routes, and data are preserved — re-enable via NEXT_PUBLIC_ACADEMY_ENABLED=true.
+  if (
+    !isAcademyEnabled() &&
+    (pathname === '/academy' ||
+      pathname.startsWith('/academy/') ||
+      pathname === '/learn' ||
+      pathname.startsWith('/learn/'))
+  ) {
+    return NextResponse.redirect(new URL('/services', req.url));
+  }
 
   // ── Registry API guard ────────────────────────────────────────────────────
   if (pathname.startsWith('/api/registry')) {
@@ -130,9 +144,12 @@ export const config = {
     '/dashboard/:path*',
     '/dashboard',
     '/dashboard/reviewer/:path*',
-    // Gate all /learn/* routes (the handler checks the public-path whitelist)
+    // Gate all /learn routes (handler checks the public-path whitelist; also the
+    // academy-disabled redirect needs the landing pages, hence the bare paths)
+    '/learn',
     '/learn/:path+',
-    // Gate all /academy/* routes — /academy itself (the landing page) is public
+    // Gate all /academy routes — landing + subpaths
+    '/academy',
     '/academy/:path+',
     // Registry API — also protected at the route level, but middleware adds
     // an early 401 layer so unauthenticated requests never reach the handler

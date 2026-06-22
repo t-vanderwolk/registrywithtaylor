@@ -132,7 +132,7 @@ export default function DailyUseGearCategoryPage({
                       </div>
                       <div className="rounded-[1.3rem] border border-[rgba(215,161,175,0.16)] bg-white/88 px-4 py-4">
                         <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#A15B72]">Next move</p>
-                        <p className="mt-2 text-base font-medium leading-7 text-[#2F2430]">{nextSteps[0]?.label ?? 'Book a Free Consultation'}</p>
+                        <p className="mt-2 text-base font-medium leading-7 text-[#2F2430]">{nextSteps[0]?.label ?? 'Book a Registry Consult'}</p>
                       </div>
                     </div>
                   </div>

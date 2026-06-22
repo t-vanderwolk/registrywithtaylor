@@ -2947,7 +2947,7 @@ export default function GuideEditor({
                     'debounced',
                   )
                 }
-                placeholder="Book a Free Consultation"
+                placeholder="Book a Registry Consult"
               />
             </AdminField>
           ) : null}

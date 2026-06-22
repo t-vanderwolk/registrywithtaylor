@@ -15,7 +15,7 @@ export type GuidePillar = {
 };
 
 export type ServicePackage = {
-  key: 'focused-session' | 'signature-planning' | 'concierge-support';
+  key: string;
   eyebrow: string;
   title: string;
   /** Display price, e.g. "$199" */
@@ -235,71 +235,80 @@ export const advisorExpertisePoints = [
   'Nursery setup that works when life gets messy and sleep gets thin',
 ] as const;
 
+export type RegistryConsultContent = {
+  /** Launch banner / eyebrow, e.g. "Introductory Registry Consults Now Open" */
+  banner: string;
+  title: string;
+  /** Display price, e.g. "$75" */
+  price: string;
+  /** Format line, e.g. "45-minute virtual session" */
+  format: string;
+  tagline: string;
+  intro: string;
+  includes: string[];
+  bestFor: string[];
+  scopeNote: string;
+  notIncluded: string[];
+  longerTermNote: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta: { label: string; href: string };
+};
+
+// Launch-phase public offer: a single, focused paid session. This is the source
+// of truth for the homepage + services single-offer section. Old packages
+// (Focused / Signature / Concierge) are intentionally retired from public view
+// for the simplified launch and can return later.
+export const registryConsult: RegistryConsultContent = {
+  banner: 'Introductory Registry Consults Now Open',
+  title: 'Registry Consult',
+  price: '$75',
+  format: '45-minute virtual session',
+  tagline: 'Expert help for the part of baby prep where the internet starts yelling.',
+  intro:
+    'Whether you’re building from scratch, staring at a registry that suddenly feels way too long, or trying to figure out what you actually need for the first few months, this session is designed to give you a clear next step.',
+  includes: [
+    '45-minute virtual session',
+    'Personalized registry guidance',
+    'Help narrowing down the biggest product decisions',
+    'Follow-up notes with your next best steps',
+  ],
+  bestFor: [
+    'Starting a registry with confidence',
+    'Reviewing what’s already on a registry',
+    'Narrowing down stroller, car seat, feeding, sleep, and nursery basics',
+    'Avoiding duplicates, unnecessary products, and trendy-but-not-useful items',
+    'Understanding what you actually need for the first few months',
+  ],
+  scopeNote:
+    'This is a focused session, not a full concierge package. We’ll use the time to get clear on what matters most next.',
+  notIncluded: [
+    'Full registry buildout',
+    'Full nursery layout planning',
+    'Full stroller and car seat deep dive',
+    'Travel planning',
+    'Concierge or unlimited follow-up support',
+  ],
+  longerTermNote:
+    'Looking for more long-term support with your registry, nursery, stroller and car seat decisions, or full baby planning? Reach out through the contact form and I’ll help point you toward the right level of support.',
+  primaryCta: { label: 'Book a Registry Consult', href: '/book' },
+  secondaryCta: { label: 'Looking for longer-term support? Contact Taylor', href: '/contact' },
+};
+
+// Single-offer array kept for any ServiceCards-shaped consumer.
 export const servicePackages: ServicePackage[] = [
   {
-    key: 'focused-session',
-    eyebrow: 'One Decision',
-    title: 'Focused Session',
-    price: '$199',
+    key: 'registry-consult',
+    eyebrow: 'Introductory Offer',
+    title: registryConsult.title,
+    price: registryConsult.price,
     meetings: '1 session',
-    sessionLength: '90 min',
-    summary: 'A strategic session for one registry or gear decision that needs expert clarity now.',
-    description:
-      'Ideal for parents narrowing down a stroller, comparing infant car seats, cleaning up a registry category, or deciding what actually belongs on the list.',
-    bestFor: 'Families who want Taylor\'s judgment on one high-stakes decision.',
-    bullets: [
-      'One focused baby gear or planning topic',
-      'Expert shortlist and recommendation logic',
-      'Clear buy-now, skip, or wait guidance',
-      'Written summary with shortlist and recommendations',
-      'Free newborn sleep consultation with Tiny Toes Newborn',
-      'Full Academy access included ($97 value)',
-    ],
-  },
-  {
-    key: 'signature-planning',
-    eyebrow: 'Full Baby Prep',
-    title: 'Signature Package',
-    price: '$797',
-    meetings: '3 sessions',
-    sessionLength: '90 min each',
-    summary: 'A guided baby-preparation plan across registry, gear, nursery, and purchase timing.',
-    description:
-      'This package is for families who want a calm framework for the full prep picture, not just one answer in isolation.',
-    bestFor: 'First-time parents or anyone who wants a more structured plan from the start.',
-    bullets: [
-      'Registry strategy and category priorities',
-      'Stroller and car seat recommendations',
-      'Nursery planning and home-readiness guidance',
-      'A smarter purchasing timeline',
-      'Car seat check through Lani Car Seats',
-      'Complimentary childproofing quote from AZ Childproofers',
-      'Free newborn sleep consultation with Tiny Toes Newborn',
-      'Written plan included after each session',
-      'Full Academy access included ($97 value)',
-    ],
+    sessionLength: '45 min virtual',
+    summary:
+      'A focused, expert-led registry session for expecting parents who want help starting, editing, or making sense of their baby registry.',
+    description: registryConsult.intro,
+    bestFor: 'Expecting parents starting, editing, or making sense of a baby registry.',
+    bullets: [...registryConsult.includes],
     featured: true,
-  },
-  {
-    key: 'concierge-support',
-    eyebrow: 'Ongoing Advisor Access',
-    title: 'Private Concierge',
-    price: '$1,997',
-    priceNote: 'Starting at',
-    meetings: 'Monthly sessions',
-    sessionLength: '90 min each',
-    summary: 'Premium ongoing guidance for families who want Taylor in the mix as decisions keep moving.',
-    description:
-      'Designed for families who want expert eyes on evolving short lists, store prep, product comparisons, and next-step decisions over time.',
-    bestFor: 'Families who want an advisor relationship, not just a one-time consult.',
-    bullets: [
-      'Everything included in the Signature Package',
-      'Ongoing baby gear and registry guidance',
-      'Support as priorities and questions evolve',
-      'Store-visit prep and follow-up decision help',
-      'Free newborn sleep consultation with Tiny Toes Newborn',
-      'Full Academy access included ($97 value)',
-    ],
   },
 ];
 

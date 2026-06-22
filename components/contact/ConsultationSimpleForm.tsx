@@ -154,7 +154,7 @@ export default function ConsultationSimpleForm() {
         className="btn btn--primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-60"
       >
         <MotionCtaContent>
-          {submitState === 'submitting' ? 'Sending…' : 'Request a Free Consultation'}
+          {submitState === 'submitting' ? 'Sending…' : 'Request a Registry Consult'}
         </MotionCtaContent>
       </button>
 

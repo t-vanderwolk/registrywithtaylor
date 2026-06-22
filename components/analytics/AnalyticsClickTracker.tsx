@@ -70,7 +70,7 @@ export default function AnalyticsClickTracker() {
         ...context,
         category: 'conversion',
         label: sourceLabel,
-        ctaLabel: linkText ?? 'Book a Free Consultation',
+        ctaLabel: linkText ?? 'Book a Registry Consult',
         destination: destinationPath,
         destinationPageType: 'book',
       });
