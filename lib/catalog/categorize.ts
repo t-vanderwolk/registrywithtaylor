@@ -62,12 +62,24 @@ const RULES: Rule[] = [
   // rules so a double jogger doesn't read as a single jogger, etc.
   { re: /\bduallie\b|(?=[\s\S]*\b(?:double|twin)\b)(?=[\s\S]*(?:\bjogging|\ball.?terrain|\boff.?road))/, category: 'Strollers', productType: 'double jogging stroller', conf: 0.8, strong: true },
   { re: /(?=[\s\S]*\b(?:double|twin)\b)(?=[\s\S]*\btravel\b)/, category: 'Strollers', productType: 'double travel stroller', conf: 0.7 },
+  // Compacts and single-to-doubles are all filed by Babylist under "full size
+  // strollers", so pull the well-known models out by name before the full-size
+  // path rule. (These run after the double rules so "<model> Double" still reads
+  // as a double.)
+  { re: /\b(?:donkey|gazelle|demi)\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.85, strong: true },
+  { re: /\b(?:cruz|minu|mios|dragonfly|triv|eezy|beezy|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
+  // Clean + classify the "wagons & bikes & accessories" feed path before the
+  // generic rules: trikes/bikes aren't strollers; wagon add-ons aren't browsable
+  // wagons; real wagons (incl. "… Double Stroller Wagon") are caught here so they
+  // don't fall through to the double rule below.
+  { re: /\b(?:trike|tricycle|balance bike|push bike|scooter)\b/, category: 'Toys & Development', productType: 'ride-on', conf: 0.8 },
+  { re: /\b(?:wheel kit|comfort seat|nap system|retractable canopy|storage basket|beach wheel|snack tray)\b/, category: 'Travel Systems & Adapters', productType: 'stroller accessory', conf: 0.75 },
+  { re: /\bwagons?\b/, category: 'Strollers', productType: 'wagon' },
   { re: /\bfull.?size strollers?\b/, category: 'Strollers', productType: 'full-size stroller' },
   { re: /\b(jogging|jogger) strollers?\b/, category: 'Strollers', productType: 'jogging stroller' },
   { re: /\b(travel|lightweight|compact) strollers?\b/, category: 'Strollers', productType: 'travel stroller' },
   { re: /\b(double|tandem) strollers?|sit.?and.?stand\b/, category: 'Strollers', productType: 'double stroller' },
   { re: /\bsingle.?to.?double|convertible strollers?\b/, category: 'Strollers', productType: 'single-to-double stroller' },
-  { re: /\bwagons?\b/, category: 'Strollers', productType: 'wagon' },
   { re: /\bstroller (accessor|board|organizer|cup ?holder|tray|footmuff|liner|parasol|snack|hook)/, category: 'Travel Systems & Adapters', productType: 'stroller accessory' },
   { re: /\b(additional|second) seats?|stroller bassinet\b/, category: 'Strollers', productType: 'second seat' },
   { re: /\bstrollers?\b/, category: 'Strollers', productType: 'full-size stroller', conf: 0.6 },
