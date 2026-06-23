@@ -38,8 +38,22 @@ function isLearnGated(pathname: string): boolean {
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 
+// Retired preview lessons now live as Journal pillar posts. Permanent-redirect
+// the old paths so links and SEO carry over to the new posts.
+const LESSON_TO_POST: Record<string, string> = {
+  '/learn/art-of-the-registry': '/blog/the-art-of-the-registry',
+  '/learn/nursery-foundations': '/blog/nursery-foundations',
+  '/learn/stroller-foundations': '/blog/the-stroller-equation',
+};
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // ── Retired preview lessons → Journal pillar posts (permanent) ─────────────
+  const retiredTarget = LESSON_TO_POST[pathname];
+  if (retiredTarget) {
+    return NextResponse.redirect(new URL(retiredTarget, req.url), 308);
+  }
 
   // ── Academy in launch-phase hidden state ───────────────────────────────────
   // Academy is hidden from the public, with two exceptions:
