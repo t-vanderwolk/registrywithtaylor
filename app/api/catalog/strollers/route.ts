@@ -19,8 +19,8 @@ const TYPE_ORDER: StrollerCategory[] = [
   'double-travel',
   'double-jogging',
   'jogging',
-  'wagon',
   'umbrella',
+  'wagon',
 ];
 
 type CatalogProductRow = {
@@ -76,6 +76,7 @@ export async function GET() {
 
   const byBrand = new Map<string, Map<StrollerCategory, FinderProduct[]>>();
   const seenGroups = new Set<string>();
+  const seenModels = new Set<string>();
 
   for (const r of rows) {
     const category = strollerCategoryFromProductType(r.enrichment?.productType);
@@ -86,12 +87,19 @@ export async function GET() {
       seenGroups.add(r.itemGroupId);
     }
     const brand = (r.brand || 'Other').trim();
+    const model = parseStrollerModel(r.title, brand);
+    // Drop any remaining duplicate models (same brand+model under another group).
+    const modelKey = `${brand}|${model}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');
+    if (model) {
+      if (seenModels.has(modelKey)) continue;
+      seenModels.add(modelKey);
+    }
     if (!byBrand.has(brand)) byBrand.set(brand, new Map());
     const byCat = byBrand.get(brand)!;
     if (!byCat.has(category)) byCat.set(category, []);
     byCat.get(category)!.push({
       name: r.title,
-      model: parseStrollerModel(r.title, brand),
+      model,
       price: r.price,
       image: r.imageUrl,
       affiliateUrl: r.affiliateUrl,

@@ -21,8 +21,8 @@ const CATEGORY_ORDER = [
   'double-travel',
   'double-jogging',
   'jogging',
-  'wagon',
   'umbrella',
+  'wagon',
 ];
 
 type FinderProduct = {

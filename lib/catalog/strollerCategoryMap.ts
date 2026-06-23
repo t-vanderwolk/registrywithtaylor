@@ -12,6 +12,8 @@ const PRODUCT_TYPE_TO_CATEGORY: Record<string, StrollerCategory> = {
   'travel stroller': 'travel',
   'jogging stroller': 'jogging',
   'double stroller': 'double',
+  'double jogging stroller': 'double-jogging',
+  'double travel stroller': 'double-travel',
   'single-to-double stroller': 'convertible-modular',
   wagon: 'wagon',
   'umbrella stroller': 'umbrella',

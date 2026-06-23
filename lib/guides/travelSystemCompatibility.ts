@@ -18,12 +18,12 @@ export type StrollerCategory =
   | 'umbrella';
 
 export const STROLLER_CATEGORY_LABELS: Record<StrollerCategory, string> = {
-  'full-size': 'Full Size / Modular',
-  'full-size-non-modular': 'Full Size (Non-Modular)',
+  'full-size': 'Full-Size',
+  'full-size-non-modular': 'Full-Size',
   'compact': 'Compact / Mid-Size',
   'travel': 'Travel',
   'convertible-modular': 'Single-to-Double (Modular)',
-  'convertible-non-modular': 'Single-to-Double (Non-Modular)',
+  'convertible-non-modular': 'Single-to-Double (Convertible)',
   'double': 'Double',
   'double-travel': 'Double Travel',
   'double-jogging': 'Double Jogger',

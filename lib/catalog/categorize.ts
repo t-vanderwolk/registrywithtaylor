@@ -58,6 +58,10 @@ const RULES: Rule[] = [
   { re: /\bvista\b[\s\S]*full.?size|full.?size[\s\S]*\bvista\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.9, strong: true },
   { re: /joolz hub\S{0,2}\s+stroller/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
   { re: /\bumbrella strollers?\b|g-?lux|g-?lite|\bmaclaren\b|3dlite|\bliteway\b/, category: 'Strollers', productType: 'umbrella stroller', conf: 0.7 },
+  // Double sub-types — must come before the generic double / jogging / travel
+  // rules so a double jogger doesn't read as a single jogger, etc.
+  { re: /\bduallie\b|(?=[\s\S]*\b(?:double|twin)\b)(?=[\s\S]*(?:\bjogging|\ball.?terrain|\boff.?road))/, category: 'Strollers', productType: 'double jogging stroller', conf: 0.8, strong: true },
+  { re: /(?=[\s\S]*\b(?:double|twin)\b)(?=[\s\S]*\btravel\b)/, category: 'Strollers', productType: 'double travel stroller', conf: 0.7 },
   { re: /\bfull.?size strollers?\b/, category: 'Strollers', productType: 'full-size stroller' },
   { re: /\b(jogging|jogger) strollers?\b/, category: 'Strollers', productType: 'jogging stroller' },
   { re: /\b(travel|lightweight|compact) strollers?\b/, category: 'Strollers', productType: 'travel stroller' },
