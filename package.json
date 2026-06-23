@@ -28,6 +28,8 @@
     "seed:pillar-blogs": "tsx scripts/seedPillarBlogPosts.ts",
     "blog:cleanup": "tsx scripts/cleanupBlogPosts.ts",
     "blog:cleanup-dry": "tsx scripts/cleanupBlogPosts.ts --dry-run",
+    "catalog:dedup": "tsx scripts/cleanupUnmatchedDuplicates.ts",
+    "catalog:dedup-apply": "tsx scripts/cleanupUnmatchedDuplicates.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",

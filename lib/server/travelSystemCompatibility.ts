@@ -420,6 +420,67 @@ export async function getTravelSystemCarSeats() {
   }
 }
 
+// ─── Adapter product enrichment (from the affiliate catalog) ────────────────
+// Explicit Compatibility rows can carry a synced adapter (image/url/price), but
+// most adapter-required matches are inferred and have only a descriptive name.
+// Fill the image + Babylist link from the catalog so the checker shows the
+// actual adapter to buy. Affiliate URLs are used exactly as stored.
+
+type CatalogAdapter = { title: string; imageUrl: string | null; affiliateUrl: string | null; price: number | null };
+
+async function getAdaptersForStrollerBrand(brand: string): Promise<CatalogAdapter[]> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const rows: CatalogAdapter[] = await db.affiliateCatalogProduct.findMany({
+      where: {
+        isActiveInFeed: true,
+        brand: { equals: brand.trim(), mode: 'insensitive' },
+        enrichment: { is: { tmbcCategory: 'Travel Systems & Adapters', reviewStatus: { not: 'HIDDEN' } } },
+      },
+      select: { title: true, imageUrl: true, affiliateUrl: true, price: true },
+      take: 60,
+    });
+    return rows.filter((r) => /adapter/i.test(r.title || ''));
+  } catch {
+    return [];
+  }
+}
+
+function pickAdapter(adapters: CatalogAdapter[], carSeatBrand: string): CatalogAdapter | null {
+  if (adapters.length === 0) return null;
+  const cs = carSeatBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const mentionsSeat = adapters.find((a) => a.title.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cs));
+  if (mentionsSeat) return mentionsSeat;
+  const carSeatAdapter = adapters.find((a) => /car ?seat|infant/i.test(a.title));
+  return carSeatAdapter ?? adapters[0];
+}
+
+/** Fill missing adapter image/link/price on adapter-required rows from the
+ *  catalog, keyed on the stroller brand (cached) and the car-seat brand. */
+async function fillAdapterProducts<
+  T extends {
+    adapterRequired: boolean;
+    adapterImage?: string | null;
+    adapterUrl?: string | null;
+    adapterPrice?: number | null;
+  },
+>(rows: T[], strollerBrandOf: (row: T) => string, carSeatBrandOf: (row: T) => string): Promise<void> {
+  const cache = new Map<string, CatalogAdapter[]>();
+  for (const row of rows) {
+    if (!row.adapterRequired || row.adapterUrl || row.adapterImage) continue;
+    const sBrand = strollerBrandOf(row);
+    const key = sBrand.toLowerCase().trim();
+    if (!cache.has(key)) cache.set(key, await getAdaptersForStrollerBrand(sBrand));
+    const adapter = pickAdapter(cache.get(key)!, carSeatBrandOf(row));
+    if (adapter) {
+      row.adapterImage = adapter.imageUrl ?? row.adapterImage ?? null;
+      row.adapterUrl = adapter.affiliateUrl ?? row.adapterUrl ?? null;
+      row.adapterPrice = adapter.price ?? row.adapterPrice ?? null;
+    }
+  }
+}
+
 export async function getTravelSystemCompatibility(
   strollerBrand: string,
   strollerModel: string,
@@ -566,6 +627,9 @@ export async function getTravelSystemCompatibility(
     .filter((row) => row.compatibilityType !== 'INCOMPATIBLE')
     .sort(compareCompatibleCarSeats);
 
+  // Stroller-first: the adapter is the selected stroller's; the car seat varies.
+  await fillAdapterProducts(compatibleCarSeats, () => stroller.brand, (row) => row.brand);
+
   return {
     stroller: {
       brand: stroller.brand,
@@ -695,6 +759,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
   ]
     .filter((row) => row.compatibilityType !== 'INCOMPATIBLE')
     .sort(compareCompatibleStrollers);
+
+  // Car-seat-first: the adapter is each matched stroller's; the car seat is fixed.
+  await fillAdapterProducts(compatibleStrollers, (row) => row.brand, () => carSeat.brand);
 
   return {
     carSeat: {
