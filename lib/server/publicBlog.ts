@@ -288,7 +288,8 @@ export async function getPublicBlogIndexPosts(now: Date = new Date()): Promise<P
   try {
     const posts = await prisma.post.findMany({
       where: getPublicPostWhere(now),
-      orderBy: [{ publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
+      // Popularity order: most-viewed first, with recency as the tiebreaker.
+      orderBy: [{ views: 'desc' }, { publishedAt: 'desc' }, { scheduledFor: 'desc' }, { createdAt: 'desc' }],
       select: publicBlogIndexSelect,
     });
 
