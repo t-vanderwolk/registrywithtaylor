@@ -31,7 +31,12 @@ const consultationFaqs: FAQEntry[] = [
   {
     question: 'What is the Registry Consult?',
     answer:
-      'A focused 45-minute virtual session for expecting parents who want help starting, editing, or making sense of their baby registry. It is $75, and you leave with personalized guidance and follow-up notes on your next best steps.',
+      'A focused 1-hour virtual session for expecting parents who want help starting, editing, or making sense of their baby registry. It is $75, and you leave with personalized guidance and follow-up notes on your next best steps.',
+  },
+  {
+    question: 'Do you offer a free discovery call?',
+    answer:
+      'Not for the $75 Registry Consult. If you’re looking for more involved support, reach out through the contact form and Taylor will follow up with next steps if it sounds like a fit.',
   },
   {
     question: 'What happens during the session?',
@@ -58,7 +63,7 @@ const servicesFaqs: FAQEntry[] = [
   {
     question: 'How much is the Registry Consult, and how long is it?',
     answer:
-      'The Registry Consult is $75 for a focused 45-minute virtual session. It is the one paid service offered right now — a simple, expert-led way to get unstuck on your registry.',
+      'The Registry Consult is $75 for a focused 1-hour virtual session. It is the one paid service offered right now — a simple, expert-led way to get unstuck on your registry.',
   },
   {
     question: 'What can Taylor help with in the session?',
@@ -79,14 +84,14 @@ const servicesFaqs: FAQEntry[] = [
 
 const carSeatFaqs: FAQEntry[] = [
   {
-    question: 'What is a CPST?',
+    question: 'Do you help with car seats?',
     answer:
-      'A Certified Passenger Safety Technician (CPST) is a nationally certified specialist trained in the correct installation and use of child safety seats. Taylor holds this certification, which means car seat guidance at Taylor-Made Baby Co. is grounded in real safety training — not just product preference.',
+      'Yes — Taylor can help with car seat selection, stroller compatibility, and what to consider before installation. For hands-on installation or safety checks, she can refer you to CPST-certified professionals when needed.',
   },
   {
-    question: 'Can Taylor help me choose and install a car seat?',
+    question: 'What is a CPST?',
     answer:
-      'Yes. Car seat selection and comparison can be part of your Registry Consult, and Taylor partners with Lani Car Seats (a CPST service) for hands-on installation and safety checks. For deeper car seat support, reach out through the contact form.',
+      'A Certified Passenger Safety Technician (CPST) is a nationally certified specialist trained in the correct installation and use of child safety seats. For hands-on installation or a safety check, Taylor can point you toward a CPST-certified professional.',
   },
 ];
 

@@ -55,9 +55,9 @@ const advisorFocusAreas: AdvisorFocusItem[] = [
     iconClassName: 'max-h-[9.25rem] sm:max-h-[9.8rem]',
   },
   {
-    title: 'CPST car seat checks and installs',
+    title: 'Car seat selection & compatibility',
     iconSrc: '/assets/icons/cpst.png',
-    iconAlt: 'CPST car seat checks and installs illustration',
+    iconAlt: 'Car seat selection and compatibility illustration',
     width: 264,
     height: 202,
     iconClassName: 'max-h-[8.9rem] sm:max-h-[9.4rem]',
@@ -190,7 +190,7 @@ const howItWorks = [
   },
   {
     step: 'Step 3',
-    title: '45-minute session',
+    title: '1-hour session',
     description: 'We talk through your registry, narrow the biggest product decisions, and get clear on what you actually need first.',
   },
   {

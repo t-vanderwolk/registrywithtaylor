@@ -14,7 +14,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'Registry Consult ($75) | Taylor-Made Baby Co.',
   description:
-    'Book a focused 45-minute virtual Registry Consult ($75) — expert help starting, editing, or making sense of your baby registry, from strollers and car seats to feeding, sleep, and nursery basics.',
+    'Book a focused 1-hour virtual Registry Consult ($75) — expert help starting, editing, or making sense of your baby registry, from strollers and car seats to feeding, sleep, and nursery basics.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Taylor-Made Baby Co. advisory services.',
@@ -82,7 +82,7 @@ const serviceFaqs: FAQEntry[] = [
   {
     question: 'What happens in a Registry Consult?',
     answer:
-      'A focused 45-minute virtual session. We start, edit, or make sense of your registry together — narrowing the biggest product decisions and getting clear on what you actually need for the first few months. You leave with follow-up notes and your next best steps.',
+      'A focused 1-hour virtual session. We start, edit, or make sense of your registry together — narrowing the biggest product decisions and getting clear on what you actually need for the first few months. You leave with follow-up notes and your next best steps.',
   },
   {
     question: 'What can Taylor help with in the session?',
@@ -112,7 +112,7 @@ export default function ServicesPage() {
           className="homepage-hero services-hero"
           eyebrow="Introductory Registry Consults Now Open · $75"
           title="Let’s make sense of your registry"
-          subtitle="Bring me the registry chaos and I’ll help you find the first clear path through it — a focused, 45-minute virtual Registry Consult ($75) for expecting parents starting, editing, or making sense of a baby registry."
+          subtitle="Bring me the registry chaos and I’ll help you find the first clear path through it — a focused, 1-hour virtual Registry Consult ($75) for expecting parents starting, editing, or making sense of a baby registry."
           primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
           secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
           tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"

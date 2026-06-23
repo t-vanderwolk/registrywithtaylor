@@ -241,7 +241,7 @@ export type RegistryConsultContent = {
   title: string;
   /** Display price, e.g. "$75" */
   price: string;
-  /** Format line, e.g. "45-minute virtual session" */
+  /** Format line, e.g. "1-hour virtual session" */
   format: string;
   tagline: string;
   intro: string;
@@ -262,12 +262,12 @@ export const registryConsult: RegistryConsultContent = {
   banner: 'Introductory Registry Consults Now Open',
   title: 'Registry Consult',
   price: '$75',
-  format: '45-minute virtual session',
+  format: '1-hour virtual session',
   tagline: 'Expert help for the part of baby prep where the internet starts yelling.',
   intro:
     'Whether you’re building from scratch, staring at a registry that suddenly feels way too long, or trying to figure out what you actually need for the first few months, this session is designed to give you a clear next step.',
   includes: [
-    '45-minute virtual session',
+    '1-hour virtual session',
     'Personalized registry guidance',
     'Help narrowing down the biggest product decisions',
     'Follow-up notes with your next best steps',
@@ -302,7 +302,7 @@ export const servicePackages: ServicePackage[] = [
     title: registryConsult.title,
     price: registryConsult.price,
     meetings: '1 session',
-    sessionLength: '45 min virtual',
+    sessionLength: '1 hour virtual',
     summary:
       'A focused, expert-led registry session for expecting parents who want help starting, editing, or making sense of their baby registry.',
     description: registryConsult.intro,

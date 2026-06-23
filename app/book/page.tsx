@@ -6,7 +6,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'Book Your Registry Consult — Taylor-Made Baby Co.',
   description:
-    'Pick a time that works for you. Your 45-minute Registry Consult with Taylor is just one step away.',
+    'Pick a time that works for you. Your 1-hour Registry Consult with Taylor is just one step away.',
   path: '/book',
   imagePath: '/assets/hero/hero-06.jpg',
   imageAlt: 'Schedule a consultation with Taylor-Made Baby Co.',

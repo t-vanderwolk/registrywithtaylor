@@ -21,7 +21,7 @@ export const metadata = buildMarketingMetadata({
 const serviceConfig = {
   'focused-edit': {
     label: 'Registry Consult',
-    intro: 'A focused 45-minute session on your registry and the biggest product decisions.',
+    intro: 'A focused 1-hour session on your registry and the biggest product decisions.',
     fields: ['registryLink', 'dueDate', 'topConcerns'],
   },
   'signature-plan': {
@@ -62,8 +62,8 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         <Hero
           className="homepage-hero"
           eyebrow="Contact"
-          title="Get in Touch"
-          subtitle="For general inquiries, questions, and partnership opportunities. This form is for general contact — not for booking sessions."
+          title="Contact Taylor"
+          subtitle="Have a question, partnership idea, or need more support than a single Registry Consult? Send a note here."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact consultation workspace"
           contentClassName="homepage-hero-content"
@@ -79,6 +79,18 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                 <Link href="/book" className="link-underline font-medium text-[var(--color-accent-dark)]">
                   Start here →
                 </Link>
+              </p>
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll>
+            <div className="mx-auto mb-8 max-w-2xl rounded-[1.45rem] border border-[rgba(0,0,0,0.07)] bg-white/85 px-6 py-5 shadow-[0_8px_24px_rgba(72,49,56,0.04)]">
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/80">
+                Looking for more than one session?
+              </p>
+              <p className="mt-2 text-[0.97rem] leading-7 text-neutral-700">
+                If you’re looking for more ongoing support with your registry, nursery, stroller and car
+                seat decisions, or full baby planning, use this form and Taylor will help point you toward
+                the right level of support.
               </p>
             </div>
           </RevealOnScroll>
