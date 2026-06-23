@@ -19,6 +19,13 @@ const navLinks: NavLink[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
+// Active free tools shown in the Resources dropdown.
+const resourceTools: NavLink[] = [
+  { label: 'Stroller Quiz', href: '/tools/stroller-quiz' },
+  { label: 'Stroller Finder', href: '/tools/stroller-finder' },
+  { label: 'Travel System Tool', href: '/tools/travel-system' },
+];
+
 type HeaderProps = {
   currentPath: string;
 };
@@ -113,6 +120,33 @@ export default function Header({ currentPath }: HeaderProps) {
 
           <nav className="hidden items-center gap-7 lg:gap-8 md:flex" aria-label="Primary navigation">
             {navLinks.map((link) => {
+              if (link.href === '/resources') {
+                return (
+                  <div key={link.href} className="group relative">
+                    <Link
+                      href="/resources"
+                      aria-current={isActiveLink('/resources') ? 'page' : undefined}
+                      className={`${getLinkClassName('/resources')} inline-flex items-center gap-1`}
+                    >
+                      {link.label}
+                      <span aria-hidden className="text-[0.6rem] transition group-hover:translate-y-0.5">▾</span>
+                    </Link>
+                    <div className="invisible absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                      <div className="rounded-[1rem] border border-[rgba(215,161,175,0.22)] bg-white p-2 shadow-[0_18px_40px_rgba(41,30,35,0.12)]">
+                        {resourceTools.map((tool) => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            className="block rounded-[0.65rem] px-3 py-2.5 text-[0.78rem] tracking-[0.04em] text-charcoal/80 transition hover:bg-[rgba(243,226,232,0.6)] hover:text-charcoal"
+                          >
+                            {tool.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={link.href}
@@ -192,18 +226,45 @@ export default function Header({ currentPath }: HeaderProps) {
             className="flex flex-col gap-1.5 overflow-y-auto px-4 py-4 sm:px-6"
             aria-label="Mobile navigation"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={isActiveLink(link.href) ? 'page' : undefined}
-                className={getLinkClassName(link.href, true)}
-                tabIndex={open ? 0 : -1}
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.href === '/resources' ? (
+                <div key={link.href}>
+                  <Link
+                    href="/resources"
+                    aria-current={isActiveLink('/resources') ? 'page' : undefined}
+                    className={getLinkClassName('/resources', true)}
+                    tabIndex={open ? 0 : -1}
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                  <div className="ml-3 mt-1 flex flex-col gap-1 border-l border-black/10 pl-3">
+                    {resourceTools.map((tool) => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        className="inline-flex min-h-[40px] items-center text-[0.85rem] tracking-[0.08em] text-charcoal/65 transition-colors hover:text-charcoal"
+                        tabIndex={open ? 0 : -1}
+                        onClick={() => setOpen(false)}
+                      >
+                        {tool.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActiveLink(link.href) ? 'page' : undefined}
+                  className={getLinkClassName(link.href, true)}
+                  tabIndex={open ? 0 : -1}
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
 
             {session ? (
               <>

@@ -25,6 +25,7 @@
     "seo:internal-link-map": "tsx scripts/generateInternalLinkMap.ts",
     "sync:published-blog-posts-from-production": "tsx scripts/syncPublishedBlogPostsFromProduction.ts",
     "seed:draft-posts": "tsx scripts/seedDraftBlogPosts.ts",
+    "seed:pillar-blogs": "tsx scripts/seedPillarBlogPosts.ts",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
