@@ -33,6 +33,8 @@
     "catalog:prune": "tsx scripts/pruneCatalog.ts",
     "catalog:prune-hide": "tsx scripts/pruneCatalog.ts --hide",
     "catalog:prune-delete": "tsx scripts/pruneCatalog.ts --delete",
+    "catalog:hide-cots": "tsx scripts/hideCotsBassinets.ts",
+    "catalog:hide-cots-apply": "tsx scripts/hideCotsBassinets.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
