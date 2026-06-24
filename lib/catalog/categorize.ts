@@ -66,8 +66,11 @@ const RULES: Rule[] = [
   // strollers", so pull the well-known models out by name before the full-size
   // path rule. (These run after the double rules so "<model> Double" still reads
   // as a double.)
-  { re: /\b(?:donkey|gazelle|demi)\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.85, strong: true },
-  { re: /\b(?:cruz|minu|mios|dragonfly|triv|eezy|beezy|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
+  { re: /\b(?:donkey|e-?gazelle|gazelle|demi)\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.85, strong: true },
+  // Cybex travel-class strollers (Coya, Libelle, Beezy, Eezy) — pulled out before
+  // the compact + full-size rules so they land in Travel.
+  { re: /\b(?:coya|libelle|beezy|eezy)\b/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
+  { re: /\b(?:cruz|minu|mios|dragonfly|triv|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
   // Clean + classify the "wagons & bikes & accessories" feed path before the
   // generic rules: trikes/bikes aren't strollers; wagon add-ons aren't browsable
   // wagons; real wagons (incl. "… Double Stroller Wagon") are caught here so they

@@ -11,5 +11,6 @@ export function parseStrollerModel(title: string, brand: string): string {
   m = m.replace(/\bstrollers?\b.*$/i, ''); // drop "Stroller…" and everything after
   m = m.replace(/\s+in\s+[^,]+$/i, ''); // drop trailing " in <colour>"
   m = m.replace(/[–—-]\s*$/g, ''); // trailing dash
+  m = m.replace(/\belectronic assist\b/i, ''); // "eGazelle S Electronic Assist" → "eGazelle S"
   return m.replace(/\s{2,}/g, ' ').trim();
 }
