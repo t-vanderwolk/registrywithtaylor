@@ -36,6 +36,7 @@ const BRAND_LOGOS: Record<string, string> = {
   Nuna: '/assets/logos/nuna.png',
   'Orbit Baby': '/assets/logos/orbitbaby.png',
   'Peg Perego': '/assets/logos/peg.png',
+  'Radio Flyer': '/assets/logos/radioflyer.png',
   Romer: '/assets/logos/romer.png',
   'Safety 1st': '/assets/logos/safetyfirst.png',
   'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',

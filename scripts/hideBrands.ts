@@ -18,6 +18,7 @@ const db = prismaBase as any;
 const BRANDS = [
   'BEIS Travel',
   "Burt's Bees Baby",
+  'Caden Lane',
   'CALPAK',
   'Charlie Crane',
   'Crane Baby',

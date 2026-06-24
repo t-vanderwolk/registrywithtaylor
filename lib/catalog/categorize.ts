@@ -76,7 +76,7 @@ const RULES: Rule[] = [
   // Cybex travel-class strollers (Coya, Libelle, Beezy, Eezy) — pulled out before
   // the compact + full-size rules so they land in Travel.
   { re: /\b(?:coya|libelle|beezy|eezy)\b/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
-  { re: /\b(?:cruz|minu|mios|dragonfly|triv|swiv|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
+  { re: /\b(?:mios|dragonfly|triv|swiv|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
   // Clean + classify the "wagons & bikes & accessories" feed path before the
   // generic rules: trikes/bikes aren't strollers; wagon add-ons aren't browsable
   // wagons; real wagons (incl. "… Double Stroller Wagon") are caught here so they
