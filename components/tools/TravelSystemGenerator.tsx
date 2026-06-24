@@ -119,18 +119,10 @@ function ModeToggle({
   onChange: (nextMode: LookupMode) => void;
 }) {
   return (
-    <div className="tool-segment">
+    <div className="tool-segment w-full max-w-[24rem]">
       {([
-        {
-          id: 'stroller',
-          label: 'Stroller First',
-          description: 'Choose the stroller, then see which infant seats fit it.',
-        },
-        {
-          id: 'carSeat',
-          label: 'Car Seat First',
-          description: 'Choose the infant seat, then see which strollers support it.',
-        },
+        { id: 'stroller', label: 'Stroller First' },
+        { id: 'carSeat', label: 'Car Seat First' },
       ] as const).map((option) => (
         <button
           key={option.id}
@@ -140,7 +132,6 @@ function ModeToggle({
           className="tool-segment__btn"
         >
           <span className="tool-segment__label">{option.label}</span>
-          <span className="tool-segment__hint">{option.description}</span>
         </button>
       ))}
     </div>
@@ -574,7 +565,23 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
           adapter to buy. Prices and links straight from Babylist.
         </p>
       </div>
-      <ModeToggle mode={lookupMode} onChange={setLookupMode} />
+      {/* Top controls: mode toggle + search, matching the stroller finder */}
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <ModeToggle mode={lookupMode} onChange={setLookupMode} />
+        <div className="w-full sm:max-w-xs">
+          <label htmlFor={searchId} className="tool-label">
+            {searchLabel}
+          </label>
+          <input
+            id={searchId}
+            type="text"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder={searchPlaceholder}
+            className="tool-input"
+          />
+        </div>
+      </div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/92 p-5 shadow-[0_14px_32px_rgba(0,0,0,0.04)]">
@@ -587,20 +594,6 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
           <p className="mt-3 text-sm leading-7 text-neutral-700">{selectorDescription}</p>
 
           <div className="mt-6 space-y-5">
-            <div className="space-y-2">
-              <label htmlFor={searchId} className="tool-label">
-                {searchLabel}
-              </label>
-              <input
-                id={searchId}
-                type="text"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder={searchPlaceholder}
-                className="tool-input"
-              />
-            </div>
-
             <div className="space-y-2">
               <label htmlFor={selectId} className="tool-label">
                 {selectLabel}
