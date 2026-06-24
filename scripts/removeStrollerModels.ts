@@ -27,9 +27,8 @@ const SPECS: { label: string; brand: string; re: RegExp }[] = [
   { label: 'Bugaboo Lynx', brand: 'Bugaboo', re: /\blynx\b/i },
   { label: 'Zoe Single', brand: 'Zoe', re: /\b(?:single|tour)\b/i },
   { label: 'Zoe Double', brand: 'Zoe', re: /\b(?:double|twin)\b/i },
-  // Gazelle S (single-to-double) only — \bgazelle\b does NOT match "eGazelle".
-  { label: 'Cybex Gazelle S', brand: 'Cybex', re: /\bgazelle\b/i },
   { label: 'Cybex Priam 4', brand: 'Cybex', re: /\bpriam ?4\b/i },
+  { label: 'Bugaboo Kangaroo Seat', brand: 'Bugaboo', re: /\bkangaroo seat\b/i },
 ];
 
 // Brand strings to fetch (include the CYBEX casing variant we canonicalize).

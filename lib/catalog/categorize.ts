@@ -67,6 +67,9 @@ const RULES: Rule[] = [
   // path rule. (These run after the double rules so "<model> Double" still reads
   // as a double.)
   { re: /\b(?:donkey|e-?gazelle|gazelle|demi)\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.85, strong: true },
+  // Bugaboo Kangaroo — the stroller only ("Kangaroo Stroller"); the Kangaroo Seat /
+  // Sibling Seat / bassinet accessories never have "kangaroo stroller" adjacent.
+  { re: /\bkangaroo stroller\b/, category: 'Strollers', productType: 'single-to-double stroller', conf: 0.9, strong: true },
   // Cybex travel-class strollers (Coya, Libelle, Beezy, Eezy) — pulled out before
   // the compact + full-size rules so they land in Travel.
   { re: /\b(?:coya|libelle|beezy|eezy)\b/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
