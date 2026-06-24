@@ -1,6 +1,6 @@
 'use client';
 
-import { useDeferredValue, useEffect, useId, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -312,7 +312,15 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
+  // A car-seat deep-link sets the mode + value on mount; that mode change would
+  // normally trip the reset below, so we let the deep-link skip it once.
+  const skipModeResetRef = useRef(false);
+
   useEffect(() => {
+    if (skipModeResetRef.current) {
+      skipModeResetRef.current = false;
+      return;
+    }
     setSearchQuery('');
     setSelectedValue('');
     setResult(null);
@@ -327,9 +335,18 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
-    const brand = params.get('strollerBrand');
-    const model = params.get('strollerModel');
-    if (brand && model) setSelectedValue(`${brand}:::${model}`);
+    const sBrand = params.get('strollerBrand');
+    const sModel = params.get('strollerModel');
+    const cBrand = params.get('carSeatBrand');
+    const cModel = params.get('carSeatModel');
+    if (sBrand && sModel) {
+      setSelectedValue(`${sBrand}:::${sModel}`);
+    } else if (cBrand && cModel) {
+      // The finder's car-seat "check compatible strollers" CTA lands here.
+      skipModeResetRef.current = true;
+      setLookupMode('carSeat');
+      setSelectedValue(`${cBrand}:::${cModel}`);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -341,10 +358,17 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     const url = new URL(window.location.href);
     url.searchParams.delete('strollerBrand');
     url.searchParams.delete('strollerModel');
-    if (lookupMode === 'stroller' && selectedValue) {
+    url.searchParams.delete('carSeatBrand');
+    url.searchParams.delete('carSeatModel');
+    if (selectedValue) {
       const { brand, model } = parseOptionValue(selectedValue);
-      url.searchParams.set('strollerBrand', brand);
-      url.searchParams.set('strollerModel', model);
+      if (lookupMode === 'stroller') {
+        url.searchParams.set('strollerBrand', brand);
+        url.searchParams.set('strollerModel', model);
+      } else {
+        url.searchParams.set('carSeatBrand', brand);
+        url.searchParams.set('carSeatModel', model);
+      }
     }
     window.history.replaceState(null, '', url.toString());
   }, [lookupMode, selectedValue]);

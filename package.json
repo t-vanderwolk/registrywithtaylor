@@ -37,6 +37,8 @@
     "catalog:hide-cots-apply": "tsx scripts/hideCotsBassinets.ts --apply",
     "catalog:hide-accessories": "tsx scripts/hideAccessoryProducts.ts",
     "catalog:hide-accessories-apply": "tsx scripts/hideAccessoryProducts.ts --apply",
+    "catalog:hide-brands": "tsx scripts/hideBrands.ts",
+    "catalog:hide-brands-apply": "tsx scripts/hideBrands.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",

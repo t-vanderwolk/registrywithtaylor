@@ -21,8 +21,10 @@ const BRAND_LOGOS: Record<string, string> = {
   Joie: '/assets/logos/joie.png',
   Joolz: '/assets/logos/joolz.png',
   'Maxi-Cosi': '/assets/logos/maxi-cosi.png',
+  Mima: '/assets/logos/mima.png',
   Momcozy: '/assets/logos/momcozy.png',
   Nuna: '/assets/logos/nuna.png',
+  'Orbit Baby': '/assets/logos/orbitbaby.png',
   'Peg Perego': '/assets/logos/peg.png',
   Romer: '/assets/logos/romer.png',
   'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
@@ -58,19 +60,26 @@ type FinderBrand = { brand: string; count: number; types: FinderType[] };
 type FlatProduct = FinderProduct & { brand: string; label: string };
 type CategoryGroup = { category: string; label: string; products: FlatProduct[] };
 type Mode = 'brand' | 'category';
+type Kind = 'strollers' | 'carseats';
 
 function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
+}
+
+function carSeatCompatHref(brand: string, model: string) {
+  return `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}&carSeatModel=${encodeURIComponent(model)}`;
 }
 
 function ProductCard({
   brand,
   product,
   showBrand = false,
+  kind = 'strollers',
 }: {
   brand: string;
   product: FinderProduct;
   showBrand?: boolean;
+  kind?: Kind;
 }) {
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
@@ -107,8 +116,11 @@ function ProductCard({
             </a>
           ) : null}
           {product.model ? (
-            <Link href={compatHref(brand, product.model)} className="tool-btn tool-btn--text self-start">
-              Check compatible infant car seats →
+            <Link
+              href={kind === 'strollers' ? compatHref(brand, product.model) : carSeatCompatHref(brand, product.model)}
+              className="tool-btn tool-btn--text self-start"
+            >
+              {kind === 'strollers' ? 'Check compatible infant car seats →' : 'Check compatible strollers →'}
             </Link>
           ) : null}
         </div>
@@ -118,6 +130,7 @@ function ProductCard({
 }
 
 export default function StrollerCatalogFinder() {
+  const [kind, setKind] = useState<Kind>('strollers');
   const [brands, setBrands] = useState<FinderBrand[]>([]);
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState<Mode>('brand');
@@ -125,14 +138,19 @@ export default function StrollerCatalogFinder() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [query, setQuery] = useState('');
 
-  // Strollers come straight from the local affiliate catalog, bucketed by type.
+  const noun = kind === 'strollers' ? 'stroller' : 'car seat';
+  const nounPlural = kind === 'strollers' ? 'strollers' : 'car seats';
+
+  // Products come straight from the local affiliate catalog, bucketed by type.
+  // Strollers and car seats share the same response shape, so the UI is reused.
   useEffect(() => {
-    fetch('/api/catalog/strollers')
+    setLoading(true);
+    fetch(kind === 'strollers' ? '/api/catalog/strollers' : '/api/catalog/carseats')
       .then((r) => (r.ok ? r.json() : { brands: [] }))
       .then((d) => setBrands(Array.isArray(d.brands) ? d.brands : []))
       .catch(() => setBrands([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [kind]);
 
   const totalCount = useMemo(() => brands.reduce((n, b) => n + b.count, 0), [brands]);
   const q = query.trim().toLowerCase();
@@ -175,6 +193,14 @@ export default function StrollerCatalogFinder() {
     setSelectedCategory(null);
   }
 
+  function switchKind(next: Kind) {
+    if (next === kind) return;
+    setKind(next);
+    setSelectedBrand(null);
+    setSelectedCategory(null);
+    setQuery('');
+  }
+
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
   const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
 
@@ -182,13 +208,33 @@ export default function StrollerCatalogFinder() {
     <section className="tool-shell">
       {/* Header */}
       <div className="flex flex-col gap-3">
-        <span className="tool-eyebrow">Stroller finder</span>
-        <h2 className="tool-title">Find your stroller — by brand or by type</h2>
+        <span className="tool-eyebrow">{kind === 'strollers' ? 'Stroller finder' : 'Car seat finder'}</span>
+        <h2 className="tool-title">Find your {noun} — by brand or by type</h2>
         <p className="tool-lead">
           {loading
             ? 'Loading the live catalog…'
-            : `${totalCount} strollers across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of stroller you need.`}
+            : `${totalCount} ${nounPlural} across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of ${noun} you need.`}
         </p>
+      </div>
+
+      {/* Strollers / Car seats toggle */}
+      <div className="tool-segment mt-5 w-full max-w-[22rem]">
+        <button
+          type="button"
+          aria-pressed={kind === 'strollers'}
+          onClick={() => switchKind('strollers')}
+          className="tool-segment__btn"
+        >
+          <span className="tool-segment__label">Strollers</span>
+        </button>
+        <button
+          type="button"
+          aria-pressed={kind === 'carseats'}
+          onClick={() => switchKind('carseats')}
+          className="tool-segment__btn"
+        >
+          <span className="tool-segment__label">Car seats</span>
+        </button>
       </div>
 
       {!loading && brands.length > 0 ? (
@@ -216,14 +262,14 @@ export default function StrollerCatalogFinder() {
           {/* Search */}
           <div className="w-full sm:max-w-xs">
             <label htmlFor="finder-search" className="tool-label">
-              Search strollers
+              Search {nounPlural}
             </label>
             <input
               id="finder-search"
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Try Vista, Cruz, City Mini, YOYO…"
+              placeholder={kind === 'strollers' ? 'Try Vista, Cruz, City Mini, YOYO…' : 'Try KeyFit, Pipa, Mesa, Aton…'}
               className="tool-input"
             />
           </div>
@@ -240,7 +286,7 @@ export default function StrollerCatalogFinder() {
           </div>
         ) : brands.length === 0 ? (
           <p className="text-[0.9rem] text-neutral-400">
-            No strollers available yet — the catalog import hasn’t run, or all matches are hidden.
+            No {nounPlural} available yet — the catalog import hasn’t run, or all matches are hidden.
           </p>
         ) : q ? (
           /* ── Search results (mode-independent) ── */
@@ -251,7 +297,7 @@ export default function StrollerCatalogFinder() {
             {searchResults.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {searchResults.map((p, i) => (
-                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand />
+                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} />
                 ))}
               </div>
             ) : (
@@ -279,7 +325,7 @@ export default function StrollerCatalogFinder() {
                   >
                     <span className="font-serif text-[1.12rem] leading-tight text-neutral-900">{c.label}</span>
                     <span className="text-[0.72rem] text-neutral-400">
-                      {c.products.length} stroller{c.products.length === 1 ? '' : 's'}
+                      {c.products.length} {noun}{c.products.length === 1 ? '' : 's'}
                     </span>
                   </button>
                 ))}
@@ -303,12 +349,12 @@ export default function StrollerCatalogFinder() {
                   {currentCategory.label}
                 </h3>
                 <span className="tool-chip">
-                  {currentCategory.products.length} stroller{currentCategory.products.length === 1 ? '' : 's'}
+                  {currentCategory.products.length} {noun}{currentCategory.products.length === 1 ? '' : 's'}
                 </span>
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {currentCategory.products.map((p, i) => (
-                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand />
+                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} />
                 ))}
               </div>
             </div>
@@ -323,16 +369,16 @@ export default function StrollerCatalogFinder() {
                   key={b.brand}
                   type="button"
                   onClick={() => setSelectedBrand(b.brand)}
-                  className="tool-card tool-card--interactive items-start gap-1 px-5 py-4 text-left"
+                  className="tool-card tool-card--interactive items-center justify-center gap-3 px-5 py-7 text-center"
                 >
                   {BRAND_LOGOS[b.brand] ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="h-7 w-auto max-w-[7.5rem] object-contain" />
+                    <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="h-16 w-auto max-w-[88%] object-contain" />
                   ) : (
-                    <span className="font-serif text-[1.12rem] leading-tight text-neutral-900">{b.brand}</span>
+                    <span className="font-serif text-[1.35rem] leading-tight text-neutral-900">{b.brand}</span>
                   )}
                   <span className="text-[0.72rem] text-neutral-400">
-                    {b.count} stroller{b.count === 1 ? '' : 's'}
+                    {b.count} {noun}{b.count === 1 ? '' : 's'}
                   </span>
                 </button>
               ))}
@@ -366,7 +412,7 @@ export default function StrollerCatalogFinder() {
                 </h3>
               )}
               <span className="tool-chip">
-                {currentBrand.count} stroller{currentBrand.count === 1 ? '' : 's'}
+                {currentBrand.count} {noun}{currentBrand.count === 1 ? '' : 's'}
               </span>
             </div>
 
@@ -378,7 +424,7 @@ export default function StrollerCatalogFinder() {
                   </p>
                   <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {t.products.map((item, i) => (
-                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} />
+                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
                     ))}
                   </div>
                 </div>

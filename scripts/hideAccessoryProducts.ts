@@ -39,7 +39,7 @@ const PATTERNS: { label: string; re: RegExp }[] = [
   { label: 'travel system bundle', re: /\btravel system\b/i },
   {
     label: 'stroller + car seat bundle',
-    re: /(?:\band\b|&)[^\n]*\b(?:latch|key ?fit|mesa|pipa|aton|nido|cabrio|infant car ?seat)\b/i,
+    re: /(?:\band\b|&)[^\n]*\b(?:rue|latch|key ?fit|mesa|pipa|aton|nido|cabrio|infant car ?seat)\b/i,
   },
 ];
 
