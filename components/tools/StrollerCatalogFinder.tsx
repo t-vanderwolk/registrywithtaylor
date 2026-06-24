@@ -385,14 +385,17 @@ export default function StrollerCatalogFinder() {
                   key={b.brand}
                   type="button"
                   onClick={() => setSelectedBrand(b.brand)}
-                  className="tool-card tool-card--interactive items-center justify-center gap-3 px-5 py-7 text-center"
+                  className="tool-card tool-card--interactive items-center justify-center gap-2.5 px-5 py-6 text-center"
                 >
-                  {BRAND_LOGOS[b.brand] ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="h-16 w-auto max-w-[88%] object-contain" />
-                  ) : (
-                    <span className="font-serif text-[1.35rem] leading-tight text-neutral-900">{b.brand}</span>
-                  )}
+                  {/* Fixed-size box so every brand logo renders at a uniform footprint */}
+                  <div className="flex h-14 w-full items-center justify-center">
+                    {BRAND_LOGOS[b.brand] ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="max-h-full max-w-[78%] object-contain" />
+                    ) : (
+                      <span className="font-serif text-[1.2rem] leading-tight text-neutral-900">{b.brand}</span>
+                    )}
+                  </div>
                   <span className="text-[0.72rem] text-neutral-400">
                     {b.count} {noun}{b.count === 1 ? '' : 's'}
                   </span>

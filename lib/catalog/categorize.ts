@@ -77,6 +77,11 @@ const RULES: Rule[] = [
   // the compact + full-size rules so they land in Travel.
   { re: /\b(?:coya|libelle|beezy|eezy)\b/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
   { re: /\b(?:mios|dragonfly|triv|swiv|electa)\b/, category: 'Strollers', productType: 'compact stroller', conf: 0.8, strong: true },
+  // Baby Jogger — Babylist files several under "Full Size". City Tour 2 (single)
+  // → travel, but NOT "City Tour 2 Double" (kept double via the lookahead).
+  { re: /city tour(?![\s\S]*\bdouble\b)/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
+  { re: /city mini gt3/, category: 'Strollers', productType: 'jogging stroller', conf: 0.9, strong: true },
+  { re: /city mini air/, category: 'Strollers', productType: 'compact stroller', conf: 0.9, strong: true },
   // Clean + classify the "wagons & bikes & accessories" feed path before the
   // generic rules: trikes/bikes aren't strollers; wagon add-ons aren't browsable
   // wagons; real wagons (incl. "… Double Stroller Wagon") are caught here so they
