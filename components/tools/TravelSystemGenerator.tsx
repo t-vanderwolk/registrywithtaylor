@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useDeferredValue, useEffect, useId, useState } from 'react';
 import {
   formatCompatibilityConfidence,
@@ -206,29 +205,77 @@ function AffiliateBuyButtons({
   );
 }
 
-function ResultImage({
-  imageUrl,
-  imageAlt,
-  fallbackLabel,
+function ResultCard({
+  item,
+  kind,
 }: {
-  imageUrl?: string | null;
-  imageAlt?: string | null;
-  fallbackLabel: string;
+  item: CompatibleCarSeatResult | CompatibleStrollerResult;
+  kind: 'stroller' | 'carSeat';
 }) {
-  if (!imageUrl) {
-    return null;
-  }
-
   return (
-    <div className="mt-5 overflow-hidden rounded-[1.25rem] border border-[rgba(0,0,0,0.05)] bg-[linear-gradient(180deg,#fffdf9_0%,#f8f3ed_100%)]">
-      <div className="relative aspect-[4/3] w-full">
-        <Image
-          src={imageUrl}
-          alt={imageAlt ?? fallbackLabel}
-          fill
-          sizes="(max-width: 768px) 100vw, 420px"
-          className="object-contain p-4"
-        />
+    <div className="tool-card tool-card--interactive overflow-hidden">
+      <div className="tool-card__media" style={{ height: '5.25rem' }}>
+        {item.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} />
+        ) : (
+          <span className="text-[0.58rem] uppercase tracking-[0.16em] text-neutral-300">{item.brand}</span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-[0.58rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+              {item.brand}
+            </p>
+            <p className="font-serif text-[1.04rem] leading-tight text-neutral-900">{item.displayName}</p>
+          </div>
+          <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
+            {formatCompatibilityType(item.compatibilityType)}
+          </span>
+        </div>
+
+        {item.babylistPrice ? (
+          <p className="tool-price">
+            ${item.babylistPrice.toFixed(2)}
+            <span className="tool-price__note">via Babylist</span>
+          </p>
+        ) : (
+          <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
+        )}
+
+        {item.adapterRequired ? (
+          <div className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] px-2.5 py-1.5">
+            {item.adapterImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={item.adapterImage} alt="" className="h-7 w-7 shrink-0 rounded bg-white object-contain p-0.5" />
+            ) : null}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[0.66rem] font-semibold text-neutral-700">
+                {item.adapterType ?? 'Adapter needed'}
+              </p>
+              {item.adapterPrice != null ? (
+                <p className="text-[0.64rem] font-semibold text-[var(--gold)]">${item.adapterPrice.toFixed(2)}</p>
+              ) : null}
+            </div>
+            {item.adapterUrl ? (
+              <a
+                href={item.adapterUrl}
+                target="_blank"
+                rel="sponsored nofollow noopener noreferrer"
+                className="shrink-0 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-[var(--color-accent-dark)] hover:underline"
+              >
+                Shop →
+              </a>
+            ) : null}
+          </div>
+        ) : (
+          <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">Direct fit · no adapter needed</p>
+        )}
+
+        <div className="mt-auto pt-1">
+          <AffiliateBuyButtons brand={item.brand} model={item.model} babylistUrl={item.babylistUrl} kind={kind} />
+        </div>
       </div>
     </div>
   );
@@ -657,90 +704,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               ) : null}
 
               {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
-                  <div className="grid gap-4">
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {mergedCarSeats.map((seat) => (
-                    <article
+                    <ResultCard
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
-                      className="tool-card p-5"
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div>
-                          <p className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-500">{seat.brand}</p>
-                          <h4 className="mt-2 font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                            {seat.displayName}
-                          </h4>
-                          {seat.babylistPrice ? (
-                            <p className="tool-price mt-1.5">
-                              ${seat.babylistPrice.toFixed(2)}
-                              <span className="tool-price__note">via Babylist</span>
-                            </p>
-                          ) : null}
-                        </div>
-                        <span
-                          className={`tool-badge ${compatibilityBadgeClasses(seat.compatibilityType)}`}
-                        >
-                          {formatCompatibilityType(seat.compatibilityType)}
-                        </span>
-                      </div>
-
-                      <ResultImage
-                        imageUrl={seat.imageUrl}
-                        imageAlt={seat.imageAlt}
-                        fallbackLabel={seat.displayName}
-                      />
-
-                      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Adapter required</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{seat.adapterRequired ? 'Yes' : 'No'}</p>
-                        </div>
-
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Adapter type</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{seat.adapterType ?? 'Not needed'}</p>
-                        </div>
-
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Confidence</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{formatCompatibilityConfidence(seat.confidence)}</p>
-                        </div>
-                      </div>
-
-                      {seat.notes ? (
-                        <p className="mt-4 text-sm leading-7 text-neutral-700">{seat.notes}</p>
-                      ) : null}
-
-                      {seat.adapterRequired && (seat.adapterImage || seat.adapterUrl) ? (
-                        <div className="mt-4 flex items-center gap-3 rounded-[1rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] p-3">
-                          {seat.adapterImage ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={seat.adapterImage} alt="" className="h-12 w-12 shrink-0 rounded-lg bg-white object-contain p-1" />
-                          ) : null}
-                          <div className="min-w-0 flex-1">
-                            <p className="text-[0.62rem] uppercase tracking-[0.16em] text-neutral-500">Adapter needed</p>
-                            <p className="truncate text-[0.85rem] font-semibold text-neutral-900">{seat.adapterType ?? 'Adapter'}</p>
-                            {seat.adapterPrice != null ? (
-                              <p className="text-[0.78rem] font-semibold text-[var(--gold)]">${seat.adapterPrice.toFixed(2)}</p>
-                            ) : null}
-                          </div>
-                          {seat.adapterUrl ? (
-                            <a
-                              href={seat.adapterUrl}
-                              target="_blank"
-                              rel="sponsored nofollow noopener noreferrer"
-                              className="shrink-0 rounded-full bg-[var(--color-cta-pink)] px-3.5 py-2 text-[0.72rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
-                            >
-                              Shop adapter →
-                            </a>
-                          ) : null}
-                        </div>
-                      ) : null}
-
-                      <AffiliateBuyButtons brand={seat.brand} model={seat.model} babylistUrl={seat.babylistUrl} kind="carSeat" />
-                    </article>
+                      item={seat}
+                      kind="carSeat"
+                    />
                   ))}
-                  </div>
                 </div>
               ) : (
                 <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">
@@ -805,93 +776,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               ) : null}
 
               {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-6 max-h-[680px] overflow-y-auto overscroll-contain pr-1">
-                  <div className="grid gap-4">
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {mergedStrollers.map((stroller) => (
-                    <article
+                    <ResultCard
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
-                      className="tool-card p-5"
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div>
-                          <p className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-500">{stroller.brand}</p>
-                          <h4 className="mt-2 font-serif text-[1.35rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                            {stroller.displayName}
-                          </h4>
-                          {stroller.babylistPrice ? (
-                            <p className="tool-price mt-1.5">
-                              ${stroller.babylistPrice.toFixed(2)}
-                              <span className="tool-price__note">via Babylist</span>
-                            </p>
-                          ) : null}
-                        </div>
-                        <span
-                          className={`tool-badge ${compatibilityBadgeClasses(stroller.compatibilityType)}`}
-                        >
-                          {formatCompatibilityType(stroller.compatibilityType)}
-                        </span>
-                      </div>
-
-                      <ResultImage
-                        imageUrl={stroller.imageUrl}
-                        imageAlt={stroller.imageAlt}
-                        fallbackLabel={stroller.displayName}
-                      />
-
-                      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Adapter required</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{stroller.adapterRequired ? 'Yes' : 'No'}</p>
-                        </div>
-
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Adapter type</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{stroller.adapterType ?? 'Not needed'}</p>
-                        </div>
-
-                        <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                          <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Confidence</p>
-                          <p className="mt-2 text-sm font-semibold text-neutral-900">{formatCompatibilityConfidence(stroller.confidence)}</p>
-                        </div>
-                      </div>
-
-                      {stroller.summary ? (
-                        <p className="mt-4 text-sm leading-7 text-neutral-700">{stroller.summary}</p>
-                      ) : null}
-                      {stroller.notes ? (
-                        <p className="mt-3 text-sm leading-7 text-neutral-700">{stroller.notes}</p>
-                      ) : null}
-
-                      {stroller.adapterRequired && (stroller.adapterImage || stroller.adapterUrl) ? (
-                        <div className="mt-4 flex items-center gap-3 rounded-[1rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] p-3">
-                          {stroller.adapterImage ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={stroller.adapterImage} alt="" className="h-12 w-12 shrink-0 rounded-lg bg-white object-contain p-1" />
-                          ) : null}
-                          <div className="min-w-0 flex-1">
-                            <p className="text-[0.62rem] uppercase tracking-[0.16em] text-neutral-500">Adapter needed</p>
-                            <p className="truncate text-[0.85rem] font-semibold text-neutral-900">{stroller.adapterType ?? 'Adapter'}</p>
-                            {stroller.adapterPrice != null ? (
-                              <p className="text-[0.78rem] font-semibold text-[var(--gold)]">${stroller.adapterPrice.toFixed(2)}</p>
-                            ) : null}
-                          </div>
-                          {stroller.adapterUrl ? (
-                            <a
-                              href={stroller.adapterUrl}
-                              target="_blank"
-                              rel="sponsored nofollow noopener noreferrer"
-                              className="shrink-0 rounded-full bg-[var(--color-cta-pink)] px-3.5 py-2 text-[0.72rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
-                            >
-                              Shop adapter →
-                            </a>
-                          ) : null}
-                        </div>
-                      ) : null}
-
-                      <AffiliateBuyButtons brand={stroller.brand} model={stroller.model} babylistUrl={stroller.babylistUrl} />
-                    </article>
+                      item={stroller}
+                      kind="stroller"
+                    />
                   ))}
-                  </div>
                 </div>
               ) : (
                 <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">
