@@ -578,7 +578,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+      <div className="mt-6 space-y-6">
         <div className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/92 p-5 shadow-[0_14px_32px_rgba(0,0,0,0.04)]">
           <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
             {selectorEyebrow}
@@ -591,7 +591,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               <p className="mb-2.5 text-[0.72rem] text-neutral-500">
                 {activeOptions.length} match{activeOptions.length === 1 ? '' : 'es'}
               </p>
-              <div className="grid max-h-[24rem] gap-2 overflow-y-auto pr-1">
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {activeOptions.map((option) => {
                   const value = buildOptionValue(option);
                   const isSel = selectedValue === value;
@@ -617,7 +617,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               </div>
             </div>
           ) : !selectorBrand ? (
-            <div className="mt-4 grid grid-cols-2 gap-2.5">
+            <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Object.entries(optionGroups)
                 .sort(([a], [b]) => a.localeCompare(b))
                 .map(([brand, options]) => (
@@ -652,7 +652,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 <span className="text-neutral-300">/</span>
                 <span className="text-neutral-500">{selectorBrand}</span>
               </nav>
-              <div className="mt-3 grid max-h-[24rem] gap-2 overflow-y-auto pr-1">
+              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {[...(optionGroups[selectorBrand] ?? [])]
                   .sort((a, b) => a.model.localeCompare(b.model))
                   .map((option) => {
