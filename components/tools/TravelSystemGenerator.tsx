@@ -1,6 +1,7 @@
 'use client';
 
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
+import { BRAND_LOGOS } from './StrollerCatalogFinder';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -291,7 +292,7 @@ function ResultCard({
 
 export default function TravelSystemGenerator({ strollers, carSeats }: TravelSystemGeneratorProps) {
   const searchId = useId();
-  const selectId = useId();
+  const [selectorBrand, setSelectorBrand] = useState<string | null>(null);
   const [lookupMode, setLookupMode] = useState<LookupMode>('stroller');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
@@ -314,6 +315,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     }
     setSearchQuery('');
     setSelectedValue('');
+    setSelectorBrand(null);
     setResult(null);
     setError(null);
     setLoading(false);
@@ -331,11 +333,13 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     const cBrand = params.get('carSeatBrand');
     const cModel = params.get('carSeatModel');
     if (sBrand && sModel) {
+      setSelectorBrand(sBrand);
       setSelectedValue(`${sBrand}:::${sModel}`);
     } else if (cBrand && cModel) {
       // The finder's car-seat "check compatible strollers" CTA lands here.
       skipModeResetRef.current = true;
       setLookupMode('carSeat');
+      setSelectorBrand(cBrand);
       setSelectedValue(`${cBrand}:::${cModel}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -523,20 +527,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       : [];
 
   const selectorEyebrow = lookupMode === 'stroller' ? 'Stroller selector' : 'Car seat selector';
-  const selectorTitle =
-    lookupMode === 'stroller'
-      ? 'Start with the stroller you already have or already love.'
-      : 'Start with the infant car seat you already trust or already narrowed down.';
-  const selectorDescription =
-    lookupMode === 'stroller'
-      ? 'The generator will pull infant car seats that fit, flag when an adapter is involved, and keep the answer readable.'
-      : 'The generator will pull stroller matches, show where the ecosystem is clean, and flag where adapter planning starts to matter.';
   const searchLabel = lookupMode === 'stroller' ? 'Search strollers' : 'Search infant car seats';
   const searchPlaceholder =
     lookupMode === 'stroller'
       ? 'Try MIXX, Cruz, Butterfly, Gazelle...'
       : 'Try PIPA RX, KeyFit 35, Mico Luxe, Liing...';
-  const selectLabel = lookupMode === 'stroller' ? 'Select stroller' : 'Select infant car seat';
   const emptyTitle =
     lookupMode === 'stroller'
       ? 'Start by selecting your stroller to see compatible car seats.'
@@ -585,42 +580,104 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/92 p-5 shadow-[0_14px_32px_rgba(0,0,0,0.04)]">
-          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/82">
+          <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
             {selectorEyebrow}
           </p>
-          <h2 className="mt-3 font-serif text-[1.7rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
-            {selectorTitle}
-          </h2>
-          <p className="mt-3 text-sm leading-7 text-neutral-700">{selectorDescription}</p>
 
-          <div className="mt-6 space-y-5">
-            <div className="space-y-2">
-              <label htmlFor={selectId} className="tool-label">
-                {selectLabel}
-              </label>
-              <select
-                id={selectId}
-                value={selectedValue}
-                onChange={(event) => setSelectedValue(event.target.value)}
-                className="tool-select"
-              >
-                <option value="">{lookupMode === 'stroller' ? 'Choose a stroller' : 'Choose an infant car seat'}</option>
-                {Object.entries(optionGroups)
-                  .sort(([a], [b]) => a.localeCompare(b))
-                  .map(([brand, options]) => (
-                    <optgroup key={brand} label={brand}>
-                      {[...options]
-                        .sort((a, b) => a.model.localeCompare(b.model))
-                        .map((option) => (
-                          <option key={buildOptionValue(option)} value={buildOptionValue(option)}>
-                            {option.model}
-                          </option>
-                        ))}
-                    </optgroup>
-                  ))}
-              </select>
+          {/* Brand-grid selector, mirroring the stroller finder: search → flat
+              results; otherwise browse brands → drill into that brand's models. */}
+          {deferredSearchQuery ? (
+            <div className="mt-4">
+              <p className="mb-2.5 text-[0.72rem] text-neutral-500">
+                {activeOptions.length} match{activeOptions.length === 1 ? '' : 'es'}
+              </p>
+              <div className="grid max-h-[24rem] gap-2 overflow-y-auto pr-1">
+                {activeOptions.map((option) => {
+                  const value = buildOptionValue(option);
+                  const isSel = selectedValue === value;
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setSelectedValue(value)}
+                      aria-pressed={isSel}
+                      className={`rounded-[0.85rem] border px-3.5 py-2.5 text-left text-sm transition ${
+                        isSel
+                          ? 'border-[var(--color-cta-pink)] bg-[rgba(232,154,174,0.12)] font-semibold text-neutral-900'
+                          : 'border-[rgba(0,0,0,0.08)] bg-white text-neutral-700 hover:border-[rgba(215,161,175,0.4)]'
+                      }`}
+                    >
+                      <span className="block text-[0.58rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
+                        {option.brand}
+                      </span>
+                      <span className="block">{option.model}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          ) : !selectorBrand ? (
+            <div className="mt-4 grid grid-cols-2 gap-2.5">
+              {Object.entries(optionGroups)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([brand, options]) => (
+                  <button
+                    key={brand}
+                    type="button"
+                    onClick={() => setSelectorBrand(brand)}
+                    className="tool-card tool-card--interactive items-center justify-center gap-1.5 px-3 py-4 text-center"
+                  >
+                    <div className="flex h-9 w-full items-center justify-center">
+                      {BRAND_LOGOS[brand] ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={BRAND_LOGOS[brand]} alt={brand} className="max-h-full max-w-[82%] object-contain" />
+                      ) : (
+                        <span className="font-serif text-[0.95rem] leading-tight text-neutral-900">{brand}</span>
+                      )}
+                    </div>
+                    <span className="text-[0.62rem] text-neutral-400">{options.length}</span>
+                  </button>
+                ))}
+            </div>
+          ) : (
+            <div className="mt-4">
+              <nav className="flex items-center gap-1.5 text-[0.74rem]">
+                <button
+                  type="button"
+                  onClick={() => setSelectorBrand(null)}
+                  className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
+                >
+                  All brands
+                </button>
+                <span className="text-neutral-300">/</span>
+                <span className="text-neutral-500">{selectorBrand}</span>
+              </nav>
+              <div className="mt-3 grid max-h-[24rem] gap-2 overflow-y-auto pr-1">
+                {[...(optionGroups[selectorBrand] ?? [])]
+                  .sort((a, b) => a.model.localeCompare(b.model))
+                  .map((option) => {
+                    const value = buildOptionValue(option);
+                    const isSel = selectedValue === value;
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setSelectedValue(value)}
+                        aria-pressed={isSel}
+                        className={`flex items-center justify-between gap-2 rounded-[0.85rem] border px-3.5 py-2.5 text-left text-sm transition ${
+                          isSel
+                            ? 'border-[var(--color-cta-pink)] bg-[rgba(232,154,174,0.12)] font-semibold text-neutral-900'
+                            : 'border-[rgba(0,0,0,0.08)] bg-white text-neutral-700 hover:border-[rgba(215,161,175,0.4)]'
+                        }`}
+                      >
+                        <span>{option.model}</span>
+                        {isSel ? <span className="text-[var(--color-accent-dark)]">✓</span> : null}
+                      </button>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
 
           <div className="mt-6 rounded-[1.2rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-4 py-4 text-sm leading-7 text-neutral-600">
             {activeOptions.length > 0 ? <p>{countDescription}</p> : <p>{noMatchDescription}</p>}

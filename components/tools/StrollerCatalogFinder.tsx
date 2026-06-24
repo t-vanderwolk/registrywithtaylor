@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
 // /public/assets/logos and add the brand to extend this.
-const BRAND_LOGOS: Record<string, string> = {
+export const BRAND_LOGOS: Record<string, string> = {
   'BOB Gear': '/assets/logos/bob.png',
   'Baby Jogger': '/assets/logos/babyjogger.png',
   'Baby Trend': '/assets/logos/babytrend.png',
