@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -63,7 +64,7 @@ export async function GET() {
       if (seenGroups.has(r.itemGroupId)) continue;
       seenGroups.add(r.itemGroupId);
     }
-    const brand = (r.brand || 'Other').trim();
+    const brand = canonicalBrand(r.brand);
     const model = parseStrollerModel(r.title, brand);
     const modelKey = `${brand}|${model}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');
     if (model) {

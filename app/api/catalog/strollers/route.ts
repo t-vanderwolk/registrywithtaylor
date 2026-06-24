@@ -3,6 +3,7 @@ import prisma from '@/lib/server/prisma';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -86,7 +87,7 @@ export async function GET() {
       if (seenGroups.has(r.itemGroupId)) continue;
       seenGroups.add(r.itemGroupId);
     }
-    const brand = (r.brand || 'Other').trim();
+    const brand = canonicalBrand(r.brand);
     const model = parseStrollerModel(r.title, brand);
     // Drop any remaining duplicate models (same brand+model under another group).
     const modelKey = `${brand}|${model}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');

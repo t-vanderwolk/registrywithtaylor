@@ -19,6 +19,7 @@ const BRANDS = [
   'BEIS Travel',
   "Burt's Bees Baby",
   'CALPAK',
+  'Charlie Crane',
   'Crane Baby',
   'Itzy Ritzy',
   'JL Childress',
