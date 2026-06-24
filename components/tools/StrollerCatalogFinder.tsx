@@ -4,9 +4,30 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
-// Drop a file in /public/assets/logos and add the brand to extend this.
+// Keys must match the catalog brand string exactly. Drop a file in
+// /public/assets/logos and add the brand to extend this.
 const BRAND_LOGOS: Record<string, string> = {
+  'BOB Gear': '/assets/logos/bob.png',
+  'Baby Jogger': '/assets/logos/babyjogger.png',
+  'Baby Trend': '/assets/logos/babytrend.png',
+  Britax: '/assets/logos/britax.png',
+  Bugaboo: '/assets/logos/bugaboo.png',
+  Bumbleride: '/assets/logos/bumbleride.png',
+  Chicco: '/assets/logos/chicco.png',
+  Cybex: '/assets/logos/cybex.png',
+  Ergobaby: '/assets/logos/ergobabylogo.png',
+  Graco: '/assets/logos/graco.png',
+  Inglesina: '/assets/logos/inglesinalogo.png',
+  Joie: '/assets/logos/joie.png',
+  Joolz: '/assets/logos/joolz.png',
+  'Maxi-Cosi': '/assets/logos/maxi-cosi.png',
+  Momcozy: '/assets/logos/momcozy.png',
+  Nuna: '/assets/logos/nuna.png',
+  'Peg Perego': '/assets/logos/peg.png',
+  Romer: '/assets/logos/romer.png',
   'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
+  UPPAbaby: '/assets/logos/uppababy.png',
+  Zoe: '/assets/logos/zoe.png',
 };
 
 // Everyday → specialty ordering for the category view (matches the API).
