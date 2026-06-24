@@ -32,7 +32,7 @@ const PATTERNS: { label: string; re: RegExp }[] = [
   { label: 'cupholder', re: /\bcup ?holders?\b/i },
   { label: 'canopy', re: /\bcanop(?:y|ies)\b/i },
   { label: 'bumper bar', re: /\bbumper ?bars?\b/i },
-  { label: 'rain cover', re: /\brain ?covers?\b/i },
+  { label: 'rain cover / shield', re: /\brain ?(?:cover|shield)s?\b/i },
   { label: 'snack tray', re: /\bsnack ?trays?\b/i },
   { label: 'piggyback board', re: /\bpiggy ?back\b/i },
   { label: 'bevvy', re: /\bbevvy\b/i },
