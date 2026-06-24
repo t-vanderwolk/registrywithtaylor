@@ -723,7 +723,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               </div>
 
               {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr))]">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))]">
                   {mergedCarSeats.map((seat) => (
                     <ResultCard
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
@@ -780,7 +780,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               </div>
 
               {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr))]">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))]">
                   {mergedStrollers.map((stroller) => (
                     <ResultCard
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}

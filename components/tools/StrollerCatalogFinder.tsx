@@ -385,7 +385,7 @@ export default function StrollerCatalogFinder() {
                   key={b.brand}
                   type="button"
                   onClick={() => setSelectedBrand(b.brand)}
-                  className="tool-card tool-card--interactive items-center justify-center gap-2.5 px-5 py-6 text-center"
+                  className="tool-card tool-card--interactive items-center justify-center gap-2.5 px-3 py-5 text-center sm:px-5 sm:py-6"
                 >
                   {/* Fixed-size box so every brand logo renders at a uniform footprint */}
                   <div className="flex h-14 w-full items-center justify-center">
