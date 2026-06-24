@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -8,9 +10,17 @@ type BabylistFields = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+  openBoxPrice: number | null;
+  openBoxUrl: string | null;
 };
 
-const EMPTY: BabylistFields = { babylistUrl: null, babylistPrice: null, babylistImage: null };
+const EMPTY: BabylistFields = {
+  babylistUrl: null,
+  babylistPrice: null,
+  babylistImage: null,
+  openBoxPrice: null,
+  openBoxUrl: null,
+};
 
 // Stroller.babylistSku is the Impact catalog item id (form "product_8981_<n>");
 // the affiliate catalog stores the bare feed id as externalId. Strip the prefix
@@ -84,14 +94,41 @@ export async function GET(request: NextRequest) {
       : [];
   const catByExternal = new Map(catalogRows.map((c) => [c.externalId, c]));
 
+  // GoodBuyGear (open-box) prices for the same models — cheapest wins.
+  const gbgRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
+    await db.affiliateCatalogProduct
+      .findMany({
+        where: {
+          provider: 'impact_goodbuygear',
+          isActiveInFeed: true,
+          enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
+        },
+        select: { brand: true, title: true, price: true, affiliateUrl: true },
+      })
+      .catch(() => []);
+  const openBoxByKey = new Map<string, { price: number; url: string | null }>();
+  for (const g of gbgRows) {
+    if (g.price == null) continue;
+    const b = canonicalBrand(g.brand);
+    const m = parseStrollerModel(g.title, b);
+    if (!m) continue;
+    const key = `${b.toLowerCase()}:::${m.toLowerCase()}`;
+    const ex = openBoxByKey.get(key);
+    if (!ex || g.price < ex.price) openBoxByKey.set(key, { price: g.price, url: g.affiliateUrl });
+  }
+
   const byKey = new Map<string, BabylistFields>();
   for (const r of rows) {
     const cat = catByExternal.get(toExternalId(r.babylistSku) ?? '');
-    byKey.set(`${r.brand.toLowerCase()}:::${r.model.toLowerCase()}`, {
+    const key = `${r.brand.toLowerCase()}:::${r.model.toLowerCase()}`;
+    const ob = openBoxByKey.get(key);
+    byKey.set(key, {
       // Prefer the fresh feed data; fall back to the Stroller table's synced fields.
       babylistUrl: cat?.affiliateUrl ?? r.babylistUrl,
       babylistPrice: cat?.price ?? r.babylistPrice,
       babylistImage: cat?.imageUrl ?? r.babylistImage,
+      openBoxPrice: ob?.price ?? null,
+      openBoxUrl: ob?.url ?? null,
     });
   }
 

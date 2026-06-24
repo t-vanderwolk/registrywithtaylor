@@ -118,7 +118,7 @@ function ProductCard({
         {product.price != null ? (
           <p className="tool-price">
             ${product.price.toFixed(2)}
-            <span className="tool-price__note">{isOpenBox ? 'open box' : 'via Babylist'}</span>
+            <span className="tool-price__note">{isOpenBox ? 'via GoodBuyGear' : 'via Babylist'}</span>
           </p>
         ) : (
           <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
@@ -134,7 +134,7 @@ function ProductCard({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/logos/goodbuygear.png" alt="GoodBuyGear open box" className="h-4 w-auto shrink-0 object-contain" />
             <span className="text-[0.7rem] leading-tight text-neutral-600">
-              Open box{' '}
+              via GoodBuyGear{' '}
               <span className="font-semibold text-neutral-900">as low as ${product.openBox.price.toFixed(2)}</span>
             </span>
             <span className="ml-auto shrink-0 text-[0.68rem] font-bold text-[var(--color-accent-dark)]">Shop →</span>
@@ -149,7 +149,7 @@ function ProductCard({
               rel="sponsored nofollow noopener noreferrer"
               className="tool-btn tool-btn--primary tool-btn--block"
             >
-              {isOpenBox ? 'Shop open box →' : 'Shop on Babylist →'}
+              {isOpenBox ? 'Shop GoodBuyGear →' : 'Shop on Babylist →'}
             </a>
           ) : null}
           {product.model ? (

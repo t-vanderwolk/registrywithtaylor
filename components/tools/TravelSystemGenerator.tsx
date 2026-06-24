@@ -218,7 +218,9 @@ function ResultCard({
   item,
   kind,
 }: {
-  item: CompatibleCarSeatResult | CompatibleStrollerResult;
+  item: (CompatibleCarSeatResult | CompatibleStrollerResult) & {
+    openBox?: { price: number; url: string | null } | null;
+  };
   kind: 'stroller' | 'carSeat';
 }) {
   return (
@@ -252,6 +254,22 @@ function ResultCard({
         ) : (
           <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
         )}
+
+        {item.openBox ? (
+          <a
+            href={item.openBox.url ?? undefined}
+            target="_blank"
+            rel="sponsored nofollow noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-[0.6rem] border border-[rgba(0,0,0,0.07)] bg-[rgba(251,247,244,0.85)] px-2 py-1 transition hover:border-[rgba(215,161,175,0.4)]"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/logos/goodbuygear.png" alt="GoodBuyGear" className="h-3.5 w-auto shrink-0 object-contain" />
+            <span className="text-[0.62rem] leading-tight text-neutral-600">
+              via GoodBuyGear{' '}
+              <span className="font-semibold text-neutral-900">as low as ${item.openBox.price.toFixed(2)}</span>
+            </span>
+          </a>
+        ) : null}
 
         {item.adapterRequired ? (
           <div className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] px-2.5 py-1.5">
@@ -300,7 +318,16 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lookup, setLookup] = useState<
-    Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
+    Record<
+      string,
+      {
+        babylistUrl: string | null;
+        babylistPrice: number | null;
+        babylistImage: string | null;
+        openBoxPrice: number | null;
+        openBoxUrl: string | null;
+      }
+    >
   >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
@@ -507,6 +534,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 babylistPrice: m.babylistPrice ?? seat.babylistPrice,
                 imageUrl: m.babylistImage ?? seat.imageUrl,
                 babylistUrl: m.babylistUrl ?? seat.babylistUrl,
+                openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
               }
             : seat;
         })
@@ -521,6 +549,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 babylistPrice: m.babylistPrice ?? stroller.babylistPrice,
                 imageUrl: m.babylistImage ?? stroller.imageUrl,
                 babylistUrl: m.babylistUrl ?? stroller.babylistUrl,
+                openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
               }
             : stroller;
         })
