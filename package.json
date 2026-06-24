@@ -43,6 +43,8 @@
     "catalog:remove-models-apply": "tsx scripts/removeStrollerModels.ts --apply",
     "catalog:seed-manual": "tsx scripts/seedManualStrollers.ts",
     "catalog:seed-manual-apply": "tsx scripts/seedManualStrollers.ts --apply",
+    "catalog:import-gbg": "tsx scripts/importGoodBuyGearCatalog.ts",
+    "catalog:import-gbg-apply": "tsx scripts/importGoodBuyGearCatalog.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
