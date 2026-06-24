@@ -20,6 +20,14 @@
 import { categorizeProduct } from '@/lib/catalog/categorize';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 
+// Load .env for local CLI runs (Node 20.12+). It does NOT overwrite variables
+// already exported in the shell, so an inline prod DATABASE_URL still wins.
+try {
+  (process as { loadEnvFile?: (path?: string) => void }).loadEnvFile?.();
+} catch {
+  /* .env is optional — the creds may already be exported */
+}
+
 const BASE_URL = 'https://api.impact.com';
 const API_VERSION = 16;
 const SID = process.env.IMPACT_GOODBUYGEAR_ACCOUNT_SID;
