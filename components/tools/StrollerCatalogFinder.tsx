@@ -70,6 +70,8 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
+  source?: 'babylist' | 'openbox';
+  openBox?: { price: number; url: string | null } | null;
 };
 type FinderType = { category: string; label: string; products: FinderProduct[] };
 type FinderBrand = { brand: string; count: number; types: FinderType[] };
@@ -97,6 +99,7 @@ function ProductCard({
   showBrand?: boolean;
   kind?: Kind;
 }) {
+  const isOpenBox = product.source === 'openbox';
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
       <div className="tool-card__media">
@@ -115,11 +118,29 @@ function ProductCard({
         {product.price != null ? (
           <p className="tool-price">
             ${product.price.toFixed(2)}
-            <span className="tool-price__note">via Babylist</span>
+            <span className="tool-price__note">{isOpenBox ? 'open box' : 'via Babylist'}</span>
           </p>
         ) : (
           <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
         )}
+
+        {product.openBox ? (
+          <a
+            href={product.openBox.url ?? undefined}
+            target="_blank"
+            rel="sponsored nofollow noopener noreferrer"
+            className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(0,0,0,0.07)] bg-[rgba(251,247,244,0.85)] px-2.5 py-1.5 transition hover:border-[rgba(215,161,175,0.4)]"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/logos/goodbuygear.png" alt="GoodBuyGear open box" className="h-4 w-auto shrink-0 object-contain" />
+            <span className="text-[0.7rem] leading-tight text-neutral-600">
+              Open box{' '}
+              <span className="font-semibold text-neutral-900">as low as ${product.openBox.price.toFixed(2)}</span>
+            </span>
+            <span className="ml-auto shrink-0 text-[0.68rem] font-bold text-[var(--color-accent-dark)]">Shop →</span>
+          </a>
+        ) : null}
+
         <div className="mt-auto flex flex-col gap-2 pt-2">
           {product.affiliateUrl ? (
             <a
@@ -128,7 +149,7 @@ function ProductCard({
               rel="sponsored nofollow noopener noreferrer"
               className="tool-btn tool-btn--primary tool-btn--block"
             >
-              Shop on Babylist →
+              {isOpenBox ? 'Shop open box →' : 'Shop on Babylist →'}
             </a>
           ) : null}
           {product.model ? (
