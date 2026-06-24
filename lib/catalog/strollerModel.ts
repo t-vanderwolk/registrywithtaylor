@@ -14,6 +14,6 @@ export function parseStrollerModel(title: string, brand: string): string {
   // Drop bundle / line descriptors so models read cleanly: "Fox 5 Renew Complete"
   // → "Fox 5", "Butterfly 2 Complete" → "Butterfly 2", "eGazelle S Electronic
   // Assist" → "eGazelle S".
-  m = m.replace(/\b(?:electronic assist|renew|complete)\b/gi, '');
+  m = m.replace(/\b(?:electronic assist|easy fold compact|renew|complete)\b/gi, '');
   return m.replace(/\s{2,}/g, ' ').trim();
 }
