@@ -49,11 +49,30 @@ const SID = process.env.IMPACT_GOODBUYGEAR_ACCOUNT_SID;
 const TOKEN = process.env.IMPACT_GOODBUYGEAR_AUTH_TOKEN;
 const PROVIDER = 'impact_goodbuygear';
 
-// Accessory false-positives — their names contain "stroller"/"car seat"/model
-// names but they aren't the product itself (bags, caddies, organizers, covers,
-// raincovers, second seats…). Skipped before categorizing.
+// Accessory / part false-positives — names that contain "stroller"/"car seat"/a
+// model but aren't the product itself. Skipped before categorizing.
 const ACCESSORY_RE =
-  /\b(?:adapter|adaptor|tote bag|travel bag|storage bag|carry bag|diaper bag|backpack|caddy|organi[sz]er|cup ?holder|snack ?tray|belly bar|bumper bar|rain ?cover|raincover|weather shield|sun ?shade|parasol|footmuff|bunting|seat liner|\bliner\b|bassinet|second seat|sibling seat|rumble ?seat|ride[- ]?along|glider board|piggy ?back|wheel kit|replacement|\bstand\b|\bcover\b|\bcanopy\b|mosquito)\b/i;
+  /\b(?:adapter|adaptor|\bbag\b|tote|caddy|organi[sz]er|cup ?holder|\btray\b|belly bar|bumper bar|rain ?cover|rain ?shield|rainshield|weather ?shield|sun ?shade|sunshade|sun ?cover|parasol|\bcanopy\b|footmuff|bunting|cocoon|blanket|\bsheet\b|\bliner\b|\binsert\b|cushion|mattress|\bpad\b|bassinet|carry ?cot|\bcot\b|second seat|sibling seat|rumble ?seat|seat pack|seat pad|ride[- ]?along|glider board|piggy ?back|\bboard\b|wheel ?kit|sidewall|\bkit\b|inner tube|\btube\b|\btire\b|\bwheel\b|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|skirt|apron|\bmuff\b|sleeve|\bcover\b|\bbundle\b)\b/i;
+
+// GoodBuyGear's "Manufacturer" is a vendor code (e.g. "NQC-10004721",
+// "GBG Returns-…"), not the brand — the real brand leads the product name.
+const KNOWN_BRANDS = [
+  'Baby Jogger', 'Silver Cross', 'Maxi-Cosi', 'Peg Perego', 'Orbit Baby', 'Delta Children', 'Radio Flyer',
+  'BOB Gear', 'Baby Trend', 'Valco Baby', 'Guava Family', 'Charlie Crane', 'Mountain Buggy',
+  'UPPAbaby', 'Bugaboo', 'Cybex', 'Nuna', 'Joolz', 'Joie', 'Chicco', 'Graco', 'Britax', 'Bumbleride',
+  'Mockingbird', 'Mompush', 'Thule', 'Stokke', 'Evenflo', 'Veer', 'Clek', 'Doona', 'Romer', 'Ergobaby',
+  'Inglesina', 'Zoe', 'WonderFold', 'Larktale', 'Colugo', 'Mima', 'Jeep', 'Ingenuity', 'Summer',
+  'Munchkin', 'Bombi', 'Babyark', 'Diono', 'Cosatto', 'Babyzen', 'Keenz', 'egg',
+].sort((a, b) => b.length - a.length);
+
+function detectBrand(name: string): string {
+  const lower = name.toLowerCase().trim();
+  for (const b of KNOWN_BRANDS) {
+    const bl = b.toLowerCase();
+    if (lower === bl || lower.startsWith(`${bl} `)) return b;
+  }
+  return name.trim().split(/[\s,]+/)[0] || 'Other';
+}
 
 type ImpactItem = {
   Id: string;
@@ -161,6 +180,7 @@ async function main() {
 
   type Keep = {
     item: ImpactItem;
+    brand: string;
     productType: string;
     tmbcCategory: string;
     needsReview: boolean;
@@ -173,13 +193,16 @@ async function main() {
   for (const it of items) {
     if (!it.Id || !it.Name) continue;
     if (ACCESSORY_RE.test(it.Name)) continue;
-    const path = (it.Labels ?? []).join(' > ');
-    const cat = categorizeProduct({ title: it.Name, brand: it.Manufacturer, productTypePath: path });
+    // Categorize by NAME only — GoodBuyGear's labels lump accessories into
+    // "Strollers" collections, which would mis-tag them as strollers.
+    const brand = detectBrand(it.Name);
+    const cat = categorizeProduct({ title: it.Name, brand });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
     const isInfantSeat = cat.productType === 'infant car seat';
     if (!isStroller && !isInfantSeat) continue;
     keep.push({
       item: it,
+      brand,
       productType: cat.productType!,
       tmbcCategory: cat.tmbcCategory,
       needsReview: cat.needsReview,
@@ -195,9 +218,7 @@ async function main() {
     .sort((a, b) => b[1] - a[1])
     .forEach(([t, n]) => console.log(`    ${String(n).padStart(4)}  ${t}`));
   console.log('\n  kept sample (first 14):');
-  keep.slice(0, 14).forEach((k) =>
-    console.log(`    [${k.productType}] ${`${k.item.Manufacturer ?? ''} ${k.item.Name}`.trim().slice(0, 74)}`),
-  );
+  keep.slice(0, 18).forEach((k) => console.log(`    [${k.productType}] ${k.brand} · ${k.item.Name}`.slice(0, 88)));
 
   if (!apply) {
     console.log('\n  (dry run — nothing written. Re-run with --apply.)');
@@ -221,7 +242,7 @@ async function main() {
       catalogId,
       externalId,
       sku: externalId,
-      brand: it.Manufacturer || null,
+      brand: k.brand || null,
       title: it.Name,
       description: it.Description || null,
       productTypePath: (it.Labels ?? []).join(' > ') || null,
