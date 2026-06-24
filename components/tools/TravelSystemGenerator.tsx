@@ -52,16 +52,16 @@ function compatibilityBadgeClasses(
 ) {
   switch (type) {
     case 'DIRECT':
-      return 'border-[rgba(123,169,138,0.22)] bg-[rgba(141,189,156,0.18)] text-[rgba(67,106,80,0.98)]';
+      return 'tool-badge--direct';
     case 'ADAPTER':
-      return 'border-[rgba(0,0,0,0.08)] bg-[rgba(255,255,255,0.86)] text-neutral-700';
+      return 'tool-badge--adapter';
     case 'LIMITED':
-      return 'border-[rgba(196,156,94,0.2)] bg-[rgba(227,190,120,0.18)] text-[rgba(124,90,39,0.98)]';
+      return 'tool-badge--limited';
     case 'LOCKED':
-      return 'border-[rgba(126,125,131,0.2)] bg-[rgba(215,212,219,0.28)] text-[rgba(77,77,84,0.96)]';
+      return 'tool-badge--locked';
     case 'INCOMPATIBLE':
     default:
-      return 'border-[rgba(189,95,95,0.22)] bg-[rgba(226,135,135,0.16)] text-[rgba(149,68,68,0.98)]';
+      return 'tool-badge--incompatible';
   }
 }
 
@@ -662,7 +662,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   {mergedCarSeats.map((seat) => (
                     <article
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
-                      className="rounded-[1.5rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcfaf6_100%)] p-5 shadow-[0_12px_28px_rgba(0,0,0,0.03)]"
+                      className="tool-card p-5"
                     >
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
@@ -671,16 +671,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                             {seat.displayName}
                           </h4>
                           {seat.babylistPrice ? (
-                            <p className="mt-1.5 text-[0.95rem] font-semibold text-[var(--gold)]">
+                            <p className="tool-price mt-1.5">
                               ${seat.babylistPrice.toFixed(2)}
-                              <span className="ml-1.5 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
-                                via Babylist
-                              </span>
+                              <span className="tool-price__note">via Babylist</span>
                             </p>
                           ) : null}
                         </div>
                         <span
-                          className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] ${compatibilityBadgeClasses(seat.compatibilityType)}`}
+                          className={`tool-badge ${compatibilityBadgeClasses(seat.compatibilityType)}`}
                         >
                           {formatCompatibilityType(seat.compatibilityType)}
                         </span>
@@ -812,7 +810,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   {mergedStrollers.map((stroller) => (
                     <article
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
-                      className="rounded-[1.5rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcfaf6_100%)] p-5 shadow-[0_12px_28px_rgba(0,0,0,0.03)]"
+                      className="tool-card p-5"
                     >
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
@@ -821,16 +819,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                             {stroller.displayName}
                           </h4>
                           {stroller.babylistPrice ? (
-                            <p className="mt-1.5 text-[0.95rem] font-semibold text-[var(--gold)]">
+                            <p className="tool-price mt-1.5">
                               ${stroller.babylistPrice.toFixed(2)}
-                              <span className="ml-1.5 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-neutral-400">
-                                via Babylist
-                              </span>
+                              <span className="tool-price__note">via Babylist</span>
                             </p>
                           ) : null}
                         </div>
                         <span
-                          className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] ${compatibilityBadgeClasses(stroller.compatibilityType)}`}
+                          className={`tool-badge ${compatibilityBadgeClasses(stroller.compatibilityType)}`}
                         >
                           {formatCompatibilityType(stroller.compatibilityType)}
                         </span>
