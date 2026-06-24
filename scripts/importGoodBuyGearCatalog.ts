@@ -49,6 +49,12 @@ const SID = process.env.IMPACT_GOODBUYGEAR_ACCOUNT_SID;
 const TOKEN = process.env.IMPACT_GOODBUYGEAR_AUTH_TOKEN;
 const PROVIDER = 'impact_goodbuygear';
 
+// Accessory false-positives — their names contain "stroller"/"car seat"/model
+// names but they aren't the product itself (bags, caddies, organizers, covers,
+// raincovers, second seats…). Skipped before categorizing.
+const ACCESSORY_RE =
+  /\b(?:adapter|adaptor|tote bag|travel bag|storage bag|carry bag|diaper bag|backpack|caddy|organi[sz]er|cup ?holder|snack ?tray|belly bar|bumper bar|rain ?cover|raincover|weather shield|sun ?shade|parasol|footmuff|bunting|seat liner|\bliner\b|bassinet|second seat|sibling seat|rumble ?seat|ride[- ]?along|glider board|piggy ?back|wheel kit|replacement|\bstand\b|\bcover\b|\bcanopy\b|mosquito)\b/i;
+
 type ImpactItem = {
   Id: string;
   CatalogId?: string;
@@ -91,23 +97,33 @@ async function get<T>(url: string, attempt = 0): Promise<T | null> {
 }
 
 async function resolveCatalogId(): Promise<string> {
-  const envId = process.env.IMPACT_GOODBUYGEAR_CATALOG_ID;
-  if (envId && envId.trim()) return envId.trim();
-
   const data = await get<{ Catalogs?: Array<{ Id: string; Name: string; NumberOfItems?: string }> }>(
     `${BASE_URL}/Mediapartners/${SID}/Catalogs`,
   );
   const catalogs = data?.Catalogs ?? [];
-  if (catalogs.length === 0) {
-    throw new Error(
-      `No catalogs found for the GoodBuyGear account. Set IMPACT_GOODBUYGEAR_CATALOG_ID. Raw: ${JSON.stringify(data).slice(0, 400)}`,
-    );
-  }
-  console.log('  GoodBuyGear catalogs on this account:');
+  console.log('  Catalogs visible to these credentials:');
   catalogs.forEach((c) => console.log(`    ${c.Id}  ${c.Name}  (${c.NumberOfItems ?? '?'} items)`));
-  const pick = [...catalogs].sort((a, b) => Number(b.NumberOfItems ?? 0) - Number(a.NumberOfItems ?? 0))[0];
-  console.log(`  → using catalog ${pick.Id} (${pick.Name}). Override with IMPACT_GOODBUYGEAR_CATALOG_ID.`);
-  return pick.Id;
+
+  const envId = process.env.IMPACT_GOODBUYGEAR_CATALOG_ID?.trim();
+  if (envId) {
+    const found = catalogs.find((c) => c.Id === envId);
+    console.log(`  → using catalog ${envId}${found ? ` (${found.Name})` : ' (not in the list above — double-check)'}`);
+    return envId;
+  }
+
+  // Only auto-select when a catalog is actually named GoodBuyGear — never the
+  // largest (that grabbed the Babylist feed, which is a duplicate import).
+  const named = catalogs.find((c) => /good\s*buy\s*gear/i.test(c.Name));
+  if (named) {
+    console.log(`  → matched GoodBuyGear catalog ${named.Id} (${named.Name})`);
+    return named.Id;
+  }
+
+  throw new Error(
+    'No catalog named "GoodBuyGear" is visible to these credentials, and IMPACT_GOODBUYGEAR_CATALOG_ID is not set. ' +
+      'Pick the right Id from the list above and set IMPACT_GOODBUYGEAR_CATALOG_ID=<id>, then re-run. ' +
+      'Do NOT use 8981 — that is the Babylist feed you already import.',
+  );
 }
 
 async function* listItems(catalogId: string): AsyncGenerator<ImpactItem[]> {
@@ -156,6 +172,7 @@ async function main() {
   const dist: Record<string, number> = {};
   for (const it of items) {
     if (!it.Id || !it.Name) continue;
+    if (ACCESSORY_RE.test(it.Name)) continue;
     const path = (it.Labels ?? []).join(' > ');
     const cat = categorizeProduct({ title: it.Name, brand: it.Manufacturer, productTypePath: path });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
