@@ -83,6 +83,7 @@ type ImpactItem = {
   Manufacturer?: string;
   Url: string;
   ImageUrl?: string;
+  AdditionalImageUrls?: string[];
   CurrentPrice?: string;
   OriginalPrice?: string;
   Currency?: string;
