@@ -152,16 +152,33 @@ function AffiliateBuyButtons({
   model,
   babylistUrl,
   kind = 'stroller',
+  compact = false,
 }: {
   brand: string;
   model: string;
   babylistUrl?: string | null;
   kind?: 'stroller' | 'carSeat';
+  compact?: boolean;
 }) {
   const links = getAffiliateLinks(brand, model);
   // Every product gets a Babylist affiliate link (synced exact URL wins, then
   // static map, then a tracked brand listing). Amazon shows alongside it.
   const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
+
+  // Compact mode (in-viewport result cards): one block Babylist button, matching
+  // the stroller finder's card CTA, so each card stays short.
+  if (compact) {
+    return (
+      <a
+        href={resolvedBabylistUrl}
+        target="_blank"
+        rel="sponsored nofollow noopener noreferrer"
+        className="tool-btn tool-btn--primary tool-btn--block"
+      >
+        Shop on Babylist →
+      </a>
+    );
+  }
 
   return (
     <div className="mt-4 flex flex-wrap gap-2">
@@ -214,7 +231,7 @@ function ResultCard({
 }) {
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
-      <div className="tool-card__media" style={{ height: '5.25rem' }}>
+      <div className="tool-card__media" style={{ height: '4.75rem' }}>
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} />
@@ -222,7 +239,7 @@ function ResultCard({
           <span className="text-[0.58rem] uppercase tracking-[0.16em] text-neutral-300">{item.brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+      <div className="flex flex-1 flex-col gap-1 px-3 py-3">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <p className="text-[0.58rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
@@ -273,8 +290,8 @@ function ResultCard({
           <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">Direct fit · no adapter needed</p>
         )}
 
-        <div className="mt-auto pt-1">
-          <AffiliateBuyButtons brand={item.brand} model={item.model} babylistUrl={item.babylistUrl} kind={kind} />
+        <div className="mt-auto pt-1.5">
+          <AffiliateBuyButtons brand={item.brand} model={item.model} babylistUrl={item.babylistUrl} kind={kind} compact />
         </div>
       </div>
     </div>
@@ -649,62 +666,47 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
             </div>
           ) : result?.queryType === 'stroller' ? (
             <>
-              <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[rgba(0,0,0,0.06)] pb-5">
-                <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-500">Compatible infant car seats</p>
-                  <h3 className="mt-2 font-serif text-[1.75rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
-                    {result.stroller.displayName}
-                  </h3>
-                  {result.stroller.summary ? (
-                    <p className="mt-2 text-sm leading-7 text-neutral-600">{result.stroller.summary}</p>
+              <div className="border-b border-[rgba(0,0,0,0.06)] pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                  <div className="min-w-0">
+                    <p className="text-[0.6rem] uppercase tracking-[0.18em] text-neutral-500">Compatible infant car seats</p>
+                    <h3 className="font-serif text-[1.3rem] leading-tight tracking-[-0.03em] text-neutral-900">
+                      {result.stroller.displayName}
+                    </h3>
+                  </div>
+                  {result.compatibleCarSeats.length > 0 ? (
+                    <div className="flex flex-wrap items-center gap-1.5 text-[0.7rem] font-semibold">
+                      <span className="rounded-full bg-[rgba(251,247,244,0.95)] px-2.5 py-1 text-neutral-700">
+                        {result.compatibleCarSeats.length} matches
+                      </span>
+                      <span className="rounded-full bg-[rgba(232,154,174,0.16)] px-2.5 py-1 text-[var(--color-accent-dark)]">
+                        {result.compatibleCarSeats.filter((s) => s.compatibilityType === 'DIRECT').length} direct fit
+                      </span>
+                      <span className="rounded-full bg-[rgba(198,167,94,0.18)] px-2.5 py-1 text-[#8a6d24]">
+                        {result.compatibleCarSeats.filter((s) => s.adapterRequired).length} need adapter
+                      </span>
+                      {activeInsight ? (
+                        <span
+                          className={`inline-flex rounded-full border px-2.5 py-1 text-[0.6rem] uppercase tracking-[0.14em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
+                        >
+                          {activeInsight.ecosystemLabel}
+                        </span>
+                      ) : null}
+                    </div>
                   ) : null}
                 </div>
-                <div className="inline-flex items-center rounded-full bg-[rgba(215,161,175,0.14)] px-3 py-2 text-sm text-[var(--color-accent-dark)]">
-                  {result.compatibleCarSeats.length} option{result.compatibleCarSeats.length === 1 ? '' : 's'}
-                </div>
+                {activeInsight ? (
+                  <details className="mt-2">
+                    <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
+                      What most parents should know first ›
+                    </summary>
+                    <p className="mt-1.5 text-[0.82rem] leading-6 text-neutral-700">{activeInsight.tmbcInsight}</p>
+                  </details>
+                ) : null}
               </div>
 
               {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-5 grid grid-cols-3 gap-2.5">
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">{result.compatibleCarSeats.length}</p>
-                    <p className="tool-stat__label">Compatible</p>
-                  </div>
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">
-                      {result.compatibleCarSeats.filter((s) => s.compatibilityType === 'DIRECT').length}
-                    </p>
-                    <p className="tool-stat__label">Direct fit</p>
-                  </div>
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">
-                      {result.compatibleCarSeats.filter((s) => s.adapterRequired).length}
-                    </p>
-                    <p className="tool-stat__label">Need adapter</p>
-                  </div>
-                </div>
-              ) : null}
-
-              {activeInsight ? (
-                <div className="mt-5 grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)]">
-                  <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                    <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">System type</p>
-                    <span
-                      className={`mt-2 inline-flex rounded-full border px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
-                    >
-                      {activeInsight.ecosystemLabel}
-                    </span>
-                  </div>
-
-                  <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                    <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">What most parents should know first</p>
-                    <p className="mt-2 text-sm leading-7 text-neutral-700">{activeInsight.tmbcInsight}</p>
-                  </div>
-                </div>
-              ) : null}
-
-              {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr))]">
                   {mergedCarSeats.map((seat) => (
                     <ResultCard
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
@@ -721,62 +723,47 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
             </>
           ) : result?.queryType === 'carSeat' ? (
             <>
-              <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[rgba(0,0,0,0.06)] pb-5">
-                <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-500">Compatible strollers</p>
-                  <h3 className="mt-2 font-serif text-[1.75rem] leading-[1.04] tracking-[-0.03em] text-neutral-900">
-                    {result.carSeat.displayName}
-                  </h3>
-                  {result.carSeat.summary ? (
-                    <p className="mt-2 text-sm leading-7 text-neutral-600">{result.carSeat.summary}</p>
+              <div className="border-b border-[rgba(0,0,0,0.06)] pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                  <div className="min-w-0">
+                    <p className="text-[0.6rem] uppercase tracking-[0.18em] text-neutral-500">Compatible strollers</p>
+                    <h3 className="font-serif text-[1.3rem] leading-tight tracking-[-0.03em] text-neutral-900">
+                      {result.carSeat.displayName}
+                    </h3>
+                  </div>
+                  {result.compatibleStrollers.length > 0 ? (
+                    <div className="flex flex-wrap items-center gap-1.5 text-[0.7rem] font-semibold">
+                      <span className="rounded-full bg-[rgba(251,247,244,0.95)] px-2.5 py-1 text-neutral-700">
+                        {result.compatibleStrollers.length} matches
+                      </span>
+                      <span className="rounded-full bg-[rgba(232,154,174,0.16)] px-2.5 py-1 text-[var(--color-accent-dark)]">
+                        {result.compatibleStrollers.filter((s) => s.compatibilityType === 'DIRECT').length} direct fit
+                      </span>
+                      <span className="rounded-full bg-[rgba(198,167,94,0.18)] px-2.5 py-1 text-[#8a6d24]">
+                        {result.compatibleStrollers.filter((s) => s.adapterRequired).length} need adapter
+                      </span>
+                      {activeInsight ? (
+                        <span
+                          className={`inline-flex rounded-full border px-2.5 py-1 text-[0.6rem] uppercase tracking-[0.14em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
+                        >
+                          {activeInsight.ecosystemLabel}
+                        </span>
+                      ) : null}
+                    </div>
                   ) : null}
                 </div>
-                <div className="inline-flex items-center rounded-full bg-[rgba(215,161,175,0.14)] px-3 py-2 text-sm text-[var(--color-accent-dark)]">
-                  {result.compatibleStrollers.length} option{result.compatibleStrollers.length === 1 ? '' : 's'}
-                </div>
+                {activeInsight ? (
+                  <details className="mt-2">
+                    <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
+                      What most parents should know first ›
+                    </summary>
+                    <p className="mt-1.5 text-[0.82rem] leading-6 text-neutral-700">{activeInsight.tmbcInsight}</p>
+                  </details>
+                ) : null}
               </div>
 
               {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-5 grid grid-cols-3 gap-2.5">
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">{result.compatibleStrollers.length}</p>
-                    <p className="tool-stat__label">Compatible</p>
-                  </div>
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">
-                      {result.compatibleStrollers.filter((s) => s.compatibilityType === 'DIRECT').length}
-                    </p>
-                    <p className="tool-stat__label">Direct fit</p>
-                  </div>
-                  <div className="tool-stat">
-                    <p className="tool-stat__num">
-                      {result.compatibleStrollers.filter((s) => s.adapterRequired).length}
-                    </p>
-                    <p className="tool-stat__label">Need adapter</p>
-                  </div>
-                </div>
-              ) : null}
-
-              {activeInsight ? (
-                <div className="mt-5 grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)]">
-                  <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                    <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">System type</p>
-                    <span
-                      className={`mt-2 inline-flex rounded-full border px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
-                    >
-                      {activeInsight.ecosystemLabel}
-                    </span>
-                  </div>
-
-                  <div className="rounded-[1rem] bg-[rgba(251,247,244,0.88)] px-4 py-3">
-                    <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">What most parents should know first</p>
-                    <p className="mt-2 text-sm leading-7 text-neutral-700">{activeInsight.tmbcInsight}</p>
-                  </div>
-                </div>
-              ) : null}
-
-              {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr))]">
                   {mergedStrollers.map((stroller) => (
                     <ResultCard
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
