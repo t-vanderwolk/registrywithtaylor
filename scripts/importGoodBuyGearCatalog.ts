@@ -17,16 +17,31 @@
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" npm run catalog:import-gbg
  */
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { categorizeProduct } from '@/lib/catalog/categorize';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 
-// Load .env for local CLI runs (Node 20.12+). It does NOT overwrite variables
-// already exported in the shell, so an inline prod DATABASE_URL still wins.
-try {
-  (process as { loadEnvFile?: (path?: string) => void }).loadEnvFile?.();
-} catch {
-  /* .env is optional — the creds may already be exported */
+// Load .env for local CLI runs without a dotenv dependency. Tolerant of quirks
+// (skips unparseable lines instead of throwing) and never overrides a variable
+// already exported in the shell — so an inline prod DATABASE_URL still wins.
+function loadDotEnv() {
+  try {
+    const text = readFileSync(resolve(process.cwd(), '.env'), 'utf8');
+    for (const line of text.split('\n')) {
+      const m = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
+      if (!m) continue;
+      let val = m[2];
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      if (process.env[m[1]] === undefined) process.env[m[1]] = val;
+    }
+  } catch {
+    /* .env is optional — the creds may already be exported */
+  }
 }
+loadDotEnv();
 
 const BASE_URL = 'https://api.impact.com';
 const API_VERSION = 16;
