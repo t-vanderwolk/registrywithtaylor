@@ -163,6 +163,45 @@ function parsePrice(v?: string): number | null {
   return Number.isFinite(n) && n > 0 ? n : null;
 }
 
+/** Decode the real landing URL from an Impact affiliate link's `u=` param. */
+function decodeDestination(link: string): string | null {
+  if (!link) return null;
+  try {
+    const dest = new URL(link).searchParams.get('u');
+    return dest ? decodeURIComponent(dest) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Pull a product image off the listing page (og:image / twitter:image). Used only
+ * for brand-new products whose Impact item ships no image. Fetches the DECODED
+ * landing page, never the tracking link, so it doesn't register an affiliate click.
+ */
+async function fetchOgImage(landingUrl: string): Promise<string | null> {
+  try {
+    const res = await fetch(landingUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TMBC-catalog/1.0)' },
+      redirect: 'follow',
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const patterns = [
+      /<meta[^>]+property=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["']/i,
+      /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
+      /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
+    ];
+    for (const re of patterns) {
+      const m = html.match(re);
+      if (m?.[1]) return m[1].trim();
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const apply = process.argv.includes('--apply');
   if (!SID || !TOKEN) throw new Error('Set IMPACT_GOODBUYGEAR_ACCOUNT_SID and IMPACT_GOODBUYGEAR_AUTH_TOKEN.');
@@ -232,6 +271,7 @@ async function main() {
   let updated = 0;
   let enriched = 0;
   let skippedReviewed = 0;
+  let imagesFetched = 0;
   let errors = 0;
 
   for (const k of keep) {
@@ -248,7 +288,7 @@ async function main() {
       productTypePath: (it.Labels ?? []).join(' > ') || null,
       price: parsePrice(it.CurrentPrice),
       currency: it.Currency || 'USD',
-      imageUrl: it.ImageUrl || null,
+      imageUrl: it.ImageUrl || it.AdditionalImageUrls?.[0] || null,
       affiliateUrl: (it.Url || '').trim() || null, // PRESERVE EXACTLY
       availability: it.StockAvailability || null,
       inStock: /in.?stock|available/i.test(it.StockAvailability ?? ''),
@@ -262,6 +302,15 @@ async function main() {
         where: { provider_externalId: { provider: PROVIDER, externalId } },
         select: { id: true },
       });
+      // New to the DB and no image from the feed → fetch one from the product
+      // page (decoded landing URL, so no affiliate click is logged).
+      if (!existing && !raw.imageUrl) {
+        const landing = decodeDestination(it.Url);
+        if (landing) {
+          raw.imageUrl = await fetchOgImage(landing);
+          if (raw.imageUrl) imagesFetched += 1;
+        }
+      }
       let productId: string;
       if (!existing) {
         const r = await db.affiliateCatalogProduct.create({
@@ -329,7 +378,7 @@ async function main() {
   });
 
   console.log(
-    `\n  created ${created} · updated ${updated} · enriched ${enriched} · skipped(reviewed) ${skippedReviewed} · errors ${errors} · deactivated ${inactive.count}`,
+    `\n  created ${created} · updated ${updated} · enriched ${enriched} · images fetched ${imagesFetched} · skipped(reviewed) ${skippedReviewed} · errors ${errors} · deactivated ${inactive.count}`,
   );
   await db.$disconnect?.();
 }
