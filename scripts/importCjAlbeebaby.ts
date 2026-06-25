@@ -194,6 +194,7 @@ async function main() {
   items.slice(0, 5).forEach((p) =>
     console.log(`    ${(p.title ?? '').slice(0, 50)} | ${p.brand ?? ''} | ${pathOf(p).slice(0, 40)}`),
   );
+  console.log(`  sample link (stored verbatim — confirm it's a tracked CJ url): ${items.find((p) => p.link)?.link ?? '(none)'}`);
 
   type Keep = {
     item: CjProduct;
