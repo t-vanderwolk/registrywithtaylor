@@ -365,6 +365,39 @@ async function getSharedAdapterInferredSeats(
   return inferred;
 }
 
+/**
+ * Reverse of getSharedAdapterInferredSeats: for a shared-adapter infant seat
+ * (Maxi-Cosi / Nuna / CYBEX / Clek / Britax), list every non-Nuna stroller that
+ * explicitly accepts a Nuna seat — those strollers take the same shared adapter,
+ * so they also accept this seat. Nuna strollers (closed ecosystem) are excluded.
+ */
+async function getSharedAdapterInferredStrollers(
+  carSeat: CarSeatRow,
+  seenStrollerIds: Set<string>,
+): Promise<StrollerRow[]> {
+  if (!usesSharedInfantSeatAdapter(carSeat.brand)) {
+    return [];
+  }
+
+  const rows = await prisma.$queryRaw<StrollerRow[]>`
+    SELECT DISTINCT
+      stroller."id",
+      stroller."brand",
+      stroller."model",
+      stroller."displayName",
+      stroller."summary"
+    FROM "Compatibility" AS compat
+    INNER JOIN "Stroller" AS stroller ON stroller."id" = compat."strollerId"
+    INNER JOIN "CarSeat" AS seat ON seat."id" = compat."carSeatId"
+    WHERE seat."seatType" = 'INFANT'
+      AND LOWER(seat."brand") = ${SHARED_ADAPTER_TRIGGER_BRAND}
+      AND LOWER(stroller."brand") <> ${NUNA_CLOSED_STROLLER_BRAND}
+    ORDER BY LOWER(stroller."brand"), LOWER(stroller."model")
+  `;
+
+  return rows.filter((row) => !seenStrollerIds.has(row.id));
+}
+
 export async function getTravelSystemStrollers() {
   try {
     const rows = await prisma.$queryRaw<StrollerRow[]>`
@@ -710,6 +743,11 @@ export async function getTravelSystemCompatibilityByCarSeat(
 
   const explicitStrollerIds = new Set(explicitRows.map((row) => row.strollerId));
   const sameBrandDefaults = await getSameBrandDefaultStrollers(carSeat, explicitStrollerIds);
+  const seenStrollerIds = new Set<string>([
+    ...explicitStrollerIds,
+    ...sameBrandDefaults.map((row) => row.id),
+  ]);
+  const inferredStrollers = await getSharedAdapterInferredStrollers(carSeat, seenStrollerIds);
 
   const compatibleStrollers = [
     ...explicitRows.map<CompatibleStrollerResult>((row) => {
@@ -753,6 +791,33 @@ export async function getTravelSystemCompatibilityByCarSeat(
         adapterType: null,
         notes:
           'This is the same-brand default path. Confirm the current release details before you buy, but it is the cleanest place to start.',
+        confidence: 'MEDIUM',
+        imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,
+        imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
+      };
+    }),
+    // Inferred strollers: any non-Nuna stroller that accepts a Nuna seat takes the
+    // same shared adapter, so it also accepts this Maxi-Cosi / CYBEX / Clek / Britax seat.
+    ...inferredStrollers.map<CompatibleStrollerResult>((row) => {
+      const displayName = getDisplayName(row.brand, row.model, row.displayName);
+      const resolvedImage = resolveProductCardImage({
+        brand: row.brand,
+        productName: displayName,
+      });
+
+      return {
+        brand: row.brand,
+        model: row.model,
+        displayName,
+        summary: row.summary,
+        compatibilityType: 'ADAPTER',
+        adapterRequired: true,
+        adapterType: getAdapterType(row.brand, carSeat.brand, true, null, null),
+        adapterImage: null,
+        adapterUrl: null,
+        adapterPrice: null,
+        notes:
+          'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi / Britax adapter standard. Verify the specific adapter for your stroller model before purchase.',
         confidence: 'MEDIUM',
         imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
