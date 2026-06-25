@@ -276,6 +276,59 @@ function AffiliateBuyButtons({
   );
 }
 
+// Browse selector card (mirrors the finder): image + brand + model (+ Babylist
+// price). Clicking it selects the stroller / car seat and reveals its matches.
+function BrowseCard({
+  option,
+  selected,
+  image,
+  price,
+  onSelect,
+}: {
+  option: { brand: string; model: string };
+  selected: boolean;
+  image: string | null;
+  price: number | null;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      className={`tool-card tool-card--interactive overflow-hidden text-left ${
+        selected ? 'ring-2 ring-[var(--color-cta-pink)] ring-offset-1' : ''
+      }`}
+    >
+      <div className="tool-card__media" style={{ height: '7rem' }}>
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt={option.model} />
+        ) : (
+          <span className="text-[0.56rem] uppercase tracking-[0.16em] text-neutral-300">{option.brand}</span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-0.5 px-3 py-2.5">
+        <p className="text-[0.56rem] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]">
+          {option.brand}
+        </p>
+        <p className="font-serif text-[0.98rem] leading-tight text-neutral-900">{option.model}</p>
+        {price != null ? (
+          <p className="tool-price text-[0.8rem]">
+            ${price.toFixed(2)}
+            <span className="tool-price__note">via Babylist</span>
+          </p>
+        ) : null}
+        <span
+          className={`mt-1 text-[0.64rem] font-semibold ${selected ? 'text-[var(--color-accent-dark)]' : 'text-neutral-400'}`}
+        >
+          {selected ? 'Selected · matches below ↓' : 'Tap to check compatibility'}
+        </span>
+      </div>
+    </button>
+  );
+}
+
 function ResultCard({
   item,
   kind,
@@ -378,6 +431,9 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       }
     >
   >({});
+  const [browseLookup, setBrowseLookup] = useState<
+    Record<string, { babylistImage: string | null; babylistPrice: number | null }>
+  >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
   // A car-seat deep-link sets the mode + value on mount; that mode change would
@@ -470,6 +526,15 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     },
     {},
   );
+
+  // Browse cards (mirroring the finder) show an image per option — fetched from the
+  // same lookup the results use, keyed brand:::model, cached across brands.
+  const browseOptions = deferredSearchQuery
+    ? activeOptions
+    : selectorBrand
+      ? optionGroups[selectorBrand] ?? []
+      : [];
+  const browseItems = browseOptions.map((o) => `${o.brand}:::${o.model}`).join(',');
 
   const selectedBrand =
     result?.queryType === 'stroller'
@@ -572,6 +637,22 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     };
   }, [result]);
 
+  // Fetch a Babylist image/price for each browsed option (brand drill-down / search
+  // cards), accumulating so switching brands keeps earlier images cached.
+  useEffect(() => {
+    if (!browseItems) return;
+    let cancelled = false;
+    fetch(`/api/babylist/lookup?items=${encodeURIComponent(browseItems)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d?.results) setBrowseLookup((prev) => ({ ...prev, ...d.results }));
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [browseItems]);
+
   // Merge fresh catalog fields onto each result row (same shape → cards unchanged).
   const mergedCarSeats =
     result?.queryType === 'stroller'
@@ -671,27 +752,19 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               <p className="mb-2.5 text-[0.72rem] text-neutral-500">
                 {activeOptions.length} match{activeOptions.length === 1 ? '' : 'es'}
               </p>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {activeOptions.map((option) => {
                   const value = buildOptionValue(option);
-                  const isSel = selectedValue === value;
+                  const bl = browseLookup[`${option.brand}:::${option.model}`];
                   return (
-                    <button
+                    <BrowseCard
                       key={value}
-                      type="button"
-                      onClick={() => setSelectedValue(value)}
-                      aria-pressed={isSel}
-                      className={`rounded-[0.85rem] border px-3.5 py-2.5 text-left text-sm transition ${
-                        isSel
-                          ? 'border-[var(--color-cta-pink)] bg-[rgba(232,154,174,0.12)] font-semibold text-neutral-900'
-                          : 'border-[rgba(0,0,0,0.08)] bg-white text-neutral-700 hover:border-[rgba(215,161,175,0.4)]'
-                      }`}
-                    >
-                      <span className="block text-[0.58rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
-                        {option.brand}
-                      </span>
-                      <span className="block">{option.model}</span>
-                    </button>
+                      option={option}
+                      selected={selectedValue === value}
+                      image={bl?.babylistImage ?? null}
+                      price={bl?.babylistPrice ?? null}
+                      onSelect={() => setSelectedValue(value)}
+                    />
                   );
                 })}
               </div>
@@ -732,27 +805,21 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 <span className="text-neutral-300">/</span>
                 <span className="text-neutral-500">{selectorBrand}</span>
               </nav>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {[...(optionGroups[selectorBrand] ?? [])]
                   .sort((a, b) => a.model.localeCompare(b.model))
                   .map((option) => {
                     const value = buildOptionValue(option);
-                    const isSel = selectedValue === value;
+                    const bl = browseLookup[`${option.brand}:::${option.model}`];
                     return (
-                      <button
+                      <BrowseCard
                         key={value}
-                        type="button"
-                        onClick={() => setSelectedValue(value)}
-                        aria-pressed={isSel}
-                        className={`flex items-center justify-between gap-2 rounded-[0.85rem] border px-3.5 py-2.5 text-left text-sm transition ${
-                          isSel
-                            ? 'border-[var(--color-cta-pink)] bg-[rgba(232,154,174,0.12)] font-semibold text-neutral-900'
-                            : 'border-[rgba(0,0,0,0.08)] bg-white text-neutral-700 hover:border-[rgba(215,161,175,0.4)]'
-                        }`}
-                      >
-                        <span>{option.model}</span>
-                        {isSel ? <span className="text-[var(--color-accent-dark)]">✓</span> : null}
-                      </button>
+                        option={option}
+                        selected={selectedValue === value}
+                        image={bl?.babylistImage ?? null}
+                        price={bl?.babylistPrice ?? null}
+                        onSelect={() => setSelectedValue(value)}
+                      />
                     );
                   })}
               </div>
