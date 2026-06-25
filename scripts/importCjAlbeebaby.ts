@@ -76,6 +76,8 @@ function detectBrand(name: string): string {
 type CjMoney = { amount?: string | number; currency?: string } | null;
 type CjProduct = {
   id?: string;
+  advertiserId?: string;
+  advertiserName?: string;
   title?: string;
   description?: string;
   brand?: string;
@@ -155,14 +157,19 @@ type ShoppingResult = { shoppingProducts: { totalCount: number; count: number; r
 async function* listProducts(): AsyncGenerator<CjProduct[]> {
   const limit = 1000;
   let offset = 0;
-  const partnerArg = ADVERTISERS.length ? `, partnerIds: [${ADVERTISERS.map((a) => `"${a}"`).join(', ')}]` : '';
+  // Only the CJ numeric advertiser CIDs can be passed to partnerIds; names are
+  // filtered client-side after the pull.
+  const numericAdvertisers = ADVERTISERS.filter((a) => /^\d+$/.test(a));
+  const partnerArg = numericAdvertisers.length
+    ? `, partnerIds: [${numericAdvertisers.map((a) => `"${a}"`).join(', ')}]`
+    : '';
   for (let guard = 0; guard < 500; guard += 1) {
     const query = `{
       shoppingProducts(companyId: "${COMPANY_ID}"${partnerArg}, limit: ${limit}, offset: ${offset}) {
         totalCount
         count
         resultList {
-          id title description brand link imageLink availability
+          id advertiserId advertiserName title description brand link imageLink availability
           price { amount currency } salePrice { amount currency } productType
         }
       }
@@ -184,12 +191,31 @@ async function main() {
   console.log('── CJ / Albee Baby catalog import ──');
   console.log(`  company ${COMPANY_ID} · advertisers ${ADVERTISERS.join(', ') || '(all joined)'}`);
 
-  const items: CjProduct[] = [];
+  const allItems: CjProduct[] = [];
   for await (const page of listProducts()) {
-    items.push(...page);
-    console.log(`  …pulled ${items.length}`);
+    allItems.push(...page);
+    console.log(`  …pulled ${allItems.length}`);
   }
-  console.log(`  pulled ${items.length} products`);
+  console.log(`  pulled ${allItems.length} products`);
+
+  // Show every advertiser in the pull so you can grab Albee Baby's numeric CID.
+  const advCount = new Map<string, { name: string; n: number }>();
+  for (const p of allItems) {
+    const id = p.advertiserId ?? '?';
+    const e = advCount.get(id) ?? { name: p.advertiserName ?? '?', n: 0 };
+    e.n += 1;
+    advCount.set(id, e);
+  }
+  console.log('  advertisers found:');
+  [...advCount.entries()].forEach(([id, e]) => console.log(`    ${id}  ${e.name}  (${e.n})`));
+
+  // Filter to the configured advertiser(s); names match advertiserName, numeric CIDs were already server-filtered.
+  const wantNames = ADVERTISERS.filter((a) => !/^\d+$/.test(a)).map((a) => a.toLowerCase());
+  const items =
+    wantNames.length > 0
+      ? allItems.filter((p) => wantNames.some((w) => (p.advertiserName ?? '').toLowerCase().includes(w)))
+      : allItems;
+  console.log(`  matched advertiser filter: ${items.length}`);
   console.log('\n  raw sample (Title | Brand | productType):');
   items.slice(0, 5).forEach((p) =>
     console.log(`    ${(p.title ?? '').slice(0, 50)} | ${p.brand ?? ''} | ${pathOf(p).slice(0, 40)}`),
