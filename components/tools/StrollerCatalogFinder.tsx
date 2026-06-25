@@ -105,8 +105,8 @@ const RETAILER_CTAS: Array<{
   note: string;
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', logo: '/assets/logos/babylist.png', note: '' },
-  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', logo: null, note: '' },
-  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', logo: null, note: 'as low as ' },
+  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', logo: '/assets/logos/albeebaby-round1.png', note: '' },
+  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', logo: '/assets/logos/goodbuygear.png', note: 'as low as ' },
 ];
 
 function ProductCard({
