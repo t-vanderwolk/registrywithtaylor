@@ -56,7 +56,14 @@ export async function GET(request: NextRequest) {
 
   // Look up across both strollers and car seats so the travel-system checker
   // (which lists both sides of a combo) and the matchmaker quiz share one API.
-  type LookupRow = { brand: string; model: string; babylistSku: string | null } & BabylistFields;
+  type LookupRow = {
+    brand: string;
+    model: string;
+    babylistSku: string | null;
+    babylistUrl: string | null;
+    babylistPrice: number | null;
+    babylistImage: string | null;
+  };
   const [strollerRows, carSeatRows] = await Promise.all([
     prisma.stroller
       .findMany({
