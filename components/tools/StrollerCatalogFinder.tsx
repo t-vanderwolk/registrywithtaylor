@@ -57,8 +57,6 @@ const CATEGORY_ORDER = [
   'convertible-modular',
   'convertible-non-modular',
   'double',
-  'double-travel',
-  'double-jogging',
   'jogging',
   'umbrella',
   'wagon',

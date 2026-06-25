@@ -17,8 +17,6 @@ const TYPE_ORDER: StrollerCategory[] = [
   'convertible-modular',
   'convertible-non-modular',
   'double',
-  'double-travel',
-  'double-jogging',
   'jogging',
   'umbrella',
   'wagon',
