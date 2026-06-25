@@ -7,6 +7,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const PROVIDER_GBG = 'impact_goodbuygear';
+const PROVIDER_ALBEE = 'cj_albeebaby';
 
 type CatalogProductRow = {
   provider: string;
@@ -19,14 +20,19 @@ type CatalogProductRow = {
   enrichment: { productType: string | null } | null;
 };
 
+type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
   model: string;
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'openbox';
-  openBox: { price: number; url: string | null } | null;
+  source: 'babylist' | 'albee' | 'openbox';
+  retailers: {
+    babylist: RetailerOffer | null;
+    albee: RetailerOffer | null;
+    goodbuygear: RetailerOffer | null;
+  };
 };
 
 /**
@@ -61,12 +67,13 @@ export async function GET() {
     })
     .catch(() => [] as CatalogProductRow[]);
 
+  type Offer = { price: number | null; url: string | null; image: string | null; title: string };
   type Group = {
-    primary: CatalogProductRow;
     brand: string;
     model: string;
-    openBoxPrice: number | null;
-    openBoxUrl: string | null;
+    babylist: Offer | null;
+    albee: Offer | null;
+    gbg: Offer | null;
   };
   const groups = new Map<string, Group>();
   const seenGroups = new Set<string>();
@@ -79,33 +86,41 @@ export async function GET() {
     const brand = canonicalBrand(r.brand);
     const model = parseStrollerModel(r.title, brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
-    const isGbg = r.provider === PROVIDER_GBG;
 
     let g = groups.get(key);
     if (!g) {
-      g = { primary: r, brand, model, openBoxPrice: null, openBoxUrl: null };
+      g = { brand, model, babylist: null, albee: null, gbg: null };
       groups.set(key, g);
-    } else if (g.primary.provider === PROVIDER_GBG && !isGbg) {
-      g.primary = r; // prefer a Babylist listing as the primary card
     }
-    if (isGbg && r.price != null && (g.openBoxPrice == null || r.price < g.openBoxPrice)) {
-      g.openBoxPrice = r.price;
-      g.openBoxUrl = r.affiliateUrl;
+    const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
+    const cheaper = (cur: Offer | null) =>
+      !cur || (offer.price != null && (cur.price == null || offer.price < cur.price));
+    if (r.provider === PROVIDER_GBG) {
+      if (cheaper(g.gbg)) g.gbg = offer;
+    } else if (r.provider === PROVIDER_ALBEE) {
+      if (cheaper(g.albee)) g.albee = offer;
+    } else if (!g.babylist) {
+      g.babylist = offer;
     }
   }
 
   const byBrand = new Map<string, FinderProduct[]>();
   for (const g of groups.values()) {
-    const isGbgPrimary = g.primary.provider === PROVIDER_GBG;
+    const primary = g.babylist ?? g.albee ?? g.gbg;
+    if (!primary) continue;
     if (!byBrand.has(g.brand)) byBrand.set(g.brand, []);
     byBrand.get(g.brand)!.push({
-      name: g.primary.title,
+      name: primary.title,
       model: g.model,
-      price: g.primary.price,
-      image: g.primary.imageUrl,
-      affiliateUrl: g.primary.affiliateUrl,
-      source: isGbgPrimary ? 'openbox' : 'babylist',
-      openBox: !isGbgPrimary && g.openBoxPrice != null ? { price: g.openBoxPrice, url: g.openBoxUrl } : null,
+      price: primary.price,
+      image: g.babylist?.image ?? g.albee?.image ?? g.gbg?.image ?? null,
+      affiliateUrl: primary.url,
+      source: g.babylist ? 'babylist' : g.albee ? 'albee' : 'openbox',
+      retailers: {
+        babylist: g.babylist ? { price: g.babylist.price, url: g.babylist.url } : null,
+        albee: g.albee ? { price: g.albee.price, url: g.albee.url } : null,
+        goodbuygear: g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null,
+      },
     });
   }
 

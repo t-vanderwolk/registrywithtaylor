@@ -64,14 +64,19 @@ const CATEGORY_ORDER = [
   'wagon',
 ];
 
+type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
   model: string;
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'openbox';
-  openBox?: { price: number; url: string | null } | null;
+  source?: 'babylist' | 'albee' | 'openbox';
+  retailers?: {
+    babylist?: RetailerOffer | null;
+    albee?: RetailerOffer | null;
+    goodbuygear?: RetailerOffer | null;
+  } | null;
 };
 type FinderType = { category: string; label: string; products: FinderProduct[] };
 type FinderBrand = { brand: string; count: number; types: FinderType[] };
@@ -88,6 +93,21 @@ function carSeatCompatHref(brand: string, model: string) {
   return `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}&carSeatModel=${encodeURIComponent(model)}`;
 }
 
+// Retailer CTAs, stacked on each card in priority order. Babylist is the primary
+// (pink) button; Albee Baby and GoodBuyGear are secondary buttons with their logo
+// and a price badge on the right.
+const RETAILER_CTAS: Array<{
+  key: 'babylist' | 'albee' | 'goodbuygear';
+  shopLabel: string;
+  logo: string | null;
+  primary: boolean;
+  note: string;
+}> = [
+  { key: 'babylist', shopLabel: 'Shop on Babylist', logo: null, primary: true, note: '' },
+  { key: 'albee', shopLabel: 'Shop Albee Baby', logo: '/assets/logos/albeebaby-round1.png', primary: false, note: '' },
+  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', logo: '/assets/logos/goodbuygear.png', primary: false, note: 'as low as ' },
+];
+
 function ProductCard({
   brand,
   product,
@@ -99,7 +119,21 @@ function ProductCard({
   showBrand?: boolean;
   kind?: Kind;
 }) {
-  const isOpenBox = product.source === 'openbox';
+  // Build the stacked retailer buttons from whichever retailers carry this model.
+  const retailers = product.retailers ?? null;
+  const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
+  for (const meta of RETAILER_CTAS) {
+    const offer = retailers?.[meta.key] ?? null;
+    if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
+  }
+  // Fallback for older cached payloads without `retailers`: one button from the
+  // primary source + affiliateUrl.
+  if (offers.length === 0 && product.affiliateUrl) {
+    const metaKey = product.source === 'openbox' ? 'goodbuygear' : product.source === 'albee' ? 'albee' : 'babylist';
+    const meta = RETAILER_CTAS.find((m) => m.key === metaKey)!;
+    offers.push({ meta, offer: { price: product.price, url: product.affiliateUrl } });
+  }
+
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
       <div className="tool-card__media">
@@ -115,43 +149,45 @@ function ProductCard({
           <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">{brand}</p>
         ) : null}
         <p className="font-serif text-[1.04rem] leading-tight text-neutral-900">{product.model || product.name}</p>
-        {product.price != null ? (
-          <p className="tool-price">
-            ${product.price.toFixed(2)}
-            <span className="tool-price__note">{isOpenBox ? 'via GoodBuyGear' : 'via Babylist'}</span>
-          </p>
-        ) : (
-          <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
-        )}
 
-        {product.openBox ? (
-          <a
-            href={product.openBox.url ?? undefined}
-            target="_blank"
-            rel="sponsored nofollow noopener noreferrer"
-            className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(0,0,0,0.07)] bg-[rgba(251,247,244,0.85)] px-2.5 py-1.5 transition hover:border-[rgba(215,161,175,0.4)]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/logos/goodbuygear.png" alt="GoodBuyGear open box" className="h-4 w-auto shrink-0 object-contain" />
-            <span className="text-[0.7rem] leading-tight text-neutral-600">
-              via GoodBuyGear{' '}
-              <span className="font-semibold text-neutral-900">as low as ${product.openBox.price.toFixed(2)}</span>
-            </span>
-            <span className="ml-auto shrink-0 text-[0.68rem] font-bold text-[var(--color-accent-dark)]">Shop →</span>
-          </a>
-        ) : null}
-
-        <div className="mt-auto flex flex-col gap-2 pt-2">
-          {product.affiliateUrl ? (
-            <a
-              href={product.affiliateUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              className="tool-btn tool-btn--primary tool-btn--block"
-            >
-              {isOpenBox ? 'Shop GoodBuyGear →' : 'Shop on Babylist →'}
-            </a>
-          ) : null}
+        <div className="mt-auto flex flex-col gap-1.5 pt-2.5">
+          {offers.map(({ meta, offer }) =>
+            meta.primary ? (
+              <a
+                key={meta.key}
+                href={offer.url ?? undefined}
+                target="_blank"
+                rel="sponsored nofollow noopener noreferrer"
+                className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
+              >
+                <span>{meta.shopLabel} →</span>
+                {offer.price != null ? (
+                  <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
+                    ${offer.price.toFixed(2)}
+                  </span>
+                ) : null}
+              </a>
+            ) : (
+              <a
+                key={meta.key}
+                href={offer.url ?? undefined}
+                target="_blank"
+                rel="sponsored nofollow noopener noreferrer"
+                className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(0,0,0,0.08)] bg-[rgba(251,247,244,0.85)] px-2.5 py-2 transition hover:border-[rgba(215,161,175,0.45)] hover:bg-white"
+              >
+                {meta.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={meta.logo} alt={meta.shopLabel} className="h-4 w-auto shrink-0 object-contain" />
+                ) : null}
+                <span className="text-[0.74rem] font-semibold text-neutral-700">{meta.shopLabel} →</span>
+                {offer.price != null ? (
+                  <span className="ml-auto shrink-0 rounded-full bg-[rgba(215,161,175,0.16)] px-2 py-0.5 text-[0.72rem] font-bold text-[var(--color-accent-dark)]">
+                    {meta.note}${offer.price.toFixed(2)}
+                  </span>
+                ) : null}
+              </a>
+            ),
+          )}
           {product.model ? (
             <Link
               href={kind === 'strollers' ? compatHref(brand, product.model) : carSeatCompatHref(brand, product.model)}

@@ -36,18 +36,24 @@ type CatalogProductRow = {
 };
 
 const PROVIDER_GBG = 'impact_goodbuygear';
+const PROVIDER_ALBEE = 'cj_albeebaby';
 
 // `model` is the parsed model name used to deep-link into the travel-system
 // checker (brand + model → /api/compatibility), so the finder's "check
 // compatibility" CTA lands on the same brand:::model key the checker resolves.
+type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
   model: string;
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'openbox';
-  openBox: { price: number; url: string | null } | null;
+  source: 'babylist' | 'albee' | 'openbox';
+  retailers: {
+    babylist: RetailerOffer | null;
+    albee: RetailerOffer | null;
+    goodbuygear: RetailerOffer | null;
+  };
 };
 
 /**
@@ -81,16 +87,18 @@ export async function GET() {
     })
     .catch(() => [] as CatalogProductRow[]);
 
-  // Group every active row by brand+model. Babylist is the primary card; any
-  // GoodBuyGear (open-box) listing for the same model contributes the cheapest
-  // "as low as" open-box price + link.
+  // Group every active row by brand+model, tracking each retailer's offer so the
+  // card can show stacked CTAs. Babylist is the primary card when present; the
+  // primary image falls back to Albee Baby, then GoodBuyGear. GoodBuyGear and
+  // Albee Baby each keep their cheapest listing for the same model.
+  type Offer = { price: number | null; url: string | null; image: string | null; title: string };
   type Group = {
-    primary: CatalogProductRow;
     category: StrollerCategory;
     brand: string;
     model: string;
-    openBoxPrice: number | null;
-    openBoxUrl: string | null;
+    babylist: Offer | null;
+    albee: Offer | null;
+    gbg: Offer | null;
   };
   const groups = new Map<string, Group>();
   const seenGroups = new Set<string>();
@@ -98,7 +106,7 @@ export async function GET() {
   for (const r of rows) {
     const category = strollerCategoryFromProductType(r.enrichment?.productType);
     if (!category) continue; // skip accessories / unmapped types
-    // Collapse colour/variant duplicates (the feed groups them by item_group_id).
+    // Collapse Babylist colour/variant duplicates (grouped by item_group_id).
     if (r.itemGroupId) {
       if (seenGroups.has(r.itemGroupId)) continue;
       seenGroups.add(r.itemGroupId);
@@ -106,33 +114,41 @@ export async function GET() {
     const brand = canonicalBrand(r.brand);
     const model = parseStrollerModel(r.title, brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
-    const isGbg = r.provider === PROVIDER_GBG;
 
     let g = groups.get(key);
     if (!g) {
-      g = { primary: r, category, brand, model, openBoxPrice: null, openBoxUrl: null };
+      g = { category, brand, model, babylist: null, albee: null, gbg: null };
       groups.set(key, g);
-    } else if (g.primary.provider === PROVIDER_GBG && !isGbg) {
-      g.primary = r; // prefer a Babylist listing as the primary card
-      g.category = category;
     }
-    if (isGbg && r.price != null && (g.openBoxPrice == null || r.price < g.openBoxPrice)) {
-      g.openBoxPrice = r.price;
-      g.openBoxUrl = r.affiliateUrl;
+    const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
+    const cheaper = (cur: Offer | null) =>
+      !cur || (offer.price != null && (cur.price == null || offer.price < cur.price));
+    if (r.provider === PROVIDER_GBG) {
+      if (cheaper(g.gbg)) g.gbg = offer;
+    } else if (r.provider === PROVIDER_ALBEE) {
+      if (cheaper(g.albee)) g.albee = offer;
+    } else if (!g.babylist) {
+      g.babylist = offer;
+      g.category = category; // Babylist's categorization wins for the card
     }
   }
 
   const byBrand = new Map<string, Map<StrollerCategory, FinderProduct[]>>();
   for (const g of groups.values()) {
-    const isGbgPrimary = g.primary.provider === PROVIDER_GBG;
+    const primary = g.babylist ?? g.albee ?? g.gbg;
+    if (!primary) continue;
     const product: FinderProduct = {
-      name: g.primary.title,
+      name: primary.title,
       model: g.model,
-      price: g.primary.price,
-      image: g.primary.imageUrl,
-      affiliateUrl: g.primary.affiliateUrl,
-      source: isGbgPrimary ? 'openbox' : 'babylist',
-      openBox: !isGbgPrimary && g.openBoxPrice != null ? { price: g.openBoxPrice, url: g.openBoxUrl } : null,
+      price: primary.price,
+      image: g.babylist?.image ?? g.albee?.image ?? g.gbg?.image ?? null,
+      affiliateUrl: primary.url,
+      source: g.babylist ? 'babylist' : g.albee ? 'albee' : 'openbox',
+      retailers: {
+        babylist: g.babylist ? { price: g.babylist.price, url: g.babylist.url } : null,
+        albee: g.albee ? { price: g.albee.price, url: g.albee.url } : null,
+        goodbuygear: g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null,
+      },
     };
     if (!byBrand.has(g.brand)) byBrand.set(g.brand, new Map());
     const byCat = byBrand.get(g.brand)!;
