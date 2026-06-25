@@ -20,12 +20,17 @@ import prismaBase from '@/lib/server/prisma';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const SUMMARY = 'Britax infant car seat — uses the shared Maxi-Cosi / Nuna / CYBEX / Clek click-and-go adapter.';
+const SHARED = 'Britax infant car seat — uses the shared Maxi-Cosi / Nuna / CYBEX / Clek click-and-go adapter.';
+// B-Safe is discontinued but kept in the checker so existing owners can look up
+// which strollers their seat is compatible with.
+const BSAFE = 'Discontinued — kept so B-Safe owners can check stroller compatibility. Uses the shared Maxi-Cosi / Nuna / CYBEX / Clek adapter.';
 
-// B-Safe (35 / Gen2 / Gen2 FlexFit) was removed — discontinued. Willow stays.
-const SEATS: Array<{ brand: string; model: string }> = [
-  { brand: 'Britax', model: 'Willow S' },
-  { brand: 'Britax', model: 'Willow SC' },
+const SEATS: Array<{ brand: string; model: string; summary: string }> = [
+  { brand: 'Britax', model: 'B-Safe 35', summary: BSAFE },
+  { brand: 'Britax', model: 'B-Safe Gen2', summary: BSAFE },
+  { brand: 'Britax', model: 'B-Safe Gen2 FlexFit', summary: BSAFE },
+  { brand: 'Britax', model: 'Willow S', summary: SHARED },
+  { brand: 'Britax', model: 'Willow SC', summary: SHARED },
 ];
 
 async function main() {
@@ -39,8 +44,8 @@ async function main() {
     }
     await db.carSeat.upsert({
       where: { brand_model: { brand: s.brand, model: s.model } },
-      update: { seatType: 'INFANT', summary: SUMMARY },
-      create: { brand: s.brand, model: s.model, seatType: 'INFANT', summary: SUMMARY },
+      update: { seatType: 'INFANT', summary: s.summary },
+      create: { brand: s.brand, model: s.model, seatType: 'INFANT', summary: s.summary },
     });
     console.log(`  upserted: ${s.brand} ${s.model}`);
   }
