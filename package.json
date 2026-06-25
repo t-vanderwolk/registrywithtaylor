@@ -53,6 +53,8 @@
     "catalog:import-cj-apply": "tsx scripts/importCjAlbeebaby.ts --apply",
     "seed:britax-carseats": "tsx scripts/seedBritaxCarSeats.ts",
     "seed:britax-carseats-apply": "tsx scripts/seedBritaxCarSeats.ts --apply",
+    "catalog:backfill-carseat-images": "tsx scripts/backfillCarSeatImages.ts",
+    "catalog:backfill-carseat-images-apply": "tsx scripts/backfillCarSeatImages.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",
