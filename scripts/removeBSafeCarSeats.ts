@@ -16,23 +16,25 @@ import prismaBase from '@/lib/server/prisma';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const MODELS = ['B-Safe 35', 'B-Safe Gen2', 'B-Safe Gen2 FlexFit'];
-
 type SeatRow = { id: string; brand: string; model: string };
 type CatRow = { id: string; title: string; enrichment: { id: string; reviewStatus: string } | null };
 
 async function main() {
   const apply = process.argv.includes('--apply');
 
+  // Any B-Safe variant (B-Safe 35 / 35 Elite / Gen2 / Gen2 FlexFit / Ultra…).
   const seats: SeatRow[] = await db.carSeat.findMany({
-    where: { brand: 'Britax', model: { in: MODELS } },
+    where: { brand: 'Britax', model: { startsWith: 'B-Safe', mode: 'insensitive' } },
     select: { id: true, brand: true, model: true },
   });
   const catalog: CatRow[] = await db.affiliateCatalogProduct.findMany({
     where: { title: { contains: 'B-Safe', mode: 'insensitive' } },
     select: { id: true, title: true, enrichment: { select: { id: true, reviewStatus: true } } },
   });
-  const toHide = catalog.filter((c) => c.enrichment && c.enrichment.reviewStatus !== 'HIDDEN');
+  // Never hide an adapter that merely *mentions* B-Safe (e.g. a Mockingbird adapter).
+  const toHide = catalog.filter(
+    (c) => c.enrichment && c.enrichment.reviewStatus !== 'HIDDEN' && !/\badapter/i.test(c.title),
+  );
 
   console.log('── Remove discontinued Britax B-Safe ──');
   console.log(`  CarSeat rows to delete: ${seats.length}`);
