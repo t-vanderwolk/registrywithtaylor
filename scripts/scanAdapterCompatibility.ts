@@ -26,7 +26,8 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const PROVIDERS = ['babylist_impact', 'cj_albeebaby'];
+// All three catalogs: Babylist (Impact), Albee Baby (CJ), GoodBuyGear (Impact).
+const PROVIDERS = ['babylist_impact', 'cj_albeebaby', 'impact_goodbuygear'];
 
 // Infant-seat brands an adapter might name, with the aliases that show up in titles.
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
@@ -46,6 +47,7 @@ const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
   { brand: 'Bugaboo', res: [/\bturtle\b/i] },
   { brand: 'Doona', res: [/\bdoona\b/i] },
   { brand: 'Evenflo', res: [/\bevenflo\b/i] },
+  { brand: 'Silver Cross', res: [/silver ?cross/i] },
 ];
 
 function seatBrandsInTitle(title: string): string[] {
