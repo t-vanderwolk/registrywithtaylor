@@ -93,19 +93,19 @@ function carSeatCompatHref(brand: string, model: string) {
   return `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}&carSeatModel=${encodeURIComponent(model)}`;
 }
 
-// Retailer CTAs, stacked on each card in priority order. Babylist is the primary
-// (pink) button; Albee Baby and GoodBuyGear are secondary buttons with their logo
-// and a price badge on the right.
+// Retailer CTAs, stacked on each card in priority order. All three are primary
+// block buttons (same shape as the Babylist CTA), distinguished by brand colour:
+// Babylist pink, Albee Baby dark navy, GoodBuyGear orange. Each carries its own
+// affiliate link + a price badge on the right.
 const RETAILER_CTAS: Array<{
   key: 'babylist' | 'albee' | 'goodbuygear';
   shopLabel: string;
-  logo: string | null;
-  primary: boolean;
+  btnClass: string;
   note: string;
 }> = [
-  { key: 'babylist', shopLabel: 'Shop on Babylist', logo: null, primary: true, note: '' },
-  { key: 'albee', shopLabel: 'Shop Albee Baby', logo: '/assets/logos/albeebaby-round1.png', primary: false, note: '' },
-  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', logo: '/assets/logos/goodbuygear.png', primary: false, note: 'as low as ' },
+  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', note: '' },
+  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', note: '' },
+  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', note: 'as low as ' },
 ];
 
 function ProductCard({
@@ -151,43 +151,22 @@ function ProductCard({
         <p className="font-serif text-[1.04rem] leading-tight text-neutral-900">{product.model || product.name}</p>
 
         <div className="mt-auto flex flex-col gap-1.5 pt-2.5">
-          {offers.map(({ meta, offer }) =>
-            meta.primary ? (
-              <a
-                key={meta.key}
-                href={offer.url ?? undefined}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
-              >
-                <span>{meta.shopLabel} →</span>
-                {offer.price != null ? (
-                  <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
-                    ${offer.price.toFixed(2)}
-                  </span>
-                ) : null}
-              </a>
-            ) : (
-              <a
-                key={meta.key}
-                href={offer.url ?? undefined}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(0,0,0,0.08)] bg-[rgba(251,247,244,0.85)] px-2.5 py-2 transition hover:border-[rgba(215,161,175,0.45)] hover:bg-white"
-              >
-                {meta.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={meta.logo} alt={meta.shopLabel} className="h-4 w-auto shrink-0 object-contain" />
-                ) : null}
-                <span className="text-[0.74rem] font-semibold text-neutral-700">{meta.shopLabel} →</span>
-                {offer.price != null ? (
-                  <span className="ml-auto shrink-0 rounded-full bg-[rgba(215,161,175,0.16)] px-2 py-0.5 text-[0.72rem] font-bold text-[var(--color-accent-dark)]">
-                    {meta.note}${offer.price.toFixed(2)}
-                  </span>
-                ) : null}
-              </a>
-            ),
-          )}
+          {offers.map(({ meta, offer }) => (
+            <a
+              key={meta.key}
+              href={offer.url ?? undefined}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className={`tool-btn ${meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
+            >
+              <span>{meta.shopLabel} →</span>
+              {offer.price != null ? (
+                <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
+                  {meta.note}${offer.price.toFixed(2)}
+                </span>
+              ) : null}
+            </a>
+          ))}
           {product.model ? (
             <Link
               href={kind === 'strollers' ? compatHref(brand, product.model) : carSeatCompatHref(brand, product.model)}
