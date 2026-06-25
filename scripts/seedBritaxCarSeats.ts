@@ -22,10 +22,8 @@ const db = prismaBase as any;
 
 const SUMMARY = 'Britax infant car seat — uses the shared Maxi-Cosi / Nuna / CYBEX / Clek click-and-go adapter.';
 
+// B-Safe (35 / Gen2 / Gen2 FlexFit) was removed — discontinued. Willow stays.
 const SEATS: Array<{ brand: string; model: string }> = [
-  { brand: 'Britax', model: 'B-Safe 35' },
-  { brand: 'Britax', model: 'B-Safe Gen2' },
-  { brand: 'Britax', model: 'B-Safe Gen2 FlexFit' },
   { brand: 'Britax', model: 'Willow S' },
   { brand: 'Britax', model: 'Willow SC' },
 ];

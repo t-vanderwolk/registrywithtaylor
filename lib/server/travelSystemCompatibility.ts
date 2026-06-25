@@ -146,8 +146,8 @@ const SHARED_ADAPTER_BRANDS = new Set(['britax', 'clek', 'cybex', 'maxi-cosi', '
  * it is inferred to also accept seats from the expansion brands below.
  */
 const SHARED_ADAPTER_TRIGGER_BRAND = 'nuna';
-// Britax B-Safe (35 / Gen2 / Gen2 FlexFit) + Willow (S / SC) use the same
-// click-and-go adapter as Maxi-Cosi / Nuna / CYBEX / Clek.
+// Britax Willow (S / SC) uses the same click-and-go adapter as Maxi-Cosi / Nuna /
+// CYBEX / Clek. (B-Safe discontinued + removed.)
 const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi', 'britax'];
 
 /**

@@ -55,6 +55,8 @@
     "seed:britax-carseats-apply": "tsx scripts/seedBritaxCarSeats.ts --apply",
     "catalog:backfill-carseat-images": "tsx scripts/backfillCarSeatImages.ts",
     "catalog:backfill-carseat-images-apply": "tsx scripts/backfillCarSeatImages.ts --apply",
+    "catalog:remove-bsafe": "tsx scripts/removeBSafeCarSeats.ts",
+    "catalog:remove-bsafe-apply": "tsx scripts/removeBSafeCarSeats.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",

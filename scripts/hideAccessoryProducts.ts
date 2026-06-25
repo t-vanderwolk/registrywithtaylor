@@ -36,6 +36,8 @@ const PATTERNS: { label: string; re: RegExp }[] = [
   { label: 'snack tray', re: /\bsnack ?trays?\b/i },
   { label: 'piggyback board', re: /\bpiggy ?back\b/i },
   { label: 'bevvy', re: /\bbevvy\b/i },
+  { label: 'frame / chassis (no seat)', re: /\bframe\b|\bchassis\b|car ?seat carrier|snap[- ]?n[- ]?go/i },
+  { label: 'add-on / replacement seat', re: /\bseat unit\b|\btoddler seat\b|\bstroller seat\b|\bmain seat\b/i },
   { label: 'travel system bundle', re: /\btravel system\b/i },
   {
     label: 'stroller + car seat bundle',
