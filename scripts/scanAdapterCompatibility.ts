@@ -63,8 +63,10 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 // the full model and a core with those generic suffixes stripped.
 function modelVariants(model: string): string[] {
   const full = norm(model);
+  // Strip only generic descriptors that never distinguish one model from another.
+  // NOT "single"/"double" — those separate the single from the double stroller.
   const core = full
-    .replace(/\b(all terrain|single|double|stroller|complete|seat)\b/g, ' ')
+    .replace(/\b(all terrain|stroller|complete|seat)\b/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
   return core && core !== full ? [full, core] : [full];
