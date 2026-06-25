@@ -31,7 +31,7 @@ export default async function TravelSystemCompatibilityPage() {
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system" pageType="other" />
 
-        <MarketingSection tone="white" spacing="spacious" reveal={false}>
+        <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <SectionIntro
             eyebrow="Tool"
             title="Travel System Compatibility"

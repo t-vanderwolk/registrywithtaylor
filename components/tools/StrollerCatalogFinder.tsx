@@ -137,7 +137,7 @@ function ProductCard({
 
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
-      <div className="tool-card__media">
+      <div className="tool-card__media" style={{ height: '12.5rem' }}>
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={product.image} alt={product.name} />
@@ -145,11 +145,11 @@ function ProductCard({
           <span className="text-[0.64rem] uppercase tracking-[0.16em] text-neutral-300">{brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+      <div className="flex flex-1 flex-col gap-1.5 px-5 py-4">
         {showBrand ? (
-          <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">{brand}</p>
+          <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">{brand}</p>
         ) : null}
-        <p className="font-serif text-[1.04rem] leading-tight text-neutral-900">{product.model || product.name}</p>
+        <p className="font-serif text-[1.22rem] leading-tight text-neutral-900">{product.model || product.name}</p>
 
         <div className="mt-auto flex flex-col gap-1.5 pt-2.5">
           {offers.map(({ meta, offer }) => (

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import FadeInSection from '@/components/ui/FadeInSection';
 
 type MarketingSectionTone = 'white' | 'ivory' | 'ivoryWarm' | 'neutral' | 'blush';
-type MarketingSectionContainer = 'default' | 'narrow' | 'wide';
+type MarketingSectionContainer = 'default' | 'narrow' | 'wide' | 'full';
 type MarketingSectionSpacing = 'default' | 'tight' | 'spacious';
 
 type MarketingSectionProps = {
@@ -28,6 +28,7 @@ const containerClassMap: Record<MarketingSectionContainer, string> = {
   default: 'container',
   narrow: 'mx-auto w-full max-w-3xl px-6 md:px-10',
   wide: 'mx-auto w-full max-w-[1280px] px-6 md:px-10',
+  full: 'mx-auto w-full max-w-none px-4 sm:px-6 lg:px-12',
 };
 
 const spacingClassMap: Record<MarketingSectionSpacing, string> = {

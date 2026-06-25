@@ -288,7 +288,7 @@ function ResultCard({
 }) {
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
-      <div className="tool-card__media" style={{ height: '4.75rem' }}>
+      <div className="tool-card__media" style={{ height: '8rem' }}>
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} />
@@ -296,13 +296,13 @@ function ResultCard({
           <span className="text-[0.58rem] uppercase tracking-[0.16em] text-neutral-300">{item.brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1 px-3 py-3">
+      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-[0.58rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
               {item.brand}
             </p>
-            <p className="font-serif text-[1.04rem] leading-tight text-neutral-900">{item.displayName}</p>
+            <p className="font-serif text-[1.16rem] leading-tight text-neutral-900">{item.displayName}</p>
           </div>
           <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
             {formatCompatibilityType(item.compatibilityType)}
@@ -860,7 +860,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               </div>
 
               {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))]">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(18rem,1fr))]">
                   {mergedCarSeats.map((seat) => (
                     <ResultCard
                       key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
@@ -917,7 +917,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               </div>
 
               {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))]">
+                <div className="mt-4 grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(18rem,1fr))]">
                   {mergedStrollers.map((stroller) => (
                     <ResultCard
                       key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}

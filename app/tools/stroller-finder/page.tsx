@@ -20,7 +20,7 @@ export default function StrollerFinderPage() {
       <main className="site-main">
         <PageViewTracker path="/tools/stroller-finder" pageType="other" />
 
-        <MarketingSection tone="white" spacing="spacious" reveal={false}>
+        <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <SectionIntro
             eyebrow="Tool"
             title="Stroller Finder"
