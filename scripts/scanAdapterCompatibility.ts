@@ -32,14 +32,17 @@ const PROVIDERS = ['babylist_impact', 'cj_albeebaby'];
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
   { brand: 'Maxi-Cosi', res: [/maxi[\s-]?cosi/i] },
   { brand: 'Nuna', res: [/\bnuna\b/i, /\bpipa\b/i] },
-  { brand: 'Cybex', res: [/\bcybex\b/i, /\baton\b/i, /\bcloud\b/i] },
-  { brand: 'Clek', res: [/\bclek\b/i, /liing/i, /liingo/i] },
+  { brand: 'Cybex', res: [/\bcybex\b/i, /\baton\b/i] },
+  { brand: 'Clek', res: [/\bclek\b/i, /\bliing\b/i] },
   { brand: 'Britax', res: [/\bbritax\b/i, /\bb-?safe\b/i, /\bwillow\b/i] },
   { brand: 'Chicco', res: [/\bchicco\b/i, /keyfit/i, /fit2/i] },
   { brand: 'Graco', res: [/\bgraco\b/i, /snugride/i] },
   { brand: 'Peg Perego', res: [/peg[\s-]?perego/i, /primo\s?viaggio/i] },
   { brand: 'Joie', res: [/\bjoie\b/i] },
-  { brand: 'UPPAbaby', res: [/uppababy/i, /\bmesa\b/i] },
+  // Only "Mesa" (the seat) — not the "UPPAbaby" brand word, which appears in every
+  // UPPAbaby adapter title and would otherwise be a false positive.
+  { brand: 'UPPAbaby', res: [/\bmesa\b/i] },
+  { brand: 'BeSafe', res: [/\bbe-?safe\b/i] },
   { brand: 'Bugaboo', res: [/\bturtle\b/i] },
   { brand: 'Doona', res: [/\bdoona\b/i] },
   { brand: 'Evenflo', res: [/\bevenflo\b/i] },
@@ -54,6 +57,18 @@ function seatBrandsInTitle(title: string): string[] {
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+// A model may carry a trailing descriptor the adapter title omits (e.g. the
+// Stroller row "City Mini GT3 All-Terrain" vs the title's "City Mini GT3"). Try
+// the full model and a core with those generic suffixes stripped.
+function modelVariants(model: string): string[] {
+  const full = norm(model);
+  const core = full
+    .replace(/\b(all terrain|single|double|stroller|complete|seat)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return core && core !== full ? [full, core] : [full];
+}
 
 type AdapterRow = {
   brand: string | null;
@@ -105,8 +120,7 @@ async function main() {
 
     const strollerMatches = strollers.filter((st) => {
       if (canonicalBrand(st.brand).toLowerCase() !== aBrandCanon) return false;
-      const m = norm(st.model);
-      return m.length >= 2 && ntitle.includes(m);
+      return modelVariants(st.model).some((m) => m.length >= 2 && ntitle.includes(m));
     });
     const seatBrands = seatBrandsInTitle(title);
 
