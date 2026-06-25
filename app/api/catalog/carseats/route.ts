@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
-import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 export const runtime = 'nodejs';
@@ -84,7 +84,7 @@ export async function GET() {
       seenGroups.add(r.itemGroupId);
     }
     const brand = canonicalBrand(r.brand);
-    const model = parseStrollerModel(r.title, brand);
+    const model = parseCarSeatModel(r.title, brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
 
     let g = groups.get(key);
