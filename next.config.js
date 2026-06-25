@@ -98,6 +98,16 @@ const nextConfig = {
   // Use the classic compiler (Webpack/SWC) instead of Turbopack
   async redirects() {
     return [
+      // ─── Canonical host: bare domain → www ───────────────────────────────────
+      // www.taylormadebabyco.com is the canonical domain (matches every canonical
+      // tag, the sitemap, and OpenGraph). 308-redirect the apex so Google
+      // consolidates all indexing signals onto one host instead of splitting them.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'taylormadebabyco.com' }],
+        destination: 'https://www.taylormadebabyco.com/:path*',
+        permanent: true,
+      },
       // Academy → Learn must come BEFORE the legacy guide redirects
       // so the more-specific patterns take precedence.
       ...academyToLearnRedirects,
