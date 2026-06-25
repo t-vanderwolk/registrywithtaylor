@@ -379,8 +379,10 @@ async function getSharedAdapterInferredStrollers(
     return [];
   }
 
+  // No "SELECT DISTINCT … ORDER BY LOWER(col)" — Postgres requires DISTINCT's
+  // ORDER BY expressions to be in the select list. Dedupe + sort in JS instead.
   const rows = await prisma.$queryRaw<StrollerRow[]>`
-    SELECT DISTINCT
+    SELECT
       stroller."id",
       stroller."brand",
       stroller."model",
@@ -392,10 +394,17 @@ async function getSharedAdapterInferredStrollers(
     WHERE seat."seatType" = 'INFANT'
       AND LOWER(seat."brand") = ${SHARED_ADAPTER_TRIGGER_BRAND}
       AND LOWER(stroller."brand") <> ${NUNA_CLOSED_STROLLER_BRAND}
-    ORDER BY LOWER(stroller."brand"), LOWER(stroller."model")
   `;
 
-  return rows.filter((row) => !seenStrollerIds.has(row.id));
+  const seen = new Set(seenStrollerIds);
+  const out: StrollerRow[] = [];
+  for (const row of rows) {
+    if (seen.has(row.id)) continue;
+    seen.add(row.id);
+    out.push(row);
+  }
+  out.sort((a, b) => a.brand.localeCompare(b.brand) || a.model.localeCompare(b.model));
+  return out;
 }
 
 export async function getTravelSystemStrollers() {
