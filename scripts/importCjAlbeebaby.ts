@@ -164,8 +164,13 @@ async function* listProducts(): AsyncGenerator<CjProduct[]> {
     ? `, partnerIds: [${numericAdvertisers.map((a) => `"${a}"`).join(', ')}]`
     : '';
   for (let guard = 0; guard < 500; guard += 1) {
+    if (offset >= 10000) {
+      console.log('  (CJ caps offset paging at 10,000 records — stopping. Set a numeric advertiser CID to narrow the pull.)');
+      return;
+    }
+    const pageLimit = Math.min(limit, 10000 - offset);
     const query = `{
-      shoppingProducts(companyId: "${COMPANY_ID}"${partnerArg}, limit: ${limit}, offset: ${offset}) {
+      shoppingProducts(companyId: "${COMPANY_ID}"${partnerArg}, limit: ${pageLimit}, offset: ${offset}) {
         totalCount
         count
         resultList {
@@ -176,6 +181,7 @@ async function* listProducts(): AsyncGenerator<CjProduct[]> {
     }`;
     const data = await cjGraphql<ShoppingResult>(query);
     const sp = data.shoppingProducts;
+    if (offset === 0) console.log(`  totalCount ${sp?.totalCount ?? '?'} across the matched advertisers`);
     const list = sp?.resultList ?? [];
     if (list.length === 0) return;
     yield list;
