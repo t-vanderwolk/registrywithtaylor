@@ -12,6 +12,8 @@ type BabylistFields = {
   babylistImage: string | null;
   openBoxPrice: number | null;
   openBoxUrl: string | null;
+  albeePrice: number | null;
+  albeeUrl: string | null;
 };
 
 const EMPTY: BabylistFields = {
@@ -20,6 +22,8 @@ const EMPTY: BabylistFields = {
   babylistImage: null,
   openBoxPrice: null,
   openBoxUrl: null,
+  albeePrice: null,
+  albeeUrl: null,
 };
 
 // Stroller.babylistSku is the Impact catalog item id (form "product_8981_<n>");
@@ -113,22 +117,42 @@ export async function GET(request: NextRequest) {
         select: { brand: true, title: true, price: true, affiliateUrl: true },
       })
       .catch(() => []);
-  const openBoxByKey = new Map<string, { price: number; url: string | null }>();
-  for (const g of gbgRows) {
-    if (g.price == null) continue;
-    const b = canonicalBrand(g.brand);
-    const m = parseStrollerModel(g.title, b);
-    if (!m) continue;
-    const key = `${b.toLowerCase()}:::${m.toLowerCase()}`;
-    const ex = openBoxByKey.get(key);
-    if (!ex || g.price < ex.price) openBoxByKey.set(key, { price: g.price, url: g.affiliateUrl });
-  }
+  // Albee Baby (CJ) prices for the same models — cheapest wins, same as GBG.
+  const albeeRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
+    await db.affiliateCatalogProduct
+      .findMany({
+        where: {
+          provider: 'cj_albeebaby',
+          isActiveInFeed: true,
+          enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
+        },
+        select: { brand: true, title: true, price: true, affiliateUrl: true },
+      })
+      .catch(() => []);
+
+  // Collapse a provider's rows to the cheapest price per brand:::model key.
+  const buildByKey = (list: typeof gbgRows) => {
+    const map = new Map<string, { price: number; url: string | null }>();
+    for (const g of list) {
+      if (g.price == null) continue;
+      const b = canonicalBrand(g.brand);
+      const m = parseStrollerModel(g.title, b);
+      if (!m) continue;
+      const key = `${b.toLowerCase()}:::${m.toLowerCase()}`;
+      const ex = map.get(key);
+      if (!ex || g.price < ex.price) map.set(key, { price: g.price, url: g.affiliateUrl });
+    }
+    return map;
+  };
+  const openBoxByKey = buildByKey(gbgRows);
+  const albeeByKey = buildByKey(albeeRows);
 
   const byKey = new Map<string, BabylistFields>();
   for (const r of rows) {
     const cat = catByExternal.get(toExternalId(r.babylistSku) ?? '');
     const key = `${r.brand.toLowerCase()}:::${r.model.toLowerCase()}`;
     const ob = openBoxByKey.get(key);
+    const ab = albeeByKey.get(key);
     byKey.set(key, {
       // Prefer the fresh feed data; fall back to the Stroller table's synced fields.
       babylistUrl: cat?.affiliateUrl ?? r.babylistUrl,
@@ -136,6 +160,8 @@ export async function GET(request: NextRequest) {
       babylistImage: cat?.imageUrl ?? r.babylistImage,
       openBoxPrice: ob?.price ?? null,
       openBoxUrl: ob?.url ?? null,
+      albeePrice: ab?.price ?? null,
+      albeeUrl: ab?.url ?? null,
     });
   }
 

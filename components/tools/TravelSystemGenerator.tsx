@@ -143,35 +143,97 @@ function AffiliateBuyButtons({
   brand,
   model,
   babylistUrl,
+  babylistPrice = null,
+  albee = null,
+  openBox = null,
   kind = 'stroller',
   compact = false,
 }: {
   brand: string;
   model: string;
   babylistUrl?: string | null;
+  babylistPrice?: number | null;
+  albee?: { price: number | null; url: string | null } | null;
+  openBox?: { price: number | null; url: string | null } | null;
   kind?: 'stroller' | 'carSeat';
   compact?: boolean;
 }) {
-  const links = getAffiliateLinks(brand, model);
   // Every product gets a Babylist affiliate link (synced exact URL wins, then
-  // static map, then a tracked brand listing). Amazon shows alongside it.
+  // static map, then a tracked brand listing).
   const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
 
-  // Compact mode (in-viewport result cards): one block Babylist button, matching
-  // the stroller finder's card CTA, so each card stays short.
+  // Compact mode (in-viewport result cards): stacked retailer CTAs matching the
+  // stroller finder — Babylist (pink) + Albee Baby (navy) + GoodBuyGear (orange),
+  // each with its logo and a price badge.
   if (compact) {
+    const offers: Array<{
+      key: string;
+      label: string;
+      btnClass: string;
+      logo: string;
+      note: string;
+      price: number | null;
+      url: string | null;
+    }> = [
+      {
+        key: 'babylist',
+        label: 'Add to Babylist',
+        btnClass: 'tool-btn--primary',
+        logo: '/assets/logos/babylist.png',
+        note: '',
+        price: babylistPrice,
+        url: resolvedBabylistUrl,
+      },
+    ];
+    if (albee && (albee.url || albee.price != null)) {
+      offers.push({
+        key: 'albee',
+        label: 'Shop Albee Baby',
+        btnClass: 'tool-btn--albee',
+        logo: '/assets/logos/albeebaby-round1.png',
+        note: '',
+        price: albee.price ?? null,
+        url: albee.url ?? null,
+      });
+    }
+    if (openBox && (openBox.url || openBox.price != null)) {
+      offers.push({
+        key: 'goodbuygear',
+        label: 'Shop GoodBuyGear',
+        btnClass: 'tool-btn--gbg',
+        logo: '/assets/logos/goodbuygear.png',
+        note: 'as low as ',
+        price: openBox.price ?? null,
+        url: openBox.url ?? null,
+      });
+    }
     return (
-      <a
-        href={resolvedBabylistUrl}
-        target="_blank"
-        rel="sponsored nofollow noopener noreferrer"
-        className="tool-btn tool-btn--primary tool-btn--block"
-      >
-        Shop on Babylist →
-      </a>
+      <div className="flex flex-col gap-1.5">
+        {offers.map((o) => (
+          <a
+            key={o.key}
+            href={o.url ?? undefined}
+            target="_blank"
+            rel="sponsored nofollow noopener noreferrer"
+            className={`tool-btn ${o.btnClass} tool-btn--block flex items-center justify-center gap-2`}
+          >
+            <span className="inline-flex items-center rounded-full bg-white px-1.5 py-1">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={o.logo} alt="" className="h-3 w-auto object-contain" />
+            </span>
+            <span>{o.label} →</span>
+            {o.price != null ? (
+              <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
+                {o.note}${o.price.toFixed(2)}
+              </span>
+            ) : null}
+          </a>
+        ))}
+      </div>
     );
   }
 
+  const links = getAffiliateLinks(brand, model);
   return (
     <div className="mt-4 flex flex-wrap gap-2">
       <a
@@ -220,6 +282,7 @@ function ResultCard({
 }: {
   item: (CompatibleCarSeatResult | CompatibleStrollerResult) & {
     openBox?: { price: number; url: string | null } | null;
+    albee?: { price: number; url: string | null } | null;
   };
   kind: 'stroller' | 'carSeat';
 }) {
@@ -245,31 +308,6 @@ function ResultCard({
             {formatCompatibilityType(item.compatibilityType)}
           </span>
         </div>
-
-        {item.babylistPrice ? (
-          <p className="tool-price">
-            ${item.babylistPrice.toFixed(2)}
-            <span className="tool-price__note">via Babylist</span>
-          </p>
-        ) : (
-          <p className="text-[0.78rem] text-neutral-300">See price at Babylist</p>
-        )}
-
-        {item.openBox ? (
-          <a
-            href={item.openBox.url ?? undefined}
-            target="_blank"
-            rel="sponsored nofollow noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-[0.6rem] border border-[rgba(0,0,0,0.07)] bg-[rgba(251,247,244,0.85)] px-2 py-1 transition hover:border-[rgba(215,161,175,0.4)]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/logos/goodbuygear.png" alt="GoodBuyGear" className="h-3.5 w-auto shrink-0 object-contain" />
-            <span className="text-[0.62rem] leading-tight text-neutral-600">
-              via GoodBuyGear{' '}
-              <span className="font-semibold text-neutral-900">as low as ${item.openBox.price.toFixed(2)}</span>
-            </span>
-          </a>
-        ) : null}
 
         {item.adapterRequired ? (
           <div className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] px-2.5 py-1.5">
@@ -301,7 +339,16 @@ function ResultCard({
         )}
 
         <div className="mt-auto pt-1.5">
-          <AffiliateBuyButtons brand={item.brand} model={item.model} babylistUrl={item.babylistUrl} kind={kind} compact />
+          <AffiliateBuyButtons
+            brand={item.brand}
+            model={item.model}
+            babylistUrl={item.babylistUrl}
+            babylistPrice={item.babylistPrice}
+            albee={item.albee}
+            openBox={item.openBox}
+            kind={kind}
+            compact
+          />
         </div>
       </div>
     </div>
@@ -326,6 +373,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         babylistImage: string | null;
         openBoxPrice: number | null;
         openBoxUrl: string | null;
+        albeePrice: number | null;
+        albeeUrl: string | null;
       }
     >
   >({});
@@ -535,6 +584,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 imageUrl: m.babylistImage ?? seat.imageUrl,
                 babylistUrl: m.babylistUrl ?? seat.babylistUrl,
                 openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
+                albee: m.albeePrice != null ? { price: m.albeePrice, url: m.albeeUrl } : null,
               }
             : seat;
         })
@@ -550,6 +600,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 imageUrl: m.babylistImage ?? stroller.imageUrl,
                 babylistUrl: m.babylistUrl ?? stroller.babylistUrl,
                 openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
+                albee: m.albeePrice != null ? { price: m.albeePrice, url: m.albeeUrl } : null,
               }
             : stroller;
         })
