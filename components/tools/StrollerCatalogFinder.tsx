@@ -101,11 +101,12 @@ const RETAILER_CTAS: Array<{
   key: 'babylist' | 'albee' | 'goodbuygear';
   shopLabel: string;
   btnClass: string;
+  logo: string | null;
   note: string;
 }> = [
-  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', note: '' },
-  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', note: '' },
-  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', note: 'as low as ' },
+  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', logo: '/assets/logos/babylist.png', note: '' },
+  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', logo: null, note: '' },
+  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', logo: null, note: 'as low as ' },
 ];
 
 function ProductCard({
@@ -159,6 +160,12 @@ function ProductCard({
               rel="sponsored nofollow noopener noreferrer"
               className={`tool-btn ${meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
             >
+              {meta.logo ? (
+                <span className="inline-flex items-center rounded-full bg-white px-1.5 py-1">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={meta.logo} alt="" className="h-3 w-auto object-contain" />
+                </span>
+              ) : null}
               <span>{meta.shopLabel} →</span>
               {offer.price != null ? (
                 <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
