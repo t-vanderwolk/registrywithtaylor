@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
-import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -130,44 +129,63 @@ export async function GET(request: NextRequest) {
       })
       .catch(() => []);
 
-  // Collapse a provider's rows to the cheapest price per brand:::model key.
-  const buildByKey = (list: typeof gbgRows) => {
-    const map = new Map<string, { price: number; url: string | null }>();
+  // Index each provider's rows by canonical brand for squash-substring matching.
+  // (parseStrollerModel is stroller-only and misses car-seat models such as
+  // "PIPA RX Infant Car Seat".) squash() drops spaces/punctuation so the requested
+  // "PIPA RX" matches the catalog title "Nuna PIPA RX Infant Car Seat".
+  const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  type Offer = { price: number; url: string | null; sq: string };
+  const indexByBrand = (list: typeof gbgRows) => {
+    const map = new Map<string, Offer[]>();
     for (const g of list) {
       if (g.price == null) continue;
-      const b = canonicalBrand(g.brand);
-      const m = parseStrollerModel(g.title, b);
-      if (!m) continue;
-      const key = `${b.toLowerCase()}:::${m.toLowerCase()}`;
-      const ex = map.get(key);
-      if (!ex || g.price < ex.price) map.set(key, { price: g.price, url: g.affiliateUrl });
+      const b = canonicalBrand(g.brand).toLowerCase();
+      if (!map.has(b)) map.set(b, []);
+      map.get(b)!.push({ price: g.price, url: g.affiliateUrl, sq: squash(g.title) });
     }
     return map;
   };
-  const openBoxByKey = buildByKey(gbgRows);
-  const albeeByKey = buildByKey(albeeRows);
+  const gbgByBrand = indexByBrand(gbgRows);
+  const albeeByBrand = indexByBrand(albeeRows);
+  const cheapestMatch = (idx: Map<string, Offer[]>, brand: string, model: string): Offer | null => {
+    const ms = squash(model);
+    if (ms.length < 4) return null;
+    let best: Offer | null = null;
+    for (const c of idx.get(canonicalBrand(brand).toLowerCase()) ?? []) {
+      if (c.sq.includes(ms) && (!best || c.price < best.price)) best = c;
+    }
+    return best;
+  };
 
   const byKey = new Map<string, BabylistFields>();
   for (const r of rows) {
     const cat = catByExternal.get(toExternalId(r.babylistSku) ?? '');
     const key = `${r.brand.toLowerCase()}:::${r.model.toLowerCase()}`;
-    const ob = openBoxByKey.get(key);
-    const ab = albeeByKey.get(key);
     byKey.set(key, {
       // Prefer the fresh feed data; fall back to the Stroller table's synced fields.
       babylistUrl: cat?.affiliateUrl ?? r.babylistUrl,
       babylistPrice: cat?.price ?? r.babylistPrice,
       babylistImage: cat?.imageUrl ?? r.babylistImage,
-      openBoxPrice: ob?.price ?? null,
-      openBoxUrl: ob?.url ?? null,
-      albeePrice: ab?.price ?? null,
-      albeeUrl: ab?.url ?? null,
+      // open-box (GoodBuyGear) + Albee Baby are matched per requested pair below.
+      openBoxPrice: null,
+      openBoxUrl: null,
+      albeePrice: null,
+      albeeUrl: null,
     });
   }
 
   const results: Record<string, BabylistFields> = {};
   for (const p of pairs) {
-    results[p.key] = byKey.get(`${p.brand.toLowerCase()}:::${p.model.toLowerCase()}`) ?? EMPTY;
+    const base = byKey.get(`${p.brand.toLowerCase()}:::${p.model.toLowerCase()}`) ?? EMPTY;
+    const ob = cheapestMatch(gbgByBrand, p.brand, p.model);
+    const ab = cheapestMatch(albeeByBrand, p.brand, p.model);
+    results[p.key] = {
+      ...base,
+      openBoxPrice: ob?.price ?? null,
+      openBoxUrl: ob?.url ?? null,
+      albeePrice: ab?.price ?? null,
+      albeeUrl: ab?.url ?? null,
+    };
   }
 
   return NextResponse.json(
