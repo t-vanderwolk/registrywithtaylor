@@ -20,7 +20,9 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 const db = prismaBase as any;
 
 const ALBEE = 'cj_albeebaby';
-const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+// Squash to alphanumerics only (drop spaces/punctuation) so "Gen2" matches
+// "Gen 2", "KeyFit 35" matches "KeyFit35", "B-Safe" matches "BSafe", etc.
+const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
 
 type SeatRow = { id: string; brand: string; model: string; babylistImage: string | null };
 type Prod = { brand: string | null; title: string; imageUrl: string | null };
@@ -52,9 +54,9 @@ async function main() {
   const matches: Array<{ seat: SeatRow; image: string; title: string }> = [];
   const unmatched: SeatRow[] = [];
   for (const seat of seats) {
-    const m = norm(seat.model);
+    const m = squash(seat.model);
     const cands = byBrand.get(canonicalBrand(seat.brand).toLowerCase()) ?? [];
-    const hit = cands.find((p) => m.length >= 2 && p.imageUrl && norm(p.title).includes(m));
+    const hit = cands.find((p) => m.length >= 4 && p.imageUrl && squash(p.title).includes(m));
     if (hit?.imageUrl) matches.push({ seat, image: hit.imageUrl, title: hit.title });
     else unmatched.push(seat);
   }
