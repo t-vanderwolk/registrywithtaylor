@@ -88,10 +88,6 @@ function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
 }
 
-function carSeatCompatHref(brand: string, model: string) {
-  return `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}&carSeatModel=${encodeURIComponent(model)}`;
-}
-
 // Retailer CTAs, stacked on each card in priority order. All three are primary
 // block buttons (same shape as the Babylist CTA), distinguished by brand colour:
 // Babylist pink, Albee Baby dark navy, GoodBuyGear orange. Each carries its own
@@ -181,11 +177,8 @@ function ProductCard({
             </a>
           ))}
           {product.model ? (
-            <Link
-              href={kind === 'strollers' ? compatHref(brand, product.model) : carSeatCompatHref(brand, product.model)}
-              className="tool-btn tool-btn--text self-start"
-            >
-              {kind === 'strollers' ? 'Check compatible infant car seats →' : 'Check compatible strollers →'}
+            <Link href={compatHref(brand, product.model)} className="tool-btn tool-btn--ghost tool-btn--block">
+              Check compatible car seats →
             </Link>
           ) : null}
         </div>
@@ -195,7 +188,7 @@ function ProductCard({
 }
 
 export default function StrollerCatalogFinder() {
-  const [kind, setKind] = useState<Kind>('strollers');
+  const kind: Kind = 'strollers'; // finder is strollers-only; car seats live in the checker
   const [brands, setBrands] = useState<FinderBrand[]>([]);
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState<Mode>('brand');
@@ -210,12 +203,12 @@ export default function StrollerCatalogFinder() {
   // Strollers and car seats share the same response shape, so the UI is reused.
   useEffect(() => {
     setLoading(true);
-    fetch(kind === 'strollers' ? '/api/catalog/strollers' : '/api/catalog/carseats')
+    fetch('/api/catalog/strollers')
       .then((r) => (r.ok ? r.json() : { brands: [] }))
       .then((d) => setBrands(Array.isArray(d.brands) ? d.brands : []))
       .catch(() => setBrands([]))
       .finally(() => setLoading(false));
-  }, [kind]);
+  }, []);
 
   const totalCount = useMemo(() => brands.reduce((n, b) => n + b.count, 0), [brands]);
   const q = query.trim().toLowerCase();
@@ -258,14 +251,6 @@ export default function StrollerCatalogFinder() {
     setSelectedCategory(null);
   }
 
-  function switchKind(next: Kind) {
-    if (next === kind) return;
-    setKind(next);
-    setSelectedBrand(null);
-    setSelectedCategory(null);
-    setQuery('');
-  }
-
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
   const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
 
@@ -280,26 +265,6 @@ export default function StrollerCatalogFinder() {
             ? 'Loading the live catalog…'
             : `${totalCount} ${nounPlural} across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of ${noun} you need.`}
         </p>
-      </div>
-
-      {/* Strollers / Car seats toggle */}
-      <div className="tool-segment mt-5 w-full max-w-[22rem]">
-        <button
-          type="button"
-          aria-pressed={kind === 'strollers'}
-          onClick={() => switchKind('strollers')}
-          className="tool-segment__btn"
-        >
-          <span className="tool-segment__label">Strollers</span>
-        </button>
-        <button
-          type="button"
-          aria-pressed={kind === 'carseats'}
-          onClick={() => switchKind('carseats')}
-          className="tool-segment__btn"
-        >
-          <span className="tool-segment__label">Car seats</span>
-        </button>
       </div>
 
       {!loading && brands.length > 0 ? (
