@@ -49,11 +49,12 @@ const ADVERTISERS = (process.env.CJ_ALLOWED_ADVERTISERS ?? '')
   .map((s) => s.trim())
   .filter(Boolean);
 const PROVIDER = 'cj_albeebaby';
+const PID = process.env.CJ_PROPERTY_ID_OR_PID;
 
 // Accessory / part false-positives — names with "stroller"/"car seat"/a model
 // that aren't the product itself. Skipped before categorizing.
 const ACCESSORY_RE =
-  /\b(?:adapter|adaptor|\bbag\b|tote|caddy|organi[sz]er|cup ?holder|\btray\b|belly bar|bumper bar|rain ?cover|rain ?shield|rainshield|weather ?shield|sun ?shade|sunshade|sun ?cover|parasol|\bcanopy\b|footmuff|bunting|cocoon|blanket|\bsheet\b|\bliner\b|\binsert\b|cushion|mattress|\bpad\b|bassinet|carry ?cot|\bcot\b|second seat|sibling seat|rumble ?seat|seat pack|seat pad|ride[- ]?along|glider board|piggy ?back|\bboard\b|wheel ?kit|sidewall|\bkit\b|inner tube|\btube\b|\btire\b|\bwheel\b|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|skirt|apron|\bmuff\b|sleeve|\bcover\b|\bbundle\b)\b/i;
+  /\b(?:adapter|adaptor|\bbag\b|tote|caddy|organi[sz]er|cup ?holder|\btray\b|belly bar|bumper bar|rain ?cover|rain ?shield|rainshield|weather ?shield|sun ?shade|sunshade|sun ?cover|parasol|\bcanopy\b|footmuff|bunting|cocoon|blanket|\bsheet\b|\bliner\b|\binsert\b|cushion|mattress|\bpad\b|bassinet|carry ?cot|\bcot\b|second seat|sibling seat|rumble ?seat|seat pack|seat pad|ride[- ]?along|ride[- ]?on|skateboard|glider board|piggy ?back|\bboard\b|wheel ?kit|sidewall|\bkit\b|inner tube|\btube\b|\btire\b|\bwheel\b|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|skirt|apron|\bmuff\b|sleeve|\brug\b|\bcover\b|\bbundle\b)\b/i;
 
 const KNOWN_BRANDS = [
   'Baby Jogger', 'Silver Cross', 'Maxi-Cosi', 'Peg Perego', 'Orbit Baby', 'Delta Children', 'Radio Flyer',
@@ -64,13 +65,16 @@ const KNOWN_BRANDS = [
   'Munchkin', 'Bombi', 'Babyark', 'Diono', 'Cosatto', 'Babyzen', 'Keenz', 'egg',
 ].sort((a, b) => b.length - a.length);
 
+const BRAND_ALIASES: Record<string, string> = { peg: 'Peg Perego', maxicosi: 'Maxi-Cosi' };
+
 function detectBrand(name: string): string {
   const lower = name.toLowerCase().trim();
   for (const b of KNOWN_BRANDS) {
     const bl = b.toLowerCase();
     if (lower === bl || lower.startsWith(`${bl} `)) return b;
   }
-  return name.trim().split(/[\s,]+/)[0] || 'Other';
+  const first = name.trim().split(/[\s,]+/)[0] || 'Other';
+  return BRAND_ALIASES[first.toLowerCase()] ?? first;
 }
 
 type CjMoney = { amount?: string | number; currency?: string } | null;
@@ -82,6 +86,7 @@ type CjProduct = {
   description?: string;
   brand?: string;
   link?: string;
+  linkCode?: { clickUrl?: string | null } | null;
   imageLink?: string;
   availability?: string;
   price?: CjMoney;
@@ -163,6 +168,8 @@ async function* listProducts(): AsyncGenerator<CjProduct[]> {
   const partnerArg = numericAdvertisers.length
     ? `, partnerIds: [${numericAdvertisers.map((a) => `"${a}"`).join(', ')}]`
     : '';
+  // CJ returns the raw destination in `link`; a tracked click URL needs your PID.
+  const linkCodeField = PID ? ` linkCode(pid: "${PID}") { clickUrl }` : '';
   for (let guard = 0; guard < 500; guard += 1) {
     if (offset >= 10000) {
       console.log('  (CJ caps offset paging at 10,000 records — stopping. Set a numeric advertiser CID to narrow the pull.)');
@@ -174,7 +181,7 @@ async function* listProducts(): AsyncGenerator<CjProduct[]> {
         totalCount
         count
         resultList {
-          id advertiserId advertiserName title description brand link imageLink availability
+          id advertiserId advertiserName title description brand link${linkCodeField} imageLink availability
           price { amount currency } salePrice { amount currency } productType
         }
       }
@@ -226,7 +233,10 @@ async function main() {
   items.slice(0, 5).forEach((p) =>
     console.log(`    ${(p.title ?? '').slice(0, 50)} | ${p.brand ?? ''} | ${pathOf(p).slice(0, 40)}`),
   );
-  console.log(`  sample link (stored verbatim — confirm it's a tracked CJ url): ${items.find((p) => p.link)?.link ?? '(none)'}`);
+  const sampleLinked = items.find((p) => p.linkCode?.clickUrl || p.link);
+  console.log(
+    `  sample link (stored verbatim — confirm it's a tracked CJ url): ${sampleLinked?.linkCode?.clickUrl ?? sampleLinked?.link ?? '(none)'}`,
+  );
 
   type Keep = {
     item: CjProduct;
@@ -244,7 +254,7 @@ async function main() {
     const name = it.title ?? '';
     if (!it.id || !name) continue;
     if (ACCESSORY_RE.test(name)) continue;
-    const brand = it.brand?.trim() || detectBrand(name);
+    const brand = detectBrand(name);
     const cat = categorizeProduct({ title: name, brand, productTypePath: pathOf(it) });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
     const isInfantSeat = cat.productType === 'infant car seat';
@@ -298,7 +308,7 @@ async function main() {
       price: parsePrice(it.price) ?? parsePrice(it.salePrice),
       currency: it.price?.currency || 'USD',
       imageUrl: it.imageLink || null,
-      affiliateUrl: (it.link || '').trim() || null, // PRESERVE EXACTLY
+      affiliateUrl: (it.linkCode?.clickUrl || it.link || '').trim() || null, // tracked link; PRESERVE EXACTLY
       availability: it.availability || null,
       inStock: /in.?stock|available/i.test(it.availability ?? ''),
       itemGroupId: null as string | null,

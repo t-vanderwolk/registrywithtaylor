@@ -46,7 +46,7 @@ const RULES: Rule[] = [
   { re: /\b(rotating|360) car ?seats?\b/, category: 'Car Seats', productType: 'rotating car seat' },
   { re: /\bbooster (car ?)?seats?\b/, category: 'Car Seats', productType: 'booster seat' },
   { re: /\bcar ?seat (accessor|cover|canopy|protector|strap|insert)/, category: 'Car Seats', productType: 'car seat base', conf: 0.55 },
-  { re: /\b(pipa|liing|cloud ?[a-z]\b|mico|aria|mesa|keyfit)\b/, category: 'Car Seats', productType: 'infant car seat', conf: 0.7 },
+  { re: /\b(pipa|liing|cloud ?[gqtz]\b|mico|aria|mesa|keyfit)\b/, category: 'Car Seats', productType: 'infant car seat', conf: 0.7 },
   { re: /\bcar ?seats?\b/, category: 'Car Seats', productType: 'infant car seat', conf: 0.6 },
 
   // ── Strollers ──
