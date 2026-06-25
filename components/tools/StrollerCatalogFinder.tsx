@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
-import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -115,24 +114,11 @@ function ProductCard({
   showBrand?: boolean;
   kind?: Kind;
 }) {
-  // Build the stacked retailer buttons. Babylist always shows first (with a
-  // guaranteed tracked affiliate link, even when there's no Babylist catalog
-  // match); Albee Baby + GoodBuyGear follow only when they carry this model.
+  // Each retailer shows only when it actually carries this model — Babylist first
+  // when present, then Albee Baby, then GoodBuyGear.
   const retailers = product.retailers ?? null;
-  const babylistMeta = RETAILER_CTAS.find((m) => m.key === 'babylist')!;
-  const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [
-    {
-      meta: babylistMeta,
-      offer: {
-        price: retailers?.babylist?.price ?? null,
-        url:
-          retailers?.babylist?.url ??
-          babylistAffiliateUrl(brand, product.model || product.name, kind === 'carseats' ? 'carSeat' : 'stroller'),
-      },
-    },
-  ];
+  const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {
-    if (meta.key === 'babylist') continue;
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }

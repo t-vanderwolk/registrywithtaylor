@@ -174,8 +174,11 @@ function AffiliateBuyButtons({
       note: string;
       price: number | null;
       url: string | null;
-    }> = [
-      {
+    }> = [];
+    // Only show Babylist when it actually carries this product (a real listing),
+    // not the generic brand-search fallback — e.g. a discontinued seat won't get it.
+    if (babylistUrl || babylistPrice != null) {
+      offers.push({
         key: 'babylist',
         label: 'Add to Babylist',
         btnClass: 'tool-btn--primary',
@@ -183,8 +186,8 @@ function AffiliateBuyButtons({
         note: '',
         price: babylistPrice,
         url: resolvedBabylistUrl,
-      },
-    ];
+      });
+    }
     if (albee && (albee.url || albee.price != null)) {
       offers.push({
         key: 'albee',
