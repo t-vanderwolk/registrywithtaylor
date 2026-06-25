@@ -47,6 +47,8 @@
     "catalog:import-gbg-apply": "tsx scripts/importGoodBuyGearCatalog.ts --apply",
     "catalog:import-cj": "tsx scripts/importCjAlbeebaby.ts",
     "catalog:import-cj-apply": "tsx scripts/importCjAlbeebaby.ts --apply",
+    "seed:britax-carseats": "tsx scripts/seedBritaxCarSeats.ts",
+    "seed:britax-carseats-apply": "tsx scripts/seedBritaxCarSeats.ts --apply",
     "seed:draft-blogs": "tsx scripts/seedAllDraftBlogs.ts",
     "seed:draft-printables": "tsx scripts/seedDraftPrintables.ts",
     "seed:pillar-guides": "tsx scripts/seedPillarGuides.ts",

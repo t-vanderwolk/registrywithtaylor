@@ -138,7 +138,7 @@ const DIRECT_DEFAULT_BRANDS = new Set([
   'uppababy',
 ]);
 
-const SHARED_ADAPTER_BRANDS = new Set(['clek', 'cybex', 'maxi-cosi', 'nuna']);
+const SHARED_ADAPTER_BRANDS = new Set(['britax', 'clek', 'cybex', 'maxi-cosi', 'nuna']);
 
 /**
  * Brands that share the same click-and-go infant-seat adapter standard.
@@ -146,7 +146,9 @@ const SHARED_ADAPTER_BRANDS = new Set(['clek', 'cybex', 'maxi-cosi', 'nuna']);
  * it is inferred to also accept seats from the expansion brands below.
  */
 const SHARED_ADAPTER_TRIGGER_BRAND = 'nuna';
-const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi'];
+// Britax B-Safe (35 / Gen2 / Gen2 FlexFit) + Willow (S / SC) use the same
+// click-and-go adapter as Maxi-Cosi / Nuna / CYBEX / Clek.
+const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi', 'britax'];
 
 /**
  * Nuna strollers use a closed ecosystem — they only accept Nuna infant car seats.
@@ -182,7 +184,7 @@ function getAdapterType(
   }
 
   if (usesSharedInfantSeatAdapter(carSeatBrand)) {
-    return `${strollerBrand} adapter for Maxi-Cosi / Nuna / CYBEX / Clek infant seats`;
+    return `${strollerBrand} adapter for Maxi-Cosi / Nuna / CYBEX / Clek / Britax infant seats`;
   }
 
   if (adapterType?.trim()) {
