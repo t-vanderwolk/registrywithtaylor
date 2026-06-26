@@ -919,6 +919,34 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                     </div>
                   ) : null}
                 </div>
+                {(() => {
+                  // Retailer CTAs for the SELECTED stroller (so you can buy it,
+                  // not just see compatible seats). Data is already in the lookup.
+                  const sBL = lookup[`${result.stroller.brand}:::${result.stroller.model}`];
+                  if (
+                    !sBL ||
+                    !(sBL.babylistUrl || sBL.babylistPrice != null || sBL.anbPrice != null || sBL.openBoxPrice != null)
+                  ) {
+                    return null;
+                  }
+                  return (
+                    <div className="mt-3 max-w-sm">
+                      <p className="mb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                        Where to buy this stroller
+                      </p>
+                      <AffiliateBuyButtons
+                        brand={result.stroller.brand}
+                        model={result.stroller.model}
+                        babylistUrl={sBL.babylistUrl}
+                        babylistPrice={sBL.babylistPrice}
+                        anb={sBL.anbPrice != null ? { price: sBL.anbPrice, url: sBL.anbUrl } : null}
+                        openBox={sBL.openBoxPrice != null ? { price: sBL.openBoxPrice, url: sBL.openBoxUrl } : null}
+                        kind="stroller"
+                        compact
+                      />
+                    </div>
+                  );
+                })()}
                 {activeInsight ? (
                   <details className="mt-2">
                     <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
