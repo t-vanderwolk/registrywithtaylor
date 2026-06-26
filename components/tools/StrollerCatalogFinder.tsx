@@ -69,10 +69,10 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'albee' | 'openbox';
+  source?: 'babylist' | 'anb' | 'openbox';
   retailers?: {
     babylist?: RetailerOffer | null;
-    albee?: RetailerOffer | null;
+    anb?: RetailerOffer | null;
     goodbuygear?: RetailerOffer | null;
   } | null;
 };
@@ -89,17 +89,17 @@ function compatHref(brand: string, model: string) {
 
 // Retailer CTAs, stacked on each card in priority order. All three are primary
 // block buttons (same shape as the Babylist CTA), distinguished by brand colour:
-// Babylist pink, Albee Baby dark navy, GoodBuyGear orange. Each carries its own
+// Babylist pink, ANB Baby dark navy, GoodBuyGear orange. Each carries its own
 // affiliate link + a price badge on the right.
 const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'albee' | 'goodbuygear';
+  key: 'babylist' | 'anb' | 'goodbuygear';
   shopLabel: string;
   btnClass: string;
   logo: string | null;
   note: string;
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', logo: '/assets/logos/babylist.png', note: '' },
-  { key: 'albee', shopLabel: 'Shop Albee Baby', btnClass: 'tool-btn--albee', logo: '/assets/logos/albeebaby-round1.png', note: '' },
+  { key: 'anb', shopLabel: 'Shop ANB Baby', btnClass: 'tool-btn--anb', logo: '/assets/logos/anbbaby.png', note: '' },
   { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', logo: '/assets/logos/goodbuygear.png', note: 'as low as ' },
 ];
 
@@ -115,7 +115,7 @@ function ProductCard({
   kind?: Kind;
 }) {
   // Each retailer shows only when it actually carries this model — Babylist first
-  // when present, then Albee Baby, then GoodBuyGear.
+  // when present, then ANB Baby, then GoodBuyGear.
   const retailers = product.retailers ?? null;
   const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {

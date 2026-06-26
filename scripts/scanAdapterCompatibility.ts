@@ -1,5 +1,5 @@
 /**
- * Scan the Babylist + Albee Baby catalog for car-seat ADAPTER products, parse
+ * Scan all three catalogs (Babylist, ANB Baby, GoodBuyGear) for car-seat ADAPTER products, parse
  * each adapter's stroller (brand + model) and the infant-seat brands it names,
  * and map that onto the travel-system Compatibility graph.
  *
@@ -27,7 +27,7 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 const db = prismaBase as any;
 
 // All three catalogs: Babylist (Impact), Albee Baby (CJ), GoodBuyGear (Impact).
-const PROVIDERS = ['babylist_impact', 'cj_albeebaby', 'impact_goodbuygear'];
+const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'impact_goodbuygear'];
 
 // Infant-seat brands an adapter might name, with the aliases that show up in titles.
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [

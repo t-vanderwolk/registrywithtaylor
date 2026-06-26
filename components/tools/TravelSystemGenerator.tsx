@@ -144,7 +144,7 @@ function AffiliateBuyButtons({
   model,
   babylistUrl,
   babylistPrice = null,
-  albee = null,
+  anb = null,
   openBox = null,
   kind = 'stroller',
   compact = false,
@@ -153,7 +153,7 @@ function AffiliateBuyButtons({
   model: string;
   babylistUrl?: string | null;
   babylistPrice?: number | null;
-  albee?: { price: number | null; url: string | null } | null;
+  anb?: { price: number | null; url: string | null } | null;
   openBox?: { price: number | null; url: string | null } | null;
   kind?: 'stroller' | 'carSeat';
   compact?: boolean;
@@ -163,7 +163,7 @@ function AffiliateBuyButtons({
   const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
 
   // Compact mode (in-viewport result cards): stacked retailer CTAs matching the
-  // stroller finder — Babylist (pink) + Albee Baby (navy) + GoodBuyGear (orange),
+  // stroller finder — Babylist (pink) + ANB Baby (navy) + GoodBuyGear (orange),
   // each with its logo and a price badge.
   if (compact) {
     const offers: Array<{
@@ -188,15 +188,15 @@ function AffiliateBuyButtons({
         url: resolvedBabylistUrl,
       });
     }
-    if (albee && (albee.url || albee.price != null)) {
+    if (anb && (anb.url || anb.price != null)) {
       offers.push({
-        key: 'albee',
-        label: 'Shop Albee Baby',
-        btnClass: 'tool-btn--albee',
-        logo: '/assets/logos/albeebaby-round1.png',
+        key: 'anb',
+        label: 'Shop ANB Baby',
+        btnClass: 'tool-btn--anb',
+        logo: '/assets/logos/anbbaby.png',
         note: '',
-        price: albee.price ?? null,
-        url: albee.url ?? null,
+        price: anb.price ?? null,
+        url: anb.url ?? null,
       });
     }
     if (openBox && (openBox.url || openBox.price != null)) {
@@ -338,7 +338,7 @@ function ResultCard({
 }: {
   item: (CompatibleCarSeatResult | CompatibleStrollerResult) & {
     openBox?: { price: number; url: string | null } | null;
-    albee?: { price: number; url: string | null } | null;
+    anb?: { price: number; url: string | null } | null;
   };
   kind: 'stroller' | 'carSeat';
 }) {
@@ -400,7 +400,7 @@ function ResultCard({
             model={item.model}
             babylistUrl={item.babylistUrl}
             babylistPrice={item.babylistPrice}
-            albee={item.albee}
+            anb={item.anb}
             openBox={item.openBox}
             kind={kind}
             compact
@@ -429,8 +429,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         babylistImage: string | null;
         openBoxPrice: number | null;
         openBoxUrl: string | null;
-        albeePrice: number | null;
-        albeeUrl: string | null;
+        anbPrice: number | null;
+        anbUrl: string | null;
       }
     >
   >({});
@@ -668,7 +668,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 imageUrl: m.babylistImage ?? seat.imageUrl,
                 babylistUrl: m.babylistUrl ?? seat.babylistUrl,
                 openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
-                albee: m.albeePrice != null ? { price: m.albeePrice, url: m.albeeUrl } : null,
+                anb: m.anbPrice != null ? { price: m.anbPrice, url: m.anbUrl } : null,
               }
             : seat;
         })
@@ -684,7 +684,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 imageUrl: m.babylistImage ?? stroller.imageUrl,
                 babylistUrl: m.babylistUrl ?? stroller.babylistUrl,
                 openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
-                albee: m.albeePrice != null ? { price: m.albeePrice, url: m.albeeUrl } : null,
+                anb: m.anbPrice != null ? { price: m.anbPrice, url: m.anbUrl } : null,
               }
             : stroller;
         })

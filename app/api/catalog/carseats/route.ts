@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const PROVIDER_GBG = 'impact_goodbuygear';
-const PROVIDER_ALBEE = 'cj_albeebaby';
+const PROVIDER_ANB = 'awin_anbbaby';
 
 type CatalogProductRow = {
   provider: string;
@@ -27,10 +27,10 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'albee' | 'openbox';
+  source: 'babylist' | 'anb' | 'openbox';
   retailers: {
     babylist: RetailerOffer | null;
-    albee: RetailerOffer | null;
+    anb: RetailerOffer | null;
     goodbuygear: RetailerOffer | null;
   };
 };
@@ -72,7 +72,7 @@ export async function GET() {
     brand: string;
     model: string;
     babylist: Offer | null;
-    albee: Offer | null;
+    anb: Offer | null;
     gbg: Offer | null;
   };
   const groups = new Map<string, Group>();
@@ -89,7 +89,7 @@ export async function GET() {
 
     let g = groups.get(key);
     if (!g) {
-      g = { brand, model, babylist: null, albee: null, gbg: null };
+      g = { brand, model, babylist: null, anb: null, gbg: null };
       groups.set(key, g);
     }
     const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
@@ -97,8 +97,8 @@ export async function GET() {
       !cur || (offer.price != null && (cur.price == null || offer.price < cur.price));
     if (r.provider === PROVIDER_GBG) {
       if (cheaper(g.gbg)) g.gbg = offer;
-    } else if (r.provider === PROVIDER_ALBEE) {
-      if (cheaper(g.albee)) g.albee = offer;
+    } else if (r.provider === PROVIDER_ANB) {
+      if (cheaper(g.anb)) g.anb = offer;
     } else if (!g.babylist) {
       g.babylist = offer;
     }
@@ -106,19 +106,19 @@ export async function GET() {
 
   const byBrand = new Map<string, FinderProduct[]>();
   for (const g of groups.values()) {
-    const primary = g.babylist ?? g.albee ?? g.gbg;
+    const primary = g.babylist ?? g.anb ?? g.gbg;
     if (!primary) continue;
     if (!byBrand.has(g.brand)) byBrand.set(g.brand, []);
     byBrand.get(g.brand)!.push({
       name: primary.title,
       model: g.model,
       price: primary.price,
-      image: g.babylist?.image ?? g.albee?.image ?? g.gbg?.image ?? null,
+      image: g.babylist?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
       affiliateUrl: primary.url,
-      source: g.babylist ? 'babylist' : g.albee ? 'albee' : 'openbox',
+      source: g.babylist ? 'babylist' : g.anb ? 'anb' : 'openbox',
       retailers: {
         babylist: g.babylist ? { price: g.babylist.price, url: g.babylist.url } : null,
-        albee: g.albee ? { price: g.albee.price, url: g.albee.url } : null,
+        anb: g.anb ? { price: g.anb.price, url: g.anb.url } : null,
         goodbuygear: g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null,
       },
     });

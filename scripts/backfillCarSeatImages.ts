@@ -1,9 +1,9 @@
 /**
  * Backfill missing infant car-seat images for the travel-system checker from the
- * Albee Baby catalog. The checker shows CarSeat.babylistImage (then a static map)
+ * ANB Baby catalog. The checker shows CarSeat.babylistImage (then a static map)
  * on every compatible car-seat card; this fills that field for any INFANT CarSeat
  * lacking an image, matching by canonical brand + the seat model appearing in an
- * Albee Baby product title.
+ * ANB Baby product title.
  *
  * Only fills empty images — never overwrites an existing (synced Babylist) image.
  *
@@ -19,7 +19,7 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const ALBEE = 'cj_albeebaby';
+const ANB = 'awin_anbbaby';
 // Squash to alphanumerics only (drop spaces/punctuation) so "Gen2" matches
 // "Gen 2", "KeyFit 35" matches "KeyFit35", "B-Safe" matches "BSafe", etc.
 const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -37,7 +37,7 @@ async function main() {
 
   const prods: Prod[] = await db.affiliateCatalogProduct.findMany({
     where: {
-      provider: ALBEE,
+      provider: ANB,
       isActiveInFeed: true,
       imageUrl: { not: null },
       enrichment: { is: { productType: 'infant car seat', reviewStatus: { not: 'HIDDEN' } } },
@@ -61,12 +61,12 @@ async function main() {
     else unmatched.push(seat);
   }
 
-  console.log('── Backfill infant car-seat images from Albee Baby ──');
-  console.log(`  infant seats missing an image: ${seats.length}   Albee infant-seat products: ${prods.length}`);
+  console.log('── Backfill infant car-seat images from ANB Baby ──');
+  console.log(`  infant seats missing an image: ${seats.length}   ANB infant-seat products: ${prods.length}`);
   console.log(`  matched: ${matches.length}   still missing: ${unmatched.length}\n`);
   matches.slice(0, 25).forEach((x) => console.log(`    ✓ ${x.seat.brand} ${x.seat.model}   ←   ${x.title}`));
   if (unmatched.length) {
-    console.log('\n  no Albee match (still imageless — fall back to the static map):');
+    console.log('\n  no ANB match (still imageless — fall back to the static map):');
     unmatched.slice(0, 25).forEach((s) => console.log(`    • ${s.brand} ${s.model}`));
   }
 

@@ -6,3 +6,6 @@ dev.db
 tsconfig.tsbuildinfo
 scripts/output/*.json
 scripts/output/babylist-feed.txt
+
+# Claude Code local settings (may contain secrets)
+.claude/settings.local.json

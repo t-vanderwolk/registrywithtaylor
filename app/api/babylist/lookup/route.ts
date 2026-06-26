@@ -11,8 +11,8 @@ type BabylistFields = {
   babylistImage: string | null;
   openBoxPrice: number | null;
   openBoxUrl: string | null;
-  albeePrice: number | null;
-  albeeUrl: string | null;
+  anbPrice: number | null;
+  anbUrl: string | null;
 };
 
 const EMPTY: BabylistFields = {
@@ -21,8 +21,8 @@ const EMPTY: BabylistFields = {
   babylistImage: null,
   openBoxPrice: null,
   openBoxUrl: null,
-  albeePrice: null,
-  albeeUrl: null,
+  anbPrice: null,
+  anbUrl: null,
 };
 
 // Stroller.babylistSku is the Impact catalog item id (form "product_8981_<n>");
@@ -116,12 +116,12 @@ export async function GET(request: NextRequest) {
         select: { brand: true, title: true, price: true, affiliateUrl: true },
       })
       .catch(() => []);
-  // Albee Baby (CJ) prices for the same models — cheapest wins, same as GBG.
-  const albeeRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
+  // ANB Baby (Awin) prices for the same models — cheapest wins, same as GBG.
+  const anbRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
     await db.affiliateCatalogProduct
       .findMany({
         where: {
-          provider: 'cj_albeebaby',
+          provider: 'awin_anbbaby',
           isActiveInFeed: true,
           enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
         },
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
     return map;
   };
   const gbgByBrand = indexByBrand(gbgRows);
-  const albeeByBrand = indexByBrand(albeeRows);
+  const anbByBrand = indexByBrand(anbRows);
   const cheapestMatch = (idx: Map<string, Offer[]>, brand: string, model: string): Offer | null => {
     const ms = squash(model);
     if (ms.length < 4) return null;
@@ -166,11 +166,11 @@ export async function GET(request: NextRequest) {
       babylistUrl: cat?.affiliateUrl ?? r.babylistUrl,
       babylistPrice: cat?.price ?? r.babylistPrice,
       babylistImage: cat?.imageUrl ?? r.babylistImage,
-      // open-box (GoodBuyGear) + Albee Baby are matched per requested pair below.
+      // open-box (GoodBuyGear) + ANB Baby are matched per requested pair below.
       openBoxPrice: null,
       openBoxUrl: null,
-      albeePrice: null,
-      albeeUrl: null,
+      anbPrice: null,
+      anbUrl: null,
     });
   }
 
@@ -178,13 +178,13 @@ export async function GET(request: NextRequest) {
   for (const p of pairs) {
     const base = byKey.get(`${p.brand.toLowerCase()}:::${p.model.toLowerCase()}`) ?? EMPTY;
     const ob = cheapestMatch(gbgByBrand, p.brand, p.model);
-    const ab = cheapestMatch(albeeByBrand, p.brand, p.model);
+    const ab = cheapestMatch(anbByBrand, p.brand, p.model);
     results[p.key] = {
       ...base,
       openBoxPrice: ob?.price ?? null,
       openBoxUrl: ob?.url ?? null,
-      albeePrice: ab?.price ?? null,
-      albeeUrl: ab?.url ?? null,
+      anbPrice: ab?.price ?? null,
+      anbUrl: ab?.url ?? null,
     };
   }
 

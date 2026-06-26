@@ -3108,12 +3108,12 @@ img {
 }
 
 /* Retailer-branded primary CTAs (same shape as --primary, brand colours). */
-.tool-btn--albee {
+.tool-btn--anb {
   background: #14213d;
   color: #fff;
   box-shadow: 0 8px 20px rgba(20, 33, 61, 0.28);
 }
-.tool-btn--albee:hover {
+.tool-btn--anb:hover {
   background: #1d2f54;
   transform: translateY(-1px);
   box-shadow: 0 12px 26px rgba(20, 33, 61, 0.34);
