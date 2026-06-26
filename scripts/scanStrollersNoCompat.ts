@@ -26,6 +26,8 @@ const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
 type Row = { id: string; brand: string; model: string };
 
 async function main() {
+  const apply = process.argv.includes('--apply');
+
   const strollers: Row[] = await db.stroller.findMany({ select: { id: true, brand: true, model: true } });
   const compat: Array<{ strollerId: string }> = await db.compatibility.findMany({ select: { strollerId: true } });
 
@@ -77,7 +79,43 @@ async function main() {
     .sort((a, b) => a.brand.localeCompare(b.brand))
     .forEach((s) => console.log(`    ${s.brand} ${s.model}`));
 
-  console.log('\n  (report only — merge/remove duplicates or add compatibility as you see fit.)');
+  if (!apply) {
+    console.log("\n  (dry run — re-run with --apply to copy each duplicate's compatibility from its matched sibling.)");
+    return;
+  }
+
+  // --apply: copy the matched sibling's compatibility onto each duplicate orphan
+  // (e.g. "Butterfly 2 Complete" inherits "Butterfly 2"'s seats). Truly-empty +
+  // junk are left alone — they need real data or removal, not a copy.
+  let copied = 0;
+  for (const { orphan, match } of dupes) {
+    const rows = await db.compatibility.findMany({ where: { strollerId: match.id } });
+    const existing = new Set(
+      (
+        await db.compatibility.findMany({ where: { strollerId: orphan.id }, select: { carSeatId: true } })
+      ).map((e: { carSeatId: string }) => e.carSeatId),
+    );
+    for (const r of rows) {
+      if (existing.has(r.carSeatId)) continue;
+      await db.compatibility.create({
+        data: {
+          strollerId: orphan.id,
+          carSeatId: r.carSeatId,
+          compatibilityType: r.compatibilityType,
+          adapterRequired: r.adapterRequired,
+          adapterType: r.adapterType,
+          notes: r.notes,
+          confidence: r.confidence,
+          adapterBabylistUrl: r.adapterBabylistUrl,
+          adapterPrice: r.adapterPrice,
+          adapterImage: r.adapterImage,
+          adapterBabylistSku: r.adapterBabylistSku,
+        },
+      });
+      copied += 1;
+    }
+  }
+  console.log(`\n  Copied ${copied} compatibility rows to ${dupes.length} duplicate strollers.`);
 }
 
 main()

@@ -44,6 +44,7 @@
     "catalog:scan-adapters": "tsx scripts/scanAdapterCompatibility.ts",
     "catalog:scan-adapters-apply": "tsx scripts/scanAdapterCompatibility.ts --apply",
     "catalog:scan-orphan-strollers": "tsx scripts/scanStrollersNoCompat.ts",
+    "catalog:scan-orphan-strollers-apply": "tsx scripts/scanStrollersNoCompat.ts --apply",
     "catalog:remove-models": "tsx scripts/removeStrollerModels.ts",
     "catalog:remove-models-apply": "tsx scripts/removeStrollerModels.ts --apply",
     "catalog:seed-manual": "tsx scripts/seedManualStrollers.ts",
