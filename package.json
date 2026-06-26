@@ -51,6 +51,8 @@
     "catalog:import-gbg-apply": "tsx scripts/importGoodBuyGearCatalog.ts --apply",
     "catalog:import-cj": "tsx scripts/importCjAlbeebaby.ts",
     "catalog:import-cj-apply": "tsx scripts/importCjAlbeebaby.ts --apply",
+    "catalog:import-awin": "tsx scripts/importAwinAnb.ts",
+    "catalog:import-awin-apply": "tsx scripts/importAwinAnb.ts --apply",
     "seed:britax-carseats": "tsx scripts/seedBritaxCarSeats.ts",
     "seed:britax-carseats-apply": "tsx scripts/seedBritaxCarSeats.ts --apply",
     "catalog:backfill-carseat-images": "tsx scripts/backfillCarSeatImages.ts",
