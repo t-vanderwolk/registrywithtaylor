@@ -52,6 +52,16 @@ const FEED_URL =
 const ACCESSORY_RE =
   /\b(?:adapter|adaptor|\bbag\b|tote|caddy|organi[sz]er|cup ?holder|\btray\b|belly bar|bumper bar|rain ?cover|rain ?shield|rainshield|weather ?shield|sun ?shade|sunshade|sun ?cover|parasol|\bcanopy\b|footmuff|bunting|cocoon|blanket|\bsheet\b|\bliner\b|\binsert\b|cushion|mattress|\bpad\b|bassinet|carry ?cot|\bcot\b|second seat|sibling seat|rumble ?seat|seat pack|seat pad|ride[- ]?along|ride[- ]?on|skateboard|glider board|piggy ?back|\bboard\b|wheel ?kit|sidewall|\bkit\b|inner tube|\btube\b|\btire\b|\bwheel\b|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|skirt|apron|\bmuff\b|sleeve|\brug\b|\bcover\b|\bbundle\b|\bframe\b|seat unit|base only|car ?seat base|protector|\bstorage\b|capsule cover|\bharness\b|\bbasket\b|\bclamps?\b|seat bottom|underseat|shade stick|\bhood\b)\b/i;
 
+// A car-seat adapter (mounts an infant seat on a stroller) — kept so the checker
+// can show the real adapter to buy and the adapter scan can derive compatibility.
+// Distinguished from tray/stand/newborn adapters by naming a seat or "car seat".
+function isCarSeatAdapter(title: string): boolean {
+  if (!/\b(?:adapter|adaptor)\b/i.test(title)) return false;
+  return /car ?seat|infant|maxi[\s-]?cosi|\bnuna\b|\bpipa\b|\bcybex\b|\baton\b|\bclek\b|\bchicco\b|keyfit|\bgraco\b|snugride|primo|\bbritax\b|be-?safe|\bdoona\b|\bmesa\b|\bturtle\b/i.test(
+    title,
+  );
+}
+
 const KNOWN_BRANDS = [
   'Baby Jogger', 'Silver Cross', 'Maxi-Cosi', 'Peg Perego', 'Orbit Baby', 'Delta Children', 'Radio Flyer',
   'BOB Gear', 'Baby Trend', 'Valco Baby', 'Guava Family', 'Charlie Crane', 'Mountain Buggy',
@@ -181,6 +191,22 @@ async function main() {
   const dist: Record<string, number> = {};
   for (const it of items) {
     if (!it.id || !it.title) continue;
+    // Car-seat adapters first (before the accessory filter, which drops "adapter").
+    if (isCarSeatAdapter(it.title)) {
+      const brand = pickBrand(it.brandRaw, it.title);
+      keep.push({
+        item: it,
+        brand,
+        productType: 'stroller adapter',
+        tmbcCategory: 'Travel Systems & Adapters',
+        needsReview: false,
+        confidenceScore: 0.8,
+        parentJourney: null,
+        tags: [],
+      });
+      dist['stroller adapter'] = (dist['stroller adapter'] ?? 0) + 1;
+      continue;
+    }
     if (ACCESSORY_RE.test(it.title)) continue;
     const brand = pickBrand(it.brandRaw, it.title);
     const cat = categorizeProduct({ title: it.title, brand, productTypePath: it.productType });
@@ -191,7 +217,7 @@ async function main() {
     dist[cat.productType!] = (dist[cat.productType!] ?? 0) + 1;
   }
 
-  console.log(`\n  strollers + infant car seats kept: ${keep.length} of ${items.length}`);
+  console.log(`\n  strollers + infant car seats + adapters kept: ${keep.length} of ${items.length}`);
   Object.entries(dist).sort((a, b) => b[1] - a[1]).forEach(([t, n]) => console.log(`    ${String(n).padStart(4)}  ${t}`));
   const byBrand: Record<string, number> = {};
   keep.forEach((k) => (byBrand[k.brand] = (byBrand[k.brand] ?? 0) + 1));
