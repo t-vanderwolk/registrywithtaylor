@@ -1004,6 +1004,33 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                     </div>
                   ) : null}
                 </div>
+                {(() => {
+                  // Retailer CTAs for the SELECTED car seat.
+                  const cBL = lookup[`${result.carSeat.brand}:::${result.carSeat.model}`];
+                  if (
+                    !cBL ||
+                    !(cBL.babylistUrl || cBL.babylistPrice != null || cBL.anbPrice != null || cBL.openBoxPrice != null)
+                  ) {
+                    return null;
+                  }
+                  return (
+                    <div className="mt-3 max-w-sm">
+                      <p className="mb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                        Where to buy this car seat
+                      </p>
+                      <AffiliateBuyButtons
+                        brand={result.carSeat.brand}
+                        model={result.carSeat.model}
+                        babylistUrl={cBL.babylistUrl}
+                        babylistPrice={cBL.babylistPrice}
+                        anb={cBL.anbPrice != null ? { price: cBL.anbPrice, url: cBL.anbUrl } : null}
+                        openBox={cBL.openBoxPrice != null ? { price: cBL.openBoxPrice, url: cBL.openBoxUrl } : null}
+                        kind="carSeat"
+                        compact
+                      />
+                    </div>
+                  );
+                })()}
                 {activeInsight ? (
                   <details className="mt-2">
                     <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
