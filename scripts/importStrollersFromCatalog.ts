@@ -18,6 +18,10 @@
 import prismaBase from '@/lib/server/prisma';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import {
+  canonicalStrollerBrand,
+  isExcludedStrollerFinderProduct,
+} from '@/lib/catalog/strollerFinderRules';
 
 // New models land in the generated client on `prisma generate`; cast keeps tsc green.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,11 +32,6 @@ function parseArgs() {
   const limitRaw = argv.find((a) => a.startsWith('--limit='));
   return { dryRun: argv.includes('--dry-run'), limit: limitRaw ? parseInt(limitRaw.split('=')[1] ?? '', 10) : null };
 }
-
-// Titles that aren't browsable standalone strollers, even if categorized under
-// Strollers — bundles, car-seat carriers/frames, bassinets, accessories.
-const NOISE_RE =
-  /travel system|\bsnap-?n-?go\b|car ?seat carrier|\bbassinet\b|\bcot\b|\badapter\b|footboard|conversion kit|\bframe\b|\bboard\b|transport bag|\bbag\b|organizer|snack tray|\btray\b|rain cover|sun ?shade|\bcanopy\b|parasol|cup ?holder|seat liner|\bwheel\b|\btire\b|\bbasket\b|\bcaddy\b|footmuff|\bcover\b/i;
 
 /** Normalized key so "Hub²" / "Hub" and "Vista V2" / "vista v2" don't duplicate. */
 function normKey(brand: string, model: string): string {
@@ -56,7 +55,7 @@ async function main() {
   const existing: Array<{ brand: string; model: string }> = await db.stroller.findMany({
     select: { brand: true, model: true },
   });
-  const keys = new Set(existing.map((s) => normKey(s.brand, s.model)));
+  const keys = new Set(existing.map((s) => normKey(canonicalStrollerBrand(s.brand), s.model)));
 
   const rows: CatalogRow[] = await db.affiliateCatalogProduct.findMany({
     where: {
@@ -86,7 +85,10 @@ async function main() {
   const samples: string[] = [];
 
   for (const r of rows) {
-    if (!strollerCategoryFromProductType(r.enrichment?.productType) || NOISE_RE.test(r.title)) {
+    if (
+      !strollerCategoryFromProductType(r.enrichment?.productType) ||
+      isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title })
+    ) {
       skippedNotStroller += 1;
       continue;
     }
@@ -94,8 +96,9 @@ async function main() {
       if (seenGroups.has(r.itemGroupId)) continue;
       seenGroups.add(r.itemGroupId);
     }
-    const brand = (r.brand || '').trim();
-    const model = parseStrollerModel(r.title, brand);
+    const rawBrand = (r.brand || '').trim();
+    const brand = canonicalStrollerBrand(rawBrand);
+    const model = parseStrollerModel(r.title, rawBrand || brand);
     if (!brand || !model || model.length > 42 || / and /i.test(model)) {
       skippedNoModel += 1;
       continue;

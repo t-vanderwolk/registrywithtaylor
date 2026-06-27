@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 import { BRAND_LOGOS } from './StrollerCatalogFinder';
 import type {
@@ -135,10 +136,29 @@ function selectedOptionFromValue<T extends TravelSystemStrollerOption | TravelSy
   value: string,
 ): T | null {
   const { brand, model } = parseOptionValue(value);
-  return options.find((option) => option.brand === brand && option.model === model) ?? null;
+  return findOptionByBrandModel(options, brand, model);
+}
+
+function findOptionByBrandModel<T extends TravelSystemStrollerOption | TravelSystemCarSeatOption>(
+  options: T[],
+  brand: string,
+  model: string,
+): T | null {
+  const normalizedBrand = brand.trim().toLowerCase();
+  const normalizedModel = model.trim().toLowerCase();
+  if (!normalizedBrand || !normalizedModel) return null;
+
+  return (
+    options.find(
+      (option) =>
+        option.brand.trim().toLowerCase() === normalizedBrand &&
+        option.model.trim().toLowerCase() === normalizedModel,
+    ) ?? null
+  );
 }
 
 export default function TravelSystemGenerator({ strollers, carSeats }: TravelSystemGeneratorProps) {
+  const router = useRouter();
   const searchId = useId();
   const [selectorBrand, setSelectorBrand] = useState<string | null>(null);
   const [lookupMode, setLookupMode] = useState<LookupMode>('stroller');
@@ -192,13 +212,18 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     }
 
     if (sBrand && sModel) {
-      setSelectorBrand(sBrand);
-      setSelectedValue(`${sBrand}:::${sModel}`);
+      const stroller = findOptionByBrandModel(strollers, sBrand, sModel);
+      if (stroller) {
+        setSelectorBrand(stroller.brand);
+        setSelectedValue(buildOptionValue(stroller));
+      }
     } else if (cBrand && cModel) {
+      const carSeat = findOptionByBrandModel(carSeats, cBrand, cModel);
+      if (!carSeat) return;
       skipModeResetRef.current = true;
       setLookupMode('carSeat');
-      setSelectorBrand(cBrand);
-      setSelectedValue(`${cBrand}:::${cModel}`);
+      setSelectorBrand(carSeat.brand);
+      setSelectedValue(buildOptionValue(carSeat));
     }
     // Runs once on mount; the option lists are stable page props.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -243,10 +268,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         ? selectedOptionFromValue(strollers, selectedValue)
         : selectedOptionFromValue(carSeats, selectedValue)
       : null;
-  const parsedSelectedOption = selectedValue ? parseOptionValue(selectedValue) : null;
-  const selectedForRoute = selectedOption ?? parsedSelectedOption;
-  const selectedBrand = selectedForRoute?.brand ?? '';
-  const resultsHref = selectedForRoute ? travelSystemResultsHref(lookupMode, selectedForRoute) : null;
+  const selectedBrand = selectedOption?.brand ?? '';
+  const resultsHref = selectedOption ? travelSystemResultsHref(lookupMode, selectedOption) : null;
 
   const activeInsight =
     lookupMode === 'stroller'
@@ -297,6 +320,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     lookupMode === 'stroller'
       ? 'We will check infant car seats that fit this stroller and separate direct fits from adapter-required options.'
       : 'We will check strollers that fit this infant car seat and separate direct fits from adapter-required options.';
+  const handleResultsClick = () => {
+    if (!resultsHref) return;
+    router.push(resultsHref);
+  };
 
   return (
     <section className="tool-shell">
@@ -441,7 +468,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         </div>
 
         <div className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6">
-          {!selectedValue || !selectedForRoute ? (
+          {!selectedOption ? (
             <div className="flex min-h-[18rem] flex-col items-center justify-center rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-6 py-10 text-center md:min-h-[24rem]">
               <h3 className="font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                 {emptyTitle}
@@ -471,17 +498,18 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   Selected {lookupMode === 'stroller' ? 'stroller' : 'infant car seat'}
                 </p>
                 <h3 className="mt-2 font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
-                  {selectedOption?.displayName ?? `${selectedForRoute.brand} ${selectedForRoute.model}`}
+                  {selectedOption.displayName}
                 </h3>
                 <p className="mt-3 max-w-2xl text-sm leading-7 text-neutral-600">{selectedSummary}</p>
               </div>
 
-              <a
-                href={resultsHref ?? '/tools/travel-system/results'}
+              <button
+                type="button"
+                onClick={handleResultsClick}
                 className="tool-btn tool-btn--primary min-w-[13.5rem] px-5 py-3 text-center"
               >
                 {ctaCopy}
-              </a>
+              </button>
             </div>
           )}
         </div>

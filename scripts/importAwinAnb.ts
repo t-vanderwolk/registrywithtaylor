@@ -22,6 +22,10 @@ import { resolve } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { categorizeProduct } from '@/lib/catalog/categorize';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import {
+  canonicalStrollerBrand,
+  isExcludedStrollerFinderProduct,
+} from '@/lib/catalog/strollerFinderRules';
 
 function loadDotEnv() {
   try {
@@ -208,11 +212,13 @@ async function main() {
       continue;
     }
     if (ACCESSORY_RE.test(it.title)) continue;
-    const brand = pickBrand(it.brandRaw, it.title);
-    const cat = categorizeProduct({ title: it.title, brand, productTypePath: it.productType });
+    const detectedBrand = pickBrand(it.brandRaw, it.title);
+    const cat = categorizeProduct({ title: it.title, brand: detectedBrand, productTypePath: it.productType });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
     const isInfantSeat = cat.productType === 'infant car seat';
     if (!isStroller && !isInfantSeat) continue;
+    if (isStroller && isExcludedStrollerFinderProduct({ brand: detectedBrand, title: it.title })) continue;
+    const brand = isStroller ? canonicalStrollerBrand(detectedBrand) : detectedBrand;
     keep.push({ item: it, brand, productType: cat.productType!, tmbcCategory: cat.tmbcCategory, needsReview: cat.needsReview, confidenceScore: cat.confidenceScore, parentJourney: cat.parentJourney, tags: cat.tags });
     dist[cat.productType!] = (dist[cat.productType!] ?? 0) + 1;
   }

@@ -21,6 +21,10 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { categorizeProduct } from '@/lib/catalog/categorize';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import {
+  canonicalStrollerBrand,
+  isExcludedStrollerFinderProduct,
+} from '@/lib/catalog/strollerFinderRules';
 
 // Load .env for local CLI runs without a dotenv dependency. Tolerant of quirks
 // (skips unparseable lines instead of throwing) and never overrides a variable
@@ -235,11 +239,13 @@ async function main() {
     if (ACCESSORY_RE.test(it.Name)) continue;
     // Categorize by NAME only — GoodBuyGear's labels lump accessories into
     // "Strollers" collections, which would mis-tag them as strollers.
-    const brand = detectBrand(it.Name);
-    const cat = categorizeProduct({ title: it.Name, brand });
+    const detectedBrand = detectBrand(it.Name);
+    const cat = categorizeProduct({ title: it.Name, brand: detectedBrand });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
     const isInfantSeat = cat.productType === 'infant car seat';
     if (!isStroller && !isInfantSeat) continue;
+    if (isStroller && isExcludedStrollerFinderProduct({ brand: detectedBrand, title: it.Name })) continue;
+    const brand = isStroller ? canonicalStrollerBrand(detectedBrand) : detectedBrand;
     keep.push({
       item: it,
       brand,

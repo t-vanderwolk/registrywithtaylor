@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 // Keys must match the catalog brand string exactly. Drop a file in
 // /public/assets/logos and add the brand to extend this.
 export const BRAND_LOGOS: Record<string, string> = {
+  BOB: '/assets/logos/bob.png',
   'BOB Gear': '/assets/logos/bob.png',
   'Baby Jogger': '/assets/logos/babyjogger.png',
   'Baby Trend': '/assets/logos/babytrend.png',
@@ -44,6 +45,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   Thule: '/assets/logos/thule.png',
   UPPAbaby: '/assets/logos/uppababy.png',
   Veer: '/assets/logos/veer.png',
+  WonderFold: '/assets/logos/wonderfold.png',
   'WonderFold Wagon': '/assets/logos/wonderfold.png',
   Zoe: '/assets/logos/zoe.png',
 };

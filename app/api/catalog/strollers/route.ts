@@ -3,7 +3,10 @@ import prisma from '@/lib/server/prisma';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
-import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import {
+  canonicalStrollerBrand,
+  isExcludedStrollerFinderProduct,
+} from '@/lib/catalog/strollerFinderRules';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -104,13 +107,15 @@ export async function GET() {
   for (const r of rows) {
     const category = strollerCategoryFromProductType(r.enrichment?.productType);
     if (!category) continue; // skip accessories / unmapped types
+    if (isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title })) continue;
     // Collapse Babylist colour/variant duplicates (grouped by item_group_id).
     if (r.itemGroupId) {
       if (seenGroups.has(r.itemGroupId)) continue;
       seenGroups.add(r.itemGroupId);
     }
-    const brand = canonicalBrand(r.brand);
-    const model = parseStrollerModel(r.title, brand);
+    const rawBrand = (r.brand || '').trim();
+    const brand = canonicalStrollerBrand(rawBrand);
+    const model = parseStrollerModel(r.title, rawBrand || brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
 
     let g = groups.get(key);
