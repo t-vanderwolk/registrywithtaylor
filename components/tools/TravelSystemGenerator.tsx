@@ -1,16 +1,10 @@
 'use client';
 
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
-import { BabylistHeartIcon, BRAND_LOGOS, OpenBoxBadge } from './StrollerCatalogFinder';
-import {
-  formatCompatibilityConfidence,
-  formatCompatibilityType,
-  type CompatibleCarSeatResult,
-  type CompatibleStrollerResult,
-  type TravelSystemCarSeatOption,
-  type TravelSystemCompatibilityByCarSeatResponse,
-  type TravelSystemCompatibilityResponse,
-  type TravelSystemStrollerOption,
+import { BRAND_LOGOS } from './StrollerCatalogFinder';
+import type {
+  TravelSystemCarSeatOption,
+  TravelSystemStrollerOption,
 } from '@/lib/compatibilityEngine';
 import {
   getTravelSystemBrandInsight,
@@ -19,7 +13,10 @@ import {
   TRAVEL_SYSTEM_STROLLER_PATTERNS,
   type TravelSystemEcosystemType,
 } from '@/lib/travelSystemBrandInsights';
-import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import {
+  findTravelSystemOptionBySlug,
+  travelSystemResultsHref,
+} from '@/lib/travelSystemRouting';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -28,16 +25,6 @@ type TravelSystemGeneratorProps = {
 
 type LookupMode = 'stroller' | 'carSeat';
 
-type StrollerLookupResult = TravelSystemCompatibilityResponse & {
-  queryType: 'stroller';
-};
-
-type CarSeatLookupResult = TravelSystemCompatibilityByCarSeatResponse & {
-  queryType: 'carSeat';
-};
-
-type LookupResult = StrollerLookupResult | CarSeatLookupResult;
-
 function buildOptionValue(option: { brand: string; model: string }) {
   return `${option.brand}:::${option.model}`;
 }
@@ -45,24 +32,6 @@ function buildOptionValue(option: { brand: string; model: string }) {
 function parseOptionValue(value: string) {
   const [brand = '', model = ''] = value.split(':::');
   return { brand, model };
-}
-
-function compatibilityBadgeClasses(
-  type: CompatibleCarSeatResult['compatibilityType'] | CompatibleStrollerResult['compatibilityType'],
-) {
-  switch (type) {
-    case 'DIRECT':
-      return 'tool-badge--direct';
-    case 'ADAPTER':
-      return 'tool-badge--adapter';
-    case 'LIMITED':
-      return 'tool-badge--limited';
-    case 'LOCKED':
-      return 'tool-badge--locked';
-    case 'INCOMPATIBLE':
-    default:
-      return 'tool-badge--incompatible';
-  }
 }
 
 function ecosystemBadgeClasses(type: TravelSystemEcosystemType) {
@@ -79,37 +48,6 @@ function ecosystemBadgeClasses(type: TravelSystemEcosystemType) {
     default:
       return 'border-[rgba(215,161,175,0.22)] bg-[rgba(243,226,232,0.86)] text-[rgba(129,77,93,0.98)]';
   }
-}
-
-function ResultsSkeleton() {
-  return (
-    <div className="grid gap-4">
-      {Array.from({ length: 3 }).map((_, index) => (
-        <div
-          key={`travel-system-skeleton-${index}`}
-          className="animate-pulse rounded-[1.5rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,#ffffff_0%,#fcfaf6_100%)] p-5"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div className="space-y-3">
-              <div className="h-3 w-20 rounded-full bg-[rgba(215,161,175,0.18)]" />
-              <div className="h-6 w-44 rounded-full bg-[rgba(0,0,0,0.07)]" />
-            </div>
-            <div className="h-8 w-24 rounded-full bg-[rgba(196,156,94,0.16)]" />
-          </div>
-
-          <div className="mt-5 h-44 rounded-[1.25rem] bg-[rgba(0,0,0,0.05)]" />
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <div className="h-16 rounded-[1rem] bg-[rgba(0,0,0,0.05)]" />
-            <div className="h-16 rounded-[1rem] bg-[rgba(0,0,0,0.05)]" />
-            <div className="h-16 rounded-[1rem] bg-[rgba(0,0,0,0.05)]" />
-          </div>
-
-          <div className="mt-5 h-16 rounded-[1rem] bg-[rgba(0,0,0,0.05)]" />
-        </div>
-      ))}
-    </div>
-  );
 }
 
 function ModeToggle({
@@ -139,79 +77,6 @@ function ModeToggle({
   );
 }
 
-function AffiliateBuyButtons({
-  brand,
-  model,
-  babylistUrl,
-  babylistPrice = null,
-  kind = 'stroller',
-  compact = false,
-}: {
-  brand: string;
-  model: string;
-  babylistUrl?: string | null;
-  babylistPrice?: number | null;
-  kind?: 'stroller' | 'carSeat';
-  compact?: boolean;
-}) {
-  // Every product gets a Babylist affiliate link (synced exact URL wins, then
-  // static map, then a tracked brand listing).
-  const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
-
-  // Compact mode (in-viewport result cards): Babylist remains the visible CTA;
-  // retailer/open-box alternatives stay out of the normal button stack.
-  if (compact) {
-    const offers: Array<{
-      key: string;
-      label: string;
-      btnClass: string;
-      url: string | null;
-    }> = [];
-    // Only show Babylist when it actually carries this product (a real listing),
-    // not the generic brand-search fallback — e.g. a discontinued seat won't get it.
-    if (babylistUrl || babylistPrice != null) {
-      offers.push({
-        key: 'babylist',
-        label: 'Add to Babylist',
-        btnClass: 'tool-btn--primary',
-        url: resolvedBabylistUrl,
-      });
-    }
-    return (
-      <div className="flex flex-col gap-1.5">
-        {offers.map((o) => (
-          <a
-            key={o.key}
-            href={o.url ?? undefined}
-            target="_blank"
-            rel="sponsored nofollow noopener noreferrer"
-            className={`tool-btn ${o.btnClass} tool-btn--block flex items-center justify-center gap-2`}
-          >
-            <BabylistHeartIcon className="shrink-0" />
-            <span>{o.label} →</span>
-          </a>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-4 flex flex-wrap gap-2">
-      <a
-        href={resolvedBabylistUrl}
-        target="_blank"
-        rel="sponsored nofollow noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[rgba(188,72,101,0.32)] bg-[var(--color-cta-pink)] px-4 py-2 text-[0.78rem] font-bold text-white shadow-[0_10px_22px_rgba(216,137,160,0.26)] transition duration-150 hover:bg-[var(--color-cta-pink-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
-      >
-        <BabylistHeartIcon className="shrink-0" />
-        View on Babylist
-      </a>
-    </div>
-  );
-}
-
-// Browse selector card (mirrors the finder): image + brand + model (+ Babylist
-// price). Clicking it selects the stroller / car seat and reveals its matches.
 function BrowseCard({
   option,
   selected,
@@ -254,97 +119,23 @@ function BrowseCard({
           </p>
         ) : null}
         <span
-          className={`mt-1 text-[0.64rem] font-semibold ${selected ? 'text-[var(--color-accent-dark)]' : 'text-neutral-400'}`}
+          className={`mt-1 text-[0.64rem] font-semibold ${
+            selected ? 'text-[var(--color-accent-dark)]' : 'text-neutral-400'
+          }`}
         >
-          {selected ? 'Selected · matches below ↓' : 'Tap to check compatibility'}
+          {selected ? 'Selected, ready to check' : 'Tap to check compatibility'}
         </span>
       </div>
     </button>
   );
 }
 
-function ResultCard({
-  item,
-  kind,
-}: {
-  item: (CompatibleCarSeatResult | CompatibleStrollerResult) & {
-    openBox?: { price: number; url: string | null } | null;
-    anb?: { price: number; url: string | null } | null;
-  };
-  kind: 'stroller' | 'carSeat';
-}) {
-  return (
-    <div className="tool-card tool-card--interactive tool-product-card">
-      <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
-        <OpenBoxBadge offer={item.openBox} />
-        {item.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} className="tool-product-card__image" />
-        ) : (
-          <span className="tool-product-card__image-fallback">{item.brand}</span>
-        )}
-      </div>
-      <div className="tool-product-card__body">
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <p className="tool-product-card__brand">
-              {item.brand}
-            </p>
-            <p className="tool-product-card__title">{item.displayName}</p>
-            {item.babylistPrice != null ? (
-              <p className="tool-product-card__price">
-                ${item.babylistPrice.toFixed(2)}
-                <span>via Babylist</span>
-              </p>
-            ) : null}
-          </div>
-          <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
-            {formatCompatibilityType(item.compatibilityType)}
-          </span>
-        </div>
-
-        {item.adapterRequired ? (
-          <div className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] px-2.5 py-1.5">
-            {item.adapterImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.adapterImage} alt="" className="h-7 w-7 shrink-0 rounded bg-white object-contain p-0.5" />
-            ) : null}
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[0.66rem] font-semibold text-neutral-700">
-                {item.adapterType ?? 'Adapter needed'}
-              </p>
-              {item.adapterPrice != null ? (
-                <p className="text-[0.64rem] font-semibold text-[var(--gold)]">${item.adapterPrice.toFixed(2)}</p>
-              ) : null}
-            </div>
-            {item.adapterUrl ? (
-              <a
-                href={item.adapterUrl}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                className="shrink-0 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-[var(--color-accent-dark)] hover:underline"
-              >
-                Shop →
-              </a>
-            ) : null}
-          </div>
-        ) : (
-          <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">Direct fit · no adapter needed</p>
-        )}
-
-        <div className="tool-product-card__actions">
-          <AffiliateBuyButtons
-            brand={item.brand}
-            model={item.model}
-            babylistUrl={item.babylistUrl}
-            babylistPrice={item.babylistPrice}
-            kind={kind}
-            compact
-          />
-        </div>
-      </div>
-    </div>
-  );
+function selectedOptionFromValue<T extends TravelSystemStrollerOption | TravelSystemCarSeatOption>(
+  options: T[],
+  value: string,
+): T | null {
+  const { brand, model } = parseOptionValue(value);
+  return options.find((option) => option.brand === brand && option.model === model) ?? null;
 }
 
 export default function TravelSystemGenerator({ strollers, carSeats }: TravelSystemGeneratorProps) {
@@ -353,30 +144,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   const [lookupMode, setLookupMode] = useState<LookupMode>('stroller');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
-  const [result, setResult] = useState<LookupResult | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [lookup, setLookup] = useState<
-    Record<
-      string,
-      {
-        babylistUrl: string | null;
-        babylistPrice: number | null;
-        babylistImage: string | null;
-        openBoxPrice: number | null;
-        openBoxUrl: string | null;
-        anbPrice: number | null;
-        anbUrl: string | null;
-      }
-    >
-  >({});
   const [browseLookup, setBrowseLookup] = useState<
     Record<string, { babylistImage: string | null; babylistPrice: number | null }>
   >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
-  // A car-seat deep-link sets the mode + value on mount; that mode change would
-  // normally trip the reset below, so we let the deep-link skip it once.
   const skipModeResetRef = useRef(false);
 
   useEffect(() => {
@@ -387,57 +159,50 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     setSearchQuery('');
     setSelectedValue('');
     setSelectorBrand(null);
-    setResult(null);
-    setError(null);
-    setLoading(false);
   }, [lookupMode]);
 
-  // Deep-link entry: /tools/travel-system?strollerBrand=…&strollerModel=… pre-
-  // selects that stroller. This powers the finder's "check compatible infant car
-  // seats" CTA. Stroller is the default mode, so setting the value alone runs the
-  // lookup without tripping the mode-reset effect above. Runs once on mount.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
+    const strollerSlug = params.get('stroller');
+    const carSeatSlug = params.get('carSeat');
     const sBrand = params.get('strollerBrand');
     const sModel = params.get('strollerModel');
     const cBrand = params.get('carSeatBrand');
     const cModel = params.get('carSeatModel');
+
+    if (strollerSlug) {
+      const stroller = findTravelSystemOptionBySlug(strollers, strollerSlug);
+      if (stroller) {
+        setSelectorBrand(stroller.brand);
+        setSelectedValue(buildOptionValue(stroller));
+      }
+      return;
+    }
+
+    if (carSeatSlug) {
+      const carSeat = findTravelSystemOptionBySlug(carSeats, carSeatSlug);
+      if (carSeat) {
+        skipModeResetRef.current = true;
+        setLookupMode('carSeat');
+        setSelectorBrand(carSeat.brand);
+        setSelectedValue(buildOptionValue(carSeat));
+      }
+      return;
+    }
+
     if (sBrand && sModel) {
       setSelectorBrand(sBrand);
       setSelectedValue(`${sBrand}:::${sModel}`);
     } else if (cBrand && cModel) {
-      // The finder's car-seat "check compatible strollers" CTA lands here.
       skipModeResetRef.current = true;
       setLookupMode('carSeat');
       setSelectorBrand(cBrand);
       setSelectedValue(`${cBrand}:::${cModel}`);
     }
+    // Runs once on mount; the option lists are stable page props.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Keep the URL in sync with the selected stroller so a specific compatibility
-  // result is shareable and bookmarkable — shoppers and retailers can send the
-  // exact link. (replaceState: no history spam, no navigation.)
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const url = new URL(window.location.href);
-    url.searchParams.delete('strollerBrand');
-    url.searchParams.delete('strollerModel');
-    url.searchParams.delete('carSeatBrand');
-    url.searchParams.delete('carSeatModel');
-    if (selectedValue) {
-      const { brand, model } = parseOptionValue(selectedValue);
-      if (lookupMode === 'stroller') {
-        url.searchParams.set('strollerBrand', brand);
-        url.searchParams.set('strollerModel', model);
-      } else {
-        url.searchParams.set('carSeatBrand', brand);
-        url.searchParams.set('carSeatModel', model);
-      }
-    }
-    window.history.replaceState(null, '', url.toString());
-  }, [lookupMode, selectedValue]);
 
   const filteredStrollers = deferredSearchQuery
     ? strollers.filter((stroller) => {
@@ -466,23 +231,22 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     {},
   );
 
-  // Browse cards (mirroring the finder) show an image per option — fetched from the
-  // same lookup the results use, keyed brand:::model, cached across brands.
   const browseOptions = deferredSearchQuery
     ? activeOptions
     : selectorBrand
       ? optionGroups[selectorBrand] ?? []
       : [];
-  const browseItems = browseOptions.map((o) => `${o.brand}:::${o.model}`).join(',');
-
-  const selectedBrand =
-    result?.queryType === 'stroller'
-      ? result.stroller.brand
-      : result?.queryType === 'carSeat'
-        ? result.carSeat.brand
-        : selectedValue
-          ? parseOptionValue(selectedValue).brand
-          : '';
+  const browseItems = browseOptions.map((option) => `${option.brand}:::${option.model}`).join(',');
+  const selectedOption =
+    selectedValue
+      ? lookupMode === 'stroller'
+        ? selectedOptionFromValue(strollers, selectedValue)
+        : selectedOptionFromValue(carSeats, selectedValue)
+      : null;
+  const parsedSelectedOption = selectedValue ? parseOptionValue(selectedValue) : null;
+  const selectedForRoute = selectedOption ?? parsedSelectedOption;
+  const selectedBrand = selectedForRoute?.brand ?? '';
+  const resultsHref = selectedForRoute ? travelSystemResultsHref(lookupMode, selectedForRoute) : null;
 
   const activeInsight =
     lookupMode === 'stroller'
@@ -493,138 +257,18 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     lookupMode === 'stroller' ? TRAVEL_SYSTEM_STROLLER_PATTERNS : TRAVEL_SYSTEM_CAR_SEAT_PATTERNS;
 
   useEffect(() => {
-    if (!selectedValue) {
-      setResult(null);
-      setError(null);
-      setLoading(false);
-      return;
-    }
-
-    const controller = new AbortController();
-    const { brand, model } = parseOptionValue(selectedValue);
-    const timeoutId = window.setTimeout(async () => {
-      setLoading(true);
-      setError(null);
-      setResult(null);
-
-      try {
-        const params = new URLSearchParams(
-          lookupMode === 'stroller'
-            ? {
-                strollerBrand: brand,
-                strollerModel: model,
-              }
-            : {
-                carSeatBrand: brand,
-                carSeatModel: model,
-              },
-        );
-
-        const response = await fetch(`/api/compatibility?${params.toString()}`, {
-          method: 'GET',
-          signal: controller.signal,
-          cache: 'no-store',
-        });
-
-        const payload = (await response.json().catch(() => null)) as LookupResult | { error?: string } | null;
-
-        if (!response.ok) {
-          setError(payload && 'error' in payload && payload.error ? payload.error : 'Unable to load compatibility right now.');
-          return;
-        }
-
-        setResult(payload as LookupResult);
-      } catch (fetchError) {
-        if ((fetchError as Error).name === 'AbortError') {
-          return;
-        }
-
-        setError('Unable to load compatibility right now.');
-      } finally {
-        setLoading(false);
-      }
-    }, 180);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      controller.abort();
-    };
-  }, [lookupMode, selectedValue]);
-
-  // Pull fresh Babylist price/image/link for the result's products from the same
-  // /api/babylist/lookup the matchmaker quiz uses; prefer it over the synced fields.
-  useEffect(() => {
-    if (!result) {
-      setLookup({});
-      return;
-    }
-    const products =
-      result.queryType === 'stroller'
-        ? [result.stroller, ...result.compatibleCarSeats]
-        : [result.carSeat, ...result.compatibleStrollers];
-    const items = products.map((p) => `${p.brand}:::${p.model}`).join(',');
-    if (!items) return;
-    let cancelled = false;
-    fetch(`/api/babylist/lookup?items=${encodeURIComponent(items)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        if (!cancelled && d?.results) setLookup(d.results);
-      })
-      .catch(() => undefined);
-    return () => {
-      cancelled = true;
-    };
-  }, [result]);
-
-  // Fetch a Babylist image/price for each browsed option (brand drill-down / search
-  // cards), accumulating so switching brands keeps earlier images cached.
-  useEffect(() => {
     if (!browseItems) return;
     let cancelled = false;
     fetch(`/api/babylist/lookup?items=${encodeURIComponent(browseItems)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        if (!cancelled && d?.results) setBrowseLookup((prev) => ({ ...prev, ...d.results }));
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.results) setBrowseLookup((previous) => ({ ...previous, ...data.results }));
       })
       .catch(() => undefined);
     return () => {
       cancelled = true;
     };
   }, [browseItems]);
-
-  // Merge fresh catalog fields onto each result row (same shape → cards unchanged).
-  const mergedCarSeats =
-    result?.queryType === 'stroller'
-      ? result.compatibleCarSeats.map((seat) => {
-          const m = lookup[`${seat.brand}:::${seat.model}`];
-          return m
-            ? {
-                ...seat,
-                babylistPrice: m.babylistPrice ?? seat.babylistPrice,
-                imageUrl: m.babylistImage ?? seat.imageUrl,
-                babylistUrl: m.babylistUrl ?? seat.babylistUrl,
-                openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
-                anb: m.anbPrice != null ? { price: m.anbPrice, url: m.anbUrl } : null,
-              }
-            : seat;
-        })
-      : [];
-  const mergedStrollers =
-    result?.queryType === 'carSeat'
-      ? result.compatibleStrollers.map((stroller) => {
-          const m = lookup[`${stroller.brand}:::${stroller.model}`];
-          return m
-            ? {
-                ...stroller,
-                babylistPrice: m.babylistPrice ?? stroller.babylistPrice,
-                imageUrl: m.babylistImage ?? stroller.imageUrl,
-                babylistUrl: m.babylistUrl ?? stroller.babylistUrl,
-                openBox: m.openBoxPrice != null ? { price: m.openBoxPrice, url: m.openBoxUrl } : null,
-                anb: m.anbPrice != null ? { price: m.anbPrice, url: m.anbUrl } : null,
-              }
-            : stroller;
-        })
-      : [];
 
   const selectorEyebrow = lookupMode === 'stroller' ? 'Stroller selector' : 'Car seat selector';
   const searchLabel = lookupMode === 'stroller' ? 'Search strollers' : 'Search infant car seats';
@@ -634,12 +278,12 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       : 'Try PIPA RX, KeyFit 35, Mico Luxe, Liing...';
   const emptyTitle =
     lookupMode === 'stroller'
-      ? 'Start by selecting your stroller to see compatible car seats.'
-      : 'Start by selecting your infant car seat to see compatible strollers.';
+      ? 'Start by selecting your stroller.'
+      : 'Start by selecting your infant car seat.';
   const emptyDescription =
     lookupMode === 'stroller'
-      ? 'This keeps the answer grounded in real fit, not a long list that still leaves you guessing.'
-      : 'This keeps the answer anchored in ecosystem fit, not a general stroller list that still leaves the real question unresolved.';
+      ? 'Then we will open a dedicated results page with compatible infant car seats, direct fits first.'
+      : 'Then we will open a dedicated results page with compatible strollers, direct fits first.';
   const countDescription =
     lookupMode === 'stroller'
       ? `${filteredStrollers.length} stroller option${filteredStrollers.length === 1 ? '' : 's'} in the current compatibility library. Convertible seats are intentionally excluded.`
@@ -648,19 +292,23 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     lookupMode === 'stroller'
       ? 'No stroller matches that search yet. Try the brand name or the core model name.'
       : 'No infant car seat matches that search yet. Try the brand name or the core model name.';
+  const ctaCopy = lookupMode === 'stroller' ? 'Check Compatible Car Seats' : 'Check Compatible Strollers';
+  const selectedSummary =
+    lookupMode === 'stroller'
+      ? 'We will check infant car seats that fit this stroller and separate direct fits from adapter-required options.'
+      : 'We will check strollers that fit this infant car seat and separate direct fits from adapter-required options.';
 
   return (
     <section className="tool-shell">
       <div className="mb-6 flex flex-col gap-3">
         <span className="tool-eyebrow">Travel system checker</span>
-        <h2 className="tool-title">Find the infant car seats that fit your stroller</h2>
+        <h2 className="tool-title">Find the gear that works together</h2>
         <p className="tool-lead">
-          Pick your stroller or your infant seat — we’ll show every match in our live compatibility
-          library, flag direct fits versus the ones that need an adapter, and surface the exact
-          adapter to buy. Prices and links straight from Babylist.
+          Start with the stroller or the infant seat. The results page will show the compatible side,
+          direct fits first, then the adapter-required options.
         </p>
       </div>
-      {/* Top controls: mode toggle + search, matching the stroller finder */}
+
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <ModeToggle mode={lookupMode} onChange={setLookupMode} />
         <div className="w-full sm:max-w-xs">
@@ -684,8 +332,6 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
             {selectorEyebrow}
           </p>
 
-          {/* Brand-grid selector, mirroring the stroller finder: search → flat
-              results; otherwise browse brands → drill into that brand's models. */}
           {deferredSearchQuery ? (
             <div className="mt-4">
               <p className="mb-2.5 text-[0.72rem] text-neutral-500">
@@ -694,14 +340,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {activeOptions.map((option) => {
                   const value = buildOptionValue(option);
-                  const bl = browseLookup[`${option.brand}:::${option.model}`];
+                  const babylist = browseLookup[`${option.brand}:::${option.model}`];
                   return (
                     <BrowseCard
                       key={value}
                       option={option}
                       selected={selectedValue === value}
-                      image={bl?.babylistImage ?? null}
-                      price={bl?.babylistPrice ?? null}
+                      image={babylist?.babylistImage ?? null}
+                      price={babylist?.babylistPrice ?? null}
                       onSelect={() => setSelectedValue(value)}
                     />
                   );
@@ -749,14 +395,14 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   .sort((a, b) => a.model.localeCompare(b.model))
                   .map((option) => {
                     const value = buildOptionValue(option);
-                    const bl = browseLookup[`${option.brand}:::${option.model}`];
+                    const babylist = browseLookup[`${option.brand}:::${option.model}`];
                     return (
                       <BrowseCard
                         key={value}
                         option={option}
                         selected={selectedValue === value}
-                        image={bl?.babylistImage ?? null}
-                        price={bl?.babylistPrice ?? null}
+                        image={babylist?.babylistImage ?? null}
+                        price={babylist?.babylistPrice ?? null}
                         onSelect={() => setSelectedValue(value)}
                       />
                     );
@@ -795,7 +441,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         </div>
 
         <div className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6">
-          {!selectedValue ? (
+          {!selectedValue || !selectedForRoute ? (
             <div className="flex min-h-[18rem] flex-col items-center justify-center rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-6 py-10 text-center md:min-h-[24rem]">
               <h3 className="font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
                 {emptyTitle}
@@ -818,178 +464,26 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 ))}
               </div>
             </div>
-          ) : loading ? (
-            <ResultsSkeleton />
-          ) : error ? (
-            <div className="rounded-[1.4rem] border border-[rgba(189,95,95,0.22)] bg-[rgba(255,243,243,0.92)] px-5 py-6 text-sm leading-7 text-[rgba(142,69,69,0.98)]">
-              {error}
+          ) : (
+            <div className="grid gap-5 rounded-[1.4rem] border border-[rgba(215,161,175,0.2)] bg-[linear-gradient(180deg,#fffdfb_0%,#fbf5f0_100%)] p-5 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
+                  Selected {lookupMode === 'stroller' ? 'stroller' : 'infant car seat'}
+                </p>
+                <h3 className="mt-2 font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                  {selectedOption?.displayName ?? `${selectedForRoute.brand} ${selectedForRoute.model}`}
+                </h3>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-neutral-600">{selectedSummary}</p>
+              </div>
+
+              <a
+                href={resultsHref ?? '/tools/travel-system/results'}
+                className="tool-btn tool-btn--primary min-w-[13.5rem] px-5 py-3 text-center"
+              >
+                {ctaCopy}
+              </a>
             </div>
-          ) : result?.queryType === 'stroller' ? (
-            <>
-              <div className="border-b border-[rgba(0,0,0,0.06)] pb-3">
-                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                  <div className="min-w-0">
-                    <p className="text-[0.6rem] uppercase tracking-[0.18em] text-neutral-500">Compatible infant car seats</p>
-                    <h3 className="font-serif text-[1.3rem] leading-tight tracking-[-0.03em] text-neutral-900">
-                      {result.stroller.displayName}
-                    </h3>
-                  </div>
-                  {result.compatibleCarSeats.length > 0 ? (
-                    <div className="flex flex-wrap items-center gap-1.5 text-[0.7rem] font-semibold">
-                      <span className="rounded-full bg-[rgba(251,247,244,0.95)] px-2.5 py-1 text-neutral-700">
-                        {result.compatibleCarSeats.length} matches
-                      </span>
-                      <span className="rounded-full bg-[rgba(232,154,174,0.16)] px-2.5 py-1 text-[var(--color-accent-dark)]">
-                        {result.compatibleCarSeats.filter((s) => s.compatibilityType === 'DIRECT').length} direct fit
-                      </span>
-                      <span className="rounded-full bg-[rgba(198,167,94,0.18)] px-2.5 py-1 text-[#8a6d24]">
-                        {result.compatibleCarSeats.filter((s) => s.adapterRequired).length} need adapter
-                      </span>
-                      {activeInsight ? (
-                        <span
-                          className={`inline-flex rounded-full border px-2.5 py-1 text-[0.6rem] uppercase tracking-[0.14em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
-                        >
-                          {activeInsight.ecosystemLabel}
-                        </span>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-                {(() => {
-                  // Retailer CTAs for the SELECTED stroller (so you can buy it,
-                  // not just see compatible seats). Data is already in the lookup.
-                  const sBL = lookup[`${result.stroller.brand}:::${result.stroller.model}`];
-                  if (
-                    !sBL ||
-                    !(sBL.babylistUrl || sBL.babylistPrice != null)
-                  ) {
-                    return null;
-                  }
-                  return (
-                    <div className="mt-3 max-w-sm">
-                      <p className="mb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-neutral-400">
-                        Where to buy this stroller
-                      </p>
-                      <AffiliateBuyButtons
-                        brand={result.stroller.brand}
-                        model={result.stroller.model}
-                        babylistUrl={sBL.babylistUrl}
-                        babylistPrice={sBL.babylistPrice}
-                        kind="stroller"
-                        compact
-                      />
-                    </div>
-                  );
-                })()}
-                {activeInsight ? (
-                  <details className="mt-2">
-                    <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
-                      What most parents should know first ›
-                    </summary>
-                    <p className="mt-1.5 text-[0.82rem] leading-6 text-neutral-700">{activeInsight.tmbcInsight}</p>
-                  </details>
-                ) : null}
-              </div>
-
-              {result.compatibleCarSeats.length > 0 ? (
-                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {mergedCarSeats.map((seat) => (
-                    <ResultCard
-                      key={`${result.stroller.brand}-${result.stroller.model}-${seat.brand}-${seat.model}`}
-                      item={seat}
-                      kind="carSeat"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">
-                  No compatible infant car seats are listed for this stroller yet.
-                </div>
-              )}
-            </>
-          ) : result?.queryType === 'carSeat' ? (
-            <>
-              <div className="border-b border-[rgba(0,0,0,0.06)] pb-3">
-                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                  <div className="min-w-0">
-                    <p className="text-[0.6rem] uppercase tracking-[0.18em] text-neutral-500">Compatible strollers</p>
-                    <h3 className="font-serif text-[1.3rem] leading-tight tracking-[-0.03em] text-neutral-900">
-                      {result.carSeat.displayName}
-                    </h3>
-                  </div>
-                  {result.compatibleStrollers.length > 0 ? (
-                    <div className="flex flex-wrap items-center gap-1.5 text-[0.7rem] font-semibold">
-                      <span className="rounded-full bg-[rgba(251,247,244,0.95)] px-2.5 py-1 text-neutral-700">
-                        {result.compatibleStrollers.length} matches
-                      </span>
-                      <span className="rounded-full bg-[rgba(232,154,174,0.16)] px-2.5 py-1 text-[var(--color-accent-dark)]">
-                        {result.compatibleStrollers.filter((s) => s.compatibilityType === 'DIRECT').length} direct fit
-                      </span>
-                      <span className="rounded-full bg-[rgba(198,167,94,0.18)] px-2.5 py-1 text-[#8a6d24]">
-                        {result.compatibleStrollers.filter((s) => s.adapterRequired).length} need adapter
-                      </span>
-                      {activeInsight ? (
-                        <span
-                          className={`inline-flex rounded-full border px-2.5 py-1 text-[0.6rem] uppercase tracking-[0.14em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
-                        >
-                          {activeInsight.ecosystemLabel}
-                        </span>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-                {(() => {
-                  // Retailer CTAs for the SELECTED car seat.
-                  const cBL = lookup[`${result.carSeat.brand}:::${result.carSeat.model}`];
-                  if (
-                    !cBL ||
-                    !(cBL.babylistUrl || cBL.babylistPrice != null)
-                  ) {
-                    return null;
-                  }
-                  return (
-                    <div className="mt-3 max-w-sm">
-                      <p className="mb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-neutral-400">
-                        Where to buy this car seat
-                      </p>
-                      <AffiliateBuyButtons
-                        brand={result.carSeat.brand}
-                        model={result.carSeat.model}
-                        babylistUrl={cBL.babylistUrl}
-                        babylistPrice={cBL.babylistPrice}
-                        kind="carSeat"
-                        compact
-                      />
-                    </div>
-                  );
-                })()}
-                {activeInsight ? (
-                  <details className="mt-2">
-                    <summary className="cursor-pointer list-none text-[0.72rem] font-semibold text-[var(--color-accent-dark)] [&::-webkit-details-marker]:hidden">
-                      What most parents should know first ›
-                    </summary>
-                    <p className="mt-1.5 text-[0.82rem] leading-6 text-neutral-700">{activeInsight.tmbcInsight}</p>
-                  </details>
-                ) : null}
-              </div>
-
-              {result.compatibleStrollers.length > 0 ? (
-                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {mergedStrollers.map((stroller) => (
-                    <ResultCard
-                      key={`${result.carSeat.brand}-${result.carSeat.model}-${stroller.brand}-${stroller.model}`}
-                      item={stroller}
-                      kind="stroller"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(0,0,0,0.12)] bg-[#fcfaf7] px-5 py-6 text-sm leading-7 text-neutral-600">
-                  No compatible strollers are listed for this infant car seat yet.
-                </div>
-              )}
-            </>
-          ) : null}
+          )}
         </div>
       </div>
     </section>
