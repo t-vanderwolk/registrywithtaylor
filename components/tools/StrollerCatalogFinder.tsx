@@ -133,8 +133,6 @@ export function OpenBoxBadge({
         <span className="tool-open-box-badge__price">from {formatOpenBoxPrice(offer.price)}</span>
       ) : null}
       <span className="tool-open-box-badge__retailer">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/goodbuygear.png" alt="" className="tool-open-box-badge__logo" />
         <span>GoodBuy Gear</span>
       </span>
       {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
