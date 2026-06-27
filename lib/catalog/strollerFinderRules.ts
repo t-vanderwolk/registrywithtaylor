@@ -2,6 +2,7 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 const EXCLUDED_STROLLER_BRAND_KEYS = new Set([
   '7am enfant',
+  'baby',
   'baby delight swerve',
   'babyfrrr',
   'bright',

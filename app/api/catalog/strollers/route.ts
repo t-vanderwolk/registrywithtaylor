@@ -7,6 +7,7 @@ import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
 } from '@/lib/catalog/strollerFinderRules';
+import { hasPublicRetailOffer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -31,12 +32,13 @@ type CatalogProductRow = {
   title: string;
   price: number | null;
   imageUrl: string | null;
+  productUrl: string | null;
   affiliateUrl: string | null;
+  retailer: string | null;
   itemGroupId: string | null;
   enrichment: { productType: string | null } | null;
 };
 
-const PROVIDER_GBG = 'impact_goodbuygear';
 const PROVIDER_ANB = 'awin_anbbaby';
 
 // `model` is the parsed model name used to deep-link into the travel-system
@@ -80,7 +82,9 @@ export async function GET() {
         title: true,
         price: true,
         imageUrl: true,
+        productUrl: true,
         affiliateUrl: true,
+        retailer: true,
         itemGroupId: true,
         enrichment: { select: { productType: true } },
       },
@@ -89,9 +93,10 @@ export async function GET() {
     .catch(() => [] as CatalogProductRow[]);
 
   // Group every active row by brand+model, tracking each retailer's offer so the
-  // card can show stacked CTAs. Babylist is the primary card when present; the
-  // primary image falls back to ANB Baby, then GoodBuyGear. GoodBuyGear and
-  // ANB Baby each keep their cheapest listing for the same model.
+  // card can show stacked CTAs. Babylist/non-open-box retail is the primary card
+  // source; the image can fall back to GoodBuy Gear only after a public retail
+  // offer exists. GoodBuy Gear and ANB Baby each keep their cheapest listing for
+  // the same model.
   type Offer = { price: number | null; url: string | null; image: string | null; title: string };
   type Group = {
     category: StrollerCategory;
@@ -126,7 +131,14 @@ export async function GET() {
     const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
     const cheaper = (cur: Offer | null) =>
       !cur || (offer.price != null && (cur.price == null || offer.price < cur.price));
-    if (r.provider === PROVIDER_GBG) {
+    const isGoodBuyGear = isGoodBuyGearOffer({
+      provider: r.provider,
+      retailer: r.retailer,
+      url: r.affiliateUrl,
+      productUrl: r.productUrl,
+    });
+
+    if (isGoodBuyGear) {
       if (cheaper(g.gbg)) g.gbg = offer;
     } else if (r.provider === PROVIDER_ANB) {
       if (cheaper(g.anb)) g.anb = offer;
@@ -138,8 +150,9 @@ export async function GET() {
 
   const byBrand = new Map<string, Map<StrollerCategory, FinderProduct[]>>();
   for (const g of groups.values()) {
-    const primary = g.babylist ?? g.anb ?? g.gbg;
+    const primary = g.babylist ?? g.anb;
     if (!primary) continue;
+    if (!hasPublicRetailOffer({ url: primary.url, price: primary.price })) continue;
     const product: FinderProduct = {
       name: primary.title,
       model: g.model,

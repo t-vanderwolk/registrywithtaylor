@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { hasPublicRetailOffer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const PROVIDER_GBG = 'impact_goodbuygear';
 const PROVIDER_ANB = 'awin_anbbaby';
 
 type CatalogProductRow = {
@@ -15,7 +15,9 @@ type CatalogProductRow = {
   title: string;
   price: number | null;
   imageUrl: string | null;
+  productUrl: string | null;
   affiliateUrl: string | null;
+  retailer: string | null;
   itemGroupId: string | null;
   enrichment: { productType: string | null } | null;
 };
@@ -59,7 +61,9 @@ export async function GET() {
         title: true,
         price: true,
         imageUrl: true,
+        productUrl: true,
         affiliateUrl: true,
+        retailer: true,
         itemGroupId: true,
         enrichment: { select: { productType: true } },
       },
@@ -95,7 +99,14 @@ export async function GET() {
     const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
     const cheaper = (cur: Offer | null) =>
       !cur || (offer.price != null && (cur.price == null || offer.price < cur.price));
-    if (r.provider === PROVIDER_GBG) {
+    const isGoodBuyGear = isGoodBuyGearOffer({
+      provider: r.provider,
+      retailer: r.retailer,
+      url: r.affiliateUrl,
+      productUrl: r.productUrl,
+    });
+
+    if (isGoodBuyGear) {
       if (cheaper(g.gbg)) g.gbg = offer;
     } else if (r.provider === PROVIDER_ANB) {
       if (cheaper(g.anb)) g.anb = offer;
@@ -106,8 +117,9 @@ export async function GET() {
 
   const byBrand = new Map<string, FinderProduct[]>();
   for (const g of groups.values()) {
-    const primary = g.babylist ?? g.anb ?? g.gbg;
+    const primary = g.babylist ?? g.anb;
     if (!primary) continue;
+    if (!hasPublicRetailOffer({ url: primary.url, price: primary.price })) continue;
     if (!byBrand.has(g.brand)) byBrand.set(g.brand, []);
     byBrand.get(g.brand)!.push({
       name: primary.title,
