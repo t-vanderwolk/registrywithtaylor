@@ -90,30 +90,38 @@ function compatHref(brand: string, model: string) {
 // Retailer CTAs, stacked on each card in priority order. Babylist is the primary
 // CTA when present; other retailers remain available without competing with it.
 const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'anb';
+  key: 'babylist';
   shopLabel: string;
   btnClass: string;
-  logo: string | null;
-  note: string;
 }> = [
-  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', logo: '/assets/logos/babylist.png', note: '' },
-  { key: 'anb', shopLabel: 'Shop ANB Baby', btnClass: 'tool-btn--anb', logo: '/assets/logos/anbbaby.png', note: '' },
+  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary' },
 ];
 
 function formatOpenBoxPrice(price: number) {
   return Number.isInteger(price) ? `$${price.toFixed(0)}` : `$${price.toFixed(2)}`;
 }
 
+export function BabylistHeartIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true" className={className}>
+      <path
+        d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function OpenBoxBadge({
   offer,
-  placement = 'overlay',
 }: {
   offer?: RetailerOffer | null;
-  placement?: 'overlay' | 'inline';
 }) {
   if (!offer || (!offer.url && offer.price == null)) return null;
 
-  const className = `tool-open-box-badge${placement === 'inline' ? ' tool-open-box-badge--inline' : ''}`;
   const label =
     offer.price != null
       ? `Open box from ${formatOpenBoxPrice(offer.price)} at GoodBuy Gear`
@@ -122,9 +130,14 @@ export function OpenBoxBadge({
     <>
       <span className="tool-open-box-badge__eyebrow">Open Box</span>
       {offer.price != null ? (
-        <span className="tool-open-box-badge__price">From {formatOpenBoxPrice(offer.price)}</span>
+        <span className="tool-open-box-badge__price">from {formatOpenBoxPrice(offer.price)}</span>
       ) : null}
-      <span className="tool-open-box-badge__retailer">GoodBuy Gear</span>
+      <span className="tool-open-box-badge__retailer">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/logos/goodbuygear.png" alt="" className="tool-open-box-badge__logo" />
+        <span>GoodBuy Gear</span>
+      </span>
+      {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
     </>
   );
 
@@ -133,13 +146,14 @@ export function OpenBoxBadge({
       href={offer.url}
       target="_blank"
       rel="sponsored nofollow noopener noreferrer"
-      className={className}
+      className="tool-open-box-badge"
       aria-label={label}
+      title={label}
     >
       {content}
     </a>
   ) : (
-    <span className={className}>{content}</span>
+    <span className="tool-open-box-badge" title={label}>{content}</span>
   );
 }
 
@@ -154,8 +168,8 @@ function ProductCard({
   showBrand?: boolean;
   kind?: Kind;
 }) {
-  // Each retailer shows only when it actually carries this model — Babylist first
-  // when present, then ANB Baby. Open-box stays separate as an informational badge.
+  // Each retailer shows only when it actually carries this model. Babylist is
+  // the visible product-card CTA; open-box stays separate as a sticker badge.
   const retailers = product.retailers ?? null;
   const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {
@@ -163,25 +177,32 @@ function ProductCard({
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }
   const openBoxOffer = retailers?.goodbuygear ?? null;
+  const displayPrice = retailers?.babylist?.price ?? product.price;
 
   return (
-    <div className="tool-card tool-card--interactive overflow-hidden">
-      <div className="tool-card__media" style={{ height: '12.5rem' }}>
+    <div className="tool-card tool-card--interactive tool-product-card">
+      <div className="tool-card__media tool-product-card__media">
         <OpenBoxBadge offer={openBoxOffer} />
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={product.image} alt={product.name} />
+          <img src={product.image} alt={product.name} className="tool-product-card__image" />
         ) : (
-          <span className="text-[0.64rem] uppercase tracking-[0.16em] text-neutral-300">{brand}</span>
+          <span className="tool-product-card__image-fallback">{brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-5 py-4">
+      <div className="tool-product-card__body">
         {showBrand ? (
-          <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">{brand}</p>
+          <p className="tool-product-card__brand">{brand}</p>
         ) : null}
-        <p className="font-serif text-[1.22rem] leading-tight text-neutral-900">{product.model || product.name}</p>
+        <p className="tool-product-card__title">{product.model || product.name}</p>
+        {displayPrice != null ? (
+          <p className="tool-product-card__price">
+            ${displayPrice.toFixed(2)}
+            {retailers?.babylist?.price != null ? <span>via Babylist</span> : null}
+          </p>
+        ) : null}
 
-        <div className="mt-auto flex flex-col gap-1.5 pt-2.5">
+        <div className="tool-product-card__actions">
           {offers.map(({ meta, offer }) => (
             <a
               key={meta.key}
@@ -190,18 +211,8 @@ function ProductCard({
               rel="sponsored nofollow noopener noreferrer"
               className={`tool-btn ${meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
             >
-              {meta.logo ? (
-                <span className="inline-flex items-center rounded-full bg-white px-1.5 py-1">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={meta.logo} alt="" className="h-3 w-auto object-contain" />
-                </span>
-              ) : null}
+              <BabylistHeartIcon className="shrink-0" />
               <span>{meta.shopLabel} →</span>
-              {offer.price != null ? (
-                <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
-                  {meta.note}${offer.price.toFixed(2)}
-                </span>
-              ) : null}
             </a>
           ))}
           {product.model ? (
@@ -427,18 +438,18 @@ export default function StrollerCatalogFinder() {
                   key={b.brand}
                   type="button"
                   onClick={() => setSelectedBrand(b.brand)}
-                  className="tool-card tool-card--interactive items-center justify-center gap-2.5 px-3 py-5 text-center sm:px-5 sm:py-6"
+                  className="tool-card tool-card--interactive tool-brand-card"
                 >
                   {/* Fixed-size box so every brand logo renders at a uniform footprint */}
-                  <div className="flex h-14 w-full items-center justify-center">
+                  <div className="tool-brand-card__mark">
                     {BRAND_LOGOS[b.brand] ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="max-h-full max-w-[78%] object-contain" />
+                      <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="tool-brand-card__logo" />
                     ) : (
-                      <span className="font-serif text-[1.2rem] leading-tight text-neutral-900">{b.brand}</span>
+                      <span className="tool-brand-card__fallback">{b.brand}</span>
                     )}
                   </div>
-                  <span className="text-[0.72rem] text-neutral-400">
+                  <span className="tool-brand-card__count">
                     {b.count} {noun}{b.count === 1 ? '' : 's'}
                   </span>
                 </button>

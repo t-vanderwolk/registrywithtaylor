@@ -1,7 +1,7 @@
 'use client';
 
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
-import { BRAND_LOGOS, OpenBoxBadge } from './StrollerCatalogFinder';
+import { BabylistHeartIcon, BRAND_LOGOS, OpenBoxBadge } from './StrollerCatalogFinder';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -19,7 +19,7 @@ import {
   TRAVEL_SYSTEM_STROLLER_PATTERNS,
   type TravelSystemEcosystemType,
 } from '@/lib/travelSystemBrandInsights';
-import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -144,37 +144,27 @@ function AffiliateBuyButtons({
   model,
   babylistUrl,
   babylistPrice = null,
-  anb = null,
-  openBox = null,
   kind = 'stroller',
   compact = false,
-  showOpenBoxBadge = false,
 }: {
   brand: string;
   model: string;
   babylistUrl?: string | null;
   babylistPrice?: number | null;
-  anb?: { price: number | null; url: string | null } | null;
-  openBox?: { price: number | null; url: string | null } | null;
   kind?: 'stroller' | 'carSeat';
   compact?: boolean;
-  showOpenBoxBadge?: boolean;
 }) {
   // Every product gets a Babylist affiliate link (synced exact URL wins, then
   // static map, then a tracked brand listing).
   const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
 
-  // Compact mode (in-viewport result cards): Babylist remains the primary CTA,
-  // ANB Baby stays available as a secondary retailer link, and open-box deals
-  // render separately as informational badges.
+  // Compact mode (in-viewport result cards): Babylist remains the visible CTA;
+  // retailer/open-box alternatives stay out of the normal button stack.
   if (compact) {
     const offers: Array<{
       key: string;
       label: string;
       btnClass: string;
-      logo: string;
-      note: string;
-      price: number | null;
       url: string | null;
     }> = [];
     // Only show Babylist when it actually carries this product (a real listing),
@@ -184,21 +174,7 @@ function AffiliateBuyButtons({
         key: 'babylist',
         label: 'Add to Babylist',
         btnClass: 'tool-btn--primary',
-        logo: '/assets/logos/babylist.png',
-        note: '',
-        price: babylistPrice,
         url: resolvedBabylistUrl,
-      });
-    }
-    if (anb && (anb.url || anb.price != null)) {
-      offers.push({
-        key: 'anb',
-        label: 'Shop ANB Baby',
-        btnClass: 'tool-btn--anb',
-        logo: '/assets/logos/anbbaby.png',
-        note: '',
-        price: anb.price ?? null,
-        url: anb.url ?? null,
       });
     }
     return (
@@ -211,62 +187,25 @@ function AffiliateBuyButtons({
             rel="sponsored nofollow noopener noreferrer"
             className={`tool-btn ${o.btnClass} tool-btn--block flex items-center justify-center gap-2`}
           >
-            <span className="inline-flex items-center rounded-full bg-white px-1.5 py-1">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={o.logo} alt="" className="h-3 w-auto object-contain" />
-            </span>
+            <BabylistHeartIcon className="shrink-0" />
             <span>{o.label} →</span>
-            {o.price != null ? (
-              <span className="rounded-full bg-white/25 px-2 py-0.5 text-[0.72rem] font-bold">
-                {o.note}${o.price.toFixed(2)}
-              </span>
-            ) : null}
           </a>
         ))}
-        {showOpenBoxBadge ? <OpenBoxBadge offer={openBox} placement="inline" /> : null}
       </div>
     );
   }
 
-  const links = getAffiliateLinks(brand, model);
   return (
     <div className="mt-4 flex flex-wrap gap-2">
       <a
         href={resolvedBabylistUrl}
         target="_blank"
         rel="sponsored nofollow noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.34)] bg-[rgba(255,240,244,0.96)] px-4 py-2 text-[0.78rem] font-semibold text-[#4a252f] shadow-[0_8px_18px_rgba(216,137,160,0.14)] transition duration-150 hover:bg-[rgba(248,222,230,0.98)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
+        className="inline-flex items-center gap-2 rounded-full border border-[rgba(188,72,101,0.32)] bg-[var(--color-cta-pink)] px-4 py-2 text-[0.78rem] font-bold text-white shadow-[0_10px_22px_rgba(216,137,160,0.26)] transition duration-150 hover:bg-[var(--color-cta-pink-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
       >
-        {/* Babylist heart logo */}
-        <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-          <path
-            d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
-            fill="#f26b8a"
-            stroke="#f26b8a"
-            strokeWidth="0.5"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <BabylistHeartIcon className="shrink-0" />
         View on Babylist
       </a>
-      {links.amazonUrl ? (
-        <a
-          href={links.amazonUrl}
-          target="_blank"
-          rel="sponsored nofollow noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(0,0,0,0.09)] bg-white px-4 py-2 text-[0.78rem] font-semibold text-neutral-700 transition duration-150 hover:bg-neutral-50"
-        >
-          {/* Amazon "a" + smile logo */}
-          <svg width="18" height="15" viewBox="0 0 18 15" fill="none" aria-hidden="true">
-            <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
-            {/* orange smile arc — control point kept inside viewBox */}
-            <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-            {/* arrowhead at end of arc */}
-            <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          </svg>
-          Check price on Amazon
-        </a>
-      ) : null}
     </div>
   );
 }
@@ -291,27 +230,27 @@ function BrowseCard({
       type="button"
       onClick={onSelect}
       aria-pressed={selected}
-      className={`tool-card tool-card--interactive overflow-hidden text-left ${
+      className={`tool-card tool-card--interactive tool-product-card text-left ${
         selected ? 'ring-2 ring-[var(--color-cta-pink)] ring-offset-1' : ''
       }`}
     >
-      <div className="tool-card__media" style={{ height: '7rem' }}>
+      <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt={option.model} />
+          <img src={image} alt={option.model} className="tool-product-card__image" />
         ) : (
-          <span className="text-[0.56rem] uppercase tracking-[0.16em] text-neutral-300">{option.brand}</span>
+          <span className="tool-product-card__image-fallback">{option.brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-0.5 px-3 py-2.5">
-        <p className="text-[0.56rem] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]">
+      <div className="tool-product-card__body tool-product-card__body--compact">
+        <p className="tool-product-card__brand">
           {option.brand}
         </p>
-        <p className="font-serif text-[0.98rem] leading-tight text-neutral-900">{option.model}</p>
+        <p className="tool-product-card__title tool-product-card__title--compact">{option.model}</p>
         {price != null ? (
-          <p className="tool-price text-[0.8rem]">
+          <p className="tool-product-card__price">
             ${price.toFixed(2)}
-            <span className="tool-price__note">via Babylist</span>
+            <span>via Babylist</span>
           </p>
         ) : null}
         <span
@@ -335,23 +274,29 @@ function ResultCard({
   kind: 'stroller' | 'carSeat';
 }) {
   return (
-    <div className="tool-card tool-card--interactive overflow-hidden">
-      <div className="tool-card__media" style={{ height: '8rem' }}>
+    <div className="tool-card tool-card--interactive tool-product-card">
+      <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
         <OpenBoxBadge offer={item.openBox} />
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} />
+          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} className="tool-product-card__image" />
         ) : (
-          <span className="text-[0.58rem] uppercase tracking-[0.16em] text-neutral-300">{item.brand}</span>
+          <span className="tool-product-card__image-fallback">{item.brand}</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+      <div className="tool-product-card__body">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[var(--color-accent-dark)]">
+            <p className="tool-product-card__brand">
               {item.brand}
             </p>
-            <p className="font-serif text-[1.16rem] leading-tight text-neutral-900">{item.displayName}</p>
+            <p className="tool-product-card__title">{item.displayName}</p>
+            {item.babylistPrice != null ? (
+              <p className="tool-product-card__price">
+                ${item.babylistPrice.toFixed(2)}
+                <span>via Babylist</span>
+              </p>
+            ) : null}
           </div>
           <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
             {formatCompatibilityType(item.compatibilityType)}
@@ -387,14 +332,12 @@ function ResultCard({
           <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">Direct fit · no adapter needed</p>
         )}
 
-        <div className="mt-auto pt-1.5">
+        <div className="tool-product-card__actions">
           <AffiliateBuyButtons
             brand={item.brand}
             model={item.model}
             babylistUrl={item.babylistUrl}
             babylistPrice={item.babylistPrice}
-            anb={item.anb}
-            openBox={item.openBox}
             kind={kind}
             compact
           />
@@ -774,17 +717,17 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                     key={brand}
                     type="button"
                     onClick={() => setSelectorBrand(brand)}
-                    className="tool-card tool-card--interactive items-center justify-center gap-1.5 px-3 py-4 text-center"
+                    className="tool-card tool-card--interactive tool-brand-card tool-brand-card--compact"
                   >
-                    <div className="flex h-9 w-full items-center justify-center">
+                    <div className="tool-brand-card__mark">
                       {BRAND_LOGOS[brand] ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={BRAND_LOGOS[brand]} alt={brand} className="max-h-full max-w-[82%] object-contain" />
+                        <img src={BRAND_LOGOS[brand]} alt={brand} className="tool-brand-card__logo" />
                       ) : (
-                        <span className="font-serif text-[0.95rem] leading-tight text-neutral-900">{brand}</span>
+                        <span className="tool-brand-card__fallback">{brand}</span>
                       )}
                     </div>
-                    <span className="text-[0.62rem] text-neutral-400">{options.length}</span>
+                    <span className="tool-brand-card__count">{options.length}</span>
                   </button>
                 ))}
             </div>
@@ -918,7 +861,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   const sBL = lookup[`${result.stroller.brand}:::${result.stroller.model}`];
                   if (
                     !sBL ||
-                    !(sBL.babylistUrl || sBL.babylistPrice != null || sBL.anbPrice != null || sBL.openBoxPrice != null)
+                    !(sBL.babylistUrl || sBL.babylistPrice != null)
                   ) {
                     return null;
                   }
@@ -932,11 +875,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         model={result.stroller.model}
                         babylistUrl={sBL.babylistUrl}
                         babylistPrice={sBL.babylistPrice}
-                        anb={sBL.anbPrice != null ? { price: sBL.anbPrice, url: sBL.anbUrl } : null}
-                        openBox={sBL.openBoxPrice != null ? { price: sBL.openBoxPrice, url: sBL.openBoxUrl } : null}
                         kind="stroller"
                         compact
-                        showOpenBoxBadge
                       />
                     </div>
                   );
@@ -1003,7 +943,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   const cBL = lookup[`${result.carSeat.brand}:::${result.carSeat.model}`];
                   if (
                     !cBL ||
-                    !(cBL.babylistUrl || cBL.babylistPrice != null || cBL.anbPrice != null || cBL.openBoxPrice != null)
+                    !(cBL.babylistUrl || cBL.babylistPrice != null)
                   ) {
                     return null;
                   }
@@ -1017,11 +957,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         model={result.carSeat.model}
                         babylistUrl={cBL.babylistUrl}
                         babylistPrice={cBL.babylistPrice}
-                        anb={cBL.anbPrice != null ? { price: cBL.anbPrice, url: cBL.anbUrl } : null}
-                        openBox={cBL.openBoxPrice != null ? { price: cBL.openBoxPrice, url: cBL.openBoxUrl } : null}
                         kind="carSeat"
                         compact
-                        showOpenBoxBadge
                       />
                     </div>
                   );
