@@ -8,6 +8,7 @@ import {
   isExcludedStrollerFinderProduct,
 } from '@/lib/catalog/strollerFinderRules';
 import { hasPublicRetailOffer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
+import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,6 +22,7 @@ const TYPE_ORDER: StrollerCategory[] = [
   'convertible-modular',
   'convertible-non-modular',
   'double',
+  'double-jogging',
   'jogging',
   'umbrella',
   'wagon',
@@ -40,6 +42,8 @@ type CatalogProductRow = {
 };
 
 const PROVIDER_ANB = 'awin_anbbaby';
+const PROVIDER_BABYLIST = 'babylist_impact';
+const PROVIDER_MACROBABY = 'shopify_macrobaby';
 
 // `model` is the parsed model name used to deep-link into the travel-system
 // checker (brand + model → /api/compatibility), so the finder's "check
@@ -51,9 +55,11 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'anb' | 'openbox';
+  source: 'babylist' | 'amazon' | 'macrobaby' | 'anb' | 'openbox';
   retailers: {
     babylist: RetailerOffer | null;
+    amazon: RetailerOffer | null;
+    macrobaby: RetailerOffer | null;
     anb: RetailerOffer | null;
     goodbuygear: RetailerOffer | null;
   };
@@ -93,16 +99,15 @@ export async function GET() {
     .catch(() => [] as CatalogProductRow[]);
 
   // Group every active row by brand+model, tracking each retailer's offer so the
-  // card can show stacked CTAs. Babylist/non-open-box retail is the primary card
-  // source; the image can fall back to GoodBuy Gear only after a public retail
-  // offer exists. GoodBuy Gear and ANB Baby each keep their cheapest listing for
-  // the same model.
+  // card can show stacked CTAs. GoodBuy Gear stays badge-only; it can provide an
+  // image only after a public new-retail offer exists.
   type Offer = { price: number | null; url: string | null; image: string | null; title: string };
   type Group = {
     category: StrollerCategory;
     brand: string;
     model: string;
     babylist: Offer | null;
+    macrobaby: Offer | null;
     anb: Offer | null;
     gbg: Offer | null;
   };
@@ -113,10 +118,11 @@ export async function GET() {
     const category = strollerCategoryFromProductType(r.enrichment?.productType);
     if (!category) continue; // skip accessories / unmapped types
     if (isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title })) continue;
-    // Collapse Babylist colour/variant duplicates (grouped by item_group_id).
+    // Collapse colour/variant duplicates within a provider.
     if (r.itemGroupId) {
-      if (seenGroups.has(r.itemGroupId)) continue;
-      seenGroups.add(r.itemGroupId);
+      const groupIdKey = `${r.provider}:${r.itemGroupId}`;
+      if (seenGroups.has(groupIdKey)) continue;
+      seenGroups.add(groupIdKey);
     }
     const rawBrand = (r.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
@@ -125,7 +131,7 @@ export async function GET() {
 
     let g = groups.get(key);
     if (!g) {
-      g = { category, brand, model, babylist: null, anb: null, gbg: null };
+      g = { category, brand, model, babylist: null, macrobaby: null, anb: null, gbg: null };
       groups.set(key, g);
     }
     const offer: Offer = { price: r.price, url: r.affiliateUrl, image: r.imageUrl, title: r.title };
@@ -140,28 +146,36 @@ export async function GET() {
 
     if (isGoodBuyGear) {
       if (cheaper(g.gbg)) g.gbg = offer;
+    } else if (r.provider === PROVIDER_BABYLIST) {
+      if (!g.babylist) {
+        g.babylist = offer;
+        g.category = category; // Babylist's categorization wins for the card
+      }
+    } else if (r.provider === PROVIDER_MACROBABY) {
+      if (cheaper(g.macrobaby)) g.macrobaby = offer;
     } else if (r.provider === PROVIDER_ANB) {
       if (cheaper(g.anb)) g.anb = offer;
-    } else if (!g.babylist) {
-      g.babylist = offer;
-      g.category = category; // Babylist's categorization wins for the card
     }
   }
 
   const byBrand = new Map<string, Map<StrollerCategory, FinderProduct[]>>();
   for (const g of groups.values()) {
-    const primary = g.babylist ?? g.anb;
+    const amazonUrl = getAffiliateLinks(g.brand, g.model).amazonUrl ?? null;
+    const amazon = amazonUrl ? { price: null, url: amazonUrl, image: null, title: 'Amazon' } : null;
+    const primary = g.babylist ?? amazon ?? g.macrobaby ?? g.anb;
     if (!primary) continue;
     if (!hasPublicRetailOffer({ url: primary.url, price: primary.price })) continue;
     const product: FinderProduct = {
       name: primary.title,
       model: g.model,
       price: primary.price,
-      image: g.babylist?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
+      image: g.babylist?.image ?? g.macrobaby?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
       affiliateUrl: primary.url,
-      source: g.babylist ? 'babylist' : g.anb ? 'anb' : 'openbox',
+      source: g.babylist ? 'babylist' : amazon ? 'amazon' : g.macrobaby ? 'macrobaby' : g.anb ? 'anb' : 'openbox',
       retailers: {
         babylist: g.babylist ? { price: g.babylist.price, url: g.babylist.url } : null,
+        amazon: amazon ? { price: null, url: amazon.url } : null,
+        macrobaby: g.macrobaby ? { price: g.macrobaby.price, url: g.macrobaby.url } : null,
         anb: g.anb ? { price: g.anb.price, url: g.anb.url } : null,
         goodbuygear: g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null,
       },

@@ -13,6 +13,8 @@ type BabylistFields = {
   openBoxUrl: string | null;
   anbPrice: number | null;
   anbUrl: string | null;
+  macroBabyPrice: number | null;
+  macroBabyUrl: string | null;
 };
 
 const EMPTY: BabylistFields = {
@@ -23,6 +25,8 @@ const EMPTY: BabylistFields = {
   openBoxUrl: null,
   anbPrice: null,
   anbUrl: null,
+  macroBabyPrice: null,
+  macroBabyUrl: null,
 };
 
 // Stroller.babylistSku is the Impact catalog item id (form "product_8981_<n>");
@@ -105,7 +109,15 @@ export async function GET(request: NextRequest) {
   const catByExternal = new Map(catalogRows.map((c) => [c.externalId, c]));
 
   // GoodBuyGear (open-box) prices for the same models — cheapest wins.
-  const gbgRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
+  type ProviderOfferRow = {
+    brand: string | null;
+    title: string;
+    price: number | null;
+    affiliateUrl: string | null;
+    imageUrl?: string | null;
+  };
+
+  const gbgRows: ProviderOfferRow[] =
     await db.affiliateCatalogProduct
       .findMany({
         where: {
@@ -117,7 +129,7 @@ export async function GET(request: NextRequest) {
       })
       .catch(() => []);
   // ANB Baby (Awin) prices for the same models — cheapest wins, same as GBG.
-  const anbRows: Array<{ brand: string | null; title: string; price: number | null; affiliateUrl: string | null }> =
+  const anbRows: ProviderOfferRow[] =
     await db.affiliateCatalogProduct
       .findMany({
         where: {
@@ -128,25 +140,39 @@ export async function GET(request: NextRequest) {
         select: { brand: true, title: true, price: true, affiliateUrl: true },
       })
       .catch(() => []);
+  // MacroBaby prices/images for the same models — treated as new retail, before
+  // open-box fallback and after Babylist/Amazon at the UI layer.
+  const macroBabyRows: ProviderOfferRow[] =
+    await db.affiliateCatalogProduct
+      .findMany({
+        where: {
+          provider: 'shopify_macrobaby',
+          isActiveInFeed: true,
+          enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
+        },
+        select: { brand: true, title: true, price: true, affiliateUrl: true, imageUrl: true },
+      })
+      .catch(() => []);
 
   // Index each provider's rows by canonical brand for squash-substring matching.
   // (parseStrollerModel is stroller-only and misses car-seat models such as
   // "PIPA RX Infant Car Seat".) squash() drops spaces/punctuation so the requested
   // "PIPA RX" matches the catalog title "Nuna PIPA RX Infant Car Seat".
   const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
-  type Offer = { price: number; url: string | null; sq: string };
-  const indexByBrand = (list: typeof gbgRows) => {
+  type Offer = { price: number; url: string | null; sq: string; image?: string | null };
+  const indexByBrand = (list: ProviderOfferRow[]) => {
     const map = new Map<string, Offer[]>();
     for (const g of list) {
       if (g.price == null) continue;
       const b = canonicalBrand(g.brand).toLowerCase();
       if (!map.has(b)) map.set(b, []);
-      map.get(b)!.push({ price: g.price, url: g.affiliateUrl, sq: squash(g.title) });
+      map.get(b)!.push({ price: g.price, url: g.affiliateUrl, sq: squash(g.title), image: g.imageUrl ?? null });
     }
     return map;
   };
   const gbgByBrand = indexByBrand(gbgRows);
   const anbByBrand = indexByBrand(anbRows);
+  const macroBabyByBrand = indexByBrand(macroBabyRows);
   const cheapestMatch = (idx: Map<string, Offer[]>, brand: string, model: string): Offer | null => {
     const ms = squash(model);
     if (ms.length < 4) return null;
@@ -171,6 +197,8 @@ export async function GET(request: NextRequest) {
       openBoxUrl: null,
       anbPrice: null,
       anbUrl: null,
+      macroBabyPrice: null,
+      macroBabyUrl: null,
     });
   }
 
@@ -179,12 +207,16 @@ export async function GET(request: NextRequest) {
     const base = byKey.get(`${p.brand.toLowerCase()}:::${p.model.toLowerCase()}`) ?? EMPTY;
     const ob = cheapestMatch(gbgByBrand, p.brand, p.model);
     const ab = cheapestMatch(anbByBrand, p.brand, p.model);
+    const mb = cheapestMatch(macroBabyByBrand, p.brand, p.model);
     results[p.key] = {
       ...base,
+      babylistImage: base.babylistImage ?? mb?.image ?? null,
       openBoxPrice: ob?.price ?? null,
       openBoxUrl: ob?.url ?? null,
       anbPrice: ab?.price ?? null,
       anbUrl: ab?.url ?? null,
+      macroBabyPrice: mb?.price ?? null,
+      macroBabyUrl: mb?.url ?? null,
     };
   }
 

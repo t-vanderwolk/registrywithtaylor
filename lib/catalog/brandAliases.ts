@@ -9,7 +9,10 @@ const BRAND_ALIASES: Record<string, string> = {
   bob: 'BOB',
   'bob gear': 'BOB',
   cybex: 'Cybex',
+  uppababy: 'UPPAbaby',
   phil: 'Phil & Teds',
+  pegperego: 'Peg Perego',
+  'peg perego': 'Peg Perego',
   'phil & teds': 'Phil & Teds',
   'phil and teds': 'Phil & Teds',
   'phil&teds': 'Phil & Teds',
@@ -19,8 +22,10 @@ const BRAND_ALIASES: Record<string, string> = {
   summer: 'Ingenuity',
   'summer infant': 'Ingenuity',
   'stokke yoyo': 'Stokke',
+  'veer wagon stroller': 'Veer',
   wonderfold: 'WonderFold',
   'wonderfold wagon': 'WonderFold',
+  'wonderfold wagon stroller': 'WonderFold',
 };
 
 export function canonicalBrand(brand: string | null | undefined): string {

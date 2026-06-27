@@ -71,9 +71,11 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'anb' | 'openbox';
+  source?: 'babylist' | 'amazon' | 'macrobaby' | 'anb' | 'openbox';
   retailers?: {
     babylist?: RetailerOffer | null;
+    amazon?: RetailerOffer | null;
+    macrobaby?: RetailerOffer | null;
     anb?: RetailerOffer | null;
     goodbuygear?: RetailerOffer | null;
   } | null;
@@ -92,11 +94,14 @@ function compatHref(brand: string, model: string) {
 // Retailer CTAs, stacked on each card in priority order. Babylist is the primary
 // CTA when present; other retailers remain available without competing with it.
 const RETAILER_CTAS: Array<{
-  key: 'babylist';
+  key: 'babylist' | 'amazon' | 'macrobaby' | 'anb';
   shopLabel: string;
   btnClass: string;
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary' },
+  { key: 'amazon', shopLabel: 'Shop Amazon', btnClass: 'tool-btn--secondary' },
+  { key: 'macrobaby', shopLabel: 'Shop MacroBaby', btnClass: 'tool-btn--secondary' },
+  { key: 'anb', shopLabel: 'Shop ANB Baby', btnClass: 'tool-btn--secondary' },
 ];
 
 function formatOpenBoxPrice(price: number) {
@@ -178,7 +183,19 @@ function ProductCard({
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }
   const openBoxOffer = retailers?.goodbuygear ?? null;
-  const displayPrice = retailers?.babylist?.price ?? product.price;
+  const displayPrice =
+    retailers?.babylist?.price ??
+    retailers?.macrobaby?.price ??
+    retailers?.anb?.price ??
+    product.price;
+  const priceSource =
+    retailers?.babylist?.price != null
+      ? 'Babylist'
+      : retailers?.macrobaby?.price != null
+        ? 'MacroBaby'
+        : retailers?.anb?.price != null
+          ? 'ANB Baby'
+          : null;
 
   return (
     <div className="tool-card tool-card--interactive tool-product-card">
@@ -199,20 +216,20 @@ function ProductCard({
         {displayPrice != null ? (
           <p className="tool-product-card__price">
             ${displayPrice.toFixed(2)}
-            {retailers?.babylist?.price != null ? <span>via Babylist</span> : null}
+            {priceSource ? <span>via {priceSource}</span> : null}
           </p>
         ) : null}
 
         <div className="tool-product-card__actions">
-          {offers.map(({ meta, offer }) => (
+          {offers.map(({ meta, offer }, index) => (
             <a
               key={meta.key}
               href={offer.url ?? undefined}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
-              className={`tool-btn ${meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
+              className={`tool-btn ${index === 0 ? 'tool-btn--primary' : meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
             >
-              <BabylistHeartIcon className="shrink-0" />
+              {meta.key === 'babylist' ? <BabylistHeartIcon className="shrink-0" /> : null}
               <span>{meta.shopLabel} →</span>
             </a>
           ))}

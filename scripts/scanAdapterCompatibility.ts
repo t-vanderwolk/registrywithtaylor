@@ -1,5 +1,5 @@
 /**
- * Scan all three catalogs (Babylist, ANB Baby, GoodBuyGear) for car-seat ADAPTER products, parse
+ * Scan all new/open-box catalogs (Babylist, ANB Baby, MacroBaby, GoodBuyGear) for car-seat ADAPTER products, parse
  * each adapter's stroller (brand + model) and the infant-seat brands it names,
  * and map that onto the travel-system Compatibility graph.
  *
@@ -26,8 +26,8 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-// All three catalogs: Babylist (Impact), Albee Baby (CJ), GoodBuyGear (Impact).
-const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'impact_goodbuygear'];
+// Catalogs: Babylist (Impact), ANB Baby (Awin), MacroBaby (Shopify), GoodBuyGear (Impact).
+const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'shopify_macrobaby', 'impact_goodbuygear'];
 
 // Infant-seat brands an adapter might name, with the aliases that show up in titles.
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
@@ -85,8 +85,21 @@ type AdapterRow = {
 type StrollerRow = { id: string; brand: string; model: string };
 type SeatRow = { id: string; brand: string; model: string };
 
+async function hasAffiliateCatalogProduct() {
+  return db
+    .$queryRawUnsafe("SELECT to_regclass('public.\"AffiliateCatalogProduct\"')::text AS exists")
+    .then((rows: Array<{ exists: string | null }>) => Boolean(rows[0]?.exists))
+    .catch(() => false);
+}
+
 async function main() {
   const apply = process.argv.includes('--apply');
+
+  if (!(await hasAffiliateCatalogProduct())) {
+    console.log('── Scan catalog adapters → model-specific compatibility ──');
+    console.log('  AffiliateCatalogProduct table is not present in this database; skipping catalog-adapter audit.');
+    return;
+  }
 
   const adapters: AdapterRow[] = await db.affiliateCatalogProduct.findMany({
     where: {

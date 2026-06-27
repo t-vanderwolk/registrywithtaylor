@@ -7,7 +7,19 @@
  */
 export function parseStrollerModel(title: string, brand: string): string {
   let m = title.trim().replace(/^["'\s]+|["'\s]+$/g, ''); // strip stray feed quoting
-  if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) m = m.slice(brand.length);
+  if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) {
+    m = m.slice(brand.length);
+  } else if (brand) {
+    const brandPrefix = brand
+      .trim()
+      .split(/\s+/)
+      .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('[-\\s]+');
+    m = m.replace(new RegExp(`^${brandPrefix}\\b`, 'i'), '');
+  }
+  m = m.replace(/^\s*[-:–—]\s*/, '');
+  m = m.replace(/^strollers?\s+/i, '');
+  m = m.replace(/\s*[,(].*$/, ''); // drop colour/fabric variants
   m = m.replace(/\bstrollers?\b.*$/i, ''); // drop "Stroller…" and everything after
   m = m.replace(/\s+in\s+[^,]+$/i, ''); // drop trailing " in <colour>"
   m = m.replace(/[–—-]\s*$/g, ''); // trailing dash
@@ -15,6 +27,7 @@ export function parseStrollerModel(title: string, brand: string): string {
   // → "Fox 5", "Butterfly 2 Complete" → "Butterfly 2", "eGazelle S Electronic
   // Assist" → "eGazelle S".
   m = m.replace(/\b(?:electronic assist|easy fold compact|renew|complete)\b/gi, '');
+  m = m.replace(/\b(?:compact|lightweight|full.?size|jogging|all.?terrain)\b/gi, '');
   return m.replace(/\s{2,}/g, ' ').trim();
 }
 
@@ -27,8 +40,19 @@ export function parseStrollerModel(title: string, brand: string): string {
  */
 export function parseCarSeatModel(title: string, brand: string): string {
   let m = title.trim().replace(/^["'\s]+|["'\s]+$/g, '');
-  if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) m = m.slice(brand.length);
+  if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) {
+    m = m.slice(brand.length);
+  } else if (brand) {
+    const brandPrefix = brand
+      .trim()
+      .split(/\s+/)
+      .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('[-\\s]+');
+    m = m.replace(new RegExp(`^${brandPrefix}\\b`, 'i'), '');
+  }
+  m = m.replace(/^\s*[-:–—]\s*/, '');
   m = m.trim();
+  m = m.replace(/\s*\+\s.*$/i, ''); // bundled base/accessory details
   // Everything from the first product-copy descriptor onward is variant detail.
   m = m.replace(/\b(?:lightweight|baseless|rotating|swivel|reversible)\b.*$/i, '');
   m = m.replace(/\binfant\b.*$/i, ''); // "Infant Car Seat…"
