@@ -1,0 +1,4092 @@
+{
+  "generatedAt": "2026-06-27T22:35:34.066Z",
+  "totals": {
+    "macroBabyRows": 291,
+    "attachedOffers": 137,
+    "trueNewProducts": 118,
+    "adapterReviewItems": 30,
+    "manualReviewItems": 6,
+    "skipped": 0,
+    "updated": 140,
+    "targetAffiliateRows": 0,
+    "targetBabylistCacheRows": 9095,
+    "targetCanonicalStrollers": 101,
+    "targetCanonicalCarSeats": 32
+  },
+  "rows": [
+    {
+      "macroBabyId": "cmqwxhmm700axfp5yqgc779km",
+      "title": "Baby Jogger - Car Seat Adapter for City Mini 2 Double/City Mini Gt 2 Double",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger - Car Seat Adapter for City Mini 2 Double/City Mini Gt 2 Double",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmzy00flfp5yh1w9uaw6",
+      "title": "Baby Jogger - Car Seat Adapter for City Sights, Maxi-Cosi/Nuna/Cybex",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger - Car Seat Adapter for City Sights, Maxi-Cosi/Nuna/Cybex",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoiz00o0fp5y3qq4grmr",
+      "title": "Baby Jogger - Car Seat Adapters for Baby Jogger and Graco",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger - Car Seat Adapters for Baby Jogger and Graco",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmz900fcfp5yppsh3kor",
+      "title": "Baby Jogger - City Mini GT 2 Stroller, Opulent Black",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT 2",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlxq002xfp5y91h216mc",
+      "title": "Baby Jogger - City Mini GT3 Single Stroller, Deep Sea Blue",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT3 Single",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlqj000lfp5yhxhkocym",
+      "title": "Baby Jogger - City Mini GT3 Single Stroller, Frosted Ivory",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT3 Single",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmz300f9fp5y72aqgzqq",
+      "title": "Baby Jogger - Graco Car Seat Adapter City Mini 2 & City Mini GT2 Double Stroller",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger - Graco Car Seat Adapter City Mini 2 & City Mini GT2 Double Stroller",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm4j0059fp5y98t8t267",
+      "title": "Baby Jogger Car Seat Adapter - Select/Premier - Chicco/Peg Perego",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger Car Seat Adapter - Select/Premier - Chicco/Peg Perego",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhojv00o6fp5yr0815qjv",
+      "title": "Baby Jogger Car Seat Adapter - Select/Premier - Graco/City Go",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger Car Seat Adapter - Select/Premier - Graco/City Go",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm0p003ufp5yv2ofjckg",
+      "title": "Baby Jogger City Mini GT3 All Terrain Stroller, Sierra Sand",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT3",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn4l00gxfp5ynwb8nl2b",
+      "title": "Baby Jogger Stroller City Mini Gt3 Bj Rich Black",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger Stroller City Mini Gt3 Bj Rich Black",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhltz001ofp5ys86t3fux",
+      "title": "BOB - Wayfinder Jogging Stroller, Nightfall",
+      "brand": "BOB",
+      "model": "Wayfinder",
+      "productType": "jogging stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "bob-wayfinder",
+      "matchedTitle": "BOB Wayfinder",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlx7002rfp5yg2ggfztg",
+      "title": "BOB Jogging Stroller Double In Black",
+      "brand": "BOB",
+      "model": "BOB Jogging Stroller Double In Black",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm27004ifp5yc7bm41e3",
+      "title": "BOB - Wayfinder Jogging Stroller, Storm",
+      "brand": "Britax",
+      "model": "BOB - Wayfinder",
+      "productType": "jogging stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm21004ffp5yc90ztbya",
+      "title": "Britax - Brook+ Modular Baby Stroller",
+      "brand": "Britax",
+      "model": "Brook+ Modular Baby",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm1v004cfp5y24t2p6pk",
+      "title": "Britax - Grove Modular Stroller, Lightweight Stroller",
+      "brand": "Britax",
+      "model": "Grove Modular",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1791046",
+      "matchedTitle": "Britax Grove Modular Stroller in Pindot Stone",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmrr00cifp5y45opvnq2",
+      "title": "Britax - Juniper Compact On-The-Go Stroller, Raven Black",
+      "brand": "Britax",
+      "model": "Juniper On-The-Go",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnz900lffp5y3giy1vvq",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Glacier Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "britax-willow-s",
+      "matchedTitle": "Britax Willow S",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnmq00k3fp5yhke35qb1",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Graphite Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "britax-willow-s",
+      "matchedTitle": "Britax Willow S",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoem00mxfp5yihjj6j3x",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Jade Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "britax-willow-s",
+      "matchedTitle": "Britax Willow S",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhogf00n6fp5yfakqmn2d",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Ruby Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "britax-willow-s",
+      "matchedTitle": "Britax Willow S",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhohs00nofp5yelbn6w4e",
+      "title": "Bugaboo - Butterfly 2 Car Seat Adapters",
+      "brand": "Bugaboo",
+      "model": "Bugaboo - Butterfly 2 Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm81006ifp5yiaapfcqk",
+      "title": "Bugaboo - Butterfly 2 Compact Stroller Complete, Black/Desert Taupe",
+      "brand": "Bugaboo",
+      "model": "Butterfly 2",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491084",
+      "matchedTitle": "Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\" x 37.2\" x 40.5\" | 100% Polyester",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmnj00bcfp5ypv4pqz5q",
+      "title": "Bugaboo - Butterfly 2 Compact Stroller Complete, Black/Forest Green",
+      "brand": "Bugaboo",
+      "model": "Butterfly 2",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491084",
+      "matchedTitle": "Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\" x 37.2\" x 40.5\" | 100% Polyester",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlsp001cfp5ype62uar0",
+      "title": "Bugaboo - Butterfly 2 Compact Stroller Complete, Black/Heritage Black",
+      "brand": "Bugaboo",
+      "model": "Butterfly 2",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491084",
+      "matchedTitle": "Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\" x 37.2\" x 40.5\" | 100% Polyester",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm2l004ofp5y4h1hbsg2",
+      "title": "Bugaboo - Butterfly Complete Compact Stroller, Black/Forest Green",
+      "brand": "Bugaboo",
+      "model": "Butterfly",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1154564",
+      "matchedTitle": "Bugaboo Butterfly Complete Stroller in Midnight Black Size 17.72\" x 9.06\" x 21.26\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlos0003fp5yiia8n1rt",
+      "title": "Bugaboo - Butterfly Complete Compact Stroller, Dark Cherry",
+      "brand": "Bugaboo",
+      "model": "Butterfly",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1154564",
+      "matchedTitle": "Bugaboo Butterfly Complete Stroller in Midnight Black Size 17.72\" x 9.06\" x 21.26\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmhg009ofp5ytasedlbd",
+      "title": "Bugaboo - Donkey 5 Mono Complete Single-to-Double Stroller, Aluminum/Midnight Black",
+      "brand": "Bugaboo",
+      "model": "Donkey 5 Mono Single-to-Double",
+      "productType": "single-to-double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmhm009rfp5y0sfjdzjc",
+      "title": "Bugaboo - Donkey 5 Mono Complete Stroller, Graphite /Stormy Blue",
+      "brand": "Bugaboo",
+      "model": "Donkey 5 Mono",
+      "productType": "single-to-double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoim00nrfp5y88irzkc8",
+      "title": "Bugaboo - Donkey Twin Car Seat Adapter for Turtle/Nuna/Maxi-Cosi",
+      "brand": "Bugaboo",
+      "model": "Bugaboo - Donkey Twin Car Seat Adapter for Turtle/Nuna/Maxi-Cosi",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoit00nxfp5ytp3yag3y",
+      "title": "Bugaboo - Dragonfly Car Seat Adapter for Maxi Cosi/Cybex/Nuna",
+      "brand": "Bugaboo",
+      "model": "Bugaboo - Dragonfly Car Seat Adapter for Maxi Cosi/Cybex/Nuna",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnji00j3fp5y2gux3xal",
+      "title": "Bugaboo - Turtle Air Shield by Nuna Car Seat",
+      "brand": "Bugaboo",
+      "model": "Turtle Air Shield by Nuna",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmfl008xfp5y1vce37qr",
+      "title": "Bugaboo Butterfly 2 Complete Stroller, Black/Dusty Pink",
+      "brand": "Bugaboo",
+      "model": "Butterfly 2",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491084",
+      "matchedTitle": "Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\" x 37.2\" x 40.5\" | 100% Polyester",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm1b0043fp5y9v9xt0e9",
+      "title": "Bugaboo Donkey 6 Complete Stroller Black/Fern Green",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmd60086fp5y921iejdx",
+      "title": "Bugaboo Donkey 6 Complete Stroller Black/Heritage Black",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmez008ofp5yr9ysxo3w",
+      "title": "Bugaboo Donkey 6 Complete Stroller, Black/Cocoa Brown",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm0u003xfp5yg75bpzzt",
+      "title": "Bugaboo Donkey 6 Complete Stroller, Black/Deep Indigo",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm9y0076fp5ypfxewm5b",
+      "title": "Bugaboo Donkey 6 Complete Stroller, Black/Desert Taupe Melange",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlq8000ifp5yvn1tni0l",
+      "title": "Bugaboo Donkey 6 Complete Stroller, Black/Heritage Black",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm150040fp5ymixih6ls",
+      "title": "Bugaboo Donkey 6 Complete Stroller, Black/Moon Grey",
+      "brand": "Bugaboo",
+      "model": "Donkey 6",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903105",
+      "matchedTitle": "Bugaboo Donkey 6 Stroller in Desert Taupe Melange Size 34.2\" x 23.6\" x 43.7\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoir00nufp5y18iaf4un",
+      "title": "Bugaboo Donkey Adapter For Select Maxi Cosi Car Seats and Turtle, Mono",
+      "brand": "Bugaboo",
+      "model": "Bugaboo Donkey Adapter For Select Maxi Cosi Car Seats and Turtle, Mono",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmfx0093fp5y4yurqsah",
+      "title": "Chicco - Liteway Compact Stroller, Lavender",
+      "brand": "Chicco",
+      "model": "Liteway",
+      "productType": "umbrella stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm64005xfp5yxrepm91i",
+      "title": "Chicco - Liteway Stroller, Dune",
+      "brand": "Chicco",
+      "model": "Liteway",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmt300d0fp5yy9mg1njn",
+      "title": "Chicco - Presto Self-Folding Compact Stroller, Graphite",
+      "brand": "Chicco",
+      "model": "Presto Self-Folding",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmbu007rfp5yza30p0lv",
+      "title": "Chicco BravoFor2 Standing/Sitting Double Stroller, Iron",
+      "brand": "Chicco",
+      "model": "BravoFor2 Standing/Sitting Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm6i0063fp5ynvhy7rai",
+      "title": "Chicco Cortina Together Double Stroller, Minerale",
+      "brand": "Chicco",
+      "model": "Cortina Together Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnve00l3fp5y6thijcoq",
+      "title": "Chicco Keyfit Max Zip Cleartex Infant Car Seat, Sierra",
+      "brand": "Chicco",
+      "model": "Keyfit Max Zip Cleartex",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2383555",
+      "matchedTitle": "Chicco KeyFit Max Zip ClearTex Infant Car Seat in Apex",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm8m006rfp5y9rb25i0k",
+      "title": "Cybex - Balios S Lux Stroller, Almond Beige",
+      "brand": "Cybex",
+      "model": "Balios S Lux",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2847009",
+      "matchedTitle": "Cybex Balios S Lux Stroller in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm6v0069fp5yi6dk75xd",
+      "title": "Cybex - Balios S Lux Stroller, Moon Black",
+      "brand": "Cybex",
+      "model": "Balios S Lux",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2847009",
+      "matchedTitle": "Cybex Balios S Lux Stroller in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlzt003ofp5yht8rw6bz",
+      "title": "Cybex - Balios S Lux Stroller, Stone Grey",
+      "brand": "Cybex",
+      "model": "Balios S Lux",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2847009",
+      "matchedTitle": "Cybex Balios S Lux Stroller in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlzz003rfp5yzs3f61m3",
+      "title": "Cybex - Balios S Lux Stroller, Stormy Blue",
+      "brand": "Cybex",
+      "model": "Balios S Lux",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2847009",
+      "matchedTitle": "Cybex Balios S Lux Stroller in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho2t00lrfp5y915hxt2b",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Almond Beige",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnm100jrfp5yc0jxdofs",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Moon Black",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnlq00jofp5y5zpiz9ww",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Stone Grey",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnhw00ilfp5y2rxwe80r",
+      "title": "Cybex - Cloud T Infant Car Seatsensorsafe - Sepia Black",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cybex-cloud-t",
+      "matchedTitle": "Cybex Cloud T",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnhl00iifp5yilapwkk6",
+      "title": "Cybex - Cloud T With Sensorsafe - Jeremy Scott Wings",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cybex-cloud-t",
+      "matchedTitle": "Cybex Cloud T",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmbl007ofp5yjkv38lny",
+      "title": "Cybex - Coya Compact Lightweight Stroller, Simply Flowers Pale Blush",
+      "brand": "Cybex",
+      "model": "Coya",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2045289",
+      "matchedTitle": "Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmsh00cofp5y1092ap4j",
+      "title": "Cybex - Coya Compact Stroller, Jeremy Scott Wings",
+      "brand": "Cybex",
+      "model": "Coya",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2045289",
+      "matchedTitle": "Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmxk00erfp5yd3t6az76",
+      "title": "Cybex - Coya Compact Stroller, Matte Black/Cozy Beige",
+      "brand": "Cybex",
+      "model": "Coya",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2045289",
+      "matchedTitle": "Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmpa00brfp5yrxuqli64",
+      "title": "Cybex - Coya Compact Stroller, Rose Gold/Cozy Beige",
+      "brand": "Cybex",
+      "model": "Coya",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2045289",
+      "matchedTitle": "Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm4p005cfp5yu65rg112",
+      "title": "Cybex - Gold Gazelle S Stroller Car Seat Adapter for Graco/Chicco/Peg Perego",
+      "brand": "Cybex",
+      "model": "Cybex - Gold Gazelle S Stroller Car Seat Adapter for Graco/Chicco/Peg Perego",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho9200m9fp5yj6y83rod",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat, Ocean Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho9p00mcfp5ykhsdfxya",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat, Stormy Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm6d0060fp5y099ul7hv",
+      "title": "Cybex Mios Stroller, Matte Black Frame/Cozy Beige Lux Seat",
+      "brand": "Cybex",
+      "model": "Mios",
+      "productType": "compact stroller",
+      "action": "manual-review",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_3045831",
+      "matchedTitle": "Cybex MIOS Stroller in Rose Gold Frame/Sepia Black Lux Seat",
+      "reasons": [
+        "conflicting conservative matches found"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm8w006ufp5yoe4gsjb7",
+      "title": "Cybex Mios Stroller, Matte Black Frame/Sepia Black Lux Seat",
+      "brand": "Cybex",
+      "model": "Mios",
+      "productType": "compact stroller",
+      "action": "manual-review",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_3045831",
+      "matchedTitle": "Cybex MIOS Stroller in Rose Gold Frame/Sepia Black Lux Seat",
+      "reasons": [
+        "conflicting conservative matches found"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm8e006ofp5ylxcco27t",
+      "title": "Cybex Mios Stroller, Rose Gold Frame/Sepia Black Lux Seat",
+      "brand": "Cybex",
+      "model": "Mios",
+      "productType": "compact stroller",
+      "action": "manual-review",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_3045831",
+      "matchedTitle": "Cybex MIOS Stroller in Rose Gold Frame/Sepia Black Lux Seat",
+      "reasons": [
+        "conflicting conservative matches found"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlw5002ffp5y63mlv8ci",
+      "title": "Cybex Priam Stroller Matte Black Frame/Coconut Brown Lux Seat",
+      "brand": "Cybex",
+      "model": "Priam",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "cybex-priam",
+      "matchedTitle": "Cybex Priam",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlwb002ifp5yb6ubw58u",
+      "title": "Cybex Priam Stroller Matte Black Frame/Cozy Beige Lux Seat",
+      "brand": "Cybex",
+      "model": "Priam",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "cybex-priam",
+      "matchedTitle": "Cybex Priam",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlws002lfp5y614msy6m",
+      "title": "Cybex Priam Stroller Matte Black Frame/Sepia Black Lux Seat",
+      "brand": "Cybex",
+      "model": "Priam",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "cybex-priam",
+      "matchedTitle": "Cybex Priam",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmc6007ufp5yw5ojybok",
+      "title": "Cybex Priam Stroller Rose Gold Frame/Sepia Black Lux Seat",
+      "brand": "Cybex",
+      "model": "Priam",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "cybex-priam",
+      "matchedTitle": "Cybex Priam",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmtn00d9fp5ytirrhypa",
+      "title": "Delta - Gap Classic Umbrella Lightweight Stroller Grey",
+      "brand": "Delta",
+      "model": "Gap Classic Umbrella",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmwa00e9fp5yp3504wad",
+      "title": "Delta - Jeep Adventureglyde Stroller By Delta Children, Black With Grey",
+      "brand": "Delta",
+      "model": "Jeep Adventureglyde",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm490053fp5y59f98pi7",
+      "title": "Delta Children - Baby Gap 2-In-1 Carriage Stroller, Camo Black",
+      "brand": "Delta",
+      "model": "Children - Baby Gap 2-In-1 Carriage",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmnx00bffp5yv0mhguvu",
+      "title": "Delta Children - Baby Gap 2-In-1 Carriage Stroller, Camo Blue",
+      "brand": "Delta",
+      "model": "Children - Baby Gap 2-In-1 Carriage",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmg90099fp5yilfq5wo5",
+      "title": "Delta Children - BabyGap Classic Side-by-Side Double Stroller, Navy Camo",
+      "brand": "Delta",
+      "model": "Children - BabyGap Classic Side-by-Side Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmah007cfp5yl77u8e7b",
+      "title": "Delta Children - BabyGap Classic Stroller, Pink Stripes",
+      "brand": "Delta",
+      "model": "Children - BabyGap Classic",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm430050fp5yhkfq7hre",
+      "title": "DFY - R1 Single Stroller Black",
+      "brand": "DFY",
+      "model": "R1 Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm5f005rfp5y7n6vmiun",
+      "title": "DFY - R1 Single Stroller, Cream",
+      "brand": "DFY",
+      "model": "R1 Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlsi0019fp5yvam7ztjw",
+      "title": "DFY - R1 Single Stroller, Grey",
+      "brand": "DFY",
+      "model": "R1 Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhohm00nlfp5yww2tsidb",
+      "title": "Doona - 360 Protection, Compatible with Doona Car Seat & Stroller",
+      "brand": "Doona",
+      "model": "360 Protection",
+      "productType": "full-size stroller",
+      "action": "manual-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "suspected accessory or bundle; not attached as a retailer offer"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlxk002ufp5yqyfqghjw",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Blush Pink",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base & Stroller, Blush Pink",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmmk00b3fp5yh26wuvnt",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Desert Green",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base & Stroller, Desert Green",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmyc00f0fp5ynhvz9lz2",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Midnight",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base & Stroller, Midnight",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmut00drfp5ylfxbw5ob",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Nitro Black",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base & Stroller, Nitro Black",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnm700jufp5y2rb26osv",
+      "title": "Doona - Infant Car Seat With Base, Deep Blue",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base, Deep Blue",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho6800lxfp5yj52t1ib1",
+      "title": "Doona - Infant Car Seat With Base, Ocean Blue",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base, Ocean Blue",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnio00irfp5ywrun4231",
+      "title": "Doona - Infant Car Seat With Base, Slate Green",
+      "brand": "Doona",
+      "model": "Doona - Infant Car Seat With Base, Slate Green",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhohg00nifp5yx9zvsf1b",
+      "title": "Doona - Snap-On Storage, Compatible with Doona Car Seat & Stroller",
+      "brand": "Doona",
+      "model": "Snap-On Storage",
+      "productType": "full-size stroller",
+      "action": "manual-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "suspected accessory or bundle; not attached as a retailer offer"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhojq00o3fp5y5jsp9yy9",
+      "title": "Doona+ Infant Car Seat & Stroller, Sahara Sand",
+      "brand": "Doona",
+      "model": "Doona+ Infant Car Seat & Stroller, Sahara Sand",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn5e00h6fp5y9e5pwr0p",
+      "title": "Ergobaby Metro 3 Deluxe Baby Stroller, Willow Green",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Deluxe Baby",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmvg00e0fp5yrwsgan4w",
+      "title": "Ergobaby Metro 3 Lightweight Travel Stroller, Natural Beige",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmu900difp5ylo68sppx",
+      "title": "Ergobaby Metro 3 Travel Stroller, Onyx Black",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhls10013fp5yxdnd9bi5",
+      "title": "Ergobaby Metro+ Deluxe Compact Baby Stroller, London Grey",
+      "brand": "Ergobaby",
+      "model": "Metro+ Deluxe Baby",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm7v006ffp5y0qhdufef",
+      "title": "Ergobaby Metro+ Deluxe Compact Stroller, Empire State Green",
+      "brand": "Ergobaby",
+      "model": "Metro+ Deluxe",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmqw00c9fp5yblajbr3p",
+      "title": "Inglesina - Quid³ Compact Lightweight Stroller - Planet Green",
+      "brand": "Inglesina",
+      "model": "Quid³",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlt0001ffp5yadj6lf4j",
+      "title": "Inglesina - Quid³ Compact Lightweight Stroller, Cosmic Black",
+      "brand": "Inglesina",
+      "model": "Quid³",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmwi00ecfp5yz5ygh6i4",
+      "title": "Inglesina - Quid³ Compact Lightweight Stroller, Lunar Beige",
+      "brand": "Inglesina",
+      "model": "Quid³",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmue00dlfp5yetlfxpw1",
+      "title": "Joolz - Aer² Car Seat Adapter Set",
+      "brand": "Joolz",
+      "model": "Joolz - Aer² Car Seat Adapter Set",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmrd00cffp5y90yngouv",
+      "title": "Joolz - Aer² Lightweight Compact Stroller Space Black",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlvg0026fp5ykwvakd7l",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Calming Beige",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmsr00cufp5ys7ho40qf",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Dark Navy Blue",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlwz002ofp5yizoc8wae",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Forest Green",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmeu008lfp5y6p3vqhlu",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Hazel Brown",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmxw00exfp5yb49t084w",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Sage Green",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmed008ifp5ynsq9fg0i",
+      "title": "Joolz - Aer² Lightweight Compact Stroller, Sandy Taupe",
+      "brand": "Joolz",
+      "model": "Aer²",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn0500fofp5yfq16suga",
+      "title": "Joolz - Aer+ Car Seat Adapters",
+      "brand": "Joolz",
+      "model": "Joolz - Aer+ Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlrg000ufp5ytfivt7q5",
+      "title": "Joolz - Aer+ Lightweight Compact Stroller Sage Green",
+      "brand": "Joolz",
+      "model": "Aer+",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "joolz-aer-plus",
+      "matchedTitle": "Joolz Aer+",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmb5007lfp5yrqu1dhms",
+      "title": "Joolz - Aer+ Lightweight Compact Stroller, Forest Green",
+      "brand": "Joolz",
+      "model": "Aer+",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "joolz-aer-plus",
+      "matchedTitle": "Joolz Aer+",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm59005ofp5ydis5zx8c",
+      "title": "Joolz - Aer+ Lightweight Compact Stroller, Stone Grey",
+      "brand": "Joolz",
+      "model": "Aer+",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "joolz-aer-plus",
+      "matchedTitle": "Joolz Aer+",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmxb00eofp5ysi29dnkr",
+      "title": "Joolz - Hub2 Car Seat Adapter Set",
+      "brand": "Joolz",
+      "model": "Joolz - Hub2 Car Seat Adapter Set",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmcr0080fp5y34k78bpd",
+      "title": "Joolz Aer2 Lightweight Compact Stroller, Pebble Grey",
+      "brand": "Joolz",
+      "model": "Aer2",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlvq0029fp5ywb4g1m56",
+      "title": "Joolz Dot Ultra Lightweight Travel Stroller, Dune Beige",
+      "brand": "Joolz",
+      "model": "Dot Ultra Travel",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlvv002cfp5yk0wkblcx",
+      "title": "Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue",
+      "brand": "Joolz",
+      "model": "Dot Ultra Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn5p00h9fp5y41z6svqx",
+      "title": "Macrobaby 3Pk Universal Stroller Cart Connector for Twins Car",
+      "brand": "MacroBaby",
+      "model": "3Pk Universal",
+      "productType": "full-size stroller",
+      "action": "manual-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "suspected accessory or bundle; not attached as a retailer offer"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlr6000rfp5yb9clu2b9",
+      "title": "Maxi-Cosi - Fame Modular Stroller, Twillic Black",
+      "brand": "Maxi-Cosi",
+      "model": "Fame Modular",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlyy003cfp5yqvo7tpfu",
+      "title": "Maxi-Cosi - Fame Modular Stroller, Twillic Truffle",
+      "brand": "Maxi-Cosi",
+      "model": "Fame Modular",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnk200j9fp5ytddmpyup",
+      "title": "Maxi-Cosi - Mico Luxe+ Infant Car Seat, Essential Green",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Luxe",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "maxi-cosi-mico-luxe",
+      "matchedTitle": "Maxi-Cosi Mico Luxe",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhogs00ncfp5yg3tbmgi9",
+      "title": "Maxi-Cosi - Mico Luxe+ Infant Car Seat, Urban Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Luxe",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "maxi-cosi-mico-luxe",
+      "matchedTitle": "Maxi-Cosi Mico Luxe",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnns00k9fp5yo80wyz86",
+      "title": "Maxi-Cosi - Mico Pro + Infant Car Seat, Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2687823",
+      "matchedTitle": "Maxi-Cosi Mico Pro Infant Car Seat in Sea Drift",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnn700k6fp5y17rml641",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Sea Drift",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2687823",
+      "matchedTitle": "Maxi-Cosi Mico Pro Infant Car Seat in Sea Drift",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnr100krfp5yvyac2etz",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2687823",
+      "matchedTitle": "Maxi-Cosi Mico Pro Infant Car Seat in Sea Drift",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnzv00lifp5ywkie2za8",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Seascape",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2687823",
+      "matchedTitle": "Maxi-Cosi Mico Pro Infant Car Seat in Sea Drift",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnmc00jxfp5yd0yxywgf",
+      "title": "Maxi-Cosi - Mico Pro+ Infant Car Seat, Oyster Shell",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2687823",
+      "matchedTitle": "Maxi-Cosi Mico Pro Infant Car Seat in Sea Drift",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn1400fxfp5yoteg781x",
+      "title": "Maxi-Cosi - Oxford Cabin Lightweight Travel Stroller, Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Oxford Cabin Travel",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848466",
+      "matchedTitle": "Maxi-Cosi Oxford Cabin Travel Stroller in Truffle",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm94006xfp5yjks2wtu1",
+      "title": "Maxi-Cosi - Oxford Cabin Lightweight Travel Stroller, Truffle",
+      "brand": "Maxi-Cosi",
+      "model": "Oxford Cabin Travel",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848466",
+      "matchedTitle": "Maxi-Cosi Oxford Cabin Travel Stroller in Truffle",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnj700j0fp5yvf2z0nzv",
+      "title": "Maxi-Cosi - Peri 180° Rotating Infant Car Seat Kindred Collection, Natural Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180°",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1929884",
+      "matchedTitle": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoeg00mufp5yi1ejspse",
+      "title": "Maxi-Cosi - Peri 180° Rotating Infant Car Seat Kindred Collection, Onyx Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180°",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1929884",
+      "matchedTitle": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho0800llfp5ywjrbrhxf",
+      "title": "Maxi-Cosi - Peri 180 Rotating Infant Car Seat, Desert Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1929884",
+      "matchedTitle": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnj200ixfp5y250e6pyp",
+      "title": "Maxi-Cosi - Peri 180 Rotating Infant Car Seat, Onyx Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_1929884",
+      "matchedTitle": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmyh00f3fp5yoepv5fxx",
+      "title": "Maxi-Cosi - Tana 360 Rotating Modular Stroller Kindred Collection, Natural Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Tana 360 Rotating Modular",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2076966",
+      "matchedTitle": "Maxi-Cosi Tana 360 Rotating Modular Stroller in Natural Heritage",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhms900clfp5ywww6yvhu",
+      "title": "Maxi-Cosi - Tana 360 Rotating Modular Stroller Kindred Collection, Onyx Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Tana 360 Rotating Modular",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2076966",
+      "matchedTitle": "Maxi-Cosi Tana 360 Rotating Modular Stroller in Natural Heritage",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhns200kxfp5y1piumxxg",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Caspian Caviar",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903599",
+      "matchedTitle": "Maxi-Cosi Ambra Infant Car Seat in Escargot",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnru00kufp5y7spkk5l0",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Escargot",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903599",
+      "matchedTitle": "Maxi-Cosi Ambra Infant Car Seat in Escargot",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnt000l0fp5y65434smw",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Truffle",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2903599",
+      "matchedTitle": "Maxi-Cosi Ambra Infant Car Seat in Escargot",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn4v00h0fp5y028luaer",
+      "title": "Mercedes Amg Gt² Single Stroller, 622 Sienabraun",
+      "brand": "Mercedes",
+      "model": "Amg Gt² Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn5200h3fp5y79478fsk",
+      "title": "Mercedes Performance Single Stroller, 616 Truffle",
+      "brand": "Mercedes",
+      "model": "Performance Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn3900gffp5y99yggj91",
+      "title": "Momcozy ChangeGo Baby Stroller, Convertible Single-to-Double-to-Wagon Stroller with 23 Configurations",
+      "brand": "Momcozy",
+      "model": "ChangeGo Baby",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn2x00gcfp5yqqlbvfiv",
+      "title": "Momcozy Clickgo Lightweight Stroller, Black",
+      "brand": "Momcozy",
+      "model": "Clickgo",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2317733",
+      "matchedTitle": "Momcozy ClickGo Lightweight Stroller in Black Size 40.55\" x 20\" x 33.66\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmdt008cfp5ydisnxswt",
+      "title": "Nuna - Mixx Next Bmw Stroller Element",
+      "brand": "Nuna",
+      "model": "Mixx Next Bmw",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmgg009cfp5ytgvjisfn",
+      "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Biscotti",
+      "brand": "Nuna",
+      "model": "Mixx Next",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-mixx-next",
+      "matchedTitle": "Nuna MIXX next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmvn00e3fp5y7kqmxjvs",
+      "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Caviar",
+      "brand": "Nuna",
+      "model": "Mixx Next",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-mixx-next",
+      "matchedTitle": "Nuna MIXX next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlpu000cfp5yn5d6xp2g",
+      "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Granite",
+      "brand": "Nuna",
+      "model": "Mixx Next",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-mixx-next",
+      "matchedTitle": "Nuna MIXX next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmqp00c6fp5ybs71gigt",
+      "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Monterey (Brixy Exclusive)",
+      "brand": "Nuna",
+      "model": "Mixx Next",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-mixx-next",
+      "matchedTitle": "Nuna MIXX next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm70006cfp5ysvqvu2rh",
+      "title": "Nuna - Mixx Next With Magnetic Buckle Stroller, Cedar",
+      "brand": "Nuna",
+      "model": "Mixx Next With Magnetic Buckle",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhogw00nffp5yr42qph55",
+      "title": "Nuna - Pipa Adapter For Uppababy® Vista® And Cruz®",
+      "brand": "Nuna",
+      "model": "Nuna - Pipa Adapter For Uppababy® Vista® And Cruz®",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnl800jlfp5y7fmb20ys",
+      "title": "Nuna - Pipa Aire Infant Car Seat, Biscotti",
+      "brand": "Nuna",
+      "model": "Pipa Aire",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-lite-rx",
+      "matchedTitle": "Nuna PIPA Aire",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho1i00lofp5yw7fc4g8b",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat & Relx Base, Biscotti",
+      "brand": "Nuna",
+      "model": "Pipa Aire Rx",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-aire-rx",
+      "matchedTitle": "Nuna PIPA Aire rx",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho7u00m3fp5yjwfvqo83",
+      "title": "Nuna - PIPA Aire RX Infant Car Seat + PIPA RELX Base with Load Leg, Cedar",
+      "brand": "Nuna",
+      "model": "PIPA Aire RX",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-aire-rx",
+      "matchedTitle": "Nuna PIPA Aire rx",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnxz00lcfp5ysb6pnciy",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat With Base Granite",
+      "brand": "Nuna",
+      "model": "Pipa Aire Rx",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-aire-rx",
+      "matchedTitle": "Nuna PIPA Aire rx",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho6u00m0fp5yyn0mhg37",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat With Base, Caviar",
+      "brand": "Nuna",
+      "model": "Pipa Aire Rx",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-aire-rx",
+      "matchedTitle": "Nuna PIPA Aire rx",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnhc00iffp5yusxxzqfw",
+      "title": "Nuna - PIPA RX Infant Car Seat + RELX Base with Load Leg, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-rx",
+      "matchedTitle": "Nuna PIPA RX",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhod000mofp5yaudqsvri",
+      "title": "Nuna - PIPA RX Infant Car Seat + RELX Base with Load Leg, Granite",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-rx",
+      "matchedTitle": "Nuna PIPA RX",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm2c004lfp5ywe73wm6f",
+      "title": "Nuna - Swiv Stroller, Acorn",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmpy00bxfp5yntly04rd",
+      "title": "Nuna - Swiv Stroller, Biscotti",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmqg00c3fp5ygg6qm9kh",
+      "title": "Nuna - Swiv Stroller, Cedar",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm3k004xfp5ypo3kkx3v",
+      "title": "Nuna - Swiv Stroller, Chai",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmo800bifp5yt2rn9w45",
+      "title": "Nuna - Swiv Stroller, Granite",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlut001xfp5yx09h8ehi",
+      "title": "Nuna - Tavo Next Granite Stroller",
+      "brand": "Nuna",
+      "model": "Tavo Next Granite",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmt800d3fp5ynt5uxzk2",
+      "title": "Nuna - Tavo Next Stroller, Caviar",
+      "brand": "Nuna",
+      "model": "Tavo Next",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_663920",
+      "matchedTitle": "Nuna TAVO next Stroller in Granite Size 28.35\" x 22.44\" x 20.87\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmsm00crfp5yyoosq2vk",
+      "title": "Nuna - Triv Next Bmw Stroller Graphene",
+      "brand": "Nuna",
+      "model": "Triv Next Bmw",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm54005lfp5ym772id86",
+      "title": "Nuna - TRIV Next Compact Stroller, Thistle",
+      "brand": "Nuna",
+      "model": "TRIV Next",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-triv-next",
+      "matchedTitle": "Nuna TRIV next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmw000e6fp5yd5nx54qy",
+      "title": "Nuna - Triv Next Stroller, Caviar",
+      "brand": "Nuna",
+      "model": "Triv Next",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-triv-next",
+      "matchedTitle": "Nuna TRIV next",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhluf001ufp5ygd52nlcy",
+      "title": "Nuna - Triv Next W Magnetic Buckle, Biscotti",
+      "brand": "Nuna",
+      "model": "Triv Next W Magnetic Buckle",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlrm000xfp5y8omb0n5n",
+      "title": "Nuna - Trvl Double Stroller, Granite",
+      "brand": "Nuna",
+      "model": "Trvl Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmpp00bufp5yz0qhnsfx",
+      "title": "Nuna - TRVL LX Stroller BMW Special Edition, Mica",
+      "brand": "Nuna",
+      "model": "TRVL LX",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-trvl-lx",
+      "matchedTitle": "Nuna TRVL lx",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm38004ufp5yq7s0ccls",
+      "title": "Nuna - Trvl Lx Stroller With Travel Bag Caviar",
+      "brand": "Nuna",
+      "model": "Trvl Lx",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-trvl-lx",
+      "matchedTitle": "Nuna TRVL lx",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmq500c0fp5yaxwk1sz6",
+      "title": "Nuna - Trvl Lx Stroller With Travel Bag Granite",
+      "brand": "Nuna",
+      "model": "Trvl Lx",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-trvl-lx",
+      "matchedTitle": "Nuna TRVL lx",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmsy00cxfp5y1mondz21",
+      "title": "Nuna - Trvl With Travel Bag Stroller, Ocean",
+      "brand": "Nuna",
+      "model": "Trvl With Travel Bag",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm86006lfp5ykb06mtjw",
+      "title": "Nuna DEMI Icon Stroller, Caviar",
+      "brand": "Nuna",
+      "model": "DEMI Icon",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnx000l9fp5y7r2gaw4c",
+      "title": "Nuna PIPA Aire Infant Car Seat + Pipa Series Base, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA Aire",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-lite-rx",
+      "matchedTitle": "Nuna PIPA Aire",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnqw00kofp5yw6jheijc",
+      "title": "Nuna Pipa Rx Infant Car Seat with Base, Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "Pipa Rx",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "nuna-pipa-rx",
+      "matchedTitle": "Nuna PIPA RX",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm6p0066fp5ykrww0u5z",
+      "title": "Nuna Swiv Stroller Caviar, Chocolate",
+      "brand": "Nuna",
+      "model": "Swiv",
+      "productType": "compact stroller",
+      "action": "attached-offer",
+      "matchedSource": "canonical-stroller",
+      "matchedId": "nuna-swiv",
+      "matchedTitle": "Nuna SWIV",
+      "reasons": [
+        "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmch007xfp5ykdcc1xgr",
+      "title": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn5z00hcfp5yxl02f90r",
+      "title": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnge00i6fp5yym4dsrt8",
+      "title": "Nuna Viaa Cabn Ultra-Compact Stroller, Caviar",
+      "brand": "Nuna",
+      "model": "Viaa Cabn Ultra-",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhngs00i9fp5y2qpqzg5y",
+      "title": "Nuna Viaa Cabn Ultra-Compact Stroller, Cedar",
+      "brand": "Nuna",
+      "model": "Viaa Cabn Ultra-",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnh400icfp5y4cm8vus0",
+      "title": "Nuna Viaa Cabn Ultra-Compact Stroller, Pewter",
+      "brand": "Nuna",
+      "model": "Viaa Cabn Ultra-",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhofq00n3fp5yun4v7pni",
+      "title": "Orbit Baby - G5+ Rotating Infant Car Seat, Mélange Flax",
+      "brand": "Orbit Baby",
+      "model": "G5",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn4b00gufp5yng2hfqt3",
+      "title": "Orbit Baby M+ Compact Stroller, Black/Black",
+      "brand": "Orbit Baby",
+      "model": "M+",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlqw000ofp5yamlxo3x2",
+      "title": "Peg Perego - Volo Ultra Lightweight Carry On Compliant Travel Strolle, Mon Amour (Beige & Pink)",
+      "brand": "Peg Perego",
+      "model": "Volo Ultra Carry On Compliant Travel Strolle",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn9500hffp5y2yy4jw21",
+      "title": "Peg Perego - Volo, Ultra Lightweight Carry On Compliant Travel Stroller, Blue Shine (Blue & Copper)",
+      "brand": "Peg Perego",
+      "model": "Volo",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlye0033fp5y5pqof5if",
+      "title": "Peg Perego Vivace Stroller - Astral (Beige)",
+      "brand": "Peg Perego",
+      "model": "Vivace",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnb500hifp5y8wjxh8yo",
+      "title": "Peg Perego Volo Ultra Lightweight Carry On Compliant Travel Stroller, True Black",
+      "brand": "Peg Perego",
+      "model": "Volo Ultra Carry On Compliant Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlyk0036fp5ylpa1jjuu",
+      "title": "Peg Perego Volo, Ultra Lightweight Carry On Compliant Travel Stroller, Adjustable Features & Reclining Seat - Designed for Everyday Comfort from Ne",
+      "brand": "Peg Perego",
+      "model": "Volo",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnkk00jffp5ypxm45wq6",
+      "title": "Peg-Perego - Primo Viaggio Nido Infant Car Seat Astral",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Nido",
+      "productType": "infant car seat",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhly40030fp5ys68rrr2q",
+      "title": "Peg-Perego - Vivace Single Stroller, Mon Amour (Beige & Pink)",
+      "brand": "Peg Perego",
+      "model": "Vivace Single",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlyt0039fp5ykdvnsgyz",
+      "title": "Peg-Perego - Volo Ultra Lightweight Carry On Compliant Travel Stroller, Misty Beige (Light Greige)",
+      "brand": "Peg Perego",
+      "model": "Volo Ultra Carry On Compliant Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhml700aufp5y63z5z10w",
+      "title": "Radio Flyer - Voya XT Baby Stroller Wagon, Gray",
+      "brand": "Radio Flyer",
+      "model": "Voya XT Baby",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnkx00jifp5yydtpysgm",
+      "title": "Romer - Juni Infant Car Seat, Truffle",
+      "brand": "Romer",
+      "model": "Juni",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2262751",
+      "matchedTitle": "Romer Juni Infant Car Seat with Versa Base in Peppercorn | Recycled",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlrr0010fp5yxdhn65nf",
+      "title": "Romer - Tura Stroller, Peppercorn",
+      "brand": "Romer",
+      "model": "Tura",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2262736",
+      "matchedTitle": "Romer Tura Stroller in Pearl",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmu100dffp5yvpicn6hu",
+      "title": "Safety 1St - Disney Baby Character Umbrella Stroller, Eye-catching, Hide & Seek Mickey",
+      "brand": "Safety 1st",
+      "model": "Disney Baby Character Umbrella",
+      "productType": "umbrella stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmn000b6fp5y9zksy7cg",
+      "title": "Safety 1St - Disney Baby Character Umbrella Stroller, Eye-catching, Minnie Play All Day",
+      "brand": "Safety 1st",
+      "model": "Disney Baby Character Umbrella",
+      "productType": "umbrella stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn1m00g3fp5youf3emj5",
+      "title": "Silver Cross - Breez Car Seat Adaptors",
+      "brand": "Silver Cross",
+      "model": "Silver Cross - Breez Car Seat Adaptors",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn2200g6fp5yghh6vyz3",
+      "title": "Silver Cross - Breez Compact Stroller, Champagne",
+      "brand": "Silver Cross",
+      "model": "Breez",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmay007ifp5yokcypdri",
+      "title": "Silver Cross - Breez Compact Stroller, Maple",
+      "brand": "Silver Cross",
+      "model": "Breez",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmff008ufp5yuy6d04up",
+      "title": "Silver Cross - Breez Compact Stroller, Onyx",
+      "brand": "Silver Cross",
+      "model": "Breez",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn2f00g9fp5yey5wlc0d",
+      "title": "Silver Cross - Breez Compact Stroller, Pewter",
+      "brand": "Silver Cross",
+      "model": "Breez",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmdy008ffp5yg6qo4f8q",
+      "title": "Silver Cross - Clic Lightweight Stroller, Conifer (Green)",
+      "brand": "Silver Cross",
+      "model": "Clic",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491095",
+      "matchedTitle": "Silver Cross Clic Compact Stroller in Conifer",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlp30006fp5yd9skda5j",
+      "title": "Silver Cross - Clic Lightweight Stroller, Latte",
+      "brand": "Silver Cross",
+      "model": "Clic",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491095",
+      "matchedTitle": "Silver Cross Clic Compact Stroller in Conifer",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlto001lfp5y3angbmt1",
+      "title": "Silver Cross - Clic Lightweight Stroller, Space (Black)",
+      "brand": "Silver Cross",
+      "model": "Clic",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2491095",
+      "matchedTitle": "Silver Cross Clic Compact Stroller in Conifer",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn0m00fufp5yuq4bzcst",
+      "title": "Silver Cross - Dune, Reef Universal Car Seat Adaptors",
+      "brand": "Silver Cross",
+      "model": "Silver Cross - Dune, Reef Universal Car Seat Adaptors",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmuk00dofp5ylt2ksfzf",
+      "title": "Silver Cross - Jet 5 & Jet Double Car Seat Adapters",
+      "brand": "Silver Cross",
+      "model": "Silver Cross - Jet 5 & Jet Double Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm1h0046fp5yi9deho8a",
+      "title": "Silver Cross - Jet Lightweight Double Stroller Black",
+      "brand": "Silver Cross",
+      "model": "Jet Double",
+      "productType": "double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2134387",
+      "matchedTitle": "Silver Cross Jet Double Stroller",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlzh003lfp5yhljkkami",
+      "title": "Silver Cross - Jet Lightweight Double Stroller, Black",
+      "brand": "Silver Cross",
+      "model": "Jet Double",
+      "productType": "double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2134387",
+      "matchedTitle": "Silver Cross Jet Double Stroller",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmg20096fp5ypqhxcke7",
+      "title": "Silver Cross - Nia Compact Travel Stroller, Champagne",
+      "brand": "Silver Cross",
+      "model": "Nia Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmaq007ffp5y84kiwnix",
+      "title": "Silver Cross - Nia Compact Travel Stroller, Chocolate",
+      "brand": "Silver Cross",
+      "model": "Nia Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmfs0090fp5y62t2w3pl",
+      "title": "Silver Cross - Nia Compact Travel Stroller, Conifer",
+      "brand": "Silver Cross",
+      "model": "Nia Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn1c00g0fp5yj3o7j30n",
+      "title": "Silver Cross - Nia Compact Travel Stroller, Onyx Black",
+      "brand": "Silver Cross",
+      "model": "Nia Travel",
+      "productType": "travel stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnc400hlfp5yibp3r1ao",
+      "title": "Silver Cross Cove 2 Full-Size All-Terrain Stroller, Champagne",
+      "brand": "Silver Cross",
+      "model": "Cove 2",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhndi00hofp5ynq0gjdut",
+      "title": "Silver Cross Cove 2 Full-Size All-Terrain Stroller, Chocolate",
+      "brand": "Silver Cross",
+      "model": "Cove 2",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhndx00hrfp5yihtkw9eu",
+      "title": "Silver Cross Cove 2 Full-Size All-Terrain Stroller, Onyx Black",
+      "brand": "Silver Cross",
+      "model": "Cove 2",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnes00hufp5y8st4apwt",
+      "title": "Silver Cross Cove 2 Full-Size All-Terrain Stroller, Pewter",
+      "brand": "Silver Cross",
+      "model": "Cove 2",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmmb00b0fp5ya0xo2avd",
+      "title": "Stokke - YOYO Car Seat Adapters",
+      "brand": "Stokke",
+      "model": "Stokke - YOYO Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn0g00frfp5ytjfx2q4c",
+      "title": "Ternx - Carry On Luggage Stroller, Black& Grey",
+      "brand": "TernX",
+      "model": "Carry On Luggage",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmwv00eifp5yol2tu2jb",
+      "title": "Thule - Spring Compact Stroller Grey Melange",
+      "brand": "Thule",
+      "model": "Spring",
+      "productType": "compact stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm1p0049fp5y75r94z4d",
+      "title": "Thule - Urban Glide 3 Single Child All-Terrain Stroller, Blue",
+      "brand": "Thule",
+      "model": "Urban Glide 3 Single Child",
+      "productType": "jogging stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmf8008rfp5y3ozzctu8",
+      "title": "Thule Spring 2 Single Ccompact All-Terrain Stroller Black",
+      "brand": "Thule",
+      "model": "Spring 2 Single Ccompact",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlq2000ffp5yej6cdmo0",
+      "title": "Thule Spring 2 Single Child Stroller, Mid Blue",
+      "brand": "Thule",
+      "model": "Spring 2 Single Child",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm9p0073fp5y7q673wa5",
+      "title": "Thule Spring 2 Single Child Stroller, Mist Green",
+      "brand": "Thule",
+      "model": "Spring 2 Single Child",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlv10020fp5ydj7vaisk",
+      "title": "Thule Spring 2 Single Child Stroller, Soft Beige",
+      "brand": "Thule",
+      "model": "Spring 2 Single Child",
+      "productType": "full-size stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlv90023fp5yb9734giv",
+      "title": "Thule Urban Glide 3 Single Child All-Terrain Stroller, Black",
+      "brand": "Thule",
+      "model": "Urban Glide 3 Single Child",
+      "productType": "jogging stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm4u005ffp5yug44knj4",
+      "title": "Uppababy - Adapters For Minu Duo (Mesa/Mesa V2, Mesa Max, Mesa I-Size, Aria)",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Adapters For Minu Duo (Mesa/Mesa V2, Mesa Max, Mesa I-Size, Aria)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmn700b9fp5y81in569n",
+      "title": "Uppababy - Adapters For Minu V3 - (Compatible with all Mesa and Aria car seats)",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Adapters For Minu V3 - (Compatible with all Mesa and Aria car seats)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhniu00iufp5yfeerikmf",
+      "title": "Uppababy - Aria Infant Car Seat, Anthony (Light Grey)",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria",
+      "matchedTitle": "UPPAbaby Aria",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnjq00j6fp5ymz5m6164",
+      "title": "Uppababy - Aria Infant Car Seat, Jake (Charcoal)",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria",
+      "matchedTitle": "UPPAbaby Aria",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho4400lufp5y1z5e9f3s",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Callum/Dillan (Stone Blue)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnmk00k0fp5y4v79epwb",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Declan (Oat Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnwt00l6fp5y2q91rshb",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Evelyn (Meadow Green)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnp000kffp5ycoj2uima",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Greyson (Charcoal Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnq600kifp5ybuv1khhq",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Jake (Charcoal)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxho8100m6fp5yqmvriirg",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Savannah (Pearl Gray Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmwq00effp5yjqe6djvv",
+      "title": "Uppababy - Car Seat Adapter for Ridge, Nuna/Cybex/Maxi-Cosi",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Car Seat Adapter for Ridge, Nuna/Cybex/Maxi-Cosi",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmv000dufp5yexldoais",
+      "title": "Uppababy - Car Seat Adapters For Minu V3 (Maxi-Cosi®, Nuna®, Cybex, Besafe®)",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Car Seat Adapters For Minu V3 (Maxi-Cosi®, Nuna®, Cybex, Besafe®)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmyr00f6fp5yvmbanq6t",
+      "title": "Uppababy - Cruz V3 Stroller Callum (Stone Blue/Silver Frame/Sand Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmth00d6fp5ycy18iw5x",
+      "title": "Uppababy - Cruz V3 Stroller Greyson (Charcoal Mélange/Carbon Frame/Saddle Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmdl0089fp5y5qj52lrp",
+      "title": "Uppababy - Cruz V3 Stroller Jake (Charcoal/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm9h0070fp5ynbavsl0d",
+      "title": "Uppababy - Cruz V3 Stroller Savannah (Pearl Gray Jacquard/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlz4003ffp5yoi94hls5",
+      "title": "Uppababy - Cruz V3 Stroller, Evelyn (Meadow Green/Graphite Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlz8003ifp5y4xxe8buc",
+      "title": "Uppababy - Cruz V3 Stroller, Julian (Dusty Blue Mélange/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmcx0083fp5y3r6lal7c",
+      "title": "Uppababy - Cruz V3 Stroller, Owen (Mocha Mélange/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhls60016fp5y35vlh56f",
+      "title": "UPPAbaby - G-LUXE Umbrella Stroller, Greyson (Charcoal Melange/Carbon)",
+      "brand": "UPPAbaby",
+      "model": "G-LUXE Umbrella",
+      "productType": "umbrella stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmzr00fifp5yr2a6n8xo",
+      "title": "Uppababy - Lower Adapters For Vista And Vista V2",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Lower Adapters For Vista And Vista V2",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhodk00mrfp5y60cwhmpc",
+      "title": "UPPAbaby - Mesa V3 Infant Car Seat - Ada",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoat00mffp5y91vbfccc",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Callum/Dillan (Stone Blue)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhofe00n0fp5ydgyq63o8",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Declan (Oat Mélange)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhogj00n9fp5y40gngbzr",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Evelyn (Meadow Green)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnkc00jcfp5yuv53zk85",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnii00iofp5y55dbqcvn",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Savannah (Pearl Gray Jacquard)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmv900dxfp5yzl1825fq",
+      "title": "Uppababy - Minu Duo Side By Side Compact Double Stroller, Greyson (Charcoal Mélange/Carbon Frame/Saddle Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu Duo Side By Side Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhltg001ifp5yk7isven6",
+      "title": "Uppababy - Minu Duo Side By Side Compact Double Stroller, Jake (Charcoal/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu Duo Side By Side Double",
+      "productType": "double stroller",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm4z005ifp5yh1ra9o2g",
+      "title": "Uppababy - Minu Infant Car Seat Adapter For Maxi-Cosi/Nuna/Cybex",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Minu Infant Car Seat Adapter For Maxi-Cosi/Nuna/Cybex",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmoi00blfp5yjy9phz2o",
+      "title": "Uppababy - Minu V3 Compact Stroller, Dillan (Stone Blue/Carbon Frame/Sand Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmx500elfp5yby5zc7r1",
+      "title": "Uppababy - Minu V3 Compact Stroller, Greyson (Charcoal Mélange/Carbon Frame/Saddle Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlo70000fp5y41gv9edu",
+      "title": "Uppababy - Minu V3 Compact Stroller, Jake (Charcoal/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmoz00bofp5ykbfz86tm",
+      "title": "Uppababy - Minu V3 Compact Stroller, Savannah (Pearl Gray Melange/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmtv00dcfp5yc7zv3qjo",
+      "title": "Uppababy - Vista Upper Adapter",
+      "brand": "UPPAbaby",
+      "model": "Uppababy - Vista Upper Adapter",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhma90079fp5ymuq20ih1",
+      "title": "Uppababy - Vista V3 Stroller, Callum (Stone Blue/Silver Frame/Sand Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmkc00alfp5yuz1a9jhd",
+      "title": "Uppababy - Vista V3 Stroller, Evelyn (Meadow Green/Graphite Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm5k005ufp5ylj18nlst",
+      "title": "Uppababy - Vista V3 Stroller, Greyson (Charcoal Mélange/Carbon Frame/Saddle Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm2w004rfp5yhhdce3lp",
+      "title": "Uppababy - Vista V3 Stroller, Jake (Charcoal/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmkk00aofp5yx8axte3a",
+      "title": "Uppababy - Vista V3 Stroller, Julian (Dusty Blue Mélange/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlu8001rfp5y16dz0667",
+      "title": "Uppababy - Vista V3 Stroller, Kenzi (Mystic Aqua/Carbon Frame/Saddle Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhml200arfp5yrzacwfhy",
+      "title": "Uppababy - Vista V3 Stroller, Owen (Mocha Mélange/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhlpa0009fp5y03oy27cs",
+      "title": "Uppababy - Vista V3 Stroller, Savannah (Pearl Gray Jacquard/Carbon Frame/Chestnut Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhno000kcfp5yjxttkhvs",
+      "title": "Uppababy Aria V2 Infant Car Seat Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhoc500mlfp5ywysnjwbt",
+      "title": "Uppababy Aria V2 Lightweight Infant Car Seat, James (Black)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-aria-v2",
+      "matchedTitle": "UPPAbaby Aria V2",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmr500ccfp5y61fn9z02",
+      "title": "Uppababy Car Seat Adapters For Vista, Vista V2, Cruz And Cruz V2",
+      "brand": "UPPAbaby",
+      "model": "Uppababy Car Seat Adapters For Vista, Vista V2, Cruz And Cruz V2",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn3r00glfp5yhncscgh3",
+      "title": "Uppababy Cruz V3 Stroller Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhng800i3fp5ybvu31lgg",
+      "title": "Uppababy Cruz V3 Stroller, James (Black/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Cruz V3",
+      "productType": "full-size stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2521942",
+      "matchedTitle": "UPPAbaby Cruz V3 Stroller in Greyson",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnqf00klfp5ymo7escf7",
+      "title": "Uppababy Mesa V3 Infant Car Seat Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhob300mifp5yl8ii8ygq",
+      "title": "Uppababy Mesa V3 Infant Car Seat, James (Black)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "uppababy-mesa-v3",
+      "matchedTitle": "UPPAbaby Mesa V3",
+      "reasons": [
+        "matched canonical-carseat"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn4600grfp5y2xh36ilh",
+      "title": "Uppababy Minu V3 Compact Stroller, Evelyn, Meadow Green | Carbon Frame | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnft00i0fp5yzmr43xml",
+      "title": "Uppababy Minu V3 Compact Stroller, James (Black/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn3z00gofp5ytr28c4tz",
+      "title": "Uppababy Minu V3 Stroller Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Minu V3",
+      "productType": "travel stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2848467",
+      "matchedTitle": "UPPAbaby Minu V3 Stroller in Ada",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmxq00eufp5ybhquec66",
+      "title": "UPPABaby Vista Lower Infant Car Seat Adapter For Nuna, Cybex, And Maxi-Cosi",
+      "brand": "UPPAbaby",
+      "model": "UPPABaby Vista Lower Infant Car Seat Adapter For Nuna, Cybex, And Maxi-Cosi",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhn3i00gifp5yfb7roy4h",
+      "title": "Uppababy Vista V3 Stroller, Ada Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhnfm00hxfp5yg232dryq",
+      "title": "Uppababy Vista V3 Stroller, James (Black/Carbon Frame/Black Leather)",
+      "brand": "UPPAbaby",
+      "model": "Vista V3",
+      "productType": "single-to-double stroller",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2597098",
+      "matchedTitle": "UPPAbaby Vista V3 Stroller in Julian Size 16.3\" x 25.7\" x 33.8\"",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmgn009ffp5ytainwx7a",
+      "title": "Veer - Cruiser City (2 Seater) Stroller Wagon, Grey",
+      "brand": "Veer",
+      "model": "Cruiser City",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmhu009ufp5yai24quzv",
+      "title": "Veer - Cruiser City, Premium Urban Wagon Stroller for Babies",
+      "brand": "Veer",
+      "model": "Cruiser City",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmzh00fffp5y253h0g2y",
+      "title": "Veer - Cruiser Infant Car Seat Adapter (Cybex/Maxi-Cosi/Nuna)",
+      "brand": "Veer",
+      "model": "Veer - Cruiser Infant Car Seat Adapter (Cybex/Maxi-Cosi/Nuna)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhm4f0056fp5y9el1f6dr",
+      "title": "Veer - Cruiser XL Infant Car Seat Adapter (Cybex/Nuna/Maxi-Cosi)",
+      "brand": "Veer",
+      "model": "Veer - Cruiser XL Infant Car Seat Adapter (Cybex/Nuna/Maxi-Cosi)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmj800acfp5y6onygjxr",
+      "title": "Wonderfold - L2 Double 2-Seater Stroller Wagon, Grey",
+      "brand": "WonderFold",
+      "model": "L2 Double 2-Seater",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmi500a0fp5ysc96gk64",
+      "title": "WonderFold - L4 Quad Stroller Wagon (4 Seater) Black",
+      "brand": "WonderFold",
+      "model": "L4 Quad",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmid00a3fp5y6ssmuzu0",
+      "title": "WonderFold - L4 Quad Stroller Wagon (4 Seater) Grey",
+      "brand": "WonderFold",
+      "model": "L4 Quad",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmi0009xfp5yjrfr9rre",
+      "title": "WonderFold - Volkswagon Special Edition Double Stroller Wagon (2 Seater), Bondi Blue",
+      "brand": "WonderFold",
+      "model": "Volkswagon Special Edition Double",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmh0009ifp5ypf9j2rk9",
+      "title": "WonderFold - Volkswagon Special Edition Double Stroller Wagon (4 Seater), Bondi Blue",
+      "brand": "WonderFold",
+      "model": "Volkswagon Special Edition Double",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmhc009lfp5yzoyu1eny",
+      "title": "WonderFold - W2 Luxe Double Stroller Wagon, Black",
+      "brand": "WonderFold",
+      "model": "W2 Luxe Double",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmij00a6fp5y0es1n7vk",
+      "title": "Wonderfold - W2 Luxe Pro Double Stroller For 2 kids, Charcoal Gray",
+      "brand": "WonderFold",
+      "model": "W2 Luxe Pro Double",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmjh00affp5y34t63io4",
+      "title": "Wonderfold - W2 Luxe Pro Stroller Wagon (2 Seater), Jet Black",
+      "brand": "WonderFold",
+      "model": "W2 Luxe Pro",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmk400aifp5yyh0mpxbl",
+      "title": "Wonderfold - W4 Luxe Pro Quad Stroller Fits Up To 4 Kids Seated Jet Black",
+      "brand": "WonderFold",
+      "model": "W4 Luxe Pro Quad",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqwxhmiu00a9fp5y1y896oq2",
+      "title": "Wonderfold - W4 Luxe Pro Quad Stroller For 4 Kids, Charcoal Gray",
+      "brand": "WonderFold",
+      "model": "W4 Luxe Pro Quad",
+      "productType": "wagon",
+      "action": "true-new",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "no conservative existing-product match"
+      ]
+    }
+  ]
+}

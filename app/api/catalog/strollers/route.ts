@@ -38,7 +38,7 @@ type CatalogProductRow = {
   affiliateUrl: string | null;
   retailer: string | null;
   itemGroupId: string | null;
-  enrichment: { productType: string | null } | null;
+  enrichment: { productType: string | null; canonicalBrand: string | null; canonicalName: string | null } | null;
 };
 
 const PROVIDER_ANB = 'awin_anbbaby';
@@ -64,6 +64,14 @@ type FinderProduct = {
     goodbuygear: RetailerOffer | null;
   };
 };
+
+function modelLikeCanonicalName(value: string | null | undefined) {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/\b(stroller|travel system|adapter|accessory|bassinet|seat pack|second seat|snack tray|cup holder)\b/i.test(v)) return null;
+  if (/[,(]/.test(v)) return null;
+  return v;
+}
 
 /**
  * GET /api/catalog/strollers
@@ -92,7 +100,7 @@ export async function GET() {
         affiliateUrl: true,
         retailer: true,
         itemGroupId: true,
-        enrichment: { select: { productType: true } },
+        enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
       },
       orderBy: { title: 'asc' },
     })
@@ -124,9 +132,9 @@ export async function GET() {
       if (seenGroups.has(groupIdKey)) continue;
       seenGroups.add(groupIdKey);
     }
-    const rawBrand = (r.brand || '').trim();
+    const rawBrand = (r.enrichment?.canonicalBrand || r.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
-    const model = parseStrollerModel(r.title, rawBrand || brand);
+    const model = modelLikeCanonicalName(r.enrichment?.canonicalName) ?? parseStrollerModel(r.title, rawBrand || brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
 
     let g = groups.get(key);

@@ -59,6 +59,8 @@
     "catalog:import-awin-apply": "tsx scripts/importAwinAnb.ts --apply",
     "catalog:import-macrobaby-dry-run": "tsx scripts/importMacroBabyCatalog.ts --dry-run",
     "catalog:import-macrobaby-apply": "tsx scripts/importMacroBabyCatalog.ts --apply",
+    "catalog:reconcile-macrobaby": "tsx scripts/reconcileMacroBabyRetailerOffers.ts",
+    "catalog:reconcile-macrobaby-apply": "tsx scripts/reconcileMacroBabyRetailerOffers.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-duplicates": "tsx scripts/cleanupUnmatchedDuplicates.ts",
     "catalog:audit-adapters": "tsx scripts/scanAdapterCompatibility.ts",

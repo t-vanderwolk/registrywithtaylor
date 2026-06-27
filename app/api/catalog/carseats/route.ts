@@ -22,7 +22,7 @@ type CatalogProductRow = {
   affiliateUrl: string | null;
   retailer: string | null;
   itemGroupId: string | null;
-  enrichment: { productType: string | null } | null;
+  enrichment: { productType: string | null; canonicalBrand: string | null; canonicalName: string | null } | null;
 };
 
 type RetailerOffer = { price: number | null; url: string | null };
@@ -41,6 +41,14 @@ type FinderProduct = {
     goodbuygear: RetailerOffer | null;
   };
 };
+
+function modelLikeCanonicalName(value: string | null | undefined) {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/\b(infant|car seat|adapter|accessory|base|cover|canopy|insert|mirror|net)\b/i.test(v)) return null;
+  if (/[,(]/.test(v)) return null;
+  return v;
+}
 
 /**
  * GET /api/catalog/carseats
@@ -70,7 +78,7 @@ export async function GET() {
         affiliateUrl: true,
         retailer: true,
         itemGroupId: true,
-        enrichment: { select: { productType: true } },
+        enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
       },
       orderBy: { title: 'asc' },
     })
@@ -94,8 +102,8 @@ export async function GET() {
       if (seenGroups.has(groupIdKey)) continue;
       seenGroups.add(groupIdKey);
     }
-    const brand = canonicalBrand(r.brand);
-    const model = parseCarSeatModel(r.title, brand);
+    const brand = canonicalBrand(r.enrichment?.canonicalBrand ?? r.brand);
+    const model = modelLikeCanonicalName(r.enrichment?.canonicalName) ?? parseCarSeatModel(r.title, brand);
     const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
 
     let g = groups.get(key);
