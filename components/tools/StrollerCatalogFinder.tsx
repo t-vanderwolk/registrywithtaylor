@@ -87,12 +87,10 @@ function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
 }
 
-// Retailer CTAs, stacked on each card in priority order. All three are primary
-// block buttons (same shape as the Babylist CTA), distinguished by brand colour:
-// Babylist pink, ANB Baby dark navy, GoodBuyGear orange. Each carries its own
-// affiliate link + a price badge on the right.
+// Retailer CTAs, stacked on each card in priority order. Babylist is the primary
+// CTA when present; other retailers remain available without competing with it.
 const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'anb' | 'goodbuygear';
+  key: 'babylist' | 'anb';
   shopLabel: string;
   btnClass: string;
   logo: string | null;
@@ -100,8 +98,50 @@ const RETAILER_CTAS: Array<{
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary', logo: '/assets/logos/babylist.png', note: '' },
   { key: 'anb', shopLabel: 'Shop ANB Baby', btnClass: 'tool-btn--anb', logo: '/assets/logos/anbbaby.png', note: '' },
-  { key: 'goodbuygear', shopLabel: 'Shop GoodBuyGear', btnClass: 'tool-btn--gbg', logo: '/assets/logos/goodbuygear.png', note: 'as low as ' },
 ];
+
+function formatOpenBoxPrice(price: number) {
+  return Number.isInteger(price) ? `$${price.toFixed(0)}` : `$${price.toFixed(2)}`;
+}
+
+export function OpenBoxBadge({
+  offer,
+  placement = 'overlay',
+}: {
+  offer?: RetailerOffer | null;
+  placement?: 'overlay' | 'inline';
+}) {
+  if (!offer || (!offer.url && offer.price == null)) return null;
+
+  const className = `tool-open-box-badge${placement === 'inline' ? ' tool-open-box-badge--inline' : ''}`;
+  const label =
+    offer.price != null
+      ? `Open box from ${formatOpenBoxPrice(offer.price)} at GoodBuy Gear`
+      : 'Open box at GoodBuy Gear';
+  const content = (
+    <>
+      <span className="tool-open-box-badge__eyebrow">Open Box</span>
+      {offer.price != null ? (
+        <span className="tool-open-box-badge__price">From {formatOpenBoxPrice(offer.price)}</span>
+      ) : null}
+      <span className="tool-open-box-badge__retailer">GoodBuy Gear</span>
+    </>
+  );
+
+  return offer.url ? (
+    <a
+      href={offer.url}
+      target="_blank"
+      rel="sponsored nofollow noopener noreferrer"
+      className={className}
+      aria-label={label}
+    >
+      {content}
+    </a>
+  ) : (
+    <span className={className}>{content}</span>
+  );
+}
 
 function ProductCard({
   brand,
@@ -115,17 +155,19 @@ function ProductCard({
   kind?: Kind;
 }) {
   // Each retailer shows only when it actually carries this model — Babylist first
-  // when present, then ANB Baby, then GoodBuyGear.
+  // when present, then ANB Baby. Open-box stays separate as an informational badge.
   const retailers = product.retailers ?? null;
   const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }
+  const openBoxOffer = retailers?.goodbuygear ?? null;
 
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
       <div className="tool-card__media" style={{ height: '12.5rem' }}>
+        <OpenBoxBadge offer={openBoxOffer} />
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={product.image} alt={product.name} />
@@ -163,8 +205,8 @@ function ProductCard({
             </a>
           ))}
           {product.model ? (
-            <Link href={compatHref(brand, product.model)} className="tool-btn tool-btn--ghost tool-btn--block">
-              Check compatible car seats →
+            <Link href={compatHref(brand, product.model)} className="tool-utility-link">
+              Compatible car seats →
             </Link>
           ) : null}
         </div>

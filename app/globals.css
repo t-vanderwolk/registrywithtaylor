@@ -3066,6 +3066,7 @@ img {
 }
 
 .tool-card__media {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3095,40 +3096,39 @@ img {
   text-decoration: none;
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
+.tool-btn:focus-visible,
+.tool-utility-link:focus-visible,
+.tool-open-box-badge:focus-visible {
+  outline: 2px solid rgba(120, 52, 70, 0.58);
+  outline-offset: 3px;
+}
 
 .tool-btn--primary {
-  background: var(--color-cta-pink);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(216, 137, 160, 0.26);
+  background: rgba(255, 240, 244, 0.98);
+  color: #4a252f;
+  border-color: rgba(215, 161, 175, 0.38);
+  box-shadow: 0 8px 20px rgba(216, 137, 160, 0.16);
 }
 .tool-btn--primary:hover {
-  background: var(--color-cta-pink-hover);
+  background: rgba(248, 222, 230, 0.98);
+  border-color: rgba(199, 107, 130, 0.42);
   transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(216, 137, 160, 0.32);
+  box-shadow: 0 12px 26px rgba(216, 137, 160, 0.22);
 }
 
-/* Retailer-branded primary CTAs (same shape as --primary, brand colours). */
+/* Secondary retailer CTA: available, but quieter than Babylist. */
 .tool-btn--anb {
-  background: #14213d;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(20, 33, 61, 0.28);
+  background: #fff;
+  color: #243047;
+  border-color: rgba(36, 48, 71, 0.18);
+  box-shadow: 0 6px 16px rgba(36, 48, 71, 0.08);
 }
 .tool-btn--anb:hover {
-  background: #1d2f54;
+  background: #f7f9fb;
+  border-color: rgba(36, 48, 71, 0.3);
   transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(20, 33, 61, 0.34);
+  box-shadow: 0 10px 22px rgba(36, 48, 71, 0.12);
 }
-.tool-btn--gbg {
-  background: #ea580c;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.26);
-}
-.tool-btn--gbg:hover {
-  background: #c2410c;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(234, 88, 12, 0.32);
-}
-
 .tool-btn--ghost {
   background: rgba(255, 249, 246, 0.9);
   color: var(--color-accent-dark);
@@ -3148,6 +3148,77 @@ img {
 .tool-btn--text:hover { text-decoration: underline; }
 
 .tool-btn--block { width: 100%; }
+
+.tool-utility-link {
+  display: inline-flex;
+  align-self: center;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid rgba(112, 71, 86, 0.24);
+  color: #704756;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+  padding: 0.28rem 0.06rem 0.16rem;
+  text-decoration: none;
+  transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.tool-utility-link:hover {
+  border-color: rgba(112, 71, 86, 0.58);
+  color: #4a252f;
+  transform: translateX(1px);
+}
+
+.tool-open-box-badge {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 2;
+  display: inline-flex;
+  max-width: 8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  border: 1px solid rgba(194, 104, 37, 0.26);
+  border-radius: 0.78rem;
+  background: linear-gradient(180deg, #fff8ea 0%, #ffe8c8 100%);
+  box-shadow: 0 10px 24px rgba(112, 55, 16, 0.16);
+  color: #5f2f10;
+  font-family: var(--font-sans);
+  line-height: 1.05;
+  padding: 0.42rem 0.55rem 0.45rem;
+  text-align: left;
+  text-decoration: none;
+}
+a.tool-open-box-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 13px 28px rgba(112, 55, 16, 0.2);
+}
+.tool-open-box-badge--inline {
+  position: static;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+}
+.tool-open-box-badge__eyebrow {
+  color: #8a4316;
+  font-size: 0.53rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.tool-open-box-badge__price {
+  color: #4a250d;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+.tool-open-box-badge__retailer {
+  color: #733713;
+  font-size: 0.55rem;
+  font-weight: 800;
+}
 
 .tool-input,
 .tool-select {
@@ -3317,8 +3388,12 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .tool-card,
   .tool-btn,
+  .tool-utility-link,
+  .tool-open-box-badge,
   .tool-card--interactive:hover,
-  .tool-btn--primary:hover { transition: none; transform: none; }
+  .tool-btn--primary:hover,
+  .tool-btn--anb:hover,
+  .tool-open-box-badge:hover { transition: none; transform: none; }
   .tool-skeleton { animation: none; }
   .tool-fade-up { animation: none; }
 }

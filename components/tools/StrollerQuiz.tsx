@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { OpenBoxBadge } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
@@ -780,9 +781,28 @@ const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
 
 // The browse list is sourced from the live affiliate catalog (same /api/catalog/
 // strollers the finder uses), shaped brand → type → products.
-type CatalogProduct = { name: string; model: string; price: number | null; image: string | null; affiliateUrl: string | null };
+type RetailerOffer = { price: number | null; url: string | null };
+type CatalogProduct = {
+  name: string;
+  model: string;
+  price: number | null;
+  image: string | null;
+  affiliateUrl: string | null;
+  retailers?: {
+    babylist?: RetailerOffer | null;
+    anb?: RetailerOffer | null;
+    goodbuygear?: RetailerOffer | null;
+  } | null;
+};
 type CatalogType = { category: StrollerCategory; label: string; products: CatalogProduct[] };
 type CatalogBrand = { brand: string; count: number; types: CatalogType[] };
+type BabylistLookup = {
+  babylistUrl: string | null;
+  babylistPrice: number | null;
+  babylistImage: string | null;
+  openBoxPrice: number | null;
+  openBoxUrl: string | null;
+};
 
 // ─── Component ─────────────────────────────────────────────────────────────────
 
@@ -792,9 +812,7 @@ export default function StrollerQuiz() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [selected, setSelected] = useState<number | null>(null);
   const [result, setResult] = useState<CategoryResult | null>(null);
-  const [pickData, setPickData] = useState<
-    Record<string, { babylistUrl: string | null; babylistPrice: number | null; babylistImage: string | null }>
-  >({});
+  const [pickData, setPickData] = useState<Record<string, BabylistLookup>>({});
   // The full per-category browse list comes straight from the affiliate catalog.
   const [catalogBrands, setCatalogBrands] = useState<CatalogBrand[]>([]);
 
@@ -988,12 +1006,22 @@ export default function StrollerQuiz() {
               <div key={i} style={styles.pickCard}>
                 {(() => {
                   // Prefer the live Babylist product photo when this pick is synced.
-                  const imgSrc = pickData[`${pick.brand}:::${pick.model}`]?.babylistImage ?? pick.imageSrc;
-                  return imgSrc ? (
-                    <div style={styles.pickImgWrap}>
-                      <img src={imgSrc} alt={pick.name} style={styles.pickImg} />
-                    </div>
-                  ) : null;
+                  const live = pickData[`${pick.brand}:::${pick.model}`];
+                  const imgSrc = live?.babylistImage ?? pick.imageSrc;
+                  const openBoxOffer =
+                    live && (live.openBoxUrl || live.openBoxPrice != null)
+                      ? { price: live.openBoxPrice, url: live.openBoxUrl }
+                      : null;
+                  return (
+                    <>
+                      <OpenBoxBadge offer={openBoxOffer} />
+                      {imgSrc ? (
+                        <div style={styles.pickImgWrap}>
+                          <img src={imgSrc} alt={pick.name} style={styles.pickImg} />
+                        </div>
+                      ) : null}
+                    </>
+                  );
                 })()}
                 {i === 0 && (
                   <span style={{ ...styles.pickBadge, background: result.accentColor }}>Top Pick</span>
@@ -1084,6 +1112,7 @@ export default function StrollerQuiz() {
                   const babylistUrl = babylistAffiliateUrl(s.brand, s.model, 'stroller', s.affiliateUrl);
                   return (
                     <div key={`${s.brand}-${s.model}-${i}`} style={styles.allStrollerCard}>
+                      <OpenBoxBadge offer={s.retailers?.goodbuygear ?? null} />
                       {s.image ? (
                         <div style={styles.allStrollerImgWrap}>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1122,7 +1151,7 @@ export default function StrollerQuiz() {
                         )}&strollerModel=${encodeURIComponent(s.model)}`}
                         style={styles.compatLink}
                       >
-                        Check compatible infant car seats →
+                        Compatible car seats →
                       </Link>
                     </div>
                   );
@@ -1504,12 +1533,13 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'var(--font-sans)',
     fontSize: '0.75rem',
     fontWeight: 700,
-    color: '#c45075',
+    color: '#4a252f',
     padding: '0.45rem 0.85rem',
     borderRadius: '999px',
     textDecoration: 'none',
-    border: '1px solid rgba(215,161,175,0.4)',
-    background: 'rgba(255,249,246,0.92)',
+    border: '1px solid rgba(215,161,175,0.34)',
+    background: 'rgba(255,240,244,0.96)',
+    boxShadow: '0 8px 18px rgba(216,137,160,0.14)',
     whiteSpace: 'nowrap' as const,
   },
   shopBtnAmazon: {
@@ -1578,8 +1608,10 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'var(--font-sans)',
     fontSize: '0.73rem',
     fontWeight: 700,
-    color: 'var(--color-accent-dark, #8b3a4a)',
+    color: '#704756',
     textDecoration: 'none',
+    borderBottom: '1px solid rgba(112,71,86,0.24)',
+    width: 'fit-content',
   },
   allStrollersGrid: {
     display: 'grid',
@@ -1588,6 +1620,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: '1rem',
   },
   allStrollerCard: {
+    position: 'relative',
     background: '#fff',
     border: '1px solid rgba(215,161,175,0.2)',
     borderRadius: '1.25rem',
@@ -1596,6 +1629,7 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     gap: '0.2rem',
     boxShadow: '0 6px 18px rgba(72,49,56,0.05)',
+    overflow: 'hidden',
   },
   allStrollerBrand: {
     fontFamily: 'var(--font-sans)',

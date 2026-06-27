@@ -109,7 +109,7 @@ export default function BabylistPreviewProducts({
                   href={href}
                   target="_blank"
                   rel="sponsored nofollow noopener noreferrer"
-                  className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-5 py-2 text-[0.8rem] font-semibold text-white transition duration-200 hover:bg-[var(--color-cta-pink-hover)]"
+                  className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-[rgba(215,161,175,0.34)] bg-[rgba(255,240,244,0.96)] px-5 py-2 text-[0.8rem] font-semibold text-[#4a252f] shadow-[0_8px_18px_rgba(216,137,160,0.14)] transition duration-200 hover:bg-[rgba(248,222,230,0.98)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
                 >
                   Shop on Babylist →
                 </a>

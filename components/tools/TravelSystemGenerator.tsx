@@ -1,7 +1,7 @@
 'use client';
 
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
-import { BRAND_LOGOS } from './StrollerCatalogFinder';
+import { BRAND_LOGOS, OpenBoxBadge } from './StrollerCatalogFinder';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -148,6 +148,7 @@ function AffiliateBuyButtons({
   openBox = null,
   kind = 'stroller',
   compact = false,
+  showOpenBoxBadge = false,
 }: {
   brand: string;
   model: string;
@@ -157,14 +158,15 @@ function AffiliateBuyButtons({
   openBox?: { price: number | null; url: string | null } | null;
   kind?: 'stroller' | 'carSeat';
   compact?: boolean;
+  showOpenBoxBadge?: boolean;
 }) {
   // Every product gets a Babylist affiliate link (synced exact URL wins, then
   // static map, then a tracked brand listing).
   const resolvedBabylistUrl = babylistAffiliateUrl(brand, model, kind, babylistUrl);
 
-  // Compact mode (in-viewport result cards): stacked retailer CTAs matching the
-  // stroller finder — Babylist (pink) + ANB Baby (navy) + GoodBuyGear (orange),
-  // each with its logo and a price badge.
+  // Compact mode (in-viewport result cards): Babylist remains the primary CTA,
+  // ANB Baby stays available as a secondary retailer link, and open-box deals
+  // render separately as informational badges.
   if (compact) {
     const offers: Array<{
       key: string;
@@ -199,17 +201,6 @@ function AffiliateBuyButtons({
         url: anb.url ?? null,
       });
     }
-    if (openBox && (openBox.url || openBox.price != null)) {
-      offers.push({
-        key: 'goodbuygear',
-        label: 'Shop GoodBuyGear',
-        btnClass: 'tool-btn--gbg',
-        logo: '/assets/logos/goodbuygear.png',
-        note: 'as low as ',
-        price: openBox.price ?? null,
-        url: openBox.url ?? null,
-      });
-    }
     return (
       <div className="flex flex-col gap-1.5">
         {offers.map((o) => (
@@ -232,6 +223,7 @@ function AffiliateBuyButtons({
             ) : null}
           </a>
         ))}
+        {showOpenBoxBadge ? <OpenBoxBadge offer={openBox} placement="inline" /> : null}
       </div>
     );
   }
@@ -243,7 +235,7 @@ function AffiliateBuyButtons({
         href={resolvedBabylistUrl}
         target="_blank"
         rel="sponsored nofollow noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.28)] bg-[rgba(255,249,246,0.92)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition duration-150 hover:bg-[rgba(215,161,175,0.14)]"
+        className="inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.34)] bg-[rgba(255,240,244,0.96)] px-4 py-2 text-[0.78rem] font-semibold text-[#4a252f] shadow-[0_8px_18px_rgba(216,137,160,0.14)] transition duration-150 hover:bg-[rgba(248,222,230,0.98)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
       >
         {/* Babylist heart logo */}
         <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
@@ -345,6 +337,7 @@ function ResultCard({
   return (
     <div className="tool-card tool-card--interactive overflow-hidden">
       <div className="tool-card__media" style={{ height: '8rem' }}>
+        <OpenBoxBadge offer={item.openBox} />
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} />
@@ -943,6 +936,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         openBox={sBL.openBoxPrice != null ? { price: sBL.openBoxPrice, url: sBL.openBoxUrl } : null}
                         kind="stroller"
                         compact
+                        showOpenBoxBadge
                       />
                     </div>
                   );
@@ -1027,6 +1021,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         openBox={cBL.openBoxPrice != null ? { price: cBL.openBoxPrice, url: cBL.openBoxUrl } : null}
                         kind="carSeat"
                         compact
+                        showOpenBoxBadge
                       />
                     </div>
                   );
