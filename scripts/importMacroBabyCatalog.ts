@@ -533,6 +533,10 @@ function skipReason(product: ShopifyProduct): { reason: SkipReason; detail: stri
   const text = [title, path, ...(product.tags ?? [])].join(' ');
   const adapterProtected = isAdapterCandidate(product) && !/\b(rumble ?seat|rumbleseat|second seat|sibling seat|toddler seat|basket|bassinet|stroller\s*\|)\b/i.test(title);
 
+  if (/\bmagnetic buckles?\b/i.test(title)) {
+    return { reason: 'skippedStrollerAccessories', detail: `Skipped Magnetic Buckle variant "${title}"` };
+  }
+
   for (const rule of EXCLUDED_REASON_RULES) {
     if (!rule.re.test(text)) continue;
     if (rule.reason === 'skippedStrollerAccessories' && (isPrimaryStroller(product) || adapterProtected)) continue;
@@ -565,7 +569,7 @@ function strollerProductType(product: ShopifyProduct) {
     return 'double stroller';
   }
   if (/\b(city mini gt2|city mini gt 2|city mini gt3|city mini gt 3)\b/.test(title)) return 'compact stroller';
-  if (/\b(g luxe|g lite|maclaren|3d lite|liteway|umbrella stroller)\b/.test(title)) return 'umbrella stroller';
+  if (/\b(g luxe|g lite|maclaren|3d lite|liteway|umbrella stroller|gap classic umbrella|jeep adventureglyde|babygap classic)\b/.test(title)) return 'umbrella stroller';
   if (/\b(butterfly|trvl|minu|yoyo|yoyo3|yoyo 3|aer|aer2|jet|coya|libelle|beezy|quid|quid3|metro|orbit baby m\+|mima miro|city tour|clic|volo|dot|nia|breez)\b/.test(title)) {
     return 'travel stroller';
   }
@@ -576,7 +580,7 @@ function strollerProductType(product: ShopifyProduct) {
   }
   if (/\b(urban glide|bob revolution|alterrain|summit x3|guava roam|uppababy ridge|switch and jog|switch jog)\b/.test(text)) return 'jogging stroller';
   if (/\b(minu duo|trvl dubl|trvl double|double stroller|twin stroller|g link|snap duo|city mini gt2 double|city mini double)\b/.test(text)) return 'double stroller';
-  if (/\b(g luxe|g lite|maclaren|3d lite|liteway)\b/.test(text)) return 'umbrella stroller';
+  if (/\b(g luxe|g lite|maclaren|3d lite|liteway|gap classic umbrella|jeep adventureglyde|babygap classic)\b/.test(text)) return 'umbrella stroller';
   if (/\b(butterfly|trvl|minu|yoyo|yoyo3|yoyo 3|aer|aer2|jet|coya|libelle|beezy|quid|quid3|metro|orbit baby m\+|mima miro|city tour|clic|volo|dot|nia|breez)\b/.test(text)) {
     return 'travel stroller';
   }

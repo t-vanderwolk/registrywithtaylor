@@ -3218,6 +3218,120 @@ img {
   padding-top: 0.8rem;
 }
 
+.tool-adapter-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid rgba(196, 156, 94, 0.28);
+  border-radius: 0.85rem;
+  background: rgba(251, 247, 244, 0.92);
+  padding: 0.72rem;
+}
+
+.tool-adapter-callout__details {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.65rem;
+}
+
+.tool-adapter-callout__image {
+  width: 2.65rem;
+  height: 2.65rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(196, 156, 94, 0.16);
+  border-radius: 0.68rem;
+  background: #fff;
+  object-fit: contain;
+  padding: 0.22rem;
+}
+
+.tool-adapter-callout__eyebrow {
+  color: rgba(124, 90, 39, 0.98);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.tool-adapter-callout__name {
+  overflow-wrap: anywhere;
+  color: #4b3b31;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+.tool-adapter-callout__price {
+  margin-top: 0.16rem;
+  color: var(--gold);
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.tool-adapter-callout__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 2.35rem;
+  border: 1px solid rgba(124, 90, 39, 0.38);
+  border-radius: 999px;
+  background: #fff;
+  color: rgba(99, 70, 32, 0.98);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.68rem 0.9rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tool-adapter-callout__link:hover {
+  border-color: rgba(124, 90, 39, 0.58);
+  background: rgba(255, 252, 248, 0.98);
+  box-shadow: 0 9px 20px rgba(124, 90, 39, 0.12);
+  transform: translateY(-1px);
+}
+
+.tool-adapter-callout__link:focus-visible {
+  outline: 2px solid rgba(120, 52, 70, 0.58);
+  outline-offset: 3px;
+}
+
+.tool-adapter-callout__missing {
+  flex-shrink: 0;
+  color: rgba(112, 99, 92, 0.92);
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  .tool-adapter-callout {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tool-adapter-callout__link,
+  .tool-adapter-callout__missing {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .tool-btn {
   display: inline-flex;
   align-items: center;

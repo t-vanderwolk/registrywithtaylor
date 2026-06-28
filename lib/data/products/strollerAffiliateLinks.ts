@@ -2,7 +2,7 @@ export const STROLLER_AFFILIATE_LINKS = {
   'bugaboo-fox-5':
     'https://www.dpbolvw.net/click-101548494-12218293?url=https%3A%2F%2Fwww.albeebaby.com%2Fproducts%2Fbugaboo-fox-5-renew-complete-stroller-black-heritage-black-heritage-black%3F_pos%3D1%26_psq%3Dfox%26_ss%3De%26_v%3D1.0',
   'nuna-mixx-next':
-    'https://www.anrdoezrs.net/click-101548494-12218293?url=https%3A%2F%2Fwww.albeebaby.com%2Fproducts%2Fnuna-mixx-next-stroller-with-magnetic-buckle-caviar%3F_pos%3D2%26_psq%3Dmixx%26_ss%3De%26_v%3D1.0',
+    'https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072845&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-mixx-next%2F21607%2F2072845&intsrc=CATF_8981',
   'silver-cross-reef-2':
     'https://silvercrossus.com/product/silver-cross-reef-2-foldable-stroller/?ref=4762&affiliate_pid=4762',
   'bugaboo-dragonfly':

@@ -268,6 +268,57 @@ function SelectedSummaryCard({
   );
 }
 
+function AdapterCallout({
+  item,
+}: {
+  item: Pick<
+    CompatibleCarSeatResult | CompatibleStrollerResult,
+    'adapterImage' | 'adapterPrice' | 'adapterRequired' | 'adapterType' | 'adapterUrl'
+  >;
+}) {
+  if (!item.adapterRequired) {
+    return (
+      <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">
+        Direct fit, no adapter needed
+      </p>
+    );
+  }
+
+  return (
+    <div className="tool-adapter-callout">
+      <div className="tool-adapter-callout__details">
+        {item.adapterImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
+        ) : null}
+        <div className="min-w-0">
+          <p className="tool-adapter-callout__eyebrow">Adapter needed</p>
+          <p className="tool-adapter-callout__name">
+            {item.adapterType ?? 'Car seat adapter'}
+          </p>
+          {item.adapterPrice != null ? (
+            <p className="tool-adapter-callout__price">${item.adapterPrice.toFixed(2)}</p>
+          ) : null}
+        </div>
+      </div>
+
+      {item.adapterUrl ? (
+        <a
+          href={item.adapterUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          className="tool-adapter-callout__link"
+          aria-label={`Shop adapter: ${item.adapterType ?? 'car seat adapter'}`}
+        >
+          Shop adapter
+        </a>
+      ) : (
+        <span className="tool-adapter-callout__missing">Adapter link unavailable</span>
+      )}
+    </div>
+  );
+}
+
 function ResultCard({
   item,
   productKind,
@@ -316,34 +367,7 @@ function ResultCard({
           </span>
         </div>
 
-        {item.adapterRequired ? (
-          <div className="flex items-center gap-2 rounded-[0.7rem] border border-[rgba(196,156,94,0.22)] bg-[rgba(251,247,244,0.7)] px-2.5 py-1.5">
-            {item.adapterImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.adapterImage} alt="" className="h-7 w-7 shrink-0 rounded bg-white object-contain p-0.5" />
-            ) : null}
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[0.66rem] font-semibold text-neutral-700">
-                {item.adapterType ?? 'Adapter needed'}
-              </p>
-              {item.adapterPrice != null ? (
-                <p className="text-[0.64rem] font-semibold text-[var(--gold)]">${item.adapterPrice.toFixed(2)}</p>
-              ) : null}
-            </div>
-            {item.adapterUrl ? (
-              <a
-                href={item.adapterUrl}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                className="shrink-0 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-[var(--color-accent-dark)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(120,52,70,0.58)]"
-              >
-                Shop
-              </a>
-            ) : null}
-          </div>
-        ) : (
-          <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">Direct fit, no adapter needed</p>
-        )}
+        <AdapterCallout item={item} />
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
           <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-neutral-400">

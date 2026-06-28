@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-06-28T21:45:59.652Z",
+  "totals": {
+    "strollerRowsScanned": 104,
+    "probableDuplicateGroups": 0,
+    "probableDuplicateRows": 0,
+    "nunaDuplicateGroups": 0,
+    "nunaDuplicateRows": 0,
+    "rowsWithColorOrVariantTerms": 3
+  },
+  "duplicateGroups": [],
+  "nunaDuplicateGroups": [],
+  "colorOrVariantRows": [
+    {
+      "id": "joovy-caboose-ultralight-graphite",
+      "brand": "Joovy",
+      "model": "Caboose Ultralight Graphite",
+      "normalizedModel": "caboose ultralight",
+      "compatCount": 17,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "mockingbird-single-to-double-3",
+      "brand": "Mockingbird",
+      "model": "Single-to-Double 3.0",
+      "normalizedModel": "3 0",
+      "compatCount": 19,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "nuna-trvl-dubl",
+      "brand": "Nuna",
+      "model": "TRVL Dubl",
+      "normalizedModel": "trvl double",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    }
+  ]
+}

@@ -497,7 +497,7 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       name: 'MIXX next',
       brand: 'Nuna',
       affiliateUrl:
-        'https://www.anrdoezrs.net/click-101548494-12218293?url=https%3A%2F%2Fwww.albeebaby.com%2Fproducts%2Fnuna-mixx-next-stroller-with-magnetic-buckle-caviar%3F_pos%3D2%26_psq%3Dmixx%26_ss%3De%26_v%3D1.0',
+        'https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072845&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-mixx-next%2F21607%2F2072845&intsrc=CATF_8981',
       imageSrc: '/assets/strollers/mixxnext.png',
       imageAlt: 'Nuna MIXX next stroller.',
     },

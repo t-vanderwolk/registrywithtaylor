@@ -28,6 +28,7 @@ const EXCLUDED_STROLLER_BRAND_KEYS = new Set([
   'parents',
   'smartrike',
   'the puppet company',
+  'ternx',
   'tiny love',
 ]);
 
@@ -36,7 +37,7 @@ const EXCLUDED_STROLLER_PRODUCT_RULES: Array<{ brandKey: string; title: RegExp }
 ];
 
 const STROLLER_PRODUCT_NOISE_RE =
-  /travel system|\bsnap-?n-?go\b|car ?seat carrier|\bbassinet\b|\bcot\b|\badapters?\b|footboard|conversion kit|\b(?:stroller|seat|car seat)\s+frame\b|\bframe\s+(?:stroller|only)\b|\bchassis\s+(?:only|replacement)\b|\bstroller\s+chassis\b|\bboard\b|transport bag|\bbag\b|organizer|organi[sz]er|snack tray|\btray\b|rain cover|rain shield|weather shield|sun ?shade|\bcanopy\b|parasol|cup ?holder|seat liner|second seat|sibling seat|rumble ?seat|seat unit|toddler seat|stroller seat|\b(?:front|rear|replacement|spare)\s+(?:wheel|tire)s?\b|\b(?:wheel|tire)s?\s+(?:replacement|set|kit|assembly)\b|inner tube|\bbasket\b|\bcaddy\b|footmuff|\bcover\b|bumper bar|belly bar|ride[- ]?along|glider board|piggy ?back|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|\bbundle\b/i;
+  /travel system|\bsnap-?n-?go\b|car ?seat carrier|\bmagnetic buckles?\b|\bbassinet\b|\bcot\b|\badapters?\b|footboard|conversion kit|\b(?:stroller|seat|car seat)\s+frame\b|\bframe\s+(?:stroller|only)\b|\bchassis\s+(?:only|replacement)\b|\bstroller\s+chassis\b|\bboard\b|transport bag|\bbag\b|organizer|organi[sz]er|snack tray|\btray\b|rain cover|rain shield|weather shield|sun ?shade|\bcanopy\b|parasol|cup ?holder|seat liner|second seat|sibling seat|rumble ?seat|seat unit|toddler seat|stroller seat|\b(?:front|rear|replacement|spare)\s+(?:wheel|tire)s?\b|\b(?:wheel|tire)s?\s+(?:replacement|set|kit|assembly)\b|inner tube|\bbasket\b|\bcaddy\b|footmuff|\bcover\b|bumper bar|belly bar|ride[- ]?along|glider board|piggy ?back|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|\bbundle\b/i;
 
 function brandKey(value: string | null | undefined) {
   return (value || 'Other')

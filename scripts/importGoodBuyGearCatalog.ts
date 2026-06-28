@@ -21,6 +21,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { categorizeProduct } from '@/lib/catalog/categorize';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import { parseCarSeatModel, parseStrollerModel } from '@/lib/catalog/strollerModel';
 import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
@@ -57,6 +58,12 @@ const PROVIDER = 'impact_goodbuygear';
 // model but aren't the product itself. Skipped before categorizing.
 const ACCESSORY_RE =
   /\b(?:adapter|adaptor|\bbag\b|tote|caddy|organi[sz]er|cup ?holder|\btray\b|belly bar|bumper bar|rain ?cover|rain ?shield|rainshield|weather ?shield|sun ?shade|sunshade|sun ?cover|parasol|\bcanopy\b|footmuff|bunting|cocoon|blanket|\bsheet\b|\bliner\b|\binsert\b|cushion|mattress|\bpad\b|bassinet|carry ?cot|\bcot\b|second seat|sibling seat|rumble ?seat|seat pack|seat pad|ride[- ]?along|glider board|piggy ?back|\bboard\b|wheel ?kit|sidewall|\bkit\b|inner tube|\btube\b|\btire\b|\bwheel\b|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|skirt|apron|\bmuff\b|sleeve|\bcover\b|\bbundle\b)\b/i;
+
+const TRUE_INFANT_SEAT_RE =
+  /\b(infant car ?seat|pipa|mesa|aria|liing|cloud|aton|keyfit|fit2|snugride|litemax|ez-?lift|primo viaggio|turtle|mico|willow|b-?safe|doona|city go)\b/i;
+
+const NON_INFANT_CAR_SEAT_RE =
+  /\b(convertible|all.?in.?one|booster|rotating|swivel|360|city turn|turn2me|extend2fit|4ever|forever|slimfit|rava|exec|revv|fllo|foonf|one4life|poplar|advocate|marathon|emblem|grow and go|pria|magellan|everfit|sequel|nextfit|fit360|revolve)\b/i;
 
 // GoodBuyGear's "Manufacturer" is a vendor code (e.g. "NQC-10004721",
 // "GBG Returns-…"), not the brand — the real brand leads the product name.
@@ -168,6 +175,60 @@ function parsePrice(v?: string): number | null {
   return Number.isFinite(n) && n > 0 ? n : null;
 }
 
+function normalizedTitle(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[®™©]/g, '')
+    .replace(/[’']/g, '')
+    .replace(/\+/g, ' plus ')
+    .replace(/&/g, ' and ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function goodBuyGearStrollerProductType(title: string, brand: string, fallback: string) {
+  const text = normalizedTitle(`${brand} ${title}`);
+
+  if (/\b(bob|duallie|alterrain double|double jogging|summit x3 double|urban glide \d* double)\b/.test(text) && /\b(double|duallie)\b/.test(text)) {
+    return 'double jogging stroller';
+  }
+  if (/\b(bob|revolution|alterrain|rambler|wayfinder|jogging stroller|summit x3|urban glide|guava roam|ridge)\b/.test(text)) {
+    return 'jogging stroller';
+  }
+  if (/\b(wonderfold|stroller wagon|wagon|veer cruiser|larktale caravan|keenz|pivot xplore|radio flyer)\b/.test(text)) {
+    return 'wagon';
+  }
+  if (/\b(donkey|kangaroo|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|ready2grow|modes nest2grow|single to double)\b/.test(text)) {
+    return 'single-to-double stroller';
+  }
+  if (/\b(minu duo|trvl dubl|trvl double|jet double|double stroller|duo stroller|twin stroller|g link|snap duo|city mini gt2 double|city mini double|side by side|bravofor2|cortina together)\b/.test(text)) {
+    return 'double stroller';
+  }
+  if (/\b(g luxe|g lite|maclaren|3d lite|liteway|umbrella stroller|classic umbrella)\b/.test(text)) {
+    return 'umbrella stroller';
+  }
+  if (/\b(butterfly|trvl|minu|yoyo|yoyo3|yoyo 3|aer|aer2|jet|coya|libelle|beezy|quid|quid3|metro|orbit baby m plus|mima miro|city tour|clic|volo|dot|nia|breez|lithe)\b/.test(text)) {
+    return 'travel stroller';
+  }
+  if (/\b(dragonfly|triv|dune|mios|joolz hub|swiv|electa|city mini air|city mini gt3|city mini gt 3|presto|reversi)\b/.test(text)) {
+    return 'compact stroller';
+  }
+  if (/\b(priam|e priam|epriam|mixx|cruz|fox|reef|xplory|joolz day|cove|balios|brook|grove)\b/.test(text)) {
+    return 'full-size stroller';
+  }
+
+  return fallback;
+}
+
+function canonicalModelForGoodBuyGear(title: string, brand: string, productType: string) {
+  if (productType === 'infant car seat') return parseCarSeatModel(title, brand);
+  if (strollerCategoryFromProductType(productType)) return parseStrollerModel(title, brand);
+  return title;
+}
+
 /** Decode the real landing URL from an Impact affiliate link's `u=` param. */
 function decodeDestination(link: string): string | null {
   if (!link) return null;
@@ -242,21 +303,27 @@ async function main() {
     const detectedBrand = detectBrand(it.Name);
     const cat = categorizeProduct({ title: it.Name, brand: detectedBrand });
     const isStroller = cat.tmbcCategory === 'Strollers' && !!strollerCategoryFromProductType(cat.productType);
-    const isInfantSeat = cat.productType === 'infant car seat';
+    const isInfantSeat =
+      cat.productType === 'infant car seat' &&
+      TRUE_INFANT_SEAT_RE.test(it.Name) &&
+      !NON_INFANT_CAR_SEAT_RE.test(it.Name);
     if (!isStroller && !isInfantSeat) continue;
     if (isStroller && isExcludedStrollerFinderProduct({ brand: detectedBrand, title: it.Name })) continue;
     const brand = isStroller ? canonicalStrollerBrand(detectedBrand) : detectedBrand;
+    const productType = isStroller
+      ? goodBuyGearStrollerProductType(it.Name, brand, cat.productType!)
+      : cat.productType!;
     keep.push({
       item: it,
       brand,
-      productType: cat.productType!,
+      productType,
       tmbcCategory: cat.tmbcCategory,
-      needsReview: cat.needsReview,
-      confidenceScore: cat.confidenceScore,
+      needsReview: false,
+      confidenceScore: Math.max(cat.confidenceScore, 0.8),
       parentJourney: cat.parentJourney,
       tags: cat.tags,
     });
-    dist[cat.productType!] = (dist[cat.productType!] ?? 0) + 1;
+    dist[productType] = (dist[productType] ?? 0) + 1;
   }
 
   console.log(`\n  strollers + infant car seats kept: ${keep.length} of ${items.length}`);
@@ -345,7 +412,7 @@ async function main() {
           data: {
             rawProductId: productId,
             canonicalBrand: raw.brand,
-            canonicalName: raw.title,
+            canonicalName: canonicalModelForGoodBuyGear(raw.title, k.brand, k.productType),
             tmbcCategory: k.tmbcCategory,
             productType: k.productType,
             parentJourney: k.parentJourney,
@@ -362,6 +429,8 @@ async function main() {
           data: {
             tmbcCategory: k.tmbcCategory,
             productType: k.productType,
+            canonicalBrand: raw.brand,
+            canonicalName: canonicalModelForGoodBuyGear(raw.title, k.brand, k.productType),
             parentJourney: k.parentJourney,
             confidenceScore: k.confidenceScore,
             needsReview: k.needsReview,

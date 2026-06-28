@@ -3,6 +3,10 @@ import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryM
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
+  normalizeStrollerVariantModel,
+  strollerVariantNoiseScore,
+} from '@/lib/catalog/strollerVariantIdentity';
+import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
 } from '@/lib/catalog/strollerFinderRules';
@@ -109,6 +113,36 @@ function isPublicMacroBabyOffer(offer: Offer | null) {
   );
 }
 
+type StrollerCompatibilityCountRow = {
+  brand: string;
+  model: string;
+  compatibilityCount: number;
+};
+
+async function loadStrollerCompatibilityCounts() {
+  try {
+    const rows = await prisma.$queryRaw<StrollerCompatibilityCountRow[]>`
+      SELECT
+        stroller."brand",
+        stroller."model",
+        COUNT(compat."id")::int AS "compatibilityCount"
+      FROM "Stroller" AS stroller
+      LEFT JOIN "Compatibility" AS compat
+        ON compat."strollerId" = stroller."id"
+      GROUP BY stroller."id", stroller."brand", stroller."model"
+    `;
+
+    return new Map(
+      rows.map((row) => [
+        productModelKey(canonicalStrollerBrand(row.brand), row.model),
+        row.compatibilityCount,
+      ]),
+    );
+  } catch {
+    return new Map<string, number>();
+  }
+}
+
 export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = prisma as any;
@@ -208,8 +242,40 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     }
   }
 
-  const byBrand = new Map<string, Map<StrollerCategory, PublicStrollerProduct[]>>();
+  const compatibilityCounts = await loadStrollerCompatibilityCounts();
+  const groupCompatibilityCount = (group: Group) =>
+    compatibilityCounts.get(productModelKey(group.brand, group.model)) ?? 0;
+  const coreOfferCount = (group: Group) =>
+    Number(isPublicBabylistOffer(group.babylist)) + Number(isPublicMacroBabyOffer(group.macrobaby));
+  const duplicateVariantKey = (group: Group) => {
+    const normalized = normalizeStrollerVariantModel(group.model, group.brand);
+    return productModelKey(group.brand, normalized || group.model);
+  };
+  const compareGroupsForPublicKeep = (left: Group, right: Group) => {
+    const compatDelta = groupCompatibilityCount(right) - groupCompatibilityCount(left);
+    if (compatDelta !== 0) return compatDelta;
+
+    const coreOfferDelta = coreOfferCount(right) - coreOfferCount(left);
+    if (coreOfferDelta !== 0) return coreOfferDelta;
+
+    const noiseDelta =
+      strollerVariantNoiseScore(left.model, left.brand) -
+      strollerVariantNoiseScore(right.model, right.brand);
+    if (noiseDelta !== 0) return noiseDelta;
+
+    return left.model.length - right.model.length || left.model.localeCompare(right.model);
+  };
+  const visibleGroups = new Map<string, Group>();
   for (const group of groups.values()) {
+    const key = duplicateVariantKey(group);
+    const current = visibleGroups.get(key);
+    if (!current || compareGroupsForPublicKeep(group, current) < 0) {
+      visibleGroups.set(key, group);
+    }
+  }
+
+  const byBrand = new Map<string, Map<StrollerCategory, PublicStrollerProduct[]>>();
+  for (const group of visibleGroups.values()) {
     const babylist = isPublicBabylistOffer(group.babylist) ? group.babylist : null;
     const macrobaby = isPublicMacroBabyOffer(group.macrobaby) ? group.macrobaby : null;
     const primary = babylist ?? macrobaby;

@@ -216,6 +216,10 @@ function findPrimaryOffer(group: FinderGroup) {
   return null;
 }
 
+function isCoreCategorySource(row: Offer) {
+  return row.provider === PROVIDER_BABYLIST || row.provider === PROVIDER_MACROBABY;
+}
+
 async function loadFinderGroups() {
   const rows: CatalogProductRow[] = await db.affiliateCatalogProduct.findMany({
     where: {
@@ -329,7 +333,9 @@ function buildFlag(group: FinderGroup): FlaggedProduct | null {
   const primary = findPrimaryOffer(group);
   if (!primary) return null;
 
-  const inference = inferExpectedCategory(group.brand, group.model, group.rows.map((row) => row.title));
+  const categorySourceRows = group.rows.filter(isCoreCategorySource);
+  const inferenceRows = categorySourceRows.length > 0 ? categorySourceRows : group.rows;
+  const inference = inferExpectedCategory(group.brand, group.model, inferenceRows.map((row) => row.title));
   if (!inference.expectedCategory || isSameCategory(group.category, inference.expectedCategory)) return null;
   const expectedCategory = inference.expectedCategory;
   const mismatchedRows = group.rows.filter((row) => !isSameCategory(row.category, expectedCategory));

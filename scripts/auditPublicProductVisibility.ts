@@ -5,12 +5,23 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { GET as getCarSeatCatalog } from '@/app/api/catalog/carseats/route';
-import { GET as getStrollerCatalog } from '@/app/api/catalog/strollers/route';
+import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
+import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { getPublicStrollerCatalogBrands } from '@/lib/server/publicStrollerCatalog';
 import {
   getTravelSystemCarSeats,
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
+import prismaBase from '@/lib/server/prisma';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const db = prismaBase as any;
+const PROVIDER_ANB = 'awin_anbbaby';
+const PROVIDER_BABYLIST = 'babylist_impact';
+const PROVIDER_MACROBABY = 'shopify_macrobaby';
 
 type RetailOffer = { price: number | null; url: string | null };
 type PublicProduct = {
@@ -20,6 +31,9 @@ type PublicProduct = {
   label: string;
   name: string;
   model: string;
+  price?: number | null;
+  image?: string | null;
+  affiliateUrl?: string | null;
   source?: string | null;
   retailers?: Record<string, RetailOffer | null> | null;
 };
@@ -33,6 +47,18 @@ type TravelOption = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   amazonUrl?: string | null;
+};
+type CatalogProductRow = {
+  provider: string;
+  brand: string | null;
+  title: string;
+  price: number | null;
+  imageUrl: string | null;
+  productUrl: string | null;
+  affiliateUrl: string | null;
+  retailer: string | null;
+  itemGroupId: string | null;
+  enrichment: { productType: string | null; canonicalBrand: string | null; canonicalName: string | null } | null;
 };
 
 function hasOffer(offer: RetailOffer | null | undefined) {
@@ -73,14 +99,155 @@ function flattenCatalog(area: 'stroller' | 'carSeat', payload: { brands?: Array<
   return out;
 }
 
+function modelLikeCanonicalName(value: string | null | undefined) {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/\b(infant|car seat|adapter|accessory|base|cover|canopy|insert|mirror|net)\b/i.test(v)) return null;
+  if (/[,(]/.test(v)) return null;
+  return v;
+}
+
+async function loadCarSeatCatalog() {
+  const rows: CatalogProductRow[] = await db.affiliateCatalogProduct.findMany({
+    where: {
+      isActiveInFeed: true,
+      enrichment: {
+        is: {
+          productType: 'infant car seat',
+          needsReview: false,
+          reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+        },
+      },
+    },
+    select: {
+      provider: true,
+      brand: true,
+      title: true,
+      price: true,
+      imageUrl: true,
+      productUrl: true,
+      affiliateUrl: true,
+      retailer: true,
+      itemGroupId: true,
+      enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
+    },
+    orderBy: { title: 'asc' },
+  });
+
+  type Offer = { price: number | null; url: string | null; image: string | null; title: string };
+  type Group = {
+    brand: string;
+    model: string;
+    babylist: Offer | null;
+    macrobaby: Offer | null;
+    anb: Offer | null;
+    gbg: Offer | null;
+  };
+
+  const groups = new Map<string, Group>();
+  const seenGroups = new Set<string>();
+  for (const row of rows) {
+    if (row.itemGroupId) {
+      const groupIdKey = `${row.provider}:${row.itemGroupId}`;
+      if (seenGroups.has(groupIdKey)) continue;
+      seenGroups.add(groupIdKey);
+    }
+
+    const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
+    const model = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseCarSeatModel(row.title, brand);
+    const key = productModelKey(brand, model || row.title);
+    let group = groups.get(key);
+    if (!group) {
+      group = { brand, model, babylist: null, macrobaby: null, anb: null, gbg: null };
+      groups.set(key, group);
+    }
+
+    const offer: Offer = { price: row.price, url: row.affiliateUrl, image: row.imageUrl, title: row.title };
+    const cheaper = (current: Offer | null) =>
+      !current || (offer.price != null && (current.price == null || offer.price < current.price));
+    const isGoodBuyGear = isGoodBuyGearOffer({
+      provider: row.provider,
+      retailer: row.retailer,
+      url: row.affiliateUrl,
+      productUrl: row.productUrl,
+    });
+
+    if (isGoodBuyGear) {
+      if (cheaper(group.gbg)) group.gbg = offer;
+    } else if (row.provider === PROVIDER_BABYLIST) {
+      if (!group.babylist) group.babylist = offer;
+    } else if (row.provider === PROVIDER_MACROBABY) {
+      if (cheaper(group.macrobaby)) group.macrobaby = offer;
+    } else if (row.provider === PROVIDER_ANB) {
+      if (cheaper(group.anb)) group.anb = offer;
+    }
+  }
+
+  const byBrand = new Map<string, Array<Omit<PublicProduct, 'area' | 'brand' | 'category' | 'label'>>>();
+  for (const group of groups.values()) {
+    const babylist = group.babylist && hasPublicCoreRetailer({
+      provider: PROVIDER_BABYLIST,
+      retailer: 'Babylist',
+      url: group.babylist.url,
+      price: group.babylist.price,
+    })
+      ? group.babylist
+      : null;
+    const macrobaby = group.macrobaby && hasPublicCoreRetailer({
+      provider: PROVIDER_MACROBABY,
+      retailer: 'MacroBaby',
+      url: group.macrobaby.url,
+      price: group.macrobaby.price,
+    })
+      ? group.macrobaby
+      : null;
+    const primary = babylist ?? macrobaby;
+    if (!primary) continue;
+
+    const amazonUrl = getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
+    if (!byBrand.has(group.brand)) byBrand.set(group.brand, []);
+    byBrand.get(group.brand)!.push({
+      name: primary.title,
+      model: group.model,
+      price: primary.price,
+      image: babylist?.image ?? macrobaby?.image ?? group.anb?.image ?? group.gbg?.image ?? null,
+      affiliateUrl: primary.url,
+      source: babylist ? 'babylist' : 'macrobaby',
+      retailers: {
+        babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
+        amazon: amazonUrl ? { price: null, url: amazonUrl } : null,
+        macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
+        anb: null,
+        goodbuygear: group.gbg ? { price: group.gbg.price, url: group.gbg.url } : null,
+      },
+    });
+  }
+
+  const brands = [...byBrand.entries()]
+    .map(([brand, products]) => ({
+      brand,
+      count: products.length,
+      types: [
+        {
+          category: 'infant-car-seat',
+          label: 'Infant Car Seat',
+          products: products.sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      ],
+    }))
+    .filter((brand) => brand.count > 0)
+    .sort((a, b) => a.brand.localeCompare(b.brand));
+
+  return { brands };
+}
+
 async function loadCatalogProducts() {
-  const [strollerResponse, carSeatResponse] = await Promise.all([getStrollerCatalog(), getCarSeatCatalog()]);
-  const [strollerPayload, carSeatPayload] = await Promise.all([
-    strollerResponse.json(),
-    carSeatResponse.json(),
+  const [strollerBrands, carSeatPayload] = await Promise.all([
+    getPublicStrollerCatalogBrands(),
+    loadCarSeatCatalog(),
   ]);
   return [
-    ...flattenCatalog('stroller', strollerPayload),
+    ...flattenCatalog('stroller', { brands: strollerBrands }),
     ...flattenCatalog('carSeat', carSeatPayload),
   ];
 }
@@ -187,7 +354,11 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error('[auditPublicProductVisibility] failed:', error);
-  process.exit(1);
-});
+main()
+  .catch((error) => {
+    console.error('[auditPublicProductVisibility] failed:', error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await db.$disconnect?.();
+  });

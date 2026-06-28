@@ -68,6 +68,7 @@
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
+    "catalog:audit-stroller-variant-duplicates": "tsx scripts/auditStrollerVariantDuplicates.ts",
     "catalog:audit-public-visibility": "tsx scripts/auditPublicProductVisibility.ts",
     "catalog:audit-macrobaby-only-public": "tsx scripts/auditMacroBabyOnlyPublicCandidates.ts",
     "catalog:audit-stroller-duplicates": "tsx scripts/cleanupUnmatchedDuplicates.ts",
