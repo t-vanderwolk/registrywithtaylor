@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-28T03:09:37.479Z",
-  "publicCatalogProducts": 239,
-  "travelSystemOptions": 231,
+  "generatedAt": "2026-06-28T03:45:04.752Z",
+  "publicCatalogProducts": 231,
+  "travelSystemOptions": 223,
   "productsPubliclyVisibleWithoutBabylistOrMacroBaby": [],
   "productsWhereAmazonIsOnlyRetailerButStillPublic": [],
   "productsWhereNonCoreRetailerIsPrimary": [],
@@ -162,6 +162,24 @@
     {
       "area": "stroller",
       "brand": "Bumbleride",
+      "model": "Indie",
+      "name": "Bumbleride Indie in Black | 100% Recycled",
+      "source": "babylist",
+      "babylist": {
+        "price": 799,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072904&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie%2F37544%2F2072904&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Bumbleride%20Indie%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Bumbleride",
       "model": "Speed",
       "name": "Bumbleride Speed Stroller in Black | 100% Recycled",
       "source": "babylist",
@@ -288,6 +306,27 @@
     {
       "area": "stroller",
       "brand": "Nuna",
+      "model": "MIXX next",
+      "name": "\"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 900,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072845&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-mixx-next%2F21607%2F2072845&intsrc=CATF_8981"
+      },
+      "macrobaby": {
+        "price": 900,
+        "url": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Nuna%20MIXX%20next%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Nuna",
       "model": "TAVO next",
       "name": "\"Nuna TAVO next Stroller in Caviar/Cognac Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
       "source": "babylist",
@@ -309,28 +348,13 @@
     {
       "area": "stroller",
       "brand": "Nuna",
-      "model": "MIXX next",
-      "name": "Nuna - Mixx Next Stroller With Magnetic Buckle, Biscotti",
-      "source": "macrobaby",
-      "babylist": null,
-      "macrobaby": {
-        "price": 900,
-        "url": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com"
-      },
-      "amazon": {
-        "price": null,
-        "url": "https://www.amazon.com/s?k=Nuna%20MIXX%20next%20stroller&tag=taylormadebab-20"
-      },
-      "anb": null,
-      "goodbuygear": null
-    },
-    {
-      "area": "stroller",
-      "brand": "Nuna",
       "model": "SWIV",
-      "name": "Nuna - Swiv Stroller, Acorn",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Nuna SWIV in Biscotti",
+      "source": "babylist",
+      "babylist": {
+        "price": 1000,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042624&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-swiv%2F54962%2F2042624&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 1000,
         "url": "https://www.macrobaby.com/products/nuna-swiv-stroller-acorn?_j=taylormadebabyco.com"
@@ -349,9 +373,12 @@
       "area": "stroller",
       "brand": "Nuna",
       "model": "TRIV next",
-      "name": "Nuna - TRIV Next Compact Stroller, Thistle",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Nuna TRIV next in Biscotti",
+      "source": "babylist",
+      "babylist": {
+        "price": 800,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2127167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-triv-next%2F35739%2F2127167&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 800,
         "url": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com"
@@ -370,9 +397,12 @@
       "area": "stroller",
       "brand": "Nuna",
       "model": "TRVL lx",
-      "name": "Nuna - TRVL LX Stroller BMW Special Edition, Mica",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Nuna TRVL lx in Caviar/Chocolate",
+      "source": "babylist",
+      "babylist": {
+        "price": 600,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903033&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-trvl-lx%2F46284%2F2903033&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 600,
         "url": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com"
@@ -834,9 +864,12 @@
       "area": "stroller",
       "brand": "Nuna",
       "model": "SWIV",
-      "name": "Nuna - Swiv Stroller, Acorn",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Nuna SWIV in Biscotti",
+      "source": "babylist",
+      "babylist": {
+        "price": 1000,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042624&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-swiv%2F54962%2F2042624&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 1000,
         "url": "https://www.macrobaby.com/products/nuna-swiv-stroller-acorn?_j=taylormadebabyco.com"
@@ -855,9 +888,12 @@
       "area": "stroller",
       "brand": "Nuna",
       "model": "TRIV next",
-      "name": "Nuna - TRIV Next Compact Stroller, Thistle",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Nuna TRIV next in Biscotti",
+      "source": "babylist",
+      "babylist": {
+        "price": 800,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2127167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-triv-next%2F35739%2F2127167&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 800,
         "url": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com"
@@ -967,6 +1003,17 @@
     {
       "area": "travel-system-stroller",
       "brand": "Bumbleride",
+      "model": "Indie",
+      "displayName": "Bumbleride Indie",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072904&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie%2F37544%2F2072904&intsrc=CATF_8981",
+      "babylistPrice": 799,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bumbleride%20Indie%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bumbleride",
       "model": "Speed",
       "displayName": "Bumbleride Speed",
       "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2586974&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-speed-stroller%2F13352%2F2586974&intsrc=CATF_8981",
@@ -1044,6 +1091,17 @@
     {
       "area": "travel-system-stroller",
       "brand": "Nuna",
+      "model": "MIXX next",
+      "displayName": "Nuna MIXX next",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072845&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-mixx-next%2F21607%2F2072845&intsrc=CATF_8981",
+      "babylistPrice": 900,
+      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com",
+      "macroBabyPrice": 900,
+      "amazonUrl": "https://www.amazon.com/s?k=Nuna%20MIXX%20next%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Nuna",
       "model": "TAVO next",
       "displayName": "Nuna TAVO next",
       "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=663919&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-tavo-next-stroller-1730395458%2F21123%2F663919&intsrc=CATF_8981",
@@ -1055,21 +1113,10 @@
     {
       "area": "travel-system-stroller",
       "brand": "Nuna",
-      "model": "MIXX next",
-      "displayName": "Nuna MIXX next",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com",
-      "macroBabyPrice": 900,
-      "amazonUrl": "https://www.amazon.com/s?k=Nuna%20MIXX%20next%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "Nuna",
       "model": "SWIV",
       "displayName": "Nuna SWIV",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042624&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-swiv%2F54962%2F2042624&intsrc=CATF_8981",
+      "babylistPrice": 1000,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-swiv-stroller-acorn?_j=taylormadebabyco.com",
       "macroBabyPrice": 1000,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20SWIV%20stroller&tag=taylormadebab-20"
@@ -1079,8 +1126,8 @@
       "brand": "Nuna",
       "model": "TRIV next",
       "displayName": "Nuna TRIV next",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2127167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-triv-next%2F35739%2F2127167&intsrc=CATF_8981",
+      "babylistPrice": 800,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com",
       "macroBabyPrice": 800,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
@@ -1090,8 +1137,8 @@
       "brand": "Nuna",
       "model": "TRVL lx",
       "displayName": "Nuna TRVL lx",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903033&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-trvl-lx%2F46284%2F2903033&intsrc=CATF_8981",
+      "babylistPrice": 600,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com",
       "macroBabyPrice": 600,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRVL%20lx%20stroller&tag=taylormadebab-20"

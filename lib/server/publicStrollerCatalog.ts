@@ -81,6 +81,10 @@ function modelLikeCanonicalName(value: string | null | undefined) {
   return v;
 }
 
+function cleanPublicModelName(value: string, brand: string) {
+  return parseStrollerModel(value, brand) || value.trim();
+}
+
 function isPublicBabylistOffer(offer: Offer | null) {
   return Boolean(
     offer &&
@@ -169,7 +173,9 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
 
     const rawBrand = (row.enrichment?.canonicalBrand || row.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
-    const model = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
+    const rawModel = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
+    const model = cleanPublicModelName(rawModel, brand);
+    if (!model) continue;
     const key = productModelKey(brand, model || row.title);
 
     let group = groups.get(key);

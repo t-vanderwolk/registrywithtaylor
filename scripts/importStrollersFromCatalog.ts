@@ -16,13 +16,9 @@
  *     npm run strollers:import-dry
  */
 import prismaBase from '@/lib/server/prisma';
-import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
-import { parseStrollerModel } from '@/lib/catalog/strollerModel';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
-import {
-  canonicalStrollerBrand,
-  isExcludedStrollerFinderProduct,
-} from '@/lib/catalog/strollerFinderRules';
+import { canonicalStrollerBrand } from '@/lib/catalog/strollerFinderRules';
+import { getPublicStrollerCatalogTravelSystemOptions } from '@/lib/server/publicStrollerCatalog';
 
 // New models land in the generated client on `prisma generate`; cast keeps tsc green.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,16 +35,16 @@ function normKey(brand: string, model: string): string {
   return productModelKey(brand, model);
 }
 
-type CatalogRow = {
-  brand: string | null;
-  title: string;
-  externalId: string;
-  imageUrl: string | null;
-  affiliateUrl: string | null;
-  price: number | null;
-  itemGroupId: string | null;
-  enrichment: { productType: string | null } | null;
-};
+function isSafeCheckerModel(model: string) {
+  const value = model.trim();
+  if (!value || value.length > 56) return false;
+  if (/["]/.test(value)) return false;
+  if (/\b(?:size|base|pram|bassinet|adapter|second seat|seat pack|snack tray|cup holder|organizer|bag)\b/i.test(value)) {
+    return false;
+  }
+  if (/\b\d+(?:\.\d+)?\s*"\b/.test(value)) return false;
+  return true;
+}
 
 async function main() {
   const args = parseArgs();
@@ -58,53 +54,30 @@ async function main() {
   });
   const keys = new Set(existing.map((s) => normKey(canonicalStrollerBrand(s.brand), s.model)));
 
-  const rows: CatalogRow[] = await db.affiliateCatalogProduct.findMany({
-    where: {
-      isActiveInFeed: true,
-      enrichment: { is: { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } } },
-    },
-    select: {
-      brand: true,
-      title: true,
-      externalId: true,
-      imageUrl: true,
-      affiliateUrl: true,
-      price: true,
-      itemGroupId: true,
-      enrichment: { select: { productType: true } },
-    },
-    orderBy: { title: 'asc' },
-    ...(args.limit ? { take: args.limit } : {}),
-  });
+  const rows = (await getPublicStrollerCatalogTravelSystemOptions()).slice(
+    0,
+    args.limit ?? undefined,
+  );
 
   const seenGroups = new Set<string>();
   let created = 0;
   let skippedExisting = 0;
-  let skippedNoModel = 0;
-  let skippedNotStroller = 0;
+  let skippedUnsafeModel = 0;
   let errors = 0;
   const samples: string[] = [];
 
   for (const r of rows) {
-    if (
-      !strollerCategoryFromProductType(r.enrichment?.productType) ||
-      isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title })
-    ) {
-      skippedNotStroller += 1;
-      continue;
-    }
-    if (r.itemGroupId) {
-      if (seenGroups.has(r.itemGroupId)) continue;
-      seenGroups.add(r.itemGroupId);
-    }
-    const rawBrand = (r.brand || '').trim();
+    const rawBrand = r.brand.trim();
     const brand = canonicalStrollerBrand(rawBrand);
-    const model = parseStrollerModel(r.title, rawBrand || brand);
-    if (!brand || !model || model.length > 42 || / and /i.test(model)) {
-      skippedNoModel += 1;
+    const model = r.model.trim();
+    if (!brand || !isSafeCheckerModel(model) || / and /i.test(model)) {
+      skippedUnsafeModel += 1;
       continue;
     }
     const key = normKey(brand, model);
+    if (seenGroups.has(key)) continue;
+    seenGroups.add(key);
+
     if (keys.has(key)) {
       skippedExisting += 1;
       continue;
@@ -124,10 +97,10 @@ async function main() {
           brand,
           model,
           displayName: `${brand} ${model}`,
-          babylistSku: `product_8981_${r.externalId}`,
-          babylistUrl: r.affiliateUrl,
-          babylistPrice: r.price,
-          babylistImage: r.imageUrl,
+          babylistSku: r.babylistUrl ? `public_catalog_${key}` : null,
+          babylistUrl: r.babylistUrl,
+          babylistPrice: r.babylistPrice,
+          babylistImage: r.babylistImage,
           babylistUpdatedAt: new Date(),
         },
       });
@@ -139,11 +112,10 @@ async function main() {
   }
 
   console.log('\n── Import strollers from catalog → Stroller table ──');
-  console.log(`  catalog strollers scanned:    ${rows.length}`);
+  console.log(`  public checker strollers scanned: ${rows.length}`);
   console.log(`  new strollers ${args.dryRun ? 'to add ' : 'added  '}:        ${created}`);
   console.log(`  skipped (already present):    ${skippedExisting}`);
-  console.log(`  skipped (no model parsed):    ${skippedNoModel}`);
-  console.log(`  skipped (not a stroller type): ${skippedNotStroller}`);
+  console.log(`  skipped (unsafe model parse): ${skippedUnsafeModel}`);
   console.log(`  errors:                       ${errors}`);
   if (samples.length) {
     console.log('\n  sample brand — model parses:');

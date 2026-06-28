@@ -12,7 +12,7 @@
  * adapter's image / affiliate URL / price.
  *
  * Safe by construction: only CREATES missing rows and only PRUNES previously
- * generated rows whose adapter title no longer mentions the stroller model.
+ * generated rows whose adapter title no longer supports the stroller/seat match.
  * Hand-curated compatibility rows are never modified.
  *
  *   npx tsx scripts/scanAdapterCompatibility.ts          # dry-run report (default)
@@ -78,6 +78,9 @@ function seatBrandsInTitle(title: string, adapterBrand: string | null | undefine
   const found = new Set<string>();
   for (const { brand, res } of SEAT_BRAND_ALIASES) {
     if (res.some((re) => re.test(text))) found.add(brand);
+  }
+  if (canonicalBrand(adapterBrand) !== 'UPPAbaby' && /\buppababy\b/i.test(text)) {
+    found.add('UPPAbaby');
   }
   return [...found];
 }
@@ -189,6 +192,27 @@ function adapterTextMatchesCarSeat(text: string, seat: SeatRow): SeatMatch | nul
   return null;
 }
 
+function titleBrandSeatMatches(title: string, adapterBrand: string | null | undefined, seats: SeatRow[]) {
+  const titleBrands = seatBrandsInTitle(title, adapterBrand);
+  if (!titleBrands.length) return null;
+  const titleBrandKeys = new Set(titleBrands.map((brand) => canonicalBrand(brand)));
+  return seats
+    .filter((seat) => titleBrandKeys.has(canonicalBrand(seat.brand)))
+    .map<SeatMatch>((seat) => ({ seat, matchedModel: canonicalBrand(seat.brand) }));
+}
+
+function generatedRowHasExplicitSeatBrandMismatch(row: {
+  adapterType: string | null;
+  stroller: StrollerRow;
+  carSeat: SeatRow;
+}) {
+  const adapterTitle = row.adapterType ?? '';
+  const titleBrands = seatBrandsInTitle(adapterTitle, row.stroller.brand);
+  if (!titleBrands.length) return false;
+  const titleBrandKeys = new Set(titleBrands.map((brand) => canonicalBrand(brand)));
+  return !titleBrandKeys.has(canonicalBrand(row.carSeat.brand));
+}
+
 function writeReports({
   totals,
   parsedAdapters,
@@ -221,7 +245,7 @@ function writeReports({
         totals,
         parsedAdapters,
         newCompatibilityRows,
-        existingGeneratedRowsWithoutModelMatch,
+        existingGeneratedRowsWithoutCurrentAdapterMatch: existingGeneratedRowsWithoutModelMatch,
       },
       null,
       2,
@@ -288,9 +312,11 @@ async function main() {
       .map((stroller) => ({ stroller, match: adapterTitleMatchesStrollerModel(title, stroller.model, stroller.brand) }))
       .filter(({ match }) => match.matched)
       .map(({ stroller, match }) => ({ stroller, matchedModel: match.matchedModel ?? stroller.model }));
-    const seatMatches: SeatMatch[] = seats
-      .map((seat) => adapterTextMatchesCarSeat(adapterSeatText, seat))
-      .filter((match): match is SeatMatch => Boolean(match));
+    const seatMatches: SeatMatch[] =
+      titleBrandSeatMatches(title, a.brand, seats) ??
+      seats
+        .map((seat) => adapterTextMatchesCarSeat(adapterSeatText, seat))
+        .filter((match): match is SeatMatch => Boolean(match));
     const seatBrands = unique(seatMatches.map(({ seat }) => canonicalBrand(seat.brand)));
 
     if (strollerMatches.length) adaptersWithStroller += 1;
@@ -337,7 +363,14 @@ async function main() {
     },
   });
   const existingGeneratedRowsWithoutModelMatch = generatedCompatibilityRows
-    .filter((row) => !adapterTitleMatchesStrollerModel(row.adapterType ?? '', row.stroller.model, row.stroller.brand).matched)
+    .filter((row) => {
+      const strollerMatches = adapterTitleMatchesStrollerModel(
+        row.adapterType ?? '',
+        row.stroller.model,
+        row.stroller.brand,
+      ).matched;
+      return !strollerMatches || generatedRowHasExplicitSeatBrandMismatch(row);
+    })
     .map((row) => ({
       id: row.id,
       stroller: `${row.stroller.brand} ${row.stroller.model}`,
@@ -361,7 +394,7 @@ async function main() {
     candidatePairs: pairs.length,
     newToWrite: toCreate.length,
     alreadyPresent: pairs.length - toCreate.length,
-    existingGeneratedRowsWithoutModelMatch: existingGeneratedRowsWithoutModelMatch.length,
+    existingGeneratedRowsWithoutCurrentAdapterMatch: existingGeneratedRowsWithoutModelMatch.length,
     generatedRowsToPrune: existingGeneratedRowsWithoutModelMatch.length,
   };
   writeReports({
@@ -379,7 +412,7 @@ async function main() {
   console.log(
     `  candidate (stroller × seat) pairs: ${pairs.length}   new to write: ${toCreate.length}   already present: ${pairs.length - toCreate.length}\n`,
   );
-  console.log(`  existing generated rows without stroller-model match: ${existingGeneratedRowsWithoutModelMatch.length}`);
+  console.log(`  existing generated rows without current adapter match: ${existingGeneratedRowsWithoutModelMatch.length}`);
   console.log(`  reports: ${REPORT_JSON}, ${REPORT_CSV}\n`);
 
   console.log('  sample parse (adapter title → strollers | seat brands):');
@@ -398,7 +431,7 @@ async function main() {
     });
   }
   if (existingGeneratedRowsWithoutModelMatch.length) {
-    console.log('\n  existing generated rows whose adapter title does not mention the stroller model:');
+    console.log('\n  existing generated rows whose adapter title no longer supports the stroller/seat match:');
     existingGeneratedRowsWithoutModelMatch.slice(0, 50).forEach((row) => {
       console.log(`    • ${row.stroller} × ${row.carSeat}`);
       console.log(`        adapter: ${row.adapterTitle}`);
@@ -442,7 +475,7 @@ async function main() {
     });
     written += 1;
   }
-  console.log(`\n  Pruned ${pruned} generated adapter rows without stroller-model matches.`);
+  console.log(`\n  Pruned ${pruned} generated adapter rows without current adapter matches.`);
   console.log(`  Created ${written} ADAPTER compatibility rows.`);
 }
 
