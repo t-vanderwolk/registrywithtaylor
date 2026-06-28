@@ -4,15 +4,16 @@
  * and map that onto the travel-system Compatibility graph.
  *
  * Matching uses the DB's own vocabulary (no fragile free-text parsing):
- *   - stroller side: a Stroller row of the adapter's brand whose model string
- *     appears in the adapter title (e.g. "VISTA" in "UPPAbaby VISTA adapter").
+ *   - stroller side: a Stroller row whose model string appears in the adapter
+ *     title (e.g. "VISTA V2" in "UPPAbaby VISTA V2 adapter").
  *   - seat side: every INFANT CarSeat whose brand is named in the adapter title
  *     (Maxi-Cosi / Nuna / CYBEX / Clek / Britax / Chicco / …).
  * Each (stroller × seat) pair becomes an ADAPTER Compatibility row carrying the
  * adapter's image / affiliate URL / price.
  *
- * Safe by construction: only CREATES missing rows — existing (hand-curated)
- * compatibility rows are never modified.
+ * Safe by construction: only CREATES missing rows and only PRUNES previously
+ * generated rows whose adapter title no longer mentions the stroller model.
+ * Hand-curated compatibility rows are never modified.
  *
  *   npx tsx scripts/scanAdapterCompatibility.ts          # dry-run report (default)
  *   npx tsx scripts/scanAdapterCompatibility.ts --apply  # write new rows
@@ -23,6 +24,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import prismaBase from '@/lib/server/prisma';
+import { adapterTitleMatchesStrollerModel } from '@/lib/catalog/adapterModelMatching';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,25 +82,10 @@ function seatBrandsInTitle(title: string, adapterBrand: string | null | undefine
   return [...found];
 }
 
-const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-
-// A model may carry a trailing descriptor the adapter title omits (e.g. the
-// Stroller row "City Mini GT3 All-Terrain" vs the title's "City Mini GT3"). Try
-// the full model and a core with those generic suffixes stripped.
-function modelVariants(model: string): string[] {
-  const full = norm(model);
-  // Strip only generic descriptors that never distinguish one model from another.
-  // NOT "single"/"double" — those separate the single from the double stroller.
-  const core = full
-    .replace(/\b(all terrain|stroller|complete|seat)\b/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  return core && core !== full ? [full, core] : [full];
-}
-
 type AdapterRow = {
   brand: string | null;
   title: string;
+  description: string | null;
   imageUrl: string | null;
   affiliateUrl: string | null;
   price: number | null;
@@ -106,16 +93,107 @@ type AdapterRow = {
 };
 type StrollerRow = { id: string; brand: string; model: string };
 type SeatRow = { id: string; brand: string; model: string };
+type StrollerMatch = { stroller: StrollerRow; matchedModel: string };
+type SeatMatch = { seat: SeatRow; matchedModel: string };
+
+const CAR_SEAT_GENERIC_WORDS = /\b(infant|car|seat|seats|safezone|sensorsafe|sensor safe)\b/g;
+const CAR_SEAT_DISTINGUISHING_TOKEN_RE =
+  /^(?:v?\d+|g\d+|lx|rx|aire|air|lite|urbn|max|plus|pro|luxe|xp|ap|nxt|swivel|one|shield|comfort|extend|180|30|35)$/i;
 
 function csvEscape(value: unknown) {
   const text = value == null ? '' : String(value);
   return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
+function normalizeText(value: string | null | undefined) {
+  return (value ?? '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[®™©]/g, '')
+    .replace(/[’']/g, '')
+    .replace(/\+/g, ' plus ')
+    .replace(/&/g, ' and ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function tokens(value: string | null | undefined) {
+  return normalizeText(value).split(' ').filter(Boolean);
+}
+
+function unique(values: string[]) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function contiguousIndex(haystack: string[], needle: string[]) {
+  if (!needle.length || needle.length > haystack.length) return -1;
+  for (let i = 0; i <= haystack.length - needle.length; i += 1) {
+    let matches = true;
+    for (let j = 0; j < needle.length; j += 1) {
+      if (haystack[i + j] !== needle[j]) {
+        matches = false;
+        break;
+      }
+    }
+    if (matches) return i;
+  }
+  return -1;
+}
+
+function stripCarSeatBrand(model: string, brand: string) {
+  const modelTokens = tokens(model);
+  const brandTokens = tokens(brand);
+  if (brandTokens.length && contiguousIndex(modelTokens, brandTokens) === 0) {
+    return modelTokens.slice(brandTokens.length).join(' ');
+  }
+  return modelTokens.join(' ');
+}
+
+function carSeatModelCandidates(seat: SeatRow) {
+  const withoutBrand = stripCarSeatBrand(seat.model, seat.brand)
+    .replace(CAR_SEAT_GENERIC_WORDS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const full = normalizeText(seat.model)
+    .replace(CAR_SEAT_GENERIC_WORDS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return unique([withoutBrand, full]).filter((candidate) => tokens(candidate).length > 0);
+}
+
+function carSeatPhraseMatches(textTokens: string[], phrase: string) {
+  const phraseTokens = tokens(phrase);
+  if (phraseTokens.length === 0) return false;
+  const index = contiguousIndex(textTokens, phraseTokens);
+  if (index < 0) return false;
+
+  const nextTextToken = textTokens[index + phraseTokens.length];
+  if (nextTextToken && CAR_SEAT_DISTINGUISHING_TOKEN_RE.test(nextTextToken)) return false;
+
+  return true;
+}
+
+function adapterTextMatchesCarSeat(text: string, seat: SeatRow): SeatMatch | null {
+  const textTokens = tokens(text);
+  if (!textTokens.length) return null;
+  const brandTokens = tokens(seat.brand);
+  if (brandTokens.length && contiguousIndex(textTokens, brandTokens) < 0) return null;
+
+  for (const candidate of carSeatModelCandidates(seat)) {
+    if (!carSeatPhraseMatches(textTokens, candidate)) continue;
+    return { seat, matchedModel: candidate };
+  }
+
+  return null;
+}
+
 function writeReports({
   totals,
   parsedAdapters,
   newCompatibilityRows,
+  existingGeneratedRowsWithoutModelMatch,
 }: {
   totals: Record<string, number>;
   parsedAdapters: Array<{ title: string; strollers: string[]; seatBrands: string[] }>;
@@ -127,11 +205,27 @@ function writeReports({
     adapterUrl: string | null;
     adapterPrice: number | null;
   }>;
+  existingGeneratedRowsWithoutModelMatch: Array<{
+    id: string;
+    stroller: string;
+    carSeat: string;
+    adapterTitle: string;
+  }>;
 }) {
   mkdirSync(resolve(process.cwd(), 'reports'), { recursive: true });
   writeFileSync(
     resolve(process.cwd(), REPORT_JSON),
-    `${JSON.stringify({ generatedAt: new Date().toISOString(), totals, parsedAdapters, newCompatibilityRows }, null, 2)}\n`,
+    `${JSON.stringify(
+      {
+        generatedAt: new Date().toISOString(),
+        totals,
+        parsedAdapters,
+        newCompatibilityRows,
+        existingGeneratedRowsWithoutModelMatch,
+      },
+      null,
+      2,
+    )}\n`,
   );
   const lines = [
     ['stroller', 'carSeat', 'adapterTitle', 'provider', 'adapterUrl', 'adapterPrice'].join(','),
@@ -170,7 +264,7 @@ async function main() {
       title: { contains: 'adapter', mode: 'insensitive' },
       enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
     },
-    select: { brand: true, title: true, imageUrl: true, affiliateUrl: true, price: true, provider: true },
+    select: { brand: true, title: true, description: true, imageUrl: true, affiliateUrl: true, price: true, provider: true },
   });
 
   const strollers: StrollerRow[] = await db.stroller.findMany({ select: { id: true, brand: true, model: true } });
@@ -178,12 +272,6 @@ async function main() {
     where: { seatType: 'INFANT' },
     select: { id: true, brand: true, model: true },
   });
-
-  const seatsByBrand = new Map<string, SeatRow[]>();
-  for (const s of seats) {
-    const k = canonicalBrand(s.brand).toLowerCase();
-    (seatsByBrand.get(k) ?? seatsByBrand.set(k, []).get(k)!).push(s);
-  }
 
   type Pair = { stroller: StrollerRow; seat: SeatRow; adapter: AdapterRow };
   const pairs: Pair[] = [];
@@ -194,31 +282,31 @@ async function main() {
 
   for (const a of adapters) {
     const title = a.title || '';
-    const aBrandCanon = canonicalBrand(a.brand).toLowerCase();
-    const ntitle = norm(title);
+    const adapterSeatText = [title, a.description].filter(Boolean).join(' ');
 
-    const strollerMatches = strollers.filter((st) => {
-      if (canonicalBrand(st.brand).toLowerCase() !== aBrandCanon) return false;
-      return modelVariants(st.model).some((m) => m.length >= 2 && ntitle.includes(m));
-    });
-    const seatBrands = seatBrandsInTitle(title, a.brand);
+    const strollerMatches: StrollerMatch[] = strollers
+      .map((stroller) => ({ stroller, match: adapterTitleMatchesStrollerModel(title, stroller.model, stroller.brand) }))
+      .filter(({ match }) => match.matched)
+      .map(({ stroller, match }) => ({ stroller, matchedModel: match.matchedModel ?? stroller.model }));
+    const seatMatches: SeatMatch[] = seats
+      .map((seat) => adapterTextMatchesCarSeat(adapterSeatText, seat))
+      .filter((match): match is SeatMatch => Boolean(match));
+    const seatBrands = unique(seatMatches.map(({ seat }) => canonicalBrand(seat.brand)));
 
     if (strollerMatches.length) adaptersWithStroller += 1;
-    if (seatBrands.length) adaptersWithSeatBrand += 1;
+    if (seatMatches.length) adaptersWithSeatBrand += 1;
     report.push({
       title,
-      strollers: strollerMatches.map((s) => `${s.brand} ${s.model}`),
+      strollers: strollerMatches.map(({ stroller, matchedModel }) => `${stroller.brand} ${stroller.model} [model: ${matchedModel}]`),
       seatBrands,
     });
 
-    for (const st of strollerMatches) {
-      for (const sb of seatBrands) {
-        for (const seat of seatsByBrand.get(canonicalBrand(sb).toLowerCase()) ?? []) {
-          const key = `${st.id}:::${seat.id}`;
-          if (seenPair.has(key)) continue;
-          seenPair.add(key);
-          pairs.push({ stroller: st, seat, adapter: a });
-        }
+    for (const { stroller } of strollerMatches) {
+      for (const { seat } of seatMatches) {
+        const key = `${stroller.id}:::${seat.id}`;
+        if (seenPair.has(key)) continue;
+        seenPair.add(key);
+        pairs.push({ stroller, seat, adapter: a });
       }
     }
   }
@@ -234,6 +322,28 @@ async function main() {
       : [];
   const existingSet = new Set(existing.map((e) => `${e.strollerId}:::${e.carSeatId}`));
   const toCreate = pairs.filter((p) => !existingSet.has(`${p.stroller.id}:::${p.seat.id}`));
+  const generatedCompatibilityRows: Array<{
+    id: string;
+    adapterType: string | null;
+    stroller: StrollerRow;
+    carSeat: SeatRow;
+  }> = await db.compatibility.findMany({
+    where: { notes: { startsWith: 'Inferred from the catalog adapter' } },
+    select: {
+      id: true,
+      adapterType: true,
+      stroller: { select: { id: true, brand: true, model: true } },
+      carSeat: { select: { id: true, brand: true, model: true } },
+    },
+  });
+  const existingGeneratedRowsWithoutModelMatch = generatedCompatibilityRows
+    .filter((row) => !adapterTitleMatchesStrollerModel(row.adapterType ?? '', row.stroller.model, row.stroller.brand).matched)
+    .map((row) => ({
+      id: row.id,
+      stroller: `${row.stroller.brand} ${row.stroller.model}`,
+      carSeat: `${row.carSeat.brand} ${row.carSeat.model}`,
+      adapterTitle: row.adapterType ?? '',
+    }));
   const newCompatibilityRows = toCreate.map((p) => ({
     stroller: `${p.stroller.brand} ${p.stroller.model}`,
     carSeat: `${p.seat.brand} ${p.seat.model}`,
@@ -251,11 +361,14 @@ async function main() {
     candidatePairs: pairs.length,
     newToWrite: toCreate.length,
     alreadyPresent: pairs.length - toCreate.length,
+    existingGeneratedRowsWithoutModelMatch: existingGeneratedRowsWithoutModelMatch.length,
+    generatedRowsToPrune: existingGeneratedRowsWithoutModelMatch.length,
   };
   writeReports({
     totals,
     parsedAdapters: report,
     newCompatibilityRows,
+    existingGeneratedRowsWithoutModelMatch,
   });
 
   console.log('── Scan catalog adapters → model-specific compatibility ──');
@@ -266,6 +379,7 @@ async function main() {
   console.log(
     `  candidate (stroller × seat) pairs: ${pairs.length}   new to write: ${toCreate.length}   already present: ${pairs.length - toCreate.length}\n`,
   );
+  console.log(`  existing generated rows without stroller-model match: ${existingGeneratedRowsWithoutModelMatch.length}`);
   console.log(`  reports: ${REPORT_JSON}, ${REPORT_CSV}\n`);
 
   console.log('  sample parse (adapter title → strollers | seat brands):');
@@ -283,10 +397,29 @@ async function main() {
       console.log(`        adapter: ${row.adapterTitle}`);
     });
   }
+  if (existingGeneratedRowsWithoutModelMatch.length) {
+    console.log('\n  existing generated rows whose adapter title does not mention the stroller model:');
+    existingGeneratedRowsWithoutModelMatch.slice(0, 50).forEach((row) => {
+      console.log(`    • ${row.stroller} × ${row.carSeat}`);
+      console.log(`        adapter: ${row.adapterTitle}`);
+    });
+  }
 
   if (!apply) {
     console.log('\n  (dry run — nothing changed. Review the parse above, then re-run with --apply.)');
     return;
+  }
+
+  let pruned = 0;
+  const idsToPrune = existingGeneratedRowsWithoutModelMatch.map((row) => row.id);
+  if (idsToPrune.length) {
+    const result = await db.compatibility.deleteMany({
+      where: {
+        id: { in: idsToPrune },
+        notes: { startsWith: 'Inferred from the catalog adapter' },
+      },
+    });
+    pruned = result.count ?? idsToPrune.length;
   }
 
   let written = 0;
@@ -309,7 +442,8 @@ async function main() {
     });
     written += 1;
   }
-  console.log(`\n  Created ${written} ADAPTER compatibility rows (existing rows untouched).`);
+  console.log(`\n  Pruned ${pruned} generated adapter rows without stroller-model matches.`);
+  console.log(`  Created ${written} ADAPTER compatibility rows.`);
 }
 
 main()

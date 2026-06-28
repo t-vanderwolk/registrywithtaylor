@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-28T01:44:47.041Z",
+  "generatedAt": "2026-06-28T02:45:46.980Z",
   "totals": {
-    "macroBabyRows": 280,
-    "attachedOffers": 139,
-    "trueNewProducts": 91,
-    "adapterReviewItems": 30,
+    "macroBabyRows": 318,
+    "attachedOffers": 157,
+    "trueNewProducts": 88,
+    "adapterReviewItems": 53,
     "manualReviewItems": 20,
     "skipped": 0,
-    "updated": 142,
+    "updated": 157,
     "targetAffiliateRows": 2379,
     "targetBabylistCacheRows": 9095,
     "targetCanonicalStrollers": 203,
-    "targetCanonicalCarSeats": 34
+    "targetCanonicalCarSeats": 60
   },
   "rows": [
     {
@@ -155,6 +155,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m04d001u3ld4xkq5r2si",
+      "title": "Baby Jogger City Tour 2 Car Seat Adapter for Baby Jogger City GO and Graco",
+      "brand": "Baby Jogger",
+      "model": "Baby Jogger City Tour 2 Car Seat Adapter for Baby Jogger City GO and Graco",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4kb5o00du3a8ummim93p1",
       "title": "Baby Jogger - City Tour 2 Double Stroller, Pitch Black",
       "brand": "Baby Jogger",
@@ -250,6 +264,20 @@
       "matchedTitle": "BOB Wayfinder",
       "reasons": [
         "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6lpzf001l3ld48cigybxh",
+      "title": "BOB - Wayfinder Universal Infant Car Seat Adapter",
+      "brand": "BOB",
+      "model": "BOB - Wayfinder Universal Infant Car Seat Adapter",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     },
     {
@@ -636,12 +664,12 @@
       "brand": "Bugaboo",
       "model": "Turtle Air Shield by Nuna",
       "productType": "infant car seat",
-      "action": "true-new",
-      "matchedSource": null,
-      "matchedId": null,
-      "matchedTitle": null,
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cmqx4qp4e00023835j1p6ghf9",
+      "matchedTitle": "Bugaboo Turtle Air Shield by Nuna",
       "reasons": [
-        "no conservative existing-product match"
+        "matched canonical-carseat"
       ]
     },
     {
@@ -701,6 +729,90 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6km3900163ld4ebqhbvud",
+      "title": "Cybex Aton G2 Infant Car Seat With Load Leg Base, Almond Beige",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6ketl000i3ld43cyk5u25",
+      "title": "Cybex Aton G2 Infant Car Seat with Load Leg Base, Moon Black",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kf35000l3ld40zo2n9lk",
+      "title": "Cybex Aton G2 Swivel Infant Car Seat With Load Leg Base, Almond Beige",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6ka1k000c3ld41nyhuvit",
+      "title": "Cybex - Aton G2 Swivel Infant Car Seat With Load Leg Base, Moon Black",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kaaw000f3ld4b5doxvmk",
+      "title": "Cybex - Aton G2 Swivel Infant Car Seat With Load Leg Base, Stone Grey",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kgyd000u3ld43hwj9twz",
+      "title": "Cybex - Aton G2 Swivel Infant Car Seat With Load Leg Base, Stormy Blue",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2846966",
+      "matchedTitle": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4k3c600bf3a8u3fi447ui",
       "title": "Cybex - Balios S Lux Stroller, Almond Beige",
       "brand": "Cybex",
@@ -752,6 +864,104 @@
       "matchedSource": "babylist-cache",
       "matchedId": "product_8981_2847009",
       "matchedTitle": "Cybex Balios S Lux Stroller in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kicy000x3ld4y2br408b",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Almond Beige",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6k99m00093ld4hazzo72g",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Moon Black",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kjww00103ld4lc1kh87y",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat, Ocean Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6k90j00063ld4uuxubvoj",
+      "title": "Cybex - Cloud G Pro Comfort Extend Infant Car Seat, Stone Grey",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kk6500133ld4y2yc10qm",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat, Stormy Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2732817",
+      "matchedTitle": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kfuv000r3ld460dsi44q",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat With Sensorsafe, City Grey",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_3316453",
+      "matchedTitle": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Off White",
+      "reasons": [
+        "matched babylist-cache"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6kfle000o3ld4xd9t9m74",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat With Sensorsafe, Off White",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_3316453",
+      "matchedTitle": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Off White",
       "reasons": [
         "matched babylist-cache"
       ]
@@ -1037,6 +1247,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6mbr3002x3ld4xvkjvwj5",
+      "title": "DFY - R1 Car Seat Adapters Black",
+      "brand": "DFY",
+      "model": "DFY - R1 Car Seat Adapters Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4l3l600mo3a8ulcal7fmv",
       "title": "Doona - 360 Protection, Compatible with Doona Car Seat & Stroller",
       "brand": "Doona",
@@ -1056,12 +1280,12 @@
       "brand": "Doona",
       "model": "Doona+",
       "productType": "infant car seat",
-      "action": "true-new",
-      "matchedSource": null,
-      "matchedId": null,
-      "matchedTitle": null,
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cmqx4qpq6000b383530wc6x04",
+      "matchedTitle": "Doona Doona+",
       "reasons": [
-        "no conservative existing-product match"
+        "matched canonical-carseat"
       ]
     },
     {
@@ -1247,6 +1471,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m59m002c3ld4u0q96cnf",
+      "title": "Metro 3 Car Seat Adapter, Nuna, Cybex, & Maxi-Cosi",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Car Seat Adapter, Nuna, Cybex, & Maxi-Cosi",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4jt3w00893a8uzxbxpq94",
       "title": "Graco - Merge Stroller, Swivel Wheel Baby Stroller with 360-Degree Rotating Wheels",
       "brand": "Graco",
@@ -1300,6 +1538,20 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m0y2001x3ld4uhbjvbro",
+      "title": "Inglesina - Quid³ Stroller Car Seat Adapter",
+      "brand": "Inglesina",
+      "model": "Inglesina - Quid³ Stroller Car Seat Adapter",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     },
     {
@@ -1821,6 +2073,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m34v00293ld45omeeoku",
+      "title": "Mima - Creo Car Seat Adaptor",
+      "brand": "Mima",
+      "model": "Mima - Creo Car Seat Adaptor",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4k6uf00ci3a8undpbwbsa",
       "title": "Mima - Creo Stroller Black Chassis & Mocha Cream Seat",
       "brand": "Mima",
@@ -1832,6 +2098,20 @@
       "matchedTitle": "Mima Creo",
       "reasons": [
         "matched canonical-stroller"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6md2u00303ld4bfofl1al",
+      "title": "Mima Miro Car Seat Adapter Set",
+      "brand": "Mima",
+      "model": "Mima Miro Car Seat Adapter Set",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     },
     {
@@ -1874,6 +2154,20 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m2iu00233ld4dia08bq1",
+      "title": "Mima - Xari Max Car Seat Adapter",
+      "brand": "Mima",
+      "model": "Mima - Xari Max Car Seat Adapter",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     },
     {
@@ -2400,12 +2694,12 @@
       "brand": "Orbit Baby",
       "model": "G5",
       "productType": "infant car seat",
-      "action": "true-new",
-      "matchedSource": null,
-      "matchedId": null,
-      "matchedTitle": null,
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cmqx4qqdv000l3835x5pi9onc",
+      "matchedTitle": "Orbit Baby G5",
       "reasons": [
-        "no conservative existing-product match"
+        "matched canonical-carseat"
       ]
     },
     {
@@ -2423,6 +2717,34 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m2ss00263ld4jk3l2wdv",
+      "title": "Agio by Peg Perego Primo Viaggio Car Seat Adapter for Z4 Strollers, Black",
+      "brand": "Peg Perego",
+      "model": "Agio by Peg Perego Primo Viaggio Car Seat Adapter for Z4 Strollers, Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6lmur001i3ld44f9rp47z",
+      "title": "Peg-Perego Agio - Ypsi/Z4 Double Adapter Upper & Lower Adapters",
+      "brand": "Peg Perego",
+      "model": "Peg-Perego Agio - Ypsi/Z4 Double Adapter Upper & Lower Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4kggv00fi3a8u595dwpdh",
       "title": "Peg-Perego - City Loop Chassis, Black",
       "brand": "Peg Perego",
@@ -2434,6 +2756,48 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m6xx002r3ld4jsgx1ort",
+      "title": "Peg-Perego - Duo Adapter for City Loop Stroller",
+      "brand": "Peg Perego",
+      "model": "Peg-Perego - Duo Adapter for City Loop Stroller",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m5s7002i3ld400ddpqbm",
+      "title": "Peg Perego - Foldable Car Seat Adapter for City Loop",
+      "brand": "Peg Perego",
+      "model": "Peg Perego - Foldable Car Seat Adapter for City Loop",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6k83b00003ld41yycon6j",
+      "title": "Peg-Perego - Primo Viaggio Nido Infant Car Seat Astral",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Nido",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "canonical-carseat",
+      "matchedId": "cmqx4qqif000n3835uubq8mpy",
+      "matchedTitle": "Peg Perego Primo Viaggio Nido",
+      "reasons": [
+        "matched canonical-carseat"
       ]
     },
     {
@@ -2546,6 +2910,20 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6k8h200033ld440c455o7",
+      "title": "Romer - Juni Infant Car Seat, Truffle",
+      "brand": "Romer",
+      "model": "Juni",
+      "productType": "infant car seat",
+      "action": "attached-offer",
+      "matchedSource": "babylist-cache",
+      "matchedId": "product_8981_2262751",
+      "matchedTitle": "Romer Juni Infant Car Seat with Versa Base in Peppercorn | Recycled",
+      "reasons": [
+        "matched babylist-cache"
       ]
     },
     {
@@ -2759,6 +3137,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6mfk600333ld4llcpha0o",
+      "title": "Silver Cross Cove 2 Universal Car Seat Adapters",
+      "brand": "Silver Cross",
+      "model": "Silver Cross Cove 2 Universal Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4kuzr00k03a8u8kafnp86",
       "title": "Silver Cross - Dune, Reef Universal Car Seat Adaptors",
       "brand": "Silver Cross",
@@ -2871,6 +3263,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m7q8002u3ld4khnl916y",
+      "title": "Silver Cross - Nia Universal Car Seat Adapters",
+      "brand": "Silver Cross",
+      "model": "Silver Cross - Nia Universal Car Seat Adapters",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4kg7e00ff3a8uop5k6eif",
       "title": "Stokke - YOYO Car Seat Adapters",
       "brand": "Stokke",
@@ -2896,6 +3302,90 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m61w002l3ld4dgxj58ku",
+      "title": "Thule - Spring Car Seat Adapter Chicco",
+      "brand": "Thule",
+      "model": "Thule - Spring Car Seat Adapter Chicco",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6l7hz00193ld4da0hnc92",
+      "title": "Thule - Spring Car Seat Adapter Maxi Cosi",
+      "brand": "Thule",
+      "model": "Thule - Spring Car Seat Adapter Maxi Cosi",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6lyr0001o3ld4ll770q0c",
+      "title": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "brand": "Thule",
+      "model": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6lml4001f3ld4ia1tvlyh",
+      "title": "Thule - Urban Glide 3 Double Car Seat Adapter For Maxi-Cosi Black",
+      "brand": "Thule",
+      "model": "Thule - Urban Glide 3 Double Car Seat Adapter For Maxi-Cosi Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m1zs00203ld4v3yg5xqz",
+      "title": "Thule - Urban Glide 3 Double Car Seat Adapter Universal Black",
+      "brand": "Thule",
+      "model": "Thule - Urban Glide 3 Double Car Seat Adapter Universal Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6lzv9001r3ld4exk42ilm",
+      "title": "Thule - Urban Glide 3 Single Car Seat Adapter For Maxi-Cosi Black",
+      "brand": "Thule",
+      "model": "Thule - Urban Glide 3 Single Car Seat Adapter For Maxi-Cosi Black",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     },
     {
@@ -3893,6 +4383,20 @@
       ]
     },
     {
+      "macroBabyId": "cmqx6m6mb002o3ld4xqscwxlx",
+      "title": "Wonderfold - W2 Car Seat Adapter Graco",
+      "brand": "WonderFold",
+      "model": "Wonderfold - W2 Car Seat Adapter Graco",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
       "macroBabyId": "cmqx4kch500e93a8ump8bt77d",
       "title": "WonderFold - W2 Luxe Double Stroller Wagon, Black",
       "brand": "WonderFold",
@@ -3932,6 +4436,34 @@
       "matchedTitle": null,
       "reasons": [
         "no conservative existing-product match"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6m5iz002f3ld4axngumss",
+      "title": "Wonderfold - W4 Series Car Seat Adapter Graco",
+      "brand": "WonderFold",
+      "model": "Wonderfold - W4 Series Car Seat Adapter Graco",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
+      ]
+    },
+    {
+      "macroBabyId": "cmqx6liuz001c3ld4krdhu97m",
+      "title": "Wonderfold - W4 Series Car Seat Adapter (Opposite Bench)",
+      "brand": "WonderFold",
+      "model": "Wonderfold - W4 Series Car Seat Adapter (Opposite Bench)",
+      "productType": "stroller adapter",
+      "action": "adapter-review",
+      "matchedSource": null,
+      "matchedId": null,
+      "matchedTitle": null,
+      "reasons": [
+        "adapter product retained; compatibility rows are not auto-applied"
       ]
     }
   ]

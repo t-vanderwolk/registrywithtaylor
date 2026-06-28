@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T01:42:22.334Z",
+  "generatedAt": "2026-06-28T02:39:10.607Z",
   "source": "https://www.macrobaby.com/collections/infant-car-seats?_j=taylormadebabyco.com, https://www.macrobaby.com/collections/stroller?_j=taylormadebabyco.com, https://www.macrobaby.com/collections/car-seat-accessories?_j=taylormadebabyco.com",
   "affiliateParam": "?_j=taylormadebabyco.com",
   "totals": {
@@ -15,12 +15,12 @@
     "skippedBundles": 63,
     "skippedNurseryPackages": 0,
     "skippedNotEligible": 14,
-    "matchedExistingProducts": 163,
-    "newlyCreatedProducts": 117,
-    "manualReviewItems": 139,
-    "duplicateRiskItems": 279,
+    "matchedExistingProducts": 185,
+    "newlyCreatedProducts": 133,
+    "manualReviewItems": 101,
+    "duplicateRiskItems": 283,
     "adaptersParsed": 53,
-    "adaptersFlaggedAmbiguous": 23
+    "adaptersFlaggedAmbiguous": 0
   },
   "byCollection": {
     "infant-car-seats": 94,
@@ -43,14 +43,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA RX",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -71,14 +71,14 @@
       "action": "match-existing",
       "matched": "CarSeat:CYBEX Cloud T",
       "reasons": [
-        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Car (Light Blue)",
-        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Leaf Green",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Mirage Grey",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Cozy Beige",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Sepia Black",
-        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey"
+        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey",
+        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Off White",
+        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Car (Light Blue)"
       ],
       "collections": [
         "infant-car-seats"
@@ -99,14 +99,14 @@
       "action": "match-existing",
       "matched": "CarSeat:CYBEX Cloud T",
       "reasons": [
-        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Car (Light Blue)",
-        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Leaf Green",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Mirage Grey",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Cozy Beige",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Sepia Black",
-        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey"
+        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey",
+        "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Off White",
+        "duplicate risk: Cybex Cybex Cloud T SensorSafe Infant Car Seat With Load Leg Base, 2024, Car (Light Blue)"
       ],
       "collections": [
         "infant-car-seats"
@@ -127,14 +127,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -155,14 +155,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats"
@@ -183,14 +183,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -233,11 +233,11 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Peri 180",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Onyx Heritage",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
         "duplicate risk: Maxi-Cosi Peri 180"
       ],
       "collections": [
@@ -283,11 +283,11 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Peri 180",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Onyx Heritage",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
         "duplicate risk: Maxi-Cosi Peri 180"
       ],
       "collections": [
@@ -396,8 +396,8 @@
       "price": 649,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Bugaboo Turtle Air Shield by Nuna",
       "reasons": [],
       "collections": [
         "infant-car-seats"
@@ -418,14 +418,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -469,14 +469,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats",
@@ -562,14 +562,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -676,12 +676,12 @@
       "price": 359.99,
       "salePrice": 359.99,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Peg Perego Primo Viaggio Nido",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Peg Perego Peg Perego PEG Primo Viaggio Nido in True Black",
-        "duplicate risk: Peg Perego Peg Perego PEG Primo Viaggio Nido in Mon Amour"
+        "duplicate risk: Peg Perego Peg Perego PEG Primo Viaggio Nido in Mon Amour",
+        "duplicate risk: Peg Perego Primo Viaggio Nido"
       ],
       "collections": [
         "infant-car-seats"
@@ -699,13 +699,13 @@
       "price": 499.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Romer Juni",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Romer Romer Juni Infant Car Seat with Versa Base in Pearl | Recycled",
         "duplicate risk: Romer Romer Juni Infant Car Seat with Versa Base in Peppercorn | Recycled",
-        "duplicate risk: Romer Romer Juni Infant Car Seat with Versa Base in Truffle | Recycled"
+        "duplicate risk: Romer Romer Juni Infant Car Seat with Versa Base in Truffle | Recycled",
+        "duplicate risk: Romer Juni"
       ],
       "collections": [
         "infant-car-seats"
@@ -726,14 +726,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -751,16 +751,16 @@
       "price": 599.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud G Pro Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue"
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
+        "duplicate risk: Cybex Cloud G Pro Comfort Extend"
       ],
       "collections": [
         "infant-car-seats"
@@ -778,16 +778,16 @@
       "price": 599.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud G Pro Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue"
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
+        "duplicate risk: Cybex Cloud G Pro Comfort Extend"
       ],
       "collections": [
         "infant-car-seats"
@@ -808,14 +808,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats"
@@ -836,8 +836,8 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Mico Pro",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Mico Pro"
       ],
       "collections": [
@@ -856,18 +856,17 @@
       "price": 549.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -885,18 +884,17 @@
       "price": 549.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -962,14 +960,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1014,14 +1012,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats",
@@ -1043,14 +1041,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats",
@@ -1096,8 +1094,8 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Mico Pro",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Mico Pro"
       ],
       "collections": [
@@ -1119,8 +1117,8 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Mico Pro",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Mico Pro"
       ],
       "collections": [
@@ -1163,14 +1161,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats",
@@ -1213,14 +1211,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1241,14 +1239,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1269,14 +1267,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1297,14 +1295,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -1325,14 +1323,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA RX",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1353,8 +1351,8 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Mico Pro",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Mico Pro"
       ],
       "collections": [
@@ -1373,9 +1371,11 @@
       "price": 399.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "CarSeat:Maxi-Cosi Ambra",
+      "reasons": [
+        "duplicate risk: Maxi-Cosi Ambra"
+      ],
       "collections": [
         "infant-car-seats"
       ]
@@ -1392,9 +1392,11 @@
       "price": 399.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "CarSeat:Maxi-Cosi Ambra",
+      "reasons": [
+        "duplicate risk: Maxi-Cosi Ambra"
+      ],
       "collections": [
         "infant-car-seats"
       ]
@@ -1411,9 +1413,11 @@
       "price": 399.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "CarSeat:Maxi-Cosi Ambra",
+      "reasons": [
+        "duplicate risk: Maxi-Cosi Ambra"
+      ],
       "collections": [
         "infant-car-seats"
       ]
@@ -1430,18 +1434,17 @@
       "price": 399.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -1459,18 +1462,17 @@
       "price": 549.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -1488,8 +1490,8 @@
       "price": 299.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Chicco KeyFit Max Zip ClearTex",
       "reasons": [],
       "collections": [
         "infant-car-seats"
@@ -1507,10 +1509,9 @@
       "price": 649.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud T Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Leaf Green",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Mirage Grey",
@@ -1536,10 +1537,9 @@
       "price": 649.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud T Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Platinum White",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Leaf Green",
         "duplicate risk: Cybex Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Mirage Grey",
@@ -1568,14 +1568,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1596,14 +1596,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1624,14 +1624,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire rx",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1649,18 +1649,17 @@
       "price": 549.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -1705,8 +1704,8 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Mico Pro",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Mico Pro Baby Infant Car Seat, 2025, Sea Drift",
         "duplicate risk: Maxi-Cosi Mico Pro"
       ],
       "collections": [
@@ -1728,11 +1727,11 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Peri 180",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Onyx Heritage",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
         "duplicate risk: Maxi-Cosi Peri 180"
       ],
       "collections": [
@@ -1754,14 +1753,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire rx",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1779,16 +1778,16 @@
       "price": 599.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud G Pro Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue"
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
+        "duplicate risk: Cybex Cloud G Pro Comfort Extend"
       ],
       "collections": [
         "infant-car-seats"
@@ -1809,14 +1808,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1837,14 +1836,14 @@
       "action": "match-existing",
       "matched": "babylist_impact:Doona Doona Infant Car Seat & Stroller",
       "reasons": [
-        "duplicate risk: Doona DOONA Infant Car Seat Stroller Sun and Insect 360° Protection",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Beige",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Sahara Sand",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Desert Green",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Deep Blue",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2025, Nitro black",
-        "duplicate risk: Doona Doona Infant Car Seat & Stroller Combo, 2023, Nitro black"
+        "duplicate risk: Doona \"Doona Footmuff for Infant Car Seat & Stroller in Black Size 16.5\"\" x 7.1\"\" x 36.6\"\" | 100% Ps\"",
+        "duplicate risk: Doona \"Doona Essentials Tote Bag for Infant Car Seat & Stroller in Essentials Bag For Infant Car Seat/Stroller Size 15.4\"\" x 1.6\"\" x 8.9\"\"\"",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Blush Pink",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Nitro Black",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Desert Green",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Ocean Blue",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Sahara Sand",
+        "duplicate risk: Doona Doona Infant Car Seat & Stroller in Slate Green"
       ],
       "collections": [
         "infant-car-seats"
@@ -1865,14 +1864,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire rx",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1893,14 +1892,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA Aire rx",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -1921,14 +1920,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -1946,16 +1945,16 @@
       "price": 599.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud G Pro Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue"
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
+        "duplicate risk: Cybex Cloud G Pro Comfort Extend"
       ],
       "collections": [
         "infant-car-seats"
@@ -1973,16 +1972,16 @@
       "price": 599.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Cloud G Pro Comfort Extend",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
         "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
-        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue"
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+        "duplicate risk: Cybex Cybex Cloud G Pro Comfort Extend Infant Car Seat, 2026, Almond Beige",
+        "duplicate risk: Cybex Cloud G Pro Comfort Extend"
       ],
       "collections": [
         "infant-car-seats"
@@ -2003,14 +2002,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -2031,14 +2030,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -2059,14 +2058,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Aria V2",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Jake",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Greyson",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Savannah",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Callum",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Evelyn",
         "duplicate risk: UPPAbaby UPPAbaby Aria V2 in Ada",
-        "duplicate risk: UPPAbaby Aria V2"
+        "duplicate risk: UPPAbaby UPPAbaby Aria V2 Infant Car Seat, 2025, Jake (Charcoal/Black Leather)",
+        "duplicate risk: UPPAbaby Aria"
       ],
       "collections": [
         "infant-car-seats"
@@ -2087,14 +2086,14 @@
       "action": "match-existing",
       "matched": "CarSeat:Nuna PIPA RX",
       "reasons": [
-        "duplicate risk: Nuna Nuna PIPA rx Infant Car Seat, 2023, Caviar",
-        "duplicate risk: Nuna Nuna PIPA Infant Car Seat, 2022, Granite",
-        "duplicate risk: Nuna Nuna Pipa Aire RX Infant Car Seat, 2024, Curated",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Granite",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Cedar",
-        "duplicate risk: Nuna Nuna PIPA RX Infant Car Seat With Relx Base - Caviar / Chocolate",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller with PIPA RX Infant Car Seat with RELX Base - Caviar"
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
       ],
       "collections": [
         "infant-car-seats"
@@ -2137,14 +2136,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -2165,11 +2164,11 @@
       "action": "match-existing",
       "matched": "CarSeat:Maxi-Cosi Peri 180",
       "reasons": [
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
-        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage",
         "duplicate risk: Maxi-Cosi Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Onyx Heritage",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+        "duplicate risk: Maxi-Cosi Maxi-Cosi Peri 180 Rotating Infant Car Seat, 2024, Natural Heritage",
         "duplicate risk: Maxi-Cosi Peri 180"
       ],
       "collections": [
@@ -2188,18 +2187,17 @@
       "price": 399.95,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Cybex Aton G2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
         "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
-        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue"
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black",
+        "duplicate risk: Cybex Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base, 2025, Moon Black"
       ],
       "collections": [
         "infant-car-seats"
@@ -2268,14 +2266,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -2293,8 +2291,8 @@
       "price": 480.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "CarSeat:Orbit Baby G5",
       "reasons": [],
       "collections": [
         "infant-car-seats"
@@ -2360,14 +2358,14 @@
       "action": "match-existing",
       "matched": "CarSeat:UPPAbaby Mesa V3",
       "reasons": [
+        "duplicate risk: UPPAbaby UPPAbaby MESA Infant Car Seat Rain Shield",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Evelyn",
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 in Ada",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Declan (Oat Melange), 2025",
         "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa Infant Car Seat Cozy Ganoosh, Jake Black",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange), 2025",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Callum (Stone Blue)",
-        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Evelyn (Meadow Green)"
+        "duplicate risk: UPPAbaby UPPAbaby Mesa V3 Infant Car Seat, 2025, Declan (Oat Melange)"
       ],
       "collections": [
         "infant-car-seats"
@@ -2433,14 +2431,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -2462,14 +2460,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
         "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
         "duplicate risk: Nuna Nuna TRVL dubl in Granite",
         "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
         "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
         "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate"
+        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna TRVL lx in Granite",
+        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -2530,14 +2528,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly Complete Stroller in Midnight Black Size 17.72\"\" x 9.06\"\" x 21.26\"\"\"",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly Stroller, 2024, Black, Midnight Black, Midnight Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly Stroller, 2024, Black, Midnight Black, Midnight Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black"
       ],
       "collections": [
         "stroller"
@@ -2583,14 +2581,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -2633,14 +2631,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna MIXX next",
       "reasons": [
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Granite",
+        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
         "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, Caviar, 2023",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Edgehill",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2022, Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Biscotti"
+        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -2889,13 +2887,13 @@
       "action": "match-existing",
       "matched": "Stroller:Romer Tura",
       "reasons": [
-        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
-        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
-        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
-        "duplicate risk: Romer Romer Tura Stroller, 2024, Pearl",
         "duplicate risk: Romer Romer Tura Stroller in Pearl",
         "duplicate risk: Romer Romer Tura Stroller in Peppercorn",
         "duplicate risk: Romer Romer Tura Stroller in Truffle",
+        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
+        "duplicate risk: Romer Romer Tura Stroller, 2024, Pearl",
+        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
+        "duplicate risk: Romer Romer Tura Stroller, 2024, Peppercorn",
         "duplicate risk: Romer Tura"
       ],
       "collections": [
@@ -3024,9 +3022,9 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Stroller, 2021, Black, Black, Black",
         "duplicate risk: Mima Mima Xari Stroller, 2022, Black, Black/White, Camel",
+        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Black, Stone White",
         "duplicate risk: Mima Xari",
         "duplicate risk: Mima Xari Sport"
@@ -3072,14 +3070,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly 2",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Desert Taupe, Desert Taupe, 2025, Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2024, Black, Heritage Black, Heritage Black"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe"
       ],
       "collections": [
         "stroller"
@@ -3256,9 +3254,9 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Stroller, 2021, Black, Black, Black",
         "duplicate risk: Mima Mima Xari Stroller, 2022, Black, Black/White, Camel",
+        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Black, Stone White",
         "duplicate risk: Mima Xari",
         "duplicate risk: Mima Xari Sport"
@@ -3324,14 +3322,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -4009,14 +4007,14 @@
       "action": "match-existing",
       "matched": "Stroller:Baby Jogger City Mini Air",
       "reasons": [
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini ZIP Car Seat Adapter Single - Graco Click Connect",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2/City Mini GT2 City GO/Graco Car Seat Adapter - Jet - Black",
-        "duplicate risk: Baby Jogger Baby Jogger Maxi-Cosi Car Seat Adapter, City Mini 2, City Mini GT2 - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 / Mini GT 2 Cybex / Clek Car Seat Adapter - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 Car Seat Adapter For Britax - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 / Mini GT2 Chicco / Peg Perego Car Seat Adapter - Jet - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER Car Seat Adapter For City Mini 2 and GT2 City Go/Graco - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 Double Stroller"
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Sierra Sand",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Stroller in Frosted Ivory",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Stroller in Rich Black",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT2 Double Stroller in Jet",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Deep Sea Blue",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Frosted Ivory",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Rich Black",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Lightweight Stroller, 2024, Rich Black"
       ],
       "collections": [
         "stroller"
@@ -4087,10 +4085,10 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
-        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
         "duplicate risk: Joolz Joolz Hub² Stroller in Space Black",
         "duplicate risk: Joolz Joolz Hub² Stroller in Forest Green",
+        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
+        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
         "duplicate risk: Joolz Hub"
       ],
       "collections": [
@@ -4132,10 +4130,10 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
-        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
         "duplicate risk: Joolz Joolz Hub² Stroller in Space Black",
         "duplicate risk: Joolz Joolz Hub² Stroller in Forest Green",
+        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
+        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
         "duplicate risk: Joolz Hub"
       ],
       "collections": [
@@ -4292,14 +4290,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -4320,14 +4318,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -4431,10 +4429,10 @@
       "action": "match-existing",
       "matched": "Stroller:Silver Cross Jet Double",
       "reasons": [
-        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, 2024, Black",
-        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, Black, unknown",
         "duplicate risk: Silver Cross Silver Cross Jet Double Stroller",
         "duplicate risk: Silver Cross Silver Cross Jet Double Stroller and Accessory Bundle in Black",
+        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, 2024, Black",
+        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, Black, unknown",
         "duplicate risk: Silver Cross Jet Double"
       ],
       "collections": [
@@ -4456,8 +4454,8 @@
       "action": "match-existing",
       "matched": "Stroller:Graco Merge",
       "reasons": [
-        "duplicate risk: Graco Graco Premier Modes Merge Stroller, 2025, Midtown",
         "duplicate risk: Graco Graco Merge Stroller in Sable",
+        "duplicate risk: Graco Graco Premier Modes Merge Stroller, 2025, Midtown",
         "duplicate risk: Graco Merge"
       ],
       "collections": [
@@ -4551,10 +4549,10 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Sierra Sand",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Deep Sea Blue",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Frosted Ivory",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Rich Black",
-        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Sierra Sand",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 Stroller, 2025, Frosted Ivory",
         "duplicate risk: Baby Jogger City Mini GT3 All-Terrain"
       ],
@@ -4670,10 +4668,10 @@
       "action": "match-existing",
       "matched": "Stroller:Silver Cross Jet Double",
       "reasons": [
-        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, 2024, Black",
-        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, Black, unknown",
         "duplicate risk: Silver Cross Silver Cross Jet Double Stroller",
         "duplicate risk: Silver Cross Silver Cross Jet Double Stroller and Accessory Bundle in Black",
+        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, 2024, Black",
+        "duplicate risk: Silver Cross Silver Cross Jet Double Travel Stroller, Black, unknown",
         "duplicate risk: Silver Cross Jet Double"
       ],
       "collections": [
@@ -4739,8 +4737,8 @@
       "action": "match-existing",
       "matched": "Stroller:Britax Grove Modular",
       "reasons": [
-        "duplicate risk: Britax Britax Grove Modular Stroller, 2023, Pindot Onyx",
         "duplicate risk: Britax Britax Grove Modular Stroller in Pindot Stone",
+        "duplicate risk: Britax Britax Grove Modular Stroller, 2023, Pindot Onyx",
         "duplicate risk: Britax Grove Modular"
       ],
       "collections": [
@@ -5011,12 +5009,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -5123,14 +5121,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly Complete Stroller in Midnight Black Size 17.72\"\" x 9.06\"\" x 21.26\"\"\"",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly Stroller, 2024, Black, Midnight Black, Midnight Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly Stroller, 2024, Black, Midnight Black, Midnight Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black"
       ],
       "collections": [
         "stroller"
@@ -5151,14 +5149,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -5245,9 +5243,9 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Stroller, 2021, Black, Black, Black",
         "duplicate risk: Mima Mima Xari Stroller, 2022, Black, Black/White, Camel",
+        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Black, Stone White",
         "duplicate risk: Mima Xari",
         "duplicate risk: Mima Xari Sport"
@@ -5271,14 +5269,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna TRVL lx",
       "reasons": [
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
         "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
         "duplicate risk: Nuna Nuna TRVL dubl in Granite",
         "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
         "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
         "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate"
+        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna TRVL lx in Granite",
+        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -5321,12 +5319,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -6422,11 +6420,11 @@
       "matched": "Stroller:Nuna TRIV next",
       "reasons": [
         "duplicate risk: Nuna Nuna TRIV LX Stroller",
-        "duplicate risk: Nuna Nuna TRIV Next Stroller, 2025, Graphene/BMW",
-        "duplicate risk: Nuna Nuna TRIV next in Biscotti",
-        "duplicate risk: Nuna Nuna TRIV next in Caviar/Cognac",
-        "duplicate risk: Nuna Nuna TRIV next in Thistle",
         "duplicate risk: Nuna Nuna x BMW TRIV next Stroller in Graphene",
+        "duplicate risk: Nuna Nuna TRIV next in Caviar/Cognac",
+        "duplicate risk: Nuna Nuna TRIV next in Biscotti",
+        "duplicate risk: Nuna Nuna TRIV next in Thistle",
+        "duplicate risk: Nuna Nuna TRIV Next Stroller, 2025, Graphene/BMW",
         "duplicate risk: Nuna TRIV LX",
         "duplicate risk: Nuna TRIV next"
       ],
@@ -7081,14 +7079,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -7196,14 +7194,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Mios",
       "reasons": [
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, Matte Black, Sepia Black, 2024",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
         "duplicate risk: Cybex Cybex MIOS Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Sepia Black"
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -7327,12 +7325,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -7522,24 +7520,24 @@
       "price": 59.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Spring"
+        ],
         "infantSeatBrands": [
           "Cybex",
           "Maxi-Cosi",
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -7660,14 +7658,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly 2",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Desert Taupe, Desert Taupe, 2025, Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2024, Black, Heritage Black, Heritage Black"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe"
       ],
       "collections": [
         "stroller"
@@ -7801,9 +7799,9 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Stroller, 2021, Black, Black, Black",
         "duplicate risk: Mima Mima Xari Stroller, 2022, Black, Black/White, Camel",
+        "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Snow White, Sandy Beige",
         "duplicate risk: Mima Mima Xari Max Stroller, 2023, Black, Black, Stone White",
         "duplicate risk: Mima Xari",
         "duplicate risk: Mima Xari Sport"
@@ -7827,14 +7825,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Mios",
       "reasons": [
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, Matte Black, Sepia Black, 2024",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
         "duplicate risk: Cybex Cybex MIOS Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Sepia Black"
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -7903,14 +7901,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Mios",
       "reasons": [
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, Matte Black, Sepia Black, 2024",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Rosegold, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
         "duplicate risk: Cybex Cybex MIOS Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
         "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Chrome/Black, Sepia Black"
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Sepia Black",
+        "duplicate risk: Cybex Cybex Mios3 Stroller, 2024, Matte Black, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -7959,27 +7957,6 @@
       ]
     },
     {
-      "externalId": "7584789626939",
-      "title": "Nuna TRVL LX + PIPA urbn Travel System, Caviar/Chocolate",
-      "brand": "Nuna",
-      "model": "",
-      "kind": "",
-      "productType": "",
-      "strollerCategory": null,
-      "url": "https://www.macrobaby.com/products/nuna-trvl-lx-pipa-urbn-travel-system-caviar-chocolate?_j=taylormadebabyco.com",
-      "price": null,
-      "salePrice": null,
-      "availability": "",
-      "action": "skip",
-      "matched": null,
-      "reasons": [
-        "Matched exclusion in \"Nuna TRVL LX + PIPA urbn Travel System, Caviar/Chocolate\""
-      ],
-      "collections": [
-        "stroller"
-      ]
-    },
-    {
       "externalId": "7521155645499",
       "title": "Maxi-Cosi - Oxford Cabin Lightweight Travel Stroller, Truffle",
       "brand": "Maxi-Cosi",
@@ -7996,6 +7973,27 @@
       "reasons": [
         "duplicate risk: Maxi-Cosi Maxi-Cosi Oxford Cabin Travel Stroller in Sea Shadow",
         "duplicate risk: Maxi-Cosi Oxford Cabin Travel"
+      ],
+      "collections": [
+        "stroller"
+      ]
+    },
+    {
+      "externalId": "7584789626939",
+      "title": "Nuna TRVL LX + PIPA urbn Travel System, Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
+      "url": "https://www.macrobaby.com/products/nuna-trvl-lx-pipa-urbn-travel-system-caviar-chocolate?_j=taylormadebabyco.com",
+      "price": null,
+      "salePrice": null,
+      "availability": "",
+      "action": "skip",
+      "matched": null,
+      "reasons": [
+        "Matched exclusion in \"Nuna TRVL LX + PIPA urbn Travel System, Caviar/Chocolate\""
       ],
       "collections": [
         "stroller"
@@ -8037,14 +8035,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -8469,14 +8467,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -8785,14 +8783,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Coya",
       "reasons": [
+        "duplicate risk: Cybex Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+        "duplicate risk: Cybex Cybex Coya Stroller in Matte Black/Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, We The Best x DJ Khaled",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Matte Black, Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold"
+        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -9034,14 +9032,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -9126,14 +9124,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -9332,14 +9330,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
         "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
         "duplicate risk: Nuna Nuna TRVL dubl in Granite",
         "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
         "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
         "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate"
+        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna TRVL lx in Granite",
+        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -9516,14 +9514,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly 2",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Desert Taupe, Desert Taupe, 2025, Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2024, Black, Heritage Black, Heritage Black"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe"
       ],
       "collections": [
         "stroller"
@@ -9585,14 +9583,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Thule Thule Urban Glide/Glide Car Seat Adapter Universal",
-        "duplicate risk: Thule THULE Urban Glide / Glide Car Seat Adapter for Maxi Cosi",
-        "duplicate risk: Thule THULE Urban Glide/Glide Car Seat Adapter for Chicco",
-        "duplicate risk: Thule Thule Urban Glide 3 Double Stroller, 2025, Black, Magnetic Harness",
-        "duplicate risk: Thule Thule Urban Glide 3 Double Stroller, Black, 2024, Click In Buckle",
-        "duplicate risk: Thule Thule Urban Glide 3 Double Stroller, 2025, Black, Magnetic Harness",
-        "duplicate risk: Thule Thule Urban Glide 3 Double Stroller, 2025, Black, Magnetic Harness",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Black Size 34.6\"\" x 22.8\"\" x 12.2\"\"\""
+        "duplicate risk: Thule \"Thule Urban Glide 3 Double in Black Size 34.6\"\" x 31.1\"\" x 13.4\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 3 in Black Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 3 in Mid Blue Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 3 in Black Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 3 in Tinted Taupe Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 3 in Dark Slate Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 4-wheel in Black Size 34.6\"\" x 22.8\"\" x 11\"\"\"",
+        "duplicate risk: Thule \"Thule Urban Glide 4-wheel in Soft Beige Size 34.6\"\" x 22.8\"\" x 11\"\"\""
       ],
       "collections": [
         "stroller"
@@ -9912,14 +9910,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna MIXX next",
       "reasons": [
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Granite",
+        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
         "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, Caviar, 2023",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Edgehill",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2022, Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Biscotti"
+        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -10280,24 +10278,25 @@
       "price": 99.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "WonderFold",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "WonderFold W2",
+          "WonderFold W4"
+        ],
         "infantSeatBrands": [
           "Cybex",
           "Maxi-Cosi",
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -10669,14 +10668,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -10697,14 +10696,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -10725,14 +10724,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -11418,24 +11417,24 @@
       "price": 64.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Urban Glide"
+        ],
         "infantSeatBrands": [
           "Cybex",
           "Maxi-Cosi",
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -11513,24 +11512,25 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Peg Perego",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Peg Perego YPSI",
+          "Peg Perego Z4"
+        ],
         "infantSeatBrands": [
           "Peg Perego"
         ],
         "infantSeatModels": [
           "Primo Viaggio"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -12251,14 +12251,14 @@
       "action": "match-existing",
       "matched": "Stroller:Bugaboo Butterfly 2",
       "reasons": [
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Forest Green Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Car Seat Adapters in Black",
+        "duplicate risk: Bugaboo \"Bugaboo Butterfly 2 Complete Stroller in Heritage Black Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Tray Adapter in Black",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2023, Black, Desert Taupe, Desert Taupe",
         "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2026, Heritage Black, Heritage Black, Heritage Blak",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Heritage Black, Heritage Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2025, Black, Deep Indigo, Deep Indigo",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Desert Taupe, Desert Taupe, 2025, Black",
-        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, 2024, Black, Heritage Black, Heritage Black"
+        "duplicate risk: Bugaboo Bugaboo Butterfly 2 Stroller, Black, Desert Taupe, Desert Taupe"
       ],
       "collections": [
         "stroller"
@@ -12571,12 +12571,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -12683,14 +12683,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -12774,14 +12774,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -12844,14 +12844,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Coya",
       "reasons": [
+        "duplicate risk: Cybex Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+        "duplicate risk: Cybex Cybex Coya Stroller in Matte Black/Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, We The Best x DJ Khaled",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Matte Black, Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold"
+        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -12911,17 +12911,17 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "BOB",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "BOB Wayfinder"
+        ],
         "infantSeatBrands": [
           "Britax",
           "Cybex",
@@ -12939,7 +12939,7 @@
           "Pipa Lite",
           "Willow"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -13146,14 +13146,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna TRVL lx",
       "reasons": [
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
         "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
         "duplicate risk: Nuna Nuna TRVL dubl in Granite",
         "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
         "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
         "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate"
+        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna TRVL lx in Granite",
+        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -13217,9 +13217,9 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
+        "duplicate risk: Baby Jogger \"Baby Jogger Summit X3 Double Jogging Stroller in Midnight Black Size 53.15\"\" x 32.48\"\" x 40.55\"\"\"",
         "duplicate risk: Baby Jogger Baby Jogger Summit X3 Double Stroller, 2023, Midnight Black",
         "duplicate risk: Baby Jogger Baby Jogger Summit X3 Double Jogging Stroller - Black/Gray",
-        "duplicate risk: Baby Jogger \"Baby Jogger Summit X3 Double Jogging Stroller in Midnight Black Size 53.15\"\" x 32.48\"\" x 40.55\"\"\"",
         "duplicate risk: Baby Jogger Summit X3",
         "duplicate risk: Baby Jogger Summit X3 Double Jogging"
       ],
@@ -13306,12 +13306,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -13418,14 +13418,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna TRVL lx",
       "reasons": [
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot",
         "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
         "duplicate risk: Nuna Nuna TRVL dubl in Granite",
         "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
         "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
         "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate"
+        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna TRVL lx in Granite",
+        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -13468,10 +13468,10 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
-        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
         "duplicate risk: Joolz Joolz Hub² Stroller in Space Black",
         "duplicate risk: Joolz Joolz Hub² Stroller in Forest Green",
+        "duplicate risk: Joolz Joolz Hub² Stroller in Sandy Taupe",
+        "duplicate risk: Joolz Joolz Hub2 Compact Stroller, 2024, Sandy Taupe",
         "duplicate risk: Joolz Hub"
       ],
       "collections": [
@@ -13602,12 +13602,12 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
-        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna Nuna BMW x SWIV Stroller in Umber",
-        "duplicate risk: Nuna Nuna SWIV in Biscotti",
-        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna SWIV in Cedar",
         "duplicate risk: Nuna Nuna SWIV in Granite",
+        "duplicate risk: Nuna Nuna SWIV in Biscotti",
+        "duplicate risk: Nuna Nuna SWIV in Cedar",
+        "duplicate risk: Nuna Nuna SWIV in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna SWIV Stroller, Droplet Dot, 2024",
         "duplicate risk: Nuna SWIV",
         "duplicate risk: Nuna BMW x SWIV"
       ],
@@ -13693,14 +13693,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna MIXX next",
       "reasons": [
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Granite",
+        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
         "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, Caviar, 2023",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Edgehill",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2022, Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Biscotti"
+        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -14544,14 +14544,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Coya",
       "reasons": [
+        "duplicate risk: Cybex Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+        "duplicate risk: Cybex Cybex Coya Stroller in Matte Black/Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, We The Best x DJ Khaled",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Matte Black, Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold"
+        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -14724,14 +14724,14 @@
       "action": "match-existing",
       "matched": "Stroller:Baby Jogger City Mini Air",
       "reasons": [
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini ZIP Car Seat Adapter Single - Graco Click Connect",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2/City Mini GT2 City GO/Graco Car Seat Adapter - Jet - Black",
-        "duplicate risk: Baby Jogger Baby Jogger Maxi-Cosi Car Seat Adapter, City Mini 2, City Mini GT2 - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 / Mini GT 2 Cybex / Clek Car Seat Adapter - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 Car Seat Adapter For Britax - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 / Mini GT2 Chicco / Peg Perego Car Seat Adapter - Jet - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER Car Seat Adapter For City Mini 2 and GT2 City Go/Graco - Black",
-        "duplicate risk: Baby Jogger BABY JOGGER City Mini 2 Double Stroller"
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Sierra Sand",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Stroller in Frosted Ivory",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Stroller in Rich Black",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT2 Double Stroller in Jet",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Deep Sea Blue",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Frosted Ivory",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Rich Black",
+        "duplicate risk: Baby Jogger Baby Jogger City Mini Air Lightweight Stroller, 2024, Rich Black"
       ],
       "collections": [
         "stroller"
@@ -14980,11 +14980,11 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna TAVO next",
       "reasons": [
-        "duplicate risk: Nuna Nuna TAVO Next Stroller - Granite",
-        "duplicate risk: Nuna Nuna TAVO Next Stroller - Caviar",
         "duplicate risk: Nuna \"Nuna TAVO next Stroller in Caviar/Cognac Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
         "duplicate risk: Nuna \"Nuna TAVO next Stroller in Granite Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
         "duplicate risk: Nuna \"Nuna TAVO next Stroller in Pine Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
+        "duplicate risk: Nuna Nuna TAVO Next Stroller - Granite",
+        "duplicate risk: Nuna Nuna TAVO Next Stroller - Caviar",
         "duplicate risk: Nuna TAVO next"
       ],
       "collections": [
@@ -15006,14 +15006,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -17268,14 +17268,14 @@
       "action": "match-existing",
       "matched": "Stroller:Nuna MIXX next",
       "reasons": [
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Granite",
+        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
         "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, Caviar, 2023",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Edgehill",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2022, Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Caviar",
-        "duplicate risk: Nuna Nuna Mixx Next Stroller - Biscotti"
+        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
       ],
       "collections": [
         "stroller"
@@ -17293,22 +17293,22 @@
       "price": 79.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Urban Glide"
+        ],
         "infantSeatBrands": [
           "Chicco"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -17369,11 +17369,11 @@
       "matched": "Stroller:Nuna TRIV next",
       "reasons": [
         "duplicate risk: Nuna Nuna TRIV LX Stroller",
-        "duplicate risk: Nuna Nuna TRIV Next Stroller, 2025, Graphene/BMW",
-        "duplicate risk: Nuna Nuna TRIV next in Biscotti",
-        "duplicate risk: Nuna Nuna TRIV next in Caviar/Cognac",
-        "duplicate risk: Nuna Nuna TRIV next in Thistle",
         "duplicate risk: Nuna Nuna x BMW TRIV next Stroller in Graphene",
+        "duplicate risk: Nuna Nuna TRIV next in Caviar/Cognac",
+        "duplicate risk: Nuna Nuna TRIV next in Biscotti",
+        "duplicate risk: Nuna Nuna TRIV next in Thistle",
+        "duplicate risk: Nuna Nuna TRIV Next Stroller, 2025, Graphene/BMW",
         "duplicate risk: Nuna TRIV LX",
         "duplicate risk: Nuna TRIV next"
       ],
@@ -17625,17 +17625,17 @@
       "price": 69.95,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Urban Glide"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -17643,7 +17643,7 @@
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -17658,22 +17658,22 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Baby Jogger",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Baby Jogger City Tour"
+        ],
         "infantSeatBrands": [
           "Graco"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -17801,14 +17801,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Thule THULE Spring Stroller Car Seat Adapter Maxi Cosi - Black",
-        "duplicate risk: Thule THULE Spring Stroller Car Seat Adapter Chicco - Black",
+        "duplicate risk: Thule \"Thule Spring 2 Stroller in Black Size 19.5\"\" x 17.7\"\" x 15.3\"\"\"",
+        "duplicate risk: Thule \"Thule Spring 2 Stroller in Soft Beige Size 19.5\"\" x 17.7\"\" x 15.3\"\"\"",
+        "duplicate risk: Thule \"Thule Spring 2 Stroller in Mid Blue Size 19.5\"\" x 17.7\"\" x 15.3\"\"\"",
+        "duplicate risk: Thule \"Thule Spring 2 Stroller in Mist Green Size 19.5\"\" x 17.7\"\" x 15.3\"\"\"",
         "duplicate risk: Thule Thule Spring Stroller, 2022, Alu Sh Grey, Aluminum",
         "duplicate risk: Thule Thule Spring Stroller, 2021, Aluminum, Shadow Gray",
         "duplicate risk: Thule Thule Spring Stroller, 2021, Aluminum, Shadow Gray",
-        "duplicate risk: Thule THULE Spring Stroller - Alu / Majolica Blue",
-        "duplicate risk: Thule THULE Spring Stroller - Back / Misty Rose Melange",
-        "duplicate risk: Thule THULE Spring Stroller - Black / Grey Melange"
+        "duplicate risk: Thule THULE Spring Stroller Car Seat Adapter Maxi Cosi - Black"
       ],
       "collections": [
         "stroller"
@@ -17850,14 +17850,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -18190,17 +18190,17 @@
       "price": 49,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Inglesina",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Inglesina Quid"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -18217,7 +18217,7 @@
           "Pipa Aire",
           "Pipa Urbn"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -18389,14 +18389,14 @@
       "action": "match-existing",
       "matched": "Stroller:CYBEX Coya",
       "reasons": [
+        "duplicate risk: Cybex Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+        "duplicate risk: Cybex Cybex Coya Stroller in Matte Black/Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, We The Best x DJ Khaled",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Matte Black, Mirage Grey",
         "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
         "duplicate risk: Cybex Cybex Coya Stroller, 2023, Matte Black, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Off White, Rose Gold",
-        "duplicate risk: Cybex Cybex Coya Stroller, 2024, Mirage Grey, Rose Gold"
+        "duplicate risk: Cybex Cybex Coya Stroller, 2023, Rose Gold, Mirage Grey"
       ],
       "collections": [
         "stroller"
@@ -18994,22 +18994,22 @@
       "price": 74.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Urban Glide"
+        ],
         "infantSeatBrands": [
           "Chicco"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -19115,17 +19115,17 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Mima",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Mima Xari"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -19145,7 +19145,7 @@
           "Pipa Lite",
           "Pipa RX"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -19265,24 +19265,24 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Peg Perego",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Peg Perego Z4"
+        ],
         "infantSeatBrands": [
           "Peg Perego"
         ],
         "infantSeatModels": [
           "Primo Viaggio"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -19360,17 +19360,17 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Mima",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Mima Creo"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -19384,7 +19384,7 @@
           "Mico Luxe",
           "Pipa"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -19720,14 +19720,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -19797,7 +19797,8 @@
         "adapterBrand": "Baby Jogger",
         "strollerFamilies": [
           "Baby Jogger City Mini",
-          "Baby Jogger City Select"
+          "Baby Jogger City Select",
+          "Baby Jogger City Tour"
         ],
         "infantSeatBrands": [
           "Graco"
@@ -20917,17 +20918,17 @@
       "price": 40,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Ergobaby",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Ergobaby Metro"
+        ],
         "infantSeatBrands": [
           "Britax",
           "Cybex",
@@ -20935,7 +20936,7 @@
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -20992,22 +20993,23 @@
       "price": 99.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "WonderFold",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "WonderFold W2",
+          "WonderFold W4"
+        ],
         "infantSeatBrands": [
           "Graco"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -21064,17 +21066,17 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Peg Perego",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Peg Perego City Loop"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -21083,7 +21085,7 @@
           "Peg Perego"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -21161,22 +21163,22 @@
       "price": 59.95,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Thule",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Thule Spring"
+        ],
         "infantSeatBrands": [
           "Chicco"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -21357,17 +21359,17 @@
       "price": 94.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "WonderFold",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "WonderFold W2"
+        ],
         "infantSeatBrands": [
           "Britax",
           "Cybex",
@@ -21382,7 +21384,7 @@
           "WIllow",
           "Willow"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -21481,24 +21483,24 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Peg Perego",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Peg Perego City Loop"
+        ],
         "infantSeatBrands": [
           "Peg Perego"
         ],
         "infantSeatModels": [
           "Primo Viaggio"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -22124,17 +22126,17 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Silver Cross",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Silver Cross Nia"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -22149,7 +22151,7 @@
           "Mico Luxe",
           "Pipa"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -22582,8 +22584,8 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: Momcozy Momcozy ChangeGO Baby Stroller, Black, 2025",
-        "duplicate risk: Momcozy \"Momcozy ChangeGo Baby Stroller in Black Size 43\"\" x 35.4\"\" x 19.2\"\"\""
+        "duplicate risk: Momcozy \"Momcozy ChangeGo Baby Stroller in Black Size 43\"\" x 35.4\"\" x 19.2\"\"\"",
+        "duplicate risk: Momcozy Momcozy ChangeGO Baby Stroller, Black, 2025"
       ],
       "collections": [
         "stroller"
@@ -22730,14 +22732,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -22800,14 +22802,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -22828,14 +22830,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -22856,14 +22858,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu Duo",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -22926,14 +22928,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -23838,17 +23840,17 @@
       "price": 45,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "DFY",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "DFY R1"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -23865,7 +23867,7 @@
           "Pipa Aire",
           "Pipa RX"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -24084,17 +24086,17 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Mima",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Mima Miro"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -24102,7 +24104,7 @@
           "Nuna"
         ],
         "infantSeatModels": [],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -24417,17 +24419,17 @@
       "price": 59.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
+      "action": "create-new",
       "matched": null,
-      "reasons": [
-        "low-confidence categorization or ambiguous adapter"
-      ],
+      "reasons": [],
       "collections": [
         "stroller"
       ],
       "adapter": {
         "adapterBrand": "Silver Cross",
-        "strollerFamilies": [],
+        "strollerFamilies": [
+          "Silver Cross Cove"
+        ],
         "infantSeatBrands": [
           "Clek",
           "Cybex",
@@ -24442,7 +24444,7 @@
           "Mico Luxe",
           "Pipa"
         ],
-        "ambiguous": true
+        "ambiguous": false
       }
     },
     {
@@ -24818,14 +24820,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Vista V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Kenzi (Mystic Aqua)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2022, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2021, Gregory (Blue Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby Vista V3 Stroller, 2024, Greyson (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby VISTA V2 Stroller, 2024, Greyson (Charcoal Melange)"
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Jake Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Lower Car Seat Adapters for VISTA and VISTA V2, Vista V3 (Maxi-Cosi, Nuna, Cybex, and BeSafe)",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Gwen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby \"UPPAbaby Vista V3 Stroller in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Vista Lower Adapters"
       ],
       "collections": [
         "stroller"
@@ -24846,14 +24848,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -24874,14 +24876,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Minu Duo",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Savannah (Pearl Gray Jacquard)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Jake (Charcoal/Black)",
-        "duplicate risk: UPPAbaby UPPAbaby MINU V3 Stroller, 2025, Greyson (Charcoal Melange)",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby MINU Car Seat Adapters (Maxi-Cosi, Nuna, Cybex & BeSafe)",
         "duplicate risk: UPPAbaby UPPAbaby Minu Duo Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
         "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Dillan",
-        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson"
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Minu V3 Stroller in Savannah"
       ],
       "collections": [
         "stroller"
@@ -24902,14 +24904,14 @@
       "action": "match-existing",
       "matched": "Stroller:UPPAbaby Cruz V3",
       "reasons": [
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Declan (Oat Mélange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ Stroller, Jordan (Charcoal Melange), 2018",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2019, Jordan (Charcoal Melange)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, Anthony (White and Grey Chenille), 2024",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2023, Theo (taupe)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V2 Stroller, 2021, Jake (Charcoal)",
-        "duplicate risk: UPPAbaby UPPAbaby CRUZ V3 Stroller, 2025, Jake (Charcoal)"
+        "duplicate risk: UPPAbaby UPPAbaby Upper Adapters for Cruz V2",
+        "duplicate risk: UPPAbaby UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller & Bassinet V3 Bundle in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Jake",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Greyson",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Savannah",
+        "duplicate risk: UPPAbaby UPPAbaby Cruz V3 Stroller in Callum"
       ],
       "collections": [
         "stroller"
@@ -27437,9 +27439,12 @@
       "price": 650,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "CarSeat:Doona Doona+",
+      "reasons": [
+        "duplicate risk: Doona Doona",
+        "duplicate risk: Doona Doona+"
+      ],
       "collections": [
         "car-seat-accessories"
       ]
