@@ -81,6 +81,8 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               {
                 label: 'Monetize',
                 links: [
+                  { label: 'Catalog', href: '/admin/catalog' },
+                  { label: 'Catalog Health', href: '/admin/catalog/health' },
                   { label: 'Affiliate Canon', href: '/admin/affiliates' },
                   { label: 'Partners', href: '/admin/partners' },
                   { label: 'Short Links', href: '/admin/affiliate-links' },
