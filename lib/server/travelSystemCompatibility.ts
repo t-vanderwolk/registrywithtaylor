@@ -20,6 +20,7 @@ import {
   type TravelSystemCompatibilityResponse,
   type TravelSystemStrollerOption,
 } from '@/lib/compatibilityEngine';
+import { getPublicStrollerCatalogTravelSystemOptions } from '@/lib/server/publicStrollerCatalog';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
@@ -382,6 +383,21 @@ function normalizeBrand(value: string) {
   return value.trim().toLowerCase();
 }
 
+function normalizeModel(value: string) {
+  return value.trim().toLowerCase();
+}
+
+async function findPublicStrollerCatalogOption(brand: string, model: string) {
+  const normalizedBrand = normalizeBrand(brand);
+  const normalizedModel = normalizeModel(model);
+  const options = await getPublicStrollerCatalogTravelSystemOptions();
+  return options.find(
+    (option) =>
+      normalizeBrand(option.brand) === normalizedBrand &&
+      normalizeModel(option.model) === normalizedModel,
+  ) ?? null;
+}
+
 function supportsSameBrandDirectDefault(brand: string) {
   return DIRECT_DEFAULT_BRANDS.has(normalizeBrand(brand));
 }
@@ -653,37 +669,7 @@ async function getSharedAdapterInferredStrollers(
 
 export async function getTravelSystemStrollers() {
   try {
-    const rows = await prisma.$queryRaw<StrollerRow[]>`
-      SELECT
-        "id",
-        "brand",
-        "model",
-        "displayName",
-        "summary",
-        "babylistUrl",
-        "babylistPrice",
-        "babylistImage"
-      FROM "Stroller"
-      ORDER BY LOWER("brand"), LOWER("model")
-    `;
-
-    const retailerMap = await loadPublicRetailerMap('Stroller');
-
-    return enrichWithPublicRetailers(rows, retailerMap)
-      .filter(hasPublicTravelSystemRetailer)
-      .map<TravelSystemStrollerOption>((row) => ({
-        brand: row.brand,
-        model: row.model,
-        displayName: getDisplayName(row.brand, row.model, row.displayName),
-        summary: row.summary,
-        babylistUrl: row.babylistUrl,
-        babylistImage: row.babylistImage,
-        babylistPrice: row.babylistPrice,
-        macroBabyUrl: row.macroBabyUrl ?? null,
-        macroBabyImage: row.macroBabyImage ?? null,
-        macroBabyPrice: row.macroBabyPrice ?? null,
-        amazonUrl: row.amazonUrl ?? null,
-      }));
+    return await getPublicStrollerCatalogTravelSystemOptions();
   } catch (error) {
     if (hasMissingTravelSystemSchema(error)) {
       return [];
@@ -833,6 +819,13 @@ export async function getTravelSystemCompatibility(
   const strollerRetailerMap = await loadPublicRetailerMap('Stroller');
   const stroller = enrichWithPublicRetailers(strollers, strollerRetailerMap)[0];
   if (!stroller || !hasPublicTravelSystemRetailer(stroller)) {
+    const catalogOption = await findPublicStrollerCatalogOption(brand, model);
+    if (catalogOption) {
+      return {
+        stroller: catalogOption,
+        compatibleCarSeats: [],
+      };
+    }
     return null;
   }
 

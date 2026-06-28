@@ -311,7 +311,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       : 'Then we will open a dedicated results page with compatible strollers, direct fits first.';
   const countDescription =
     lookupMode === 'stroller'
-      ? `${filteredStrollers.length} stroller option${filteredStrollers.length === 1 ? '' : 's'} in the current compatibility library. Convertible seats are intentionally excluded.`
+      ? `${filteredStrollers.length} stroller option${filteredStrollers.length === 1 ? '' : 's'} in the current public stroller catalog. Compatibility results appear where model-specific matches exist.`
       : `${filteredCarSeats.length} infant car seat option${filteredCarSeats.length === 1 ? '' : 's'} in the current compatibility library. This tool is intentionally limited to the infant-seat stage.`;
   const noMatchDescription =
     lookupMode === 'stroller'

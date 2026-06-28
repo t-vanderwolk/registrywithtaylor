@@ -1,0 +1,270 @@
+import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
+import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
+import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
+import {
+  canonicalStrollerBrand,
+  isExcludedStrollerFinderProduct,
+} from '@/lib/catalog/strollerFinderRules';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
+import prisma from '@/lib/server/prisma';
+import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
+
+const PROVIDER_ANB = 'awin_anbbaby';
+const PROVIDER_BABYLIST = 'babylist_impact';
+const PROVIDER_MACROBABY = 'shopify_macrobaby';
+
+export const PUBLIC_STROLLER_TYPE_ORDER: StrollerCategory[] = [
+  'full-size',
+  'full-size-non-modular',
+  'compact',
+  'travel',
+  'convertible-modular',
+  'convertible-non-modular',
+  'double',
+  'double-jogging',
+  'jogging',
+  'umbrella',
+  'wagon',
+];
+
+type CatalogProductRow = {
+  provider: string;
+  brand: string | null;
+  title: string;
+  price: number | null;
+  imageUrl: string | null;
+  productUrl: string | null;
+  affiliateUrl: string | null;
+  retailer: string | null;
+  itemGroupId: string | null;
+  enrichment: { productType: string | null; canonicalBrand: string | null; canonicalName: string | null } | null;
+};
+
+type RetailerOffer = { price: number | null; url: string | null };
+type Offer = RetailerOffer & { image: string | null; title: string };
+
+export type PublicStrollerProduct = {
+  name: string;
+  model: string;
+  price: number | null;
+  image: string | null;
+  affiliateUrl: string | null;
+  source: 'babylist' | 'macrobaby';
+  retailers: {
+    babylist: RetailerOffer | null;
+    amazon: RetailerOffer | null;
+    macrobaby: RetailerOffer | null;
+    anb: RetailerOffer | null;
+    goodbuygear: RetailerOffer | null;
+  };
+};
+
+export type PublicStrollerType = {
+  category: StrollerCategory;
+  label: string;
+  products: PublicStrollerProduct[];
+};
+
+export type PublicStrollerBrand = {
+  brand: string;
+  count: number;
+  types: PublicStrollerType[];
+};
+
+function modelLikeCanonicalName(value: string | null | undefined) {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/\b(stroller|travel system|adapter|accessory|bassinet|seat pack|second seat|snack tray|cup holder)\b/i.test(v)) return null;
+  if (/[,(]/.test(v)) return null;
+  return v;
+}
+
+function isPublicBabylistOffer(offer: Offer | null) {
+  return Boolean(
+    offer &&
+      hasPublicCoreRetailer({
+        provider: PROVIDER_BABYLIST,
+        retailer: 'Babylist',
+        url: offer.url,
+        price: offer.price,
+      }),
+  );
+}
+
+function isPublicMacroBabyOffer(offer: Offer | null) {
+  return Boolean(
+    offer &&
+      hasPublicCoreRetailer({
+        provider: PROVIDER_MACROBABY,
+        retailer: 'MacroBaby',
+        url: offer.url,
+        price: offer.price,
+      }),
+  );
+}
+
+export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = prisma as any;
+  const rows: CatalogProductRow[] = await db.affiliateCatalogProduct
+    .findMany({
+      where: {
+        isActiveInFeed: true,
+        enrichment: {
+          is: {
+            tmbcCategory: 'Strollers',
+            needsReview: false,
+            reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+          },
+        },
+      },
+      select: {
+        provider: true,
+        brand: true,
+        title: true,
+        price: true,
+        imageUrl: true,
+        productUrl: true,
+        affiliateUrl: true,
+        retailer: true,
+        itemGroupId: true,
+        enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
+      },
+      orderBy: { title: 'asc' },
+    })
+    .catch(() => [] as CatalogProductRow[]);
+
+  type Group = {
+    category: StrollerCategory;
+    brand: string;
+    model: string;
+    babylist: Offer | null;
+    macrobaby: Offer | null;
+    anb: Offer | null;
+    gbg: Offer | null;
+  };
+
+  const groups = new Map<string, Group>();
+  const seenGroups = new Set<string>();
+
+  for (const row of rows) {
+    const category = strollerCategoryFromProductType(row.enrichment?.productType);
+    if (!category) continue;
+    if (isExcludedStrollerFinderProduct({
+      brand: row.brand,
+      title: row.title,
+      productUrl: row.productUrl,
+      affiliateUrl: row.affiliateUrl,
+    })) {
+      continue;
+    }
+
+    if (row.itemGroupId) {
+      const groupIdKey = `${row.provider}:${row.itemGroupId}`;
+      if (seenGroups.has(groupIdKey)) continue;
+      seenGroups.add(groupIdKey);
+    }
+
+    const rawBrand = (row.enrichment?.canonicalBrand || row.brand || '').trim();
+    const brand = canonicalStrollerBrand(rawBrand);
+    const model = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
+    const key = productModelKey(brand, model || row.title);
+
+    let group = groups.get(key);
+    if (!group) {
+      group = { category, brand, model, babylist: null, macrobaby: null, anb: null, gbg: null };
+      groups.set(key, group);
+    }
+
+    const offer: Offer = { price: row.price, url: row.affiliateUrl, image: row.imageUrl, title: row.title };
+    const cheaper = (current: Offer | null) =>
+      !current || (offer.price != null && (current.price == null || offer.price < current.price));
+    const isGoodBuyGear = isGoodBuyGearOffer({
+      provider: row.provider,
+      retailer: row.retailer,
+      url: row.affiliateUrl,
+      productUrl: row.productUrl,
+    });
+
+    if (isGoodBuyGear) {
+      if (cheaper(group.gbg)) group.gbg = offer;
+    } else if (row.provider === PROVIDER_BABYLIST) {
+      if (!group.babylist) {
+        group.babylist = offer;
+        group.category = category;
+      }
+    } else if (row.provider === PROVIDER_MACROBABY) {
+      if (cheaper(group.macrobaby)) group.macrobaby = offer;
+    } else if (row.provider === PROVIDER_ANB) {
+      if (cheaper(group.anb)) group.anb = offer;
+    }
+  }
+
+  const byBrand = new Map<string, Map<StrollerCategory, PublicStrollerProduct[]>>();
+  for (const group of groups.values()) {
+    const babylist = isPublicBabylistOffer(group.babylist) ? group.babylist : null;
+    const macrobaby = isPublicMacroBabyOffer(group.macrobaby) ? group.macrobaby : null;
+    const primary = babylist ?? macrobaby;
+    if (!primary) continue;
+
+    const amazonUrl = getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
+    const product: PublicStrollerProduct = {
+      name: primary.title,
+      model: group.model,
+      price: primary.price,
+      image: babylist?.image ?? macrobaby?.image ?? group.anb?.image ?? group.gbg?.image ?? null,
+      affiliateUrl: primary.url,
+      source: babylist ? 'babylist' : 'macrobaby',
+      retailers: {
+        babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
+        amazon: amazonUrl ? { price: null, url: amazonUrl } : null,
+        macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
+        anb: null,
+        goodbuygear: group.gbg ? { price: group.gbg.price, url: group.gbg.url } : null,
+      },
+    };
+
+    if (!byBrand.has(group.brand)) byBrand.set(group.brand, new Map());
+    const byCategory = byBrand.get(group.brand)!;
+    if (!byCategory.has(group.category)) byCategory.set(group.category, []);
+    byCategory.get(group.category)!.push(product);
+  }
+
+  return [...byBrand.entries()]
+    .map(([brand, byCategory]) => {
+      const types = [...byCategory.entries()]
+        .map(([category, products]) => ({
+          category,
+          label: STROLLER_CATEGORY_LABELS[category],
+          products: products.sort((a, b) => a.name.localeCompare(b.name)),
+        }))
+        .sort((a, b) => PUBLIC_STROLLER_TYPE_ORDER.indexOf(a.category) - PUBLIC_STROLLER_TYPE_ORDER.indexOf(b.category));
+      const count = types.reduce((n, type) => n + type.products.length, 0);
+      return { brand, count, types };
+    })
+    .filter((brand) => brand.count > 0)
+    .sort((a, b) => a.brand.localeCompare(b.brand));
+}
+
+export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<TravelSystemStrollerOption[]> {
+  const brands = await getPublicStrollerCatalogBrands();
+  return brands.flatMap((brandRow) =>
+    brandRow.types.flatMap((typeRow) =>
+      typeRow.products.map((product) => ({
+        brand: brandRow.brand,
+        model: product.model,
+        displayName: `${brandRow.brand} ${product.model}`.replace(/\s+/g, ' ').trim(),
+        summary: null,
+        babylistUrl: product.retailers.babylist?.url ?? null,
+        babylistImage: product.source === 'babylist' ? product.image : null,
+        babylistPrice: product.retailers.babylist?.price ?? null,
+        macroBabyUrl: product.retailers.macrobaby?.url ?? null,
+        macroBabyImage: product.source === 'macrobaby' ? product.image : null,
+        macroBabyPrice: product.retailers.macrobaby?.price ?? null,
+        amazonUrl: product.retailers.amazon?.url ?? null,
+      })),
+    ),
+  );
+}
