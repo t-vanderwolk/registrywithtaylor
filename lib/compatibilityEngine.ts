@@ -6,6 +6,13 @@ export type TravelSystemStrollerOption = {
   model: string;
   displayName: string;
   summary: string | null;
+  babylistImage?: string | null;
+  babylistUrl?: string | null;
+  babylistPrice?: number | null;
+  macroBabyImage?: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  amazonUrl?: string | null;
 };
 
 export type TravelSystemCarSeatOption = {
@@ -13,6 +20,13 @@ export type TravelSystemCarSeatOption = {
   model: string;
   displayName: string;
   summary: string | null;
+  babylistImage?: string | null;
+  babylistUrl?: string | null;
+  babylistPrice?: number | null;
+  macroBabyImage?: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  amazonUrl?: string | null;
 };
 
 export type CompatibleCarSeatResult = {
@@ -32,6 +46,10 @@ export type CompatibleCarSeatResult = {
   babylistUrl?: string | null;
   babylistPrice?: number | null;
   babylistImage?: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
 };
 
 export type TravelSystemCompatibilityResponse = {
@@ -57,6 +75,10 @@ export type CompatibleStrollerResult = {
   babylistUrl?: string | null;
   babylistPrice?: number | null;
   babylistImage?: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
 };
 
 export type TravelSystemCompatibilityByCarSeatResponse = {

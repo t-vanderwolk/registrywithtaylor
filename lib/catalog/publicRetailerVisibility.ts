@@ -57,10 +57,37 @@ export function isGoodBuyGearOffer(offer: RetailOfferSignal) {
   );
 }
 
+export function isBabylistOffer(offer: RetailOfferSignal) {
+  const source = normalizeRetailerSignal(offer.source);
+  const retailer = normalizeRetailerSignal(offer.retailer);
+  const provider = normalizeRetailerSignal(offer.provider);
+
+  return source === 'babylist' || retailer === 'babylist' || provider === 'babylist impact';
+}
+
+export function isMacroBabyOffer(offer: RetailOfferSignal) {
+  const source = normalizeRetailerSignal(offer.source);
+  const retailer = normalizeRetailerSignal(offer.retailer);
+  const provider = normalizeRetailerSignal(offer.provider);
+
+  return (
+    source === 'macrobaby' ||
+    source === 'macro baby' ||
+    retailer === 'macrobaby' ||
+    retailer === 'macro baby' ||
+    provider === 'shopify macrobaby'
+  );
+}
+
 export function hasPublicRetailOffer(offer: RetailOfferSignal) {
   if (isGoodBuyGearOffer(offer)) return false;
 
   return Boolean(offer.url?.trim() || offer.productUrl?.trim() || offer.price != null);
+}
+
+export function hasPublicCoreRetailer(offerOrOffers: RetailOfferSignal | RetailOfferSignal[]) {
+  const offers = Array.isArray(offerOrOffers) ? offerOrOffers : [offerOrOffers];
+  return offers.some((offer) => hasPublicRetailOffer(offer) && (isBabylistOffer(offer) || isMacroBabyOffer(offer)));
 }
 
 export function hasNonGoodBuyGearRetailer(offers: RetailOfferSignal[]) {

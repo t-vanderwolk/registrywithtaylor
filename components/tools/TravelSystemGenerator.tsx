@@ -83,12 +83,14 @@ function BrowseCard({
   selected,
   image,
   price,
+  priceSource,
   onSelect,
 }: {
   option: { brand: string; model: string };
   selected: boolean;
   image: string | null;
   price: number | null;
+  priceSource: 'Babylist' | 'MacroBaby' | null;
   onSelect: () => void;
 }) {
   return (
@@ -116,7 +118,7 @@ function BrowseCard({
         {price != null ? (
           <p className="tool-product-card__price">
             ${price.toFixed(2)}
-            <span>via Babylist</span>
+            {priceSource ? <span>via {priceSource}</span> : null}
           </p>
         ) : null}
         <span
@@ -368,13 +370,22 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 {activeOptions.map((option) => {
                   const value = buildOptionValue(option);
                   const babylist = browseLookup[`${option.brand}:::${option.model}`];
+                  const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
+                  const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
+                  const priceSource =
+                    option.babylistPrice != null || babylist?.babylistPrice != null
+                      ? 'Babylist'
+                      : option.macroBabyPrice != null
+                        ? 'MacroBaby'
+                        : null;
                   return (
                     <BrowseCard
                       key={value}
                       option={option}
                       selected={selectedValue === value}
-                      image={babylist?.babylistImage ?? null}
-                      price={babylist?.babylistPrice ?? null}
+                      image={image}
+                      price={price}
+                      priceSource={priceSource}
                       onSelect={() => setSelectedValue(value)}
                     />
                   );
@@ -423,13 +434,22 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   .map((option) => {
                     const value = buildOptionValue(option);
                     const babylist = browseLookup[`${option.brand}:::${option.model}`];
+                    const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
+                    const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
+                    const priceSource =
+                      option.babylistPrice != null || babylist?.babylistPrice != null
+                        ? 'Babylist'
+                        : option.macroBabyPrice != null
+                          ? 'MacroBaby'
+                          : null;
                     return (
                       <BrowseCard
                         key={value}
                         option={option}
                         selected={selectedValue === value}
-                        image={babylist?.babylistImage ?? null}
-                        price={babylist?.babylistPrice ?? null}
+                        image={image}
+                        price={price}
+                        priceSource={priceSource}
                         onSelect={() => setSelectedValue(value)}
                       />
                     );

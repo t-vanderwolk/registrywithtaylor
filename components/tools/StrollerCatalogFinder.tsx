@@ -71,7 +71,7 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'amazon' | 'macrobaby' | 'anb' | 'openbox';
+  source?: 'babylist' | 'macrobaby';
   retailers?: {
     babylist?: RetailerOffer | null;
     amazon?: RetailerOffer | null;
@@ -91,17 +91,16 @@ function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
 }
 
-// Retailer CTAs, stacked on each card in priority order. Babylist is the primary
-// CTA when present; other retailers remain available without competing with it.
+// Retailer CTAs, stacked on each card in priority order. Babylist is primary
+// when present, MacroBaby is the fallback primary, and Amazon is secondary only.
 const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'amazon' | 'macrobaby' | 'anb';
+  key: 'babylist' | 'macrobaby' | 'amazon';
   shopLabel: string;
   btnClass: string;
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary' },
-  { key: 'amazon', shopLabel: 'Shop Amazon', btnClass: 'tool-btn--secondary' },
   { key: 'macrobaby', shopLabel: 'Shop MacroBaby', btnClass: 'tool-btn--secondary' },
-  { key: 'anb', shopLabel: 'Shop ANB Baby', btnClass: 'tool-btn--secondary' },
+  { key: 'amazon', shopLabel: 'Shop Amazon', btnClass: 'tool-btn--secondary' },
 ];
 
 function formatOpenBoxPrice(price: number) {
@@ -186,16 +185,13 @@ function ProductCard({
   const displayPrice =
     retailers?.babylist?.price ??
     retailers?.macrobaby?.price ??
-    retailers?.anb?.price ??
     product.price;
   const priceSource =
     retailers?.babylist?.price != null
       ? 'Babylist'
       : retailers?.macrobaby?.price != null
         ? 'MacroBaby'
-        : retailers?.anb?.price != null
-          ? 'ANB Baby'
-          : null;
+        : null;
 
   return (
     <div className="tool-card tool-card--interactive tool-product-card">

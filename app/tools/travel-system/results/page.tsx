@@ -235,13 +235,15 @@ function SelectedSummaryCard({
     kind === 'stroller'
       ? resolveProductCardImage({ brand: option.brand, productName: option.displayName })
       : resolveCompatibilityCarSeatImage({ brand: option.brand, productName: option.displayName });
+  const imageSrc = option.babylistImage ?? option.macroBabyImage ?? resolvedImage?.src ?? null;
+  const imageAlt = option.babylistImage || option.macroBabyImage ? option.displayName : resolvedImage?.alt;
 
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">
       <div className="tool-product-card__media min-h-[11rem] rounded-[1.2rem] border border-[rgba(215,161,175,0.14)]">
-        {resolvedImage ? (
+        {imageSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={resolvedImage.src} alt={resolvedImage.alt} className="tool-product-card__image" />
+          <img src={imageSrc} alt={imageAlt ?? option.displayName} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{option.brand}</span>
         )}
@@ -277,6 +279,15 @@ function ResultCard({
     item.babylistUrl || item.babylistPrice != null
       ? babylistAffiliateUrl(item.brand, item.model, productKind, item.babylistUrl)
       : null;
+  const macroBabyUrl = item.macroBabyUrl ?? null;
+  const primaryCta = babylistUrl
+    ? { label: 'Babylist', url: babylistUrl, source: 'babylist' as const }
+    : macroBabyUrl
+      ? { label: 'MacroBaby', url: macroBabyUrl, source: 'macrobaby' as const }
+      : null;
+  const amazonUrl = primaryCta ? item.amazonUrl ?? null : null;
+  const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
+  const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
 
   return (
     <article className="tool-card tool-product-card">
@@ -293,10 +304,10 @@ function ResultCard({
           <div className="min-w-0">
             <p className="tool-product-card__brand">{item.brand}</p>
             <h4 className="tool-product-card__title">{item.displayName}</h4>
-            {item.babylistPrice != null ? (
+            {displayPrice != null ? (
               <p className="tool-product-card__price">
-                ${item.babylistPrice.toFixed(2)}
-                <span>via Babylist</span>
+                ${displayPrice.toFixed(2)}
+                {priceSource ? <span>via {priceSource}</span> : null}
               </p>
             ) : null}
           </div>
@@ -338,15 +349,25 @@ function ResultCard({
           <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
             {formatCompatibilityConfidence(item.confidence)} confidence
           </span>
-          {babylistUrl ? (
+          {primaryCta ? (
             <a
-              href={babylistUrl}
+              href={primaryCta.url}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
               className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
             >
-              <BabylistHeartIcon />
-              Babylist
+              {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
+              {primaryCta.label}
+            </a>
+          ) : null}
+          {amazonUrl ? (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
+            >
+              Amazon
             </a>
           ) : null}
         </div>

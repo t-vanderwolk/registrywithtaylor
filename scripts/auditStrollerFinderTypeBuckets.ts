@@ -14,8 +14,7 @@ import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
 } from '@/lib/catalog/strollerFinderRules';
-import { hasPublicRetailOffer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
-import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -211,23 +210,9 @@ function offerIsCheaper(next: Offer, current: Offer | null) {
 }
 
 function findPrimaryOffer(group: FinderGroup) {
-  const amazonUrl = getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
-  if (group.babylist) return group.babylist;
-  if (amazonUrl) {
-    return {
-      rowId: 'amazon-fallback',
-      enrichmentId: null,
-      provider: 'amazon',
-      retailer: 'Amazon',
-      title: 'Amazon',
-      productType: null,
-      category: group.category,
-      price: null,
-      url: amazonUrl,
-      image: null,
-    } satisfies Offer;
-  }
-  return group.macrobaby ?? group.anb ?? null;
+  if (group.babylist && hasPublicCoreRetailer(group.babylist)) return group.babylist;
+  if (group.macrobaby && hasPublicCoreRetailer(group.macrobaby)) return group.macrobaby;
+  return null;
 }
 
 async function loadFinderGroups() {
@@ -324,7 +309,7 @@ async function loadFinderGroups() {
   return [...groups.values()].filter((group) => {
     const primary = findPrimaryOffer(group);
     if (!primary) return false;
-    return hasPublicRetailOffer({ url: primary.url, price: primary.price });
+    return hasPublicCoreRetailer(primary);
   });
 }
 

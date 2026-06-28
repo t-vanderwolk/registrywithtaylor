@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
-import { hasPublicRetailOffer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
 export const runtime = 'nodejs';
@@ -32,7 +32,7 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'amazon' | 'macrobaby' | 'anb' | 'openbox';
+  source: 'babylist' | 'macrobaby';
   retailers: {
     babylist: RetailerOffer | null;
     amazon: RetailerOffer | null;
@@ -134,24 +134,40 @@ export async function GET() {
 
   const byBrand = new Map<string, FinderProduct[]>();
   for (const g of groups.values()) {
+    const babylist = g.babylist && hasPublicCoreRetailer({
+      provider: PROVIDER_BABYLIST,
+      retailer: 'Babylist',
+      url: g.babylist.url,
+      price: g.babylist.price,
+    })
+      ? g.babylist
+      : null;
+    const macrobaby = g.macrobaby && hasPublicCoreRetailer({
+      provider: PROVIDER_MACROBABY,
+      retailer: 'MacroBaby',
+      url: g.macrobaby.url,
+      price: g.macrobaby.price,
+    })
+      ? g.macrobaby
+      : null;
+    const primary = babylist ?? macrobaby;
+    if (!primary) continue;
+
     const amazonUrl = getAffiliateLinks(g.brand, g.model).amazonUrl ?? null;
     const amazon = amazonUrl ? { price: null, url: amazonUrl, image: null, title: 'Amazon' } : null;
-    const primary = g.babylist ?? amazon ?? g.macrobaby ?? g.anb;
-    if (!primary) continue;
-    if (!hasPublicRetailOffer({ url: primary.url, price: primary.price })) continue;
     if (!byBrand.has(g.brand)) byBrand.set(g.brand, []);
     byBrand.get(g.brand)!.push({
       name: primary.title,
       model: g.model,
       price: primary.price,
-      image: g.babylist?.image ?? g.macrobaby?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
+      image: babylist?.image ?? macrobaby?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
       affiliateUrl: primary.url,
-      source: g.babylist ? 'babylist' : amazon ? 'amazon' : g.macrobaby ? 'macrobaby' : g.anb ? 'anb' : 'openbox',
+      source: babylist ? 'babylist' : 'macrobaby',
       retailers: {
-        babylist: g.babylist ? { price: g.babylist.price, url: g.babylist.url } : null,
+        babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
         amazon: amazon ? { price: null, url: amazon.url } : null,
-        macrobaby: g.macrobaby ? { price: g.macrobaby.price, url: g.macrobaby.url } : null,
-        anb: g.anb ? { price: g.anb.price, url: g.anb.url } : null,
+        macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
+        anb: null,
         goodbuygear: g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null,
       },
     });

@@ -64,6 +64,7 @@
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
+    "catalog:audit-public-visibility": "tsx scripts/auditPublicProductVisibility.ts",
     "catalog:audit-stroller-duplicates": "tsx scripts/cleanupUnmatchedDuplicates.ts",
     "catalog:audit-adapters": "tsx scripts/scanAdapterCompatibility.ts",
     "seed:britax-carseats": "tsx scripts/seedBritaxCarSeats.ts",

@@ -3,7 +3,9 @@ import {
   resolveCompatibilityCarSeatImage,
   resolveProductCardImage,
 } from '@/lib/blog/productCardImages';
-import { hasNonGoodBuyGearRetailer, isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { hasPublicCoreRetailer, isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
+import { parseCarSeatModel, parseStrollerModel } from '@/lib/catalog/strollerModel';
 import {
   compareCompatibleCarSeats,
   compareCompatibleStrollers,
@@ -28,6 +30,10 @@ type StrollerRow = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
 };
 
 type CarSeatRow = {
@@ -39,6 +45,10 @@ type CarSeatRow = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
 };
 
 type CarSeatCompatibilityRow = {
@@ -49,6 +59,10 @@ type CarSeatCompatibilityRow = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
   compatibilityType: string;
   adapterRequired: boolean;
   adapterType: string | null;
@@ -68,6 +82,10 @@ type StrollerCompatibilityRow = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
+  macroBabyImage?: string | null;
+  amazonUrl?: string | null;
   compatibilityType: string;
   adapterRequired: boolean;
   adapterType: string | null;
@@ -86,6 +104,15 @@ type BabylistFields = {
 };
 
 const EMPTY_BABYLIST: BabylistFields = { babylistUrl: null, babylistPrice: null, babylistImage: null };
+type MacroBabyFields = {
+  macroBabyUrl: string | null;
+  macroBabyPrice: number | null;
+  macroBabyImage: string | null;
+};
+type PublicRetailerFields = BabylistFields & MacroBabyFields;
+
+const EMPTY_MACROBABY: MacroBabyFields = { macroBabyUrl: null, macroBabyPrice: null, macroBabyImage: null };
+const EMPTY_PUBLIC_RETAILERS: PublicRetailerFields = { ...EMPTY_BABYLIST, ...EMPTY_MACROBABY };
 
 const babylistKey = (brand: string, model: string) => `${brand.toLowerCase()}:::${model.toLowerCase()}`;
 
@@ -94,15 +121,14 @@ type PublicAvailabilityRow = {
   model: string;
   babylistUrl?: string | null;
   babylistPrice?: number | null;
+  macroBabyUrl?: string | null;
+  macroBabyPrice?: number | null;
 };
 
 function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
-  const staticLinks = getAffiliateLinks(row.brand, row.model);
-
-  return hasNonGoodBuyGearRetailer([
-    { source: 'Babylist', url: staticLinks.babylistUrl },
-    { source: 'Amazon', url: staticLinks.amazonUrl },
+  return hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
+    { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
   ]);
 }
 
@@ -122,6 +148,15 @@ type BabylistLookupRow = {
   babylistUrl: string | null;
   babylistPrice: number | null;
   babylistImage: string | null;
+};
+
+type MacroBabyLookupRow = {
+  brand: string | null;
+  title: string;
+  price: number | null;
+  imageUrl: string | null;
+  affiliateUrl: string | null;
+  enrichment: { canonicalBrand: string | null; canonicalName: string | null } | null;
 };
 
 /** Build a brand:::model → Babylist-fields map for the given table (one query). */
@@ -155,19 +190,104 @@ async function loadBabylistMap(table: 'Stroller' | 'CarSeat'): Promise<Map<strin
   }
 }
 
-/** Attach synced Babylist url/price/image to each result; prefer the real product photo. */
-function enrichWithBabylist<T extends { brand: string; model: string; imageUrl?: string | null }>(
+function modelLikeCanonicalName(value: string | null | undefined) {
+  const v = value?.trim();
+  if (!v) return null;
+  if (/\b(stroller|infant|car seat|adapter|accessory|base|cover|canopy|insert|mirror|net)\b/i.test(v)) return null;
+  if (/[,(]/.test(v)) return null;
+  return v;
+}
+
+function setCheapestMacroBabyOffer(
+  map: Map<string, MacroBabyFields>,
+  key: string,
+  offer: MacroBabyFields,
+) {
+  const current = map.get(key);
+  if (!current || (offer.macroBabyPrice != null && (current.macroBabyPrice == null || offer.macroBabyPrice < current.macroBabyPrice))) {
+    map.set(key, offer);
+  }
+}
+
+async function loadMacroBabyMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, MacroBabyFields>> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const rows: MacroBabyLookupRow[] = await db.affiliateCatalogProduct.findMany({
+      where: {
+        provider: 'shopify_macrobaby',
+        isActiveInFeed: true,
+        enrichment: {
+          is:
+            table === 'Stroller'
+              ? { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } }
+              : { productType: 'infant car seat', reviewStatus: { not: 'HIDDEN' } },
+        },
+      },
+      select: {
+        brand: true,
+        title: true,
+        price: true,
+        imageUrl: true,
+        affiliateUrl: true,
+        enrichment: { select: { canonicalBrand: true, canonicalName: true } },
+      },
+    });
+
+    const map = new Map<string, MacroBabyFields>();
+    for (const row of rows) {
+      const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
+      if (!brand) continue;
+      const offer: MacroBabyFields = {
+        macroBabyUrl: row.affiliateUrl,
+        macroBabyPrice: row.price,
+        macroBabyImage: row.imageUrl,
+      };
+      const keys = new Set<string>();
+      const canonicalName = modelLikeCanonicalName(row.enrichment?.canonicalName);
+      if (canonicalName) keys.add(babylistKey(brand, canonicalName));
+      const parsed =
+        table === 'Stroller'
+          ? parseStrollerModel(row.title, brand)
+          : parseCarSeatModel(row.title, brand);
+      if (parsed) keys.add(babylistKey(brand, parsed));
+      for (const key of keys) setCheapestMacroBabyOffer(map, key, offer);
+    }
+    return map;
+  } catch (error) {
+    if (hasMissingTravelSystemSchema(error)) return new Map();
+    throw error;
+  }
+}
+
+async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, PublicRetailerFields>> {
+  const [babylistMap, macroBabyMap] = await Promise.all([loadBabylistMap(table), loadMacroBabyMap(table)]);
+  const out = new Map<string, PublicRetailerFields>();
+  const keys = new Set([...babylistMap.keys(), ...macroBabyMap.keys()]);
+  for (const key of keys) {
+    out.set(key, {
+      ...(babylistMap.get(key) ?? EMPTY_BABYLIST),
+      ...(macroBabyMap.get(key) ?? EMPTY_MACROBABY),
+    });
+  }
+  return out;
+}
+
+/** Attach public retailer url/price/image to each result; prefer core retailer photos. */
+function enrichWithPublicRetailers<T extends { brand: string; model: string; imageUrl?: string | null }>(
   items: T[],
-  map: Map<string, BabylistFields>,
+  map: Map<string, PublicRetailerFields>,
 ): T[] {
   return items.map((item) => {
-    const bl = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_BABYLIST;
+    const fields = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_PUBLIC_RETAILERS;
+    const amazonUrl = hasPublicTravelSystemRetailer({ ...item, ...fields })
+      ? getAffiliateLinks(item.brand, item.model).amazonUrl ?? null
+      : null;
     return {
       ...item,
-      babylistUrl: bl.babylistUrl,
-      babylistPrice: bl.babylistPrice,
-      babylistImage: bl.babylistImage,
-      imageUrl: bl.babylistImage ?? item.imageUrl ?? null,
+      ...fields,
+      amazonUrl,
+      imageUrl: fields.babylistImage ?? fields.macroBabyImage ?? item.imageUrl ?? null,
     };
   });
 }
@@ -323,7 +443,11 @@ async function findCarSeatByBrandAndModel(brand: string, model: string) {
   `;
 }
 
-async function getSameBrandDefaultCarSeats(stroller: StrollerRow, explicitSeatIds: Set<string>) {
+async function getSameBrandDefaultCarSeats(
+  stroller: StrollerRow,
+  explicitSeatIds: Set<string>,
+  retailerMap: Map<string, PublicRetailerFields>,
+) {
   if (!supportsSameBrandDirectDefault(stroller.brand)) {
     return [];
   }
@@ -344,10 +468,15 @@ async function getSameBrandDefaultCarSeats(stroller: StrollerRow, explicitSeatId
     ORDER BY LOWER("model")
   `;
 
-  return rows.filter((row) => !explicitSeatIds.has(row.id) && hasPublicTravelSystemRetailer(row));
+  return enrichWithPublicRetailers(rows, retailerMap)
+    .filter((row) => !explicitSeatIds.has(row.id) && hasPublicTravelSystemRetailer(row));
 }
 
-async function getSameBrandDefaultStrollers(carSeat: CarSeatRow, explicitStrollerIds: Set<string>) {
+async function getSameBrandDefaultStrollers(
+  carSeat: CarSeatRow,
+  explicitStrollerIds: Set<string>,
+  retailerMap: Map<string, PublicRetailerFields>,
+) {
   if (!supportsSameBrandDirectDefault(carSeat.brand)) {
     return [];
   }
@@ -367,7 +496,8 @@ async function getSameBrandDefaultStrollers(carSeat: CarSeatRow, explicitStrolle
     ORDER BY LOWER("model")
   `;
 
-  return rows.filter((row) => !explicitStrollerIds.has(row.id) && hasPublicTravelSystemRetailer(row));
+  return enrichWithPublicRetailers(rows, retailerMap)
+    .filter((row) => !explicitStrollerIds.has(row.id) && hasPublicTravelSystemRetailer(row));
 }
 
 /**
@@ -380,6 +510,7 @@ async function getSameBrandDefaultStrollers(carSeat: CarSeatRow, explicitStrolle
 async function getSharedAdapterInferredSeats(
   stroller: StrollerRow,
   explicitRows: CarSeatCompatibilityRow[],
+  retailerMap: Map<string, PublicRetailerFields>,
 ): Promise<CarSeatRow[]> {
   // Nuna strollers are closed — no cross-brand expansion
   if (normalizeBrand(stroller.brand) === NUNA_CLOSED_STROLLER_BRAND) {
@@ -413,7 +544,7 @@ async function getSharedAdapterInferredSeats(
         AND LOWER("brand") = LOWER(${brand})
       ORDER BY LOWER("model")
     `;
-    for (const row of rows) {
+    for (const row of enrichWithPublicRetailers(rows, retailerMap)) {
       if (!explicitSeatIds.has(row.id) && hasPublicTravelSystemRetailer(row)) {
         inferred.push(row);
         explicitSeatIds.add(row.id); // prevent dupes across expansion brands
@@ -433,6 +564,7 @@ async function getSharedAdapterInferredSeats(
 async function getSharedAdapterInferredStrollers(
   carSeat: CarSeatRow,
   seenStrollerIds: Set<string>,
+  retailerMap: Map<string, PublicRetailerFields>,
 ): Promise<StrollerRow[]> {
   if (!usesSharedInfantSeatAdapter(carSeat.brand)) {
     return [];
@@ -460,7 +592,7 @@ async function getSharedAdapterInferredStrollers(
 
   const seen = new Set(seenStrollerIds);
   const out: StrollerRow[] = [];
-  for (const row of rows) {
+  for (const row of enrichWithPublicRetailers(rows, retailerMap)) {
     if (seen.has(row.id) || !hasPublicTravelSystemRetailer(row)) continue;
     seen.add(row.id);
     out.push(row);
@@ -485,13 +617,22 @@ export async function getTravelSystemStrollers() {
       ORDER BY LOWER("brand"), LOWER("model")
     `;
 
-    return rows
+    const retailerMap = await loadPublicRetailerMap('Stroller');
+
+    return enrichWithPublicRetailers(rows, retailerMap)
       .filter(hasPublicTravelSystemRetailer)
       .map<TravelSystemStrollerOption>((row) => ({
         brand: row.brand,
         model: row.model,
         displayName: getDisplayName(row.brand, row.model, row.displayName),
         summary: row.summary,
+        babylistUrl: row.babylistUrl,
+        babylistImage: row.babylistImage,
+        babylistPrice: row.babylistPrice,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        amazonUrl: row.amazonUrl ?? null,
       }));
   } catch (error) {
     if (hasMissingTravelSystemSchema(error)) {
@@ -519,13 +660,22 @@ export async function getTravelSystemCarSeats() {
       ORDER BY LOWER("brand"), LOWER("model")
     `;
 
-    return rows
+    const retailerMap = await loadPublicRetailerMap('CarSeat');
+
+    return enrichWithPublicRetailers(rows, retailerMap)
       .filter(hasPublicTravelSystemRetailer)
       .map<TravelSystemCarSeatOption>((row) => ({
         brand: row.brand,
         model: row.model,
         displayName: getDisplayName(row.brand, row.model, row.displayName),
         summary: row.summary,
+        babylistUrl: row.babylistUrl,
+        babylistImage: row.babylistImage,
+        babylistPrice: row.babylistPrice,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        amazonUrl: row.amazonUrl ?? null,
       }));
   } catch (error) {
     if (hasMissingTravelSystemSchema(error)) {
@@ -619,7 +769,8 @@ export async function getTravelSystemCompatibility(
     throw error;
   }
 
-  const stroller = strollers[0];
+  const strollerRetailerMap = await loadPublicRetailerMap('Stroller');
+  const stroller = enrichWithPublicRetailers(strollers, strollerRetailerMap)[0];
   if (!stroller || !hasPublicTravelSystemRetailer(stroller)) {
     return null;
   }
@@ -667,14 +818,18 @@ export async function getTravelSystemCompatibility(
 
   // Nuna strollers are closed ecosystem — only Nuna infant seats apply
   const isNunaStroller = normalizeBrand(stroller.brand) === NUNA_CLOSED_STROLLER_BRAND;
-  const filteredExplicitRows = isNunaStroller
+  const carSeatRetailerMap = await loadPublicRetailerMap('CarSeat');
+  const filteredExplicitRows = enrichWithPublicRetailers(
+    isNunaStroller
     ? explicitRows.filter((row) => normalizeBrand(row.brand) === NUNA_CLOSED_STROLLER_BRAND)
-    : explicitRows;
+    : explicitRows,
+    carSeatRetailerMap,
+  );
   const publicExplicitRows = filteredExplicitRows.filter(hasPublicTravelSystemRetailer);
 
   const explicitSeatIds = new Set(publicExplicitRows.map((row) => row.carSeatId));
-  const sameBrandDefaults = await getSameBrandDefaultCarSeats(stroller, explicitSeatIds);
-  const inferredSeats = await getSharedAdapterInferredSeats(stroller, publicExplicitRows);
+  const sameBrandDefaults = await getSameBrandDefaultCarSeats(stroller, explicitSeatIds, carSeatRetailerMap);
+  const inferredSeats = await getSharedAdapterInferredSeats(stroller, publicExplicitRows, carSeatRetailerMap);
 
   const compatibleCarSeats = [
     ...publicExplicitRows.map<CompatibleCarSeatResult>((row) => {
@@ -696,7 +851,14 @@ export async function getTravelSystemCompatibility(
         adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
-        imageUrl: resolvedImage?.src ?? null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
       };
     }),
@@ -717,7 +879,14 @@ export async function getTravelSystemCompatibility(
         notes:
           'This is the same-brand default path. Confirm the current release details before you buy, but it is the cleanest place to start.',
         confidence: 'MEDIUM',
-        imageUrl: resolvedImage?.src ?? null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
       };
     }),
@@ -739,7 +908,14 @@ export async function getTravelSystemCompatibility(
         notes:
           'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi adapter standard. Verify the specific adapter for your stroller model before purchase.',
         confidence: 'MEDIUM',
-        imageUrl: resolvedImage?.src ?? null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
       };
     }),
@@ -750,19 +926,21 @@ export async function getTravelSystemCompatibility(
   // Stroller-first: the adapter is the selected stroller's; the car seat varies.
   await fillAdapterProducts(compatibleCarSeats, () => stroller.brand, (row) => row.brand);
 
-  const publicCompatibleCarSeats = enrichWithBabylist(
-    compatibleCarSeats,
-    await loadBabylistMap('CarSeat'),
-  ).filter(hasPublicTravelSystemRetailer);
-
   return {
     stroller: {
       brand: stroller.brand,
       model: stroller.model,
       displayName: getDisplayName(stroller.brand, stroller.model, stroller.displayName),
       summary: stroller.summary,
+      babylistUrl: stroller.babylistUrl,
+      babylistImage: stroller.babylistImage,
+      babylistPrice: stroller.babylistPrice,
+      macroBabyUrl: stroller.macroBabyUrl ?? null,
+      macroBabyImage: stroller.macroBabyImage ?? null,
+      macroBabyPrice: stroller.macroBabyPrice ?? null,
+      amazonUrl: stroller.amazonUrl ?? null,
     },
-    compatibleCarSeats: publicCompatibleCarSeats,
+    compatibleCarSeats: compatibleCarSeats.filter(hasPublicTravelSystemRetailer),
   };
 }
 
@@ -788,7 +966,8 @@ export async function getTravelSystemCompatibilityByCarSeat(
     throw error;
   }
 
-  const carSeat = carSeats[0];
+  const carSeatRetailerMap = await loadPublicRetailerMap('CarSeat');
+  const carSeat = enrichWithPublicRetailers(carSeats, carSeatRetailerMap)[0];
   if (!carSeat || !hasPublicTravelSystemRetailer(carSeat)) {
     return null;
   }
@@ -834,14 +1013,16 @@ export async function getTravelSystemCompatibilityByCarSeat(
     throw error;
   }
 
-  const publicExplicitRows = explicitRows.filter(hasPublicTravelSystemRetailer);
+  const strollerRetailerMap = await loadPublicRetailerMap('Stroller');
+  const publicExplicitRows = enrichWithPublicRetailers(explicitRows, strollerRetailerMap)
+    .filter(hasPublicTravelSystemRetailer);
   const explicitStrollerIds = new Set(publicExplicitRows.map((row) => row.strollerId));
-  const sameBrandDefaults = await getSameBrandDefaultStrollers(carSeat, explicitStrollerIds);
+  const sameBrandDefaults = await getSameBrandDefaultStrollers(carSeat, explicitStrollerIds, strollerRetailerMap);
   const seenStrollerIds = new Set<string>([
     ...explicitStrollerIds,
     ...sameBrandDefaults.map((row) => row.id),
   ]);
-  const inferredStrollers = await getSharedAdapterInferredStrollers(carSeat, seenStrollerIds);
+  const inferredStrollers = await getSharedAdapterInferredStrollers(carSeat, seenStrollerIds, strollerRetailerMap);
 
   const compatibleStrollers = [
     ...publicExplicitRows.map<CompatibleStrollerResult>((row) => {
@@ -864,7 +1045,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
         adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
-        imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),
@@ -886,7 +1074,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
         notes:
           'This is the same-brand default path. Confirm the current release details before you buy, but it is the cleanest place to start.',
         confidence: 'MEDIUM',
-        imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),
@@ -913,7 +1108,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
         notes:
           'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi / Britax adapter standard. Verify the specific adapter for your stroller model before purchase.',
         confidence: 'MEDIUM',
-        imageUrl: resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null,
+        babylistUrl: row.babylistUrl,
+        babylistPrice: row.babylistPrice,
+        babylistImage: row.babylistImage,
+        macroBabyUrl: row.macroBabyUrl ?? null,
+        macroBabyPrice: row.macroBabyPrice ?? null,
+        macroBabyImage: row.macroBabyImage ?? null,
+        amazonUrl: row.amazonUrl ?? null,
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),
@@ -930,7 +1132,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
       model: carSeat.model,
       displayName: getDisplayName(carSeat.brand, carSeat.model, carSeat.displayName),
       summary: carSeat.summary,
+      babylistUrl: carSeat.babylistUrl,
+      babylistImage: carSeat.babylistImage,
+      babylistPrice: carSeat.babylistPrice,
+      macroBabyUrl: carSeat.macroBabyUrl ?? null,
+      macroBabyImage: carSeat.macroBabyImage ?? null,
+      macroBabyPrice: carSeat.macroBabyPrice ?? null,
+      amazonUrl: carSeat.amazonUrl ?? null,
     },
-    compatibleStrollers: enrichWithBabylist(compatibleStrollers, await loadBabylistMap('Stroller')),
+    compatibleStrollers: compatibleStrollers.filter(hasPublicTravelSystemRetailer),
   };
 }
