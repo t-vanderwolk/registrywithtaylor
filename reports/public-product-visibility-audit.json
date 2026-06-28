@@ -1,11 +1,47 @@
 {
-  "generatedAt": "2026-06-28T00:39:09.002Z",
-  "publicCatalogProducts": 109,
-  "travelSystemOptions": 60,
+  "generatedAt": "2026-06-28T01:56:21.834Z",
+  "publicCatalogProducts": 238,
+  "travelSystemOptions": 211,
   "productsPubliclyVisibleWithoutBabylistOrMacroBaby": [],
   "productsWhereAmazonIsOnlyRetailerButStillPublic": [],
   "productsWhereNonCoreRetailerIsPrimary": [],
   "visibleProductsWithBabylistOrMacroBabyPlusAmazon": [
+    {
+      "area": "stroller",
+      "brand": "Baby Jogger",
+      "model": "City Select 2",
+      "name": "\"Baby Jogger City Select 2 Stroller, Eco Collection in Lunar Black Size 35\"\" x 23.8\"\" x 41.1\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 749.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=882925&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-select-2-stroller-eco-collection%2F22652%2F882925&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Select%202%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Baby Jogger",
+      "model": "City Tour 2",
+      "name": "\"Baby Jogger City Tour 2 Stroller, Eco Collection in Eco Black Size 37.75\"\" x 19.6\"\" x 39.5\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 389.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1900515&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-tour-2-stroller-eco-collection%2F50398%2F1900515&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Tour%202%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
     {
       "area": "stroller",
       "brand": "BOB",
@@ -28,9 +64,12 @@
       "area": "stroller",
       "brand": "Bugaboo",
       "model": "Butterfly 2",
-      "name": "Bugaboo - Butterfly 2 Compact Stroller Complete, Black/Desert Taupe",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "\"Bugaboo Butterfly 2 Complete Stroller in Desert Taupe Size 17.6\"\" x 37.2\"\" x 40.5\"\" | 100% Polyester\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 599,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491085&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-complete-stroller%2F74320%2F2491085&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 499,
         "url": "https://www.macrobaby.com/products/bugaboo-butterfly-2-compact-stroller-complete-black-desert-taupe?_j=taylormadebabyco.com"
@@ -46,9 +85,12 @@
       "area": "stroller",
       "brand": "Bugaboo",
       "model": "Butterfly",
-      "name": "Bugaboo - Butterfly Complete Compact Stroller, Black/Forest Green",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "\"Bugaboo Butterfly Complete Stroller in Midnight Black Size 17.72\"\" x 9.06\"\" x 21.26\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 549,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1154564&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-complete-stroller%2F25163%2F1154564&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 549,
         "url": "https://www.macrobaby.com/products/bugaboo-butterfly-stroller-complete-black-forest-green?_j=taylormadebabyco.com"
@@ -64,16 +106,202 @@
       "area": "stroller",
       "brand": "Bugaboo",
       "model": "Donkey 6",
-      "name": "Bugaboo Donkey 6 Complete Stroller Black/Fern Green",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "\"Bugaboo Donkey 6 Stroller in Fern Green Size 34.2\"\" x 23.6\"\" x 43.7\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 1699,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903107&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-donkey-6-stroller%2F80444%2F2903107&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 1699.99,
-        "url": "https://www.macrobaby.com/products/bugaboo-donkey-6-complete-stroller-black-fern-green?_j=taylormadebabyco.com"
+        "url": "https://www.macrobaby.com/products/bugaboo-donkey-6-complete-stroller-black-cocoa-brown?_j=taylormadebabyco.com"
       },
       "amazon": {
         "price": null,
         "url": "https://www.amazon.com/s?k=Bugaboo%20Donkey%206%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Bugaboo",
+      "model": "Kangaroo",
+      "name": "Bugaboo Kangaroo Stroller in Desert Taupe",
+      "source": "babylist",
+      "babylist": {
+        "price": 1099,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2927289&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-kangaroo-stroller%2F80467%2F2927289&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Bugaboo%20Kangaroo%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Bumbleride",
+      "model": "Era",
+      "name": "Bumbleride Era Stroller in Black | 100% Recycled",
+      "source": "babylist",
+      "babylist": {
+        "price": 949,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072901&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-era-stroller%2F37542%2F2072901&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Bumbleride%20Era%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Bumbleride",
+      "model": "Speed",
+      "name": "Bumbleride Speed Stroller in Black | 100% Recycled",
+      "source": "babylist",
+      "babylist": {
+        "price": 799,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2586974&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-speed-stroller%2F13352%2F2586974&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Bumbleride%20Speed%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Joie",
+      "model": "Ginger",
+      "name": "Joie Ginger Stroller in Evergreen",
+      "source": "babylist",
+      "babylist": {
+        "price": 329.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2038037&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-ginger-stroller%2F54925%2F2038037&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Joie%20Ginger%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Joie",
+      "model": "Kava",
+      "name": "Joie Kava Stroller in Dove",
+      "source": "babylist",
+      "babylist": {
+        "price": 399.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2254720&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-kava-stroller%2F68268%2F2254720&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Joie%20Kava%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Joie",
+      "model": "Nutmeg",
+      "name": "Joie Nutmeg Stroller in Forest",
+      "source": "babylist",
+      "babylist": {
+        "price": 239.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719322&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-nutmeg-stroller%2F54924%2F2719322&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Joie%20Nutmeg%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Joie",
+      "model": "Tansy",
+      "name": "Joie Tansy Stroller in Crimson",
+      "source": "babylist",
+      "babylist": {
+        "price": 99.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2038042&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-tansy-stroller%2F54927%2F2038042&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Joie%20Tansy%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Joolz",
+      "model": "Aer+",
+      "name": "Joolz - Aer+ Lightweight Compact Stroller, Forest Green",
+      "source": "macrobaby",
+      "babylist": null,
+      "macrobaby": {
+        "price": 499,
+        "url": "https://www.macrobaby.com/products/joolz-aer-lightweight-compact-stroller-forest-green?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Joolz%20Aer%2B%20travel%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Mima",
+      "model": "Creo",
+      "name": "Mima - Creo Stroller Black Chassis & Mocha Cream Seat",
+      "source": "macrobaby",
+      "babylist": null,
+      "macrobaby": {
+        "price": 1199.99,
+        "url": "https://www.macrobaby.com/products/mima-creo-stroller-black-chassis-mocha-cream-seat?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Mima%20Creo%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Nuna",
+      "model": "TAVO next",
+      "name": "\"Nuna TAVO next Stroller in Caviar/Cognac Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 700,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=663919&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-tavo-next-stroller-1730395458%2F21123%2F663919&intsrc=CATF_8981"
+      },
+      "macrobaby": {
+        "price": 700,
+        "url": "https://www.macrobaby.com/products/nuna-tavo-next-stroller-caviar?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Nuna%20TAVO%20next%20stroller&tag=taylormadebab-20"
       },
       "anb": null,
       "goodbuygear": null
@@ -99,24 +327,6 @@
     {
       "area": "stroller",
       "brand": "Nuna",
-      "model": "TAVO next",
-      "name": "Nuna - Tavo Next Stroller, Caviar",
-      "source": "macrobaby",
-      "babylist": null,
-      "macrobaby": {
-        "price": 700,
-        "url": "https://www.macrobaby.com/products/nuna-tavo-next-stroller-caviar?_j=taylormadebabyco.com"
-      },
-      "amazon": {
-        "price": null,
-        "url": "https://www.amazon.com/s?k=Nuna%20TAVO%20next%20stroller&tag=taylormadebab-20"
-      },
-      "anb": null,
-      "goodbuygear": null
-    },
-    {
-      "area": "stroller",
-      "brand": "Nuna",
       "model": "SWIV",
       "name": "Nuna - Swiv Stroller, Acorn",
       "source": "macrobaby",
@@ -130,7 +340,10 @@
         "url": "https://www.amazon.com/s?k=Nuna%20SWIV%20stroller&tag=taylormadebab-20"
       },
       "anb": null,
-      "goodbuygear": null
+      "goodbuygear": {
+        "price": 900.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=42220931383399&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-swiv-stroller-droplet-dot-2024&intsrc=APIG_26298"
+      }
     },
     {
       "area": "stroller",
@@ -148,7 +361,10 @@
         "url": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
       },
       "anb": null,
-      "goodbuygear": null
+      "goodbuygear": {
+        "price": 733.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41540678189159&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-triv-next-stroller-2025-graphene-bmw&intsrc=APIG_26298"
+      }
     },
     {
       "area": "stroller",
@@ -170,11 +386,32 @@
     },
     {
       "area": "stroller",
+      "brand": "Nuna",
+      "model": "DEMI next",
+      "name": "Nuna DEMI next Stroller in Biscotti",
+      "source": "babylist",
+      "babylist": {
+        "price": 1000,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2127169&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-demi-next-stroller-1730394523%2F45001%2F2127169&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Nuna%20DEMI%20next%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
       "brand": "Romer",
       "model": "Tura",
-      "name": "Romer - Tura Stroller, Peppercorn",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Romer Tura Stroller in Pearl",
+      "source": "babylist",
+      "babylist": {
+        "price": 949.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2262736&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-tura-stroller%2F68661%2F2262736&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 949.99,
         "url": "https://www.macrobaby.com/products/romer-tura-stroller-peppercorn?_j=taylormadebabyco.com"
@@ -189,10 +426,31 @@
     {
       "area": "stroller",
       "brand": "Silver Cross",
+      "model": "Reef 2",
+      "name": "Silver Cross Reef 2 Stroller in Espresso",
+      "source": "babylist",
+      "babylist": {
+        "price": 1299.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2544371&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-reef-2-stroller%2F25564%2F2544371&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Silver%20Cross%20Reef%202%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "stroller",
+      "brand": "Silver Cross",
       "model": "Clic",
-      "name": "Silver Cross - Clic Lightweight Stroller, Conifer (Green)",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Silver Cross Clic Compact Stroller in Conifer",
+      "source": "babylist",
+      "babylist": {
+        "price": 399.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491095&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-clic-compact-stroller%2F74323%2F2491095&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 399.99,
         "url": "https://www.macrobaby.com/products/silver-cross-clic-lightweight-stroller-conifer-green?_j=taylormadebabyco.com"
@@ -208,9 +466,12 @@
       "area": "stroller",
       "brand": "Silver Cross",
       "model": "Jet Double",
-      "name": "Silver Cross - Jet Lightweight Double Stroller, Black",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Silver Cross Jet Double Stroller",
+      "source": "babylist",
+      "babylist": {
+        "price": 799.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2134387&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-jet-double-stroller%2F56937%2F2134387&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 799.99,
         "url": "https://www.macrobaby.com/products/silver-cross-jet-lightweight-double-stroller-black?_j=taylormadebabyco.com"
@@ -226,9 +487,12 @@
       "area": "stroller",
       "brand": "UPPAbaby",
       "model": "Cruz V3",
-      "name": "Uppababy Cruz V3 Stroller Ada, Sandstone Melange | Chestnut Leather",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "UPPAbaby Cruz V3 Stroller in Ada",
+      "source": "babylist",
+      "babylist": {
+        "price": 899.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848480&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-cruz-v3-stroller%2F74891%2F2848480&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 899.99,
         "url": "https://www.macrobaby.com/products/uppababy-cruz-v3-stroller-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
@@ -244,12 +508,15 @@
       "area": "stroller",
       "brand": "UPPAbaby",
       "model": "Minu V3",
-      "name": "Uppababy Minu V3 Stroller Ada, Sandstone Melange | Chestnut Leather",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "UPPAbaby Minu V3 Stroller in Ada",
+      "source": "babylist",
+      "babylist": {
+        "price": 499.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848467&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-minu-v3-stroller%2F70504%2F2848467&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 499.99,
-        "url": "https://www.macrobaby.com/products/uppababy-minu-v3-stroller-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
+        "url": "https://www.macrobaby.com/products/uppababy-minu-v3-compact-stroller-dillan-stone-blue-carbon-frame-sand-leather?_j=taylormadebabyco.com"
       },
       "amazon": {
         "price": null,
@@ -262,9 +529,12 @@
       "area": "stroller",
       "brand": "UPPAbaby",
       "model": "Vista V3",
-      "name": "Uppababy Vista V3 Stroller, Ada Sandstone Melange | Chestnut Leather",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "\"UPPAbaby Vista V3 Stroller in Ada Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
+      "source": "babylist",
+      "babylist": {
+        "price": 999.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848472&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-vista-v3-stroller%2F54909%2F2848472&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 999.99,
         "url": "https://www.macrobaby.com/products/uppababy-vista-v3-stroller-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
@@ -272,6 +542,24 @@
       "amazon": {
         "price": null,
         "url": "https://www.amazon.com/s?k=UPPAbaby%20Vista%20V3%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "carSeat",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "name": "Baby Jogger City GO 2 Infant Car Seat in Frosted Ivory",
+      "source": "babylist",
+      "babylist": {
+        "price": 399.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2487990&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F2487990&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20GO%202%20infant%20car%20seat&tag=taylormadebab-20"
       },
       "anb": null,
       "goodbuygear": null
@@ -290,6 +578,24 @@
       "amazon": {
         "price": null,
         "url": "https://www.amazon.com/s?k=Britax%20Willow%20S%20infant%20car%20seat&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": null
+    },
+    {
+      "area": "carSeat",
+      "brand": "Clek",
+      "model": "Liing",
+      "name": "Clek Liing Infant Car Seat in Edge Ziip (Flame Retardant Free)",
+      "source": "babylist",
+      "babylist": {
+        "price": 499.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571254&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2571254&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Clek%20Liing%20infant%20car%20seat&tag=taylormadebab-20"
       },
       "anb": null,
       "goodbuygear": null
@@ -316,9 +622,12 @@
       "area": "carSeat",
       "brand": "Maxi-Cosi",
       "model": "Mico Pro",
-      "name": "Maxi-Cosi - Mico Pro Infant Car Seat, Sea Drift",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+      "source": "babylist",
+      "babylist": {
+        "price": 319.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2687825&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-mico-pro-infant-car-seat-8bdf76f7-1b69-47e7-89ac-325912aa274d%2F77692%2F2687825&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 219.99,
         "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-drift?_j=taylormadebabyco.com"
@@ -334,9 +643,12 @@
       "area": "carSeat",
       "brand": "Maxi-Cosi",
       "model": "Peri 180",
-      "name": "Maxi-Cosi - Peri 180 Rotating Infant Car Seat, Desert Wonder",
-      "source": "macrobaby",
-      "babylist": null,
+      "name": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+      "source": "babylist",
+      "babylist": {
+        "price": 499.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1929883&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-peri-180-rotating-infant-car-seat%2F50590%2F1929883&intsrc=CATF_8981"
+      },
       "macrobaby": {
         "price": 499.99,
         "url": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-desert-wonder?_j=taylormadebabyco.com"
@@ -352,12 +664,12 @@
       "area": "carSeat",
       "brand": "Nuna",
       "model": "PIPA Aire rx",
-      "name": "Nuna - Pipa Aire Rx Infant Car Seat & Relx Base, Biscotti",
+      "name": "Nuna - PIPA Aire RX Infant Car Seat + PIPA RELX Base with Load Leg, Cedar",
       "source": "macrobaby",
       "babylist": null,
       "macrobaby": {
         "price": 650,
-        "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-relx-base-biscotti?_j=taylormadebabyco.com"
+        "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-cedar?_j=taylormadebabyco.com"
       },
       "amazon": {
         "price": null,
@@ -424,12 +736,12 @@
       "area": "carSeat",
       "brand": "UPPAbaby",
       "model": "Aria V2",
-      "name": "Uppababy - Aria V2 Lightweight Infant Car Seat, Callum/Dillan (Stone Blue)",
+      "name": "Uppababy Aria V2 Infant Car Seat Ada, Sandstone Melange | Chestnut Leather",
       "source": "macrobaby",
       "babylist": null,
       "macrobaby": {
         "price": 449.99,
-        "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-callum-dillan-stone-blue?_j=taylormadebabyco.com"
+        "url": "https://www.macrobaby.com/products/uppababy-aria-v2-infant-car-seat-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
       },
       "amazon": {
         "price": null,
@@ -439,10 +751,208 @@
       "goodbuygear": null
     }
   ],
-  "visibleProductsWithBabylistOrMacroBabyPlusGoodBuyGearBadge": [],
+  "visibleProductsWithBabylistOrMacroBabyPlusGoodBuyGearBadge": [
+    {
+      "area": "stroller",
+      "brand": "Baby Jogger",
+      "model": "City Mini Air",
+      "name": "Baby Jogger City Mini Air Stroller in Frosted Ivory",
+      "source": "babylist",
+      "babylist": {
+        "price": 499.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1900513&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-air-stroller%2F50397%2F1900513&intsrc=CATF_8981"
+      },
+      "macrobaby": {
+        "price": 549.99,
+        "url": "https://www.macrobaby.com/products/baby-jogger-city-mini-air-lightweight-stroller-compact-fold?_j=taylormadebabyco.com"
+      },
+      "amazon": null,
+      "anb": null,
+      "goodbuygear": {
+        "price": 242.24,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=42271739412583&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fbaby-jogger-city-mini-air-lightweight-stroller-2024-rich-black-20&intsrc=APIG_26298"
+      }
+    },
+    {
+      "area": "stroller",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT3",
+      "name": "Baby Jogger City Mini GT3 All-Terrain Stroller in Deep Sea Blue",
+      "source": "babylist",
+      "babylist": {
+        "price": 479.99,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2444112&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-gt3-all-terrain-stroller%2F73651%2F2444112&intsrc=CATF_8981"
+      },
+      "macrobaby": null,
+      "amazon": null,
+      "anb": null,
+      "goodbuygear": {
+        "price": 341.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41957533974631&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fbaby-jogger-city-mini-gt3-stroller-2025-frosted-ivory-1&intsrc=APIG_26298"
+      }
+    },
+    {
+      "area": "stroller",
+      "brand": "Cybex",
+      "model": "MIOS",
+      "name": "Cybex Mios Stroller, Matte Black Frame/Cozy Beige Lux Seat",
+      "source": "macrobaby",
+      "babylist": null,
+      "macrobaby": {
+        "price": 899.95,
+        "url": "https://www.macrobaby.com/products/cybex-mios-stroller-matte-black-frame-cozy-beige-lux-seat?_j=taylormadebabyco.com"
+      },
+      "amazon": null,
+      "anb": null,
+      "goodbuygear": {
+        "price": 252.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41840695574631&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fcybex-mios-stroller-2019-deep-black-matte-black&intsrc=APIG_26298"
+      }
+    },
+    {
+      "area": "stroller",
+      "brand": "Cybex",
+      "model": "Coya",
+      "name": "Cybex Coya Stroller in Chrome Dark Brown/Mirage Grey",
+      "source": "babylist",
+      "babylist": {
+        "price": 599.95,
+        "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2045289&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-coya-stroller%2F82587%2F2045289&intsrc=CATF_8981"
+      },
+      "macrobaby": {
+        "price": 599.95,
+        "url": "https://www.macrobaby.com/products/cybex-coya-stroller-chrome-matte-black-cozy-beige?_j=taylormadebabyco.com"
+      },
+      "amazon": null,
+      "anb": null,
+      "goodbuygear": {
+        "price": 189.15,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=43734534717543&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fcybex-coya-stroller-cozy-beige-matte-black-unknown&intsrc=APIG_26298"
+      }
+    },
+    {
+      "area": "stroller",
+      "brand": "Nuna",
+      "model": "SWIV",
+      "name": "Nuna - Swiv Stroller, Acorn",
+      "source": "macrobaby",
+      "babylist": null,
+      "macrobaby": {
+        "price": 1000,
+        "url": "https://www.macrobaby.com/products/nuna-swiv-stroller-acorn?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Nuna%20SWIV%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": {
+        "price": 900.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=42220931383399&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-swiv-stroller-droplet-dot-2024&intsrc=APIG_26298"
+      }
+    },
+    {
+      "area": "stroller",
+      "brand": "Nuna",
+      "model": "TRIV next",
+      "name": "Nuna - TRIV Next Compact Stroller, Thistle",
+      "source": "macrobaby",
+      "babylist": null,
+      "macrobaby": {
+        "price": 800,
+        "url": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com"
+      },
+      "amazon": {
+        "price": null,
+        "url": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
+      },
+      "anb": null,
+      "goodbuygear": {
+        "price": 733.99,
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41540678189159&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-triv-next-stroller-2025-graphene-bmw&intsrc=APIG_26298"
+      }
+    }
+  ],
   "travelSystemOptionsWithoutBabylistOrMacroBaby": [],
   "travelSystemOptionsWithAmazonButNoBabylistOrMacroBaby": [],
   "travelSystemOptionsWithBabylistOrMacroBabyPlusAmazon": [
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Mini 2",
+      "displayName": "Baby Jogger City Mini 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=184757&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-tour-2-double-stroller%2F15025%2F184757&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/dp/B08C9XSM1V?tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Mini Double",
+      "displayName": "Baby Jogger City Mini Double",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=352733&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-gt2-double-stroller%2F17846%2F352733&intsrc=APIG_8981",
+      "babylistPrice": 749.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Mini%20Double%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT2",
+      "displayName": "Baby Jogger City Mini GT2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=352733&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-gt2-double-stroller%2F17846%2F352733&intsrc=APIG_8981",
+      "babylistPrice": 749.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Mini%20GT2%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Select 2",
+      "displayName": "Baby Jogger City Select 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=882947&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-select-2-stroller%2F22658%2F882947&intsrc=APIG_8981",
+      "babylistPrice": 659.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Select%202%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Sights",
+      "displayName": "Baby Jogger City Sights",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=184757&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-tour-2-double-stroller%2F15025%2F184757&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Sights%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "City Tour 2",
+      "displayName": "Baby Jogger City Tour 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=184757&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-tour-2-double-stroller%2F15025%2F184757&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20Tour%202%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Baby Jogger",
+      "model": "Summit X3",
+      "displayName": "Baby Jogger Summit X3",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1563137&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-summit-x3-double-stroller%2F11862%2F1563137&intsrc=APIG_8981",
+      "babylistPrice": 799.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20Summit%20X3%20jogging%20stroller&tag=taylormadebab-20"
+    },
     {
       "area": "travel-system-stroller",
       "brand": "BOB",
@@ -457,22 +967,22 @@
     {
       "area": "travel-system-stroller",
       "brand": "Bugaboo",
-      "model": "Ant",
-      "displayName": "Bugaboo Ant",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1769357&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-dual-comfort-seat-liner%2F26076%2F1769357&intsrc=APIG_8981",
-      "babylistPrice": 94.95,
+      "model": "Bee 5",
+      "displayName": "Bugaboo Bee 5",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1493429&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-giraffe-rocker-frame%2F38445%2F1493429&intsrc=APIG_8981",
+      "babylistPrice": 125,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Ant%20travel%20stroller&tag=taylormadebab-20"
+      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Bee%205%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "Bugaboo",
       "model": "Butterfly",
       "displayName": "Bugaboo Butterfly",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2514341&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-tray-adapter%2F74829%2F2514341&intsrc=APIG_8981",
-      "babylistPrice": 16.95,
-      "macroBabyUrl": "https://www.macrobaby.com/products/bugaboo-butterfly-stroller-complete-black-forest-green?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491084&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-complete-stroller%2F74320%2F2491084&intsrc=APIG_8981",
+      "babylistPrice": 599,
+      "macroBabyUrl": "https://www.macrobaby.com/products/bugaboo-butterfly-complete-compact-stroller-dark-cherry?_j=taylormadebabyco.com",
       "macroBabyPrice": 549,
       "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Butterfly%20stroller&tag=taylormadebab-20"
     },
@@ -481,8 +991,8 @@
       "brand": "Bugaboo",
       "model": "Butterfly 2",
       "displayName": "Bugaboo Butterfly 2",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2514341&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-tray-adapter%2F74829%2F2514341&intsrc=APIG_8981",
-      "babylistPrice": 16.95,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491084&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-complete-stroller%2F74320%2F2491084&intsrc=APIG_8981",
+      "babylistPrice": 599,
       "macroBabyUrl": "https://www.macrobaby.com/products/bugaboo-butterfly-2-compact-stroller-complete-black-heritage-black?_j=taylormadebabyco.com",
       "macroBabyPrice": 499,
       "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Butterfly%202%20stroller&tag=taylormadebab-20"
@@ -490,32 +1000,32 @@
     {
       "area": "travel-system-stroller",
       "brand": "Bugaboo",
+      "model": "Donkey 3",
+      "displayName": "Bugaboo Donkey 3",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903105&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-donkey-6-stroller%2F80444%2F2903105&intsrc=APIG_8981",
+      "babylistPrice": 1699,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Donkey%203%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bugaboo",
       "model": "Donkey 6",
       "displayName": "Bugaboo Donkey 6",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/bugaboo-donkey-6-complete-stroller-black-moon-grey?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903105&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-donkey-6-stroller%2F80444%2F2903105&intsrc=APIG_8981",
+      "babylistPrice": 1699,
+      "macroBabyUrl": "https://www.macrobaby.com/products/bugaboo-donkey-6-complete-stroller-black-deep-indigo?_j=taylormadebabyco.com",
       "macroBabyPrice": 1699.99,
       "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Donkey%206%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "Bugaboo",
-      "model": "Dragonfly",
-      "displayName": "Bugaboo Dragonfly",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2514341&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-tray-adapter%2F74829%2F2514341&intsrc=APIG_8981",
-      "babylistPrice": 16.95,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Dragonfly%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "Bugaboo",
       "model": "Fox 2",
       "displayName": "Bugaboo Fox 2",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2514341&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-tray-adapter%2F74829%2F2514341&intsrc=APIG_8981",
-      "babylistPrice": 16.95,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2487974&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-fox-5-renew-complete-stroller-bassinet%2F71205%2F2487974&intsrc=APIG_8981",
+      "babylistPrice": 1499,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Fox%202%20stroller&tag=taylormadebab-20"
@@ -523,32 +1033,76 @@
     {
       "area": "travel-system-stroller",
       "brand": "Bugaboo",
+      "model": "Fox 5",
+      "displayName": "Bugaboo Fox 5",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2487974&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-fox-5-renew-complete-stroller-bassinet%2F71205%2F2487974&intsrc=APIG_8981",
+      "babylistPrice": 1499,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Fox%205%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bugaboo",
       "model": "Kangaroo",
       "displayName": "Bugaboo Kangaroo",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2927312&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-kangaroo-bassinet-fabric%2F80472%2F2927312&intsrc=APIG_8981",
-      "babylistPrice": 250,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2927288&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-kangaroo-stroller%2F80467%2F2927288&intsrc=APIG_8981",
+      "babylistPrice": 1099,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Kangaroo%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
-      "brand": "Bugaboo",
-      "model": "Lynx",
-      "displayName": "Bugaboo Lynx",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2514341&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-butterfly-2-tray-adapter%2F74829%2F2514341&intsrc=APIG_8981",
-      "babylistPrice": 16.95,
+      "brand": "Bumbleride",
+      "model": "Era",
+      "displayName": "Bumbleride Era",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072902&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-era-stroller%2F37542%2F2072902&intsrc=APIG_8981",
+      "babylistPrice": 949,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Bugaboo%20Lynx%20stroller&tag=taylormadebab-20"
+      "amazonUrl": "https://www.amazon.com/s?k=Bumbleride%20Era%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bumbleride",
+      "model": "Indie",
+      "displayName": "Bumbleride Indie",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072906&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-double-jogging-stroller%2F37545%2F2072906&intsrc=APIG_8981",
+      "babylistPrice": 1099,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bumbleride%20Indie%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bumbleride",
+      "model": "Indie Twin",
+      "displayName": "Bumbleride Indie Twin",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072906&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-double-jogging-stroller%2F37545%2F2072906&intsrc=APIG_8981",
+      "babylistPrice": 1099,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bumbleride%20Indie%20Twin%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Bumbleride",
+      "model": "Speed",
+      "displayName": "Bumbleride Speed",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2586974&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-speed-stroller%2F13352%2F2586974&intsrc=APIG_8981",
+      "babylistPrice": 799,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Bumbleride%20Speed%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "CYBEX",
       "model": "Balios S Lux",
       "displayName": "CYBEX Balios S Lux",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
-      "babylistPrice": 899.95,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2847009&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-balios-s-lux-stroller%2F22411%2F2847009&intsrc=APIG_8981",
+      "babylistPrice": 699.95,
       "macroBabyUrl": "https://www.macrobaby.com/products/cybex-balios-s-lux-stroller-stone-grey?_j=taylormadebabyco.com",
       "macroBabyPrice": 699.95,
       "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Balios%20S%20Lux%20stroller&tag=taylormadebab-20"
@@ -556,57 +1110,24 @@
     {
       "area": "travel-system-stroller",
       "brand": "CYBEX",
-      "model": "Beezy",
-      "displayName": "CYBEX Beezy",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
-      "babylistPrice": 899.95,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Beezy%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "CYBEX",
       "model": "Coya",
       "displayName": "CYBEX Coya",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
-      "babylistPrice": 899.95,
-      "macroBabyUrl": "https://www.macrobaby.com/products/cybex-coya-stroller-chrome-matte-black-cozy-beige?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2045289&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-coya-stroller%2F82587%2F2045289&intsrc=APIG_8981",
+      "babylistPrice": 599.95,
+      "macroBabyUrl": "https://www.macrobaby.com/products/cybex-coya-stroller-rosegold-cozy-beige?_j=taylormadebabyco.com",
       "macroBabyPrice": 599.95,
       "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Coya%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "CYBEX",
-      "model": "Eos",
-      "displayName": "CYBEX Eos",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
+      "model": "Gazelle S",
+      "displayName": "CYBEX Gazelle S",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2458469&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-gazelle-s-stroller-1749563054%2F38515%2F2458469&intsrc=APIG_8981",
       "babylistPrice": 899.95,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Eos%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "CYBEX",
-      "model": "Libelle",
-      "displayName": "CYBEX Libelle",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
-      "babylistPrice": 899.95,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Libelle%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "CYBEX",
-      "model": "Melio",
-      "displayName": "CYBEX Melio",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3045829&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-mios-stroller%2F81323%2F3045829&intsrc=APIG_8981",
-      "babylistPrice": 899.95,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Melio%20stroller&tag=taylormadebab-20"
+      "amazonUrl": "https://www.amazon.com/s?k=CYBEX%20Gazelle%20S%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
@@ -632,22 +1153,11 @@
     },
     {
       "area": "travel-system-stroller",
-      "brand": "Egg",
-      "model": "Egg",
-      "displayName": "Egg Stroller",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1686043&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-premier-modes-nest2grow-stroller-second-seat%2F44442%2F1686043&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Egg%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
       "brand": "Joie",
       "model": "Ginger",
       "displayName": "Joie Ginger",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719299&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-ginger-dlx-stroller%2F77672%2F2719299&intsrc=APIG_8981",
+      "babylistPrice": 399.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Joie%20Ginger%20stroller&tag=taylormadebab-20"
@@ -655,21 +1165,10 @@
     {
       "area": "travel-system-stroller",
       "brand": "Joie",
-      "model": "Hazel",
-      "displayName": "Joie Hazel",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
-      "macroBabyUrl": null,
-      "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Joie%20Hazel%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "Joie",
       "model": "Kava",
       "displayName": "Joie Kava",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2254719&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-kava-stroller%2F68268%2F2254719&intsrc=APIG_8981",
+      "babylistPrice": 399.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Joie%20Kava%20stroller&tag=taylormadebab-20"
@@ -679,8 +1178,8 @@
       "brand": "Joie",
       "model": "Nutmeg",
       "displayName": "Joie Nutmeg",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2868251&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-nutmeg-and-mint-latch%2F79578%2F2868251&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Joie%20Nutmeg%20stroller&tag=taylormadebab-20"
@@ -690,8 +1189,8 @@
       "brand": "Joie",
       "model": "Rosemary",
       "displayName": "Joie Rosemary",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2868254&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rosemary-double-stroller%2F68267%2F2868254&intsrc=APIG_8981",
+      "babylistPrice": 299.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Joie%20Rosemary%20stroller&tag=taylormadebab-20"
@@ -701,8 +1200,8 @@
       "brand": "Joie",
       "model": "Tansy",
       "displayName": "Joie Tansy",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-caraway-whirl-and-rue-travel-system%2F77679%2F2719315&intsrc=APIG_8981",
-      "babylistPrice": 449.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2038042&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-tansy-stroller%2F54927%2F2038042&intsrc=APIG_8981",
+      "babylistPrice": 99.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Joie%20Tansy%20stroller&tag=taylormadebab-20"
@@ -712,19 +1211,74 @@
       "brand": "Joolz",
       "model": "Aer+",
       "displayName": "Joolz Aer+",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/joolz-aer-lightweight-compact-stroller-forest-green?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575186&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-aer2-stroller%2F75214%2F2575186&intsrc=APIG_8981",
+      "babylistPrice": 579,
+      "macroBabyUrl": "https://www.macrobaby.com/products/joolz-aer-lightweight-compact-stroller-sage-green-2?_j=taylormadebabyco.com",
       "macroBabyPrice": 499,
       "amazonUrl": "https://www.amazon.com/s?k=Joolz%20Aer%2B%20travel%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Joolz",
+      "model": "Day",
+      "displayName": "Joolz Day",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=842284&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-day-complete-stroller%2F22381%2F842284&intsrc=APIG_8981",
+      "babylistPrice": 1099,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Joolz%20Day%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Joolz",
+      "model": "Geo",
+      "displayName": "Joolz Geo",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=842284&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-day-complete-stroller%2F22381%2F842284&intsrc=APIG_8981",
+      "babylistPrice": 1099,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Joolz%20Geo%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Joolz",
+      "model": "Hub",
+      "displayName": "Joolz Hub",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2374731&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub-stroller-1741715957%2F71326%2F2374731&intsrc=APIG_8981",
+      "babylistPrice": 849,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Joolz%20Hub%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Joolz",
+      "model": "Hub 2",
+      "displayName": "Joolz Hub 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2374731&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub-stroller-1741715957%2F71326%2F2374731&intsrc=APIG_8981",
+      "babylistPrice": 849,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Joolz%20Hub%202%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Mima",
+      "model": "Creo",
+      "displayName": "Mima Creo",
+      "babylistUrl": null,
+      "babylistPrice": null,
+      "macroBabyUrl": "https://www.macrobaby.com/products/mima-creo-stroller-black-chassis-mocha-cream-seat?_j=taylormadebabyco.com",
+      "macroBabyPrice": 1199.99,
+      "amazonUrl": "https://www.amazon.com/s?k=Mima%20Creo%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "Mockingbird",
       "model": "Single 3.0",
       "displayName": "Mockingbird Single 3.0",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2870217&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmockingbird-single-to-double-stroller-3-0-and-bassinet-bundle%2F79821%2F2870217&intsrc=APIG_8981",
-      "babylistPrice": 709,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715261&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmockingbird-single-to-double-stroller-3-0%2F77456%2F2715261&intsrc=APIG_8981",
+      "babylistPrice": 549,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Mockingbird%20Single%203.0%20stroller&tag=taylormadebab-20"
@@ -734,8 +1288,8 @@
       "brand": "Mockingbird",
       "model": "Single-to-Double 3.0",
       "displayName": "Mockingbird Single-to-Double 3.0",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2870217&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmockingbird-single-to-double-stroller-3-0-and-bassinet-bundle%2F79821%2F2870217&intsrc=APIG_8981",
-      "babylistPrice": 709,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715261&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmockingbird-single-to-double-stroller-3-0%2F77456%2F2715261&intsrc=APIG_8981",
+      "babylistPrice": 549,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Mockingbird%20Single%20to%20Double%203.0%20stroller&tag=taylormadebab-20"
@@ -745,8 +1299,8 @@
       "brand": "Nuna",
       "model": "DEMI next",
       "displayName": "Nuna DEMI next",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2811880&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-rava-next%2F78885%2F2811880&intsrc=APIG_8981",
-      "babylistPrice": 580,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1741072&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-demi-next-stroller-1730394523%2F45001%2F1741072&intsrc=APIG_8981",
+      "babylistPrice": 1000,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20DEMI%20next%20stroller&tag=taylormadebab-20"
@@ -756,9 +1310,9 @@
       "brand": "Nuna",
       "model": "MIXX next",
       "displayName": "Nuna MIXX next",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2811880&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-rava-next%2F78885%2F2811880&intsrc=APIG_8981",
-      "babylistPrice": 580,
-      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-granite?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210168&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-mixx-next-stroller%2F63550%2F2210168&intsrc=APIG_8981",
+      "babylistPrice": 900,
+      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com",
       "macroBabyPrice": 900,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20MIXX%20next%20stroller&tag=taylormadebab-20"
     },
@@ -767,8 +1321,8 @@
       "brand": "Nuna",
       "model": "SWIV",
       "displayName": "Nuna SWIV",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3308528&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bryn-newborn-rocker%2F83828%2F3308528&intsrc=APIG_8981",
-      "babylistPrice": 200,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2902970&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bmw-x-nuna-swiv-stroller%2F80435%2F2902970&intsrc=APIG_8981",
+      "babylistPrice": 1000,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-swiv-stroller-acorn?_j=taylormadebabyco.com",
       "macroBabyPrice": 1000,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20SWIV%20stroller&tag=taylormadebab-20"
@@ -778,8 +1332,8 @@
       "brand": "Nuna",
       "model": "TAVO next",
       "displayName": "Nuna TAVO next",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2811880&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-rava-next%2F78885%2F2811880&intsrc=APIG_8981",
-      "babylistPrice": 580,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=663920&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-tavo-next-stroller-1730395458%2F21123%2F663920&intsrc=APIG_8981",
+      "babylistPrice": 700,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-tavo-next-stroller-caviar?_j=taylormadebabyco.com",
       "macroBabyPrice": 700,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TAVO%20next%20stroller&tag=taylormadebab-20"
@@ -789,8 +1343,8 @@
       "brand": "Nuna",
       "model": "TRIV next",
       "displayName": "Nuna TRIV next",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2811880&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-rava-next%2F78885%2F2811880&intsrc=APIG_8981",
-      "babylistPrice": 580,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-triv-next-stroller%2F63549%2F2210167&intsrc=APIG_8981",
+      "babylistPrice": 800,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com",
       "macroBabyPrice": 800,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
@@ -798,11 +1352,22 @@
     {
       "area": "travel-system-stroller",
       "brand": "Nuna",
+      "model": "TRVL Dubl",
+      "displayName": "Nuna TRVL Dubl",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042627&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-trvl-dubl%2F54963%2F2042627&intsrc=APIG_8981",
+      "babylistPrice": 900,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRVL%20Dubl%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Nuna",
       "model": "TRVL lx",
       "displayName": "Nuna TRVL lx",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-with-travel-bag-caviar?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210169&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-trvl-lx-stroller%2F63551%2F2210169&intsrc=APIG_8981",
+      "babylistPrice": 600,
+      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com",
       "macroBabyPrice": 600,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRVL%20lx%20stroller&tag=taylormadebab-20"
     },
@@ -811,8 +1376,8 @@
       "brand": "Romer",
       "model": "Tura",
       "displayName": "Romer Tura",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2260539&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-sera-bassinet-for-tura-stroller%2F68653%2F2260539&intsrc=APIG_8981",
-      "babylistPrice": 309.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2262736&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-tura-stroller%2F68661%2F2262736&intsrc=APIG_8981",
+      "babylistPrice": 949.99,
       "macroBabyUrl": "https://www.macrobaby.com/products/romer-tura-stroller-peppercorn?_j=taylormadebabyco.com",
       "macroBabyPrice": 949.99,
       "amazonUrl": "https://www.amazon.com/s?k=Romer%20Tura%20stroller&tag=taylormadebab-20"
@@ -822,8 +1387,8 @@
       "brand": "Silver Cross",
       "model": "Clic",
       "displayName": "Silver Cross Clic",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491095&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-clic-compact-stroller%2F74323%2F2491095&intsrc=APIG_8981",
+      "babylistPrice": 399.99,
       "macroBabyUrl": "https://www.macrobaby.com/products/silver-cross-clic-lightweight-stroller-latte?_j=taylormadebabyco.com",
       "macroBabyPrice": 399.99,
       "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Clic%20stroller&tag=taylormadebab-20"
@@ -831,21 +1396,76 @@
     {
       "area": "travel-system-stroller",
       "brand": "Silver Cross",
+      "model": "Jet 5",
+      "displayName": "Silver Cross Jet 5",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2134387&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-jet-double-stroller%2F56937%2F2134387&intsrc=APIG_8981",
+      "babylistPrice": 799.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Jet%205%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Silver Cross",
       "model": "Jet Double",
       "displayName": "Silver Cross Jet Double",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2134387&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-jet-double-stroller%2F56937%2F2134387&intsrc=APIG_8981",
+      "babylistPrice": 799.99,
       "macroBabyUrl": "https://www.macrobaby.com/products/silver-cross-jet-lightweight-double-stroller-black?_j=taylormadebabyco.com",
       "macroBabyPrice": 799.99,
       "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Jet%20Double%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
+      "brand": "Silver Cross",
+      "model": "Reef",
+      "displayName": "Silver Cross Reef",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2544371&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-reef-2-stroller%2F25564%2F2544371&intsrc=APIG_8981",
+      "babylistPrice": 1299.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Reef%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Silver Cross",
+      "model": "Reef 2",
+      "displayName": "Silver Cross Reef 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2544371&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-reef-2-stroller%2F25564%2F2544371&intsrc=APIG_8981",
+      "babylistPrice": 1299.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Reef%202%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Silver Cross",
+      "model": "Wave",
+      "displayName": "Silver Cross Wave",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2049266&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-wave-3-single-to-double-stroller%2F24664%2F2049266&intsrc=APIG_8981",
+      "babylistPrice": 1699.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Wave%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Silver Cross",
+      "model": "Wave 3",
+      "displayName": "Silver Cross Wave 3",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2049266&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-wave-3-single-to-double-stroller%2F24664%2F2049266&intsrc=APIG_8981",
+      "babylistPrice": 1699.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Silver%20Cross%20Wave%203%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
       "brand": "Stokke",
       "model": "Yoyo 3",
       "displayName": "Stokke Yoyo 3",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2283118&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fstokke-yoyo-cup-holder%2F13185%2F2283118&intsrc=APIG_8981",
-      "babylistPrice": 35,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072997&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fstokke-yoyo-stroller-from-6-months%2F55557%2F2072997&intsrc=APIG_8981",
+      "babylistPrice": 499,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=Stokke%20Yoyo%203%20stroller&tag=taylormadebab-20"
@@ -853,21 +1473,43 @@
     {
       "area": "travel-system-stroller",
       "brand": "Thule",
-      "model": "Sleek",
-      "displayName": "Thule Sleek",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2181891&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fthule-bottle-cage%2F58140%2F2181891&intsrc=APIG_8981",
-      "babylistPrice": 34.95,
+      "model": "Glide 2",
+      "displayName": "Thule Glide 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2794251&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fthule-urban-glide-3%2F47016%2F2794251&intsrc=APIG_8981",
+      "babylistPrice": 849.95,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Thule%20Sleek%20stroller&tag=taylormadebab-20"
+      "amazonUrl": "https://www.amazon.com/s?k=Thule%20Glide%202%20jogging%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Thule",
+      "model": "Urban Glide 2",
+      "displayName": "Thule Urban Glide 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2794251&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fthule-urban-glide-3%2F47016%2F2794251&intsrc=APIG_8981",
+      "babylistPrice": 849.95,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Thule%20Urban%20Glide%202%20jogging%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "Thule",
+      "model": "Urban Glide 2 Double",
+      "displayName": "Thule Urban Glide 2 Double",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2687778&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fthule-urban-glide-3-double%2F47017%2F2687778&intsrc=APIG_8981",
+      "babylistPrice": 999.95,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Thule%20Urban%20Glide%202%20Double%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
       "brand": "UPPAbaby",
       "model": "Cruz V2",
       "displayName": "UPPAbaby Cruz V2",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052610&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-piggyback-for-cruz-v2%2F24414%2F1052610&intsrc=APIG_8981",
+      "babylistPrice": 149.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/dp/B08H2GXCWK?tag=taylormadebab-20"
@@ -877,8 +1519,8 @@
       "brand": "UPPAbaby",
       "model": "Cruz V3",
       "displayName": "UPPAbaby Cruz V3",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2597102&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-cruz-v3-stroller%2F74891%2F2597102&intsrc=APIG_8981",
+      "babylistPrice": 899.99,
       "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-cruz-v3-stroller-julian-dusty-blue-melange-carbon-frame-chestnut-leather?_j=taylormadebabyco.com",
       "macroBabyPrice": 899.99,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Cruz%20V3%20stroller&tag=taylormadebab-20"
@@ -886,10 +1528,21 @@
     {
       "area": "travel-system-stroller",
       "brand": "UPPAbaby",
+      "model": "Minu V2",
+      "displayName": "UPPAbaby Minu V2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2306148&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-minu-duo-stroller%2F69531%2F2306148&intsrc=APIG_8981",
+      "babylistPrice": 749.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Minu%20V2%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-stroller",
+      "brand": "UPPAbaby",
       "model": "Minu V3",
       "displayName": "UPPAbaby Minu V3",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848467&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-minu-v3-stroller%2F70504%2F2848467&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
       "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-minu-v3-compact-stroller-jake-charcoal-carbon-frame-black-leather?_j=taylormadebabyco.com",
       "macroBabyPrice": 499.99,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Minu%20V3%20stroller&tag=taylormadebab-20"
@@ -899,8 +1552,8 @@
       "brand": "UPPAbaby",
       "model": "Ridge",
       "displayName": "UPPAbaby Ridge",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2839938&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-ridge-v2-stroller%2F79450%2F2839938&intsrc=APIG_8981",
+      "babylistPrice": 699.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Ridge%20stroller&tag=taylormadebab-20"
@@ -910,8 +1563,8 @@
       "brand": "UPPAbaby",
       "model": "Vista V2",
       "displayName": "UPPAbaby Vista V2",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1473114&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-vista-v2-stroller%2F23220%2F1473114&intsrc=APIG_8981",
+      "babylistPrice": 759.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
       "amazonUrl": "https://www.amazon.com/dp/B08H2GXCWK?tag=taylormadebab-20"
@@ -921,11 +1574,22 @@
       "brand": "UPPAbaby",
       "model": "Vista V3",
       "displayName": "UPPAbaby Vista V3",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
-      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-vista-v3-stroller-savannah-pearl-gray-jacquard-carbon-frame-chestnut-leather?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2597098&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-vista-v3-stroller%2F54909%2F2597098&intsrc=APIG_8981",
+      "babylistPrice": 899.99,
+      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-vista-v3-stroller-jake-charcoal-carbon-frame-black-leather-1?_j=taylormadebabyco.com",
       "macroBabyPrice": 999.99,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Vista%20V3%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-car-seat",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "displayName": "Baby Jogger City GO 2",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=219570&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F219570&intsrc=APIG_8981",
+      "babylistPrice": 399.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Baby%20Jogger%20City%20GO%202%20infant%20car%20seat&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-car-seat",
@@ -934,28 +1598,28 @@
       "displayName": "Britax Willow S",
       "babylistUrl": null,
       "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-ruby-onyx?_j=taylormadebabyco.com",
+      "macroBabyUrl": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-glacier-onyx?_j=taylormadebabyco.com",
       "macroBabyPrice": 279.99,
       "amazonUrl": "https://www.amazon.com/s?k=Britax%20Willow%20S%20infant%20car%20seat&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-car-seat",
-      "brand": "Maxi-Cosi",
-      "model": "Coral XP",
-      "displayName": "Maxi-Cosi Coral XP",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2623013&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-pria-all-in-one-convertible-car-seat%2F16218%2F2623013&intsrc=APIG_8981",
-      "babylistPrice": 269.99,
+      "brand": "Clek",
+      "model": "Liing",
+      "displayName": "Clek Liing",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2028173&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2028173&intsrc=APIG_8981",
+      "babylistPrice": 499.99,
       "macroBabyUrl": null,
       "macroBabyPrice": null,
-      "amazonUrl": "https://www.amazon.com/s?k=Maxi-Cosi%20Coral%20XP%20infant%20car%20seat&tag=taylormadebab-20"
+      "amazonUrl": "https://www.amazon.com/s?k=Clek%20Liing%20infant%20car%20seat&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-car-seat",
       "brand": "Maxi-Cosi",
       "model": "Mico Luxe",
       "displayName": "Maxi-Cosi Mico Luxe",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2623013&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-pria-all-in-one-convertible-car-seat%2F16218%2F2623013&intsrc=APIG_8981",
-      "babylistPrice": 269.99,
+      "babylistUrl": null,
+      "babylistPrice": null,
       "macroBabyUrl": "https://www.macrobaby.com/products/maxi-cosi-mico-luxe-infant-car-seat-essential-green?_j=taylormadebabyco.com",
       "macroBabyPrice": 339.99,
       "amazonUrl": "https://www.amazon.com/s?k=Maxi-Cosi%20Mico%20Luxe%20infant%20car%20seat&tag=taylormadebab-20"
@@ -965,9 +1629,9 @@
       "brand": "Maxi-Cosi",
       "model": "Mico Pro",
       "displayName": "Maxi-Cosi Mico Pro",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2623013&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-pria-all-in-one-convertible-car-seat%2F16218%2F2623013&intsrc=APIG_8981",
-      "babylistPrice": 269.99,
-      "macroBabyUrl": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-drift?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2687825&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-mico-pro-infant-car-seat-8bdf76f7-1b69-47e7-89ac-325912aa274d%2F77692%2F2687825&intsrc=APIG_8981",
+      "babylistPrice": 319.99,
+      "macroBabyUrl": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-shadow-1?_j=taylormadebabyco.com",
       "macroBabyPrice": 219.99,
       "amazonUrl": "https://www.amazon.com/s?k=Maxi-Cosi%20Mico%20Pro%20infant%20car%20seat&tag=taylormadebab-20"
     },
@@ -976,9 +1640,9 @@
       "brand": "Maxi-Cosi",
       "model": "Peri 180",
       "displayName": "Maxi-Cosi Peri 180",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2623013&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-pria-all-in-one-convertible-car-seat%2F16218%2F2623013&intsrc=APIG_8981",
-      "babylistPrice": 269.99,
-      "macroBabyUrl": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-onyx-wonder?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1929883&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-peri-180-rotating-infant-car-seat%2F50590%2F1929883&intsrc=CATF_8981",
+      "babylistPrice": 499.99,
+      "macroBabyUrl": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-desert-wonder?_j=taylormadebabyco.com",
       "macroBabyPrice": 499.99,
       "amazonUrl": "https://www.amazon.com/s?k=Maxi-Cosi%20Peri%20180%20infant%20car%20seat&tag=taylormadebab-20"
     },
@@ -987,8 +1651,8 @@
       "brand": "Nuna",
       "model": "PIPA Aire rx",
       "displayName": "Nuna PIPA Aire rx",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2116079&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-aire-rx%2F46282%2F2116079&intsrc=CATF_8981",
+      "babylistPrice": 650,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-with-base-granite?_j=taylormadebabyco.com",
       "macroBabyPrice": 650,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20PIPA%20Aire%20rx%20infant%20car%20seat&tag=taylormadebab-20"
@@ -998,20 +1662,42 @@
       "brand": "Nuna",
       "model": "PIPA RX",
       "displayName": "Nuna PIPA RX",
-      "babylistUrl": null,
-      "babylistPrice": null,
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=310275&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F310275&intsrc=CATF_8981",
+      "babylistPrice": 550,
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-pipa-rx-infant-car-seat-relx-base-with-load-leg-caviar?_j=taylormadebabyco.com",
       "macroBabyPrice": 550,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20PIPA%20RX%20infant%20car%20seat&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-car-seat",
+      "brand": "Orbit Baby",
+      "model": "G5",
+      "displayName": "Orbit Baby G5",
+      "babylistUrl": null,
+      "babylistPrice": null,
+      "macroBabyUrl": "https://www.macrobaby.com/products/orbit-baby-g5-rotating-infant-car-seat-melange-flax?_j=taylormadebabyco.com",
+      "macroBabyPrice": 480.99,
+      "amazonUrl": "https://www.amazon.com/s?k=Orbit%20Baby%20G5%20stroller&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-car-seat",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio 4-35",
+      "displayName": "Peg Perego Primo Viaggio 4-35",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2272334&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fpeg-perego-peg-primo-viaggio-nido-rear-facing-infant-car-seat%2F68708%2F2272334&intsrc=APIG_8981",
+      "babylistPrice": 449.99,
+      "macroBabyUrl": null,
+      "macroBabyPrice": null,
+      "amazonUrl": "https://www.amazon.com/s?k=Peg%20Perego%20Primo%20Viaggio%204-35%20infant%20car%20seat&tag=taylormadebab-20"
+    },
+    {
+      "area": "travel-system-car-seat",
       "brand": "UPPAbaby",
       "model": "Aria",
       "displayName": "UPPAbaby Aria",
-      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1052696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-travel-bag-for-vista-cruz%2F24474%2F1052696&intsrc=APIG_8981",
-      "babylistPrice": 199.99,
-      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-aria-infant-car-seat-anthony-light-grey?_j=taylormadebabyco.com",
+      "babylistUrl": null,
+      "babylistPrice": null,
+      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-aria-infant-car-seat-jake-charcoal?_j=taylormadebabyco.com",
       "macroBabyPrice": 349.99,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Aria%20infant%20car%20seat&tag=taylormadebab-20"
     },
@@ -1020,9 +1706,9 @@
       "brand": "UPPAbaby",
       "model": "Aria V2",
       "displayName": "UPPAbaby Aria V2",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-greyson-charcoal-melange?_j=taylormadebabyco.com",
+      "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848459&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2848459&intsrc=CATF_8981",
+      "babylistPrice": 449.99,
+      "macroBabyUrl": "https://www.macrobaby.com/products/uppababy-aria-v2-infant-car-seat-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com",
       "macroBabyPrice": 449.99,
       "amazonUrl": "https://www.amazon.com/s?k=UPPAbaby%20Aria%20V2%20infant%20car%20seat&tag=taylormadebab-20"
     }

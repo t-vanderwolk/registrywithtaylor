@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
 import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 
@@ -66,7 +67,13 @@ export async function GET() {
     .findMany({
       where: {
         isActiveInFeed: true,
-        enrichment: { is: { productType: 'infant car seat', reviewStatus: { not: 'HIDDEN' } } },
+        enrichment: {
+          is: {
+            productType: 'infant car seat',
+            needsReview: false,
+            reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+          },
+        },
       },
       select: {
         provider: true,
@@ -104,7 +111,7 @@ export async function GET() {
     }
     const brand = canonicalBrand(r.enrichment?.canonicalBrand ?? r.brand);
     const model = modelLikeCanonicalName(r.enrichment?.canonicalName) ?? parseCarSeatModel(r.title, brand);
-    const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
+    const key = productModelKey(brand, model || r.title);
 
     let g = groups.get(key);
     if (!g) {

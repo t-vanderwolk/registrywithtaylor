@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
         where: {
           provider: 'shopify_macrobaby',
           isActiveInFeed: true,
-          enrichment: { is: { reviewStatus: { not: 'HIDDEN' } } },
+          enrichment: { is: { needsReview: false, reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] } } },
         },
         select: { brand: true, title: true, price: true, affiliateUrl: true, imageUrl: true },
       })

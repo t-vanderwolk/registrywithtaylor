@@ -3,6 +3,7 @@ import prisma from '@/lib/server/prisma';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
@@ -88,7 +89,13 @@ export async function GET() {
     .findMany({
       where: {
         isActiveInFeed: true,
-        enrichment: { is: { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } } },
+        enrichment: {
+          is: {
+            tmbcCategory: 'Strollers',
+            needsReview: false,
+            reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+          },
+        },
       },
       select: {
         provider: true,
@@ -125,7 +132,12 @@ export async function GET() {
   for (const r of rows) {
     const category = strollerCategoryFromProductType(r.enrichment?.productType);
     if (!category) continue; // skip accessories / unmapped types
-    if (isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title })) continue;
+    if (isExcludedStrollerFinderProduct({
+      brand: r.brand,
+      title: r.title,
+      productUrl: r.productUrl,
+      affiliateUrl: r.affiliateUrl,
+    })) continue;
     // Collapse colour/variant duplicates within a provider.
     if (r.itemGroupId) {
       const groupIdKey = `${r.provider}:${r.itemGroupId}`;
@@ -135,7 +147,7 @@ export async function GET() {
     const rawBrand = (r.enrichment?.canonicalBrand || r.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
     const model = modelLikeCanonicalName(r.enrichment?.canonicalName) ?? parseStrollerModel(r.title, rawBrand || brand);
-    const key = (model ? `${brand}|${model}` : `${brand}|${r.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
+    const key = productModelKey(brand, model || r.title);
 
     let g = groups.get(key);
     if (!g) {

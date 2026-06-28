@@ -40,6 +40,8 @@ export function parseStrollerModel(title: string, brand: string): string {
  */
 export function parseCarSeatModel(title: string, brand: string): string {
   let m = title.trim().replace(/^["'\s]+|["'\s]+$/g, '');
+  if (/^doona\+/i.test(m)) return 'Doona+';
+  if (/^doona\b/i.test(m)) return 'Doona';
   if (brand && m.toLowerCase().startsWith(brand.toLowerCase())) {
     m = m.slice(brand.length);
   } else if (brand) {

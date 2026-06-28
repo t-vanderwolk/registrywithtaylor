@@ -1,0 +1,549 @@
+{
+  "generatedAt": "2026-06-28T01:53:39.513Z",
+  "rows": [
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest",
+      "carSeat": "Graco SnugRide Lite LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest",
+      "carSeat": "Graco SnugRide SnugFit",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest2Grow",
+      "carSeat": "Graco SnugRide Lite LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest2Grow",
+      "carSeat": "Graco SnugRide SnugFit",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest2Grow",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Nest2Grow",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Pramette",
+      "carSeat": "Graco SnugRide Lite LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Pramette",
+      "carSeat": "Graco SnugRide SnugFit",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Pramette",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Modes Pramette",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow 2.0 Double",
+      "carSeat": "Graco SnugRide Lite LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow LX 2.0 Double",
+      "carSeat": "Graco SnugRide Lite LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow LX 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow LX 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Graco",
+      "stroller": "Graco Ready2Grow LX 2.0 Double",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "strollerFamily": "Modes / Ready2Grow",
+      "carSeatFamily": "SnugRide",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Evenflo",
+      "stroller": "Evenflo Pivot Xpand Modular",
+      "carSeat": "Evenflo LiteMax NXT",
+      "strollerFamily": "Pivot / Pivot Xpand",
+      "carSeatFamily": "LiteMax",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Evenflo",
+      "stroller": "Evenflo Pivot Xpand Modular",
+      "carSeat": "Evenflo Revolve180 LiteMax NXT Rotational",
+      "strollerFamily": "Pivot / Pivot Xpand",
+      "carSeatFamily": "LiteMax",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Evenflo",
+      "stroller": "Evenflo Pivot Xpand NXT",
+      "carSeat": "Evenflo LiteMax NXT",
+      "strollerFamily": "Pivot / Pivot Xpand",
+      "carSeatFamily": "LiteMax",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Evenflo",
+      "stroller": "Evenflo Pivot Xpand NXT",
+      "carSeat": "Evenflo Revolve180 LiteMax NXT Rotational",
+      "strollerFamily": "Pivot / Pivot Xpand",
+      "carSeatFamily": "LiteMax",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco Fit2",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit 30",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit 30 ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit 35",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit Max ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit Max Zip ClearLux",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo LE ClearTex Quick-Fold",
+      "carSeat": "Chicco KeyFit Max Zip ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco Fit2",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit 30",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit 30 ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit 35",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit Max ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit Max Zip ClearLux",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Bravo Quick-Fold",
+      "carSeat": "Chicco KeyFit Max Zip ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco Fit2",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit 30",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit 30 ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit 35",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit Max ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit Max Zip ClearLux",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Flex Convertible",
+      "carSeat": "Chicco KeyFit Max Zip ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco Fit2",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit 30",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit 30 ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit 35",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit Max ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit Max Zip ClearLux",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Chicco",
+      "stroller": "Chicco Corso Primo Modular",
+      "carSeat": "Chicco KeyFit Max Zip ClearTex",
+      "strollerFamily": "Bravo / Corso",
+      "carSeatFamily": "KeyFit / Fit2",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax B-Safe 35",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax B-Safe 35 Elite",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax B-Safe Gen2",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax B-Safe Gen2 FlexFit",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax Cypress S",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax Willow S",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Grove Modular",
+      "carSeat": "Britax Willow SC",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax B-Safe 35",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax B-Safe 35 Elite",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax B-Safe Gen2",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax B-Safe Gen2 FlexFit",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax Cypress S",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax Willow S",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Prism Modular",
+      "carSeat": "Britax Willow SC",
+      "strollerFamily": "Grove / Prism",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Trend",
+      "stroller": "Baby Trend Expedition 2-in-1",
+      "carSeat": "Baby Trend EZ-Lift Pro",
+      "strollerFamily": "Expedition",
+      "carSeatFamily": "EZ-Lift / Secure-Lift",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Trend",
+      "stroller": "Baby Trend Expedition 2-in-1",
+      "carSeat": "Baby Trend Secure-Lift 35",
+      "strollerFamily": "Expedition",
+      "carSeatFamily": "EZ-Lift / Secure-Lift",
+      "action": "skip-existing"
+    }
+  ]
+}

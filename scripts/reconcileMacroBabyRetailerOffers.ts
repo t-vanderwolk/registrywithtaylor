@@ -118,7 +118,7 @@ const KNOWN_BRANDS = [
 ].sort((a, b) => b.length - a.length);
 
 const ACCESSORY_RE =
-  /\b(adapters?|adaptors?|accessor(?:y|ies)|travel system|bundle|cup ?holder|snack tray|organizer|caddy|rain cover|rain shield|weather shield|mosquito|insect net|travel bag|carry bag|footmuff|canopy|bumper bar|belly bar|board|basket|liner|hooks?|console|toy|attachment|bassinet|second seat|sibling seat|rumble ?seat|rumbleseat|toddler seat|replacement|wheel|tire|frame only|stroller frame|storage|protection|connector|cart connector|car seat base|extra base|base only|insert|inlay|mirror|seat protector|cover|net)\b/i;
+  /\b(adapters?|adaptors?|accessor(?:y|ies)|travel system|bundle|cup ?holder|snack tray|organizer|caddy|rain cover|rain shield|weather shield|mosquito|insect net|travel bag|carry bag|footmuff|canopy|bumper bar|belly bar|board|basket|liner|hooks?|console|toy|attachment|bassinet|second seat|sibling seat|rumble ?seat|rumbleseat|toddler seat|replacement|front wheel|rear wheel|replacement wheel|wheel set|wheel kit|spare wheel|replacement tire|tire set|tire kit|inner tube|frame only|stroller frame|storage|protection|connector|cart connector|car seat base|extra base|base only|insert|inlay|mirror|seat protector|cover|net)\b/i;
 
 type Kind = 'stroller' | 'infant car seat' | 'adapter' | 'other';
 type TargetSource = 'affiliate-catalog' | 'babylist-cache' | 'canonical-stroller' | 'canonical-carseat';
@@ -484,6 +484,28 @@ async function main() {
   let updated = 0;
   const rows: ReportRow[] = [];
 
+  async function restoreFalseAccessoryReview(enrichment: NonNullable<MacroRow['enrichment']>) {
+    const tags = enrichment.tags ?? [];
+    if (
+      !apply ||
+      enrichment.reviewStatus !== 'HIDDEN' ||
+      !tags.includes('macrobaby-reconciliation-review') ||
+      !tags.includes('suspected-accessory')
+    ) {
+      return;
+    }
+
+    await db.productEnrichment.update({
+      where: { id: enrichment.id },
+      data: {
+        needsReview: false,
+        reviewStatus: 'AUTO_CATEGORIZED',
+        tags: tags.filter((tag) => tag !== 'macrobaby-reconciliation-review' && tag !== 'suspected-accessory'),
+      },
+    });
+    updated += 1;
+  }
+
   for (const macro of macroRows) {
     const enrichment = macro.enrichment;
     if (!enrichment) {
@@ -573,6 +595,8 @@ async function main() {
       }
       continue;
     }
+
+    await restoreFalseAccessoryReview(enrichment);
 
     const strollerCategory = kind === 'stroller' ? displayStrollerCategory(enrichment.productType, brand, model) : null;
     const key = modelKey(brand, model, kind, strollerCategory);

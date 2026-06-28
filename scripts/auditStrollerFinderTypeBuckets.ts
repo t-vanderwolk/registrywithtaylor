@@ -10,6 +10,7 @@ import path from 'node:path';
 import prismaBase from '@/lib/server/prisma';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
@@ -219,7 +220,13 @@ async function loadFinderGroups() {
   const rows: CatalogProductRow[] = await db.affiliateCatalogProduct.findMany({
     where: {
       isActiveInFeed: true,
-      enrichment: { is: { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } } },
+      enrichment: {
+        is: {
+          tmbcCategory: 'Strollers',
+          needsReview: false,
+          reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+        },
+      },
     },
     select: {
       id: true,
@@ -253,7 +260,12 @@ async function loadFinderGroups() {
   for (const row of rows) {
     const category = strollerCategoryFromProductType(row.enrichment?.productType);
     if (!category) continue;
-    if (isExcludedStrollerFinderProduct({ brand: row.brand, title: row.title })) continue;
+    if (isExcludedStrollerFinderProduct({
+      brand: row.brand,
+      title: row.title,
+      productUrl: row.productUrl,
+      affiliateUrl: row.affiliateUrl,
+    })) continue;
     if (row.itemGroupId) {
       const groupIdKey = `${row.provider}:${row.itemGroupId}`;
       if (seenGroups.has(groupIdKey)) continue;
@@ -263,7 +275,7 @@ async function loadFinderGroups() {
     const rawBrand = (row.enrichment?.canonicalBrand || row.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
     const model = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
-    const key = (model ? `${brand}|${model}` : `${brand}|${row.title}`).toLowerCase().replace(/[^a-z0-9|]+/g, '');
+    const key = productModelKey(brand, model || row.title);
 
     let group = groups.get(key);
     if (!group) {

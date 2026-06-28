@@ -1,0 +1,1544 @@
+{
+  "generatedAt": "2026-06-28T01:55:57.549Z",
+  "rows": [
+    {
+      "catalogId": "cmqphcs4y00bf10tc41zowg7a",
+      "title": "AXKID ONE 3 Extended Rear Facing Car Seat in Arctic Mist Grey",
+      "brand": "AXKID",
+      "model": "ONE 3 Extended Rear Facing",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3142808&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Faxkid-one-3-extended-rear-facing-car-seat%2F81578%2F3142808&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphcrvd00bc10tcbymsagbj",
+      "title": "AXKID ONE 3 Extended Rear Facing Car Seat in Coastal Storm Black",
+      "brand": "AXKID",
+      "model": "ONE 3 Extended Rear Facing",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3142807&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Faxkid-one-3-extended-rear-facing-car-seat%2F81578%2F3142807&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphcse300bi10tc927aggn5",
+      "title": "AXKID ONE 3 Extended Rear Facing Car Seat in Glacier Lake Blue",
+      "brand": "AXKID",
+      "model": "ONE 3 Extended Rear Facing",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3142809&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Faxkid-one-3-extended-rear-facing-car-seat%2F81578%2F3142809&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphcsne00bl10tcnlkehrjn",
+      "title": "AXKID ONE 3 Extended Rear Facing Car Seat in Nordic Bloom Green",
+      "brand": "AXKID",
+      "model": "ONE 3 Extended Rear Facing",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3142810&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Faxkid-one-3-extended-rear-facing-car-seat%2F81578%2F3142810&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphgqje005ldqwrzx9nzt9t",
+      "title": "Baby Jogger City GO 2 Infant Car Seat in Frosted Ivory",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2487990&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F2487990&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphgq9q005idqwrz2k60sm7",
+      "title": "Baby Jogger City GO 2 Infant Car Seat in Harbor Grey",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1948797&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F1948797&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphgq0d005fdqwrlzxex21e",
+      "title": "Baby Jogger City GO 2 Infant Car Seat in Lunar Black",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1948796&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F1948796&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphgpqt005cdqwrgmgdmzcd",
+      "title": "Baby Jogger City GO 2 Infant Car Seat in Slate",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=219570&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-go-2-infant-car-seat%2F15094%2F219570&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphh2hi009cdqwr3pe4hsmd",
+      "title": "Baby Trend EZ-Lift Pro Infant Car Seat in Dash Black",
+      "brand": "Baby Trend",
+      "model": "EZ-Lift Pro",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2181869&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-trend-ez-lift-pro-infant-car-seat%2F58136%2F2181869&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphh3ju009odqwr0z18q5ij",
+      "title": "Baby Trend Secure-Lift 35 Infant Car Seat in Dash Grey",
+      "brand": "Baby Trend",
+      "model": "Secure-Lift 35",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1701777&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-trend-secure-lift-35-infant-car-seat%2F44801%2F1701777&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j4mx000o3a8ufhvt0st8",
+      "title": "Britax - Willow SC Infant Car Seat, Rear Facing Car Seat",
+      "brand": "Britax",
+      "model": "Willow SC",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://www.macrobaby.com/products/britax-willow-sc-infant-car-seat-rear-facing-car-seat?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jcd700333a8uryuciio5",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Glacier Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-glacier-onyx?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j7ba001i3a8ub00c7ep2",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Graphite Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-graphite-onyx?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jggd004c3a8ukk9q4kkt",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Jade Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-jade-onyx?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jh8j004l3a8ulsnb6vqb",
+      "title": "Britax - Willow S Infant Car Seat with Alpine Anti-Rebound Base, Ruby Onyx",
+      "brand": "Britax",
+      "model": "Willow S",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/britax-willow-s-infant-car-seat-with-alpine-anti-rebound-base-ruby-onyx?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j4wu000r3a8uabayt4yq",
+      "title": "Bugaboo - Turtle Air Shield by Nuna Car Seat",
+      "brand": "Bugaboo",
+      "model": "Turtle Air Shield by Nuna",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/bugaboo-turtle-air-shield-by-nuna-car-seat?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqphnax7027ldqwrjc6yk6vi",
+      "title": "Bugaboo Turtle Air Shield by Nuna Car Seat + Recline Base | 100% Polyester",
+      "brand": "Bugaboo",
+      "model": "Turtle Air Shield by Nuna",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2116047&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-turtle-air-shield-by-nuna-car-seat-recline-base%2F56787%2F2116047&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphrte103mfdqwr5bscfz7l",
+      "title": "Chicco KeyFit 30 ClearTex Infant Car Seat in Pewter",
+      "brand": "Chicco",
+      "model": "KeyFit 30 ClearTex",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1101932&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-30-cleartex-infant-car-seat%2F24729%2F1101932&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphru6003modqwrxz4nyijn",
+      "title": "Chicco KeyFit Max ClearTex Infant Car Seat in Legend",
+      "brand": "Chicco",
+      "model": "KeyFit Max ClearTex",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383558&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-cleartex-infant-car-seat%2F71751%2F2383558&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphrufb03mrdqwrabkl1za2",
+      "title": "Chicco KeyFit Max ClearTex Infant Car Seat in Lupine",
+      "brand": "Chicco",
+      "model": "KeyFit Max ClearTex",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383559&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-cleartex-infant-car-seat%2F71751%2F2383559&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphrv8c03n0dqwr55o5mhg3",
+      "title": "Chicco KeyFit Max Zip ClearLux Infant Car Seat in Midori",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearLux",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383554&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-zip-clearlux-infant-car-seat%2F71749%2F2383554&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphruyj03mxdqwrr4k2rd7m",
+      "title": "Chicco KeyFit Max Zip ClearLux Infant Car Seat in Verona",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearLux",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383553&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-zip-clearlux-infant-car-seat%2F71749%2F2383553&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphrvhn03n3dqwr8e0nflx6",
+      "title": "Chicco KeyFit Max Zip ClearTex Infant Car Seat in Apex",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearTex",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383555&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-zip-cleartex-infant-car-seat%2F71750%2F2383555&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphrvqv03n6dqwrtsuct6bd",
+      "title": "Chicco KeyFit Max Zip ClearTex Infant Car Seat in Sierra",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearTex",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491101&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-keyfit-max-zip-cleartex-infant-car-seat%2F71750%2F2491101&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4jb9d002r3a8urqnm1tke",
+      "title": "Chicco Keyfit Max Zip Cleartex Infant Car Seat, Sierra",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearTex",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/chicco-keyfit-max-zip-cleartex-infant-car-seat-sierra?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqphs84b03r3dqwrxpry9hde",
+      "title": "Clek Liing Infant Car Seat in Edge Ziip (Flame Retardant Free)",
+      "brand": "Clek",
+      "model": "Liing",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571254&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2571254&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphs5ra03qcdqwrq097niua",
+      "title": "Clek Liing Infant Car Seat in Highlands Ziip (Flame Retardant Free)",
+      "brand": "Clek",
+      "model": "Liing",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571258&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2571258&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphs58w03q6dqwroakr4vtp",
+      "title": "Clek Liing Infant Car Seat in Railroad Ziip (Flame Retardant Free)",
+      "brand": "Clek",
+      "model": "Liing",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2028173&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2028173&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphs5i103q9dqwrd4xxxc4t",
+      "title": "Clek Liing Infant Car Seat in Vintage Ziip (Flame Retardant Free)",
+      "brand": "Clek",
+      "model": "Liing",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571256&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fclek-liing-infant-car-seat%2F14716%2F2571256&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu58n04codqwr0pyj787a",
+      "title": "Cybex Aton G2 Infant Car Seat with Load Leg Base in Almond Beige",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2797217&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-infant-car-seat-with-load-leg-base%2F78438%2F2797217&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu5ig04crdqwr14kfzrd9",
+      "title": "Cybex Aton G2 Infant Car Seat with Load Leg Base in Moon Black",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2797218&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-infant-car-seat-with-load-leg-base%2F78438%2F2797218&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu5sf04cudqwrsg60hzjb",
+      "title": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Almond Beige",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2846963&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-swivel-infant-car-seat-with-load-leg-base%2F79490%2F2846963&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu61p04cxdqwrsndcaocm",
+      "title": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Moon Black",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2846964&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-swivel-infant-car-seat-with-load-leg-base%2F79490%2F2846964&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu6di04d0dqwrk69sjbxf",
+      "title": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stone Grey",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2846966&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-swivel-infant-car-seat-with-load-leg-base%2F79490%2F2846966&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphu6n804d3dqwr4d5rujcv",
+      "title": "Cybex Aton G2 Swivel Infant Car Seat with Load Leg Base in Stormy Blue",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2846967&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-aton-g2-swivel-infant-car-seat-with-load-leg-base%2F79490%2F2846967&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphud1k04f3dqwr130y3t8z",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Almond Beige",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2732817&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-g-pro-comfort-extend-infant-car-seat%2F77670%2F2732817&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuc9e04eudqwr4h6ksovo",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Moon Black",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719289&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-g-pro-comfort-extend-infant-car-seat%2F77670%2F2719289&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuciq04exdqwrw1dzvtbc",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Ocean Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719290&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-g-pro-comfort-extend-infant-car-seat%2F77670%2F2719290&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphucs404f0dqwrehk9c8pv",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stone Grey",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2719291&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-g-pro-comfort-extend-infant-car-seat%2F77670%2F2719291&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuday04f6dqwrjb6tqzug",
+      "title": "Cybex Cloud G Pro Comfort Extend Infant Car Seat in Stormy Blue",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2730659&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-g-pro-comfort-extend-infant-car-seat%2F77670%2F2730659&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuevp04fodqwrf63rsjvw",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3316452&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F3316452&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuecy04fidqwrmjuw77yd",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Cozy Beige",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2178292&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F2178292&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphudti04fcdqwr9qxfteke",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Leaf Green",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2178290&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F2178290&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphue3q04ffdqwrpc6fqx99",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Mirage Grey",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2178291&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F2178291&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuf5704frdqwrvkgaov80",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Off White",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=3316453&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F3316453&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphudkb04f9dqwr315pkih0",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Platinum White",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2178289&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F2178289&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphuema04fldqwr0ojn2316",
+      "title": "Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in Sepia Black",
+      "brand": "Cybex",
+      "model": "Cloud T Comfort Extend",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2178293&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fcybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe%2F58039%2F2178293&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j2zg00063a8u5618wh3c",
+      "title": "Cybex - Cloud T Infant Car Seatsensorsafe - Sepia Black",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/cybex-cloud-t-infant-car-seatsensorsafe-sepia-black?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j2q400033a8urpd1tqyt",
+      "title": "Cybex - Cloud T With Sensorsafe - Jeremy Scott Wings",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/cybex-cloud-t-with-sensorsafe-jeremy-scott-wings?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqphxvw505iudqwrr4hil0tz",
+      "title": "Doona Infant Car Seat & Stroller",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=411207&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller-midnight-edition%2F19926%2F411207&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxu2m05i9dqwrj0xwyjhu",
+      "title": "Doona Infant Car Seat & Stroller in Blush Pink",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=31861&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F31861&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxvmx05irdqwrx7ln6zjr",
+      "title": "Doona Infant Car Seat & Stroller in Deep Blue",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2528371&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F2528371&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxuln05ifdqwr2ehfspzp",
+      "title": "Doona Infant Car Seat & Stroller in Desert Green",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1004727&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F1004727&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxubz05icdqwrtdmdxkax",
+      "title": "Doona Infant Car Seat & Stroller in Nitro Black",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=31863&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F31863&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxuvh05iidqwru89xg34g",
+      "title": "Doona Infant Car Seat & Stroller in Ocean Blue",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2041478&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F2041478&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxv4p05ildqwr6chft68v",
+      "title": "Doona Infant Car Seat & Stroller in Sahara Sand",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2041479&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F2041479&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqphxvdu05iodqwritveyd80",
+      "title": "Doona Infant Car Seat & Stroller in Slate Green",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2528370&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdoona-infant-car-seat-stroller%2F14613%2F2528370&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4l55v00n63a8u7m3rifhe",
+      "title": "Doona+ Infant Car Seat & Stroller, Sahara Sand",
+      "brand": "Doona",
+      "model": "Doona+",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-with-base-shara-sand?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j6ia00193a8ualq8s3mi",
+      "title": "Doona - Infant Car Seat With Base, Deep Blue",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-with-base-deep-blue?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jdo1003i3a8uct9d4wpx",
+      "title": "Doona - Infant Car Seat With Base, Ocean Blue",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-with-base-ocean-blue?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j3kg000c3a8ump8m6yan",
+      "title": "Doona - Infant Car Seat With Base, Slate Green",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-with-base-slate-green?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j7ku001l3a8u5chp992a",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Blush Pink",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-stroller-blush-pink?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j5q000103a8u9m52vzqo",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Desert Green",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-with-base-desert-green?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j8n0001x3a8ubc57nqtk",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Midnight",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-stroller-car-seat-with-base-midnight?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j7u2001o3a8uge1tgdgy",
+      "title": "Doona - Infant Car Seat With Base & Stroller, Nitro Black",
+      "brand": "Doona",
+      "model": "Doona",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/doona-infant-car-seat-stroller-nitro-black?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpi083w069cdqwroyv9vyyf",
+      "title": "Evenflo Gold Shyft DualRide Infant Car Seat Stroller Combo w Carryall Storage & Extended Canopy in Champagne/Green/Gentle Fabric",
+      "brand": "Evenflo",
+      "model": "Gold Shyft DualRide",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2383550&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-gold-shyft-dualride-infant-car-seat-stroller-combo-w-carryall-storage-extended-canopy%2F72979%2F2383550&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi08m6069idqwr3ga4sc4v",
+      "title": "Evenflo Gold Shyft DualRide Infant Car Seat Stroller Combo w Carryall Storage & Extended Canopy in Moonstone",
+      "brand": "Evenflo",
+      "model": "Gold Shyft DualRide",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2417731&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-gold-shyft-dualride-infant-car-seat-stroller-combo-w-carryall-storage-extended-canopy%2F72979%2F2417731&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi08cy069fdqwrvu9bddiu",
+      "title": "Evenflo Gold Shyft DualRide Infant Car Seat Stroller Combo w Carryall Storage & Extended Canopy in Onyx",
+      "brand": "Evenflo",
+      "model": "Gold Shyft DualRide",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2417730&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-gold-shyft-dualride-infant-car-seat-stroller-combo-w-carryall-storage-extended-canopy%2F72979%2F2417730&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi0axq06a0dqwr17ygvk67",
+      "title": "Evenflo LiteMax NXT Infant Car Seat with SensorySoothe in Jasper",
+      "brand": "Evenflo",
+      "model": "LiteMax NXT",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2423865&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-litemax-nxt-infant-car-seat-with-sensorysoothe%2F73031%2F2423865&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi09y4069xdqwrmg4wmbty",
+      "title": "Evenflo LiteMax NXT Infant Car Seat with SensorySoothe in Quartz",
+      "brand": "Evenflo",
+      "model": "LiteMax NXT",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2423864&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-litemax-nxt-infant-car-seat-with-sensorysoothe%2F73031%2F2423864&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi0dtj06axdqwrqt8muevm",
+      "title": "Evenflo Revolve180 LiteMax NXT Rotational Infant Car Seat with SensorySoothe in Quartz",
+      "brand": "Evenflo",
+      "model": "Revolve180 LiteMax NXT Rotational",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2417736&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-revolve180-litemax-nxt-rotational-infant-car-seat-with-sensorysoothe%2F72981%2F2417736&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi0fm306bidqwrhri4j9vw",
+      "title": "Evenflo Shyft DualRide Infant Car Seat Stroller Combo with Carryall Storage in Boone",
+      "brand": "Evenflo",
+      "model": "Shyft DualRide",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2417732&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-shyft-dualride-infant-car-seat-stroller-combo-with-carryall-storage%2F72980%2F2417732&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2cv506x6dqwrkklqbt7e",
+      "title": "Graco GoMax Baseless Infant Car Seat ft. Insta-Install Rigid LATCH in Ace",
+      "brand": "Graco",
+      "model": "GoMax",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2341063&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-gomax-baseless-infant-car-seat-ft-insta-install-rigid-latch%2F70367%2F2341063&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2dda06xcdqwrz3c4zcdq",
+      "title": "Graco GoMax Infant Car Seat ft. Insta-Install Rigid LATCH in Ace",
+      "brand": "Graco",
+      "model": "GoMax",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2341064&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-gomax-infant-car-seat-ft-insta-install-rigid-latch%2F70368%2F2341064&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2vmi0736dqwrz0ilj07p",
+      "title": "Graco SnugRide Lite LX Infant Car Seat & Extra Base in Studio/Black",
+      "brand": "Graco",
+      "model": "SnugRide Lite LX",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1931766&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-lite-lx-infant-car-seat-extra-base%2F50621%2F1931766&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2vdd0733dqwr36qv8b7q",
+      "title": "Graco SnugRide Lite LX Infant Car Seat in Studio",
+      "brand": "Graco",
+      "model": "SnugRide Lite LX",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=351788&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-lite-lx-infant-car-seat%2F17838%2F351788&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2w4z073cdqwr73dmtrf9",
+      "title": "Graco SnugRide SnugFit DLX Infant Car Seat in Maison",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit DLX",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1111843&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-snugfit-dlx-infant-car-seat%2F20467%2F1111843&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2vvr0739dqwrgp38bm4j",
+      "title": "Graco SnugRide SnugFit DLX Infant Car Seat in Spencer",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit DLX",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=529537&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-snugfit-dlx-infant-car-seat%2F20467%2F529537&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2wei073fdqwrxbouhbfz",
+      "title": "Graco SnugRide SnugFit Infant Car Seat in Gotham",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=529534&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-snugfit-infant-car-seat%2F20466%2F529534&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi2wng073idqwr3w0jvk2x",
+      "title": "Graco SnugRide SnugFit LX Infant Car Seat in Pierce",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit LX",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=529540&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-snugride-snugfit-lx-infant-car-seat%2F20469%2F529540&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9683092odqwrs06w7epg",
+      "title": "Joie Mint Latch And Base AR in Dove",
+      "brand": "Joie",
+      "model": "Mint Latch And Base AR",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715228&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-and-base-ar-1769205934%2F77448%2F2715228&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi96qs092udqwrwzhoesxt",
+      "title": "Joie Mint Latch And Base AR in Forest",
+      "brand": "Joie",
+      "model": "Mint Latch And Base AR",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715230&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-and-base-ar-1769205934%2F77448%2F2715230&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi96hi092rdqwr54ca0pzl",
+      "title": "Joie Mint Latch And Base AR in Mocha",
+      "brand": "Joie",
+      "model": "Mint Latch And Base AR",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715227&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-and-base-ar-1769205934%2F77448%2F2715227&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi95yk092ldqwr93bu8e99",
+      "title": "Joie Mint Latch And Base AR in Shale Dark",
+      "brand": "Joie",
+      "model": "Mint Latch And Base AR",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715225&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-and-base-ar-1769205934%2F77448%2F2715225&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi95p9092idqwrvy59h2fw",
+      "title": "Joie Mint Latch And Base AR in Thunder",
+      "brand": "Joie",
+      "model": "Mint Latch And Base AR",
+      "action": "skip-no-model",
+      "reason": "model was empty, too long, or accessory-like",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715226&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-and-base-ar-1769205934%2F77448%2F2715226&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi8o3a08x6dqwrwndh0p4h",
+      "title": "Joie Mint Latch Baseless Infant Car Seat in Dove",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2419731&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-mint-latch-baseless-infant-car-seat%2F54936%2F2419731&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi8nkm08x0dqwricnsbml6",
+      "title": "Joie Mint Latch Baseless Infant Car Seat in Mocha",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2058425&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-mint-latch-baseless-infant-car-seat%2F54936%2F2058425&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi8nu308x3dqwr7ik9ywrf",
+      "title": "Joie Mint Latch Baseless Infant Car Seat in Shale Dark",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2419730&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-mint-latch-baseless-infant-car-seat%2F54936%2F2419730&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi8nb708wxdqwrp6bl5swe",
+      "title": "Joie Mint Latch Baseless Infant Car Seat in Thunder",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2041122&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-baby-mint-latch-baseless-infant-car-seat%2F54936%2F2041122&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9707092xdqwr41qantpn",
+      "title": "Joie Mint Latch Infant Car Seat in Forest",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715254&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-mint-latch-infant-car-seat%2F77454%2F2715254&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9d02094udqwru7l70gbj",
+      "title": "Joie Rue Infant Car Seat with Base in Blush",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2041119&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2041119&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9duw0953dqwrpabypro7",
+      "title": "Joie Rue Infant Car Seat with Base in Dove",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2419733&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2419733&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9e460956dqwrs3xckjyj",
+      "title": "Joie Rue Infant Car Seat with Base in Forest",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2715234&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2715234&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9dbn094xdqwrku037j5j",
+      "title": "Joie Rue Infant Car Seat with Base in Mocha",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2058423&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2058423&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9dl40950dqwrkzzjnufh",
+      "title": "Joie Rue Infant Car Seat with Base in Shale Dark",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2419732&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2419732&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpi9cqq094rdqwrtqf9uuua",
+      "title": "Joie Rue Infant Car Seat with Base in Thunder",
+      "brand": "Joie",
+      "model": "Rue",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2041118&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoie-rue-infant-car-seat-with-base%2F54935%2F2041118&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4jaq9002l3a8ued1yztdz",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Caspian Caviar",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-ambra-infant-car-seat-caspian-caviar?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jagg002i3a8ut2z5qpow",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Escargot",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-ambra-infant-car-seat-escargot?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jazo002o3a8u2vtwua9t",
+      "title": "Maxi-Cosi Ambra Infant Car Seat, Truffle",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-ambra-infant-car-seat-truffle?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j5g2000x3a8u6x08zpig",
+      "title": "Maxi-Cosi - Mico Luxe+ Infant Car Seat, Essential Green",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Luxe",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-luxe-infant-car-seat-essential-green?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jhri004r3a8ucxpb7rnf",
+      "title": "Maxi-Cosi - Mico Luxe+ Infant Car Seat, Urban Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Luxe",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-luxe-infant-car-seat-urban-wonderr?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpiowcx0dzidqwrf241jz4y",
+      "title": "Maxi-Cosi Mico Pro+ Infant Car Seat in Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2687825&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-mico-pro-infant-car-seat-8bdf76f7-1b69-47e7-89ac-325912aa274d%2F77692%2F2687825&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j6rr001c3a8uf3a0hl4y",
+      "title": "Maxi-Cosi - Mico Pro+ Infant Car Seat, Oyster Shell",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-oyster-shell?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j83o001r3a8updl2xi71",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Sea Drift",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-drift?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jcma00363a8uc8qe00pa",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Seascape",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-seascape?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j8d8001u3a8ub397hld1",
+      "title": "Maxi-Cosi - Mico Pro + Infant Car Seat, Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-shadow?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4ja70002f3a8ujz87aold",
+      "title": "Maxi-Cosi - Mico Pro Infant Car Seat, Sea Shadow",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-mico-pro-infant-car-seat-sea-shadow-1?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jcvg00393a8u9s5230ek",
+      "title": "Maxi-Cosi - Peri 180 Rotating Infant Car Seat, Desert Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-desert-wonder?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpioz820e0fdqwrvu35xe0h",
+      "title": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Desert Wonder | 100% Recycled",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1929883&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-peri-180-rotating-infant-car-seat%2F50590%2F1929883&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiozhi0e0idqwr1m6v03hc",
+      "title": "Maxi-Cosi Peri 180 Rotating Infant Car Seat in Onyx Wonder | 100% Recycled",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1929884&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-peri-180-rotating-infant-car-seat%2F50590%2F1929884&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j4dl000l3a8u26phazga",
+      "title": "Maxi-Cosi - Peri 180° Rotating Infant Car Seat Kindred Collection, Natural Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-kindred-collection-natural-heritage?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jg6x00493a8uyiq7ge0y",
+      "title": "Maxi-Cosi - Peri 180° Rotating Infant Car Seat Kindred Collection, Onyx Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-kindred-collection-onyx-heritage?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j43z000i3a8uw0soazwh",
+      "title": "Maxi-Cosi - Peri 180 Rotating Infant Car Seat, Onyx Wonder",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/maxi-cosi-peri-180-rotating-infant-car-seat-onyx-wonder?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpip4810e20dqwrvbqog2iv",
+      "title": "Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2077028&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-the-kindred-collection-peri-180-rotating-infant-car-seat-1731350534%2F56028%2F2077028&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpip4hd0e23dqwr1k4hexfb",
+      "title": "Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Onyx Heritage",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2077029&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmaxi-cosi-the-kindred-collection-peri-180-rotating-infant-car-seat-1731350534%2F56028%2F2077029&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j68n00163a8uzv7pmif3",
+      "title": "Nuna - Pipa Aire Infant Car Seat, Biscotti",
+      "brand": "Nuna",
+      "model": "PIPA Aire",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-infant-car-seat-biscotti?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jbso002x3a8uk5kow5sb",
+      "title": "Nuna PIPA Aire Infant Car Seat + Pipa Series Base, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA Aire",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-infant-car-seat-pipa-series-base-caviar?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpiv2540fx3dqwr1dve2p1u",
+      "title": "Nuna PIPA aire rx in Biscotti",
+      "brand": "Nuna",
+      "model": "PIPA aire rx",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2116079&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-aire-rx%2F46282%2F2116079&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv2z60fxcdqwrejp6qxwk",
+      "title": "Nuna PIPA aire rx in Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "PIPA aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2903587&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-aire-rx%2F46282%2F2903587&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv2pg0fx9dqwrjschwx7l",
+      "title": "Nuna PIPA aire rx in Cedar",
+      "brand": "Nuna",
+      "model": "PIPA aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2116080&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-aire-rx%2F46282%2F2116080&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4je6w003o3a8uo7r8rube",
+      "title": "Nuna - PIPA Aire RX Infant Car Seat + PIPA RELX Base with Load Leg, Cedar",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-cedar?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jd4q003c3a8uy12p7j5u",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat & Relx Base, Biscotti",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-relx-base-biscotti?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jdxj003l3a8uo28gypg6",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat With Base, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-with-base-caviar?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jc2e00303a8uttyo0qw5",
+      "title": "Nuna - Pipa Aire Rx Infant Car Seat With Base Granite",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-rx-infant-car-seat-with-base-granite?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpiv2ev0fx6dqwrrgv7i9m7",
+      "title": "Nuna PIPA aire rx in Granite",
+      "brand": "Nuna",
+      "model": "PIPA aire rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1871696&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-aire-rx%2F46282%2F1871696&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv4ya0fxxdqwrauozqntt",
+      "title": "Nuna PIPA rx in Caviar/Cognac",
+      "brand": "Nuna",
+      "model": "PIPA rx",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=310275&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F310275&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv5t70fy6dqwr4sek0u3h",
+      "title": "Nuna PIPA rx in Cedar",
+      "brand": "Nuna",
+      "model": "PIPA rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2116081&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F2116081&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j29c00003a8u9tntdcgw",
+      "title": "Nuna - PIPA RX Infant Car Seat + RELX Base with Load Leg, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-rx-infant-car-seat-relx-base-with-load-leg-caviar?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jfnk00433a8uqs33qfxk",
+      "title": "Nuna - PIPA RX Infant Car Seat + RELX Base with Load Leg, Granite",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-rx-infant-car-seat-relx-base-with-load-leg-granite?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j9xg002c3a8u1dfpzzsc",
+      "title": "Nuna Pipa Rx Infant Car Seat with Base, Caviar/Chocolate",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/nuna-pipa-rx-infant-car-seat-with-base-caviar-chocolate?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpiv57u0fy0dqwrayzpz5r9",
+      "title": "Nuna PIPA rx in Granite",
+      "brand": "Nuna",
+      "model": "PIPA rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=310276&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F310276&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv62p0fy9dqwrh6pd72dw",
+      "title": "Nuna PIPA rx in Macaron",
+      "brand": "Nuna",
+      "model": "PIPA rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2332452&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F2332452&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiv5jt0fy3dqwrc9ts9rex",
+      "title": "Nuna PIPA rx in Pine",
+      "brand": "Nuna",
+      "model": "PIPA rx",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1198579&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-rx%2F16140%2F1198579&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4jgz4004i3a8u48ap028d",
+      "title": "Orbit Baby - G5+ Rotating Infant Car Seat, Mélange Flax",
+      "brand": "Orbit Baby",
+      "model": "G5",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/orbit-baby-g5-rotating-infant-car-seat-melange-flax?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpiwzj10giodqwrpuhvfvhv",
+      "title": "Peg Perego PEG Primo Viaggio Lounge in Mon Amour",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Lounge",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2272328&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fpeg-perego-peg-primo-viaggio-lounge-reclining-rear-facing-infant-car-seat%2F68707%2F2272328&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiwzt10girdqwrsdh06fjq",
+      "title": "Peg Perego PEG Primo Viaggio Lounge in True Black",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Lounge",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2272330&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fpeg-perego-peg-primo-viaggio-lounge-reclining-rear-facing-infant-car-seat%2F68707%2F2272330&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpix0bn0gixdqwrn1im3b6x",
+      "title": "Peg Perego PEG Primo Viaggio Nido in Mon Amour",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Nido",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2272334&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fpeg-perego-peg-primo-viaggio-nido-rear-facing-infant-car-seat%2F68708%2F2272334&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpix02b0giudqwr5wm5roek",
+      "title": "Peg Perego PEG Primo Viaggio Nido in True Black",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Nido",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2272333&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fpeg-perego-peg-primo-viaggio-nido-rear-facing-infant-car-seat%2F68708%2F2272333&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiya600gxidqwrun11lt5y",
+      "title": "Romer Juni Infant Car Seat with Versa Base in Pearl | Recycled",
+      "brand": "Romer",
+      "model": "Juni",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2262750&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-juni-infant-car-seat-with-versa-base%2F68665%2F2262750&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiyafd0gxldqwrhzmh3lpy",
+      "title": "Romer Juni Infant Car Seat with Versa Base in Peppercorn | Recycled",
+      "brand": "Romer",
+      "model": "Juni",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2262751&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-juni-infant-car-seat-with-versa-base%2F68665%2F2262751&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiyaoh0gxodqwres6v76hg",
+      "title": "Romer Juni Infant Car Seat with Versa Base in Truffle | Recycled",
+      "brand": "Romer",
+      "model": "Juni",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2262752&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fromer-juni-infant-car-seat-with-versa-base%2F68665%2F2262752&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiyj500h0cdqwrxa4raweg",
+      "title": "Safety 1st onBoard FLX Infant Car Seat in Lake Blue 2",
+      "brand": "Safety 1st",
+      "model": "onBoard FLX",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2794314&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsafety-1st-onboard-flx-infant-car-seat%2F78433%2F2794314&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpiyivm0h09dqwrgraiwogk",
+      "title": "Safety 1st onBoard FLX Infant Car Seat in Monument",
+      "brand": "Safety 1st",
+      "model": "onBoard FLX",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2794313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsafety-1st-onboard-flx-infant-car-seat%2F78433%2F2794313&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j3u8000f3a8ujrx7yx2c",
+      "title": "Uppababy - Aria Infant Car Seat, Anthony (Light Grey)",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-infant-car-seat-anthony-light-grey?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j567000u3a8u8kfw6iaw",
+      "title": "Uppababy - Aria Infant Car Seat, Jake (Charcoal)",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-infant-car-seat-jake-charcoal?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpj8eam0k4odqwrkon8bql3",
+      "title": "UPPAbaby Aria V2 in Ada",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848459&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2848459&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpj8drw0k4idqwrbpihfmjs",
+      "title": "UPPAbaby Aria V2 in Callum",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575169&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2575169&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpj8e190k4ldqwrfr1f8wfx",
+      "title": "UPPAbaby Aria V2 in Evelyn",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575170&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2575170&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4j8w900203a8udpqaqiom",
+      "title": "Uppababy Aria V2 Infant Car Seat Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-infant-car-seat-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpj8d930k4cdqwr3tjafyap",
+      "title": "UPPAbaby Aria V2 in Greyson",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575166&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2575166&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpj8czs0k49dqwrzyghn50z",
+      "title": "UPPAbaby Aria V2 in Jake",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575165&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2575165&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpj8die0k4fdqwr82lvy6l3",
+      "title": "UPPAbaby Aria V2 in Savannah",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2575167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-aria-v2%2F75212%2F2575167&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4jde8003f3a8u51b5qac9",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Callum/Dillan (Stone Blue)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-callum-dillan-stone-blue?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j71f001f3a8u4siy66dv",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Declan (Oat Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-declan-oat-melange?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jbiz002u3a8ukza29hfy",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Evelyn (Meadow Green)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-evelyn-meadow-green?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j95h00233a8ugw8r5pua",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Greyson (Charcoal Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-greyson-charcoal-melange?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j9es00263a8uq6lglgz8",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Jake (Charcoal)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-jake-charcoal?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jfd300403a8uhvucpdof",
+      "title": "Uppababy Aria V2 Lightweight Infant Car Seat, James (Black)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-james-black?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jegp003r3a8un25b5htz",
+      "title": "Uppababy - Aria V2 Lightweight Infant Car Seat, Savannah (Pearl Gray Melange)",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-aria-v2-lightweight-infant-car-seat-savannah-pearl-gray-melange?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpib6lr09pfdqwrowxacef0",
+      "title": "UPPAbaby Mesa V3 in Ada",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "update-existing-retailer",
+      "reason": "canonical infant car seat already exists; Babylist retailer fields were empty and have been backfilled",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2848462&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-mesa-v3%2F74913%2F2848462&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpib6c509pcdqwrpevndk5y",
+      "title": "UPPAbaby Mesa V3 in Evelyn",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2652217&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-mesa-v3%2F74913%2F2652217&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqx4jfxa00463a8ubcqlny3d",
+      "title": "UPPAbaby - Mesa V3 Infant Car Seat - Ada",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-ada?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j9o400293a8u1p7lt23w",
+      "title": "Uppababy Mesa V3 Infant Car Seat Ada, Sandstone Melange | Chestnut Leather",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-ada-sandstone-melange-chestnut-leather?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jeq9003u3a8ud0ae4ufa",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Callum/Dillan (Stone Blue)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-callum-dillan-stone-blue?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jgpq004f3a8uqx5jmzt7",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Declan (Oat Mélange)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-declan-oat-melange?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jhi0004o3a8u0t6ul2l3",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Evelyn (Meadow Green)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-evelyn-meadow-green?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j5zc00133a8ui7n3jbx1",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Greyson (Charcoal Mélange)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-greyson-charcoal-melange?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4jf22003x3a8udc03jk2i",
+      "title": "Uppababy Mesa V3 Infant Car Seat, James (Black)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-james-black?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqx4j3b900093a8uskdz1e3s",
+      "title": "Uppababy - Mesa V3 Infant Car Seat, Savannah (Pearl Gray Jacquard)",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://www.macrobaby.com/products/uppababy-mesa-v3-infant-car-seat-savannah-pearl-gray-jacquard?_j=taylormadebabyco.com"
+    },
+    {
+      "catalogId": "cmqpib5td09p6dqwrgyhgn4ik",
+      "title": "UPPAbaby Mesa V3 in Greyson",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2528374&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-mesa-v3%2F74913%2F2528374&intsrc=CATF_8981"
+    },
+    {
+      "catalogId": "cmqpib62m09p9dqwrilcfi1zl",
+      "title": "UPPAbaby Mesa V3 in Savannah",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "action": "skip-existing",
+      "reason": "canonical infant car seat already exists",
+      "url": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2528376&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-mesa-v3%2F74913%2F2528376&intsrc=CATF_8981"
+    }
+  ]
+}

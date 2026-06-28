@@ -4,6 +4,7 @@ import {
   resolveProductCardImage,
 } from '@/lib/blog/productCardImages';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
 import { hasPublicCoreRetailer, isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { parseCarSeatModel, parseStrollerModel } from '@/lib/catalog/strollerModel';
 import {
@@ -132,7 +133,28 @@ function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
   ]);
 }
 
-function publicBabylistFields(fields: BabylistFields): BabylistFields {
+function babylistDestinationText(url: string | null | undefined) {
+  if (!url) return '';
+  try {
+    const parsed = new URL(url);
+    const destination = parsed.searchParams.get('u');
+    return `${url} ${destination ? decodeURIComponent(destination) : ''}`.toLowerCase();
+  } catch {
+    return url.toLowerCase();
+  }
+}
+
+function hasInvalidInfantCarSeatBabylistDestination(url: string | null | undefined) {
+  const destination = babylistDestinationText(url);
+  if (!destination) return false;
+  return /\b(travel[-\s]?systems?|travel[-\s]?bags?|convertible|all[-\s]?in[-\s]?one|boosters?|adapters?|covers?|canop(?:y|ies)|inserts?|mirrors?|protectors?)\b/i.test(destination);
+}
+
+function publicBabylistFields(fields: BabylistFields, table: 'Stroller' | 'CarSeat'): BabylistFields {
+  if (table === 'CarSeat' && hasInvalidInfantCarSeatBabylistDestination(fields.babylistUrl)) {
+    return EMPTY_BABYLIST;
+  }
+
   if (!isGoodBuyGearUrl(fields.babylistUrl)) return fields;
 
   return {
@@ -175,11 +197,14 @@ async function loadBabylistMap(table: 'Stroller' | 'CarSeat'): Promise<Map<strin
     for (const row of rows) {
       map.set(
         babylistKey(row.brand, row.model),
-        publicBabylistFields({
-          babylistUrl: row.babylistUrl,
-          babylistPrice: row.babylistPrice,
-          babylistImage: row.babylistImage,
-        }),
+        publicBabylistFields(
+          {
+            babylistUrl: row.babylistUrl,
+            babylistPrice: row.babylistPrice,
+            babylistImage: row.babylistImage,
+          },
+          table,
+        ),
       );
     }
     return map;
@@ -220,8 +245,16 @@ async function loadMacroBabyMap(table: 'Stroller' | 'CarSeat'): Promise<Map<stri
         enrichment: {
           is:
             table === 'Stroller'
-              ? { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } }
-              : { productType: 'infant car seat', reviewStatus: { not: 'HIDDEN' } },
+              ? {
+                  tmbcCategory: 'Strollers',
+                  needsReview: false,
+                  reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+                }
+              : {
+                  productType: 'infant car seat',
+                  needsReview: false,
+                  reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+                },
         },
       },
       select: {
@@ -236,6 +269,13 @@ async function loadMacroBabyMap(table: 'Stroller' | 'CarSeat'): Promise<Map<stri
 
     const map = new Map<string, MacroBabyFields>();
     for (const row of rows) {
+      if (table === 'Stroller' && isExcludedStrollerFinderProduct({
+        brand: row.brand,
+        title: row.title,
+        affiliateUrl: row.affiliateUrl,
+      })) {
+        continue;
+      }
       const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
       if (!brand) continue;
       const offer: MacroBabyFields = {
@@ -325,7 +365,16 @@ function usesSharedInfantSeatAdapter(brand: string) {
 }
 
 function getDisplayName(brand: string, model: string, displayName?: string | null) {
-  return displayName?.trim() ? displayName : `${brand} ${model}`;
+  const generated = `${brand} ${model}`.replace(/\s+/g, ' ').trim();
+  const explicit = displayName?.replace(/\s+/g, ' ').trim();
+  const normalizedBrand = brand.toLowerCase().replace(/[^a-z0-9+]+/g, '');
+  const normalizedModel = model.toLowerCase().replace(/[^a-z0-9+]+/g, '');
+  const normalizedExplicit = (explicit ?? '').toLowerCase().replace(/[^a-z0-9+]+/g, '');
+  const normalizedGenerated = generated.toLowerCase().replace(/[^a-z0-9+]+/g, '');
+
+  if (explicit && normalizedExplicit !== normalizedGenerated) return explicit;
+  if (normalizedModel.startsWith(normalizedBrand)) return model;
+  return explicit || generated;
 }
 
 function normalizeBrand(value: string) {
@@ -702,7 +751,13 @@ async function getAdaptersForStrollerBrand(brand: string): Promise<CatalogAdapte
       where: {
         isActiveInFeed: true,
         brand: { equals: brand.trim(), mode: 'insensitive' },
-        enrichment: { is: { tmbcCategory: 'Travel Systems & Adapters', reviewStatus: { not: 'HIDDEN' } } },
+        enrichment: {
+          is: {
+            tmbcCategory: 'Travel Systems & Adapters',
+            needsReview: false,
+            reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
+          },
+        },
       },
       select: { title: true, imageUrl: true, affiliateUrl: true, price: true },
       take: 60,

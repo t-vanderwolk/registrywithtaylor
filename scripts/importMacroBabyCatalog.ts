@@ -28,10 +28,21 @@ const REPORT_JSON = 'reports/macrobaby-import-dry-run.json';
 const REPORT_CSV = 'reports/macrobaby-import-dry-run.csv';
 
 const COLLECTIONS = [
-  { handle: 'stroller', kind: 'strollers' },
-  { handle: 'infant-car-seats', kind: 'infant car seats' },
-  { handle: 'adapters', kind: 'adapters' },
-  { handle: 'car-seat-accessories', kind: 'car seat accessories fallback' },
+  {
+    handle: 'infant-car-seats',
+    kind: 'infant car seats',
+    url: 'https://www.macrobaby.com/collections/infant-car-seats?_j=taylormadebabyco.com',
+  },
+  {
+    handle: 'stroller',
+    kind: 'strollers',
+    url: 'https://www.macrobaby.com/collections/stroller?_j=taylormadebabyco.com',
+  },
+  {
+    handle: 'car-seat-accessories',
+    kind: 'car seat accessories fallback',
+    url: 'https://www.macrobaby.com/collections/car-seat-accessories?_j=taylormadebabyco.com',
+  },
 ];
 
 const KNOWN_BRANDS = [
@@ -146,7 +157,7 @@ const VERSION_TERMS = [
 const EXCLUDED_REASON_RULES: Array<{ reason: SkipReason; re: RegExp }> = [
   { reason: 'skippedTravelSystems', re: /\b(travel systems?|infant car seat\s*&\s*stroller combo|car seat\s*&\s*stroller combo|flex system)\b/i },
   { reason: 'skippedBundles', re: /\b(bundle|registry set|package)\b/i },
-  { reason: 'skippedReplacementParts', re: /\b(replacement|spare part|wheel|tire|inner tube|tube|chassis|frame only|stroller frame|(?:priam|epriam|e priam|mios|mios3)\s*\d*\s*frame|fabric set|seat fabric)\b/i },
+  { reason: 'skippedReplacementParts', re: /\b(replacement|spare part|inner tube|frame only|stroller frame|chassis only|chassis replacement|(?:priam|epriam|e priam|mios|mios3)\s*\d*\s*frame|fabric set|seat fabric)\b|\b(?:front|rear|replacement|spare)\s+(?:wheel|tire)s?\b|\b(?:wheel|tire)s?\s+(?:replacement|set|kit|assembly)\b/i },
   { reason: 'skippedStrollerAccessories', re: /\b(cup ?holders?|snack trays?|parent organizers?|organizers?|cadd(?:y|ies)|cargo net|gate check bag|rain cover|rain shield|weather shield|mosquito|insect net|travel bags?|carry bags?|transport bags?|footmuffs?|muffs?|parasol|sun shade|canopy|bumper bar|belly bar|board|glider board|piggyback|basket|liner|seat liner|stroller fans?|portable baby stroller fan|stroller cooler|cooler bag|clip n carry|phone holders?|hangers?|hooks?|console|toy|attachment|bike trailer|trailer conversion|conversion kit|car seat carrier|caddy frame|pediatric wheelchair|adaptive stroller|medical stroller|napper|bassinet|bassinet stand|storage basket|second seat|sibling seat|rumble ?seat|rumbleseat|toddler seat|seat unit|stroller accessories|yoyo.? connect|yoyo.*frame)\b/i },
   { reason: 'skippedCarSeatAccessories', re: /\b(car mirror|seat protector|sun ?shade|sunshade|weather shield|heat shield|car seat net|mosquito net|insect net|car seat cover|car seat canopy|body support|harness cover|strap cover|cup holder|base only|extra base|recline base|load leg base|stay.?in.?car base|car seat base|infant insert|\binsert\b|inlay|bassinet)\b/i },
   { reason: 'skippedNonInfantCarSeats', re: /\b(convertible|all.?in.?one|booster|rotating|360|swivel)\s+(?:car\s*)?seats?\b/i },
@@ -154,7 +165,7 @@ const EXCLUDED_REASON_RULES: Array<{ reason: SkipReason; re: RegExp }> = [
 ];
 
 const STROLLER_ACCESSORY_RE =
-  /\b(adapter|adaptor|cup ?holders?|snack trays?|parent organizers?|organizers?|cadd(?:y|ies)|cargo net|gate check bag|rain cover|rain shield|weather shield|mosquito|insect net|travel bags?|carry bags?|transport bags?|footmuffs?|parasol|sun shade|canopy|bumper bar|belly bar|board|basket|liner|phone holders?|hangers?|hooks?|console|toy|attachment|bike trailer|trailer conversion|conversion kit|car seat carrier|caddy frame|pediatric wheelchair|adaptive stroller|medical stroller|napper|bassinet|bassinet stand|storage basket|second seat|sibling seat|rumble ?seat|rumbleseat|seat unit|stroller fans?|portable baby stroller fan|stroller cooler|cooler bag|clip n carry|replacement|wheel|tire|stroller frame|stroller accessories|yoyo.? connect|yoyo.*frame)\b/i;
+  /\b(adapter|adaptor|cup ?holders?|snack trays?|parent organizers?|organizers?|cadd(?:y|ies)|cargo net|gate check bag|rain cover|rain shield|weather shield|mosquito|insect net|travel bags?|carry bags?|transport bags?|footmuffs?|parasol|sun shade|canopy|bumper bar|belly bar|board|basket|liner|phone holders?|hangers?|hooks?|console|toy|attachment|bike trailer|trailer conversion|conversion kit|car seat carrier|caddy frame|pediatric wheelchair|adaptive stroller|medical stroller|napper|bassinet|bassinet stand|storage basket|second seat|sibling seat|rumble ?seat|rumbleseat|seat unit|stroller fans?|portable baby stroller fan|stroller cooler|cooler bag|clip n carry|replacement|front wheel|rear wheel|replacement wheel|wheel set|wheel kit|spare wheel|replacement tire|tire set|tire kit|inner tube|stroller frame|stroller accessories|yoyo.? connect|yoyo.*frame)\b/i;
 
 const INFANT_SEAT_MODEL_RE =
   /\b(pipa|mesa|aria|liing|cloud|aton|keyfit|fit2|snugride|litemax|ez-?lift|primo viaggio|turtle|mico|willow|safe-?wash|b-?safe|doona|orbit baby g5)\b/i;
@@ -426,8 +437,8 @@ function productUrl(product: ShopifyProduct) {
   return addAffiliateParam(`/products/${product.handle}`);
 }
 
-function collectionUrl(handle: string) {
-  return addAffiliateParam(`/collections/${handle}`);
+function collectionSourceUrl(collection: (typeof COLLECTIONS)[number]) {
+  return addAffiliateParam(collection.url);
 }
 
 function bestVariant(product: ShopifyProduct) {
@@ -1172,7 +1183,10 @@ async function applyCandidates(candidates: ImportCandidate[]) {
         ...product,
         tmbcMacroBaby: {
           sourceCollections: product.collectionHandles ?? [],
-          affiliateCollectionUrls: (product.collectionHandles ?? []).map(collectionUrl),
+          affiliateCollectionUrls: (product.collectionHandles ?? [])
+            .map((handle) => COLLECTIONS.find((collection) => collection.handle === handle))
+            .filter((collection): collection is (typeof COLLECTIONS)[number] => Boolean(collection))
+            .map(collectionSourceUrl),
           compareAtPrice: c.compareAtPrice,
           matchedExisting: c.matchedExisting,
           duplicateRisk: c.duplicateRisk,
@@ -1285,7 +1299,7 @@ async function main() {
 
   const report: Report = {
     generatedAt: new Date().toISOString(),
-    source: COLLECTIONS.map((c) => collectionUrl(c.handle)).join(', '),
+    source: COLLECTIONS.map(collectionSourceUrl).join(', '),
     affiliateParam: `?${AFFILIATE_PARAM}=${AFFILIATE_VALUE}`,
     totals,
     byCollection,

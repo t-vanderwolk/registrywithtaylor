@@ -20,6 +20,8 @@
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" npm run catalog:scan-adapters
  */
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import prismaBase from '@/lib/server/prisma';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
@@ -28,6 +30,8 @@ const db = prismaBase as any;
 
 // Catalogs: Babylist (Impact), ANB Baby (Awin), MacroBaby (Shopify), GoodBuyGear (Impact).
 const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'shopify_macrobaby', 'impact_goodbuygear'];
+const REPORT_JSON = 'reports/adapter-compatibility-scan.json';
+const REPORT_CSV = 'reports/adapter-compatibility-scan.csv';
 
 // Infant-seat brands an adapter might name, with the aliases that show up in titles.
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
@@ -50,10 +54,28 @@ const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
   { brand: 'Silver Cross', res: [/silver ?cross/i] },
 ];
 
-function seatBrandsInTitle(title: string): string[] {
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function seatBrandSearchText(title: string, adapterBrand: string | null | undefined) {
+  let text = title;
+  const brand = canonicalBrand(adapterBrand).trim();
+  if (brand) {
+    const brandPattern = brand
+      .split(/\s+/)
+      .map(escapeRegExp)
+      .join('[-\\s]+');
+    text = text.replace(new RegExp(`^\\s*${brandPattern}\\s*[-:–—]?\\s*`, 'i'), '');
+  }
+  return text;
+}
+
+function seatBrandsInTitle(title: string, adapterBrand: string | null | undefined): string[] {
+  const text = seatBrandSearchText(title, adapterBrand);
   const found = new Set<string>();
   for (const { brand, res } of SEAT_BRAND_ALIASES) {
-    if (res.some((re) => re.test(title))) found.add(brand);
+    if (res.some((re) => re.test(text))) found.add(brand);
   }
   return [...found];
 }
@@ -84,6 +106,46 @@ type AdapterRow = {
 };
 type StrollerRow = { id: string; brand: string; model: string };
 type SeatRow = { id: string; brand: string; model: string };
+
+function csvEscape(value: unknown) {
+  const text = value == null ? '' : String(value);
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function writeReports({
+  totals,
+  parsedAdapters,
+  newCompatibilityRows,
+}: {
+  totals: Record<string, number>;
+  parsedAdapters: Array<{ title: string; strollers: string[]; seatBrands: string[] }>;
+  newCompatibilityRows: Array<{
+    stroller: string;
+    carSeat: string;
+    adapterTitle: string;
+    provider: string;
+    adapterUrl: string | null;
+    adapterPrice: number | null;
+  }>;
+}) {
+  mkdirSync(resolve(process.cwd(), 'reports'), { recursive: true });
+  writeFileSync(
+    resolve(process.cwd(), REPORT_JSON),
+    `${JSON.stringify({ generatedAt: new Date().toISOString(), totals, parsedAdapters, newCompatibilityRows }, null, 2)}\n`,
+  );
+  const lines = [
+    ['stroller', 'carSeat', 'adapterTitle', 'provider', 'adapterUrl', 'adapterPrice'].join(','),
+    ...newCompatibilityRows.map((row) => [
+      row.stroller,
+      row.carSeat,
+      row.adapterTitle,
+      row.provider,
+      row.adapterUrl,
+      row.adapterPrice,
+    ].map(csvEscape).join(',')),
+  ];
+  writeFileSync(resolve(process.cwd(), REPORT_CSV), `${lines.join('\n')}\n`);
+}
 
 async function hasAffiliateCatalogProduct() {
   return db
@@ -139,7 +201,7 @@ async function main() {
       if (canonicalBrand(st.brand).toLowerCase() !== aBrandCanon) return false;
       return modelVariants(st.model).some((m) => m.length >= 2 && ntitle.includes(m));
     });
-    const seatBrands = seatBrandsInTitle(title);
+    const seatBrands = seatBrandsInTitle(title, a.brand);
 
     if (strollerMatches.length) adaptersWithStroller += 1;
     if (seatBrands.length) adaptersWithSeatBrand += 1;
@@ -172,6 +234,29 @@ async function main() {
       : [];
   const existingSet = new Set(existing.map((e) => `${e.strollerId}:::${e.carSeatId}`));
   const toCreate = pairs.filter((p) => !existingSet.has(`${p.stroller.id}:::${p.seat.id}`));
+  const newCompatibilityRows = toCreate.map((p) => ({
+    stroller: `${p.stroller.brand} ${p.stroller.model}`,
+    carSeat: `${p.seat.brand} ${p.seat.model}`,
+    adapterTitle: p.adapter.title,
+    provider: p.adapter.provider,
+    adapterUrl: p.adapter.affiliateUrl ?? null,
+    adapterPrice: p.adapter.price ?? null,
+  }));
+  const totals = {
+    adapterProducts: adapters.length,
+    adaptersWithMatchedStroller: adaptersWithStroller,
+    adaptersNamingSeatBrand: adaptersWithSeatBrand,
+    strollerRows: strollers.length,
+    infantCarSeatRows: seats.length,
+    candidatePairs: pairs.length,
+    newToWrite: toCreate.length,
+    alreadyPresent: pairs.length - toCreate.length,
+  };
+  writeReports({
+    totals,
+    parsedAdapters: report,
+    newCompatibilityRows,
+  });
 
   console.log('── Scan catalog adapters → model-specific compatibility ──');
   console.log(
@@ -181,6 +266,7 @@ async function main() {
   console.log(
     `  candidate (stroller × seat) pairs: ${pairs.length}   new to write: ${toCreate.length}   already present: ${pairs.length - toCreate.length}\n`,
   );
+  console.log(`  reports: ${REPORT_JSON}, ${REPORT_CSV}\n`);
 
   console.log('  sample parse (adapter title → strollers | seat brands):');
   report
@@ -190,6 +276,13 @@ async function main() {
       console.log(`    • ${r.title}`);
       console.log(`        strollers: ${r.strollers.join(', ') || '—'}    seats: ${r.seatBrands.join(', ') || '—'}`);
     });
+  if (newCompatibilityRows.length) {
+    console.log('\n  new compatibility rows to write:');
+    newCompatibilityRows.slice(0, 50).forEach((row) => {
+      console.log(`    • ${row.stroller} × ${row.carSeat}`);
+      console.log(`        adapter: ${row.adapterTitle}`);
+    });
+  }
 
   if (!apply) {
     console.log('\n  (dry run — nothing changed. Review the parse above, then re-run with --apply.)');

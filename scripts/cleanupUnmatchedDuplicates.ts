@@ -13,9 +13,10 @@
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" npm run catalog:dedup
  */
 import prisma from '@/lib/server/prisma';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
 
 function normKey(brand: string, model: string): string {
-  return `${brand}|${model}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');
+  return productModelKey(brand, model);
 }
 
 type Row = { id: string; brand: string; model: string; createdAt: Date; compat: number };

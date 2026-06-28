@@ -18,6 +18,7 @@
 import prismaBase from '@/lib/server/prisma';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
@@ -33,9 +34,9 @@ function parseArgs() {
   return { dryRun: argv.includes('--dry-run'), limit: limitRaw ? parseInt(limitRaw.split('=')[1] ?? '', 10) : null };
 }
 
-/** Normalized key so "Hub²" / "Hub" and "Vista V2" / "vista v2" don't duplicate. */
+/** Normalized key that keeps version markers such as V2 and + distinct. */
 function normKey(brand: string, model: string): string {
-  return `${brand}|${model}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');
+  return productModelKey(brand, model);
 }
 
 type CatalogRow = {
