@@ -519,14 +519,19 @@ function strollerProductType(product: ShopifyProduct) {
   const text = normalizeText([product.title, product.product_type ?? '', ...(product.tags ?? [])].join(' '));
   const title = normalizeText(product.title);
   const brand = normalizeText(product.vendor);
+  const isBob = brand === 'bob' || brand === 'bob gear' || /\bbob\b/.test(title);
 
+  if (isBob) {
+    if (/\b(duallie|double|renegade wagon|wagon)\b/.test(title)) return 'double jogging stroller';
+    if (/\b(revolution|alterrain|rambler|wayfinder|jogging stroller)\b/.test(title)) return 'jogging stroller';
+  }
   if (/\b(wonderfold|stroller wagon|wagon|veer cruiser|larktale caravan|keenz|pivot xplore|radio flyer)\b/.test(title)) return 'wagon';
   if (/\b(donkey|kangaroo|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select|single to double)\b/.test(title)) {
     return 'single-to-double stroller';
   }
   if (/\b(priam|e priam|epriam|mixx|cruz|fox|reef|xplory|joolz day|cove)\b/.test(title)) return 'full-size stroller';
   if (/\b(dragonfly|triv|triv next|dune|mios|joolz hub|swiv|electa|city mini air)\b/.test(title)) return 'compact stroller';
-  if (/\b(duallie|urban glide\s+\d*\s*double|summit x3\s+double|alterrain duallie|double jogging)\b/.test(title)) return 'double jogging stroller';
+  if (/\b(duallie|urban glide\s+\d*\s*double|summit x3\s+double|alterrain duallie|double jogging|jogging stroller double)\b/.test(title)) return 'double jogging stroller';
   if (/\b(urban glide|bob revolution|alterrain|summit x3|guava roam|uppababy ridge|switch and jog|switch jog|wayfinder)\b/.test(title)) return 'jogging stroller';
   if (/\b(minu duo|trvl dubl|trvl double|jet lightweight double|jet double|double stroller|duo stroller|twin stroller|g link|snap duo|city mini gt2 double|city mini gt 2 double|city mini double|side by side)\b/.test(title)) {
     return 'double stroller';
@@ -537,7 +542,7 @@ function strollerProductType(product: ShopifyProduct) {
     return 'travel stroller';
   }
   if (/\b(wonderfold|stroller wagon|wagon|veer cruiser|larktale caravan|keenz|pivot xplore|radio flyer)\b/.test(text)) return 'wagon';
-  if (/\b(duallie|urban glide double|summit x3 double|alterrain duallie|double jogging)\b/.test(text)) return 'double jogging stroller';
+  if (/\b(duallie|urban glide double|summit x3 double|alterrain duallie|double jogging|jogging stroller double)\b/.test(text)) return 'double jogging stroller';
   if (/\b(donkey|kangaroo|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select)\b/.test(text)) {
     return 'single-to-double stroller';
   }

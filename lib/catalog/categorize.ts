@@ -82,6 +82,10 @@ const RULES: Rule[] = [
   { re: /city tour(?![\s\S]*\bdouble\b)/, category: 'Strollers', productType: 'travel stroller', conf: 0.9, strong: true },
   { re: /city mini gt3/, category: 'Strollers', productType: 'jogging stroller', conf: 0.9, strong: true },
   { re: /city mini air/, category: 'Strollers', productType: 'compact stroller', conf: 0.9, strong: true },
+  // BOB Gear stays in the jogging lane. Double/duallie/wagon wording maps to
+  // Double Jogging before the generic wagon/full-size fallbacks can catch it.
+  { re: /\bbob\b[\s\S]*\b(?:duallie|double|renegade wagon|wagon)\b|\b(?:duallie|double|renegade wagon|wagon)\b[\s\S]*\bbob\b/, category: 'Strollers', productType: 'double jogging stroller', conf: 0.9, strong: true },
+  { re: /\bbob\b[\s\S]*\b(?:revolution|alterrain|rambler|wayfinder|jogging stroller)\b|\b(?:revolution|alterrain|rambler|wayfinder|jogging stroller)\b[\s\S]*\bbob\b/, category: 'Strollers', productType: 'jogging stroller', conf: 0.9, strong: true },
   // Clean + classify the "wagons & bikes & accessories" feed path before the
   // generic rules: trikes/bikes aren't strollers; wagon add-ons aren't browsable
   // wagons; real wagons (incl. "… Double Stroller Wagon") are caught here so they

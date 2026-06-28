@@ -1,0 +1,2 @@
+brand,model,displayed_label,expected_label,confidence,primary_source,primary_title,reasons,row_ids,enrichment_ids,mismatched_row_ids,mismatched_enrichment_ids
+"Joolz","Dot Ultra Travel","Compact / Mid-Size","Travel","high","shopify_macrobaby","Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue","travel stroller model language","cmqwxhlvq0029fp5ywb4g1m56; cmqwxhlvv002cfp5yk0wkblcx","cmqwxhlvt002bfp5ygpo9xd01; cmqwxhlw2002efp5yzqxerwfv","cmqwxhlvq0029fp5ywb4g1m56","cmqwxhlvt002bfp5ygpo9xd01"

@@ -213,6 +213,10 @@ function isSuspectedImportedAccessory(title: string, kind: Kind) {
 
 function inferStrollerCategory(brand: string, model: string) {
   const t = normalizeText(`${brand} ${model}`);
+  if (/\bbob\b/.test(t)) {
+    if (/\b(duallie|double|renegade|wagon)\b/.test(t)) return 'Double Jogging';
+    return 'Jogging';
+  }
   if (/\b(wonderfold|wagon|veer cruiser|larktale caravan|keenz|pivot xplore|radio flyer)\b/.test(t)) return 'Stroller Wagon';
   if (/\b(donkey|kangaroo|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|single to double|pivot xpand|city select)\b/.test(t)) return 'Single-to-Double';
   if (/\b(duallie|urban glide.*double|summit x3.*double|double jogging)\b/.test(t)) return 'Double Jogging';

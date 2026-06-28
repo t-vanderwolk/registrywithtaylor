@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-06-28T00:17:33.704Z",
+  "source": "stroller-finder-by-type",
+  "scannedVisibleProducts": 83,
+  "categoryCounts": [
+    {
+      "category": "full-size",
+      "label": "Full-Size",
+      "count": 28
+    },
+    {
+      "category": "compact",
+      "label": "Compact / Mid-Size",
+      "count": 10
+    },
+    {
+      "category": "travel",
+      "label": "Travel",
+      "count": 20
+    },
+    {
+      "category": "convertible-modular",
+      "label": "Single-to-Double",
+      "count": 4
+    },
+    {
+      "category": "double",
+      "label": "Double",
+      "count": 5
+    },
+    {
+      "category": "double-jogging",
+      "label": "Double Jogger",
+      "count": 1
+    },
+    {
+      "category": "jogging",
+      "label": "Jogging / All-Terrain",
+      "count": 3
+    },
+    {
+      "category": "umbrella",
+      "label": "Umbrella",
+      "count": 3
+    },
+    {
+      "category": "wagon",
+      "label": "Wagon",
+      "count": 9
+    }
+  ],
+  "flaggedCount": 1,
+  "byDisplayedCategory": {
+    "Compact / Mid-Size": [
+      {
+        "brand": "Joolz",
+        "model": "Dot Ultra Travel",
+        "displayedCategory": "compact",
+        "displayedLabel": "Compact / Mid-Size",
+        "expectedCategory": "travel",
+        "expectedLabel": "Travel",
+        "confidence": "high",
+        "primarySource": "shopify_macrobaby",
+        "primaryTitle": "Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue",
+        "rowIds": [
+          "cmqwxhlvq0029fp5ywb4g1m56",
+          "cmqwxhlvv002cfp5yk0wkblcx"
+        ],
+        "enrichmentIds": [
+          "cmqwxhlvt002bfp5ygpo9xd01",
+          "cmqwxhlw2002efp5yzqxerwfv"
+        ],
+        "mismatchedRowIds": [
+          "cmqwxhlvq0029fp5ywb4g1m56"
+        ],
+        "mismatchedEnrichmentIds": [
+          "cmqwxhlvt002bfp5ygpo9xd01"
+        ],
+        "reasons": [
+          "travel stroller model language"
+        ],
+        "productTypes": [
+          {
+            "provider": "shopify_macrobaby",
+            "productType": "compact stroller",
+            "title": "Joolz Dot Ultra Lightweight Travel Stroller, Dune Beige"
+          },
+          {
+            "provider": "shopify_macrobaby",
+            "productType": "travel stroller",
+            "title": "Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue"
+          }
+        ]
+      }
+    ]
+  },
+  "flags": [
+    {
+      "brand": "Joolz",
+      "model": "Dot Ultra Travel",
+      "displayedCategory": "compact",
+      "displayedLabel": "Compact / Mid-Size",
+      "expectedCategory": "travel",
+      "expectedLabel": "Travel",
+      "confidence": "high",
+      "primarySource": "shopify_macrobaby",
+      "primaryTitle": "Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue",
+      "rowIds": [
+        "cmqwxhlvq0029fp5ywb4g1m56",
+        "cmqwxhlvv002cfp5yk0wkblcx"
+      ],
+      "enrichmentIds": [
+        "cmqwxhlvt002bfp5ygpo9xd01",
+        "cmqwxhlw2002efp5yzqxerwfv"
+      ],
+      "mismatchedRowIds": [
+        "cmqwxhlvq0029fp5ywb4g1m56"
+      ],
+      "mismatchedEnrichmentIds": [
+        "cmqwxhlvt002bfp5ygpo9xd01"
+      ],
+      "reasons": [
+        "travel stroller model language"
+      ],
+      "productTypes": [
+        {
+          "provider": "shopify_macrobaby",
+          "productType": "compact stroller",
+          "title": "Joolz Dot Ultra Lightweight Travel Stroller, Dune Beige"
+        },
+        {
+          "provider": "shopify_macrobaby",
+          "productType": "travel stroller",
+          "title": "Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue"
+        }
+      ]
+    }
+  ]
+}
