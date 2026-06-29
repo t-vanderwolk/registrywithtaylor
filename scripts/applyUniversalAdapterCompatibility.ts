@@ -69,6 +69,10 @@ const ADAPTER_STROLLERS: Rule[] = [
   // typically don't take an infant seat; confirm those by hand before adding.
   { brand: 'Mompush', model: /\b(ultimate|meteor)\b/i, family: 'Ultimate / Meteor' },
   { brand: 'Mercedes', model: null, family: 'Mercedes-Benz (Hartan)' },
+  // Peg Perego City Loop takes Peg Perego seats directly (same-brand default) AND
+  // other-brand infant seats via its Foldable Car Seat Adapter — so it also earns
+  // the shared Nuna / Maxi-Cosi / CYBEX / Clek expansion on top of its own seats.
+  { brand: 'Peg Perego', model: /\bcity loop\b/i, family: 'City Loop' },
 ];
 
 function label(row: Row) {
