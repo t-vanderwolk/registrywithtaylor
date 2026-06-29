@@ -73,6 +73,9 @@ const ADAPTER_STROLLERS: Rule[] = [
   // other-brand infant seats via its Foldable Car Seat Adapter — so it also earns
   // the shared Nuna / Maxi-Cosi / CYBEX / Clek expansion on top of its own seats.
   { brand: 'Peg Perego', model: /\bcity loop\b/i, family: 'City Loop' },
+  // Orbit Baby strollers take the Orbit Baby seat (same-brand default) AND other
+  // brands via the universal Orbit Baby car seat adapter — same expansion.
+  { brand: 'Orbit Baby', model: null, family: 'all Orbit Baby strollers' },
 ];
 
 function label(row: Row) {
