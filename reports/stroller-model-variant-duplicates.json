@@ -1,22 +1,1427 @@
 {
-  "generatedAt": "2026-06-28T21:45:59.652Z",
+  "generatedAt": "2026-06-29T22:23:24.310Z",
   "totals": {
-    "strollerRowsScanned": 104,
-    "probableDuplicateGroups": 0,
-    "probableDuplicateRows": 0,
-    "nunaDuplicateGroups": 0,
-    "nunaDuplicateRows": 0,
-    "rowsWithColorOrVariantTerms": 3
+    "strollerRowsScanned": 272,
+    "probableDuplicateGroups": 24,
+    "probableDuplicateRows": 52,
+    "nunaDuplicateGroups": 5,
+    "nunaDuplicateRows": 13,
+    "rowsWithColorOrVariantTerms": 65
   },
-  "duplicateGroups": [],
-  "nunaDuplicateGroups": [],
+  "duplicateGroups": [
+    {
+      "key": "baby jogger|city mini gt3",
+      "brand": "Baby Jogger",
+      "normalizedModel": "city mini gt3",
+      "count": 2,
+      "likelyKeep": "cmqx8d2vr000313kps957hgge",
+      "rows": [
+        {
+          "id": "cmqx8d2vr000313kps957hgge",
+          "brand": "Baby Jogger",
+          "model": "City Mini GT3",
+          "displayName": "Baby Jogger City Mini GT3",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2444112&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-gt3-all-terrain-stroller%2F73651%2F2444112&intsrc=CATF_8981",
+          "babylistPrice": 479.99,
+          "createdAt": "2026-06-28T03:29:41.847Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqwr800027qlllmgbiytm",
+          "brand": "Baby Jogger",
+          "model": "City Mini GT3 All-Terrain",
+          "displayName": "Baby Jogger City Mini GT3 All-Terrain",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2444112&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-city-mini-gt3-all-terrain-stroller%2F73651%2F2444112&intsrc=CATF_8981",
+          "babylistPrice": 479.99,
+          "createdAt": "2026-06-22T21:42:10.771Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "baby jogger|summit x3 double",
+      "brand": "Baby Jogger",
+      "normalizedModel": "summit x3 double",
+      "count": 2,
+      "likelyKeep": "cmqpqqx3000077qllaq3whvrn",
+      "rows": [
+        {
+          "id": "cmqpqqx3000077qllaq3whvrn",
+          "brand": "Baby Jogger",
+          "model": "Summit X3 Double Jogging",
+          "displayName": "Baby Jogger Summit X3 Double Jogging",
+          "compatCount": 1,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1563137&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-summit-x3-double-stroller%2F11862%2F1563137&intsrc=CATF_8981",
+          "babylistPrice": 799.99,
+          "createdAt": "2026-06-22T21:42:11.196Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d2qs000113kpyh2zxwjx",
+          "brand": "Baby Jogger",
+          "model": "Summit X3 Double",
+          "displayName": "Baby Jogger Summit X3 Double",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1563137&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-summit-x3-double-stroller%2F11862%2F1563137&intsrc=CATF_8981",
+          "babylistPrice": 799.99,
+          "createdAt": "2026-06-28T03:29:41.668Z",
+          "noiseReasons": []
+        }
+      ]
+    },
+    {
+      "key": "baby jogger|summit x3 single",
+      "brand": "Baby Jogger",
+      "normalizedModel": "summit x3 single",
+      "count": 2,
+      "likelyKeep": "cmqpqqx5f00087qll6393izdt",
+      "rows": [
+        {
+          "id": "cmqpqqx5f00087qll6393izdt",
+          "brand": "Baby Jogger",
+          "model": "Summit X3 Single Jogging",
+          "displayName": "Baby Jogger Summit X3 Single Jogging",
+          "compatCount": 1,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1563136&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-summit-x3-single-stroller%2F11309%2F1563136&intsrc=CATF_8981",
+          "babylistPrice": 549.99,
+          "createdAt": "2026-06-22T21:42:11.283Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d2ta000213kp8dqvqcvm",
+          "brand": "Baby Jogger",
+          "model": "Summit X3 Single",
+          "displayName": "Baby Jogger Summit X3 Single",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1563136&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbaby-jogger-summit-x3-single-stroller%2F11309%2F1563136&intsrc=CATF_8981",
+          "babylistPrice": 549.99,
+          "createdAt": "2026-06-28T03:29:41.758Z",
+          "noiseReasons": []
+        }
+      ]
+    },
+    {
+      "key": "bellini|juno",
+      "brand": "Bellini",
+      "normalizedModel": "juno",
+      "count": 2,
+      "likelyKeep": "cmqpqqxa7000a7qlldowaz5lq",
+      "rows": [
+        {
+          "id": "cmqpqqxa7000a7qlldowaz5lq",
+          "brand": "Bellini",
+          "model": "Juno Compact Auto-Folding",
+          "displayName": "Bellini Juno Compact Auto-Folding",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2214395&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbellini-juno-compact-auto-folding-stroller%2F64777%2F2214395&intsrc=CATF_8981",
+          "babylistPrice": 479.99,
+          "createdAt": "2026-06-22T21:42:11.456Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d2y6000413kpljiz2u0c",
+          "brand": "Bellini",
+          "model": "Juno Auto-Folding",
+          "displayName": "Bellini Juno Auto-Folding",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2214395&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbellini-juno-compact-auto-folding-stroller%2F64777%2F2214395&intsrc=CATF_8981",
+          "babylistPrice": 479.99,
+          "createdAt": "2026-06-28T03:29:41.934Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "bumbleride|indie twin double",
+      "brand": "Bumbleride",
+      "normalizedModel": "indie twin double",
+      "count": 2,
+      "likelyKeep": "cmqpqqxlu000f7qllypuoolz1",
+      "rows": [
+        {
+          "id": "cmqpqqxlu000f7qllypuoolz1",
+          "brand": "Bumbleride",
+          "model": "Indie Twin Double Jogging",
+          "displayName": "Bumbleride Indie Twin Double Jogging",
+          "compatCount": 5,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072906&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-double-jogging-stroller%2F37545%2F2072906&intsrc=CATF_8981",
+          "babylistPrice": 1099,
+          "createdAt": "2026-06-22T21:42:11.875Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d39z000913kpk5eirx65",
+          "brand": "Bumbleride",
+          "model": "Indie Twin Double",
+          "displayName": "Bumbleride Indie Twin Double",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072906&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-double-jogging-stroller%2F37545%2F2072906&intsrc=CATF_8981",
+          "babylistPrice": 1099,
+          "createdAt": "2026-06-28T03:29:42.360Z",
+          "noiseReasons": []
+        }
+      ]
+    },
+    {
+      "key": "chicco|tre",
+      "brand": "Chicco",
+      "normalizedModel": "tre",
+      "count": 2,
+      "likelyKeep": "cmqx8d3mp000e13kpe38oel0w",
+      "rows": [
+        {
+          "id": "cmqx8d3mp000e13kpe38oel0w",
+          "brand": "Chicco",
+          "model": "TRE",
+          "displayName": "Chicco TRE",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2123397&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-tre-jogging-stroller%2F56823%2F2123397&intsrc=CATF_8981",
+          "babylistPrice": 499.99,
+          "createdAt": "2026-06-28T03:29:42.817Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqxzu000l7qllpiifamvz",
+          "brand": "Chicco",
+          "model": "TRE Jogging",
+          "displayName": "Chicco TRE Jogging",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2123397&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fchicco-tre-jogging-stroller%2F56823%2F2123397&intsrc=CATF_8981",
+          "babylistPrice": 499.99,
+          "createdAt": "2026-06-22T21:42:12.378Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "delta children|jeep sport",
+      "brand": "Delta Children",
+      "normalizedModel": "jeep sport",
+      "count": 2,
+      "likelyKeep": "cmqx8d431000l13kp93f6chbi",
+      "rows": [
+        {
+          "id": "cmqx8d431000l13kp93f6chbi",
+          "brand": "Delta Children",
+          "model": "Jeep Sport",
+          "displayName": "Delta Children Jeep Sport",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2095384&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdelta-children-jeep-sport-all-terrain-stroller-wagon%2F55788%2F2095384&intsrc=CATF_8981",
+          "babylistPrice": 249.99,
+          "createdAt": "2026-06-28T03:29:43.405Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqy9e000p7qlljwy5ov4t",
+          "brand": "Delta Children",
+          "model": "Jeep Sport All-Terrain",
+          "displayName": "Delta Children Jeep Sport All-Terrain",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2095384&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fdelta-children-jeep-sport-all-terrain-stroller-wagon%2F55788%2F2095384&intsrc=CATF_8981",
+          "babylistPrice": 249.99,
+          "createdAt": "2026-06-22T21:42:12.722Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ergobaby|metro 3",
+      "brand": "Ergobaby",
+      "normalizedModel": "metro 3",
+      "count": 3,
+      "likelyKeep": "cmqx8d45a000m13kp1zi0195v",
+      "rows": [
+        {
+          "id": "cmqx8d45a000m13kp1zi0195v",
+          "brand": "Ergobaby",
+          "model": "Metro 3",
+          "displayName": "Ergobaby Metro 3",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2502876&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fergobaby-metro-3-compact-stroller%2F74352%2F2502876&intsrc=CATF_8981",
+          "babylistPrice": 399,
+          "createdAt": "2026-06-28T03:29:43.486Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqyix000t7qll3hkoln8m",
+          "brand": "Ergobaby",
+          "model": "Metro 3 Compact",
+          "displayName": "Ergobaby Metro 3 Compact",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2502876&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fergobaby-metro-3-compact-stroller%2F74352%2F2502876&intsrc=CATF_8981",
+          "babylistPrice": 399,
+          "createdAt": "2026-06-22T21:42:13.065Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d49v000o13kp3v8chfjp",
+          "brand": "Ergobaby",
+          "model": "Metro 3 Travel",
+          "displayName": "Ergobaby Metro 3 Travel",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:43.652Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ergobaby|metro plus deluxe",
+      "brand": "Ergobaby",
+      "normalizedModel": "metro plus deluxe",
+      "count": 2,
+      "likelyKeep": "cmqx8d4ek000q13kp25vm8o1q",
+      "rows": [
+        {
+          "id": "cmqx8d4ek000q13kp25vm8o1q",
+          "brand": "Ergobaby",
+          "model": "Metro+ Deluxe",
+          "displayName": "Ergobaby Metro+ Deluxe",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:43.821Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d4c9000p13kp1a0v0vkk",
+          "brand": "Ergobaby",
+          "model": "Metro+ Deluxe Baby",
+          "displayName": "Ergobaby Metro+ Deluxe Baby",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:43.737Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "evenflo|pivot xplore",
+      "brand": "Evenflo",
+      "normalizedModel": "pivot xplore",
+      "count": 2,
+      "likelyKeep": "cmqx8d4jd000s13kpqrw1npfd",
+      "rows": [
+        {
+          "id": "cmqx8d4jd000s13kpqrw1npfd",
+          "brand": "Evenflo",
+          "model": "Pivot Xplore",
+          "displayName": "Evenflo Pivot Xplore",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=495146&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-pivot-xplore-all-terrain-stroller-wagon%2F15595%2F495146&intsrc=CATF_8981",
+          "babylistPrice": 399.99,
+          "createdAt": "2026-06-28T03:29:43.994Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqysc000x7qlln9lo56v7",
+          "brand": "Evenflo",
+          "model": "Pivot Xplore All-Terrain",
+          "displayName": "Evenflo Pivot Xplore All-Terrain",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=495146&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fevenflo-pivot-xplore-all-terrain-stroller-wagon%2F15595%2F495146&intsrc=CATF_8981",
+          "babylistPrice": 399.99,
+          "createdAt": "2026-06-22T21:42:13.404Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "graco|ready2jet",
+      "brand": "Graco",
+      "normalizedModel": "ready2jet",
+      "count": 2,
+      "likelyKeep": "cmqx8d4ls000t13kpnjml7roe",
+      "rows": [
+        {
+          "id": "cmqx8d4ls000t13kpnjml7roe",
+          "brand": "Graco",
+          "model": "Ready2Jet",
+          "displayName": "Graco Ready2Jet",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2022705&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-ready2jet-compact-stroller%2F54551%2F2022705&intsrc=CATF_8981",
+          "babylistPrice": 189.99,
+          "createdAt": "2026-06-28T03:29:44.080Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqzfn00177qll3ou9gfkg",
+          "brand": "Graco",
+          "model": "Ready2Jet Compact",
+          "displayName": "Graco Ready2Jet Compact",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2022705&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fgraco-ready2jet-compact-stroller%2F54551%2F2022705&intsrc=CATF_8981",
+          "babylistPrice": 189.99,
+          "createdAt": "2026-06-22T21:42:14.244Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "guava family|roam",
+      "brand": "Guava Family",
+      "normalizedModel": "roam",
+      "count": 2,
+      "likelyKeep": "cmqx8d4o5000u13kpbtkfe121",
+      "rows": [
+        {
+          "id": "cmqx8d4o5000u13kpbtkfe121",
+          "brand": "Guava Family",
+          "model": "Roam",
+          "displayName": "Guava Family Roam",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=824315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fguava-family-roam-jogging-stroller%2F22302%2F824315&intsrc=CATF_8981",
+          "babylistPrice": 649.95,
+          "createdAt": "2026-06-28T03:29:44.165Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqqzhz00187qllpp2cly4t",
+          "brand": "Guava Family",
+          "model": "Roam Jogging",
+          "displayName": "Guava Family Roam Jogging",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=824315&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fguava-family-roam-jogging-stroller%2F22302%2F824315&intsrc=CATF_8981",
+          "babylistPrice": 649.95,
+          "createdAt": "2026-06-22T21:42:14.328Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|mixx next",
+      "brand": "Nuna",
+      "normalizedModel": "mixx next",
+      "count": 3,
+      "likelyKeep": "nuna-mixx-next",
+      "rows": [
+        {
+          "id": "nuna-mixx-next",
+          "brand": "Nuna",
+          "model": "MIXX next",
+          "displayName": "Nuna MIXX next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210168&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-mixx-next-stroller%2F63550%2F2210168&intsrc=APIG_8981",
+          "babylistPrice": 900,
+          "createdAt": "2026-03-22T03:02:28.613Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5bv001413kpjri9r4s9",
+          "brand": "Nuna",
+          "model": "Mixx Next Bmw",
+          "displayName": "Nuna Mixx Next Bmw",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.019Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5e9001513kpvy66jrkf",
+          "brand": "Nuna",
+          "model": "Mixx Next With Magnetic Buckle",
+          "displayName": "Nuna Mixx Next With Magnetic Buckle",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.105Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|swiv",
+      "brand": "Nuna",
+      "normalizedModel": "swiv",
+      "count": 2,
+      "likelyKeep": "nuna-swiv",
+      "rows": [
+        {
+          "id": "nuna-swiv",
+          "brand": "Nuna",
+          "model": "SWIV",
+          "displayName": "Nuna SWIV",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2902970&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bmw-x-nuna-swiv-stroller%2F80435%2F2902970&intsrc=APIG_8981",
+          "babylistPrice": 1000,
+          "createdAt": "2026-06-13T20:48:32.697Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr1cb00207qllmlj0l2w2",
+          "brand": "Nuna",
+          "model": "BMW x SWIV",
+          "displayName": "Nuna BMW x SWIV",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2902970&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bmw-x-nuna-swiv-stroller%2F80435%2F2902970&intsrc=CATF_8981",
+          "babylistPrice": 1000,
+          "createdAt": "2026-06-22T21:42:16.715Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|tavo next",
+      "brand": "Nuna",
+      "normalizedModel": "tavo next",
+      "count": 2,
+      "likelyKeep": "nuna-tavo-next",
+      "rows": [
+        {
+          "id": "nuna-tavo-next",
+          "brand": "Nuna",
+          "model": "TAVO next",
+          "displayName": "Nuna TAVO next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=663920&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-tavo-next-stroller-1730395458%2F21123%2F663920&intsrc=APIG_8981",
+          "babylistPrice": 700,
+          "createdAt": "2026-03-22T17:19:43.856Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5gq001613kp6pkqi29a",
+          "brand": "Nuna",
+          "model": "Tavo Next Granite",
+          "displayName": "Nuna Tavo Next Granite",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.195Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|triv next",
+      "brand": "Nuna",
+      "normalizedModel": "triv next",
+      "count": 4,
+      "likelyKeep": "nuna-triv-next",
+      "rows": [
+        {
+          "id": "nuna-triv-next",
+          "brand": "Nuna",
+          "model": "TRIV next",
+          "displayName": "Nuna TRIV next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-triv-next-stroller%2F63549%2F2210167&intsrc=APIG_8981",
+          "babylistPrice": 800,
+          "createdAt": "2026-03-22T17:19:43.856Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5mh001813kpj7dt2y6v",
+          "brand": "Nuna",
+          "model": "Triv Next Bmw",
+          "displayName": "Nuna Triv Next Bmw",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.401Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5ox001913kpewofgj0y",
+          "brand": "Nuna",
+          "model": "Triv Next W Magnetic Buckle",
+          "displayName": "Nuna Triv Next W Magnetic Buckle",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.489Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5w0001c13kp4aatwr59",
+          "brand": "Nuna",
+          "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
+          "displayName": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.745Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|trvl double",
+      "brand": "Nuna",
+      "normalizedModel": "trvl double",
+      "count": 2,
+      "likelyKeep": "cmqx8d60s001e13kpwin8s54h",
+      "rows": [
+        {
+          "id": "cmqx8d60s001e13kpwin8s54h",
+          "brand": "Nuna",
+          "model": "Trvl Double",
+          "displayName": "Nuna Trvl Double",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.916Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "nuna-trvl-dubl",
+          "brand": "Nuna",
+          "model": "TRVL Dubl",
+          "displayName": "Nuna TRVL Dubl",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042627&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-trvl-dubl%2F54963%2F2042627&intsrc=APIG_8981",
+          "babylistPrice": 900,
+          "createdAt": "2026-06-13T20:48:32.697Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "safety 1st|easy fold",
+      "brand": "Safety 1st",
+      "normalizedModel": "easy fold",
+      "count": 2,
+      "likelyKeep": "cmqx8d6o2001o13kpyzgrfmfg",
+      "rows": [
+        {
+          "id": "cmqx8d6o2001o13kpyzgrfmfg",
+          "brand": "Safety 1st",
+          "model": "Easy-Fold",
+          "displayName": "Safety 1st Easy-Fold",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2214402&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsafety-1st-easy-fold-compact-stroller%2F64778%2F2214402&intsrc=CATF_8981",
+          "babylistPrice": 149.99,
+          "createdAt": "2026-06-28T03:29:46.754Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr1sw00277qll6soktcpa",
+          "brand": "Safety 1st",
+          "model": "Easy-Fold Compact",
+          "displayName": "Safety 1st Easy-Fold Compact",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2214402&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsafety-1st-easy-fold-compact-stroller%2F64778%2F2214402&intsrc=CATF_8981",
+          "babylistPrice": 149.99,
+          "createdAt": "2026-06-22T21:42:17.312Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "silver cross|clic",
+      "brand": "Silver Cross",
+      "normalizedModel": "clic",
+      "count": 2,
+      "likelyKeep": "silver-cross-clic",
+      "rows": [
+        {
+          "id": "silver-cross-clic",
+          "brand": "Silver Cross",
+          "model": "Clic",
+          "displayName": "Silver Cross Clic",
+          "compatCount": 7,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491095&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-clic-compact-stroller%2F74323%2F2491095&intsrc=APIG_8981",
+          "babylistPrice": 399.99,
+          "createdAt": "2026-06-13T20:48:32.697Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr1xi00297qlld8p7uw3b",
+          "brand": "Silver Cross",
+          "model": "Clic Compact",
+          "displayName": "Silver Cross Clic Compact",
+          "compatCount": 7,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2491095&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-clic-compact-stroller%2F74323%2F2491095&intsrc=CATF_8981",
+          "babylistPrice": 399.99,
+          "createdAt": "2026-06-22T21:42:17.479Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "silver cross|wave 3",
+      "brand": "Silver Cross",
+      "normalizedModel": "wave 3",
+      "count": 2,
+      "likelyKeep": "silver-cross-wave-3",
+      "rows": [
+        {
+          "id": "silver-cross-wave-3",
+          "brand": "Silver Cross",
+          "model": "Wave 3",
+          "displayName": "Silver Cross Wave 3",
+          "compatCount": 10,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2049266&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-wave-3-single-to-double-stroller%2F24664%2F2049266&intsrc=APIG_8981",
+          "babylistPrice": 1699.99,
+          "createdAt": "2026-03-22T03:02:28.613Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr1zv002a7qlltuhbvanr",
+          "brand": "Silver Cross",
+          "model": "Wave 3 Single to Double",
+          "displayName": "Silver Cross Wave 3 Single to Double",
+          "compatCount": 10,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2049267&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-wave-3-single-to-double-stroller%2F24664%2F2049267&intsrc=CATF_8981",
+          "babylistPrice": 1699.99,
+          "createdAt": "2026-06-22T21:42:17.564Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "thule|urban glide 4 wheel",
+      "brand": "Thule",
+      "normalizedModel": "urban glide 4 wheel",
+      "count": 2,
+      "likelyKeep": "cmqx8m2rf000110nux9vv7skl",
+      "rows": [
+        {
+          "id": "cmqx8m2rf000110nux9vv7skl",
+          "brand": "Thule",
+          "model": "Urban Glide 4-wheel",
+          "displayName": "Thule Urban Glide 4-wheel",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1883230&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fthule-urban-glide-4-wheel-1764794124%2F47018%2F1883230&intsrc=CATF_8981",
+          "babylistPrice": 598.95,
+          "createdAt": "2026-06-28T03:36:41.595Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d76m001w13kpohpwn912",
+          "brand": "Thule",
+          "model": "Urban Glide 4-Wheel Single Child",
+          "displayName": "Thule Urban Glide 4-Wheel Single Child",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:47.423Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "veer|cruiser",
+      "brand": "Veer",
+      "normalizedModel": "cruiser",
+      "count": 2,
+      "likelyKeep": "cmqx8m2to000210nuqbjpz9i5",
+      "rows": [
+        {
+          "id": "cmqx8m2to000210nuqbjpz9i5",
+          "brand": "Veer",
+          "model": "Cruiser",
+          "displayName": "Veer Cruiser",
+          "compatCount": 40,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=53959&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fveer-all-terrain-cruiser%2F16064%2F53959&intsrc=CATF_8981",
+          "babylistPrice": 699,
+          "createdAt": "2026-06-28T03:36:41.676Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr2q1002l7qllrfy61aca",
+          "brand": "Veer",
+          "model": "All-Terrain Cruiser",
+          "displayName": "Veer All-Terrain Cruiser",
+          "compatCount": 40,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=1428463&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fveer-all-terrain-cruiser%2F16064%2F1428463&intsrc=CATF_8981",
+          "babylistPrice": 799,
+          "createdAt": "2026-06-22T21:42:18.505Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "veer|switch and jog",
+      "brand": "Veer",
+      "normalizedModel": "switch and jog",
+      "count": 2,
+      "likelyKeep": "cmqx8d7fm002013kpwgdokqb5",
+      "rows": [
+        {
+          "id": "cmqx8d7fm002013kpwgdokqb5",
+          "brand": "Veer",
+          "model": "Switch&Jog",
+          "displayName": "Veer Switch&Jog",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571242&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fveer-switch-jog-jogging-stroller%2F75210%2F2571242&intsrc=CATF_8981",
+          "babylistPrice": 899,
+          "createdAt": "2026-06-28T03:29:47.746Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr34e002r7qll3fzqhzdz",
+          "brand": "Veer",
+          "model": "Switch&Jog Jogging",
+          "displayName": "Veer Switch&Jog Jogging",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2571242&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fveer-switch-jog-jogging-stroller%2F75210%2F2571242&intsrc=CATF_8981",
+          "babylistPrice": 899,
+          "createdAt": "2026-06-22T21:42:19.022Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wonderfold|l2 double",
+      "brand": "WonderFold",
+      "normalizedModel": "l2 double",
+      "count": 2,
+      "likelyKeep": "cmqpqr39a002t7qllgm23scrc",
+      "rows": [
+        {
+          "id": "cmqpqr39a002t7qllgm23scrc",
+          "brand": "WonderFold Wagon",
+          "model": "L2 Double",
+          "displayName": "WonderFold Wagon L2 Double",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2426258&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fwonderfold-wagon-l2-double-stroller-wagon%2F73053%2F2426258&intsrc=CATF_8981",
+          "babylistPrice": 799,
+          "createdAt": "2026-06-22T21:42:19.198Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d7oy002413kpusrmz1ec",
+          "brand": "WonderFold",
+          "model": "L2 Double 2-Seater",
+          "displayName": "WonderFold L2 Double 2-Seater",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:48.082Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    }
+  ],
+  "nunaDuplicateGroups": [
+    {
+      "key": "nuna|mixx next",
+      "brand": "Nuna",
+      "normalizedModel": "mixx next",
+      "count": 3,
+      "likelyKeep": "nuna-mixx-next",
+      "rows": [
+        {
+          "id": "nuna-mixx-next",
+          "brand": "Nuna",
+          "model": "MIXX next",
+          "displayName": "Nuna MIXX next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210168&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-mixx-next-stroller%2F63550%2F2210168&intsrc=APIG_8981",
+          "babylistPrice": 900,
+          "createdAt": "2026-03-22T03:02:28.613Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5bv001413kpjri9r4s9",
+          "brand": "Nuna",
+          "model": "Mixx Next Bmw",
+          "displayName": "Nuna Mixx Next Bmw",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.019Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5e9001513kpvy66jrkf",
+          "brand": "Nuna",
+          "model": "Mixx Next With Magnetic Buckle",
+          "displayName": "Nuna Mixx Next With Magnetic Buckle",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.105Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|swiv",
+      "brand": "Nuna",
+      "normalizedModel": "swiv",
+      "count": 2,
+      "likelyKeep": "nuna-swiv",
+      "rows": [
+        {
+          "id": "nuna-swiv",
+          "brand": "Nuna",
+          "model": "SWIV",
+          "displayName": "Nuna SWIV",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2902970&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bmw-x-nuna-swiv-stroller%2F80435%2F2902970&intsrc=APIG_8981",
+          "babylistPrice": 1000,
+          "createdAt": "2026-06-13T20:48:32.697Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqpqr1cb00207qllmlj0l2w2",
+          "brand": "Nuna",
+          "model": "BMW x SWIV",
+          "displayName": "Nuna BMW x SWIV",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2902970&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-bmw-x-nuna-swiv-stroller%2F80435%2F2902970&intsrc=CATF_8981",
+          "babylistPrice": 1000,
+          "createdAt": "2026-06-22T21:42:16.715Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|tavo next",
+      "brand": "Nuna",
+      "normalizedModel": "tavo next",
+      "count": 2,
+      "likelyKeep": "nuna-tavo-next",
+      "rows": [
+        {
+          "id": "nuna-tavo-next",
+          "brand": "Nuna",
+          "model": "TAVO next",
+          "displayName": "Nuna TAVO next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=663920&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-tavo-next-stroller-1730395458%2F21123%2F663920&intsrc=APIG_8981",
+          "babylistPrice": 700,
+          "createdAt": "2026-03-22T17:19:43.856Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5gq001613kp6pkqi29a",
+          "brand": "Nuna",
+          "model": "Tavo Next Granite",
+          "displayName": "Nuna Tavo Next Granite",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.195Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|triv next",
+      "brand": "Nuna",
+      "normalizedModel": "triv next",
+      "count": 4,
+      "likelyKeep": "nuna-triv-next",
+      "rows": [
+        {
+          "id": "nuna-triv-next",
+          "brand": "Nuna",
+          "model": "TRIV next",
+          "displayName": "Nuna TRIV next",
+          "compatCount": 4,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2210167&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-nuna-x-bmw-triv-next-stroller%2F63549%2F2210167&intsrc=APIG_8981",
+          "babylistPrice": 800,
+          "createdAt": "2026-03-22T17:19:43.856Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "cmqx8d5mh001813kpj7dt2y6v",
+          "brand": "Nuna",
+          "model": "Triv Next Bmw",
+          "displayName": "Nuna Triv Next Bmw",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.401Z",
+          "noiseReasons": [
+            "BMW/special edition variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5ox001913kpewofgj0y",
+          "brand": "Nuna",
+          "model": "Triv Next W Magnetic Buckle",
+          "displayName": "Nuna Triv Next W Magnetic Buckle",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.489Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        },
+        {
+          "id": "cmqx8d5w0001c13kp4aatwr59",
+          "brand": "Nuna",
+          "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
+          "displayName": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.745Z",
+          "noiseReasons": [
+            "magnetic buckle variant",
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nuna|trvl double",
+      "brand": "Nuna",
+      "normalizedModel": "trvl double",
+      "count": 2,
+      "likelyKeep": "cmqx8d60s001e13kpwin8s54h",
+      "rows": [
+        {
+          "id": "cmqx8d60s001e13kpwin8s54h",
+          "brand": "Nuna",
+          "model": "Trvl Double",
+          "displayName": "Nuna Trvl Double",
+          "compatCount": 0,
+          "babylistUrl": null,
+          "babylistPrice": null,
+          "createdAt": "2026-06-28T03:29:45.916Z",
+          "noiseReasons": []
+        },
+        {
+          "id": "nuna-trvl-dubl",
+          "brand": "Nuna",
+          "model": "TRVL Dubl",
+          "displayName": "Nuna TRVL Dubl",
+          "compatCount": 0,
+          "babylistUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2042627&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-trvl-dubl%2F54963%2F2042627&intsrc=APIG_8981",
+          "babylistPrice": 900,
+          "createdAt": "2026-06-13T20:48:32.697Z",
+          "noiseReasons": [
+            "normalizes to shorter model"
+          ]
+        }
+      ]
+    }
+  ],
   "colorOrVariantRows": [
+    {
+      "id": "cmqpqqwr800027qlllmgbiytm",
+      "brand": "Baby Jogger",
+      "model": "City Mini GT3 All-Terrain",
+      "normalizedModel": "city mini gt3",
+      "compatCount": 4,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqx3000077qllaq3whvrn",
+      "brand": "Baby Jogger",
+      "model": "Summit X3 Double Jogging",
+      "normalizedModel": "summit x3 double",
+      "compatCount": 1,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqx5f00087qll6393izdt",
+      "brand": "Baby Jogger",
+      "model": "Summit X3 Single Jogging",
+      "normalizedModel": "summit x3 single",
+      "compatCount": 1,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d2y6000413kpljiz2u0c",
+      "brand": "Bellini",
+      "model": "Juno Auto-Folding",
+      "normalizedModel": "juno",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxa7000a7qlldowaz5lq",
+      "brand": "Bellini",
+      "model": "Juno Compact Auto-Folding",
+      "normalizedModel": "juno",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d30k000513kpwtvwppgv",
+      "brand": "Britax",
+      "model": "Brook+ Modular Baby",
+      "normalizedModel": "brook plus",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxci000b7qllamksybtj",
+      "brand": "Britax",
+      "model": "Grove Modular",
+      "normalizedModel": "grove",
+      "compatCount": 7,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxey000c7qll5fop3oe7",
+      "brand": "Britax",
+      "model": "Prism Modular",
+      "normalizedModel": "prism",
+      "compatCount": 7,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d37p000813kp2s8z32r8",
+      "brand": "Bugaboo",
+      "model": "Donkey 5 Mono Single-to-Double",
+      "normalizedModel": "donkey 5 mono",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxlu000f7qllypuoolz1",
+      "brand": "Bumbleride",
+      "model": "Indie Twin Double Jogging",
+      "normalizedModel": "indie twin double",
+      "compatCount": 5,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxqf000h7qll9ocuir9z",
+      "brand": "Chicco",
+      "model": "Bravo LE ClearTex Quick-Fold",
+      "normalizedModel": "bravo le quick fold",
+      "compatCount": 7,
+      "noiseReasons": [
+        "fabric/material variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxxj000k7qllu7tqglok",
+      "brand": "Chicco",
+      "model": "Corso Primo Modular",
+      "normalizedModel": "corso primo",
+      "compatCount": 7,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d3fk000b13kppay9p7j9",
+      "brand": "Chicco",
+      "model": "Presto Self-Folding",
+      "normalizedModel": "presto",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqxzu000l7qllpiifamvz",
+      "brand": "Chicco",
+      "model": "TRE Jogging",
+      "normalizedModel": "tre",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d3yh000j13kpa32mwzvz",
+      "brand": "Delta",
+      "model": "Children - BabyGap Classic Side-by-Side Double",
+      "normalizedModel": "children babygap classic double",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d3tu000h13kp26xfy08m",
+      "brand": "Delta",
+      "model": "Children - Baby Gap 2-In-1 Carriage",
+      "normalizedModel": "children gap 2",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d40r000k13kpnsk722x3",
+      "brand": "Delta Children",
+      "model": "Icon Ultra Everyday & Travel",
+      "normalizedModel": "icon ultra and",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqy9e000p7qlljwy5ov4t",
+      "brand": "Delta Children",
+      "model": "Jeep Sport All-Terrain",
+      "normalizedModel": "jeep sport",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqybq000q7qll8vj2648r",
+      "brand": "Delta Children",
+      "model": "Jeep Wrangler Deluxe 4 Seater",
+      "normalizedModel": "jeep wrangler deluxe",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqyix000t7qll3hkoln8m",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Compact",
+      "normalizedModel": "metro 3",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d49v000o13kp3v8chfjp",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Travel",
+      "normalizedModel": "metro 3",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d47k000n13kpupmxgatb",
+      "brand": "Ergobaby",
+      "model": "Metro 3 Deluxe Baby",
+      "normalizedModel": "metro 3 deluxe",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d4c9000p13kp1a0v0vkk",
+      "brand": "Ergobaby",
+      "model": "Metro+ Deluxe Baby",
+      "normalizedModel": "metro plus deluxe",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqynm000v7qll5rryi9y4",
+      "brand": "Evenflo",
+      "model": "Pivot Xpand Modular",
+      "normalizedModel": "pivot xpand",
+      "compatCount": 2,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqysc000x7qlln9lo56v7",
+      "brand": "Evenflo",
+      "model": "Pivot Xplore All-Terrain",
+      "normalizedModel": "pivot xplore",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqzfn00177qll3ou9gfkg",
+      "brand": "Graco",
+      "model": "Ready2Jet Compact",
+      "normalizedModel": "ready2jet",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqzhz00187qllpp2cly4t",
+      "brand": "Guava Family",
+      "model": "Roam Jogging",
+      "normalizedModel": "roam",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqzkh00197qllrgn27fpl",
+      "brand": "Ingenuity",
+      "model": "3DSuite Modular",
+      "normalizedModel": "3dsuite",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqqzwq001e7qlllftz668x",
+      "brand": "Joie",
+      "model": "Chive Single to Double",
+      "normalizedModel": "chive",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d4v9000x13kp4ryugipd",
+      "brand": "Joolz",
+      "model": "Dot Ultra Travel",
+      "normalizedModel": "dot ultra",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
     {
       "id": "joovy-caboose-ultralight-graphite",
       "brand": "Joovy",
       "model": "Caboose Ultralight Graphite",
       "normalizedModel": "caboose ultralight",
-      "compatCount": 17,
+      "compatCount": 15,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d4xj000y13kp8g65kbr1",
+      "brand": "Maxi-Cosi",
+      "model": "Fame Modular",
+      "normalizedModel": "fame",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr0kg001o7qll8qrtlpwj",
+      "brand": "Maxi-Cosi",
+      "model": "Oxford Cabin Travel",
+      "normalizedModel": "oxford cabin",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr0mr001p7qll44id4ncr",
+      "brand": "Maxi-Cosi",
+      "model": "Tayla Max Modular",
+      "normalizedModel": "tayla max",
+      "compatCount": 7,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr0rg001r7qllv13t2jq2",
+      "brand": "Mockingbird",
+      "model": "Single-to-Double",
+      "normalizedModel": "",
+      "compatCount": 19,
       "noiseReasons": [
         "normalizes to shorter model"
       ]
@@ -32,12 +1437,302 @@
       ]
     },
     {
+      "id": "cmqx8d59b001313kpo22o876f",
+      "brand": "Momcozy",
+      "model": "ChangeGo Baby",
+      "normalizedModel": "changego",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr17i001y7qllzy4rhcm4",
+      "brand": "Mompush",
+      "model": "Velo Travel",
+      "normalizedModel": "velo",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5bv001413kpjri9r4s9",
+      "brand": "Nuna",
+      "model": "Mixx Next Bmw",
+      "normalizedModel": "mixx next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5e9001513kpvy66jrkf",
+      "brand": "Nuna",
+      "model": "Mixx Next With Magnetic Buckle",
+      "normalizedModel": "mixx next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "magnetic buckle variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1cb00207qllmlj0l2w2",
+      "brand": "Nuna",
+      "model": "BMW x SWIV",
+      "normalizedModel": "swiv",
+      "compatCount": 0,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5gq001613kp6pkqi29a",
+      "brand": "Nuna",
+      "model": "Tavo Next Granite",
+      "normalizedModel": "tavo next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5mh001813kpj7dt2y6v",
+      "brand": "Nuna",
+      "model": "Triv Next Bmw",
+      "normalizedModel": "triv next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5w0001c13kp4aatwr59",
+      "brand": "Nuna",
+      "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
+      "normalizedModel": "triv next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "magnetic buckle variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d5ox001913kpewofgj0y",
+      "brand": "Nuna",
+      "model": "Triv Next W Magnetic Buckle",
+      "normalizedModel": "triv next",
+      "compatCount": 0,
+      "noiseReasons": [
+        "magnetic buckle variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
       "id": "nuna-trvl-dubl",
       "brand": "Nuna",
       "model": "TRVL Dubl",
       "normalizedModel": "trvl double",
       "compatCount": 0,
       "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1h700227qllhnvdb8ma",
+      "brand": "Nuna",
+      "model": "TRVL Easy Fold Compact",
+      "normalizedModel": "trvl easy fold",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1jj00237qllzjnymes5",
+      "brand": "Nuna",
+      "model": "x BMW MIXX next",
+      "normalizedModel": "x mixx next",
+      "compatCount": 4,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1lv00247qllwhlhf7mr",
+      "brand": "Nuna",
+      "model": "x BMW TRIV next",
+      "normalizedModel": "x triv next",
+      "compatCount": 4,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1o600257qll7z037bxd",
+      "brand": "Nuna",
+      "model": "x BMW TRVL lx",
+      "normalizedModel": "x trvl lx",
+      "compatCount": 4,
+      "noiseReasons": [
+        "BMW/special edition variant",
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6a9001i13kp4jrgz40c",
+      "brand": "Peg Perego",
+      "model": "City Loop Chassis",
+      "normalizedModel": "city loop",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6jh001m13kpkkzcdjnv",
+      "brand": "Peg Perego",
+      "model": "Volo Ultra Carry On Compliant Travel",
+      "normalizedModel": "volo ultra carry on compliant",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6ey001k13kpwhpzefav",
+      "brand": "Peg Perego",
+      "model": "Volo Ultra Carry On Compliant Travel Strolle",
+      "normalizedModel": "volo ultra carry on compliant strolle",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6lu001n13kpy1np1jfw",
+      "brand": "Radio Flyer",
+      "model": "Voya XT Baby",
+      "normalizedModel": "voya xt",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6qc001p13kpwpaqrlhn",
+      "brand": "Safety 1st",
+      "model": "Disney Baby Character Umbrella",
+      "normalizedModel": "disney character umbrella",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1sw00277qll6soktcpa",
+      "brand": "Safety 1st",
+      "model": "Easy-Fold Compact",
+      "normalizedModel": "easy fold",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1xi00297qlld8p7uw3b",
+      "brand": "Silver Cross",
+      "model": "Clic Compact",
+      "normalizedModel": "clic",
+      "compatCount": 7,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d6xc001s13kp99wk94m6",
+      "brand": "Silver Cross",
+      "model": "Nia Travel",
+      "normalizedModel": "nia",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr1zv002a7qlltuhbvanr",
+      "brand": "Silver Cross",
+      "model": "Wave 3 Single to Double",
+      "normalizedModel": "wave 3",
+      "compatCount": 10,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d76m001w13kpohpwn912",
+      "brand": "Thule",
+      "model": "Urban Glide 4-Wheel Single Child",
+      "normalizedModel": "urban glide 4 wheel",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d7dd001z13kpmptqvj8i",
+      "brand": "UPPAbaby",
+      "model": "Minu Duo Side By Side Double",
+      "normalizedModel": "minu duo double",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr2q1002l7qllrfy61aca",
+      "brand": "Veer",
+      "model": "All-Terrain Cruiser",
+      "normalizedModel": "cruiser",
+      "compatCount": 40,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqpqr34e002r7qll3fzqhzdz",
+      "brand": "Veer",
+      "model": "Switch&Jog Jogging",
+      "normalizedModel": "switch and jog",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d7oy002413kpusrmz1ec",
+      "brand": "WonderFold",
+      "model": "L2 Double 2-Seater",
+      "normalizedModel": "l2 double",
+      "compatCount": 0,
+      "noiseReasons": [
+        "normalizes to shorter model"
+      ]
+    },
+    {
+      "id": "cmqx8d7rb002513kpqd05x0iu",
+      "brand": "WonderFold",
+      "model": "Volkswagon Special Edition Double",
+      "normalizedModel": "volkswagon double",
+      "compatCount": 0,
+      "noiseReasons": [
+        "BMW/special edition variant",
         "normalizes to shorter model"
       ]
     }

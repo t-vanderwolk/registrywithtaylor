@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T01:53:39.513Z",
+  "generatedAt": "2026-06-29T22:40:41.861Z",
   "rows": [
     {
       "brand": "Graco",
@@ -419,9 +419,65 @@
     },
     {
       "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax B-Safe 35",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax B-Safe 35 Elite",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax B-Safe Gen2",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax B-Safe Gen2 FlexFit",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax Cypress S",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax Willow S",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Brook+ Modular Baby",
+      "carSeat": "Britax Willow SC",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax B-Safe 35",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -429,7 +485,7 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax B-Safe 35 Elite",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -437,7 +493,7 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax B-Safe Gen2",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -445,7 +501,7 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax B-Safe Gen2 FlexFit",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -453,7 +509,7 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax Cypress S",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -461,7 +517,7 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax Willow S",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -469,15 +525,71 @@
       "brand": "Britax",
       "stroller": "Britax Grove Modular",
       "carSeat": "Britax Willow SC",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
     {
       "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax B-Safe 35",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax B-Safe 35 Elite",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax B-Safe Gen2",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax B-Safe Gen2 FlexFit",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax Cypress S",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax Willow S",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
+      "stroller": "Britax Juniper On-The-Go",
+      "carSeat": "Britax Willow SC",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
+      "carSeatFamily": "Willow / Cypress / B-Safe",
+      "action": "create"
+    },
+    {
+      "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax B-Safe 35",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -485,7 +597,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax B-Safe 35 Elite",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -493,7 +605,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax B-Safe Gen2",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -501,7 +613,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax B-Safe Gen2 FlexFit",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -509,7 +621,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax Cypress S",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -517,7 +629,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax Willow S",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -525,7 +637,7 @@
       "brand": "Britax",
       "stroller": "Britax Prism Modular",
       "carSeat": "Britax Willow SC",
-      "strollerFamily": "Grove / Prism",
+      "strollerFamily": "Grove / Prism / Brook / Juniper",
       "carSeatFamily": "Willow / Cypress / B-Safe",
       "action": "skip-existing"
     },
@@ -543,6 +655,150 @@
       "carSeat": "Baby Trend Secure-Lift 35",
       "strollerFamily": "Expedition",
       "carSeatFamily": "EZ-Lift / Secure-Lift",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Trend",
+      "stroller": "Baby Trend Expedition Zero Flat Jogger with LED Lights",
+      "carSeat": "Baby Trend EZ-Lift Pro",
+      "strollerFamily": "Expedition",
+      "carSeatFamily": "EZ-Lift / Secure-Lift",
+      "action": "create"
+    },
+    {
+      "brand": "Baby Trend",
+      "stroller": "Baby Trend Expedition Zero Flat Jogger with LED Lights",
+      "carSeat": "Baby Trend Secure-Lift 35",
+      "strollerFamily": "Expedition",
+      "carSeatFamily": "EZ-Lift / Secure-Lift",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Fame Modular",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Fame Modular",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Fame Modular",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Fame Modular",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Oxford Cabin Travel",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Oxford Cabin Travel",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Oxford Cabin Travel",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Oxford Cabin Travel",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "create"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla Max Modular",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla Max Modular",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla Max Modular",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Maxi-Cosi",
+      "stroller": "Maxi-Cosi Tayla Max Modular",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "strollerFamily": "Fame / Oxford / Tayla / Zelia",
+      "carSeatFamily": "Mico / Coral / Peri",
       "action": "skip-existing"
     }
   ]
