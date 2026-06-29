@@ -539,6 +539,12 @@ function skipReason(product: ShopifyProduct): { reason: SkipReason; detail: stri
   if (/\bnuna\b/i.test([title, product.vendor].join(' ')) && /\bbmw\b/i.test(title)) {
     return { reason: 'skippedStrollerAccessories', detail: `Skipped Nuna BMW variant "${title}"` };
   }
+  // Frame-only chassis (e.g. "City Loop Chassis, Black"): a stroller frame sold
+  // without its seat. Complete strollers that merely name a chassis colour next
+  // to a seat ("Miro … Black Chassis/Black Seat") keep the word "seat" and pass.
+  if (/\bchassis\b/i.test(title) && !/\bseat\b/i.test(title)) {
+    return { reason: 'skippedReplacementParts', detail: `Skipped frame-only chassis "${title}"` };
+  }
 
   for (const rule of EXCLUDED_REASON_RULES) {
     if (!rule.re.test(text)) continue;

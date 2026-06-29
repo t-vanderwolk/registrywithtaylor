@@ -27,7 +27,7 @@ export function parseStrollerModel(title: string, brand: string): string {
   // → "Fox 5", "Butterfly 2 Complete" → "Butterfly 2", "eGazelle S Electronic
   // Assist" → "eGazelle S".
   m = m.replace(/\b(?:electronic assist|easy fold compact|renew|complete|single[-\s]?to[-\s]?double)\b/gi, '');
-  m = m.replace(/\b(?:compact|lightweight|full.?size|jogging|all.?terrain)\b/gi, '');
+  m = m.replace(/\b(?:compact|lightweight|full.?size|jogging|all.?terrain|reversible)\b/gi, '');
   m = m.replace(/\be[-\s]?gazelle\b/gi, 'e-Gazelle');
   m = m.replace(/\be[-\s]?priam\b/gi, 'e-Priam');
   return m.replace(/\s{2,}/g, ' ').trim();
