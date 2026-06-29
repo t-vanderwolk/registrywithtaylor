@@ -357,10 +357,23 @@ const SHARED_ADAPTER_TRIGGER_BRAND = 'nuna';
 const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi', 'britax'];
 
 /**
- * Nuna strollers use a closed ecosystem — they only accept Nuna infant car seats.
- * Any cross-brand inference is suppressed for this stroller brand.
+ * ── Nuna asymmetry rule ──────────────────────────────────────────────────────
+ * Nuna STROLLERS are a closed ecosystem: they accept ONLY same-brand (Nuna)
+ * infant seats — no adapters, no cross-brand inference. Nuna CAR SEATS, by
+ * contrast, are universal: a Nuna PIPA rides on other brands' strollers through
+ * the shared click-and-go adapter. The two halves are intentionally asymmetric.
+ *
+ *   • Closed direction (stroller → seat): enforced by isClosedEcosystemStroller()
+ *     below, which (a) filters a closed stroller's explicit seats down to its own
+ *     brand and (b) makes getSharedAdapterInferredSeats() return nothing for it.
+ *   • Universal direction (seat → stroller): Nuna is in SHARED_ADAPTER_BRANDS, so
+ *     a Nuna seat flows through getSharedAdapterInferredStrollers() onto every
+ *     non-closed stroller that takes the shared adapter.
  */
-const NUNA_CLOSED_STROLLER_BRAND = 'nuna';
+const CLOSED_ECOSYSTEM_STROLLER_BRANDS = new Set(['nuna']);
+function isClosedEcosystemStroller(brand: string) {
+  return CLOSED_ECOSYSTEM_STROLLER_BRANDS.has(normalizeBrand(brand));
+}
 
 function usesSharedInfantSeatAdapter(brand: string) {
   return SHARED_ADAPTER_BRANDS.has(normalizeBrand(brand));
@@ -578,8 +591,9 @@ async function getSharedAdapterInferredSeats(
   explicitRows: CarSeatCompatibilityRow[],
   retailerMap: Map<string, PublicRetailerFields>,
 ): Promise<CarSeatRow[]> {
-  // Nuna strollers are closed — no cross-brand expansion
-  if (normalizeBrand(stroller.brand) === NUNA_CLOSED_STROLLER_BRAND) {
+  // Closed-ecosystem strollers (Nuna) never expand cross-brand — they only ever
+  // accept their own same-brand infant seats.
+  if (isClosedEcosystemStroller(stroller.brand)) {
     return [];
   }
 
@@ -653,7 +667,7 @@ async function getSharedAdapterInferredStrollers(
     INNER JOIN "CarSeat" AS seat ON seat."id" = compat."carSeatId"
     WHERE seat."seatType" = 'INFANT'
       AND LOWER(seat."brand") = ${SHARED_ADAPTER_TRIGGER_BRAND}
-      AND LOWER(stroller."brand") <> ${NUNA_CLOSED_STROLLER_BRAND}
+      AND LOWER(stroller."brand") NOT IN (${Prisma.join([...CLOSED_ECOSYSTEM_STROLLER_BRANDS])})
   `;
 
   const seen = new Set(seenStrollerIds);
@@ -870,12 +884,13 @@ export async function getTravelSystemCompatibility(
     throw error;
   }
 
-  // Nuna strollers are closed ecosystem — only Nuna infant seats apply
-  const isNunaStroller = normalizeBrand(stroller.brand) === NUNA_CLOSED_STROLLER_BRAND;
+  // Closed-ecosystem strollers (Nuna) only accept their own same-brand seats —
+  // drop any cross-brand explicit row before enrichment.
+  const isClosedStroller = isClosedEcosystemStroller(stroller.brand);
   const carSeatRetailerMap = await loadPublicRetailerMap('CarSeat');
   const filteredExplicitRows = enrichWithPublicRetailers(
-    isNunaStroller
-    ? explicitRows.filter((row) => normalizeBrand(row.brand) === NUNA_CLOSED_STROLLER_BRAND)
+    isClosedStroller
+    ? explicitRows.filter((row) => normalizeBrand(row.brand) === normalizeBrand(stroller.brand))
     : explicitRows,
     carSeatRetailerMap,
   );
