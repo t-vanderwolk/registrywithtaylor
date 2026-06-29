@@ -65,8 +65,8 @@ const RULES: Rule[] = [
   },
   {
     brand: 'Britax',
-    strollerFamily: 'Grove / Prism',
-    strollerModel: /\b(grove|prism)\b/i,
+    strollerFamily: 'Grove / Prism / Brook / Juniper',
+    strollerModel: /\b(grove|prism|brook|juniper)\b/i,
     carSeatFamily: 'Willow / Cypress / B-Safe',
     carSeatModel: /\b(willow|cypress|b-?safe)\b/i,
   },
@@ -76,6 +76,20 @@ const RULES: Rule[] = [
     strollerModel: /\bexpedition\b/i,
     carSeatFamily: 'EZ-Lift / Secure-Lift',
     carSeatModel: /\b(ez-?lift|secure-?lift)\b/i,
+  },
+  {
+    brand: 'Maxi-Cosi',
+    strollerFamily: 'Fame / Oxford / Tayla / Zelia',
+    strollerModel: /\b(fame|oxford|tayla|zelia)\b/i,
+    carSeatFamily: 'Mico / Coral / Peri',
+    carSeatModel: /\b(mico|coral|peri)\b/i,
+  },
+  {
+    brand: 'Silver Cross',
+    strollerFamily: 'Silver Cross modular / compact',
+    strollerModel: /\b(breez|nia|wave|coast|reef|clic|tide|dune|comet)\b/i,
+    carSeatFamily: 'Dream',
+    carSeatModel: /\bdream\b/i,
   },
 ];
 

@@ -23,6 +23,7 @@ const JUNK: { label: string; re: RegExp }[] = [
   { label: 'toy (Lovevery Buddy)', re: /\bthe buddy\b/i },
   { label: 'walker wagon (toy)', re: /\bwalker wagon\b/i },
   { label: 'changing station', re: /\bchangego\b/i },
+  { label: 'luggage', re: /\bluggage\b/i },
 ];
 
 type Row = { id: string; brand: string; model: string };
