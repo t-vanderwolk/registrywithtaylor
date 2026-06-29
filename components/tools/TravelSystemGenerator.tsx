@@ -35,6 +35,14 @@ function parseOptionValue(value: string) {
   return { brand, model };
 }
 
+function displayNameWithoutBrand(displayName: string, brand: string) {
+  const normalizedBrand = brand.trim();
+  if (!normalizedBrand) return displayName;
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const brandPrefix = new RegExp(`^(?:${escapedBrand}\\s+)+`, 'i');
+  return displayName.replace(brandPrefix, '').trim() || displayName;
+}
+
 function ecosystemBadgeClasses(type: TravelSystemEcosystemType) {
   switch (type) {
     case 'closed':
@@ -93,6 +101,8 @@ function BrowseCard({
   priceSource: 'Babylist' | 'MacroBaby' | null;
   onSelect: () => void;
 }) {
+  const displayTitle = displayNameWithoutBrand(option.model, option.brand);
+
   return (
     <button
       type="button"
@@ -114,7 +124,7 @@ function BrowseCard({
         <p className="tool-product-card__brand">
           {option.brand}
         </p>
-        <p className="tool-product-card__title tool-product-card__title--compact">{option.model}</p>
+        <p className="tool-product-card__title tool-product-card__title--compact">{displayTitle}</p>
         {price != null ? (
           <p className="tool-product-card__price">
             ${price.toFixed(2)}

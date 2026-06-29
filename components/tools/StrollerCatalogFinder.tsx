@@ -91,6 +91,14 @@ function compatHref(brand: string, model: string) {
   return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
 }
 
+function displayNameWithoutBrand(displayName: string, brand: string) {
+  const normalizedBrand = brand.trim();
+  if (!normalizedBrand) return displayName;
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const brandPrefix = new RegExp(`^(?:${escapedBrand}\\s+)+`, 'i');
+  return displayName.replace(brandPrefix, '').trim() || displayName;
+}
+
 // Retailer CTAs, stacked on each card in priority order. Babylist is primary
 // when present, MacroBaby is the fallback primary, and Amazon is secondary only.
 const RETAILER_CTAS: Array<{
@@ -192,6 +200,7 @@ function ProductCard({
       : retailers?.macrobaby?.price != null
         ? 'MacroBaby'
         : null;
+  const displayTitle = displayNameWithoutBrand(product.model || product.name, brand);
 
   return (
     <div className="tool-card tool-card--interactive tool-product-card">
@@ -208,7 +217,7 @@ function ProductCard({
         {showBrand ? (
           <p className="tool-product-card__brand">{brand}</p>
         ) : null}
-        <p className="tool-product-card__title">{product.model || product.name}</p>
+        <p className="tool-product-card__title">{displayTitle}</p>
         {displayPrice != null ? (
           <p className="tool-product-card__price">
             ${displayPrice.toFixed(2)}

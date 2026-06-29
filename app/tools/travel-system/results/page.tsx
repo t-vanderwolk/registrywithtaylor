@@ -97,6 +97,14 @@ function groupByBrand<T extends { brand: string }>(items: T[]) {
   }, {});
 }
 
+function displayNameWithoutBrand(displayName: string, brand: string) {
+  const normalizedBrand = brand.trim();
+  if (!normalizedBrand) return displayName;
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const brandPrefix = new RegExp(`^(?:${escapedBrand}\\s+)+`, 'i');
+  return displayName.replace(brandPrefix, '').trim() || displayName;
+}
+
 function countMatches<T extends { compatibilityType: CompatibilityType; adapterRequired: boolean }>(items: T[]) {
   return {
     total: items.length,
@@ -237,6 +245,7 @@ function SelectedSummaryCard({
       : resolveCompatibilityCarSeatImage({ brand: option.brand, productName: option.displayName });
   const imageSrc = option.babylistImage ?? option.macroBabyImage ?? resolvedImage?.src ?? null;
   const imageAlt = option.babylistImage || option.macroBabyImage ? option.displayName : resolvedImage?.alt;
+  const displayTitle = displayNameWithoutBrand(option.displayName, option.brand);
 
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">
@@ -252,7 +261,7 @@ function SelectedSummaryCard({
       <div className="flex flex-col justify-center">
         <p className="tool-product-card__brand">{option.brand}</p>
         <h2 className="mt-2 font-serif text-[clamp(1.75rem,4vw,2.6rem)] leading-[1.02] tracking-[-0.03em] text-neutral-900">
-          {option.displayName}
+          {displayTitle}
         </h2>
         <div className="mt-3 flex flex-wrap gap-2">
           <span className="tool-chip">{kind === 'stroller' ? 'Stroller' : 'Infant car seat'}</span>
@@ -339,6 +348,7 @@ function ResultCard({
   const amazonUrl = primaryCta ? item.amazonUrl ?? null : null;
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
+  const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
 
   return (
     <article className="tool-card tool-product-card">
@@ -354,7 +364,7 @@ function ResultCard({
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <p className="tool-product-card__brand">{item.brand}</p>
-            <h4 className="tool-product-card__title">{item.displayName}</h4>
+            <h4 className="tool-product-card__title">{displayTitle}</h4>
             {displayPrice != null ? (
               <p className="tool-product-card__price">
                 ${displayPrice.toFixed(2)}
