@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import prismaBase from '@/lib/server/prisma';
+import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
@@ -79,6 +80,16 @@ export default async function AdminCatalogPage({ searchParams }: { searchParams?
           eyebrow="Catalog"
           title="Affiliate Catalog"
           subtitle="The full Babylist catalog, auto-categorized into the TMBC taxonomy. Search, review, tag, feature, or hide products. Edits are human-owned — the sync will not overwrite them."
+          actions={
+            <div className="flex flex-wrap gap-2">
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog/compatibility">Compatibility manager</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog/health">Catalog health</Link>
+              </AdminButton>
+            </div>
+          }
         />
 
         {dbError ? (

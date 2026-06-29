@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import prismaBase from '@/lib/server/prisma';
+import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -90,12 +91,15 @@ export default async function CatalogHealthPage() {
           subtitle="A read-only control room for public catalog quality: duplicate risk, review queues, adapter coverage, CTA source mix, images, and affiliate tracking."
           actions={
             <div className="flex flex-wrap gap-2">
-              <Link href="/admin/catalog" className="admin-button admin-button--secondary">
-                Open catalog
-              </Link>
-              <Link href="/tools/stroller-finder" className="admin-button admin-button--secondary">
-                Public finder
-              </Link>
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog/compatibility">Compatibility manager</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog">Open catalog</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
+                <Link href="/tools/stroller-finder">Public finder</Link>
+              </AdminButton>
             </div>
           }
         />

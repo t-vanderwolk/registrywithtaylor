@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import { PRODUCT_TYPES, STROLLER_PRODUCT_TYPES } from '@/lib/catalog/taxonomy';
 import { saveEnrichment } from './actions';
 
 export type CatalogEnrichment = {
@@ -56,6 +57,9 @@ function Check({ name, label, defaultChecked }: { name: string; label: string; d
 export default function CatalogRowEditor({ product, categories }: { product: CatalogProduct; categories: string[] }) {
   const e = product.enrichment;
   const [open, setOpen] = useState(false);
+  const currentProductType = e?.productType ?? '';
+  const otherProductTypes = PRODUCT_TYPES.filter((type) => !STROLLER_PRODUCT_TYPES.includes(type as (typeof STROLLER_PRODUCT_TYPES)[number]));
+  const hasCustomProductType = currentProductType && !PRODUCT_TYPES.includes(currentProductType as (typeof PRODUCT_TYPES)[number]);
 
   return (
     <div className="rounded-xl border border-[rgba(0,0,0,0.07)] bg-white p-4">
@@ -111,7 +115,20 @@ export default function CatalogRowEditor({ product, categories }: { product: Cat
 
           <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
             Product type
-            <input name="productType" defaultValue={e?.productType ?? ''} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+            <select name="productType" defaultValue={currentProductType} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm">
+              <option value="">—</option>
+              <optgroup label="Stroller types">
+                {STROLLER_PRODUCT_TYPES.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Other product types">
+                {otherProductTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </optgroup>
+              {hasCustomProductType ? <option value={currentProductType}>{currentProductType}</option> : null}
+            </select>
           </label>
 
           <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">

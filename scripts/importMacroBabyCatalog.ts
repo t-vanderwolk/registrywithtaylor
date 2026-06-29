@@ -536,6 +536,9 @@ function skipReason(product: ShopifyProduct): { reason: SkipReason; detail: stri
   if (/\bmagnetic buckles?\b/i.test(title)) {
     return { reason: 'skippedStrollerAccessories', detail: `Skipped Magnetic Buckle variant "${title}"` };
   }
+  if (/\bnuna\b/i.test([title, product.vendor].join(' ')) && /\bbmw\b/i.test(title)) {
+    return { reason: 'skippedStrollerAccessories', detail: `Skipped Nuna BMW variant "${title}"` };
+  }
 
   for (const rule of EXCLUDED_REASON_RULES) {
     if (!rule.re.test(text)) continue;

@@ -39,15 +39,21 @@ export const PARENT_JOURNEYS = [
 ] as const;
 export type ParentJourney = (typeof PARENT_JOURNEYS)[number];
 
-export const PRODUCT_TYPES = [
+export const STROLLER_PRODUCT_TYPES = [
   'full-size stroller',
   'compact stroller',
   'travel stroller',
   'jogging stroller',
+  'double jogging stroller',
   'single-to-double stroller',
   'double stroller',
   'wagon',
   'umbrella stroller',
+] as const;
+export type StrollerProductType = (typeof STROLLER_PRODUCT_TYPES)[number];
+
+export const PRODUCT_TYPES = [
+  ...STROLLER_PRODUCT_TYPES,
   'stroller accessory',
   'infant car seat',
   'convertible car seat',

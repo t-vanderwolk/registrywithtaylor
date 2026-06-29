@@ -34,6 +34,7 @@ const EXCLUDED_STROLLER_BRAND_KEYS = new Set([
 
 const EXCLUDED_STROLLER_PRODUCT_RULES: Array<{ brandKey: string; title: RegExp }> = [
   { brandKey: 'baby delight', title: /\bswerve\b/i },
+  { brandKey: 'nuna', title: /\bbmw\b/i },
 ];
 
 const STROLLER_PRODUCT_NOISE_RE =

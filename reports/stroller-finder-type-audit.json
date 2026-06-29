@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-28T22:34:00.412Z",
+  "generatedAt": "2026-06-29T00:13:18.100Z",
   "source": "stroller-finder-by-type",
-  "scannedVisibleProducts": 94,
+  "scannedVisibleProducts": 91,
   "categoryCounts": [
     {
       "category": "full-size",
       "label": "Full-Size",
-      "count": 29
+      "count": 28
     },
     {
       "category": "compact",
       "label": "Compact / Mid-Size",
-      "count": 10
+      "count": 9
     },
     {
       "category": "travel",
       "label": "Travel",
-      "count": 22
+      "count": 21
     },
     {
       "category": "convertible-modular",

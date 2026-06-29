@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-28T22:34:00.496Z",
-  "publicCatalogProducts": 107,
-  "travelSystemOptions": 107,
+  "generatedAt": "2026-06-29T00:13:18.191Z",
+  "publicCatalogProducts": 106,
+  "travelSystemOptions": 106,
   "productsPubliclyVisibleWithoutBabylistOrMacroBaby": [],
   "productsWhereAmazonIsOnlyRetailerButStillPublic": [],
   "productsWhereNonCoreRetailerIsPrimary": [],
@@ -173,27 +173,6 @@
       "amazon": {
         "price": null,
         "url": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
-      },
-      "anb": null,
-      "goodbuygear": {
-        "price": 733.99,
-        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41540678189159&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-triv-next-stroller-2025-graphene-bmw&intsrc=APIG_26298"
-      }
-    },
-    {
-      "area": "stroller",
-      "brand": "Nuna",
-      "model": "TRVL lx",
-      "name": "Nuna - TRVL LX Stroller BMW Special Edition, Mica",
-      "source": "macrobaby",
-      "babylist": null,
-      "macrobaby": {
-        "price": 600,
-        "url": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com"
-      },
-      "amazon": {
-        "price": null,
-        "url": "https://www.amazon.com/s?k=Nuna%20TRVL%20lx%20stroller&tag=taylormadebab-20"
       },
       "anb": null,
       "goodbuygear": null
@@ -605,7 +584,7 @@
       "anb": null,
       "goodbuygear": {
         "price": 65.99,
-        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=44100283695207&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fchicco-liteway-stroller-2025-dune-2&intsrc=APIG_26298"
+        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=43858395070567&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fchicco-liteway-stroller-2025-dune-1&intsrc=APIG_26298"
       }
     },
     {
@@ -771,27 +750,6 @@
       "goodbuygear": {
         "price": 900.99,
         "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=42220931383399&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-swiv-stroller-droplet-dot-2024&intsrc=APIG_26298"
-      }
-    },
-    {
-      "area": "stroller",
-      "brand": "Nuna",
-      "model": "TRIV next",
-      "name": "Nuna - TRIV Next Compact Stroller, Thistle",
-      "source": "macrobaby",
-      "babylist": null,
-      "macrobaby": {
-        "price": 800,
-        "url": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com"
-      },
-      "amazon": {
-        "price": null,
-        "url": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
-      },
-      "anb": null,
-      "goodbuygear": {
-        "price": 733.99,
-        "url": "https://goodbuygear.pxf.io/c/6560395/3226197/40600?prodsku=41540678189159&u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Fnuna-triv-next-stroller-2025-graphene-bmw&intsrc=APIG_26298"
       }
     },
     {
@@ -1172,17 +1130,6 @@
       "macroBabyUrl": "https://www.macrobaby.com/products/nuna-triv-next-compact-stroller-thistle?_j=taylormadebabyco.com",
       "macroBabyPrice": 800,
       "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRIV%20next%20stroller&tag=taylormadebab-20"
-    },
-    {
-      "area": "travel-system-stroller",
-      "brand": "Nuna",
-      "model": "TRVL lx",
-      "displayName": "Nuna TRVL lx",
-      "babylistUrl": null,
-      "babylistPrice": null,
-      "macroBabyUrl": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com",
-      "macroBabyPrice": 600,
-      "amazonUrl": "https://www.amazon.com/s?k=Nuna%20TRVL%20lx%20stroller&tag=taylormadebab-20"
     },
     {
       "area": "travel-system-stroller",
