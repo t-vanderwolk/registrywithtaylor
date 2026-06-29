@@ -65,6 +65,8 @@
     "catalog:import-carseats-from-catalog-apply": "tsx scripts/importCarSeatsFromCatalog.ts --apply",
     "catalog:same-brand-compatibility": "tsx scripts/applySameBrandCompatibility.ts",
     "catalog:same-brand-compatibility-apply": "tsx scripts/applySameBrandCompatibility.ts --apply",
+    "catalog:universal-adapter-compatibility": "tsx scripts/applyUniversalAdapterCompatibility.ts",
+    "catalog:universal-adapter-compatibility-apply": "tsx scripts/applyUniversalAdapterCompatibility.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
