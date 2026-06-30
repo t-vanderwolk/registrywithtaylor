@@ -21,9 +21,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/blog'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
-    { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/tools/travel-system'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'monthly', priority: 0.75 },
+    // Free interactive tools — primary SEO landing pages (now internally linked
+    // from the stroller / car-seat / travel guide + journal clusters).
+    { url: buildUrl('/tools/travel-system'), changeFrequency: 'weekly', priority: 0.85 },
+    { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'weekly', priority: 0.8 },
+    { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/resources'), changeFrequency: 'monthly', priority: 0.8 },
     // Public Learn content pages — accessible regardless of the Academy flag, so
     // they belong in the sitemap whether or not the gated modules are live.

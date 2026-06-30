@@ -1,4 +1,4 @@
-export type InternalLinkKind = 'blog' | 'guide' | 'academy' | 'service';
+export type InternalLinkKind = 'blog' | 'guide' | 'academy' | 'service' | 'tool';
 
 export type InternalLinkCluster =
   | 'registry'

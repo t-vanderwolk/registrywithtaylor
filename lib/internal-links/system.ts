@@ -290,6 +290,63 @@ const BLOG_LIBRARY = {
   },
 } as const satisfies Record<string, ContextualInternalLink>;
 
+// Free interactive TMBC tools. They are high-intent SEO targets that previously
+// had no inbound internal links — wired into the stroller / car-seat / travel
+// clusters so guides and journal posts point to them.
+const TOOL_LIBRARY = {
+  travelSystem: {
+    id: 'tool-travel-system',
+    href: '/tools/travel-system',
+    title: 'Travel System Compatibility Checker',
+    description: 'Check which infant car seats click onto a stroller — and whether you need an adapter — before you buy.',
+    ctaLabel: 'Check compatibility ->',
+    eyebrow: 'Free Tool',
+    kind: 'tool',
+    cluster: 'car-seats',
+    anchors: [
+      'travel system compatibility',
+      'travel system checker',
+      'car seat compatibility',
+      'compatible car seats',
+      'car seat adapter',
+      'stroller car seat compatibility',
+    ],
+  },
+  strollerFinder: {
+    id: 'tool-stroller-finder',
+    href: '/tools/stroller-finder',
+    title: 'Stroller Finder',
+    description: 'Browse strollers by brand and type to compare the frames that fit your real routine.',
+    ctaLabel: 'Find a stroller ->',
+    eyebrow: 'Free Tool',
+    kind: 'tool',
+    cluster: 'strollers',
+    anchors: ['stroller finder', 'find a stroller', 'compare strollers', 'strollers by brand'],
+  },
+  strollerQuiz: {
+    id: 'tool-stroller-quiz',
+    href: '/tools/stroller-quiz',
+    title: 'Stroller Quiz',
+    description: 'Answer a few lifestyle questions to narrow the stroller category before the specs start shouting.',
+    ctaLabel: 'Take the quiz ->',
+    eyebrow: 'Free Tool',
+    kind: 'tool',
+    cluster: 'strollers',
+    anchors: ['stroller quiz', 'which stroller', 'best stroller for me', 'stroller match'],
+  },
+  resources: {
+    id: 'tool-resources',
+    href: '/resources',
+    title: 'Free Baby Gear Tools & Resources',
+    description: 'The full set of free TMBC tools and resource guides in one place.',
+    ctaLabel: 'Browse resources ->',
+    eyebrow: 'Resources',
+    kind: 'tool',
+    cluster: 'general',
+    anchors: ['free baby gear tools', 'baby gear resources', 'baby gear tools'],
+  },
+} as const satisfies Record<string, ContextualInternalLink>;
+
 function normalizeText(value: string | null | undefined) {
   return (value ?? '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
 }
@@ -430,9 +487,9 @@ function getAcademyContextualLinksForCluster(cluster: InternalLinkCluster): Cont
       return [GUIDE_LIBRARY.registry, GUIDE_LIBRARY.whereToRegister, ACADEMY_LIBRARY.welcomeBoxes];
     case 'strollers':
     case 'travel':
-      return [GUIDE_LIBRARY.strollers, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.strollerFoundations];
+      return [GUIDE_LIBRARY.strollers, TOOL_LIBRARY.travelSystem, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.strollerFoundations];
     case 'car-seats':
-      return [GUIDE_LIBRARY.carSeats, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.carSeatFoundations];
+      return [GUIDE_LIBRARY.carSeats, TOOL_LIBRARY.travelSystem, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.carSeatFoundations];
     case 'nursery':
       return [GUIDE_LIBRARY.nursery, GUIDE_LIBRARY.registry, ACADEMY_LIBRARY.nurseryFurniture];
     case 'daily-gear':
@@ -448,9 +505,9 @@ function getBlogContextualLinksForCluster(cluster: InternalLinkCluster): Context
       return [ACADEMY_LIBRARY.welcomeBoxes, BLOG_LIBRARY.registry, BLOG_LIBRARY.welcomeBoxes, BLOG_LIBRARY.independentStores];
     case 'strollers':
     case 'travel':
-      return [ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers, BLOG_LIBRARY.fullSizeStrollers];
+      return [TOOL_LIBRARY.travelSystem, TOOL_LIBRARY.strollerFinder, ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers, BLOG_LIBRARY.fullSizeStrollers];
     case 'car-seats':
-      return [ACADEMY_LIBRARY.carSeatFoundations];
+      return [TOOL_LIBRARY.travelSystem, ACADEMY_LIBRARY.carSeatFoundations];
     case 'nursery':
       return [ACADEMY_LIBRARY.nurseryFurniture, BLOG_LIBRARY.nursery];
     case 'daily-gear':
@@ -467,11 +524,11 @@ function getGuideContextualLinksForCluster(cluster: InternalLinkCluster): Contex
     case 'registry':
       return [GUIDE_LIBRARY.whereToRegister, ACADEMY_LIBRARY.welcomeBoxes, BLOG_LIBRARY.registry, BLOG_LIBRARY.independentStores];
     case 'strollers':
-      return [GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers, BLOG_LIBRARY.fullSizeStrollers];
+      return [TOOL_LIBRARY.strollerFinder, TOOL_LIBRARY.travelSystem, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers];
     case 'travel':
-      return [GUIDE_LIBRARY.strollers, ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers];
+      return [TOOL_LIBRARY.travelSystem, GUIDE_LIBRARY.strollers, ACADEMY_LIBRARY.strollerFoundations, BLOG_LIBRARY.travelStrollers];
     case 'car-seats':
-      return [GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.carSeatFoundations, ACADEMY_LIBRARY.strollerFoundations];
+      return [TOOL_LIBRARY.travelSystem, GUIDE_LIBRARY.travel, ACADEMY_LIBRARY.carSeatFoundations, ACADEMY_LIBRARY.strollerFoundations];
     case 'nursery':
       return [GUIDE_LIBRARY.registry, ACADEMY_LIBRARY.nurseryFurniture, BLOG_LIBRARY.nursery];
     case 'daily-gear':
@@ -499,6 +556,20 @@ function getJournalCardsForCluster(cluster: InternalLinkCluster) {
   }
 }
 
+// The single most relevant free tool for a cluster — injected into journey cards
+// (which become the map's outbound links) so the tools earn inbound internal links.
+function getToolCardForCluster(cluster: InternalLinkCluster): InternalLinkCard | null {
+  switch (cluster) {
+    case 'strollers':
+      return toCard(TOOL_LIBRARY.strollerFinder);
+    case 'car-seats':
+    case 'travel':
+      return toCard(TOOL_LIBRARY.travelSystem);
+    default:
+      return null;
+  }
+}
+
 export function buildBlogInternalLinkPlan({
   post,
   relatedPosts,
@@ -518,9 +589,11 @@ export function buildBlogInternalLinkPlan({
   const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>(
     getBlogContextualLinksForCluster(cluster),
   ).slice(0, 4);
+  const toolCard = getToolCardForCluster(cluster);
   const journeyCards = dedupeCards([
     ...guideCards.slice(0, 2),
     academyCard,
+    ...(toolCard ? [toolCard] : []),
     SERVICES_CARD,
     ...relatedCards,
   ]).slice(0, 6);
@@ -607,9 +680,11 @@ export function buildGuideInternalLinkPlan(source: GuideLinkSource) {
   const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>(
     getGuideContextualLinksForCluster(cluster).filter((link) => link.href !== currentHref),
   ).slice(0, 4);
+  const toolCard = getToolCardForCluster(cluster);
   const journeyCards = dedupeCards([
     ...guideCards.slice(0, 2),
     academyCard,
+    ...(toolCard ? [toolCard] : []),
     ...journalCards.slice(0, 1),
     SERVICES_CARD,
   ])
@@ -691,6 +766,19 @@ export function buildSiteInternalLinkMap(
         SERVICES_CARD,
       ]).slice(0, 5),
     },
+    ...Object.values(TOOL_LIBRARY).map((target) => ({
+      href: target.href,
+      title: target.title,
+      kind: target.kind,
+      cluster: target.cluster,
+      outbound: dedupeCards([
+        ...getGuideCardsForCluster(target.cluster),
+        getAcademyCardForCluster(target.cluster),
+        SERVICES_CARD,
+      ])
+        .filter((card) => card.href !== target.href)
+        .slice(0, 5),
+    })),
     ...Object.values(GUIDE_LIBRARY).map((target) =>
       buildGuideInternalLinkPlan({
         href: target.href,
