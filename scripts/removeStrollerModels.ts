@@ -29,10 +29,13 @@ const SPECS: { label: string; brand: string; re: RegExp }[] = [
   { label: 'Zoe Double', brand: 'Zoe', re: /\b(?:double|twin)\b/i },
   { label: 'Cybex Priam 4', brand: 'Cybex', re: /\bpriam ?4\b/i },
   { label: 'Bugaboo Kangaroo Seat', brand: 'Bugaboo', re: /\bkangaroo seat\b/i },
+  // Mis-branded BOB Gear duplicate: "Britax | BOB - Wayfinder" duplicates the
+  // correct "BOB | Wayfinder" row. Only the Britax-branded copy matches here.
+  { label: 'Britax BOB-Wayfinder (BOB-brand duplicate)', brand: 'Britax', re: /\bwayfinder\b/i },
 ];
 
 // Brand strings to fetch (include the CYBEX casing variant we canonicalize).
-const FETCH_BRANDS = ['Bugaboo', 'Zoe', 'Cybex', 'CYBEX'];
+const FETCH_BRANDS = ['Bugaboo', 'Zoe', 'Cybex', 'CYBEX', 'Britax'];
 
 function matchLabel(brand: string | null, text: string): string | null {
   const cb = canonicalBrand(brand).toLowerCase();
