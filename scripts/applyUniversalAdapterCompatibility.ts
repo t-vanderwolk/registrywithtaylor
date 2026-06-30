@@ -40,6 +40,13 @@ type Rule = {
   /** Match against "<model> <displayName>". null = every model of this brand. */
   model: RegExp | null;
   family: string;
+  /**
+   * Extra infant-seat brands this stroller's adapter supports beyond the shared
+   * Nuna / CYBEX / Clek / Maxi-Cosi / Britax group — e.g. Graco, Chicco, or
+   * UPPAbaby (Mesa). Each gets an explicit ADAPTER row in addition to the Nuna
+   * trigger that drives the shared-group expansion.
+   */
+  extraSeatBrands?: string[];
 };
 
 type Row = {
@@ -80,9 +87,10 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Spring / Sleek universal car seat adapter. Chariot (sling, not a car seat) is
   // excluded by matching only the glide / spring / sleek frames.
   { brand: 'Thule', model: /\b(glide|spring|sleek)\b/i, family: 'Urban Glide / Glide / Spring / Sleek' },
-  // UPPAbaby Ridge takes UPPAbaby Mesa (same-brand default) AND Nuna / Maxi-Cosi /
-  // CYBEX via its car seat adapter — earns the shared expansion on top of Mesa.
-  { brand: 'UPPAbaby', model: /\bridge\b/i, family: 'Ridge' },
+  // UPPAbaby Vista / Cruz / Minu / Ridge take UPPAbaby Mesa (same-brand default),
+  // Nuna / Maxi-Cosi / CYBEX / Clek via the UPPAbaby adapter, AND Chicco KeyFit via
+  // the separate UPPAbaby Chicco adapter.
+  { brand: 'UPPAbaby', model: /\b(ridge|vista|cruz|minu)\b/i, family: 'Vista / Cruz / Minu / Ridge', extraSeatBrands: ['Chicco'] },
   // BOB joggers take Britax / Nuna / CYBEX / Maxi-Cosi via the BOB universal infant
   // car seat adapter (Wayfinder / Revolution / Alterrain).
   { brand: 'BOB', model: /\b(wayfinder|revolution|alterrain)\b/i, family: 'Wayfinder / Revolution / Alterrain' },
@@ -95,6 +103,14 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Older Baby Jogger frames not already covered take Maxi-Cosi / CYBEX / Nuna via
   // the Baby Jogger car seat adapter (Graco City GO is handled separately).
   { brand: 'Baby Jogger', model: /\b(city prix|city mini air)\b/i, family: 'City Prix / City Mini Air' },
+  // WonderFold W & L Series wagons take a 360° car seat adapter: shared Nuna /
+  // CYBEX / Clek / Maxi-Cosi / Britax group PLUS Graco / Chicco / UPPAbaby Mesa.
+  // (Brand match is startsWith, so this also covers the "WonderFold Wagon" rows.)
+  { brand: 'WonderFold', model: null, family: 'W & L Series', extraSeatBrands: ['Graco', 'Chicco', 'UPPAbaby'] },
+  // Veer Switchback (&Roll / &Jog) takes Maxi-Cosi / Nuna / Clek / CYBEX via the
+  // Switchback infant car seat adapter (shared euro group only). Cruiser frames
+  // are already covered elsewhere.
+  { brand: 'Veer', model: /\bswitch\b/i, family: 'Switchback (&Roll / &Jog)' },
 ];
 
 function label(row: Row) {
@@ -128,11 +144,18 @@ async function main() {
   let existing = 0;
   let strollersTouched = 0;
 
-  const nunaSeats: Row[] = await db.carSeat.findMany({
-    where: { brand: { equals: TRIGGER_SEAT_BRAND, mode: 'insensitive' }, seatType: 'INFANT' },
-    select: { id: true, brand: true, model: true, displayName: true },
-    orderBy: { model: 'asc' },
-  });
+  // Fetch the Nuna trigger seats + any extra-brand infant seats once.
+  const extraBrands = Array.from(new Set(ADAPTER_STROLLERS.flatMap((r) => r.extraSeatBrands ?? [])));
+  const seatsByBrand = new Map<string, Row[]>();
+  for (const brand of [TRIGGER_SEAT_BRAND, ...extraBrands]) {
+    const seats: Row[] = await db.carSeat.findMany({
+      where: { brand: { equals: brand, mode: 'insensitive' }, seatType: 'INFANT' },
+      select: { id: true, brand: true, model: true, displayName: true },
+      orderBy: { model: 'asc' },
+    });
+    seatsByBrand.set(brand.toLowerCase(), seats);
+  }
+  const nunaSeats = seatsByBrand.get(TRIGGER_SEAT_BRAND.toLowerCase()) ?? [];
 
   if (nunaSeats.length === 0) {
     console.error(`[universalAdapter] no ${TRIGGER_SEAT_BRAND} infant seats found — cannot seed adapter triggers.`);
@@ -142,15 +165,23 @@ async function main() {
 
   for (const rule of ADAPTER_STROLLERS) {
     const strollers: Row[] = await db.stroller.findMany({
-      where: { brand: { equals: rule.brand, mode: 'insensitive' } },
+      // startsWith so e.g. the WonderFold rule also matches "WonderFold Wagon".
+      where: { brand: { startsWith: rule.brand, mode: 'insensitive' } },
       select: { id: true, brand: true, model: true, displayName: true },
       orderBy: { model: 'asc' },
     });
     const matching = strollers.filter((stroller) => matchesRule(rule, stroller));
 
+    // Seats to link: the Nuna trigger plus any extra-brand seats (deduped by id).
+    const seenSeatIds = new Set<string>();
+    const ruleSeats = [
+      ...nunaSeats,
+      ...(rule.extraSeatBrands ?? []).flatMap((brand) => seatsByBrand.get(brand.toLowerCase()) ?? []),
+    ].filter((seat) => (seenSeatIds.has(seat.id) ? false : (seenSeatIds.add(seat.id), true)));
+
     for (const stroller of matching) {
       strollersTouched += 1;
-      for (const seat of nunaSeats) {
+      for (const seat of ruleSeats) {
         const existingRow = await db.compatibility.findFirst({
           where: { strollerId: stroller.id, carSeatId: seat.id },
           select: { id: true },

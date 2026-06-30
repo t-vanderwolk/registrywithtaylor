@@ -38,7 +38,9 @@ async function main() {
 
   const rows: Row[] = await db.affiliateCatalogProduct.findMany({
     where: {
-      provider: 'shopify_macrobaby',
+      // Both retailers — the checker's getCatalogAdapters() is provider-agnostic,
+      // so e.g. a Babylist-only Veer Switchback adapter must surface too.
+      provider: { in: ['shopify_macrobaby', 'babylist_impact'] },
       isActiveInFeed: true,
       title: { contains: 'adapter', mode: 'insensitive' },
     },
