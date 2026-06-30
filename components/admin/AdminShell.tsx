@@ -23,11 +23,13 @@ export default function AdminShell({
   brand,
   sections,
   isReviewerMode = false,
+  academyAdminEnabled = true,
 }: {
   children: ReactNode;
   brand: string;
   sections: NavSection[];
   isReviewerMode?: boolean;
+  academyAdminEnabled?: boolean;
 }) {
   const pathname = usePathname() ?? '/admin';
 
@@ -50,9 +52,11 @@ export default function AdminShell({
             {!isReviewerMode ? (
               <>
                 <AdminNotificationBell />
-                <AdminButton asChild variant="primary">
-                  <Link href="/admin/academy/new">New Academy Draft</Link>
-                </AdminButton>
+                {academyAdminEnabled ? (
+                  <AdminButton asChild variant="primary">
+                    <Link href="/admin/academy/new">New Academy Draft</Link>
+                  </AdminButton>
+                ) : null}
                 <AdminButton asChild variant="secondary">
                   <Link href="/admin/blog/new">New Post</Link>
                 </AdminButton>

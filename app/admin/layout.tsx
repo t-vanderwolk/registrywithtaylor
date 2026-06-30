@@ -1,6 +1,7 @@
 import './admin.css';
 import type { ReactNode } from 'react';
 import AdminShell from '@/components/admin/AdminShell';
+import { isAcademyAdminEnabled } from '@/lib/featureFlags';
 import { requireAdminViewSession } from '@/lib/server/session';
 
 export const metadata = {
@@ -8,15 +9,19 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+type NavLink = { label: string; href: string };
+type NavSection = { label: string; links: NavLink[] };
+
+// Academy/guides admin surfaces are temporarily hidden. Re-enable by setting
+// ACADEMY_ADMIN_ENABLED=true (no code change needed).
+const isAcademyLink = (href: string) => href.startsWith('/admin/academy') || href === '/academy';
+
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await requireAdminViewSession();
   const isReviewerMode = session.user.role === 'REVIEWER';
+  const academyAdminEnabled = isAcademyAdminEnabled();
 
-  return (
-    <AdminShell
-      brand="Taylor-Made Baby Co."
-      isReviewerMode={isReviewerMode}
-      sections={
+  const rawSections: NavSection[] =
         isReviewerMode
           ? [
               {
@@ -95,8 +100,20 @@ export default async function AdminLayout({ children }: { children: ReactNode })
                   { label: 'Academy Analytics', href: '/admin/academy/analytics' },
                 ],
               },
-            ]
-      }
+            ];
+
+  const sections: NavSection[] = academyAdminEnabled
+    ? rawSections
+    : rawSections
+        .map((section) => ({ ...section, links: section.links.filter((link) => !isAcademyLink(link.href)) }))
+        .filter((section) => section.links.length > 0);
+
+  return (
+    <AdminShell
+      brand="Taylor-Made Baby Co."
+      isReviewerMode={isReviewerMode}
+      academyAdminEnabled={academyAdminEnabled}
+      sections={sections}
     >
       {children}
     </AdminShell>
