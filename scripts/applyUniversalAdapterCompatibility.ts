@@ -68,7 +68,10 @@ type ReportRow = {
 // Maxi-Cosi / Nuna / CYBEX / Clek click-and-go adapter (sold separately).
 const ADAPTER_STROLLERS: Rule[] = [
   { brand: 'Bugaboo', model: /\bdonkey\b/i, family: 'Donkey' },
-  { brand: 'Joolz', model: /\b(dot|geo)\b/i, family: 'Dot / Geo' },
+  // Joolz Dot / Geo / Hub take Maxi-Cosi / Nuna / CYBEX / Clek via the Joolz car
+  // seat adapter (the Hub2 uses the Joolz Hub2 adapter set). \bhub\d*\b matches the
+  // "Hub2" model string.
+  { brand: 'Joolz', model: /\b(dot|geo)\b|\bhub\d*\b/i, family: 'Dot / Geo / Hub' },
   { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
   { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
   { brand: 'Ergobaby', model: /\bmetro\b/i, family: 'Metro / Metro+' },

@@ -75,6 +75,8 @@
     "catalog:promote-adapters-apply": "tsx scripts/promoteCarSeatAdapters.ts --apply",
     "catalog:merge-delta": "tsx scripts/mergeDeltaBrand.ts",
     "catalog:merge-delta-apply": "tsx scripts/mergeDeltaBrand.ts --apply",
+    "catalog:add-strollers": "tsx scripts/addStrollers.ts",
+    "catalog:add-strollers-apply": "tsx scripts/addStrollers.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
