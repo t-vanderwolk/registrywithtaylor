@@ -122,7 +122,7 @@ async function main() {
         where: { id: c.enrichment.id },
         data: {
           tmbcCategory: 'Strollers',
-          productType: 'full-size stroller',
+          productType: 'compact stroller',
           reviewStatus: 'REVIEWED',
           isPublic: true,
           needsReview: false,
@@ -133,7 +133,7 @@ async function main() {
         data: {
           rawProductId: c.id,
           tmbcCategory: 'Strollers',
-          productType: 'full-size stroller',
+          productType: 'compact stroller',
           reviewStatus: 'REVIEWED',
           isPublic: true,
           needsReview: false,
@@ -166,8 +166,8 @@ async function main() {
     });
     await db.productEnrichment.upsert({
       where: { rawProductId: raw.id },
-      update: { tmbcCategory: 'Strollers', productType: 'full-size stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
-      create: { rawProductId: raw.id, tmbcCategory: 'Strollers', productType: 'full-size stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
+      update: { tmbcCategory: 'Strollers', productType: 'compact stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
+      create: { rawProductId: raw.id, tmbcCategory: 'Strollers', productType: 'compact stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
     });
     haveReal = true;
     console.log(`  Created fallback catalog product "${FALLBACK.title}" (the importer had skipped it).`);
