@@ -110,7 +110,7 @@ export function inferStrollerCategory(
   // ── Single-to-double / modular convertible ──
   if (
     has(
-      /\b(donkey|kangaroo stroller|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select|ready2grow|nest2grow)\b/,
+      /\b(donkey|kangaroo stroller|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select|ready2grow|nest2grow|switch and roll|switchback and roll)\b/,
       'single-to-double/modular model language',
     )
   ) {
@@ -140,7 +140,7 @@ export function inferStrollerCategory(
   // ── Travel (cabin-fold / lightweight compact-travel) ──
   if (
     has(
-      /\b(butterfly|trvl(?! dubl| double)|minu(?! duo)|yoyo|yoyo3|yoyo 3|aer\+?|aer2|jet(?! double)|coya|libelle|beezy|quid|quid3|metro\+?|city tour|pockit|gb qbit|qbit|clic|volo|dot|nia|breez)\b/,
+      /\b(butterfly|trvl(?! dubl| double)|minu(?! duo)|yoyo|yoyo3|yoyo 3|aer\+?|aer2|jet(?! double)|coya|libelle|beezy|quid|quid3|metro\+?|city tour|pockit|gb qbit|qbit|clic|volo|dot|nia|breez|juniper)\b/,
       'travel stroller model language',
     )
   ) {
