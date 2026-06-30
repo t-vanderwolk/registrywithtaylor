@@ -32,7 +32,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   Larktale: '/assets/logos/larktale.png',
   'Maxi-Cosi': '/assets/logos/maxi-cosi.png',
   Mercedes: '/assets/logos/mercedes.png',
-  Mima: '/assets/logos/mima.png',
+  Mima: '/assets/logos/mimalogo.png',
   Mockingbird: '/assets/logos/mockingbird.png',
   Momcozy: '/assets/logos/momcozy.png',
   Mompush: '/assets/logos/mompush.png',

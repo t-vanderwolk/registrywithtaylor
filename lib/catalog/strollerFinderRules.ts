@@ -74,6 +74,9 @@ export function canonicalStrollerBrand(brand: string | null | undefined): string
     case 'wonderfold':
     case 'wonderfold wagon':
       return 'WonderFold';
+    case 'delta':
+    case 'delta children':
+      return 'Delta Children';
     default:
       return canonical;
   }
