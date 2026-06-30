@@ -97,7 +97,7 @@ const SPECS: Spec[] = [
     provider: 'manual_tmbc',
     externalId: 'tmbc-silver-cross-cove-2',
     title: 'Silver Cross - Cove 2 Full-Size All-Terrain Stroller',
-    affiliateUrl: 'https://silvercrossus.com/product/cove-2-full-size-stroller/',
+    affiliateUrl: 'https://silvercrossus.com/product/cove-2-full-size-stroller/?ref=4762',
     imageUrl:
       'https://cdn.shopify.com/s/files/1/1101/4990/files/Cove2_Onyx_Stroller_1200x1200_1.jpg?v=1780942774',
     price: 999.99,
