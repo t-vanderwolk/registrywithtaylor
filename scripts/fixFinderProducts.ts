@@ -44,6 +44,13 @@ const FIXES: Fix[] = [
   //     Mockingbird card to that bucket and unify the name so they collapse to one. ──
   { label: 'Mockingbird → Single-to-Double bucket', brand: 'Mockingbird', titleContains: 'Mockingbird', action: 'recategorize', productType: 'single-to-double stroller' },
   { label: 'Mockingbird unify name', brand: 'Mockingbird', titleContains: 'Mockingbird', action: 'rename', canonicalName: 'Single-to-Double' },
+
+  // ── Lightweight modular / mid-size → Compact bucket (assign explicitly,
+  //     regardless of their current bucket). ──
+  { label: 'Silver Cross Breez → Compact/Mid-Size', brand: 'Silver Cross', titleContains: 'Breez', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Peg Perego City Loop → Compact/Mid-Size', brand: 'Peg Perego', titleContains: 'City Loop', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Nuna SWIV → Compact/Mid-Size', brand: 'Nuna', titleContains: 'SWIV', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Nuna TRIV next → Compact/Mid-Size', brand: 'Nuna', titleContains: 'TRIV', action: 'recategorize', productType: 'compact stroller' },
 ];
 
 async function main() {
@@ -79,17 +86,18 @@ async function main() {
           });
         }
       } else if (fix.action === 'recategorize') {
-        await db.productEnrichment.upsert({
-          where: { rawProductId: p.id },
-          update: { productType: fix.productType },
-          create: { rawProductId: p.id, productType: fix.productType, tmbcCategory: 'Strollers' },
-        });
+        // Update-only: never create enrichment here (would promote a non-stroller).
+        if (!p.enrichment) {
+          console.log(`    (skipped — no enrichment) ${p.title.slice(0, 60)}`);
+          continue;
+        }
+        await db.productEnrichment.update({ where: { id: p.enrichment.id }, data: { productType: fix.productType } });
       } else if (fix.action === 'rename') {
-        await db.productEnrichment.upsert({
-          where: { rawProductId: p.id },
-          update: { canonicalName: fix.canonicalName },
-          create: { rawProductId: p.id, canonicalName: fix.canonicalName, tmbcCategory: 'Strollers' },
-        });
+        if (!p.enrichment) {
+          console.log(`    (skipped — no enrichment) ${p.title.slice(0, 60)}`);
+          continue;
+        }
+        await db.productEnrichment.update({ where: { id: p.enrichment.id }, data: { canonicalName: fix.canonicalName } });
       }
       touched += 1;
     }

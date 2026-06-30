@@ -140,7 +140,7 @@ export function inferStrollerCategory(
   // ── Travel (cabin-fold / lightweight compact-travel) ──
   if (
     has(
-      /\b(butterfly|trvl(?! dubl| double)|minu(?! duo)|yoyo|yoyo3|yoyo 3|aer\+?|aer2|jet(?! double)|coya|libelle|beezy|quid|quid3|metro\+?|city tour|pockit|gb qbit|qbit|clic|volo|dot|nia|breez|juniper)\b/,
+      /\b(butterfly|trvl(?! dubl| double)|minu(?! duo)|yoyo|yoyo3|yoyo 3|aer\+?|aer2|jet(?! double)|coya|libelle|beezy|quid|quid3|metro\+?|city tour|pockit|gb qbit|qbit|clic|volo|dot|nia|juniper)\b/,
       'travel stroller model language',
     )
   ) {
@@ -150,7 +150,10 @@ export function inferStrollerCategory(
   // ── Compact / mid-size ──
   if (
     has(
-      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt2|city mini gt3|city mini air|gb pockit|bugaboo bee|eezy s|mima zigi|thule spring|thule shine|stokke beat)\b/,
+      // Lightweight modular / mid-size: capable (bassinet + car seat) but lighter and
+      // more compact-folding than a full-size. Breez, City Loop, SWIV, TRIV next,
+      // Dragonfly, Joolz Hub, Eezy S, Mima Zigi all belong here, not Full-Size/Travel.
+      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt2|city mini gt3|city mini air|gb pockit|bugaboo bee|eezy s|mima zigi|thule spring|thule shine|stokke beat|breez|city loop)\b/,
       'compact/mid-size model language',
     )
   ) {
