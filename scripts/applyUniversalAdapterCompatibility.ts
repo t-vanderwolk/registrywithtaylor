@@ -62,7 +62,7 @@ type ReportRow = {
 const ADAPTER_STROLLERS: Rule[] = [
   { brand: 'Bugaboo', model: /\bdonkey\b/i, family: 'Donkey' },
   { brand: 'Joolz', model: /\b(dot|geo)\b/i, family: 'Dot / Geo' },
-  { brand: 'Mima', model: /\b(miro|xari|zigi)\b/i, family: 'Miro / Xari / Zigi' },
+  { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
   { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
   { brand: 'Ergobaby', model: /\bmetro\b/i, family: 'Metro / Metro+' },
   // Full-size Mompush travel systems only — Lithe / Velo / Wiz are compact and
