@@ -545,6 +545,13 @@ function skipReason(product: ShopifyProduct): { reason: SkipReason; detail: stri
   if (/\bchassis\b/i.test(title) && !/\bseat\b/i.test(title)) {
     return { reason: 'skippedReplacementParts', detail: `Skipped frame-only chassis "${title}"` };
   }
+  // Complete Peg Perego City Loop stroller: a primary stroller that tag-level
+  // exclusions otherwise drop (its chassis / seat / combo SKUs are handled above).
+  // Never skip the full stroller listing.
+  if (/\bcity loop\b/i.test(title) && /\bstroller\b/i.test(title) &&
+      !/\b(chassis|seat metal|combo|adapter|travel bag|infant car ?seat)\b/i.test(title)) {
+    return null;
+  }
 
   for (const rule of EXCLUDED_REASON_RULES) {
     if (!rule.re.test(text)) continue;

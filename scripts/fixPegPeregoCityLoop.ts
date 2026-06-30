@@ -28,6 +28,17 @@ const db = prismaBase as any;
 const BRAND = 'Peg Perego';
 const MODEL = 'City Loop';
 
+// Known MacroBaby feed identity for the complete City Loop stroller. Used as a
+// fallback when the importer hasn't created a catalog row for it (it lands in
+// manual-review / duplicate-risk). A tracked affiliate URL is all the checker
+// needs to treat the stroller as publicly available (price is optional).
+const FALLBACK = {
+  provider: 'shopify_macrobaby',
+  externalId: '7373396312123',
+  title: 'Peg-Perego - City Loop Full-Size Reversible Stroller',
+  affiliateUrl: 'https://www.macrobaby.com/products/peg-perego-city-loop-full-size-reversible-stroller-vanilla-blend?_j=taylormadebabyco.com',
+};
+
 const isChassis = (t: string) =>
   /\bcity loop\b/i.test(t) && /\bchassis\b/i.test(t) && !/\bseat\b/i.test(t);
 
@@ -84,9 +95,8 @@ async function main() {
   chassisStrollers.forEach((s) => console.log(`    × ${s.brand} | ${s.model}`));
 
   if (real.length === 0) {
-    console.log('\n  ⚠ No real "City Loop … Stroller" product in the catalog yet. Run');
-    console.log('    `npm run catalog:import-macrobaby-apply` first (the importer fix pulls it in),');
-    console.log('    then re-run this script to finish the swap.');
+    console.log('\n  No complete "City Loop … Stroller" product in the catalog (the importer');
+    console.log(`    skips it). Will create it directly from its known feed identity (${FALLBACK.externalId}).`);
   }
 
   if (!apply) {
@@ -134,6 +144,35 @@ async function main() {
   }
   if (promoted) console.log(`  Promoted ${promoted} real City Loop colourway(s) to public strollers.`);
 
+  // 2b) Fallback: if the importer never created a catalog row for the complete
+  //     stroller (it lands in manual-review / duplicate-risk), create it directly
+  //     from the known feed identity so the swap completes in this single run.
+  let haveReal = real.length > 0;
+  if (!haveReal) {
+    const raw = await db.affiliateCatalogProduct.upsert({
+      where: { provider_externalId: { provider: FALLBACK.provider, externalId: FALLBACK.externalId } },
+      update: { brand: BRAND, title: FALLBACK.title, affiliateUrl: FALLBACK.affiliateUrl, isActiveInFeed: true, lastSyncedAt: new Date() },
+      create: {
+        provider: FALLBACK.provider,
+        externalId: FALLBACK.externalId,
+        brand: BRAND,
+        title: FALLBACK.title,
+        affiliateUrl: FALLBACK.affiliateUrl,
+        retailer: 'MacroBaby',
+        isActiveInFeed: true,
+        price: null,
+        imageUrl: null,
+      },
+    });
+    await db.productEnrichment.upsert({
+      where: { rawProductId: raw.id },
+      update: { tmbcCategory: 'Strollers', productType: 'full-size stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
+      create: { rawProductId: raw.id, tmbcCategory: 'Strollers', productType: 'full-size stroller', reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
+    });
+    haveReal = true;
+    console.log(`  Created fallback catalog product "${FALLBACK.title}" (the importer had skipped it).`);
+  }
+
   // 3) Delete the chassis Stroller row(s) (Compatibility cascades).
   const chassisIds = chassisStrollers.map((s) => s.id);
   if (chassisIds.length) {
@@ -141,9 +180,9 @@ async function main() {
     console.log(`  Deleted ${res.count} chassis Stroller row(s).`);
   }
 
-  // 4) Ensure a single "Peg Perego City Loop" Stroller row exists (only if the
-  //    real product is in the catalog, so it has a public retailer at runtime).
-  if (real.length) {
+  // 4) Ensure a single "Peg Perego City Loop" Stroller row exists now that a real
+  //    catalog product is present (so it has a public retailer at runtime).
+  if (haveReal) {
     const existing = await db.stroller.findFirst({
       where: { brand: { equals: BRAND, mode: 'insensitive' }, model: { equals: MODEL, mode: 'insensitive' } },
       select: { id: true },
