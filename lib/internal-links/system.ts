@@ -355,6 +355,15 @@ function dedupeCards<T extends { href: string }>(cards: T[]) {
   return Array.from(new Map(cards.map((card) => [card.href, card])).values());
 }
 
+// /learn and /academy surfaces are hidden — never emit internal links to them.
+const SUPPRESSED_LINK_PREFIXES = ['/learn', '/academy'];
+export function isSuppressedInternalLink(href: string): boolean {
+  return SUPPRESSED_LINK_PREFIXES.some((prefix) => href === prefix || href.startsWith(`${prefix}/`));
+}
+function excludeSuppressedLinks<T extends { href: string }>(cards: T[]): T[] {
+  return cards.filter((card) => !isSuppressedInternalLink(card.href));
+}
+
 function toCard(target: ContextualInternalLink): InternalLinkCard {
   return {
     id: target.id,
@@ -586,17 +595,19 @@ export function buildBlogInternalLinkPlan({
   }).map(toGuideCardItemLink);
   const academyCard = getAcademyCardForCluster(cluster);
   const relatedCards = relatedPosts.slice(0, 2).map(toRelatedBlogCard);
-  const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>(
-    getBlogContextualLinksForCluster(cluster),
+  const contextualLinks: ContextualInternalLink[] = excludeSuppressedLinks(
+    dedupeCards<ContextualInternalLink>(getBlogContextualLinksForCluster(cluster)),
   ).slice(0, 4);
   const toolCard = getToolCardForCluster(cluster);
-  const journeyCards = dedupeCards([
-    ...guideCards.slice(0, 2),
-    academyCard,
-    ...(toolCard ? [toolCard] : []),
-    SERVICES_CARD,
-    ...relatedCards,
-  ]).slice(0, 6);
+  const journeyCards = excludeSuppressedLinks(
+    dedupeCards([
+      ...guideCards.slice(0, 2),
+      academyCard,
+      ...(toolCard ? [toolCard] : []),
+      SERVICES_CARD,
+      ...relatedCards,
+    ]),
+  ).slice(0, 6);
   const mapEntry: InternalLinkMapEntry = {
     href: `/blog/${post.slug}`,
     title: post.title,
@@ -641,11 +652,9 @@ export function buildAcademyInternalLinkPlan(source: AcademyLinkSource) {
   const cluster = getAcademyCluster(source);
   const guideCards = getGuideCardsForCluster(cluster);
   const journalCards = getJournalCardsForCluster(cluster);
-  const journeyCards = dedupeCards([
-    ...guideCards.slice(0, 2),
-    ...journalCards.slice(0, 1),
-    SERVICES_CARD,
-  ]).slice(0, 4);
+  const journeyCards = excludeSuppressedLinks(
+    dedupeCards([...guideCards.slice(0, 2), ...journalCards.slice(0, 1), SERVICES_CARD]),
+  ).slice(0, 4);
   const mapEntry: InternalLinkMapEntry = {
     href: source.href,
     title: source.title,
@@ -656,7 +665,7 @@ export function buildAcademyInternalLinkPlan(source: AcademyLinkSource) {
 
   return {
     cluster,
-    contextualLinks: getAcademyContextualLinksForCluster(cluster).slice(0, 3),
+    contextualLinks: excludeSuppressedLinks(getAcademyContextualLinksForCluster(cluster)).slice(0, 3),
     journeyCards,
     mapEntry,
   };
@@ -677,19 +686,21 @@ export function buildGuideInternalLinkPlan(source: GuideLinkSource) {
   const academyCard = getAcademyCardForCluster(cluster);
   const guideCards = getGuideCardsForCluster(cluster).filter((card) => card.href !== currentHref);
   const journalCards = getJournalCardsForCluster(cluster).filter((card) => card.href !== currentHref);
-  const contextualLinks: ContextualInternalLink[] = dedupeCards<ContextualInternalLink>(
-    getGuideContextualLinksForCluster(cluster).filter((link) => link.href !== currentHref),
+  const contextualLinks: ContextualInternalLink[] = excludeSuppressedLinks(
+    dedupeCards<ContextualInternalLink>(
+      getGuideContextualLinksForCluster(cluster).filter((link) => link.href !== currentHref),
+    ),
   ).slice(0, 4);
   const toolCard = getToolCardForCluster(cluster);
-  const journeyCards = dedupeCards([
-    ...guideCards.slice(0, 2),
-    academyCard,
-    ...(toolCard ? [toolCard] : []),
-    ...journalCards.slice(0, 1),
-    SERVICES_CARD,
-  ])
-    .filter((card) => card.href !== currentHref)
-    .slice(0, 5);
+  const journeyCards = excludeSuppressedLinks(
+    dedupeCards([
+      ...guideCards.slice(0, 2),
+      academyCard,
+      ...(toolCard ? [toolCard] : []),
+      ...journalCards.slice(0, 1),
+      SERVICES_CARD,
+    ]).filter((card) => card.href !== currentHref),
+  ).slice(0, 5);
   const mapEntry: InternalLinkMapEntry = {
     href: currentHref,
     title: source.title,
@@ -717,15 +728,17 @@ export function getAcademyNextStepForGuide(source: GuideLinkSource) {
 }
 
 export function getServicesJourneyCards() {
-  return dedupeCards([
-    toCard(GUIDE_LIBRARY.registry),
-    toCard(GUIDE_LIBRARY.strollers),
-    GUIDE_HUB_CARD,
-    toCard(ACADEMY_LIBRARY.registry),
-    toCard(ACADEMY_LIBRARY.strollerFoundations),
-    toCard(BLOG_LIBRARY.registry),
-    SERVICES_CARD,
-  ]).slice(0, 5);
+  return excludeSuppressedLinks(
+    dedupeCards([
+      toCard(GUIDE_LIBRARY.registry),
+      toCard(GUIDE_LIBRARY.strollers),
+      GUIDE_HUB_CARD,
+      toCard(ACADEMY_LIBRARY.registry),
+      toCard(ACADEMY_LIBRARY.strollerFoundations),
+      toCard(BLOG_LIBRARY.registry),
+      SERVICES_CARD,
+    ]),
+  ).slice(0, 5);
 }
 
 export function buildSiteInternalLinkMap(
@@ -824,6 +837,9 @@ export function buildSiteInternalLinkMap(
   const guideEntries = guidePages.map((guide) => buildGuideInternalLinkPlan(guide).mapEntry);
 
   return Object.fromEntries(
-    [...staticEntries, ...guideEntries, ...blogEntries].map((entry) => [entry.href, entry]),
+    [...staticEntries, ...guideEntries, ...blogEntries]
+      // Drop /learn + /academy pages, and strip any links to them from outbound.
+      .filter((entry) => !isSuppressedInternalLink(entry.href))
+      .map((entry) => [entry.href, { ...entry, outbound: excludeSuppressedLinks(entry.outbound) }]),
   );
 }

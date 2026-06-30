@@ -1,42 +1,55 @@
 import type { MetadataRoute } from 'next';
-import {
-  getLearnSitemapPaths,
-  getSubmoduleSitemapPaths,
-} from '@/lib/academy/content';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
-import { isAcademyEnabled } from '@/lib/featureFlags';
+import {
+  getTravelSystemCarSeats,
+  getTravelSystemStrollers,
+} from '@/lib/server/travelSystemCompatibility';
+import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
 
+// /learn and /academy are intentionally excluded from the sitemap (and from the
+// internal-link system) while those surfaces are hidden. The static set below
+// mirrors the canonical base for taylormadebabyco.com.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     { url: buildUrl('/'), changeFrequency: 'weekly', priority: 1.0 },
+    { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
+    { url: buildUrl('/book'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/about'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/book'), changeFrequency: 'monthly', priority: 0.85 },
-    ...(isAcademyEnabled()
-      ? [{ url: buildUrl('/academy'), changeFrequency: 'monthly' as const, priority: 0.8 }]
-      : []),
-    { url: buildUrl('/blog'), changeFrequency: 'daily', priority: 0.9 },
-    { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
-    { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
-    // Free interactive tools — primary SEO landing pages (now internally linked
-    // from the stroller / car-seat / travel guide + journal clusters).
-    { url: buildUrl('/tools/travel-system'), changeFrequency: 'weekly', priority: 0.85 },
-    { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'weekly', priority: 0.8 },
+    { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.9 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/resources'), changeFrequency: 'monthly', priority: 0.8 },
-    // Public Learn content pages — accessible regardless of the Academy flag, so
-    // they belong in the sitemap whether or not the gated modules are live.
-    { url: buildUrl('/learn'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/learn/pricing'), changeFrequency: 'monthly', priority: 0.7 },
-    { url: buildUrl('/learn/art-of-the-registry'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/learn/registry-timeline'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/learn/nursery-foundations'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/learn/stroller-foundations'), changeFrequency: 'monthly', priority: 0.75 },
-    { url: buildUrl('/privacy'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'daily', priority: 0.9 },
+    { url: buildUrl('/tools/travel-system'), changeFrequency: 'daily', priority: 0.9 },
+    { url: buildUrl('/blog'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
   ];
+
+  // Travel-system results pages — one per public stroller and per infant car
+  // seat, e.g. /tools/travel-system/results?stroller=uppababy-vista-v3
+  let travelSystemEntries: MetadataRoute.Sitemap = [];
+  try {
+    const [strollers, carSeats] = await Promise.all([
+      getTravelSystemStrollers(),
+      getTravelSystemCarSeats(),
+    ]);
+    travelSystemEntries = [
+      ...strollers.map((option) => ({
+        url: buildUrl(travelSystemResultsHref('stroller', option)),
+        changeFrequency: 'weekly' as const,
+        priority: 0.65,
+      })),
+      ...carSeats.map((option) => ({
+        url: buildUrl(travelSystemResultsHref('carSeat', option)),
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      })),
+    ];
+  } catch (error) {
+    console.error('Failed to build travel-system sitemap entries.', error);
+  }
 
   let blogEntries: MetadataRoute.Sitemap = [];
   try {
@@ -53,31 +66,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Failed to build blog sitemap entries.', error);
   }
 
-  // /learn/* + /academy/* — only included while Academy is publicly enabled.
-  const academyOn = isAcademyEnabled();
-
-  const learnEntries: MetadataRoute.Sitemap = academyOn
-    ? getLearnSitemapPaths().map((path) => ({
-        url: buildUrl(path),
-        changeFrequency: 'monthly' as const,
-        priority: path === '/learn' ? 0.9 : path.split('/').length === 3 ? 0.85 : 0.75,
-      }))
-    : [];
-
-  const submoduleEntries: MetadataRoute.Sitemap = academyOn
-    ? getSubmoduleSitemapPaths().map((path) => ({
-        url: buildUrl(path),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-      }))
-    : [];
-
+  // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...learnEntries, ...submoduleEntries, ...blogEntries].map((entry) => [
-        entry.url,
-        entry,
-      ]),
+      [...staticEntries, ...travelSystemEntries, ...blogEntries].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }

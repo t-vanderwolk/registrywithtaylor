@@ -11,7 +11,7 @@ import { getNurseryFurnitureSubmoduleCards } from '@/lib/academy/nurseryFurnitur
 import { getRegistryWelcomeBoxesAcademySubmoduleCards } from '@/lib/academy/registryWelcomeBoxesAcademy';
 import { getStrollerFoundationsAcademySubmoduleCards } from '@/lib/academy/strollerFoundationsAcademy';
 import { getPublicPostWhere } from '@/lib/blog/postStatus';
-import { buildSiteInternalLinkMap } from '@/lib/internal-links/system';
+import { buildSiteInternalLinkMap, isSuppressedInternalLink } from '@/lib/internal-links/system';
 import type { InternalLinkMapEntry } from '@/lib/internal-links/types';
 import prisma from '@/lib/server/prisma';
 
@@ -199,7 +199,13 @@ async function main() {
   );
   const academyEntries = getAcademyPages().map((page) => buildAcademyInternalLinkPlan(page).mapEntry);
   const map = Object.fromEntries(
-    [...Object.values(baseMap), ...academyEntries].map((entry) => [entry.href, entry]),
+    [...Object.values(baseMap), ...academyEntries]
+      // /learn + /academy are hidden — drop those pages and any links to them.
+      .filter((entry) => !isSuppressedInternalLink(entry.href))
+      .map((entry) => [
+        entry.href,
+        { ...entry, outbound: entry.outbound.filter((target) => !isSuppressedInternalLink(target.href)) },
+      ]),
   );
 
   const inboundMap = new Map<string, Set<string>>();
