@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { OpenBoxBadge } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -1146,9 +1147,7 @@ export default function StrollerQuiz() {
                         )}
                       </div>
                       <Link
-                        href={`/tools/travel-system?strollerBrand=${encodeURIComponent(
-                          s.brand,
-                        )}&strollerModel=${encodeURIComponent(s.model)}`}
+                        href={travelSystemResultsHref('stroller', { brand: s.brand, model: s.model })}
                         style={styles.compatLink}
                       >
                         Compatible car seats →

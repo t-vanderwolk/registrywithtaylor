@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
+import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -87,8 +88,12 @@ type CategoryGroup = { category: string; label: string; products: FlatProduct[] 
 type Mode = 'brand' | 'category';
 type Kind = 'strollers' | 'carseats';
 
+// Link straight to the stroller's results page. The slug is brand+model
+// lower-cased, so it mirrors the travel-system "check by stroller" set exactly
+// (the checker options are built from this same finder source) and resolves
+// regardless of brand/model casing (e.g. "Cybex MIOS" → cybex-mios).
 function compatHref(brand: string, model: string) {
-  return `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}&strollerModel=${encodeURIComponent(model)}`;
+  return travelSystemResultsHref('stroller', { brand, model });
 }
 
 function displayNameWithoutBrand(displayName: string, brand: string) {

@@ -117,6 +117,9 @@ const ADAPTER_STROLLERS: Rule[] = [
   // CYBEX via its ChangeGo car seat adapter. (ClickGo is a compact lightweight
   // travel stroller with no car seat — it stays out.)
   { brand: 'Momcozy', model: /\bchangego\b/i, family: 'ChangeGo' },
+  // Larktale Caravan (Coupe / Quad stroller-wagons) takes Maxi-Cosi / Nuna / Clek
+  // via the Caravan car seat adapter, plus a separate Chicco adapter.
+  { brand: 'Larktale', model: /\bcaravan\b/i, family: 'Caravan', extraSeatBrands: ['Chicco'] },
 ];
 
 function label(row: Row) {
