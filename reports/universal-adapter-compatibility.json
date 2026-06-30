@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T04:23:40.231Z",
+  "generatedAt": "2026-06-30T15:36:11.095Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -146,588 +146,4410 @@
       "stroller": "Mima Creo",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Creo",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Creo",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Creo",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Velo Travel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Velo Travel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Velo Travel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Velo Travel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Ultimate / Meteor / Velo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Wiz",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Wiz",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "City Loop",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "City Loop",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "City Loop",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "City Loop",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Glide 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Glide 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Glide 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Glide 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Sleek",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Sleek",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Sleek",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Sleek",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Spring 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Spring 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Spring 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Spring 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2 Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2 Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2 Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 2 Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3 Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3 Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3 Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 3 Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-wheel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-wheel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-wheel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-wheel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-Wheel Single Child",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-Wheel Single Child",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-Wheel Single Child",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Urban Glide 4-Wheel Single Child",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Cruz V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu Duo Side By Side Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Minu V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Ridge V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "UPPAbaby",
+      "stroller": "UPPAbaby Vista V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Vista / Cruz / Minu / Ridge",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Alterrain Pro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Alterrain Pro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Alterrain Pro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Alterrain Pro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0 Duallie",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0 Duallie",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0 Duallie",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Revolution Flex 3.0 Duallie",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Wayfinder",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Wayfinder",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Wayfinder",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "BOB",
+      "stroller": "BOB Wayfinder",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Wayfinder / Revolution / Alterrain",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Breez",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Breez",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Breez",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Breez",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic Compact",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic Compact",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic Compact",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Clic Compact",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Comet",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Comet",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Comet",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Comet",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Cove 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Cove 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Cove 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Cove 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Dune 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet 5",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet 5",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet 5",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet 5",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Jet Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Nia Travel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Nia Travel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Nia Travel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Nia Travel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Reef 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3 Single to Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3 Single to Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3 Single to Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Silver Cross",
+      "stroller": "Silver Cross Wave 3 Single to Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Silver Cross frames",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam Jogging",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam Jogging",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam Jogging",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Guava Family",
+      "stroller": "Guava Family Roam Jogging",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Roam",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Mini Air",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Mini Air",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Mini Air",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Mini Air",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger x Bike Trailer",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger x Bike Trailer",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger x Bike Trailer",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Baby Jogger",
+      "stroller": "Baby Jogger City Prix Jogger x Bike Trailer",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "City Prix / City Mini Air",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L2 Double",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold L2 Double 2-Seater",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon L4 Quad",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Volkswagon Special Edition Double",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon VW Edition Quad",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Elite Pro",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W2 Luxe Double",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Elite Pro",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W4 Luxe Pro",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold W4 Luxe Pro Quad",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Graco GoMax",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco Fit2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "WonderFold",
+      "stroller": "WonderFold Wagon W6 Luxe Pro",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "W & L Series",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog Jogging",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog Jogging",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog Jogging",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Jog Jogging",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Roll",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Roll",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Roll",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Veer",
+      "stroller": "Veer Switch&Roll",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Switchback (&Roll / &Jog)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Momcozy",
+      "stroller": "Momcozy ChangeGo Baby",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "ChangeGo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Momcozy",
+      "stroller": "Momcozy ChangeGo Baby",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "ChangeGo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Momcozy",
+      "stroller": "Momcozy ChangeGo Baby",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "ChangeGo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Momcozy",
+      "stroller": "Momcozy ChangeGo Baby",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "ChangeGo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Caravan",
       "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Creo",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mima",
-      "stroller": "Mima Creo",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mima",
-      "stroller": "Mima Creo",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Miro / Xari / Zigi / Creo",
+      "family": "Caravan",
       "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Miro",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mima",
-      "stroller": "Mima Miro",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mima",
-      "stroller": "Mima Miro",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Miro",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari Sport",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Coupe V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Caravan",
+      "action": "create"
+    },
+    {
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari Sport",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari Sport",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Xari Sport",
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Zigi",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Zigi",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Zigi",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Mima",
-      "stroller": "Mima Zigi",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Miro / Xari / Zigi / Creo",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Zoe",
-      "stroller": "Zoe The Journey",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Zoe",
-      "stroller": "Zoe The Journey",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Caravan",
+      "action": "create"
     },
     {
-      "brand": "Zoe",
-      "stroller": "Zoe The Journey",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Zoe",
-      "stroller": "Zoe The Journey",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Zoe",
-      "stroller": "Zoe Traveler",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Zoe",
-      "stroller": "Zoe Traveler",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Zoe",
-      "stroller": "Zoe Traveler",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Zoe",
-      "stroller": "Zoe Traveler",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "all Zoe strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Compact",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Compact",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Compact",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Compact",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Deluxe Baby",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Deluxe Baby",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Deluxe Baby",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Deluxe Baby",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Travel",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Travel",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Travel",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro 3 Travel",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe Baby",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe Baby",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe Baby",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Ergobaby",
-      "stroller": "Ergobaby Metro+ Deluxe Baby",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Metro / Metro+",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Meteor 2",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Meteor 2",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Meteor 2",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Meteor 2",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Ultimate 2 Seat",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Ultimate 2 Seat",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Ultimate 2 Seat",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mompush",
-      "stroller": "Mompush Ultimate 2 Seat",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Ultimate / Meteor",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Amg Gt² Single",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Amg Gt² Single",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Amg Gt² Single",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Amg Gt² Single",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Performance Single",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Performance Single",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Performance Single",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Mercedes",
-      "stroller": "Mercedes Performance Single",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Mercedes-Benz (Hartan)",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Peg Perego",
-      "stroller": "Peg Perego City Loop",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "City Loop",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Peg Perego",
-      "stroller": "Peg Perego City Loop",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "City Loop",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Peg Perego",
-      "stroller": "Peg Perego City Loop",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "City Loop",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Peg Perego",
-      "stroller": "Peg Perego City Loop",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "City Loop",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby G5",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby G5",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby G5",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby G5",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby M+",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby M+",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby M+",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby M+",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby X5",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby X5",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby X5",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Orbit Baby",
-      "stroller": "Orbit Baby X5",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "all Orbit Baby strollers",
-      "action": "skip-existing"
+      "brand": "Larktale",
+      "stroller": "Larktale Caravan Quad",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Caravan",
+      "action": "create"
     }
   ]
 }

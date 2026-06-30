@@ -1,63 +1,124 @@
 brand,stroller,carSeat,strollerFamily,carSeatFamily,action
-Graco,Graco Modes Nest,Graco SnugRide Lite LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest,Graco SnugRide SnugFit,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest,Graco SnugRide SnugFit DLX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest,Graco SnugRide SnugFit LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest2Grow,Graco SnugRide Lite LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit DLX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Pramette,Graco SnugRide Lite LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Pramette,Graco SnugRide SnugFit,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Pramette,Graco SnugRide SnugFit DLX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Modes Pramette,Graco SnugRide SnugFit LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide Lite LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit DLX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide Lite LX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit DLX,Modes / Ready2Grow,SnugRide,skip-existing
-Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit LX,Modes / Ready2Grow,SnugRide,skip-existing
-Evenflo,Evenflo Pivot Xpand Modular,Evenflo LiteMax NXT,Pivot / Pivot Xpand,LiteMax,skip-existing
-Evenflo,Evenflo Pivot Xpand Modular,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Pivot Xpand,LiteMax,skip-existing
-Evenflo,Evenflo Pivot Xpand NXT,Evenflo LiteMax NXT,Pivot / Pivot Xpand,LiteMax,skip-existing
-Evenflo,Evenflo Pivot Xpand NXT,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Pivot Xpand,LiteMax,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco Fit2,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 30,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 30 ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 35,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max Zip ClearLux,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max Zip ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco Fit2,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 30,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 30 ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 35,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max Zip ClearLux,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max Zip ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco Fit2,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 30,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 30 ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 35,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max Zip ClearLux,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max Zip ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco Fit2,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit 30,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit 30 ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit 35,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max Zip ClearLux,Bravo / Corso,KeyFit / Fit2,skip-existing
-Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max Zip ClearTex,Bravo / Corso,KeyFit / Fit2,skip-existing
-Britax,Britax Brook+ Modular Baby,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax B-Safe Gen2 FlexFit,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax Cypress S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax Willow S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Brook+ Modular Baby,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
+Graco,Graco FastAction Jogger LX,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco FastAction Jogger LX,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco FastAction Jogger LX,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco FastAction Jogger LX,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Merge,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Merge,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Merge,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Merge,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest2Grow,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Nest2Grow,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Pramette,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Pramette,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Pramette,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Modes Pramette,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Outpace LX,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Outpace LX,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Outpace LX,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Outpace LX,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow 2.0 Double,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Grow LX 2.0 Double,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet Compact,Graco SnugRide Lite LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet Compact,Graco SnugRide SnugFit,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet Compact,Graco SnugRide SnugFit DLX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Graco,Graco Ready2Jet Compact,Graco SnugRide SnugFit LX,Modes / Ready2Grow / joggers,SnugRide,skip-existing
+Evenflo,Evenflo Pivot Xpand Modular,Evenflo LiteMax NXT,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,skip-existing
+Evenflo,Evenflo Pivot Xpand Modular,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,skip-existing
+Evenflo,Evenflo Pivot Xpand NXT,Evenflo LiteMax NXT,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,skip-existing
+Evenflo,Evenflo Pivot Xpand NXT,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,skip-existing
+Evenflo,Evenflo Pivot Xplore,Evenflo LiteMax NXT,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Evenflo,Evenflo Pivot Xplore,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Evenflo,Evenflo Pivot Xplore All-Terrain,Evenflo LiteMax NXT,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Evenflo,Evenflo Pivot Xplore All-Terrain,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Evenflo,Evenflo Shyft Intuiti+,Evenflo LiteMax NXT,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Evenflo,Evenflo Shyft Intuiti+,Evenflo Revolve180 LiteMax NXT Rotational,Pivot / Xpand / Xplore / Shyft,LiteMax / SafeMax / SecureMax,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco BravoFor2 Standing/Sitting Double,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo LE ClearTex Quick-Fold,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Bravo Quick-Fold,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Flex Convertible,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Corso Primo Modular,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,skip-existing
+Chicco,Chicco Cortina Together Double,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Cortina Together Double,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco Presto Self-Folding,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco Fit2,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit 30,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit 30 ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit 35,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit Max ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit Max Zip ClearLux,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Chicco,Chicco TRE Jogging,Chicco KeyFit Max Zip ClearTex,Bravo / Corso / TRE / Presto / Cortina / BravoFor2,KeyFit / Fit2,create
+Britax,Britax Brook+ Modular Baby,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax B-Safe Gen2 FlexFit,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax Cypress S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax Willow S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Brook+ Modular Baby,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Grove Modular,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Grove Modular,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Grove Modular,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
@@ -65,13 +126,13 @@ Britax,Britax Grove Modular,Britax B-Safe Gen2 FlexFit,Grove / Prism / Brook / J
 Britax,Britax Grove Modular,Britax Cypress S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Grove Modular,Britax Willow S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Grove Modular,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
-Britax,Britax Juniper On-The-Go,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax B-Safe Gen2 FlexFit,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax Cypress S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax Willow S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
-Britax,Britax Juniper On-The-Go,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,create
+Britax,Britax Juniper On-The-Go,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax B-Safe Gen2 FlexFit,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax Cypress S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax Willow S,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
+Britax,Britax Juniper On-The-Go,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Prism Modular,Britax B-Safe 35,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Prism Modular,Britax B-Safe 35 Elite,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Britax,Britax Prism Modular,Britax B-Safe Gen2,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
@@ -81,16 +142,16 @@ Britax,Britax Prism Modular,Britax Willow S,Grove / Prism / Brook / Juniper,Will
 Britax,Britax Prism Modular,Britax Willow SC,Grove / Prism / Brook / Juniper,Willow / Cypress / B-Safe,skip-existing
 Baby Trend,Baby Trend Expedition 2-in-1,Baby Trend EZ-Lift Pro,Expedition,EZ-Lift / Secure-Lift,skip-existing
 Baby Trend,Baby Trend Expedition 2-in-1,Baby Trend Secure-Lift 35,Expedition,EZ-Lift / Secure-Lift,skip-existing
-Baby Trend,Baby Trend Expedition Zero Flat Jogger with LED Lights,Baby Trend EZ-Lift Pro,Expedition,EZ-Lift / Secure-Lift,create
-Baby Trend,Baby Trend Expedition Zero Flat Jogger with LED Lights,Baby Trend Secure-Lift 35,Expedition,EZ-Lift / Secure-Lift,create
-Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Coral XP,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Mico Luxe,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Mico Pro,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Peri 180,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Coral XP,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Mico Luxe,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Mico Pro,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
-Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Peri 180,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,create
+Baby Trend,Baby Trend Expedition Zero Flat Jogger with LED Lights,Baby Trend EZ-Lift Pro,Expedition,EZ-Lift / Secure-Lift,skip-existing
+Baby Trend,Baby Trend Expedition Zero Flat Jogger with LED Lights,Baby Trend Secure-Lift 35,Expedition,EZ-Lift / Secure-Lift,skip-existing
+Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Coral XP,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Mico Luxe,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Mico Pro,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Fame Modular,Maxi-Cosi Peri 180,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Coral XP,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Mico Luxe,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Mico Pro,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
+Maxi-Cosi,Maxi-Cosi Oxford Cabin Travel,Maxi-Cosi Peri 180,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
 Maxi-Cosi,Maxi-Cosi Tayla,Maxi-Cosi Coral XP,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
 Maxi-Cosi,Maxi-Cosi Tayla,Maxi-Cosi Mico Luxe,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
 Maxi-Cosi,Maxi-Cosi Tayla,Maxi-Cosi Mico Pro,Fame / Oxford / Tayla / Zelia,Mico / Coral / Peri,skip-existing
