@@ -31,6 +31,7 @@ import {
   parseStyledBlock,
   type ParsedStyledBlock,
 } from '@/lib/blog/styledBlocks';
+import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import type { ContextualInternalLink } from '@/lib/internal-links/types';
 
@@ -54,6 +55,8 @@ type PostContentProps = {
     }
   >;
   contextualInternalLinks?: ContextualInternalLink[];
+  /** Live affiliate-catalogue matches keyed by blogProductKey(brand, productName). */
+  productCatalogMap?: Record<string, BlogCatalogMatch>;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -66,6 +69,29 @@ type LegacyCtaButtonBlock = {
 };
 
 type GuideProductBlock = Extract<ParsedStyledBlock, { type: 'product' }>;
+
+// Merge a live affiliate-catalogue match into a product block: the catalog buy
+// link (with retailer + price) leads, the catalog image replaces the authored
+// one, and any authored links are kept after as fallbacks. Non-product blocks
+// and unmatched products pass through untouched.
+function enrichProductBlockWithCatalog(
+  block: ParsedStyledBlock,
+  catalogMap: Record<string, BlogCatalogMatch>,
+): ParsedStyledBlock {
+  if (block.type !== 'product') return block;
+  const match = catalogMap[blogProductKey(block.brand, block.productName)];
+  if (!match || !match.affiliateUrl) return block;
+
+  const priceLabel = match.price != null ? ` — $${Math.round(match.price)}` : '';
+  const catalogLink = { label: `Shop ${match.retailer ?? 'now'}${priceLabel}`, url: match.affiliateUrl };
+  const authored = block.affiliateLinks.filter((link) => link.url !== match.affiliateUrl);
+
+  return {
+    ...block,
+    imageUrl: match.imageUrl ?? block.imageUrl,
+    affiliateLinks: [catalogLink, ...authored],
+  };
+}
 
 const orderedListPattern = /^\d+\.\s+/;
 const unorderedListPattern = /^(?:[-•])\s+/;
@@ -505,6 +531,7 @@ export default function PostContent({
   afterFirstParagraph,
   ctaPartners = {},
   contextualInternalLinks = [],
+  productCatalogMap = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
@@ -591,7 +618,7 @@ export default function PostContent({
                 break;
               }
 
-              productBlocks.push(nextBlock.block);
+              productBlocks.push(enrichProductBlockWithCatalog(nextBlock.block, productCatalogMap) as GuideProductBlock);
               nextIndex = nextBlock.nextIndex;
             }
 
@@ -602,7 +629,7 @@ export default function PostContent({
           }
 
           if (styledBlock) {
-            nodes.push(renderStyledBlock(styledBlock.block, postId, i));
+            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i));
             i = styledBlock.nextIndex;
             continue;
           }

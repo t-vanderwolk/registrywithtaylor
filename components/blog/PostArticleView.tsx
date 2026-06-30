@@ -23,6 +23,8 @@ import BlogArticleCompass from '@/components/blog/BlogArticleCompass';
 import JournalCard from '@/components/blog/JournalCard';
 import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
+import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
+import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
@@ -291,6 +293,14 @@ export default async function PostArticleView({
     new Set(storedCtas.buttons.flatMap((button) => (button.partnerId ? [button.partnerId] : []))),
   );
   const ctaPartnerLookup = await getAffiliatePartnerLookup(ctaPartnerIds);
+
+  // Wire blog product cards to the affiliate catalogue: match each product block
+  // to a catalog row and pass the live buy link + image + price down to the cards.
+  const productCatalogMap = await resolveBlogProductCatalogLinks(
+    extractStyledBlocks(articleContent).flatMap((block) =>
+      block.type === 'product' ? [{ brand: block.brand, productName: block.productName }] : [],
+    ),
+  );
   const serializedCtaPartners = Object.fromEntries(
     Array.from(ctaPartnerLookup.entries()).map(([partnerId, partner]) => [
       partnerId,
@@ -391,6 +401,7 @@ export default async function PostArticleView({
               afterFirstParagraph={hasAffiliateDisclosure ? <AffiliateDisclosure /> : undefined}
               ctaPartners={serializedCtaPartners}
               contextualInternalLinks={internalLinkPlan.contextualLinks}
+              productCatalogMap={productCatalogMap}
             />
           </div>
         </div>
