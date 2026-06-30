@@ -49,8 +49,9 @@ type Spec = {
   externalId: string;
   title: string;
   affiliateUrl: string;
-  imageUrl: string;
-  price: number;
+  /** Optional: omit to let the promote-if-found path use the feed's image/price. */
+  imageUrl?: string;
+  price?: number;
   retailer: string;
   /** Loose token used to find an existing feed product when the externalId differs. */
   searchModel: string;
@@ -60,7 +61,7 @@ const SPECS: Spec[] = [
   {
     brand: 'Joolz',
     model: 'Hub2',
-    productType: 'lightweight stroller',
+    productType: 'compact stroller',
     provider: 'shopify_macrobaby',
     externalId: '7354069516347',
     title: 'Joolz - Hub² Compact Stroller Lightweight, Forest Green',
@@ -103,6 +104,30 @@ const SPECS: Spec[] = [
     price: 999.99,
     retailer: 'Silver Cross',
     searchModel: 'Cove 2',
+  },
+  {
+    // Compact / mid-size. Sold on MacroBaby, so the promote path attaches the
+    // feed image/price; the create fallback only fires if it's not in the feed.
+    brand: 'Bugaboo',
+    model: 'Dragonfly',
+    productType: 'compact stroller',
+    provider: 'shopify_macrobaby',
+    externalId: 'tmbc-bugaboo-dragonfly',
+    title: 'Bugaboo - Dragonfly Stroller, Black',
+    affiliateUrl: 'https://www.macrobaby.com/products/bugaboo-dragonfly-stroller-black?_j=taylormadebabyco.com',
+    retailer: 'MacroBaby',
+    searchModel: 'Dragonfly',
+  },
+  {
+    brand: 'Cybex',
+    model: 'Eezy S Twist 2',
+    productType: 'compact stroller',
+    provider: 'shopify_macrobaby',
+    externalId: 'tmbc-cybex-eezy-s-twist-2',
+    title: 'Cybex - Eezy S Twist 2 Stroller, Soho Grey',
+    affiliateUrl: 'https://www.macrobaby.com/products/cybex-eezy-s-twist-2-soho-grey?_j=taylormadebabyco.com',
+    retailer: 'MacroBaby',
+    searchModel: 'Eezy S',
   },
 ];
 

@@ -150,7 +150,7 @@ export function inferStrollerCategory(
   // ── Compact / mid-size ──
   if (
     has(
-      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt3|city mini air|gb pockit)\b/,
+      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt2|city mini gt3|city mini air|gb pockit|bugaboo bee|eezy s|mima zigi|thule spring|thule shine|stokke beat)\b/,
       'compact/mid-size model language',
     )
   ) {
