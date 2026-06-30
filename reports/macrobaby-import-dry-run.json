@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-06-28T02:39:10.607Z",
+  "generatedAt": "2026-06-29T23:29:01.338Z",
   "source": "https://www.macrobaby.com/collections/infant-car-seats?_j=taylormadebabyco.com, https://www.macrobaby.com/collections/stroller?_j=taylormadebabyco.com, https://www.macrobaby.com/collections/car-seat-accessories?_j=taylormadebabyco.com",
   "affiliateParam": "?_j=taylormadebabyco.com",
   "totals": {
     "totalMacroBabyProductsScanned": 1235,
-    "eligibleStrollers": 282,
+    "eligibleStrollers": 267,
     "eligibleInfantCarSeats": 84,
     "eligibleAdapters": 53,
     "skippedTravelSystems": 43,
-    "skippedStrollerAccessories": 600,
+    "skippedStrollerAccessories": 614,
     "skippedCarSeatAccessories": 43,
     "skippedNonInfantCarSeats": 46,
-    "skippedReplacementParts": 7,
-    "skippedBundles": 63,
+    "skippedReplacementParts": 9,
+    "skippedBundles": 62,
     "skippedNurseryPackages": 0,
     "skippedNotEligible": 14,
-    "matchedExistingProducts": 185,
-    "newlyCreatedProducts": 133,
-    "manualReviewItems": 101,
-    "duplicateRiskItems": 283,
+    "matchedExistingProducts": 249,
+    "newlyCreatedProducts": 63,
+    "manualReviewItems": 92,
+    "duplicateRiskItems": 335,
     "adaptersParsed": 53,
     "adaptersFlaggedAmbiguous": 0
   },
@@ -349,8 +349,8 @@
       "productType": "infant car seat",
       "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/peg-perego-primo-viaggio-4-35-urban-mobility-baseless-infant-car-seat-with-latch-true-black?_j=taylormadebabyco.com",
-      "price": 349.99,
-      "salePrice": null,
+      "price": 279.99,
+      "salePrice": 279.99,
       "availability": "in stock",
       "action": "manual-review",
       "matched": null,
@@ -1582,34 +1582,6 @@
       ]
     },
     {
-      "externalId": "7588519673915",
-      "title": "Nuna PIPA Aire Infant Car Seat + Pipa Series Base, Caviar",
-      "brand": "Nuna",
-      "model": "PIPA Aire",
-      "kind": "infant car seat",
-      "productType": "infant car seat",
-      "strollerCategory": null,
-      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-infant-car-seat-pipa-series-base-caviar?_j=taylormadebabyco.com",
-      "price": 440,
-      "salePrice": null,
-      "availability": "in stock",
-      "action": "match-existing",
-      "matched": "CarSeat:Nuna PIPA Aire",
-      "reasons": [
-        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
-        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
-        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
-        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
-        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
-        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
-      ],
-      "collections": [
-        "infant-car-seats"
-      ]
-    },
-    {
       "externalId": "7260888039483",
       "title": "Nuna - Pipa Aire Rx Infant Car Seat With Base Granite",
       "brand": "Nuna",
@@ -2072,6 +2044,34 @@
       ]
     },
     {
+      "externalId": "7588519673915",
+      "title": "Nuna PIPA Aire Infant Car Seat + Pipa Series Base, Caviar",
+      "brand": "Nuna",
+      "model": "PIPA Aire",
+      "kind": "infant car seat",
+      "productType": "infant car seat",
+      "strollerCategory": null,
+      "url": "https://www.macrobaby.com/products/nuna-pipa-aire-infant-car-seat-pipa-series-base-caviar?_j=taylormadebabyco.com",
+      "price": 440,
+      "salePrice": null,
+      "availability": "out of stock",
+      "action": "match-existing",
+      "matched": "CarSeat:Nuna PIPA Aire",
+      "reasons": [
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
+        "duplicate risk: Nuna Nuna PIPA aire rx in Caviar/Chocolate",
+        "duplicate risk: Nuna Nuna PIPA rx in Macaron",
+        "duplicate risk: Nuna Nuna TRVL lx + PIPA urbn in Granite",
+        "duplicate risk: Nuna \"Nuna Demi next + Pipa aire RX in Granite Size 39.5\"\" x 24\"\" x 43.5\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna MIXX next + Pipa aire RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\" | Stronger\"",
+        "duplicate risk: Nuna \"Nuna Mixx Next + Pipa RX in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\""
+      ],
+      "collections": [
+        "infant-car-seats"
+      ]
+    },
+    {
       "externalId": "7407473492027",
       "title": "Nuna - PIPA RX Infant Car Seat + RELX Base with Load Leg, Granite",
       "brand": "Nuna",
@@ -2506,9 +2506,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Mima Miro",
+      "reasons": [
+        "duplicate risk: Mima Miro"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2620,25 +2622,18 @@
       "externalId": "7135592316987",
       "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Granite",
       "brand": "Nuna",
-      "model": "Mixx Next",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-granite?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "match-existing",
-      "matched": "Stroller:Nuna MIXX next",
+      "availability": "",
+      "action": "skip",
+      "matched": null,
       "reasons": [
-        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
+        "Skipped Magnetic Buckle variant \"Nuna - Mixx Next Stroller With Magnetic Buckle, Granite\""
       ],
       "collections": [
         "stroller"
@@ -2723,9 +2718,12 @@
       "price": 519.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Baby Jogger City Mini GT3 Single",
+      "reasons": [
+        "duplicate risk: Baby Jogger City Mini GT3 Single",
+        "duplicate risk: Baby Jogger City Mini GT3"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2742,9 +2740,13 @@
       "price": 279.99,
       "salePrice": 279.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+      "reasons": [
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+        "duplicate risk: Peg Perego Volo",
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2761,9 +2763,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Maxi-Cosi Fame Modular",
+      "reasons": [
+        "duplicate risk: Maxi-Cosi Fame Modular"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2865,9 +2869,11 @@
       "price": 900,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Nuna Trvl Double",
+      "reasons": [
+        "duplicate risk: Nuna Trvl Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2933,9 +2939,12 @@
       "price": 400,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Ergobaby Metro+ Deluxe Baby",
+      "reasons": [
+        "duplicate risk: Ergobaby Metro+ Deluxe",
+        "duplicate risk: Ergobaby Metro+ Deluxe Baby"
+      ],
       "collections": [
         "stroller"
       ]
@@ -2988,7 +2997,7 @@
       "externalId": "7488910721083",
       "title": "Peg Perego Ypsi Single to Double Stroller – Metal (Sage Green)",
       "brand": "Peg Perego",
-      "model": "Ypsi Single to Double",
+      "model": "Ypsi",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -2996,10 +3005,10 @@
       "price": 719.99,
       "salePrice": 719.99,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego YPSI",
       "reasons": [
-        "similar existing product/version requires review",
+        "duplicate risk: Peg Perego Peg Perego Double Adapters for Ypsi Stroller",
         "duplicate risk: Peg Perego YPSI"
       ],
       "collections": [
@@ -3037,7 +3046,7 @@
       "externalId": "7156211580987",
       "title": "Silver Cross - Wave Single-to-Double Stroller, Onyx",
       "brand": "Silver Cross",
-      "model": "Wave Single-to-Double",
+      "model": "Wave",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -3045,11 +3054,17 @@
       "price": 1119.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Wave",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Silver Cross Wave"
+        "duplicate risk: Silver Cross Silver Cross Wave 3 Single to Double Stroller in Licorice",
+        "duplicate risk: Silver Cross Silver Cross Wave 3 Single to Double Stroller in Caramel",
+        "duplicate risk: Silver Cross Silver Cross Wave Stroller, Eclipse, Unknown Year",
+        "duplicate risk: Silver Cross Silver Cross Wave Stroller, 2023, Lunar",
+        "duplicate risk: Silver Cross Silver Cross Wave Stroller, Sable, Unknown Year",
+        "duplicate risk: Silver Cross SILVER CROSS Coast / Wave Main Car Seat Adapter",
+        "duplicate risk: Silver Cross SILVER CROSS Coast/Wave Lower Car Seat Adapter",
+        "duplicate risk: Silver Cross Wave 3"
       ],
       "collections": [
         "stroller"
@@ -3119,8 +3134,8 @@
       "price": 749.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:UPPAbaby Minu Duo Side By Side Double",
       "reasons": [],
       "collections": [
         "stroller"
@@ -3339,17 +3354,19 @@
       "externalId": "7307093901371",
       "title": "Nuna - Triv Next W Magnetic Buckle, Biscotti",
       "brand": "Nuna",
-      "model": "Triv Next W Magnetic Buckle",
-      "kind": "stroller",
-      "productType": "compact stroller",
-      "strollerCategory": "Compact / Mid-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-triv-next-w-magnetic-buckle-biscotti?_j=taylormadebabyco.com",
-      "price": 800,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Magnetic Buckle variant \"Nuna - Triv Next W Magnetic Buckle, Biscotti\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -3358,7 +3375,7 @@
       "externalId": "7130762313787",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Silver Frame/Ocean Blue",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -3422,7 +3439,7 @@
       "externalId": "7356615000123",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Taupe Frame/Almond Beige",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -3473,8 +3490,8 @@
       "price": 700,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Nuna Tavo Next Granite",
       "reasons": [],
       "collections": [
         "stroller"
@@ -3554,8 +3571,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer-lightweight-compact-stroller-calming-beige?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -3775,7 +3792,7 @@
       "externalId": "7577847988283",
       "title": "Cybex E-Priam Stroller, Matte Black Frame/Coconut Brown Lux Seat",
       "brand": "Cybex",
-      "model": "E-Priam",
+      "model": "e-Priam",
       "kind": "stroller",
       "productType": "full-size stroller",
       "strollerCategory": "Full-Size",
@@ -3801,7 +3818,7 @@
       "externalId": "7577848741947",
       "title": "Cybex E-Priam Stroller, Matte Black Frame/Cozy Beige Lux Seat",
       "brand": "Cybex",
-      "model": "E-Priam",
+      "model": "e-Priam",
       "kind": "stroller",
       "productType": "full-size stroller",
       "strollerCategory": "Full-Size",
@@ -3832,12 +3849,15 @@
       "productType": "compact stroller",
       "strollerCategory": "Compact / Mid-Size",
       "url": "https://www.macrobaby.com/products/joolz-dot-ultra-lightweight-travel-stroller-dune-beige?_j=taylormadebabyco.com",
-      "price": 339.99,
-      "salePrice": 339.99,
+      "price": 399.99,
+      "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
+      "action": "manual-review",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "similar existing product/version requires review",
+        "duplicate risk: Joolz Dot Ultra Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -3851,12 +3871,14 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-dot-ultra-lightweight-travel-stroller-lagoon-blue?_j=taylormadebabyco.com",
-      "price": 339.15,
-      "salePrice": 339.15,
+      "price": 399,
+      "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Joolz Dot Ultra Travel",
+      "reasons": [
+        "duplicate risk: Joolz Dot Ultra Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -3942,7 +3964,7 @@
       "externalId": "7583755665467",
       "title": "Cybex E-Priam Stroller, Matte Black Frame/Sepia Black Lux Seat",
       "brand": "Cybex",
-      "model": "E-Priam",
+      "model": "e-Priam",
       "kind": "stroller",
       "productType": "full-size stroller",
       "strollerCategory": "Full-Size",
@@ -4050,8 +4072,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer2-buggy-forest-green?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -4078,8 +4100,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-hub-compact-stroller-lightweight-space-black?_j=taylormadebabyco.com",
-      "price": 679.2,
-      "salePrice": 679.2,
+      "price": 849,
+      "salePrice": null,
       "availability": "in stock",
       "action": "manual-review",
       "matched": null,
@@ -4123,8 +4145,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-hub-compact-stroller-lightweight-sandy-taupe?_j=taylormadebabyco.com",
-      "price": 679.2,
-      "salePrice": 679.2,
+      "price": 849,
+      "salePrice": null,
       "availability": "in stock",
       "action": "manual-review",
       "matched": null,
@@ -4173,9 +4195,12 @@
       "price": 519.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Baby Jogger City Mini GT3 Single",
+      "reasons": [
+        "duplicate risk: Baby Jogger City Mini GT3 Single",
+        "duplicate risk: Baby Jogger City Mini GT3"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4192,9 +4217,12 @@
       "price": 699.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Vivace Single",
+      "reasons": [
+        "duplicate risk: Peg Perego Vivace",
+        "duplicate risk: Peg Perego Vivace Single"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4211,9 +4239,12 @@
       "price": 639.99,
       "salePrice": 639.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Vivace",
+      "reasons": [
+        "duplicate risk: Peg Perego Vivace",
+        "duplicate risk: Peg Perego Vivace Single"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4230,9 +4261,13 @@
       "price": 279.99,
       "salePrice": 279.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Volo",
+      "reasons": [
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+        "duplicate risk: Peg Perego Volo",
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4249,9 +4284,13 @@
       "price": 279.99,
       "salePrice": 279.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Volo Ultra Carry On Compliant Travel",
+      "reasons": [
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+        "duplicate risk: Peg Perego Volo",
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4268,9 +4307,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Maxi-Cosi Fame Modular",
+      "reasons": [
+        "duplicate risk: Maxi-Cosi Fame Modular"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4377,19 +4418,18 @@
       "externalId": "7499034329147",
       "title": "Nuna - Swiv Single Stroller Bmw, Umber",
       "brand": "Nuna",
-      "model": "Swiv Single",
-      "kind": "stroller",
-      "productType": "compact stroller",
-      "strollerCategory": "Compact / Mid-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-swiv-single-stroller-bmw-umber?_j=taylormadebabyco.com",
-      "price": 1000,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "manual-review",
+      "availability": "",
+      "action": "skip",
       "matched": null,
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Nuna SWIV"
+        "Skipped Nuna BMW variant \"Nuna - Swiv Single Stroller Bmw, Umber\""
       ],
       "collections": [
         "stroller"
@@ -4407,9 +4447,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Mima Miro",
+      "reasons": [
+        "duplicate risk: Mima Miro"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4545,16 +4587,17 @@
       "price": 519.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Baby Jogger City Mini GT3",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Sierra Sand",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Deep Sea Blue",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Frosted Ivory",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 All-Terrain Stroller in Rich Black",
         "duplicate risk: Baby Jogger Baby Jogger City Mini GT3 Stroller, 2025, Frosted Ivory",
-        "duplicate risk: Baby Jogger City Mini GT3 All-Terrain"
+        "duplicate risk: Baby Jogger City Mini GT3 Single",
+        "duplicate risk: Baby Jogger City Mini GT3 All-Terrain",
+        "duplicate risk: Baby Jogger City Mini GT3"
       ],
       "collections": [
         "stroller"
@@ -4704,7 +4747,7 @@
       "externalId": "7134058250299",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Silver Frame/Moon Black",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -4862,9 +4905,11 @@
       "price": 329.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Britax Brook+ Modular Baby",
+      "reasons": [
+        "duplicate risk: Britax Brook+ Modular Baby"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4881,9 +4926,11 @@
       "price": 679.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Britax BOB - Wayfinder",
+      "reasons": [
+        "duplicate risk: Britax BOB - Wayfinder"
+      ],
       "collections": [
         "stroller"
       ]
@@ -4892,7 +4939,7 @@
       "externalId": "7098192396347",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Taupe Frame /Sky Blue",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -4943,9 +4990,12 @@
       "price": 598.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Thule Urban Glide 4-Wheel Single Child",
+      "reasons": [
+        "duplicate risk: Thule Urban Glide 4-Wheel Single Child",
+        "duplicate risk: Thule Urban Glide 4-wheel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -5366,9 +5416,11 @@
       "price": 244.79,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Children - Baby Gap 2-In-1 Carriage",
+      "reasons": [
+        "duplicate risk: Delta Children - Baby Gap 2-In-1 Carriage"
+      ],
       "collections": [
         "stroller"
       ]
@@ -6520,19 +6572,18 @@
       "externalId": "7285259599931",
       "title": "Mima Kids - Xari Stroller Chassis, Graphite Grey",
       "brand": "Mima",
-      "model": "Kids - Xari",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/mima-kids-xari-stroller-chassis-graphite-grey?_j=taylormadebabyco.com",
-      "price": 799.99,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "manual-review",
+      "availability": "",
+      "action": "skip",
       "matched": null,
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Mima Xari"
+        "Skipped frame-only chassis \"Mima Kids - Xari Stroller Chassis, Graphite Grey\""
       ],
       "collections": [
         "stroller"
@@ -7282,9 +7333,11 @@
       "price": 389.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Chicco Cortina Together Double",
+      "reasons": [
+        "duplicate risk: Chicco Cortina Together Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -7453,17 +7506,19 @@
       "externalId": "7499989090363",
       "title": "Nuna - Mixx Next With Magnetic Buckle Stroller, Cedar",
       "brand": "Nuna",
-      "model": "Mixx Next With Magnetic Buckle",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-with-magnetic-buckle-stroller-cedar?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Magnetic Buckle variant \"Nuna - Mixx Next With Magnetic Buckle Stroller, Cedar\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -7480,9 +7535,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Mima Miro",
+      "reasons": [
+        "duplicate risk: Mima Miro"
+      ],
       "collections": [
         "stroller"
       ]
@@ -7636,9 +7693,12 @@
       "price": 400,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Ergobaby Metro+ Deluxe",
+      "reasons": [
+        "duplicate risk: Ergobaby Metro+ Deluxe",
+        "duplicate risk: Ergobaby Metro+ Deluxe Baby"
+      ],
       "collections": [
         "stroller"
       ]
@@ -8507,15 +8567,18 @@
       "brand": "Delta",
       "model": "Children - BabyGap Classic",
       "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "productType": "umbrella stroller",
+      "strollerCategory": "Umbrella",
       "url": "https://www.macrobaby.com/products/delta-children-babygap-classic-stroller-pink-stripes?_j=taylormadebabyco.com",
       "price": 148.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Children - BabyGap Classic",
+      "reasons": [
+        "duplicate risk: Delta Children - BabyGap Classic",
+        "duplicate risk: Delta Children - BabyGap Classic Side-by-Side Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -8616,9 +8679,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Nia Travel",
+      "reasons": [
+        "duplicate risk: Silver Cross Nia Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -8677,9 +8742,11 @@
       "price": 849.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Breez",
+      "reasons": [
+        "duplicate risk: Silver Cross Breez"
+      ],
       "collections": [
         "stroller"
       ]
@@ -8808,9 +8875,11 @@
       "price": 379.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Chicco BravoFor2 Standing/Sitting Double",
+      "reasons": [
+        "duplicate risk: Chicco BravoFor2 Standing/Sitting Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -8953,17 +9022,19 @@
       "externalId": "7571291439163",
       "title": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
       "brand": "Nuna",
-      "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
-      "kind": "stroller",
-      "productType": "compact stroller",
-      "strollerCategory": "Compact / Mid-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-triv-next-with-magnetic-buckle-caviar-chocolate?_j=taylormadebabyco.com",
-      "price": 800,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Magnetic Buckle variant \"Nuna Triv Next With Magnetic Buckle Caviar/Chocolate\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -8979,7 +9050,7 @@
       "url": "https://www.macrobaby.com/products/joolz-aer2-lightweight-compact-stroller-pebble-grey?_j=taylormadebabyco.com",
       "price": 579,
       "salePrice": null,
-      "availability": "out of stock",
+      "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
       "reasons": [
@@ -9081,9 +9152,12 @@
       "price": 799.95,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Thule Urban Glide 4-Wheel Single Child",
+      "reasons": [
+        "duplicate risk: Thule Urban Glide 4-Wheel Single Child",
+        "duplicate risk: Thule Urban Glide 4-wheel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -9225,17 +9299,19 @@
       "externalId": "7314457985083",
       "title": "Nuna - Mixx Next Bmw Stroller Element",
       "brand": "Nuna",
-      "model": "Mixx Next Bmw",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-bmw-stroller-element?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Nuna BMW variant \"Nuna - Mixx Next Bmw Stroller Element\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -9295,8 +9371,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer2-buggy-sandy-taupe?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -9394,8 +9470,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer-lightweight-compact-stroller-hazel-brown-1?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -9492,9 +9568,11 @@
       "price": 849.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Breez",
+      "reasons": [
+        "duplicate risk: Silver Cross Breez"
+      ],
       "collections": [
         "stroller"
       ]
@@ -9560,9 +9638,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Nia Travel",
+      "reasons": [
+        "duplicate risk: Silver Cross Nia Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -9571,26 +9651,18 @@
       "externalId": "7469942734907",
       "title": "Thule - Urban Glide Stroller 3 Double Black (Magnetic Buckle)",
       "brand": "Thule",
-      "model": "Urban Glide",
-      "kind": "stroller",
-      "productType": "jogging stroller",
-      "strollerCategory": "Jogging",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/thule-urban-glide-stroller-3-double-black-magnetic-buckle?_j=taylormadebabyco.com",
-      "price": 999.95,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "manual-review",
+      "availability": "",
+      "action": "skip",
       "matched": null,
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Thule \"Thule Urban Glide 3 Double in Black Size 34.6\"\" x 31.1\"\" x 13.4\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Black Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Mid Blue Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Black Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Tinted Taupe Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 3 in Dark Slate Size 34.6\"\" x 22.8\"\" x 12.2\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 4-wheel in Black Size 34.6\"\" x 22.8\"\" x 11\"\"\"",
-        "duplicate risk: Thule \"Thule Urban Glide 4-wheel in Soft Beige Size 34.6\"\" x 22.8\"\" x 11\"\"\""
+        "Skipped Magnetic Buckle variant \"Thule - Urban Glide Stroller 3 Double Black (Magnetic Buckle)\""
       ],
       "collections": [
         "stroller"
@@ -9697,9 +9769,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Nia Travel",
+      "reasons": [
+        "duplicate risk: Silver Cross Nia Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -9888,9 +9962,12 @@
       "price": 244.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Children - BabyGap Classic Side-by-Side Double",
+      "reasons": [
+        "duplicate risk: Delta Children - BabyGap Classic",
+        "duplicate risk: Delta Children - BabyGap Classic Side-by-Side Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -9899,25 +9976,18 @@
       "externalId": "7296963149883",
       "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Biscotti",
       "brand": "Nuna",
-      "model": "Mixx Next",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-biscotti?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "out of stock",
-      "action": "match-existing",
-      "matched": "Stroller:Nuna MIXX next",
+      "availability": "",
+      "action": "skip",
+      "matched": null,
       "reasons": [
-        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
+        "Skipped Magnetic Buckle variant \"Nuna - Mixx Next Stroller With Magnetic Buckle, Biscotti\""
       ],
       "collections": [
         "stroller"
@@ -10005,7 +10075,8 @@
         "duplicate risk: Veer Veer Cruiser City",
         "duplicate risk: Veer Veer Cruiser City XL Essentials in Heather Gray",
         "duplicate risk: Veer Cruiser City",
-        "duplicate risk: Veer Cruiser City XL Essentials"
+        "duplicate risk: Veer Cruiser City XL Essentials",
+        "duplicate risk: Veer Cruiser"
       ],
       "collections": [
         "stroller"
@@ -10065,9 +10136,11 @@
       "price": 1499,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold Volkswagon Special Edition Double",
+      "reasons": [
+        "duplicate risk: WonderFold Volkswagon Special Edition Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10084,9 +10157,11 @@
       "price": 599.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold W2 Luxe Double",
+      "reasons": [
+        "duplicate risk: WonderFold W2 Luxe Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10095,7 +10170,7 @@
       "externalId": "7121530191931",
       "title": "Bugaboo - Donkey 5 Mono Complete Single-to-Double Stroller, Aluminum/Midnight Black",
       "brand": "Bugaboo",
-      "model": "Donkey 5 Mono Single-to-Double",
+      "model": "Donkey 5 Mono",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10103,9 +10178,19 @@
       "price": 1649,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
+      "action": "manual-review",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "similar existing product/version requires review",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, Aluminum, Midnight Black, Midnight Black, 2025",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, Black, Washed Black, Washed Black, 2024",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Duo Stroller, 2021, Graphite, Stormy Blue, Stormy Blue",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, 2021, Black, Midnight Black, Midnight Black",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, Black, Washed Black, Washed Black, 2025",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, Black, Washed Black, Washed Black, 2024",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Mono Stroller, 2021, Midnight Black, Graphite, Sunrise Red",
+        "duplicate risk: Bugaboo Bugaboo Donkey 5 Duo Stroller, 2022, Aluminum, Midnight Black, Midnight Black"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10248,7 +10333,7 @@
       "externalId": "7212722159675",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Black Frame/Moon Black",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10360,7 +10445,8 @@
         "duplicate risk: Veer Veer Cruiser City",
         "duplicate risk: Veer Veer Cruiser City XL Essentials in Heather Gray",
         "duplicate risk: Veer Cruiser City",
-        "duplicate risk: Veer Cruiser City XL Essentials"
+        "duplicate risk: Veer Cruiser City XL Essentials",
+        "duplicate risk: Veer Cruiser"
       ],
       "collections": [
         "stroller"
@@ -10378,9 +10464,11 @@
       "price": 999,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold Volkswagon Special Edition Double",
+      "reasons": [
+        "duplicate risk: WonderFold Volkswagon Special Edition Double"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10479,9 +10567,11 @@
       "price": 899,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold W4 Luxe Pro Quad",
+      "reasons": [
+        "duplicate risk: WonderFold W4 Luxe Pro Quad"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10582,9 +10672,11 @@
       "price": 799.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold L2 Double 2-Seater",
+      "reasons": [
+        "duplicate risk: WonderFold L2 Double 2-Seater"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10616,7 +10708,7 @@
       "externalId": "7466568745019",
       "title": "Peg Perego Ypsi – Compact Single to Double Stroller, Vanilla Blend (Black/Cream)",
       "brand": "Peg Perego",
-      "model": "Ypsi – Single to Double",
+      "model": "Ypsi –",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10624,10 +10716,10 @@
       "price": 719.99,
       "salePrice": 719.99,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego YPSI",
       "reasons": [
-        "similar existing product/version requires review",
+        "duplicate risk: Peg Perego Peg Perego Double Adapters for Ypsi Stroller",
         "duplicate risk: Peg Perego YPSI"
       ],
       "collections": [
@@ -10646,9 +10738,11 @@
       "price": 899,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:WonderFold W4 Luxe Pro Quad",
+      "reasons": [
+        "duplicate risk: WonderFold W4 Luxe Pro Quad"
+      ],
       "collections": [
         "stroller"
       ]
@@ -10741,7 +10835,7 @@
       "externalId": "7487187386427",
       "title": "Cybex - Egazelle S Single-to-Double Stroller, Silver Frame/Ocean Blue",
       "brand": "Cybex",
-      "model": "Egazelle S Single-to-Double",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10753,7 +10847,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10763,7 +10864,7 @@
       "externalId": "7487187550267",
       "title": "Cybex - Egazelle S Electronic Assist Stroller, Silver Frame With Moon Black Seat",
       "brand": "Cybex",
-      "model": "Egazelle S",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10775,7 +10876,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10785,7 +10893,7 @@
       "externalId": "7487188140091",
       "title": "Cybex - Egazelle S Single-to-Double Stroller, Taupe Frame With Almond Beige Seat",
       "brand": "Cybex",
-      "model": "Egazelle S Single-to-Double",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10797,7 +10905,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10807,7 +10922,7 @@
       "externalId": "7487188566075",
       "title": "Cybex - Egazelle S Single-to-Double Stroller, Silver Frame With Stone Grey Seat",
       "brand": "Cybex",
-      "model": "Egazelle S Single-to-Double",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10819,7 +10934,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10829,7 +10951,7 @@
       "externalId": "7487188828219",
       "title": "Cybex - Egazelle S Single-to-Double Stroller, Black Frame With Moon Black Seat",
       "brand": "Cybex",
-      "model": "Egazelle S Single-to-Double",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10841,7 +10963,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10851,7 +10980,7 @@
       "externalId": "7500611354683",
       "title": "Cybex - Egazelle S Single-to-Double Stroller, Black Frame/Moon Black",
       "brand": "Cybex",
-      "model": "Egazelle S Single-to-Double",
+      "model": "e-Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -10863,7 +10992,14 @@
       "matched": null,
       "reasons": [
         "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"
@@ -10881,9 +11017,11 @@
       "price": 599.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Radio Flyer Voya XT Baby",
+      "reasons": [
+        "duplicate risk: Radio Flyer Voya XT Baby"
+      ],
       "collections": [
         "stroller"
       ]
@@ -11642,17 +11780,19 @@
       "externalId": "7331812999227",
       "title": "Peg-Perego - City Loop Chassis, Black",
       "brand": "Peg Perego",
-      "model": "City Loop Chassis",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/peg-perego-city-loop-chassis-black?_j=taylormadebabyco.com",
-      "price": 249.99,
+      "price": null,
       "salePrice": null,
-      "availability": "out of stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped frame-only chassis \"Peg-Perego - City Loop Chassis, Black\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -11837,9 +11977,11 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Safety 1st Disney Baby Character Umbrella",
+      "reasons": [
+        "duplicate risk: Safety 1st Disney Baby Character Umbrella"
+      ],
       "collections": [
         "stroller"
       ]
@@ -12423,9 +12565,11 @@
       "price": 244.79,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Children - Baby Gap 2-In-1 Carriage",
+      "reasons": [
+        "duplicate risk: Delta Children - Baby Gap 2-In-1 Carriage"
+      ],
       "collections": [
         "stroller"
       ]
@@ -13135,25 +13279,18 @@
       "externalId": "7314515656763",
       "title": "Nuna - TRVL LX Stroller BMW Special Edition, Mica",
       "brand": "Nuna",
-      "model": "TRVL LX",
-      "kind": "stroller",
-      "productType": "travel stroller",
-      "strollerCategory": "Travel",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-trvl-lx-stroller-bmw-special-edition-mica?_j=taylormadebabyco.com",
-      "price": 600,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "match-existing",
-      "matched": "Stroller:Nuna TRVL lx",
+      "availability": "",
+      "action": "skip",
+      "matched": null,
       "reasons": [
-        "duplicate risk: Nuna Nuna x BMW TRVL lx Stroller in Mica",
-        "duplicate risk: Nuna Nuna TRVL dubl in Granite",
-        "duplicate risk: Nuna Nuna TRVL dubl in Cedar",
-        "duplicate risk: Nuna Nuna TRVL dubl in Caviar/Chocolate",
-        "duplicate risk: Nuna \"Nuna TRVL Easy Fold Compact Stroller & Carry Bag in Caviar/Cognac Size 32.5\"\" x 20.25\"\" x 44\"\"\"",
-        "duplicate risk: Nuna Nuna TRVL lx in Caviar/Chocolate",
-        "duplicate risk: Nuna Nuna TRVL lx in Granite",
-        "duplicate risk: Nuna Nuna Trvl Stroller, 2023, Droplet Dot"
+        "Skipped Nuna BMW variant \"Nuna - TRVL LX Stroller BMW Special Edition, Mica\""
       ],
       "collections": [
         "stroller"
@@ -13220,6 +13357,7 @@
         "duplicate risk: Baby Jogger \"Baby Jogger Summit X3 Double Jogging Stroller in Midnight Black Size 53.15\"\" x 32.48\"\" x 40.55\"\"\"",
         "duplicate risk: Baby Jogger Baby Jogger Summit X3 Double Stroller, 2023, Midnight Black",
         "duplicate risk: Baby Jogger Baby Jogger Summit X3 Double Jogging Stroller - Black/Gray",
+        "duplicate risk: Baby Jogger Summit X3 Double",
         "duplicate risk: Baby Jogger Summit X3",
         "duplicate risk: Baby Jogger Summit X3 Double Jogging"
       ],
@@ -13273,7 +13411,7 @@
       "externalId": "6719661047867",
       "title": "Baby Jogger - City Select 2 Single to-Double Stroller, Radiant Slate",
       "brand": "Baby Jogger",
-      "model": "City Select 2 Single to-Double",
+      "model": "City Select 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -13281,11 +13419,17 @@
       "price": 659.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Baby Jogger City Select 2",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: Baby Jogger City Select 2"
+        "duplicate risk: Baby Jogger \"Baby Jogger City Select 2 Stroller, Eco Collection in Lunar Black Size 35\"\" x 23.8\"\" x 41.1\"\"\"",
+        "duplicate risk: Baby Jogger \"Baby Jogger City Select 2 Stroller in Radiant Slate Size 35\"\" x 23.8\"\" x 41.1\"\"\"",
+        "duplicate risk: Baby Jogger Baby Jogger Britax Car Seat Adapter, City Select 2, Black",
+        "duplicate risk: Baby Jogger Baby Jogger City Select 2 Base Stroller - Peacoat Blue",
+        "duplicate risk: Baby Jogger Baby Jogger City Select 2 Base Stroller - Radiant Slate",
+        "duplicate risk: Baby Jogger Baby Jogger City Select 2 Base Stroller - Flint Sage",
+        "duplicate risk: Baby Jogger Baby Jogger City Select 2 with Tencel Fabric Baby Stroller - Harbor Grey",
+        "duplicate risk: Baby Jogger Baby Jogger City Select 2 with Tencel Fabric Baby Stroller - Lunar Black"
       ],
       "collections": [
         "stroller"
@@ -13302,7 +13446,7 @@
       "url": "https://www.macrobaby.com/products/nuna-swiv-stroller-biscotti?_j=taylormadebabyco.com",
       "price": 1000,
       "salePrice": null,
-      "availability": "in stock",
+      "availability": "out of stock",
       "action": "match-existing",
       "matched": "Stroller:Nuna SWIV",
       "reasons": [
@@ -13682,25 +13826,18 @@
       "externalId": "7295142756411",
       "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Monterey (Brixy Exclusive)",
       "brand": "Nuna",
-      "model": "Mixx Next",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-stroller-with-magnetic-buckle-monterey?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "match-existing",
-      "matched": "Stroller:Nuna MIXX next",
+      "availability": "",
+      "action": "skip",
+      "matched": null,
       "reasons": [
-        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
+        "Skipped Magnetic Buckle variant \"Nuna - Mixx Next Stroller With Magnetic Buckle, Monterey (Brixy Exclusive)\""
       ],
       "collections": [
         "stroller"
@@ -13760,13 +13897,13 @@
       "price": 579.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Baby Jogger Summit X3 Single",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Baby Jogger \"Baby Jogger Summit X3 Single Jogging Stroller in Midnight Black Size 50.79\"\" x 25.79\"\" x 41.73\"\"\"",
         "duplicate risk: Baby Jogger Summit X3",
-        "duplicate risk: Baby Jogger Summit X3 Single Jogging"
+        "duplicate risk: Baby Jogger Summit X3 Single Jogging",
+        "duplicate risk: Baby Jogger Summit X3 Single"
       ],
       "collections": [
         "stroller"
@@ -14425,8 +14562,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer2-buggy-space-black?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -14477,9 +14614,11 @@
       "price": 239.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Britax Juniper On-The-Go",
+      "reasons": [
+        "duplicate risk: Britax Juniper On-The-Go"
+      ],
       "collections": [
         "stroller"
       ]
@@ -14582,17 +14721,19 @@
       "externalId": "7314458116155",
       "title": "Nuna - Triv Next Bmw Stroller Graphene",
       "brand": "Nuna",
-      "model": "Triv Next Bmw",
-      "kind": "stroller",
-      "productType": "compact stroller",
-      "strollerCategory": "Compact / Mid-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-triv-next-bmw-stroller-graphene?_j=taylormadebabyco.com",
-      "price": 800,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Nuna BMW variant \"Nuna - Triv Next Bmw Stroller Graphene\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -14648,8 +14789,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer2-lightweight-compact-stroller-dark-navy-blue?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -14895,9 +15036,12 @@
       "price": 229.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
+      "action": "manual-review",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "similar existing product/version requires review",
+        "duplicate risk: Chicco Presto Self-Folding"
+      ],
       "collections": [
         "stroller"
       ]
@@ -14985,7 +15129,8 @@
         "duplicate risk: Nuna \"Nuna TAVO next Stroller in Pine Size 28.35\"\" x 22.44\"\" x 20.87\"\"\"",
         "duplicate risk: Nuna Nuna TAVO Next Stroller - Granite",
         "duplicate risk: Nuna Nuna TAVO Next Stroller - Caviar",
-        "duplicate risk: Nuna TAVO next"
+        "duplicate risk: Nuna TAVO next",
+        "duplicate risk: Nuna Tavo Next Granite"
       ],
       "collections": [
         "stroller"
@@ -15088,15 +15233,17 @@
       "brand": "Delta",
       "model": "Gap Classic Umbrella",
       "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "productType": "umbrella stroller",
+      "strollerCategory": "Umbrella",
       "url": "https://www.macrobaby.com/products/delta-gap-classic-stroller-grey?_j=taylormadebabyco.com",
       "price": 148.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Gap Classic Umbrella",
+      "reasons": [
+        "duplicate risk: Delta Gap Classic Umbrella"
+      ],
       "collections": [
         "stroller"
       ]
@@ -15356,9 +15503,11 @@
       "price": 49.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Safety 1st Disney Baby Character Umbrella",
+      "reasons": [
+        "duplicate risk: Safety 1st Disney Baby Character Umbrella"
+      ],
       "collections": [
         "stroller"
       ]
@@ -15522,9 +15671,12 @@
       "price": 399,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Ergobaby Metro 3 Travel",
+      "reasons": [
+        "duplicate risk: Ergobaby Metro 3",
+        "duplicate risk: Ergobaby Metro 3 Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -16674,7 +16826,7 @@
       "externalId": "7031363731515",
       "title": "Cybex - EPriam 2 Stroller Jeremy Scott Wings",
       "brand": "Cybex",
-      "model": "EPriam 2",
+      "model": "e-Priam 2",
       "kind": "stroller",
       "productType": "full-size stroller",
       "strollerCategory": "Full-Size",
@@ -17080,8 +17232,8 @@
       "price": 749.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:UPPAbaby Minu Duo Side By Side Double",
       "reasons": [],
       "collections": [
         "stroller"
@@ -17141,9 +17293,12 @@
       "price": 399,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Ergobaby Metro 3 Travel",
+      "reasons": [
+        "duplicate risk: Ergobaby Metro 3",
+        "duplicate risk: Ergobaby Metro 3 Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -17163,7 +17318,7 @@
       "action": "skip",
       "matched": null,
       "reasons": [
-        "Matched exclusion in \"Nuna - MIXX Next with Magnetic Buckle + Pipa RX Infant Car Seat Bundle, Granite\""
+        "Skipped Magnetic Buckle variant \"Nuna - MIXX Next with Magnetic Buckle + Pipa RX Infant Car Seat Bundle, Granite\""
       ],
       "collections": [
         "stroller"
@@ -17257,25 +17412,18 @@
       "externalId": "6696195620923",
       "title": "Nuna - Mixx Next Stroller With Magnetic Buckle, Caviar",
       "brand": "Nuna",
-      "model": "Mixx Next",
-      "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-mixx-next-w-magnetic-buckle-caviar?_j=taylormadebabyco.com",
-      "price": 900,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "match-existing",
-      "matched": "Stroller:Nuna MIXX next",
+      "availability": "",
+      "action": "skip",
+      "matched": null,
       "reasons": [
-        "duplicate risk: Nuna \"Nuna MIXX next in Granite Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Biscotti Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Cedar Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Macaron Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna MIXX next in Caviar/Chocolate Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna \"Nuna x BMW MIXX next Stroller in Element Size 32.7\"\" x 23.6\"\" x 45.3\"\"\"",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2025, Sterling",
-        "duplicate risk: Nuna Nuna MIXX Next Stroller, 2024, Droplet Dot"
+        "Skipped Magnetic Buckle variant \"Nuna - Mixx Next Stroller With Magnetic Buckle, Caviar\""
       ],
       "collections": [
         "stroller"
@@ -17450,15 +17598,17 @@
       "brand": "Delta",
       "model": "Jeep Adventureglyde",
       "kind": "stroller",
-      "productType": "full-size stroller",
-      "strollerCategory": "Full-Size",
+      "productType": "umbrella stroller",
+      "strollerCategory": "Umbrella",
       "url": "https://www.macrobaby.com/products/delta-jeep-adventureglyde-stroller-by-delta-children-black-with-grey?_j=taylormadebabyco.com",
       "price": 99.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Delta Jeep Adventureglyde",
+      "reasons": [
+        "duplicate risk: Delta Jeep Adventureglyde"
+      ],
       "collections": [
         "stroller"
       ]
@@ -19021,8 +19171,8 @@
       "productType": "travel stroller",
       "strollerCategory": "Travel",
       "url": "https://www.macrobaby.com/products/joolz-aer2-buggy-sage-green?_j=taylormadebabyco.com",
-      "price": 492.15,
-      "salePrice": 492.15,
+      "price": 579,
+      "salePrice": null,
       "availability": "in stock",
       "action": "match-existing",
       "matched": "Stroller:Joolz Aer2",
@@ -21612,7 +21762,7 @@
       "externalId": "7488912523323",
       "title": "Peg-Perego Ypsi Single to Double Stroller, True Black",
       "brand": "Peg Perego",
-      "model": "Ypsi Single to Double",
+      "model": "Ypsi",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -21620,10 +21770,10 @@
       "price": 719.99,
       "salePrice": 719.99,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego YPSI",
       "reasons": [
-        "similar existing product/version requires review",
+        "duplicate risk: Peg Perego Peg Perego Double Adapters for Ypsi Stroller",
         "duplicate risk: Peg Perego YPSI"
       ],
       "collections": [
@@ -22229,9 +22379,11 @@
       "price": 549.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Nia Travel",
+      "reasons": [
+        "duplicate risk: Silver Cross Nia Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -22289,9 +22441,11 @@
       "price": 849.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Breez",
+      "reasons": [
+        "duplicate risk: Silver Cross Breez"
+      ],
       "collections": [
         "stroller"
       ]
@@ -22308,9 +22462,11 @@
       "price": 849.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Breez",
+      "reasons": [
+        "duplicate risk: Silver Cross Breez"
+      ],
       "collections": [
         "stroller"
       ]
@@ -22562,7 +22718,8 @@
       "matched": "Stroller:Momcozy ClickGo Lightweight",
       "reasons": [
         "duplicate risk: Momcozy \"Momcozy ClickGo Lightweight Stroller in Black Size 40.55\"\" x 20\"\" x 33.66\"\"\"",
-        "duplicate risk: Momcozy ClickGo Lightweight"
+        "duplicate risk: Momcozy ClickGo Lightweight",
+        "duplicate risk: Momcozy Clickgo"
       ],
       "collections": [
         "stroller"
@@ -23436,10 +23593,9 @@
       "price": 1099,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:Bumbleride Indie Twin Double",
       "reasons": [
-        "similar existing product/version requires review",
         "duplicate risk: Bumbleride Indie"
       ],
       "collections": [
@@ -23471,7 +23627,7 @@
       "externalId": "7577849331771",
       "title": "Cybex E-Priam Stroller, Rose Gold Frame/Sepia Black Lux Seat",
       "brand": "Cybex",
-      "model": "E-Priam",
+      "model": "e-Priam",
       "kind": "stroller",
       "productType": "full-size stroller",
       "strollerCategory": "Full-Size",
@@ -23966,9 +24122,11 @@
       "price": 2849.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Mercedes Amg Gt² Single",
+      "reasons": [
+        "duplicate risk: Mercedes Amg Gt² Single"
+      ],
       "collections": [
         "stroller"
       ]
@@ -23985,9 +24143,11 @@
       "price": 2849.99,
       "salePrice": null,
       "availability": "out of stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Mercedes Performance Single",
+      "reasons": [
+        "duplicate risk: Mercedes Performance Single"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24046,9 +24206,12 @@
       "price": 499,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Ergobaby Metro 3 Deluxe Baby",
+      "reasons": [
+        "duplicate risk: Ergobaby Metro 3",
+        "duplicate risk: Ergobaby Metro 3 Deluxe Baby"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24153,7 +24316,7 @@
       "externalId": "7610720157755",
       "title": "Cybex - Gazelle S 2 Single-to-Double Stroller, Taupe Frame/Storrmy Blue",
       "brand": "Cybex",
-      "model": "Gazelle S 2 Single-to-Double",
+      "model": "Gazelle S 2",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -24236,17 +24399,19 @@
       "externalId": "7613516415035",
       "title": "Nuna Triv Next With Magnetic Buckle Caviar/Chocolate",
       "brand": "Nuna",
-      "model": "Triv Next With Magnetic Buckle Caviar/Chocolate",
-      "kind": "stroller",
-      "productType": "compact stroller",
-      "strollerCategory": "Compact / Mid-Size",
+      "model": "",
+      "kind": "",
+      "productType": "",
+      "strollerCategory": null,
       "url": "https://www.macrobaby.com/products/nuna-triv-next-with-magnetic-buckle-caviar-chocolate-1?_j=taylormadebabyco.com",
-      "price": 800,
+      "price": null,
       "salePrice": null,
-      "availability": "in stock",
-      "action": "create-new",
+      "availability": "",
+      "action": "skip",
       "matched": null,
-      "reasons": [],
+      "reasons": [
+        "Skipped Magnetic Buckle variant \"Nuna Triv Next With Magnetic Buckle Caviar/Chocolate\""
+      ],
       "collections": [
         "stroller"
       ]
@@ -24284,9 +24449,13 @@
       "price": 279.99,
       "salePrice": 279.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Volo",
+      "reasons": [
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+        "duplicate risk: Peg Perego Volo",
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24303,9 +24472,13 @@
       "price": 279.99,
       "salePrice": 279.99,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Peg Perego Volo Ultra Carry On Compliant Travel",
+      "reasons": [
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel Strolle",
+        "duplicate risk: Peg Perego Volo",
+        "duplicate risk: Peg Perego Volo Ultra Carry On Compliant Travel"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24343,9 +24516,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Cove 2",
+      "reasons": [
+        "duplicate risk: Silver Cross Cove 2"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24362,9 +24537,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Cove 2",
+      "reasons": [
+        "duplicate risk: Silver Cross Cove 2"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24381,9 +24558,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Cove 2",
+      "reasons": [
+        "duplicate risk: Silver Cross Cove 2"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24400,9 +24579,11 @@
       "price": 999.99,
       "salePrice": null,
       "availability": "in stock",
-      "action": "create-new",
-      "matched": null,
-      "reasons": [],
+      "action": "match-existing",
+      "matched": "Stroller:Silver Cross Cove 2",
+      "reasons": [
+        "duplicate risk: Silver Cross Cove 2"
+      ],
       "collections": [
         "stroller"
       ]
@@ -24745,7 +24926,7 @@
       "externalId": "7660536463419",
       "title": "Cybex Gazelle S Single-to-Double Stroller, Silver Frame With Stone Grey Seat",
       "brand": "Cybex",
-      "model": "Gazelle S Single-to-Double",
+      "model": "Gazelle S",
       "kind": "stroller",
       "productType": "single-to-double stroller",
       "strollerCategory": "Single-to-Double",
@@ -24753,11 +24934,17 @@
       "price": 899.95,
       "salePrice": null,
       "availability": "in stock",
-      "action": "manual-review",
-      "matched": null,
+      "action": "match-existing",
+      "matched": "Stroller:CYBEX Gazelle S",
       "reasons": [
-        "similar existing product/version requires review",
-        "duplicate risk: CYBEX Gazelle S"
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Ocean Blue, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Silver, Stone Grey",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2025, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Moon Black, Silver",
+        "duplicate risk: Cybex Cybex e-Gazelle S Stroller, 2024, Almond Beige, Black"
       ],
       "collections": [
         "stroller"

@@ -1,0 +1,705 @@
+{
+  "generatedAt": "2026-06-30T03:37:01.305Z",
+  "rows": [
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Dot Ultra Travel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Dot Ultra Travel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Dot Ultra Travel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Dot Ultra Travel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Geo",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Geo",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Geo",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Geo",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Dot / Geo",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Miro",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Sport",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Zigi",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe The Journey",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Traveler",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Compact",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Deluxe Baby",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro 3 Travel",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Ergobaby",
+      "stroller": "Ergobaby Metro+ Deluxe Baby",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Metro / Metro+",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Meteor 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mompush",
+      "stroller": "Mompush Ultimate 2 Seat",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Ultimate / Meteor",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Amg Gt² Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Mercedes",
+      "stroller": "Mercedes Performance Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Mercedes-Benz (Hartan)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "City Loop",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "City Loop",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "City Loop",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego City Loop",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "City Loop",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby G5",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby M+",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Orbit Baby",
+      "stroller": "Orbit Baby X5",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Orbit Baby strollers",
+      "action": "create"
+    }
+  ]
+}
