@@ -110,7 +110,7 @@ export function inferStrollerCategory(
   // ── Single-to-double / modular convertible ──
   if (
     has(
-      /\b(donkey|kangaroo stroller|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select|ready2grow|nest2grow|switch and roll|switchback and roll)\b/,
+      /\b(donkey|kangaroo stroller|vista|demi next|demi grow|e gazelle|egazelle|gazelle|wave|ypsi|agio z4|mockingbird single to double|pivot xpand|city select|ready2grow|nest2grow|switch and roll|switchback and roll|chive|the journey)\b/,
       'single-to-double/modular model language',
     )
   ) {
