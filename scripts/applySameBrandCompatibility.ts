@@ -44,8 +44,10 @@ type ReportRow = {
 const RULES: Rule[] = [
   {
     brand: 'Graco',
-    strollerFamily: 'Modes / Ready2Grow',
-    strollerModel: /\b(modes|ready2grow)\b/i,
+    strollerFamily: 'Modes / Ready2Grow / joggers',
+    // Graco strollers take Graco SnugRide Click Connect directly (no adapter) —
+    // includes the jogger / travel frames (FastAction, Merge, Outpace, Ready2Jet).
+    strollerModel: /\b(modes|ready2grow|ready2jet|fastaction|merge|outpace|jogger)\b/i,
     carSeatFamily: 'SnugRide',
     carSeatModel: /\bsnugride\b/i,
   },

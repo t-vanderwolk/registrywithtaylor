@@ -86,6 +86,15 @@ const ADAPTER_STROLLERS: Rule[] = [
   // BOB joggers take Britax / Nuna / CYBEX / Maxi-Cosi via the BOB universal infant
   // car seat adapter (Wayfinder / Revolution / Alterrain).
   { brand: 'BOB', model: /\b(wayfinder|revolution|alterrain)\b/i, family: 'Wayfinder / Revolution / Alterrain' },
+  // Silver Cross modular + travel frames take Nuna / Maxi-Cosi / CYBEX / Clek via
+  // their car seat adapter (on top of the same-brand Silver Cross Dream seat).
+  { brand: 'Silver Cross', model: null, family: 'all Silver Cross frames' },
+  // Guava Roam takes Nuna / Maxi-Cosi / CYBEX (+ Chicco / Graco / Britax) via the
+  // Roam car seat adapter.
+  { brand: 'Guava Family', model: /\broam\b/i, family: 'Roam' },
+  // Older Baby Jogger frames not already covered take Maxi-Cosi / CYBEX / Nuna via
+  // the Baby Jogger car seat adapter (Graco City GO is handled separately).
+  { brand: 'Baby Jogger', model: /\b(city prix|city mini air)\b/i, family: 'City Prix / City Mini Air' },
 ];
 
 function label(row: Row) {
