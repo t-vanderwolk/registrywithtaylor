@@ -25,8 +25,25 @@ type Fix =
 // One row per product fix. titleContains is matched case-insensitively within
 // the catalog title, scoped to the brand, so it only touches the intended rows.
 const FIXES: Fix[] = [
-  // Malformed / unwanted Full-Size card — remove it from the finder + checker.
+  // ── Remove ──
+  // Malformed / unwanted Full-Size card.
   { label: 'Nuna MIXX Next (remove malformed Biscotti card)', brand: 'Nuna', titleContains: 'MIXX next', action: 'hide' },
+  // Mompush "Ultimate 2 Stroller Seat" is the ~$130 second-seat accessory, not a
+  // stroller. (Scoped to "Stroller Seat" so it never touches the Ultimate 2
+  // *stroller*, which Babylist lists as "Ultimate 2 Seat Stroller".)
+  { label: 'Mompush Ultimate 2 second-seat accessory (remove)', brand: 'Mompush', titleContains: 'Stroller Seat', action: 'hide' },
+
+  // ── Merge duplicate / malformed cards into their clean twin (shared canonicalName) ──
+  { label: 'Nuna DEMI Icon (merge "in Caviar" variant)', brand: 'Nuna', titleContains: 'DEMI Icon', action: 'rename', canonicalName: 'DEMI Icon' },
+  { label: 'Nuna Tavo Next (merge "Granite" variant)', brand: 'Nuna', titleContains: 'Tavo Next', action: 'rename', canonicalName: 'Tavo Next' },
+  { label: 'Peg Perego Vivace (merge "Single" variant)', brand: 'Peg Perego', titleContains: 'Vivace', action: 'rename', canonicalName: 'Vivace' },
+  { label: 'Joie Poppy Whirl (clean doubled-brand / colour name)', brand: 'Joie', titleContains: 'Poppy', action: 'rename', canonicalName: 'Poppy Whirl' },
+  { label: 'Delta BabyGap 2-in-1 Carriage (clean "Children -" artifact)', brand: 'Delta', titleContains: '2-In-1 Carriage', action: 'rename', canonicalName: 'BabyGap 2-in-1 Carriage' },
+
+  // ── Mockingbird only makes the single-to-double convertible: move every
+  //     Mockingbird card to that bucket and unify the name so they collapse to one. ──
+  { label: 'Mockingbird → Single-to-Double bucket', brand: 'Mockingbird', titleContains: 'Mockingbird', action: 'recategorize', productType: 'single-to-double stroller' },
+  { label: 'Mockingbird unify name', brand: 'Mockingbird', titleContains: 'Mockingbird', action: 'rename', canonicalName: 'Single-to-Double' },
 ];
 
 async function main() {
