@@ -72,9 +72,11 @@ const ADAPTER_STROLLERS: Rule[] = [
   { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
   { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
   { brand: 'Ergobaby', model: /\bmetro\b/i, family: 'Metro / Metro+' },
-  // Full-size Mompush travel systems only — Lithe / Velo / Wiz are compact and
-  // typically don't take an infant seat; confirm those by hand before adding.
-  { brand: 'Mompush', model: /\b(ultimate|meteor)\b/i, family: 'Ultimate / Meteor' },
+  // Mompush Ultimate / Meteor / Velo take a Maxi-Cosi / Nuna / CYBEX car seat
+  // adapter; Wiz adds a separate Chicco adapter. (Lithe has an integrated,
+  // non-removable seat — it cannot take a car seat, so it stays out.)
+  { brand: 'Mompush', model: /\b(ultimate|meteor|velo)\b/i, family: 'Ultimate / Meteor / Velo' },
+  { brand: 'Mompush', model: /\bwiz\b/i, family: 'Wiz', extraSeatBrands: ['Chicco'] },
   { brand: 'Mercedes', model: null, family: 'Mercedes-Benz (Hartan)' },
   // Peg Perego City Loop takes Peg Perego seats directly (same-brand default) AND
   // other-brand infant seats via its Foldable Car Seat Adapter — so it also earns
@@ -111,6 +113,10 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Switchback infant car seat adapter (shared euro group only). Cruiser frames
   // are already covered elsewhere.
   { brand: 'Veer', model: /\bswitch\b/i, family: 'Switchback (&Roll / &Jog)' },
+  // Momcozy ChangeGo (the "23-in-1" double stroller) takes Maxi-Cosi / Nuna /
+  // CYBEX via its ChangeGo car seat adapter. (ClickGo is a compact lightweight
+  // travel stroller with no car seat — it stays out.)
+  { brand: 'Momcozy', model: /\bchangego\b/i, family: 'ChangeGo' },
 ];
 
 function label(row: Row) {

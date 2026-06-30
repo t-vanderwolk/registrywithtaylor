@@ -22,7 +22,6 @@ const JUNK: { label: string; re: RegExp }[] = [
   { label: 'cooler / cargo bag', re: /cool.{0,4}cargo/i },
   { label: 'toy (Lovevery Buddy)', re: /\bthe buddy\b/i },
   { label: 'walker wagon (toy)', re: /\bwalker wagon\b/i },
-  { label: 'changing station', re: /\bchangego\b/i },
   { label: 'luggage', re: /\bluggage\b/i },
 ];
 

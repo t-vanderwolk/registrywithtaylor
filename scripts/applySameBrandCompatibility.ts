@@ -53,15 +53,19 @@ const RULES: Rule[] = [
   },
   {
     brand: 'Evenflo',
-    strollerFamily: 'Pivot / Pivot Xpand',
-    strollerModel: /\bpivot(?!\s+xplore)(?:\s+xpand)?\b/i,
-    carSeatFamily: 'LiteMax',
-    carSeatModel: /\blitemax\b/i,
+    strollerFamily: 'Pivot / Xpand / Xplore / Shyft',
+    // Evenflo strollers take Evenflo infant seats (LiteMax / SafeMax / SecureMax)
+    // — Pivot + Pivot Xpand + Pivot Xplore wagon (via the Xplore adapter) + Shyft.
+    strollerModel: /\b(pivot|xplore|shyft)\b/i,
+    carSeatFamily: 'LiteMax / SafeMax / SecureMax',
+    carSeatModel: /\b(litemax|safemax|securemax)\b/i,
   },
   {
     brand: 'Chicco',
-    strollerFamily: 'Bravo / Corso',
-    strollerModel: /\b(bravo|corso)\b/i,
+    strollerFamily: 'Bravo / Corso / TRE / Presto / Cortina / BravoFor2',
+    // Chicco strollers click in Chicco KeyFit / Fit2 directly (no adapter), incl.
+    // the TRE jogger, Presto, Cortina, and BravoFor2 double.
+    strollerModel: /\b(bravo|corso|tre|presto|cortina|bravofor2)\b/i,
     carSeatFamily: 'KeyFit / Fit2',
     carSeatModel: /\b(keyfit|fit2)\b/i,
   },
