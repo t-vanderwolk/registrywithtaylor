@@ -76,6 +76,16 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Orbit Baby strollers take the Orbit Baby seat (same-brand default) AND other
   // brands via the universal Orbit Baby car seat adapter — same expansion.
   { brand: 'Orbit Baby', model: null, family: 'all Orbit Baby strollers' },
+  // Thule joggers take Nuna / Maxi-Cosi / CYBEX (+ Chicco) via the Urban Glide /
+  // Spring / Sleek universal car seat adapter. Chariot (sling, not a car seat) is
+  // excluded by matching only the glide / spring / sleek frames.
+  { brand: 'Thule', model: /\b(glide|spring|sleek)\b/i, family: 'Urban Glide / Glide / Spring / Sleek' },
+  // UPPAbaby Ridge takes UPPAbaby Mesa (same-brand default) AND Nuna / Maxi-Cosi /
+  // CYBEX via its car seat adapter — earns the shared expansion on top of Mesa.
+  { brand: 'UPPAbaby', model: /\bridge\b/i, family: 'Ridge' },
+  // BOB joggers take Britax / Nuna / CYBEX / Maxi-Cosi via the BOB universal infant
+  // car seat adapter (Wayfinder / Revolution / Alterrain).
+  { brand: 'BOB', model: /\b(wayfinder|revolution|alterrain)\b/i, family: 'Wayfinder / Revolution / Alterrain' },
 ];
 
 function label(row: Row) {

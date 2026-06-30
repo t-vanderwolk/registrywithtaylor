@@ -71,6 +71,8 @@
     "catalog:fix-city-loop-apply": "tsx scripts/fixPegPeregoCityLoop.ts --apply",
     "catalog:restore-cybex": "tsx scripts/restoreCybexStrollers.ts",
     "catalog:restore-cybex-apply": "tsx scripts/restoreCybexStrollers.ts --apply",
+    "catalog:promote-adapters": "tsx scripts/promoteCarSeatAdapters.ts",
+    "catalog:promote-adapters-apply": "tsx scripts/promoteCarSeatAdapters.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
