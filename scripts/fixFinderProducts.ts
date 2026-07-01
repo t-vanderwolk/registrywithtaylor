@@ -57,6 +57,22 @@ const FIXES: Fix[] = [
   { label: 'Baby Jogger City Mini GT3 → Jogging/All-Terrain', brand: 'Baby Jogger', titleContains: 'City Mini GT3', action: 'recategorize', productType: 'jogging stroller' },
   { label: 'Orbit Baby M+ → Travel', brand: 'Orbit Baby', titleContains: 'M+', action: 'recategorize', productType: 'travel stroller' },
   { label: 'Orbit Baby G5 → Full-Size', brand: 'Orbit Baby', titleContains: 'G5 Stroller', action: 'recategorize', productType: 'full-size stroller' },
+
+  // ── Hides ──
+  { label: 'Veer Cruiser City XL Essentials (hide)', brand: 'Veer', titleContains: 'City XL Essentials', action: 'hide' },
+  { label: 'UPPAbaby Minu Duo double (hide)', brand: 'UPPAbaby', titleContains: 'Minu Duo', action: 'hide' },
+  { label: 'Baby Jogger City Mini GT3 Single (hide)', brand: 'Baby Jogger', titleContains: 'City Mini GT3 Single', action: 'hide' },
+  { label: 'Baby Jogger City Prix x Bike Trailer (hide)', brand: 'Baby Jogger', titleContains: 'Bike Trailer', action: 'hide' },
+  { label: 'Peg Perego Volo Ultra Carry-On duplicate (hide)', brand: 'Peg Perego', titleContains: 'Volo Ultra', action: 'hide' },
+
+  // ── Repositions ──
+  { label: 'Thule Urban Glide 4-wheel → Full-Size', brand: 'Thule', titleContains: 'Urban Glide 4', action: 'recategorize', productType: 'full-size stroller' },
+  { label: 'Joie Tansy → Umbrella', brand: 'Joie', titleContains: 'Tansy', action: 'recategorize', productType: 'umbrella stroller' },
+  { label: 'Joie Caraway Whirl → Travel', brand: 'Joie', titleContains: 'Caraway', action: 'recategorize', productType: 'travel stroller' },
+  { label: 'Graco Merge → Compact', brand: 'Graco', titleContains: 'Merge', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Mima Creo → Compact', brand: 'Mima', titleContains: 'Creo', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Mima Xari → Full-Size', brand: 'Mima', titleContains: 'Xari', action: 'recategorize', productType: 'full-size stroller' },
+  { label: 'Mompush Meteor 2 → Compact', brand: 'Mompush', titleContains: 'Meteor', action: 'recategorize', productType: 'compact stroller' },
 ];
 
 async function main() {

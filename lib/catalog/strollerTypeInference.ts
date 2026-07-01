@@ -90,7 +90,9 @@ export function inferStrollerCategory(
   // ── Jogging / all-terrain (single) ──
   if (
     has(
-      /\b(urban glide|summit x3|guava roam|uppababy ridge|switch and jog|switch jog|alterrain|revolution flex|wayfinder|rambler|city prix|chicco tre|\btre\b jogging|expedition|outpace|fastaction jogger|bumbleride speed|bumbleride indie(?! twin)|city mini gt3)\b/,
+      // Urban Glide 4-wheel is a 4-wheeled everyday stroller, not the 3-wheel
+      // jogger — exclude it so a Full-Size reposition isn't reverted.
+      /\b(urban glide(?!\s*4)|summit x3|guava roam|uppababy ridge|switch and jog|switch jog|alterrain|revolution flex|wayfinder|rambler|city prix|chicco tre|\btre\b jogging|expedition|outpace|fastaction jogger|bumbleride speed|bumbleride indie(?! twin)|city mini gt3)\b/,
       'jogging/all-terrain model language',
     )
   ) {
