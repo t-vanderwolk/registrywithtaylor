@@ -1,229 +1,285 @@
 {
-  "generatedAt": "2026-07-01T01:42:43.859Z",
+  "generatedAt": "2026-07-01T18:12:04.346Z",
   "rows": [
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Butterfly",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "create"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Butterfly",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Butterfly",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Donkey 6",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Fox 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "create"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2",
+      "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2 Complete",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2 Complete",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2 Complete",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly 2 Complete",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly Complete",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "create"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly Complete",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly Complete",
+      "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Butterfly Complete",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "create"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 3",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 3",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 3",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 3",
+      "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
+      "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 6",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 6",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 6",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Donkey 6",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Dragonfly",
-      "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Dragonfly",
-      "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Dragonfly",
-      "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
-    },
-    {
-      "brand": "Bugaboo",
-      "stroller": "Bugaboo Dragonfly",
-      "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey / Dragonfly / Butterfly",
-      "action": "skip-existing"
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
     },
     {
       "brand": "Joolz",
@@ -1119,28 +1175,28 @@
       "stroller": "Thule Shine",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Urban Glide / Glide / Spring / Sleek / Shine",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Shine",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Urban Glide / Glide / Spring / Sleek / Shine",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Shine",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Urban Glide / Glide / Spring / Sleek / Shine",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Shine",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Urban Glide / Glide / Spring / Sleek / Shine",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Thule",
