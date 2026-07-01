@@ -85,6 +85,8 @@
     "catalog:populate-specs": "tsx scripts/populateStrollerSpecsFromFeed.ts",
     "catalog:populate-specs-apply": "tsx scripts/populateStrollerSpecsFromFeed.ts --apply",
     "catalog:audit-anb-adapters": "tsx scripts/auditAnbAdapters.ts",
+    "catalog:add-adapters": "tsx scripts/addAdapters.ts",
+    "catalog:add-adapters-apply": "tsx scripts/addAdapters.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
