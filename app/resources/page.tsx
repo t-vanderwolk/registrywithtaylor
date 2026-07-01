@@ -75,7 +75,7 @@ export default function ResourcesPage() {
               <Link
                 key={c.href}
                 href={c.href}
-                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-7 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0"
+                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0 sm:p-7"
               >
                 <p className="text-[1rem] leading-[1.5] text-neutral-500">{c.prompt}</p>
                 <h3 className="mt-2.5 flex-1 font-serif text-[1.4rem] leading-[1.14] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">
@@ -218,7 +218,7 @@ export default function ResourcesPage() {
               <Link
                 key={n.href}
                 href={n.href}
-                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-white p-7 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0"
+                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0 sm:p-7"
               >
                 <p className="font-handwritten-print text-[1.55rem] leading-none text-[var(--color-cta-pink)]">
                   {n.prompt}
