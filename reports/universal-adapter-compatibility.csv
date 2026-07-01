@@ -11,14 +11,26 @@ Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire,Donkey,skip-existing
 Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire rx,Donkey,skip-existing
 Bugaboo,Bugaboo Donkey 6,Nuna PIPA RX,Donkey,skip-existing
 Bugaboo,Bugaboo Donkey 6,Nuna PIPA urbn,Donkey,skip-existing
-Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire,Dot / Geo,skip-existing
-Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire rx,Dot / Geo,skip-existing
-Joolz,Joolz Dot Ultra Travel,Nuna PIPA RX,Dot / Geo,skip-existing
-Joolz,Joolz Dot Ultra Travel,Nuna PIPA urbn,Dot / Geo,skip-existing
-Joolz,Joolz Geo,Nuna PIPA Aire,Dot / Geo,skip-existing
-Joolz,Joolz Geo,Nuna PIPA Aire rx,Dot / Geo,skip-existing
-Joolz,Joolz Geo,Nuna PIPA RX,Dot / Geo,skip-existing
-Joolz,Joolz Geo,Nuna PIPA urbn,Dot / Geo,skip-existing
+Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Dot Ultra Travel,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Dot Ultra Travel,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Geo,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Geo,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Geo,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Geo,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub,Nuna PIPA Aire,Dot / Geo / Hub,create
+Joolz,Joolz Hub,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub,Nuna PIPA urbn,Dot / Geo / Hub,create
+Joolz,Joolz Hub2,Nuna PIPA Aire,Dot / Geo / Hub,create
+Joolz,Joolz Hub2,Nuna PIPA Aire rx,Dot / Geo / Hub,create
+Joolz,Joolz Hub2,Nuna PIPA RX,Dot / Geo / Hub,create
+Joolz,Joolz Hub2,Nuna PIPA urbn,Dot / Geo / Hub,create
+Joolz,Joolz Hub 2,Nuna PIPA Aire,Dot / Geo / Hub,create
+Joolz,Joolz Hub 2,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub 2,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub 2,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
 Mima,Mima Creo,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Creo,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Creo,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
@@ -31,6 +43,10 @@ Mima,Mima Xari,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA urbn,Miro / Xari / Zigi / Creo,skip-existing
+Mima,Mima Xari Max,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,create
+Mima,Mima Xari Max,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,create
+Mima,Mima Xari Max,Nuna PIPA RX,Miro / Xari / Zigi / Creo,create
+Mima,Mima Xari Max,Nuna PIPA urbn,Miro / Xari / Zigi / Creo,create
 Mima,Mima Xari Sport,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari Sport,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari Sport,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
@@ -616,36 +632,36 @@ Momcozy,Momcozy ChangeGo Baby,Nuna PIPA Aire,ChangeGo,skip-existing
 Momcozy,Momcozy ChangeGo Baby,Nuna PIPA Aire rx,ChangeGo,skip-existing
 Momcozy,Momcozy ChangeGo Baby,Nuna PIPA RX,ChangeGo,skip-existing
 Momcozy,Momcozy ChangeGo Baby,Nuna PIPA urbn,ChangeGo,skip-existing
-Larktale,Larktale Caravan Coupe Quad,Nuna PIPA Aire,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Nuna PIPA Aire rx,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Nuna PIPA RX,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Nuna PIPA urbn,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco Fit2,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 30,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 30 ClearTex,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 35,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max ClearTex,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max Zip ClearLux,Caravan,create
-Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max Zip ClearTex,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Nuna PIPA Aire,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Nuna PIPA Aire rx,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Nuna PIPA RX,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Nuna PIPA urbn,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco Fit2,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 30,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 30 ClearTex,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 35,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max ClearTex,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max Zip ClearLux,Caravan,create
-Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max Zip ClearTex,Caravan,create
-Larktale,Larktale Caravan Quad,Nuna PIPA Aire,Caravan,create
-Larktale,Larktale Caravan Quad,Nuna PIPA Aire rx,Caravan,create
-Larktale,Larktale Caravan Quad,Nuna PIPA RX,Caravan,create
-Larktale,Larktale Caravan Quad,Nuna PIPA urbn,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco Fit2,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit 30,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit 30 ClearTex,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit 35,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit Max ClearTex,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit Max Zip ClearLux,Caravan,create
-Larktale,Larktale Caravan Quad,Chicco KeyFit Max Zip ClearTex,Caravan,create
+Larktale,Larktale Caravan Coupe Quad,Nuna PIPA Aire,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Nuna PIPA Aire rx,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Nuna PIPA RX,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Nuna PIPA urbn,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco Fit2,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 30,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 30 ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit 35,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max Zip ClearLux,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe Quad,Chicco KeyFit Max Zip ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Nuna PIPA Aire,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Nuna PIPA Aire rx,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Nuna PIPA RX,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Nuna PIPA urbn,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco Fit2,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 30,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 30 ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit 35,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max Zip ClearLux,Caravan,skip-existing
+Larktale,Larktale Caravan Coupe V2,Chicco KeyFit Max Zip ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Nuna PIPA Aire,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Nuna PIPA Aire rx,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Nuna PIPA RX,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Nuna PIPA urbn,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco Fit2,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit 30,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit 30 ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit 35,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit Max ClearTex,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit Max Zip ClearLux,Caravan,skip-existing
+Larktale,Larktale Caravan Quad,Chicco KeyFit Max Zip ClearTex,Caravan,skip-existing

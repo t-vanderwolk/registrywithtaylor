@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T15:36:11.095Z",
+  "generatedAt": "2026-06-30T19:29:00.027Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -89,56 +89,140 @@
       "brand": "Joolz",
       "stroller": "Joolz Dot Ultra Travel",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Dot Ultra Travel",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Dot Ultra Travel",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Dot Ultra Travel",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Geo",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Geo",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Geo",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Geo",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Dot / Geo",
+      "family": "Dot / Geo / Hub",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Dot / Geo / Hub",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Dot / Geo / Hub",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Dot / Geo / Hub",
+      "action": "create"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Dot / Geo / Hub",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Dot / Geo / Hub",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Joolz",
+      "stroller": "Joolz Hub 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Dot / Geo / Hub",
       "action": "skip-existing"
     },
     {
@@ -224,6 +308,34 @@
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Miro / Xari / Zigi / Creo",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Max",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "create"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Max",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "create"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Max",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "create"
+    },
+    {
+      "brand": "Mima",
+      "stroller": "Mima Xari Max",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Miro / Xari / Zigi / Creo",
+      "action": "create"
     },
     {
       "brand": "Mima",
@@ -4325,231 +4437,231 @@
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "create"
+      "action": "skip-existing"
     }
   ]
 }
