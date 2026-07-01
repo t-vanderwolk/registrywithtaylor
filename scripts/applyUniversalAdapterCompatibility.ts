@@ -69,7 +69,7 @@ type ReportRow = {
 const ADAPTER_STROLLERS: Rule[] = [
   // Bugaboo Donkey / Dragonfly / Butterfly take Maxi-Cosi / Nuna / CYBEX / Clek
   // via the Bugaboo car seat adapter (sold separately).
-  { brand: 'Bugaboo', model: /\b(donkey|dragonfly|butterfly)\b/i, family: 'Donkey / Dragonfly / Butterfly' },
+  { brand: 'Bugaboo', model: /\b(donkey|dragonfly|butterfly|fox)\b/i, family: 'Donkey / Dragonfly / Butterfly / Fox' },
   // Joolz Dot / Geo / Hub take Maxi-Cosi / Nuna / CYBEX / Clek via the Joolz car
   // seat adapter (the Hub2 uses the Joolz Hub2 adapter set). \bhub\d*\b matches the
   // "Hub2" model string.

@@ -119,6 +119,19 @@ const SPECS: Spec[] = [
     searchModel: 'Dragonfly',
   },
   {
+    // Bugaboo's full-size all-terrain flagship. On MacroBaby, so the promote path
+    // attaches the feed image/price.
+    brand: 'Bugaboo',
+    model: 'Fox 5',
+    productType: 'full-size stroller',
+    provider: 'shopify_macrobaby',
+    externalId: 'tmbc-bugaboo-fox-5',
+    title: 'Bugaboo - Fox 5 Complete Stroller, Black/Forest Green',
+    affiliateUrl: 'https://www.macrobaby.com/products/bugaboo-fox-5-complete-stroller-black-forest-green?_j=taylormadebabyco.com',
+    retailer: 'MacroBaby',
+    searchModel: 'Fox 5',
+  },
+  {
     brand: 'Cybex',
     model: 'Eezy S Twist 2',
     productType: 'compact stroller',
