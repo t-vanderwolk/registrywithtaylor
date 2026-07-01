@@ -18,7 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
     { url: buildUrl('/book'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/about'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.9 },
+    // "Know Before You Buy" — the educational entry point before the tools.
+    { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.95 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/tools/travel-system'), changeFrequency: 'daily', priority: 0.9 },
