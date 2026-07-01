@@ -81,7 +81,7 @@ export default function ResourcesPage() {
                 className="group flex flex-col rounded-[1.4rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
               >
                 <p className="text-[0.9rem] leading-[1.5] text-neutral-500">{c.prompt}</p>
-                <h3 className="mt-2 flex-1 font-serif text-[1.35rem] leading-[1.12] tracking-[-0.03em] text-neutral-900">
+                <h3 className="mt-2 flex-1 font-serif text-[1.25rem] leading-[1.15] tracking-[-0.03em] text-neutral-900 sm:text-[1.35rem]">
                   {c.action}
                 </h3>
                 <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]">
@@ -113,7 +113,7 @@ export default function ResourcesPage() {
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
                 A closer look
               </p>
-              <h3 className="mt-2 font-serif text-[1.7rem] leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
+              <h3 className="mt-2 font-serif text-[1.5rem] leading-[1.12] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
                 Single-to-Double isn’t one thing
               </h3>
               <p className="mx-auto mt-3 max-w-xl text-[0.98rem] leading-7 text-neutral-600">
