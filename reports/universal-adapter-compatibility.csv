@@ -1,16 +1,36 @@
 brand,stroller,triggerSeat,family,action
-Bugaboo,Bugaboo Donkey 3,Nuna PIPA Aire,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 3,Nuna PIPA Aire rx,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 3,Nuna PIPA RX,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 3,Nuna PIPA urbn,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA Aire,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA Aire rx,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA RX,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA urbn,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire rx,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 6,Nuna PIPA RX,Donkey,skip-existing
-Bugaboo,Bugaboo Donkey 6,Nuna PIPA urbn,Donkey,skip-existing
+Bugaboo,Bugaboo Butterfly,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,create
+Bugaboo,Bugaboo Butterfly,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,create
+Bugaboo,Bugaboo Butterfly 2,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2 Complete,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2 Complete,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2 Complete,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly 2 Complete,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly Complete,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,create
+Bugaboo,Bugaboo Butterfly Complete,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly Complete,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Butterfly Complete,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,create
+Bugaboo,Bugaboo Donkey 3,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 3,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 3,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 3,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 5 Mono Single-to-Double,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 6,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 6,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Donkey 6,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Dragonfly,Nuna PIPA Aire,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Dragonfly,Nuna PIPA Aire rx,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Dragonfly,Nuna PIPA RX,Donkey / Dragonfly / Butterfly,skip-existing
+Bugaboo,Bugaboo Dragonfly,Nuna PIPA urbn,Donkey / Dragonfly / Butterfly,skip-existing
 Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Dot Ultra Travel,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Dot Ultra Travel,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
@@ -19,15 +39,15 @@ Joolz,Joolz Geo,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Geo,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Geo,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Geo,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
-Joolz,Joolz Hub,Nuna PIPA Aire,Dot / Geo / Hub,create
+Joolz,Joolz Hub,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Hub,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Hub,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
-Joolz,Joolz Hub,Nuna PIPA urbn,Dot / Geo / Hub,create
-Joolz,Joolz Hub2,Nuna PIPA Aire,Dot / Geo / Hub,create
-Joolz,Joolz Hub2,Nuna PIPA Aire rx,Dot / Geo / Hub,create
-Joolz,Joolz Hub2,Nuna PIPA RX,Dot / Geo / Hub,create
-Joolz,Joolz Hub2,Nuna PIPA urbn,Dot / Geo / Hub,create
-Joolz,Joolz Hub 2,Nuna PIPA Aire,Dot / Geo / Hub,create
+Joolz,Joolz Hub,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub2,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub2,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub2,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub2,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
+Joolz,Joolz Hub 2,Nuna PIPA Aire,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Hub 2,Nuna PIPA Aire rx,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Hub 2,Nuna PIPA RX,Dot / Geo / Hub,skip-existing
 Joolz,Joolz Hub 2,Nuna PIPA urbn,Dot / Geo / Hub,skip-existing
@@ -43,10 +63,10 @@ Mima,Mima Xari,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari,Nuna PIPA urbn,Miro / Xari / Zigi / Creo,skip-existing
-Mima,Mima Xari Max,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,create
-Mima,Mima Xari Max,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,create
-Mima,Mima Xari Max,Nuna PIPA RX,Miro / Xari / Zigi / Creo,create
-Mima,Mima Xari Max,Nuna PIPA urbn,Miro / Xari / Zigi / Creo,create
+Mima,Mima Xari Max,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
+Mima,Mima Xari Max,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
+Mima,Mima Xari Max,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
+Mima,Mima Xari Max,Nuna PIPA urbn,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari Sport,Nuna PIPA Aire,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari Sport,Nuna PIPA Aire rx,Miro / Xari / Zigi / Creo,skip-existing
 Mima,Mima Xari Sport,Nuna PIPA RX,Miro / Xari / Zigi / Creo,skip-existing
@@ -134,42 +154,46 @@ Orbit Baby,Orbit Baby X5,Nuna PIPA Aire,all Orbit Baby strollers,skip-existing
 Orbit Baby,Orbit Baby X5,Nuna PIPA Aire rx,all Orbit Baby strollers,skip-existing
 Orbit Baby,Orbit Baby X5,Nuna PIPA RX,all Orbit Baby strollers,skip-existing
 Orbit Baby,Orbit Baby X5,Nuna PIPA urbn,all Orbit Baby strollers,skip-existing
-Thule,Thule Glide 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Glide 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Glide 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Glide 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Sleek,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Sleek,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Sleek,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Sleek,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Spring 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Spring 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Spring 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Spring 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2 Double,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2 Double,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2 Double,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 2 Double,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3 Double,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3 Double,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3 Double,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 3 Double,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-wheel,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-wheel,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-wheel,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-wheel,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek,skip-existing
-Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek,skip-existing
+Thule,Thule Glide 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Glide 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Glide 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Glide 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Shine,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,create
+Thule,Thule Shine,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,create
+Thule,Thule Shine,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,create
+Thule,Thule Shine,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,create
+Thule,Thule Sleek,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Sleek,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Sleek,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Sleek,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Spring 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Spring 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Spring 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Spring 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2 Double,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2 Double,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2 Double,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 2 Double,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3 Double,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3 Double,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3 Double,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 3 Double,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-wheel,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-wheel,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-wheel,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-wheel,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA Aire,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA Aire rx,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA RX,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
+Thule,Thule Urban Glide 4-Wheel Single Child,Nuna PIPA urbn,Urban Glide / Glide / Spring / Sleek / Shine,skip-existing
 UPPAbaby,UPPAbaby Cruz V2,Nuna PIPA Aire,Vista / Cruz / Minu / Ridge,skip-existing
 UPPAbaby,UPPAbaby Cruz V2,Nuna PIPA Aire rx,Vista / Cruz / Minu / Ridge,skip-existing
 UPPAbaby,UPPAbaby Cruz V2,Nuna PIPA RX,Vista / Cruz / Minu / Ridge,skip-existing

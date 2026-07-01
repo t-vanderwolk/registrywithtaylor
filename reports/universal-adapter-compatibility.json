@@ -1,88 +1,228 @@
 {
-  "generatedAt": "2026-06-30T19:29:00.027Z",
+  "generatedAt": "2026-07-01T01:42:43.859Z",
   "rows": [
     {
       "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly 2 Complete",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Butterfly Complete",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 3",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 3",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 3",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 3",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 5 Mono Single-to-Double",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 6",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 6",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 6",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Donkey 6",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Donkey",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly",
       "action": "skip-existing"
     },
     {
@@ -146,7 +286,7 @@
       "stroller": "Joolz Hub",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
@@ -167,42 +307,42 @@
       "stroller": "Joolz Hub",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Hub2",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Hub2",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Hub2",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Hub2",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
       "stroller": "Joolz Hub 2",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Dot / Geo / Hub",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
@@ -314,28 +454,28 @@
       "stroller": "Mima Xari Max",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Miro / Xari / Zigi / Creo",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Mima",
       "stroller": "Mima Xari Max",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Miro / Xari / Zigi / Creo",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Mima",
       "stroller": "Mima Xari Max",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Miro / Xari / Zigi / Creo",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Mima",
       "stroller": "Mima Xari Max",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Miro / Xari / Zigi / Creo",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Mima",
@@ -950,252 +1090,280 @@
       "brand": "Thule",
       "stroller": "Thule Glide 2",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Glide 2",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Glide 2",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Glide 2",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Shine",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
+      "action": "create"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Shine",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
+      "action": "create"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Shine",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
+      "action": "create"
+    },
+    {
+      "brand": "Thule",
+      "stroller": "Thule Shine",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
+      "action": "create"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Sleek",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Sleek",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Sleek",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Sleek",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Spring 2",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Spring 2",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Spring 2",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Spring 2",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2 Double",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2 Double",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2 Double",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 2 Double",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3 Double",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3 Double",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3 Double",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 3 Double",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-wheel",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-wheel",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-wheel",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-wheel",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-Wheel Single Child",
       "triggerSeat": "Nuna PIPA Aire",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-Wheel Single Child",
       "triggerSeat": "Nuna PIPA Aire rx",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-Wheel Single Child",
       "triggerSeat": "Nuna PIPA RX",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
       "brand": "Thule",
       "stroller": "Thule Urban Glide 4-Wheel Single Child",
       "triggerSeat": "Nuna PIPA urbn",
-      "family": "Urban Glide / Glide / Spring / Sleek",
+      "family": "Urban Glide / Glide / Spring / Sleek / Shine",
       "action": "skip-existing"
     },
     {
