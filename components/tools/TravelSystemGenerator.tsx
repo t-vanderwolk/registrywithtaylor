@@ -88,17 +88,17 @@ function ModeToggle({
 
 function BrowseCard({
   option,
-  selected,
   image,
   price,
   priceSource,
+  cta,
   onSelect,
 }: {
   option: { brand: string; model: string };
-  selected: boolean;
   image: string | null;
   price: number | null;
   priceSource: 'Babylist' | 'MacroBaby' | null;
+  cta: string;
   onSelect: () => void;
 }) {
   const displayTitle = displayNameWithoutBrand(option.model, option.brand);
@@ -107,10 +107,7 @@ function BrowseCard({
     <button
       type="button"
       onClick={onSelect}
-      aria-pressed={selected}
-      className={`tool-card tool-card--interactive tool-product-card text-left ${
-        selected ? 'ring-2 ring-[var(--color-cta-pink)] ring-offset-1' : ''
-      }`}
+      className="group tool-card tool-card--interactive tool-product-card text-left"
     >
       <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
         {image ? (
@@ -121,9 +118,7 @@ function BrowseCard({
         )}
       </div>
       <div className="tool-product-card__body tool-product-card__body--compact">
-        <p className="tool-product-card__brand">
-          {option.brand}
-        </p>
+        <p className="tool-product-card__brand">{option.brand}</p>
         <p className="tool-product-card__title tool-product-card__title--compact">{displayTitle}</p>
         {price != null ? (
           <p className="tool-product-card__price">
@@ -131,12 +126,9 @@ function BrowseCard({
             {priceSource ? <span>via {priceSource}</span> : null}
           </p>
         ) : null}
-        <span
-          className={`mt-1 text-[0.64rem] font-semibold ${
-            selected ? 'text-[var(--color-accent-dark)]' : 'text-neutral-400'
-          }`}
-        >
-          {selected ? 'Selected, ready to check' : 'Tap to check compatibility'}
+        <span className="mt-1 inline-flex items-center gap-1 text-[0.64rem] font-semibold text-[var(--color-accent-dark)]">
+          {cta}
+          <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
         </span>
       </div>
     </button>
@@ -336,6 +328,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     if (!resultsHref) return;
     router.push(resultsHref);
   };
+  // Match the Stroller Finder: one click on a card routes straight to results.
+  const browseCta = lookupMode === 'stroller' ? 'Compatible car seats' : 'Compatible strollers';
+  const goToResults = (option: TravelSystemStrollerOption | TravelSystemCarSeatOption) => {
+    router.push(travelSystemResultsHref(lookupMode, option));
+  };
 
   return (
     <section className="tool-shell">
@@ -392,11 +389,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                     <BrowseCard
                       key={value}
                       option={option}
-                      selected={selectedValue === value}
                       image={image}
                       price={price}
                       priceSource={priceSource}
-                      onSelect={() => setSelectedValue(value)}
+                      cta={browseCta}
+                      onSelect={() => goToResults(option)}
                     />
                   );
                 })}
@@ -456,11 +453,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                       <BrowseCard
                         key={value}
                         option={option}
-                        selected={selectedValue === value}
                         image={image}
                         price={price}
                         priceSource={priceSource}
-                        onSelect={() => setSelectedValue(value)}
+                        cta={browseCta}
+                        onSelect={() => goToResults(option)}
                       />
                     );
                   })}
