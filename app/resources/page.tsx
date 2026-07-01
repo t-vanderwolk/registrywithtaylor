@@ -8,14 +8,12 @@ import CategoryCard from '@/components/resources/CategoryCard';
 import GlossaryCard from '@/components/resources/GlossaryCard';
 import ToolCard from '@/components/resources/ToolCard';
 import TaylorsNote from '@/components/resources/TaylorsNote';
-import NotebookCallout from '@/components/resources/NotebookCallout';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import {
   startCards,
   strollerCategories,
   strollerFinderCategoryHref,
   singleToDoubleCards,
-  singleToDoubleTaylorsNote,
   carSeatGlossary,
   strollerGlossary,
   taylorsNotes,
@@ -56,7 +54,7 @@ export default function ResourcesPage() {
             <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">
               The baby aisle is not the boss of you.
             </p>
-            <p className="mx-auto mt-6 max-w-xl text-[1.02rem] leading-8 text-neutral-600">
+            <p className="mx-auto mt-6 max-w-xl text-[1.18rem] leading-8 text-neutral-600">
               Most of the overwhelm in the baby aisle comes from vocabulary, not from the gear itself. Learn a
               handful of terms — what makes a stroller <em>modular</em>, what a <em>travel system</em> actually is,
               why an <em>adapter</em> matters — and shopping gets dramatically easier. Start here, then let one of
@@ -78,15 +76,15 @@ export default function ResourcesPage() {
               <Link
                 key={c.href}
                 href={c.href}
-                className="group flex flex-col rounded-[1.4rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
+                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-7 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0"
               >
-                <p className="text-[0.9rem] leading-[1.5] text-neutral-500">{c.prompt}</p>
-                <h3 className="mt-2 flex-1 font-serif text-[1.25rem] leading-[1.15] tracking-[-0.03em] text-neutral-900 sm:text-[1.35rem]">
+                <p className="text-[1rem] leading-[1.5] text-neutral-500">{c.prompt}</p>
+                <h3 className="mt-2.5 flex-1 font-serif text-[1.4rem] leading-[1.14] tracking-[-0.03em] text-neutral-900 sm:text-[1.55rem]">
                   {c.action}
                 </h3>
-                <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]">
+                <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.8rem] font-semibold uppercase tracking-[0.12em] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]">
                   {c.cta}
-                  <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
+                  <span aria-hidden className="transition duration-200 group-hover:translate-x-1">→</span>
                 </span>
               </Link>
             ))}
@@ -116,7 +114,7 @@ export default function ResourcesPage() {
               <h3 className="mt-2 font-serif text-[1.5rem] leading-[1.12] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
                 Single-to-Double isn’t one thing
               </h3>
-              <p className="mx-auto mt-3 max-w-xl text-[0.98rem] leading-7 text-neutral-600">
+              <p className="mx-auto mt-3 max-w-xl text-[1.08rem] leading-7 text-neutral-600">
                 “Grows into a double” can mean two very different things. The difference decides which second seat you
                 can actually buy.
               </p>
@@ -127,16 +125,13 @@ export default function ResourcesPage() {
                   key={c.title}
                   className="rounded-[1.4rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)]"
                 >
-                  <h4 className="font-serif text-[1.3rem] leading-[1.12] tracking-[-0.02em] text-neutral-900">
+                  <h4 className="font-serif text-[1.45rem] leading-[1.12] tracking-[-0.02em] text-neutral-900">
                     {c.title}
                   </h4>
-                  <p className="mt-2 text-[0.92rem] leading-[1.65] text-neutral-600">{c.body}</p>
+                  <p className="mt-2.5 text-[1.02rem] leading-[1.6] text-neutral-600">{c.body}</p>
                 </div>
               ))}
             </div>
-            <NotebookCallout title="The unused Vista second seat" className="mt-6">
-              <p>{singleToDoubleTaylorsNote}</p>
-            </NotebookCallout>
           </div>
         </MarketingSection>
 
@@ -206,15 +201,7 @@ export default function ResourcesPage() {
           />
           <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
             {freeTools.map((t) => (
-              <ToolCard
-                key={t.href}
-                title={t.title}
-                description={t.description}
-                href={t.href}
-                cta={t.cta}
-                image={t.image}
-                imageAlt={t.imageAlt}
-              />
+              <ToolCard key={t.href} title={t.title} description={t.description} href={t.href} cta={t.cta} />
             ))}
           </div>
         </MarketingSection>
@@ -232,17 +219,17 @@ export default function ResourcesPage() {
               <Link
                 key={n.href}
                 href={n.href}
-                className="group flex flex-col rounded-[1.4rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
+                className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-white p-7 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0"
               >
-                <p className="font-handwritten-print text-[1.3rem] leading-none text-[var(--color-cta-pink)]">
+                <p className="font-handwritten-print text-[1.55rem] leading-none text-[var(--color-cta-pink)]">
                   {n.prompt}
                 </p>
-                <p className="mt-3 flex-1 font-serif text-[1.2rem] leading-[1.15] tracking-[-0.02em] text-neutral-900">
+                <p className="mt-3 flex-1 font-serif text-[1.35rem] leading-[1.15] tracking-[-0.02em] text-neutral-900">
                   {n.action}
                 </p>
-                <span className="mt-4 inline-flex w-fit items-center gap-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] transition group-hover:text-[var(--color-cta-pink-hover)]">
+                <span className="mt-5 inline-flex w-fit items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-dark)] transition group-hover:text-[var(--color-cta-pink-hover)]">
                   Go
-                  <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
+                  <span aria-hidden className="transition duration-200 group-hover:translate-x-1">→</span>
                 </span>
               </Link>
             ))}
