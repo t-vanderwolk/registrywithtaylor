@@ -1,57 +1,36 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
-import NewsletterCapture from '@/components/email/NewsletterCapture';
 import Hero from '@/components/ui/Hero';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SectionIntro from '@/components/ui/SectionIntro';
+import CategoryCard from '@/components/resources/CategoryCard';
+import GlossaryCard from '@/components/resources/GlossaryCard';
+import ToolCard from '@/components/resources/ToolCard';
+import TaylorsNote from '@/components/resources/TaylorsNote';
+import NotebookCallout from '@/components/resources/NotebookCallout';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import {
+  startCards,
+  strollerCategories,
+  strollerFinderCategoryHref,
+  singleToDoubleCards,
+  singleToDoubleTaylorsNote,
+  carSeatGlossary,
+  strollerGlossary,
+  taylorsNotes,
+  whatsNext,
+  freeTools,
+} from '@/lib/resources/knowBeforeYouBuy';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Free Baby Gear Tools | Taylor-Made Baby Co.',
+  title: 'Know Before You Buy | Taylor-Made Baby Co.',
   description:
-    'Free baby-gear tools to narrow the noise before you book, buy, or add everything to your registry: the stroller quiz, the stroller finder, and the travel-system compatibility checker.',
+    'The friendly starting point before you shop: understand stroller categories, decode the car-seat and stroller glossary, and get pointed to the right free tool — the Stroller Quiz, Stroller Finder, or Travel System Checker.',
   path: '/resources',
   imagePath: '/assets/hero/hero-04.jpg',
-  imageAlt: 'Free baby gear tools from Taylor-Made Baby Co.',
+  imageAlt: 'Know Before You Buy — the Taylor-Made Baby Co. gear glossary',
 });
-
-type ToolCard = {
-  title: string;
-  description: string;
-  href: string;
-  cta: string;
-  image: string;
-  imageAlt: string;
-};
-
-const tools: ToolCard[] = [
-  {
-    title: 'Stroller Quiz',
-    description: 'Find the stroller category that actually fits your life.',
-    href: '/tools/stroller-quiz',
-    cta: 'Take the Quiz',
-    image: '/assets/editorial/gear.jpg',
-    imageAlt: 'Stroller quiz',
-  },
-  {
-    title: 'Stroller Finder',
-    description: 'Browse strollers by brand, type, price, and features.',
-    href: '/tools/stroller-finder',
-    cta: 'Browse Strollers',
-    image: '/assets/hero/hero-03.jpg',
-    imageAlt: 'Stroller finder',
-  },
-  {
-    title: 'Travel System Tool',
-    description: 'Check stroller and infant car seat compatibility before you buy the wrong adapter.',
-    href: '/tools/travel-system',
-    cta: 'Check Compatibility',
-    image: '/assets/editorial/growing-with-confidence.jpg',
-    imageAlt: 'Travel system compatibility checker',
-  },
-];
 
 export default function ResourcesPage() {
   return (
@@ -59,70 +38,214 @@ export default function ResourcesPage() {
       <main className="site-main">
         <PageViewTracker path="/resources" pageType="other" />
 
+        {/* ── HERO ── */}
         <Hero
           className="homepage-hero"
-          eyebrow="Free Tools"
-          title="Free Baby Gear Tools"
-          subtitle="Not sure where to start? These tools are built to help you narrow the noise before you book, buy, or add everything to your registry."
-          primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
+          eyebrow="Free educational hub"
+          title="Know Before You Buy"
+          subtitle="Helping you understand baby gear before you buy it."
           image="/assets/hero/hero-04.jpg"
-          imageAlt="Baby gear planning tools"
+          imageAlt="Know Before You Buy"
           contentClassName="homepage-hero-content"
           staggerContent
         />
 
+        {/* ── INTRO + PULL QUOTE ── */}
+        <MarketingSection tone="ivory" spacing="spacious">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">
+              The baby aisle is not the boss of you.
+            </p>
+            <p className="mx-auto mt-6 max-w-xl text-[1.02rem] leading-8 text-neutral-600">
+              Most of the overwhelm in the baby aisle comes from vocabulary, not from the gear itself. Learn a
+              handful of terms — what makes a stroller <em>modular</em>, what a <em>travel system</em> actually is,
+              why an <em>adapter</em> matters — and shopping gets dramatically easier. Start here, then let one of
+              the free tools do the sorting for you.
+            </p>
+          </div>
+        </MarketingSection>
+
+        {/* ── SECTION 1: Where would you like to start? ── */}
         <MarketingSection tone="white" spacing="spacious">
           <SectionIntro
-            eyebrow="Interactive tools"
-            title="Get unstuck on the big gear decisions."
-            description="Built to give you a clear next step in just a few minutes — free, no account required."
+            eyebrow="Choose your path"
+            title="Where would you like to start?"
+            description="Three quick doors in, depending on how far along you are."
             contentWidthClassName="max-w-3xl"
           />
-          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
-            {tools.map((c) => (
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-3">
+            {startCards.map((c) => (
               <Link
                 key={c.href}
                 href={c.href}
-                className="group flex flex-col overflow-hidden rounded-[1.4rem] border border-[rgba(215,161,175,0.22)] bg-white shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
+                className="group flex flex-col rounded-[1.4rem] border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-                  <Image
-                    src={c.image}
-                    alt={c.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="font-serif text-[1.45rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">{c.title}</h3>
-                  <p className="mt-2 flex-1 text-[0.92rem] leading-[1.6] text-neutral-600">{c.description}</p>
-                  <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-5 py-2.5 text-[0.74rem] font-semibold uppercase tracking-[0.14em] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]">
-                    {c.cta}
-                    <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
-                  </span>
-                </div>
+                <p className="text-[0.9rem] leading-[1.5] text-neutral-500">{c.prompt}</p>
+                <h3 className="mt-2 flex-1 font-serif text-[1.35rem] leading-[1.12] tracking-[-0.03em] text-neutral-900">
+                  {c.action}
+                </h3>
+                <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-cta-pink)] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]">
+                  {c.cta}
+                  <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
+                </span>
               </Link>
             ))}
           </div>
         </MarketingSection>
 
+        {/* ── SECTION 2: Stroller Categories ── */}
         <MarketingSection tone="ivory" spacing="spacious">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
-              Want the calmer starting point?
-            </p>
-            <h2 className="mt-3 font-serif text-[2rem] leading-[1.08] tracking-[-0.03em] text-neutral-900 sm:text-[2.4rem]">
-              Get the Baby Prep Guide
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-[1rem] leading-7 text-neutral-600">
-              A calm, practical starting point for expecting parents who want to make smarter registry,
-              nursery, stroller, and gear decisions — without spiraling through 47 tabs and a TikTok
-              comment section.
-            </p>
+          <SectionIntro
+            eyebrow="The lay of the land"
+            title="Stroller Categories"
+            description="The nine kinds of strollers, in plain English. Tap any card to see real examples in the Stroller Finder."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
+            {strollerCategories.map((c) => (
+              <CategoryCard key={c.slug} name={c.name} blurb={c.blurb} href={strollerFinderCategoryHref(c.slug)} />
+            ))}
           </div>
-          <div className="mx-auto mt-8 max-w-2xl">
-            <NewsletterCapture />
+
+          {/* Single-to-Double, expanded */}
+          <div className="mx-auto mt-14 max-w-4xl">
+            <div className="text-center">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]">
+                A closer look
+              </p>
+              <h3 className="mt-2 font-serif text-[1.7rem] leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-[2rem]">
+                Single-to-Double isn’t one thing
+              </h3>
+              <p className="mx-auto mt-3 max-w-xl text-[0.98rem] leading-7 text-neutral-600">
+                “Grows into a double” can mean two very different things. The difference decides which second seat you
+                can actually buy.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              {singleToDoubleCards.map((c) => (
+                <div
+                  key={c.title}
+                  className="rounded-[1.4rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)]"
+                >
+                  <h4 className="font-serif text-[1.3rem] leading-[1.12] tracking-[-0.02em] text-neutral-900">
+                    {c.title}
+                  </h4>
+                  <p className="mt-2 text-[0.92rem] leading-[1.65] text-neutral-600">{c.body}</p>
+                </div>
+              ))}
+            </div>
+            <NotebookCallout title="The unused Vista second seat" className="mt-6">
+              <p>{singleToDoubleTaylorsNote}</p>
+            </NotebookCallout>
+          </div>
+        </MarketingSection>
+
+        {/* Scattered note */}
+        <MarketingSection tone="white" spacing="tight">
+          <TaylorsNote tilt="right">{taylorsNotes[2].body}</TaylorsNote>
+        </MarketingSection>
+
+        {/* ── SECTION 3: Car Seat Glossary ── */}
+        <MarketingSection tone="ivory" spacing="spacious">
+          <SectionIntro
+            eyebrow="Decode it"
+            title="Car Seat Glossary"
+            description="The car-seat words that show up on every product page — and why each one actually matters."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
+            {carSeatGlossary.map((t) => (
+              <GlossaryCard key={t.term} term={t.term} definition={t.definition} whyItMatters={t.whyItMatters} />
+            ))}
+          </div>
+        </MarketingSection>
+
+        {/* ── SECTION 4: Stroller Glossary ── */}
+        <MarketingSection tone="white" spacing="spacious">
+          <SectionIntro
+            eyebrow="Decode it"
+            title="Stroller Glossary"
+            description="Everything from “reversible seat” to “flip-flop friendly,” translated."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
+            {strollerGlossary.map((t) => (
+              <GlossaryCard key={t.term} term={t.term} definition={t.definition} whyItMatters={t.whyItMatters} />
+            ))}
+          </div>
+        </MarketingSection>
+
+        {/* ── SECTION 5: Taylor's Notes ── */}
+        <MarketingSection tone="ivory" spacing="spacious">
+          <SectionIntro
+            eyebrow="From Taylor"
+            title="Taylor’s Notes"
+            description="The unfiltered stuff I tell every client."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
+            <TaylorsNote tilt="left" signed={false}>
+              {taylorsNotes[0].body}
+            </TaylorsNote>
+            <TaylorsNote tilt="right" signed={false}>
+              {taylorsNotes[1].body}
+            </TaylorsNote>
+          </div>
+          <div className="mt-6">
+            <TaylorsNote>{taylorsNotes[2].body}</TaylorsNote>
+          </div>
+        </MarketingSection>
+
+        {/* ── SECTION 6: Free Tools ── */}
+        <MarketingSection tone="white" spacing="spacious">
+          <SectionIntro
+            eyebrow="Free tools"
+            title="Let the tools do the sorting."
+            description="Built to give you a clear next step in a few minutes — free, no account required."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
+            {freeTools.map((t) => (
+              <ToolCard
+                key={t.href}
+                title={t.title}
+                description={t.description}
+                href={t.href}
+                cta={t.cta}
+                image={t.image}
+                imageAlt={t.imageAlt}
+              />
+            ))}
+          </div>
+        </MarketingSection>
+
+        {/* ── SECTION 7: What's Next? ── */}
+        <MarketingSection tone="ivory" spacing="spacious">
+          <SectionIntro
+            eyebrow="Keep going"
+            title="What’s next?"
+            description="Pick the next step that matches where you are."
+            contentWidthClassName="max-w-3xl"
+          />
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-3">
+            {whatsNext.map((n) => (
+              <Link
+                key={n.href}
+                href={n.href}
+                className="group flex flex-col rounded-[1.4rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(55,40,46,0.09)]"
+              >
+                <p className="font-handwritten-print text-[1.3rem] leading-none text-[var(--color-cta-pink)]">
+                  {n.prompt}
+                </p>
+                <p className="mt-3 flex-1 font-serif text-[1.2rem] leading-[1.15] tracking-[-0.02em] text-neutral-900">
+                  {n.action}
+                </p>
+                <span className="mt-4 inline-flex w-fit items-center gap-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] transition group-hover:text-[var(--color-cta-pink-hover)]">
+                  Go
+                  <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
+                </span>
+              </Link>
+            ))}
           </div>
         </MarketingSection>
       </main>

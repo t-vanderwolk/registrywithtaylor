@@ -14,7 +14,14 @@ export const metadata = buildMarketingMetadata({
   imageAlt: 'Stroller finder by brand',
 });
 
-export default function StrollerFinderPage() {
+export default async function StrollerFinderPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string | string[] }>;
+}) {
+  const { category } = await searchParams;
+  const initialCategory = (Array.isArray(category) ? category[0] : category)?.trim() || null;
+
   return (
     <SiteShell currentPath="/tools/stroller-finder">
       <main className="site-main">
@@ -29,7 +36,7 @@ export default function StrollerFinderPage() {
           />
 
           <div className="mt-10">
-            <StrollerCatalogFinder />
+            <StrollerCatalogFinder initialCategory={initialCategory} />
           </div>
         </MarketingSection>
       </main>

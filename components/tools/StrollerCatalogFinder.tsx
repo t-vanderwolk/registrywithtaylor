@@ -61,6 +61,7 @@ const CATEGORY_ORDER = [
   'convertible-modular',
   'convertible-non-modular',
   'double',
+  'double-jogging',
   'jogging',
   'umbrella',
   'wagon',
@@ -255,13 +256,18 @@ function ProductCard({
   );
 }
 
-export default function StrollerCatalogFinder() {
+export default function StrollerCatalogFinder({
+  initialCategory = null,
+}: {
+  /** When set (from ?category=), open the finder in category view on that bucket. */
+  initialCategory?: string | null;
+} = {}) {
   const kind: Kind = 'strollers'; // finder is strollers-only; car seats live in the checker
   const [brands, setBrands] = useState<FinderBrand[]>([]);
   const [loading, setLoading] = useState(true);
-  const [mode, setMode] = useState<Mode>('brand');
+  const [mode, setMode] = useState<Mode>(initialCategory ? 'category' : 'brand');
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [query, setQuery] = useState('');
 
   const noun = kind === 'strollers' ? 'stroller' : 'car seat';
