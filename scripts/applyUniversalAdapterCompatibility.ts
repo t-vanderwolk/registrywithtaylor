@@ -93,7 +93,7 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Thule joggers take Nuna / Maxi-Cosi / CYBEX (+ Chicco) via the Urban Glide /
   // Spring / Sleek universal car seat adapter. Chariot (sling, not a car seat) is
   // excluded by matching only the glide / spring / sleek frames.
-  { brand: 'Thule', model: /\b(glide|spring|sleek)\b/i, family: 'Urban Glide / Glide / Spring / Sleek' },
+  { brand: 'Thule', model: /\b(glide|spring|sleek|shine)\b/i, family: 'Urban Glide / Glide / Spring / Sleek / Shine' },
   // UPPAbaby Vista / Cruz / Minu / Ridge take UPPAbaby Mesa (same-brand default),
   // Nuna / Maxi-Cosi / CYBEX / Clek via the UPPAbaby adapter, AND Chicco KeyFit via
   // the separate UPPAbaby Chicco adapter.

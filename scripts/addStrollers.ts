@@ -147,6 +147,19 @@ const SPECS: Spec[] = [
     retailer: 'Nuna',
     searchModel: 'VIAA',
   },
+  {
+    // Compact / mid-size. On MacroBaby, so the promote path attaches feed
+    // image/price; thule.com link is only a create fallback.
+    brand: 'Thule',
+    model: 'Shine',
+    productType: 'compact stroller',
+    provider: 'shopify_macrobaby',
+    externalId: 'tmbc-thule-shine',
+    title: 'Thule - Shine Compact Stroller, Misty Rose',
+    affiliateUrl: 'https://www.thule.com/en-us/strollers/compact-strollers/thule-shine-_-11400202',
+    retailer: 'MacroBaby',
+    searchModel: 'Shine',
+  },
 ];
 
 const isStrollerTitle = (t: string) =>
