@@ -742,8 +742,18 @@ export async function getTravelSystemCarSeats() {
 // Fill the image + Babylist link from the catalog so the checker shows the
 // actual adapter to buy. Affiliate URLs are used exactly as stored.
 
-type CatalogAdapter = { title: string; imageUrl: string | null; affiliateUrl: string | null; price: number | null };
+type CatalogAdapter = { provider: string; title: string; imageUrl: string | null; affiliateUrl: string | null; price: number | null };
 type StrollerAdapterRef = { brand: string; model: string };
+
+// Car-seat adapters only surface Babylist / MacroBaby / manual links. ANB Baby
+// (Awin) is intentionally excluded, and Babylist is preferred when several match.
+const ADAPTER_PROVIDERS = ['babylist_impact', 'shopify_macrobaby', 'manual_tmbc'];
+const ADAPTER_PROVIDER_RANK: Record<string, number> = { babylist_impact: 0, shopify_macrobaby: 1, manual_tmbc: 2 };
+
+/** True for an ANB Baby / Awin affiliate link, which we never surface for adapters. */
+function isAnbAdapterUrl(url: string | null | undefined): boolean {
+  return !!url && /awin1?\.com|anb-?baby/i.test(url);
+}
 
 async function getCatalogAdapters(): Promise<CatalogAdapter[]> {
   try {
@@ -752,6 +762,7 @@ async function getCatalogAdapters(): Promise<CatalogAdapter[]> {
     const rows: CatalogAdapter[] = await db.affiliateCatalogProduct.findMany({
       where: {
         isActiveInFeed: true,
+        provider: { in: ADAPTER_PROVIDERS },
         title: { contains: 'adapter', mode: 'insensitive' },
         enrichment: {
           is: {
@@ -761,9 +772,11 @@ async function getCatalogAdapters(): Promise<CatalogAdapter[]> {
           },
         },
       },
-      select: { title: true, imageUrl: true, affiliateUrl: true, price: true },
+      select: { provider: true, title: true, imageUrl: true, affiliateUrl: true, price: true },
     });
-    return rows.filter((r) => /adapter/i.test(r.title || ''));
+    return rows
+      .filter((r) => /adapter/i.test(r.title || '') && !isAnbAdapterUrl(r.affiliateUrl))
+      .sort((a, b) => (ADAPTER_PROVIDER_RANK[a.provider] ?? 9) - (ADAPTER_PROVIDER_RANK[b.provider] ?? 9));
   } catch {
     return [];
   }
@@ -916,7 +929,7 @@ export async function getTravelSystemCompatibility(
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(stroller.brand, row.brand, row.adapterRequired, row.adapterType, row.notes),
         adapterImage: row.adapterImage,
-        adapterUrl: row.adapterBabylistUrl,
+        adapterUrl: isAnbAdapterUrl(row.adapterBabylistUrl) ? null : row.adapterBabylistUrl,
         adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
@@ -1114,7 +1127,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(row.brand, carSeat.brand, row.adapterRequired, row.adapterType, row.notes),
         adapterImage: row.adapterImage,
-        adapterUrl: row.adapterBabylistUrl,
+        adapterUrl: isAnbAdapterUrl(row.adapterBabylistUrl) ? null : row.adapterBabylistUrl,
         adapterPrice: row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
