@@ -51,6 +51,12 @@ const FIXES: Fix[] = [
   { label: 'Peg Perego City Loop → Compact/Mid-Size', brand: 'Peg Perego', titleContains: 'City Loop', action: 'recategorize', productType: 'compact stroller' },
   { label: 'Nuna SWIV → Compact/Mid-Size', brand: 'Nuna', titleContains: 'SWIV', action: 'recategorize', productType: 'compact stroller' },
   { label: 'Nuna TRIV next → Compact/Mid-Size', brand: 'Nuna', titleContains: 'TRIV', action: 'recategorize', productType: 'compact stroller' },
+
+  // ── Targeted repositions ──
+  { label: 'Joie Poppy Whirl → Compact/Mid-Size', brand: 'Joie', titleContains: 'Poppy', action: 'recategorize', productType: 'compact stroller' },
+  { label: 'Baby Jogger City Mini GT3 → Jogging/All-Terrain', brand: 'Baby Jogger', titleContains: 'City Mini GT3', action: 'recategorize', productType: 'jogging stroller' },
+  { label: 'Orbit Baby M+ → Travel', brand: 'Orbit Baby', titleContains: 'M+', action: 'recategorize', productType: 'travel stroller' },
+  { label: 'Orbit Baby G5 → Full-Size', brand: 'Orbit Baby', titleContains: 'G5 Stroller', action: 'recategorize', productType: 'full-size stroller' },
 ];
 
 async function main() {

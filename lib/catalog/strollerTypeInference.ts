@@ -90,7 +90,7 @@ export function inferStrollerCategory(
   // ── Jogging / all-terrain (single) ──
   if (
     has(
-      /\b(urban glide|summit x3|guava roam|uppababy ridge|switch and jog|switch jog|alterrain|revolution flex|wayfinder|rambler|city prix|chicco tre|\btre\b jogging|expedition|outpace|fastaction jogger|bumbleride speed|bumbleride indie(?! twin))\b/,
+      /\b(urban glide|summit x3|guava roam|uppababy ridge|switch and jog|switch jog|alterrain|revolution flex|wayfinder|rambler|city prix|chicco tre|\btre\b jogging|expedition|outpace|fastaction jogger|bumbleride speed|bumbleride indie(?! twin)|city mini gt3)\b/,
       'jogging/all-terrain model language',
     )
   ) {
@@ -153,7 +153,7 @@ export function inferStrollerCategory(
       // Lightweight modular / mid-size: capable (bassinet + car seat) but lighter and
       // more compact-folding than a full-size. Breez, City Loop, SWIV, TRIV next,
       // Dragonfly, Joolz Hub, Eezy S, Mima Zigi all belong here, not Full-Size/Travel.
-      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt2|city mini gt3|city mini air|gb pockit|bugaboo bee|eezy s|mima zigi|thule spring|thule shine|stokke beat|breez|city loop)\b/,
+      /\b(dragonfly|triv|dune|mios|joolz hub|hub2|swiv|electa|city mini gt2|city mini air|gb pockit|bugaboo bee|eezy s|mima zigi|thule spring|thule shine|stokke beat|breez|city loop)\b/,
       'compact/mid-size model language',
     )
   ) {
