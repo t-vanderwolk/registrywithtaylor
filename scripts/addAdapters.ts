@@ -19,50 +19,49 @@ import prismaBase from '@/lib/server/prisma';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const macroSearch = (q: string) =>
-  `https://www.macrobaby.com/search?q=${encodeURIComponent(q)}&_j=taylormadebabyco.com`;
-const amazonSearch = (q: string) => `https://www.amazon.com/s?k=${encodeURIComponent(q)}&tag=taylormadebab-20`;
+const macroProduct = (handle: string) => `https://www.macrobaby.com/products/${handle}?_j=taylormadebabyco.com`;
 const amazonDp = (asin: string) => `https://www.amazon.com/dp/${asin}?tag=taylormadebab-20`;
 
 type AdapterSpec = { externalId: string; title: string; url: string; retailer: string };
 
+// Exact product pages. Baby Jogger adapters → MacroBaby product pages; the rest
+// → Amazon (tag taylormadebab-20). Bumbleride Era has no Amazon listing, so it
+// points at Bumbleride's own product page.
 const ADAPTERS: AdapterSpec[] = [
-  // Baby Jogger → MacroBaby.
   {
     externalId: 'tmbc-adapter-city-mini-gt2',
     title: 'Baby Jogger City Mini GT2 Car Seat Adapter',
-    url: macroSearch('Baby Jogger City Mini GT2 car seat adapter'),
+    url: macroProduct('baby-jogger-car-seat-adapters-for-baby-jogger-and-graco'),
     retailer: 'MacroBaby',
   },
   {
     externalId: 'tmbc-adapter-city-select-2',
     title: 'Baby Jogger City Select 2 Car Seat Adapter',
-    url: macroSearch('Baby Jogger City Select 2 car seat adapter'),
+    url: macroProduct('baby-jogger-car-seat-adapter-select-premier-chicco-peg-perego'),
     retailer: 'MacroBaby',
   },
   {
     externalId: 'tmbc-adapter-summit-x3',
     title: 'Baby Jogger Summit X3 Car Seat Adapter',
-    url: macroSearch('Baby Jogger Summit X3 car seat adapter'),
+    url: macroProduct('baby-jogger-car-seat-adapters-for-baby-jogger-and-graco'),
     retailer: 'MacroBaby',
   },
-  // Manufacturer-only → Amazon (taylormadebab-20).
   {
     externalId: 'tmbc-adapter-bumbleride-era',
     title: 'Bumbleride Era Car Seat Adapter (Maxi-Cosi / Cybex / Nuna / Clek)',
-    url: amazonSearch('Bumbleride Era car seat adapter'),
-    retailer: 'Amazon',
+    url: 'https://bumbleride.com/products/era-car-seat-adapter-maxi-cosi-cybex-nuna-clek',
+    retailer: 'Bumbleride',
   },
   {
     externalId: 'tmbc-adapter-bumbleride-indie-twin',
     title: 'Bumbleride Indie Twin Car Seat Adapter (Maxi-Cosi / Cybex / Nuna / Clek)',
-    url: amazonSearch('Bumbleride Indie Twin car seat adapter'),
+    url: amazonDp('B0DJ3F2N2W'),
     retailer: 'Amazon',
   },
   {
     externalId: 'tmbc-adapter-silver-cross-wave',
     title: 'Silver Cross Wave Car Seat Adapter',
-    url: amazonSearch('Silver Cross Wave Coast car seat adapter'),
+    url: amazonDp('B07XJYCNVG'),
     retailer: 'Amazon',
   },
   {
