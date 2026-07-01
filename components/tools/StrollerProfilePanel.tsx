@@ -1,23 +1,55 @@
-import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
+import { getStrollerProfile, type StrollerSpec } from '@/lib/resources/strollerProfiles';
+import type { StrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
+
+const FOLD_LABELS: Record<string, string> = {
+  'one-hand': 'One-hand fold',
+  compact: 'Compact fold',
+  standard: 'Standard fold',
+};
+
+/**
+ * Turn the structured StrollerSpec numbers into display rows. These are the
+ * "real numbers" from the feed and take precedence over the curated profile's
+ * qualitative specs of the same name.
+ */
+function realSpecRows(real: StrollerRealSpecs | null): StrollerSpec[] {
+  if (!real) return [];
+  const rows: StrollerSpec[] = [];
+  if (real.ownWeightLbs != null) {
+    const w = Number.isInteger(real.ownWeightLbs) ? real.ownWeightLbs.toString() : real.ownWeightLbs.toFixed(1);
+    rows.push({ label: 'Weight', value: `${w} lb` });
+  }
+  if (real.maxWeightLbs != null) rows.push({ label: 'Seat limit', value: `Up to ${real.maxWeightLbs} lb` });
+  if (real.foldType) rows.push({ label: 'Fold', value: FOLD_LABELS[real.foldType] ?? real.foldType });
+  return rows;
+}
 
 /**
  * "About this stroller" — a TMBC-toned description + key specs, shown on the
- * travel-system results page when a stroller is selected. Falls back to the
- * catalog summary when no curated profile exists yet; renders nothing if there's
- * neither.
+ * travel-system results page. Real numeric specs come from the feed-backed
+ * StrollerSpec; the curated profile supplies the description and the qualitative
+ * specs the feed can't (which car seats fit, from-birth method, seat facing).
+ * Falls back to the catalog summary when nothing curated exists.
  */
 export default function StrollerProfilePanel({
   brand,
   model,
   fallbackSummary,
+  realSpecs = null,
 }: {
   brand: string;
   model: string;
   fallbackSummary?: string | null;
+  realSpecs?: StrollerRealSpecs | null;
 }) {
   const profile = getStrollerProfile(brand, model);
   const description = profile?.description ?? fallbackSummary ?? null;
-  const specs = profile?.specs ?? [];
+
+  const realRows = realSpecRows(realSpecs);
+  const realLabels = new Set(realRows.map((row) => row.label));
+  // Curated specs fill in what the feed can't; real numbers win on shared labels.
+  const curatedRows = (profile?.specs ?? []).filter((row) => !realLabels.has(row.label));
+  const specs = [...realRows, ...curatedRows];
 
   if (!description && specs.length === 0) return null;
 

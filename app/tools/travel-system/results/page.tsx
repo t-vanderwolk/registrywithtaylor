@@ -5,6 +5,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
+import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -517,6 +518,11 @@ export default async function TravelSystemResultsPage({
   const directLine = `${counts.direct} work${counts.direct === 1 ? 's' : ''} directly.`;
   const adapterLine = `${counts.adapter} require${counts.adapter === 1 ? 's' : ''} an adapter.`;
 
+  // Real, feed-backed specs for the selected stroller (weight, seat limit, fold).
+  const strollerRealSpecs = isStrollerFirst
+    ? await getStrollerRealSpecs(selected.brand, selected.model)
+    : null;
+
   return (
     <SiteShell currentPath="/tools/travel-system">
       <main className="site-main">
@@ -545,6 +551,7 @@ export default async function TravelSystemResultsPage({
                 brand={selected.brand}
                 model={selected.model}
                 fallbackSummary={selected.summary}
+                realSpecs={strollerRealSpecs}
               />
             ) : null}
 

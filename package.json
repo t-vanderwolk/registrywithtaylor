@@ -82,6 +82,8 @@
     "catalog:recategorize-types": "tsx scripts/recategorizeStrollerTypes.ts",
     "catalog:fix-finder-products": "tsx scripts/fixFinderProducts.ts",
     "catalog:fix-finder-products-apply": "tsx scripts/fixFinderProducts.ts --apply",
+    "catalog:populate-specs": "tsx scripts/populateStrollerSpecsFromFeed.ts",
+    "catalog:populate-specs-apply": "tsx scripts/populateStrollerSpecsFromFeed.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
