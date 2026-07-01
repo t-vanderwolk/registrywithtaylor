@@ -16,7 +16,9 @@ import { adapterTitleMatchesStrollerModel } from '@/lib/catalog/adapterModelMatc
 const db = prismaBase as any;
 
 const isAnb = (p: string) => p === 'awin_anbbaby';
-const isBabylistOrMacro = (p: string) => p === 'babylist_impact' || p === 'shopify_macrobaby';
+// Any non-ANB provider counts as a valid replacement (Babylist, MacroBaby, or a
+// manual_tmbc adapter we added to fill a gap).
+const isBabylistOrMacro = (p: string) => p === 'babylist_impact' || p === 'shopify_macrobaby' || p === 'manual_tmbc';
 
 type Adapter = { provider: string; title: string; affiliateUrl: string | null };
 
