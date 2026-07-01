@@ -33,20 +33,21 @@ type Extracted = {
   suitableForJogging: boolean | null;
 };
 
-function toTagList(raw: any): string[] {
-  const tags = raw?.tags;
-  if (Array.isArray(tags)) return tags.map((t) => String(t));
-  if (typeof tags === 'string') return tags.split(',').map((t) => t.trim());
-  return [];
-}
-
 function bodyText(raw: any): string {
-  return String(raw?.body_html ?? raw?.description ?? raw?.bodyHtml ?? '').replace(/<[^>]+>/g, ' ');
+  return String(raw?.description ?? raw?.body_html ?? raw?.bodyHtml ?? '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ');
 }
 
+/**
+ * The feed is a Google Merchant item (no weight/variant fields), so everything
+ * is parsed from `description`. Own weight is ONLY trusted from explicit
+ * "weighs / only / just N lb" phrasing — otherwise the parser grabs the child
+ * weight capacity by mistake. Max child weight comes from "up to / holds N lb".
+ */
 function extract(raw: any): Extracted {
-  const tags = toTagList(raw);
   const body = bodyText(raw);
+  const lower = body.toLowerCase();
   const out: Extracted = {
     ownWeightLbs: null,
     maxWeightLbs: null,
@@ -55,32 +56,34 @@ function extract(raw: any): Extracted {
     suitableForJogging: null,
   };
 
-  // Max child weight — "Max Weight_50" tag is the cleanest signal.
-  const maxTag = tags.map((t) => t.match(/max\s*weight[_\s]*(\d+(?:\.\d+)?)/i)).find(Boolean);
-  if (maxTag) out.maxWeightLbs = Math.round(parseFloat(maxTag[1]));
-  else {
-    const m = body.match(/up to\s*(\d{2,3})\s*lb/i);
-    if (m) out.maxWeightLbs = parseInt(m[1], 10);
+  // ── Max child weight (seat limit): capacity phrasing only. ──
+  const maxMatch =
+    lower.match(/up to\s*(\d{2,3}(?:\.\d)?)\s*(?:lb|pound)/) ||
+    lower.match(/holds?\s*(?:up to\s*)?(\d{2,3}(?:\.\d)?)\s*(?:lb|pound)/) ||
+    lower.match(/(\d{2,3}(?:\.\d)?)\s*(?:lb|pound)s?\s*(?:capacity|weight (?:capacity|limit))/) ||
+    lower.match(/(?:weight (?:capacity|limit)|maximum weight)[^.]{0,20}?(\d{2,3}(?:\.\d)?)\s*(?:lb|pound)/);
+  if (maxMatch) {
+    const v = parseFloat(maxMatch[1]);
+    if (v >= 20 && v <= 350) out.maxWeightLbs = Math.round(v);
   }
 
-  // Own weight — a variant weight in lb, else grams, else body copy.
-  const variant = Array.isArray(raw?.variants) ? raw.variants[0] : null;
-  const unit = String(variant?.weight_unit ?? '').toLowerCase();
-  if (variant?.weight && /lb/.test(unit) && variant.weight > 0) out.ownWeightLbs = Number(variant.weight);
-  else if (variant?.grams && variant.grams > 0) out.ownWeightLbs = Math.round((variant.grams / 453.592) * 10) / 10;
-  else if (typeof raw?.weight === 'number' && raw.weight > 0) out.ownWeightLbs = raw.weight;
-  else {
-    const m = body.match(/(\d{1,2}(?:\.\d)?)\s*lb[s.]?\b(?:[^.]{0,24}(?:with seat|weight|pushchair|stroller))?/i);
-    if (m) out.ownWeightLbs = parseFloat(m[1]);
+  // ── Own weight: explicit "weighs / only / just N lb" (or "N lb with seat/frame"). ──
+  const ownMatch =
+    lower.match(/(?:weighs|weighing|only|just|merely)\s*(?:just\s*|about\s*|approx(?:imately)?\s*)?(\d{1,2}(?:\.\d)?)\s*(?:lb|pound)/) ||
+    lower.match(/(\d{1,2}(?:\.\d)?)\s*(?:lb|pound)s?\s*(?:with seat|frame|chassis)\b/) ||
+    lower.match(/(?:frame|stroller|pushchair)\s*weigh[a-z]*[^.]{0,14}?(\d{1,2}(?:\.\d)?)\s*(?:lb|pound)/);
+  if (ownMatch) {
+    const v = parseFloat(ownMatch[1]);
+    if (v >= 7 && v <= 60) out.ownWeightLbs = v;
   }
-  // Sanity clamp: strollers are ~9–45 lb; ignore obvious shipping-weight outliers.
-  if (out.ownWeightLbs != null && (out.ownWeightLbs < 8 || out.ownWeightLbs > 60)) out.ownWeightLbs = null;
+  // If own == max, the "own" number is almost certainly the capacity — drop it.
+  if (out.ownWeightLbs != null && out.ownWeightLbs === out.maxWeightLbs) out.ownWeightLbs = null;
 
-  const hay = `${tags.join(' ')} ${String(raw?.product_type ?? '')} ${body}`.toLowerCase();
-  if (/newborn|preemie|from birth|birth to|age_1|age_2/.test(hay)) out.suitableFromBirth = true;
-  if (/jogg|jogger|running stroller/.test(hay)) out.suitableForJogging = true;
-  if (/one[-\s]?hand/.test(body.toLowerCase())) out.foldType = 'one-hand';
-  else if (/compact fold/.test(body.toLowerCase())) out.foldType = 'compact';
+  const hay = `${String(raw?.product_type ?? '')} ${lower}`;
+  if (/newborn|from birth|birth to|suitable from birth/.test(hay)) out.suitableFromBirth = true;
+  if (/jogg|running stroller/.test(hay)) out.suitableForJogging = true;
+  if (/one[-\s]?hand/.test(lower)) out.foldType = 'one-hand';
+  else if (/compact fold|folds? compact/.test(lower)) out.foldType = 'compact';
 
   return out;
 }
