@@ -1,9 +1,9 @@
 /**
  * Content model for the "Know Before You Buy" educational hub (/resources).
  *
- * Everything here is plain data so the page stays modular and expandable — add a
- * glossary term, a category, or a note without touching layout. Category CTAs
- * deep-link into the filtered Stroller Finder via `strollerFinderCategoryHref`.
+ * Voice: witty, wise, real, relatable. No em or en dashes anywhere. Keep it
+ * sounding like Taylor, not a robot. Everything here is plain data so the page
+ * stays modular and expandable.
  */
 
 export const STROLLER_FINDER_BASE = '/tools/stroller-finder';
@@ -22,20 +22,20 @@ export type StartCard = {
 
 export const startCards: StartCard[] = [
   {
-    prompt: 'Not sure what stroller fits your lifestyle?',
+    prompt: 'Not sure what kind of stroller fits your life?',
     action: 'Take the Stroller Quiz',
     cta: 'Start Quiz',
     href: '/tools/stroller-quiz',
   },
   {
-    prompt: 'Already know what type of stroller you want?',
+    prompt: 'Already know the type you want?',
     action: 'Browse the Stroller Finder',
     cta: 'Browse Strollers',
     href: '/tools/stroller-finder',
   },
   {
-    prompt: 'Already picked a stroller?',
-    action: 'Find compatible infant car seats.',
+    prompt: 'Already picked your stroller?',
+    action: 'Find the car seats that click right in.',
     cta: 'Travel System Checker',
     href: '/tools/travel-system',
   },
@@ -52,47 +52,47 @@ export const strollerCategories: StrollerCategoryEntry[] = [
   {
     name: 'Full Size',
     slug: 'full-size',
-    blurb: 'Roomy, feature-rich strollers built to be your everyday workhorse from newborn through toddler.',
+    blurb: 'The everyday workhorse. Roomy, cushy, loaded with features, and happy to haul your baby from newborn all the way through the toddler years.',
   },
   {
     name: 'Compact / Mid-Size',
     slug: 'compact',
-    blurb: 'Lighter, smaller-folding strollers that still recline deep and take a car seat — the city sweet spot.',
+    blurb: 'Lighter and smaller when it folds, but it still reclines deep and takes a car seat. The sweet spot for city life and small trunks.',
   },
   {
     name: 'Travel',
     slug: 'travel',
-    blurb: 'Ultra-light, cabin-friendly folds made for airports, rideshares, and grab-and-go days.',
+    blurb: 'Feather light and folds tiny enough for the overhead bin. Your airport, rideshare, and quick errand hero.',
   },
   {
     name: 'Umbrella',
     slug: 'umbrella',
-    blurb: 'Bare-bones, feather-light strollers for the toddler years and quick errands.',
+    blurb: 'Barely there and barely costs anything. The throw it in the car and go pick for the toddler years.',
   },
   {
     name: 'Jogging',
     slug: 'jogging',
-    blurb: 'Air-filled tires and a lockable front wheel for running, trails, and bumpy sidewalks.',
+    blurb: 'Air tires and a locking front wheel so you can actually run. Great on trails and terrible sidewalks alike.',
   },
   {
     name: 'Double',
     slug: 'double',
-    blurb: 'Side-by-side or inline seating for two — twins, or a toddler and a new baby.',
+    blurb: 'Two seats, side by side or front to back. For twins, or for a toddler plus a brand new baby.',
   },
   {
     name: 'Double Jogging',
     slug: 'double-jogging',
-    blurb: 'Two seats built to run: all-terrain tires and a hand brake for the long haul.',
+    blurb: 'Two seats built to run. All terrain tires, a hand brake, and the stamina for the long haul.',
   },
   {
     name: 'Stroller Wagon',
     slug: 'wagon',
-    blurb: 'Push-or-pull wagons that seat multiple kids and haul everything else.',
+    blurb: 'Part stroller, part cargo ship. Seats a couple of kids and swallows everything else you are carrying.',
   },
   {
     name: 'Single-to-Double',
     slug: 'convertible-modular',
-    blurb: 'Starts as one seat and adds a second later, so it grows with your family.',
+    blurb: 'Starts as one seat and grows a second when you need it. The stroller that plans ahead so you do not have to.',
   },
 ];
 
@@ -104,16 +104,16 @@ export type SingleToDoubleCard = {
 export const singleToDoubleCards: SingleToDoubleCard[] = [
   {
     title: 'Fully Modular',
-    body: 'Any seat goes in any position — bassinet, toddler seat, or car seat, upper or lower — and you add a matching second seat whenever you’re ready. Maximum flexibility, and usually the higher price.',
+    body: 'Any seat goes anywhere. Bassinet, toddler seat, or car seat, top or bottom, facing you or facing out. Add a second seat whenever you are ready. The most flexible, and usually the priciest.',
   },
   {
     title: 'Convertible',
-    body: 'It becomes a double, but the two positions aren’t interchangeable. The second child usually needs a specific seat (often a dedicated lower or rumble seat), and some configurations are fixed — so what clicks where matters.',
+    body: 'It does turn into a double, just not freely. The second kid usually needs one specific seat, and a few positions are set in stone. So what clicks where is the whole ballgame.',
   },
 ];
 
 export const singleToDoubleTaylorsNote =
-  'I see this one constantly: a family is gifted an extra Vista toddler seat, assuming it will turn their stroller into a double. But the lower position on the Vista needs the dedicated RumbleSeat — a standard toddler seat won’t click into the bottom. So they end up with a beautiful, unusable second seat still in the box. Confirm exactly which seat goes in which position before anyone buys the “second seat.”';
+  'I see this one all the time. Someone gets handed a spare Vista toddler seat and assumes it turns their stroller into a double. But the lower spot on the Vista only takes the dedicated RumbleSeat, so a regular toddler seat will not click in down there. Now there is a gorgeous, useless second seat living in a box. Always check which seat goes where before anyone buys the second one.';
 
 export type GlossaryTerm = {
   term: string;
@@ -124,151 +124,151 @@ export type GlossaryTerm = {
 export const carSeatGlossary: GlossaryTerm[] = [
   {
     term: 'Infant Car Seat',
-    definition: 'A rear-facing-only seat with a carry handle and a detachable base, sized for newborns up to roughly 30–35 lbs.',
-    whyItMatters: 'It clicks in and out of the car in seconds and usually snaps onto a stroller — the easiest option for the first year, but you will outgrow it.',
+    definition: 'A rear-facing seat with a carry handle and a base that stays buckled in the car. Sized for newborns up to roughly 30 to 35 pounds.',
+    whyItMatters: 'It pops in and out in seconds and usually clicks onto a stroller. The easiest thing going for year one, right up until your chunky monkey outgrows it.',
   },
   {
     term: 'Convertible Car Seat',
-    definition: 'A larger seat that starts rear-facing for babies and later converts to forward-facing for toddlers, staying in the car.',
-    whyItMatters: 'It lasts for years and can skip the infant-seat stage — but it does not carry the baby or click onto a stroller.',
+    definition: 'A bigger seat that rides rear-facing for babies, then turns around for toddlers. It lives in the car and stays put.',
+    whyItMatters: 'It lasts for years and can skip the infant seat stage entirely. The catch is that it will not carry your baby or click onto a stroller.',
   },
   {
     term: 'Booster',
-    definition: 'A seat that lifts an older child so the vehicle’s own seat belt crosses the shoulder and hips correctly.',
-    whyItMatters: 'It is the last stage before a child uses the belt alone — no harness, just proper belt positioning.',
+    definition: 'A seat that boosts an older kid up so the car’s own seat belt sits right across their shoulder and hips.',
+    whyItMatters: 'The last stop before they ride on the belt alone. No harness, just good belt manners.',
   },
   {
     term: 'All-in-One',
-    definition: 'One seat that spans every stage: rear-facing infant, forward-facing toddler, and booster.',
-    whyItMatters: 'Buy-once in theory — just know it is bulky in the newborn stage and will not carry or click onto a stroller.',
+    definition: 'One seat that does every stage. Rear-facing baby, forward-facing toddler, then booster.',
+    whyItMatters: 'Buy it once, in theory. Just know it is chunky in the newborn phase and never leaves the car.',
   },
   {
     term: 'Travel System',
-    definition: 'A stroller and infant car seat designed to work together — the seat clicks onto the stroller frame.',
-    whyItMatters: 'It is how you move a sleeping baby from car to stroller without waking them. This is the pairing worth checking first.',
+    definition: 'A stroller and infant car seat built to work together. The seat clicks onto the stroller and off you go.',
+    whyItMatters: 'It is how you move a sleeping baby from car to stroller without waking the whole operation. This is the pairing worth getting right.',
   },
   {
     term: 'Car Seat Adapter',
-    definition: 'A small bracket that lets a specific infant car seat click onto a specific stroller.',
-    whyItMatters: 'Same-brand pairs often click directly, but most cross-brand combos need the exact adapter — the single most common thing people buy wrong.',
+    definition: 'A little bracket that lets a certain car seat click onto a certain stroller.',
+    whyItMatters: 'Same brand usually just clicks. Mix two brands and you almost always need the exact adapter, which is the number one thing people order wrong.',
   },
   {
     term: 'Load Leg',
-    definition: 'A support bar that extends from the car seat base down to the vehicle floor.',
-    whyItMatters: 'It absorbs crash forces and reduces rebound motion — a meaningful safety feature worth looking for.',
+    definition: 'A support bar that reaches from the car seat base down to the floor of your car.',
+    whyItMatters: 'It soaks up crash forces and cuts down on rebound. A genuine safety perk, not just a fancy pole.',
   },
   {
     term: 'European Belt Path',
-    definition: 'A routing that wraps the vehicle seat belt around the back of the car seat for a baseless install.',
-    whyItMatters: 'It adds stability when you install without the base — handy for taxis, rideshares, and travel.',
+    definition: 'A way of routing the car’s seat belt around the back of the seat when you install without the base.',
+    whyItMatters: 'It steadies a baseless install. Your best friend in taxis, rideshares, and hotel rentals.',
   },
   {
     term: 'Anti-Rebound Bar',
-    definition: 'A bar at the front of a rear-facing seat or base that braces against the vehicle seat.',
-    whyItMatters: 'It limits how far the seat rotates toward the seatback in a crash — another passive safety plus.',
+    definition: 'A bar across the front of a rear-facing seat or base that leans against the vehicle seat.',
+    whyItMatters: 'It keeps the seat from swinging toward the seatback in a crash. Another quiet little safety win.',
   },
   {
     term: 'Baseless Installation',
-    definition: 'Securing an infant car seat with just the vehicle seat belt, no base.',
-    whyItMatters: 'It is what makes a seat rideshare- and travel-friendly — check that yours is rated for it and learn the belt path.',
+    definition: 'Buckling an infant car seat in with just the seat belt, no base at all.',
+    whyItMatters: 'It is what makes a seat travel and rideshare friendly. Check that yours allows it and learn the belt path before you need it at 6am.',
   },
   {
     term: 'LATCH',
-    definition: 'Lower Anchors and Tethers for Children — built-in anchors in your car for installing a seat without the seat belt.',
-    whyItMatters: 'It is often easier to get a tight, correct install with LATCH, but there are weight limits where you switch back to the belt.',
+    definition: 'Lower Anchors and Tethers for Children. Built-in metal anchors in your car for installing a seat without the seat belt.',
+    whyItMatters: 'Often the easier way to get a rock solid install. Just mind the weight limit, where you switch back to the belt.',
   },
 ];
 
 export const strollerGlossary: GlossaryTerm[] = [
   {
     term: 'Modular',
-    definition: 'A stroller whose seat can be swapped or reconfigured — bassinet, toddler seat, or car seat, often facing either way.',
-    whyItMatters: 'Modularity is what lets one frame grow from newborn to toddler, and sometimes from single to double.',
+    definition: 'A stroller whose seat swaps and rearranges. Bassinet, toddler seat, or car seat, often facing either way.',
+    whyItMatters: 'This is what lets one frame grow from newborn to toddler, and sometimes from one kid to two.',
   },
   {
     term: 'Reversible Seat',
-    definition: 'A seat that can face either the parent or the world without buying a second seat.',
-    whyItMatters: 'Newborns love facing you; curious toddlers want to see out — reversible does both.',
+    definition: 'A seat that faces you or faces out, no second seat required.',
+    whyItMatters: 'Newborns want your face. Toddlers want the whole world. This does both.',
   },
   {
     term: 'Parent Facing',
-    definition: 'The seat faces back toward whoever is pushing.',
-    whyItMatters: 'Best for newborns and for bonding — you can see the baby and they can see you.',
+    definition: 'The seat points back at whoever is pushing.',
+    whyItMatters: 'Perfect for newborns and for staring contests. You watch them, they watch you.',
   },
   {
     term: 'World Facing',
-    definition: 'The seat faces forward, away from the person pushing.',
-    whyItMatters: 'Older babies and toddlers usually prefer watching the world go by.',
+    definition: 'The seat points forward, away from you.',
+    whyItMatters: 'Once they can hold their head up, most babies want a front row seat to everything.',
   },
   {
     term: 'Bassinet',
-    definition: 'A flat, enclosed carrycot that attaches to the frame so a newborn can lie fully flat.',
-    whyItMatters: 'Fully flat is healthiest for a newborn’s breathing and spine; some bassinets double as an overnight sleeper.',
+    definition: 'A flat, enclosed carrycot that snaps on so a newborn can lie all the way down.',
+    whyItMatters: 'Fully flat is best for tiny lungs and spines. Some even double as a safe place to sleep overnight.',
   },
   {
     term: 'Near Flat Recline',
-    definition: 'A seat that reclines to almost horizontal, though not a true flat bassinet.',
-    whyItMatters: 'It is the line between newborn-ready with just the seat versus needing a separate bassinet or car seat.',
+    definition: 'A seat that lays back to almost flat, though not quite a true bassinet.',
+    whyItMatters: 'It is the line between newborn ready with just the seat, or needing a separate bassinet or car seat.',
   },
   {
     term: 'One-Hand Fold',
-    definition: 'The stroller collapses with a single hand.',
-    whyItMatters: 'You will be holding a baby, a coffee, or both — one-hand fold is a daily-life feature, not a luxury.',
+    definition: 'The stroller folds down with a single hand.',
+    whyItMatters: 'You will always be holding a baby, a coffee, or both. This is a survival feature, not a luxury.',
   },
   {
     term: 'Self Standing Fold',
-    definition: 'The folded stroller stands upright on its own.',
-    whyItMatters: 'It does not flop onto the dirty garage floor and it tucks into a closet or trunk neatly.',
+    definition: 'The folded stroller stands up on its own.',
+    whyItMatters: 'No flopping onto the filthy garage floor. It tucks into a closet or trunk like a grown up.',
   },
   {
     term: 'Travel System Ready',
-    definition: 'The stroller accepts an infant car seat, directly or with an adapter.',
-    whyItMatters: 'This is the compatibility question — confirm which seats and which adapter before you buy either half.',
+    definition: 'The stroller takes an infant car seat, straight on or with an adapter.',
+    whyItMatters: 'This is the whole compatibility question. Sort out which seat and which adapter before you buy either half.',
   },
   {
     term: 'Suspension',
-    definition: 'Shock-absorbing components at the wheels.',
-    whyItMatters: 'Good suspension smooths out cracked sidewalks, cobblestones, and curbs so the baby keeps sleeping.',
+    definition: 'The springy bits at the wheels that soak up bumps.',
+    whyItMatters: 'Good suspension turns cracked sidewalks and cobblestones into a lullaby. Baby stays asleep, you stay sane.',
   },
   {
     term: 'All Terrain',
-    definition: 'Built for grass, gravel, trails, and snow, usually with larger tires.',
-    whyItMatters: 'If your walks leave the pavement, all-terrain is the difference between gliding and fighting the stroller.',
+    definition: 'Built for grass, gravel, trails, and snow, usually on bigger tires.',
+    whyItMatters: 'If your walks leave the pavement, this is the difference between gliding and wrestling.',
   },
   {
     term: 'Air Filled Tires',
-    definition: 'Pneumatic (inflatable) rubber tires, like a bike’s.',
-    whyItMatters: 'The smoothest ride over rough ground — but they can go flat and need occasional air.',
+    definition: 'Inflatable rubber tires, just like a bike.',
+    whyItMatters: 'The smoothest ride over rough ground. They can also go flat and beg for a pump now and then.',
   },
   {
     term: 'Foam Filled Tires',
-    definition: 'Solid or foam-core tires that never need inflating.',
-    whyItMatters: 'Nearly as smooth as air, with zero flats — low-maintenance for everyday use.',
+    definition: 'Solid or foam core tires that never need air.',
+    whyItMatters: 'Almost as smooth as air, with zero flats and zero fuss.',
   },
   {
     term: 'Swivel Lock Wheel',
-    definition: 'Front wheels that swivel for tight turns and lock straight for stability.',
-    whyItMatters: 'Unlocked for the grocery store, locked for jogging or bumpy terrain.',
+    definition: 'Front wheels that spin for tight turns and lock straight when you want stability.',
+    whyItMatters: 'Unlocked for the cereal aisle, locked for the jogging path.',
   },
   {
     term: 'Adjustable Handlebar',
-    definition: 'A handle that raises and lowers to fit the person pushing.',
-    whyItMatters: 'Saves your back and wrists when caregivers are different heights — an underrated comfort feature.',
+    definition: 'A handle that raises and lowers to fit whoever is pushing.',
+    whyItMatters: 'Saves your back and wrists when the grown ups come in different heights. Wildly underrated.',
   },
   {
     term: 'Basket Capacity',
-    definition: 'How much weight the under-seat storage basket holds, and how easy it is to reach.',
-    whyItMatters: 'Diaper bags, groceries, and toddler shoes add up fast — a bigger, reachable basket earns its keep.',
+    definition: 'How much the under-seat basket holds, and how easy it is to actually reach.',
+    whyItMatters: 'Diaper bags, snacks, and rogue toddler shoes add up fast. A big, reachable basket earns its keep every single day.',
   },
   {
     term: 'Weight Limit',
-    definition: 'The maximum child weight (and sometimes height) a seat supports.',
-    whyItMatters: 'It tells you how many years you will actually get before you are shopping again.',
+    definition: 'The most a seat can hold, by weight and sometimes height.',
+    whyItMatters: 'It tells you how many good years you get before you are shopping all over again.',
   },
   {
     term: 'Flip-Flop Friendly',
-    definition: 'A brake you can set with an open-toed shoe without stubbing or scraping your foot.',
-    whyItMatters: 'Sounds trivial until summer — you will set the brake dozens of times a day.',
+    definition: 'A brake you can tap with a bare or sandaled foot without shredding your toes.',
+    whyItMatters: 'Sounds silly until July. You will set that brake a hundred times a day.',
   },
 ];
 
@@ -277,9 +277,9 @@ export type TaylorsNoteEntry = {
 };
 
 export const taylorsNotes: TaylorsNoteEntry[] = [
-  { body: 'If you have to watch a YouTube video every time you fold your stroller, that’s probably not your stroller.' },
+  { body: 'If you have to watch a YouTube video every time you fold your stroller, that is probably not your stroller.' },
   { body: 'A beautiful stroller you hate folding quickly becomes an expensive garage decoration.' },
-  { body: 'Shopping for baby gear shouldn’t feel like studying for a final exam.' },
+  { body: 'Shopping for baby gear should not feel like studying for a final exam.' },
 ];
 
 export type WhatsNextEntry = {
@@ -290,8 +290,8 @@ export type WhatsNextEntry = {
 
 export const whatsNext: WhatsNextEntry[] = [
   { prompt: 'Still deciding?', action: 'Take the Stroller Quiz', href: '/tools/stroller-quiz' },
-  { prompt: 'Already know your stroller?', action: 'Check compatible car seats', href: '/tools/travel-system' },
-  { prompt: 'Want personalized recommendations?', action: 'Book a Registry Consult', href: '/book' },
+  { prompt: 'Already know your stroller?', action: 'Check the car seats that fit', href: '/tools/travel-system' },
+  { prompt: 'Want a real person in your corner?', action: 'Book a Registry Consult', href: '/book' },
 ];
 
 export type ToolCardEntry = {
@@ -306,7 +306,7 @@ export type ToolCardEntry = {
 export const freeTools: ToolCardEntry[] = [
   {
     title: 'Stroller Quiz',
-    description: 'Find the stroller category that actually fits your life.',
+    description: 'Answer a few questions and land on the stroller category that actually fits your life.',
     href: '/tools/stroller-quiz',
     cta: 'Take the Quiz',
     image: '/assets/editorial/gear.jpg',
@@ -314,7 +314,7 @@ export const freeTools: ToolCardEntry[] = [
   },
   {
     title: 'Stroller Finder',
-    description: 'Browse strollers by brand, type, price, and features.',
+    description: 'Browse strollers by brand, type, price, and the features you actually care about.',
     href: '/tools/stroller-finder',
     cta: 'Browse Strollers',
     image: '/assets/hero/hero-03.jpg',
@@ -322,7 +322,7 @@ export const freeTools: ToolCardEntry[] = [
   },
   {
     title: 'Travel System Checker',
-    description: 'Check stroller and infant car seat compatibility before you buy the wrong adapter.',
+    description: 'See which infant car seats fit your stroller before you buy the wrong adapter.',
     href: '/tools/travel-system',
     cta: 'Check Compatibility',
     image: '/assets/editorial/growing-with-confidence.jpg',

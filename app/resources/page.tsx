@@ -24,10 +24,10 @@ import {
 export const metadata = buildMarketingMetadata({
   title: 'Know Before You Buy | Taylor-Made Baby Co.',
   description:
-    'The friendly starting point before you shop: understand stroller categories, decode the car-seat and stroller glossary, and get pointed to the right free tool — the Stroller Quiz, Stroller Finder, or Travel System Checker.',
+    'The friendly starting point before you shop: understand stroller categories, decode the car seat and stroller glossary, and get pointed to the right free tool, whether that is the Stroller Quiz, Stroller Finder, or Travel System Checker.',
   path: '/resources',
   imagePath: '/assets/hero/hero-04.jpg',
-  imageAlt: 'Know Before You Buy — the Taylor-Made Baby Co. gear glossary',
+  imageAlt: 'Know Before You Buy, the Taylor-Made Baby Co. gear glossary',
 });
 
 export default function ResourcesPage() {
@@ -55,10 +55,9 @@ export default function ResourcesPage() {
               The baby aisle is not the boss of you.
             </p>
             <p className="mx-auto mt-6 max-w-xl text-[1.18rem] leading-8 text-neutral-600">
-              Most of the overwhelm in the baby aisle comes from vocabulary, not from the gear itself. Learn a
-              handful of terms — what makes a stroller <em>modular</em>, what a <em>travel system</em> actually is,
-              why an <em>adapter</em> matters — and shopping gets dramatically easier. Start here, then let one of
-              the free tools do the sorting for you.
+              Most of the baby aisle panic comes from vocabulary, not the gear. Once you know what makes a stroller{' '}
+              <em>modular</em>, what a <em>travel system</em> really is, and why an <em>adapter</em> matters, the whole
+              thing gets a lot less scary. Start here, then let a free tool do the sorting for you.
             </p>
           </div>
         </MarketingSection>
@@ -145,7 +144,7 @@ export default function ResourcesPage() {
           <SectionIntro
             eyebrow="Decode it"
             title="Car Seat Glossary"
-            description="The car-seat words that show up on every product page — and why each one actually matters."
+            description="The car seat words that show up on every product page, and why each one actually matters to you."
             contentWidthClassName="max-w-3xl"
           />
           <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -196,7 +195,7 @@ export default function ResourcesPage() {
           <SectionIntro
             eyebrow="Free tools"
             title="Let the tools do the sorting."
-            description="Built to give you a clear next step in a few minutes — free, no account required."
+            description="A clear next step in a few minutes. Free, and no account required."
             contentWidthClassName="max-w-3xl"
           />
           <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">

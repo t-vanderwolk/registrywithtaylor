@@ -1,5 +1,5 @@
 /**
- * TMBC-toned stroller profiles — a short editorial description + key specs shown
+ * TMBC-toned stroller profiles: a short editorial description + key specs shown
  * on the travel-system results page when you check a stroller's compatible car
  * seats.
  *
@@ -16,7 +16,7 @@ export type StrollerProfile = {
   brand: string;
   /** Tested against the normalized (lowercased) model string. */
   match: RegExp;
-  /** 1–2 sentences in TMBC voice: warm, honest, no fluff. */
+  /** One or two sentences in TMBC voice: warm, honest, no fluff. */
   description: string;
   specs: StrollerSpec[];
 };
@@ -38,7 +38,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'UPPAbaby',
     match: /\bvista\b/,
     description:
-      'The Vista is the “grows with your family” stroller everyone pictures when they say modular — start with the included bassinet, then add a RumbleSeat or a second full seat to carry up to three kids on one frame. It’s a splurge people rarely regret.',
+      'The stroller everyone pictures when they say modular. Start with the bassinet, then add a RumbleSeat or a second full seat and carry up to three kids on one frame. A splurge people rarely regret.',
     specs: [
       { label: 'From birth', value: 'Included bassinet' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -104,7 +104,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Nuna',
     match: /\bdemi\b/,
     description:
-      'Nuna’s modular flagship — the one that actually converts to a double. Bassinet, toddler seat, or PIPA in either position, with more configurations than almost anything else on the market.',
+      'Nuna’s modular flagship, and the one that genuinely converts to a double. Bassinet, toddler seat, or PIPA in either spot, with more ways to configure it than almost anything else out there.',
     specs: [
       { label: 'From birth', value: 'Bassinet or PIPA' },
       { label: 'Configurations', value: 'Single → double (with second seat)' },
@@ -117,7 +117,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Nuna',
     match: /\btriv\b/,
     description:
-      'A lightweight, compact-folding mid-size that still takes a bassinet — Nuna comfort in a frame that fits smaller trunks and elevators.',
+      'Lightweight and compact-folding, but it still takes a bassinet. Nuna comfort in a frame that fits smaller trunks and tight elevators.',
     specs: [
       { label: 'From birth', value: 'PIPA or TRIV bassinet' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -157,7 +157,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Cybex',
     match: /\bpriam\b/,
     description:
-      'Cybex’s flagship: a smooth, one-hand-fold luxury ride with in-seat suspension and a rotating fashion lineup. Gorgeous and capable — just heavier and pricier than the mid-size crowd.',
+      'Cybex’s flagship. A smooth, one-hand-fold luxury ride with in-seat suspension and a fashion collab for every season. Gorgeous and capable, just heavier and pricier than the mid-size crowd.',
     specs: [
       { label: 'From birth', value: 'Lie-flat cot or infant seat' },
       { label: 'Seat limit', value: 'Up to 48.5 lb' },
@@ -194,7 +194,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Cybex',
     match: /\beezy s\b/,
     description:
-      'An urban compact with a one-hand 360° rotating seat — spin from parent-facing to world-facing in a second, then fold it small and self-standing to stow and go.',
+      'An urban compact with a one-hand 360° rotating seat. Spin from parent-facing to world-facing in a second, then fold it small and self-standing to stow and go.',
     specs: [
       { label: 'From birth', value: 'With Cot S or infant seat' },
       { label: 'Seat limit', value: 'Up to 55 lb' },
@@ -282,7 +282,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Silver Cross',
     match: /\bcove\b/,
     description:
-      'A full-size, all-terrain ride that folds surprisingly compact — RideTech wheels and advanced suspension for rough sidewalks, with a one-hand fold that stands on its own. Pairs with Nuna, Clek, Maxi-Cosi, and Cybex seats.',
+      'A full-size, all-terrain ride that folds surprisingly small. RideTech wheels and real suspension eat up rough sidewalks, and the one-hand fold stands up on its own. Pairs with Nuna, Clek, Maxi-Cosi, and Cybex seats.',
     specs: [
       { label: 'Weight', value: '~25.5 lb' },
       { label: 'From birth', value: 'Lie-flat seat or optional bassinet' },
@@ -309,7 +309,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Baby Jogger',
     match: /\bcity mini\b/,
     description:
-      'The gold-standard everyday stroller: the famous one-hand “lift-strap” fold, a comfy seat, and a price that makes sense. Not fancy — just the one that works, trip after trip.',
+      'The everyday gold standard. That famous one-hand lift-strap fold, a comfy seat, and a price that makes sense. Not fancy, just the one that works trip after trip.',
     specs: [
       { label: 'From birth', value: 'With car seat or bassinet' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -334,7 +334,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Peg Perego',
     match: /\bcity loop\b/,
     description:
-      'A compact city stroller with an extremely small, front-and-rear-seat-friendly chassis — designed to fit in a car without swallowing the trunk. Takes Peg’s own seats and, with the universal adapter, other brands too.',
+      'A compact city stroller with a tiny chassis that rides in your front or back seat instead of eating the whole trunk. Takes Peg’s own seats, and other brands too with the universal adapter.',
     specs: [
       { label: 'From birth', value: 'Reversible seat or infant car seat' },
       { label: 'Seat', value: 'Reversible, multi-recline' },
@@ -372,7 +372,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Mima',
     match: /\bxari\b/,
     description:
-      'The statement stroller: a sculpted, leatherette pod seat unlike anything else on the sidewalk. Divisive, distinctive, and undeniably luxe — takes Maxi-Cosi/Nuna/Cybex seats via adapter.',
+      'The statement piece. A sculpted, leatherette pod seat unlike anything else on the sidewalk. Divisive, distinctive, and undeniably luxe. Takes Maxi-Cosi, Nuna, and Cybex seats with an adapter.',
     specs: [
       { label: 'From birth', value: 'Carrycot mode or car seat + adapter' },
       { label: 'Seat limit', value: 'Up to 55 lb' },
@@ -410,7 +410,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Graco',
     match: /\bmodes\b/,
     description:
-      'The value workhorse: multiple ride modes, a reversible seat, and a true travel system with Graco’s own SnugRide seats — a lot of stroller for the money.',
+      'The value workhorse. Multiple ride modes, a reversible seat, and a real travel system with Graco’s own SnugRide seats. A whole lot of stroller for the money.',
     specs: [
       { label: 'From birth', value: 'With SnugRide infant seat' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -423,7 +423,7 @@ const PROFILES: StrollerProfile[] = [
     brand: 'Chicco',
     match: /\bbravo\b/,
     description:
-      'The easy-button travel system: Chicco’s KeyFit — the seat famous for its foolproof install — clicks straight in, and the stroller folds with the seat still attached. Simple, safe, sensible.',
+      'The easy-button travel system. Chicco’s KeyFit, the seat famous for its foolproof install, clicks right in, and the stroller folds with the seat still on. Simple, safe, done.',
     specs: [
       { label: 'From birth', value: 'With KeyFit infant seat' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
