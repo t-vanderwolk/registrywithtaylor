@@ -129,6 +129,24 @@ const SPECS: Spec[] = [
     retailer: 'MacroBaby',
     searchModel: 'Eezy S',
   },
+  {
+    // New 2026 IATA cabin-approved ultra-compact travel stroller. Not yet on
+    // MacroBaby (pre-order), so this creates it; the promote path upgrades the
+    // link once a feed carries it. Connects to Nuna PIPA seats directly — Nuna's
+    // closed ecosystem gives it Nuna infant seats only (handled by the engine).
+    brand: 'Nuna',
+    model: 'VIAA cabn',
+    productType: 'travel stroller',
+    provider: 'manual_tmbc',
+    externalId: 'tmbc-nuna-viaa-cabn',
+    title: 'Nuna - VIAA cabn Ultra-Compact Travel Stroller',
+    affiliateUrl: 'https://nunababy.com/usa/viaa-cabn-stroller',
+    imageUrl:
+      'https://cdn.shopify.com/s/files/1/1101/4990/files/Nuna_VIAAcabn_CaviarCCR_Angle_CD_US_web_22acfa65-b3d7-4c72-9ccf-3a105c7aee69.png?v=1781964830',
+    price: 550.0,
+    retailer: 'Nuna',
+    searchModel: 'VIAA',
+  },
 ];
 
 const isStrollerTitle = (t: string) =>
