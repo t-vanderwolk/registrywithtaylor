@@ -6,6 +6,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
+import { strollerCategories, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
 
@@ -27,6 +28,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
     { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
   ];
+
+  // Stroller Finder category landing pages (deep-linked from Know Before You Buy),
+  // e.g. /tools/stroller-finder?category=full-size — one discoverable page per type.
+  const categoryEntries: MetadataRoute.Sitemap = strollerCategories.map((category) => ({
+    url: buildUrl(strollerFinderCategoryHref(category.slug)),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
 
   // Travel-system results pages — one per public stroller and per infant car
   // seat, e.g. /tools/travel-system/results?stroller=uppababy-vista-v3
@@ -70,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...travelSystemEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [...staticEntries, ...categoryEntries, ...travelSystemEntries, ...blogEntries].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }

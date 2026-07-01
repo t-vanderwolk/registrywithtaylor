@@ -4,6 +4,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
+import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
@@ -232,12 +233,15 @@ function SelectedSummaryCard({
   total,
   direct,
   adapter,
+  hideSummary = false,
 }: {
   kind: 'stroller' | 'carSeat';
   option: TravelSystemStrollerOption | TravelSystemCarSeatOption;
   total: number;
   direct: number;
   adapter: number;
+  /** When the "About this stroller" panel owns the description, skip it here. */
+  hideSummary?: boolean;
 }) {
   const resolvedImage =
     kind === 'stroller'
@@ -269,7 +273,7 @@ function SelectedSummaryCard({
           <span className="tool-chip">{direct} direct</span>
           <span className="tool-chip">{adapter} adapter</span>
         </div>
-        {option.summary ? (
+        {!hideSummary && option.summary ? (
           <p className="mt-4 max-w-3xl text-sm leading-7 text-neutral-600">{option.summary}</p>
         ) : null}
       </div>
@@ -533,7 +537,16 @@ export default async function TravelSystemResultsPage({
               total={counts.total}
               direct={counts.direct}
               adapter={counts.adapter}
+              hideSummary={isStrollerFirst}
             />
+
+            {isStrollerFirst ? (
+              <StrollerProfilePanel
+                brand={selected.brand}
+                model={selected.model}
+                fallbackSummary={selected.summary}
+              />
+            ) : null}
 
             {results.length > 0 ? (
               <ResultsSection
