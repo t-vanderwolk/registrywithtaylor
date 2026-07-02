@@ -25,8 +25,7 @@ const db = prismaBase as any;
 const SPECS: { label: string; brand: string; re: RegExp }[] = [
   { label: 'Bugaboo Bee 6', brand: 'Bugaboo', re: /\bbee ?6\b/i },
   { label: 'Bugaboo Lynx', brand: 'Bugaboo', re: /\blynx\b/i },
-  { label: 'Zoe Single', brand: 'Zoe', re: /\b(?:single|tour)\b/i },
-  { label: 'Zoe Double', brand: 'Zoe', re: /\b(?:double|twin)\b/i },
+  // (Zoe Tour Single + Zoe Twin Double are intentionally KEPT — restored per request.)
   { label: 'Cybex Priam 4', brand: 'Cybex', re: /\bpriam ?4\b/i },
   { label: 'Bugaboo Kangaroo Seat', brand: 'Bugaboo', re: /\bkangaroo seat\b/i },
   // Mis-branded BOB Gear duplicate: "Britax | BOB - Wayfinder" duplicates the
