@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T23:56:02.260Z",
+  "generatedAt": "2026-07-02T02:17:10.199Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -224,6 +224,34 @@
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly Plus",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly Plus",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly Plus",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
+    },
+    {
+      "brand": "Bugaboo",
+      "stroller": "Bugaboo Dragonfly Plus",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Donkey / Dragonfly / Butterfly / Fox",
+      "action": "create"
     },
     {
       "brand": "Bugaboo",
