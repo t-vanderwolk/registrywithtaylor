@@ -87,7 +87,8 @@ const QUESTIONS: Question[] = [
         label: 'Twins or more on the way',
         sublabel: 'Two seats needed from day one',
         scores: { double: 6 },
-        forceCategories: ['double', 'double-jogging'],
+        // A single-to-double convertible is fine for twins — it's just bought as a double.
+        forceCategories: ['double', 'double-jogging', 'convertible'],
       },
     ],
   },
