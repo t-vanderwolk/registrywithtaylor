@@ -30,7 +30,13 @@ const toAbsoluteUrl = (pathOrUrl: string) => {
 
 export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+  let post: Awaited<ReturnType<typeof getBlogPost>> = null;
+  try {
+    post = await getBlogPost(slug);
+  } catch (error) {
+    console.error(`[blog] metadata load failed for "${slug}"`, error);
+    return {};
+  }
 
   if (!post) {
     return {};
@@ -113,13 +119,33 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
 
 export default async function BlogPostPage({ params }: BlogPostParams) {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+
+  let post: Awaited<ReturnType<typeof getBlogPost>> = null;
+  try {
+    post = await getBlogPost(slug);
+  } catch (error) {
+    // A malformed or unreadable post should 404 cleanly, never 500 the route
+    // (a server error blocks indexing; a 404 is dropped gracefully by Google).
+    console.error(`[blog] load failed for "${slug}"`, error);
+    notFound();
+  }
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = await getPublicRelatedBlogPosts(post.id);
+  try {
+    return await renderBlogPost(post, await getPublicRelatedBlogPosts(post.id));
+  } catch (error) {
+    console.error(`[blog] render prep failed for "${slug}"`, error);
+    notFound();
+  }
+}
+
+async function renderBlogPost(
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>,
+  relatedPosts: Awaited<ReturnType<typeof getPublicRelatedBlogPosts>>,
+) {
   const { content: articleContent } = extractDownloadableResource(post.content);
   const seoSnapshot = buildBlogSeoSnapshot({
     title: post.title,
@@ -137,7 +163,9 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
     readingTime: post.readingTime,
   });
   const featuredImageUrl = post.featuredImage?.url ?? post.coverImage ?? post.featuredImageUrl;
-  const displayDate = getPostDisplayDate(post);
+  const rawDisplayDate = getPostDisplayDate(post);
+  // Guard against an invalid date (e.g. all date fields null) so .toISOString() never throws.
+  const displayDate = Number.isNaN(rawDisplayDate.getTime()) ? post.createdAt : rawDisplayDate;
   const faqEntries = extractFaqEntries(articleContent);
   const canonicalUrl = seoSnapshot.canonicalUrl;
   const authorSchemas = post.authors.map((author) => ({

@@ -90,6 +90,8 @@
     "catalog:scan-no-matches": "tsx scripts/scanStrollerMatches.ts",
     "catalog:add-bugaboo-babylist": "tsx scripts/addBugabooBabylist.ts",
     "catalog:add-bugaboo-babylist-apply": "tsx scripts/addBugabooBabylist.ts --apply",
+    "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
+    "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
