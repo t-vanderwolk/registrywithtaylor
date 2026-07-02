@@ -35,8 +35,13 @@ export default function FadeInSection({
     pathname?.startsWith('/learn') ||
     pathname?.startsWith('/academy') ||
     pathname?.startsWith('/blog');
+  // `amount` here is a fraction of the ELEMENT that must be visible. On a phone,
+  // a tall single-column section can be several viewports high, so any fraction
+  // (even 0.2) may never fit on screen — the reveal never fires and the section
+  // stays at opacity 0, leaving a big empty gap. `'some'` fires as soon as any
+  // part scrolls in, so it's safe regardless of how tall the section reflows to.
   const isInView = useInView(sectionRef, {
-    amount: threshold,
+    amount: threshold >= 1 ? 'all' : 'some',
     margin: '-100px 0px',
     once,
   });
