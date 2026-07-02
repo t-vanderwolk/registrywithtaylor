@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useState } from 'react';
 import { BRAND_LOGOS } from './StrollerCatalogFinder';
 import type {
   TravelSystemCarSeatOption,
@@ -173,13 +173,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
-  const skipModeResetRef = useRef(false);
-
   useEffect(() => {
-    if (skipModeResetRef.current) {
-      skipModeResetRef.current = false;
-      return;
-    }
     setSearchQuery('');
     setSelectedValue('');
     setSelectorBrand(null);
@@ -195,39 +189,27 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     const cBrand = params.get('carSeatBrand');
     const cModel = params.get('carSeatModel');
 
+    // Any deep link that names a stroller or car seat routes STRAIGHT to the
+    // results page — no intermediate "Check compatibility" click. This matches
+    // the one-click card flow for both the stroller-first and car-seat-first funnels.
     if (strollerSlug) {
       const stroller = findTravelSystemOptionBySlug(strollers, strollerSlug);
-      if (stroller) {
-        setSelectorBrand(stroller.brand);
-        setSelectedValue(buildOptionValue(stroller));
-      }
+      if (stroller) router.replace(travelSystemResultsHref('stroller', stroller));
       return;
     }
-
     if (carSeatSlug) {
       const carSeat = findTravelSystemOptionBySlug(carSeats, carSeatSlug);
-      if (carSeat) {
-        skipModeResetRef.current = true;
-        setLookupMode('carSeat');
-        setSelectorBrand(carSeat.brand);
-        setSelectedValue(buildOptionValue(carSeat));
-      }
+      if (carSeat) router.replace(travelSystemResultsHref('carSeat', carSeat));
       return;
     }
-
     if (sBrand && sModel) {
       const stroller = findOptionByBrandModel(strollers, sBrand, sModel);
-      if (stroller) {
-        setSelectorBrand(stroller.brand);
-        setSelectedValue(buildOptionValue(stroller));
-      }
-    } else if (cBrand && cModel) {
+      if (stroller) router.replace(travelSystemResultsHref('stroller', stroller));
+      return;
+    }
+    if (cBrand && cModel) {
       const carSeat = findOptionByBrandModel(carSeats, cBrand, cModel);
-      if (!carSeat) return;
-      skipModeResetRef.current = true;
-      setLookupMode('carSeat');
-      setSelectorBrand(carSeat.brand);
-      setSelectedValue(buildOptionValue(carSeat));
+      if (carSeat) router.replace(travelSystemResultsHref('carSeat', carSeat));
     }
     // Runs once on mount; the option lists are stable page props.
     // eslint-disable-next-line react-hooks/exhaustive-deps
