@@ -304,13 +304,87 @@ async function loadMacroBabyMap(table: 'Stroller' | 'CarSeat'): Promise<Map<stri
   }
 }
 
+/**
+ * Babylist offers that live in the affiliate catalog under provider
+ * `babylist_impact` (manually-added products — e.g. strollers we wired up by
+ * hand). The synced Babylist data normally lands on the Stroller / CarSeat
+ * table, but manual adds live only in the catalog, so read them here too or the
+ * checker would treat those strollers as having no public retailer.
+ */
+async function loadBabylistImpactMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, BabylistFields>> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const rows: MacroBabyLookupRow[] = await db.affiliateCatalogProduct.findMany({
+      where: {
+        provider: 'babylist_impact',
+        isActiveInFeed: true,
+        enrichment: {
+          is:
+            table === 'Stroller'
+              ? { tmbcCategory: 'Strollers', needsReview: false, reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] } }
+              : { productType: 'infant car seat', needsReview: false, reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] } },
+        },
+      },
+      select: {
+        brand: true,
+        title: true,
+        price: true,
+        imageUrl: true,
+        affiliateUrl: true,
+        enrichment: { select: { canonicalBrand: true, canonicalName: true } },
+      },
+    });
+
+    const map = new Map<string, BabylistFields>();
+    for (const row of rows) {
+      if (table === 'Stroller' && isExcludedStrollerFinderProduct({
+        brand: row.brand,
+        title: row.title,
+        affiliateUrl: row.affiliateUrl,
+      })) {
+        continue;
+      }
+      const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
+      if (!brand) continue;
+      const offer: BabylistFields = {
+        babylistUrl: row.affiliateUrl,
+        babylistPrice: row.price,
+        babylistImage: row.imageUrl,
+      };
+      const keys = new Set<string>();
+      const canonicalName = modelLikeCanonicalName(row.enrichment?.canonicalName);
+      if (canonicalName) keys.add(babylistKey(brand, canonicalName));
+      const parsed =
+        table === 'Stroller' ? parseStrollerModel(row.title, brand) : parseCarSeatModel(row.title, brand);
+      if (parsed) keys.add(babylistKey(brand, parsed));
+      for (const key of keys) if (!map.has(key)) map.set(key, offer);
+    }
+    return map;
+  } catch (error) {
+    if (hasMissingTravelSystemSchema(error)) return new Map();
+    throw error;
+  }
+}
+
 async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, PublicRetailerFields>> {
-  const [babylistMap, macroBabyMap] = await Promise.all([loadBabylistMap(table), loadMacroBabyMap(table)]);
+  const [babylistMap, babylistImpactMap, macroBabyMap] = await Promise.all([
+    loadBabylistMap(table),
+    loadBabylistImpactMap(table),
+    loadMacroBabyMap(table),
+  ]);
   const out = new Map<string, PublicRetailerFields>();
-  const keys = new Set([...babylistMap.keys(), ...macroBabyMap.keys()]);
+  const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys()]);
   for (const key of keys) {
+    const tableBabylist = babylistMap.get(key);
+    // Prefer the synced Stroller/CarSeat babylist offer; fall back to the
+    // babylist_impact catalog offer for manually-added products.
+    const babylist =
+      tableBabylist && tableBabylist.babylistUrl
+        ? tableBabylist
+        : babylistImpactMap.get(key) ?? tableBabylist ?? EMPTY_BABYLIST;
     out.set(key, {
-      ...(babylistMap.get(key) ?? EMPTY_BABYLIST),
+      ...babylist,
       ...(macroBabyMap.get(key) ?? EMPTY_MACROBABY),
     });
   }
