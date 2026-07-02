@@ -25,7 +25,7 @@ const db = prismaBase as any;
 
 // brand optional — when set, the canonical brand must match too (tighter).
 const SPECS: { label: string; brand?: string; re: RegExp }[] = [
-  { label: 'Bugaboo Butterfly Complete / Butterfly 2 Complete', brand: 'Bugaboo', re: /\bbutterfly\b.*\bcomplete\b/i },
+  // (Bugaboo Butterfly / Butterfly 2 are intentionally KEPT — restored per request.)
   { label: 'Bugaboo Bee 5', brand: 'Bugaboo', re: /\bbee ?5\b/i },
   { label: 'Bugaboo Donkey 3', brand: 'Bugaboo', re: /\bdonkey ?3\b/i },
   { label: 'Bugaboo Fox 2', brand: 'Bugaboo', re: /\bfox ?2\b/i },
