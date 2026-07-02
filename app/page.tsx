@@ -13,16 +13,27 @@ import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
 import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
+import { HOME_FAQ } from '@/lib/marketing/homeFaq';
+import { homeStructuredData } from '@/lib/marketing/homeStructuredData';
 
 export const revalidate = 3600;
 
 export const metadata = buildMarketingMetadata({
-  title: 'Taylor-Made Baby Co. | Expert Baby Gear Guidance for Expecting Parents',
+  title: 'Baby Registry Consultant for Expecting Parents | Taylor-Made Baby Co.',
   description:
-    'Expert baby gear guidance to help growing families choose thoughtfully, prepare their homes, and start parenthood with confidence.',
+    'Expert baby registry consultant for expecting parents. Personalized stroller, car seat, nursery, and registry guidance from a verified Target Baby Concierge specialist. Book a $75 one hour virtual session.',
   path: '/',
   imagePath: '/assets/hero/hero-01.jpg',
   imageAlt: 'Taylor-Made Baby Co. baby gear planning editorial image.',
+  keywords: [
+    'baby registry consultant',
+    'baby registry expert',
+    'baby gear consultant',
+    'baby gear expert',
+    'baby registry help',
+    'Target Baby Concierge Specialist',
+    'expecting parents registry guide',
+  ],
 });
 
 type AdvisorExperienceCard = {
@@ -84,7 +95,7 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   {
     title: 'Strolleria',
     logoSrc: '/assets/logos/strolleria.png',
-    logoAlt: 'Strolleria logo',
+    logoAlt: 'Strolleria, baby gear specialist experience',
     width: 1844,
     height: 457,
     logoClassName: 'max-h-8',
@@ -92,7 +103,7 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   {
     title: 'Pottery Barn Kids',
     logoSrc: '/assets/brand/potterybarnkids.png',
-    logoAlt: 'Pottery Barn Kids logo',
+    logoAlt: 'Pottery Barn Kids, nursery advisor experience',
     width: 1101,
     height: 152,
     logoClassName: 'max-h-7',
@@ -108,7 +119,7 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   {
     title: 'Target Baby Concierge',
     logoSrc: '/assets/brand/totsquad.png',
-    logoAlt: 'Target Baby Concierge powered by Tot Squad logo',
+    logoAlt: 'Target Baby Concierge powered by Tot Squad, certified specialist',
     width: 1065,
     height: 228,
     logoClassName: 'max-h-8',
@@ -203,23 +214,30 @@ const howItWorks = [
 const authorityStripLogos = [
   {
     src: '/assets/logos/strolleria.png',
-    alt: 'Strolleria logo',
+    alt: 'Strolleria, where Taylor worked as a baby gear specialist',
     width: 1844,
     height: 457,
     className: 'max-h-6',
   },
   {
     src: '/assets/brand/potterybarnkids.png',
-    alt: 'Pottery Barn Kids logo',
+    alt: 'Pottery Barn Kids, where Taylor advised on nursery design',
     width: 1101,
     height: 152,
     className: 'max-h-5',
   },
   {
     src: '/assets/brand/totsquad.png',
-    alt: 'Target Baby Concierge powered by Tot Squad logo',
+    alt: 'Target Baby Concierge powered by Tot Squad, where Taylor is a certified specialist',
     width: 1065,
     height: 228,
+    className: 'max-h-6',
+  },
+  {
+    src: '/assets/logos/babyquip.png',
+    alt: 'BabyQuip Tiny Travels podcast, where Taylor was featured as a baby gear expert',
+    width: 512,
+    height: 512,
     className: 'max-h-6',
   },
 ] as const;
@@ -292,10 +310,15 @@ export default function HomePage() {
       <main className="site-main">
         <PageViewTracker path="/" pageType="homepage" />
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
+        />
+
         <Hero
           className="homepage-hero"
-          title="Private Baby Planning & Registry Guidance for Growing Families"
-          subtitle="Expert baby gear guidance to help you choose thoughtfully, prepare your home, and start parenthood with confidence."
+          title="Baby Registry Consultant for Expecting Parents"
+          subtitle="Strollers, car seats, nursery, and registry guidance from a verified Target Baby Concierge specialist, built around your home, your budget, and your real life."
           primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
           secondaryCta={{ label: 'Read the Journal', href: '/blog' }}
           tagline="Strollers | Car Seats | Registry | Nursery Setup"
@@ -308,7 +331,7 @@ export default function HomePage() {
         <StartHereSection />
 
         <HomeAuthorityStrip
-          text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
+          text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge, and featured on the BabyQuip Tiny Travels podcast."
           logos={authorityStripLogos}
         />
 
@@ -320,7 +343,7 @@ export default function HomePage() {
                   <div className="relative z-[1] max-w-[40rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                     <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      Meet Your Baby Gear Expert
+                      Your Baby Registry Expert, Taylor Vanderwolk
                     </h2>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       I have spent years helping families sort strollers, car seats, registries, and nursery decisions
@@ -385,7 +408,7 @@ export default function HomePage() {
             <RevealOnScroll>
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Who this is for</p>
               <h2 className="mt-4 font-serif text-[2rem] leading-[1.0] tracking-[-0.04em] text-neutral-900 sm:text-[2.5rem]">
-                This is for parents who want better decisions, not just more information.
+                For expecting parents who want better decisions, not just more information.
               </h2>
             </RevealOnScroll>
             <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-3 md:gap-6">
@@ -409,7 +432,7 @@ export default function HomePage() {
             <RevealOnScroll>
               <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">How it works</p>
               <h2 className="mt-4 font-serif text-[2rem] leading-[1.0] tracking-[-0.04em] text-neutral-900 sm:text-[2.5rem]">
-                What happens between booking and your first session.
+                How a baby registry consultation works, step by step.
               </h2>
             </RevealOnScroll>
             <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
@@ -530,6 +553,40 @@ export default function HomePage() {
           anonymousQuotes={homepageAnonymousQuotes}
           anonymousColumns={2}
         />
+
+        {/* ── FAQ (People Also Ask + FAQPage schema) ──────────────── */}
+        <section className="bg-white py-14 md:py-20">
+          <div className="mx-auto max-w-3xl px-6">
+            <RevealOnScroll>
+              <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Common questions</p>
+              <h2 className="mt-4 font-serif text-[2rem] leading-[1.0] tracking-[-0.04em] text-neutral-900 sm:text-[2.5rem]">
+                Baby registry consultant FAQ
+              </h2>
+              <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-neutral-700">
+                The questions expecting parents ask most, answered straight.
+              </p>
+            </RevealOnScroll>
+
+            <div className="mt-8 space-y-3 sm:mt-10">
+              {HOME_FAQ.map((item, i) => (
+                <RevealOnScroll key={item.question} delayMs={i * 40}>
+                  <details className="group rounded-[1.2rem] border border-[rgba(215,161,175,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] px-5 py-4 shadow-[0_8px_24px_rgba(72,49,56,0.04)] sm:px-6 sm:py-5">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-[1.2rem] leading-[1.2] tracking-[-0.02em] text-neutral-900 marker:hidden [&::-webkit-details-marker]:hidden">
+                      {item.question}
+                      <span
+                        aria-hidden
+                        className="mt-0.5 shrink-0 text-[1.35rem] leading-none text-[var(--color-accent-dark)] transition-transform duration-200 group-open:rotate-45"
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 text-[0.98rem] leading-8 text-neutral-700">{item.answer}</p>
+                  </details>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,var(--color-paper)_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
