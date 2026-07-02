@@ -5,7 +5,9 @@ import {
 } from '@/lib/blog/productCardImages';
 import { adapterTitleMatchesStrollerModel } from '@/lib/catalog/adapterModelMatching';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
-import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
+import { canonicalStrollerBrand, isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
+import { productModelKey } from '@/lib/catalog/modelIdentity';
+import { normalizeStrollerVariantModel } from '@/lib/catalog/strollerVariantIdentity';
 import { hasPublicCoreRetailer, isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { parseCarSeatModel, parseStrollerModel } from '@/lib/catalog/strollerModel';
 import {
@@ -1030,6 +1032,28 @@ export async function getTravelSystemCompatibility(
   };
 }
 
+/**
+ * Clean the "compatible strollers" list for the by-car-seat view: drop
+ * accessories / non-stroller products (bassinets, second seats, frames, bundles,
+ * excluded brands) and collapse duplicate variants of the same stroller, keeping
+ * the first (already best-ranked) occurrence. Mirrors the Stroller Finder rules
+ * so both surfaces show the same clean set.
+ */
+function cleanCompatibleStrollers<T extends { brand: string; model: string; displayName?: string | null }>(rows: T[]): T[] {
+  const seen = new Set<string>();
+  const out: T[] = [];
+  for (const row of rows) {
+    const title = row.displayName || `${row.brand} ${row.model}`;
+    if (isExcludedStrollerFinderProduct({ brand: row.brand, title })) continue;
+    const brand = canonicalStrollerBrand(row.brand);
+    const key = productModelKey(brand, normalizeStrollerVariantModel(row.model, brand) || row.model);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(row);
+  }
+  return out;
+}
+
 export async function getTravelSystemCompatibilityByCarSeat(
   carSeatBrand: string,
   carSeatModel: string,
@@ -1230,6 +1254,8 @@ export async function getTravelSystemCompatibilityByCarSeat(
       macroBabyPrice: carSeat.macroBabyPrice ?? null,
       amazonUrl: carSeat.amazonUrl ?? null,
     },
-    compatibleStrollers: compatibleStrollers.filter(hasPublicTravelSystemRetailer),
+    compatibleStrollers: cleanCompatibleStrollers(
+      compatibleStrollers.filter(hasPublicTravelSystemRetailer),
+    ),
   };
 }
