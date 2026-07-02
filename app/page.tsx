@@ -58,7 +58,7 @@ type AdvisorFocusItem = {
 
 const advisorFocusAreas: AdvisorFocusItem[] = [
   {
-    title: 'Stroller Strategy',
+    title: 'Stroller Systems',
     iconSrc: '/assets/icons/gear-plan.png',
     iconAlt: 'Baby gear planning illustration',
     width: 1155,
@@ -233,13 +233,6 @@ const authorityStripLogos = [
     height: 228,
     className: 'max-h-6',
   },
-  {
-    src: '/assets/logos/babyquip.png',
-    alt: 'BabyQuip Tiny Travels podcast, where Taylor was featured as a baby gear expert',
-    width: 512,
-    height: 512,
-    className: 'max-h-6',
-  },
 ] as const;
 
 function AdvisorFocusCard({
@@ -331,8 +324,44 @@ export default function HomePage() {
         <StartHereSection />
 
         <HomeAuthorityStrip
-          text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge, and featured on the BabyQuip Tiny Travels podcast."
+          text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
           logos={authorityStripLogos}
+          badge={
+            <a
+              href="https://open.spotify.com/episode/7e2c0icuRxEKotUPdB0aOS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3.5 rounded-full border border-[rgba(215,161,175,0.4)] bg-white/95 py-2.5 pl-3 pr-5 shadow-[0_10px_26px_rgba(72,49,56,0.09)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)]"
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[rgba(215,161,175,0.28)] bg-[#fdf7f4]">
+                <Image
+                  src="/assets/logos/babyquip.png"
+                  alt="BabyQuip Tiny Travels podcast"
+                  width={512}
+                  height={512}
+                  sizes="44px"
+                  className="h-7 w-7 object-contain"
+                  loading="lazy"
+                />
+              </span>
+              <span className="text-left">
+                <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]/75">
+                  As heard on
+                </span>
+                <span className="block font-serif text-[1.08rem] leading-tight tracking-[-0.02em] text-neutral-900">
+                  BabyQuip Tiny Travels
+                </span>
+              </span>
+              <span
+                aria-hidden
+                className="ml-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--color-cta-pink)] text-white transition group-hover:bg-[var(--color-cta-pink-hover)]"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-3 w-3">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </a>
+          }
         />
 
         <section className="bg-white py-12 md:py-20">
@@ -343,8 +372,11 @@ export default function HomePage() {
                   <div className="relative z-[1] max-w-[40rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                     <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      Your Baby Registry Expert, Taylor Vanderwolk
+                      Your Baby Registry Expert
                     </h2>
+                    <p className="mt-3 border-l-[3px] border-[var(--color-cta-pink)]/55 pl-4 text-[1.9rem] italic leading-[1.15] tracking-[-0.01em] text-[var(--color-cta-pink)] [font-family:var(--font-accent)] sm:text-[2.15rem]">
+                      Taylor Vanderwolk
+                    </p>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       I have spent years helping families sort strollers, car seats, registries, and nursery decisions
                       in real life, not just in theory. I know how fast baby gear can go from exciting to weirdly
