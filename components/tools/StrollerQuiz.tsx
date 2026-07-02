@@ -75,7 +75,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'One now — but another baby is in the near-term plan',
         sublabel: 'A real timeline, within a couple of years',
-        scores: { convertible: 4, 'full-size': 1 },
+        scores: { convertible: 6, 'full-size': 1 },
       },
       {
         label: 'Two little ones who both still need to ride',
@@ -87,7 +87,7 @@ const QUESTIONS: Question[] = [
         label: 'Twins or more on the way',
         sublabel: 'Two seats needed from day one',
         scores: { double: 6 },
-        forceCategories: ['double', 'double-jogging', 'convertible'],
+        forceCategories: ['double', 'double-jogging'],
       },
     ],
   },
@@ -191,7 +191,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'It\'ll move between our place and others\'',
         sublabel: 'Grandparents, daycare, or two homes',
-        scores: { travel: 3, compact: 1 },
+        scores: { travel: 4, compact: 1 },
       },
     ],
   },
@@ -203,7 +203,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'I want to run or jog with the baby',
         sublabel: 'Keeping up my pace matters to me',
-        scores: { jogging: 5, 'double-jogging': 5 },
+        scores: { jogging: 6, 'double-jogging': 6 },
       },
       {
         label: 'Lots of outdoor time — trails, parks, the beach',
@@ -255,7 +255,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'Pretty often',
         sublabel: 'We travel, or family lives far away',
-        scores: { travel: 4, compact: 1 },
+        scores: { travel: 6, compact: 1 },
       },
       {
         label: 'A couple of trips a year',
@@ -286,7 +286,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'It\'ll bounce between a few different people',
         sublabel: 'Lots of hands, lots of different cars',
-        scores: { travel: 3, compact: 1 },
+        scores: { travel: 4, compact: 1 },
       },
       {
         label: 'Not totally sure yet',
@@ -334,12 +334,12 @@ const QUESTIONS: Question[] = [
       {
         label: 'A stroller that gets stuck on bumpy ground',
         sublabel: 'I need it to roll over just about anything',
-        scores: { jogging: 3, 'double-jogging': 3 },
+        scores: { jogging: 4, 'double-jogging': 4 },
       },
       {
         label: 'Having to buy a second stroller later on',
         sublabel: 'I\'d rather get it right the first time',
-        scores: { convertible: 3, 'full-size': 1 },
+        scores: { convertible: 4, 'full-size': 1 },
       },
       {
         label: 'A cramped seat my baby outgrows quickly',
@@ -365,7 +365,7 @@ const QUESTIONS: Question[] = [
       {
         label: 'Long enough to grow with another kid',
         sublabel: 'Planning for a bigger family',
-        scores: { convertible: 3 },
+        scores: { convertible: 4 },
       },
       {
         label: 'No strong feeling either way',
@@ -392,12 +392,12 @@ const QUESTIONS: Question[] = [
       {
         label: 'Tough enough for anything',
         sublabel: 'Weather, terrain, the great outdoors',
-        scores: { jogging: 4, 'double-jogging': 4 },
+        scores: { jogging: 5, 'double-jogging': 5 },
       },
       {
         label: 'Room to grow with our family',
         sublabel: 'It can turn into a double later on',
-        scores: { convertible: 3, 'full-size': 1 },
+        scores: { convertible: 4, 'full-size': 1 },
       },
     ],
   },
@@ -580,6 +580,8 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     watchOut:
       'If a second baby is still a someday-maybe, this is a lot of stroller to push around in the meantime — a simpler single now (and a double later, only if you need it) can be the easier path. And when you do shop, check that both seats are equally roomy and comfortable; some so-called convertibles give the second child a noticeably smaller seat.',
     imageSrc: '/assets/strollers/convertable.png',
+    blogHref: '/blog/best-convertible-single-to-double-strollers-2026',
+    blogTitle: 'The Best Convertible Single-to-Double Strollers of 2026',
     picks: [
       {
         name: 'Bugaboo Donkey 6',
@@ -718,10 +720,10 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         imageSrc: '/assets/strollers/urbnglide.png',
       },
       {
-        name: 'Bumbleride Indie Twin',
-        tagline: 'All-terrain double with air tires and a smooth, sturdy push.',
-        brand: 'Bumbleride',
-        model: 'Indie Twin',
+        name: 'Baby Jogger Summit X3 Double',
+        tagline: 'A true double jogger with all-wheel suspension and air tires for real pace.',
+        brand: 'Baby Jogger',
+        model: 'Summit X3 Double',
       },
     ],
   },
