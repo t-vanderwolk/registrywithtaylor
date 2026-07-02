@@ -110,7 +110,7 @@ export default function Header({ currentPath }: HeaderProps) {
             className="max-w-[11.5rem] transition-colors duration-200 hover:text-charcoal/80 sm:max-w-none"
             onClick={() => setOpen(false)}
           >
-            <span className="block font-script text-[1.55rem] leading-none text-[var(--color-accent-dark)] sm:text-[1.85rem]">
+            <span className="block whitespace-nowrap font-script text-[1.55rem] leading-none text-[var(--color-accent-dark)] sm:text-[1.85rem]">
               Taylor-Made
             </span>
             <span className="mt-1 block font-serif text-[0.68rem] uppercase tracking-[0.28em] text-charcoal/80 sm:text-[0.74rem]">
