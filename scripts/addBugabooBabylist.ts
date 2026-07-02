@@ -38,8 +38,11 @@ const SPECS: Spec[] = [
     brand: 'Bugaboo',
     model: 'Fox 5',
     productType: 'full-size stroller',
+    // Title must NOT contain "bassinet" — the finder's noise filter
+    // (STROLLER_PRODUCT_NOISE_RE) drops any product whose title matches \bbassinet\b,
+    // which is why the original "…Complete Stroller & Bassinet" title never showed.
     externalId: '2365261',
-    title: 'Bugaboo Fox 5 Renew Complete Stroller & Bassinet',
+    title: 'Bugaboo Fox 5 Renew Complete Stroller',
     affiliateUrl:
       'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-fox-5-renew-complete-stroller-bassinet%2F71205%2F2365261&partnerpropertyid=7490466',
     imageUrl:
