@@ -98,6 +98,8 @@
     "catalog:add-bugaboo-turtle-apply": "tsx scripts/addBugabooTurtleDirect.ts --apply",
     "catalog:add-zoe-bumbleride": "tsx scripts/addZoeBumblerideBabylist.ts",
     "catalog:add-zoe-bumbleride-apply": "tsx scripts/addZoeBumblerideBabylist.ts --apply",
+    "catalog:add-babylist-adapters": "tsx scripts/addBabylistAdapters.ts",
+    "catalog:add-babylist-adapters-apply": "tsx scripts/addBabylistAdapters.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
