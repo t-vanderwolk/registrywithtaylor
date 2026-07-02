@@ -88,6 +88,8 @@
     "catalog:add-adapters": "tsx scripts/addAdapters.ts",
     "catalog:add-adapters-apply": "tsx scripts/addAdapters.ts --apply",
     "catalog:scan-no-matches": "tsx scripts/scanStrollerMatches.ts",
+    "catalog:add-bugaboo-babylist": "tsx scripts/addBugabooBabylist.ts",
+    "catalog:add-bugaboo-babylist-apply": "tsx scripts/addBugabooBabylist.ts --apply",
     "catalog:audit-stroller-categories": "tsx scripts/auditStrollerCategories.ts",
     "catalog:audit-stroller-finder-types": "tsx scripts/auditStrollerFinderTypeBuckets.ts",
     "catalog:audit-stroller-finder-types-apply": "tsx scripts/auditStrollerFinderTypeBuckets.ts --apply",
