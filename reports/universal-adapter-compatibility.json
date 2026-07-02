@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T18:12:04.346Z",
+  "generatedAt": "2026-07-01T23:56:02.260Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -230,35 +230,35 @@
       "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Fox 2",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
       "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bugaboo",
@@ -279,7 +279,7 @@
       "stroller": "Bugaboo Fox 5",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Donkey / Dragonfly / Butterfly / Fox",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Joolz",
