@@ -36,7 +36,7 @@ const SPECS: { label: string; brand?: string; re: RegExp }[] = [
   { label: 'Joolz Day+ / Day+ Complete', brand: 'Joolz', re: /\bday\s*\+/i },
   // "Hub" but not "Hub2" / "Hub²" (the current model we keep).
   { label: 'Joolz Hub (older, not Hub2)', brand: 'Joolz', re: /\bhub\b(?![²2])/i },
-  { label: 'Mockingbird Single-to-Double 3.0', brand: 'Mockingbird', re: /single[-\s]?to[-\s]?double\b.*3\.?0/i },
+  // (Mockingbird Single / Single-to-Double are intentionally KEPT — restored per request.)
 ];
 
 function matchLabel(brand: string | null | undefined, text: string): string | null {

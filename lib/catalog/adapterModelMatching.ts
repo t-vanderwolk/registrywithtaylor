@@ -165,15 +165,27 @@ export function adapterTitleMatchesStrollerModel(
   strollerModel: string,
   strollerBrand?: string | null,
 ): AdapterModelMatch {
+  const titleTokens = tokens(title);
+
   if (strollerBrand) {
     const brandsInTitle = strollerBrandsInTitle(title);
     const strollerBrandKey = canonicalBrandKey(strollerBrand);
     if (brandsInTitle.size > 0 && !brandsInTitle.has(strollerBrandKey)) {
       return { matched: false, matchedModel: null, matchKind: null };
     }
+
+    // Brand-wide generic adapter: a title that says "for <brand> stroller"
+    // (e.g. "Mockingbird Car Seat Adapter for Mockingbird Stroller" or the Joie
+    // ICS "for Mockingbird Stroller") fits every model of that brand, so match
+    // regardless of the specific model/version.
+    if (
+      brandsInTitle.has(strollerBrandKey) &&
+      contiguousIndex(titleTokens, tokens(`for ${strollerBrand} stroller`)) >= 0
+    ) {
+      return { matched: true, matchedModel: null, matchKind: 'core' };
+    }
   }
 
-  const titleTokens = tokens(title);
   const full = normalizeText(strollerModel);
   const core = stripGenericModelWords(strollerModel);
   const candidates = unique([full, core]);

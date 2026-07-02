@@ -125,6 +125,11 @@ const ADAPTER_STROLLERS: Rule[] = [
   // Larktale Caravan (Coupe / Quad stroller-wagons) takes Maxi-Cosi / Nuna / Clek
   // via the Caravan car seat adapter, plus a separate Chicco adapter.
   { brand: 'Larktale', model: /\bcaravan\b/i, family: 'Caravan', extraSeatBrands: ['Chicco'] },
+  // Mockingbird makes no car seat of its own. The Single / Single-to-Double take
+  // the shared Nuna / Maxi-Cosi / CYBEX / Clek / Britax group via the Mockingbird
+  // Car Seat Adapter, PLUS Graco / Chicco / Baby Jogger / UPPAbaby via the other
+  // Mockingbird adapter variants and Joie via the Joie ICS adapter.
+  { brand: 'Mockingbird', model: null, family: 'Single / Single-to-Double', extraSeatBrands: ['Graco', 'Chicco', 'Baby Jogger', 'UPPAbaby', 'Joie'] },
 ];
 
 function label(row: Row) {

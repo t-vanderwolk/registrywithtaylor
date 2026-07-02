@@ -100,6 +100,8 @@
     "catalog:add-zoe-bumbleride-apply": "tsx scripts/addZoeBumblerideBabylist.ts --apply",
     "catalog:add-babylist-adapters": "tsx scripts/addBabylistAdapters.ts",
     "catalog:add-babylist-adapters-apply": "tsx scripts/addBabylistAdapters.ts --apply",
+    "catalog:add-veer-mockingbird": "tsx scripts/addVeerMockingbirdBabylist.ts",
+    "catalog:add-veer-mockingbird-apply": "tsx scripts/addVeerMockingbirdBabylist.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
