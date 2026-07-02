@@ -797,8 +797,18 @@ function pickAdapter(adapters: CatalogAdapter[], carSeatBrand: string): CatalogA
   return carSeatAdapter ?? adapters[0];
 }
 
+/** Last-resort adapter link so an adapter-required pairing is never left with a
+ *  dead "Adapter link unavailable" state. Points at an Amazon search scoped to
+ *  the exact stroller + car-seat brands, with the affiliate tag. */
+function amazonAdapterSearchUrl(strollerBrand: string, carSeatBrand: string) {
+  const query = `${strollerBrand} ${carSeatBrand} infant car seat adapter`.replace(/\s+/g, ' ').trim();
+  return `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=taylormadebab-20`;
+}
+
 /** Fill missing adapter image/link/price on adapter-required rows from the
- *  catalog, keyed on the stroller model (cached) and the car-seat brand. */
+ *  catalog, keyed on the stroller model (cached) and the car-seat brand. Every
+ *  adapter-required row is guaranteed a link: catalog product first, otherwise
+ *  an Amazon adapter search fallback. */
 async function fillAdapterProducts<
   T extends {
     adapterRequired: boolean;
@@ -810,15 +820,24 @@ async function fillAdapterProducts<
   const adapters = await getCatalogAdapters();
   const cache = new Map<string, CatalogAdapter[]>();
   for (const row of rows) {
-    if (!row.adapterRequired || row.adapterUrl || row.adapterImage) continue;
+    if (!row.adapterRequired) continue;
     const stroller = strollerOf(row);
-    const key = `${stroller.brand.toLowerCase().trim()}:::${stroller.model.toLowerCase().trim()}`;
-    if (!cache.has(key)) cache.set(key, adaptersForStrollerModel(adapters, stroller));
-    const adapter = pickAdapter(cache.get(key)!, carSeatBrandOf(row));
-    if (adapter) {
-      row.adapterImage = adapter.imageUrl ?? row.adapterImage ?? null;
-      row.adapterUrl = adapter.affiliateUrl ?? row.adapterUrl ?? null;
-      row.adapterPrice = adapter.price ?? row.adapterPrice ?? null;
+    const carSeatBrand = carSeatBrandOf(row);
+
+    if (!row.adapterUrl && !row.adapterImage) {
+      const key = `${stroller.brand.toLowerCase().trim()}:::${stroller.model.toLowerCase().trim()}`;
+      if (!cache.has(key)) cache.set(key, adaptersForStrollerModel(adapters, stroller));
+      const adapter = pickAdapter(cache.get(key)!, carSeatBrand);
+      if (adapter) {
+        row.adapterImage = adapter.imageUrl ?? row.adapterImage ?? null;
+        row.adapterUrl = adapter.affiliateUrl ?? row.adapterUrl ?? null;
+        row.adapterPrice = adapter.price ?? row.adapterPrice ?? null;
+      }
+    }
+
+    // Guarantee availability: no adapter-required pairing is ever link-less.
+    if (!row.adapterUrl) {
+      row.adapterUrl = amazonAdapterSearchUrl(stroller.brand, carSeatBrand);
     }
   }
 }
