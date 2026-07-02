@@ -1051,21 +1051,33 @@ export async function getTravelSystemCompatibility(
   };
 }
 
+/** The Stroller Finder's identity key for a stroller (brand + variant-normalized
+ *  model). Used to match compatible strollers against the public catalog so the
+ *  by-car-seat view shows exactly the strollers the finder / stroller-first show. */
+function finderStrollerKey(brand: string, model: string) {
+  const canonical = canonicalStrollerBrand(brand);
+  return productModelKey(canonical, normalizeStrollerVariantModel(model, canonical) || model);
+}
+
 /**
  * Clean the "compatible strollers" list for the by-car-seat view: drop
  * accessories / non-stroller products (bassinets, second seats, frames, bundles,
- * excluded brands) and collapse duplicate variants of the same stroller, keeping
- * the first (already best-ranked) occurrence. Mirrors the Stroller Finder rules
- * so both surfaces show the same clean set.
+ * excluded brands), keep only strollers that are publicly visible in the finder
+ * (so anything hidden from the finder / stroller-first is hidden here too), and
+ * collapse duplicate variants, keeping the first (already best-ranked) occurrence.
  */
-function cleanCompatibleStrollers<T extends { brand: string; model: string; displayName?: string | null }>(rows: T[]): T[] {
+function cleanCompatibleStrollers<T extends { brand: string; model: string; displayName?: string | null }>(
+  rows: T[],
+  publicStrollerKeys: Set<string>,
+): T[] {
   const seen = new Set<string>();
   const out: T[] = [];
   for (const row of rows) {
     const title = row.displayName || `${row.brand} ${row.model}`;
     if (isExcludedStrollerFinderProduct({ brand: row.brand, title })) continue;
-    const brand = canonicalStrollerBrand(row.brand);
-    const key = productModelKey(brand, normalizeStrollerVariantModel(row.model, brand) || row.model);
+    const key = finderStrollerKey(row.brand, row.model);
+    // Parity with the finder: if it is not in the public stroller catalog, hide it.
+    if (!publicStrollerKeys.has(key)) continue;
     if (seen.has(key)) continue;
     seen.add(key);
     out.push(row);
@@ -1259,6 +1271,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
     () => carSeat.brand,
   );
 
+  // Parity with the finder / stroller-first: only show strollers that are in the
+  // public stroller catalog, so anything hidden there is hidden here too.
+  const publicStrollerKeys = new Set(
+    (await getPublicStrollerCatalogTravelSystemOptions()).map((option) =>
+      finderStrollerKey(option.brand, option.model),
+    ),
+  );
+
   return {
     carSeat: {
       brand: carSeat.brand,
@@ -1275,6 +1295,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
     },
     compatibleStrollers: cleanCompatibleStrollers(
       compatibleStrollers.filter(hasPublicTravelSystemRetailer),
+      publicStrollerKeys,
     ),
   };
 }
