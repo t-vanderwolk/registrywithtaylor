@@ -120,6 +120,7 @@
     "catalog:dragonfly-trvl-apply": "tsx scripts/addDragonflyRenameTrvl.ts --apply",
     "catalog:add-zoe-adapters": "tsx scripts/addZoeAdapters.ts",
     "catalog:add-zoe-adapters-apply": "tsx scripts/addZoeAdapters.ts --apply",
+    "catalog:report-gbg-open-box": "tsx scripts/reportGbgOpenBoxDeals.ts",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
