@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
+import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -245,6 +246,14 @@ function ProductCard({
               href={offer.url ?? undefined}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
+              onClick={() =>
+                trackToolAffiliateClick('stroller-finder', {
+                  product: `${brand} ${displayTitle}`.trim(),
+                  retailer: meta.key,
+                  brand,
+                  url: offer.url,
+                })
+              }
               className={`tool-btn ${index === 0 ? 'tool-btn--primary' : meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
             >
               {meta.key === 'babylist' ? <BabylistHeartIcon className="shrink-0" /> : null}
@@ -289,6 +298,11 @@ export default function StrollerCatalogFinder({
       .catch(() => setBrands([]))
       .finally(() => setLoading(false));
   }, []);
+
+  // Fire once when the finder mounts.
+  useEffect(() => {
+    trackToolOpened('stroller-finder', initialCategory ? { entryCategory: initialCategory } : {});
+  }, [initialCategory]);
 
   const totalCount = useMemo(() => brands.reduce((n, b) => n + b.count, 0), [brands]);
   const q = query.trim().toLowerCase();
@@ -430,7 +444,10 @@ export default function StrollerCatalogFinder({
                   <button
                     key={c.category}
                     type="button"
-                    onClick={() => setSelectedCategory(c.category)}
+                    onClick={() => {
+                      trackToolSelection('stroller-finder', 'category', c.category);
+                      setSelectedCategory(c.category);
+                    }}
                     className="tool-card tool-card--interactive items-start gap-1 px-5 py-4 text-left"
                   >
                     <span className="font-serif text-[1.12rem] leading-tight text-neutral-900">{c.label}</span>
@@ -478,7 +495,10 @@ export default function StrollerCatalogFinder({
                 <button
                   key={b.brand}
                   type="button"
-                  onClick={() => setSelectedBrand(b.brand)}
+                  onClick={() => {
+                    trackToolSelection('stroller-finder', 'brand', b.brand);
+                    setSelectedBrand(b.brand);
+                  }}
                   className="tool-card tool-card--interactive tool-brand-card"
                 >
                   {/* Fixed-size box so every brand logo renders at a uniform footprint */}

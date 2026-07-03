@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useState } from 'react';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import { BRAND_LOGOS } from './StrollerCatalogFinder';
 import type {
   TravelSystemCarSeatOption,
@@ -179,6 +180,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     setSelectorBrand(null);
   }, [lookupMode]);
 
+  // Fire once when the checker mounts.
+  useEffect(() => {
+    trackToolOpened('travel-system-checker');
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
@@ -307,12 +313,19 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       ? 'We will check infant car seats that fit this stroller and separate direct fits from adapter-required options.'
       : 'We will check strollers that fit this infant car seat and separate direct fits from adapter-required options.';
   const handleResultsClick = () => {
-    if (!resultsHref) return;
+    if (!resultsHref || !selectedOption) return;
+    trackToolResultViewed('travel-system-checker', {
+      mode: lookupMode,
+      value: selectedOption.displayName,
+      brand: selectedOption.brand,
+    });
     router.push(resultsHref);
   };
   // Match the Stroller Finder: one click on a card routes straight to results.
   const browseCta = lookupMode === 'stroller' ? 'Compatible car seats' : 'Compatible strollers';
   const goToResults = (option: TravelSystemStrollerOption | TravelSystemCarSeatOption) => {
+    trackToolSelection('travel-system-checker', lookupMode, option.displayName, { brand: option.brand });
+    trackToolResultViewed('travel-system-checker', { mode: lookupMode, value: option.displayName, brand: option.brand });
     router.push(travelSystemResultsHref(lookupMode, option));
   };
 
@@ -389,7 +402,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                   <button
                     key={brand}
                     type="button"
-                    onClick={() => setSelectorBrand(brand)}
+                    onClick={() => {
+                      trackToolSelection('travel-system-checker', `${lookupMode}-brand`, brand);
+                      setSelectorBrand(brand);
+                    }}
                     className="tool-card tool-card--interactive tool-brand-card tool-brand-card--compact"
                   >
                     <div className="tool-brand-card__mark">

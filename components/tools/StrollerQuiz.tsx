@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { OpenBoxBadge } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
@@ -821,6 +822,10 @@ export default function StrollerQuiz() {
   const [catalogBrands, setCatalogBrands] = useState<CatalogBrand[]>([]);
 
   useEffect(() => {
+    trackToolOpened('stroller-quiz');
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     fetch('/api/catalog/strollers')
       .then((r) => (r.ok ? r.json() : { brands: [] }))
@@ -862,6 +867,9 @@ export default function StrollerQuiz() {
     if (selected === null) return;
     const newAnswers = { ...answers, [question.id]: selected };
     setAnswers(newAnswers);
+    trackToolSelection('stroller-quiz', `q${currentQ + 1}`, String(question.answers?.[selected]?.label ?? selected), {
+      question: question.id,
+    });
 
     if (currentQ < QUESTIONS.length - 1) {
       setCurrentQ((q) => q + 1);
@@ -870,6 +878,7 @@ export default function StrollerQuiz() {
       const winner = scoreAnswers(newAnswers);
       setResult(CATEGORIES[winner]);
       setStep('result');
+      trackToolResultViewed('stroller-quiz', { category: CATEGORIES[winner]?.name ?? winner });
     }
   }
 
@@ -1053,6 +1062,7 @@ export default function StrollerQuiz() {
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
                           style={styles.shopBtnBabylist}
+                          onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'babylist', brand: pick.brand, url: babylistUrl })}
                         >
                           <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
                             <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
@@ -1066,6 +1076,7 @@ export default function StrollerQuiz() {
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
                           style={styles.shopBtnAmazon}
+                          onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'amazon', brand: pick.brand, url: links.amazonUrl })}
                         >
                           <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
                             <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>

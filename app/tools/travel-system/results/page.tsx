@@ -5,6 +5,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
+import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
   formatCompatibilityConfidence,
@@ -317,15 +318,16 @@ function AdapterCallout({
       </div>
 
       {item.adapterUrl ? (
-        <a
+        <ToolAffiliateLink
+          tool="travel-system-checker"
           href={item.adapterUrl}
-          target="_blank"
-          rel="sponsored nofollow noopener noreferrer"
+          product={item.adapterType ?? 'Car seat adapter'}
+          retailer="adapter"
           className="tool-adapter-callout__link"
-          aria-label={`Shop adapter: ${item.adapterType ?? 'car seat adapter'}`}
+          ariaLabel={`Shop adapter: ${item.adapterType ?? 'car seat adapter'}`}
         >
           Shop adapter
-        </a>
+        </ToolAffiliateLink>
       ) : (
         <span className="tool-adapter-callout__missing">Adapter link unavailable</span>
       )}
@@ -389,25 +391,29 @@ function ResultCard({
             {formatCompatibilityConfidence(item.confidence)} confidence
           </span>
           {primaryCta ? (
-            <a
+            <ToolAffiliateLink
+              tool="travel-system-checker"
               href={primaryCta.url}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
+              product={`${item.brand} ${displayTitle}`.trim()}
+              retailer={primaryCta.source}
+              brand={item.brand}
               className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
             >
               {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
               {primaryCta.label}
-            </a>
+            </ToolAffiliateLink>
           ) : null}
           {amazonUrl ? (
-            <a
+            <ToolAffiliateLink
+              tool="travel-system-checker"
               href={amazonUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
+              product={`${item.brand} ${displayTitle}`.trim()}
+              retailer="amazon"
+              brand={item.brand}
               className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
             >
               Amazon
-            </a>
+            </ToolAffiliateLink>
           ) : null}
         </div>
       </div>

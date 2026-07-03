@@ -23,13 +23,11 @@ export default function AdminShell({
   brand,
   sections,
   isReviewerMode = false,
-  academyAdminEnabled = true,
 }: {
   children: ReactNode;
   brand: string;
   sections: NavSection[];
   isReviewerMode?: boolean;
-  academyAdminEnabled?: boolean;
 }) {
   const pathname = usePathname() ?? '/admin';
 
@@ -52,11 +50,9 @@ export default function AdminShell({
             {!isReviewerMode ? (
               <>
                 <AdminNotificationBell />
-                {academyAdminEnabled ? (
-                  <AdminButton asChild variant="primary">
-                    <Link href="/admin/academy/new">New Academy Draft</Link>
-                  </AdminButton>
-                ) : null}
+                <AdminButton asChild variant="primary">
+                  <Link href="/admin/strollers">Manage strollers</Link>
+                </AdminButton>
                 <AdminButton asChild variant="secondary">
                   <Link href="/admin/blog/new">New Post</Link>
                 </AdminButton>
@@ -105,7 +101,7 @@ export default function AdminShell({
               <p className="admin-micro">
                 {isReviewerMode
                   ? 'Reviewer access is built for inspection only. Production data changes stay off the table.'
-                  : 'Academy and learning-content records publish through the authority layer while posts continue through the journal flow.'}
+                  : 'Manage the stroller and car-seat databases, affiliate links, and posts. Edits here are human-owned and never overwritten by feed syncs.'}
               </p>
             </AdminSurface>
           </aside>

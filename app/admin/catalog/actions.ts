@@ -56,5 +56,24 @@ export async function saveEnrichment(formData: FormData) {
     update: data,
   });
 
+  // Human-owned product + buy-link fields. Only write when a field was submitted
+  // (the form always sends these), so admin edits stick and the sync leaves them.
+  const priceRaw = str('price');
+  const priceNum = priceRaw != null ? Number(priceRaw) : null;
+  const productData: Record<string, unknown> = {
+    manualAmazonUrl: str('manualAmazonUrl'),
+  };
+  if (str('title') != null) productData.title = str('title');
+  productData.brand = str('brand');
+  productData.imageUrl = str('imageUrl');
+  productData.affiliateUrl = str('affiliateUrl');
+  if (priceRaw != null && Number.isFinite(priceNum)) productData.price = priceNum;
+  else if (priceRaw == null) productData.price = null;
+
+  await db.affiliateCatalogProduct.update({
+    where: { id: rawProductId },
+    data: productData,
+  });
+
   revalidatePath('/admin/catalog');
 }

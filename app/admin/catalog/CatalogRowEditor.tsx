@@ -31,6 +31,7 @@ export type CatalogProduct = {
   productTypePath: string | null;
   price: number | null;
   affiliateUrl: string | null;
+  manualAmazonUrl: string | null;
   isActiveInFeed: boolean;
   enrichment: CatalogEnrichment;
 };
@@ -149,6 +150,38 @@ export default function CatalogRowEditor({ product, categories }: { product: Cat
           <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
             Taylor’s note
             <textarea name="taylorsNote" defaultValue={e?.taylorsNote ?? ''} rows={2} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <p className="admin-eyebrow sm:col-span-2 mt-1">Product & buy-links (human-owned — the feed sync won’t overwrite)</p>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+            Title
+            <input name="title" defaultValue={product.title} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+            Brand
+            <input name="brand" defaultValue={product.brand ?? ''} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+            Price ($)
+            <input name="price" type="number" step="0.01" defaultValue={product.price ?? ''} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+            Image URL
+            <input name="imageUrl" defaultValue={product.imageUrl ?? ''} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+            Babylist / affiliate URL
+            <input name="affiliateUrl" defaultValue={product.affiliateUrl ?? ''} className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+          </label>
+
+          <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+            Amazon affiliate link (manual override)
+            <input name="manualAmazonUrl" defaultValue={product.manualAmazonUrl ?? ''} placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
           </label>
 
           <fieldset className="flex flex-wrap gap-x-4 gap-y-2 sm:col-span-2">

@@ -20,6 +20,11 @@ export const AnalyticsEvents = {
   REGISTRY_ADDED:      'registry_added',
   REGISTRY_UPDATED:    'registry_updated',
   REGISTRY_REMOVED:    'registry_removed',
+  // ── Free tools (stroller finder / travel-system checker / stroller quiz) ─────
+  TOOL_OPENED:          'tool_opened',
+  TOOL_SELECTION:       'tool_selection',
+  TOOL_RESULT_VIEWED:   'tool_result_viewed',
+  TOOL_AFFILIATE_CLICK: 'tool_affiliate_click',
 } as const;
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents];

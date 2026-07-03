@@ -7,26 +7,31 @@ import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
-import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
-import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import { getNewsletterAnalytics } from '@/lib/server/mailchimp';
 import { requireAdminViewSession } from '@/lib/server/session';
-import { isAcademyAdminEnabled } from '@/lib/featureFlags';
 
 export const dynamic = 'force-dynamic';
 
-type AdminNavLink = { href: string; label: string; editorOnly?: boolean; academyOnly?: boolean };
+type AdminNavLink = { href: string; label: string; editorOnly?: boolean };
 
 // Grouped admin navigation surfaced in the dashboard Quick links.
 // editorOnly links are hidden for read-only (reviewer) admins.
 const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
   {
+    title: 'Databases',
+    links: [
+      { href: '/admin/strollers', label: 'Strollers', editorOnly: true },
+      { href: '/admin/car-seats', label: 'Car seats', editorOnly: true },
+      { href: '/admin/catalog/compatibility', label: 'Compatibility', editorOnly: true },
+      { href: '/admin/catalog', label: 'Affiliate catalog', editorOnly: true },
+      { href: '/admin/catalog/health', label: 'Catalog health' },
+    ],
+  },
+  {
     title: 'Content',
     links: [
-      { href: '/admin/academy', label: 'Academy', academyOnly: true },
       { href: '/admin/blog', label: 'Blog' },
       { href: '/admin/blog/planner', label: 'Blog planner', editorOnly: true },
-      { href: '/admin/guides', label: 'Guides' },
       { href: '/admin/media', label: 'Media library', editorOnly: true },
     ],
   },
@@ -44,31 +49,24 @@ const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
       { href: '/admin/affiliates', label: 'Affiliates', editorOnly: true },
       { href: '/admin/affiliate-links', label: 'Affiliate links', editorOnly: true },
       { href: '/admin/partners', label: 'Partners', editorOnly: true },
-      { href: '/admin/catalog', label: 'Catalog', editorOnly: true },
+      { href: '/admin/babylist', label: 'Babylist SKUs', editorOnly: true },
     ],
   },
   {
-    title: 'Insights & tools',
-    links: [
-      { href: '/admin/analytics', label: 'Analytics' },
-      { href: '/admin/academy/analytics', label: 'Academy analytics', academyOnly: true },
-      { href: '/admin/babylist', label: 'Babylist SKUs', editorOnly: true },
-    ],
+    title: 'Insights',
+    links: [{ href: '/admin/analytics', label: 'Analytics' }],
   },
 ];
 
 export default async function AdminDashboardPage() {
   const session = await requireAdminViewSession();
   const readOnly = session.user.role === 'REVIEWER';
-  const academyAdminEnabled = isAcademyAdminEnabled();
   const [
     consultationStatusCounts,
     inquiryStatusCounts,
     totalPosts,
-    totalGuides,
     blogViews,
     mostViewedPost,
-    guideAnalytics,
     newsletter,
     totalRegistries,
     totalMembers,
@@ -86,13 +84,6 @@ export default async function AdminDashboardPage() {
       },
     }),
     prisma.post.count(),
-    prisma.guide.count().catch((error) => {
-      if (isGuideStorageUnavailableError(error)) {
-        return 0;
-      }
-
-      throw error;
-    }),
     prisma.post.aggregate({
       _sum: {
         views: true,
@@ -106,7 +97,6 @@ export default async function AdminDashboardPage() {
         views: true,
       },
     }),
-    getGuideAnalyticsDashboard(),
     getNewsletterAnalytics(),
     registryDelegate.count().catch(() => 0),
     prisma.learner.count().catch(() => 0),
@@ -123,9 +113,6 @@ export default async function AdminDashboardPage() {
     return acc;
   }, {});
   const totalBlogViews = blogViews._sum.views ?? 0;
-  const totalGuideViews = guideAnalytics.summary.totalViews;
-  const totalTrackedTraffic = totalBlogViews + totalGuideViews;
-  const topGuide = guideAnalytics.topGuides[0] ?? null;
 
   return (
     <AdminStack gap="xl">
@@ -155,23 +142,21 @@ export default async function AdminDashboardPage() {
         ) : null}
       </AdminSurface>
 
-      {academyAdminEnabled ? (
-        <AdminSurface className="admin-stack gap-5">
-          <h2 className="admin-h2">Academy Members</h2>
-          <section className="admin-kpi-grid md:grid-cols-3" aria-label="Academy member metrics">
-            <AdminKpiCard label="Enrolled Members"       value={String(totalMembers)}    hint="Active learners" />
-            <AdminKpiCard label="Registry Submissions"   value={String(totalRegistries)} hint="Total registries saved by members" />
-            <AdminKpiCard label="Avg Registries / Member" value={totalMembers > 0 ? (totalRegistries / totalMembers).toFixed(1) : '0'} hint="Engagement indicator" />
-          </section>
-          {!readOnly ? (
-            <div>
-              <AdminButton asChild variant="primary">
-                <Link href="/admin/members">Open members panel</Link>
-              </AdminButton>
-            </div>
-          ) : null}
-        </AdminSurface>
-      ) : null}
+      <AdminSurface className="admin-stack gap-5">
+        <h2 className="admin-h2">Members</h2>
+        <section className="admin-kpi-grid md:grid-cols-3" aria-label="Member metrics">
+          <AdminKpiCard label="Members" value={String(totalMembers)} hint="Registered accounts" />
+          <AdminKpiCard label="Registry Submissions" value={String(totalRegistries)} hint="Total registries saved by members" />
+          <AdminKpiCard label="Avg Registries / Member" value={totalMembers > 0 ? (totalRegistries / totalMembers).toFixed(1) : '0'} hint="Engagement indicator" />
+        </section>
+        {!readOnly ? (
+          <div>
+            <AdminButton asChild variant="primary">
+              <Link href="/admin/members">Open members panel</Link>
+            </AdminButton>
+          </div>
+        ) : null}
+      </AdminSurface>
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Contact Inquiries</h2>
@@ -191,63 +176,24 @@ export default async function AdminDashboardPage() {
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Web Traffic</h2>
-        <section
-          className={`admin-kpi-grid md:grid-cols-3 ${academyAdminEnabled ? 'xl:grid-cols-5' : 'xl:grid-cols-2'}`}
-          aria-label="Web traffic metrics"
-        >
-          <AdminKpiCard
-            label="Total Web Traffic"
-            value={totalTrackedTraffic.toLocaleString()}
-            hint="Tracked blog post and academy views"
-          />
+        <section className="admin-kpi-grid md:grid-cols-2" aria-label="Web traffic metrics">
           <AdminKpiCard
             label="Blog Views"
             value={totalBlogViews.toLocaleString()}
             hint="Public journal article traffic"
           />
-          {academyAdminEnabled ? (
-            <>
-              <AdminKpiCard
-                label="Academy Views"
-                value={totalGuideViews.toLocaleString()}
-                hint={guideAnalytics.storageReady ? 'Public learning-content traffic' : 'Academy analytics unavailable'}
-              />
-              <AdminKpiCard
-                label="Academy Actions"
-                value={guideAnalytics.summary.totalEngagement.toLocaleString()}
-                hint="Academy CTA and affiliate clicks"
-              />
-              <AdminKpiCard
-                label="Academy Conversions"
-                value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()}
-                hint="Consultation clicks from academy content"
-              />
-            </>
-          ) : null}
+          <AdminKpiCard
+            label="Top Post"
+            value={mostViewedPost ? mostViewedPost.views.toLocaleString() : '0'}
+            hint={mostViewedPost ? mostViewedPost.title : 'No blog traffic yet'}
+          />
         </section>
-        <div className="admin-stack gap-2">
-          <p className="admin-body">
-            {mostViewedPost || topGuide
-              ? `Top traffic sources: ${
-                  mostViewedPost ? `${mostViewedPost.title} (${mostViewedPost.views.toLocaleString()} blog views)` : 'No blog traffic yet'
-                } · ${
-                  topGuide ? `${topGuide.title} (${topGuide.views.toLocaleString()} academy views)` : 'No academy traffic yet'
-                }`
-              : 'Traffic totals will start filling in as public blog posts and academy content collect views.'}
-          </p>
-          {!guideAnalytics.storageReady && guideAnalytics.storageMessage ? (
-            <p className="admin-micro">{guideAnalytics.storageMessage}</p>
-          ) : null}
-        </div>
         <div className="flex flex-wrap items-center gap-2">
           <AdminButton asChild variant="primary">
             <Link href="/admin/analytics">Open analytics overview</Link>
           </AdminButton>
           <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy">{readOnly ? 'Academy structure' : 'Academy editor'}</Link>
-          </AdminButton>
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/academy/analytics">Academy analytics</Link>
+            <Link href="/admin/blog">Manage posts</Link>
           </AdminButton>
         </div>
       </AdminSurface>
@@ -369,12 +315,10 @@ export default async function AdminDashboardPage() {
 
       <AdminSurface variant="muted" className="admin-stack gap-4">
         <p className="admin-eyebrow">Quick links</p>
-        <p className="admin-body">Learning content in system: {totalGuides} · Blog posts in system: {totalPosts}</p>
+        <p className="admin-body">Blog posts in system: {totalPosts}</p>
         <div className="admin-stack gap-4">
           {ADMIN_NAV_GROUPS.map((group) => {
-            const links = group.links.filter(
-              (link) => (!link.editorOnly || !readOnly) && (!link.academyOnly || academyAdminEnabled),
-            );
+            const links = group.links.filter((link) => !link.editorOnly || !readOnly);
             if (links.length === 0) return null;
             return (
               <div key={group.title} className="admin-stack gap-2">

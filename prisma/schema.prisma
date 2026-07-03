@@ -400,6 +400,8 @@ model Stroller {
   model           String
   displayName     String?
   summary         String?
+  // Admin-entered Amazon affiliate link (manual override, not from any feed).
+  amazonUrl       String?
   // ── Babylist (Impact.com) sync fields ──
   babylistSku       String?
   babylistUrl       String?
@@ -447,6 +449,8 @@ model CarSeat {
   displayName     String?
   seatType        CarSeatType            @default(INFANT)
   summary         String?
+  // Admin-entered Amazon affiliate link (manual override, not from any feed).
+  amazonUrl       String?
   // ── Babylist (Impact.com) sync fields ──
   babylistSku       String?
   babylistUrl       String?
@@ -728,6 +732,7 @@ model AffiliateCatalogProduct {
   imageUrl        String?
   productUrl      String?   // decoded landing URL (babylist.com product page), if extracted
   affiliateUrl    String?   // feed `link` — pre-tracked affiliate URL, stored EXACTLY as provided
+  manualAmazonUrl String?   // admin-entered Amazon affiliate override (human-owned; sync never touches)
   availability    String?
   inStock         Boolean   @default(true)
   itemGroupId     String?
