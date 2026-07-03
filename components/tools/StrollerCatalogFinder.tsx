@@ -13,6 +13,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   'Baby Jogger': '/assets/logos/babyjogger.png',
   'Baby Trend': '/assets/logos/babytrend.png',
   Bellini: '/assets/logos/bellini.png',
+  Bombi: '/assets/logos/bombi.png',
   Britax: '/assets/logos/britax.png',
   Bugaboo: '/assets/logos/bugaboo.png',
   Bumbleride: '/assets/logos/bumbleride.png',
