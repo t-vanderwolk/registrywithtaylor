@@ -913,13 +913,17 @@ function pickAdapter(adapters: CatalogAdapter[], carSeatBrand: string): CatalogA
   const cs = normalizeAlnum(carSeatBrand);
   const csIsEuro = EURO_SEAT_GROUP.includes(cs);
 
-  // 1. Exact car-seat-brand variant. Euro-group seats also accept an adapter
-  //    that names any euro-group brand (one adapter covers Nuna/Maxi-Cosi/CYBEX/Clek).
-  const direct = adapters.find((a) => {
-    const title = normalizeAlnum(a.title);
-    return title.includes(cs) || (csIsEuro && EURO_SEAT_GROUP.some((brand) => title.includes(brand)));
-  });
-  if (direct) return direct;
+  // 1a. Prefer an adapter that names THIS car-seat brand exactly.
+  const exact = adapters.find((a) => normalizeAlnum(a.title).includes(cs));
+  if (exact) return exact;
+
+  // 1b. Euro-group seats otherwise accept any shared euro adapter (one adapter
+  //     covers Nuna / Maxi-Cosi / CYBEX / Clek). Only AFTER an exact-brand match,
+  //     so a Nuna-only ring adapter is never picked for a Maxi-Cosi seat.
+  if (csIsEuro) {
+    const euro = adapters.find((a) => EURO_SEAT_GROUP.some((brand) => normalizeAlnum(a.title).includes(brand)));
+    if (euro) return euro;
+  }
 
   // 2. No brand match. Use a universal adapter (names no specific seat brand) if
   //    one exists; otherwise return null so we don't surface a wrong variant.
