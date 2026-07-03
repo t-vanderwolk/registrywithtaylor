@@ -77,9 +77,14 @@ const ADAPTER_STROLLERS: Rule[] = [
   // "Hub2" model string.
   { brand: 'Joolz', model: /\b(dot|geo)\b|\bhub\d*\b/i, family: 'Dot / Geo / Hub' },
   { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
-  // Zoe frames take the shared euro group; Tour v3 / Twin v3 also take UPPAbaby
-  // Mesa / Aria via the Zoe UPPAbaby car seat adapter.
-  { brand: 'Zoe', model: null, family: 'all Zoe strollers', extraSeatBrands: ['UPPAbaby'] },
+  // Zoe frames all take the shared euro group (Nuna / Maxi-Cosi / CYBEX / Clek /
+  // Britax) via Zoe's Nuna/euro car seat adapters.
+  { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
+  // Tour / Twin / Trio / Tribe additionally take Graco + Chicco (Graco/Chicco
+  // adapter) and UPPAbaby Mesa/Aria (UPPAbaby adapter).
+  { brand: 'Zoe', model: /\b(tour|twin|trio|tribe)\b/i, family: 'Tour / Twin / Trio / Tribe', extraSeatBrands: ['UPPAbaby', 'Graco', 'Chicco'] },
+  // The Journey additionally takes Chicco via the Journey Chicco adapter.
+  { brand: 'Zoe', model: /\bjourney\b/i, family: 'The Journey', extraSeatBrands: ['Chicco'] },
   { brand: 'Ergobaby', model: /\bmetro\b/i, family: 'Metro / Metro+' },
   // Mompush Ultimate / Meteor / Velo take a Maxi-Cosi / Nuna / CYBEX car seat
   // adapter; Wiz adds a separate Chicco adapter. (Lithe has an integrated,

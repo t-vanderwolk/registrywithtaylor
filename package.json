@@ -118,6 +118,8 @@
     "catalog:add-bombi-apply": "tsx scripts/addBombiGear.ts --apply",
     "catalog:dragonfly-trvl": "tsx scripts/addDragonflyRenameTrvl.ts",
     "catalog:dragonfly-trvl-apply": "tsx scripts/addDragonflyRenameTrvl.ts --apply",
+    "catalog:add-zoe-adapters": "tsx scripts/addZoeAdapters.ts",
+    "catalog:add-zoe-adapters-apply": "tsx scripts/addZoeAdapters.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
