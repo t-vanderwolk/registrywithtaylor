@@ -37,9 +37,15 @@ function isKeeper(row: Row): boolean {
   const e = row.enrichment;
   if (!e) return false; // no enrichment = uncategorized → delete
   const pt = (e.productType ?? '').toLowerCase().trim();
-  if (e.tmbcCategory === 'Strollers' && STROLLER_TYPES.has(pt)) return true;
+  // Infant car seats + car seat adapters (checked first so "stroller adapter"
+  // isn't swept up by the stroller rule below).
   if (INFANT_SEAT_TYPES.has(pt)) return true;
   if (ADAPTER_TYPES.has(pt)) return true;
+  // Strollers — keep regardless of (mis)category and tolerant of feed spellings
+  // (e.g. "full size stroller", "double travel stroller", "lightweight stroller"),
+  // but NOT stroller accessories.
+  if (STROLLER_TYPES.has(pt)) return true;
+  if (pt.includes('stroller') && pt !== 'stroller accessory') return true;
   return false;
 }
 
