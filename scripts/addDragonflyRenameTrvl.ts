@@ -1,7 +1,8 @@
 /**
  *  1. Add the Bugaboo Dragonfly Car Seat Adapters (babylist_impact, Travel
- *     Systems & Adapters). Title carries "Dragonfly" so the engine matches it to
- *     the Bugaboo Dragonfly for the shared Nuna / Maxi-Cosi / CYBEX / Clek seats.
+ *     Systems & Adapters). Title names "Dragonfly / Dragonfly Plus" so the engine
+ *     attaches it to the Bugaboo Dragonfly Plus stroller for the shared Nuna /
+ *     Maxi-Cosi / CYBEX / Clek seats.
  *  2. Rename the Nuna "TRVL Easy Fold" to display as "Nuna TRVL" — updates the
  *     catalog product (title + canonicalName) and the Stroller row model.
  *
@@ -21,7 +22,9 @@ const babylistAffiliate = (productUrl: string) =>
 const DRAGONFLY = {
   externalId: '1556451',
   brand: 'Bugaboo',
-  title: 'Bugaboo Dragonfly Car Seat Adapters',
+  // Title names both "Dragonfly" and "Dragonfly Plus" so the engine attaches it
+  // to the Bugaboo Dragonfly Plus stroller (model = "Dragonfly Plus").
+  title: 'Bugaboo Dragonfly / Dragonfly Plus Car Seat Adapters',
   productUrl: 'https://www.babylist.com/gp/bugaboo-dragonfly-car-seat-adapters/39932/1556451',
   imageUrl:
     'https://images.ctfassets.net/50gzycvace50/5b5a546adba0afdb55488ea56539dc2d2dcf6150e279d0554a5c73e4f767aa1a/aed472d42a0a5e07a42795c00d748e81/5b5a546adba0afdb55488ea56539dc2d2dcf6150e279d0554a5c73e4f767aa1a.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
