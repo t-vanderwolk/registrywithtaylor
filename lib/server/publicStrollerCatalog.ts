@@ -10,7 +10,7 @@ import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
 } from '@/lib/catalog/strollerFinderRules';
-import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer, isBombiOffer } from '@/lib/catalog/publicRetailerVisibility';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
@@ -18,6 +18,7 @@ import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
 const PROVIDER_ANB = 'awin_anbbaby';
 const PROVIDER_BABYLIST = 'babylist_impact';
 const PROVIDER_MACROBABY = 'shopify_macrobaby';
+const PROVIDER_BOMBI = 'bombi_direct';
 
 export const PUBLIC_STROLLER_TYPE_ORDER: StrollerCategory[] = [
   'full-size',
@@ -55,11 +56,12 @@ export type PublicStrollerProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'macrobaby';
+  source: 'babylist' | 'macrobaby' | 'bombi';
   retailers: {
     babylist: RetailerOffer | null;
     amazon: RetailerOffer | null;
     macrobaby: RetailerOffer | null;
+    bombi: RetailerOffer | null;
     anb: RetailerOffer | null;
     goodbuygear: RetailerOffer | null;
   };
@@ -110,6 +112,14 @@ function isPublicMacroBabyOffer(offer: Offer | null) {
         url: offer.url,
         price: offer.price,
       }),
+  );
+}
+
+function isPublicBombiOffer(offer: Offer | null) {
+  return Boolean(
+    offer &&
+      isBombiOffer({ provider: PROVIDER_BOMBI, retailer: 'Bombi', url: offer.url, price: offer.price }) &&
+      Boolean(offer.url?.trim() || offer.price != null),
   );
 }
 
@@ -180,6 +190,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     model: string;
     babylist: Offer | null;
     macrobaby: Offer | null;
+    bombi: Offer | null;
     anb: Offer | null;
     gbg: Offer | null;
   };
@@ -214,7 +225,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
 
     let group = groups.get(key);
     if (!group) {
-      group = { category, brand, model, babylist: null, macrobaby: null, anb: null, gbg: null };
+      group = { category, brand, model, babylist: null, macrobaby: null, bombi: null, anb: null, gbg: null };
       groups.set(key, group);
     }
 
@@ -237,6 +248,8 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       }
     } else if (row.provider === PROVIDER_MACROBABY) {
       if (cheaper(group.macrobaby)) group.macrobaby = offer;
+    } else if (row.provider === PROVIDER_BOMBI) {
+      if (cheaper(group.bombi)) group.bombi = offer;
     } else if (row.provider === PROVIDER_ANB) {
       if (cheaper(group.anb)) group.anb = offer;
     }
@@ -246,7 +259,9 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
   const groupCompatibilityCount = (group: Group) =>
     compatibilityCounts.get(productModelKey(group.brand, group.model)) ?? 0;
   const coreOfferCount = (group: Group) =>
-    Number(isPublicBabylistOffer(group.babylist)) + Number(isPublicMacroBabyOffer(group.macrobaby));
+    Number(isPublicBabylistOffer(group.babylist)) +
+    Number(isPublicMacroBabyOffer(group.macrobaby)) +
+    Number(isPublicBombiOffer(group.bombi));
   const duplicateVariantKey = (group: Group) => {
     const normalized = normalizeStrollerVariantModel(group.model, group.brand);
     return productModelKey(group.brand, normalized || group.model);
@@ -278,7 +293,8 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
   for (const group of visibleGroups.values()) {
     const babylist = isPublicBabylistOffer(group.babylist) ? group.babylist : null;
     const macrobaby = isPublicMacroBabyOffer(group.macrobaby) ? group.macrobaby : null;
-    const primary = babylist ?? macrobaby;
+    const bombi = isPublicBombiOffer(group.bombi) ? group.bombi : null;
+    const primary = babylist ?? macrobaby ?? bombi;
     if (!primary) continue;
 
     const amazonUrl = getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
@@ -286,13 +302,14 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       name: primary.title,
       model: group.model,
       price: primary.price,
-      image: babylist?.image ?? macrobaby?.image ?? group.anb?.image ?? group.gbg?.image ?? null,
+      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? group.anb?.image ?? group.gbg?.image ?? null,
       affiliateUrl: primary.url,
-      source: babylist ? 'babylist' : 'macrobaby',
+      source: babylist ? 'babylist' : macrobaby ? 'macrobaby' : 'bombi',
       retailers: {
         babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
         amazon: amazonUrl ? { price: null, url: amazonUrl } : null,
         macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
+        bombi: bombi ? { price: bombi.price, url: bombi.url } : null,
         anb: null,
         goodbuygear: group.gbg ? { price: group.gbg.price, url: group.gbg.url } : null,
       },

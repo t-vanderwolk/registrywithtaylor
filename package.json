@@ -114,6 +114,8 @@
     "catalog:add-orbit-baby-apply": "tsx scripts/addOrbitBabyMacroBaby.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
     "catalog:gt3-mixx-apply": "tsx scripts/addGt3AdapterUnhideMixx.ts --apply",
+    "catalog:add-bombi": "tsx scripts/addBombiGear.ts",
+    "catalog:add-bombi-apply": "tsx scripts/addBombiGear.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",

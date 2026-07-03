@@ -74,11 +74,12 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'macrobaby';
+  source?: 'babylist' | 'macrobaby' | 'bombi';
   retailers?: {
     babylist?: RetailerOffer | null;
     amazon?: RetailerOffer | null;
     macrobaby?: RetailerOffer | null;
+    bombi?: RetailerOffer | null;
     anb?: RetailerOffer | null;
     goodbuygear?: RetailerOffer | null;
   } | null;
@@ -109,12 +110,13 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
 // Retailer CTAs, stacked on each card in priority order. Babylist is primary
 // when present, MacroBaby is the fallback primary, and Amazon is secondary only.
 const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'macrobaby' | 'amazon';
+  key: 'babylist' | 'macrobaby' | 'bombi' | 'amazon';
   shopLabel: string;
   btnClass: string;
 }> = [
   { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary' },
   { key: 'macrobaby', shopLabel: 'Shop MacroBaby', btnClass: 'tool-btn--secondary' },
+  { key: 'bombi', shopLabel: 'Shop Bombi', btnClass: 'tool-btn--primary' },
   { key: 'amazon', shopLabel: 'Shop Amazon', btnClass: 'tool-btn--secondary' },
 ];
 
@@ -200,13 +202,16 @@ function ProductCard({
   const displayPrice =
     retailers?.babylist?.price ??
     retailers?.macrobaby?.price ??
+    retailers?.bombi?.price ??
     product.price;
   const priceSource =
     retailers?.babylist?.price != null
       ? 'Babylist'
       : retailers?.macrobaby?.price != null
         ? 'MacroBaby'
-        : null;
+        : retailers?.bombi?.price != null
+          ? 'Bombi'
+          : null;
   const displayTitle = displayNameWithoutBrand(product.model || product.name, brand);
 
   return (

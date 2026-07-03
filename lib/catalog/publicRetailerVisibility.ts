@@ -85,9 +85,19 @@ export function hasPublicRetailOffer(offer: RetailOfferSignal) {
   return Boolean(offer.url?.trim() || offer.productUrl?.trim() || offer.price != null);
 }
 
+export function isBombiOffer(offer: RetailOfferSignal) {
+  const source = normalizeRetailerSignal(offer.source);
+  const retailer = normalizeRetailerSignal(offer.retailer);
+  const provider = normalizeRetailerSignal(offer.provider);
+
+  return source === 'bombi' || retailer === 'bombi' || retailer === 'bombi gear' || provider === 'bombi direct';
+}
+
 export function hasPublicCoreRetailer(offerOrOffers: RetailOfferSignal | RetailOfferSignal[]) {
   const offers = Array.isArray(offerOrOffers) ? offerOrOffers : [offerOrOffers];
-  return offers.some((offer) => hasPublicRetailOffer(offer) && (isBabylistOffer(offer) || isMacroBabyOffer(offer)));
+  return offers.some(
+    (offer) => hasPublicRetailOffer(offer) && (isBabylistOffer(offer) || isMacroBabyOffer(offer) || isBombiOffer(offer)),
+  );
 }
 
 export function hasNonGoodBuyGearRetailer(offers: RetailOfferSignal[]) {
