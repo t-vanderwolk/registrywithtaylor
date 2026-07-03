@@ -5,9 +5,12 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
-import TravelSystemResults from '@/components/tools/TravelSystemResults';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
+  formatCompatibilityConfidence,
+  formatCompatibilityType,
+  type CompatibleCarSeatResult,
+  type CompatibleStrollerResult,
   type CompatibilityType,
   type TravelSystemCarSeatOption,
   type TravelSystemStrollerOption,
@@ -20,6 +23,7 @@ import {
   getTravelSystemCompatibilityByCarSeat,
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
+import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { findTravelSystemOptionBySlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
@@ -39,14 +43,60 @@ type SelectionState =
       result: Awaited<ReturnType<typeof getTravelSystemCompatibilityByCarSeat>> & {};
     };
 
+const TYPE_ORDER: Array<{
+  id: 'direct' | 'adapter' | 'other';
+  title: string;
+  description: string;
+}> = [
+  {
+    id: 'direct',
+    title: 'Direct Fit',
+    description: 'These are the cleanest pairings in the current compatibility library.',
+  },
+  {
+    id: 'adapter',
+    title: 'Adapter Required',
+    description: 'These work with an adapter. The adapter details shown are the existing stored details.',
+  },
+  {
+    id: 'other',
+    title: 'Limited Fit',
+    description: 'These pairings have a compatibility note worth reading before you buy.',
+  },
+];
+
 function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0]?.trim() ?? '' : value?.trim() ?? '';
+}
+
+function compatibilityBadgeClasses(type: CompatibilityType) {
+  switch (type) {
+    case 'DIRECT':
+      return 'tool-badge--direct';
+    case 'ADAPTER':
+      return 'tool-badge--adapter';
+    case 'LIMITED':
+      return 'tool-badge--limited';
+    case 'LOCKED':
+      return 'tool-badge--locked';
+    case 'INCOMPATIBLE':
+    default:
+      return 'tool-badge--incompatible';
+  }
 }
 
 function resultBucket(item: { compatibilityType: CompatibilityType; adapterRequired: boolean }) {
   if (item.compatibilityType === 'DIRECT' && !item.adapterRequired) return 'direct';
   if (item.adapterRequired || item.compatibilityType === 'ADAPTER') return 'adapter';
   return 'other';
+}
+
+function groupByBrand<T extends { brand: string }>(items: T[]) {
+  return items.reduce<Record<string, T[]>>((groups, item) => {
+    if (!groups[item.brand]) groups[item.brand] = [];
+    groups[item.brand].push(item);
+    return groups;
+  }, {});
 }
 
 function displayNameWithoutBrand(displayName: string, brand: string) {
@@ -136,6 +186,20 @@ export async function generateMetadata({
   };
 }
 
+function BabylistHeartIcon() {
+  return (
+    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true" className="shrink-0">
+      <path
+        d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function EmptyState({
   title,
   description,
@@ -215,6 +279,200 @@ function SelectedSummaryCard({
         ) : null}
       </div>
     </section>
+  );
+}
+
+function AdapterCallout({
+  item,
+}: {
+  item: Pick<
+    CompatibleCarSeatResult | CompatibleStrollerResult,
+    'adapterImage' | 'adapterPrice' | 'adapterRequired' | 'adapterType' | 'adapterUrl'
+  >;
+}) {
+  if (!item.adapterRequired) {
+    return (
+      <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">
+        Direct fit, no adapter needed
+      </p>
+    );
+  }
+
+  return (
+    <div className="tool-adapter-callout">
+      <div className="tool-adapter-callout__details">
+        {item.adapterImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
+        ) : null}
+        <div className="min-w-0">
+          <p className="tool-adapter-callout__eyebrow">Adapter needed</p>
+          <p className="tool-adapter-callout__name">
+            {item.adapterType ?? 'Car seat adapter'}
+          </p>
+          {item.adapterPrice != null ? (
+            <p className="tool-adapter-callout__price">${item.adapterPrice.toFixed(2)}</p>
+          ) : null}
+        </div>
+      </div>
+
+      {item.adapterUrl ? (
+        <a
+          href={item.adapterUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          className="tool-adapter-callout__link"
+          aria-label={`Shop adapter: ${item.adapterType ?? 'car seat adapter'}`}
+        >
+          Shop adapter
+        </a>
+      ) : (
+        <span className="tool-adapter-callout__missing">Adapter link unavailable</span>
+      )}
+    </div>
+  );
+}
+
+function ResultCard({
+  item,
+  productKind,
+}: {
+  item: CompatibleCarSeatResult | CompatibleStrollerResult;
+  productKind: 'stroller' | 'carSeat';
+}) {
+  const babylistUrl =
+    item.babylistUrl || item.babylistPrice != null
+      ? babylistAffiliateUrl(item.brand, item.model, productKind, item.babylistUrl)
+      : null;
+  const macroBabyUrl = item.macroBabyUrl ?? null;
+  const primaryCta = babylistUrl
+    ? { label: 'Babylist', url: babylistUrl, source: 'babylist' as const }
+    : macroBabyUrl
+      ? { label: 'MacroBaby', url: macroBabyUrl, source: 'macrobaby' as const }
+      : null;
+  const amazonUrl = primaryCta ? item.amazonUrl ?? null : null;
+  const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
+  const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
+  const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
+
+  return (
+    <article className="tool-card tool-product-card">
+      <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
+        {item.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} className="tool-product-card__image" />
+        ) : (
+          <span className="tool-product-card__image-fallback">{item.brand}</span>
+        )}
+      </div>
+      <div className="tool-product-card__body">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="tool-product-card__brand">{item.brand}</p>
+            <h4 className="tool-product-card__title">{displayTitle}</h4>
+            {displayPrice != null ? (
+              <p className="tool-product-card__price">
+                ${displayPrice.toFixed(2)}
+                {priceSource ? <span>via {priceSource}</span> : null}
+              </p>
+            ) : null}
+          </div>
+          <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
+            {formatCompatibilityType(item.compatibilityType)}
+          </span>
+        </div>
+
+        <AdapterCallout item={item} />
+
+        <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
+          <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
+            {formatCompatibilityConfidence(item.confidence)} confidence
+          </span>
+          {primaryCta ? (
+            <a
+              href={primaryCta.url}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+            >
+              {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
+              {primaryCta.label}
+            </a>
+          ) : null}
+          {amazonUrl ? (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
+            >
+              Amazon
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerResult>({
+  items,
+  productKind,
+  brandLabel,
+}: {
+  items: T[];
+  productKind: 'stroller' | 'carSeat';
+  brandLabel: string;
+}) {
+  return (
+    <div className="space-y-6">
+      {TYPE_ORDER.map((section) => {
+        const sectionItems = items.filter((item) => resultBucket(item) === section.id);
+        if (sectionItems.length === 0) return null;
+
+        const brandGroups = groupByBrand(sectionItems);
+
+        return (
+          <section
+            key={section.id}
+            className="rounded-[1.6rem] border border-[rgba(0,0,0,0.06)] bg-white/94 p-5 shadow-[0_16px_36px_rgba(0,0,0,0.04)] md:p-6"
+          >
+            <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[rgba(0,0,0,0.06)] pb-4">
+              <div>
+                <p className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">
+                  {sectionItems.length} option{sectionItems.length === 1 ? '' : 's'}
+                </p>
+                <h3 className="mt-1 font-serif text-[1.55rem] leading-[1.08] tracking-[-0.03em] text-neutral-900">
+                  {section.title}
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-neutral-600">{section.description}</p>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-5">
+              {Object.entries(brandGroups)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([brand, brandItems]) => (
+                  <div key={brand}>
+                    <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-neutral-500">
+                      {brandLabel}: {brand}
+                    </p>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {brandItems.map((item) => (
+                        <ResultCard
+                          key={`${item.brand}-${item.model}-${item.compatibilityType}`}
+                          item={item}
+                          productKind={productKind}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
   );
 }
 
@@ -298,9 +556,10 @@ export default async function TravelSystemResultsPage({
             ) : null}
 
             {results.length > 0 ? (
-              <TravelSystemResults
-                results={results}
+              <ResultsSection
+                items={results}
                 productKind={isStrollerFirst ? 'carSeat' : 'stroller'}
+                brandLabel={isStrollerFirst ? 'Brand' : 'Stroller brand'}
               />
             ) : (
               <div className="rounded-[1.6rem] border border-dashed border-[rgba(0,0,0,0.14)] bg-[#fcfaf7] px-6 py-8 text-center">
