@@ -97,6 +97,15 @@ const RULES: Rule[] = [
     carSeatFamily: 'Dream',
     carSeatModel: /\bdream\b/i,
   },
+  {
+    brand: 'Peg Perego',
+    strollerFamily: 'YPSI / Vivace / Z4',
+    // Peg Perego modular/travel frames take Peg Primo Viaggio infant seats natively
+    // via the Primo Viaggio Links (same-brand) — YPSI / Vivace / Vivace Single / Z4.
+    strollerModel: /\b(ypsi|vivace|z4)\b/i,
+    carSeatFamily: 'Primo Viaggio',
+    carSeatModel: /\bprimo viaggio\b/i,
+  },
 ];
 
 function label(row: Row) {

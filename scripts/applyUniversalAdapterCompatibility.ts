@@ -127,8 +127,22 @@ const ADAPTER_STROLLERS: Rule[] = [
   { brand: 'WonderFold', model: null, family: 'W & L Series', extraSeatBrands: ['Graco', 'Chicco', 'UPPAbaby'] },
   // Veer Switchback (&Roll / &Jog) takes Maxi-Cosi / Nuna / Clek / CYBEX (shared
   // euro group) PLUS UPPAbaby / Graco / Britax via the brand-specific Switchback
-  // infant car seat adapters. Cruiser frames are already covered elsewhere.
+  // infant car seat adapters.
   { brand: 'Veer', model: /\bswitch\b/i, family: 'Switchback (&Roll / &Jog)', extraSeatBrands: ['UPPAbaby', 'Graco', 'Britax'] },
+  // Veer Cruiser / Cruiser City / All-Terrain wagons take Maxi-Cosi / Nuna / CYBEX
+  // (shared euro group) via the Cruiser infant car seat adapter, PLUS UPPAbaby via
+  // the Cruiser UPPAbaby adapter. Toddler comfort-seat / nap-system accessories are
+  // excluded (they aren't the wagon frame that takes an infant seat).
+  { brand: 'Veer', model: /\bcruiser\b/i, family: 'Cruiser / Cruiser City / All-Terrain', extraSeatBrands: ['UPPAbaby'], excludeModel: /(comfort seat|nap system)/i },
+  // Bumbleride Era / Indie / Speed (and the Indie Twin double) take Nuna / Maxi-Cosi
+  // / CYBEX / Clek via the Bumbleride car seat adapter; the single frames also take
+  // Graco / Chicco via the Bumbleride Single (Graco / Chicco) adapter.
+  { brand: 'Bumbleride', model: /\b(era|indie|speed)\b/i, family: 'Era / Indie / Speed / Indie Twin', extraSeatBrands: ['Graco', 'Chicco'] },
+  // Babyzen / Stokke YOYO takes Maxi-Cosi / Nuna / CYBEX via the YOYO car seat
+  // adapter (shared euro group). Scoped to the YOYO model so Stokke's own
+  // Xplory / Trailz frames (different, seat-specific adapters) stay out.
+  { brand: 'Babyzen', model: /\byoyo\b/i, family: 'YOYO' },
+  { brand: 'Stokke', model: /\byoyo\b/i, family: 'YOYO' },
   // Momcozy ChangeGo (the "23-in-1" double stroller) takes Maxi-Cosi / Nuna /
   // CYBEX via its ChangeGo car seat adapter. (ClickGo is a compact lightweight
   // travel stroller with no car seat — it stays out.)
