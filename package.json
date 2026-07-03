@@ -112,6 +112,8 @@
     "catalog:fix-silver-cross-clic-apply": "tsx scripts/fixSilverCrossClic.ts --apply",
     "catalog:add-orbit-baby": "tsx scripts/addOrbitBabyMacroBaby.ts",
     "catalog:add-orbit-baby-apply": "tsx scripts/addOrbitBabyMacroBaby.ts --apply",
+    "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
+    "catalog:gt3-mixx-apply": "tsx scripts/addGt3AdapterUnhideMixx.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
