@@ -862,13 +862,53 @@ function adaptersForStrollerModel(adapters: CatalogAdapter[], stroller: Stroller
   return adapters.filter((adapter) => adapterTitleMatchesStrollerModel(adapter.title, stroller.model, stroller.brand).matched);
 }
 
+const normalizeAlnum = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+// Nuna / Maxi-Cosi / CYBEX / Clek share one "euro" click-and-go adapter, so an
+// adapter naming any one of them fits the whole group. (Britax is intentionally
+// NOT here — it pairs with the Graco-style adapter, not the euro one.)
+const EURO_SEAT_GROUP = ['nuna', 'maxicosi', 'cybex', 'clek'];
+
+// Infant car-seat brand tokens that, when named in an adapter title, mark that
+// adapter as a brand-specific variant (e.g. the Mockingbird "Graco/Chicco/Baby
+// Jogger/Britax" adapter vs the separate "UPPAbaby" one). A title naming none of
+// these is a universal adapter that fits the shared euro group.
+const CAR_SEAT_BRAND_TOKENS = [
+  'nuna', 'maxicosi', 'cybex', 'clek', 'britax', 'besafe', 'bsafe',
+  'graco', 'chicco', 'uppababy', 'pegperego', 'joie', 'babyjogger',
+  'doona', 'evenflo', 'safety1st', 'cosco',
+];
+
+function adapterNamesSpecificSeatBrands(title: string): boolean {
+  const normalized = normalizeAlnum(title);
+  return CAR_SEAT_BRAND_TOKENS.some((token) => normalized.includes(token));
+}
+
+/** Pick the adapter that actually fits THIS car-seat brand for the stroller.
+ *  Adapters are stroller-model specific → car-seat-brand specific, so we never
+ *  fall back to a wrong branded variant: match the exact brand (euro seats match
+ *  any euro-group adapter), else a universal adapter, else null so the caller
+ *  uses a brand-scoped search link instead of a mismatched adapter. */
 function pickAdapter(adapters: CatalogAdapter[], carSeatBrand: string): CatalogAdapter | null {
   if (adapters.length === 0) return null;
-  const cs = carSeatBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
-  const mentionsSeat = adapters.find((a) => a.title.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cs));
-  if (mentionsSeat) return mentionsSeat;
-  const carSeatAdapter = adapters.find((a) => /car ?seat|infant/i.test(a.title));
-  return carSeatAdapter ?? adapters[0];
+  const cs = normalizeAlnum(carSeatBrand);
+  const csIsEuro = EURO_SEAT_GROUP.includes(cs);
+
+  // 1. Exact car-seat-brand variant. Euro-group seats also accept an adapter
+  //    that names any euro-group brand (one adapter covers Nuna/Maxi-Cosi/CYBEX/Clek).
+  const direct = adapters.find((a) => {
+    const title = normalizeAlnum(a.title);
+    return title.includes(cs) || (csIsEuro && EURO_SEAT_GROUP.some((brand) => title.includes(brand)));
+  });
+  if (direct) return direct;
+
+  // 2. No brand match. Use a universal adapter (names no specific seat brand) if
+  //    one exists; otherwise return null so we don't surface a wrong variant.
+  const generic = adapters.filter((a) => !adapterNamesSpecificSeatBrands(a.title));
+  if (generic.length > 0) {
+    return generic.find((a) => /car ?seat|infant/i.test(a.title)) ?? generic[0];
+  }
+  return null;
 }
 
 /** Last-resort adapter link so an adapter-required pairing is never left with a
