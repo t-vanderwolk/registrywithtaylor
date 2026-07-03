@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T15:23:17.480Z",
+  "generatedAt": "2026-07-03T19:41:18.692Z",
   "rows": [
     {
       "brand": "Graco",
@@ -359,7 +359,7 @@
       "carSeat": "Evenflo LiteMax NXT",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Evenflo",
@@ -367,7 +367,7 @@
       "carSeat": "Evenflo Revolve180 LiteMax NXT Rotational",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Evenflo",
@@ -375,7 +375,7 @@
       "carSeat": "Evenflo LiteMax NXT",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Evenflo",
@@ -383,7 +383,7 @@
       "carSeat": "Evenflo Revolve180 LiteMax NXT Rotational",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Evenflo",
@@ -391,7 +391,7 @@
       "carSeat": "Evenflo LiteMax NXT",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Evenflo",
@@ -399,7 +399,7 @@
       "carSeat": "Evenflo Revolve180 LiteMax NXT Rotational",
       "strollerFamily": "Pivot / Xpand / Xplore / Shyft",
       "carSeatFamily": "LiteMax / SafeMax / SecureMax",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -407,7 +407,7 @@
       "carSeat": "Chicco Fit2",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -415,7 +415,7 @@
       "carSeat": "Chicco KeyFit 30",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -423,7 +423,7 @@
       "carSeat": "Chicco KeyFit 30 ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -431,7 +431,7 @@
       "carSeat": "Chicco KeyFit 35",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -439,7 +439,7 @@
       "carSeat": "Chicco KeyFit Max ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -447,7 +447,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearLux",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -455,7 +455,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -687,7 +687,7 @@
       "carSeat": "Chicco Fit2",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -695,7 +695,7 @@
       "carSeat": "Chicco KeyFit 30",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -703,7 +703,7 @@
       "carSeat": "Chicco KeyFit 30 ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -711,7 +711,7 @@
       "carSeat": "Chicco KeyFit 35",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -719,7 +719,7 @@
       "carSeat": "Chicco KeyFit Max ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -727,7 +727,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearLux",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -735,7 +735,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -743,7 +743,7 @@
       "carSeat": "Chicco Fit2",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -751,7 +751,7 @@
       "carSeat": "Chicco KeyFit 30",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -759,7 +759,7 @@
       "carSeat": "Chicco KeyFit 30 ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -767,7 +767,7 @@
       "carSeat": "Chicco KeyFit 35",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -775,7 +775,7 @@
       "carSeat": "Chicco KeyFit Max ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -783,7 +783,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearLux",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -791,7 +791,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -799,7 +799,7 @@
       "carSeat": "Chicco Fit2",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -807,7 +807,7 @@
       "carSeat": "Chicco KeyFit 30",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -815,7 +815,7 @@
       "carSeat": "Chicco KeyFit 30 ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -823,7 +823,7 @@
       "carSeat": "Chicco KeyFit 35",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -831,7 +831,7 @@
       "carSeat": "Chicco KeyFit Max ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -839,7 +839,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearLux",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -847,7 +847,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -855,7 +855,7 @@
       "carSeat": "Chicco Fit2",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -863,7 +863,7 @@
       "carSeat": "Chicco KeyFit 30",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -871,7 +871,7 @@
       "carSeat": "Chicco KeyFit 30 ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -879,7 +879,7 @@
       "carSeat": "Chicco KeyFit 35",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -887,7 +887,7 @@
       "carSeat": "Chicco KeyFit Max ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -895,7 +895,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearLux",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Chicco",
@@ -903,7 +903,7 @@
       "carSeat": "Chicco KeyFit Max Zip ClearTex",
       "strollerFamily": "Bravo / Corso / TRE / Presto / Cortina / BravoFor2",
       "carSeatFamily": "KeyFit / Fit2",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Britax",
@@ -1287,6 +1287,102 @@
       "carSeat": "Maxi-Cosi Peri 180",
       "strollerFamily": "Fame / Oxford / Tayla / Zelia",
       "carSeatFamily": "Mico / Coral / Peri",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace",
+      "carSeat": "Peg Perego Primo Viaggio 4-35",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace",
+      "carSeat": "Peg Perego Primo Viaggio Lounge",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace",
+      "carSeat": "Peg Perego Primo Viaggio Nido",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace Single",
+      "carSeat": "Peg Perego Primo Viaggio 4-35",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace Single",
+      "carSeat": "Peg Perego Primo Viaggio Lounge",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Vivace Single",
+      "carSeat": "Peg Perego Primo Viaggio Nido",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego YPSI",
+      "carSeat": "Peg Perego Primo Viaggio 4-35",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego YPSI",
+      "carSeat": "Peg Perego Primo Viaggio Lounge",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego YPSI",
+      "carSeat": "Peg Perego Primo Viaggio Nido",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "create"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Z4",
+      "carSeat": "Peg Perego Primo Viaggio 4-35",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Z4",
+      "carSeat": "Peg Perego Primo Viaggio Lounge",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Peg Perego",
+      "stroller": "Peg Perego Z4",
+      "carSeat": "Peg Perego Primo Viaggio Nido",
+      "strollerFamily": "YPSI / Vivace / Z4",
+      "carSeatFamily": "Primo Viaggio",
       "action": "skip-existing"
     }
   ]
