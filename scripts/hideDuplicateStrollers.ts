@@ -32,7 +32,7 @@ const SPECS: { label: string; brand?: string; re: RegExp }[] = [
   { label: 'Bugaboo Reef', brand: 'Bugaboo', re: /\breef\b/i },
   { label: 'Baby Jogger City Prix', brand: 'Baby Jogger', re: /\bcity prix\b/i },
   { label: 'Bike Trailer bundle', re: /\bbike trailer\b/i },
-  { label: 'TRVL Easy Fold Compact', re: /\btrvl\b/i },
+  // (Nuna TRVL LX / TRVL Easy Fold / TRVL DUBL are intentionally KEPT — shown per request.)
   { label: 'Joolz Day+ / Day+ Complete', brand: 'Joolz', re: /\bday\s*\+/i },
   // "Hub" but not "Hub2" / "Hub²" (the current model we keep).
   { label: 'Joolz Hub (older, not Hub2)', brand: 'Joolz', re: /\bhub\b(?![²2])/i },
