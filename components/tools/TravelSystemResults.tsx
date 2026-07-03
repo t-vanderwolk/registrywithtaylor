@@ -246,14 +246,9 @@ function BrandGroup({
         </span>
       </button>
 
-      {isAdapter && brandAdapter ? (
-        <div className="border-t border-[rgba(0,0,0,0.06)] px-4 pt-4">
-          <BrandAdapterCallout item={brandAdapter} />
-        </div>
-      ) : null}
-
       {open ? (
-        <div className={`px-4 pb-4 ${isAdapter && brandAdapter ? '' : 'border-t border-[rgba(0,0,0,0.06)] pt-4'}`}>
+        <div className="border-t border-[rgba(0,0,0,0.06)] px-4 py-4">
+          {isAdapter && brandAdapter ? <BrandAdapterCallout item={brandAdapter} /> : null}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items
               .slice()
