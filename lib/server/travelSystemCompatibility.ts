@@ -451,6 +451,18 @@ function isClosedEcosystemStroller(brand: string) {
   return CLOSED_ECOSYSTEM_STROLLER_BRANDS.has(normalizeBrand(brand));
 }
 
+// Model-specific direct-fit-only frames: they accept a fixed short list of infant
+// seats (via explicit DIRECT rows) and must NOT flow through the shared euro
+// adapter expansion in either direction. e.g. the Silver Cross Clic direct-fits
+// Nuna + Joie only — no adapter, no Maxi-Cosi / CYBEX / Clek inference.
+const DIRECT_FIT_ONLY_STROLLERS: { brand: string; model: RegExp }[] = [
+  { brand: 'silver cross', model: /\bclic\b/i },
+];
+function isDirectFitOnlyStroller(brand: string, model: string) {
+  const normalizedBrand = normalizeBrand(brand);
+  return DIRECT_FIT_ONLY_STROLLERS.some((rule) => rule.brand === normalizedBrand && rule.model.test(model));
+}
+
 function usesSharedInfantSeatAdapter(brand: string) {
   return SHARED_ADAPTER_BRANDS.has(normalizeBrand(brand));
 }
@@ -673,6 +685,11 @@ async function getSharedAdapterInferredSeats(
     return [];
   }
 
+  // Direct-fit-only frames (e.g. Silver Cross Clic) never expand cross-brand.
+  if (isDirectFitOnlyStroller(stroller.brand, stroller.model)) {
+    return [];
+  }
+
   // Only expand if the stroller already has an explicit Nuna seat in its list
   const hasNunaTrigger = explicitRows.some(
     (row) => normalizeBrand(row.brand) === SHARED_ADAPTER_TRIGGER_BRAND,
@@ -750,6 +767,8 @@ async function getSharedAdapterInferredStrollers(
   const out: StrollerRow[] = [];
   for (const row of enrichWithPublicRetailers(rows, retailerMap)) {
     if (seen.has(row.id) || !hasPublicTravelSystemRetailer(row)) continue;
+    // Direct-fit-only frames (Silver Cross Clic) don't accept the shared adapter.
+    if (isDirectFitOnlyStroller(row.brand, row.model)) continue;
     seen.add(row.id);
     out.push(row);
   }

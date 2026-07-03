@@ -108,6 +108,8 @@
     "catalog:merge-cybex-apply": "tsx scripts/mergeCybexBrand.ts --apply",
     "catalog:add-switchback-zoe": "tsx scripts/addSwitchbackZoeAdapters.ts",
     "catalog:add-switchback-zoe-apply": "tsx scripts/addSwitchbackZoeAdapters.ts --apply",
+    "catalog:fix-silver-cross-clic": "tsx scripts/fixSilverCrossClic.ts",
+    "catalog:fix-silver-cross-clic-apply": "tsx scripts/fixSilverCrossClic.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",

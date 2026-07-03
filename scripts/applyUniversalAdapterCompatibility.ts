@@ -47,6 +47,8 @@ type Rule = {
    * trigger that drives the shared-group expansion.
    */
   extraSeatBrands?: string[];
+  /** Models to exclude even when `model` matches (e.g. a direct-fit-only frame). */
+  excludeModel?: RegExp;
 };
 
 type Row = {
@@ -105,7 +107,9 @@ const ADAPTER_STROLLERS: Rule[] = [
   { brand: 'BOB', model: /\b(wayfinder|revolution|alterrain)\b/i, family: 'Wayfinder / Revolution / Alterrain' },
   // Silver Cross modular + travel frames take Nuna / Maxi-Cosi / CYBEX / Clek via
   // their car seat adapter (on top of the same-brand Silver Cross Dream seat).
-  { brand: 'Silver Cross', model: null, family: 'all Silver Cross frames' },
+  // The Clic is EXCLUDED — it direct-fits Nuna + Joie only, no adapter (handled
+  // by scripts/fixSilverCrossClic.ts).
+  { brand: 'Silver Cross', model: null, family: 'all Silver Cross frames', excludeModel: /\bclic\b/i },
   // Guava Roam takes Nuna / Maxi-Cosi / CYBEX (+ Chicco / Graco / Britax) via the
   // Roam car seat adapter.
   { brand: 'Guava Family', model: /\broam\b/i, family: 'Roam' },
@@ -139,8 +143,10 @@ function label(row: Row) {
 }
 
 function matchesRule(rule: Rule, stroller: Row) {
+  const haystack = `${stroller.model} ${stroller.displayName ?? ''}`;
+  if (rule.excludeModel && rule.excludeModel.test(haystack)) return false;
   if (rule.model === null) return true;
-  return rule.model.test(`${stroller.model} ${stroller.displayName ?? ''}`);
+  return rule.model.test(haystack);
 }
 
 function csvEscape(value: unknown) {
