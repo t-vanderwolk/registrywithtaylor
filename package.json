@@ -123,6 +123,8 @@
     "catalog:report-gbg-open-box": "tsx scripts/reportGbgOpenBoxDeals.ts",
     "catalog:add-uppababy-adapters": "tsx scripts/addUppababyAdapters.ts",
     "catalog:add-uppababy-adapters-apply": "tsx scripts/addUppababyAdapters.ts --apply",
+    "catalog:clean": "tsx scripts/cleanAffiliateCatalog.ts",
+    "catalog:clean-apply": "tsx scripts/cleanAffiliateCatalog.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",
     "blog:unpublish-apply": "tsx scripts/inspectBlogPosts.ts --unpublish --apply",
     "catalog:audit-adapter-links": "tsx scripts/auditAdapterLinks.ts",
