@@ -75,7 +75,9 @@ const ADAPTER_STROLLERS: Rule[] = [
   // "Hub2" model string.
   { brand: 'Joolz', model: /\b(dot|geo)\b|\bhub\d*\b/i, family: 'Dot / Geo / Hub' },
   { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
-  { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
+  // Zoe frames take the shared euro group; Tour v3 / Twin v3 also take UPPAbaby
+  // Mesa / Aria via the Zoe UPPAbaby car seat adapter.
+  { brand: 'Zoe', model: null, family: 'all Zoe strollers', extraSeatBrands: ['UPPAbaby'] },
   { brand: 'Ergobaby', model: /\bmetro\b/i, family: 'Metro / Metro+' },
   // Mompush Ultimate / Meteor / Velo take a Maxi-Cosi / Nuna / CYBEX car seat
   // adapter; Wiz adds a separate Chicco adapter. (Lithe has an integrated,
@@ -114,10 +116,10 @@ const ADAPTER_STROLLERS: Rule[] = [
   // CYBEX / Clek / Maxi-Cosi / Britax group PLUS Graco / Chicco / UPPAbaby Mesa.
   // (Brand match is startsWith, so this also covers the "WonderFold Wagon" rows.)
   { brand: 'WonderFold', model: null, family: 'W & L Series', extraSeatBrands: ['Graco', 'Chicco', 'UPPAbaby'] },
-  // Veer Switchback (&Roll / &Jog) takes Maxi-Cosi / Nuna / Clek / CYBEX via the
-  // Switchback infant car seat adapter (shared euro group only). Cruiser frames
-  // are already covered elsewhere.
-  { brand: 'Veer', model: /\bswitch\b/i, family: 'Switchback (&Roll / &Jog)' },
+  // Veer Switchback (&Roll / &Jog) takes Maxi-Cosi / Nuna / Clek / CYBEX (shared
+  // euro group) PLUS UPPAbaby / Graco / Britax via the brand-specific Switchback
+  // infant car seat adapters. Cruiser frames are already covered elsewhere.
+  { brand: 'Veer', model: /\bswitch\b/i, family: 'Switchback (&Roll / &Jog)', extraSeatBrands: ['UPPAbaby', 'Graco', 'Britax'] },
   // Momcozy ChangeGo (the "23-in-1" double stroller) takes Maxi-Cosi / Nuna /
   // CYBEX via its ChangeGo car seat adapter. (ClickGo is a compact lightweight
   // travel stroller with no car seat — it stays out.)
