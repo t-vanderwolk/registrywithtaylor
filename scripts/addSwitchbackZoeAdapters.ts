@@ -80,9 +80,6 @@ const SPECS: Spec[] = [
   },
 ];
 
-// Silence unused helper (image URLs are inlined above with their real paths).
-void img;
-
 async function main() {
   const apply = process.argv.includes('--apply');
   console.log(`── Add Switchback + Zoe UPPAbaby adapters ──  (${apply ? 'APPLY' : 'dry-run'})\n`);
