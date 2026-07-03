@@ -47,7 +47,9 @@ const SPECS: Spec[] = [
     productType: 'travel stroller',
     tmbcCategory: 'Strollers',
     title: 'Bombi Bēbee V3 Lightweight Stroller',
-    affiliateUrl: 'https://bombigear.com/products/bebee-lightweight-stroller-v3?variant=44898166177974',
+    // Amazon affiliate link (tag=taylormadebab-20) per request.
+    affiliateUrl:
+      'https://www.amazon.com/Bombi-B%C4%93bee-V2-Lightweight-Stroller/dp/B0DX8BW2Z2?linkCode=ll1&tag=taylormadebab-20&language=en_US&ref_=as_li_ss_tl',
     imageUrl: null,
     price: 225.0,
   },

@@ -57,9 +57,9 @@ const SPECS: Spec[] = [
     provider: 'babylist_impact',
     externalId: '1051516',
     brand: 'Nuna',
-    model: 'TRVL Easy Fold',
+    model: 'TRVL',
     productType: 'travel stroller',
-    title: 'Nuna TRVL Easy Fold Compact Stroller & Carry Bag',
+    title: 'Nuna TRVL',
     affiliateUrl: babylistAffiliate(
       'https://www.babylist.com/gp/nuna-trvl-easy-fold-compact-stroller-carry-bag/24317/1051516',
     ),
