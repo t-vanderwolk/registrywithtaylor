@@ -140,6 +140,20 @@ export function BabylistHeartIcon({ className = '' }: { className?: string }) {
   );
 }
 
+// The Amazon "a + smile" mark. The smile is Amazon orange; the wordmark inherits
+// the button's text color so it reads on both light and dark CTA styles.
+export function AmazonMark({ className = '' }: { className?: string }) {
+  return (
+    <svg width="52" height="17" viewBox="0 0 62 20" fill="none" aria-hidden="true" className={className}>
+      <text x="0" y="14" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" letterSpacing="-0.5" fill="currentColor">
+        amazon
+      </text>
+      <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  );
+}
+
 export function OpenBoxBadge({
   offer,
 }: {
@@ -257,7 +271,15 @@ function ProductCard({
               className={`tool-btn ${index === 0 ? 'tool-btn--primary' : meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
             >
               {meta.key === 'babylist' ? <BabylistHeartIcon className="shrink-0" /> : null}
-              <span>{meta.shopLabel} →</span>
+              {meta.key === 'amazon' ? (
+                <>
+                  <span>Shop on</span>
+                  <AmazonMark className="shrink-0 translate-y-[1px]" />
+                  <span aria-hidden="true">→</span>
+                </>
+              ) : (
+                <span>{meta.shopLabel} →</span>
+              )}
             </a>
           ))}
           {product.model ? (
