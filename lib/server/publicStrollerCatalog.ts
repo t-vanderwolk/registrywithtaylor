@@ -162,34 +162,46 @@ async function loadStrollerCompatibilityCounts() {
 export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = prisma as any;
-  const rows: CatalogProductRow[] = await db.affiliateCatalogProduct
-    .findMany({
-      where: {
-        isActiveInFeed: true,
-        enrichment: {
-          is: {
-            tmbcCategory: 'Strollers',
-            needsReview: false,
-            reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
-          },
-        },
+
+  const where = {
+    isActiveInFeed: true,
+    enrichment: {
+      is: {
+        tmbcCategory: 'Strollers',
+        needsReview: false,
+        reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] },
       },
-      select: {
-        provider: true,
-        brand: true,
-        title: true,
-        price: true,
-        imageUrl: true,
-        productUrl: true,
-        affiliateUrl: true,
-        manualAmazonUrl: true,
-        retailer: true,
-        itemGroupId: true,
-        enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
-      },
+    },
+  };
+  const baseSelect = {
+    provider: true,
+    brand: true,
+    title: true,
+    price: true,
+    imageUrl: true,
+    productUrl: true,
+    affiliateUrl: true,
+    retailer: true,
+    itemGroupId: true,
+    enrichment: { select: { productType: true, canonicalBrand: true, canonicalName: true } },
+  };
+
+  // Prefer the manualAmazonUrl override, but degrade gracefully if that column
+  // isn't live yet (before the affiliate_manual_amazon_links migration deploys),
+  // so the finder never silently empties during the migration window.
+  let rows: CatalogProductRow[];
+  try {
+    rows = await db.affiliateCatalogProduct.findMany({
+      where,
+      select: { ...baseSelect, manualAmazonUrl: true },
       orderBy: { title: 'asc' },
-    })
-    .catch(() => [] as CatalogProductRow[]);
+    });
+  } catch {
+    const fallback: Omit<CatalogProductRow, 'manualAmazonUrl'>[] = await db.affiliateCatalogProduct
+      .findMany({ where, select: baseSelect, orderBy: { title: 'asc' } })
+      .catch(() => []);
+    rows = fallback.map((r) => ({ ...r, manualAmazonUrl: null }));
+  }
 
   type Group = {
     category: StrollerCategory;

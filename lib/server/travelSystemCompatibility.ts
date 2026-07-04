@@ -799,21 +799,24 @@ export async function getTravelSystemStrollers() {
 
 export async function getTravelSystemCarSeats() {
   try {
-    const rows = await prisma.$queryRaw<CarSeatRow[]>`
-      SELECT
-        "id",
-        "brand",
-        "model",
-        "displayName",
-        "summary",
-        "babylistUrl",
-        "babylistPrice",
-        "babylistImage",
-        "amazonUrl"
-      FROM "CarSeat"
-      WHERE "seatType" = 'INFANT'
-      ORDER BY LOWER("brand"), LOWER("model")
-    `;
+    // Prefer the amazonUrl column, but fall back if it isn't live yet (before the
+    // affiliate_manual_amazon_links migration deploys) so the checker keeps working.
+    let rows: CarSeatRow[];
+    try {
+      rows = await prisma.$queryRaw<CarSeatRow[]>`
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice","babylistImage","amazonUrl"
+        FROM "CarSeat"
+        WHERE "seatType" = 'INFANT'
+        ORDER BY LOWER("brand"), LOWER("model")
+      `;
+    } catch {
+      rows = await prisma.$queryRaw<CarSeatRow[]>`
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice","babylistImage"
+        FROM "CarSeat"
+        WHERE "seatType" = 'INFANT'
+        ORDER BY LOWER("brand"), LOWER("model")
+      `;
+    }
 
     const retailerMap = await loadPublicRetailerMap('CarSeat');
 
