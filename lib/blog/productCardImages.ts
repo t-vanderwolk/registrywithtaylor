@@ -58,7 +58,7 @@ const CAR_SEAT_PRODUCT_IMAGES = {
   pipabaless: '/assets/car-seats/pipabaless.png',
   piparx: '/assets/car-seats/piparxbase.png',
   piparxcarrier: '/assets/car-seats/piparx.png',
-  pipaurbn: '/assets/car-seats/pipaurbn.png',
+  pipaurbn: '/assets/car-seats/urbn.png',
   poplar: '/assets/car-seats/poplar.png',
   ravanext: '/assets/car-seats/ravanext.png',
   revvmaxx: '/assets/car-seats/revvmaxx.png',
@@ -428,6 +428,15 @@ export function resolveProductCardImage({
     };
   }
 
+  if (includesAny(normalizedKey, ['pipa urbn', 'pipaurbn'])) {
+    return {
+      src: CAR_SEAT_PRODUCT_IMAGES.pipaurbn,
+      alt: `${brand} ${productName}`,
+      objectClassName: 'object-contain',
+      isFallback: false,
+    };
+  }
+
   if (includesAny(normalizedKey, ['pipa rx', 'piparx'])) {
     return {
       src: CAR_SEAT_PRODUCT_IMAGES.piparx,
@@ -672,7 +681,7 @@ export function resolveCompatibilityCarSeatImage({
 
   if (includesAny(normalizedKey, ['pipa urbn', 'pipaurbn'])) {
     return {
-      src: CAR_SEAT_PRODUCT_IMAGES.pipabaless,
+      src: CAR_SEAT_PRODUCT_IMAGES.pipaurbn,
       alt: `${brand} ${productName}`,
     };
   }

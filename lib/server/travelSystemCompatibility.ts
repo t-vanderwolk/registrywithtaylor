@@ -13,6 +13,7 @@ import { parseCarSeatModel, parseStrollerModel } from '@/lib/catalog/strollerMod
 import {
   compareCompatibleCarSeats,
   compareCompatibleStrollers,
+  isTravelSystemOnlySeat,
   normalizeCompatibilityConfidence,
   normalizeCompatibilityType,
   type CompatibleCarSeatResult,
@@ -131,6 +132,9 @@ type PublicAvailabilityRow = {
 };
 
 function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
+  // Travel-system-only seats (e.g. Nuna PIPA urbn) have no standalone retailer
+  // but must still surface — they're purchased bundled with a Nuna stroller.
+  if (isTravelSystemOnlySeat(row.brand, row.model)) return true;
   return hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
     { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
@@ -821,6 +825,7 @@ export async function getTravelSystemCarSeats() {
         macroBabyImage: row.macroBabyImage ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         amazonUrl: row.amazonUrl ?? null,
+        travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       }));
   } catch (error) {
     if (hasMissingTravelSystemSchema(error)) {
@@ -1100,6 +1105,7 @@ export async function getTravelSystemCompatibility(
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
     ...sameBrandDefaults.map<CompatibleCarSeatResult>((row) => {
@@ -1128,6 +1134,7 @@ export async function getTravelSystemCompatibility(
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
     // Inferred seats: CYBEX / Clek / Maxi-Cosi seats share the same adapter standard as Nuna
@@ -1157,6 +1164,7 @@ export async function getTravelSystemCompatibility(
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
   ]

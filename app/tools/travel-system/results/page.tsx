@@ -274,6 +274,9 @@ function SelectedSummaryCard({
           <span className="tool-chip">{total} match{total === 1 ? '' : 'es'}</span>
           <span className="tool-chip">{direct} direct</span>
           <span className="tool-chip">{adapter} adapter</span>
+          {kind === 'carSeat' && (option as TravelSystemCarSeatOption).travelSystemOnly ? (
+            <span className="tool-chip bg-[rgba(216,137,160,0.14)] text-[var(--color-accent-dark)]">Travel system only</span>
+          ) : null}
         </div>
         {!hideSummary && option.summary ? (
           <p className="mt-4 max-w-3xl text-sm leading-7 text-neutral-600">{option.summary}</p>
@@ -390,6 +393,11 @@ function ResultCard({
           <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
             {formatCompatibilityConfidence(item.confidence)} confidence
           </span>
+          {productKind === 'carSeat' && (item as CompatibleCarSeatResult).travelSystemOnly ? (
+            <span className="ml-auto rounded-full bg-[rgba(216,137,160,0.14)] px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-dark)]">
+              Travel system only
+            </span>
+          ) : null}
           {primaryCta ? (
             <ToolAffiliateLink
               tool="travel-system-checker"

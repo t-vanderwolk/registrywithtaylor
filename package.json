@@ -125,6 +125,8 @@
     "catalog:add-uppababy-adapters-apply": "tsx scripts/addUppababyAdapters.ts --apply",
     "catalog:add-donkey-ridge-minu-duo": "tsx scripts/addDonkeyRidgeMinuDuo.ts",
     "catalog:add-donkey-ridge-minu-duo-apply": "tsx scripts/addDonkeyRidgeMinuDuo.ts --apply",
+    "catalog:add-pipa-urbn": "tsx scripts/addPipaUrbn.ts",
+    "catalog:add-pipa-urbn-apply": "tsx scripts/addPipaUrbn.ts --apply",
     "catalog:clean": "tsx scripts/cleanAffiliateCatalog.ts",
     "catalog:clean-apply": "tsx scripts/cleanAffiliateCatalog.ts --apply",
     "blog:inspect": "tsx scripts/inspectBlogPosts.ts",

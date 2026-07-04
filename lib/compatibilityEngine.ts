@@ -27,7 +27,24 @@ export type TravelSystemCarSeatOption = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   amazonUrl?: string | null;
+  /** Sold only as a travel system with a stroller — no standalone buy link. */
+  travelSystemOnly?: boolean;
 };
+
+/**
+ * Infant seats sold ONLY bundled as a travel system with a stroller (no
+ * standalone purchase). They still appear in the checker and carry full adapter
+ * compatibility, but show a "travel system only" note in place of a buy link.
+ * Keyed brand:::model, lowercased.
+ */
+const TRAVEL_SYSTEM_ONLY_SEATS = new Set<string>(['nuna:::pipa urbn']);
+
+export function isTravelSystemOnlySeat(
+  brand: string | null | undefined,
+  model: string | null | undefined,
+): boolean {
+  return TRAVEL_SYSTEM_ONLY_SEATS.has(`${(brand ?? '').trim().toLowerCase()}:::${(model ?? '').trim().toLowerCase()}`);
+}
 
 export type CompatibleCarSeatResult = {
   brand: string;
@@ -50,6 +67,8 @@ export type CompatibleCarSeatResult = {
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
   amazonUrl?: string | null;
+  /** Sold only as a travel system with a stroller — no standalone buy link. */
+  travelSystemOnly?: boolean;
 };
 
 export type TravelSystemCompatibilityResponse = {
