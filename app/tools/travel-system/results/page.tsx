@@ -344,6 +344,7 @@ function ResultCard({
   item,
   productKind,
   parentStroller,
+  pipaUrbnSelected,
 }: {
   item: CompatibleCarSeatResult | CompatibleStrollerResult;
   productKind: 'stroller' | 'carSeat';
@@ -481,6 +482,7 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
   productKind,
   brandLabel,
   parentStroller,
+  pipaUrbnSelected,
 }: {
   items: T[];
   productKind: 'stroller' | 'carSeat';
