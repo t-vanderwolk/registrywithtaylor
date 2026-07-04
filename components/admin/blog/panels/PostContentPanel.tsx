@@ -11,6 +11,7 @@ import {
   STYLED_BLOCKS,
   type StyledBlockId,
 } from '@/lib/blog/styledBlocks';
+import BlogCatalogProductPicker from '@/components/admin/blog/BlogCatalogProductPicker';
 
 export type ContentFormatAction =
   | 'h2'
@@ -46,6 +47,7 @@ export default function PostContentPanel({
   onApplyFormat,
   onInsertTemplate,
   onInsertStyledBlock,
+  onInsertProductBlock,
   onOpenInternalLinkModal,
   onOpenInlineImagePicker,
   inlineUploadLabel,
@@ -73,6 +75,7 @@ export default function PostContentPanel({
   onApplyFormat: (action: ContentFormatAction) => void;
   onInsertTemplate: (templateId: ContentTemplateId) => void;
   onInsertStyledBlock: (blockId: StyledBlockId) => void;
+  onInsertProductBlock: (snippet: string) => void;
   onOpenInternalLinkModal: () => void;
   onOpenInlineImagePicker?: (() => void) | null;
   inlineUploadLabel?: string;
@@ -208,6 +211,8 @@ export default function PostContentPanel({
             </div>
           ))}
         </div>
+
+        <BlogCatalogProductPicker onInsert={onInsertProductBlock} />
       </div>
 
       <AdminField

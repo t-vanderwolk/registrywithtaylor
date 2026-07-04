@@ -1357,6 +1357,7 @@ export default function PostEditor({
         onApplyFormat={applyMarkdownFormat}
         onInsertTemplate={insertContentTemplate}
         onInsertStyledBlock={insertStyledBlock}
+        onInsertProductBlock={(snippet) => insertBodyBlockAtCursor(snippet, 'debounced')}
         onOpenInternalLinkModal={() => setIsInternalLinkModalOpen(true)}
         onOpenInlineImagePicker={() => inlineInputRef.current?.click()}
         inlineUploadLabel={uploadingKind === 'inline' ? 'Uploading image...' : 'Insert image'}
