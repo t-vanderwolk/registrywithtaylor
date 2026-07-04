@@ -158,6 +158,9 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
                   View Babylist →
                 </a>
               ) : null}
+              <a href={`/admin/catalog/compatibility?strollerId=${s.id}`} className="text-sm font-semibold text-[var(--color-accent-dark)] underline">
+                Manage car-seat matches ({s.compatibilityCount}) →
+              </a>
               <span className="flex-1" />
               <button type="submit" className="rounded-full bg-[var(--color-cta-pink)] px-4 py-2 text-[0.78rem] font-semibold text-white">
                 Save stroller
