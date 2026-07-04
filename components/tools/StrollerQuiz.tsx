@@ -774,13 +774,18 @@ function scoreAnswers(answers: Record<string, number>): CategoryKey {
 
 // ─── Category → strollerCategory mapping ──────────────────────────────────────
 
+// Each quiz result category maps to the finder categories that ARE that type, so
+// a stroller's quiz category always matches its type in the finder. Only true
+// sub-variants of one type are grouped (full-size + non-modular; convertible
+// modular + non-modular; double + double-travel). Umbrella and wagon are their
+// own finder types, so they stay out of compact / jogging.
 const CATEGORY_TO_STROLLER_TYPES: Record<CategoryKey, StrollerCategory[]> = {
   'full-size':   ['full-size', 'full-size-non-modular'],
-  'compact':     ['compact', 'umbrella'],
+  'compact':     ['compact'],
   'travel':      ['travel'],
   'convertible': ['convertible-modular', 'convertible-non-modular'],
   'double':      ['double', 'double-travel'],
-  'jogging':     ['jogging', 'wagon'],
+  'jogging':     ['jogging'],
   'double-jogging': ['double-jogging'],
 };
 

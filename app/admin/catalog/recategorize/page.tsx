@@ -47,8 +47,19 @@ function brandOf(row: Row) {
   return (row.enrichment?.canonicalBrand || row.brand || 'Unknown').trim();
 }
 
-export default async function RecategorizeStrollersPage() {
+type SearchParams = Promise<{ attention?: string }> | undefined;
+
+export default async function RecategorizeStrollersPage({ searchParams }: { searchParams?: SearchParams }) {
   await requireAdminSession('/admin/catalog/recategorize');
+  const sp = (searchParams ? await searchParams : {}) ?? {};
+  const attentionOnly = sp.attention === '1';
+
+  // "Needs attention" = not yet human-reviewed, or has no type set. Once you set a
+  // type here it becomes REVIEWED and drops off this list.
+  const enrichmentWhere: Record<string, unknown> = { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } };
+  if (attentionOnly) {
+    enrichmentWhere.OR = [{ reviewStatus: { not: 'REVIEWED' } }, { productType: null }];
+  }
 
   let rows: Row[] = [];
   let dbError = false;
@@ -57,7 +68,7 @@ export default async function RecategorizeStrollersPage() {
       where: {
         provider: { in: FINDER_PROVIDERS },
         isActiveInFeed: true,
-        enrichment: { is: { tmbcCategory: 'Strollers', reviewStatus: { not: 'HIDDEN' } } },
+        enrichment: { is: enrichmentWhere },
       },
       select: {
         id: true,
@@ -104,11 +115,26 @@ export default async function RecategorizeStrollersPage() {
           <AdminSurface><p className="admin-body">No strollers found in the finder catalog.</p></AdminSurface>
         ) : (
           <>
-            <AdminSurface>
+            <AdminSurface className="admin-stack gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <Link
+                  href="/admin/catalog/recategorize"
+                  className={`rounded-full border px-3.5 py-1.5 text-[0.75rem] font-semibold ${!attentionOnly ? 'border-[var(--color-accent-dark)] bg-[rgba(216,137,160,0.14)] text-[var(--color-accent-dark)]' : 'border-neutral-200 text-neutral-600'}`}
+                >
+                  All strollers
+                </Link>
+                <Link
+                  href="/admin/catalog/recategorize?attention=1"
+                  className={`rounded-full border px-3.5 py-1.5 text-[0.75rem] font-semibold ${attentionOnly ? 'border-[var(--color-accent-dark)] bg-[rgba(216,137,160,0.14)] text-[var(--color-accent-dark)]' : 'border-neutral-200 text-neutral-600'}`}
+                >
+                  Needs attention
+                </Link>
+              </div>
               <p className="admin-body">
-                {rows.length} strollers across {groups.length} brands. Tip: the automated pass
+                {rows.length} strollers across {groups.length} brands
+                {attentionOnly ? ' need attention (not yet reviewed or untyped)' : ''}. Tip: the automated pass
                 (<code>npm run catalog:recategorize-types</code>) proposes moves from model naming — use this page for the
-                judgment calls it can’t make.
+                judgment calls it can’t make. Setting a type marks it reviewed, so it leaves the “needs attention” list.
               </p>
             </AdminSurface>
 
