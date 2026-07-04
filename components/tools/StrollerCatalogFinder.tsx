@@ -22,7 +22,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   Clek: '/assets/logos/clek.png',
   Cybex: '/assets/logos/cybex.png',
   'Delta Children': '/assets/logos/deltachildren2.png',
-  DFY: '/assets/logos/dfy.png',
+  DFY: '/assets/logos/dfy2.png',
   Ergobaby: '/assets/logos/ergobabylogo.png',
   Evenflo: '/assets/logos/evenflo.png',
   Graco: '/assets/logos/graco.png',
@@ -49,7 +49,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   Thule: '/assets/logos/thule.png',
   UPPAbaby: '/assets/logos/uppababy.png',
   Veer: '/assets/logos/veer.png',
-  WonderFold: '/assets/logos/wonderfold.png',
+  WonderFold: '/assets/logos/wonderfold2.png',
   'WonderFold Wagon': '/assets/logos/wonderfold.png',
   Zoe: '/assets/logos/zoe.png',
 };

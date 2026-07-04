@@ -11,6 +11,7 @@ import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
   formatCompatibilityConfidence,
   formatCompatibilityType,
+  isTravelSystemOnlySeat,
   type CompatibleCarSeatResult,
   type CompatibleStrollerResult,
   type CompatibilityType,
@@ -348,6 +349,8 @@ function ResultCard({
   productKind: 'stroller' | 'carSeat';
   /** When viewing a stroller's compatible seats, the stroller being viewed. */
   parentStroller?: { brand: string; model: string } | null;
+  /** True when the selected car seat is the PIPA urbn (travel-system-only). */
+  pipaUrbnSelected?: boolean;
 }) {
   const babylistUrl =
     item.babylistUrl || item.babylistPrice != null
@@ -359,6 +362,11 @@ function ResultCard({
     : macroBabyUrl
       ? { label: 'MacroBaby', url: macroBabyUrl, source: 'macrobaby' as const }
       : null;
+  // When shopping the PIPA urbn (travel-system-only), each Nuna stroller card
+  // links to its matching "<stroller> + PIPA urbn" bundle instead of the solo
+  // stroller listing — that's the only way to buy the urbn.
+  const urbnBundleUrl =
+    productKind === 'stroller' && pipaUrbnSelected ? getPipaUrbnTravelSystemUrl(item.brand, item.model) : null;
   const amazonUrl = primaryCta ? item.amazonUrl ?? null : null;
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
@@ -421,31 +429,47 @@ function ResultCard({
               );
             })()
           ) : null}
-          {primaryCta ? (
+          {urbnBundleUrl ? (
             <ToolAffiliateLink
               tool="travel-system-checker"
-              href={primaryCta.url}
-              product={`${item.brand} ${displayTitle}`.trim()}
-              retailer={primaryCta.source}
+              href={urbnBundleUrl}
+              product={`${item.brand} ${displayTitle} + PIPA urbn travel system`.trim()}
+              retailer="babylist"
               brand={item.brand}
               className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
             >
-              {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
-              {primaryCta.label}
+              <BabylistHeartIcon />
+              Shop travel system
             </ToolAffiliateLink>
-          ) : null}
-          {amazonUrl ? (
-            <ToolAffiliateLink
-              tool="travel-system-checker"
-              href={amazonUrl}
-              product={`${item.brand} ${displayTitle}`.trim()}
-              retailer="amazon"
-              brand={item.brand}
-              className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
-            >
-              Amazon
-            </ToolAffiliateLink>
-          ) : null}
+          ) : (
+            <>
+              {primaryCta ? (
+                <ToolAffiliateLink
+                  tool="travel-system-checker"
+                  href={primaryCta.url}
+                  product={`${item.brand} ${displayTitle}`.trim()}
+                  retailer={primaryCta.source}
+                  brand={item.brand}
+                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                >
+                  {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
+                  {primaryCta.label}
+                </ToolAffiliateLink>
+              ) : null}
+              {amazonUrl ? (
+                <ToolAffiliateLink
+                  tool="travel-system-checker"
+                  href={amazonUrl}
+                  product={`${item.brand} ${displayTitle}`.trim()}
+                  retailer="amazon"
+                  brand={item.brand}
+                  className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
+                >
+                  Amazon
+                </ToolAffiliateLink>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </article>
@@ -462,6 +486,7 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
   productKind: 'stroller' | 'carSeat';
   brandLabel: string;
   parentStroller?: { brand: string; model: string } | null;
+  pipaUrbnSelected?: boolean;
 }) {
   return (
     <div className="space-y-6">
@@ -503,6 +528,7 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
                           item={item}
                           productKind={productKind}
                           parentStroller={parentStroller}
+                          pipaUrbnSelected={pipaUrbnSelected}
                         />
                       ))}
                     </div>
@@ -601,6 +627,7 @@ export default async function TravelSystemResultsPage({
                 productKind={isStrollerFirst ? 'carSeat' : 'stroller'}
                 brandLabel={isStrollerFirst ? 'Brand' : 'Stroller brand'}
                 parentStroller={isStrollerFirst ? { brand: selected.brand, model: selected.model } : null}
+                pipaUrbnSelected={!isStrollerFirst && isTravelSystemOnlySeat(selected.brand, selected.model)}
               />
             ) : (
               <div className="rounded-[1.6rem] border border-dashed border-[rgba(0,0,0,0.14)] bg-[#fcfaf7] px-6 py-8 text-center">
