@@ -1134,46 +1134,57 @@ export default function StrollerQuiz() {
                   const links = getAffiliateLinks(s.brand, s.model);
                   const babylistUrl = babylistAffiliateUrl(s.brand, s.model, 'stroller', s.affiliateUrl);
                   return (
-                    <div key={`${s.brand}-${s.model}-${i}`} style={styles.allStrollerCard}>
-                      <OpenBoxBadge offer={s.retailers?.goodbuygear ?? null} />
-                      {s.image ? (
-                        <div style={styles.allStrollerImgWrap}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={s.image} alt={s.name} style={styles.pickImg} />
-                        </div>
-                      ) : null}
-                      <p style={styles.allStrollerBrand}>{s.brand}</p>
-                      <p style={styles.allStrollerModel}>{s.model}</p>
-                      {s.price != null ? (
-                        <p style={styles.allStrollerPrice}>
-                          ${s.price.toFixed(2)}
-                          <span style={styles.allStrollerPriceNote}>via Babylist</span>
-                        </p>
-                      ) : null}
-                      <div style={styles.shopBtnRow}>
-                        <a href={babylistUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnBabylist}>
-                          <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                            <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
-                          </svg>
-                          Babylist
-                        </a>
-                        {links.amazonUrl && (
-                          <a href={links.amazonUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" style={styles.shopBtnAmazon}>
-                            <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                              <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
-                              <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                              <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                            </svg>
-                            Amazon
-                          </a>
+                    <div key={`${s.brand}-${s.model}-${i}`} className="tool-card tool-product-card">
+                      <div className="tool-card__media tool-product-card__media">
+                        <OpenBoxBadge offer={s.retailers?.goodbuygear ?? null} />
+                        {s.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={s.image} alt={s.name} className="tool-product-card__image" />
+                        ) : (
+                          <span className="tool-product-card__image-fallback">{s.brand}</span>
                         )}
                       </div>
-                      <Link
-                        href={travelSystemResultsHref('stroller', { brand: s.brand, model: s.model })}
-                        style={styles.compatLink}
-                      >
-                        Compatible car seats →
-                      </Link>
+                      <div className="tool-product-card__body">
+                        <p style={styles.allStrollerBrand}>{s.brand}</p>
+                        <p className="tool-product-card__title">{s.model}</p>
+                        {s.price != null ? (
+                          <p className="tool-product-card__price">
+                            ${s.price.toFixed(2)}
+                            <span>via Babylist</span>
+                          </p>
+                        ) : null}
+                        <div className="tool-product-card__actions">
+                          <a
+                            href={babylistUrl}
+                            target="_blank"
+                            rel="sponsored nofollow noopener noreferrer"
+                            className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
+                            onClick={() => trackToolAffiliateClick('stroller-quiz', { product: `${s.brand} ${s.model}`, retailer: 'babylist', brand: s.brand, url: babylistUrl })}
+                          >
+                            <BabylistHeartIcon className="shrink-0" />
+                            <span>Add to Babylist →</span>
+                          </a>
+                          {links.amazonUrl && (
+                            <a
+                              href={links.amazonUrl}
+                              target="_blank"
+                              rel="sponsored nofollow noopener noreferrer"
+                              className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
+                              onClick={() => trackToolAffiliateClick('stroller-quiz', { product: `${s.brand} ${s.model}`, retailer: 'amazon', brand: s.brand, url: links.amazonUrl })}
+                            >
+                              <span>Shop on</span>
+                              <AmazonMark className="shrink-0 translate-y-[1px]" />
+                              <span aria-hidden="true">→</span>
+                            </a>
+                          )}
+                        </div>
+                        <Link
+                          href={travelSystemResultsHref('stroller', { brand: s.brand, model: s.model })}
+                          style={styles.compatLink}
+                        >
+                          Compatible car seats →
+                        </Link>
+                      </div>
                     </div>
                   );
                 })}
@@ -1486,98 +1497,6 @@ const styles: Record<string, React.CSSProperties> = {
     gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
     gap: '1.25rem',
   },
-  pickCard: {
-    position: 'relative',
-    background: '#fff',
-    border: '1px solid rgba(215,161,175,0.2)',
-    borderRadius: '1.25rem',
-    padding: '1.25rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-    boxShadow: '0 6px 18px rgba(72,49,56,0.05)',
-    overflow: 'hidden',
-  },
-  pickImgWrap: {
-    width: '100%',
-    height: '140px',
-    background: '#fdf8f5',
-    borderRadius: '0.75rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '0.25rem',
-    overflow: 'hidden',
-  },
-  pickImg: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain' as const,
-    padding: '0.5rem',
-  },
-  pickBadge: {
-    display: 'inline-block',
-    fontSize: '0.65rem',
-    fontFamily: 'var(--font-sans)',
-    fontWeight: 700,
-    letterSpacing: '0.1em',
-    textTransform: 'uppercase',
-    color: '#fff',
-    padding: '0.2rem 0.6rem',
-    borderRadius: '999px',
-    width: 'fit-content',
-    marginBottom: '0.25rem',
-  },
-  pickName: {
-    fontFamily: 'var(--font-serif)',
-    fontSize: '1rem',
-    fontWeight: 600,
-    color: '#3d2328',
-  },
-  pickTagline: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.8rem',
-    color: '#7a5860',
-    lineHeight: 1.4,
-    flex: 1,
-  },
-  shopBtnRow: {
-    display: 'flex',
-    gap: '0.4rem',
-    marginTop: '0.5rem',
-    flexWrap: 'wrap',
-  },
-  shopBtnBabylist: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.35rem',
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.75rem',
-    fontWeight: 700,
-    color: '#4a252f',
-    padding: '0.45rem 0.85rem',
-    borderRadius: '999px',
-    textDecoration: 'none',
-    border: '1px solid rgba(215,161,175,0.34)',
-    background: 'rgba(255,240,244,0.96)',
-    boxShadow: '0 8px 18px rgba(216,137,160,0.14)',
-    whiteSpace: 'nowrap' as const,
-  },
-  shopBtnAmazon: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.35rem',
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-    color: '#1a1a1a',
-    padding: '0.45rem 0.85rem',
-    borderRadius: '999px',
-    textDecoration: 'none',
-    border: '1px solid rgba(0,0,0,0.1)',
-    background: '#fff',
-    whiteSpace: 'nowrap' as const,
-  },
   allStrollersSection: {
     marginBottom: '1.5rem',
     borderTop: '1px solid #efcad1',
@@ -1597,32 +1516,6 @@ const styles: Record<string, React.CSSProperties> = {
     lineHeight: 1.55,
     marginBottom: '1rem',
   },
-  allStrollerImgWrap: {
-    width: '100%',
-    height: '120px',
-    background: '#fdf8f5',
-    borderRadius: '0.65rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '0.5rem',
-    overflow: 'hidden',
-  },
-  allStrollerPrice: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.9rem',
-    fontWeight: 700,
-    color: 'var(--gold)',
-    margin: '0 0 0.35rem',
-  },
-  allStrollerPriceNote: {
-    marginLeft: '0.4rem',
-    fontSize: '0.58rem',
-    fontWeight: 600,
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.14em',
-    color: '#9b9499',
-  },
   compatLink: {
     display: 'inline-block',
     marginTop: '0.55rem',
@@ -1636,21 +1529,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   allStrollersGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-    gap: '0.75rem',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))',
+    gap: '1.25rem',
     marginBottom: '1rem',
-  },
-  allStrollerCard: {
-    position: 'relative',
-    background: '#fff',
-    border: '1px solid rgba(215,161,175,0.2)',
-    borderRadius: '1.25rem',
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.2rem',
-    boxShadow: '0 6px 18px rgba(72,49,56,0.05)',
-    overflow: 'hidden',
   },
   allStrollerBrand: {
     fontFamily: 'var(--font-sans)',
@@ -1659,19 +1540,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: '#a07880',
     letterSpacing: '0.04em',
     textTransform: 'uppercase' as const,
-  },
-  allStrollerModel: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.875rem',
-    fontWeight: 700,
-    color: '#3d2328',
-    marginBottom: '0.35rem',
-  },
-  allStrollerNoLink: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '0.7rem',
-    color: '#a07880',
-    fontStyle: 'italic',
   },
   showAllBtn: {
     fontFamily: 'var(--font-sans)',

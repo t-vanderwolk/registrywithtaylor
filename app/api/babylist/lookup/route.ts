@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -164,6 +165,10 @@ export async function GET(request: NextRequest) {
     const map = new Map<string, Offer[]>();
     for (const g of list) {
       if (g.price == null) continue;
+      // Never let an accessory (adapter, bassinet, footmuff, second seat, etc.)
+      // stand in for a stroller's price/image — that's what put a Bugaboo
+      // Dragonfly adapter photo on the Dragonfly pick.
+      if (isExcludedStrollerFinderProduct({ brand: g.brand, title: g.title })) continue;
       const b = canonicalBrand(g.brand).toLowerCase();
       if (!map.has(b)) map.set(b, []);
       map.get(b)!.push({ price: g.price, url: g.affiliateUrl, sq: squash(g.title), image: g.imageUrl ?? null });
