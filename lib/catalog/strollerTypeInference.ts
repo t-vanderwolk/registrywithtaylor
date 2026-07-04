@@ -80,15 +80,14 @@ export function inferStrollerCategory(
       'double jogging model language',
     )
   ) {
-    // Indie Twin is an all-terrain double but not a running stroller → plain double.
-    if (/\bindie twin\b/.test(text)) {
-      return { expectedCategory: 'double', confidence: 'high', reasons };
-    }
     return { expectedCategory: 'double-jogging', confidence: 'high', reasons };
   }
 
   // ── Jogging / all-terrain (single) ──
+  // A "stroller wagon" is never a jogger even when its name (e.g. Baby Trend
+  // Expedition) matches a jogger line — let the wagon rule below claim it.
   if (
+    !/\bwagon\b/.test(text) &&
     has(
       // Urban Glide 4-wheel is a 4-wheeled everyday stroller, not the 3-wheel
       // jogger — exclude it so a Full-Size reposition isn't reverted.
@@ -137,6 +136,12 @@ export function inferStrollerCategory(
     )
   ) {
     return { expectedCategory: 'umbrella', confidence: 'high', reasons };
+  }
+
+  // ── Nuna SWIV / TRIV: compact/mid-size lines that get mis-read as travel
+  // because of noisy variant titles. Claim them for compact before travel runs.
+  if (has(/\b(swiv|triv)\b/, 'Nuna SWIV/TRIV compact/mid-size line')) {
+    return { expectedCategory: 'compact', confidence: 'high', reasons };
   }
 
   // ── Travel (cabin-fold / lightweight compact-travel) ──
