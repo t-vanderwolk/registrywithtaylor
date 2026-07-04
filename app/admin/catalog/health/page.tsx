@@ -46,8 +46,57 @@ type CatalogQueueRow = {
   provider: string;
   brand: string | null;
   title: string;
+  imageUrl: string | null;
   enrichment: { reviewStatus: string; productType: string | null } | null;
 };
+
+// Friendly labels + colored badges shared with the compatibility manager style.
+function providerLabel(provider: string) {
+  if (provider === 'shopify_macrobaby') return 'MacroBaby';
+  if (provider === 'babylist_impact') return 'Babylist';
+  if (provider === 'awin_anbbaby') return 'ANB Baby';
+  if (provider === 'impact_goodbuygear') return 'GoodBuy Gear';
+  return provider;
+}
+
+const STATUS_META: Record<string, { label: string; badge: string }> = {
+  AUTO_CATEGORIZED: { label: 'Auto-categorized', badge: 'border-neutral-200 bg-neutral-100 text-neutral-600' },
+  NEEDS_REVIEW: { label: 'Needs review', badge: 'border-amber-200 bg-amber-50 text-amber-700' },
+  REVIEWED: { label: 'Reviewed', badge: 'border-emerald-200 bg-emerald-50 text-emerald-700' },
+  HIDDEN: { label: 'Hidden', badge: 'border-neutral-200 bg-neutral-100 text-neutral-500' },
+};
+
+function StatusBadge({ status }: { status: string }) {
+  const meta = STATUS_META[status] ?? { label: status, badge: 'border-neutral-200 bg-neutral-100 text-neutral-600' };
+  return (
+    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${meta.badge}`}>
+      {meta.label}
+    </span>
+  );
+}
+
+function ListedBadge({ listed }: { listed: boolean }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${
+        listed ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-neutral-200 bg-neutral-100 text-neutral-500'
+      }`}
+    >
+      {listed ? 'Listed' : 'Not public'}
+    </span>
+  );
+}
+
+function QueueThumb({ src, label }: { src: string | null; label: string }) {
+  return src ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" className="h-9 w-9 shrink-0 rounded-md border border-[rgba(0,0,0,0.06)] bg-white object-contain p-0.5" />
+  ) : (
+    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[rgba(0,0,0,0.06)] bg-neutral-50 text-[0.55rem] font-semibold uppercase text-neutral-400">
+      {label.slice(0, 2)}
+    </div>
+  );
+}
 
 const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'shopify_macrobaby', 'impact_goodbuygear'];
 const MACROBABY_PROVIDER = 'shopify_macrobaby';
@@ -173,13 +222,16 @@ export default async function CatalogHealthPage() {
                   {health.reviewRows.slice(0, 12).map((row: CatalogQueueRow) => (
                     <tr key={row.id} className="admin-row">
                       <td>
-                        <div className="admin-stack gap-1">
-                          <span className="text-admin">{row.title}</span>
-                          <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                        <div className="flex items-center gap-2.5">
+                          <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
+                          <div className="admin-stack gap-0.5">
+                            <span className="text-admin">{row.title}</span>
+                            <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                          </div>
                         </div>
                       </td>
-                      <td><span className="admin-chip">{row.enrichment?.reviewStatus ?? 'UNKNOWN'}</span></td>
-                      <td className="admin-micro">{row.provider}</td>
+                      <td><StatusBadge status={row.enrichment?.reviewStatus ?? 'UNKNOWN'} /></td>
+                      <td className="admin-micro">{providerLabel(row.provider)}</td>
                     </tr>
                   ))}
                 </AdminTable>
@@ -199,13 +251,16 @@ export default async function CatalogHealthPage() {
                   {health.hiddenRows.slice(0, 12).map((row: CatalogQueueRow) => (
                     <tr key={row.id} className="admin-row">
                       <td>
-                        <div className="admin-stack gap-1">
-                          <span className="text-admin">{row.title}</span>
-                          <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                        <div className="flex items-center gap-2.5">
+                          <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
+                          <div className="admin-stack gap-0.5">
+                            <span className="text-admin">{row.title}</span>
+                            <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                          </div>
                         </div>
                       </td>
                       <td className="admin-micro">{row.enrichment?.productType ?? '—'}</td>
-                      <td className="admin-micro">{row.provider}</td>
+                      <td className="admin-micro">{providerLabel(row.provider)}</td>
                     </tr>
                   ))}
                 </AdminTable>
@@ -233,7 +288,7 @@ export default async function CatalogHealthPage() {
                   <tr key={row.id} className="admin-row">
                     <td className="text-admin">{row.title}</td>
                     <td className="admin-micro">{row.reason}</td>
-                    <td className="admin-micro">{row.provider}</td>
+                    <td className="admin-micro">{providerLabel(row.provider)}</td>
                   </tr>
                 ))}
               </AdminTable>
@@ -272,7 +327,7 @@ export default async function CatalogHealthPage() {
                   {health.orphanStrollers.slice(0, 12).map((row) => (
                     <tr key={row.id} className="admin-row">
                       <td className="text-admin">{row.brand} {row.model}</td>
-                      <td className="admin-micro">{row.publiclyListed ? 'Listed' : 'Not public'}</td>
+                      <td><ListedBadge listed={row.publiclyListed} /></td>
                     </tr>
                   ))}
                 </AdminTable>
@@ -311,6 +366,7 @@ async function loadCatalogHealth() {
         provider: true,
         brand: true,
         title: true,
+        imageUrl: true,
         enrichment: { select: { reviewStatus: true, productType: true } },
       },
       orderBy: { lastSyncedAt: 'desc' },
@@ -323,6 +379,7 @@ async function loadCatalogHealth() {
         provider: true,
         brand: true,
         title: true,
+        imageUrl: true,
         enrichment: { select: { reviewStatus: true, productType: true } },
       },
       orderBy: { lastSyncedAt: 'desc' },
