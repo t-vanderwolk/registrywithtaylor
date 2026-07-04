@@ -9,8 +9,6 @@ import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
 import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
-  formatCompatibilityConfidence,
-  formatCompatibilityType,
   isTravelSystemOnlySeat,
   type CompatibleCarSeatResult,
   type CompatibleStrollerResult,
@@ -70,22 +68,6 @@ const TYPE_ORDER: Array<{
 
 function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0]?.trim() ?? '' : value?.trim() ?? '';
-}
-
-function compatibilityBadgeClasses(type: CompatibilityType) {
-  switch (type) {
-    case 'DIRECT':
-      return 'tool-badge--direct';
-    case 'ADAPTER':
-      return 'tool-badge--adapter';
-    case 'LIMITED':
-      return 'tool-badge--limited';
-    case 'LOCKED':
-      return 'tool-badge--locked';
-    case 'INCOMPATIBLE':
-    default:
-      return 'tool-badge--incompatible';
-  }
 }
 
 function resultBucket(item: { compatibilityType: CompatibilityType; adapterRequired: boolean }) {
@@ -247,15 +229,11 @@ function SelectedSummaryCard({
   kind,
   option,
   total,
-  direct,
-  adapter,
   hideSummary = false,
 }: {
   kind: 'stroller' | 'carSeat';
   option: TravelSystemStrollerOption | TravelSystemCarSeatOption;
   total: number;
-  direct: number;
-  adapter: number;
   /** When the "About this stroller" panel owns the description, skip it here. */
   hideSummary?: boolean;
 }) {
@@ -286,8 +264,6 @@ function SelectedSummaryCard({
         <div className="mt-3 flex flex-wrap gap-2">
           <span className="tool-chip">{kind === 'stroller' ? 'Stroller' : 'Infant car seat'}</span>
           <span className="tool-chip">{total} match{total === 1 ? '' : 'es'}</span>
-          <span className="tool-chip">{direct} direct</span>
-          <span className="tool-chip">{adapter} adapter</span>
           {kind === 'carSeat' && (option as TravelSystemCarSeatOption).travelSystemOnly ? (
             <span className="tool-chip bg-[rgba(216,137,160,0.14)] text-[var(--color-accent-dark)]">Travel system only</span>
           ) : null}
@@ -300,18 +276,32 @@ function SelectedSummaryCard({
   );
 }
 
+// Cybex, Nuna, and Bugaboo strollers ship with one set of universal car seat
+// adapters, so a compatible seat never needs a separate adapter purchase.
+const STROLLERS_WITH_INCLUDED_ADAPTER = new Set(['cybex', 'nuna', 'bugaboo']);
+function strollerIncludesAdapter(brand: string | null | undefined) {
+  return STROLLERS_WITH_INCLUDED_ADAPTER.has((brand ?? '').trim().toLowerCase());
+}
+
 function AdapterCallout({
   item,
+  adapterIncluded = false,
 }: {
   item: Pick<
     CompatibleCarSeatResult | CompatibleStrollerResult,
     'adapterImage' | 'adapterPrice' | 'adapterRequired' | 'adapterType' | 'adapterUrl'
   >;
+  /** True when the stroller already comes with the adapter (Cybex / Nuna / Bugaboo). */
+  adapterIncluded?: boolean;
 }) {
   if (!item.adapterRequired) {
+    return null;
+  }
+
+  if (adapterIncluded) {
     return (
       <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">
-        Direct fit, no adapter needed
+        Adapter included with the stroller, no separate purchase needed
       </p>
     );
   }
@@ -407,17 +397,18 @@ function ResultCard({
               </p>
             ) : null}
           </div>
-          <span className={`tool-badge shrink-0 ${compatibilityBadgeClasses(item.compatibilityType)}`}>
-            {formatCompatibilityType(item.compatibilityType)}
-          </span>
         </div>
 
-        <AdapterCallout item={item} />
+        <AdapterCallout
+          item={item}
+          adapterIncluded={
+            productKind === 'carSeat'
+              ? strollerIncludesAdapter(parentStroller?.brand)
+              : strollerIncludesAdapter(item.brand)
+          }
+        />
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-          <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-neutral-400">
-            {formatCompatibilityConfidence(item.confidence)} confidence
-          </span>
           {productKind === 'carSeat' && (item as CompatibleCarSeatResult).travelSystemOnly ? (
             (() => {
               const bundleUrl = parentStroller
@@ -595,8 +586,6 @@ export default async function TravelSystemResultsPage({
   const results = isStrollerFirst ? selection.result.compatibleCarSeats : selection.result.compatibleStrollers;
   const counts = countMatches(results);
   const resultNoun = isStrollerFirst ? 'compatible infant car seats' : 'compatible strollers';
-  const directLine = `${counts.direct} work${counts.direct === 1 ? 's' : ''} directly.`;
-  const adapterLine = `${counts.adapter} require${counts.adapter === 1 ? 's' : ''} an adapter.`;
 
   // Real, feed-backed specs for the selected stroller (weight, seat limit, fold).
   const strollerRealSpecs = isStrollerFirst
@@ -612,7 +601,7 @@ export default async function TravelSystemResultsPage({
           <SectionIntro
             eyebrow="Travel System Results"
             title="Your Travel System Results"
-            description={`We found ${counts.total} ${resultNoun} for ${selected.displayName}. ${directLine} ${adapterLine}`}
+            description={`We found ${counts.total} ${resultNoun} for ${selected.displayName}.`}
             contentWidthClassName="max-w-4xl"
           />
 
@@ -621,8 +610,6 @@ export default async function TravelSystemResultsPage({
               kind={isStrollerFirst ? 'stroller' : 'carSeat'}
               option={selected}
               total={counts.total}
-              direct={counts.direct}
-              adapter={counts.adapter}
               hideSummary={isStrollerFirst}
             />
 
