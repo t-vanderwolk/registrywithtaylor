@@ -2,7 +2,8 @@
 
 import { useState, type ReactNode } from 'react';
 import { PRODUCT_TYPES, STROLLER_PRODUCT_TYPES } from '@/lib/catalog/taxonomy';
-import { saveEnrichment } from './actions';
+import ConfirmButton from '@/components/admin/ConfirmButton';
+import { saveEnrichment, deleteCatalogProduct } from './actions';
 
 export type CatalogEnrichment = {
   tmbcCategory: string | null;
@@ -212,6 +213,18 @@ export default function CatalogRowEditor({ product, categories }: { product: Cat
               Save + mark reviewed
             </button>
           </div>
+        </form>
+      ) : null}
+
+      {open ? (
+        <form action={deleteCatalogProduct} className="mt-3 flex justify-end border-t border-neutral-100 pt-3">
+          <input type="hidden" name="rawProductId" value={product.id} />
+          <ConfirmButton
+            message={`Delete "${product.title}"? This removes the product and its enrichment from the catalog.`}
+            className="rounded-full border border-red-200 px-4 py-2 text-[0.78rem] font-semibold text-red-600"
+          >
+            Delete product
+          </ConfirmButton>
         </form>
       ) : null}
     </div>

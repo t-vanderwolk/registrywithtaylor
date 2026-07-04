@@ -8,8 +8,13 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import { requireAdminSession } from '@/lib/server/session';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import ConfirmButton from '@/components/admin/ConfirmButton';
 import { GET as getCarSeatCatalog } from '@/app/api/catalog/carseats/route';
 import { GET as getStrollerCatalog } from '@/app/api/catalog/strollers/route';
+import { markReviewedFromHealth, hideFromHealth, unhideFromHealth, deleteFromHealth } from './actions';
+
+const ACTION_BTN = 'rounded-full border border-neutral-200 px-2.5 py-1 text-[0.66rem] font-semibold text-neutral-600 transition hover:border-neutral-300';
+const ACTION_BTN_DANGER = 'rounded-full border border-red-200 px-2.5 py-1 text-[0.66rem] font-semibold text-red-600 transition hover:border-red-300';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Catalog Health · Admin', robots: { index: false, follow: false } };
@@ -215,7 +220,7 @@ export default async function CatalogHealthPage() {
                   columns={[
                     { key: 'title', label: 'Product' },
                     { key: 'status', label: 'Status' },
-                    { key: 'provider', label: 'Provider' },
+                    { key: 'actions', label: 'Actions', align: 'right' },
                   ]}
                   emptyState={<p className="admin-body p-4">No rows currently need review.</p>}
                 >
@@ -226,12 +231,24 @@ export default async function CatalogHealthPage() {
                           <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
                           <div className="admin-stack gap-0.5">
                             <span className="text-admin">{row.title}</span>
-                            <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                            <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
                           </div>
                         </div>
                       </td>
                       <td><StatusBadge status={row.enrichment?.reviewStatus ?? 'UNKNOWN'} /></td>
-                      <td className="admin-micro">{providerLabel(row.provider)}</td>
+                      <td>
+                        <div className="flex flex-wrap items-center justify-end gap-1.5">
+                          <form action={markReviewedFromHealth}>
+                            <input type="hidden" name="id" value={row.id} />
+                            <button type="submit" className={ACTION_BTN}>Approve</button>
+                          </form>
+                          <form action={hideFromHealth}>
+                            <input type="hidden" name="id" value={row.id} />
+                            <button type="submit" className={ACTION_BTN}>Hide</button>
+                          </form>
+                          <Link href={`/admin/catalog?q=${encodeURIComponent(row.title)}`} className={ACTION_BTN}>Edit</Link>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </AdminTable>
@@ -244,7 +261,7 @@ export default async function CatalogHealthPage() {
                   columns={[
                     { key: 'title', label: 'Product' },
                     { key: 'type', label: 'Type' },
-                    { key: 'provider', label: 'Provider' },
+                    { key: 'actions', label: 'Actions', align: 'right' },
                   ]}
                   emptyState={<p className="admin-body p-4">No hidden products found.</p>}
                 >
@@ -255,12 +272,25 @@ export default async function CatalogHealthPage() {
                           <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
                           <div className="admin-stack gap-0.5">
                             <span className="text-admin">{row.title}</span>
-                            <span className="admin-micro">{row.brand ?? 'Unknown brand'}</span>
+                            <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
                           </div>
                         </div>
                       </td>
                       <td className="admin-micro">{row.enrichment?.productType ?? '—'}</td>
-                      <td className="admin-micro">{providerLabel(row.provider)}</td>
+                      <td>
+                        <div className="flex flex-wrap items-center justify-end gap-1.5">
+                          <form action={unhideFromHealth}>
+                            <input type="hidden" name="id" value={row.id} />
+                            <button type="submit" className={ACTION_BTN}>Unhide</button>
+                          </form>
+                          <form action={deleteFromHealth}>
+                            <input type="hidden" name="id" value={row.id} />
+                            <ConfirmButton message={`Delete "${row.title}"? This removes it from the catalog entirely.`} className={ACTION_BTN_DANGER}>
+                              Delete
+                            </ConfirmButton>
+                          </form>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </AdminTable>

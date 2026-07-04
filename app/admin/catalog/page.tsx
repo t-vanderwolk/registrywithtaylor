@@ -5,8 +5,10 @@ import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { requireAdminSession } from '@/lib/server/session';
-import { TMBC_CATEGORIES } from '@/lib/catalog/taxonomy';
-import CatalogRowEditor, { type CatalogProduct } from './CatalogRowEditor';
+import { TMBC_CATEGORIES, PRODUCT_TYPES } from '@/lib/catalog/taxonomy';
+import { type CatalogProduct } from './CatalogRowEditor';
+import CatalogBulkList from './CatalogBulkList';
+import { createCatalogProduct } from './actions';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Catalog · Admin', robots: { index: false, follow: false } };
@@ -104,6 +106,56 @@ export default async function AdminCatalogPage({ searchParams }: { searchParams?
         ) : (
           <>
             <AdminSurface className="admin-stack gap-3">
+              <details>
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--color-accent-dark)]">
+                  + Add a product manually
+                </summary>
+                <form action={createCatalogProduct} className="mt-4 grid gap-3 border-t border-neutral-100 pt-4 sm:grid-cols-2">
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Title *
+                    <input name="title" required className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" placeholder="UPPAbaby Vista V2 Stroller" />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Brand
+                    <input name="brand" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" placeholder="UPPAbaby" />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Price ($)
+                    <input name="price" type="number" step="0.01" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Category
+                    <select name="tmbcCategory" defaultValue="" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm">
+                      <option value="">—</option>
+                      {TMBC_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Product type
+                    <select name="productType" defaultValue="" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm">
+                      <option value="">—</option>
+                      {PRODUCT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Image URL
+                    <input name="imageUrl" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" placeholder="https://..." />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Affiliate URL
+                    <input name="affiliateUrl" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" placeholder="https://..." />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Amazon affiliate link
+                    <input name="manualAmazonUrl" className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm" placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" />
+                  </label>
+                  <div className="sm:col-span-2">
+                    <button type="submit" className="rounded-full bg-[var(--color-cta-pink)] px-5 py-2 text-[0.78rem] font-semibold text-white">
+                      Add product
+                    </button>
+                  </div>
+                </form>
+              </details>
               <p className="admin-body">
                 {total.toLocaleString()} products match · {needsReviewTotal.toLocaleString()} need review
               </p>
@@ -150,9 +202,7 @@ export default async function AdminCatalogPage({ searchParams }: { searchParams?
               {products.length === 0 ? (
                 <AdminSurface><p className="admin-body">No products match these filters.</p></AdminSurface>
               ) : (
-                products.map((p) => (
-                  <CatalogRowEditor key={p.id} product={p} categories={[...TMBC_CATEGORIES]} />
-                ))
+                <CatalogBulkList products={products} categories={[...TMBC_CATEGORIES]} />
               )}
             </div>
 

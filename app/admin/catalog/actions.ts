@@ -77,3 +77,95 @@ export async function saveEnrichment(formData: FormData) {
 
   revalidatePath('/admin/catalog');
 }
+
+// ── Create / delete / bulk ──────────────────────────────────────────────────
+
+const field = (formData: FormData, k: string) => {
+  const v = formData.get(k);
+  return v == null || String(v).trim() === '' ? null : String(v).trim();
+};
+
+/** Manually add a new catalog product (human-owned, provider "manual_tmbc"). */
+export async function createCatalogProduct(formData: FormData) {
+  const session = await requireAdminSession('/admin/catalog');
+  const title = field(formData, 'title');
+  if (!title) return;
+
+  const priceRaw = field(formData, 'price');
+  const priceNum = priceRaw != null ? Number(priceRaw.replace(/[$,]/g, '')) : null;
+  const brand = field(formData, 'brand');
+  const affiliateUrl = field(formData, 'affiliateUrl');
+  const externalId = `manual-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+
+  const product = await db.affiliateCatalogProduct.create({
+    data: {
+      provider: 'manual_tmbc',
+      externalId,
+      brand,
+      title,
+      price: priceNum != null && Number.isFinite(priceNum) ? priceNum : null,
+      currency: 'USD',
+      imageUrl: field(formData, 'imageUrl'),
+      affiliateUrl,
+      productUrl: affiliateUrl,
+      manualAmazonUrl: field(formData, 'manualAmazonUrl'),
+      retailer: 'Manual',
+      isActiveInFeed: true,
+    },
+    select: { id: true },
+  });
+
+  await db.productEnrichment.create({
+    data: {
+      rawProductId: product.id,
+      canonicalBrand: brand,
+      tmbcCategory: field(formData, 'tmbcCategory'),
+      productType: field(formData, 'productType'),
+      reviewStatus: 'REVIEWED',
+      isPublic: true,
+      needsReview: false,
+      reviewedAt: new Date(),
+      reviewedBy: session.user?.email ?? null,
+    },
+  });
+
+  revalidatePath('/admin/catalog');
+}
+
+/** Delete a single catalog product (enrichment cascades). */
+export async function deleteCatalogProduct(formData: FormData) {
+  await requireAdminSession('/admin/catalog');
+  const id = field(formData, 'rawProductId') ?? field(formData, 'id');
+  if (!id) return;
+  await db.affiliateCatalogProduct.delete({ where: { id } });
+  revalidatePath('/admin/catalog');
+}
+
+/** Apply an action to many products at once: hide, mark-reviewed, or delete. */
+export async function bulkCatalogAction(formData: FormData) {
+  const session = await requireAdminSession('/admin/catalog');
+  const action = String(formData.get('_bulk') ?? '').trim();
+  const ids = formData.getAll('ids').map((v) => String(v).trim()).filter(Boolean);
+  if (ids.length === 0) return;
+
+  if (action === 'delete') {
+    await db.affiliateCatalogProduct.deleteMany({ where: { id: { in: ids } } });
+  } else if (action === 'hide' || action === 'review') {
+    const data =
+      action === 'hide'
+        ? { reviewStatus: 'HIDDEN', isPublic: false, needsReview: false }
+        : { reviewStatus: 'REVIEWED', isPublic: true, needsReview: false };
+    // Upsert per id so products without an enrichment row still get one.
+    await Promise.all(
+      ids.map((rawProductId) =>
+        db.productEnrichment.upsert({
+          where: { rawProductId },
+          create: { rawProductId, ...data, reviewedAt: new Date(), reviewedBy: session.user?.email ?? null },
+          update: { ...data, reviewedAt: new Date(), reviewedBy: session.user?.email ?? null },
+        }),
+      ),
+    );
+  }
+
+  revalidatePath('/admin/catalog');
+}
