@@ -94,6 +94,10 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Dragonfly stroller'),
   },
+  'Bugaboo:::Dragonfly Plus': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    amazonUrl: amazonSearch('Bugaboo Dragonfly stroller'),
+  },
   'Bugaboo:::Lynx': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
     amazonUrl: amazonSearch('Bugaboo Lynx stroller'),

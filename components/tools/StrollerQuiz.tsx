@@ -504,7 +504,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
         name: 'Bugaboo Dragonfly',
         tagline: 'Compact city stroller. Smaller footprint, still a real everyday push.',
         brand: 'Bugaboo',
-        model: 'Dragonfly',
+        model: 'Dragonfly Plus',
       },
       {
         name: 'Nuna TRIV Next',
@@ -1096,6 +1096,12 @@ export default function StrollerQuiz() {
                         </a>
                       ) : null}
                     </div>
+                    <Link
+                      href={travelSystemResultsHref('stroller', { brand: pick.brand, model: pick.model })}
+                      style={styles.compatLink}
+                    >
+                      Compatible car seats →
+                    </Link>
                   </div>
                 </div>
               );
