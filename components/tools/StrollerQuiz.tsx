@@ -1078,12 +1078,11 @@ export default function StrollerQuiz() {
                           style={styles.shopBtnAmazon}
                           onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'amazon', brand: pick.brand, url: links.amazonUrl })}
                         >
-                          <svg width="14" height="11" viewBox="0 0 18 15" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                            <text x="1" y="10" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1a1a1a">a</text>
-                            <path d="M2 12.5 Q7 15 13.5 12.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                            <path d="M11.8 11.6 L13.5 12.5 L12 13.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                          <svg width="46" height="15" viewBox="0 0 62 20" fill="none" aria-hidden="true" style={{ flexShrink: 0, transform: 'translateY(1px)' }}>
+                            <text x="0" y="14" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" letterSpacing="-0.5" fill="currentColor">amazon</text>
+                            <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
+                            <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                           </svg>
-                          Amazon
                         </a>
                       )}
                     </div>

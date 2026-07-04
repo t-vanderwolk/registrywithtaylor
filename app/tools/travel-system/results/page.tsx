@@ -203,6 +203,18 @@ function BabylistHeartIcon() {
   );
 }
 
+function AmazonMark() {
+  return (
+    <svg width="46" height="15" viewBox="0 0 62 20" fill="none" aria-hidden="true" className="shrink-0 translate-y-[1px]">
+      <text x="0" y="14" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" letterSpacing="-0.5" fill="currentColor">
+        amazon
+      </text>
+      <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  );
+}
+
 function EmptyState({
   title,
   description,
@@ -466,7 +478,7 @@ function ResultCard({
                   brand={item.brand}
                   className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
                 >
-                  Amazon
+                  <AmazonMark />
                 </ToolAffiliateLink>
               ) : null}
             </>
