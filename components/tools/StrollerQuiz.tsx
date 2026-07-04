@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
-import { OpenBoxBadge } from './StrollerCatalogFinder';
+import { OpenBoxBadge, BabylistHeartIcon, AmazonMark } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
@@ -1015,82 +1015,86 @@ export default function StrollerQuiz() {
         <div style={styles.picksSection}>
           <p style={styles.picksSectionLabel}>Taylor's top picks in this category</p>
           <div style={styles.picksGrid}>
-            {result.picks.map((pick, i) => (
-              <div key={i} style={styles.pickCard}>
-                {(() => {
-                  // Prefer the live Babylist product photo when this pick is synced.
-                  const live = pickData[`${pick.brand}:::${pick.model}`];
-                  const imgSrc = live?.babylistImage ?? pick.imageSrc;
-                  const openBoxOffer =
-                    live && (live.openBoxUrl || live.openBoxPrice != null)
-                      ? { price: live.openBoxPrice, url: live.openBoxUrl }
-                      : null;
-                  return (
-                    <>
-                      <OpenBoxBadge offer={openBoxOffer} />
-                      {imgSrc ? (
-                        <div style={styles.pickImgWrap}>
-                          <img src={imgSrc} alt={pick.name} style={styles.pickImg} />
-                        </div>
-                      ) : null}
-                    </>
-                  );
-                })()}
-                {i === 0 && (
-                  <span style={{ ...styles.pickBadge, background: result.accentColor }}>Top Pick</span>
-                )}
-                <p style={styles.pickName}>{pick.name}</p>
-                <p style={styles.pickTagline}>{pick.tagline}</p>
-                {(() => {
-                  const links = getAffiliateLinks(pick.brand, pick.model);
-                  const live = pickData[`${pick.brand}:::${pick.model}`];
-                  const babylistUrl = babylistAffiliateUrl(pick.brand, pick.model, 'stroller', live?.babylistUrl);
-                  return (
-                    <>
-                      {live?.babylistPrice ? (
-                        <p style={{ margin: '0.15rem 0 0.55rem', fontSize: '0.98rem', fontWeight: 700, color: 'var(--gold)' }}>
-                          ${live.babylistPrice.toFixed(2)}
-                          <span style={{ marginLeft: '0.4rem', fontSize: '0.6rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#9b9499' }}>
-                            via Babylist
-                          </span>
-                        </p>
-                      ) : null}
-                    <div style={styles.shopBtnRow}>
-                      {babylistUrl && (
+            {result.picks.map((pick, i) => {
+              // Prefer the live Babylist product photo + price when this pick is synced.
+              const live = pickData[`${pick.brand}:::${pick.model}`];
+              const imgSrc = live?.babylistImage ?? pick.imageSrc;
+              const openBoxOffer =
+                live && (live.openBoxUrl || live.openBoxPrice != null)
+                  ? { price: live.openBoxPrice, url: live.openBoxUrl }
+                  : null;
+              const links = getAffiliateLinks(pick.brand, pick.model);
+              const babylistUrl = babylistAffiliateUrl(pick.brand, pick.model, 'stroller', live?.babylistUrl);
+              return (
+                <div key={i} className="tool-card tool-product-card">
+                  <div className="tool-card__media tool-product-card__media">
+                    <OpenBoxBadge offer={openBoxOffer} />
+                    {imgSrc ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={imgSrc} alt={pick.name} className="tool-product-card__image" />
+                    ) : (
+                      <span className="tool-product-card__image-fallback">{pick.brand}</span>
+                    )}
+                  </div>
+                  <div className="tool-product-card__body">
+                    {i === 0 ? (
+                      <span
+                        style={{
+                          alignSelf: 'flex-start',
+                          borderRadius: 999,
+                          background: result.accentColor,
+                          color: '#fff',
+                          fontSize: '0.58rem',
+                          fontWeight: 800,
+                          letterSpacing: '0.12em',
+                          textTransform: 'uppercase',
+                          padding: '0.25rem 0.6rem',
+                        }}
+                      >
+                        Top Pick
+                      </span>
+                    ) : null}
+                    <p className="tool-product-card__title">{pick.name}</p>
+                    <p style={{ margin: '0.1rem 0 0.15rem', fontSize: '0.82rem', lineHeight: 1.5, color: '#6f6a6c' }}>
+                      {pick.tagline}
+                    </p>
+                    {live?.babylistPrice ? (
+                      <p className="tool-product-card__price">
+                        ${live.babylistPrice.toFixed(2)}
+                        <span>via Babylist</span>
+                      </p>
+                    ) : null}
+                    <div className="tool-product-card__actions">
+                      {babylistUrl ? (
                         <a
                           href={babylistUrl}
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
-                          style={styles.shopBtnBabylist}
+                          className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
                           onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'babylist', brand: pick.brand, url: babylistUrl })}
                         >
-                          <svg width="12" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                            <path d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z" fill="#f26b8a" stroke="#f26b8a" strokeWidth="0.5" strokeLinejoin="round" />
-                          </svg>
-                          Babylist
+                          <BabylistHeartIcon className="shrink-0" />
+                          <span>Add to Babylist →</span>
                         </a>
-                      )}
-                      {links.amazonUrl && (
+                      ) : null}
+                      {links.amazonUrl ? (
                         <a
                           href={links.amazonUrl}
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
-                          style={styles.shopBtnAmazon}
+                          className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
                           onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'amazon', brand: pick.brand, url: links.amazonUrl })}
                         >
-                          <svg width="46" height="15" viewBox="0 0 62 20" fill="none" aria-hidden="true" style={{ flexShrink: 0, transform: 'translateY(1px)' }}>
-                            <text x="0" y="14" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" letterSpacing="-0.5" fill="currentColor">amazon</text>
-                            <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
-                            <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                          </svg>
+                          <span>Shop on</span>
+                          <AmazonMark className="shrink-0 translate-y-[1px]" />
+                          <span aria-hidden="true">→</span>
                         </a>
-                      )}
+                      ) : null}
                     </div>
-                    </>
-                  );
-                })()}
-              </div>
-            ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
