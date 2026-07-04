@@ -2,9 +2,7 @@ import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
-import { getGuidePublicPath } from '@/lib/guides/publicPath';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
-import { getGuideAnalyticsDashboard } from '@/lib/server/guideAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -70,7 +68,6 @@ export default async function AdminAnalyticsPage() {
     mostViewedPost,
     postsByViews,
     revenueAnalytics,
-    guideAnalytics,
   ] = await Promise.all([
     prisma.post.count(),
     prisma.post.groupBy({
@@ -98,13 +95,8 @@ export default async function AdminAnalyticsPage() {
       },
     }),
     getBlogRevenueAnalytics(),
-    getGuideAnalyticsDashboard(),
   ]);
   const revenueLeaderRows = revenueAnalytics.posts.slice(0, 12);
-  const guideToConsultationConversion =
-    guideAnalytics.summary.totalViews > 0
-      ? `${((guideAnalytics.summary.totalConsultationClicks / guideAnalytics.summary.totalViews) * 100).toFixed(1)}%`
-      : '0.0%';
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -125,17 +117,9 @@ export default async function AdminAnalyticsPage() {
         title="Blog performance overview"
         subtitle="Track output volume, status mix, and post-level readership at a glance."
         actions={
-          <>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/academy/analytics">Academy analytics</Link>
-            </AdminButton>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/academy">Manage academy</Link>
-            </AdminButton>
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/blog">Manage blog</Link>
-            </AdminButton>
-          </>
+          <AdminButton asChild variant="secondary">
+            <Link href="/admin/blog">Manage blog</Link>
+          </AdminButton>
         }
       />
 
@@ -252,65 +236,6 @@ export default async function AdminAnalyticsPage() {
               <td className="text-admin">{brand.brandName}</td>
               <td className="text-right text-admin">{brand.affiliateClicks.toLocaleString()}</td>
               <td className="text-right text-admin">{formatCurrency(brand.estimatedRevenue)}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
-
-      <AdminHeader
-        eyebrow="Academy Engagement"
-        title="Academy views with conversion signals"
-        subtitle="The unified learning-content model runs through the same analytics layer. Use it to measure what moves readers toward action."
-      />
-
-      <section className="admin-kpi-grid" aria-label="Academy engagement metrics">
-        <AdminKpiCard label="Academy Views" value={guideAnalytics.summary.totalViews.toLocaleString()} />
-        <AdminKpiCard label="Academy Actions" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
-        <AdminKpiCard label="Academy Conversions" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
-        <AdminKpiCard label="Academy conversion rate" value={guideToConsultationConversion} />
-        <AdminKpiCard label="Academy contacts" value={guideAnalytics.summary.totalContactClicks.toLocaleString()} />
-        <AdminKpiCard label="Academy services" value={guideAnalytics.summary.totalServicesClicks.toLocaleString()} />
-      </section>
-
-      <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Top academy conversion sources</h2>
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'content', label: 'Learning Content' },
-            { key: 'views', label: 'Views', align: 'right' },
-            { key: 'book', label: 'Conversions', align: 'right' },
-            { key: 'contact', label: 'Contact Clicks', align: 'right' },
-            { key: 'services', label: 'Services Clicks', align: 'right' },
-          ]}
-          emptyState={<p className="admin-body p-6">No academy conversion data yet.</p>}
-        >
-          {guideAnalytics.topGuides.slice(0, 8).map((guide) => (
-            <tr key={guide.guideId} className="admin-row">
-              <td>
-                <div className="admin-stack gap-1">
-                  <p className="text-admin">{guide.title}</p>
-                  <Link
-                    href={getGuidePublicPath({
-                      slug: guide.slug,
-                      topicCluster: guide.topicCluster,
-                      canonicalUrl: guide.canonicalUrl,
-                    })}
-                    target="_blank"
-                    className="admin-micro underline underline-offset-2"
-                  >
-                    {getGuidePublicPath({
-                      slug: guide.slug,
-                      topicCluster: guide.topicCluster,
-                      canonicalUrl: guide.canonicalUrl,
-                    })}
-                  </Link>
-                </div>
-              </td>
-              <td className="text-right text-admin">{guide.views.toLocaleString()}</td>
-              <td className="text-right text-admin">{guide.consultationClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{guide.contactClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{guide.servicesClicks.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>
