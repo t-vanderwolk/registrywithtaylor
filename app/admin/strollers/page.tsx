@@ -97,9 +97,14 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
           title="Strollers"
           subtitle="The stroller database behind the finder, checker, and quiz. Add new strollers, edit summaries and quiz specs, set Amazon affiliate links, or remove records."
           actions={
-            <AdminButton asChild variant="secondary">
-              <Link href="/admin/car-seats">Car seats →</Link>
-            </AdminButton>
+            <div className="flex flex-wrap gap-2">
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog/recategorize">Recategorize types</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/car-seats">Car seats →</Link>
+              </AdminButton>
+            </div>
           }
         />
 

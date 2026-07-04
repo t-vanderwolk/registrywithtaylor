@@ -62,6 +62,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
                 links: [
                   { label: 'Strollers', href: '/admin/strollers' },
                   { label: 'Car Seats', href: '/admin/car-seats' },
+                  { label: 'Recategorize', href: '/admin/catalog/recategorize' },
                   { label: 'Compatibility', href: '/admin/catalog/compatibility' },
                   { label: 'Affiliate Catalog', href: '/admin/catalog' },
                   { label: 'Catalog Health', href: '/admin/catalog/health' },
