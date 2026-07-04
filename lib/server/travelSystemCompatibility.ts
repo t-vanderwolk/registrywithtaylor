@@ -129,6 +129,7 @@ type PublicAvailabilityRow = {
   babylistPrice?: number | null;
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
+  amazonUrl?: string | null;
 };
 
 function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
@@ -138,6 +139,7 @@ function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
   return hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
     { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
+    { source: 'Amazon', url: row.amazonUrl ?? null, price: null },
   ]);
 }
 
@@ -402,9 +404,12 @@ function enrichWithPublicRetailers<T extends { brand: string; model: string; ima
 ): T[] {
   return items.map((item) => {
     const fields = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_PUBLIC_RETAILERS;
-    const amazonUrl = hasPublicTravelSystemRetailer({ ...item, ...fields })
-      ? getAffiliateLinks(item.brand, item.model).amazonUrl ?? null
-      : null;
+    // A manually-entered Amazon link (Stroller.amazonUrl / CarSeat.amazonUrl) wins;
+    // otherwise fall back to the static per-model Amazon map when the item is public.
+    const manualAmazon = (item as { amazonUrl?: string | null }).amazonUrl ?? null;
+    const amazonUrl =
+      manualAmazon ??
+      (hasPublicTravelSystemRetailer({ ...item, ...fields }) ? getAffiliateLinks(item.brand, item.model).amazonUrl ?? null : null);
     return {
       ...item,
       ...fields,
@@ -803,7 +808,8 @@ export async function getTravelSystemCarSeats() {
         "summary",
         "babylistUrl",
         "babylistPrice",
-        "babylistImage"
+        "babylistImage",
+        "amazonUrl"
       FROM "CarSeat"
       WHERE "seatType" = 'INFANT'
       ORDER BY LOWER("brand"), LOWER("model")

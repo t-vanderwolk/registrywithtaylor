@@ -93,10 +93,49 @@ export function isBombiOffer(offer: RetailOfferSignal) {
   return source === 'bombi' || retailer === 'bombi' || retailer === 'bombi gear' || provider === 'bombi direct';
 }
 
+export function isAmazonUrl(value: string | null | undefined) {
+  if (!value) return false;
+  const raw = value.toLowerCase();
+  if (raw.includes('amazon.') || raw.includes('amzn.to') || raw.includes('amzn.eu')) return true;
+  try {
+    const destination = new URL(value).searchParams.get('u');
+    return destination ? /amazon\.|amzn\./.test(decodeURIComponent(destination).toLowerCase()) : false;
+  } catch {
+    return false;
+  }
+}
+
+export function isAmazonOffer(offer: RetailOfferSignal) {
+  const source = normalizeRetailerSignal(offer.source);
+  const retailer = normalizeRetailerSignal(offer.retailer);
+  const provider = normalizeRetailerSignal(offer.provider);
+  return (
+    source === 'amazon' ||
+    retailer === 'amazon' ||
+    provider === 'amazon' ||
+    isAmazonUrl(offer.url) ||
+    isAmazonUrl(offer.productUrl)
+  );
+}
+
+/** A hand-added TMBC catalog product (provider "manual_tmbc", retailer "Manual"). */
+export function isManualOffer(offer: RetailOfferSignal) {
+  const source = normalizeRetailerSignal(offer.source);
+  const retailer = normalizeRetailerSignal(offer.retailer);
+  const provider = normalizeRetailerSignal(offer.provider);
+  return provider === 'manual tmbc' || retailer === 'manual' || source === 'manual';
+}
+
 export function hasPublicCoreRetailer(offerOrOffers: RetailOfferSignal | RetailOfferSignal[]) {
   const offers = Array.isArray(offerOrOffers) ? offerOrOffers : [offerOrOffers];
   return offers.some(
-    (offer) => hasPublicRetailOffer(offer) && (isBabylistOffer(offer) || isMacroBabyOffer(offer) || isBombiOffer(offer)),
+    (offer) =>
+      hasPublicRetailOffer(offer) &&
+      (isBabylistOffer(offer) ||
+        isMacroBabyOffer(offer) ||
+        isBombiOffer(offer) ||
+        isAmazonOffer(offer) ||
+        isManualOffer(offer)),
   );
 }
 

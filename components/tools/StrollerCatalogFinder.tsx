@@ -76,7 +76,7 @@ type FinderProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source?: 'babylist' | 'macrobaby' | 'bombi';
+  source?: 'babylist' | 'macrobaby' | 'bombi' | 'amazon';
   retailers?: {
     babylist?: RetailerOffer | null;
     amazon?: RetailerOffer | null;
