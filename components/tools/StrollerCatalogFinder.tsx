@@ -50,7 +50,7 @@ export const BRAND_LOGOS: Record<string, string> = {
   UPPAbaby: '/assets/logos/uppababy.png',
   Veer: '/assets/logos/veer.png',
   WonderFold: '/assets/logos/wonderfold2.png',
-  'WonderFold Wagon': '/assets/logos/wonderfold.png',
+  'WonderFold Wagon': '/assets/logos/wonderfold2.png',
   Zoe: '/assets/logos/zoe.png',
 };
 
