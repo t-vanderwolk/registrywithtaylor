@@ -6,6 +6,7 @@ import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
+import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
   formatCompatibilityConfidence,
@@ -341,9 +342,12 @@ function AdapterCallout({
 function ResultCard({
   item,
   productKind,
+  parentStroller,
 }: {
   item: CompatibleCarSeatResult | CompatibleStrollerResult;
   productKind: 'stroller' | 'carSeat';
+  /** When viewing a stroller's compatible seats, the stroller being viewed. */
+  parentStroller?: { brand: string; model: string } | null;
 }) {
   const babylistUrl =
     item.babylistUrl || item.babylistPrice != null
@@ -394,9 +398,28 @@ function ResultCard({
             {formatCompatibilityConfidence(item.confidence)} confidence
           </span>
           {productKind === 'carSeat' && (item as CompatibleCarSeatResult).travelSystemOnly ? (
-            <span className="ml-auto rounded-full bg-[rgba(216,137,160,0.14)] px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-dark)]">
-              Travel system only
-            </span>
+            (() => {
+              const bundleUrl = parentStroller
+                ? getPipaUrbnTravelSystemUrl(parentStroller.brand, parentStroller.model)
+                : null;
+              return bundleUrl ? (
+                <ToolAffiliateLink
+                  tool="travel-system-checker"
+                  href={bundleUrl}
+                  product={`${parentStroller?.brand ?? ''} ${parentStroller?.model ?? ''} + PIPA urbn travel system`.trim()}
+                  retailer="babylist"
+                  brand={item.brand}
+                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                >
+                  <BabylistHeartIcon />
+                  Shop travel system
+                </ToolAffiliateLink>
+              ) : (
+                <span className="ml-auto rounded-full bg-[rgba(216,137,160,0.14)] px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-dark)]">
+                  Travel system only
+                </span>
+              );
+            })()
           ) : null}
           {primaryCta ? (
             <ToolAffiliateLink
@@ -433,10 +456,12 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
   items,
   productKind,
   brandLabel,
+  parentStroller,
 }: {
   items: T[];
   productKind: 'stroller' | 'carSeat';
   brandLabel: string;
+  parentStroller?: { brand: string; model: string } | null;
 }) {
   return (
     <div className="space-y-6">
@@ -477,6 +502,7 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
                           key={`${item.brand}-${item.model}-${item.compatibilityType}`}
                           item={item}
                           productKind={productKind}
+                          parentStroller={parentStroller}
                         />
                       ))}
                     </div>
@@ -574,6 +600,7 @@ export default async function TravelSystemResultsPage({
                 items={results}
                 productKind={isStrollerFirst ? 'carSeat' : 'stroller'}
                 brandLabel={isStrollerFirst ? 'Brand' : 'Stroller brand'}
+                parentStroller={isStrollerFirst ? { brand: selected.brand, model: selected.model } : null}
               />
             ) : (
               <div className="rounded-[1.6rem] border border-dashed border-[rgba(0,0,0,0.14)] bg-[#fcfaf7] px-6 py-8 text-center">
