@@ -131,6 +131,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'UPPAbaby:::Vista V3': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
+    amazonUrl: amazonDp('B0D9XSJ5X5'),
   },
   'UPPAbaby:::Cruz V2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
@@ -138,6 +139,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'UPPAbaby:::Cruz V3': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
+    amazonUrl: amazonDp('B0FHM3LGY7'),
   },
   'UPPAbaby:::Minu V2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=uppababy'),
@@ -165,6 +167,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'CYBEX:::Priam': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
+    amazonUrl: amazonDp('B07N1DHKTM'),
   },
   'CYBEX:::Mios': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
@@ -172,9 +175,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'CYBEX:::Eezy S Twist': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
+    amazonUrl: amazonDp('B08BVRJHSZ'),
   },
   'CYBEX:::Melio': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
+    amazonUrl: amazonDp('B0BTTPCJ7X'),
   },
   'CYBEX:::Beezy': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=cybex'),
@@ -203,9 +208,14 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Silver Cross:::Dune 2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
+    amazonUrl: amazonDp('B0C86M3NBD'),
   },
   'Silver Cross:::Comet': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
+  },
+  'Silver Cross:::Jet Double': {
+    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=silver-cross'),
+    amazonUrl: amazonDp('B0DDL4NRMF'),
   },
 
   // Mockingbird — direct-to-consumer only; not on Amazon.
@@ -219,9 +229,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   // Baby Jogger
   'Baby Jogger:::City Select 2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
+    amazonUrl: amazonDp('B094NYCVJ5'),
   },
   'Baby Jogger:::City Tour 2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
+    amazonUrl: amazonDp('B07NZPT3TR'),
   },
   'Baby Jogger:::City Mini 2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=baby-jogger'),
@@ -253,9 +265,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'BOB:::Wayfinder': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
+    amazonUrl: amazonDp('B0BTZCRGGV'),
   },
   'BOB:::Rambler': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bob'),
+    amazonUrl: amazonDp('B0829P1RF6'),
   },
 
   // Bumbleride
@@ -272,6 +286,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Bumbleride:::Era': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bumbleride'),
+    amazonUrl: amazonDp('B0DJ3BDZKZ'),
   },
 
   // BABYZEN
@@ -304,9 +319,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   // Joolz
   'Joolz:::Hub 2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
+    amazonUrl: amazonDp('B0DYVNXJ65'),
   },
   'Joolz:::Hub': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
+    amazonUrl: amazonDp('B085G2FNSK'),
   },
   'Joolz:::Day': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joolz'),
@@ -340,6 +357,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Britax:::B-Lively': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=britax'),
+    amazonUrl: amazonDp('B07D15XKGY'),
   },
 
   // Bugaboo (additional)
@@ -366,6 +384,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Joovy:::Qool': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
+    amazonUrl: amazonDp('B07CC5X39W'),
   },
   'Joovy:::Twin Roo+': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=joovy'),
@@ -411,9 +430,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   // UPPAbaby
   'UPPAbaby:::Aria': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
+    amazonUrl: amazonDp('B0CVBNKXZS'),
   },
   'UPPAbaby:::Aria V2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
+    amazonUrl: amazonDp('B0FPJLLV8L'),
   },
   'UPPAbaby:::Mesa Max': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=uppababy'),
@@ -441,6 +462,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Britax:::Cypress S': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=britax'),
+    amazonUrl: amazonDp('B0CWS89KX9'),
   },
 
   // Baby Jogger
@@ -459,9 +481,11 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Maxi-Cosi:::Coral XP': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
+    amazonUrl: amazonDp('B092S884JV'),
   },
   'Maxi-Cosi:::Peri 180': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=maxi-cosi'),
+    amazonUrl: amazonDp('B0CT62H9FC'),
   },
 
   // Chicco
@@ -471,6 +495,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Chicco:::Fit2': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=chicco'),
+    amazonUrl: amazonDp('B07ZWVKR73'),
   },
 
   // Clek
@@ -480,6 +505,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Clek:::Liingo': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/car-seats?brand=clek'),
+    amazonUrl: amazonDp('B0BSLX5JXV'),
   },
 
   // Stokke PIPA (made by Nuna) — Babylist only.
