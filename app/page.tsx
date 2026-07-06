@@ -254,6 +254,7 @@ function AdvisorFocusCard({
             scale="card"
             className="mx-auto"
             loading="lazy"
+            vivid
           />
         </div>
         <p className="mx-auto mt-4 max-w-[12rem] bg-transparent text-[1.02rem] font-semibold leading-[1.35] text-[#2E2529] selection:bg-transparent selection:text-[#2E2529]">

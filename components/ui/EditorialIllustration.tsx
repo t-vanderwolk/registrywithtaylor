@@ -13,6 +13,8 @@ type EditorialIllustrationProps = {
   loading?: 'lazy' | 'eager';
   priority?: boolean;
   unoptimized?: boolean;
+  /** Render at full opacity/saturation (no editorial fade). */
+  vivid?: boolean;
 };
 
 const wrapperClassMap = {
@@ -40,11 +42,13 @@ export default function EditorialIllustration({
   loading = 'lazy',
   priority = false,
   unoptimized,
+  vivid = false,
 }: EditorialIllustrationProps) {
   return (
     <div
       className={[
-        'editorial-illustration group relative isolate flex w-full items-center justify-center opacity-[0.78]',
+        'editorial-illustration group relative isolate flex w-full items-center justify-center',
+        vivid ? 'opacity-100' : 'opacity-[0.78]',
         "before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:-z-10 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-[1.4rem]",
         'before:bg-[linear-gradient(135deg,rgba(232,214,216,0.35),rgba(255,255,255,0.6))]',
         'before:shadow-[0_6px_18px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.72)]',
@@ -68,9 +72,12 @@ export default function EditorialIllustration({
           priority={priority}
           unoptimized={unoptimized}
           className={[
-            'editorial-illustration__image object-contain opacity-[0.74] saturate-[0.85] contrast-[0.95]',
+            'editorial-illustration__image object-contain',
+            vivid
+              ? 'opacity-100 saturate-100 contrast-100'
+              : 'opacity-[0.74] saturate-[0.85] contrast-[0.95] md:opacity-[0.84]',
             'drop-shadow-[0_6px_18px_rgba(0,0,0,0.04)] transition duration-300 ease-out',
-            'scale-[0.95] group-hover:-translate-y-[3px] group-hover:scale-[0.97] md:opacity-[0.84]',
+            'scale-[0.95] group-hover:-translate-y-[3px] group-hover:scale-[0.97]',
             imageClassName,
           ]
             .filter(Boolean)
