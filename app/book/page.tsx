@@ -38,6 +38,13 @@ export default function BookPage() {
           <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-[rgba(215,161,175,0.3)] bg-white px-4 py-2 text-[0.85rem] font-semibold text-[var(--color-accent-dark)]">
             Registry Consult — $75 · 1-hour virtual
           </p>
+          <p className="mx-auto mt-3 max-w-xl text-[0.85rem] leading-6 text-neutral-500">
+            Full refund if you cancel 24+ hours before your session. See our{' '}
+            <Link href="/refund" className="font-medium text-[var(--color-accent-dark)] underline underline-offset-2">
+              Refund Policy
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="mx-auto max-w-2xl px-6 pb-4 pt-6">
@@ -70,6 +77,21 @@ export default function BookPage() {
             Having trouble booking?{' '}
             <Link href="/contact" className="font-semibold text-[var(--color-accent-dark)] underline">
               Contact Taylor
+            </Link>
+            .
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-[0.78rem] leading-6 text-neutral-400">
+            By booking, you agree to our{' '}
+            <Link href="/terms" className="underline underline-offset-2 hover:text-neutral-600">
+              Terms of Service
+            </Link>
+            ,{' '}
+            <Link href="/refund" className="underline underline-offset-2 hover:text-neutral-600">
+              Refund Policy
+            </Link>
+            , and{' '}
+            <Link href="/privacy" className="underline underline-offset-2 hover:text-neutral-600">
+              Privacy Policy
             </Link>
             .
           </p>
