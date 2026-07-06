@@ -20,9 +20,10 @@ const resourceLinks = [
 ];
 
 const legalLinks = [
-  { label: 'FAQ', href: '/faq' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Refund Policy', href: '/refund' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Book', href: '/book' },
 ];
 
 export default function Footer() {

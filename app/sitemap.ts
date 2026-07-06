@@ -27,6 +27,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/blog'), changeFrequency: 'weekly', priority: 0.9 },
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },
     { url: buildUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: buildUrl('/privacy'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: buildUrl('/terms'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: buildUrl('/refund'), changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   // Stroller Finder category landing pages (deep-linked from Know Before You Buy),
