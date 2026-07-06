@@ -113,6 +113,42 @@ export default async function AdminAnalyticsPage() {
   const views28dMap = new Map<string, number>(
     views28dByPost.map((row) => [row.postId, row._count._all]),
   );
+
+  // Unified outbound affiliate clicks (tools + blog + tracked links), grouped by
+  // retailer, so the numbers can be reconciled against each network's dashboard.
+  // Cast to any + try/catch: the AffiliateClick table lands on the next deploy.
+  type RetailerRow = { retailer: string; total: number; last28: number; network: string | null };
+  let retailerRows: RetailerRow[] = [];
+  let outbound28dTotal = 0;
+  let outboundAllTotal = 0;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const [allTime, last28]: [
+      Array<{ retailer: string; network: string | null; _count: { _all: number } }>,
+      Array<{ retailer: string; _count: { _all: number } }>,
+    ] = await Promise.all([
+      db.affiliateClick.groupBy({ by: ['retailer', 'network'], _count: { _all: true } }),
+      db.affiliateClick.groupBy({ by: ['retailer'], where: { createdAt: { gte: since28d } }, _count: { _all: true } }),
+    ]);
+    const last28Map = new Map(last28.map((r) => [r.retailer, r._count._all]));
+    const merged = new Map<string, RetailerRow>();
+    for (const r of allTime) {
+      const existing = merged.get(r.retailer);
+      const total = (existing?.total ?? 0) + r._count._all;
+      merged.set(r.retailer, {
+        retailer: r.retailer,
+        network: existing?.network ?? r.network,
+        total,
+        last28: last28Map.get(r.retailer) ?? 0,
+      });
+    }
+    retailerRows = [...merged.values()].sort((a, b) => b.total - a.total);
+    outboundAllTotal = retailerRows.reduce((s, r) => s + r.total, 0);
+    outbound28dTotal = retailerRows.reduce((s, r) => s + r.last28, 0);
+  } catch {
+    retailerRows = [];
+  }
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -199,6 +235,50 @@ export default async function AdminAnalyticsPage() {
             </tr>
           ))}
         </AdminTable>
+      </AdminSurface>
+
+      <AdminHeader
+        eyebrow="Affiliate"
+        title="Outbound clicks by retailer"
+        subtitle="Real, bot-filtered clicks on outbound affiliate links across the whole site (tools, blog, and tracked links). Use this to reconcile against each network's own dashboard."
+      />
+
+      <section className="admin-kpi-grid" aria-label="Outbound affiliate click metrics">
+        <AdminKpiCard label="Outbound clicks (28d)" value={outbound28dTotal.toLocaleString()} />
+        <AdminKpiCard label="Outbound clicks (all-time)" value={outboundAllTotal.toLocaleString()} />
+        <AdminKpiCard label="Retailers tracked" value={String(retailerRows.length)} />
+      </section>
+
+      <AdminSurface className="admin-stack">
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'retailer', label: 'Retailer' },
+            { key: 'network', label: 'Network' },
+            { key: 'last28', label: 'Clicks (28d)', align: 'right' },
+            { key: 'total', label: 'Clicks (all-time)', align: 'right' },
+          ]}
+          emptyState={
+            <p className="admin-body p-6">
+              No outbound clicks logged yet. This table fills in once the affiliate-click table is deployed and
+              visitors start clicking buy links.
+            </p>
+          }
+        >
+          {retailerRows.map((row) => (
+            <tr key={row.retailer} className="admin-row">
+              <td className="text-admin">{row.retailer}</td>
+              <td className="admin-micro">{row.network ?? '—'}</td>
+              <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
+              <td className="text-right text-admin">{row.total.toLocaleString()}</td>
+            </tr>
+          ))}
+        </AdminTable>
+        <p className="admin-micro">
+          These are your first-party click counts (deduped, bots removed). Networks like Impact and CJ filter
+          invalid clicks aggressively and will read lower; lightweight trackers (e.g. MacroBaby, Silver Cross via
+          UAP) barely filter and will read higher. Time windows also differ per network dashboard.
+        </p>
       </AdminSurface>
 
       <AdminHeader

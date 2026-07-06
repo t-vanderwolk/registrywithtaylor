@@ -1,5 +1,6 @@
 import { trackEvent, getClientPageAnalyticsContext } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
+import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
 
 type AffiliateFieldValue = string | number | null | undefined;
 
@@ -70,5 +71,12 @@ export function trackAffiliateClick(input: AffiliateClickInput) {
     url,
     ...metadata,
     timestamp: new Date().toISOString(),
+  });
+
+  sendAffiliateClickBeacon({
+    url,
+    brand: metadata.brand,
+    product: metadata.product,
+    source: 'link',
   });
 }

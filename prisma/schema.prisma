@@ -161,6 +161,27 @@ model ViewDedup {
   @@index([createdAt], map: "idx_viewdedup_createdat")
 }
 
+// Unified outbound affiliate-click log across every surface (tools, blog, and
+// any tracked anchor). This is the site's own count of real, bot-filtered
+// clicks, so the admin dashboard can show a by-retailer breakdown to reconcile
+// against each affiliate network's dashboard (Impact, CJ, MacroBaby, etc.).
+model AffiliateClick {
+  id          String   @id @default(cuid())
+  retailer    String
+  network     String?
+  brand       String?
+  product     String?
+  url         String
+  source      String?
+  pageType    String?
+  path        String?
+  visitorHash String?
+  createdAt   DateTime @default(now())
+
+  @@index([retailer, createdAt], map: "idx_affclick_retailer_createdat")
+  @@index([createdAt], map: "idx_affclick_createdat")
+}
+
 model Guide {
   id                           String           @id @default(cuid())
   title                        String

@@ -1,5 +1,6 @@
 import { trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
+import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
 
 export type ToolName = 'stroller-finder' | 'travel-system-checker' | 'stroller-quiz';
 
@@ -38,5 +39,15 @@ export function trackToolAffiliateClick(
     brand: input.brand ?? undefined,
     url: input.url ?? undefined,
     label: input.product ?? input.brand ?? input.url ?? tool,
+  });
+
+  // Also persist the outbound click server-side so the admin dashboard can show
+  // a real by-retailer breakdown (GA alone never reaches the DB).
+  sendAffiliateClickBeacon({
+    url: input.url,
+    retailer: input.retailer,
+    brand: input.brand,
+    product: input.product,
+    source: `tool:${tool}`,
   });
 }
