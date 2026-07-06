@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import type { NextRequest } from 'next/server';
+import prisma from '@/lib/server/prisma';
 
 /**
  * Shared view-counting hygiene for the blog + guides `track` routes.
@@ -86,4 +87,53 @@ export function buildSeenCookie(cookieValue: string | undefined | null, key: str
   const pruned = parseSeen(cookieValue).filter((e) => now - e.t < WINDOW_MS && e.k !== key);
   pruned.push({ k: key, t: now });
   return JSON.stringify(pruned.slice(-MAX_ENTRIES));
+}
+
+// ── Durable server-side de-duplication (survives cookie clearing) ────────────
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** UTC day number; the bucket a view falls into for daily de-duplication. */
+export function dayBucket(now = Date.now()): number {
+  return Math.floor(now / DAY_MS);
+}
+
+/**
+ * Records a view in the ViewDedup table and reports whether it's the FIRST time
+ * this visitor has been counted for this content today. Returns:
+ *   true  → count it (fresh unique view, or we can't identify the visitor)
+ *   false → skip it (this visitor already counted for this content in this bucket)
+ *
+ * Cookie de-dup is the fast path; this is the durable backstop that still works
+ * when a visitor clears cookies or switches browsers within the same IP+UA.
+ * If the table isn't migrated yet, it degrades safely to "count it".
+ */
+export async function recordUniqueServerView(params: {
+  scope: 'post' | 'guide';
+  contentId: string;
+  visitorHash: string | null;
+  now?: number;
+}): Promise<boolean> {
+  const { scope, contentId, visitorHash } = params;
+  if (!visitorHash) return true; // no IP → can't de-dupe server-side; cookie only
+  const bucket = dayBucket(params.now);
+  // The ViewDedup model lands in the generated client on the Heroku build.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = prisma as any;
+  try {
+    await db.viewDedup.create({ data: { scope, contentId, visitorHash, bucket } });
+    // Opportunistic prune so the table stays small (buckets older than ~45 days
+    // can never be revisited by the current window logic).
+    if (Math.random() < 0.02) {
+      await db.viewDedup
+        .deleteMany({ where: { createdAt: { lt: new Date(Date.now() - 45 * DAY_MS) } } })
+        .catch(() => undefined);
+    }
+    return true;
+  } catch (error) {
+    if (error && typeof error === 'object' && 'code' in error && (error as { code?: string }).code === 'P2002') {
+      return false; // unique violation → already counted this visitor today
+    }
+    return true; // table missing / transient error → don't block counting
+  }
 }

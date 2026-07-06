@@ -17,6 +17,7 @@ import {
   buildSeenCookie,
   hasSeen,
   isLikelyBot,
+  recordUniqueServerView,
   seenKey,
 } from '@/lib/server/viewTracking';
 
@@ -106,7 +107,13 @@ export async function POST(
     const cookieValue = req.cookies.get(SEEN_COOKIE_NAME)?.value;
     const dedupKey = seenKey('g', id);
     const isView = normalizedEvent === GuideAnalyticsEvents.VIEW;
-    const alreadyCountedView = isView && hasSeen(cookieValue, dedupKey);
+    const cookieSeen = isView && hasSeen(cookieValue, dedupKey);
+    let countThisView = false;
+    const refreshCookie = isView && !cookieSeen;
+    if (isView && !cookieSeen) {
+      countThisView = await recordUniqueServerView({ scope: 'guide', contentId: id, visitorHash });
+    }
+    const alreadyCountedView = isView && !countThisView;
 
     let views: number;
     if (isView && !alreadyCountedView) {
@@ -132,7 +139,7 @@ export async function POST(
       counted: isView ? !alreadyCountedView : true,
     });
 
-    if (isView && !alreadyCountedView) {
+    if (refreshCookie) {
       res.cookies.set(SEEN_COOKIE_NAME, buildSeenCookie(cookieValue, dedupKey), {
         httpOnly: true,
         sameSite: 'lax',

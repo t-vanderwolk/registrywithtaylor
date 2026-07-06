@@ -71,6 +71,7 @@ export default async function AdminAnalyticsPage() {
     postsByStatus,
     viewsSum,
     views28d,
+    views28dByPost,
     mostViewedPost,
     postsByViews,
     revenueAnalytics,
@@ -84,6 +85,11 @@ export default async function AdminAnalyticsPage() {
     }),
     prisma.post.aggregate({ _sum: { views: true } }),
     prisma.postAnalytics.count({ where: { event: 'VIEW', createdAt: { gte: since28d } } }),
+    prisma.postAnalytics.groupBy({
+      by: ['postId'],
+      where: { event: 'VIEW', createdAt: { gte: since28d } },
+      _count: { _all: true },
+    }),
     prisma.post.findFirst({
       orderBy: [{ views: 'desc' }, { publishedAt: 'desc' }, { updatedAt: 'desc' }],
       select: { id: true, title: true, slug: true, views: true, status: true },
@@ -104,6 +110,9 @@ export default async function AdminAnalyticsPage() {
     getBlogRevenueAnalytics(),
   ]);
   const revenueLeaderRows = revenueAnalytics.posts.slice(0, 12);
+  const views28dMap = new Map<string, number>(
+    views28dByPost.map((row) => [row.postId, row._count._all]),
+  );
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -170,7 +179,8 @@ export default async function AdminAnalyticsPage() {
             { key: 'slug', label: 'Slug' },
             { key: 'status', label: 'Status' },
             { key: 'lifecycle', label: 'Lifecycle date' },
-            { key: 'views', label: 'Views', align: 'right' },
+            { key: 'views28d', label: 'Views (28d)', align: 'right' },
+            { key: 'views', label: 'Views (all-time)', align: 'right' },
           ]}
           emptyState={<p className="admin-body p-6">No post data yet.</p>}
         >
@@ -184,7 +194,8 @@ export default async function AdminAnalyticsPage() {
                 <StatusPill status={post.status} />
               </td>
               <td className="admin-micro">{getLifecycleLabel(post.status, post.publishedAt, post.scheduledFor, post.archivedAt)}</td>
-              <td className="text-right text-admin">{post.views}</td>
+              <td className="text-right text-admin">{(views28dMap.get(post.id) ?? 0).toLocaleString()}</td>
+              <td className="text-right text-admin">{post.views.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>

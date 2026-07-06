@@ -144,6 +144,23 @@ model PostAnalytics {
   @@index([postId], map: "idx_postanalytics_postid")
 }
 
+// Durable, cookie-independent per-visitor view de-duplication. One row per
+// (scope, content, visitorHash, day-bucket). A unique-constraint violation on
+// insert means the visitor was already counted for that content that day, so
+// the view counter only increments on a successful insert. Survives cookie
+// clearing (keyed on a hash of IP + user-agent).
+model ViewDedup {
+  id          String   @id @default(cuid())
+  scope       String
+  contentId   String
+  visitorHash String
+  bucket      Int
+  createdAt   DateTime @default(now())
+
+  @@unique([scope, contentId, visitorHash, bucket], map: "uniq_viewdedup_scope_content_visitor_bucket")
+  @@index([createdAt], map: "idx_viewdedup_createdat")
+}
+
 model Guide {
   id                           String           @id @default(cuid())
   title                        String

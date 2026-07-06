@@ -10,7 +10,9 @@ import {
   getRequestIp,
   hasSeen,
   isLikelyBot,
+  recordUniqueServerView,
   seenKey,
+  visitorHashFrom,
 } from '@/lib/server/viewTracking';
 
 const normalizeEvent = (type: unknown) => {
@@ -73,11 +75,22 @@ export async function POST(
     return NextResponse.json({ postId: id, views: null, counted: false, reason: 'bot' });
   }
 
-  // Per-visitor de-duplication for VIEW: count a reader once per post per
-  // window, so refreshes / quick re-visits don't each add +1.
+  // Per-visitor de-duplication for VIEW. Fast path: a cookie that says "already
+  // counted within 6h" short-circuits without touching the DB. Durable backstop:
+  // when the cookie is absent/cleared, ViewDedup (keyed on IP+UA hash) still
+  // blocks a repeat for the rest of the day.
+  const isView = event === 'VIEW';
   const cookieValue = req.cookies.get(SEEN_COOKIE_NAME)?.value;
   const dedupKey = seenKey('p', id);
-  const alreadyCountedView = event === 'VIEW' && hasSeen(cookieValue, dedupKey);
+  const cookieSeen = isView && hasSeen(cookieValue, dedupKey);
+
+  let countThisView = false;
+  const refreshCookie = isView && !cookieSeen;
+  if (isView && !cookieSeen) {
+    const visitorHash = visitorHashFrom(ip, userAgent);
+    countThisView = await recordUniqueServerView({ scope: 'post', contentId: id, visitorHash });
+  }
+  const alreadyCountedView = isView && !countThisView;
 
   try {
     let currentViews: number;
@@ -112,8 +125,9 @@ export async function POST(
       counted: event === 'VIEW' ? !alreadyCountedView : true,
     });
 
-    // Refresh the de-dup cookie whenever we counted a fresh view.
-    if (event === 'VIEW' && !alreadyCountedView) {
+    // Set the de-dup cookie whenever we ran a server check (counted or not), so
+    // subsequent requests short-circuit on the cookie and skip the DB.
+    if (refreshCookie) {
       res.cookies.set(SEEN_COOKIE_NAME, buildSeenCookie(cookieValue, dedupKey), {
         httpOnly: true,
         sameSite: 'lax',
