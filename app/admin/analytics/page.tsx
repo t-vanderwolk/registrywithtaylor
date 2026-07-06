@@ -61,10 +61,16 @@ const getLifecycleLabel = (
 };
 
 export default async function AdminAnalyticsPage() {
+  // Deduped, bot-filtered VIEW events (post-fix) over a rolling 28-day window —
+  // this is the figure that lines up most closely with GA4. The `views` column
+  // is an all-time cumulative counter that also includes pre-fix, un-deduped hits.
+  const since28d = new Date(Date.now() - 28 * 24 * 60 * 60 * 1000);
+
   const [
     totalPosts,
     postsByStatus,
     viewsSum,
+    views28d,
     mostViewedPost,
     postsByViews,
     revenueAnalytics,
@@ -77,6 +83,7 @@ export default async function AdminAnalyticsPage() {
       },
     }),
     prisma.post.aggregate({ _sum: { views: true } }),
+    prisma.postAnalytics.count({ where: { event: 'VIEW', createdAt: { gte: since28d } } }),
     prisma.post.findFirst({
       orderBy: [{ views: 'desc' }, { publishedAt: 'desc' }, { updatedAt: 'desc' }],
       select: { id: true, title: true, slug: true, views: true, status: true },
@@ -129,8 +136,21 @@ export default async function AdminAnalyticsPage() {
         <AdminKpiCard label="Scheduled" value={String(countsByStatus.SCHEDULED)} />
         <AdminKpiCard label="Published" value={String(countsByStatus.PUBLISHED)} />
         <AdminKpiCard label="Archived" value={String(countsByStatus.ARCHIVED)} />
-        <AdminKpiCard label="Total views" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
+        <AdminKpiCard label="Views (28d, deduped)" value={views28d.toLocaleString()} />
+        <AdminKpiCard label="Total views (all-time)" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
       </section>
+
+      <AdminSurface variant="muted" className="admin-stack">
+        <p className="admin-eyebrow">How these numbers compare to GA &amp; Search Console</p>
+        <p className="admin-body">
+          &ldquo;Views (28d, deduped)&rdquo; counts one bot-filtered view per reader per post per 6-hour
+          window, so it tracks closest to GA4. &ldquo;Total views (all-time)&rdquo; is a cumulative counter
+          that also includes older, un-deduped hits, so it reads higher. Google Search Console measures
+          something different again — only visits that arrive from Google Search — so it is expected to be
+          the lowest of the three. GA4 also loses hits to ad/consent blockers, so it can sit a bit under the
+          deduped figure. These are blog posts only; site-wide GA traffic includes tools, home, and services.
+        </p>
+      </AdminSurface>
 
       <AdminSurface variant="muted" className="admin-stack" >
         <p className="admin-eyebrow">Top performer</p>

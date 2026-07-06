@@ -11,6 +11,14 @@ import {
 } from '@/lib/guides/events';
 import { logGuideEvent } from '@/lib/server/guideAnalytics';
 import { GUIDE_STORAGE_UNAVAILABLE_MESSAGE, isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
+import {
+  SEEN_COOKIE_NAME,
+  SEEN_WINDOW_SECONDS,
+  buildSeenCookie,
+  hasSeen,
+  isLikelyBot,
+  seenKey,
+} from '@/lib/server/viewTracking';
 
 const allowedEvents = new Set<string>(GUIDE_TRACKABLE_PUBLIC_EVENT_NAMES);
 
@@ -87,30 +95,54 @@ export async function POST(
       asText((body as Record<string, unknown>).sourceRoute) || `/guides/${asText((body as Record<string, unknown>).slug)}`;
     const visitorHash = ip ? crypto.createHash('sha256').update(ip).digest('hex') : null;
 
-    const updated =
-      normalizedEvent === GuideAnalyticsEvents.VIEW
-        ? await prisma.guide.update({
-            where: { id },
-            data: { views: { increment: 1 } },
-            select: { id: true, views: true },
-          })
-        : await prisma.guide.findUniqueOrThrow({
-            where: { id },
-            select: { id: true, views: true },
-          });
+    // Bot / no-op filtering: crawlers and HTTP libraries must not inflate the
+    // counter (GA already filters these).
+    if (isLikelyBot(req.headers.get('user-agent'))) {
+      return NextResponse.json({ guideId: id, views: null, counted: false, reason: 'bot' });
+    }
 
-    await logGuideEvent({
+    // Per-visitor de-dup for VIEW: count a reader once per guide per window so
+    // refreshes / quick re-visits don't each add +1.
+    const cookieValue = req.cookies.get(SEEN_COOKIE_NAME)?.value;
+    const dedupKey = seenKey('g', id);
+    const isView = normalizedEvent === GuideAnalyticsEvents.VIEW;
+    const alreadyCountedView = isView && hasSeen(cookieValue, dedupKey);
+
+    let views: number;
+    if (isView && !alreadyCountedView) {
+      const updated = await prisma.guide.update({
+        where: { id },
+        data: { views: { increment: 1 } },
+        select: { id: true, views: true },
+      });
+      views = updated.views;
+      await logGuideEvent({ guideId: id, event: normalizedEvent, sourceRoute, visitorHash, meta });
+    } else {
+      const guide = await prisma.guide.findUniqueOrThrow({ where: { id }, select: { id: true, views: true } });
+      views = guide.views;
+      // Non-VIEW events are still logged in full; deduped VIEWs are not re-logged.
+      if (!isView) {
+        await logGuideEvent({ guideId: id, event: normalizedEvent, sourceRoute, visitorHash, meta });
+      }
+    }
+
+    const res = NextResponse.json({
       guideId: id,
-      event: normalizedEvent,
-      sourceRoute,
-      visitorHash,
-      meta,
+      views,
+      counted: isView ? !alreadyCountedView : true,
     });
 
-    return NextResponse.json({
-      guideId: updated.id,
-      views: updated.views,
-    });
+    if (isView && !alreadyCountedView) {
+      res.cookies.set(SEEN_COOKIE_NAME, buildSeenCookie(cookieValue, dedupKey), {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        maxAge: SEEN_WINDOW_SECONDS,
+      });
+    }
+
+    return res;
   } catch (error) {
     if (isGuideStorageUnavailableError(error)) {
       return NextResponse.json({ error: GUIDE_STORAGE_UNAVAILABLE_MESSAGE }, { status: 503 });
