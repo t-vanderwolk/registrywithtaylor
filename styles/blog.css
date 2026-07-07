@@ -4,7 +4,7 @@
   font-family: var(--tmbc-blog-body, "Inter", sans-serif);
   color: var(--tmbc-blog-charcoal, #2b2b2b);
   line-height: 1.8;
-  font-size: 20px;
+  font-size: clamp(1.3rem, 1.02rem + 0.6vw, 1.55rem);
   letter-spacing: 0.004em;
   text-wrap: pretty;
 }
@@ -82,15 +82,15 @@
 }
 
 .tmbc-blog p {
-  margin-bottom: 24px;
-  font-size: 1.25rem;
-  line-height: 1.8;
+  margin-bottom: 26px;
+  font-size: clamp(1.3rem, 1.02rem + 0.6vw, 1.55rem);
+  line-height: 1.78;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 90%, white 10%);
 }
 
 .tmbc-blog > p:first-of-type {
-  font-size: clamp(1.38rem, 2.1vw, 1.6rem);
-  line-height: 1.7;
+  font-size: clamp(1.5rem, 1.15rem + 0.75vw, 1.85rem);
+  line-height: 1.66;
   letter-spacing: -0.01em;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
 }
@@ -603,13 +603,13 @@
 
 .tmbc-blog.tmbc-blog--wide {
   width: 100%;
-  max-width: min(100%, 88ch);
+  max-width: min(100%, 94ch);
   margin: 0;
 }
 
 .tmbc-blog-post-content > p:first-of-type {
-  font-size: clamp(1.38rem, 2.1vw, 1.6rem);
-  line-height: 1.7;
+  font-size: clamp(1.5rem, 1.15rem + 0.75vw, 1.85rem);
+  line-height: 1.66;
   letter-spacing: -0.01em;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
 }
