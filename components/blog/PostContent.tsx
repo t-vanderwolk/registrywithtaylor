@@ -775,7 +775,7 @@ export default function PostContent({
                 className={
                   variant === 'guide'
                     ? 'mt-6 ml-6 list-disc space-y-3 text-base leading-relaxed text-neutral-700 md:text-lg'
-                    : 'mt-8 ml-6 list-disc space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'
+                    : 'mt-8 ml-6 list-disc space-y-3 leading-relaxed text-charcoal/85'
                 }
               >
                 {items.map((item, index) => (
@@ -810,7 +810,7 @@ export default function PostContent({
                 className={
                   variant === 'guide'
                     ? 'mt-6 ml-6 list-decimal space-y-3 text-base leading-relaxed text-neutral-700 md:text-lg'
-                    : 'mt-8 ml-6 list-decimal space-y-3 text-[1.05rem] leading-relaxed text-charcoal/85'
+                    : 'mt-8 ml-6 list-decimal space-y-3 leading-relaxed text-charcoal/85'
                 }
               >
                 {items.map((item, index) => (
