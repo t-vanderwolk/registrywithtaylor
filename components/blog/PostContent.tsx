@@ -3,6 +3,7 @@
 import type { AffiliateNetwork } from '@prisma/client';
 import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
+import BlogCatalogProductCard from '@/components/blog/BlogCatalogProductCard';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
 import BlogProductInsightCard from '@/components/blog/BlogProductInsightCard';
@@ -78,6 +79,23 @@ function enrichProductBlockWithCatalog(
   block: ParsedStyledBlock,
   catalogMap: Record<string, BlogCatalogMatch>,
 ): ParsedStyledBlock {
+  if (block.type === 'catalog-product') {
+    const match = catalogMap[blogProductKey(block.brand, block.productName)];
+    if (!match || !match.affiliateUrl) return block;
+
+    const retailerIsMacro = (match.retailer ?? '').toLowerCase() === 'macrobaby';
+    return {
+      ...block,
+      // Catalogue wins for the primary retailer link, image, and price when the
+      // author hasn't hard-coded one; authored Amazon (and any manual link) stays.
+      babylistUrl: block.babylistUrl ?? (retailerIsMacro ? null : match.affiliateUrl),
+      macrobabyUrl: block.macrobabyUrl ?? (retailerIsMacro ? match.affiliateUrl : null),
+      imageUrl: block.imageUrl ?? match.imageUrl,
+      price: block.price ?? match.price,
+      priceSource: block.price != null ? block.priceSource : match.retailer,
+    };
+  }
+
   if (block.type !== 'product') return block;
   const match = catalogMap[blogProductKey(block.brand, block.productName)];
   if (!match || !match.affiliateUrl) return block;
@@ -493,6 +511,26 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         affiliateLinks={block.affiliateLinks}
         imageUrl={block.imageUrl}
         imageAlt={block.imageAlt}
+        position={index + 1}
+      />
+    );
+  }
+
+  if (block.type === 'catalog-product') {
+    return (
+      <BlogCatalogProductCard
+        key={`${postId}-catalog-product-${index}`}
+        brand={block.brand}
+        productName={block.productName}
+        note={block.note}
+        imageUrl={block.imageUrl}
+        price={block.price}
+        priceSource={block.priceSource}
+        babylistUrl={block.babylistUrl}
+        macrobabyUrl={block.macrobabyUrl}
+        shopUrl={block.shopUrl}
+        shopRetailer={block.shopRetailer}
+        amazonUrl={block.amazonUrl}
         position={index + 1}
       />
     );

@@ -3267,6 +3267,13 @@ img {
   line-height: 1.08;
 }
 .tool-product-card__title--compact { font-size: 1.04rem; }
+.tool-product-card__note {
+  color: #6f6169;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.35;
+}
 .tool-product-card__price {
   display: flex;
   flex-wrap: wrap;

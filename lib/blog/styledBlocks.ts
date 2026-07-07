@@ -8,6 +8,7 @@ export type StyledBlockId =
   | 'cons'
   | 'comparison'
   | 'product'
+  | 'catalog-product'
   | 'faq'
   | 'decision'
   | 'takeaways';
@@ -62,6 +63,20 @@ export type ParsedStyledBlock =
       ctaLabel?: string | null;
     }
   | {
+      type: 'catalog-product';
+      brand: string;
+      productName: string;
+      note: string | null;
+      babylistUrl: string | null;
+      amazonUrl: string | null;
+      macrobabyUrl: string | null;
+      shopUrl: string | null;
+      shopRetailer: string | null;
+      imageUrl: string | null;
+      price: number | null;
+      priceSource: string | null;
+    }
+  | {
       type: 'faq';
       question: string;
       answer: string;
@@ -74,7 +89,7 @@ export type ParsedStyledBlock =
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|product|faq|decision|takeaways)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|catalog-product|product|faq|decision|takeaways)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
@@ -179,6 +194,18 @@ Standout: Suspension + smooth maneuverability
 Pros: Easy push | Large basket | Feels sturdy
 Link: Shop at Albee Baby | https://example.com/bugaboo
 Link: Shop at Amazon | https://example.com/amazon-bugaboo
+:::`,
+  },
+  {
+    id: 'catalog-product',
+    label: 'Catalog Product Card',
+    description: 'A shop-style product card matched to your affiliate catalogue (live image, price, Babylist + Amazon buttons). Add manual links as fallback for products not in the catalogue.',
+    snippet: `:::catalog-product
+Brand: Bugaboo
+Product: Dragonfly Plus
+Note: Best premium compact stroller
+Babylist: https://babylist.pxf.io/...
+Amazon: https://amzn.to/...
 :::`,
   },
   {
@@ -385,6 +412,57 @@ export function parseStyledBlock(
         question: question || 'What is the real decision here?',
         option: option || 'Choose the option that reduces the most friction in daily life.',
         result: resultLines.join(' ') || 'The better fit is usually the easier one to live with consistently.',
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'catalog-product') {
+    let brand = '';
+    let productName = '';
+    let note: string | null = null;
+    let babylistUrl: string | null = null;
+    let amazonUrl: string | null = null;
+    let macrobabyUrl: string | null = null;
+    let shopUrl: string | null = null;
+    let shopRetailer: string | null = null;
+    let imageUrl: string | null = null;
+    let price: number | null = null;
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) return;
+      const label = parsedLine.normalizedLabel;
+      const value = parsedLine.value;
+      if (label === 'brand') brand = value;
+      else if (label === 'product' || label === 'product name' || label === 'title') productName = value;
+      else if (label === 'note' || label === 'best for' || label === 'label') note = value;
+      else if (label === 'babylist' || label === 'babylist url') babylistUrl = value;
+      else if (label === 'amazon' || label === 'amazon url') amazonUrl = value;
+      else if (label === 'macrobaby' || label === 'macrobaby url') macrobabyUrl = value;
+      else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = value;
+      else if (label === 'retailer' || label === 'shop label') shopRetailer = value;
+      else if (label === 'image' || label === 'image url') imageUrl = value;
+      else if (label === 'price') {
+        const parsed = Number(value.replace(/[^0-9.]/g, ''));
+        price = Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+      }
+    });
+
+    return {
+      block: {
+        type: 'catalog-product',
+        brand: brand || 'Brand',
+        productName: productName || 'Recommended product',
+        note,
+        babylistUrl,
+        amazonUrl,
+        macrobabyUrl,
+        shopUrl,
+        shopRetailer,
+        imageUrl,
+        price,
+        priceSource: null,
       },
       nextIndex: cursor,
     };

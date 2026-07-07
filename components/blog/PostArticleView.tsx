@@ -298,7 +298,9 @@ export default async function PostArticleView({
   // to a catalog row and pass the live buy link + image + price down to the cards.
   const productCatalogMap = await resolveBlogProductCatalogLinks(
     extractStyledBlocks(articleContent).flatMap((block) =>
-      block.type === 'product' ? [{ brand: block.brand, productName: block.productName }] : [],
+      block.type === 'product' || block.type === 'catalog-product'
+        ? [{ brand: block.brand, productName: block.productName }]
+        : [],
     ),
   );
   const serializedCtaPartners = Object.fromEntries(
