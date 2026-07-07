@@ -87,10 +87,10 @@ export default function Footer() {
             <p className="text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-charcoal/70">Connect</p>
             <div className="mt-3 flex flex-col gap-3">
               <a
-                href="mailto:taylor@taylormadebabyco.com"
+                href="mailto:info@taylormadebabyco.com"
                 className="w-fit text-[0.84rem] text-[var(--color-muted)] transition duration-200 hover:text-[var(--color-accent-dark)]"
               >
-                taylor@taylormadebabyco.com
+                info@taylormadebabyco.com
               </a>
               <a
                 href="https://instagram.com/taylorbabyconcierge"

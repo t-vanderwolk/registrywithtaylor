@@ -10,7 +10,7 @@ type SendEmailInput = {
 };
 
 let sendGridConfigured = false;
-const DEFAULT_ADMIN_EMAIL = 'taylor@taylormadebabyco.com';
+const DEFAULT_ADMIN_EMAIL = 'info@taylormadebabyco.com';
 
 function getSendGridApiKey() {
   const apiKey = process.env.SENDGRID_API_KEY?.trim();
@@ -24,7 +24,7 @@ function getSendGridApiKey() {
 
 function getFromAddress() {
   const configuredFrom = process.env.CONTACT_FROM_EMAIL?.trim();
-  return configuredFrom || 'taylor@taylormadebabyco.com';
+  return configuredFrom || 'info@taylormadebabyco.com';
 }
 
 export function getAdminEmail() {
