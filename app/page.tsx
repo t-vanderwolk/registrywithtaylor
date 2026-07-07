@@ -16,6 +16,10 @@ import PodcastFeature from '@/components/marketing/PodcastFeature';
 import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
 import { HOME_FAQ } from '@/lib/marketing/homeFaq';
 import { homeStructuredData } from '@/lib/marketing/homeStructuredData';
+// The homepage "From the Journal" preview reuses the blog JournalCard, whose
+// styles (.tmbc-blog-card + 4/3 media) live in blog.css. The blog layout isn't
+// in scope here, so import the stylesheet directly or the cards render bare.
+import '../styles/blog.css';
 
 export const revalidate = 3600;
 
