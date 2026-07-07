@@ -125,7 +125,9 @@ async function main() {
   const stored = extractStoredCtaButtons(original);
   const buttonById = new Map<string, CtaButton>(stored.buttons.map((b) => [b.id, b]));
   const lines = stored.body.split('\n');
-  const consumedButtonIds = new Set<string>();
+  // Track consumed buttons by URL, not id: the stored JSON can carry duplicate
+  // ids, so an id-based filter could drop an unrelated button by accident.
+  const consumedButtonUrls = new Set<string>();
   let changed = 0;
   const notes: string[] = [];
 
@@ -148,7 +150,7 @@ async function main() {
     // the section's first image. Track which slot ids/lines we consume.
     const links: Record<string, string> = {};
     const slotLineIndexes = new Set<number>();
-    const sectionSlotButtonIds: string[] = [];
+    const sectionSlotButtonUrls: string[] = [];
     let imageUrl: string | null = null;
 
     for (let i = headingIndex + 1; i < end; i += 1) {
@@ -166,9 +168,11 @@ async function main() {
         const button = buttonById.get(slotId);
         if (button) {
           const kind = classifyUrl(button.url);
-          if (kind && !links[kind]) links[kind] = button.url;
-          slotLineIndexes.add(i);
-          sectionSlotButtonIds.push(button.id);
+          if (kind) {
+            if (!links[kind]) links[kind] = button.url;
+            slotLineIndexes.add(i); // only strip the slot line for a real buy link
+            sectionSlotButtonUrls.push(button.url);
+          }
         }
         continue;
       }
@@ -207,7 +211,7 @@ async function main() {
     kept.splice(1, 0, '', buildBlock(cfg, links, imageUrl), '');
 
     lines.splice(headingIndex, end - headingIndex, ...kept);
-    sectionSlotButtonIds.forEach((id) => consumedButtonIds.add(id));
+    sectionSlotButtonUrls.forEach((url) => consumedButtonUrls.add(url));
     changed += 1;
 
     console.log(`\n──────── ${cfg.brand} ${cfg.productName} ────────`);
@@ -216,14 +220,21 @@ async function main() {
 
   // Remaining CTA buttons (those we did not fold into cards) are re-serialized so
   // consumed buttons drop out of storage entirely.
-  const remainingButtons = stored.buttons.filter((b) => !consumedButtonIds.has(b.id));
+  const remainingButtons = stored.buttons.filter((b) => !consumedButtonUrls.has(b.url));
   const newBody = lines.join('\n');
   const updated = serializeCtaButtons(newBody, remainingButtons);
 
   console.log('\n════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
   console.log(`Sections converted: ${changed}/${PRODUCTS.length}`);
-  console.log(`CTA buttons: ${stored.buttons.length} total → ${consumedButtonIds.size} folded into cards, ${remainingButtons.length} kept`);
+  console.log(`CTA buttons: ${stored.buttons.length} total → ${consumedButtonUrls.size} folded into cards, ${remainingButtons.length} kept`);
+
+  console.log('\nButton inventory (label — folded/kept):');
+  for (const b of stored.buttons) {
+    const status = consumedButtonUrls.has(b.url) ? 'FOLDED' : 'KEPT';
+    console.log(`  [${status}] "${b.label}"  →  ${b.url}`);
+  }
+
   if (notes.length) console.log('\nNotes:\n' + notes.join('\n'));
 
   if (!changed) {
