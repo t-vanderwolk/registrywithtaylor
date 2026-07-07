@@ -2,29 +2,31 @@
  * Phase 1 blog product-card migration — SINGLE POST ONLY:
  *   blog-best-compact-strollers-2026
  *
- * Converts each product section's manually-embedded affiliate links into a
- * `:::catalog-product` block so it renders as a Resource-tool-style product card
- * (image + price + Babylist/Amazon buttons), matched to the affiliate catalogue
- * at render time. It does NOT touch any other post.
+ * Converts each product section's affiliate CTAs into a `:::catalog-product`
+ * block so it renders as a Resource-tool-style product card (image + price +
+ * Babylist/Amazon buttons), matched to the affiliate catalogue at render time.
+ * It does NOT touch any other post.
  *
- * How it works (safe + idempotent):
- *   - Loads the post by slug, reads its `content`.
- *   - Walks each `### ` product section listed in PRODUCTS below (matched by a
- *     keyword regex on the heading).
- *   - Extracts the affiliate URLs that already live in that section (verbatim —
- *     nothing is hard-coded), classifying them by domain:
- *       babylist.(pxf.io|com) -> Babylist,  amzn.to/amazon. -> Amazon,
- *       anything else external+affiliate -> direct "Shop <retailer>".
- *   - Pulls the section's first image as the card image.
- *   - Inserts a `:::catalog-product` block right after the heading and strips the
- *     consumed image line + the link-only CTA lines. Descriptive prose stays.
- *   - Skips a section that already contains a `:::catalog-product` block.
- *   - If a section is matched but has no affiliate links, it warns and leaves it
- *     untouched (never destructive).
+ * Where the links live: this post's buy links are stored as CTA buttons in the
+ * trailing `<!--TMBC_CTA_BUTTONS:…-->` block and placed inline with
+ * `::cta-slot <id>` tokens — NOT as inline markdown links. So the script:
+ *   - Loads the post, splits the stored CTA buttons from the body.
+ *   - Walks each `### ` product section (matched by a keyword regex on the head).
+ *   - Resolves that section's `::cta-slot <id>` tokens to their buttons and reads
+ *     each button's URL verbatim (nothing hard-coded), classifying by domain:
+ *       babylist.(pxf.io|com) -> Babylist,  amzn.to/amazon.<tld> -> Amazon,
+ *       any other external+affiliate link -> direct "Shop <retailer>".
+ *   - Also scans inline markdown links as a fallback (image URLs are ignored).
+ *   - Uses the section's first image as the card image.
+ *   - Inserts the block after the heading, strips the consumed `::cta-slot`
+ *     lines + hero image line, and removes the consumed buttons from storage so
+ *     nothing is orphaned. Descriptive prose stays.
+ *   - Skips a section that already has a `:::catalog-product` block, and leaves
+ *     any section with no resolvable buy link untouched (never destructive).
  *
  * Run it:
- *   npx tsx scripts/migrateCompactStrollersProductCards.ts            # dry run (prints diff)
- *   npx tsx scripts/migrateCompactStrollersProductCards.ts --apply    # writes to DB
+ *   npx tsx scripts/migrateCompactStrollersProductCards.ts            # dry run
+ *   npx tsx scripts/migrateCompactStrollersProductCards.ts --apply    # writes
  *
  * Against production (Heroku):
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
@@ -32,6 +34,12 @@
  *     npx tsx scripts/migrateCompactStrollersProductCards.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
+import {
+  extractStoredCtaButtons,
+  parseCtaSlotLine,
+  serializeCtaButtons,
+  type CtaButton,
+} from '@/lib/blog/ctaButtons';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
@@ -46,7 +54,7 @@ type ProductConfig = {
   productName: string;
   note?: string;
   /** Label for a direct brand retailer button (used only when the section's
-   *  primary link is neither Babylist nor Amazon). */
+   *  buy link is neither Babylist nor Amazon, e.g. Silver Cross). */
   shopRetailer?: string;
 };
 
@@ -63,22 +71,20 @@ const PRODUCTS: ProductConfig[] = [
 ];
 
 const IMAGE_LINE = /^!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)\s*$/;
-const MD_LINK = /\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
+const MD_LINK = /(!?)\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
+const IMAGE_HOST_OR_EXT = /(media-amazon|images-amazon|\.(?:jpg|jpeg|png|webp|gif|svg)(?:$|\?))/i;
 
-function classifyUrl(url: string): 'babylist' | 'amazon' | 'shop' | null {
-  const u = url.toLowerCase();
-  if (u.includes('babylist.pxf.io') || u.includes('babylist.com')) return 'babylist';
-  if (u.includes('amzn.to') || u.includes('amazon.') || u.includes('amazon-adsystem')) return 'amazon';
-  // Treat any other external link that carries an affiliate marker as a direct
-  // brand-retailer buy link (e.g. Silver Cross ref=/affiliate_pid=).
-  if (/ref=|affiliate_pid=|aff=|utm_|impact|pjatr|prf\.hn/.test(u)) return 'shop';
-  return null;
+function isImageUrl(url: string) {
+  return IMAGE_HOST_OR_EXT.test(url);
 }
 
-function isLinkOnlyLine(line: string): boolean {
-  // A CTA line whose only meaningful content is affiliate markdown links.
-  const stripped = line.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
-  return stripped.length === 0 && MD_LINK.test(line);
+function classifyUrl(url: string): 'babylist' | 'amazon' | 'shop' | null {
+  if (isImageUrl(url)) return null; // never treat an image URL as a buy link
+  const u = url.toLowerCase();
+  if (u.includes('babylist.pxf.io') || u.includes('babylist.com')) return 'babylist';
+  if (u.includes('amzn.to') || /amazon\.[a-z.]+\//.test(u)) return 'amazon';
+  if (/ref=|affiliate_pid=|aff=|utm_|impact|pjatr|prf\.hn|sjv\.io|\.pxf\.io/.test(u)) return 'shop';
+  return null;
 }
 
 function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl: string | null): string {
@@ -96,7 +102,6 @@ function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl:
 }
 
 function sectionBounds(lines: string[], headingIndex: number): number {
-  // Section runs until the next ###/## heading or end of doc.
   let end = headingIndex + 1;
   while (end < lines.length) {
     const t = lines[end]?.trim() ?? '';
@@ -107,18 +112,20 @@ function sectionBounds(lines: string[], headingIndex: number): number {
 }
 
 async function main() {
-  const post = await db.post.findFirst({ where: { slug: SLUG }, select: { id: true, slug: true, title: true, content: true } });
+  const post = await db.post.findFirst({
+    where: { slug: SLUG },
+    select: { id: true, slug: true, title: true, content: true },
+  });
   if (!post) {
     console.error(`✗ Post not found for slug "${SLUG}". Aborting.`);
     process.exit(1);
   }
 
   const original: string = post.content ?? '';
-  if (original.includes('<!--TMBC_CTA_BUTTONS:')) {
-    console.warn('⚠ This post stores CTA buttons in the TMBC_CTA_BUTTONS block. Review those separately — this script only converts inline markdown affiliate links.');
-  }
-
-  const lines = original.split('\n');
+  const stored = extractStoredCtaButtons(original);
+  const buttonById = new Map<string, CtaButton>(stored.buttons.map((b) => [b.id, b]));
+  const lines = stored.body.split('\n');
+  const consumedButtonIds = new Set<string>();
   let changed = 0;
   const notes: string[] = [];
 
@@ -132,69 +139,97 @@ async function main() {
     }
 
     const end = sectionBounds(lines, headingIndex);
-    const sectionText = lines.slice(headingIndex, end).join('\n');
-
-    if (sectionText.includes(':::catalog-product')) {
+    if (lines.slice(headingIndex, end).join('\n').includes(':::catalog-product')) {
       notes.push(`• ${cfg.brand} ${cfg.productName}: already has a catalog-product block — skipped.`);
       continue;
     }
 
-    // Collect affiliate links + first image within the section.
+    // Collect buy links (from CTA slots first, then inline markdown fallback) and
+    // the section's first image. Track which slot ids/lines we consume.
     const links: Record<string, string> = {};
+    const slotLineIndexes = new Set<number>();
+    const sectionSlotButtonIds: string[] = [];
     let imageUrl: string | null = null;
+
     for (let i = headingIndex + 1; i < end; i += 1) {
       const raw = lines[i] ?? '';
-      const imgMatch = raw.trim().match(IMAGE_LINE);
-      if (imgMatch && !imageUrl) imageUrl = imgMatch[1];
+      const trimmed = raw.trim();
+
+      const imgMatch = trimmed.match(IMAGE_LINE);
+      if (imgMatch && !imageUrl) {
+        imageUrl = imgMatch[1];
+        continue;
+      }
+
+      const slotId = parseCtaSlotLine(trimmed);
+      if (slotId) {
+        const button = buttonById.get(slotId);
+        if (button) {
+          const kind = classifyUrl(button.url);
+          if (kind && !links[kind]) links[kind] = button.url;
+          slotLineIndexes.add(i);
+          sectionSlotButtonIds.push(button.id);
+        }
+        continue;
+      }
+
+      // Fallback: inline markdown links (ignore image embeds ![]()).
       MD_LINK.lastIndex = 0;
       let m: RegExpExecArray | null;
       while ((m = MD_LINK.exec(raw)) !== null) {
-        const kind = classifyUrl(m[2]);
-        if (kind && !links[kind]) links[kind] = m[2];
+        if (m[1] === '!') continue; // it's an image, not a link
+        const kind = classifyUrl(m[3]);
+        if (kind && !links[kind]) links[kind] = m[3];
       }
     }
 
     if (Object.keys(links).length === 0) {
-      notes.push(`• ${cfg.brand} ${cfg.productName}: matched heading but found NO affiliate links — left untouched.`);
+      notes.push(`• ${cfg.brand} ${cfg.productName}: matched heading but found NO buy links — left untouched.`);
       continue;
     }
 
-    // Rebuild the section: drop the hero image line + link-only CTA lines, then
-    // insert the block right after the heading.
+    // Rebuild the section: drop the hero image line + consumed cta-slot lines +
+    // link-only inline lines, then insert the block right after the heading.
     const kept: string[] = [lines[headingIndex]];
     let heroDropped = false;
     for (let i = headingIndex + 1; i < end; i += 1) {
       const raw = lines[i] ?? '';
-      const isHero = !heroDropped && IMAGE_LINE.test(raw.trim());
-      if (isHero) {
+      if (slotLineIndexes.has(i)) continue;
+      if (!heroDropped && IMAGE_LINE.test(raw.trim())) {
         heroDropped = true;
         continue;
       }
-      if (isLinkOnlyLine(raw)) continue;
+      // Drop a line that was ONLY inline affiliate links (rare fallback path).
+      const linkStripped = raw.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
+      if (linkStripped.length === 0 && /\]\((https?:\/\/[^)\s]+)\)/.test(raw) && !raw.trim().startsWith('!')) continue;
       kept.push(raw);
     }
-    // Insert block after heading (index 0 of kept), padded by blank lines.
     kept.splice(1, 0, '', buildBlock(cfg, links, imageUrl), '');
 
     lines.splice(headingIndex, end - headingIndex, ...kept);
+    sectionSlotButtonIds.forEach((id) => consumedButtonIds.add(id));
     changed += 1;
 
     console.log(`\n──────── ${cfg.brand} ${cfg.productName} ────────`);
     console.log(buildBlock(cfg, links, imageUrl));
   }
 
-  const updated = lines.join('\n');
+  // Remaining CTA buttons (those we did not fold into cards) are re-serialized so
+  // consumed buttons drop out of storage entirely.
+  const remainingButtons = stored.buttons.filter((b) => !consumedButtonIds.has(b.id));
+  const newBody = lines.join('\n');
+  const updated = serializeCtaButtons(newBody, remainingButtons);
 
   console.log('\n════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
   console.log(`Sections converted: ${changed}/${PRODUCTS.length}`);
+  console.log(`CTA buttons: ${stored.buttons.length} total → ${consumedButtonIds.size} folded into cards, ${remainingButtons.length} kept`);
   if (notes.length) console.log('\nNotes:\n' + notes.join('\n'));
 
   if (!changed) {
     console.log('\nNothing to change.');
     return;
   }
-
   if (!APPLY) {
     console.log('\nDRY RUN — no changes written. Re-run with --apply to save.');
     return;
