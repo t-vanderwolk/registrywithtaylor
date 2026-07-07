@@ -11,9 +11,6 @@ import type {
 import {
   getTravelSystemBrandInsight,
   getTravelSystemCarSeatInsight,
-  TRAVEL_SYSTEM_CAR_SEAT_PATTERNS,
-  TRAVEL_SYSTEM_STROLLER_PATTERNS,
-  type TravelSystemEcosystemType,
 } from '@/lib/travelSystemBrandInsights';
 import {
   findTravelSystemOptionBySlug,
@@ -42,22 +39,6 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
   const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const brandPrefix = new RegExp(`^(?:${escapedBrand}\\s+)+`, 'i');
   return displayName.replace(brandPrefix, '').trim() || displayName;
-}
-
-function ecosystemBadgeClasses(type: TravelSystemEcosystemType) {
-  switch (type) {
-    case 'closed':
-      return 'border-[rgba(123,169,138,0.22)] bg-[rgba(141,189,156,0.16)] text-[rgba(67,106,80,0.98)]';
-    case 'semiClosed':
-      return 'border-[rgba(196,156,94,0.22)] bg-[rgba(227,190,120,0.16)] text-[rgba(124,90,39,0.98)]';
-    case 'universal':
-      return 'border-[rgba(112,153,194,0.22)] bg-[rgba(214,228,245,0.68)] text-[rgba(66,95,128,0.98)]';
-    case 'niche':
-      return 'border-[rgba(126,125,131,0.2)] bg-[rgba(215,212,219,0.28)] text-[rgba(77,77,84,0.96)]';
-    case 'openAdapter':
-    default:
-      return 'border-[rgba(215,161,175,0.22)] bg-[rgba(243,226,232,0.86)] text-[rgba(129,77,93,0.98)]';
-  }
 }
 
 function ModeToggle({
@@ -268,9 +249,6 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
       ? (selectedBrand ? getTravelSystemBrandInsight(selectedBrand) : null)
       : (selectedBrand ? getTravelSystemCarSeatInsight(selectedBrand) : null);
 
-  const ecosystemPatterns =
-    lookupMode === 'stroller' ? TRAVEL_SYSTEM_STROLLER_PATTERNS : TRAVEL_SYSTEM_CAR_SEAT_PATTERNS;
-
   useEffect(() => {
     if (!browseItems) return;
     let cancelled = false;
@@ -469,25 +447,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
 
           {activeInsight ? (
             <div className="mt-6 rounded-[1.25rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(252,246,242,0.92)_100%)] p-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-500">System read</p>
-                <span
-                  className={`inline-flex rounded-full border px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] ${ecosystemBadgeClasses(activeInsight.ecosystemType)}`}
-                >
-                  {activeInsight.ecosystemLabel}
-                </span>
-              </div>
-
-              <p className="mt-3 text-sm leading-7 text-neutral-700">{activeInsight.compatibilityPattern}</p>
-
-              <div className="mt-4 rounded-[1rem] bg-white/75 px-4 py-3">
+              <div className="rounded-[1rem] bg-white/75 px-4 py-3">
                 <p className="text-[0.68rem] uppercase tracking-[0.16em] text-neutral-500">Common pairings</p>
                 <p className="mt-2 text-sm font-semibold text-neutral-900">{activeInsight.supportedBrands.join(' • ')}</p>
               </div>
-
-              <p className="mt-4 text-sm leading-7 text-neutral-700">
-                <span className="font-semibold text-neutral-900">TMBC read:</span> {activeInsight.tmbcInsight}
-              </p>
             </div>
           ) : null}
         </div>
@@ -499,22 +462,6 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 {emptyTitle}
               </h3>
               <p className="mt-3 max-w-xl text-sm leading-7 text-neutral-600">{emptyDescription}</p>
-
-              <div className="mt-8 grid w-full gap-3 text-left md:grid-cols-3">
-                {ecosystemPatterns.map((pattern) => (
-                  <div
-                    key={pattern.id}
-                    className="rounded-[1rem] border border-[rgba(0,0,0,0.06)] bg-white/90 px-4 py-4 shadow-[0_10px_20px_rgba(0,0,0,0.03)]"
-                  >
-                    <span
-                      className={`inline-flex rounded-full border px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] ${ecosystemBadgeClasses(pattern.id)}`}
-                    >
-                      {pattern.label}
-                    </span>
-                    <p className="mt-3 text-sm leading-7 text-neutral-700">{pattern.description}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           ) : (
             <div className="grid gap-5 rounded-[1.4rem] border border-[rgba(215,161,175,0.2)] bg-[linear-gradient(180deg,#fffdfb_0%,#fbf5f0_100%)] p-5 md:grid-cols-[1fr_auto] md:items-center">

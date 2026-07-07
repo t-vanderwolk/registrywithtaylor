@@ -298,14 +298,9 @@ function AdapterCallout({
     return null;
   }
 
-  if (adapterIncluded) {
-    return (
-      <p className="text-[0.72rem] font-semibold text-[rgba(58,99,72,0.92)]">
-        Adapter included with the stroller, no separate purchase needed
-      </p>
-    );
-  }
-
+  // Always surface the adapter image + shop link, even when the stroller ships
+  // with a universal adapter (Cybex / Nuna / Bugaboo). For those, we add a small
+  // "included with your stroller" note so shoppers know it's not an extra buy.
   return (
     <div className="tool-adapter-callout">
       <div className="tool-adapter-callout__details">
@@ -314,10 +309,15 @@ function AdapterCallout({
           <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
         ) : null}
         <div className="min-w-0">
-          <p className="tool-adapter-callout__eyebrow">Adapter needed</p>
+          <p className="tool-adapter-callout__eyebrow">{adapterIncluded ? 'Adapter' : 'Adapter needed'}</p>
           <p className="tool-adapter-callout__name">
             {item.adapterType ?? 'Car seat adapter'}
           </p>
+          {adapterIncluded ? (
+            <p className="text-[0.68rem] font-semibold text-[rgba(58,99,72,0.92)]">
+              Included with your stroller
+            </p>
+          ) : null}
           {item.adapterPrice != null ? (
             <p className="tool-adapter-callout__price">${item.adapterPrice.toFixed(2)}</p>
           ) : null}
