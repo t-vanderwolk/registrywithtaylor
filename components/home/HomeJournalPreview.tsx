@@ -32,7 +32,13 @@ const toExcerpt = (excerpt: string | null, content: string, maxLength = 150) => 
  * runs inside the homepage's ISR (revalidate = 3600), so it stays static.
  */
 export default async function HomeJournalPreview() {
-  const posts = (await getPublicBlogIndexPosts(new Date())).slice(0, 3);
+  const all = await getPublicBlogIndexPosts(new Date());
+  // Lead with posts flagged "Featured on homepage" (newest first), then fill the
+  // rest of the three slots with the most recent posts. So the editor toggle now
+  // actually controls what surfaces here.
+  const featured = all.filter((post) => post.featured);
+  const rest = all.filter((post) => !post.featured);
+  const posts = [...featured, ...rest].slice(0, 3);
   if (posts.length === 0) {
     return null;
   }
