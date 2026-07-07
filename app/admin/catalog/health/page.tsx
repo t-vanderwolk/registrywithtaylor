@@ -516,10 +516,13 @@ function getDuplicateRisks(products: PublicProduct[]) {
 function normalizePublicModel(value: string) {
   return (value || '')
     .toLowerCase()
-    .replace(/\b(stroller|infant|car seat|lightweight|luxury|travel system|system|single|double)\b/g, ' ')
+    // NB: keep "single/double" and trim words like "gold" — they distinguish
+    // genuinely separate products (City Tour 2 Single vs Double, Gold Shyft vs
+    // Shyft), so stripping them created false duplicate-risk groups.
+    .replace(/\b(stroller|infant|car seat|lightweight|luxury|travel system|system)\b/g, ' ')
     .replace(/[™®©]/g, '')
     .replace(/[^a-z0-9+]+/g, ' ')
-    .replace(/\b(black|grey|gray|beige|blue|green|brown|pink|taupe|stone|graphite|caviar|onyx|rose|gold|silver|matte|frame|seat)\b/g, ' ')
+    .replace(/\b(black|grey|gray|beige|blue|green|brown|pink|taupe|stone|graphite|caviar|onyx|rose|silver|matte|frame|seat)\b/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
