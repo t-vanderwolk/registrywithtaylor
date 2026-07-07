@@ -92,7 +92,14 @@ const PRODUCTS: ProductConfig[] = [
     comingSoon: true,
     image: 'https://www.westcoastkids.ca/media/catalog/product/1/2/1200x1200_uppababy_konastroller-hero_copy.jpg?optimize=high&fit=bounds&height=700&width=700',
   },
-  { match: /joolz hub/i, brand: 'Joolz', productName: 'Hub 2', note: 'Best compact stroller for city living' },
+  {
+    match: /joolz hub/i,
+    brand: 'Joolz',
+    productName: 'Hub 2',
+    note: 'Best compact stroller for city living',
+    babylist: 'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub-stroller-1741715957%2F71326%2F2374731&partnerpropertyid=7490466',
+    amazon: 'https://amzn.to/4y5febr',
+  },
   { match: /city loop|peg perego/i, brand: 'Peg Perego', productName: 'City Loop', note: 'Best compact stroller with one-hand fold' },
 ];
 
@@ -216,13 +223,15 @@ async function main() {
       }
     }
 
-    // Fold in explicit config links (e.g. a Breez Babylist button that lives
-    // outside the section). Mark them consumed so their stray slot is stripped.
-    if (cfg.babylist && !links.babylist) {
+    // Explicit config links OVERRIDE whatever was found in-section (used to
+    // fold in a stray Breez Babylist button, and to correct the Joolz Hub 2
+    // links). The old in-section button URLs are already marked consumed, so
+    // they drop out of storage; the config URL is what the card shows.
+    if (cfg.babylist) {
       links.babylist = cfg.babylist;
       consumedButtonUrls.add(cfg.babylist);
     }
-    if (cfg.amazon && !links.amazon) {
+    if (cfg.amazon) {
       links.amazon = cfg.amazon;
       consumedButtonUrls.add(cfg.amazon);
     }
