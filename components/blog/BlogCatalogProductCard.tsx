@@ -22,6 +22,7 @@ type BlogCatalogProductCardProps = {
   shopUrl?: string | null;
   shopRetailer?: string | null;
   amazonUrl?: string | null;
+  comingSoon?: boolean;
   position: number;
 };
 
@@ -41,6 +42,7 @@ export default function BlogCatalogProductCard({
   shopUrl,
   shopRetailer,
   amazonUrl,
+  comingSoon = false,
   position,
 }: BlogCatalogProductCardProps) {
   // Buttons mirror the Resource-tool card: a primary catalogue retailer first,
@@ -68,7 +70,9 @@ export default function BlogCatalogProductCard({
     });
   }
 
-  if (buttons.length === 0) return null;
+  // A card with no retailer yet still renders when it's flagged coming soon —
+  // it shows the product with a badge instead of buy buttons.
+  if (buttons.length === 0 && !comingSoon) return null;
 
   const displayBrand = brand.trim();
   const fullName = `${displayBrand} ${productName}`.trim();
@@ -76,6 +80,7 @@ export default function BlogCatalogProductCard({
   return (
     <div className="tool-card tool-card--interactive tool-product-card not-prose my-8">
       <div className="tool-card__media tool-product-card__media">
+        {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={imageUrl} alt={fullName} className="tool-product-card__image" />
@@ -95,6 +100,11 @@ export default function BlogCatalogProductCard({
         ) : null}
 
         <div className="tool-product-card__actions">
+          {comingSoon && buttons.length === 0 ? (
+            <span className="tool-btn tool-btn--secondary tool-btn--block is-disabled" aria-disabled="true">
+              Retailer coming soon
+            </span>
+          ) : null}
           {buttons.map((button) => (
             <TrackedAffiliateLink
               key={button.key}

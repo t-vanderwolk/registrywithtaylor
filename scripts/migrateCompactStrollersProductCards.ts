@@ -56,16 +56,28 @@ type ProductConfig = {
   /** Label for a direct brand retailer button (used only when the section's
    *  buy link is neither Babylist nor Amazon, e.g. Silver Cross). */
   shopRetailer?: string;
+  /** Render a "Coming Soon" card with no retailer buttons (no affiliate yet). */
+  comingSoon?: boolean;
+  /** Explicit image URL (used for coming-soon products with no catalogue row). */
+  image?: string;
 };
 
-// Order mirrors the live post. UPPAbaby Kona is intentionally omitted — it's a
-// "coming soon" section with no affiliate link yet.
+// Order mirrors the live post. UPPAbaby Kona has no affiliate link yet, so it
+// gets a "Coming Soon" card (image + badge, no buy buttons).
 const PRODUCTS: ProductConfig[] = [
   { match: /breez/i, brand: 'Silver Cross', productName: 'Breez', note: 'Best budget-friendly compact stroller', shopRetailer: 'Silver Cross' },
   { match: /dragonfly/i, brand: 'Bugaboo', productName: 'Dragonfly Plus', note: 'Best premium compact stroller' },
   { match: /mios/i, brand: 'CYBEX', productName: 'MIOS Comfort Collection', note: 'Best luxury compact stroller' },
   { match: /triv|pipa urbn/i, brand: 'Nuna', productName: 'TRIV lx + PIPA urbn', note: 'Best compact travel system' },
   { match: /thule shine/i, brand: 'Thule', productName: 'Shine', note: 'Best compact stroller for active families' },
+  {
+    match: /kona/i,
+    brand: 'UPPAbaby',
+    productName: 'Kona',
+    note: 'Best all-terrain compact — retailer coming soon',
+    comingSoon: true,
+    image: 'https://www.westcoastkids.ca/media/catalog/product/1/2/1200x1200_uppababy_konastroller-hero_copy.jpg?optimize=high&fit=bounds&height=700&width=700',
+  },
   { match: /joolz hub/i, brand: 'Joolz', productName: 'Hub 2', note: 'Best compact stroller for city living' },
   { match: /city loop|peg perego/i, brand: 'Peg Perego', productName: 'City Loop', note: 'Best compact stroller with one-hand fold' },
 ];
@@ -96,7 +108,9 @@ function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl:
     lines.push(`Shop: ${links.shop}`);
     if (cfg.shopRetailer) lines.push(`Retailer: ${cfg.shopRetailer}`);
   }
-  if (imageUrl) lines.push(`Image: ${imageUrl}`);
+  if (cfg.comingSoon) lines.push('Status: coming soon');
+  const finalImage = cfg.image ?? imageUrl;
+  if (finalImage) lines.push(`Image: ${finalImage}`);
   lines.push(':::');
   return lines.join('\n');
 }
@@ -187,7 +201,7 @@ async function main() {
       }
     }
 
-    if (Object.keys(links).length === 0) {
+    if (Object.keys(links).length === 0 && !cfg.comingSoon) {
       notes.push(`• ${cfg.brand} ${cfg.productName}: matched heading but found NO buy links — left untouched.`);
       continue;
     }

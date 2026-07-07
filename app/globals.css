@@ -3299,6 +3299,26 @@ img {
   margin-top: auto;
   padding-top: 0.8rem;
 }
+.tool-product-card__badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 2;
+  border-radius: 999px;
+  background: #2f2227;
+  color: #fff;
+  padding: 0.28rem 0.66rem;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.tool-btn.is-disabled {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+}
 
 .tool-adapter-callout {
   display: flex;

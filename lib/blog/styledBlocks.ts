@@ -75,6 +75,7 @@ export type ParsedStyledBlock =
       imageUrl: string | null;
       price: number | null;
       priceSource: string | null;
+      comingSoon: boolean;
     }
   | {
       type: 'faq';
@@ -428,6 +429,7 @@ export function parseStyledBlock(
     let shopRetailer: string | null = null;
     let imageUrl: string | null = null;
     let price: number | null = null;
+    let comingSoon = false;
 
     contentLines.forEach((line) => {
       const parsedLine = parseKeyValueLine(line);
@@ -443,7 +445,11 @@ export function parseStyledBlock(
       else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = value;
       else if (label === 'retailer' || label === 'shop label') shopRetailer = value;
       else if (label === 'image' || label === 'image url') imageUrl = value;
-      else if (label === 'price') {
+      else if (label === 'status' || label === 'badge') {
+        if (/coming\s*soon/i.test(value)) comingSoon = true;
+      } else if (label === 'coming soon') {
+        comingSoon = /^(yes|true|1)$/i.test(value);
+      } else if (label === 'price') {
         const parsed = Number(value.replace(/[^0-9.]/g, ''));
         price = Number.isFinite(parsed) && parsed > 0 ? parsed : null;
       }
@@ -463,6 +469,7 @@ export function parseStyledBlock(
         imageUrl,
         price,
         priceSource: null,
+        comingSoon,
       },
       nextIndex: cursor,
     };

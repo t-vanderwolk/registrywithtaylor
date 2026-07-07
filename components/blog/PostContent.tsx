@@ -531,6 +531,7 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         shopUrl={block.shopUrl}
         shopRetailer={block.shopRetailer}
         amazonUrl={block.amazonUrl}
+        comingSoon={block.comingSoon}
         position={index + 1}
       />
     );
