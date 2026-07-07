@@ -182,6 +182,24 @@ model OutboundClick {
   @@index([createdAt], map: "idx_outboundclick_createdat")
 }
 
+// Free-tool usage log (Stroller Finder, Travel System Checker, Stroller Quiz).
+// One row per bot-filtered event: opened / selection / result_viewed. Affiliate
+// clicks from inside a tool are logged in OutboundClick (source = "tool:<name>").
+// Powers the admin dashboard's per-tool funnel.
+model ToolEvent {
+  id          String   @id @default(cuid())
+  tool        String
+  event       String
+  kind        String?
+  value       String?
+  path        String?
+  visitorHash String?
+  createdAt   DateTime @default(now())
+
+  @@index([tool, event, createdAt], map: "idx_toolevent_tool_event_createdat")
+  @@index([createdAt], map: "idx_toolevent_createdat")
+}
+
 model Guide {
   id                           String           @id @default(cuid())
   title                        String

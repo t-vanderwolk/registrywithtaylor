@@ -149,6 +149,55 @@ export default async function AdminAnalyticsPage() {
   } catch {
     retailerRows = [];
   }
+
+  // Free-tool usage funnel: opens → results → affiliate clicks, per tool.
+  const TOOL_LABELS: Record<string, string> = {
+    'stroller-finder': 'Stroller Finder',
+    'travel-system-checker': 'Travel System Checker',
+    'stroller-quiz': 'Stroller Quiz',
+  };
+  type ToolRow = { tool: string; label: string; opens: number; selections: number; results: number; clicks: number };
+  let toolRows: ToolRow[] = [];
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const [events28d, clicks28d]: [
+      Array<{ tool: string; event: string; _count: { _all: number } }>,
+      Array<{ source: string | null; _count: { _all: number } }>,
+    ] = await Promise.all([
+      db.toolEvent.groupBy({ by: ['tool', 'event'], where: { createdAt: { gte: since28d } }, _count: { _all: true } }),
+      db.outboundClick.groupBy({
+        by: ['source'],
+        where: { createdAt: { gte: since28d }, source: { startsWith: 'tool:' } },
+        _count: { _all: true },
+      }),
+    ]);
+    const clickByTool = new Map<string, number>();
+    for (const c of clicks28d) {
+      const t = (c.source ?? '').replace(/^tool:/, '');
+      clickByTool.set(t, (clickByTool.get(t) ?? 0) + c._count._all);
+    }
+    const byTool = new Map<string, ToolRow>();
+    const ensure = (tool: string) => {
+      let row = byTool.get(tool);
+      if (!row) {
+        row = { tool, label: TOOL_LABELS[tool] ?? tool, opens: 0, selections: 0, results: 0, clicks: clickByTool.get(tool) ?? 0 };
+        byTool.set(tool, row);
+      }
+      return row;
+    };
+    for (const e of events28d) {
+      const row = ensure(e.tool);
+      if (e.event === 'opened') row.opens += e._count._all;
+      else if (e.event === 'selection') row.selections += e._count._all;
+      else if (e.event === 'result_viewed') row.results += e._count._all;
+    }
+    for (const t of clickByTool.keys()) ensure(t);
+    // Keep the three known tools in a stable order.
+    toolRows = Object.keys(TOOL_LABELS).map((tool) => ensure(tool));
+  } catch {
+    toolRows = [];
+  }
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -232,6 +281,41 @@ export default async function AdminAnalyticsPage() {
               <td className="admin-micro">{getLifecycleLabel(post.status, post.publishedAt, post.scheduledFor, post.archivedAt)}</td>
               <td className="text-right text-admin">{(views28dMap.get(post.id) ?? 0).toLocaleString()}</td>
               <td className="text-right text-admin">{post.views.toLocaleString()}</td>
+            </tr>
+          ))}
+        </AdminTable>
+      </AdminSurface>
+
+      <AdminHeader
+        eyebrow="Free Tools"
+        title="Tool usage funnel (28 days)"
+        subtitle="Bot-filtered usage of the Stroller Finder, Travel System Checker, and Stroller Quiz. Opens are counted once per visitor per tool per day; selections and results count every interaction."
+      />
+
+      <AdminSurface className="admin-stack">
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'tool', label: 'Tool' },
+            { key: 'opens', label: 'Opens', align: 'right' },
+            { key: 'selections', label: 'Selections', align: 'right' },
+            { key: 'results', label: 'Results viewed', align: 'right' },
+            { key: 'clicks', label: 'Affiliate clicks', align: 'right' },
+          ]}
+          emptyState={
+            <p className="admin-body p-6">
+              No tool usage logged yet. This fills in once the tool-event table is deployed and visitors start
+              using the Finder, Checker, or Quiz.
+            </p>
+          }
+        >
+          {toolRows.map((row) => (
+            <tr key={row.tool} className="admin-row">
+              <td className="text-admin">{row.label}</td>
+              <td className="text-right text-admin">{row.opens.toLocaleString()}</td>
+              <td className="text-right text-admin">{row.selections.toLocaleString()}</td>
+              <td className="text-right text-admin">{row.results.toLocaleString()}</td>
+              <td className="text-right text-admin">{row.clicks.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>

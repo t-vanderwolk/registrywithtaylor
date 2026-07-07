@@ -1,14 +1,19 @@
 import { trackEvent } from '@/lib/analytics';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
+import { sendToolEventBeacon } from '@/lib/analytics/toolEventBeacon';
 
 export type ToolName = 'stroller-finder' | 'travel-system-checker' | 'stroller-quiz';
 
 type Extra = Record<string, string | number | boolean | null | undefined>;
 
+const asText = (value: unknown) =>
+  typeof value === 'string' ? value : typeof value === 'number' ? String(value) : undefined;
+
 /** Fired once when a tool is first opened/rendered. */
 export function trackToolOpened(tool: ToolName, extra: Extra = {}) {
   trackEvent(AnalyticsEvents.TOOL_OPENED, { tool, label: tool, ...extra });
+  sendToolEventBeacon({ tool, event: 'opened' });
 }
 
 /** Fired when the user makes a selection inside a tool (brand, category, stroller, seat, quiz answer). */
@@ -20,11 +25,17 @@ export function trackToolSelection(tool: ToolName, kind: string, value: string, 
     label: `${tool} · ${kind}: ${value}`,
     ...extra,
   });
+  sendToolEventBeacon({ tool, event: 'selection', kind, value });
 }
 
 /** Fired when a result / compatibility outcome is shown to the user. */
 export function trackToolResultViewed(tool: ToolName, extra: Extra = {}) {
   trackEvent(AnalyticsEvents.TOOL_RESULT_VIEWED, { tool, label: tool, ...extra });
+  sendToolEventBeacon({
+    tool,
+    event: 'result_viewed',
+    value: asText(extra.category) ?? asText(extra.value) ?? asText(extra.label),
+  });
 }
 
 /** Fired on every buy-link click that originates inside a tool. */
