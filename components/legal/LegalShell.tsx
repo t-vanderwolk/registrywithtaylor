@@ -81,10 +81,10 @@ export function LegalContact() {
       <br />
       Email:{' '}
       <a
-        href="mailto:hello@taylormadebabyco.com"
+        href="mailto:info@taylormadebabyco.com"
         className="text-[var(--color-accent-dark)] underline underline-offset-2"
       >
-        hello@taylormadebabyco.com
+        info@taylormadebabyco.com
       </a>
       <br />
       Website: taylormadebabyco.com

@@ -130,7 +130,7 @@ export default function PrivacyPage() {
           ]}
         />
         <p>
-          To exercise any of these rights, contact us at hello@taylormadebabyco.com. We will respond within 30
+          To exercise any of these rights, contact us at info@taylormadebabyco.com. We will respond within 30
           days.
         </p>
       </LegalSection>
@@ -139,7 +139,7 @@ export default function PrivacyPage() {
         <p>
           Our website and services are not directed to children under the age of 13. We do not knowingly collect
           personal information from children under 13. If you believe we have inadvertently collected information
-          from a child under 13, please contact us immediately at hello@taylormadebabyco.com and we will delete
+          from a child under 13, please contact us immediately at info@taylormadebabyco.com and we will delete
           the information as quickly as possible.
         </p>
       </LegalSection>

@@ -48,7 +48,7 @@ export default function RefundPage() {
           subject to your bank or card provider&rsquo;s processing times.
         </p>
         <p>
-          To cancel, please email hello@taylormadebabyco.com or use the cancellation link in your booking
+          To cancel, please email info@taylormadebabyco.com or use the cancellation link in your booking
           confirmation. Please include your name and booking date in your cancellation request.
         </p>
         <p className="font-medium text-charcoal">Cancellations made less than 24 hours before the scheduled session</p>
@@ -59,7 +59,7 @@ export default function RefundPage() {
         </p>
         <p>
           We understand that emergencies happen. If you experience a genuine emergency (hospitalisation, birth
-          complications, or a similar urgent circumstance), please contact us at hello@taylormadebabyco.com with
+          complications, or a similar urgent circumstance), please contact us at info@taylormadebabyco.com with
           details. We will review reschedule requests in these circumstances on a compassionate, case-by-case
           basis.
         </p>
@@ -71,7 +71,7 @@ export default function RefundPage() {
           <li>Rescheduling requests made 24 or more hours before the session: Accepted at no charge. Reschedule to any available time within 90 days of the original booking.</li>
           <li>Rescheduling requests made less than 24 hours before the session: Accepted at Taylor&rsquo;s discretion only. A $25 late reschedule fee may apply.</li>
           <li>Maximum reschedules per booking: You may reschedule a single booking up to two times. After two reschedules, the booking will be forfeited without refund.</li>
-          <li>How to reschedule: Email hello@taylormadebabyco.com or use the rescheduling link in your booking confirmation. Please provide at least two preferred alternative dates and times.</li>
+          <li>How to reschedule: Email info@taylormadebabyco.com or use the rescheduling link in your booking confirmation. Please provide at least two preferred alternative dates and times.</li>
         </ul>
       </LegalSection>
 
@@ -92,7 +92,7 @@ export default function RefundPage() {
         </p>
         <p>If you feel that your consultation did not deliver value, we ask that you:</p>
         <ul className="list-disc space-y-1 pl-5">
-          <li>Contact us within 7 days of your session at hello@taylormadebabyco.com with a description of your concern.</li>
+          <li>Contact us within 7 days of your session at info@taylormadebabyco.com with a description of your concern.</li>
           <li>Give us the opportunity to address your feedback — in many cases, we can resolve concerns with a follow-up call or written clarification at no additional charge.</li>
         </ul>
         <p>
@@ -107,7 +107,7 @@ export default function RefundPage() {
         <p>
           The Baby Prep Starter Guide and any other free downloadable resources are provided at no charge and are
           therefore non-refundable (no payment is taken). If you experience a technical issue downloading or
-          accessing a free resource, please contact us at hello@taylormadebabyco.com and we will resend it
+          accessing a free resource, please contact us at info@taylormadebabyco.com and we will resend it
           promptly.
         </p>
         <p>
@@ -120,7 +120,7 @@ export default function RefundPage() {
       <LegalSection n="07" title="How to Request a Refund">
         <p>To request a refund, please follow these steps:</p>
         <ol className="list-decimal space-y-1 pl-5">
-          <li>Email hello@taylormadebabyco.com with the subject line: &lsquo;Refund Request — [Your Name] — [Booking Date]&rsquo;.</li>
+          <li>Email info@taylormadebabyco.com with the subject line: &lsquo;Refund Request — [Your Name] — [Booking Date]&rsquo;.</li>
           <li>Include your full name, the email address used to book your consultation, your booking date and time, and a brief description of your reason for requesting a refund.</li>
           <li>Taylor-Made Baby Co. will acknowledge your request within 2 business days.</li>
           <li>If your refund is approved, it will be processed to your original payment method within 5&ndash;7 business days (for client cancellations 24+ hours in advance) or 3&ndash;5 business days (for cancellations by us).</li>
@@ -130,7 +130,7 @@ export default function RefundPage() {
 
       <LegalSection n="08" title="Chargebacks & Payment Disputes">
         <p>
-          We ask that you contact us directly at hello@taylormadebabyco.com before initiating a chargeback or
+          We ask that you contact us directly at info@taylormadebabyco.com before initiating a chargeback or
           payment dispute with your bank or card provider. In our experience, all legitimate refund concerns can
           be resolved quickly when raised with us directly.
         </p>
