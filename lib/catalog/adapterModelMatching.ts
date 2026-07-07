@@ -119,6 +119,17 @@ function stripTrailingConfig(value: string) {
   return parts.join(' ');
 }
 
+// An "electric" power variant (Cybex e-Gazelle S / eGazelle) shares the base
+// model's infant-seat adapter (the "Gazelle S" adapter). Drop a leading
+// "e"/"electric" token so the powered model matches the base-model adapter.
+function stripElectricPrefix(value: string) {
+  const parts = normalizeText(value).split(' ').filter(Boolean);
+  if (parts.length > 1 && (parts[0] === 'e' || parts[0] === 'electric')) {
+    return parts.slice(1).join(' ');
+  }
+  return normalizeText(value);
+}
+
 // A shortened candidate is only trustworthy if it still carries a real signal:
 // two or more tokens, or a token with a digit (e.g. "summit x3", "city mini
 // gt3", "minu duo"). A bare single word like "lithe" is too loose to match on.
@@ -248,6 +259,12 @@ export function adapterTitleMatchesStrollerModel(
   }
   if (coreStripped !== core && isTrustworthyShortCandidate(coreStripped)) {
     pushCandidate(coreStripped, coreStripped, 'core');
+  }
+
+  // Electric power variant → base-model adapter (e-Gazelle S → Gazelle S).
+  const electricStripped = stripTrailingConfig(stripElectricPrefix(core));
+  if (electricStripped !== core && isTrustworthyShortCandidate(electricStripped)) {
+    pushCandidate(electricStripped, electricStripped, 'core');
   }
 
   for (const candidate of candidates) {
