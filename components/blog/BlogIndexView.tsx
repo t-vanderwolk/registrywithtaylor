@@ -7,7 +7,6 @@ import JournalCard from '@/components/blog/JournalCard';
 import CategoryTag from '@/components/blog/CategoryTag';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import { Body } from '@/components/ui/MarketingHeading';
-import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { getBlogCategoryLabel, type BlogCategory } from '@/lib/blogCategories';
 import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
 
@@ -103,8 +102,6 @@ export default function BlogIndexView({ posts }: BlogIndexViewProps) {
     });
   };
 
-  const NEWSLETTER_AFTER_INDEX = 3;
-
   return (
     <>
       <section className="section-base bg-white">
@@ -152,46 +149,21 @@ export default function BlogIndexView({ posts }: BlogIndexViewProps) {
               <FeaturedJournalCard post={featuredPost} />
 
               {filteredPosts.length > 0 ? (
-                <>
-                  <div className="grid gap-6 md:grid-cols-2 md:gap-10">
-                    {filteredPosts.slice(0, NEWSLETTER_AFTER_INDEX + 1).map((post) => (
-                      <JournalCard
-                        key={post.id}
-                        title={post.title}
-                        slug={post.slug}
-                        coverImage={post.coverImage}
-                        excerpt={post.excerpt}
-                        dateLabel={post.dateLabel}
-                        dateTime={post.dateTime}
-                        readingTime={post.readingTime}
-                        category={post.category}
-                      />
-                    ))}
-                  </div>
-
-                  {filteredPosts.length > NEWSLETTER_AFTER_INDEX + 1 ? (
-                    <>
-                      <div className="my-10 md:my-14">
-                        <NewsletterCapture />
-                      </div>
-                      <div className="grid gap-6 md:grid-cols-2 md:gap-10">
-                        {filteredPosts.slice(NEWSLETTER_AFTER_INDEX + 1).map((post) => (
-                          <JournalCard
-                            key={post.id}
-                            title={post.title}
-                            slug={post.slug}
-                            coverImage={post.coverImage}
-                            excerpt={post.excerpt}
-                            dateLabel={post.dateLabel}
-                            dateTime={post.dateTime}
-                            readingTime={post.readingTime}
-                            category={post.category}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  ) : null}
-                </>
+                <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+                  {filteredPosts.map((post) => (
+                    <JournalCard
+                      key={post.id}
+                      title={post.title}
+                      slug={post.slug}
+                      coverImage={post.coverImage}
+                      excerpt={post.excerpt}
+                      dateLabel={post.dateLabel}
+                      dateTime={post.dateTime}
+                      readingTime={post.readingTime}
+                      category={post.category}
+                    />
+                  ))}
+                </div>
               ) : null}
             </div>
           ) : filteredPosts.length > 0 ? (

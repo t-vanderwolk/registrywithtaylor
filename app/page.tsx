@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import HomeAuthorityStrip from '@/components/home/HomeAuthorityStrip';
+import HomeJournalPreview from '@/components/home/HomeJournalPreview';
 import SiteShell from '@/components/SiteShell';
 import StartHereSection from '@/components/marketing/StartHereSection';
 import TwoTierTestimonials from '@/components/marketing/TwoTierTestimonials';
@@ -620,6 +621,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <HomeJournalPreview />
 
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,var(--color-paper)_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
