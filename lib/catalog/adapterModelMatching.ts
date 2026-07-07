@@ -102,6 +102,31 @@ function stripGenericModelWords(value: string) {
     .trim();
 }
 
+// Trailing seat-count descriptors that sit on the SAME chassis and therefore
+// share the same infant-seat adapter: "Summit X3 Single/Double", "City Tour 2
+// Double", "Minu Duo Side by Side Double". We strip these from the END only, so
+// the model still matches an adapter titled for the base model. We deliberately
+// do NOT strip "twin"/"duo"/"mono" — those denote a distinct side-by-side frame
+// with its own adapter (Indie vs Indie Twin), and the version guard in
+// phraseMatchesTitle keeps them apart.
+const TRAILING_CONFIG_TOKENS = new Set(['single', 'double', 'side', 'by']);
+
+function stripTrailingConfig(value: string) {
+  const parts = normalizeText(value).split(' ').filter(Boolean);
+  while (parts.length > 1 && TRAILING_CONFIG_TOKENS.has(parts[parts.length - 1])) {
+    parts.pop();
+  }
+  return parts.join(' ');
+}
+
+// A shortened candidate is only trustworthy if it still carries a real signal:
+// two or more tokens, or a token with a digit (e.g. "summit x3", "city mini
+// gt3", "minu duo"). A bare single word like "lithe" is too loose to match on.
+function isTrustworthyShortCandidate(phrase: string) {
+  const parts = phrase.split(' ').filter(Boolean);
+  return parts.length >= 2 || /\d/.test(phrase);
+}
+
 function unique(values: string[]) {
   return [...new Set(values.filter(Boolean))];
 }
@@ -184,18 +209,53 @@ export function adapterTitleMatchesStrollerModel(
     ) {
       return { matched: true, matchedModel: null, matchKind: 'core' };
     }
+
+    // Veer's wagon adapters reference the "Cruiser" line generically ("Veer
+    // Cruiser Infant Car Seat Adapter", "…for Cruiser Wagon"). Cruiser / Cruiser
+    // XL / Cruiser City share the same infant-seat adapters, so a Veer stroller
+    // whose model is in the Cruiser line matches any Cruiser adapter title.
+    if (
+      strollerBrandKey === 'veer' &&
+      /\bcruiser\b/.test(normalizeText(strollerModel)) &&
+      titleTokens.includes('cruiser')
+    ) {
+      return { matched: true, matchedModel: 'cruiser', matchKind: 'core' };
+    }
   }
 
   const full = normalizeText(strollerModel);
   const core = stripGenericModelWords(strollerModel);
-  const candidates = unique([full, core]);
+
+  // Primary candidates match the full model (context = core so the version guard
+  // knows the "real" trailing token). Config-stripped candidates drop trailing
+  // seat-count words and carry their OWN shortened context, so an adapter titled
+  // for the base model ("Summit X3", "Minu Duo") matches its Single/Double/Side-
+  // by-Side variants without falsely matching a different version.
+  const candidates: Array<{ phrase: string; context: string; kind: 'full' | 'core' }> = [];
+  const pushCandidate = (phrase: string, context: string, kind: 'full' | 'core') => {
+    if (phrase && !candidates.some((c) => c.phrase === phrase)) {
+      candidates.push({ phrase, context, kind });
+    }
+  };
+
+  pushCandidate(full, core, 'full');
+  if (core !== full) pushCandidate(core, core, 'core');
+
+  const fullStripped = stripTrailingConfig(full);
+  const coreStripped = stripTrailingConfig(core);
+  if (fullStripped !== full && isTrustworthyShortCandidate(fullStripped)) {
+    pushCandidate(fullStripped, fullStripped, 'full');
+  }
+  if (coreStripped !== core && isTrustworthyShortCandidate(coreStripped)) {
+    pushCandidate(coreStripped, coreStripped, 'core');
+  }
 
   for (const candidate of candidates) {
-    if (!phraseMatchesTitle(titleTokens, candidate, core)) continue;
+    if (!phraseMatchesTitle(titleTokens, candidate.phrase, candidate.context)) continue;
     return {
       matched: true,
-      matchedModel: candidate,
-      matchKind: candidate === full ? 'full' : 'core',
+      matchedModel: candidate.phrase,
+      matchKind: candidate.kind,
     };
   }
 
