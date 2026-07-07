@@ -128,8 +128,8 @@ export default async function AdminAnalyticsPage() {
       Array<{ retailer: string; network: string | null; _count: { _all: number } }>,
       Array<{ retailer: string; _count: { _all: number } }>,
     ] = await Promise.all([
-      db.affiliateClick.groupBy({ by: ['retailer', 'network'], _count: { _all: true } }),
-      db.affiliateClick.groupBy({ by: ['retailer'], where: { createdAt: { gte: since28d } }, _count: { _all: true } }),
+      db.outboundClick.groupBy({ by: ['retailer', 'network'], _count: { _all: true } }),
+      db.outboundClick.groupBy({ by: ['retailer'], where: { createdAt: { gte: since28d } }, _count: { _all: true } }),
     ]);
     const last28Map = new Map(last28.map((r) => [r.retailer, r._count._all]));
     const merged = new Map<string, RetailerRow>();

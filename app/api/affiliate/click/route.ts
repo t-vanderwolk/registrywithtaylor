@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     // Light de-dup: a single click can fire twice (React re-invoke, GA + beacon).
     // Skip a duplicate of the same visitor+url within a few seconds.
     if (visitorHash) {
-      const recent = await db.affiliateClick
+      const recent = await db.outboundClick
         .findFirst({
           where: { visitorHash, url, createdAt: { gte: new Date(Date.now() - 5_000) } },
           select: { id: true },
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    await db.affiliateClick.create({
+    await db.outboundClick.create({
       data: {
         retailer,
         network,

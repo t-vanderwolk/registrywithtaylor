@@ -165,7 +165,7 @@ model ViewDedup {
 // any tracked anchor). This is the site's own count of real, bot-filtered
 // clicks, so the admin dashboard can show a by-retailer breakdown to reconcile
 // against each affiliate network's dashboard (Impact, CJ, MacroBaby, etc.).
-model AffiliateClick {
+model OutboundClick {
   id          String   @id @default(cuid())
   retailer    String
   network     String?
@@ -178,8 +178,8 @@ model AffiliateClick {
   visitorHash String?
   createdAt   DateTime @default(now())
 
-  @@index([retailer, createdAt], map: "idx_affclick_retailer_createdat")
-  @@index([createdAt], map: "idx_affclick_createdat")
+  @@index([retailer, createdAt], map: "idx_outboundclick_retailer_createdat")
+  @@index([createdAt], map: "idx_outboundclick_createdat")
 }
 
 model Guide {
