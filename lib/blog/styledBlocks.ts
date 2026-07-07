@@ -72,6 +72,7 @@ export type ParsedStyledBlock =
       macrobabyUrl: string | null;
       shopUrl: string | null;
       shopRetailer: string | null;
+      primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
       imageUrl: string | null;
       price: number | null;
       priceSource: string | null;
@@ -427,6 +428,7 @@ export function parseStyledBlock(
     let macrobabyUrl: string | null = null;
     let shopUrl: string | null = null;
     let shopRetailer: string | null = null;
+    let primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null = null;
     let imageUrl: string | null = null;
     let price: number | null = null;
     let comingSoon = false;
@@ -444,7 +446,13 @@ export function parseStyledBlock(
       else if (label === 'macrobaby' || label === 'macrobaby url') macrobabyUrl = value;
       else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = value;
       else if (label === 'retailer' || label === 'shop label') shopRetailer = value;
-      else if (label === 'image' || label === 'image url') imageUrl = value;
+      else if (label === 'primary' || label === 'primary retailer') {
+        const v = value.toLowerCase();
+        if (/babylist/.test(v)) primaryRetailer = 'babylist';
+        else if (/macrobaby/.test(v)) primaryRetailer = 'macrobaby';
+        else if (/amazon/.test(v)) primaryRetailer = 'amazon';
+        else primaryRetailer = 'shop';
+      } else if (label === 'image' || label === 'image url') imageUrl = value;
       else if (label === 'status' || label === 'badge') {
         if (/coming\s*soon/i.test(value)) comingSoon = true;
       } else if (label === 'coming soon') {
@@ -466,6 +474,7 @@ export function parseStyledBlock(
         macrobabyUrl,
         shopUrl,
         shopRetailer,
+        primaryRetailer,
         imageUrl,
         price,
         priceSource: null,

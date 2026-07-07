@@ -22,6 +22,8 @@ type BlogCatalogProductCardProps = {
   shopUrl?: string | null;
   shopRetailer?: string | null;
   amazonUrl?: string | null;
+  /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
+  primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
   comingSoon?: boolean;
   position: number;
 };
@@ -42,33 +44,28 @@ export default function BlogCatalogProductCard({
   shopUrl,
   shopRetailer,
   amazonUrl,
+  primaryRetailer,
   comingSoon = false,
   position,
 }: BlogCatalogProductCardProps) {
-  // Buttons mirror the Resource-tool card: a primary catalogue retailer first,
-  // Amazon second. Babylist leads when we have it, then MacroBaby, then a direct
-  // brand retailer (e.g. Silver Cross) for products off Babylist/Amazon.
-  const buttons: CatalogProductButton[] = [];
-  if (babylistUrl) {
-    buttons.push({ key: 'babylist', url: babylistUrl, label: 'Add to Babylist', variant: 'primary' });
-  } else if (macrobabyUrl) {
-    buttons.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby', variant: 'primary' });
-  } else if (shopUrl) {
-    buttons.push({
-      key: 'shop',
-      url: shopUrl,
-      label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now',
-      variant: 'primary',
-    });
-  }
-  if (amazonUrl) {
-    buttons.push({
-      key: 'amazon',
-      url: amazonUrl,
-      label: 'Shop on Amazon',
-      variant: buttons.length === 0 ? 'primary' : 'secondary',
-    });
-  }
+  // Show every retailer we have a link for, ordered so the chosen primary leads;
+  // otherwise Babylist > MacroBaby > Shop > Amazon. The first button is styled
+  // primary, the rest secondary.
+  const available: Array<Omit<CatalogProductButton, 'variant'>> = [];
+  if (babylistUrl) available.push({ key: 'babylist', url: babylistUrl, label: 'Add to Babylist' });
+  if (macrobabyUrl) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
+  if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
+  if (amazonUrl) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
+
+  const defaultOrder: Record<CatalogProductButton['key'], number> = { babylist: 0, macrobaby: 1, shop: 2, amazon: 3 };
+  available.sort((a, b) => {
+    if (primaryRetailer) {
+      if (a.key === primaryRetailer && b.key !== primaryRetailer) return -1;
+      if (b.key === primaryRetailer && a.key !== primaryRetailer) return 1;
+    }
+    return defaultOrder[a.key] - defaultOrder[b.key];
+  });
+  const buttons: CatalogProductButton[] = available.map((b, i) => ({ ...b, variant: i === 0 ? 'primary' : 'secondary' }));
 
   // A card with no retailer yet still renders when it's flagged coming soon —
   // it shows the product with a badge instead of buy buttons.

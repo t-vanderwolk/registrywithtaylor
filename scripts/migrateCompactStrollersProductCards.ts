@@ -60,12 +60,26 @@ type ProductConfig = {
   comingSoon?: boolean;
   /** Explicit image URL (used for coming-soon products with no catalogue row). */
   image?: string;
+  /** Which retailer button leads on the card. */
+  primaryRetailer?: 'babylist' | 'amazon' | 'shop';
+  /** Explicit buy links to include even if not found in-section (folded from a
+   *  stray CTA button elsewhere in the post). */
+  babylist?: string;
+  amazon?: string;
 };
 
 // Order mirrors the live post. UPPAbaby Kona has no affiliate link yet, so it
 // gets a "Coming Soon" card (image + badge, no buy buttons).
 const PRODUCTS: ProductConfig[] = [
-  { match: /breez/i, brand: 'Silver Cross', productName: 'Breez', note: 'Best budget-friendly compact stroller', shopRetailer: 'Silver Cross' },
+  {
+    match: /breez/i,
+    brand: 'Silver Cross',
+    productName: 'Breez',
+    note: 'Best budget-friendly compact stroller',
+    shopRetailer: 'Silver Cross',
+    primaryRetailer: 'shop', // your direct ref=4762 link leads; Babylist second
+    babylist: 'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fsilver-cross-breez-mid-size-compact-stroller%2F79448%2F2839934&partnerpropertyid=7490466',
+  },
   { match: /dragonfly/i, brand: 'Bugaboo', productName: 'Dragonfly Plus', note: 'Best premium compact stroller' },
   { match: /mios/i, brand: 'CYBEX', productName: 'MIOS Comfort Collection', note: 'Best luxury compact stroller' },
   { match: /triv|pipa urbn/i, brand: 'Nuna', productName: 'TRIV lx + PIPA urbn', note: 'Best compact travel system' },
@@ -108,6 +122,7 @@ function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl:
     lines.push(`Shop: ${links.shop}`);
     if (cfg.shopRetailer) lines.push(`Retailer: ${cfg.shopRetailer}`);
   }
+  if (cfg.primaryRetailer) lines.push(`Primary: ${cfg.primaryRetailer}`);
   if (cfg.comingSoon) lines.push('Status: coming soon');
   const finalImage = cfg.image ?? imageUrl;
   if (finalImage) lines.push(`Image: ${finalImage}`);
@@ -201,6 +216,17 @@ async function main() {
       }
     }
 
+    // Fold in explicit config links (e.g. a Breez Babylist button that lives
+    // outside the section). Mark them consumed so their stray slot is stripped.
+    if (cfg.babylist && !links.babylist) {
+      links.babylist = cfg.babylist;
+      consumedButtonUrls.add(cfg.babylist);
+    }
+    if (cfg.amazon && !links.amazon) {
+      links.amazon = cfg.amazon;
+      consumedButtonUrls.add(cfg.amazon);
+    }
+
     if (Object.keys(links).length === 0 && !cfg.comingSoon) {
       notes.push(`• ${cfg.brand} ${cfg.productName}: matched heading but found NO buy links — left untouched.`);
       continue;
@@ -232,10 +258,19 @@ async function main() {
     console.log(buildBlock(cfg, links, imageUrl));
   }
 
+  // Strip any leftover `::cta-slot` line whose button was folded into a card,
+  // even if it lived outside the product section (e.g. a stray Breez Babylist).
+  const cleanedLines = lines.filter((raw) => {
+    const slotId = parseCtaSlotLine(raw.trim());
+    if (!slotId) return true;
+    const btn = buttonById.get(slotId);
+    return !(btn && consumedButtonUrls.has(btn.url));
+  });
+
   // Remaining CTA buttons (those we did not fold into cards) are re-serialized so
   // consumed buttons drop out of storage entirely.
   const remainingButtons = stored.buttons.filter((b) => !consumedButtonUrls.has(b.url));
-  const newBody = lines.join('\n');
+  const newBody = cleanedLines.join('\n');
   const updated = serializeCtaButtons(newBody, remainingButtons);
 
   console.log('\n════════════════════════════════════════');
