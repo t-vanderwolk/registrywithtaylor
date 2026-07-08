@@ -29,12 +29,17 @@ const db = prismaBase as any;
 const SLUG = 'silver-cross-nia-vs-clic-vs-jet-travel-stroller-comparison-2026';
 const APPLY = process.argv.includes('--apply');
 
-type ProductConfig = { match: RegExp; brand: string; productName: string };
+type ProductConfig = { match: RegExp; brand: string; productName: string; image?: string };
 
 const PRODUCTS: ProductConfig[] = [
   { match: /^silver cross nia$/i, brand: 'Silver Cross', productName: 'Nia' },
   { match: /^silver cross clic$/i, brand: 'Silver Cross', productName: 'Clic' },
-  { match: /^silver cross jet$/i, brand: 'Silver Cross', productName: 'Jet' },
+  {
+    match: /^silver cross jet$/i,
+    brand: 'Silver Cross',
+    productName: 'Jet',
+    image: 'https://www.kiddies-kingdom.com/266530-large_default/silver-cross-jet-5-compact-stroller-space.webp',
+  },
 ];
 
 const SHOP_RETAILER = 'Silver Cross';
@@ -178,14 +183,16 @@ async function main() {
       kept.push(lines[i]);
       if (i === lastImageAt) keptLastImageAt = kept.length - 1;
     }
+    // An explicit config image (e.g. the Jet) overrides the section's own image.
+    const cardImage = cfg.image ?? firstImage;
     let insertAt = keptLastImageAt >= 0 ? keptLastImageAt + 1 : 1;
     if (keptLastImageAt >= 0 && CAPTION_LINE.test((kept[keptLastImageAt + 1] ?? '').trim())) insertAt += 1;
-    kept.splice(insertAt, 0, '', buildBlock(cfg, links, firstImage), '');
+    kept.splice(insertAt, 0, '', buildBlock(cfg, links, cardImage), '');
 
     lines.splice(headingIndex, end - headingIndex, ...kept);
     changed += 1;
     console.log(`\n──────── ${cfg.brand} ${cfg.productName} ────────`);
-    console.log(buildBlock(cfg, links, firstImage));
+    console.log(buildBlock(cfg, links, cardImage));
   }
 
   const remainingButtons = stored.buttons.filter((b) => !consumedButtonIds.has(b.id));
