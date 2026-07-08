@@ -14,6 +14,7 @@
  * visible on-page sections (schema must match visible content).
  */
 import { SITE_NAME, SITE_URL, SITE_LOGO_URL } from '@/lib/marketing/metadata';
+import { ABOUT_FAQ, ABOUT_REVIEWS, ABOUT_STEPS } from '@/lib/marketing/aboutContent';
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const PERSON_ID = `${SITE_URL}/#taylor`;
@@ -154,6 +155,58 @@ export const aboutStructuredData = {
       termsOfService: 'Full refund if cancelled 24 hours before the session.',
       logo: SITE_LOGO_URL,
       url: `${SITE_URL}/book`,
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${ABOUT_URL}#faq`,
+      mainEntity: ABOUT_FAQ.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${SITE_URL}/#business`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      image: SITE_LOGO_URL,
+      priceRange: '$75',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '5',
+        bestRating: '5',
+        worstRating: '1',
+        ratingCount: String(ABOUT_REVIEWS.length),
+        reviewCount: String(ABOUT_REVIEWS.length),
+      },
+      review: ABOUT_REVIEWS.map((r) => ({
+        '@type': 'Review',
+        author: { '@type': 'Person', name: r.author },
+        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+        reviewBody: r.quote,
+        publisher: { '@type': 'Organization', name: 'Strolleria' },
+      })),
+    },
+    {
+      '@type': 'HowTo',
+      '@id': `${ABOUT_URL}#howto`,
+      name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
+      description:
+        'A 4 step process to book and complete a 1 hour virtual baby registry consultation with certified specialist Taylor Vanderwolk.',
+      totalTime: 'PT1H',
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
+      tool: [
+        { '@type': 'HowToTool', name: 'Zoom or Google Meet (video call)' },
+        { '@type': 'HowToTool', name: 'Taylor’s pre-session intake form' },
+      ],
+      step: ABOUT_STEPS.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: String(i + 1),
+        name: s.title,
+        text: s.body,
+        ...(i === 0 ? { url: `${SITE_URL}/book` } : {}),
+      })),
     },
   ],
 };
