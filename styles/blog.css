@@ -104,6 +104,8 @@
 .tmbc-blog li {
   margin-bottom: 12px;
   line-height: 1.8;
+  /* Match body paragraphs so bullets scale with the surrounding text + images. */
+  font-size: clamp(1.06rem, 0.9rem + 0.44vw, 1.26rem);
 }
 
 .tmbc-blog a {
@@ -662,6 +664,13 @@
 /* A touch more air between paragraphs so the column feels less dense. */
 .tmbc-blog-post-content p {
   margin-bottom: 30px;
+}
+
+/* Bullet / numbered list items track the body paragraph size so they scale with
+   the surrounding text and images instead of inheriting a larger base. */
+.tmbc-blog-post-content li {
+  font-size: clamp(1.06rem, 0.9rem + 0.44vw, 1.26rem);
+  line-height: 1.8;
 }
 
 .tmbc-blog-gallery {
