@@ -144,7 +144,6 @@ export default function BlogCatalogProductCard({
       <div className="tool-product-card__body">
         {displayBrand ? <p className="tool-product-card__brand">{displayBrand}</p> : null}
         <p className="tool-product-card__title">{productName}</p>
-        {note ? <p className="tool-product-card__note">{note}</p> : null}
         {price != null ? (
           <p className="tool-product-card__price">
             {formatPrice(price)}

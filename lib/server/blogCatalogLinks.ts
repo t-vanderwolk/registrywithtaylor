@@ -11,6 +11,7 @@
  */
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
+import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
 import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import prisma from '@/lib/server/prisma';
 
@@ -82,7 +83,12 @@ export async function resolveBlogProductCatalogLinks(
         const haystack = norm(`${r.enrichment?.canonicalName ?? ''} ${r.title ?? ''}`);
         return haystack.includes(wantName);
       })
-      .filter((r) => r.affiliateUrl && !isGoodBuyGearUrl(r.affiliateUrl));
+      .filter((r) => r.affiliateUrl && !isGoodBuyGearUrl(r.affiliateUrl))
+      // Never let an accessory (adapter, bassinet, carry bag, footmuff, second
+      // seat, etc.) stand in for the stroller's image/price — the same guard the
+      // finder/quiz tools use. Without it, "Butterfly 2" matched a $17 adapter and
+      // "Libelle" matched a carry bag.
+      .filter((r) => !isExcludedStrollerFinderProduct({ brand: r.brand, title: r.title, affiliateUrl: r.affiliateUrl }));
 
     if (candidates.length === 0) continue;
 

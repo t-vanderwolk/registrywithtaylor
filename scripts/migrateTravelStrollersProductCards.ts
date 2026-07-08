@@ -70,7 +70,6 @@ function classifyUrl(url: string): 'babylist' | 'amazon' | 'macrobaby' | 'shop' 
 
 function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl: string | null): string {
   const out = [':::catalog-product', `Brand: ${cfg.brand}`, `Product: ${cfg.productName}`];
-  if (cfg.note) out.push(`Note: ${cfg.note}`);
   if (links.babylist) out.push(`Babylist: ${links.babylist}`);
   if (links.amazon) out.push(`Amazon: ${links.amazon}`);
   if (links.macrobaby) out.push(`MacroBaby: ${links.macrobaby}`);
