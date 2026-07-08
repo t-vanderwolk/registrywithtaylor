@@ -804,7 +804,9 @@ export default function PostContent({
             while (i < lines.length) {
               const candidate = lines[i]?.trim() ?? '';
               if (!isUnorderedListLine(candidate)) break;
-              items.push(candidate.replace(unorderedListPattern, ''));
+              // Strip stray marker artifacts that leaked into authored copy
+              // (e.g. "- +• Nia = …" or "- 👉 the grocery run").
+              items.push(candidate.replace(unorderedListPattern, '').replace(/^(?:[+•·‣▪]\s*|👉️?\s*)+/u, ''));
               i += 1;
             }
 
@@ -839,7 +841,7 @@ export default function PostContent({
             while (i < lines.length) {
               const candidate = lines[i]?.trim() ?? '';
               if (!orderedListPattern.test(candidate)) break;
-              items.push(candidate.replace(/^\d+\.\s+/, ''));
+              items.push(candidate.replace(/^\d+\.\s+/, '').replace(/^(?:[+•·‣▪]\s*|👉️?\s*)+/u, ''));
               i += 1;
             }
 
