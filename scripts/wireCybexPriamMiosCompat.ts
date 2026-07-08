@@ -61,9 +61,12 @@ async function main() {
     console.error(`✗ Source "Cybex ${SOURCE_MODEL}" not found. Aborting.`);
     process.exit(1);
   }
-  const template = source.compatibilities;
+  // Britax only fits the Gazelle / e-Gazelle (separate adapter) — exclude it from
+  // the Priam / Mios / e-Priam coverage.
+  const template = source.compatibilities.filter((c) => !/britax/i.test(c.carSeat?.brand ?? ''));
+  const britaxSkipped = source.compatibilities.length - template.length;
   console.log('── Wire Cybex Priam / Mios / e-Priam to Gazelle S seat coverage ──');
-  console.log(`  Template: Cybex ${source.model} → ${template.length} infant seat(s):`);
+  console.log(`  Template: Cybex ${source.model} → ${template.length} infant seat(s) (excluded ${britaxSkipped} Britax):`);
   console.log('    ' + template.map((c) => `${c.carSeat?.brand} ${c.carSeat?.model}`).join(', '));
 
   const targets = cybex.filter((s) => TARGET_MODELS.has(s.model.trim().toLowerCase()));
