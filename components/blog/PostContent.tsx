@@ -19,6 +19,7 @@ import ProductCard from '@/components/content-widgets/ProductCard';
 import Pros from '@/components/content-widgets/Pros';
 import SpecTable from '@/components/content-widgets/SpecTable';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
+import BlogPoll from '@/components/blog/BlogPoll';
 import Takeaways from '@/components/content-widgets/Takeaways';
 import { chunkArray } from '@/lib/chunkArray';
 import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
@@ -402,6 +403,10 @@ function renderStyledBlock(
   strollerCompatHrefs: Record<string, string> = {},
   goodBuyGearOffers: Record<string, { url: string | null; price: number | null }> = {},
 ) {
+  if (block.type === 'poll') {
+    return <BlogPoll key={`${postId}-poll-${index}`} question={block.question} options={block.options} />;
+  }
+
   if (block.type === 'callout') {
     return (
       <Callout

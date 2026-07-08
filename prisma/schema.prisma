@@ -200,6 +200,21 @@ model ToolEvent {
   @@index([createdAt], map: "idx_toolevent_createdat")
 }
 
+// One row per reader vote on an in-post poll. Polls are defined in post content
+// (:::poll block); votes are keyed by (post slug, poll key). voterId is a random
+// client id (localStorage) so a browser votes once per poll.
+model BlogPollVote {
+  id          String   @id @default(cuid())
+  slug        String
+  pollKey     String
+  optionIndex Int
+  voterId     String
+  createdAt   DateTime @default(now())
+
+  @@unique([slug, pollKey, voterId], map: "uq_blogpollvote_voter")
+  @@index([slug, pollKey], map: "idx_blogpollvote_poll")
+}
+
 model Guide {
   id                           String           @id @default(cuid())
   title                        String

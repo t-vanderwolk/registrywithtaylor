@@ -59,7 +59,6 @@
   margin-top: 2.8rem;
   margin-bottom: 16px;
   position: relative;
-  color: var(--color-cta-pink-hover);
 }
 
 .tmbc-blog h2::after {
@@ -365,12 +364,7 @@
   margin: 0;
   max-width: 13ch;
   overflow-wrap: anywhere;
-  /* Bold, rich rose title. */
-  background: linear-gradient(96deg, #d889a0 0%, #c76b82 58%, #b1567a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: var(--tmbc-blog-charcoal, #2b2b2b);
 }
 
 .tmbc-blog-hero .excerpt {
@@ -692,16 +686,6 @@
   line-height: 1.72;
 }
 
-/* Emphasised phrases carry the rose through the body copy. */
-.tmbc-blog-post-content strong,
-.tmbc-blog-post-content b {
-  color: #b45f77;
-  font-weight: 700;
-}
-/* A pink tick before each section sub-heading. */
-.tmbc-blog-post-content h3::before {
-  background: linear-gradient(180deg, var(--color-cta-pink) 0%, #b1567a 100%) !important;
-}
 
 /* ── Circled words (TMBC signature) ────────────────────────────────────────
    ((word)) renders a hand-drawn rose loop around the phrase. */
@@ -786,6 +770,116 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .tmbc-margin-note { transition: none; }
+}
+
+/* ── Interactive reader poll (:::poll) ─────────────────────────────────────── */
+.tmbc-poll {
+  margin: 2.4rem 0;
+  padding: clamp(1.3rem, 3vw, 1.9rem);
+  border-radius: 24px;
+  border: 1px solid rgba(216, 137, 160, 0.28);
+  background: linear-gradient(180deg, rgba(255, 250, 252, 0.96) 0%, rgba(252, 240, 244, 0.96) 100%);
+  box-shadow: 0 18px 44px rgba(120, 52, 70, 0.08);
+}
+.tmbc-poll__eyebrow {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-handwritten-print, "Caveat", cursive);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-cta-pink);
+  transform: rotate(-2.5deg);
+  transform-origin: left center;
+}
+.tmbc-poll__question {
+  margin: 0 0 1.1rem;
+  font-family: var(--tmbc-blog-headline, "Playfair Display", serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 680;
+  line-height: 1.18;
+  color: var(--color-cta-pink-hover);
+}
+.tmbc-poll__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.tmbc-poll__option {
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(216, 137, 160, 0.4);
+  background: #fff;
+  color: #4a3b40;
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.tmbc-poll__option:hover {
+  border-color: var(--color-cta-pink);
+  background: rgba(255, 244, 248, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(216, 137, 160, 0.22);
+}
+.tmbc-poll__option:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.tmbc-poll__result {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.8rem 1.1rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(216, 137, 160, 0.28);
+  background: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
+}
+.tmbc-poll__result-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(90deg, rgba(216, 137, 160, 0.34), rgba(199, 107, 130, 0.26));
+  transition: width 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.tmbc-poll__result.is-pick {
+  border-color: var(--color-cta-pink);
+}
+.tmbc-poll__result.is-pick .tmbc-poll__result-fill {
+  background: linear-gradient(90deg, rgba(216, 137, 160, 0.52), rgba(199, 107, 130, 0.4));
+}
+.tmbc-poll__result-label {
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+  color: #42343a;
+}
+.tmbc-poll__result.is-pick .tmbc-poll__result-label {
+  color: #7c2f4a;
+}
+.tmbc-poll__result-pct {
+  position: relative;
+  z-index: 1;
+  font-weight: 800;
+  color: var(--color-cta-pink-hover);
+  font-variant-numeric: tabular-nums;
+}
+.tmbc-poll__footer {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-handwritten-print, "Caveat", cursive);
+  font-size: 1.24rem;
+  color: var(--color-accent-dark);
+  transform: rotate(-0.6deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-poll__result-fill { transition: none; }
 }
 
 .tmbc-blog-gallery {

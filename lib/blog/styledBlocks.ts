@@ -12,7 +12,8 @@ export type StyledBlockId =
   | 'catalog-product'
   | 'faq'
   | 'decision'
-  | 'takeaways';
+  | 'takeaways'
+  | 'poll';
 
 export type StyledBlockDefinition = {
   id: StyledBlockId;
@@ -97,10 +98,15 @@ export type ParsedStyledBlock =
       question: string;
       option: string;
       result: string;
+    }
+  | {
+      type: 'poll';
+      question: string;
+      options: string[];
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways|poll)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
@@ -437,6 +443,35 @@ export function parseStyledBlock(
         question: question || 'What is the real decision here?',
         option: option || 'Choose the option that reduces the most friction in daily life.',
         result: resultLines.join(' ') || 'The better fit is usually the easier one to live with consistently.',
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'poll') {
+    let question = '';
+    const options: string[] = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (parsedLine && parsedLine.normalizedLabel === 'question') {
+        question = parsedLine.value;
+        return;
+      }
+      if (parsedLine && (parsedLine.normalizedLabel === 'option' || parsedLine.normalizedLabel === 'choice')) {
+        if (parsedLine.value) options.push(parsedLine.value);
+        return;
+      }
+      // Bare "- option" / "* option" list items also count.
+      const listItem = line.replace(/^[-*]\s+/, '').trim();
+      if (!parsedLine && listItem && listItem !== line.trim()) options.push(listItem);
+    });
+
+    return {
+      block: {
+        type: 'poll',
+        question: question || 'What matters most to you?',
+        options: options.slice(0, 12),
       },
       nextIndex: cursor,
     };
