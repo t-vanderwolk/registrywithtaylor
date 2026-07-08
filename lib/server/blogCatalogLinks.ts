@@ -94,11 +94,17 @@ export async function resolveBlogProductCatalogLinks(
     );
 
     const best = candidates[0];
+    // The preferred provider (Babylist) supplies the buy link + image, but its
+    // feed row doesn't always carry a price. Fall back to the first matched
+    // candidate that DOES have a price (e.g. the MacroBaby offer) so the card can
+    // still show one, labelled with whichever retailer the price came from.
+    const priced = candidates.find((candidate) => candidate.price != null) ?? best;
+    const priceRetailer = priced.provider === 'shopify_macrobaby' ? 'MacroBaby' : 'Babylist';
     out[blogProductKey(p.brand, p.productName)] = {
       affiliateUrl: best.affiliateUrl,
       imageUrl: best.imageUrl ?? null,
-      price: best.price ?? null,
-      retailer: best.provider === 'shopify_macrobaby' ? 'MacroBaby' : 'Babylist',
+      price: priced.price ?? null,
+      retailer: priced.price != null ? priceRetailer : (best.provider === 'shopify_macrobaby' ? 'MacroBaby' : 'Babylist'),
     };
   }
 

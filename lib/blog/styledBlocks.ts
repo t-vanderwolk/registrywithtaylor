@@ -452,6 +452,7 @@ export function parseStyledBlock(
     let primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null = null;
     let imageUrl: string | null = null;
     let price: number | null = null;
+    let priceSource: string | null = null;
     let comingSoon = false;
 
     contentLines.forEach((line) => {
@@ -481,6 +482,11 @@ export function parseStyledBlock(
       } else if (label === 'price') {
         const parsed = Number(value.replace(/[^0-9.]/g, ''));
         price = Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+        // Optional "via <retailer>" suffix, e.g. "Price: $799 via Babylist".
+        const viaMatch = value.match(/via\s+([a-z][a-z0-9 &-]*)/i);
+        if (viaMatch) priceSource = viaMatch[1].trim();
+      } else if (label === 'price source' || label === 'price via') {
+        priceSource = value;
       }
     });
 
@@ -498,7 +504,7 @@ export function parseStyledBlock(
         primaryRetailer,
         imageUrl,
         price,
-        priceSource: null,
+        priceSource,
         comingSoon,
       },
       nextIndex: cursor,
