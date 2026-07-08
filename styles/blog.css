@@ -1294,6 +1294,27 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 242, 236, 0.98) 100%);
   padding: 14px;
   box-shadow: 0 20px 48px rgba(70, 53, 58, 0.07);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.tmbc-blog-post-content .tmbc-inline-image:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 60px rgba(70, 53, 58, 0.12);
+}
+
+/* Scroll-reveal for article furniture (added by BlogReveal only when motion is
+   allowed and the element starts below the fold). */
+@media (prefers-reduced-motion: no-preference) {
+  .tmbc-blog-post-content .tmbc-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.62s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .tmbc-blog-post-content .tmbc-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Uniform image height so photos from different retailers stop looking mismatched;
