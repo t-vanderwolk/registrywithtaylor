@@ -1,8 +1,17 @@
 /**
- * PodcastFeature — BabyQuip Tiny Travels podcast episode embed.
- * Reusable across home page and about page.
+ * PodcastFeature: BabyQuip Tiny Travels podcast episode embed.
+ * Reusable across home page and about page. Heading + description are
+ * overridable so the About page can carry keyword-rich, entity-led copy.
  */
-export default function PodcastFeature() {
+type PodcastFeatureProps = {
+  heading?: string;
+  description?: string;
+};
+
+export default function PodcastFeature({
+  heading = 'Taylor on Baby Gear, Registry Strategy & Real-Life Fit',
+  description = 'Taylor joins the BabyQuip team to talk through what actually matters when preparing for a baby, and how to stop letting the gear pile-up steal the joy from early parenthood.',
+}: PodcastFeatureProps = {}) {
   return (
     <section className="bg-[linear-gradient(180deg,#fdfaf7_0%,#ffffff_100%)] py-14 md:py-20">
       <div className="mx-auto max-w-2xl px-6">
@@ -34,11 +43,10 @@ export default function PodcastFeature() {
           </div>
 
           <h2 className="mt-5 font-serif text-[1.65rem] leading-tight tracking-[-0.03em] text-neutral-900 sm:text-[1.9rem]">
-            Taylor on Baby Gear, Registry Strategy&nbsp;&amp; Real-Life Fit
+            {heading}
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-[0.93rem] leading-[1.8] text-neutral-500">
-            Taylor joins the BabyQuip team to talk through what actually matters when preparing for
-            a baby — and how to stop letting the gear pile-up steal the joy from early parenthood.
+            {description}
           </p>
         </div>
 

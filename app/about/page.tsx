@@ -426,7 +426,10 @@ export default function AboutPage() {
           </div>
         </MarketingSection>
 
-        <PodcastFeature />
+        <PodcastFeature
+          heading="Baby Registry Consultant Taylor Vanderwolk on the BabyQuip Podcast"
+          description="Taylor joins the BabyQuip Tiny Travels Podcast to talk through what actually matters when preparing for a baby as a baby registry consultant, how to stop letting the gear pile-up steal the joy from early parenthood, and why real-life fit beats product specs every time."
+        />
 
         {/* Partner logos */}
         <MarketingSection tone="white" container="wide" spacing="default" reveal={false}>
