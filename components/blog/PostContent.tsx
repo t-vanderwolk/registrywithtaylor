@@ -17,6 +17,7 @@ import DecisionHelper from '@/components/content-widgets/DecisionHelper';
 import FAQ from '@/components/content-widgets/FAQ';
 import ProductCard from '@/components/content-widgets/ProductCard';
 import Pros from '@/components/content-widgets/Pros';
+import SpecTable from '@/components/content-widgets/SpecTable';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
 import Takeaways from '@/components/content-widgets/Takeaways';
 import { chunkArray } from '@/lib/chunkArray';
@@ -460,6 +461,24 @@ function renderStyledBlock(
         rows={block.rows.map((row, rowIndex) => ({
           label: renderInlineContent(row.label, `${postId}-comparison-label-${index}-${rowIndex}`, highlightBrandWordmark),
           value: renderInlineContent(row.value, `${postId}-comparison-inline-${index}-${rowIndex}`, highlightBrandWordmark),
+        }))}
+      />
+    );
+  }
+
+  if (block.type === 'spec-table') {
+    return (
+      <SpecTable
+        key={`${postId}-spec-table-${index}`}
+        title={block.title ? renderInlineContent(block.title, `${postId}-spec-title-${index}`, highlightBrandWordmark) : undefined}
+        columns={block.columns.map((column, colIndex) =>
+          renderInlineContent(column, `${postId}-spec-col-${index}-${colIndex}`, highlightBrandWordmark),
+        )}
+        rows={block.rows.map((row, rowIndex) => ({
+          label: renderInlineContent(row.label, `${postId}-spec-rowlabel-${index}-${rowIndex}`, highlightBrandWordmark),
+          values: row.values.map((value, valueIndex) =>
+            renderInlineContent(value, `${postId}-spec-cell-${index}-${rowIndex}-${valueIndex}`, highlightBrandWordmark),
+          ),
         }))}
       />
     );

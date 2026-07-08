@@ -7,6 +7,7 @@ export type StyledBlockId =
   | 'pros'
   | 'cons'
   | 'comparison'
+  | 'spec-table'
   | 'product'
   | 'catalog-product'
   | 'faq'
@@ -45,6 +46,12 @@ export type ParsedStyledBlock =
       type: 'comparison';
       title: string;
       rows: Array<{ label: string; value: string }>;
+    }
+  | {
+      type: 'spec-table';
+      title: string | null;
+      columns: string[];
+      rows: Array<{ label: string; values: string[] }>;
     }
   | {
       type: 'product';
@@ -91,7 +98,7 @@ export type ParsedStyledBlock =
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|catalog-product|product|faq|decision|takeaways)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
@@ -181,6 +188,20 @@ Title: Everyday fit snapshot
 Best for: Families who want the simplest daily setup
 Standout: Name the strongest reason to choose it
 Watchout: Name the main tradeoff honestly
+:::`,
+  },
+  {
+    id: 'spec-table',
+    label: 'Spec Comparison Table',
+    description:
+      'A multi-column spec table. "Columns:" names each product; every other line is a spec row with one value per column, separated by |.',
+    snippet: `:::spec-table
+Title: Compact stroller specs at a glance
+Columns: Silver Cross Breez | Bugaboo Dragonfly Plus | Cybex MIOS
+Weight: 22.6 lbs | 21.8 lbs | 22.5 lbs
+Fold: One-hand | One-piece | One-hand
+Price: $849 | $1,099 | $1,199
+Best for: Budget | Premium | Warm weather
 :::`,
   },
   {
@@ -570,6 +591,38 @@ export function parseStyledBlock(
         affiliateLinks,
         imageUrl,
         imageAlt,
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'spec-table') {
+    let tableTitle: string | null = null;
+    let columns: string[] = [];
+    const specRows: Array<{ label: string; values: string[] }> = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) return;
+      const label = parsedLine.normalizedLabel;
+      if (label === 'title') {
+        tableTitle = parsedLine.value;
+        return;
+      }
+      const values = parsedLine.value.split('|').map((v) => v.trim());
+      if (label === 'columns' || label === 'products') {
+        columns = values.filter(Boolean);
+        return;
+      }
+      specRows.push({ label: parsedLine.label, values });
+    });
+
+    return {
+      block: {
+        type: 'spec-table',
+        title: tableTitle,
+        columns,
+        rows: specRows,
       },
       nextIndex: cursor,
     };

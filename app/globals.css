@@ -3320,6 +3320,79 @@ img {
   pointer-events: none;
 }
 
+/* ── Blog spec comparison table ────────────────────────────────────────── */
+.tmbc-spec-table {
+  margin: 2.5rem 0;
+  border: 1px solid rgba(215, 161, 175, 0.26);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fffdfb 0%, #fdf6f2 100%);
+  box-shadow: 0 18px 44px rgba(70, 53, 58, 0.06);
+  overflow: hidden;
+}
+.tmbc-spec-table__title {
+  padding: 1rem 1.25rem 0.4rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-weight: 650;
+  color: #2f2227;
+}
+.tmbc-spec-table__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+}
+.tmbc-spec-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+.tmbc-spec-table__corner,
+.tmbc-spec-table__product {
+  position: sticky;
+  top: 0;
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #7c4c58;
+  background: rgba(244, 208, 218, 0.35);
+  border-bottom: 1px solid rgba(215, 161, 175, 0.3);
+}
+.tmbc-spec-table__corner {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #b45f77;
+}
+.tmbc-spec-table__product {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  color: #2f2227;
+}
+.tmbc-spec-table__spec {
+  padding: 0.66rem 0.9rem;
+  text-align: left;
+  font-weight: 700;
+  color: #6f6169;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(215, 161, 175, 0.16);
+}
+.tmbc-spec-table__cell {
+  padding: 0.66rem 0.9rem;
+  color: #2f2227;
+  border-bottom: 1px solid rgba(215, 161, 175, 0.16);
+  border-left: 1px solid rgba(215, 161, 175, 0.12);
+}
+.tmbc-spec-table__table tbody tr:nth-child(even) .tmbc-spec-table__cell {
+  background: rgba(252, 246, 242, 0.7);
+}
+.tmbc-spec-table__table tbody tr:last-child .tmbc-spec-table__spec,
+.tmbc-spec-table__table tbody tr:last-child .tmbc-spec-table__cell {
+  border-bottom: none;
+}
+
 /* ── Blog product cards (inline float + reveal + compat link) ───────────── */
 .blog-product-card {
   opacity: 0;
