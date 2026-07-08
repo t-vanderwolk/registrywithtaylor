@@ -32,7 +32,7 @@ import {
   parseStyledBlock,
   type ParsedStyledBlock,
 } from '@/lib/blog/styledBlocks';
-import { type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
+import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import { enrichProductBlockWithCatalog } from '@/lib/blog/enrichCatalogProduct';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
 import type { ContextualInternalLink } from '@/lib/internal-links/types';
@@ -59,6 +59,8 @@ type PostContentProps = {
   contextualInternalLinks?: ContextualInternalLink[];
   /** Live affiliate-catalogue matches keyed by blogProductKey(brand, productName). */
   productCatalogMap?: Record<string, BlogCatalogMatch>;
+  /** Travel-system checker hrefs keyed by blogProductKey(brand, productName). */
+  strollerCompatHrefs?: Record<string, string>;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -371,7 +373,13 @@ function renderGuideProductGrid(products: GuideProductBlock[], postId: string, s
   );
 }
 
-function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: number, highlightBrandWordmark = false) {
+function renderStyledBlock(
+  block: ParsedStyledBlock,
+  postId: string,
+  index: number,
+  highlightBrandWordmark = false,
+  strollerCompatHrefs: Record<string, string> = {},
+) {
   if (block.type === 'callout') {
     return (
       <Callout
@@ -494,6 +502,8 @@ function renderStyledBlock(block: ParsedStyledBlock, postId: string, index: numb
         amazonUrl={block.amazonUrl}
         primaryRetailer={block.primaryRetailer}
         comingSoon={block.comingSoon}
+        compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
+        layout="inline"
         position={index + 1}
       />
     );
@@ -533,6 +543,7 @@ export default function PostContent({
   ctaPartners = {},
   contextualInternalLinks = [],
   productCatalogMap = {},
+  strollerCompatHrefs = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
@@ -630,7 +641,7 @@ export default function PostContent({
           }
 
           if (styledBlock) {
-            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i));
+            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i, false, strollerCompatHrefs));
             i = styledBlock.nextIndex;
             continue;
           }

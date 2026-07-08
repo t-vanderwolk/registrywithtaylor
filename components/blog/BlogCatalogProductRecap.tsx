@@ -1,13 +1,14 @@
 'use client';
 
 import BlogCatalogProductCard from '@/components/blog/BlogCatalogProductCard';
-import { type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
+import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import { enrichProductBlockWithCatalog } from '@/lib/blog/enrichCatalogProduct';
 import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
 
 type BlogCatalogProductRecapProps = {
   content: string;
   productCatalogMap?: Record<string, BlogCatalogMatch>;
+  strollerCompatHrefs?: Record<string, string>;
   heading?: string;
   subheading?: string;
 };
@@ -21,6 +22,7 @@ type BlogCatalogProductRecapProps = {
 export default function BlogCatalogProductRecap({
   content,
   productCatalogMap = {},
+  strollerCompatHrefs = {},
   heading = 'Shop every stroller in this guide',
   subheading = 'All of the picks above, gathered in one place.',
 }: BlogCatalogProductRecapProps) {
@@ -58,6 +60,7 @@ export default function BlogCatalogProductRecap({
               amazonUrl={block.amazonUrl}
               primaryRetailer={block.primaryRetailer}
               comingSoon={block.comingSoon}
+              compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
               position={index + 1}
             />
           ) : null,

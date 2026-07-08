@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon } from '@/components/tools/StrollerCatalogFinder';
 
@@ -25,11 +27,44 @@ type BlogCatalogProductCardProps = {
   /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
   primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
   comingSoon?: boolean;
+  /** Travel-system checker results href for this stroller (compatible car seats). */
+  compatHref?: string | null;
+  /** 'inline' floats a compact card beside the prose; 'grid' is the recap card. */
+  layout?: 'inline' | 'grid';
   position: number;
 };
 
 function formatPrice(price: number) {
   return Number.isInteger(price) ? `$${price.toFixed(0)}` : `$${price.toFixed(2)}`;
+}
+
+// Fade-and-rise the card in once it scrolls into view (respects reduced motion).
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+  return { ref, visible };
 }
 
 export default function BlogCatalogProductCard({
@@ -46,8 +81,12 @@ export default function BlogCatalogProductCard({
   amazonUrl,
   primaryRetailer,
   comingSoon = false,
+  compatHref,
+  layout = 'grid',
   position,
 }: BlogCatalogProductCardProps) {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+  const isInline = layout === 'inline';
   // Show every retailer we have a link for, ordered so the chosen primary leads;
   // otherwise Babylist > MacroBaby > Shop > Amazon. The first button is styled
   // primary, the rest secondary.
@@ -75,8 +114,17 @@ export default function BlogCatalogProductCard({
   const fullName = `${displayBrand} ${productName}`.trim();
 
   return (
-    <div className="tool-card tool-card--interactive tool-product-card not-prose my-8">
-      <div className="tool-card__media tool-product-card__media">
+    <div
+      ref={ref}
+      className={[
+        'tool-card tool-card--interactive tool-product-card not-prose blog-product-card',
+        isInline ? 'tool-product-card--inline' : 'my-8',
+        visible ? 'is-revealed' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <div className={`tool-card__media tool-product-card__media${isInline ? ' tool-product-card__media--compact' : ''}`}>
         {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -129,6 +177,13 @@ export default function BlogCatalogProductCard({
               )}
             </TrackedAffiliateLink>
           ))}
+
+          {compatHref ? (
+            <Link href={compatHref} className="blog-product-card__compat">
+              Check compatible car seats
+              <span aria-hidden="true" className="ml-1">→</span>
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

@@ -241,15 +241,19 @@ async function main() {
       continue;
     }
 
-    // Rebuild the section: drop the hero image line + consumed cta-slot lines +
-    // link-only inline lines, then insert the block right after the heading.
+    // Rebuild the section: KEEP the hero image (the card floats beside the prose,
+    // it no longer replaces the photo) and drop only the consumed cta-slot lines +
+    // link-only inline lines. The card is inserted right AFTER the hero image so it
+    // floats right and the following paragraphs wrap around it; if there's no hero
+    // image it goes right after the heading.
     const kept: string[] = [lines[headingIndex]];
-    let heroDropped = false;
+    let heroKeptAt = -1;
     for (let i = headingIndex + 1; i < end; i += 1) {
       const raw = lines[i] ?? '';
       if (slotLineIndexes.has(i)) continue;
-      if (!heroDropped && IMAGE_LINE.test(raw.trim())) {
-        heroDropped = true;
+      if (heroKeptAt === -1 && IMAGE_LINE.test(raw.trim())) {
+        kept.push(raw);
+        heroKeptAt = kept.length - 1; // remember where the image landed
         continue;
       }
       // Drop a line that was ONLY inline affiliate links (rare fallback path).
@@ -257,7 +261,8 @@ async function main() {
       if (linkStripped.length === 0 && /\]\((https?:\/\/[^)\s]+)\)/.test(raw) && !raw.trim().startsWith('!')) continue;
       kept.push(raw);
     }
-    kept.splice(1, 0, '', buildBlock(cfg, links, imageUrl), '');
+    const insertAt = heroKeptAt >= 0 ? heroKeptAt + 1 : 1;
+    kept.splice(insertAt, 0, '', buildBlock(cfg, links, imageUrl), '');
 
     lines.splice(headingIndex, end - headingIndex, ...kept);
     sectionSlotButtonUrls.forEach((url) => consumedButtonUrls.add(url));

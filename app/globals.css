@@ -3320,6 +3320,81 @@ img {
   pointer-events: none;
 }
 
+/* ── Blog product cards (inline float + reveal + compat link) ───────────── */
+.blog-product-card {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: opacity, transform;
+}
+.blog-product-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.blog-product-card:hover {
+  border-color: rgba(216, 137, 160, 0.4);
+  box-shadow: 0 20px 44px rgba(72, 49, 56, 0.13);
+}
+.blog-product-card:hover .tool-product-card__image {
+  transform: scale(1.03);
+}
+.blog-product-card .tool-product-card__image {
+  transition: transform 0.4s ease;
+}
+
+/* Compact card floated to the right of the article prose. */
+.tool-product-card--inline {
+  float: right;
+  width: min(19rem, 40%);
+  margin: 0.35rem 0 1.15rem 1.75rem;
+  clear: right;
+}
+.tool-product-card--inline .tool-product-card__title {
+  font-size: 1.08rem;
+}
+.tool-product-card--inline .tool-product-card__actions {
+  gap: 0.45rem;
+  padding-top: 0.65rem;
+}
+@media (max-width: 640px) {
+  .tool-product-card--inline {
+    float: none;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+}
+
+.blog-product-card__compat {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  color: var(--color-accent-dark);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.blog-product-card__compat:hover {
+  color: #7c4c58;
+}
+.blog-product-card__compat:hover span {
+  transform: translateX(2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-product-card {
+    opacity: 1;
+    transform: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .blog-product-card:hover .tool-product-card__image {
+    transform: none;
+  }
+}
+
 .tool-adapter-callout {
   display: flex;
   align-items: center;

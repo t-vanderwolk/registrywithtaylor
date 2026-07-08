@@ -25,6 +25,7 @@ import JournalCard from '@/components/blog/JournalCard';
 import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
+import { resolveBlogStrollerCompatHrefs } from '@/lib/server/blogStrollerCompat';
 import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
@@ -298,14 +299,20 @@ export default async function PostArticleView({
   // Wire blog product cards to the affiliate catalogue: match each product block
   // to a catalog row and pass the live buy link + image + price down to the cards.
   const articleStyledBlocks = extractStyledBlocks(articleContent);
-  const catalogProductCount = articleStyledBlocks.filter((block) => block.type === 'catalog-product').length;
-  const productCatalogMap = await resolveBlogProductCatalogLinks(
-    articleStyledBlocks.flatMap((block) =>
-      block.type === 'product' || block.type === 'catalog-product'
-        ? [{ brand: block.brand, productName: block.productName }]
-        : [],
-    ),
+  const catalogProductBlockRefs = articleStyledBlocks.flatMap((block) =>
+    block.type === 'catalog-product' ? [{ brand: block.brand, productName: block.productName }] : [],
   );
+  const catalogProductCount = catalogProductBlockRefs.length;
+  const [productCatalogMap, strollerCompatHrefs] = await Promise.all([
+    resolveBlogProductCatalogLinks(
+      articleStyledBlocks.flatMap((block) =>
+        block.type === 'product' || block.type === 'catalog-product'
+          ? [{ brand: block.brand, productName: block.productName }]
+          : [],
+      ),
+    ),
+    resolveBlogStrollerCompatHrefs(catalogProductBlockRefs),
+  ]);
   const serializedCtaPartners = Object.fromEntries(
     Array.from(ctaPartnerLookup.entries()).map(([partnerId, partner]) => [
       partnerId,
@@ -407,6 +414,7 @@ export default async function PostArticleView({
               ctaPartners={serializedCtaPartners}
               contextualInternalLinks={internalLinkPlan.contextualLinks}
               productCatalogMap={productCatalogMap}
+              strollerCompatHrefs={strollerCompatHrefs}
             />
           </div>
         </div>
@@ -479,6 +487,7 @@ export default async function PostArticleView({
             <BlogCatalogProductRecap
               content={articleContent}
               productCatalogMap={productCatalogMap}
+              strollerCompatHrefs={strollerCompatHrefs}
               heading={post.title}
             />
             {post.affiliateBrands.length > 0 ? (
