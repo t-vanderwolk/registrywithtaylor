@@ -11,6 +11,7 @@ import {
   WHAT_I_HELP_FAMILIES_CHOOSE_TITLE,
 } from '@/lib/marketing/copy';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { aboutStructuredData } from '@/lib/marketing/aboutStructuredData';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
 
 // ─── Static affiliate partner list ────────────────────────────────────────────
@@ -33,26 +34,39 @@ const ABOUT_PAGE_PARTNERS: { name: string; logo: string; href?: string }[] = [
 ];
 
 export const metadata = buildMarketingMetadata({
-  title: 'About — Taylor-Made Baby Co.',
+  title: 'About Taylor Vanderwolk, Baby Registry Consultant | Taylor-Made Baby Co.',
   description:
-    'Learn how Taylor-Made Baby Co. helps families sort baby gear, registries, nurseries, and home prep with practical expert guidance.',
+    'Meet Taylor Vanderwolk, certified baby registry consultant and Tot Squad specialist with 7+ years of baby gear expertise. Book your $75 registry consult.',
   path: '/about',
   imagePath: '/assets/hero/hero-05.jpg',
-  imageAlt: 'About Taylor-Made Baby Co.',
+  imageAlt: 'Taylor Vanderwolk baby registry consultant workspace',
+  keywords: [
+    'baby registry consultant',
+    'Taylor Vanderwolk',
+    'baby gear expert',
+    'baby registry help',
+    'Tot Squad certified specialist',
+    'Target Baby Concierge',
+    'stroller consultant',
+  ],
 });
 
 export default function AboutPage() {
   return (
     <SiteShell currentPath="/about">
       <main className="site-main">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutStructuredData) }}
+        />
         <Hero
           className="homepage-hero"
           eyebrow="Meet Taylor"
-          title="A Baby Gear Expert for the Real-Life Details of Early Parenthood"
-          subtitle="I help families sort registry strategy, strollers, car seats, nursery setup, and the other baby-prep decisions that stack up fast."
-          primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
+          title="Meet Taylor Vanderwolk, Baby Registry Consultant & Certified Baby Gear Expert"
+          subtitle="I help expecting parents build confident baby registries and make the right stroller, car seat, nursery, and gear decisions, without the overwhelm, the algorithm noise, or the sponsored advice."
+          primaryCta={{ label: 'Book a Registry Consultation ($75)', href: '/book' }}
           image="/assets/hero/hero-05.jpg"
-          imageAlt="Soft baby essentials arranged for planning"
+          imageAlt="Taylor Vanderwolk baby registry consultant workspace"
           contentClassName="homepage-hero-content"
           staggerContent
         />
