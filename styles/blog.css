@@ -703,6 +703,52 @@
   background: linear-gradient(180deg, var(--color-cta-pink) 0%, #b1567a 100%) !important;
 }
 
+/* ── Circled words (TMBC signature) ────────────────────────────────────────
+   ((word)) renders a hand-drawn rose loop around the phrase. */
+.tmbc-circle {
+  position: relative;
+  white-space: nowrap;
+}
+.tmbc-circle__mark {
+  position: absolute;
+  left: -0.36em;
+  top: -0.26em;
+  width: calc(100% + 0.72em);
+  height: calc(100% + 0.52em);
+  overflow: visible;
+  color: var(--color-cta-pink);
+  pointer-events: none;
+  z-index: 1;
+}
+.tmbc-circle__mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.9;
+}
+/* Draw-on-reveal: BlogReveal arms below-fold circles, then reveals them in view. */
+.tmbc-circle.tmbc-armed .tmbc-circle__mark path {
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+}
+.tmbc-circle.tmbc-armed.is-revealed .tmbc-circle__mark path {
+  animation: tmbc-circle-draw 0.72s ease 0.04s forwards;
+}
+@keyframes tmbc-circle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-circle.tmbc-armed .tmbc-circle__mark path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
 /* ── Hand-written margin notes (easter eggs) ───────────────────────────────
    Injected by BlogMarginNotes into the right-hand margin on wide screens. */
 .tmbc-margin-note {

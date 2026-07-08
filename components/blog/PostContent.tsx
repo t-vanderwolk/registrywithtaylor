@@ -81,7 +81,7 @@ const orderedListPattern = /^\d+\.\s+/;
 const unorderedListPattern = /^(?:[-•])\s+/;
 const imageLinePattern = /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/;
 const inlineTokenPattern =
-  /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
+  /(\(\(([^)]+)\)\)|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
 const CTA_BUTTON_PREFIX = '::cta-button ';
 
 const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
@@ -230,6 +230,7 @@ function renderInlineContent(
     const [
       fullMatch,
       ,
+      circleText,
       linkLabel,
       linkHref,
       strongA,
@@ -240,7 +241,24 @@ function renderInlineContent(
     ] = match;
     const key = `${keyPrefix}-${tokenIndex}`;
 
-    if (linkLabel && linkHref) {
+    if (circleText) {
+      // ((word)) → hand-drawn pink circle (TMBC signature). The SVG mark is armed
+      // + animated by BlogReveal when it scrolls into view.
+      nodes.push(
+        <span key={key} className="tmbc-circle">
+          {highlightBrandWordmark ? renderBrandWordmarkText(circleText, `${key}-circle`) : circleText}
+          <svg
+            className="tmbc-circle__mark"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M9,21 C8,10 30,5 51,5 C74,5 95,9 94,20 C93,32 69,37 47,36 C22,35 10,32 11,19" />
+          </svg>
+        </span>,
+      );
+    } else if (linkLabel && linkHref) {
       nodes.push(
         <a
           key={key}

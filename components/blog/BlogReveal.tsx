@@ -48,7 +48,31 @@ export default function BlogReveal({ selector = '.tmbc-blog-post-content' }: { s
       }
     }
 
-    return () => observer.disconnect();
+    // Draw the ((circled)) words as they scroll into view. Circles above the fold
+    // stay drawn; below-fold ones are "armed" (hidden stroke) then animated in.
+    const circles = Array.from(root.querySelectorAll('.tmbc-circle')) as HTMLElement[];
+    const circleObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            circleObserver.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.5 },
+    );
+    for (const circle of circles) {
+      if (circle.getBoundingClientRect().top > viewportHeight * 0.85) {
+        circle.classList.add('tmbc-armed');
+        circleObserver.observe(circle);
+      }
+    }
+
+    return () => {
+      observer.disconnect();
+      circleObserver.disconnect();
+    };
   }, [selector]);
 
   return null;
