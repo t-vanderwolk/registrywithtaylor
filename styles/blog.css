@@ -83,13 +83,13 @@
 
 .tmbc-blog p {
   margin-bottom: 26px;
-  font-size: clamp(1.12rem, 0.94rem + 0.48vw, 1.34rem);
+  font-size: clamp(1.06rem, 0.9rem + 0.44vw, 1.26rem);
   line-height: 1.76;
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 90%, white 10%);
 }
 
 .tmbc-blog > p:first-of-type {
-  font-size: clamp(1.28rem, 1.04rem + 0.6vw, 1.56rem);
+  font-size: clamp(1.2rem, 0.98rem + 0.54vw, 1.46rem);
   line-height: 1.64;
   letter-spacing: -0.01em;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
@@ -608,7 +608,7 @@
 }
 
 .tmbc-blog-post-content > p:first-of-type {
-  font-size: clamp(1.28rem, 1.04rem + 0.6vw, 1.56rem);
+  font-size: clamp(1.2rem, 0.98rem + 0.54vw, 1.46rem);
   line-height: 1.64;
   letter-spacing: -0.01em;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
@@ -632,7 +632,7 @@
 }
 /* The first line after a section header reads as a confident lead-in. */
 .tmbc-blog-post-content h2 + p {
-  font-size: clamp(1.16rem, 0.98rem + 0.48vw, 1.38rem);
+  font-size: clamp(1.1rem, 0.94rem + 0.44vw, 1.3rem);
   line-height: 1.64;
   color: var(--tmbc-blog-charcoal, #2b2b2b);
 }

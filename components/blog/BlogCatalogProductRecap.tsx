@@ -32,11 +32,22 @@ export default function BlogCatalogProductRecap({
   subheading = 'All of the picks above, gathered in one place.',
   showChrome = true,
 }: BlogCatalogProductRecapProps) {
-  const productBlocks = extractStyledBlocks(content).flatMap((block) =>
-    block.type === 'catalog-product'
-      ? [enrichProductBlockWithCatalog(block, productCatalogMap)]
-      : [],
-  );
+  // A single-product review repeats the same card in every section, so dedupe by
+  // brand+product and keep the first occurrence — the recap shows each pick once.
+  const seen = new Set<string>();
+  const productBlocks = extractStyledBlocks(content)
+    .flatMap((block) =>
+      block.type === 'catalog-product'
+        ? [enrichProductBlockWithCatalog(block, productCatalogMap)]
+        : [],
+    )
+    .filter((block) => {
+      if (block.type !== 'catalog-product') return false;
+      const key = blogProductKey(block.brand, block.productName);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
 
   if (productBlocks.length === 0) return null;
 
