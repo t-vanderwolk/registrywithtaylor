@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T19:41:18.692Z",
+  "generatedAt": "2026-07-07T21:54:57.303Z",
   "rows": [
     {
       "brand": "Graco",
@@ -1295,7 +1295,7 @@
       "carSeat": "Peg Perego Primo Viaggio 4-35",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1303,7 +1303,7 @@
       "carSeat": "Peg Perego Primo Viaggio Lounge",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1311,7 +1311,7 @@
       "carSeat": "Peg Perego Primo Viaggio Nido",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1319,7 +1319,7 @@
       "carSeat": "Peg Perego Primo Viaggio 4-35",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1327,7 +1327,7 @@
       "carSeat": "Peg Perego Primo Viaggio Lounge",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1335,7 +1335,7 @@
       "carSeat": "Peg Perego Primo Viaggio Nido",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1351,7 +1351,7 @@
       "carSeat": "Peg Perego Primo Viaggio Lounge",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",
@@ -1359,7 +1359,7 @@
       "carSeat": "Peg Perego Primo Viaggio Nido",
       "strollerFamily": "YPSI / Vivace / Z4",
       "carSeatFamily": "Primo Viaggio",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Peg Perego",

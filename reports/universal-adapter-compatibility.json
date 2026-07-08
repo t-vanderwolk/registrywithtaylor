@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T19:40:54.656Z",
+  "generatedAt": "2026-07-07T21:56:24.176Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -5382,84 +5382,84 @@
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
@@ -5494,196 +5494,196 @@
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Nuna PIPA Aire rx",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Nuna PIPA RX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Nuna PIPA urbn",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
@@ -5718,84 +5718,84 @@
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "create"
+      "action": "skip-existing"
     },
     {
       "brand": "Babyzen",

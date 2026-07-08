@@ -1,53 +1,51 @@
 brand,normalizedModel,groupCount,id,model,compatCount,noiseReasons,likelyKeep
 Baby Jogger,city mini gt3,2,cmqx8d2vr000313kps957hgge,City Mini GT3,4,,yes
 Baby Jogger,city mini gt3,2,cmqpqqwr800027qlllmgbiytm,City Mini GT3 All-Terrain,4,normalizes to shorter model,no
-Baby Jogger,summit x3 double,2,cmqpqqx3000077qllaq3whvrn,Summit X3 Double Jogging,1,normalizes to shorter model,yes
-Baby Jogger,summit x3 double,2,cmqx8d2qs000113kpyh2zxwjx,Summit X3 Double,0,,no
-Baby Jogger,summit x3 single,2,cmqpqqx5f00087qll6393izdt,Summit X3 Single Jogging,1,normalizes to shorter model,yes
-Baby Jogger,summit x3 single,2,cmqx8d2ta000213kp8dqvqcvm,Summit X3 Single,0,,no
+Baby Jogger,summit x3 double,2,cmqx8d2qs000113kpyh2zxwjx,Summit X3 Double,6,,yes
+Baby Jogger,summit x3 double,2,cmqpqqx3000077qllaq3whvrn,Summit X3 Double Jogging,1,normalizes to shorter model,no
+Baby Jogger,summit x3 single,2,cmqx8d2ta000213kp8dqvqcvm,Summit X3 Single,6,,yes
+Baby Jogger,summit x3 single,2,cmqpqqx5f00087qll6393izdt,Summit X3 Single Jogging,1,normalizes to shorter model,no
 Bellini,juno,2,cmqpqqxa7000a7qlldowaz5lq,Juno Compact Auto-Folding,0,normalizes to shorter model,yes
 Bellini,juno,2,cmqx8d2y6000413kpljiz2u0c,Juno Auto-Folding,0,normalizes to shorter model,no
-Bumbleride,indie twin double,2,cmqpqqxlu000f7qllypuoolz1,Indie Twin Double Jogging,5,normalizes to shorter model,yes
-Bumbleride,indie twin double,2,cmqx8d39z000913kpk5eirx65,Indie Twin Double,0,,no
-Chicco,tre,2,cmqx8d3mp000e13kpe38oel0w,TRE,0,,yes
-Chicco,tre,2,cmqpqqxzu000l7qllpiifamvz,TRE Jogging,0,normalizes to shorter model,no
+Chicco,tre,2,cmqx8d3mp000e13kpe38oel0w,TRE,7,,yes
+Chicco,tre,2,cmqpqqxzu000l7qllpiifamvz,TRE Jogging,7,normalizes to shorter model,no
 Delta Children,jeep sport,2,cmqx8d431000l13kp93f6chbi,Jeep Sport,0,,yes
 Delta Children,jeep sport,2,cmqpqqy9e000p7qlljwy5ov4t,Jeep Sport All-Terrain,0,normalizes to shorter model,no
-Ergobaby,metro 3,3,cmqx8d45a000m13kp1zi0195v,Metro 3,0,,yes
-Ergobaby,metro 3,3,cmqpqqyix000t7qll3hkoln8m,Metro 3 Compact,0,normalizes to shorter model,no
-Ergobaby,metro 3,3,cmqx8d49v000o13kp3v8chfjp,Metro 3 Travel,0,normalizes to shorter model,no
-Ergobaby,metro plus deluxe,2,cmqx8d4ek000q13kp25vm8o1q,Metro+ Deluxe,0,,yes
-Ergobaby,metro plus deluxe,2,cmqx8d4c9000p13kp1a0v0vkk,Metro+ Deluxe Baby,0,normalizes to shorter model,no
-Evenflo,pivot xplore,2,cmqx8d4jd000s13kpqrw1npfd,Pivot Xplore,0,,yes
-Evenflo,pivot xplore,2,cmqpqqysc000x7qlln9lo56v7,Pivot Xplore All-Terrain,0,normalizes to shorter model,no
-Graco,ready2jet,2,cmqx8d4ls000t13kpnjml7roe,Ready2Jet,0,,yes
-Graco,ready2jet,2,cmqpqqzfn00177qll3ou9gfkg,Ready2Jet Compact,0,normalizes to shorter model,no
-Guava Family,roam,2,cmqx8d4o5000u13kpbtkfe121,Roam,0,,yes
-Guava Family,roam,2,cmqpqqzhz00187qllpp2cly4t,Roam Jogging,0,normalizes to shorter model,no
+Ergobaby,metro 3,3,cmqx8d45a000m13kp1zi0195v,Metro 3,4,,yes
+Ergobaby,metro 3,3,cmqpqqyix000t7qll3hkoln8m,Metro 3 Compact,4,normalizes to shorter model,no
+Ergobaby,metro 3,3,cmqx8d49v000o13kp3v8chfjp,Metro 3 Travel,4,normalizes to shorter model,no
+Ergobaby,metro plus deluxe,2,cmqx8d4ek000q13kp25vm8o1q,Metro+ Deluxe,4,,yes
+Ergobaby,metro plus deluxe,2,cmqx8d4c9000p13kp1a0v0vkk,Metro+ Deluxe Baby,4,normalizes to shorter model,no
+Evenflo,pivot xplore,2,cmqx8d4jd000s13kpqrw1npfd,Pivot Xplore,2,,yes
+Evenflo,pivot xplore,2,cmqpqqysc000x7qlln9lo56v7,Pivot Xplore All-Terrain,2,normalizes to shorter model,no
+Graco,ready2jet,2,cmqx8d4ls000t13kpnjml7roe,Ready2Jet,4,,yes
+Graco,ready2jet,2,cmqpqqzfn00177qll3ou9gfkg,Ready2Jet Compact,4,normalizes to shorter model,no
+Guava Family,roam,2,cmqx8d4o5000u13kpbtkfe121,Roam,4,,yes
+Guava Family,roam,2,cmqpqqzhz00187qllpp2cly4t,Roam Jogging,4,normalizes to shorter model,no
+Joie,chive,2,cmqzur4zj0002eqf6kprqqkxh,Chive,0,,yes
+Joie,chive,2,cmqpqqzwq001e7qlllftz668x,Chive Single to Double,0,normalizes to shorter model,no
 Nuna,mixx next,3,nuna-mixx-next,MIXX next,4,,yes
-Nuna,mixx next,3,cmqx8d5bv001413kpjri9r4s9,Mixx Next Bmw,0,BMW/special edition variant; normalizes to shorter model,no
-Nuna,mixx next,3,cmqx8d5e9001513kpvy66jrkf,Mixx Next With Magnetic Buckle,0,magnetic buckle variant; normalizes to shorter model,no
+Nuna,mixx next,3,cmqx8d5bv001413kpjri9r4s9,Mixx Next Bmw,4,BMW/special edition variant; normalizes to shorter model,no
+Nuna,mixx next,3,cmqx8d5e9001513kpvy66jrkf,Mixx Next With Magnetic Buckle,4,magnetic buckle variant; normalizes to shorter model,no
 Nuna,swiv,2,nuna-swiv,SWIV,0,,yes
 Nuna,swiv,2,cmqpqr1cb00207qllmlj0l2w2,BMW x SWIV,0,BMW/special edition variant; normalizes to shorter model,no
 Nuna,tavo next,2,nuna-tavo-next,TAVO next,4,,yes
-Nuna,tavo next,2,cmqx8d5gq001613kp6pkqi29a,Tavo Next Granite,0,normalizes to shorter model,no
+Nuna,tavo next,2,cmqx8d5gq001613kp6pkqi29a,Tavo Next Granite,4,normalizes to shorter model,no
 Nuna,triv next,4,nuna-triv-next,TRIV next,4,,yes
-Nuna,triv next,4,cmqx8d5mh001813kpj7dt2y6v,Triv Next Bmw,0,BMW/special edition variant; normalizes to shorter model,no
-Nuna,triv next,4,cmqx8d5ox001913kpewofgj0y,Triv Next W Magnetic Buckle,0,magnetic buckle variant; normalizes to shorter model,no
-Nuna,triv next,4,cmqx8d5w0001c13kp4aatwr59,Triv Next With Magnetic Buckle Caviar/Chocolate,0,magnetic buckle variant; normalizes to shorter model,no
-Nuna,trvl double,2,cmqx8d60s001e13kpwin8s54h,Trvl Double,0,,yes
-Nuna,trvl double,2,nuna-trvl-dubl,TRVL Dubl,0,normalizes to shorter model,no
+Nuna,triv next,4,cmqx8d5mh001813kpj7dt2y6v,Triv Next Bmw,4,BMW/special edition variant; normalizes to shorter model,no
+Nuna,triv next,4,cmqx8d5ox001913kpewofgj0y,Triv Next W Magnetic Buckle,4,magnetic buckle variant; normalizes to shorter model,no
+Nuna,triv next,4,cmqx8d5w0001c13kp4aatwr59,Triv Next With Magnetic Buckle Caviar/Chocolate,4,magnetic buckle variant; normalizes to shorter model,no
 Safety 1st,easy fold,2,cmqx8d6o2001o13kpyzgrfmfg,Easy-Fold,0,,yes
 Safety 1st,easy fold,2,cmqpqr1sw00277qll6soktcpa,Easy-Fold Compact,0,normalizes to shorter model,no
 Silver Cross,clic,2,silver-cross-clic,Clic,7,,yes
 Silver Cross,clic,2,cmqpqr1xi00297qlld8p7uw3b,Clic Compact,7,normalizes to shorter model,no
-Silver Cross,wave 3,2,silver-cross-wave-3,Wave 3,10,,yes
-Silver Cross,wave 3,2,cmqpqr1zv002a7qlltuhbvanr,Wave 3 Single to Double,10,normalizes to shorter model,no
-Thule,urban glide 4 wheel,2,cmqx8m2rf000110nux9vv7skl,Urban Glide 4-wheel,0,,yes
-Thule,urban glide 4 wheel,2,cmqx8d76m001w13kpohpwn912,Urban Glide 4-Wheel Single Child,0,normalizes to shorter model,no
+Silver Cross,wave 3,2,silver-cross-wave-3,Wave 3,12,,yes
+Silver Cross,wave 3,2,cmqpqr1zv002a7qlltuhbvanr,Wave 3 Single to Double,12,normalizes to shorter model,no
+Thule,urban glide 4 wheel,2,cmqx8m2rf000110nux9vv7skl,Urban Glide 4-wheel,4,,yes
+Thule,urban glide 4 wheel,2,cmqx8d76m001w13kpohpwn912,Urban Glide 4-Wheel Single Child,4,normalizes to shorter model,no
 Veer,cruiser,2,cmqx8m2to000210nuqbjpz9i5,Cruiser,40,,yes
 Veer,cruiser,2,cmqpqr2q1002l7qllrfy61aca,All-Terrain Cruiser,40,normalizes to shorter model,no
-Veer,switch and jog,2,cmqx8d7fm002013kpwgdokqb5,Switch&Jog,0,,yes
-Veer,switch and jog,2,cmqpqr34e002r7qll3fzqhzdz,Switch&Jog Jogging,0,normalizes to shorter model,no
-WonderFold,l2 double,2,cmqpqr39a002t7qllgm23scrc,L2 Double,0,,yes
-WonderFold,l2 double,2,cmqx8d7oy002413kpusrmz1ec,L2 Double 2-Seater,0,normalizes to shorter model,no
+Veer,switch and jog,2,cmqx8d7fm002013kpwgdokqb5,Switch&Jog,20,,yes
+Veer,switch and jog,2,cmqpqr34e002r7qll3fzqhzdz,Switch&Jog Jogging,20,normalizes to shorter model,no
+WonderFold,l2 double,2,cmqpqr39a002t7qllgm23scrc,L2 Double,20,,yes
+WonderFold,l2 double,2,cmqx8d7oy002413kpusrmz1ec,L2 Double 2-Seater,20,normalizes to shorter model,no

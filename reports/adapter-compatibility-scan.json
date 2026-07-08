@@ -1,39 +1,18 @@
 {
-  "generatedAt": "2026-06-28T03:46:51.198Z",
+  "generatedAt": "2026-07-08T00:15:23.213Z",
   "totals": {
-    "adapterProducts": 172,
-    "adaptersWithMatchedStroller": 86,
-    "adaptersNamingSeatBrand": 138,
-    "strollerRows": 272,
-    "infantCarSeatRows": 60,
-    "candidatePairs": 447,
-    "newToWrite": 0,
-    "alreadyPresent": 447,
+    "adapterProducts": 149,
+    "adaptersWithMatchedStroller": 84,
+    "adaptersNamingSeatBrand": 117,
+    "strollerRows": 260,
+    "infantCarSeatRows": 61,
+    "candidatePairs": 715,
+    "newToWrite": 48,
+    "alreadyPresent": 667,
     "existingGeneratedRowsWithoutCurrentAdapterMatch": 0,
     "generatedRowsToPrune": 0
   },
   "parsedAdapters": [
-    {
-      "title": "Baby Jogger City Mini Gt3 Car Seat Adapter, Nuna in Black",
-      "strollers": [
-        "Baby Jogger City Mini GT3 All-Terrain [model: city mini gt3]",
-        "Baby Jogger City Mini GT3 [model: city mini gt3]"
-      ],
-      "seatBrands": [
-        "Nuna"
-      ]
-    },
-    {
-      "title": "Baby Jogger Chicco/Peg Perego Car Seat Adapter for City Mini 2 & City Mini GT2",
-      "strollers": [
-        "Baby Jogger City Mini 2 [model: city mini 2]",
-        "Baby Jogger City Mini GT2 [model: city mini gt2]"
-      ],
-      "seatBrands": [
-        "Chicco",
-        "Peg Perego"
-      ]
-    },
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Select Britax Infant Car Seats in Black",
       "strollers": [],
@@ -54,8 +33,7 @@
     {
       "title": "Bugaboo Butterfly 2 Car Seat Adapters in Black",
       "strollers": [
-        "Bugaboo Butterfly 2 [model: butterfly 2]",
-        "Bugaboo Butterfly 2 Complete [model: butterfly 2]"
+        "Bugaboo Butterfly 2 [model: butterfly 2]"
       ],
       "seatBrands": [
         "Nuna",
@@ -67,8 +45,7 @@
     {
       "title": "Bugaboo Butterfly 2 Tray Adapter in Black",
       "strollers": [
-        "Bugaboo Butterfly 2 [model: butterfly 2]",
-        "Bugaboo Butterfly 2 Complete [model: butterfly 2]"
+        "Bugaboo Butterfly 2 [model: butterfly 2]"
       ],
       "seatBrands": []
     },
@@ -78,15 +55,6 @@
         "Bugaboo Dragonfly [model: dragonfly]"
       ],
       "seatBrands": []
-    },
-    {
-      "title": "Bugaboo Dragonfly Car Seat Adapters in Maxi Cosi",
-      "strollers": [
-        "Bugaboo Dragonfly [model: dragonfly]"
-      ],
-      "seatBrands": [
-        "Maxi-Cosi"
-      ]
     },
     {
       "title": "Bugaboo Kangaroo Upper Newborn Adapter",
@@ -102,9 +70,9 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -141,14 +109,6 @@
       ]
     },
     {
-      "title": "Bumbleride Single Stroller Car Seat Adapter in Graco/Chicco",
-      "strollers": [],
-      "seatBrands": [
-        "Chicco",
-        "Graco"
-      ]
-    },
-    {
       "title": "\"Chicco Corso Flex Infant Car Seat Adapter/Basket in Black Size 17.8\"\" x 16.8\"\" x 10.5\"\" | 100% Polyester\"",
       "strollers": [],
       "seatBrands": [
@@ -161,20 +121,10 @@
       "seatBrands": []
     },
     {
-      "title": "Cybex Gazelle S Infant Car Seat Adapter in Graco/Chicco/Peg Perego",
-      "strollers": [
-        "CYBEX Gazelle S [model: gazelle s]"
-      ],
-      "seatBrands": [
-        "Chicco",
-        "Peg Perego",
-        "Graco"
-      ]
-    },
-    {
       "title": "Cybex Gazelle S Infant Car Seat Adapter in Britax",
       "strollers": [
-        "CYBEX Gazelle S [model: gazelle s]"
+        "Cybex Gazelle S [model: gazelle s]",
+        "Cybex e-Gazelle S [model: gazelle s]"
       ],
       "seatBrands": [
         "Britax"
@@ -183,13 +133,14 @@
     {
       "title": "Cybex Gazelle S Infant Car Seat Adapter in Cybex/Maxi Cosi/Nuna Cybex/Maxi Cosi/Nuna/Clek",
       "strollers": [
-        "CYBEX Gazelle S [model: gazelle s]"
+        "Cybex Gazelle S [model: gazelle s]",
+        "Cybex e-Gazelle S [model: gazelle s]"
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -204,9 +155,9 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -220,15 +171,17 @@
         "Inglesina Quid³ [model: quid3]"
       ],
       "seatBrands": [
+        "Cybex",
         "Clek",
         "Maxi-Cosi",
-        "Cybex",
         "Nuna"
       ]
     },
     {
       "title": "Joolz Hub2 car seat adapter set in Black",
-      "strollers": [],
+      "strollers": [
+        "Joolz Hub2 [model: hub2]"
+      ],
       "seatBrands": []
     },
     {
@@ -245,8 +198,8 @@
       "strollers": [],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -257,18 +210,7 @@
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "UPPAbaby Minu V3 Car Seat Adapters for Maxi Cosi, Nuna and Clek",
-      "strollers": [
-        "UPPAbaby Minu V3 [model: minu v3]"
-      ],
-      "seatBrands": [
-        "Nuna",
-        "Clek",
+        "Cybex",
         "Maxi-Cosi"
       ]
     },
@@ -310,15 +252,6 @@
         "UPPAbaby Cruz V2 [model: cruz v2]"
       ],
       "seatBrands": []
-    },
-    {
-      "title": "UPPAbaby Vista & Cruz Car Seat Adapters for Maxi-Cosi, Nuna and Cybex",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
     },
     {
       "title": "UPPAbaby Vista Lower Adapters",
@@ -363,25 +296,20 @@
       "seatBrands": []
     },
     {
-      "title": "Veer Infant Car Seat Adapter for Cruiser Wagon Size Uppababy",
-      "strollers": [
-        "Veer All-Terrain Cruiser [model: cruiser]",
-        "Veer Cruiser [model: cruiser]"
-      ],
-      "seatBrands": [
-        "UPPAbaby"
-      ]
-    },
-    {
       "title": "Veer Infant Car Seat Adapter for Cruiser Wagon Size Cybex/Maxi-Cosi/Nuna",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -392,64 +320,9 @@
       ]
     },
     {
-      "title": "Veer Switchback Infant Car Seat Adapter in Graco",
-      "strollers": [],
-      "seatBrands": [
-        "Graco"
-      ]
-    },
-    {
-      "title": "Veer Switchback Infant Car Seat Adapter in Cybex/Nuna/Maxi Cosi",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Veer Switchback Infant Car Seat Adapter in Uppababy",
-      "strollers": [],
-      "seatBrands": [
-        "UPPAbaby"
-      ]
-    },
-    {
       "title": "Veer Switchback Second Seat Adapter Kit",
       "strollers": [],
       "seatBrands": []
-    },
-    {
-      "title": "Zoe Journey Car Seat Adapter in Black Chicco - Black",
-      "strollers": [],
-      "seatBrands": [
-        "Chicco"
-      ]
-    },
-    {
-      "title": "Zoe Journey Car Seat Adapter in Black Nuna, Maxi Cosi, Cybex, Britax - Black",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Britax",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Zoe The Twin/Trio/Tribe and Tour V3 Graco/Chicco Car Seat Adapter",
-      "strollers": [],
-      "seatBrands": [
-        "Chicco",
-        "Graco"
-      ]
-    },
-    {
-      "title": "Zoe The Twin/Trio/Tribe Nuna Car Seat Adapter",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna"
-      ]
     },
     {
       "title": "Larktale Car Seat Adapter in Black Maxi Cosi, Clek & Nuna - Caravan - Black",
@@ -461,41 +334,9 @@
       ]
     },
     {
-      "title": "Mockingbird Car Seat Adapter for Stroller Uppababy",
-      "strollers": [],
-      "seatBrands": [
-        "UPPAbaby"
-      ]
-    },
-    {
-      "title": "Mockingbird Car Seat Adapter for Stroller Clek",
-      "strollers": [],
-      "seatBrands": [
-        "Clek"
-      ]
-    },
-    {
-      "title": "Mockingbird Car Seat Adapter for Stroller Nuna/Maxi-Cosi/Cybex/Britax Willow",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Britax",
-        "Cybex"
-      ]
-    },
-    {
       "title": "Nuna Flex System Frame + Adapter in Caviar",
       "strollers": [],
       "seatBrands": []
-    },
-    {
-      "title": "Nuna PIPA adapter for UPPABaby Vista and Cruz",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "UPPAbaby"
-      ]
     },
     {
       "title": "Peg Perego Car Seat Adapter for Ypsi, Veloce & Vivace Strollers",
@@ -529,9 +370,9 @@
       "strollers": [],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -570,15 +411,6 @@
       ]
     },
     {
-      "title": "UPPAbaby Adapters for Minu Duo (Mesa/Mesa V2, Mesa Max, Mesa i-Size, Aria) in Black",
-      "strollers": [
-        "UPPAbaby Minu Duo [model: minu duo]"
-      ],
-      "seatBrands": [
-        "UPPAbaby"
-      ]
-    },
-    {
       "title": "UPPAbaby Car Seat Adapters for Minu V3 (Mesa/Mesa V2, Mesa Max, Mesa i-Size, Aria)",
       "strollers": [
         "UPPAbaby Minu V3 [model: minu v3]"
@@ -588,9 +420,29 @@
       ]
     },
     {
+      "title": "Veer - Cruiser XL Infant Car Seat Adapter (Cybex/Nuna/Maxi-Cosi)",
+      "strollers": [
+        "Veer Cruiser City [model: cruiser]",
+        "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
+        "Veer Cruiser [model: cruiser]"
+      ],
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
+    },
+    {
       "title": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
       "strollers": [
-        "Baby Jogger Summit X3 [model: summit x3]"
+        "Baby Jogger City Mini Double [model: city mini]",
+        "Baby Jogger Summit X3 Double [model: summit x3]",
+        "Baby Jogger Summit X3 [model: summit x3]",
+        "Baby Jogger Summit X3 Single [model: summit x3]"
       ],
       "seatBrands": [
         "Graco"
@@ -606,7 +458,9 @@
     },
     {
       "title": "BABY JOGGER City Mini ZIP Car Seat Adapter Single - Graco Click Connect",
-      "strollers": [],
+      "strollers": [
+        "Baby Jogger City Mini Double [model: city mini]"
+      ],
       "seatBrands": [
         "Graco"
       ]
@@ -658,7 +512,8 @@
       "title": "BABY JOGGER City Mini 2/City Mini GT2 City GO/Graco Car Seat Adapter - Jet - Black",
       "strollers": [
         "Baby Jogger City Mini 2 [model: city mini 2]",
-        "Baby Jogger City Mini GT2 [model: city mini gt2]"
+        "Baby Jogger City Mini GT2 [model: city mini gt2]",
+        "Baby Jogger City Mini GT2 Double [model: city mini gt2]"
       ],
       "seatBrands": [
         "Graco"
@@ -668,7 +523,8 @@
       "title": "Baby Jogger Maxi-Cosi Car Seat Adapter, City Mini 2, City Mini GT2 - Black",
       "strollers": [
         "Baby Jogger City Mini 2 [model: city mini 2]",
-        "Baby Jogger City Mini GT2 [model: city mini gt2]"
+        "Baby Jogger City Mini GT2 [model: city mini gt2]",
+        "Baby Jogger City Mini GT2 Double [model: city mini gt2]"
       ],
       "seatBrands": [
         "Maxi-Cosi"
@@ -680,8 +536,8 @@
         "Baby Jogger City Mini 2 [model: city mini 2]"
       ],
       "seatBrands": [
-        "Clek",
-        "Cybex"
+        "Cybex",
+        "Clek"
       ]
     },
     {
@@ -697,7 +553,9 @@
     {
       "title": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
       "strollers": [
-        "Baby Jogger City Tour 2 [model: city tour 2]"
+        "Baby Jogger City Tour 2 [model: city tour 2]",
+        "Baby Jogger City Tour 2 Double [model: city tour 2]",
+        "Baby Jogger City Tour 2 Single [model: city tour 2]"
       ],
       "seatBrands": [
         "Graco"
@@ -721,7 +579,9 @@
     },
     {
       "title": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
-      "strollers": [],
+      "strollers": [
+        "Baby Jogger City Mini Double [model: city mini]"
+      ],
       "seatBrands": [
         "Britax"
       ]
@@ -730,8 +590,8 @@
       "title": "BABY JOGGER City Tour™ LUX Car Seat Adapter For Maxi Cosi / Cybex",
       "strollers": [],
       "seatBrands": [
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -739,6 +599,40 @@
       "strollers": [],
       "seatBrands": [
         "Maxi-Cosi"
+      ]
+    },
+    {
+      "title": "Silver Cross - Jet 5 & Jet Double Car Seat Adapters",
+      "strollers": [
+        "Silver Cross Jet 5 [model: jet 5]",
+        "Silver Cross Jet Double [model: jet double]"
+      ],
+      "seatBrands": [
+        "Cybex",
+        "Clek",
+        "Maxi-Cosi"
+      ]
+    },
+    {
+      "title": "Uppababy - Car Seat Adapters For Minu V3 (Maxi-Cosi®, Nuna®, Cybex, Besafe®)",
+      "strollers": [
+        "UPPAbaby Minu V3 [model: minu v3]"
+      ],
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
+    },
+    {
+      "title": "Baby Jogger City Tour 2 Car Seat Adapter for Baby Jogger City GO and Graco",
+      "strollers": [
+        "Baby Jogger City Tour 2 [model: city tour 2]",
+        "Baby Jogger City Tour 2 Double [model: city tour 2]",
+        "Baby Jogger City Tour 2 Single [model: city tour 2]"
+      ],
+      "seatBrands": [
+        "Graco"
       ]
     },
     {
@@ -755,9 +649,9 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -767,9 +661,9 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -779,15 +673,16 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
       "title": "Cybex Gazelle S Car Seat Adapter for Graco, Chicco, and Peg Perego",
       "strollers": [
-        "CYBEX Gazelle S [model: gazelle s]"
+        "Cybex Gazelle S [model: gazelle s]",
+        "Cybex e-Gazelle S [model: gazelle s]"
       ],
       "seatBrands": [
         "Chicco",
@@ -799,8 +694,8 @@
       "title": "Baby Jogger Car Seat Adapter for City Mini 2 Double, Maxi Cosi / Be Safe / Cybex",
       "strollers": [],
       "seatBrands": [
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -841,7 +736,12 @@
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Graco",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
@@ -851,7 +751,12 @@
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Britax",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
@@ -861,19 +766,29 @@
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Cybex / Maxi-Cosi / Nuna",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Chicco",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
@@ -883,7 +798,12 @@
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Uppababy",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
@@ -893,11 +813,28 @@
     {
       "title": "Veer Cruiser Infant Car Seat Adapter - Peg Perego",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
         "Peg Perego"
+      ]
+    },
+    {
+      "title": "DFY - R1 Car Seat Adapters Black",
+      "strollers": [
+        "DFY R1 [model: r1]"
+      ],
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Clek",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -995,9 +932,9 @@
       ],
       "seatBrands": [
         "Nuna",
+        "Cybex",
         "Clek",
-        "Maxi-Cosi",
-        "Cybex"
+        "Maxi-Cosi"
       ]
     },
     {
@@ -1040,7 +977,8 @@
     {
       "title": "Uppababy - Adapters For Minu Duo (Mesa/Mesa V2, Mesa Max, Mesa I-Size, Aria)",
       "strollers": [
-        "UPPAbaby Minu Duo [model: minu duo]"
+        "UPPAbaby Minu Duo [model: minu duo]",
+        "UPPAbaby Minu Duo Side By Side Double [model: minu duo]"
       ],
       "seatBrands": [
         "UPPAbaby"
@@ -1051,8 +989,8 @@
       "strollers": [],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -1073,45 +1011,31 @@
       ]
     },
     {
-      "title": "UPPABaby Vista Lower Infant Car Seat Adapter For Nuna, Cybex, And Maxi-Cosi",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Joolz - Hub2 Car Seat Adapter Set",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Clek",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
       "title": "Uppababy - Car Seat Adapter for Ridge, Nuna/Cybex/Maxi-Cosi",
       "strollers": [
         "UPPAbaby Ridge [model: ridge]"
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
       "title": "Veer - Cruiser Infant Car Seat Adapter (Cybex/Maxi-Cosi/Nuna)",
       "strollers": [
+        "Veer Cruiser City [model: cruiser]",
         "Veer All-Terrain Cruiser [model: cruiser]",
+        "Veer Cruiser City XL Essentials [model: cruiser]",
+        "Veer Cruiser Wagon Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser Wagon XL Comfort Seat for Toddlers [model: cruiser]",
+        "Veer Cruiser XL Nap System [model: cruiser]",
         "Veer Cruiser [model: cruiser]"
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -1130,8 +1054,8 @@
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -1149,23 +1073,13 @@
     {
       "title": "Bugaboo - Butterfly 2 Car Seat Adapters",
       "strollers": [
-        "Bugaboo Butterfly 2 [model: butterfly 2]",
-        "Bugaboo Butterfly 2 Complete [model: butterfly 2]"
+        "Bugaboo Butterfly 2 [model: butterfly 2]"
       ],
       "seatBrands": [
         "Nuna",
         "Clek",
         "Bugaboo",
         "Maxi-Cosi"
-      ]
-    },
-    {
-      "title": "Bugaboo - Donkey Twin Car Seat Adapter for Turtle/Nuna/Maxi-Cosi",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Bugaboo"
       ]
     },
     {
@@ -1183,34 +1097,14 @@
       ],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
       "title": "Baby Jogger Car Seat Adapter - Select/Premier - Graco/City Go",
       "strollers": [],
       "seatBrands": [
-        "Graco"
-      ]
-    },
-    {
-      "title": "Veer - Cruiser XL Infant Car Seat Adapter (Cybex/Nuna/Maxi-Cosi)",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Cybex - Gold Gazelle S Stroller Car Seat Adapter for Graco/Chicco/Peg Perego",
-      "strollers": [
-        "CYBEX Gazelle S [model: gazelle s]"
-      ],
-      "seatBrands": [
-        "Chicco",
-        "Peg Perego",
         "Graco"
       ]
     },
@@ -1225,13 +1119,6 @@
       "title": "Wonderfold - W4 Series Car Seat Adapter (Opposite Bench)",
       "strollers": [],
       "seatBrands": []
-    },
-    {
-      "title": "Stokke - YOYO Car Seat Adapters",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna"
-      ]
     },
     {
       "title": "Thule - Urban Glide 3 Double Car Seat Adapter For Maxi-Cosi Black",
@@ -1270,14 +1157,6 @@
       ]
     },
     {
-      "title": "Uppababy Car Seat Adapters For Vista, Vista V2, Cruz And Cruz V2",
-      "strollers": [
-        "UPPAbaby Cruz V2 [model: cruz v2]",
-        "UPPAbaby Vista V2 [model: vista v2]"
-      ],
-      "seatBrands": []
-    },
-    {
       "title": "Uppababy - Vista Upper Adapter",
       "strollers": [],
       "seatBrands": [
@@ -1285,31 +1164,9 @@
       ]
     },
     {
-      "title": "Silver Cross - Jet 5 & Jet Double Car Seat Adapters",
-      "strollers": [
-        "Silver Cross Jet 5 [model: jet 5]",
-        "Silver Cross Jet Double [model: jet double]"
-      ],
-      "seatBrands": [
-        "Clek",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Uppababy - Car Seat Adapters For Minu V3 (Maxi-Cosi®, Nuna®, Cybex, Besafe®)",
-      "strollers": [
-        "UPPAbaby Minu V3 [model: minu v3]"
-      ],
-      "seatBrands": [
-        "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
       "title": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
       "strollers": [
+        "Thule Urban Glide 3 Double [model: urban glide 3]",
         "Thule Urban Glide 3 [model: urban glide 3]"
       ],
       "seatBrands": [
@@ -1319,31 +1176,11 @@
     {
       "title": "Thule - Urban Glide 3 Single Car Seat Adapter For Maxi-Cosi Black",
       "strollers": [
+        "Thule Urban Glide 3 Double [model: urban glide 3]",
         "Thule Urban Glide 3 [model: urban glide 3]"
       ],
       "seatBrands": [
         "Maxi-Cosi"
-      ]
-    },
-    {
-      "title": "Baby Jogger City Tour 2 Car Seat Adapter for Baby Jogger City GO and Graco",
-      "strollers": [
-        "Baby Jogger City Tour 2 [model: city tour 2]"
-      ],
-      "seatBrands": [
-        "Graco"
-      ]
-    },
-    {
-      "title": "Inglesina - Quid³ Stroller Car Seat Adapter",
-      "strollers": [
-        "Inglesina Quid³ [model: quid3]"
-      ],
-      "seatBrands": [
-        "Clek",
-        "Maxi-Cosi",
-        "Cybex",
-        "Nuna"
       ]
     },
     {
@@ -1352,15 +1189,6 @@
         "Thule Urban Glide 3 Double [model: urban glide 3 double]"
       ],
       "seatBrands": []
-    },
-    {
-      "title": "Mima - Xari Max Car Seat Adapter",
-      "strollers": [],
-      "seatBrands": [
-        "Nuna",
-        "Clek",
-        "Maxi-Cosi"
-      ]
     },
     {
       "title": "Agio by Peg Perego Primo Viaggio Car Seat Adapter for Z4 Strollers, Black",
@@ -1386,8 +1214,8 @@
       "strollers": [],
       "seatBrands": [
         "Nuna",
-        "Maxi-Cosi",
-        "Cybex"
+        "Cybex",
+        "Maxi-Cosi"
       ]
     },
     {
@@ -1398,11 +1226,6 @@
       ]
     },
     {
-      "title": "Peg Perego - Foldable Car Seat Adapter for City Loop",
-      "strollers": [],
-      "seatBrands": []
-    },
-    {
       "title": "Thule - Spring Car Seat Adapter Chicco",
       "strollers": [],
       "seatBrands": [
@@ -1410,43 +1233,12 @@
       ]
     },
     {
-      "title": "Wonderfold - W2 Car Seat Adapter Graco",
-      "strollers": [],
-      "seatBrands": [
-        "Graco"
-      ]
-    },
-    {
-      "title": "Peg-Perego - Duo Adapter for City Loop Stroller",
-      "strollers": [],
-      "seatBrands": []
-    },
-    {
       "title": "Silver Cross - Nia Universal Car Seat Adapters",
       "strollers": [],
       "seatBrands": [
-        "Clek",
-        "Cybex"
+        "Cybex",
+        "Clek"
       ]
-    },
-    {
-      "title": "DFY - R1 Car Seat Adapters Black",
-      "strollers": [
-        "DFY R1 [model: r1]"
-      ],
-      "seatBrands": [
-        "Nuna",
-        "Clek",
-        "Maxi-Cosi",
-        "Cybex"
-      ]
-    },
-    {
-      "title": "Mima Miro Car Seat Adapter Set",
-      "strollers": [
-        "Mima Miro [model: miro]"
-      ],
-      "seatBrands": []
     },
     {
       "title": "Silver Cross Cove 2 Universal Car Seat Adapters",
@@ -1454,8 +1246,8 @@
         "Silver Cross Cove 2 [model: cove 2]"
       ],
       "seatBrands": [
-        "Clek",
-        "Cybex"
+        "Cybex",
+        "Clek"
       ]
     },
     {
@@ -1472,8 +1264,476 @@
       "seatBrands": [
         "Graco"
       ]
+    },
+    {
+      "title": "Stokke - YOYO Car Seat Adapters",
+      "strollers": [],
+      "seatBrands": [
+        "Nuna"
+      ]
+    },
+    {
+      "title": "Uppababy Car Seat Adapters For Vista, Vista V2, Cruz And Cruz V2",
+      "strollers": [
+        "UPPAbaby Cruz V2 [model: cruz v2]",
+        "UPPAbaby Vista V2 [model: vista v2]"
+      ],
+      "seatBrands": []
+    },
+    {
+      "title": "Inglesina - Quid³ Stroller Car Seat Adapter",
+      "strollers": [
+        "Inglesina Quid³ [model: quid3]"
+      ],
+      "seatBrands": [
+        "Cybex",
+        "Clek",
+        "Maxi-Cosi",
+        "Nuna"
+      ]
+    },
+    {
+      "title": "Joolz - Hub2 Car Seat Adapter Set",
+      "strollers": [
+        "Joolz Hub2 [model: hub2]"
+      ],
+      "seatBrands": [
+        "Nuna",
+        "Clek",
+        "Maxi-Cosi",
+        "Cybex"
+      ]
+    },
+    {
+      "title": "Wonderfold - W2 Car Seat Adapter Graco",
+      "strollers": [],
+      "seatBrands": [
+        "Graco"
+      ]
+    },
+    {
+      "title": "Bugaboo - Donkey Twin Car Seat Adapter for Turtle/Nuna/Maxi-Cosi",
+      "strollers": [],
+      "seatBrands": [
+        "Nuna",
+        "Maxi-Cosi",
+        "Bugaboo"
+      ]
+    },
+    {
+      "title": "Cybex - Gold Gazelle S Stroller Car Seat Adapter for Graco/Chicco/Peg Perego",
+      "strollers": [
+        "Cybex Gazelle S [model: gazelle s]",
+        "Cybex e-Gazelle S [model: gazelle s]"
+      ],
+      "seatBrands": [
+        "Chicco",
+        "Peg Perego",
+        "Graco"
+      ]
+    },
+    {
+      "title": "UPPABaby Vista Lower Infant Car Seat Adapter For Nuna, Cybex, And Maxi-Cosi",
+      "strollers": [],
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
+    },
+    {
+      "title": "Mima Miro Car Seat Adapter Set",
+      "strollers": [
+        "Mima Miro [model: miro]"
+      ],
+      "seatBrands": []
     }
   ],
-  "newCompatibilityRows": [],
+  "newCompatibilityRows": [
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Clek Liing",
+      "adapterTitle": "Bumbleride Indie Twin Car Seat Adapter, Set",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2230680&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-car-seat-adapter-set%2F65697%2F2230680&intsrc=CATF_8981",
+      "adapterPrice": 110
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Graco GoMax",
+      "adapterTitle": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcar-seat-adapter-single-city-go-graco%3Fvariant%3D16411852537956",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Graco SnugRide Lite LX",
+      "adapterTitle": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcar-seat-adapter-single-city-go-graco%3Fvariant%3D16411852537956",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Graco SnugRide SnugFit",
+      "adapterTitle": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcar-seat-adapter-single-city-go-graco%3Fvariant%3D16411852537956",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "adapterTitle": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcar-seat-adapter-single-city-go-graco%3Fvariant%3D16411852537956",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "adapterTitle": "BABY JOGGER Car Seat Adapter Single (City Mini, City Mini GT, and Summit X3) City GO and Graco Click Connect",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcar-seat-adapter-single-city-go-graco%3Fvariant%3D16411852537956",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini GT2 Double",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "Baby Jogger Maxi-Cosi Car Seat Adapter, City Mini 2, City Mini GT2 - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-mini-2-gt-2-maxi-cosi-car-seat-adapter%3Fvariant%3D49919751749918",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Double",
+      "carSeat": "Graco GoMax",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Double",
+      "carSeat": "Graco SnugRide Lite LX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Double",
+      "carSeat": "Graco SnugRide SnugFit",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Double",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Double",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Single",
+      "carSeat": "Graco GoMax",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Single",
+      "carSeat": "Graco SnugRide Lite LX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Single",
+      "carSeat": "Graco SnugRide SnugFit",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Single",
+      "carSeat": "Graco SnugRide SnugFit LX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Tour 2 Single",
+      "carSeat": "Graco SnugRide SnugFit DLX",
+      "adapterTitle": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fcity-tour-2-car-seat-adapter-for-city-go-graco%3Fvariant%3D49935881339166",
+      "adapterPrice": 54.99
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax B-Safe 35",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax B-Safe Gen2",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax B-Safe Gen2 FlexFit",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax Willow S",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax Willow SC",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax Cypress S",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Baby Jogger City Mini Double",
+      "carSeat": "Britax B-Safe 35 Elite",
+      "adapterTitle": "Baby Jogger Britax Mounting Bracket Car Seat Adapter for City Mini, Black",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fbaby-jogger-britax-mounting-bracket-car-seat-adapter-for-city-mini-black%3Fvariant%3D31251708051542",
+      "adapterPrice": 29.95
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Cybex Aton G",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Clek Liingo",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Cybex Aton G2",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Cybex Cloud G Pro Comfort Extend",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Cybex Cloud T Comfort Extend",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Joolz Aer2",
+      "carSeat": "Bugaboo Turtle Air by Nuna",
+      "adapterTitle": "Joolz - Aer² Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-aer-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Joolz Aer+",
+      "carSeat": "Bugaboo Turtle Air by Nuna",
+      "adapterTitle": "Joolz - Aer+ Car Seat Adapters",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-aer-car-seat-adapters?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit Max ClearTex",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit 35",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco Fit2",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit Max Zip ClearLux",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit 30",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit 30 ClearTex",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Thule Urban Glide 3 Double",
+      "carSeat": "Chicco KeyFit Max Zip ClearTex",
+      "adapterTitle": "Thule - Urban Glide 3 car seat Adapter Universal/Chicco®, Black",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/thule-urban-glide-3-car-seat-adapter-universal-chicco%C2%AE-black?_j=taylormadebabyco.com",
+      "adapterPrice": 79.95
+    },
+    {
+      "stroller": "Joolz Hub2",
+      "carSeat": "Clek Liing",
+      "adapterTitle": "Joolz - Hub2 Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-hub2-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Joolz Hub2",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "adapterTitle": "Joolz - Hub2 Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-hub2-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Joolz Hub2",
+      "carSeat": "Clek Liingo",
+      "adapterTitle": "Joolz - Hub2 Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-hub2-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Joolz Hub2",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "Joolz - Hub2 Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/joolz-hub2-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 59.99
+    }
+  ],
   "existingGeneratedRowsWithoutCurrentAdapterMatch": []
 }
