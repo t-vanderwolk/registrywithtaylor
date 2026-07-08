@@ -304,6 +304,11 @@ async function main() {
   let adaptersWithSeatBrand = 0;
   const report: Array<{ title: string; strollers: string[]; seatBrands: string[] }> = [];
 
+  // Chicco / Graco / Peg Perego seats only fit the Cybex Gazelle line — never
+  // generate those pairings for any other stroller.
+  const RESTRICTED_SEAT_RE = /chicco|graco|peg[\s-]?perego/i;
+  const isGazelleLine = (brand: string, model: string) => /cybex/i.test(brand) && /gazelle/i.test(model);
+
   for (const a of adapters) {
     const title = a.title || '';
     const adapterSeatText = [title, a.description].filter(Boolean).join(' ');
@@ -329,6 +334,7 @@ async function main() {
 
     for (const { stroller } of strollerMatches) {
       for (const { seat } of seatMatches) {
+        if (RESTRICTED_SEAT_RE.test(seat.brand) && !isGazelleLine(stroller.brand, stroller.model)) continue;
         const key = `${stroller.id}:::${seat.id}`;
         if (seenPair.has(key)) continue;
         seenPair.add(key);
