@@ -26,7 +26,7 @@ const MANUAL_PROVIDER = 'manual_tmbc';
 
 // Anything that is an accessory / part / bundle rather than the stroller itself.
 const ACCESSORY_RE =
-  /\b(cot|carry ?cot|bassinet|second seat|seat pack|adapter|adaptor|rain ?cover|bundle|footmuff|cup ?holder|organi[sz]er|tray|cover|stand|frame only|chassis|wheel|canopy|liner|board|parasol)\b/i;
+  /\b(cot|carry ?cot|bassinet|second seat|seat pack|adapter|adaptor|rain ?cover|bundle|footmuff|cup ?holder|organi[sz]er|tray|cover|stand|frame only|stroller frame|chassis|wheel|canopy|liner|board|parasol|colou?r ?pack|inlay)\b/i;
 
 const FULLSIZE = 'Home > Newborn Must-Haves > Strollers > Full-Size Strollers';
 const COMPACT = 'Home > Newborn Must-Haves > Strollers > Compact Strollers';
