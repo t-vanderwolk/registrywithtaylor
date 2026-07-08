@@ -482,15 +482,24 @@ export default async function PostArticleView({
         ) : undefined
       }
       affiliateCta={
-        catalogProductCount > 0 || post.affiliateBrands.length > 0 ? (
-          <>
-            <BlogCatalogProductRecap
-              content={articleContent}
-              productCatalogMap={productCatalogMap}
-              strollerCompatHrefs={strollerCompatHrefs}
-              heading={post.title}
-            />
-            {post.affiliateBrands.length > 0 ? (
+        catalogProductCount > 0 ? (
+          // The Gear Picks section now shows the actual product cards (the ones
+          // covered in the guide) instead of generic brand-website links.
+          <div className="blog-section-soft mt-16 px-6">
+            <div className="space-y-4">
+              <H2 className="font-serif text-neutral-900">Gear Picks / Brand Partners</H2>
+              <Body className="text-charcoal/68">Every stroller covered in this guide, with the best place to buy each one.</Body>
+            </div>
+            <div className="mt-8">
+              <BlogCatalogProductRecap
+                content={articleContent}
+                productCatalogMap={productCatalogMap}
+                strollerCompatHrefs={strollerCompatHrefs}
+                showChrome={false}
+              />
+            </div>
+          </div>
+        ) : post.affiliateBrands.length > 0 ? (
           <div className="blog-section-soft mt-16 px-6">
             <div className="space-y-4">
               <H2 className="font-serif text-neutral-900">Gear Picks / Brand Partners</H2>
@@ -546,8 +555,6 @@ export default async function PostArticleView({
               })}
             </div>
           </div>
-            ) : null}
-          </>
         ) : undefined
       }
       discussionSection={commentsSection}

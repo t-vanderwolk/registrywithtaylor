@@ -623,6 +623,41 @@
   color: var(--color-accent-dark);
 }
 
+/* ── Editorial rhythm pass (article body only) ─────────────────────────── */
+/* The first line after a section header reads as a confident lead-in. */
+.tmbc-blog-post-content h2 + p {
+  font-size: clamp(1.34rem, 1.05rem + 0.65vw, 1.62rem);
+  line-height: 1.66;
+  color: var(--tmbc-blog-charcoal, #2b2b2b);
+}
+/* Product sub-headings (### model names) get a small rose tick so scanners
+   catch each pick, and clear the floated product card. */
+.tmbc-blog-post-content h3 {
+  clear: both;
+  padding-left: 1rem;
+  position: relative;
+}
+.tmbc-blog-post-content h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(201, 116, 85, 0.95), rgba(215, 161, 175, 0.95));
+}
+/* Section imagery: framed + softly shadowed. Excludes the product card's own
+   image, which has its own contained treatment. */
+.tmbc-blog-post-content img:not(.tool-product-card__image) {
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(70, 53, 58, 0.1);
+}
+/* A touch more air between paragraphs so the column feels less dense. */
+.tmbc-blog-post-content p {
+  margin-bottom: 30px;
+}
+
 .tmbc-blog-gallery {
   padding: clamp(1rem, 3vw, 1.35rem);
   border: 1px solid rgba(215, 161, 175, 0.24);

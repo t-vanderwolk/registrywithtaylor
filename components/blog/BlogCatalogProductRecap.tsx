@@ -11,6 +11,9 @@ type BlogCatalogProductRecapProps = {
   strollerCompatHrefs?: Record<string, string>;
   heading?: string;
   subheading?: string;
+  /** When false, render only the card grid (no section wrapper / heading) so it
+   *  can be dropped inside another section such as Gear Picks / Brand Partners. */
+  showChrome?: boolean;
 };
 
 /**
@@ -25,6 +28,7 @@ export default function BlogCatalogProductRecap({
   strollerCompatHrefs = {},
   heading = 'Shop every stroller in this guide',
   subheading = 'All of the picks above, gathered in one place.',
+  showChrome = true,
 }: BlogCatalogProductRecapProps) {
   const productBlocks = extractStyledBlocks(content).flatMap((block) =>
     block.type === 'catalog-product'
@@ -34,16 +38,9 @@ export default function BlogCatalogProductRecap({
 
   if (productBlocks.length === 0) return null;
 
-  return (
-    <section className="blog-section-soft mt-16 px-6">
-      <div className="space-y-3">
-        <h2 className="font-serif text-[clamp(1.7rem,3vw,2.3rem)] leading-tight tracking-[-0.03em] text-neutral-900">
-          {heading}
-        </h2>
-        <p className="text-charcoal/68">{subheading}</p>
-      </div>
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {productBlocks.map((block, index) =>
+  const grid = (
+    <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3${showChrome ? ' mt-8' : ''}`}>
+      {productBlocks.map((block, index) =>
           block.type === 'catalog-product' ? (
             <BlogCatalogProductCard
               key={`${block.brand}-${block.productName}-${index}`}
@@ -65,7 +62,20 @@ export default function BlogCatalogProductRecap({
             />
           ) : null,
         )}
+    </div>
+  );
+
+  if (!showChrome) return grid;
+
+  return (
+    <section className="blog-section-soft mt-16 px-6">
+      <div className="space-y-3">
+        <h2 className="font-serif text-[clamp(1.7rem,3vw,2.3rem)] leading-tight tracking-[-0.03em] text-neutral-900">
+          {heading}
+        </h2>
+        <p className="text-charcoal/68">{subheading}</p>
       </div>
+      {grid}
     </section>
   );
 }
