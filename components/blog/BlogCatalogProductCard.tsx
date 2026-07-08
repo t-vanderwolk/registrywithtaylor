@@ -6,7 +6,7 @@ import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
 
 type CatalogProductButton = {
-  key: 'babylist' | 'macrobaby' | 'shop' | 'amazon';
+  key: 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
   url: string;
   label: string;
   variant: 'primary' | 'secondary';
@@ -23,6 +23,8 @@ type BlogCatalogProductCardProps = {
   macrobabyUrl?: string | null;
   shopUrl?: string | null;
   shopRetailer?: string | null;
+  shop2Url?: string | null;
+  shop2Retailer?: string | null;
   amazonUrl?: string | null;
   /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
   primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
@@ -81,6 +83,8 @@ export default function BlogCatalogProductCard({
   macrobabyUrl,
   shopUrl,
   shopRetailer,
+  shop2Url,
+  shop2Retailer,
   amazonUrl,
   primaryRetailer,
   openBoxUrl,
@@ -99,9 +103,10 @@ export default function BlogCatalogProductCard({
   if (babylistUrl) available.push({ key: 'babylist', url: babylistUrl, label: 'Add to Babylist' });
   if (macrobabyUrl) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
   if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
+  if (shop2Url) available.push({ key: 'shop2', url: shop2Url, label: shop2Retailer ? `Shop ${shop2Retailer}` : 'Shop now' });
   if (amazonUrl) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
 
-  const defaultOrder: Record<CatalogProductButton['key'], number> = { babylist: 0, macrobaby: 1, shop: 2, amazon: 3 };
+  const defaultOrder: Record<CatalogProductButton['key'], number> = { babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
   available.sort((a, b) => {
     if (primaryRetailer) {
       if (a.key === primaryRetailer && b.key !== primaryRetailer) return -1;

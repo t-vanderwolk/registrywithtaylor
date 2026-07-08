@@ -521,6 +521,8 @@ function renderStyledBlock(
         macrobabyUrl={block.macrobabyUrl}
         shopUrl={block.shopUrl}
         shopRetailer={block.shopRetailer}
+        shop2Url={block.shop2Url}
+        shop2Retailer={block.shop2Retailer}
         amazonUrl={block.amazonUrl}
         primaryRetailer={block.primaryRetailer}
         comingSoon={block.comingSoon}

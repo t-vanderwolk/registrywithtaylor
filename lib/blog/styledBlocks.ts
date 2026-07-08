@@ -79,6 +79,8 @@ export type ParsedStyledBlock =
       macrobabyUrl: string | null;
       shopUrl: string | null;
       shopRetailer: string | null;
+      shop2Url: string | null;
+      shop2Retailer: string | null;
       primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
       imageUrl: string | null;
       price: number | null;
@@ -449,6 +451,8 @@ export function parseStyledBlock(
     let macrobabyUrl: string | null = null;
     let shopUrl: string | null = null;
     let shopRetailer: string | null = null;
+    let shop2Url: string | null = null;
+    let shop2Retailer: string | null = null;
     let primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null = null;
     let imageUrl: string | null = null;
     let price: number | null = null;
@@ -468,6 +472,8 @@ export function parseStyledBlock(
       else if (label === 'macrobaby' || label === 'macrobaby url') macrobabyUrl = value;
       else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = value;
       else if (label === 'retailer' || label === 'shop label') shopRetailer = value;
+      else if (label === 'shop 2' || label === 'shop2' || label === 'shop 2 url') shop2Url = value;
+      else if (label === 'retailer 2' || label === 'shop 2 label' || label === 'shop2 label') shop2Retailer = value;
       else if (label === 'primary' || label === 'primary retailer') {
         const v = value.toLowerCase();
         if (/babylist/.test(v)) primaryRetailer = 'babylist';
@@ -501,6 +507,8 @@ export function parseStyledBlock(
         macrobabyUrl,
         shopUrl,
         shopRetailer,
+        shop2Url,
+        shop2Retailer,
         primaryRetailer,
         imageUrl,
         price,
