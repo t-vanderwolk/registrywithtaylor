@@ -1283,27 +1283,29 @@
 
 .tmbc-inline-image,
 .guide-post-content .guide-inline-image {
-  margin: 42px 0;
-  max-width: min(100%, 52rem);
-  margin-inline: auto;
+  margin: 2.4rem auto;
+  max-width: min(100%, 48rem);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(215, 161, 175, 0.26);
-  border-radius: 30px;
+  border-radius: 26px;
   background:
     radial-gradient(circle at top right, rgba(244, 194, 194, 0.18) 0%, rgba(244, 194, 194, 0) 36%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 242, 236, 0.98) 100%);
-  padding: 16px;
-  box-shadow: 0 24px 60px rgba(70, 53, 58, 0.06);
+  padding: 14px;
+  box-shadow: 0 20px 48px rgba(70, 53, 58, 0.07);
 }
 
+/* Uniform image height so photos from different retailers stop looking mismatched;
+   contain keeps the whole product visible on the soft frame. */
 .tmbc-inline-image__asset,
 .guide-post-content .guide-inline-image__asset {
   display: block;
   width: 100%;
+  aspect-ratio: 3 / 2;
   height: auto;
-  max-height: min(72vh, 760px);
-  border-radius: 20px;
+  max-height: min(58vh, 560px);
+  border-radius: 18px;
   object-fit: contain;
   background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(251,246,242,0.98) 100%);
   margin: 0;
@@ -1311,8 +1313,26 @@
 
 .tmbc-inline-image__caption,
 .guide-post-content .guide-inline-image__caption {
-  margin-top: 14px;
-  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 72%, white 28%);
+  margin-top: 12px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 62%, white 38%);
+}
+
+/* Pull-quotes read as a deliberate editorial beat: rose→gold accent bar, warm
+   ink, and a quieter uppercase attribution. */
+.tmbc-blog-post-content .tmbc-pullquote {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, rgba(232, 154, 174, 0.95), rgba(196, 156, 94, 0.55)) 1;
+  margin-block: 2.6rem;
+}
+.tmbc-blog-post-content .tmbc-pullquote__text {
+  color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 88%, white 12%);
+}
+.tmbc-blog-post-content .tmbc-pullquote__attribution {
+  color: var(--color-accent-dark);
 }
 
 .tmbc-inline-image--placeholder,

@@ -791,6 +791,16 @@ export default function PostContent({
               </figure>,
             );
             i += 1;
+            // Drop a redundant italic caption line that just repeats the alt text
+            // (authored as "![alt](url)" followed by "*alt*"), so it isn't shown twice.
+            if (imageDescription) {
+              let k = i;
+              while (k < lines.length && !(lines[k]?.trim() ?? '')) k += 1;
+              const italicMatch = (lines[k]?.trim() ?? '').match(/^\*([^*].*?)\*$/);
+              if (italicMatch && italicMatch[1].trim().toLowerCase() === imageDescription.trim().toLowerCase()) {
+                i = k + 1;
+              }
+            }
             continue;
           }
 
