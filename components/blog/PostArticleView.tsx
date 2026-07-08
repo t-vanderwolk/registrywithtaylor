@@ -476,7 +476,11 @@ export default async function PostArticleView({
       affiliateCta={
         catalogProductCount > 0 || post.affiliateBrands.length > 0 ? (
           <>
-            <BlogCatalogProductRecap content={articleContent} productCatalogMap={productCatalogMap} />
+            <BlogCatalogProductRecap
+              content={articleContent}
+              productCatalogMap={productCatalogMap}
+              heading={post.title}
+            />
             {post.affiliateBrands.length > 0 ? (
           <div className="blog-section-soft mt-16 px-6">
             <div className="space-y-4">
