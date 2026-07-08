@@ -3465,10 +3465,17 @@ img {
   padding-top: 0.75rem;
 }
 .tool-product-card--inline .tool-product-card__actions > a[class*="tool-btn"] {
+  order: 1;
   flex: 1 1 12rem;
 }
+/* Compat link is always its own full-width row inside the card, directly under
+   the affiliate buttons — never beside or outside them. */
 .tool-product-card--inline .blog-product-card__compat {
-  flex-basis: 100%;
+  order: 2;
+  flex: 0 0 100%;
+  width: 100%;
+  align-self: flex-start;
+  margin-top: 0.4rem;
 }
 @media (max-width: 640px) {
   .tool-product-card--inline {
@@ -3488,13 +3495,8 @@ img {
     flex: 0 0 auto;
     width: 100%;
   }
-  /* Compat link stacks under the buttons inside the card, content-width and
-     left-aligned — exactly like the Gear Picks grid cards. */
+  /* Compat link: full-width row under the buttons, inside the card. */
   .tool-product-card--inline .blog-product-card__compat {
-    flex: 0 0 auto;
-    flex-basis: auto;
-    width: auto;
-    align-self: flex-start;
     margin-top: 0.55rem;
   }
 }
