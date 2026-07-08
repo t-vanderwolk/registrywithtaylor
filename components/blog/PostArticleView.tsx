@@ -29,6 +29,7 @@ import { resolveBlogStrollerCompatHrefs } from '@/lib/server/blogStrollerCompat'
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
 import BlogReveal from '@/components/blog/BlogReveal';
+import BlogMarginNotes from '@/components/blog/BlogMarginNotes';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import AffiliateLogoBadge from '@/components/ui/AffiliateLogoBadge';
@@ -421,6 +422,7 @@ export default async function PostArticleView({
               goodBuyGearOffers={goodBuyGearOffers}
             />
             <BlogReveal />
+            <BlogMarginNotes seed={post.slug} />
           </div>
         </div>
       }

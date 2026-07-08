@@ -76,7 +76,7 @@ export default function TMBCBlogTemplate({
                 <CategoryTag label={categoryLabel} />
               </div>
               <div className="tmbc-blog-hero__copy">
-                <h1 className="text-[var(--tmbc-blog-charcoal)]">{title}</h1>
+                <h1>{title}</h1>
                 {subtitle ? <p className="excerpt">{subtitle}</p> : null}
               </div>
 
