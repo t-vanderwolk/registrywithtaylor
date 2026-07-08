@@ -9,6 +9,7 @@ type BlogCatalogProductRecapProps = {
   content: string;
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   strollerCompatHrefs?: Record<string, string>;
+  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
   heading?: string;
   subheading?: string;
   /** When false, render only the card grid (no section wrapper / heading) so it
@@ -26,6 +27,7 @@ export default function BlogCatalogProductRecap({
   content,
   productCatalogMap = {},
   strollerCompatHrefs = {},
+  goodBuyGearOffers = {},
   heading = 'Shop every stroller in this guide',
   subheading = 'All of the picks above, gathered in one place.',
   showChrome = true,
@@ -58,6 +60,8 @@ export default function BlogCatalogProductRecap({
               primaryRetailer={block.primaryRetailer}
               comingSoon={block.comingSoon}
               compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
+              openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
+              openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
               position={index + 1}
             />
           ) : null,

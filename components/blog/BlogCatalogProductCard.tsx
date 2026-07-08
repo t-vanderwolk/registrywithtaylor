@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
-import { AmazonMark, BabylistHeartIcon } from '@/components/tools/StrollerCatalogFinder';
+import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
 
 type CatalogProductButton = {
   key: 'babylist' | 'macrobaby' | 'shop' | 'amazon';
@@ -26,6 +26,9 @@ type BlogCatalogProductCardProps = {
   amazonUrl?: string | null;
   /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
   primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
+  /** GoodBuy Gear open-box offer, if this product has a matching one. */
+  openBoxUrl?: string | null;
+  openBoxPrice?: number | null;
   comingSoon?: boolean;
   /** Travel-system checker results href for this stroller (compatible car seats). */
   compatHref?: string | null;
@@ -80,6 +83,8 @@ export default function BlogCatalogProductCard({
   shopRetailer,
   amazonUrl,
   primaryRetailer,
+  openBoxUrl,
+  openBoxPrice,
   comingSoon = false,
   compatHref,
   layout = 'grid',
@@ -126,6 +131,9 @@ export default function BlogCatalogProductCard({
     >
       <div className={`tool-card__media tool-product-card__media${isInline ? ' tool-product-card__media--compact' : ''}`}>
         {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
+        {!comingSoon && (openBoxUrl || openBoxPrice != null) ? (
+          <OpenBoxBadge offer={{ url: openBoxUrl ?? null, price: openBoxPrice ?? null }} />
+        ) : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={imageUrl} alt={fullName} className="tool-product-card__image" />

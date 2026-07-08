@@ -26,6 +26,7 @@ import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
 import { resolveBlogStrollerCompatHrefs } from '@/lib/server/blogStrollerCompat';
+import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
 import TMBCBlogTemplate from '@/components/blog/TMBCBlogTemplate';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
@@ -303,7 +304,7 @@ export default async function PostArticleView({
     block.type === 'catalog-product' ? [{ brand: block.brand, productName: block.productName }] : [],
   );
   const catalogProductCount = catalogProductBlockRefs.length;
-  const [productCatalogMap, strollerCompatHrefs] = await Promise.all([
+  const [productCatalogMap, strollerCompatHrefs, goodBuyGearOffers] = await Promise.all([
     resolveBlogProductCatalogLinks(
       articleStyledBlocks.flatMap((block) =>
         block.type === 'product' || block.type === 'catalog-product'
@@ -312,6 +313,7 @@ export default async function PostArticleView({
       ),
     ),
     resolveBlogStrollerCompatHrefs(catalogProductBlockRefs),
+    resolveBlogGoodBuyGearOffers(catalogProductBlockRefs),
   ]);
   const serializedCtaPartners = Object.fromEntries(
     Array.from(ctaPartnerLookup.entries()).map(([partnerId, partner]) => [
@@ -415,6 +417,7 @@ export default async function PostArticleView({
               contextualInternalLinks={internalLinkPlan.contextualLinks}
               productCatalogMap={productCatalogMap}
               strollerCompatHrefs={strollerCompatHrefs}
+              goodBuyGearOffers={goodBuyGearOffers}
             />
           </div>
         </div>
@@ -495,6 +498,7 @@ export default async function PostArticleView({
                 content={articleContent}
                 productCatalogMap={productCatalogMap}
                 strollerCompatHrefs={strollerCompatHrefs}
+                goodBuyGearOffers={goodBuyGearOffers}
                 showChrome={false}
               />
             </div>

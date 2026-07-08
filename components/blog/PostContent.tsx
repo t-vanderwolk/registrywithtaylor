@@ -62,6 +62,8 @@ type PostContentProps = {
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   /** Travel-system checker hrefs keyed by blogProductKey(brand, productName). */
   strollerCompatHrefs?: Record<string, string>;
+  /** GoodBuy Gear open-box offers keyed by blogProductKey(brand, productName). */
+  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -380,6 +382,7 @@ function renderStyledBlock(
   index: number,
   highlightBrandWordmark = false,
   strollerCompatHrefs: Record<string, string> = {},
+  goodBuyGearOffers: Record<string, { url: string | null; price: number | null }> = {},
 ) {
   if (block.type === 'callout') {
     return (
@@ -522,6 +525,8 @@ function renderStyledBlock(
         primaryRetailer={block.primaryRetailer}
         comingSoon={block.comingSoon}
         compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
+        openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
+        openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
         layout="inline"
         position={index + 1}
       />
@@ -563,6 +568,7 @@ export default function PostContent({
   contextualInternalLinks = [],
   productCatalogMap = {},
   strollerCompatHrefs = {},
+  goodBuyGearOffers = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
   const storedButtonMap = new Map(storedButtons.buttons.map((button) => [button.id, button]));
@@ -660,7 +666,7 @@ export default function PostContent({
           }
 
           if (styledBlock) {
-            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i, false, strollerCompatHrefs));
+            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i, false, strollerCompatHrefs, goodBuyGearOffers));
             i = styledBlock.nextIndex;
             continue;
           }
