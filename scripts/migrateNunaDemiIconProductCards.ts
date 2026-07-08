@@ -28,6 +28,10 @@ const APPLY = process.argv.includes('--apply');
 const BRAND = 'Nuna';
 const PRODUCT = 'DEMI Icon';
 
+// Per request, the DEMI Icon card links to Babylist ONLY (no MacroBaby / Albee).
+const BABYLIST_URL =
+  'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-demi-icon%2F81555%2F3142525&partnerpropertyid=7490466';
+
 const IMAGE_LINE = /^!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)\s*$/;
 const MD_LINK = /(!?)\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
 const IMAGE_HOST_OR_EXT = /(media-amazon|images-amazon|\.(?:jpg|jpeg|png|webp|gif|svg)(?:$|\?))/i;
@@ -62,11 +66,9 @@ function affiliateOnlyLine(raw: string): Record<string, string> | null {
 }
 
 function buildBlock(links: Record<string, string>, imageUrl: string | null): string {
+  // Babylist only — no MacroBaby, Amazon, or brand-direct buttons.
   const out = [':::catalog-product', `Brand: ${BRAND}`, `Product: ${PRODUCT}`];
-  if (links.babylist) out.push(`Babylist: ${links.babylist}`);
-  if (links.macrobaby) out.push(`MacroBaby: ${links.macrobaby}`);
-  if (links.amazon) out.push(`Amazon: ${links.amazon}`);
-  if (links.shop) out.push(`Shop: ${links.shop}`);
+  out.push(`Babylist: ${links.babylist ?? BABYLIST_URL}`);
   if (imageUrl) out.push(`Image: ${imageUrl}`);
   out.push(':::');
   return out.join('\n');

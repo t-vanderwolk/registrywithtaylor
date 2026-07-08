@@ -14,11 +14,14 @@ export function enrichProductBlockWithCatalog(
     const match = catalogMap[blogProductKey(block.brand, block.productName)];
     if (!match || !match.affiliateUrl) return block;
 
-    const retailerIsMacro = (match.retailer ?? '').toLowerCase() === 'macrobaby';
+    // Decide by the actual buy-link domain, not the price-derived retailer label:
+    // a Babylist link whose PRICE happened to come from a MacroBaby row must still
+    // fill the Babylist slot, never sprout a MacroBaby button pointing at Babylist.
+    const affiliateIsMacro = /macrobaby\.com/i.test(match.affiliateUrl ?? '');
     return {
       ...block,
-      babylistUrl: block.babylistUrl ?? (retailerIsMacro ? null : match.affiliateUrl),
-      macrobabyUrl: block.macrobabyUrl ?? (retailerIsMacro ? match.affiliateUrl : null),
+      babylistUrl: block.babylistUrl ?? (affiliateIsMacro ? null : match.affiliateUrl),
+      macrobabyUrl: block.macrobabyUrl ?? (affiliateIsMacro ? match.affiliateUrl : null),
       // The card uses the SAME image the Resource tools use — the catalogue
       // (Babylist/MacroBaby) image — and only falls back to a manually-authored
       // image when the product isn't in the catalogue (e.g. Thule, coming-soon).
