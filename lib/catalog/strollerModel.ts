@@ -30,6 +30,10 @@ export function parseStrollerModel(title: string, brand: string): string {
   m = m.replace(/\b(?:compact|lightweight|full.?size|jogging|all.?terrain|reversible)\b/gi, '');
   m = m.replace(/\be[-\s]?gazelle\b/gi, 'e-Gazelle');
   m = m.replace(/\be[-\s]?priam\b/gi, 'e-Priam');
+  // Collapse every Priam generation / trim ("Priam 4", "PRIAM", "Priam Comfort")
+  // into one clean "Priam" card. e-Priam is normalized above and left as-is.
+  // (\s* tolerates the leading space left by the brand strip, before the final trim.)
+  m = m.replace(/^\s*priam\b.*$/i, 'Priam');
   return m.replace(/\s{2,}/g, ' ').trim();
 }
 
