@@ -241,28 +241,31 @@ async function main() {
       continue;
     }
 
-    // Rebuild the section: KEEP the hero image (the card floats beside the prose,
-    // it no longer replaces the photo) and drop only the consumed cta-slot lines +
-    // link-only inline lines. The card is inserted right AFTER the hero image so it
-    // floats right and the following paragraphs wrap around it; if there's no hero
-    // image it goes right after the heading.
+    // Rebuild the section: KEEP every product image (restore the first, keep the
+    // second) and drop only the consumed cta-slot lines + link-only inline lines.
+    // The card is inserted right AFTER the LAST image, so each stroller reads
+    // image → image → card. If there's no image, the card goes after the heading.
     const kept: string[] = [lines[headingIndex]];
-    let heroKeptAt = -1;
+    let lastImageAt = -1;
+    let imageCount = 0;
     for (let i = headingIndex + 1; i < end; i += 1) {
       const raw = lines[i] ?? '';
       if (slotLineIndexes.has(i)) continue;
-      if (heroKeptAt === -1 && IMAGE_LINE.test(raw.trim())) {
-        kept.push(raw);
-        heroKeptAt = kept.length - 1; // remember where the image landed
-        continue;
+      const isImage = IMAGE_LINE.test(raw.trim());
+      if (!isImage) {
+        // Drop a line that was ONLY inline affiliate links (rare fallback path).
+        const linkStripped = raw.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
+        if (linkStripped.length === 0 && /\]\((https?:\/\/[^)\s]+)\)/.test(raw)) continue;
       }
-      // Drop a line that was ONLY inline affiliate links (rare fallback path).
-      const linkStripped = raw.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
-      if (linkStripped.length === 0 && /\]\((https?:\/\/[^)\s]+)\)/.test(raw) && !raw.trim().startsWith('!')) continue;
       kept.push(raw);
+      if (isImage) {
+        lastImageAt = kept.length - 1;
+        imageCount += 1;
+      }
     }
-    const insertAt = heroKeptAt >= 0 ? heroKeptAt + 1 : 1;
+    const insertAt = lastImageAt >= 0 ? lastImageAt + 1 : 1;
     kept.splice(insertAt, 0, '', buildBlock(cfg, links, imageUrl), '');
+    notes.push(`• ${cfg.brand} ${cfg.productName}: ${imageCount} product image${imageCount === 1 ? '' : 's'} kept, card placed after the last image.`);
 
     lines.splice(headingIndex, end - headingIndex, ...kept);
     sectionSlotButtonUrls.forEach((url) => consumedButtonUrls.add(url));
