@@ -3415,6 +3415,15 @@ img {
 .blog-product-card .tool-product-card__image {
   transition: transform 0.4s ease;
 }
+/* Tuck the open-box badge into the top-left corner and shrink it so it clears the
+   centered product photo instead of sitting on top of it. */
+.blog-product-card .tool-open-box-badge {
+  top: 0.4rem;
+  left: 0.4rem;
+  right: auto;
+  transform: scale(0.8);
+  transform-origin: top left;
+}
 
 /* Not floated: the inline card sits in the flow as a centered, full-width product
    banner (image left, details right). This avoids the empty void a tall float
@@ -3445,7 +3454,8 @@ img {
   padding: 1.1rem 1.3rem;
 }
 .tool-product-card--inline .tool-product-card__title {
-  font-size: 1.16rem;
+  font-size: 1.18rem;
+  font-weight: 720;
 }
 /* Buttons sit side by side across the wider banner, compat link on its own row. */
 .tool-product-card--inline .tool-product-card__actions {

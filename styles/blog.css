@@ -53,6 +53,7 @@
 .tmbc-blog h2 {
   font-family: var(--tmbc-blog-headline, "Playfair Display", serif);
   font-size: clamp(1.95rem, 3.2vw, 2.45rem);
+  font-weight: 680;
   line-height: 1.12;
   letter-spacing: -0.03em;
   margin-top: 2.8rem;
@@ -74,6 +75,7 @@
 .tmbc-blog h3 {
   font-family: var(--tmbc-blog-headline, "Playfair Display", serif);
   font-size: clamp(1.45rem, 2.5vw, 1.85rem);
+  font-weight: 640;
   line-height: 1.22;
   letter-spacing: -0.02em;
   margin-top: 40px;
@@ -356,6 +358,7 @@
 .tmbc-blog-hero h1 {
   font-family: var(--tmbc-blog-headline, "Playfair Display", serif);
   font-size: clamp(2.65rem, 5vw, 4.1rem);
+  font-weight: 720;
   line-height: 1.04;
   letter-spacing: -0.045em;
   margin: 0;
@@ -606,7 +609,7 @@
 .tmbc-blog.tmbc-blog--wide {
   width: 100%;
   max-width: min(100%, 80ch);
-  margin: 0;
+  margin-inline: auto;
 }
 
 .tmbc-blog-post-content > p:first-of-type {
