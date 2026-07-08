@@ -11,7 +11,7 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 import { GET as getCarSeatCatalog } from '@/app/api/catalog/carseats/route';
 import { GET as getStrollerCatalog } from '@/app/api/catalog/strollers/route';
-import { markReviewedFromHealth, hideFromHealth, unhideFromHealth, deleteFromHealth } from './actions';
+import { markReviewedFromHealth, hideFromHealth, unhideFromHealth, deleteFromHealth, setImageFromHealth } from './actions';
 
 const ACTION_BTN = 'rounded-full border border-neutral-200 px-2.5 py-1 text-[0.66rem] font-semibold text-neutral-600 transition hover:border-neutral-300';
 const ACTION_BTN_DANGER = 'rounded-full border border-red-200 px-2.5 py-1 text-[0.66rem] font-semibold text-red-600 transition hover:border-red-300';
@@ -234,6 +234,19 @@ export default async function CatalogHealthPage() {
                             <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
                           </div>
                         </div>
+                        {!row.imageUrl ? (
+                          <form action={setImageFromHealth} className="mt-2 flex items-center gap-1.5">
+                            <input type="hidden" name="id" value={row.id} />
+                            <input
+                              type="url"
+                              name="imageUrl"
+                              required
+                              placeholder="Paste image URL…"
+                              className="w-full max-w-[16rem] rounded-full border border-neutral-200 px-2.5 py-1 text-[0.7rem]"
+                            />
+                            <button type="submit" className={ACTION_BTN}>Add image</button>
+                          </form>
+                        ) : null}
                       </td>
                       <td><StatusBadge status={row.enrichment?.reviewStatus ?? 'UNKNOWN'} /></td>
                       <td>

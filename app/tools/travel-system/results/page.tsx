@@ -245,6 +245,19 @@ function SelectedSummaryCard({
   const imageAlt = option.babylistImage || option.macroBabyImage ? option.displayName : resolvedImage?.alt;
   const displayTitle = displayNameWithoutBrand(option.displayName, option.brand);
 
+  // The selected product keeps its own affiliate CTA right next to its summary,
+  // so a reader can buy the exact stroller / seat they came to check.
+  const selectedBabylistUrl =
+    option.babylistUrl || option.babylistPrice != null
+      ? babylistAffiliateUrl(option.brand, option.model, kind, option.babylistUrl)
+      : null;
+  const selectedPrimaryCta = selectedBabylistUrl
+    ? { label: 'Babylist', url: selectedBabylistUrl, source: 'babylist' as const }
+    : option.macroBabyUrl
+      ? { label: 'MacroBaby', url: option.macroBabyUrl, source: 'macrobaby' as const }
+      : null;
+  const selectedAmazonUrl = selectedPrimaryCta ? option.amazonUrl ?? null : null;
+
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">
       <div className="tool-product-card__media min-h-[11rem] rounded-[1.2rem] border border-[rgba(215,161,175,0.14)]">
@@ -270,6 +283,36 @@ function SelectedSummaryCard({
         </div>
         {!hideSummary && option.summary ? (
           <p className="mt-4 max-w-3xl text-sm leading-7 text-neutral-600">{option.summary}</p>
+        ) : null}
+
+        {selectedPrimaryCta ? (
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <ToolAffiliateLink
+              tool="travel-system-checker"
+              href={selectedPrimaryCta.url}
+              product={`${option.brand} ${displayTitle}`.trim()}
+              retailer={selectedPrimaryCta.source}
+              brand={option.brand}
+              className="tool-btn tool-btn--primary min-h-0 px-4 py-2.5 text-[0.72rem]"
+              ariaLabel={`Shop ${option.displayName} on ${selectedPrimaryCta.label}`}
+            >
+              {selectedPrimaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
+              {selectedPrimaryCta.label}
+            </ToolAffiliateLink>
+            {selectedAmazonUrl ? (
+              <ToolAffiliateLink
+                tool="travel-system-checker"
+                href={selectedAmazonUrl}
+                product={`${option.brand} ${displayTitle}`.trim()}
+                retailer="amazon"
+                brand={option.brand}
+                className="tool-btn tool-btn--secondary min-h-0 px-4 py-2.5 text-[0.72rem]"
+                ariaLabel={`Shop ${option.displayName} on Amazon`}
+              >
+                <AmazonMark />
+              </ToolAffiliateLink>
+            ) : null}
+          </div>
         ) : null}
       </div>
     </section>

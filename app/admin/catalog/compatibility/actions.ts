@@ -121,6 +121,26 @@ export async function saveCompatibility(formData: FormData) {
   revalidateCompatibilityViews();
 }
 
+/** Set a stroller's product image (babylistImage) — for strollers missing one. */
+export async function saveStrollerImage(formData: FormData) {
+  await requireAdminSession('/admin/catalog/compatibility');
+  const strollerId = stringField(formData, 'strollerId');
+  const imageUrl = stringField(formData, 'imageUrl');
+  if (!strollerId || !imageUrl || !/^https?:\/\//i.test(imageUrl)) return;
+  await db.stroller.update({ where: { id: strollerId }, data: { babylistImage: imageUrl } });
+  revalidateCompatibilityViews();
+}
+
+/** Set an infant car seat's product image (babylistImage) — for seats missing one. */
+export async function saveCarSeatImage(formData: FormData) {
+  await requireAdminSession('/admin/catalog/compatibility');
+  const carSeatId = stringField(formData, 'carSeatId');
+  const imageUrl = stringField(formData, 'imageUrl');
+  if (!carSeatId || !imageUrl || !/^https?:\/\//i.test(imageUrl)) return;
+  await db.carSeat.update({ where: { id: carSeatId }, data: { babylistImage: imageUrl } });
+  revalidateCompatibilityViews();
+}
+
 export async function deleteCompatibility(formData: FormData) {
   await requireAdminSession('/admin/catalog/compatibility');
 

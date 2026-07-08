@@ -58,6 +58,17 @@ export async function unhideFromHealth(formData: FormData) {
   revalidate();
 }
 
+/** Set (or replace) a catalog product's image URL — for products missing one. */
+export async function setImageFromHealth(formData: FormData) {
+  await requireAdminSession('/admin/catalog/health');
+  const productId = id(formData);
+  const rawImage = formData.get('imageUrl');
+  const imageUrl = rawImage == null ? '' : String(rawImage).trim();
+  if (!productId || !/^https?:\/\//i.test(imageUrl)) return;
+  await db.affiliateCatalogProduct.update({ where: { id: productId }, data: { imageUrl } });
+  revalidate();
+}
+
 /** Delete a catalog product entirely (enrichment cascades). */
 export async function deleteFromHealth(formData: FormData) {
   await requireAdminSession('/admin/catalog/health');

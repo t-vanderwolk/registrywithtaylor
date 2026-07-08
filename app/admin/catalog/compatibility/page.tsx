@@ -10,7 +10,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTextarea from '@/components/admin/ui/AdminTextarea';
 import { requireAdminSession } from '@/lib/server/session';
 import { resolveCompatibilityCarSeatImage, resolveProductCardImage } from '@/lib/blog/productCardImages';
-import { deleteCompatibility, saveCompatibility } from './actions';
+import { deleteCompatibility, saveCompatibility, saveStrollerImage, saveCarSeatImage } from './actions';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Compatibility · Admin', robots: { index: false, follow: false } };
@@ -109,6 +109,70 @@ function Badge({ type }: { type: string }) {
   );
 }
 
+const IMG_ROW_BTN =
+  'shrink-0 rounded-full border border-neutral-200 px-2.5 py-1 text-[0.66rem] font-semibold text-neutral-600 transition hover:border-neutral-300';
+
+// Lets an admin paste a product image URL for any stroller / infant seat that has
+// none yet — those otherwise fall back to a generic image in the public tools.
+function MissingImagesSection({
+  strollers,
+  carSeats,
+}: {
+  strollers: StrollerOption[];
+  carSeats: CarSeatOption[];
+}) {
+  if (strollers.length === 0 && carSeats.length === 0) return null;
+
+  const row = (
+    kind: 'stroller' | 'carSeat',
+    item: StrollerOption | CarSeatOption,
+  ) => (
+    <form
+      key={`${kind}-${item.id}`}
+      action={kind === 'stroller' ? saveStrollerImage : saveCarSeatImage}
+      className="flex items-center gap-2 rounded-[12px] border border-[var(--admin-color-border)] bg-white px-3 py-2"
+    >
+      <input type="hidden" name={kind === 'stroller' ? 'strollerId' : 'carSeatId'} value={item.id} />
+      <span className="min-w-0 flex-1 truncate text-admin">{productLabel(item)}</span>
+      <input
+        type="url"
+        name="imageUrl"
+        required
+        placeholder="Paste image URL…"
+        className="w-[15rem] max-w-[42vw] rounded-full border border-neutral-200 px-2.5 py-1 text-[0.7rem]"
+      />
+      <button type="submit" className={IMG_ROW_BTN}>Save</button>
+    </form>
+  );
+
+  return (
+    <AdminSurface className="admin-stack gap-4">
+      <div className="admin-stack gap-1">
+        <p className="admin-eyebrow">Product images</p>
+        <h2 className="admin-h2">Add missing product images</h2>
+        <p className="admin-body">
+          These strollers and infant seats have no product image yet, so the public tools fall back to a generic
+          picture. Paste a direct image URL to fix each one.
+        </p>
+      </div>
+
+      {strollers.length > 0 ? (
+        <div className="admin-stack gap-2">
+          <p className="admin-eyebrow">Strollers ({strollers.length})</p>
+          {strollers.map((item) => row('stroller', item))}
+        </div>
+      ) : null}
+
+      {carSeats.length > 0 ? (
+        <div className="admin-stack gap-2">
+          <p className="admin-eyebrow">Infant car seats ({carSeats.length})</p>
+          {carSeats.map((item) => row('carSeat', item))}
+        </div>
+      ) : null}
+    </AdminSurface>
+  );
+}
+
 export default async function AdminCatalogCompatibilityPage({ searchParams }: { searchParams?: SearchParams }) {
   await requireAdminSession('/admin/catalog/compatibility');
 
@@ -187,6 +251,12 @@ export default async function AdminCatalogCompatibilityPage({ searchParams }: { 
               </div>
               <CompatibilityForm mode="create" strollers={data.strollers} carSeats={data.carSeats} adapters={data.adapters} />
             </AdminSurface>
+
+            {/* ── Missing product images ─────────────────────────────── */}
+            <MissingImagesSection
+              strollers={data.strollers.filter((s) => !s.babylistImage)}
+              carSeats={data.carSeats.filter((s) => !s.babylistImage)}
+            />
 
             {/* ── Filter ─────────────────────────────────────────────── */}
             <AdminSurface className="admin-stack gap-3">

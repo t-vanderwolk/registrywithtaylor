@@ -17,6 +17,7 @@ import type { BlogAuthorProfile } from '@/lib/server/blogAuthors';
 import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
 import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
 import BlogShareBar from '@/components/blog/BlogShareBar';
+import BlogCatalogProductRecap from '@/components/blog/BlogCatalogProductRecap';
 import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
 import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import BlogArticleCompass from '@/components/blog/BlogArticleCompass';
@@ -296,8 +297,10 @@ export default async function PostArticleView({
 
   // Wire blog product cards to the affiliate catalogue: match each product block
   // to a catalog row and pass the live buy link + image + price down to the cards.
+  const articleStyledBlocks = extractStyledBlocks(articleContent);
+  const catalogProductCount = articleStyledBlocks.filter((block) => block.type === 'catalog-product').length;
   const productCatalogMap = await resolveBlogProductCatalogLinks(
-    extractStyledBlocks(articleContent).flatMap((block) =>
+    articleStyledBlocks.flatMap((block) =>
       block.type === 'product' || block.type === 'catalog-product'
         ? [{ brand: block.brand, productName: block.productName }]
         : [],
@@ -471,7 +474,10 @@ export default async function PostArticleView({
         ) : undefined
       }
       affiliateCta={
-        post.affiliateBrands.length > 0 ? (
+        catalogProductCount > 0 || post.affiliateBrands.length > 0 ? (
+          <>
+            <BlogCatalogProductRecap content={articleContent} productCatalogMap={productCatalogMap} />
+            {post.affiliateBrands.length > 0 ? (
           <div className="blog-section-soft mt-16 px-6">
             <div className="space-y-4">
               <H2 className="font-serif text-neutral-900">Gear Picks / Brand Partners</H2>
@@ -527,6 +533,8 @@ export default async function PostArticleView({
               })}
             </div>
           </div>
+            ) : null}
+          </>
         ) : undefined
       }
       discussionSection={commentsSection}
