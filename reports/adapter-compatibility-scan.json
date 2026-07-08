@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-08T02:12:35.291Z",
+  "generatedAt": "2026-07-08T20:56:50.975Z",
   "totals": {
     "adapterProducts": 149,
-    "adaptersWithMatchedStroller": 84,
+    "adaptersWithMatchedStroller": 85,
     "adaptersNamingSeatBrand": 117,
-    "strollerRows": 260,
+    "strollerRows": 267,
     "infantCarSeatRows": 61,
-    "candidatePairs": 715,
-    "newToWrite": 0,
+    "candidatePairs": 731,
+    "newToWrite": 16,
     "alreadyPresent": 715,
     "existingGeneratedRowsWithoutCurrentAdapterMatch": 0,
     "generatedRowsToPrune": 0
@@ -78,6 +78,7 @@
     {
       "title": "Bumbleride Indie Twin Car Seat Adapter, Set",
       "strollers": [
+        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -88,6 +89,7 @@
     {
       "title": "Bumbleride Indie Twin Car Seat Adapter, Single",
       "strollers": [
+        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -657,6 +659,7 @@
     {
       "title": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
       "strollers": [
+        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -669,6 +672,7 @@
     {
       "title": "BUMBLERIDE Indie Twin Adapter SET – Maxi Cosi / Cybex / Nuna / Clek",
       "strollers": [
+        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -871,7 +875,9 @@
     },
     {
       "title": "Cybex Avi Jogging Stroller Car Seat Adapter",
-      "strollers": [],
+      "strollers": [
+        "Cybex AVI [model: avi]"
+      ],
       "seatBrands": []
     },
     {
@@ -1349,6 +1355,135 @@
       "seatBrands": []
     }
   ],
-  "newCompatibilityRows": [],
+  "newCompatibilityRows": [
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Clek Liing",
+      "adapterTitle": "Bumbleride Indie Twin Car Seat Adapter, Set",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2230680&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-car-seat-adapter-set%2F65697%2F2230680&intsrc=CATF_8981",
+      "adapterPrice": 110
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Nuna PIPA Aire",
+      "adapterTitle": "Bumbleride Indie Twin Car Seat Adapter, Set",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2230680&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-car-seat-adapter-set%2F65697%2F2230680&intsrc=CATF_8981",
+      "adapterPrice": 110
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Nuna PIPA RX",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Cybex Aton G",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Clek Liingo",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Cybex Aton G2",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Cybex Cloud G Pro Comfort Extend",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Nuna PIPA Aire rx",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Nuna PIPA urbn",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Cybex Cloud T Comfort Extend",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    },
+    {
+      "stroller": "Bumbleride Indie Twin Double",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
+      "adapterPrice": 49
+    }
+  ],
   "existingGeneratedRowsWithoutCurrentAdapterMatch": []
 }
