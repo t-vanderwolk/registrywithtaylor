@@ -1,12 +1,14 @@
 /**
- * Replace every inline Nuna DEMI Icon affiliate-link pair in
- * nuna-demi-icon-has-arrived with a `:::catalog-product` card.
+ * Replace every Nuna DEMI Icon affiliate CTA in nuna-demi-icon-has-arrived with a
+ * `:::catalog-product` card that links to Babylist ONLY (no MacroBaby / Albee).
  *
- * This is a single-product review: the same Babylist + MacroBaby link pair
- * repeats after the images in ~9 sections. Each pair becomes one DEMI Icon card
- * (float-right, in place where the links were). The card resolves its image +
- * live price from the affiliate catalogue; the block Image line is a fallback.
- * The end-of-post "Gear Picks / Brand Partners" recap dedupes to one card.
+ * This is a single-product review: the same Babylist + MacroBaby CTA repeats after
+ * the images in ~9 sections. Those CTAs live in the post's CTA-button store as
+ * `::cta-slot <id>` tokens (not inline markdown), so this reads the store, finds
+ * each run of buy-link slots (also handling any inline links), and swaps it for one
+ * DEMI Icon card in place. The card resolves its image + live price from the
+ * catalogue; the block Image line is a fallback. Consumed buttons are removed from
+ * the store. The end-of-post Gear Picks recap dedupes to one card.
  *
  * Safe + idempotent: bails if the post already has a catalog-product block.
  *
@@ -18,6 +20,7 @@
  *     npx tsx scripts/migrateNunaDemiIconProductCards.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
+import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
@@ -36,39 +39,36 @@ const IMAGE_LINE = /^!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)\s*$/;
 const MD_LINK = /(!?)\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
 const IMAGE_HOST_OR_EXT = /(media-amazon|images-amazon|\.(?:jpg|jpeg|png|webp|gif|svg)(?:$|\?))/i;
 
-function classifyUrl(url: string): 'babylist' | 'amazon' | 'macrobaby' | 'shop' | null {
-  if (IMAGE_HOST_OR_EXT.test(url)) return null;
+function isBuyUrl(url: string): boolean {
+  if (IMAGE_HOST_OR_EXT.test(url)) return false;
   const u = url.toLowerCase();
-  if (u.includes('babylist.pxf.io') || u.includes('babylist.com')) return 'babylist';
-  if (u.includes('amzn.to') || /amazon\.[a-z.]+\//.test(u)) return 'amazon';
-  if (u.includes('macrobaby.com')) return 'macrobaby';
-  if (/ref=|affiliate_pid=|aff=|utm_|impact|pjatr|prf\.hn|sjv\.io|\.pxf\.io|awin1\.|awinmid=|_j=/.test(u)) return 'shop';
-  return null;
+  return (
+    u.includes('babylist.pxf.io') ||
+    u.includes('babylist.com') ||
+    u.includes('amzn.to') ||
+    /amazon\.[a-z.]+\//.test(u) ||
+    u.includes('macrobaby.com') ||
+    /ref=|affiliate_pid=|aff=|utm_|impact|pjatr|prf\.hn|sjv\.io|\.pxf\.io|awin1\.|awinmid=|_j=/.test(u)
+  );
 }
 
-/** A line that is ONLY affiliate markdown links (no prose). Returns its links. */
-function affiliateOnlyLine(raw: string): Record<string, string> | null {
+/** A line that is ONLY affiliate markdown links (no prose). */
+function isInlineBuyLine(raw: string): boolean {
   MD_LINK.lastIndex = 0;
-  const links: Record<string, string> = {};
-  let sawAny = false;
+  let sawBuy = false;
   let m: RegExpExecArray | null;
   while ((m = MD_LINK.exec(raw)) !== null) {
-    if (m[1] === '!') return null; // image embed → not a link-only line
-    const kind = classifyUrl(m[3]);
-    if (kind) {
-      sawAny = true;
-      if (!links[kind]) links[kind] = m[3];
-    }
+    if (m[1] === '!') return false;
+    if (isBuyUrl(m[3])) sawBuy = true;
   }
-  if (!sawAny) return null;
+  if (!sawBuy) return false;
   const stripped = raw.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
-  return stripped.length === 0 ? links : null;
+  return stripped.length === 0;
 }
 
-function buildBlock(links: Record<string, string>, imageUrl: string | null): string {
+function buildBlock(imageUrl: string | null): string {
   // Babylist only — no MacroBaby, Amazon, or brand-direct buttons.
-  const out = [':::catalog-product', `Brand: ${BRAND}`, `Product: ${PRODUCT}`];
-  out.push(`Babylist: ${links.babylist ?? BABYLIST_URL}`);
+  const out = [':::catalog-product', `Brand: ${BRAND}`, `Product: ${PRODUCT}`, `Babylist: ${BABYLIST_URL}`];
   if (imageUrl) out.push(`Image: ${imageUrl}`);
   out.push(':::');
   return out.join('\n');
@@ -85,7 +85,21 @@ async function main() {
     return;
   }
 
-  const lines: string[] = (post.content ?? '').split('\n');
+  const stored = extractStoredCtaButtons(post.content ?? '');
+  const buttonById = new Map<string, CtaButton>(stored.buttons.map((b) => [b.id, b]));
+  const lines = stored.body.split('\n');
+  const consumedButtonIds = new Set<string>();
+
+  // A body line that is a buy CTA: either a `::cta-slot <id>` whose stored button
+  // is a buy link, or an inline affiliate-only markdown line.
+  const slotBuyId = (raw: string): string | null => {
+    const id = parseCtaSlotLine(raw.trim());
+    if (!id) return null;
+    const btn = buttonById.get(id);
+    return btn && isBuyUrl(btn.url) ? id : null;
+  };
+  const isBuyLine = (raw: string): boolean => slotBuyId(raw) !== null || isInlineBuyLine(raw);
+
   const out: string[] = [];
   let firstImage: string | null = null;
   let replaced = 0;
@@ -101,31 +115,27 @@ async function main() {
       continue;
     }
 
-    const linkLine = affiliateOnlyLine(raw);
-    if (linkLine) {
-      // Gather the contiguous run of affiliate-link-only lines (blank lines
-      // between links are part of the run) and merge their links.
-      const links: Record<string, string> = { ...linkLine };
-      let j = i + 1;
+    if (isBuyLine(raw)) {
+      // Gather the contiguous run of buy CTAs (blank lines between them included).
+      let j = i;
       while (j < lines.length) {
-        const l = affiliateOnlyLine(lines[j]);
-        if (l) {
-          for (const [k, v] of Object.entries(l)) if (!links[k]) links[k] = v;
+        if (isBuyLine(lines[j])) {
+          const id = slotBuyId(lines[j]);
+          if (id) consumedButtonIds.add(id);
           j += 1;
           continue;
         }
-        if (lines[j].trim() === '' && j + 1 < lines.length && affiliateOnlyLine(lines[j + 1])) {
-          j += 1; // blank line separating two links
+        if (lines[j].trim() === '' && j + 1 < lines.length && isBuyLine(lines[j + 1])) {
+          j += 1;
           continue;
         }
         break;
       }
 
       if (out.length && out[out.length - 1].trim() !== '') out.push('');
-      out.push(buildBlock(links, firstImage));
+      out.push(buildBlock(firstImage));
       out.push('');
       replaced += 1;
-      // Skip any trailing blank right after the run so we don't stack blanks.
       i = j;
       while (i < lines.length && lines[i].trim() === '') i += 1;
       continue;
@@ -135,17 +145,20 @@ async function main() {
     i += 1;
   }
 
-  const updated = out.join('\n').replace(/\n{3,}/g, '\n\n');
+  const remainingButtons = stored.buttons.filter((b) => !consumedButtonIds.has(b.id));
+  const body = out.join('\n').replace(/\n{3,}/g, '\n\n');
+  const updated = serializeCtaButtons(body, remainingButtons);
 
   console.log('════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
-  console.log(`Link pairs replaced with cards: ${replaced}`);
+  console.log(`Stored CTA buttons: ${stored.buttons.length} | consumed: ${consumedButtonIds.size} | remaining: ${remainingButtons.length}`);
+  console.log(`CTA runs replaced with cards: ${replaced}`);
   console.log(`Card image fallback: ${firstImage ?? '(none)'}`);
   console.log('\nCard (identical for every section):');
-  console.log(buildBlock({ babylist: '…', macrobaby: '…' }, firstImage));
+  console.log(buildBlock(firstImage));
 
   if (!replaced) {
-    console.log('\nNo inline affiliate-link pairs found. Nothing changed.');
+    console.log('\nNo buy CTAs found. Nothing changed.');
     return;
   }
   if (!APPLY) {
@@ -154,7 +167,7 @@ async function main() {
   }
 
   await db.post.update({ where: { id: post.id }, data: { content: updated } });
-  console.log(`\n✓ Applied. Replaced ${replaced} link pair(s) with DEMI Icon cards on "${post.slug}".`);
+  console.log(`\n✓ Applied. Replaced ${replaced} CTA run(s) with DEMI Icon cards on "${post.slug}".`);
 }
 
 main()
