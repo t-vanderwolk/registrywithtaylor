@@ -3481,6 +3481,12 @@ img {
   }
   .tool-product-card--inline .tool-product-card__actions {
     flex-direction: column;
+    align-items: stretch;
+  }
+  /* Stacked: buttons are full-width with their own height, never grow to fill. */
+  .tool-product-card--inline .tool-product-card__actions > a[class*="tool-btn"] {
+    flex: 0 0 auto;
+    width: 100%;
   }
 }
 
