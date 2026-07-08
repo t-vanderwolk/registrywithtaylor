@@ -624,6 +624,12 @@
 }
 
 /* ── Editorial rhythm pass (article body only) ─────────────────────────── */
+/* A floated product card must never bleed past its stroller into the next
+   section — the next H2 (and the divider before it) clear the float. */
+.tmbc-blog-post-content h2,
+.tmbc-blog-post-content .tmbc-divider {
+  clear: both;
+}
 /* The first line after a section header reads as a confident lead-in. */
 .tmbc-blog-post-content h2 + p {
   font-size: clamp(1.34rem, 1.05rem + 0.65vw, 1.62rem);

@@ -19,7 +19,10 @@ export function enrichProductBlockWithCatalog(
       ...block,
       babylistUrl: block.babylistUrl ?? (retailerIsMacro ? null : match.affiliateUrl),
       macrobabyUrl: block.macrobabyUrl ?? (retailerIsMacro ? match.affiliateUrl : null),
-      imageUrl: block.imageUrl ?? match.imageUrl,
+      // The card uses the SAME image the Resource tools use — the catalogue
+      // (Babylist/MacroBaby) image — and only falls back to a manually-authored
+      // image when the product isn't in the catalogue (e.g. Thule, coming-soon).
+      imageUrl: match.imageUrl ?? block.imageUrl,
       price: block.price ?? match.price,
       priceSource: block.price != null ? block.priceSource : match.retailer,
     };
