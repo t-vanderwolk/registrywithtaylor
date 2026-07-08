@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-08T20:56:50.975Z",
+  "generatedAt": "2026-07-08T22:31:31.377Z",
   "totals": {
     "adapterProducts": 149,
     "adaptersWithMatchedStroller": 85,
     "adaptersNamingSeatBrand": 117,
-    "strollerRows": 267,
+    "strollerRows": 266,
     "infantCarSeatRows": 61,
-    "candidatePairs": 731,
+    "candidatePairs": 548,
     "newToWrite": 16,
-    "alreadyPresent": 715,
+    "alreadyPresent": 532,
     "existingGeneratedRowsWithoutCurrentAdapterMatch": 0,
     "generatedRowsToPrune": 0
   },
