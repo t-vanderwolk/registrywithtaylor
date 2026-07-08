@@ -255,7 +255,7 @@ function renderInlineContent(
             aria-hidden="true"
             focusable="false"
           >
-            <path d="M9,21 C8,10 30,5 51,5 C74,5 95,9 94,20 C93,32 69,37 47,36 C22,35 10,32 11,19" />
+            <path d="M6,20 C4,9 27,4 50,4 C75,4 97,8 96,19 C95,32 70,37 47,36 C21,35 5,31 6,18" />
           </svg>
         </span>,
       );
