@@ -3666,7 +3666,7 @@ img {
 .tool-open-box-badge {
   position: absolute;
   top: 0.6rem;
-  left: 0.6rem;
+  right: 0.6rem;
   z-index: 10;
   display: inline-flex;
   flex-direction: column;
