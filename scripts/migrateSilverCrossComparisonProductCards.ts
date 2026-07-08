@@ -3,15 +3,15 @@
  * silver-cross-nia-vs-clic-vs-jet-travel-stroller-comparison-2026.
  *
  * Three-product comparison (Silver Cross Nia / Clic / Jet). Each section ends
- * with two inline affiliate links — Silver Cross direct + Albee Baby (a CJ link).
- * This converts each pair into a `:::catalog-product` block placed after the
- * section's last image, keeping BOTH retailers (Shop = Silver Cross, Shop 2 =
- * Albee Baby). Babylist link + image + price are filled in live from the
- * catalogue at render time; the end-of-post Gear Picks recap shows all three.
+ * with two affiliate CTAs — Silver Cross direct + Albee Baby (a CJ link). Those
+ * live in the post's CTA-button store as `::cta-slot <id>` tokens (this post does
+ * not use inline markdown links), so this reads the store, and for each section
+ * converts the buy CTAs into a `:::catalog-product` block placed after the last
+ * image — keeping BOTH retailers (Shop = Silver Cross, Shop 2 = Albee Baby).
+ * Babylist link + image + price fill in live from the catalogue. Inline links are
+ * still handled as a fallback. Consumed buttons are pruned from the store.
  *
- * Links are read from the post at runtime and classified by domain. Consumed
- * link-only lines are removed; images and prose stay. Idempotent: a section that
- * already has a card is skipped.
+ * Idempotent: a section that already has a card is skipped.
  *
  *   npx tsx scripts/migrateSilverCrossComparisonProductCards.ts            # dry run
  *   npx tsx scripts/migrateSilverCrossComparisonProductCards.ts --apply    # writes
@@ -21,6 +21,7 @@
  *     npx tsx scripts/migrateSilverCrossComparisonProductCards.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
+import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
@@ -94,7 +95,10 @@ async function main() {
     process.exit(1);
   }
 
-  const lines: string[] = (post.content ?? '').split('\n');
+  const stored = extractStoredCtaButtons(post.content ?? '');
+  const buttonById = new Map<string, CtaButton>(stored.buttons.map((b) => [b.id, b]));
+  const lines = stored.body.split('\n');
+  const consumedButtonIds = new Set<string>();
   const notes: string[] = [];
   let changed = 0;
 
@@ -129,6 +133,22 @@ async function main() {
         continue;
       }
 
+      // CTA-slot token → look up the stored button.
+      const slotId = parseCtaSlotLine(trimmed);
+      if (slotId) {
+        const button = buttonById.get(slotId);
+        if (button) {
+          const kind = classifyUrl(button.url);
+          if (kind) {
+            if (!links[kind]) links[kind] = button.url;
+            dropLineIndexes.add(i);
+            consumedButtonIds.add(slotId);
+          }
+        }
+        continue;
+      }
+
+      // Inline markdown links (fallback; ignore image embeds).
       MD_LINK.lastIndex = 0;
       let m: RegExpExecArray | null;
       let sawLink = false;
@@ -168,10 +188,13 @@ async function main() {
     console.log(buildBlock(cfg, links, firstImage));
   }
 
-  const updated = lines.join('\n').replace(/\n{3,}/g, '\n\n');
+  const remainingButtons = stored.buttons.filter((b) => !consumedButtonIds.has(b.id));
+  const body = lines.join('\n').replace(/\n{3,}/g, '\n\n');
+  const updated = serializeCtaButtons(body, remainingButtons);
 
   console.log('\n════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
+  console.log(`Stored CTA buttons: ${stored.buttons.length} | consumed: ${consumedButtonIds.size} | remaining: ${remainingButtons.length}`);
   console.log(`Sections converted: ${changed}/${PRODUCTS.length}`);
   if (notes.length) console.log('\nNotes:\n' + notes.join('\n'));
 
