@@ -608,8 +608,11 @@
 
 .tmbc-blog.tmbc-blog--wide {
   width: 100%;
-  max-width: min(100%, 80ch);
-  margin-inline: auto;
+  /* Best practice: cap the measure at ~72ch (the readability sweet spot) and keep
+     a stable left edge beside the table-of-contents rail — extra width becomes a
+     right-hand margin rather than a wandering, centered column. */
+  max-width: min(100%, 72ch);
+  margin: 0;
 }
 
 .tmbc-blog-post-content > p:first-of-type {
