@@ -1,6 +1,6 @@
 /**
  * Replace every Nuna DEMI Icon affiliate CTA in nuna-demi-icon-has-arrived with a
- * `:::catalog-product` card that links to Babylist ONLY (no MacroBaby / Albee).
+ * `:::catalog-product` card that links to Babylist ONLY (no MacroBaby / brand-direct).
  *
  * This is a single-product review: the same Babylist + MacroBaby CTA repeats after
  * the images in ~9 sections. Those CTAs live in the post's CTA-button store as

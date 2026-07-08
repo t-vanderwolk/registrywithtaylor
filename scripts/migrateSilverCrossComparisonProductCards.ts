@@ -2,14 +2,13 @@
  * Insert product cards into
  * silver-cross-nia-vs-clic-vs-jet-travel-stroller-comparison-2026.
  *
- * Three-product comparison (Silver Cross Nia / Clic / Jet). Each section ends
- * with two affiliate CTAs — Silver Cross direct + Albee Baby (a CJ link). Those
+ * Three-product comparison (Silver Cross Nia / Clic / Jet). Each section's CTAs
  * live in the post's CTA-button store as `::cta-slot <id>` tokens (this post does
  * not use inline markdown links), so this reads the store, and for each section
  * converts the buy CTAs into a `:::catalog-product` block placed after the last
- * image — keeping BOTH retailers (Shop = Silver Cross, Shop 2 = Albee Baby).
- * Babylist link + image + price fill in live from the catalogue. Inline links are
- * still handled as a fallback. Consumed buttons are pruned from the store.
+ * image (Shop = Silver Cross). Babylist link + image + price fill in live from the
+ * catalogue. Any Albee Baby CTAs are removed entirely (not turned into buttons)
+ * and their stored buttons pruned. Inline links are handled as a fallback too.
  *
  * Idempotent: a section that already has a card is skipped.
  *
@@ -43,23 +42,23 @@ const PRODUCTS: ProductConfig[] = [
 ];
 
 const SHOP_RETAILER = 'Silver Cross';
-const SHOP2_RETAILER = 'Albee Baby';
 
 const IMAGE_LINE = /^!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)\s*$/;
 const CAPTION_LINE = /^\*[^*].*\*\s*$/;
 const MD_LINK = /(!?)\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
 const IMAGE_HOST_OR_EXT = /(media-amazon|images-amazon|\.(?:jpg|jpeg|png|webp|gif|svg)(?:$|\?))/i;
 
-// Commission Junction domains used for the Albee Baby links in this post.
-const CJ_ALBEE = /albeebaby\.com|dpbolvw\.net|jdoqocy\.com|anrdoezrs\.net|kqzyfj\.com|tkqlhce\.com|emjcd\.com/;
+// Albee Baby destinations (direct + Commission Junction wrappers) — detected only
+// so they can be removed from the post, never surfaced as a buy button.
+const ALBEE_URL = /albeebaby\.com|dpbolvw\.net|jdoqocy\.com|anrdoezrs\.net|kqzyfj\.com|tkqlhce\.com|emjcd\.com/;
 
-function classifyUrl(url: string): 'babylist' | 'amazon' | 'macrobaby' | 'shop' | 'shop2' | null {
+function classifyUrl(url: string): 'babylist' | 'amazon' | 'macrobaby' | 'shop' | null {
   if (IMAGE_HOST_OR_EXT.test(url)) return null;
   const u = url.toLowerCase();
+  if (ALBEE_URL.test(u)) return null; // Albee is removed, not linked.
   if (u.includes('babylist.pxf.io') || u.includes('babylist.com')) return 'babylist';
   if (u.includes('amzn.to') || /amazon\.[a-z.]+\//.test(u)) return 'amazon';
   if (u.includes('macrobaby.com')) return 'macrobaby';
-  if (CJ_ALBEE.test(u)) return 'shop2';
   if (u.includes('silvercrossus.com')) return 'shop';
   if (/ref=|affiliate_pid=|aff=|utm_|impact|pjatr|prf\.hn|sjv\.io|\.pxf\.io|awin1\.|awinmid=/.test(u)) return 'shop';
   return null;
@@ -73,10 +72,6 @@ function buildBlock(cfg: ProductConfig, links: Record<string, string>, imageUrl:
   if (links.shop) {
     out.push(`Shop: ${links.shop}`);
     out.push(`Retailer: ${SHOP_RETAILER}`);
-  }
-  if (links.shop2) {
-    out.push(`Shop 2: ${links.shop2}`);
-    out.push(`Retailer 2: ${SHOP2_RETAILER}`);
   }
   if (imageUrl) out.push(`Image: ${imageUrl}`);
   out.push(':::');
@@ -143,11 +138,17 @@ async function main() {
       if (slotId) {
         const button = buttonById.get(slotId);
         if (button) {
-          const kind = classifyUrl(button.url);
-          if (kind) {
-            if (!links[kind]) links[kind] = button.url;
+          if (ALBEE_URL.test(button.url.toLowerCase())) {
+            // Albee Baby: remove the CTA and prune its stored button entirely.
             dropLineIndexes.add(i);
             consumedButtonIds.add(slotId);
+          } else {
+            const kind = classifyUrl(button.url);
+            if (kind) {
+              if (!links[kind]) links[kind] = button.url;
+              dropLineIndexes.add(i);
+              consumedButtonIds.add(slotId);
+            }
           }
         }
         continue;
@@ -156,16 +157,20 @@ async function main() {
       // Inline markdown links (fallback; ignore image embeds).
       MD_LINK.lastIndex = 0;
       let m: RegExpExecArray | null;
-      let sawLink = false;
+      let sawBuyOrAlbee = false;
       while ((m = MD_LINK.exec(raw)) !== null) {
         if (m[1] === '!') continue;
+        if (ALBEE_URL.test(m[3].toLowerCase())) {
+          sawBuyOrAlbee = true; // remove the line, don't link it
+          continue;
+        }
         const kind = classifyUrl(m[3]);
         if (kind) {
-          sawLink = true;
+          sawBuyOrAlbee = true;
           if (!links[kind]) links[kind] = m[3];
         }
       }
-      if (sawLink) {
+      if (sawBuyOrAlbee) {
         const stripped = raw.replace(MD_LINK, '').replace(/[|•\-–—\s]/g, '');
         if (stripped.length === 0) dropLineIndexes.add(i);
       }

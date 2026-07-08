@@ -217,7 +217,7 @@ Review: A premium all-terrain stroller that still feels manageable day to day.
 Best for: Families who want one stroller that can handle neighborhood walks and rougher paths.
 Standout: Suspension + smooth maneuverability
 Pros: Easy push | Large basket | Feels sturdy
-Link: Shop at Albee Baby | https://example.com/bugaboo
+Link: Shop at Babylist | https://example.com/bugaboo
 Link: Shop at Amazon | https://example.com/amazon-bugaboo
 :::`,
   },
