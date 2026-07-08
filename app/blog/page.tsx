@@ -9,7 +9,10 @@ import type { BlogCategory } from '@/lib/blogCategories';
 import { SITE_NAME, SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
 
-export const revalidate = 3600;
+// Render at request time instead of prerendering at build. This keeps a
+// transient build-time DB outage from failing the whole deploy, and means the
+// index is never left statically empty after such a blip.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Baby Gear Journal — Taylor-Made Baby Co.',

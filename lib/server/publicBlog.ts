@@ -284,6 +284,21 @@ function warnLegacyPublicBlogFallback(scope: string, error: unknown) {
   console.warn(`[publicBlog] Falling back to legacy blog read path for ${scope}: ${message}`);
 }
 
+// A transient "can't reach database" error (P1001 / PrismaClientInitializationError)
+// shouldn't crash a static build or a page render — the blog index/preview just
+// renders empty and refills on the next request once the DB is reachable again.
+function isDatabaseUnreachableError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') return false;
+  const name = (error as { name?: string }).name ?? '';
+  const code = (error as { errorCode?: string; code?: string }).errorCode ?? (error as { code?: string }).code ?? '';
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    name === 'PrismaClientInitializationError' ||
+    code === 'P1001' ||
+    /can't reach database server|can not reach database server|connection refused|ECONNREFUSED|ETIMEDOUT/i.test(message)
+  );
+}
+
 export async function getPublicBlogIndexPosts(now: Date = new Date()): Promise<PublicBlogIndexRecord[]> {
   try {
     const posts = await prisma.post.findMany({
@@ -298,6 +313,11 @@ export async function getPublicBlogIndexPosts(now: Date = new Date()): Promise<P
       category: normalizeBlogCategory(post.category),
     }));
   } catch (error) {
+    if (isDatabaseUnreachableError(error)) {
+      console.warn('[publicBlog] blog index: database unreachable — returning empty list for this render');
+      return [];
+    }
+
     if (!isPublicBlogSchemaCompatibilityError(error)) {
       throw error;
     }
@@ -333,6 +353,11 @@ export async function getPublicBlogPostBySlug(
     const { published: _published, ...articlePayload } = post;
     return toPostArticleRecord(articlePayload as PostArticleQueryResult);
   } catch (error) {
+    if (isDatabaseUnreachableError(error)) {
+      console.warn(`[publicBlog] blog post "${slug}": database unreachable — treating as not found for this render`);
+      return null;
+    }
+
     if (!isPublicBlogSchemaCompatibilityError(error)) {
       throw error;
     }
