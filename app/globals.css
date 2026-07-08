@@ -3416,19 +3416,32 @@ img {
   transition: transform 0.4s ease;
 }
 
-/* Compact card floated to the right of the article prose. */
+/* Compact card floated to the right of the article prose. Kept deliberately short
+   so it doesn't tower over the text beside it and leave a void below. */
 .tool-product-card--inline {
   float: right;
-  width: min(19rem, 40%);
-  margin: 0.35rem 0 1.15rem 1.75rem;
+  width: min(18rem, 38%);
+  margin: 0.2rem 0 1rem 1.6rem;
   clear: right;
 }
+.tool-product-card--inline .tool-product-card__media {
+  min-height: 6.75rem;
+  padding: 0.85rem 0.9rem;
+}
+.tool-product-card--inline .tool-product-card__image {
+  max-width: 74%;
+  max-height: 6.5rem;
+}
+.tool-product-card--inline .tool-product-card__body {
+  gap: 0.34rem;
+  padding: 0.85rem 0.95rem 0.95rem;
+}
 .tool-product-card--inline .tool-product-card__title {
-  font-size: 1.08rem;
+  font-size: 1.02rem;
 }
 .tool-product-card--inline .tool-product-card__actions {
-  gap: 0.45rem;
-  padding-top: 0.65rem;
+  gap: 0.4rem;
+  padding-top: 0.55rem;
 }
 @media (max-width: 640px) {
   .tool-product-card--inline {

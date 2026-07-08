@@ -55,7 +55,7 @@
   font-size: clamp(1.95rem, 3.2vw, 2.45rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
-  margin-top: 3.4rem;
+  margin-top: 2.8rem;
   margin-bottom: 16px;
   position: relative;
 }
@@ -297,9 +297,9 @@
 
 .tmbc-divider {
   height: 2px;
-  width: 80px;
+  width: 72px;
   background: linear-gradient(90deg, rgba(232, 154, 174, 0.88) 0%, rgba(215, 161, 175, 1) 100%);
-  margin: 60px auto;
+  margin: 2.4rem auto;
   border-radius: 2px;
   box-shadow: 0 10px 24px rgba(232, 154, 174, 0.18);
 }
