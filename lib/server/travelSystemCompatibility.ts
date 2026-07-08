@@ -429,7 +429,7 @@ const DIRECT_DEFAULT_BRANDS = new Set([
   'uppababy',
 ]);
 
-const SHARED_ADAPTER_BRANDS = new Set(['britax', 'clek', 'cybex', 'maxi-cosi', 'nuna']);
+const SHARED_ADAPTER_BRANDS = new Set(['clek', 'cybex', 'maxi-cosi', 'nuna']);
 
 /**
  * Brands that share the same click-and-go infant-seat adapter standard.
@@ -437,9 +437,10 @@ const SHARED_ADAPTER_BRANDS = new Set(['britax', 'clek', 'cybex', 'maxi-cosi', '
  * it is inferred to also accept seats from the expansion brands below.
  */
 const SHARED_ADAPTER_TRIGGER_BRAND = 'nuna';
-// Britax (B-Safe + Willow) uses the same click-and-go adapter as Maxi-Cosi / Nuna
-// / CYBEX / Clek. (B-Safe is discontinued but kept so owners can check fitment.)
-const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi', 'britax'];
+// Britax is intentionally NOT in the shared euro group — it only fits strollers
+// whose manufacturer specifically lists it (handled via explicit compatibility
+// rows), never through the universal Nuna / Maxi-Cosi / CYBEX / Clek inference.
+const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi'];
 
 /**
  * ── Nuna asymmetry rule ──────────────────────────────────────────────────────
@@ -524,7 +525,7 @@ function getAdapterType(
   }
 
   if (usesSharedInfantSeatAdapter(carSeatBrand)) {
-    return `${strollerBrand} adapter for Maxi-Cosi / Nuna / CYBEX / Clek / Britax infant seats`;
+    return `${strollerBrand} adapter for Maxi-Cosi / Nuna / CYBEX / Clek infant seats`;
   }
 
   if (adapterType?.trim()) {
@@ -739,7 +740,7 @@ async function getSharedAdapterInferredSeats(
 
 /**
  * Reverse of getSharedAdapterInferredSeats: for a shared-adapter infant seat
- * (Maxi-Cosi / Nuna / CYBEX / Clek / Britax), list every non-Nuna stroller that
+ * (Maxi-Cosi / Nuna / CYBEX / Clek), list every non-Nuna stroller that
  * explicitly accepts a Nuna seat — those strollers take the same shared adapter,
  * so they also accept this seat. Nuna strollers (closed ecosystem) are excluded.
  */
@@ -1381,7 +1382,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
       };
     }),
     // Inferred strollers: any non-Nuna stroller that accepts a Nuna seat takes the
-    // same shared adapter, so it also accepts this Maxi-Cosi / CYBEX / Clek / Britax seat.
+    // same shared adapter, so it also accepts this Maxi-Cosi / CYBEX / Clek seat.
     ...inferredStrollers.map<CompatibleStrollerResult>((row) => {
       const displayName = getDisplayName(row.brand, row.model, row.displayName);
       const resolvedImage = resolveProductCardImage({
@@ -1401,7 +1402,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
         adapterUrl: null,
         adapterPrice: null,
         notes:
-          'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi / Britax adapter standard. Verify the specific adapter for your stroller model before purchase.',
+          'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi adapter standard. Verify the specific adapter for your stroller model before purchase.',
         confidence: 'MEDIUM',
         babylistUrl: row.babylistUrl,
         babylistPrice: row.babylistPrice,
