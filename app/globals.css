@@ -335,9 +335,24 @@ a:hover .link-underline::after {
   opacity: 0.92;
 }
 
-/* ((word)) circle + [[sentence]] underline share one weight + colour. The
+/* Draw-on-reveal: an observer (BlogReveal / AnnotationReveal) arms below-fold
+   circles, then reveals them in view. Above-fold circles stay drawn. */
+.tmbc-circle.tmbc-armed .tmbc-circle__mark path {
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+}
+.tmbc-circle.tmbc-armed.is-revealed .tmbc-circle__mark path {
+  animation: tmbc-circle-draw 0.72s ease 0.04s forwards;
+}
+@keyframes tmbc-circle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* (( word )) circle + [[ sentence ]] underline share one weight + colour. The
    underline follows line wraps (paints under each line box), for standout
-   sentences too long to circle. */
+   sentences too long to circle, and sweeps in left→right on scroll. */
 .tmbc-underline {
   background-image: linear-gradient(var(--color-cta-pink), var(--color-cta-pink));
   background-repeat: no-repeat;
@@ -347,6 +362,23 @@ a:hover .link-underline::after {
   border-radius: 2px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+.tmbc-underline.tmbc-armed {
+  background-size: 0% 3.4px;
+}
+.tmbc-underline.tmbc-armed.is-revealed {
+  background-size: 100% 3.4px;
+  transition: background-size 0.72s ease 0.05s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-circle.tmbc-armed .tmbc-circle__mark path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .tmbc-underline.tmbc-armed {
+    background-size: 100% 3.4px;
+    transition: none;
+  }
 }
 
 /* Soft gradient hairline used to separate / transition sections */

@@ -5,6 +5,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import Hero from '@/components/ui/Hero';
+import AnnotationReveal from '@/components/ui/AnnotationReveal';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { H2, H3, Body } from '@/components/ui/MarketingHeading';
@@ -68,6 +69,7 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <PageViewTracker path="/services" pageType="services" />
+        <AnnotationReveal />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesStructuredData) }}

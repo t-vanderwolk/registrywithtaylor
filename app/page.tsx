@@ -13,6 +13,7 @@ import CheckIcon from '@/components/ui/CheckIcon';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { circleText } from '@/lib/ui/circleText';
+import AnnotationReveal from '@/components/ui/AnnotationReveal';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
 import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
 import { HOME_FAQ } from '@/lib/marketing/homeFaq';
@@ -309,6 +310,7 @@ export default function HomePage() {
     <SiteShell currentPath="/">
       <main className="site-main">
         <PageViewTracker path="/" pageType="homepage" />
+        <AnnotationReveal />
 
         <script
           type="application/ld+json"

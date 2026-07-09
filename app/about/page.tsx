@@ -4,6 +4,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
 import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import AnnotationReveal from '@/components/ui/AnnotationReveal';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { Body, H2, H3 } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -77,6 +78,7 @@ export default function AboutPage() {
   return (
     <SiteShell currentPath="/about">
       <main className="site-main">
+        <AnnotationReveal />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutStructuredData) }}

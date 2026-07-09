@@ -5,34 +5,42 @@ import type { ReactNode } from 'react';
  *
  *   (( word ))       → hand-drawn pink circle around a word or short phrase.
  *   [[ sentence ]]   → pink underline (same colour + weight as the circle) that
- *                      follows line wraps, for standout sentences too long to circle.
+ *                      follows line wraps + sweeps in left→right on scroll.
+ *   **bold**  *italic*
  *
- * Spaces INSIDE the brackets are required: `(( word ))` is correct, `((word))` is
- * not (it renders as plain text). Body copy only: wired into MarketingHeading's
- * Body (not headings), so it renders in paragraphs, never in a hero or heading.
- * Non-string nodes pass through untouched. Do NOT wrap an already bold/italic word.
+ * Styles NEST: `(( **word** ))`, `[[ a **bold** sentence ]]`, and `**(( word ))**`
+ * all work — inner content is parsed recursively. Spaces INSIDE the circle/
+ * underline brackets are required: `(( word ))` is correct, `((word))` is not.
+ * Body copy only (wired into MarketingHeading's Body, never a hero or heading).
  */
-const ANNOTATION_RE = /\(\(\s+(.+?)\s+\)\)|\[\[\s+(.+?)\s+\]\]/g;
+const TOKEN_RE = /\*\*(.+?)\*\*|\(\(\s+(.+?)\s+\)\)|\[\[\s+(.+?)\s+\]\]|\*(.+?)\*/g;
 
-export function annotate(node: ReactNode): ReactNode {
-  if (typeof node !== 'string' || (!node.includes('((') && !node.includes('[['))) return node;
+export function annotate(node: ReactNode, depth = 0): ReactNode {
+  if (typeof node !== 'string') return node;
+  if (depth > 6 || (!node.includes('*') && !node.includes('((') && !node.includes('[['))) return node;
 
   const out: ReactNode[] = [];
   let lastIndex = 0;
   let key = 0;
   let match: RegExpExecArray | null;
-  ANNOTATION_RE.lastIndex = 0;
+  TOKEN_RE.lastIndex = 0;
 
-  while ((match = ANNOTATION_RE.exec(node)) !== null) {
+  while ((match = TOKEN_RE.exec(node)) !== null) {
     if (match.index > lastIndex) out.push(node.slice(lastIndex, match.index));
 
-    const circle = match[1];
-    const underline = match[2];
+    const [, bold, circle, underline, italic] = match;
+    const k = `tmbc-a-${depth}-${key++}`;
 
-    if (circle !== undefined) {
+    if (bold !== undefined) {
       out.push(
-        <span key={`tmbc-circle-${key++}`} className="tmbc-circle">
-          {circle}
+        <strong key={k} className="font-semibold text-neutral-900">
+          {annotate(bold, depth + 1)}
+        </strong>,
+      );
+    } else if (circle !== undefined) {
+      out.push(
+        <span key={k} className="tmbc-circle">
+          {annotate(circle, depth + 1)}
           <svg
             className="tmbc-circle__mark"
             viewBox="0 0 100 40"
@@ -46,9 +54,15 @@ export function annotate(node: ReactNode): ReactNode {
       );
     } else if (underline !== undefined) {
       out.push(
-        <span key={`tmbc-underline-${key++}`} className="tmbc-underline">
-          {underline}
+        <span key={k} className="tmbc-underline">
+          {annotate(underline, depth + 1)}
         </span>,
+      );
+    } else if (italic !== undefined) {
+      out.push(
+        <em key={k} className="italic">
+          {annotate(italic, depth + 1)}
+        </em>,
       );
     }
 

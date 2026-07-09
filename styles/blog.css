@@ -715,8 +715,8 @@
   vector-effect: non-scaling-stroke;
   opacity: 0.92;
 }
-/* [[sentence]] underline — same colour + weight as the circle, follows line wraps
-   (paints under each line box), for standout sentences too long to circle. */
+/* [[ sentence ]] underline — same colour + weight as the circle, follows line
+   wraps, and sweeps in left→right when armed + revealed on scroll. */
 .tmbc-underline {
   background-image: linear-gradient(var(--color-cta-pink), var(--color-cta-pink));
   background-repeat: no-repeat;
@@ -726,6 +726,19 @@
   border-radius: 2px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+.tmbc-underline.tmbc-armed {
+  background-size: 0% 3.4px;
+}
+.tmbc-underline.tmbc-armed.is-revealed {
+  background-size: 100% 3.4px;
+  transition: background-size 0.72s ease 0.05s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-underline.tmbc-armed {
+    background-size: 100% 3.4px;
+    transition: none;
+  }
 }
 /* Draw-on-reveal: BlogReveal arms below-fold circles, then reveals them in view. */
 .tmbc-circle.tmbc-armed .tmbc-circle__mark path {

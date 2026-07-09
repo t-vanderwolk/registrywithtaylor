@@ -48,9 +48,10 @@ export default function BlogReveal({ selector = '.tmbc-blog-post-content' }: { s
       }
     }
 
-    // Draw the ((circled)) words as they scroll into view. Circles above the fold
-    // stay drawn; below-fold ones are "armed" (hidden stroke) then animated in.
-    const circles = Array.from(root.querySelectorAll('.tmbc-circle')) as HTMLElement[];
+    // Draw the (( circled )) words + [[ underlined ]] sentences as they scroll in.
+    // Above the fold they stay drawn; below-fold ones are "armed" (collapsed) then
+    // animated (circle draws, underline sweeps left→right) on reveal.
+    const circles = Array.from(root.querySelectorAll('.tmbc-circle, .tmbc-underline')) as HTMLElement[];
     const circleObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

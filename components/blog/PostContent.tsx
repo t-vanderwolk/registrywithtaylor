@@ -252,7 +252,7 @@ function renderInlineContent(
       const circle = circleText.trim();
       nodes.push(
         <span key={key} className="tmbc-circle">
-          {highlightBrandWordmark ? renderBrandWordmarkText(circle, `${key}-circle`) : circle}
+          {renderInlineContent(circle, `${key}-c`, highlightBrandWordmark, [], undefined, placement)}
           <svg
             className="tmbc-circle__mark"
             viewBox="0 0 100 40"
@@ -269,7 +269,7 @@ function renderInlineContent(
       // standout sentences too long to circle.
       nodes.push(
         <span key={key} className="tmbc-underline">
-          {highlightBrandWordmark ? renderBrandWordmarkText(underlineText, `${key}-underline`) : underlineText}
+          {renderInlineContent(underlineText, `${key}-u`, highlightBrandWordmark, [], undefined, placement)}
         </span>,
       );
     } else if (linkLabel && linkHref) {
@@ -287,7 +287,7 @@ function renderInlineContent(
     } else if (strongA || strongB) {
       nodes.push(
         <strong key={key} className="font-semibold text-neutral-900">
-          {highlightBrandWordmark ? renderBrandWordmarkText(strongA ?? strongB ?? '', `${key}-strong`) : (strongA ?? strongB)}
+          {renderInlineContent(strongA ?? strongB ?? '', `${key}-s`, highlightBrandWordmark, [], undefined, placement)}
         </strong>,
       );
     } else if (code) {
@@ -299,7 +299,7 @@ function renderInlineContent(
     } else if (emphasisA || emphasisB) {
       nodes.push(
         <em key={key} className="italic text-charcoal/80">
-          {highlightBrandWordmark ? renderBrandWordmarkText(emphasisA ?? emphasisB ?? '', `${key}-em`) : (emphasisA ?? emphasisB)}
+          {renderInlineContent(emphasisA ?? emphasisB ?? '', `${key}-e`, highlightBrandWordmark, [], undefined, placement)}
         </em>,
       );
     } else {
