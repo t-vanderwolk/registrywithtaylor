@@ -290,6 +290,51 @@ a:hover .link-underline::after {
   gap: 1rem;
 }
 
+/* ── Cohesive marketing polish, shared across home / about / services ── */
+.mkt-card {
+  transition:
+    transform 360ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 360ms ease,
+    border-color 360ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .mkt-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 44px rgba(150, 82, 104, 0.14);
+    border-color: rgba(215, 161, 175, 0.6);
+  }
+}
+
+/* Soft gradient hairline used to separate / transition sections */
+.mkt-divider {
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background: linear-gradient(90deg, transparent, rgba(215, 161, 175, 0.55), transparent);
+}
+
+/* Eyebrow label with a small leading accent rule */
+.mkt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(212, 123, 145, 0.82);
+}
+
+.mkt-eyebrow::before {
+  content: "";
+  width: 1.7rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ribbon-float {
     animation: none !important;
@@ -322,6 +367,13 @@ a:hover .link-underline::after {
   .checklist-reveal.is-visible .home-check-item {
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
+  }
+
+  .mkt-card,
+  .mkt-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
     transition: none !important;
   }
 
