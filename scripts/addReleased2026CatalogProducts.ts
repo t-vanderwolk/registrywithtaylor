@@ -43,14 +43,26 @@ const IMAGE_HOST_OR_EXT = /(media-amazon|images-amazon|gstatic|\.(?:jpg|jpeg|png
 const NEWS_HEADING = /officially|launches|enters the|\bu\.?s\.?\s+market\b|now available|arrives in/i;
 const MULTI_WORD_BRANDS = ['Silver Cross', 'Orbit Baby', 'Peg Perego', 'Jool Baby', 'Mercedes Baby', 'Baby Jogger'];
 
+// A "product" under a stroller header that's really an accessory bundle, not a
+// stroller (e.g. "CYBEX Platinum Comfort Collection") — keep it out of the public
+// stroller finder; route to needs-review instead.
+const NOT_A_STROLLER_RE = /\bcollection\b|carry\s?cot|\bcarrycot\b|footmuff|comfort\s+pack/i;
+
+// Infant (bucket) seats attach to strollers → seatType INFANT (belong in the
+// travel-system checker). Everything else in the Car Seats section is a
+// convertible / all-in-one and must NOT be flagged INFANT.
+const INFANT_SEAT_RE = /\b(aton|pipa|key\s?fit|keyfit|cloud|mesa|doona|coral|snug\s?ride|snugride|cabrio\s?fix|cabriofix|aria|nido|gemm|via\b)\b/i;
+
 type LinkKind = 'babylist' | 'amazon' | 'macrobaby' | 'shop';
 type Category = 'stroller' | 'carseat' | 'other';
+type SeatType = 'INFANT' | 'CONVERTIBLE' | 'ALL_IN_ONE';
 
 type Product = {
   brand: string;
   model: string;
   category: Category;
   productType: string; // stroller sub-type / other tmbcCategory hint
+  seatType?: SeatType; // only for car seats
   imageUrl: string | null;
   links: Partial<Record<LinkKind, string>>;
   shopRetailer: string | null;
@@ -161,15 +173,19 @@ export function parseReleased2026Products(content: string): Product[] {
     }
 
     const { brand, product } = splitBrandProduct(title);
-    products.push({
-      brand,
-      model: product,
-      category: current.category,
-      productType: current.productType,
-      imageUrl,
-      links,
-      shopRetailer,
-    });
+
+    // A stroller-section item that's actually an accessory bundle → needs-review.
+    let category = current.category as Category;
+    let productType = current.productType;
+    let seatType: SeatType | undefined;
+    if (category === 'stroller' && NOT_A_STROLLER_RE.test(product)) {
+      category = 'other';
+      productType = 'Travel Systems & Adapters';
+    } else if (category === 'carseat') {
+      seatType = INFANT_SEAT_RE.test(`${brand} ${product}`) ? 'INFANT' : 'CONVERTIBLE';
+    }
+
+    products.push({ brand, model: product, category, productType, seatType, imageUrl, links, shopRetailer });
   }
 
   return products;
@@ -307,12 +323,13 @@ async function main() {
         summary.carSeatExists += 1;
         continue;
       }
-      console.log(`  [carseat]  ${label} ${APPLY ? 'ADDED' : 'would add'} CarSeat row (INFANT, ${retailerFor(p)})`);
+      const seatType = p.seatType ?? 'INFANT';
+      console.log(`  [carseat]  ${label} ${APPLY ? 'ADDED' : 'would add'} CarSeat row (${seatType}, ${retailerFor(p)})`);
       if (APPLY) {
         await db.carSeat.upsert({
           where: { brand_model: { brand: p.brand, model: p.model } },
           update: {
-            seatType: 'INFANT',
+            seatType,
             displayName: `${p.brand} ${p.model}`,
             babylistUrl: p.links.babylist ?? undefined,
             babylistImage: p.imageUrl ?? undefined,
@@ -322,7 +339,7 @@ async function main() {
             brand: p.brand,
             model: p.model,
             displayName: `${p.brand} ${p.model}`,
-            seatType: 'INFANT',
+            seatType,
             babylistUrl: p.links.babylist ?? null,
             babylistImage: p.imageUrl ?? null,
             amazonUrl: p.links.amazon ?? null,
