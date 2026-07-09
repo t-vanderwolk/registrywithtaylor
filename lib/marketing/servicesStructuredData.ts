@@ -105,7 +105,7 @@ export const servicesStructuredData = {
       '@type': 'WebPage',
       '@id': SERVICES_URL,
       url: SERVICES_URL,
-      name: 'Baby Registry Consultation — Expert Help for Expecting Parents',
+      name: 'Baby Registry Consultation, Expert Help for Expecting Parents',
       description:
         'Book a 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, feeding gear, and registry strategy for expecting parents across the United States.',
       isPartOf: { '@type': 'WebSite', url: SITE_URL, name: SITE_NAME },
