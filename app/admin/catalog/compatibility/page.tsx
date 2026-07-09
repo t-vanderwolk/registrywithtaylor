@@ -62,9 +62,17 @@ type CompatibilityRow = {
 };
 
 function productLabel(product: { brand: string | null; model?: string; displayName?: string | null; title?: string }) {
-  const brand = product.brand?.trim();
+  const brand = product.brand?.trim() ?? '';
   const name = (product.displayName ?? product.model ?? product.title ?? '').trim();
-  return [brand, name].filter(Boolean).join(' ');
+  if (!brand) return name;
+  if (!name) return brand;
+  // Some rows store the brand inside displayName/model (e.g. brand "Babyzen"
+  // with name "Babyzen YOYO+", or "BOB" / "BOB Alterrain Pro"). Don't prepend the
+  // brand again — that produced "Babyzen Babyzen YOYO+".
+  const nameLower = name.toLowerCase();
+  const brandLower = brand.toLowerCase();
+  if (nameLower === brandLower || nameLower.startsWith(`${brandLower} `)) return name;
+  return `${brand} ${name}`;
 }
 
 function providerLabel(provider: string) {
