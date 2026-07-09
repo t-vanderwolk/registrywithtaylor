@@ -171,8 +171,8 @@ export const SERVICES_AVAILABILITY = {
 } as const;
 
 export const SERVICES_CREDENTIALS = {
-  heading: 'Why Book with Taylor Vanderwolk?',
-  lead: 'Taylor Vanderwolk is a certified baby registry consultant with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives zero commission from any brand she recommends.',
+  heading: 'Why Book with Taylor?',
+  lead: 'Taylor is a certified baby registry consultant with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives zero commission from any brand she recommends.',
   items: [
     { title: 'Tot Squad Certified Specialist', body: 'The credential behind Target’s Baby Concierge programme, 200+ stores nationwide.' },
     { title: 'Strolleria Baby Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a leading baby specialty showroom.' },
@@ -217,7 +217,7 @@ export const SERVICES_FAQ = [
   {
     question: 'How much does a baby registry consultation cost?',
     answer:
-      'Taylor-Made Baby Co. offers 1-hour virtual baby registry consultations at $75. This includes a pre-session intake review, a 60-minute video call with Taylor Vanderwolk, and written follow-up notes delivered after the session. A full refund is available for cancellations made 24 or more hours before the scheduled session.',
+      'Taylor-Made Baby Co. offers 1-hour virtual baby registry consultations at $75. This includes a pre-session intake review, a 60-minute video call with Taylor, and written follow-up notes delivered after the session. A full refund is available for cancellations made 24 or more hours before the scheduled session.',
   },
   {
     question: 'What does a baby registry consultation include?',

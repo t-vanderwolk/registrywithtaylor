@@ -158,7 +158,7 @@ export default function AboutPage() {
               </div>
             </RevealOnScroll>
             <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">Taylor Vanderwolk, Your Baby Registry Consultant</H2>
+              <H2 className="font-serif text-neutral-900">Taylor, Your Baby Registry Consultant</H2>
             </RevealOnScroll>
             <RevealOnScroll delayMs={60}>
               <Body className="text-lg font-medium text-neutral-900">{ABOUT_QUOTABLE}</Body>
@@ -427,7 +427,7 @@ export default function AboutPage() {
         </MarketingSection>
 
         <PodcastFeature
-          heading="Baby Registry Consultant Taylor Vanderwolk on the BabyQuip Podcast"
+          heading="Baby Registry Consultant Taylor on the BabyQuip Podcast"
           description="Taylor joins the BabyQuip Tiny Travels Podcast to talk through what actually matters when preparing for a baby as a baby registry consultant, how to stop letting the gear pile-up steal the joy from early parenthood, and why real-life fit beats product specs every time."
         />
 

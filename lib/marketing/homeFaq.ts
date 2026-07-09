@@ -15,7 +15,7 @@ export const HOME_FAQ: HomeFaqItem[] = [
   {
     question: 'What does a baby registry consultant do?',
     answer:
-      'A baby registry consultant helps expecting parents choose the right strollers, car seats, nursery gear, and baby products for their actual home, lifestyle, and budget. At Taylor-Made Baby Co., Taylor Vanderwolk runs one hour virtual consultations that cover your whole registry, so you avoid expensive mistakes, narrow the big decisions, and end up with a list that fits your real life instead of the internet.',
+      'A baby registry consultant helps expecting parents choose the right strollers, car seats, nursery gear, and baby products for their actual home, lifestyle, and budget. At Taylor-Made Baby Co., Taylor runs one hour virtual consultations that cover your whole registry, so you avoid expensive mistakes, narrow the big decisions, and end up with a list that fits your real life instead of the internet.',
   },
   {
     question: 'How much does a baby registry consultation cost?',

@@ -33,7 +33,7 @@ export const ABOUT_BEFORE_AFTER = {
 };
 
 export const ABOUT_QUOTABLE =
-  'Taylor Vanderwolk is a baby registry consultant and certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
+  'Taylor is a baby registry consultant and certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
 
 export const ABOUT_BIO = [
   'With 7+ years of hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
@@ -124,7 +124,7 @@ export const ABOUT_VALUE_STACK = {
   intro:
     'The average family makes 6 to 8 major baby gear decisions before their baby arrives. Each one typically costs $100 to $1,200. A single wrong stroller choice costs more than ten consultations.',
   rows: [
-    { item: '1-hour video consultation with Taylor Vanderwolk', value: '$150 to $250' },
+    { item: '1-hour video consultation with Taylor', value: '$150 to $250' },
     { item: 'Pre-session intake review and personalised preparation', value: '$50 to $80' },
     { item: 'Written follow-up notes with recommendations and next steps', value: '$40 to $60' },
     { item: 'Stroller and car seat compatibility check for your vehicle', value: '$75 to $120' },
@@ -185,9 +185,9 @@ export const ABOUT_LEAD_MAGNET = {
 
 export const ABOUT_FAQ = [
   {
-    question: 'Who is Taylor Vanderwolk?',
+    question: 'Who is Taylor?',
     answer:
-      'Taylor Vanderwolk is a baby registry consultant and certified Tot Squad specialist with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalised registries that fit their real homes, budgets, and routines.',
+      'Taylor is a baby registry consultant and certified Tot Squad specialist with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalised registries that fit their real homes, budgets, and routines.',
   },
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',
@@ -195,12 +195,12 @@ export const ABOUT_FAQ = [
       'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no affiliate commissions, no partnerships that influence recommendations. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a certified Target Baby Concierge specialist through Tot Squad.',
   },
   {
-    question: 'Is Taylor Vanderwolk a certified baby gear specialist?',
+    question: 'Is Taylor a certified baby gear specialist?',
     answer:
-      'Yes. Taylor Vanderwolk is a certified Tot Squad Specialist, the credential that powers Target’s Baby Concierge program across 200+ Target stores nationwide. She has additionally worked as a Baby Gear Specialist at Strolleria and a Nursery Advisor at Pottery Barn Kids, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
+      'Yes. Taylor is a certified Tot Squad Specialist, the credential that powers Target’s Baby Concierge program across 200+ Target stores nationwide. She has additionally worked as a Baby Gear Specialist at Strolleria and a Nursery Advisor at Pottery Barn Kids, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
   },
   {
-    question: 'How do I book a consultation with Taylor Vanderwolk?',
+    question: 'How do I book a consultation with Taylor?',
     answer:
       'Book a 1-hour virtual baby registry consultation at taylormadebabyco.com/book. Choose your session time and complete Taylor’s intake form with your due date, home setup, vehicle type, budget, and registry questions. Taylor personally reviews your intake before the session. Sessions are $75, conducted via video call, with a full refund available if cancelled 24 hours before the session.',
   },
@@ -215,13 +215,13 @@ export const ABOUT_FAQ = [
       'A consultation covers stroller selection and compatibility, car seat safety and installation, nursery planning and layout, feeding equipment, sleep gear and safe sleep setup, registry strategy and timing, travel gear, and babyproofing. Bring specific product questions too. Taylor is familiar with all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, and Doona.',
   },
   {
-    question: 'Has Taylor Vanderwolk been featured in any media or podcasts?',
+    question: 'Has Taylor been featured in any media or podcasts?',
     answer:
       'Yes. Taylor was featured as a guest expert on the BabyQuip Tiny Travels Podcast, discussing what actually matters when preparing for a new baby and how to stop letting gear overwhelm steal the joy from early parenthood. The full episode is available on Spotify and embedded on this About page.',
   },
   {
     question: 'Is Taylor-Made Baby Co. affiliated with TaylorMade Golf or any other TaylorMade brand?',
     answer:
-      'No. Taylor-Made Baby Co. is a baby registry consulting service founded by Taylor Vanderwolk and is not affiliated with TaylorMade Golf, TaylorMade Audio, or any other brand using the TaylorMade name. It operates exclusively as an independent baby gear consulting and registry guidance service for expecting parents.',
+      'No. Taylor-Made Baby Co. is a baby registry consulting service founded by Taylor and is not affiliated with TaylorMade Golf, TaylorMade Audio, or any other brand using the TaylorMade name. It operates exclusively as an independent baby gear consulting and registry guidance service for expecting parents.',
   },
 ];
