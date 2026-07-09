@@ -304,6 +304,56 @@ export function transformReleased2026(
   return { content: content2, changed, notes, blocks, refs };
 }
 
+const CARD_BLOCK_RE = /:::catalog-product\n([\s\S]*?)\n:::/g;
+
+/** Brand/Product of every existing `:::catalog-product` block in the content. */
+export function extractCardRefs(content: string): Array<{ brand: string; productName: string }> {
+  const out: Array<{ brand: string; productName: string }> = [];
+  for (const m of content.matchAll(CARD_BLOCK_RE)) {
+    const body = m[1];
+    const brand = body.match(/^Brand:\s*(.+)$/im)?.[1]?.trim();
+    const product = body.match(/^Product:\s*(.+)$/im)?.[1]?.trim();
+    if (brand && product) out.push({ brand, productName: product });
+  }
+  return out;
+}
+
+/**
+ * Update EXISTING cards in place (they aren't reconverted once present):
+ *   • Silver Cross → add `Primary: shop` when a Shop link is present but no
+ *     Primary line, so Silver Cross leads and Babylist drops to secondary.
+ *   • Bake a `Price:` line from the catalog when the card has none.
+ */
+export function refreshExistingCards(
+  content: string,
+  priceByKey: Record<string, PriceInfo>,
+): { content: string; updated: number } {
+  let updated = 0;
+  const next = content.replace(CARD_BLOCK_RE, (full, body: string) => {
+    const brand = body.match(/^Brand:\s*(.+)$/im)?.[1]?.trim();
+    const product = body.match(/^Product:\s*(.+)$/im)?.[1]?.trim();
+    if (!brand || !product) return full;
+    const lines = body.split('\n');
+    let changed = false;
+
+    if (isSilverCrossBrand(brand) && /^Shop:/im.test(body) && !/^Primary:/im.test(body)) {
+      lines.push('Primary: shop');
+      changed = true;
+    }
+    if (!/^Price:/im.test(body)) {
+      const pi = priceByKey[blogProductKey(brand, product)];
+      if (pi?.price != null) {
+        lines.push(`Price: $${pi.price}${pi.retailer ? ` via ${pi.retailer}` : ''}`);
+        changed = true;
+      }
+    }
+    if (!changed) return full;
+    updated += 1;
+    return `:::catalog-product\n${lines.join('\n')}\n:::`;
+  });
+  return { content: next, updated };
+}
+
 async function main() {
   const post = await db.post.findFirst({ where: { slug: SLUG }, select: { id: true, slug: true, title: true, content: true } });
   if (!post) {
@@ -311,13 +361,14 @@ async function main() {
     process.exit(1);
   }
 
-  // Pass 1: discover which products get a card, then look up their live catalog
-  // price (real data — Babylist / MacroBaby). Pass 2: bake the price into cards.
+  // Pass 1: discover which products get a card (new sections) + which cards
+  // already exist, then look up their live catalog price (Babylist / MacroBaby).
   const first = transformReleased2026(post.content ?? '');
+  const allRefs = [...first.refs, ...extractCardRefs(post.content ?? '')];
   const priceByKey: Record<string, PriceInfo> = {};
   try {
-    const matches = await resolveBlogProductCatalogLinks(first.refs);
-    for (const ref of first.refs) {
+    const matches = await resolveBlogProductCatalogLinks(allRefs);
+    for (const ref of allRefs) {
       const m = matches[blogProductKey(ref.brand, ref.productName)];
       if (m?.price != null) priceByKey[blogProductKey(ref.brand, ref.productName)] = { price: m.price, retailer: m.retailer };
     }
@@ -325,16 +376,20 @@ async function main() {
     /* no catalog price available — cards fall back to live render-time enrichment */
   }
 
-  const { content: updated, changed, notes, blocks } = transformReleased2026(post.content ?? '', priceByKey);
+  // Pass 2: convert any new sections (baking price), then refresh EXISTING cards
+  // in place (Silver Cross ordering + missing price).
+  const { content: converted, changed, notes, blocks } = transformReleased2026(post.content ?? '', priceByKey);
+  const { content: updated, updated: refreshed } = refreshExistingCards(converted, priceByKey);
 
-  console.log(`Prices baked from catalog: ${Object.keys(priceByKey).length}/${first.refs.length} card(s)`);
+  console.log(`Prices available from catalog: ${Object.keys(priceByKey).length}/${allRefs.length} card(s)`);
   blocks.forEach((b) => console.log(`\n${b}`));
   console.log('\n════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
-  console.log(`Sections converted: ${changed}`);
+  console.log(`New sections converted: ${changed}`);
+  console.log(`Existing cards refreshed (Silver Cross order / price): ${refreshed}`);
   if (notes.length) console.log('\nNotes:\n' + notes.join('\n'));
 
-  if (!changed) {
+  if (!changed && !refreshed) {
     console.log('\nNothing to change.');
     return;
   }
@@ -344,7 +399,7 @@ async function main() {
   }
 
   await db.post.update({ where: { id: post.id }, data: { content: updated } });
-  console.log(`\n✓ Applied. Replaced ${changed} trailing CTA group(s) with product cards on "${post.slug}".`);
+  console.log(`\n✓ Applied. ${changed} new card(s), ${refreshed} refreshed on "${post.slug}".`);
 }
 
 main()
