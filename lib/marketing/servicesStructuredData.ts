@@ -12,6 +12,7 @@
  *     schema always ships alongside the matching visible sections.
  */
 import { SITE_NAME, SITE_URL, SITE_LOGO_URL } from '@/lib/marketing/metadata';
+import { SERVICES_STEPS, SERVICES_FAQ } from '@/lib/marketing/servicesContent';
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const PERSON_ID = `${SITE_URL}/#taylor`;
@@ -120,6 +121,35 @@ export const servicesStructuredData = {
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
         { '@type': 'ListItem', position: 2, name: 'Baby Registry Consultation', item: SERVICES_URL },
       ],
+    },
+    {
+      '@type': 'HowTo',
+      '@id': `${SERVICES_URL}#howto`,
+      name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
+      description:
+        'Book a 1-hour virtual baby registry consultation with certified specialist Taylor Vanderwolk in 4 simple steps.',
+      totalTime: 'PT1H',
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
+      tool: [
+        { '@type': 'HowToTool', name: 'Zoom or Google Meet (video call)' },
+        { '@type': 'HowToTool', name: 'Taylor’s pre-session intake form' },
+      ],
+      step: SERVICES_STEPS.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: String(i + 1),
+        name: s.title,
+        text: s.body,
+        ...(i === 0 ? { url: `${SITE_URL}/book` } : {}),
+      })),
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${SERVICES_URL}#faq`,
+      mainEntity: SERVICES_FAQ.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
     },
   ],
 };
