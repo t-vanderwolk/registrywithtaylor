@@ -391,7 +391,14 @@ export default function HomePage() {
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       My approach is calm, practical, and built around what actually fits your home, your routines, and
                       your budget. Your registry does not need to impress the internet. It just needs to work when life
-                      gets real.
+                      gets real. When you are ready, you can{' '}
+                      <Link
+                        href="/services"
+                        className="font-semibold text-[var(--color-accent-dark)] underline decoration-[var(--color-cta-pink)]/40 underline-offset-4 transition hover:decoration-[var(--color-cta-pink)]"
+                      >
+                        book a baby registry consultation
+                      </Link>{' '}
+                      and we will work through it together in one focused hour.
                     </p>
                   </div>
                 </RevealOnScroll>
