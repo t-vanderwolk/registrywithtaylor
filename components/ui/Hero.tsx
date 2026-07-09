@@ -3,7 +3,6 @@ import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
 import RibbonDivider from '@/components/layout/RibbonDivider';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
-import { circleText } from '@/lib/ui/circleText';
 
 type CTA = {
   label: string;
@@ -137,19 +136,19 @@ export default function Hero({
             <>
               {eyebrow && (
                 <p className={`hero-eyebrow ${staggerClass}`.trim()} style={staggerStyle(120)}>
-                  {circleText(eyebrow)}
+                  {eyebrow}
                 </p>
               )}
 
               {title && (
                 <h1 className={`hero-title ${staggerClass}`.trim()} style={staggerStyle(220)}>
-                  {circleText(title)}
+                  {title}
                 </h1>
               )}
 
               {subtitle && (
                 <p className={`hero-subhead ${staggerClass}`.trim()} style={staggerStyle(320)}>
-                  {circleText(subtitle)}
+                  {subtitle}
                 </p>
               )}
 

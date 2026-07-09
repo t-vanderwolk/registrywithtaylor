@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { circleText } from '@/lib/ui/circleText';
+import { annotate } from '@/lib/ui/circleText';
 
 type HeadingProps = {
   children: ReactNode;
@@ -16,7 +16,7 @@ export function H1({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {circleText(children)}
+      {children}
     </h1>
   );
 }
@@ -31,7 +31,7 @@ export function H2({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {circleText(children)}
+      {children}
     </h2>
   );
 }
@@ -46,11 +46,13 @@ export function H3({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {circleText(children)}
+      {children}
     </h3>
   );
 }
 
+// Body copy is the only place the ((circle)) / [[underline]] annotations render —
+// never in a hero or heading.
 export function Body({ children, className = '' }: HeadingProps) {
   return (
     <p
@@ -61,7 +63,7 @@ export function Body({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {circleText(children)}
+      {annotate(children)}
     </p>
   );
 }
@@ -76,7 +78,7 @@ export function Eyebrow({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {circleText(children)}
+      {children}
     </p>
   );
 }

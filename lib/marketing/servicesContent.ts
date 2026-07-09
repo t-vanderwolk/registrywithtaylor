@@ -47,10 +47,10 @@ export const SERVICES_DECISIONS = [
 export const SERVICES_WHY = {
   heading: 'Why Expecting Parents Book a Baby Registry Consultation',
   paragraphs: [
-    'Baby gear decisions arrive fast, compound quickly, and carry more weight than most first-time parents expect.',
+    'Baby gear decisions arrive (( fast )), compound quickly, and carry more weight than most first-time parents expect.',
     'The stroller you choose affects whether you can fit through your apartment door, whether it clips into your specific car seat, and whether you can navigate the neighbourhood you walk every day. The car seat you choose is a safety decision that most parents make without ever having the full picture.',
     'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Instagram recommendations are paid to say what they say. And by the time you realise a purchase was wrong, the return window has closed.',
-    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. Before you spend a dollar.',
+    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. [[ Before you spend a dollar. ]]',
   ],
 } as const;
 

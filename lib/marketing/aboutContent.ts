@@ -33,7 +33,7 @@ export const ABOUT_BEFORE_AFTER = {
 };
 
 export const ABOUT_QUOTABLE =
-  'Taylor is a baby registry consultant and certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
+  'Taylor is a baby registry consultant and certified baby gear specialist who helps expecting parents make (( confident )) decisions about strollers, car seats, nurseries, and registry strategy.';
 
 export const ABOUT_BIO = [
   'With 7+ years of hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',

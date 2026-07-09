@@ -692,14 +692,15 @@
 .tmbc-circle {
   position: relative;
   white-space: nowrap;
+  margin: 0 0.28em;
 }
 .tmbc-circle__mark {
   position: absolute;
-  /* Extra padding so the loop sits fully OUTSIDE the word (never crosses letters). */
-  left: -0.55em;
-  top: -0.36em;
-  width: calc(100% + 1.1em);
-  height: calc(100% + 0.72em);
+  /* Extra padding so the loop sits fully OUTSIDE the word (taller, more air). */
+  left: -0.72em;
+  top: -0.58em;
+  width: calc(100% + 1.44em);
+  height: calc(100% + 1.24em);
   overflow: visible;
   color: var(--color-cta-pink);
   pointer-events: none;
@@ -708,11 +709,23 @@
 .tmbc-circle__mark path {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.4;
+  stroke-width: 3.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  opacity: 0.9;
+  opacity: 0.92;
+}
+/* [[sentence]] underline — same colour + weight as the circle, follows line wraps
+   (paints under each line box), for standout sentences too long to circle. */
+.tmbc-underline {
+  background-image: linear-gradient(var(--color-cta-pink), var(--color-cta-pink));
+  background-repeat: no-repeat;
+  background-size: 100% 3.4px;
+  background-position: 0 100%;
+  padding-bottom: 0.08em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 /* Draw-on-reveal: BlogReveal arms below-fold circles, then reveals them in view. */
 .tmbc-circle.tmbc-armed .tmbc-circle__mark path {

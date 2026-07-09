@@ -85,7 +85,7 @@ export default function AboutPage() {
         <Hero
           className="homepage-hero"
           eyebrow="Tot Squad Certified Specialist"
-          title="Meet ((Taylor)), Your Baby Registry Consultant"
+          title="Meet Taylor, Your Baby Registry Consultant"
           subtitle="I help expecting parents build confident baby registries and make the right stroller, car seat, nursery, and gear decisions, without the overwhelm, the algorithm noise, or the sponsored advice."
           primaryCta={{ label: 'Book a Registry Consultation ($75)', href: '/book' }}
           image="/assets/hero/hero-05.jpg"
@@ -287,7 +287,7 @@ export default function AboutPage() {
                 <Body className="text-neutral-700">
                   The Taylor-Made approach is built on real-life fit. We slow the process down. We look at how you actually live, your home layout, your daily routines, your vehicle, your long-term family plans, and the budget that actually makes sense for your life.
                 </Body>
-                <Body className="text-neutral-700">Then we figure out what to buy, what to skip, and what can wait.</Body>
+                <Body className="text-neutral-700">[[ Then we figure out what to buy, what to skip, and what can wait. ]]</Body>
                 <Body className="text-neutral-700">No panic buying. No trend chasing. No just-in-case overload. Just practical, independent guidance that makes sense for your real life, not for the algorithm.</Body>
               </div>
             </RevealOnScroll>

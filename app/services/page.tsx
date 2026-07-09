@@ -77,7 +77,7 @@ export default function ServicesPage() {
           className="homepage-hero services-hero"
           eyebrow="$75 · 1-Hour Virtual Session · US Nationwide"
           title="Your Baby Registry Consultation, One Focused Hour"
-          subtitle="Taylor-Made Baby Co. helps expecting parents make confident baby gear decisions in a single virtual session at (($75)), covering strollers, car seats, nursery, feeding gear, and registry strategy, personalised to your real home and budget."
+          subtitle="Taylor-Made Baby Co. helps expecting parents make confident baby gear decisions in a single virtual session at $75, covering strollers, car seats, nursery, feeding gear, and registry strategy, personalised to your real home and budget."
           primaryCta={{ label: 'Book Your Consultation, $75', href: '/book' }}
           secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
           tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"

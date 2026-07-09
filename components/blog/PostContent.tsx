@@ -84,7 +84,7 @@ const orderedListPattern = /^\d+\.\s+/;
 const unorderedListPattern = /^(?:[-•])\s+/;
 const imageLinePattern = /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$/;
 const inlineTokenPattern =
-  /(\(\(([^)]+)\)\)|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
+  /(\(\(([^)]+)\)\)|\[\[\s+([^\]]+?)\s+\]\]|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\*([^*]+)\*|_([^_]+)_)/;
 const CTA_BUTTON_PREFIX = '::cta-button ';
 
 const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
@@ -234,6 +234,7 @@ function renderInlineContent(
       fullMatch,
       ,
       circleText,
+      underlineText,
       linkLabel,
       linkHref,
       strongA,
@@ -245,11 +246,13 @@ function renderInlineContent(
     const key = `${keyPrefix}-${tokenIndex}`;
 
     if (circleText) {
-      // ((word)) → hand-drawn pink circle (TMBC signature). The SVG mark is armed
-      // + animated by BlogReveal when it scrolls into view.
+      // (( word )) → hand-drawn pink circle (TMBC signature). The SVG mark is armed
+      // + animated by BlogReveal when it scrolls into view. Trim so the space form
+      // (( word )) and the tight form ((word)) both render cleanly.
+      const circle = circleText.trim();
       nodes.push(
         <span key={key} className="tmbc-circle">
-          {highlightBrandWordmark ? renderBrandWordmarkText(circleText, `${key}-circle`) : circleText}
+          {highlightBrandWordmark ? renderBrandWordmarkText(circle, `${key}-circle`) : circle}
           <svg
             className="tmbc-circle__mark"
             viewBox="0 0 100 40"
@@ -259,6 +262,14 @@ function renderInlineContent(
           >
             <path d="M6,20 C4,9 27,4 50,4 C75,4 97,8 96,19 C95,32 70,37 47,36 C21,35 5,31 6,18" />
           </svg>
+        </span>,
+      );
+    } else if (underlineText) {
+      // [[ sentence ]] → pink underline (same colour + weight as the circle) for
+      // standout sentences too long to circle.
+      nodes.push(
+        <span key={key} className="tmbc-underline">
+          {highlightBrandWordmark ? renderBrandWordmarkText(underlineText, `${key}-underline`) : underlineText}
         </span>,
       );
     } else if (linkLabel && linkHref) {

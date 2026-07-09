@@ -312,13 +312,14 @@ a:hover .link-underline::after {
 .tmbc-circle {
   position: relative;
   white-space: nowrap;
+  margin: 0 0.28em;
 }
 .tmbc-circle__mark {
   position: absolute;
-  left: -0.55em;
-  top: -0.36em;
-  width: calc(100% + 1.1em);
-  height: calc(100% + 0.72em);
+  left: -0.72em;
+  top: -0.58em;
+  width: calc(100% + 1.44em);
+  height: calc(100% + 1.24em);
   overflow: visible;
   color: var(--color-cta-pink);
   pointer-events: none;
@@ -327,11 +328,25 @@ a:hover .link-underline::after {
 .tmbc-circle__mark path {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.4;
+  stroke-width: 3.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  opacity: 0.9;
+  opacity: 0.92;
+}
+
+/* ((word)) circle + [[sentence]] underline share one weight + colour. The
+   underline follows line wraps (paints under each line box), for standout
+   sentences too long to circle. */
+.tmbc-underline {
+  background-image: linear-gradient(var(--color-cta-pink), var(--color-cta-pink));
+  background-repeat: no-repeat;
+  background-size: 100% 3.4px;
+  background-position: 0 100%;
+  padding-bottom: 0.08em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* Soft gradient hairline used to separate / transition sections */

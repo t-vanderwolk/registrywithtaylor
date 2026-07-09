@@ -379,15 +379,15 @@ export default function HomePage() {
                   <div className="relative z-[1] max-w-[40rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                     <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      {circleText('Your Baby Registry ((Expert))')}
+                      Your Baby Registry Expert
                     </h2>
                     <p className="mt-3 border-l-[3px] border-[var(--color-cta-pink)]/55 pl-4 text-[1.9rem] italic leading-[1.15] tracking-[-0.01em] text-[var(--color-cta-pink)] [font-family:var(--font-accent)] sm:text-[2.15rem]">
                       Taylor Vanderwolk
                     </p>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
-                      I have spent years helping families sort strollers, car seats, registries, and nursery decisions
-                      in real life, not just in theory. I know how fast baby gear can go from exciting to weirdly
-                      overwhelming.
+                      {circleText(
+                        'I have spent years helping families sort strollers, car seats, registries, and nursery decisions in (( real life )), not just in theory. I know how fast baby gear can go from exciting to weirdly overwhelming.',
+                      )}
                     </p>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       My approach is calm, practical, and built around what actually fits your home, your routines, and
