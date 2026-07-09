@@ -278,7 +278,7 @@ function AdvisorFocusCard({
 function AdvisorExperienceCard({ card, delayMs = 0 }: { card: AdvisorExperienceCard; delayMs?: number }) {
   return (
     <RevealOnScroll delayMs={delayMs}>
-      <div className="flex h-full min-h-[8.5rem] flex-col items-center justify-center rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] p-4 text-center shadow-[0_10px_24px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.75)] sm:min-h-[9rem] sm:p-5">
+      <div className="mkt-card flex h-full min-h-[8.5rem] flex-col items-center justify-center rounded-[1.35rem] border border-[rgba(0,0,0,0.06)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(252,247,244,0.94)_100%)] p-4 text-center shadow-[0_10px_24px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.75)] sm:min-h-[9rem] sm:p-5">
         <div className="flex min-h-[2.5rem] items-center justify-center">
           {card.logoSrc && card.logoAlt && card.width && card.height ? (
             <Image

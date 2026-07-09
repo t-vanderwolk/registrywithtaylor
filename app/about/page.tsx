@@ -115,7 +115,7 @@ export default function AboutPage() {
               <H3 className="text-center font-serif text-neutral-900">{ABOUT_BEFORE_AFTER.title}</H3>
             </RevealOnScroll>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-black/5 bg-neutral-50 p-6">
+              <div className="mkt-card rounded-2xl border border-black/5 bg-neutral-50 p-6">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Before working with Taylor</p>
                 <ul className="space-y-3 text-neutral-700">
                   {ABOUT_BEFORE_AFTER.before.map((item) => (
@@ -123,7 +123,7 @@ export default function AboutPage() {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-2xl border border-[#f2d3db] bg-[#fdf1f4] p-6">
+              <div className="mkt-card rounded-2xl border border-[#f2d3db] bg-[#fdf1f4] p-6">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]">After working with Taylor</p>
                 <ul className="space-y-3 text-neutral-800">
                   {ABOUT_BEFORE_AFTER.after.map((item) => (
@@ -207,7 +207,7 @@ export default function AboutPage() {
             </RevealOnScroll>
             <div className="grid gap-5 md:grid-cols-2">
               {ABOUT_CREDENTIALS.map((c) => (
-                <div key={c.name} className="rounded-2xl border border-black/5 bg-neutral-50 p-6">
+                <div key={c.name} className="mkt-card rounded-2xl border border-black/5 bg-neutral-50 p-6">
                   <h3 className="font-serif text-lg text-neutral-900">{c.name}</h3>
                   <p className="mt-2 text-neutral-700">{c.body}</p>
                   {c.link ? (
@@ -234,7 +234,7 @@ export default function AboutPage() {
             </RevealOnScroll>
             <div className="grid gap-6 md:grid-cols-2">
               {ABOUT_STEPS.map((s) => (
-                <div key={s.n} className="rounded-2xl bg-white p-6 shadow-sm">
+                <div key={s.n} className="mkt-card rounded-2xl bg-white p-6 shadow-sm">
                   <div className="font-serif text-2xl text-[var(--color-accent-dark)]">{s.n}</div>
                   <h3 className="mt-1 font-serif text-lg text-neutral-900">{s.title}</h3>
                   <p className="mt-2 text-neutral-700">{s.body}</p>
@@ -255,11 +255,11 @@ export default function AboutPage() {
               <H2 className="font-serif text-neutral-900">What Taylor Helps You Choose</H2>
             </RevealOnScroll>
             <Body className="text-neutral-700">Every consultation is scoped to your needs. Most families cover some or all of the following decisions.</Body>
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2">
               {ABOUT_GEAR.map((g) => (
-                <div key={g.title}>
-                  <h3 className="font-serif text-lg text-neutral-900">{g.title}</h3>
-                  <p className="mt-1 text-neutral-700">{g.body}</p>
+                <div key={g.title} className="mkt-card rounded-2xl border border-[#f2d3db] bg-[linear-gradient(180deg,#ffffff,#fdf7f9)] p-6">
+                  <h3 className="font-serif text-lg text-[var(--color-accent-dark)]">{g.title}</h3>
+                  <p className="mt-1.5 text-neutral-700">{g.body}</p>
                 </div>
               ))}
             </div>
@@ -384,7 +384,7 @@ export default function AboutPage() {
             </RevealOnScroll>
             <div className="grid gap-6 md:grid-cols-3">
               {ABOUT_REVIEWS.map((r) => (
-                <figure key={r.author} className="rounded-2xl bg-white p-6 shadow-sm">
+                <figure key={r.author} className="mkt-card rounded-2xl bg-white p-6 shadow-sm">
                   <div className="text-[var(--color-accent-dark)]" aria-hidden>★★★★★</div>
                   <blockquote className="mt-3 text-neutral-700">“{r.quote}”</blockquote>
                   <figcaption className="mt-3 text-sm font-semibold text-neutral-900">
@@ -485,7 +485,7 @@ export default function AboutPage() {
             </RevealOnScroll>
             <div className="space-y-3">
               {ABOUT_FAQ.map((f) => (
-                <details key={f.question} className="group rounded-2xl border border-black/5 bg-white p-5">
+                <details key={f.question} className="mkt-card group rounded-2xl border border-black/5 bg-white p-5">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg text-neutral-900">
                     <span>{f.question}</span>
                     <span className="mt-1 shrink-0 text-[var(--color-accent-dark)] transition group-open:rotate-45" aria-hidden>+</span>
@@ -512,7 +512,7 @@ export default function AboutPage() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-neutral-50 p-6">
+            <div className="mkt-card rounded-2xl border border-black/5 bg-neutral-50 p-6">
               <NewsletterCapture />
             </div>
           </div>
