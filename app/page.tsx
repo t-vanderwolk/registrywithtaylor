@@ -12,6 +12,7 @@ import EditorialIllustration from '@/components/ui/EditorialIllustration';
 import CheckIcon from '@/components/ui/CheckIcon';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { circleText } from '@/lib/ui/circleText';
 import PodcastFeature from '@/components/marketing/PodcastFeature';
 import RegistryConsultOffer from '@/components/marketing/RegistryConsultOffer';
 import { HOME_FAQ } from '@/lib/marketing/homeFaq';
@@ -378,7 +379,7 @@ export default function HomePage() {
                   <div className="relative z-[1] max-w-[40rem]">
                     <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Advisor Profile</p>
                     <h2 className="mt-4 font-serif text-[2.4rem] leading-[0.98] tracking-[-0.04em] text-neutral-900 sm:text-[2.9rem]">
-                      Your Baby Registry Expert
+                      {circleText('Your Baby Registry ((Expert))')}
                     </h2>
                     <p className="mt-3 border-l-[3px] border-[var(--color-cta-pink)]/55 pl-4 text-[1.9rem] italic leading-[1.15] tracking-[-0.01em] text-[var(--color-cta-pink)] [font-family:var(--font-accent)] sm:text-[2.15rem]">
                       Taylor Vanderwolk

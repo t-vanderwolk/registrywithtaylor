@@ -85,7 +85,7 @@ export default function AboutPage() {
         <Hero
           className="homepage-hero"
           eyebrow="Tot Squad Certified Specialist"
-          title="Meet Taylor, Your Baby Registry Consultant"
+          title="Meet ((Taylor)), Your Baby Registry Consultant"
           subtitle="I help expecting parents build confident baby registries and make the right stroller, car seat, nursery, and gear decisions, without the overwhelm, the algorithm noise, or the sponsored advice."
           primaryCta={{ label: 'Book a Registry Consultation ($75)', href: '/book' }}
           image="/assets/hero/hero-05.jpg"

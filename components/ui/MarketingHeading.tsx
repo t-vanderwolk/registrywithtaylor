@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { circleText } from '@/lib/ui/circleText';
 
 type HeadingProps = {
   children: ReactNode;
@@ -15,7 +16,7 @@ export function H1({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {children}
+      {circleText(children)}
     </h1>
   );
 }
@@ -30,7 +31,7 @@ export function H2({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {children}
+      {circleText(children)}
     </h2>
   );
 }
@@ -45,7 +46,7 @@ export function H3({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {children}
+      {circleText(children)}
     </h3>
   );
 }
@@ -60,7 +61,7 @@ export function Body({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {children}
+      {circleText(children)}
     </p>
   );
 }
@@ -75,7 +76,7 @@ export function Eyebrow({ children, className = '' }: HeadingProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      {children}
+      {circleText(children)}
     </p>
   );
 }

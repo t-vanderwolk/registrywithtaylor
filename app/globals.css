@@ -307,6 +307,33 @@ a:hover .link-underline::after {
   }
 }
 
+/* ── Circled words (TMBC signature), site-wide ──────────────────────────────
+   ((word)) renders a hand-drawn rose loop around the phrase, in cta-pink. */
+.tmbc-circle {
+  position: relative;
+  white-space: nowrap;
+}
+.tmbc-circle__mark {
+  position: absolute;
+  left: -0.55em;
+  top: -0.36em;
+  width: calc(100% + 1.1em);
+  height: calc(100% + 0.72em);
+  overflow: visible;
+  color: var(--color-cta-pink);
+  pointer-events: none;
+  z-index: 1;
+}
+.tmbc-circle__mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.9;
+}
+
 /* Soft gradient hairline used to separate / transition sections */
 .mkt-divider {
   height: 1px;
