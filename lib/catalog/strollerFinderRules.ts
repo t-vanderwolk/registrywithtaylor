@@ -37,6 +37,15 @@ const EXCLUDED_STROLLER_PRODUCT_RULES: Array<{ brandKey: string; title: RegExp }
   { brandKey: 'nuna', title: /\bbmw\b/i },
 ];
 
+// Exclusions matched against the PARSED model (not the raw title). Catches
+// mis-enriched accessories whose feed title carries no "bag"/noise keyword yet
+// collapse to a bare model name. Zoe "Single" (~$40) is a stroller travel bag,
+// not a stroller — real Zoe strollers parse to "Tour³ Single", "The Journey",
+// "Traveler", "Twin³ Double", etc.
+const EXCLUDED_STROLLER_MODEL_RULES: Array<{ brandKey: string; model: RegExp }> = [
+  { brandKey: 'zoe', model: /^single$/i },
+];
+
 const STROLLER_PRODUCT_NOISE_RE =
   /travel system|\bsnap-?n-?go\b|car ?seat carrier|\bmagnetic buckles?\b|\bbassinet\b|\bcot\b|\badapters?\b|footboard|conversion kit|\b(?:stroller|seat|car seat)\s+frame\b|\bframe\s+(?:stroller|only)\b|\bchassis\s+(?:only|replacement)\b|\bstroller\s+chassis\b|\bboard\b|transport bag|\bbag\b|organizer|organi[sz]er|snack tray|\btray\b|rain cover|rain shield|weather shield|sun ?shade|\bcanopy\b|parasol|cup ?holder|seat liner|second seat|sibling seat|rumble ?seat|seat unit|toddler seat|stroller seat|\b(?:front|rear|replacement|spare)\s+(?:wheel|tire)s?\b|\b(?:wheel|tire)s?\s+(?:replacement|set|kit|assembly)\b|inner tube|\bbasket\b|\bcaddy\b|footmuff|\bcover\b|bumper bar|belly bar|ride[- ]?along|glider board|piggy ?back|replacement|\bstand\b|console|\bhook\b|cage|mosquito|\bnet\b|\bbundle\b/i;
 
@@ -114,5 +123,25 @@ export function isExcludedStrollerFinderProduct({
     (rule) =>
       (rule.brandKey === rawBrandKey || rule.brandKey === canonicalBrandKey) &&
       rule.title.test(title),
+  );
+}
+
+/**
+ * Second-pass exclusion checked against the PARSED model, after brand/model are
+ * resolved in the public catalog. Use for accessories that survive the title
+ * noise filter but collapse to a bare model name (e.g. Zoe "Single" travel bag).
+ */
+export function isExcludedStrollerFinderModel(
+  brand: string | null | undefined,
+  model: string | null | undefined,
+) {
+  if (!model) return false;
+  const rawBrandKey = brandKey(brand);
+  const canonicalBrandKey = brandKey(canonicalStrollerBrand(brand));
+  const value = model.trim();
+  return EXCLUDED_STROLLER_MODEL_RULES.some(
+    (rule) =>
+      (rule.brandKey === rawBrandKey || rule.brandKey === canonicalBrandKey) &&
+      rule.model.test(value),
   );
 }

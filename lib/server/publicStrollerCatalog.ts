@@ -9,6 +9,7 @@ import {
 import {
   canonicalStrollerBrand,
   isExcludedStrollerFinderProduct,
+  isExcludedStrollerFinderModel,
 } from '@/lib/catalog/strollerFinderRules';
 import { hasPublicCoreRetailer, isGoodBuyGearOffer, isBombiOffer, isAmazonOffer, isAmazonUrl } from '@/lib/catalog/publicRetailerVisibility';
 import prisma from '@/lib/server/prisma';
@@ -241,6 +242,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const rawModel = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
     const model = cleanPublicModelName(rawModel, brand);
     if (!model) continue;
+    if (isExcludedStrollerFinderModel(brand, model)) continue;
     const key = productModelKey(brand, model || row.title);
 
     let group = groups.get(key);

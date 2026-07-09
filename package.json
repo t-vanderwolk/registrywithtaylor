@@ -71,6 +71,8 @@
     "catalog:fix-city-loop-apply": "tsx scripts/fixPegPeregoCityLoop.ts --apply",
     "catalog:restore-cybex": "tsx scripts/restoreCybexStrollers.ts",
     "catalog:restore-cybex-apply": "tsx scripts/restoreCybexStrollers.ts --apply",
+    "catalog:restore-mima": "tsx scripts/restoreMimaStrollers.ts",
+    "catalog:restore-mima-apply": "tsx scripts/restoreMimaStrollers.ts --apply",
     "catalog:promote-adapters": "tsx scripts/promoteCarSeatAdapters.ts",
     "catalog:promote-adapters-apply": "tsx scripts/promoteCarSeatAdapters.ts --apply",
     "catalog:merge-delta": "tsx scripts/mergeDeltaBrand.ts",
