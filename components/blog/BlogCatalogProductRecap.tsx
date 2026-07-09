@@ -9,6 +9,7 @@ type BlogCatalogProductRecapProps = {
   content: string;
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   strollerCompatHrefs?: Record<string, string>;
+  carSeatCompatHrefs?: Record<string, string>;
   goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
   heading?: string;
   subheading?: string;
@@ -27,6 +28,7 @@ export default function BlogCatalogProductRecap({
   content,
   productCatalogMap = {},
   strollerCompatHrefs = {},
+  carSeatCompatHrefs = {},
   goodBuyGearOffers = {},
   heading = 'Shop every stroller in this guide',
   subheading = 'All of the picks above, gathered in one place.',
@@ -73,6 +75,7 @@ export default function BlogCatalogProductRecap({
               primaryRetailer={block.primaryRetailer}
               comingSoon={block.comingSoon}
               compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
+              compatStrollersHref={carSeatCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
               openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
               openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
               position={index + 1}

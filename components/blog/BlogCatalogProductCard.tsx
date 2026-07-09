@@ -34,6 +34,8 @@ type BlogCatalogProductCardProps = {
   comingSoon?: boolean;
   /** Travel-system checker results href for this stroller (compatible car seats). */
   compatHref?: string | null;
+  /** Travel-system checker results href for this car seat (compatible strollers). */
+  compatStrollersHref?: string | null;
   /** 'inline' floats a compact card beside the prose; 'grid' is the recap card. */
   layout?: 'inline' | 'grid';
   position: number;
@@ -91,6 +93,7 @@ export default function BlogCatalogProductCard({
   openBoxPrice,
   comingSoon = false,
   compatHref,
+  compatStrollersHref,
   layout = 'grid',
   position,
 }: BlogCatalogProductCardProps) {
@@ -193,6 +196,13 @@ export default function BlogCatalogProductCard({
           {compatHref ? (
             <Link href={compatHref} className="blog-product-card__compat">
               Check compatible car seats
+              <span aria-hidden="true" className="ml-1">→</span>
+            </Link>
+          ) : null}
+
+          {compatStrollersHref ? (
+            <Link href={compatStrollersHref} className="blog-product-card__compat">
+              Check compatible strollers
               <span aria-hidden="true" className="ml-1">→</span>
             </Link>
           ) : null}

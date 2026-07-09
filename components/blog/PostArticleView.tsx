@@ -26,6 +26,7 @@ import PostCommentsSection from '@/components/blog/PostCommentsSection';
 import PostContent from '@/components/blog/PostContent';
 import { extractStyledBlocks } from '@/lib/blog/styledBlocks';
 import { resolveBlogStrollerCompatHrefs } from '@/lib/server/blogStrollerCompat';
+import { resolveBlogCarSeatCompatHrefs } from '@/lib/server/blogCarSeatCompat';
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
 import BlogReveal from '@/components/blog/BlogReveal';
@@ -306,7 +307,7 @@ export default async function PostArticleView({
     block.type === 'catalog-product' ? [{ brand: block.brand, productName: block.productName }] : [],
   );
   const catalogProductCount = catalogProductBlockRefs.length;
-  const [productCatalogMap, strollerCompatHrefs, goodBuyGearOffers] = await Promise.all([
+  const [productCatalogMap, strollerCompatHrefs, carSeatCompatHrefs, goodBuyGearOffers] = await Promise.all([
     resolveBlogProductCatalogLinks(
       articleStyledBlocks.flatMap((block) =>
         block.type === 'product' || block.type === 'catalog-product'
@@ -315,6 +316,7 @@ export default async function PostArticleView({
       ),
     ),
     resolveBlogStrollerCompatHrefs(catalogProductBlockRefs),
+    resolveBlogCarSeatCompatHrefs(catalogProductBlockRefs),
     resolveBlogGoodBuyGearOffers(catalogProductBlockRefs),
   ]);
   const serializedCtaPartners = Object.fromEntries(
@@ -419,6 +421,7 @@ export default async function PostArticleView({
               contextualInternalLinks={internalLinkPlan.contextualLinks}
               productCatalogMap={productCatalogMap}
               strollerCompatHrefs={strollerCompatHrefs}
+              carSeatCompatHrefs={carSeatCompatHrefs}
               goodBuyGearOffers={goodBuyGearOffers}
             />
             <BlogReveal />
@@ -502,6 +505,7 @@ export default async function PostArticleView({
                 content={articleContent}
                 productCatalogMap={productCatalogMap}
                 strollerCompatHrefs={strollerCompatHrefs}
+                carSeatCompatHrefs={carSeatCompatHrefs}
                 goodBuyGearOffers={goodBuyGearOffers}
                 showChrome={false}
               />

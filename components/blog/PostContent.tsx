@@ -63,6 +63,8 @@ type PostContentProps = {
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   /** Travel-system checker hrefs keyed by blogProductKey(brand, productName). */
   strollerCompatHrefs?: Record<string, string>;
+  /** Car-seat → compatible-strollers checker hrefs keyed by blogProductKey. */
+  carSeatCompatHrefs?: Record<string, string>;
   /** GoodBuy Gear open-box offers keyed by blogProductKey(brand, productName). */
   goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
 };
@@ -402,6 +404,7 @@ function renderStyledBlock(
   highlightBrandWordmark = false,
   strollerCompatHrefs: Record<string, string> = {},
   goodBuyGearOffers: Record<string, { url: string | null; price: number | null }> = {},
+  carSeatCompatHrefs: Record<string, string> = {},
 ) {
   if (block.type === 'poll') {
     return <BlogPoll key={`${postId}-poll-${index}`} question={block.question} options={block.options} />;
@@ -550,6 +553,7 @@ function renderStyledBlock(
         primaryRetailer={block.primaryRetailer}
         comingSoon={block.comingSoon}
         compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
+        compatStrollersHref={carSeatCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
         openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
         openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
         layout="inline"
@@ -593,6 +597,7 @@ export default function PostContent({
   contextualInternalLinks = [],
   productCatalogMap = {},
   strollerCompatHrefs = {},
+  carSeatCompatHrefs = {},
   goodBuyGearOffers = {},
 }: PostContentProps) {
   const storedButtons = extractStoredCtaButtons(content);
@@ -691,7 +696,7 @@ export default function PostContent({
           }
 
           if (styledBlock) {
-            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i, false, strollerCompatHrefs, goodBuyGearOffers));
+            nodes.push(renderStyledBlock(enrichProductBlockWithCatalog(styledBlock.block, productCatalogMap), postId, i, false, strollerCompatHrefs, goodBuyGearOffers, carSeatCompatHrefs));
             i = styledBlock.nextIndex;
             continue;
           }

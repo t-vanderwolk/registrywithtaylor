@@ -26,6 +26,10 @@
  */
 import prismaBase from '@/lib/server/prisma';
 import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';
+import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';
+import { blogProductKey } from '@/lib/blog/blogProductCatalog';
+
+type PriceInfo = { price: number | null; retailer: string | null };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
@@ -122,16 +126,29 @@ function splitBrandProduct(title: string): { brand: string; product: string } {
   return { brand: parts[0] ?? title, product: parts.slice(1).join(' ') || title };
 }
 
-function buildBlock(brand: string, product: string, group: Group, imageUrl: string | null): string {
+const isSilverCrossBrand = (brand: string) => /silver\s*cross/i.test(brand);
+
+function buildBlock(
+  brand: string,
+  product: string,
+  group: Group,
+  imageUrl: string | null,
+  price?: PriceInfo | null,
+): string {
   const out = [':::catalog-product', `Brand: ${brand}`, `Product: ${product}`];
   if (group.links.babylist) out.push(`Babylist: ${group.links.babylist}`);
   if (group.links.amazon) out.push(`Amazon: ${group.links.amazon}`);
   if (group.links.macrobaby) out.push(`MacroBaby: ${group.links.macrobaby}`);
   if (group.links.shop) {
     out.push(`Shop: ${group.links.shop}`);
-    if (group.shopRetailer) out.push(`Retailer: ${group.shopRetailer}`);
+    out.push(`Retailer: ${group.shopRetailer ?? (isSilverCrossBrand(brand) ? 'Silver Cross' : 'Shop')}`);
   }
+  // Silver Cross leads with its own store; Babylist (if present) drops to secondary.
+  if (isSilverCrossBrand(brand) && group.links.shop) out.push('Primary: shop');
   if (imageUrl) out.push(`Image: ${imageUrl}`);
+  if (price?.price != null) {
+    out.push(`Price: $${price.price}${price.retailer ? ` via ${price.retailer}` : ''}`);
+  }
   out.push(':::');
   return out.join('\n');
 }
@@ -146,10 +163,22 @@ function sectionEnd(lines: string[], headingIndex: number) {
   return end;
 }
 
-export type TransformResult = { content: string; changed: number; notes: string[]; blocks: string[] };
+export type TransformResult = {
+  content: string;
+  changed: number;
+  notes: string[];
+  blocks: string[];
+  refs: Array<{ brand: string; productName: string }>;
+};
 
-/** Pure transform (no DB) so it can be unit-tested against sample content. */
-export function transformReleased2026(content: string): TransformResult {
+/**
+ * Pure transform (no DB) so it can be unit-tested. Pass `priceByKey` (keyed by
+ * blogProductKey) on a second pass to bake catalog prices into each card.
+ */
+export function transformReleased2026(
+  content: string,
+  priceByKey: Record<string, PriceInfo> = {},
+): TransformResult {
   const stored = extractStoredCtaButtons(content ?? '');
   const buttonById = new Map<string, CtaButton>(stored.buttons.map((b) => [b.id, b]));
   const lines = stored.body.split('\n');
@@ -158,6 +187,7 @@ export function transformReleased2026(content: string): TransformResult {
   const insertBlockAt = new Map<number, string>();
   const notes: string[] = [];
   const blocks: string[] = [];
+  const refs: Array<{ brand: string; productName: string }> = [];
   let changed = 0;
 
   for (let idx = 0; idx < lines.length; idx += 1) {
@@ -228,7 +258,11 @@ export function transformReleased2026(content: string): TransformResult {
       current = null; // prose line breaks the run
     }
 
-    if (groups.length < 2) {
+    // Normally we only replace a DUPLICATE (2nd) CTA group. Silver Cross sections
+    // are carded even with a single group so all Silver Cross products get a card
+    // with Silver Cross primary / Babylist secondary.
+    const silverCross = isSilverCrossBrand(title);
+    if (groups.length < 2 && !(silverCross && groups.length >= 1)) {
       notes.push(`• ${title}: ${groups.length} CTA group(s) — no duplicate to replace, skipped.`);
       continue;
     }
@@ -240,9 +274,11 @@ export function transformReleased2026(content: string): TransformResult {
     }
 
     const { brand, product } = splitBrandProduct(title);
-    const block = buildBlock(brand, product, last, imageUrl);
+    const price = priceByKey[blogProductKey(brand, product)] ?? null;
+    const block = buildBlock(brand, product, last, imageUrl, price);
     insertBlockAt.set(last.indices[0], block);
     last.indices.forEach((i) => dropIndices.add(i));
+    refs.push({ brand, productName: product });
     changed += 1;
     blocks.push(`──────── ${brand} ${product} ────────\n${block}`);
   }
@@ -265,7 +301,7 @@ export function transformReleased2026(content: string): TransformResult {
   const content2 = serializeCtaButtons(rebuilt.join('\n'), remainingButtons).replace(/\n{3,}/g, '\n\n');
 
   notes.unshift(`CTA buttons kept: ${remainingButtons.length}/${stored.buttons.length}`);
-  return { content: content2, changed, notes, blocks };
+  return { content: content2, changed, notes, blocks, refs };
 }
 
 async function main() {
@@ -275,8 +311,23 @@ async function main() {
     process.exit(1);
   }
 
-  const { content: updated, changed, notes, blocks } = transformReleased2026(post.content ?? '');
+  // Pass 1: discover which products get a card, then look up their live catalog
+  // price (real data — Babylist / MacroBaby). Pass 2: bake the price into cards.
+  const first = transformReleased2026(post.content ?? '');
+  const priceByKey: Record<string, PriceInfo> = {};
+  try {
+    const matches = await resolveBlogProductCatalogLinks(first.refs);
+    for (const ref of first.refs) {
+      const m = matches[blogProductKey(ref.brand, ref.productName)];
+      if (m?.price != null) priceByKey[blogProductKey(ref.brand, ref.productName)] = { price: m.price, retailer: m.retailer };
+    }
+  } catch {
+    /* no catalog price available — cards fall back to live render-time enrichment */
+  }
 
+  const { content: updated, changed, notes, blocks } = transformReleased2026(post.content ?? '', priceByKey);
+
+  console.log(`Prices baked from catalog: ${Object.keys(priceByKey).length}/${first.refs.length} card(s)`);
   blocks.forEach((b) => console.log(`\n${b}`));
   console.log('\n════════════════════════════════════════');
   console.log(`Post: ${post.title} (${post.slug})`);
