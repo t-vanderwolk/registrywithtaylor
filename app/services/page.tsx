@@ -10,14 +10,25 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import SectionIntro from '@/components/ui/SectionIntro';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { servicesStructuredData } from '@/lib/marketing/servicesStructuredData';
 
 export const metadata = buildMarketingMetadata({
-  title: 'Registry Consult ($75) | Taylor-Made Baby Co.',
+  title: 'Baby Registry Consultation, $75 Virtual Session | Taylor-Made Baby Co.',
   description:
-    'Book a focused 1-hour virtual Registry Consult ($75) — expert help starting, editing, or making sense of your baby registry, from strollers and car seats to feeding, sleep, and nursery basics.',
+    'Book a 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, and registry strategy. Book your session today.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
-  imageAlt: 'Taylor-Made Baby Co. advisory services.',
+  imageAlt: 'Baby registry consultation with Taylor Vanderwolk, baby registry consultant',
+  keywords: [
+    'baby registry consultant',
+    'book baby registry consultation',
+    'baby registry consultation $75',
+    'virtual baby registry consultant',
+    'baby registry expert',
+    'baby gear consultant',
+    'stroller consultation service',
+    'baby registry help',
+  ],
 });
 
 const engagementPrinciples = [
@@ -107,17 +118,21 @@ export default function ServicesPage() {
     <SiteShell currentPath="/services">
       <main className="site-main">
         <PageViewTracker path="/services" pageType="services" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesStructuredData) }}
+        />
 
         <Hero
           className="homepage-hero services-hero"
-          eyebrow="Introductory Registry Consults Now Open · $75"
-          title="Let’s make sense of your registry"
-          subtitle="Bring me the registry chaos and I’ll help you find the first clear path through it — a focused, 1-hour virtual Registry Consult ($75) for expecting parents starting, editing, or making sense of a baby registry."
-          primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
+          eyebrow="$75 · 1-Hour Virtual Session · US Nationwide"
+          title="Baby Registry Consultation, Expert Help for Expecting Parents"
+          subtitle="Taylor-Made Baby Co. offers 1-hour virtual baby registry consultations at $75, covering strollers, car seats, nursery, feeding gear, and registry strategy for expecting parents across the United States."
+          primaryCta={{ label: 'Book Your Consultation, $75', href: '/book' }}
           secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
           tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"
           image="/assets/hero/hero-03.jpg"
-          imageAlt="Baby registry and gear planning scene"
+          imageAlt="Baby registry consultation with Taylor Vanderwolk, baby registry consultant"
           contentClassName="homepage-hero-content services-hero-content"
           ribbonClassName="translate-y-6 md:translate-y-8"
           staggerContent
