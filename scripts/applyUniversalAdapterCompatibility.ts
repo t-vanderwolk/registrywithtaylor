@@ -138,6 +138,11 @@ const ADAPTER_STROLLERS: Rule[] = [
   // / CYBEX / Clek via the Bumbleride car seat adapter; the single frames also take
   // Graco / Chicco via the Bumbleride Single (Graco / Chicco) adapter.
   { brand: 'Bumbleride', model: /\b(era|indie|speed)\b/i, family: 'Era / Indie / Speed / Indie Twin', extraSeatBrands: ['Graco', 'Chicco'] },
+  // Bombi Bēbee (V3 + Twin V2) makes no infant seat of its own. Its Universal Car
+  // Seat Adapter Straps wrap around the seat base, so they fit essentially every
+  // major infant car seat: the shared Nuna / Maxi-Cosi / CYBEX / Clek euro group
+  // (via the Nuna trigger) PLUS Graco / Chicco / UPPAbaby / Britax.
+  { brand: 'Bombi', model: null, family: 'Bēbee (V3 / Twin V2)', extraSeatBrands: ['Graco', 'Chicco', 'UPPAbaby', 'Britax'] },
   // Babyzen / Stokke YOYO takes Maxi-Cosi / Nuna / CYBEX via the YOYO car seat
   // adapter (shared euro group). Scoped to the YOYO model so Stokke's own
   // Xplory / Trailz frames (different, seat-specific adapters) stay out.
