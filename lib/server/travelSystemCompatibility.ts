@@ -1092,14 +1092,19 @@ export async function getTravelSystemCompatibility(
 
   const strollerRetailerMap = await loadPublicRetailerMap('Stroller');
   const stroller = enrichWithPublicRetailers(strollers, strollerRetailerMap)[0];
-  if (!stroller || !hasPublicTravelSystemRetailer(stroller)) {
-    const catalogOption = await findPublicStrollerCatalogOption(brand, model);
-    if (catalogOption) {
-      return {
-        stroller: catalogOption,
-        compatibleCarSeats: [],
-      };
-    }
+  // A stroller is checkable when either its Stroller row carries a recognized
+  // retailer, OR it's a public finder-catalog option — e.g. a Bombi-direct
+  // stroller (Bēbee Twin V2) whose only retailer lives in the catalog, not on the
+  // Stroller row. In that case we still compute compatibility from the Stroller
+  // row's id and use the catalog option for the stroller's display + buy links.
+  const rowIsPublic = !!stroller && hasPublicTravelSystemRetailer(stroller);
+  const catalogOption = rowIsPublic ? null : await findPublicStrollerCatalogOption(brand, model);
+  if (!stroller) {
+    // No Stroller row means no compatibility rows to read — show the catalog
+    // option alone (or nothing if it isn't public anywhere).
+    return catalogOption ? { stroller: catalogOption, compatibleCarSeats: [] } : null;
+  }
+  if (!rowIsPublic && !catalogOption) {
     return null;
   }
 
@@ -1272,7 +1277,9 @@ export async function getTravelSystemCompatibility(
   );
 
   return {
-    stroller: {
+    // When the Stroller row itself has no recognized retailer (Bombi-direct), use
+    // the finder-catalog option for the display + buy links; otherwise use the row.
+    stroller: catalogOption ?? {
       brand: stroller.brand,
       model: stroller.model,
       displayName: getDisplayName(stroller.brand, stroller.model, stroller.displayName),
