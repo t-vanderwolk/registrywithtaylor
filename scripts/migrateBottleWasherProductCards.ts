@@ -5,14 +5,15 @@
  * This post is heading-driven: each washer is a `## Brand Model` section that
  * leads with a product image + a single Amazon CTA, and the same buy links recur
  * lower down in the "## Choose <Brand> If…" decision blocks and the GE Profile
- * deep-dive ("## What Makes It Different", "## Best For"). Every CTA is mapped to
- * its product by the nearest product-context `##` heading, then swapped for a
- * card. When the CTA has a product image sitting directly above it, the card
- * absorbs that image + caption; otherwise (e.g. the "Choose … If" blocks) the
- * card uses a curated product image so it still renders with a picture.
+ * deep-dive ("## What Makes It Different", "## Best For"). We card the FIRST CTA
+ * per product (its main section) and leave the repeat buttons in place, so each
+ * washer gets exactly one card instead of two or three. The CTA is mapped to its
+ * product by the nearest product-context `##` heading; the card absorbs the
+ * product image + caption sitting directly above it.
  *
  * Generic + idempotent:
  *   • Links are read at runtime from the CTA store (nothing hard-coded).
+ *   • Only the first CTA per product is carded; repeat buttons stay as-is.
  *   • A CTA already replaced by a card no longer exists → re-runs are safe.
  *   • Consecutive CTA lines collapse into one card.
  *   • Orphaned CTA buttons (no longer referenced by any slot) are pruned.
@@ -48,6 +49,23 @@ const PRODUCTS: Record<ProductKey, { brand: string; product: string; image: stri
   papablic: { brand: 'Papablic', product: 'Bottle Washer Pro', image: 'https://m.media-amazon.com/images/I/71Yibp5sxBL._AC_SL1500_.jpg' },
   ge: { brand: 'GE Profile', product: 'Smart Countertop Dishwasher', image: 'https://m.media-amazon.com/images/I/81hH92+crfL._AC_SL1500_.jpg' },
 };
+
+const BRAND_TO_KEY = new Map<string, ProductKey>(
+  (Object.entries(PRODUCTS) as Array<[ProductKey, (typeof PRODUCTS)[ProductKey]]>).map(([k, v]) => [v.brand.toLowerCase(), k]),
+);
+const CARD_BLOCK_RE = /:::catalog-product\n([\s\S]*?)\n:::/g;
+
+/** Products that already have a `:::catalog-product` card in the content, so a
+ *  re-run doesn't card the next repeat CTA as if it were the first. */
+function alreadyCardedProducts(content: string): Set<ProductKey> {
+  const out = new Set<ProductKey>();
+  for (const m of content.matchAll(CARD_BLOCK_RE)) {
+    const brand = m[1].match(/^Brand:\s*(.+)$/im)?.[1]?.trim().toLowerCase();
+    const key = brand ? BRAND_TO_KEY.get(brand) : undefined;
+    if (key) out.add(key);
+  }
+  return out;
+}
 
 /** Map an H2 heading to the product it introduces, or null for generic headings
  *  (which inherit the current product context). */
@@ -137,6 +155,7 @@ export function transformBottleWasher(content: string): TransformResult {
   const insertBlockAt = new Map<number, string>();
   const notes: string[] = [];
   const blocks: string[] = [];
+  const carded = alreadyCardedProducts(stored.body);
   let changed = 0;
   let current: ProductKey | null = null;
 
@@ -172,6 +191,12 @@ export function transformBottleWasher(content: string): TransformResult {
       notes.push(`• CTA at line ${idx + 1} has no product context — left as-is.`);
       continue;
     }
+    // Only the first (main-section) CTA per product becomes a card; the repeat
+    // buttons in "Choose … If" / GE deep-dive sections are left untouched.
+    if (carded.has(current)) {
+      notes.push(`• ${PRODUCTS[current].brand} repeat CTA — left as a button.`);
+      continue;
+    }
     if (Object.keys(links).length === 0) {
       // A dead slot with no usable link — just drop it.
       ctaIdxs.forEach((i) => dropIndices.add(i));
@@ -200,6 +225,7 @@ export function transformBottleWasher(content: string): TransformResult {
     captionIdxs.forEach((i) => dropIndices.add(i));
     ctaIdxs.forEach((i) => dropIndices.add(i));
 
+    carded.add(current);
     changed += 1;
     blocks.push(`──────── ${brand} ${product} ────────\n${block}`);
   }
