@@ -320,10 +320,16 @@ function SelectedSummaryCard({
 }
 
 // Cybex, Nuna, and Bugaboo strollers ship with one set of universal car seat
-// adapters, so a compatible seat never needs a separate adapter purchase.
+// adapters, so a compatible seat never needs a separate adapter purchase — EXCEPT
+// the Bugaboo Butterfly / Butterfly 2 travel strollers, whose adapter is sold
+// separately.
 const STROLLERS_WITH_INCLUDED_ADAPTER = new Set(['cybex', 'nuna', 'bugaboo']);
-function strollerIncludesAdapter(brand: string | null | undefined) {
-  return STROLLERS_WITH_INCLUDED_ADAPTER.has((brand ?? '').trim().toLowerCase());
+const ADAPTER_SOLD_SEPARATELY = /\bbutterfly\b/i;
+function strollerIncludesAdapter(brand: string | null | undefined, model?: string | null) {
+  const b = (brand ?? '').trim().toLowerCase();
+  if (!STROLLERS_WITH_INCLUDED_ADAPTER.has(b)) return false;
+  if (b === 'bugaboo' && ADAPTER_SOLD_SEPARATELY.test(model ?? '')) return false;
+  return true;
 }
 
 function AdapterCallout({
@@ -353,9 +359,7 @@ function AdapterCallout({
         ) : null}
         <div className="min-w-0">
           <p className="tool-adapter-callout__eyebrow">{adapterIncluded ? 'Adapter' : 'Adapter needed'}</p>
-          <p className="tool-adapter-callout__name">
-            {item.adapterType ?? 'Car seat adapter'}
-          </p>
+          <p className="tool-adapter-callout__name">Car seat adapter</p>
           {adapterIncluded ? (
             <p className="text-[0.68rem] font-semibold text-[rgba(58,99,72,0.92)]">
               Included with your stroller
@@ -371,10 +375,10 @@ function AdapterCallout({
         <ToolAffiliateLink
           tool="travel-system-checker"
           href={item.adapterUrl}
-          product={item.adapterType ?? 'Car seat adapter'}
+          product="Car seat adapter"
           retailer="adapter"
           className="tool-adapter-callout__link"
-          ariaLabel={`Shop adapter: ${item.adapterType ?? 'car seat adapter'}`}
+          ariaLabel="Shop car seat adapter"
         >
           Shop adapter
         </ToolAffiliateLink>
@@ -446,8 +450,8 @@ function ResultCard({
           item={item}
           adapterIncluded={
             productKind === 'carSeat'
-              ? strollerIncludesAdapter(parentStroller?.brand)
-              : strollerIncludesAdapter(item.brand)
+              ? strollerIncludesAdapter(parentStroller?.brand, parentStroller?.model)
+              : strollerIncludesAdapter(item.brand, item.model)
           }
         />
 
