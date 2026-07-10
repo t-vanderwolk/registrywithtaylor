@@ -3615,14 +3615,21 @@ img {
   .tool-product-card--inline .tool-product-card__actions {
     flex-direction: column;
     align-items: stretch;
+    /* Column + wrap sends any flex-basis:100% child (the compat link) into a
+       second column off-screen. Nowrap keeps everything in one stacked column. */
+    flex-wrap: nowrap;
   }
   /* Stacked: buttons are full-width with their own height, never grow to fill. */
   .tool-product-card--inline .tool-product-card__actions > a[class*="tool-btn"] {
     flex: 0 0 auto;
     width: 100%;
   }
-  /* Compat link: full-width row under the buttons, inside the card. */
+  /* Compat link: full-width row under the buttons, inside the card. Reset the
+     row-layout flex-basis:100% (which is a vertical basis in a column) so it
+     doesn't wrap out to the side and get clipped. */
   .tool-product-card--inline .blog-product-card__compat {
+    flex: 0 0 auto;
+    width: 100%;
     margin-top: 0.55rem;
   }
 }
