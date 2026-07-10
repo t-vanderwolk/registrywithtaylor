@@ -24,7 +24,10 @@ import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryM
 const db = prismaBase as any;
 
 // brand optional — when set, the canonical brand must match too (tighter).
-const SPECS: { label: string; brand?: string; re: RegExp }[] = [
+// excludeRe optional — when it matches the text, the row is NOT hidden (used to
+// keep a near-twin, e.g. hide "Indie Twin Double" but keep the "Indie Twin"
+// double-jogging model whose title also contains "Indie Twin Double").
+const SPECS: { label: string; brand?: string; re: RegExp; excludeRe?: RegExp }[] = [
   // (Bugaboo Butterfly / Butterfly 2 are intentionally KEPT — restored per request.)
   { label: 'Bugaboo Bee 5', brand: 'Bugaboo', re: /\bbee ?5\b/i },
   { label: 'Bugaboo Donkey 3', brand: 'Bugaboo', re: /\bdonkey ?3\b/i },
@@ -37,11 +40,20 @@ const SPECS: { label: string; brand?: string; re: RegExp }[] = [
   // "Hub" but not "Hub2" / "Hub²" (the current model we keep).
   { label: 'Joolz Hub (older, not Hub2)', brand: 'Joolz', re: /\bhub\b(?![²2])/i },
   // (Mockingbird Single / Single-to-Double are intentionally KEPT — restored per request.)
+  // Duplicate "Indie Twin Double" (the Sand double-stroller listing) — hide it but
+  // KEEP the real "Indie Twin" double-JOGGING model, whose title also contains
+  // "Indie Twin Double". The excludeRe keeps anything marked "jogging".
+  { label: 'Bumbleride Indie Twin Double (dupe)', brand: 'Bumbleride', re: /\bindie twin double\b/i, excludeRe: /jogging/i },
 ];
 
 function matchLabel(brand: string | null | undefined, text: string): string | null {
   const cb = canonicalBrand(brand ?? '').toLowerCase();
-  const hit = SPECS.find((s) => (!s.brand || s.brand.toLowerCase() === cb) && s.re.test(text));
+  const hit = SPECS.find(
+    (s) =>
+      (!s.brand || s.brand.toLowerCase() === cb) &&
+      s.re.test(text) &&
+      !(s.excludeRe && s.excludeRe.test(text)),
+  );
   return hit ? hit.label : null;
 }
 
