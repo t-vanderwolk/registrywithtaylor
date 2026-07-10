@@ -109,6 +109,13 @@ const PRODUCT_MAP: Record<string, { brand: string; product: string }> = {
 
 const MULTI_WORD_BRANDS = ['Silver Cross', 'Jool Baby', 'Tiny Trials', 'Tiny Trails', 'OXO Tot', 'Skip Hop', 'Tot Squad'];
 
+// Cards whose product has no image sitting above the bold name (or needs a
+// specific one) get a curated image here. Keyed by lowercased bold name.
+const IMAGE_OVERRIDE: Record<string, string> = {
+  'tot squad motherfund gift card':
+    'https://cdn.prod.website-files.com/5f4a9ffd91010361e130f380/69194c06b3633b14d8786d81_Motherfund-GC-50.jpg',
+};
+
 const SHOP_DOMAIN_RETAILER: Array<[RegExp, string]> = [
   [/silvercross/i, 'Silver Cross'],
   [/target\.com/i, 'Target'],
@@ -300,6 +307,8 @@ export function transformRegistryEssentials(
     }
 
     const { brand, product } = splitBrandProduct(name);
+    const override = IMAGE_OVERRIDE[name.toLowerCase()];
+    if (override) imageUrl = override;
     const price = priceByKey[blogProductKey(brand, product)] ?? null;
     const block = buildBlock(brand, product, group, imageUrl, price);
 
