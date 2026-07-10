@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T21:56:24.176Z",
+  "generatedAt": "2026-07-10T20:04:30.360Z",
   "rows": [
     {
       "brand": "Bugaboo",
@@ -507,6 +507,34 @@
     },
     {
       "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
       "stroller": "Zoe Traveler",
       "triggerSeat": "Nuna PIPA Aire",
       "family": "all Zoe strollers",
@@ -560,6 +588,34 @@
       "triggerSeat": "Nuna PIPA urbn",
       "family": "all Zoe strollers",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "all Zoe strollers",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "all Zoe strollers",
+      "action": "create"
     },
     {
       "brand": "Zoe",
@@ -622,84 +678,224 @@
       "stroller": "Zoe Tour",
       "triggerSeat": "Graco GoMax",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco Fit2",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Tour",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Tour / Twin / Trio / Tribe",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Graco GoMax",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Tourᵛ³ Single",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
     },
     {
       "brand": "Zoe",
@@ -762,84 +958,224 @@
       "stroller": "Zoe Twin",
       "triggerSeat": "Graco GoMax",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco Fit2",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Tour / Twin / Trio / Tribe",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Tour / Twin / Trio / Tribe",
       "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Graco GoMax",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
+    },
+    {
+      "brand": "Zoe",
+      "stroller": "Zoe Twinᵛ³ Double",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Tour / Twin / Trio / Tribe",
+      "action": "create"
     },
     {
       "brand": "Zoe",
@@ -874,49 +1210,49 @@
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco Fit2",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Zoe",
       "stroller": "Zoe The Journey",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "The Journey",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Ergobaby",
@@ -1203,49 +1539,49 @@
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco Fit2",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mompush",
       "stroller": "Mompush Wiz",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Wiz",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mercedes",
@@ -1728,49 +2064,49 @@
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -1805,49 +2141,49 @@
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Cruz V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -1882,49 +2218,49 @@
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -1959,49 +2295,49 @@
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu Duo Side By Side Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2036,49 +2372,49 @@
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2113,49 +2449,49 @@
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Minu V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2190,49 +2526,49 @@
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2267,49 +2603,49 @@
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Ridge V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2344,49 +2680,49 @@
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
@@ -2421,49 +2757,49 @@
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco Fit2",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "UPPAbaby",
       "stroller": "UPPAbaby Vista V3",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Vista / Cruz / Minu / Ridge",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "BOB",
@@ -3058,84 +3394,84 @@
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L2 Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3198,84 +3534,84 @@
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold L2 Double 2-Seater",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3338,84 +3674,84 @@
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon L4 Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3478,84 +3814,84 @@
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Volkswagon Special Edition Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3618,84 +3954,84 @@
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon VW Edition Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3758,84 +4094,84 @@
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -3898,84 +4234,84 @@
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W2 Luxe Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4038,84 +4374,84 @@
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W2 Luxe Pro Double Seater",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4178,84 +4514,84 @@
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Elite Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4318,84 +4654,84 @@
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W4 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4458,84 +4794,84 @@
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold W4 Luxe Pro Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4598,84 +4934,84 @@
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Graco GoMax",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco Fit2",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
       "stroller": "WonderFold Wagon W6 Luxe Pro",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "W & L Series",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "WonderFold",
@@ -4766,35 +5102,35 @@
       "stroller": "Veer Switch&Jog",
       "triggerSeat": "Graco GoMax",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
@@ -4906,35 +5242,35 @@
       "stroller": "Veer Switch&Jog Jogging",
       "triggerSeat": "Graco GoMax",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog Jogging",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog Jogging",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog Jogging",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Jog Jogging",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
@@ -5046,35 +5382,35 @@
       "stroller": "Veer Switch&Roll",
       "triggerSeat": "Graco GoMax",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Roll",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Roll",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Roll",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
       "stroller": "Veer Switch&Roll",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Switchback (&Roll / &Jog)",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Veer",
@@ -5382,84 +5718,84 @@
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Era",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
@@ -5494,84 +5830,84 @@
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
@@ -5606,84 +5942,84 @@
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Indie Twin",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
@@ -5718,83 +6054,461 @@
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco GoMax",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco Fit2",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Era / Indie / Speed / Indie Twin",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Bumbleride",
       "stroller": "Bumbleride Speed",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Era / Indie / Speed / Indie Twin",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Graco GoMax",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax B-Safe 35",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax B-Safe 35 Elite",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax B-Safe Gen2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax B-Safe Gen2 FlexFit",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax Cypress S",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax Willow S",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee Twin V2",
+      "triggerSeat": "Britax Willow SC",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Nuna PIPA Aire",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Nuna PIPA Aire rx",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Nuna PIPA RX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Nuna PIPA urbn",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Graco GoMax",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Graco SnugRide Lite LX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Graco SnugRide SnugFit",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Graco SnugRide SnugFit DLX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Graco SnugRide SnugFit LX",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco Fit2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit 30",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit 30 ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit 35",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit Max ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "UPPAbaby Aria",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "UPPAbaby Aria V2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "UPPAbaby Mesa Max",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "UPPAbaby Mesa V3",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax B-Safe 35",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax B-Safe 35 Elite",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax B-Safe Gen2",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax B-Safe Gen2 FlexFit",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax Cypress S",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "create"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax Willow S",
+      "family": "Bēbee (V3 / Twin V2)",
+      "action": "skip-existing"
+    },
+    {
+      "brand": "Bombi",
+      "stroller": "Bombi Bēbee V3",
+      "triggerSeat": "Britax Willow SC",
+      "family": "Bēbee (V3 / Twin V2)",
       "action": "skip-existing"
     },
     {
@@ -5914,49 +6628,49 @@
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
@@ -5991,49 +6705,49 @@
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Coupe V2",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
@@ -6068,49 +6782,49 @@
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco Fit2",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Larktale",
       "stroller": "Larktale Caravan Quad",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Caravan",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
@@ -6145,84 +6859,84 @@
       "stroller": "Mockingbird Single",
       "triggerSeat": "Graco GoMax",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco Fit2",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
@@ -6313,84 +7027,84 @@
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Graco GoMax",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco Fit2",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single 3.0",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
@@ -6481,84 +7195,84 @@
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Graco GoMax",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco Fit2",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
@@ -6649,84 +7363,84 @@
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Graco GoMax",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Graco SnugRide Lite LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Graco SnugRide SnugFit",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Graco SnugRide SnugFit DLX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Graco SnugRide SnugFit LX",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco Fit2",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit 30",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit 30 ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit 35",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit Max ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit Max Zip ClearLux",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
       "stroller": "Mockingbird Single-to-Double 3.0",
       "triggerSeat": "Chicco KeyFit Max Zip ClearTex",
       "family": "Single / Single-to-Double",
-      "action": "skip-existing"
+      "action": "create"
     },
     {
       "brand": "Mockingbird",
