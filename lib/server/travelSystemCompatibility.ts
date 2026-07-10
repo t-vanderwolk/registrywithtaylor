@@ -39,6 +39,9 @@ type StrollerRow = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
 };
 
@@ -54,6 +57,9 @@ type CarSeatRow = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
 };
 
@@ -68,6 +74,9 @@ type CarSeatCompatibilityRow = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
   compatibilityType: string;
   adapterRequired: boolean;
@@ -91,6 +100,9 @@ type StrollerCompatibilityRow = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
   compatibilityType: string;
   adapterRequired: boolean;
@@ -115,10 +127,16 @@ type MacroBabyFields = {
   macroBabyPrice: number | null;
   macroBabyImage: string | null;
 };
-type PublicRetailerFields = BabylistFields & MacroBabyFields;
+type BombiFields = {
+  bombiUrl: string | null;
+  bombiPrice: number | null;
+  bombiImage: string | null;
+};
+type PublicRetailerFields = BabylistFields & MacroBabyFields & BombiFields;
 
 const EMPTY_MACROBABY: MacroBabyFields = { macroBabyUrl: null, macroBabyPrice: null, macroBabyImage: null };
-const EMPTY_PUBLIC_RETAILERS: PublicRetailerFields = { ...EMPTY_BABYLIST, ...EMPTY_MACROBABY };
+const EMPTY_BOMBI: BombiFields = { bombiUrl: null, bombiPrice: null, bombiImage: null };
+const EMPTY_PUBLIC_RETAILERS: PublicRetailerFields = { ...EMPTY_BABYLIST, ...EMPTY_MACROBABY, ...EMPTY_BOMBI };
 
 const babylistKey = (brand: string, model: string) => `${brand.toLowerCase()}:::${model.toLowerCase()}`;
 
@@ -129,6 +147,8 @@ type PublicAvailabilityRow = {
   babylistPrice?: number | null;
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
   amazonUrl?: string | null;
 };
 
@@ -139,6 +159,9 @@ function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
   return hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
     { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
+    // Bombi sells direct-only (bombigear.com) — a first-class retailer like the
+    // finder, so a Bombi-only stroller (e.g. Bēbee Twin V2) still surfaces.
+    { provider: 'bombi direct', url: row.bombiUrl ?? null, price: row.bombiPrice ?? null },
     { source: 'Amazon', url: row.amazonUrl ?? null, price: null },
   ]);
 }
@@ -373,14 +396,61 @@ async function loadBabylistImpactMap(table: 'Stroller' | 'CarSeat'): Promise<Map
   }
 }
 
+/**
+ * Bombi sells direct only (provider `bombi_direct`), so its strollers never land
+ * on Babylist / MacroBaby / Amazon. The finder already treats Bombi as a
+ * first-class retailer; this reads the same offers so the checker does too.
+ */
+async function loadBombiDirectMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, BombiFields>> {
+  if (table !== 'Stroller') return new Map(); // Bombi makes no car seats
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const rows: MacroBabyLookupRow[] = await db.affiliateCatalogProduct.findMany({
+      where: {
+        provider: 'bombi_direct',
+        isActiveInFeed: true,
+        enrichment: { is: { tmbcCategory: 'Strollers', needsReview: false, reviewStatus: { notIn: ['HIDDEN', 'NEEDS_REVIEW'] } } },
+      },
+      select: {
+        brand: true,
+        title: true,
+        price: true,
+        imageUrl: true,
+        affiliateUrl: true,
+        enrichment: { select: { canonicalBrand: true, canonicalName: true } },
+      },
+    });
+
+    const map = new Map<string, BombiFields>();
+    for (const row of rows) {
+      if (isExcludedStrollerFinderProduct({ brand: row.brand, title: row.title, affiliateUrl: row.affiliateUrl })) continue;
+      const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
+      if (!brand) continue;
+      const offer: BombiFields = { bombiUrl: row.affiliateUrl, bombiPrice: row.price, bombiImage: row.imageUrl };
+      const keys = new Set<string>();
+      const canonicalName = modelLikeCanonicalName(row.enrichment?.canonicalName);
+      if (canonicalName) keys.add(babylistKey(brand, canonicalName));
+      const parsed = parseStrollerModel(row.title, brand);
+      if (parsed) keys.add(babylistKey(brand, parsed));
+      for (const key of keys) if (!map.has(key)) map.set(key, offer);
+    }
+    return map;
+  } catch (error) {
+    if (hasMissingTravelSystemSchema(error)) return new Map();
+    throw error;
+  }
+}
+
 async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, PublicRetailerFields>> {
-  const [babylistMap, babylistImpactMap, macroBabyMap] = await Promise.all([
+  const [babylistMap, babylistImpactMap, macroBabyMap, bombiMap] = await Promise.all([
     loadBabylistMap(table),
     loadBabylistImpactMap(table),
     loadMacroBabyMap(table),
+    loadBombiDirectMap(table),
   ]);
   const out = new Map<string, PublicRetailerFields>();
-  const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys()]);
+  const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys(), ...bombiMap.keys()]);
   for (const key of keys) {
     const tableBabylist = babylistMap.get(key);
     // Prefer the synced Stroller/CarSeat babylist offer; fall back to the
@@ -392,6 +462,7 @@ async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map
     out.set(key, {
       ...babylist,
       ...(macroBabyMap.get(key) ?? EMPTY_MACROBABY),
+      ...(bombiMap.get(key) ?? EMPTY_BOMBI),
     });
   }
   return out;
@@ -414,7 +485,7 @@ function enrichWithPublicRetailers<T extends { brand: string; model: string; ima
       ...item,
       ...fields,
       amazonUrl,
-      imageUrl: fields.babylistImage ?? fields.macroBabyImage ?? item.imageUrl ?? null,
+      imageUrl: fields.babylistImage ?? fields.macroBabyImage ?? fields.bombiImage ?? item.imageUrl ?? null,
     };
   });
 }
@@ -834,6 +905,9 @@ export async function getTravelSystemCarSeats() {
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       }));
@@ -1112,6 +1186,9 @@ export async function getTravelSystemCompatibility(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
@@ -1141,6 +1218,9 @@ export async function getTravelSystemCompatibility(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
@@ -1171,6 +1251,9 @@ export async function getTravelSystemCompatibility(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
@@ -1200,6 +1283,9 @@ export async function getTravelSystemCompatibility(
       macroBabyUrl: stroller.macroBabyUrl ?? null,
       macroBabyImage: stroller.macroBabyImage ?? null,
       macroBabyPrice: stroller.macroBabyPrice ?? null,
+      bombiUrl: stroller.bombiUrl ?? null,
+      bombiImage: stroller.bombiImage ?? null,
+      bombiPrice: stroller.bombiPrice ?? null,
       amazonUrl: stroller.amazonUrl ?? null,
     },
     compatibleCarSeats: compatibleCarSeats.filter(hasPublicTravelSystemRetailer),
@@ -1347,6 +1433,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
@@ -1376,6 +1465,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
@@ -1410,6 +1502,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
         macroBabyUrl: row.macroBabyUrl ?? null,
         macroBabyPrice: row.macroBabyPrice ?? null,
         macroBabyImage: row.macroBabyImage ?? null,
+        bombiUrl: row.bombiUrl ?? null,
+        bombiPrice: row.bombiPrice ?? null,
+        bombiImage: row.bombiImage ?? null,
         amazonUrl: row.amazonUrl ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
@@ -1446,6 +1541,9 @@ export async function getTravelSystemCompatibilityByCarSeat(
       macroBabyUrl: carSeat.macroBabyUrl ?? null,
       macroBabyImage: carSeat.macroBabyImage ?? null,
       macroBabyPrice: carSeat.macroBabyPrice ?? null,
+      bombiUrl: carSeat.bombiUrl ?? null,
+      bombiImage: carSeat.bombiImage ?? null,
+      bombiPrice: carSeat.bombiPrice ?? null,
       amazonUrl: carSeat.amazonUrl ?? null,
     },
     compatibleStrollers: cleanCompatibleStrollers(

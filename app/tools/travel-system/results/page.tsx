@@ -255,7 +255,9 @@ function SelectedSummaryCard({
     ? { label: 'Babylist', url: selectedBabylistUrl, source: 'babylist' as const }
     : option.macroBabyUrl
       ? { label: 'MacroBaby', url: option.macroBabyUrl, source: 'macrobaby' as const }
-      : null;
+      : option.bombiUrl
+        ? { label: 'Shop Bombi', url: option.bombiUrl, source: 'bombi' as const }
+        : null;
   const selectedAmazonUrl = selectedPrimaryCta ? option.amazonUrl ?? null : null;
 
   return (
@@ -411,7 +413,9 @@ function ResultCard({
     ? { label: 'Babylist', url: babylistUrl, source: 'babylist' as const }
     : macroBabyUrl
       ? { label: 'MacroBaby', url: macroBabyUrl, source: 'macrobaby' as const }
-      : null;
+      : item.bombiUrl
+        ? { label: 'Shop Bombi', url: item.bombiUrl, source: 'bombi' as const }
+        : null;
   // When shopping the PIPA urbn (travel-system-only), each Nuna stroller card
   // links to its matching "<stroller> + PIPA urbn" bundle instead of the solo
   // stroller listing — that's the only way to buy the urbn.

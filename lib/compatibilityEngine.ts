@@ -12,6 +12,9 @@ export type TravelSystemStrollerOption = {
   macroBabyImage?: string | null;
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
 };
 
@@ -26,6 +29,9 @@ export type TravelSystemCarSeatOption = {
   macroBabyImage?: string | null;
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
@@ -66,6 +72,9 @@ export type CompatibleCarSeatResult = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
@@ -97,6 +106,9 @@ export type CompatibleStrollerResult = {
   macroBabyUrl?: string | null;
   macroBabyPrice?: number | null;
   macroBabyImage?: string | null;
+  bombiUrl?: string | null;
+  bombiPrice?: number | null;
+  bombiImage?: string | null;
   amazonUrl?: string | null;
 };
 
