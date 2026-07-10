@@ -330,8 +330,6 @@ export default function HomePage() {
           staggerContent
         />
 
-        <StartHereSection />
-
         <HomeAuthorityStrip
           text="Real-world experience from Strolleria, Pottery Barn Kids, and Target Baby Concierge."
           logos={authorityStripLogos}
@@ -372,6 +370,8 @@ export default function HomePage() {
             </a>
           }
         />
+
+        <StartHereSection />
 
         <section className="bg-white py-12 md:py-20">
           <div className="mx-auto max-w-6xl px-6">
