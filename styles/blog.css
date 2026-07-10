@@ -1651,6 +1651,50 @@
   color: color-mix(in srgb, var(--tmbc-blog-charcoal, #2b2b2b) 62%, white 38%);
 }
 
+/* Handwriting reveal — the clip rects sweep left→right so the ink appears to be
+   written by hand. "xoxo" draws first, then "-T" a beat later. */
+.guide-signoff__reveal {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+/* Armed = hidden just before it scrolls into view (no flash: it's below fold). */
+.guide-signoff__mark.is-armed .guide-signoff__reveal {
+  transform: scaleX(0);
+}
+
+.guide-signoff__mark.is-writing .guide-signoff__reveal--xoxo {
+  animation: guide-signoff-write 1s cubic-bezier(0.66, 0, 0.34, 1) both;
+}
+
+.guide-signoff__mark.is-writing .guide-signoff__reveal--tee {
+  animation: guide-signoff-write 0.6s cubic-bezier(0.66, 0, 0.34, 1) 0.9s both;
+}
+
+@keyframes guide-signoff-write {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Gentle ink "settle" so the stroke feels freshly laid down as it writes. */
+.guide-signoff__mark.is-writing .guide-signoff__ink,
+.guide-signoff__mark.is-writing {
+  animation: guide-signoff-ink 1.6s ease-out both;
+}
+
+@keyframes guide-signoff-ink {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .stroller-guide-content .guide-signoff {
   width: fit-content;
   max-width: min(100%, 32rem);
@@ -1679,6 +1723,19 @@
   .guide-post-content .guide-signoff__ink,
   .tmbc-blog-post-content .guide-signoff__ink {
     filter: none;
+  }
+
+  /* No handwriting sweep — show the sign-off fully drawn. */
+  .guide-signoff__mark.is-armed .guide-signoff__reveal,
+  .guide-signoff__mark.is-writing .guide-signoff__reveal {
+    transform: scaleX(1);
+    animation: none;
+  }
+
+  .guide-signoff__mark.is-writing .guide-signoff__ink,
+  .guide-signoff__mark.is-writing {
+    animation: none;
+    opacity: 1;
   }
 }
 
