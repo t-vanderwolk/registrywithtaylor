@@ -69,7 +69,7 @@ export const QUIZ_RESULT_TYPES = {
     {
       name: 'Compact / Mid-Size',
       keyword: 'best compact stroller',
-      brands: 'Bugaboo Dragonfly, Nuna TRIV Next, Cybex Mios',
+      brands: 'Bugaboo Dragonfly Plus, Nuna TRIV Next, Cybex Mios',
       recommendedFor:
         'Car-heavy routines where the stroller gets folded and lifted constantly, smaller trunks and tighter storage, or multiple caregivers sharing one stroller. The stroller you will actually reach for, not dread.',
       note: 'You give up a little seat room and suspension on long walks, but most families never miss it. Compact wins on convenience, not raw capability.',

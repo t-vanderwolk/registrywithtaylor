@@ -501,7 +501,7 @@ const CATEGORIES: Record<CategoryKey, CategoryResult> = {
     blogTitle: 'The Best Compact Strollers of 2026',
     picks: [
       {
-        name: 'Bugaboo Dragonfly',
+        name: 'Bugaboo Dragonfly Plus',
         tagline: 'Compact city stroller. Smaller footprint, still a real everyday push.',
         brand: 'Bugaboo',
         model: 'Dragonfly Plus',
