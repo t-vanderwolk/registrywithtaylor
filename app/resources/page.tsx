@@ -26,6 +26,11 @@ import {
 
 const GLOSSARY_COUNT = carSeatGlossary.length + strollerGlossary.length;
 
+const CTA_CLASS =
+  'inline-flex items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[var(--color-cta-pink-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
+const CTA_GHOST =
+  'inline-flex items-center justify-center rounded-full border border-[#e2a9b6] px-7 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition hover:bg-[#fdf1f4]';
+
 const RESOURCE_STATS = [
   { value: `${strollerCategories.length}`, label: 'Stroller categories decoded' },
   { value: `${GLOSSARY_COUNT}`, label: 'Gear terms in plain English' },
@@ -321,6 +326,30 @@ export default function ResourcesPage() {
             </div>
           </div>
         </MarketingSection>
+
+        {/* ── CLOSING CTA ── */}
+        <section className="bg-[linear-gradient(180deg,#fbeef2,#f2d3db)] py-20 md:py-24">
+          <RevealOnScroll className="mx-auto max-w-3xl px-6 text-center">
+            <h2 className="font-serif text-[clamp(1.9rem,3.4vw,2.6rem)] leading-tight tracking-[-0.03em] text-neutral-900">
+              When the guide gets you close, but not all the way there.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-[0.98rem] leading-[1.85] text-neutral-700">
+              One hour with Taylor turns everything you just learned into a plan for your exact home, car, budget, and
+              registry, so you can stop researching and start deciding.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/book" className={CTA_CLASS}>Book a Registry Consultation</Link>
+              <Link href="/tools/stroller-quiz" className={CTA_GHOST}>Take the Stroller Quiz</Link>
+            </div>
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <span className="price-seal">
+                <span className="price-seal__price">$75</span>
+                <span className="price-seal__label">1-Hour Session</span>
+              </span>
+              <p className="text-[0.76rem] text-neutral-500">$75 · US Nationwide · Full refund if cancelled 24+ hrs before</p>
+            </div>
+          </RevealOnScroll>
+        </section>
       </main>
     </SiteShell>
   );
