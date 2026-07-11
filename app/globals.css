@@ -4189,3 +4189,67 @@ a.tool-open-box-badge:hover {
   .price-badge { animation: price-badge-in 0.01s both; }
   .price-badge__shine { display: none; }
 }
+
+/* ── Price seal (services "What's included" section) ────────────────────────
+   A round, stamped sticker for "$75 · 1 Hour": tilted slightly like a wax seal,
+   pops in and holds a soft glow. Sized for the right side of the section header. */
+@keyframes price-seal-in {
+  0% { opacity: 0; transform: rotate(-14deg) scale(0.8); }
+  70% { transform: rotate(5deg) scale(1.03); }
+  100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+@keyframes price-seal-glow {
+  0%, 100% { box-shadow: 0 12px 30px rgba(184,116,138,0.24), inset 0 0 0 1px rgba(255,255,255,0.35); }
+  50% { box-shadow: 0 18px 44px rgba(184,116,138,0.4), inset 0 0 0 1px rgba(255,255,255,0.5); }
+}
+.price-seal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 8.5rem;
+  height: 8.5rem;
+  flex: none;
+  border-radius: 9999px;
+  text-align: center;
+  color: #fff;
+  background:
+    radial-gradient(120% 120% at 30% 25%, #e7a6b6 0%, var(--color-cta-pink, #d8899f) 45%, var(--color-accent-dark, #9d6472) 100%);
+  border: 2px solid rgba(255,255,255,0.65);
+  transform: rotate(-8deg);
+  animation:
+    price-seal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+    price-seal-glow 3.6s ease-in-out 0.8s infinite;
+}
+/* Dotted ring inside the seal for the stamped look */
+.price-seal::before {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 9999px;
+  border: 1.5px dashed rgba(255,255,255,0.55);
+  pointer-events: none;
+}
+.price-seal__price {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 2.3rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.price-seal__label {
+  margin-top: 0.15rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+@media (max-width: 640px) {
+  .price-seal { width: 7rem; height: 7rem; }
+  .price-seal__price { font-size: 1.9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .price-seal { animation: price-seal-in 0.01s both; }
+}

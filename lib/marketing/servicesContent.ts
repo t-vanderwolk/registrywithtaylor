@@ -68,7 +68,7 @@ export const SERVICES_ROI = {
 } as const;
 
 export const SERVICES_INCLUDES = {
-  heading: 'What Your Baby Registry Consultation Includes, $75 for 1 Hour',
+  heading: 'What Your Baby Registry Consultation Includes',
   intro: 'Every consultation is fully (( personalised )). Taylor reviews your intake form before the session so the full hour is spent on recommendations, not background questions.',
   items: [
     { title: 'Pre-Session Intake Review', body: 'Taylor personally reviews your due date, home setup, vehicle type, budget, and gear questions before the session begins. You arrive to a consultant who is already prepared for you specifically.' },

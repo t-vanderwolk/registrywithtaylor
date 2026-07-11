@@ -203,9 +203,17 @@ export default function ServicesPage() {
         <MarketingSection tone="ivory" spacing="spacious" container="default">
           <div className="mx-auto max-w-5xl space-y-6">
             <RevealOnScroll>
-              <p className="mkt-eyebrow">What you get</p>
-              <H2 className="mt-3 font-serif">{SERVICES_INCLUDES.heading}</H2>
-              <Body className="mt-3 max-w-2xl text-neutral-600">{SERVICES_INCLUDES.intro}</Body>
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="mkt-eyebrow">What you get</p>
+                  <H2 className="mt-3 font-serif">{SERVICES_INCLUDES.heading}</H2>
+                  <Body className="mt-3 max-w-2xl text-neutral-600">{SERVICES_INCLUDES.intro}</Body>
+                </div>
+                <span className="price-seal self-center sm:mt-1 sm:self-start">
+                  <span className="price-seal__price">$75</span>
+                  <span className="price-seal__label">1-Hour Session</span>
+                </span>
+              </div>
             </RevealOnScroll>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {SERVICES_INCLUDES.items.map((item, i) => (
