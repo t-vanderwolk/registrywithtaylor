@@ -97,9 +97,9 @@ export default function ResourcesPage() {
             </RevealOnScroll>
             <RevealOnScroll delayMs={80}>
               <Body className="mx-auto max-w-xl text-[1.12rem] leading-8 text-neutral-600">
-                Most of the baby aisle panic comes from (( vocabulary )), not the gear. Once you know what makes a
+                Most of the baby aisle panic comes from vocabulary, not the gear. Once you know what makes a
                 stroller modular, what a travel system really is, and why an adapter matters, the whole thing gets a lot
-                less scary. Start here, then [[ let a free tool do the sorting for you. ]]
+                less scary. Start here, then let a free tool do the sorting for you.
               </Body>
             </RevealOnScroll>
           </div>
@@ -112,7 +112,7 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">Choose your path</p>
               <H2 className="mt-3 font-serif">Where would you like to start?</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                Three quick doors in, depending on (( how far along )) you are.
+                Three quick doors in, depending on how far along you are.
               </Body>
             </RevealOnScroll>
             <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-3">
@@ -144,7 +144,7 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">The lay of the land</p>
               <H2 className="mt-3 font-serif">Stroller Categories</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                The nine kinds of strollers, in (( plain English )). Tap any card to see real examples in the Stroller
+                The nine kinds of strollers, in plain English. Tap any card to see real examples in the Stroller
                 Finder.
               </Body>
             </RevealOnScroll>
@@ -163,7 +163,7 @@ export default function ResourcesPage() {
                   <p className="mkt-eyebrow">A closer look</p>
                   <H3 className="mt-2 font-serif">Single-to-Double isn’t one thing</H3>
                   <Body className="mx-auto mt-3 max-w-xl text-neutral-600">
-                    [[ Grows into a double ]] can mean two very different things. The difference decides which second
+                    Grows into a double can mean two very different things. The difference decides which second
                     seat you can actually buy.
                   </Body>
                 </div>
@@ -195,8 +195,8 @@ export default function ResourcesPage() {
                 <p className="mkt-eyebrow">The math</p>
                 <H2 className="mt-3 font-serif">How long each car seat actually lasts</H2>
                 <Body className="mt-3 text-neutral-600">
-                  Not every seat lasts the same. Here is roughly (( how many years )) each stage buys you, so you can
-                  weigh [[ buy once versus buy right for now. ]]
+                  Not every seat lasts the same. Here is roughly how many years each stage buys you, so you can
+                  weigh buy once versus buy right for now.
                 </Body>
                 <Body className="mt-3 text-neutral-600">
                   An infant seat is the easiest for year one but ages out fastest. A convertible skips the carrier
@@ -217,7 +217,7 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">Decode it</p>
               <H2 className="mt-3 font-serif">Car Seat Glossary</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                The car seat words that show up on every product page, and why each one [[ actually matters to you. ]]
+                The car seat words that show up on every product page, and why each one actually matters to you.
               </Body>
             </RevealOnScroll>
             <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -237,7 +237,7 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">Decode it</p>
               <H2 className="mt-3 font-serif">Stroller Glossary</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                Everything from reversible seat to flip-flop friendly, (( translated )).
+                Everything from reversible seat to flip-flop friendly, translated.
               </Body>
             </RevealOnScroll>
             <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -256,7 +256,7 @@ export default function ResourcesPage() {
             <RevealOnScroll>
               <p className="mkt-eyebrow">From Taylor</p>
               <H2 className="mt-3 font-serif">Taylor’s Notes</H2>
-              <Body className="mt-3 max-w-2xl text-neutral-600">The (( unfiltered )) stuff I tell every client.</Body>
+              <Body className="mt-3 max-w-2xl text-neutral-600">The unfiltered stuff I tell every client.</Body>
             </RevealOnScroll>
             <div className="mt-10 grid gap-6 sm:grid-cols-2">
               <RevealOnScroll>
@@ -281,7 +281,7 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">Free tools</p>
               <H2 className="mt-3 font-serif">Let the tools do the sorting.</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                A clear next step in a few minutes. [[ Free, and no account required. ]]
+                A clear next step in a few minutes. Free, and no account required.
               </Body>
             </RevealOnScroll>
             <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -300,7 +300,7 @@ export default function ResourcesPage() {
             <RevealOnScroll>
               <p className="mkt-eyebrow">Keep going</p>
               <H2 className="mt-3 font-serif">What’s next?</H2>
-              <Body className="mt-3 max-w-2xl text-neutral-600">Pick the next step that matches (( where you are )).</Body>
+              <Body className="mt-3 max-w-2xl text-neutral-600">Pick the next step that matches where you are.</Body>
             </RevealOnScroll>
             <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-3">
               {whatsNext.map((n, i) => (

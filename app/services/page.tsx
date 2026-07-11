@@ -355,7 +355,7 @@ export default function ServicesPage() {
               <p className="mkt-eyebrow">Client stories</p>
               <H2 className="mt-3 font-serif">What Families Actually Saved, Beyond the Session</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                The $75 consultation [[ pays for itself ]] when it prevents a single wrong purchase. Here is the real-world math from three verified client sessions.
+                The $75 consultation pays for itself when it prevents a single wrong purchase. Here is the real-world math from three verified client sessions.
               </Body>
             </RevealOnScroll>
             <div className="grid gap-5 lg:grid-cols-3">

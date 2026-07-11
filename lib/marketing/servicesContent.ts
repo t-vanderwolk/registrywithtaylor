@@ -47,16 +47,16 @@ export const SERVICES_DECISIONS = [
 export const SERVICES_WHY = {
   heading: 'Why Expecting Parents Book a Baby Registry Consultation',
   paragraphs: [
-    'Baby gear decisions arrive (( fast )), compound quickly, and carry more weight than most first-time parents expect.',
+    'Baby gear decisions arrive fast, compound quickly, and carry more weight than most first-time parents expect.',
     'The stroller you choose affects whether you can fit through your apartment door, whether it clips into your specific car seat, and whether you can navigate the neighbourhood you walk every day. The car seat you choose is a safety decision that most parents make without ever having the full picture.',
-    'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Instagram recommendations are (( paid )) to say what they say. And by the time you realise a purchase was wrong, [[ the return window has closed. ]]',
-    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. [[ Before you spend a dollar. ]]',
+    'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Instagram recommendations are paid to say what they say. And by the time you realise a purchase was wrong, the return window has closed.',
+    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. Before you spend a dollar.',
   ],
 } as const;
 
 export const SERVICES_ROI = {
   heading: 'The Real Cost of Getting Baby Gear Wrong',
-  intro: 'Most families do not realise how expensive a single wrong decision is [[ until they are living with it. ]]',
+  intro: 'Most families do not realise how expensive a single wrong decision is until they are living with it.',
   rows: [
     { mistake: 'Wrong car seat for your car', cost: '$600 to $1,100', why: 'Bought based on Instagram, not LATCH compatibility', prevents: 'Taylor checks car seat fit against your exact vehicle model' },
     { mistake: 'Infant seat that lasts 6 months', cost: '$180 to $350', why: 'Did not account for baby’s weight trajectory', prevents: 'Taylor explains the convertible vs infant decision honestly' },
@@ -69,7 +69,7 @@ export const SERVICES_ROI = {
 
 export const SERVICES_INCLUDES = {
   heading: 'What Your Baby Registry Consultation Includes',
-  intro: 'Every consultation is fully (( personalised )). Taylor reviews your intake form before the session so the full hour is spent on recommendations, not background questions.',
+  intro: 'Every consultation is fully personalised. Taylor reviews your intake form before the session so the full hour is spent on recommendations, not background questions.',
   items: [
     { title: 'Pre-Session Intake Review', body: 'Taylor personally reviews your due date, home setup, vehicle type, budget, and gear questions before the session begins. You arrive to a consultant who is already prepared for you specifically.' },
     { title: '1-Hour Video Consultation', body: 'A structured session via Zoom or Google Meet covering your biggest gear decisions in priority order. No upselling, no pressure, no brand agenda.' },
@@ -101,7 +101,7 @@ export const SERVICES_STEPS = [
 
 export const SERVICES_COMPARE = {
   heading: 'How Taylor-Made Baby Co. Compares, An Honest Look',
-  intro: 'We know you have options. Here is a (( direct )), feature-by-feature comparison so you can make the right choice for where you are right now.',
+  intro: 'We know you have options. Here is a direct, feature-by-feature comparison so you can make the right choice for where you are right now.',
   columns: ['Taylor-Made', 'YouTube', 'Reddit / Forums', 'Parenting Apps', 'Buy Buy Baby'],
   rows: [
     { feature: 'Tailored to YOUR vehicle', values: ['yes', 'no', 'no', 'no', 'no'] },
@@ -161,7 +161,7 @@ export const SERVICES_TESTIMONIALS = [
 
 export const SERVICES_AVAILABILITY = {
   heading: 'Check Session Availability',
-  body: 'Sessions are prepared individually. Taylor personally reviews every intake before the session, so availability is genuinely limited each week. During weeks 20 to 30 of pregnancy, sessions typically book 1 to 2 weeks in advance. If your due date is coming up, [[ book early. ]]',
+  body: 'Sessions are prepared individually. Taylor personally reviews every intake before the session, so availability is genuinely limited each week. During weeks 20 to 30 of pregnancy, sessions typically book 1 to 2 weeks in advance. If your due date is coming up, book early.',
   windows: [
     { label: 'Weeks 16 to 20', note: 'Best window, most time to act on recommendations' },
     { label: 'Weeks 20 to 24', note: 'Peak window, before baby shower invites go out' },
@@ -172,7 +172,7 @@ export const SERVICES_AVAILABILITY = {
 
 export const SERVICES_CREDENTIALS = {
   heading: 'Why Book with Taylor?',
-  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives (( zero commission )) from any brand she recommends.',
+  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives zero commission from any brand she recommends.',
   items: [
     { title: 'Tot Squad Certified Specialist', body: 'The credential behind Target’s Baby Concierge programme, 200+ stores nationwide.' },
     { title: 'Strolleria Baby Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a leading baby specialty showroom.' },
@@ -201,7 +201,7 @@ export const SERVICES_ADDONS = [
 
 export const SERVICES_LEAD_MAGNET = {
   heading: 'Not Ready to Book? Download the Free Stroller Decision Guide.',
-  body: 'The single most common question in every consultation is about strollers. Before you book, or even if you never book, this free guide gives you the (( framework )) Taylor uses in every session to narrow the stroller decision for your specific situation.',
+  body: 'The single most common question in every consultation is about strollers. Before you book, or even if you never book, this free guide gives you the framework Taylor uses in every session to narrow the stroller decision for your specific situation.',
   bullets: [
     '7 questions to ask before choosing any stroller',
     'The vehicle compatibility checklist (LATCH + boot space)',

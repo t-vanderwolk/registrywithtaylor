@@ -183,15 +183,15 @@ const homepageAnonymousQuotes = [
 const fitMoments = [
   {
     title: 'You want expert judgment',
-    description: 'Not another list of links, but a (( clearer )) sense of what actually deserves your attention.',
+    description: 'Not another list of links, but a clearer sense of what actually deserves your attention.',
   },
   {
     title: 'You want decisions matched to real life',
-    description: 'Your car, storage, travel habits, budget, and room layout should [[ shape the recommendations. ]]',
+    description: 'Your car, storage, travel habits, budget, and room layout should shape the recommendations.',
   },
   {
     title: 'You want to buy with confidence',
-    description: 'The goal is a better plan, fewer mismatched purchases, and (( less second-guessing )).',
+    description: 'The goal is a better plan, fewer mismatched purchases, and less second-guessing.',
   },
 ] as const;
 
@@ -209,12 +209,12 @@ const howItWorks = [
   {
     step: 'Step 3',
     title: '1-hour session',
-    description: 'We talk through your registry, narrow the biggest product decisions, and get clear on [[ what you actually need first. ]]',
+    description: 'We talk through your registry, narrow the biggest product decisions, and get clear on what you actually need first.',
   },
   {
     step: 'Step 4',
     title: 'Follow-up notes',
-    description: 'You leave with (( written next steps )). Want longer-term support? Reach out through the contact form and Taylor will point you to the right level.',
+    description: 'You leave with written next steps. Want longer-term support? Reach out through the contact form and Taylor will point you to the right level.',
   },
 ] as const;
 
@@ -388,12 +388,12 @@ export default function HomePage() {
                     </p>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       {circleText(
-                        'I have spent years helping families sort strollers, car seats, registries, and nursery decisions in (( real life )), [[ not just in theory. ]] I know how fast baby gear can go from exciting to weirdly (( overwhelming )).',
+                        'I have spent years helping families sort strollers, car seats, registries, and nursery decisions in real life, not just in theory. I know how fast baby gear can go from exciting to weirdly overwhelming.',
                       )}
                     </p>
                     <p className="mt-4 max-w-none text-[1rem] leading-8 text-neutral-700">
                       {circleText(
-                        'My approach is (( calm )), practical, and built around what actually fits your home, your routines, and your budget. Your registry does not need to impress the internet. [[ It just needs to work when life gets real. ]] When you are ready, you can ',
+                        'My approach is calm, practical, and built around what actually fits your home, your routines, and your budget. Your registry does not need to impress the internet. It just needs to work when life gets real. When you are ready, you can ',
                       )}
                       <Link
                         href="/services"
@@ -401,7 +401,7 @@ export default function HomePage() {
                       >
                         book a baby registry consultation
                       </Link>
-                      {circleText(' and we will work through it together in (( one focused hour )).')}
+                      {circleText(' and we will work through it together in one focused hour.')}
                     </p>
                   </div>
                 </RevealOnScroll>
@@ -611,7 +611,7 @@ export default function HomePage() {
                 Baby registry consultant FAQ
               </h2>
               <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-neutral-700">
-                {circleText('The questions expecting parents ask most, [[ answered straight. ]]')}
+                {circleText('The questions expecting parents ask most, answered straight.')}
               </p>
             </RevealOnScroll>
 

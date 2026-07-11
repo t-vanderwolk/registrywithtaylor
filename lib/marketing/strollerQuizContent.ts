@@ -19,8 +19,8 @@ export const QUIZ_HERO = {
 export const QUIZ_INTRO = {
   heading: 'Answer 8 Questions to Find Your Perfect Stroller',
   paragraphs: [
-    'Choosing a stroller is one of the most researched, and most (( confusing )), decisions expecting parents face. There are hundreds of options, dozens of brands, and an overwhelming number of conflicting reviews online.',
-    '[[ This quiz cuts through all of it. ]] Answer 8 questions about your lifestyle, home, vehicle, budget, and family plans. The quiz recommends your stroller type and top brand matches, based on the same criteria Taylor Vanderwolk uses in her personal baby registry consultations.',
+    'Choosing a stroller is one of the most researched, and most confusing, decisions expecting parents face. There are hundreds of options, dozens of brands, and an overwhelming number of conflicting reviews online.',
+    'This quiz cuts through all of it. Answer 8 questions about your lifestyle, home, vehicle, budget, and family plans. The quiz recommends your stroller type and top brand matches, based on the same criteria Taylor Vanderwolk uses in her personal baby registry consultations.',
   ],
 };
 
