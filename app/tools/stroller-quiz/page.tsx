@@ -194,7 +194,7 @@ export default function StrollerQuizPage() {
                 </ul>
                 <div className="mt-8 flex flex-col items-center gap-3">
                   <Link href="/book" className={CTA_CLASS}>Book Your Session →</Link>
-                  <p className="text-[0.76rem] text-neutral-400">US Nationwide · Full refund if cancelled 24+ hrs before</p>
+                  <p className="text-[0.76rem] text-neutral-400">$75 · US Nationwide · Full refund if cancelled 24+ hrs before</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -310,7 +310,7 @@ export default function StrollerQuizPage() {
             </div>
             <div className="mt-6 flex flex-col items-center gap-2">
               <PriceBadge />
-              <p className="text-[0.76rem] text-neutral-500">US Nationwide · Full refund if cancelled 24+ hrs before</p>
+              <p className="text-[0.76rem] text-neutral-500">$75 · US Nationwide · Full refund if cancelled 24+ hrs before</p>
             </div>
           </RevealOnScroll>
         </section>
