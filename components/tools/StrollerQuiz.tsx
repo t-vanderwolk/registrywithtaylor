@@ -860,9 +860,10 @@ export default function StrollerQuiz() {
     };
   }, [result]);
   const [showAllStrollers, setShowAllStrollers] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
 
   const question = QUESTIONS[currentQ]!;
-  const progress = ((currentQ) / QUESTIONS.length) * 100;
+  const progress = ((currentQ + 1) / QUESTIONS.length) * 100;
 
   function handleSelect(index: number) {
     setSelected(index);
@@ -987,6 +988,25 @@ export default function StrollerQuiz() {
   }
 
   if (step === 'result' && result) {
+    const shareUrl = 'https://www.taylormadebabyco.com/tools/stroller-quiz';
+    const shareText = `I matched with the ${result.name} on the Taylor-Made Baby Co. Stroller Quiz. Find your stroller match:`;
+    const u = encodeURIComponent(shareUrl);
+    const t = encodeURIComponent(shareText);
+    const shareLinks = [
+      { label: 'Pinterest', href: `https://www.pinterest.com/pin/create/button/?url=${u}&description=${t}` },
+      { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${u}` },
+      { label: 'X', href: `https://twitter.com/intent/tweet?url=${u}&text=${t}` },
+      { label: 'Reddit', href: `https://www.reddit.com/submit?url=${u}&title=${t}` },
+      { label: 'Email', href: `mailto:?subject=${encodeURIComponent('My stroller match')}&body=${t}%20${u}` },
+    ];
+    const handleShareCopy = () => {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          setShareCopied(true);
+          setTimeout(() => setShareCopied(false), 2000);
+        });
+      }
+    };
     return (
       <div>
         {/* Result hero */}
@@ -1218,6 +1238,28 @@ export default function StrollerQuiz() {
             </span>
           </a>
         )}
+
+        {/* Share your result */}
+        <div style={styles.shareRow}>
+          <span style={styles.shareLabel}>Share your match</span>
+          <div style={styles.shareBtns}>
+            {shareLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.shareBtn}
+                aria-label={`Share on ${s.label}`}
+              >
+                {s.label}
+              </a>
+            ))}
+            <button type="button" onClick={handleShareCopy} style={styles.shareBtn} aria-label="Copy link">
+              {shareCopied ? 'Copied ✓' : 'Copy link'}
+            </button>
+          </div>
+        </div>
 
         {/* Retake */}
         <div style={styles.retakeRow}>
@@ -1598,6 +1640,42 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '1.1rem',
     color: 'var(--color-accent, #e89aae)',
     flexShrink: 0,
+  },
+  shareRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: '0.75rem',
+    padding: '1rem 0 1.25rem',
+    marginTop: '0.5rem',
+    borderTop: '1px solid #f0e0e4',
+  },
+  shareLabel: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.72rem',
+    fontWeight: 600,
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: '#a07880',
+  },
+  shareBtns: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0.5rem',
+  },
+  shareBtn: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.78rem',
+    fontWeight: 600,
+    color: 'var(--color-accent-dark, #9d6472)',
+    background: '#fdf1f4',
+    border: '1px solid #efcad1',
+    borderRadius: '999px',
+    padding: '0.4rem 0.85rem',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'background 0.15s ease',
   },
   retakeRow: {
     display: 'flex',
