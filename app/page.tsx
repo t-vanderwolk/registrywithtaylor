@@ -532,7 +532,7 @@ export default function HomePage() {
                     Lani Car Seats
                   </h3>
                   <p className="mt-2.5 max-w-none text-[0.9rem] leading-6 text-neutral-500">
-                    CPST-certified car seat installation and safety checks — available virtually and in the Phoenix area.
+                    CPST-certified car seat installation and safety checks, available virtually and in the Phoenix area.
                   </p>
                 </div>
               </RevealOnScroll>
