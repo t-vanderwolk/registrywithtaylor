@@ -859,7 +859,6 @@ export default function StrollerQuiz() {
       cancelled = true;
     };
   }, [result]);
-  const [showAllStrollers, setShowAllStrollers] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
 
   const question = QUESTIONS[currentQ]!;
@@ -894,7 +893,6 @@ export default function StrollerQuiz() {
     setAnswers({});
     setSelected(null);
     setResult(null);
-    setShowAllStrollers(false);
   }
 
   if (step === 'intro') {
@@ -1148,7 +1146,11 @@ export default function StrollerQuiz() {
             });
           if (categoryStrollers.length === 0) return null;
           const INITIAL_COUNT = 6;
-          const visible = showAllStrollers ? categoryStrollers : categoryStrollers.slice(0, INITIAL_COUNT);
+          const visible = categoryStrollers.slice(0, INITIAL_COUNT);
+          // Deep-link the full set into the Stroller Finder, pre-filtered to this
+          // category (same /api/catalog/strollers source the finder uses).
+          const finderCategory = matchedTypes[0] ?? 'compact';
+          const finderHref = `/tools/stroller-finder?category=${finderCategory}`;
           return (
             <div style={styles.allStrollersSection}>
               <p style={styles.allStrollersLabel}>All strollers in this category</p>
@@ -1215,13 +1217,13 @@ export default function StrollerQuiz() {
                   );
                 })}
               </div>
-              {categoryStrollers.length > INITIAL_COUNT && (
-                <button style={styles.showAllBtn} onClick={() => setShowAllStrollers((v) => !v)}>
-                  {showAllStrollers
-                    ? `Show fewer`
-                    : `Show all ${categoryStrollers.length} options →`}
-                </button>
-              )}
+              <Link
+                href={finderHref}
+                style={styles.showAllBtn}
+                onClick={() => trackToolSelection('stroller-quiz', 'browse-finder', finderCategory)}
+              >
+                See all {result.name.toLowerCase()} strollers in the Finder →
+              </Link>
             </div>
           );
         })()}
