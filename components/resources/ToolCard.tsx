@@ -15,7 +15,7 @@ export default function ToolCard({ title, description, href, cta }: ToolCardProp
   return (
     <Link
       href={href}
-      className="group flex cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0 sm:p-7"
+      className="group flex h-full cursor-pointer flex-col rounded-[1.5rem] border border-[var(--color-card-border)] bg-white p-6 shadow-[0_8px_28px_rgba(55,40,46,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[var(--color-cta-pink)] hover:shadow-[0_26px_58px_rgba(184,116,138,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-cta-pink)] active:translate-y-0 sm:p-7"
     >
       <h3 className="font-serif text-[1.45rem] leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-[1.6rem]">{title}</h3>
       <p className="mt-3 flex-1 text-[1.02rem] leading-[1.6] text-neutral-600">{description}</p>
