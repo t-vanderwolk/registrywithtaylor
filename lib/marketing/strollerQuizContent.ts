@@ -56,55 +56,63 @@ export const QUIZ_RESULT_TYPES = {
   eyebrow: 'The result types',
   heading: 'Your Stroller Recommendation, Based on Your Lifestyle',
   intro:
-    'The quiz matches you to one of these stroller types, then names the specific brands worth comparing. Here is what each recommendation means and who it fits.',
+    'The quiz matches you to one of seven stroller types, then names the specific brands worth comparing. Here is what each category means and who it fits.',
   types: [
     {
-      name: 'Urban Compact Stroller',
-      keyword: 'best stroller for a city apartment',
-      brands: 'Babyzen YOYO2, Bugaboo Butterfly, UPPAbaby MINU V2, Joolz Aer+',
+      name: 'Full Size / Modular',
+      keyword: 'best full-size stroller',
+      brands: 'Bugaboo Fox 5, Nuna MIXX Next, Silver Cross Reef 2',
       recommendedFor:
-        'City apartments, public transport, narrow lifts, and frequent flying. You need a stroller that folds small enough to fit in an overhead bin, fits through a standard lift door, and can be carried up stairs when needed. Cabin-approved folds, lightweight frames, and one-hand fold mechanisms are the priority.',
-      note: 'The YOYO2 is the gold standard for city living. It fits in most overhead bins, weighs about 6.2kg, and folds in seconds. But if you are in a hilly city or need a slightly larger basket, the UPPAbaby MINU V2 is worth comparing.',
+        'Walk-heavy routines where you push for long stretches, longer outings where basket access, canopy coverage, and recline matter, and open storage like a large trunk or garage. The one capable primary stroller you can live with for years.',
+      note: 'Bigger and heavier to fold, but if you are out with it most days that trade is an easy one. If your week is mostly quick car errands and it gets folded three times a day, a compact may earn its keep better.',
     },
     {
-      name: 'Full-Size Travel System',
-      keyword: 'best travel system stroller',
-      brands: 'UPPAbaby VISTA V2, Nuna MIXX Next, Bugaboo Fox 5, Cybex Balios S Lux',
+      name: 'Compact / Mid-Size',
+      keyword: 'best compact stroller',
+      brands: 'Bugaboo Dragonfly, Nuna TRIV Next, Cybex Mios',
       recommendedFor:
-        'Suburban families, SUV or large car owners, and parents who want one system that works from newborn to toddler. Full-size travel systems include a pram seat, a compatible infant car seat, and a stroller frame, covering the first 3 to 4 years in one purchase. Best for families who drive primarily and have garage or entrance storage space.',
-      note: 'The UPPAbaby VISTA is the most versatile travel system on the market, but it is large and heavy. If you have a compact car or will be lifting this frequently, the Nuna MIXX Next or Cybex Balios are better matched.',
+        'Car-heavy routines where the stroller gets folded and lifted constantly, smaller trunks and tighter storage, or multiple caregivers sharing one stroller. The stroller you will actually reach for, not dread.',
+      note: 'You give up a little seat room and suspension on long walks, but most families never miss it. Compact wins on convenience, not raw capability.',
     },
     {
-      name: 'Lightweight Everyday Stroller',
-      keyword: 'best lightweight stroller for everyday use',
-      brands: 'Mockingbird Single-to-Double, Baby Jogger City Mini GT2, UPPAbaby RIDGE, Ergobaby Metro+',
+      name: 'Travel Stroller',
+      keyword: 'best travel stroller',
+      brands: 'Babyzen YOYO2, Silver Cross Clic, Bugaboo Butterfly',
       recommendedFor:
-        'Active suburban families, parents who want a balance of performance and portability, and families planning a second child within 2 to 3 years. Lightweight everyday strollers handle most terrain, fold reasonably compact, and many convert to double configurations without buying a second frame.',
-      note: 'The Mockingbird offers the best value at this price point: single-to-double functionality, a smooth ride, and strong quality for under $600. The Baby Jogger City Mini GT2 is the industry workhorse if you want tried-and-true durability.',
+        'Families who fly regularly and want cabin-bag portability or easy gate check, ride-share households where the stroller moves in and out of strangers’ trunks, and grandparent-adjacent families who need it at multiple addresses.',
+      note: 'Not the plushest ride, but when getting through a gate or into a trunk is the whole point, nothing else comes close. If travel is only occasional, a compact solves the same problem with more everyday capability.',
     },
     {
-      name: 'Jogging and Active Stroller',
-      keyword: 'best jogging stroller for running parents',
-      brands: 'BOB Gear Revolution Flex 3.0, Thule Urban Glide 2, Baby Jogger Summit X3',
+      name: 'Single-to-Double Convertible',
+      keyword: 'best single-to-double stroller',
+      brands: 'Bugaboo Donkey 6, Nuna DEMI Next, Cybex Gazelle S',
       recommendedFor:
-        'Runners, trail hikers, and parents with very active outdoor lifestyles. Jogging strollers feature fixed front wheels, pneumatic tyres for shock absorption, wrist safety straps, and recline systems suited for high-speed use. Most are not suitable for newborns without a compatible car seat adapter.',
-      note: 'True jogging strollers are large and heavy. They are great on trails but awkward in shops and tight urban spaces. Most families who think they want a jogger actually use a hybrid all-terrain stroller far more frequently in real life.',
+        'Families expecting a second baby on a real timeline who want one stroller that becomes two. The best ones give both kids the same comfortable seat, not a roomy seat for one and a cramped add-on for the other.',
+      note: 'It means pushing a slightly bigger frame before that second baby shows up, so it pays off most when another little one is a real plan, not a maybe.',
     },
     {
       name: 'Double Stroller',
-      keyword: 'best double stroller for two children',
-      brands: 'UPPAbaby VISTA V2 (rumble seat), Mockingbird Double, Baby Jogger City Select 2, Bugaboo Donkey 5',
+      keyword: 'best double stroller',
+      brands: 'Baby Jogger City Mini GT2 Double, Nuna TRVL Dubl, Silver Cross Jet Double',
       recommendedFor:
-        'Families with two children under 4, twin parents, and parents with one child and a baby arriving within 12 to 18 months. Double strollers come in tandem, side-by-side, and convertible single-to-double configurations. Width and weight are the primary trade-offs to consider.',
-      note: 'Before buying a dedicated double stroller, check if your existing single converts. The UPPAbaby VISTA adds a rumble seat, and the Mockingbird converts without a second frame purchase. Side-by-side doubles like the Bugaboo Donkey 5 are wider but give both children equal visibility.',
+        'Twins or multiples from day one, or two children close enough in age that both still need a seat on most outings. A dedicated two-seat solution for right now, not for someday.',
+      note: 'Width, weight, and harder maneuvering come with the territory, and most doubles do not fit neatly through standard doorways. Tight spaces, narrow aisles, and small elevators become real daily friction.',
     },
     {
-      name: 'Budget-Friendly Stroller',
-      keyword: 'best affordable stroller under $400',
-      brands: 'Graco Modes Pramette, Chicco Bravo LE, Baby Trend Expedition, Summer Infant 3Dlite+',
+      name: 'Jogging / All-Terrain',
+      keyword: 'best jogging stroller',
+      brands: 'BOB Revolution Flex 3.0, Thule Urban Glide 2, UPPAbaby Ridge',
       recommendedFor:
-        'Families with a tight registry budget, parents expecting a second stroller upgrade within 18 months, and families where the stroller will be used less frequently. Budget strollers have improved significantly, and many now offer one-hand fold, recline systems, and reasonable weight.',
-      note: 'The biggest risk with budget strollers is long-term durability and car seat compatibility. Check that your chosen budget stroller is compatible with your car seat before purchasing, because not all budget frames accept premium car seat adapters.',
+        'Parents who actively run and want a stroller that keeps a real jogging pace, outdoor-heavy families whose routes include rough terrain, and neighborhoods where broken sidewalks, curb gaps, or unpaved paths are the norm.',
+      note: 'More bulk, a larger fold, and a wider frame that becomes conspicuous in stores and tight urban spaces. A jogging stroller that never jogs is a very large errand cart.',
+    },
+    {
+      name: 'Double Jogger',
+      keyword: 'best double jogging stroller',
+      brands: 'BOB Revolution Flex 3.0 Duallie, Thule Urban Glide 2 Double, Baby Jogger Summit X3 Double',
+      recommendedFor:
+        'Parents of two who actually run, jog, or power-walk, families with two kids plus lots of trails and rough ground, and active households not ready to give up the outdoors with a second baby.',
+      note: 'These are among the widest strollers on the road. Measure your doorways, trunk, and storage before you buy, and know it is overkill if you never actually run or hit rough ground.',
     },
   ] as QuizResultType[],
 };
