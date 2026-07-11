@@ -50,6 +50,19 @@ const CTA_GHOST =
 
 const quizFaqs: FAQEntry[] = QUIZ_FAQ.map((f) => ({ question: f.question, answer: f.answer }));
 
+/** Reusable price/duration pill so "$75" and "1 hour" appear as one badge, not repeated inline text. */
+function PriceBadge({ className = '' }: { className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border border-[#e2a9b6] bg-[#fdf1f4] px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] ${className}`}
+    >
+      <span className="font-serif text-[1.05rem] tracking-normal normal-case">$75</span>
+      <span aria-hidden className="h-3.5 w-px bg-[#e2a9b6]" />
+      1-Hour Virtual Session
+    </span>
+  );
+}
+
 export default function StrollerQuizPage() {
   return (
     <SiteShell currentPath="/tools/stroller-quiz">
@@ -167,9 +180,9 @@ export default function StrollerQuizPage() {
             </RevealOnScroll>
             <RevealOnScroll delayMs={80}>
               <div className="mkt-card mx-auto mt-9 max-w-2xl rounded-[1.4rem] border border-[#e2a9b6] bg-white p-8 shadow-[0_18px_50px_rgba(120,60,80,0.1)]">
-                <div className="flex items-baseline justify-between gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="text-[0.8rem] uppercase tracking-[0.18em] text-neutral-500">The quiz covers stroller type. A consultation covers:</p>
-                  <p className="shrink-0 font-serif text-[2.4rem] leading-none text-[var(--color-accent-dark)]">$75</p>
+                  <PriceBadge />
                 </div>
                 <ul className="mt-6 space-y-2">
                   {QUIZ_CONSULT_CTA.covers.map((c) => (
@@ -180,8 +193,8 @@ export default function StrollerQuizPage() {
                   ))}
                 </ul>
                 <div className="mt-8 flex flex-col items-center gap-3">
-                  <Link href="/book" className={CTA_CLASS}>Book Your 1-Hour Session, $75</Link>
-                  <p className="text-[0.76rem] text-neutral-400">Virtual · US Nationwide · Full refund if cancelled 24+ hrs before</p>
+                  <Link href="/book" className={CTA_CLASS}>Book Your Session →</Link>
+                  <p className="text-[0.76rem] text-neutral-400">US Nationwide · Full refund if cancelled 24+ hrs before</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -264,7 +277,7 @@ export default function StrollerQuizPage() {
                 <NewsletterCapture />
                 <p className="mt-4 text-center text-[0.8rem] text-neutral-500">
                   Want expert help instead?{' '}
-                  <Link href="/book" className="link-underline font-semibold text-[var(--color-accent-dark)]">Book a Consultation, $75</Link>
+                  <Link href="/book" className="link-underline font-semibold text-[var(--color-accent-dark)]">Book a Consultation</Link>
                 </p>
               </div>
             </RevealOnScroll>
@@ -292,10 +305,13 @@ export default function StrollerQuizPage() {
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-[0.98rem] leading-[1.85] text-neutral-700">{QUIZ_CLOSING.body}</p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href="/book" className={CTA_CLASS}>Book a Baby Registry Consultation, $75</Link>
+              <Link href="/book" className={CTA_CLASS}>Book a Baby Registry Consultation</Link>
               <Link href="#free-checklist" className={CTA_GHOST}>Free Stroller Checklist</Link>
             </div>
-            <p className="mt-4 text-[0.76rem] text-neutral-500">{QUIZ_CLOSING.meta}</p>
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <PriceBadge />
+              <p className="text-[0.76rem] text-neutral-500">US Nationwide · Full refund if cancelled 24+ hrs before</p>
+            </div>
           </RevealOnScroll>
         </section>
       </main>
