@@ -73,7 +73,7 @@ export function LegalTable({ head, rows }: { head: string[]; rows: ReactNode[][]
   );
 }
 
-/** hello@ contact block reused at the foot of each policy. */
+/** Contact block reused at the foot of each policy. */
 export function LegalContact() {
   return (
     <p>

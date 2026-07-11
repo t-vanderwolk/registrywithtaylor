@@ -191,12 +191,12 @@ export const SERVICES_PRICING = {
     'Independent advice, zero brand sponsorship',
     'Full refund if cancelled 24+ hours before',
   ],
-  contact: 'hello@taylormadebabyco.com',
+  contact: 'info@taylormadebabyco.com',
 } as const;
 
 export const SERVICES_ADDONS = [
   { title: 'Registry Review Add-On', tag: 'Included with consultation', body: 'Already have a registry and need expert review? Taylor goes through your existing list, flags redundant items, identifies gaps, and refines your choices based on your real situation. Included as part of your consultation session.' },
-  { title: 'Private Planning Package', tag: 'Custom pricing, enquire', body: 'Extended multi-session support covering registry, nursery, newborn preparation, and ongoing planning. Custom scope and pricing. Contact hello@taylormadebabyco.com to discuss.' },
+  { title: 'Private Planning Package', tag: 'Custom pricing, enquire', body: 'Extended multi-session support covering registry, nursery, newborn preparation, and ongoing planning. Custom scope and pricing. Contact info@taylormadebabyco.com to discuss.' },
 ] as const;
 
 export const SERVICES_LEAD_MAGNET = {
