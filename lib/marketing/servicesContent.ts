@@ -58,7 +58,7 @@ export const SERVICES_ROI = {
   heading: 'The Real Cost of Getting Baby Gear Wrong',
   intro: 'Most families do not realise how expensive a single wrong decision is [[ until they are living with it. ]]',
   rows: [
-    { mistake: 'Wrong stroller for your car', cost: '$600 to $1,100', why: 'Bought based on Instagram, not LATCH compatibility', prevents: 'Taylor checks stroller vs your exact vehicle model' },
+    { mistake: 'Wrong car seat for your car', cost: '$600 to $1,100', why: 'Bought based on Instagram, not LATCH compatibility', prevents: 'Taylor checks car seat fit against your exact vehicle model' },
     { mistake: 'Infant seat that lasts 6 months', cost: '$180 to $350', why: 'Did not account for baby’s weight trajectory', prevents: 'Taylor explains the convertible vs infant decision honestly' },
     { mistake: 'Nursery furniture too big', cost: '$400 to $900', why: 'Ordered from a catalogue, not a real room', prevents: 'Taylor plans around your actual room dimensions' },
     { mistake: 'Duplicate registry items', cost: '$200 to $500', why: 'Multiple people bought variations of the same thing', prevents: 'Taylor structures the registry so guests buy distinctly' },
