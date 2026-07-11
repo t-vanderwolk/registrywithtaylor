@@ -4128,3 +4128,64 @@ a.tool-open-box-badge:hover {
   .tool-skeleton { animation: none; }
   .tool-fade-up { animation: none; }
 }
+
+/* ── Price badge (stroller quiz consult CTA) ────────────────────────────────
+   A larger, stamped-badge treatment for "$75 · 1-Hour Virtual Session": pops in
+   on load, holds a soft glow pulse, and gets a periodic shine sweep. */
+@keyframes price-badge-in {
+  0% { opacity: 0; transform: translateY(10px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes price-badge-glow {
+  0%, 100% { box-shadow: 0 10px 28px rgba(184,116,138,0.16); }
+  50% { box-shadow: 0 16px 44px rgba(184,116,138,0.34); }
+}
+@keyframes price-badge-shine {
+  0% { transform: translateX(-140%) skewX(-18deg); }
+  55%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+.price-badge {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  border-radius: 1.15rem;
+  border: 1.5px solid var(--color-cta-pink, #d8899f);
+  background: linear-gradient(158deg, #ffffff 0%, #fdeef2 100%);
+  padding: 0.9rem 1.7rem;
+  transform-origin: center;
+  animation:
+    price-badge-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both,
+    price-badge-glow 3.4s ease-in-out 0.7s infinite;
+}
+.price-badge__price {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 2.15rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-accent-dark, #9d6472);
+}
+.price-badge__label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--color-cta-pink, #b8748a);
+}
+.price-badge__shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+  animation: price-badge-shine 3.4s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .price-badge { animation: price-badge-in 0.01s both; }
+  .price-badge__shine { display: none; }
+}

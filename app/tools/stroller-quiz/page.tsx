@@ -50,15 +50,13 @@ const CTA_GHOST =
 
 const quizFaqs: FAQEntry[] = QUIZ_FAQ.map((f) => ({ question: f.question, answer: f.answer }));
 
-/** Reusable price/duration pill so "$75" and "1 hour" appear as one badge, not repeated inline text. */
+/** Reusable price/duration badge so "$75" and "1 hour" appear as one animated badge, not repeated inline text. */
 function PriceBadge({ className = '' }: { className?: string }) {
   return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full border border-[#e2a9b6] bg-[#fdf1f4] px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] ${className}`}
-    >
-      <span className="font-serif text-[1.05rem] tracking-normal normal-case">$75</span>
-      <span aria-hidden className="h-3.5 w-px bg-[#e2a9b6]" />
-      1-Hour Virtual Session
+    <span className={`price-badge ${className}`}>
+      <span aria-hidden className="price-badge__shine" />
+      <span className="price-badge__price">$75</span>
+      <span className="price-badge__label">1-Hour Virtual Session</span>
     </span>
   );
 }
