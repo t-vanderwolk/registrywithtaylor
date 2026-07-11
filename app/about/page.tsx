@@ -290,7 +290,7 @@ export default function AboutPage() {
                   The Taylor-Made approach is built on real-life fit. We slow the process down. We look at how you actually live, your home layout, your daily routines, your vehicle, your long-term family plans, and the budget that actually makes sense for your life.
                 </Body>
                 <Body className="text-neutral-700">[[ Then we figure out what to buy, what to skip, and what can wait. ]]</Body>
-                <Body className="text-neutral-700">No panic buying. No trend chasing. No just-in-case overload. Just practical, independent guidance that makes sense for your real life, not for the algorithm.</Body>
+                <Body className="text-neutral-700">No panic buying. No trend chasing. No just-in-case overload. Just practical, independent guidance that makes sense for your (( real life )), not for the algorithm.</Body>
               </div>
             </RevealOnScroll>
           </div>
@@ -310,9 +310,9 @@ export default function AboutPage() {
                 </Body>
                 <Body className="text-neutral-700">This is not a template registry. It is not a sales floor disguised as advice. It is not an affiliate blog dressed up as expertise.</Body>
                 <Body className="text-neutral-700">
-                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with 7+ years of real retail and hands-on family experience, who receives zero commission from any brand she recommends.
+                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with 7+ years of real retail and hands-on family experience, who receives (( zero commission )) from any brand she recommends.
                 </Body>
-                <Body className="text-neutral-700">Because when baby prep fits your real life, the next season feels a whole lot steadier.</Body>
+                <Body className="text-neutral-700">Because when baby prep fits your real life, the next season [[ feels a whole lot steadier. ]]</Body>
               </div>
             </RevealOnScroll>
           </div>

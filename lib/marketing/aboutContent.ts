@@ -6,8 +6,8 @@
 export const ABOUT_PAIN_HOOK = {
   heading: 'Does any of this sound familiar?',
   paragraphs: [
-    'You have spent hours on baby forums, watched 30 reviews of the same stroller, and added and removed the same car seat from your registry three times. And you are still not sure you are making the right call.',
-    'Your friends all have different opinions. The influencer you follow gets paid to recommend things. And every time you feel close to a decision, someone tells you there is a better option.',
+    'You have spent hours on baby forums, watched 30 reviews of the same stroller, and added and removed the same car seat from your registry three times. And you are still not sure you are making [[ the right call. ]]',
+    'Your friends all have different opinions. The influencer you follow gets (( paid )) to recommend things. And every time you feel close to a decision, someone tells you there is a better option.',
     'That is exactly why Taylor-Made Baby Co. exists.',
   ],
 };
@@ -37,18 +37,18 @@ export const ABOUT_QUOTABLE =
 
 export const ABOUT_BIO = [
   'With 7+ years of hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
-  'Baby gear decisions arrive fast and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
+  'Baby gear decisions arrive (( fast )) and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
   'My role is not to hand you a checklist and move on. It is to sit with you in the details, your home layout, your vehicle, your family plans, your comfort with risk and spending, and help you make the specific choices that will serve you best.',
-  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, independent recommendations. No brand sponsorships, no affiliate pressure, no generic advice.',
+  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, (( independent )) recommendations. No brand sponsorships, no affiliate pressure, no generic advice.',
 ];
 
 export const ABOUT_ORIGIN = {
   heading: 'Why I Started Taylor-Made Baby Co.',
   paragraphs: [
-    'I did not start in a boardroom. I started on a retail floor.',
+    'I did not start in a boardroom. [[ I started on a retail floor. ]]',
     'Years of working at Strolleria, one of the most respected baby specialty retailers in the US, and later as a Nursery Advisor at Pottery Barn Kids and a certified Target Baby Concierge specialist through Tot Squad, I watched the same thing happen over and over.',
     'Families would walk in with a registry built from Instagram. Stressed, overloaded, and often on the verge of just buying the most popular stroller because they had given up trying to make a confident decision.',
-    'Twenty minutes of real conversation would completely change their direction. The right stroller for their building. The car seat that actually fit their SUV. The bassinet that made sense for their bedroom. Not the most popular option, the right option for them.',
+    'Twenty minutes of real conversation would completely change their direction. The right stroller for their building. The car seat that actually fit their SUV. The bassinet that made sense for their bedroom. Not the most popular option, [[ the right option for them. ]]',
     'After 7+ years of that, I realised most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
     'Taylor-Made Baby Co. is that conversation, available to every expecting parent, wherever they are, without pressure, sponsorship, or agenda.',
   ],
@@ -122,7 +122,7 @@ export const ABOUT_GEAR = [
 
 export const ABOUT_VALUE_STACK = {
   intro:
-    'The average family makes 6 to 8 major baby gear decisions before their baby arrives. Each one typically costs $100 to $1,200. A single wrong stroller choice costs more than ten consultations.',
+    'The average family makes 6 to 8 major baby gear decisions before their baby arrives. Each one typically costs $100 to $1,200. A single wrong stroller choice [[ costs more than ten consultations. ]]',
   rows: [
     { item: '1-hour video consultation with Taylor', value: '$150 to $250' },
     { item: 'Pre-session intake review and personalised preparation', value: '$50 to $80' },
@@ -159,7 +159,7 @@ export const ABOUT_REVIEWS = [
 export const ABOUT_AVAILABILITY = {
   heading: 'Currently Open for Consultations',
   body: [
-    'Taylor works with a limited number of families each week to ensure every consultation receives proper personal preparation and full attention.',
+    'Taylor works with a (( limited )) number of families each week to ensure every consultation receives proper personal preparation and full attention.',
     'Sessions typically book 1 to 2 weeks in advance during peak registry season, weeks 20 to 30 of pregnancy.',
   ],
   timing: [
@@ -173,7 +173,7 @@ export const ABOUT_AVAILABILITY = {
 export const ABOUT_LEAD_MAGNET = {
   title: 'Free Baby Prep Starter Guide for Expecting Parents',
   intro:
-    'A calm, practical starting point for registry, gear, and nursery decisions, built on 7+ years of real baby consulting experience. Delivered to your inbox, free.',
+    'A (( calm )), practical starting point for registry, gear, and nursery decisions, built on 7+ years of real baby consulting experience. Delivered to your inbox, free.',
   bullets: [
     'The 10 most common registry mistakes expecting parents make, and how to avoid them',
     'Stroller buying checklist, what to verify before you commit',
