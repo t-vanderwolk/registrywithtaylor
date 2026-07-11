@@ -1,68 +1,70 @@
 /**
- * Adds the TMBC brand-signature annotations to the live "taylors-registry-essentials"
- * post body: (( word )) circles and [[ sentence ]] underlines, the same markers the
- * marketing pages use. The blog renderer (components/blog/PostContent.tsx) already
- * understands `((word))` (circle) and `[[ sentence ]]` (underline, inner spaces
- * required) inside body paragraphs.
+ * Adds the TMBC brand-signature annotations to the live "blog-best-compact-strollers-2026"
+ * post body: (( word )) circles and [[ sentence ]] underlines — the same markers the
+ * marketing pages and the registry-essentials post use. The blog renderer understands
+ * `((word))` (circle) and `[[ sentence ]]` (underline, inner spaces required) inside
+ * body paragraphs.
  *
- * Each edit anchors on surrounding context so it matches exactly one spot, and only
- * the highlighted word/phrase is wrapped — apostrophes and everything else are
- * preserved. Matching is apostrophe-tolerant (straight vs curly) so it works no
- * matter which glyph the stored content uses. Naturally idempotent: once a marker is
- * inserted the surrounding context no longer matches, so re-running is a no-op.
+ * Each edit anchors on surrounding context so it matches exactly one spot, and only the
+ * highlighted word/phrase is wrapped — apostrophes and everything else are preserved.
+ * Matching is apostrophe-tolerant (straight vs curly). Idempotent: an already-wrapped
+ * highlight is skipped, and once a marker is inserted the surrounding context no longer
+ * matches, so re-running is a no-op.
  *
- *   npx tsx scripts/annotateRegistryEssentials.ts            # dry run (shows a diff)
- *   npx tsx scripts/annotateRegistryEssentials.ts --apply    # writes
+ *   npx tsx scripts/annotateCompactStrollers.ts            # dry run (shows what lands)
+ *   npx tsx scripts/annotateCompactStrollers.ts --apply    # writes
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" \
- *     npx tsx scripts/annotateRegistryEssentials.ts --apply
+ *     npx tsx scripts/annotateCompactStrollers.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const SLUG = 'taylors-registry-essentials';
+const SLUG = 'blog-best-compact-strollers-2026';
 const APPLY = process.argv.includes('--apply');
 
 type Edit = {
-  /** Literal text immediately before the highlight (anchors uniqueness). */
   before: string;
-  /** The exact word/phrase to wrap. */
   highlight: string;
-  /** Literal text immediately after the highlight (anchors uniqueness). */
   after: string;
-  /** circle => ((highlight)) ; underline => [[ highlight ]] */
   type: 'circle' | 'underline';
-  /** Human note for the dry-run log. */
   note: string;
 };
 
 /** The brand-voice moments to annotate, in document order. */
 export const EDITS: Edit[] = [
-  { before: 'learned something ', highlight: 'surprising', after: ':', type: 'circle', note: 'intro hook' },
+  { before: '', highlight: 'In real life.', after: '', type: 'underline', note: 'intro — real life' },
+  { before: 'over ', highlight: 'coffee', after: '.', type: 'circle', note: 'intro — over coffee' },
   {
-    before: "They're ",
-    highlight: 'the products that make everyday life easier',
+    before: 'overwhelmed, ',
+    highlight: "you're not alone",
     after: '.',
     type: 'underline',
-    note: 'intro thesis',
+    note: 'intro — not alone',
   },
-  { before: 'the ', highlight: 'flashy', after: ' ones', type: 'circle', note: 'not the flashy ones' },
-  { before: '', highlight: 'Parents do.', after: '', type: 'underline', note: 'mini-crib TMBC take' },
-  { before: 'like buying ', highlight: 'shoes', after: ' for someone', type: 'circle', note: 'bottle-box analogy' },
-  { before: '', highlight: 'Your back will thank you.', after: '', type: 'underline', note: 'bath stand payoff' },
-  { before: "It's ", highlight: 'freedom', after: '.', type: 'circle', note: 'carrier = freedom' },
-  { before: 'Because ', highlight: 'confidence', after: " doesn't", type: 'circle', note: 'real-secret confidence' },
+  { before: 'like a ', highlight: 'compromise', after: '.', type: 'circle', note: 'not a compromise' },
   {
-    before: "It's ",
-    highlight: 'the one that helps your family feel prepared',
+    before: '',
+    highlight: 'Lightweight without feeling flimsy.',
+    after: '',
+    type: 'underline',
+    note: 'Breez — flimsy',
+  },
+  { before: 'not the ', highlight: 'flashiest', after: ' stroller', type: 'circle', note: 'Thule — flashiest' },
+  { before: 'you ', highlight: 'expand', after: ' it', type: 'circle', note: 'Peg Perego — expand it' },
+  {
+    before: 'the one that ',
+    highlight: 'disappears into your routine',
     after: '.',
     type: 'underline',
-    note: 'real-secret prepared',
+    note: 'how to choose — disappears',
   },
-  { before: '', highlight: 'Start with confidence.', after: '', type: 'underline', note: 'closing line' },
+  { before: '', highlight: "They're supporting it.", after: '', type: 'underline', note: 'final — supporting it' },
+  { before: 'the one that ', highlight: 'quietly', after: ' makes', type: 'circle', note: 'final — quietly' },
+  { before: '', highlight: 'Start there.', after: '', type: 'underline', note: 'closing line' },
 ];
 
 const APOS = /['‘’ʼ]/g;
@@ -123,11 +125,11 @@ async function main() {
   console.log(`\nAnnotations applied: ${applied.length}/${EDITS.length}`);
   for (const e of applied) {
     const marked = e.type === 'circle' ? `(( ${e.highlight} ))` : `[[ ${e.highlight} ]]`;
-    console.log(`  ✓ ${e.note.padEnd(26)} ${marked}`);
+    console.log(`  ✓ ${e.note.padEnd(28)} ${marked}`);
   }
   if (skipped.length) {
     console.log('\nSkipped (already annotated or text changed on the live post):');
-    for (const e of skipped) console.log(`  – ${e.note.padEnd(26)} "${e.highlight}"`);
+    for (const e of skipped) console.log(`  – ${e.note.padEnd(28)} "${e.highlight}"`);
   }
 
   if (next === content) {
