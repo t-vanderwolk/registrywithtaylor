@@ -4130,23 +4130,13 @@ a.tool-open-box-badge:hover {
 }
 
 /* ── Price seal (services + quiz consult / closing) ─────────────────────────
-   A round, luxe wax-seal treatment for "$75 · 1-Hour Session": pearlescent
-   blush face, a double gold ring, embossed depth, tilted like a real seal.
-   Pops in and holds a soft gold-tinted glow. */
+   Round wax-seal for "$75 · 1-Hour Session", styled in the same family as the
+   GoodBuy Gear open-box tag: pink gradient, white text + hairline, a pulsing
+   glow, and a diagonal shimmer sweep. Tilted like a stamp, pops in on load. */
 @keyframes price-seal-in {
   0% { opacity: 0; transform: rotate(-15deg) scale(0.78); }
   70% { transform: rotate(5deg) scale(1.03); }
   100% { opacity: 1; transform: rotate(-8deg) scale(1); }
-}
-@keyframes price-seal-glow {
-  0%, 100% {
-    box-shadow: 0 16px 38px rgba(157,100,114,0.2),
-      inset 0 2px 6px rgba(255,255,255,0.85), inset 0 -9px 18px rgba(198,167,94,0.16);
-  }
-  50% {
-    box-shadow: 0 22px 52px rgba(198,167,94,0.3),
-      inset 0 2px 6px rgba(255,255,255,0.92), inset 0 -9px 18px rgba(198,167,94,0.24);
-  }
 }
 .price-seal {
   position: relative;
@@ -4159,47 +4149,52 @@ a.tool-open-box-badge:hover {
   flex: none;
   border-radius: 9999px;
   text-align: center;
-  color: var(--color-accent-dark, #9d6472);
-  background: radial-gradient(135% 135% at 30% 22%, #ffffff 0%, #fdeef2 40%, #f4d9e2 80%, #eec7d5 100%);
-  border: 1px solid rgba(198,167,94,0.6);
+  color: #fff;
+  font-family: var(--font-sans);
+  background: linear-gradient(140deg, #d98aa0 0%, #c8718c 52%, #b26788 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 12px 28px rgba(178, 103, 136, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: rotate(-8deg);
   animation:
     price-seal-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both,
-    price-seal-glow 4s ease-in-out 0.9s infinite;
+    tmbc-openbox-glow 3.4s ease-in-out 0.9s infinite;
 }
-/* Inner solid gold ring */
+/* Diagonal light sweep, matching the GoodBuy Gear tag. */
 .price-seal::before {
   content: "";
   position: absolute;
-  inset: 0.62rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(198,167,94,0.55);
-  pointer-events: none;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.5) 48%, transparent 64%);
+  transform: translateX(-130%);
+  animation: tmbc-openbox-shimmer 3.4s ease-in-out infinite;
 }
-/* Fine dotted gold ring for the stamped look */
+/* Thin white inner ring keeps the stamped seal identity. */
 .price-seal::after {
   content: "";
   position: absolute;
-  inset: 0.34rem;
+  inset: 0.5rem;
   border-radius: 9999px;
-  border: 1.5px dotted rgba(198,167,94,0.42);
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
   pointer-events: none;
 }
 .price-seal__price {
   font-family: var(--font-serif), Georgia, serif;
   font-size: 2.5rem;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--color-accent-dark, #9d6472);
+  color: #fff;
 }
 .price-seal__label {
   margin-top: 0.28rem;
   font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #b08d3f;
+  color: rgba(255, 255, 255, 0.94);
 }
 @media (max-width: 640px) {
   .price-seal { width: 7.25rem; height: 7.25rem; }
@@ -4207,4 +4202,5 @@ a.tool-open-box-badge:hover {
 }
 @media (prefers-reduced-motion: reduce) {
   .price-seal { animation: price-seal-in 0.01s both; }
+  .price-seal::before { display: none; }
 }
