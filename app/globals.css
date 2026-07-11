@@ -4129,78 +4129,24 @@ a.tool-open-box-badge:hover {
   .tool-fade-up { animation: none; }
 }
 
-/* ── Price badge (stroller quiz consult CTA) ────────────────────────────────
-   A larger, stamped-badge treatment for "$75 · 1-Hour Virtual Session": pops in
-   on load, holds a soft glow pulse, and gets a periodic shine sweep. */
-@keyframes price-badge-in {
-  0% { opacity: 0; transform: translateY(10px) scale(0.92); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes price-badge-glow {
-  0%, 100% { box-shadow: 0 10px 28px rgba(184,116,138,0.16); }
-  50% { box-shadow: 0 16px 44px rgba(184,116,138,0.34); }
-}
-@keyframes price-badge-shine {
-  0% { transform: translateX(-140%) skewX(-18deg); }
-  55%, 100% { transform: translateX(320%) skewX(-18deg); }
-}
-.price-badge {
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
-  border-radius: 1.15rem;
-  border: 1.5px solid var(--color-cta-pink, #d8899f);
-  background: linear-gradient(158deg, #ffffff 0%, #fdeef2 100%);
-  padding: 0.9rem 1.7rem;
-  transform-origin: center;
-  animation:
-    price-badge-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both,
-    price-badge-glow 3.4s ease-in-out 0.7s infinite;
-}
-.price-badge__price {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 2.15rem;
-  line-height: 1;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--color-accent-dark, #9d6472);
-}
-.price-badge__label {
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
-  color: var(--color-cta-pink, #b8748a);
-}
-.price-badge__shine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 38%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-  animation: price-badge-shine 3.4s ease-in-out 1s infinite;
-  pointer-events: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .price-badge { animation: price-badge-in 0.01s both; }
-  .price-badge__shine { display: none; }
-}
-
-/* ── Price seal (services "What's included" section) ────────────────────────
-   A round, stamped sticker for "$75 · 1 Hour": tilted slightly like a wax seal,
-   pops in and holds a soft glow. Sized for the right side of the section header. */
+/* ── Price seal (services + quiz consult / closing) ─────────────────────────
+   A round, luxe wax-seal treatment for "$75 · 1-Hour Session": pearlescent
+   blush face, a double gold ring, embossed depth, tilted like a real seal.
+   Pops in and holds a soft gold-tinted glow. */
 @keyframes price-seal-in {
-  0% { opacity: 0; transform: rotate(-14deg) scale(0.8); }
+  0% { opacity: 0; transform: rotate(-15deg) scale(0.78); }
   70% { transform: rotate(5deg) scale(1.03); }
   100% { opacity: 1; transform: rotate(-8deg) scale(1); }
 }
 @keyframes price-seal-glow {
-  0%, 100% { box-shadow: 0 12px 30px rgba(184,116,138,0.24), inset 0 0 0 1px rgba(255,255,255,0.35); }
-  50% { box-shadow: 0 18px 44px rgba(184,116,138,0.4), inset 0 0 0 1px rgba(255,255,255,0.5); }
+  0%, 100% {
+    box-shadow: 0 16px 38px rgba(157,100,114,0.2),
+      inset 0 2px 6px rgba(255,255,255,0.85), inset 0 -9px 18px rgba(198,167,94,0.16);
+  }
+  50% {
+    box-shadow: 0 22px 52px rgba(198,167,94,0.3),
+      inset 0 2px 6px rgba(255,255,255,0.92), inset 0 -9px 18px rgba(198,167,94,0.24);
+  }
 }
 .price-seal {
   position: relative;
@@ -4208,47 +4154,56 @@ a.tool-open-box-badge:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 8.5rem;
-  height: 8.5rem;
+  width: 9rem;
+  height: 9rem;
   flex: none;
   border-radius: 9999px;
   text-align: center;
-  color: #fff;
-  background:
-    radial-gradient(120% 120% at 30% 25%, #e7a6b6 0%, var(--color-cta-pink, #d8899f) 45%, var(--color-accent-dark, #9d6472) 100%);
-  border: 2px solid rgba(255,255,255,0.65);
+  color: var(--color-accent-dark, #9d6472);
+  background: radial-gradient(135% 135% at 30% 22%, #ffffff 0%, #fdeef2 40%, #f4d9e2 80%, #eec7d5 100%);
+  border: 1px solid rgba(198,167,94,0.6);
   transform: rotate(-8deg);
   animation:
-    price-seal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
-    price-seal-glow 3.6s ease-in-out 0.8s infinite;
+    price-seal-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both,
+    price-seal-glow 4s ease-in-out 0.9s infinite;
 }
-/* Dotted ring inside the seal for the stamped look */
+/* Inner solid gold ring */
 .price-seal::before {
   content: "";
   position: absolute;
-  inset: 0.5rem;
+  inset: 0.62rem;
   border-radius: 9999px;
-  border: 1.5px dashed rgba(255,255,255,0.55);
+  border: 1px solid rgba(198,167,94,0.55);
+  pointer-events: none;
+}
+/* Fine dotted gold ring for the stamped look */
+.price-seal::after {
+  content: "";
+  position: absolute;
+  inset: 0.34rem;
+  border-radius: 9999px;
+  border: 1.5px dotted rgba(198,167,94,0.42);
   pointer-events: none;
 }
 .price-seal__price {
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   line-height: 1;
   font-weight: 600;
   letter-spacing: -0.01em;
+  color: var(--color-accent-dark, #9d6472);
 }
 .price-seal__label {
-  margin-top: 0.15rem;
-  font-size: 0.6rem;
+  margin-top: 0.28rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.95;
+  color: #b08d3f;
 }
 @media (max-width: 640px) {
-  .price-seal { width: 7rem; height: 7rem; }
-  .price-seal__price { font-size: 1.9rem; }
+  .price-seal { width: 7.25rem; height: 7.25rem; }
+  .price-seal__price { font-size: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .price-seal { animation: price-seal-in 0.01s both; }
