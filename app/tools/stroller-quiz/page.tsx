@@ -160,6 +160,13 @@ export default function StrollerQuizPage() {
                       <span className="font-semibold text-[var(--color-accent-dark)]">★ Taylor’s note: </span>
                       {t.note}
                     </p>
+                    <Link
+                      href={`/tools/stroller-finder?category=${t.category}`}
+                      className="group mt-auto inline-flex w-fit items-center gap-1.5 pt-4 text-[0.8rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-cta-pink)] transition hover:text-[var(--color-cta-pink-hover)]"
+                    >
+                      View examples
+                      <span aria-hidden className="transition duration-200 group-hover:translate-x-1">→</span>
+                    </Link>
                   </article>
                 </RevealOnScroll>
               ))}

@@ -50,6 +50,8 @@ export type QuizResultType = {
   brands: string;
   recommendedFor: string;
   note: string;
+  /** Stroller Finder category to deep-link the "View examples" CTA to. */
+  category: string;
 };
 
 export const QUIZ_RESULT_TYPES = {
@@ -60,6 +62,7 @@ export const QUIZ_RESULT_TYPES = {
   types: [
     {
       name: 'Full Size / Modular',
+      category: 'full-size',
       keyword: 'best full-size stroller',
       brands: 'Bugaboo Fox 5, Nuna MIXX Next, Silver Cross Reef 2',
       recommendedFor:
@@ -68,6 +71,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Compact / Mid-Size',
+      category: 'compact',
       keyword: 'best compact stroller',
       brands: 'Bugaboo Dragonfly Plus, Nuna TRIV Next, Cybex Mios',
       recommendedFor:
@@ -76,6 +80,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Travel Stroller',
+      category: 'travel',
       keyword: 'best travel stroller',
       brands: 'Babyzen YOYO2, Silver Cross Clic, Bugaboo Butterfly',
       recommendedFor:
@@ -84,6 +89,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Single-to-Double Convertible',
+      category: 'convertible-modular',
       keyword: 'best single-to-double stroller',
       brands: 'Bugaboo Donkey 6, Nuna DEMI Next, Cybex Gazelle S',
       recommendedFor:
@@ -92,6 +98,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Double Stroller',
+      category: 'double',
       keyword: 'best double stroller',
       brands: 'Baby Jogger City Mini GT2 Double, Nuna TRVL Dubl, Silver Cross Jet Double',
       recommendedFor:
@@ -100,6 +107,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Jogging / All-Terrain',
+      category: 'jogging',
       keyword: 'best jogging stroller',
       brands: 'BOB Revolution Flex 3.0, Thule Urban Glide 2, UPPAbaby Ridge',
       recommendedFor:
@@ -108,6 +116,7 @@ export const QUIZ_RESULT_TYPES = {
     },
     {
       name: 'Double Jogger',
+      category: 'double-jogging',
       keyword: 'best double jogging stroller',
       brands: 'BOB Revolution Flex 3.0 Duallie, Thule Urban Glide 2 Double, Baby Jogger Summit X3 Double',
       recommendedFor:
