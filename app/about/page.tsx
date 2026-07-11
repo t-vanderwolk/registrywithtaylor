@@ -59,7 +59,7 @@ function CompareCell({ value }: { value: 'yes' | 'no' | 'partial' | 'varies' }) 
 export const metadata = buildMarketingMetadata({
   title: 'About Taylor Vanderwolk, Baby Registry Consultant | Taylor-Made Baby Co.',
   description:
-    'Meet Taylor Vanderwolk, certified baby registry consultant and Tot Squad specialist with 7+ years of baby gear expertise. Book your $75 registry consult.',
+    'Meet Taylor Vanderwolk, certified baby registry consultant and Tot Squad specialist with hands-on baby gear expertise. Book your $75 registry consult.',
   path: '/about',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'Taylor Vanderwolk baby registry consultant workspace',
@@ -310,7 +310,7 @@ export default function AboutPage() {
                 </Body>
                 <Body className="text-neutral-700">This is not a template registry. It is not a sales floor disguised as advice. It is not an affiliate blog dressed up as expertise.</Body>
                 <Body className="text-neutral-700">
-                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with 7+ years of real retail and hands-on family experience, who receives (( zero commission )) from any brand she recommends.
+                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with real retail and hands-on family experience, who receives (( zero commission )) from any brand she recommends.
                 </Body>
                 <Body className="text-neutral-700">Because when baby prep fits your real life, the next season [[ feels a whole lot steadier. ]]</Body>
               </div>

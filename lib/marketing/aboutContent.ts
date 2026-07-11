@@ -36,7 +36,7 @@ export const ABOUT_QUOTABLE =
   'Taylor is a baby registry consultant and certified baby gear specialist who helps expecting parents make (( confident )) decisions about strollers, car seats, nurseries, and registry strategy.';
 
 export const ABOUT_BIO = [
-  'With 7+ years of hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
+  'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
   'Baby gear decisions arrive (( fast )) and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
   'My role is not to hand you a checklist and move on. It is to sit with you in the details, your home layout, your vehicle, your family plans, your comfort with risk and spending, and help you make the specific choices that will serve you best.',
   'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, (( independent )) recommendations. No brand sponsorships, no affiliate pressure, no generic advice.',
@@ -49,14 +49,14 @@ export const ABOUT_ORIGIN = {
     'Years of working at Strolleria, one of the most respected baby specialty retailers in the US, and later as a Nursery Advisor at Pottery Barn Kids and a certified Target Baby Concierge specialist through Tot Squad, I watched the same thing happen over and over.',
     'Families would walk in with a registry built from Instagram. Stressed, overloaded, and often on the verge of just buying the most popular stroller because they had given up trying to make a confident decision.',
     'Twenty minutes of real conversation would completely change their direction. The right stroller for their building. The car seat that actually fit their SUV. The bassinet that made sense for their bedroom. Not the most popular option, [[ the right option for them. ]]',
-    'After 7+ years of that, I realised most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
+    'Over time, I realised most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
     'Taylor-Made Baby Co. is that conversation, available to every expecting parent, wherever they are, without pressure, sponsorship, or agenda.',
   ],
 };
 
 export const ABOUT_STATS = [
   { value: '200+', label: 'Families Helped' },
-  { value: '7+', label: 'Years of Experience' },
+  { value: '100%', label: 'Independent & Unsponsored' },
   { value: '5 Stars', label: 'Strolleria Rating' },
   { value: '$75', label: 'Full 1-Hour Session' },
 ];
@@ -173,7 +173,7 @@ export const ABOUT_AVAILABILITY = {
 export const ABOUT_LEAD_MAGNET = {
   title: 'Free Baby Prep Starter Guide for Expecting Parents',
   intro:
-    'A (( calm )), practical starting point for registry, gear, and nursery decisions, built on 7+ years of real baby consulting experience. Delivered to your inbox, free.',
+    'A (( calm )), practical starting point for registry, gear, and nursery decisions, built on real baby consulting experience. Delivered to your inbox, free.',
   bullets: [
     'The 10 most common registry mistakes expecting parents make, and how to avoid them',
     'Stroller buying checklist, what to verify before you commit',
@@ -187,7 +187,7 @@ export const ABOUT_FAQ = [
   {
     question: 'Who is Taylor?',
     answer:
-      'Taylor is a baby registry consultant and certified Tot Squad specialist with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalised registries that fit their real homes, budgets, and routines.',
+      'Taylor is a baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalised registries that fit their real homes, budgets, and routines.',
   },
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',

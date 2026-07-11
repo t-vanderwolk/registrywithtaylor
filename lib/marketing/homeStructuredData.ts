@@ -60,7 +60,7 @@ export const homeStructuredData = {
       familyName: 'Vanderwolk',
       jobTitle: 'Baby Registry Consultant',
       description:
-        'Baby registry consultant and certified Tot Squad specialist with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co.',
+        'Baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co.',
       url: SITE_URL,
       image: TAYLOR_IMAGE,
       worksFor: { '@id': ORG_ID },

@@ -35,7 +35,7 @@ export const aboutStructuredData = {
       familyName: 'Vanderwolk',
       jobTitle: 'Baby Registry Consultant',
       description:
-        'Baby registry consultant and certified Tot Squad specialist with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co., having helped 200+ expecting parents build confident baby registries.',
+        'Baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co., having helped 200+ expecting parents build confident baby registries.',
       disambiguatingDescription:
         'Taylor-Made Baby Co. is an independent baby registry consulting service founded by Taylor Vanderwolk. It is not affiliated with TaylorMade Golf, TaylorMade Audio, or any other brand using the TaylorMade name.',
       url: ABOUT_URL,
@@ -84,7 +84,7 @@ export const aboutStructuredData = {
       url: ABOUT_URL,
       name: 'About Taylor Vanderwolk, Baby Registry Consultant',
       description:
-        'Meet Taylor Vanderwolk, a certified baby registry consultant and baby gear expert with 7+ years of experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Independent, unsponsored guidance for expecting parents.',
+        'Meet Taylor Vanderwolk, a certified baby registry consultant and baby gear expert with hands-on experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Independent, unsponsored guidance for expecting parents.',
       isPartOf: { '@type': 'WebSite', url: SITE_URL, name: SITE_NAME },
       primaryImageOfPage: { '@type': 'ImageObject', url: HERO_IMAGE },
       mainEntity: { '@id': PERSON_ID },
@@ -106,7 +106,7 @@ export const aboutStructuredData = {
       name: 'Baby Registry Consultation',
       serviceType: 'Baby Registry Consulting',
       description:
-        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, certified Tot Squad specialist with 7+ years experience and 200+ families helped.',
+        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, certified Tot Squad specialist who has helped 200+ families.',
       provider: { '@id': PERSON_ID },
       offers: {
         '@type': 'Offer',

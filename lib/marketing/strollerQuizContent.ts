@@ -12,7 +12,7 @@ export const QUIZ_HERO = {
   eyebrow: 'Free Tool · Instant Results · No Sign-Up',
   h1: 'Best Stroller Quiz: Find Your Perfect Stroller Match in 8 Questions',
   attribution:
-    'Recommendations powered by Taylor Vanderwolk, Certified Tot Squad Specialist with 7+ years of baby gear experience and 200+ families helped.',
+    'Recommendations powered by Taylor Vanderwolk, Certified Tot Squad Specialist with hands-on baby gear experience and 200+ families helped.',
   freebadges: ['Free', 'Instant results', 'No sign-up required', 'Independent, zero affiliate commission'],
 };
 
@@ -136,7 +136,7 @@ export const QUIZ_CREATOR = {
   eyebrow: 'Who built this',
   heading: 'About the Quiz Creator, Taylor Vanderwolk',
   bio: [
-    'This stroller quiz was built by Taylor Vanderwolk, a certified baby gear specialist and baby registry consultant with 7+ years of hands-on stroller experience at Strolleria (the leading US baby specialty retailer), Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
+    'This stroller quiz was built by Taylor Vanderwolk, a certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria (the leading US baby specialty retailer), Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
     'The quiz recommendations reflect the same framework Taylor uses in every personal consultation, matching strollers to real homes, real vehicles, and real lifestyles rather than to a generic best-of list.',
   ],
   credentials: [

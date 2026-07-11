@@ -172,7 +172,7 @@ export const SERVICES_AVAILABILITY = {
 
 export const SERVICES_CREDENTIALS = {
   heading: 'Why Book with Taylor?',
-  lead: 'Taylor is a certified baby registry consultant with 7+ years of hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives (( zero commission )) from any brand she recommends.',
+  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives (( zero commission )) from any brand she recommends.',
   items: [
     { title: 'Tot Squad Certified Specialist', body: 'The credential behind Target’s Baby Concierge programme, 200+ stores nationwide.' },
     { title: 'Strolleria Baby Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a leading baby specialty showroom.' },
