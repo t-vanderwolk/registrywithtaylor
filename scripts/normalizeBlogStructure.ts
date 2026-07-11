@@ -41,6 +41,16 @@ const SUBBLOCK_LABELS = [
   'Why It Matters',
 ];
 
+/**
+ * Per-slug heading PROMOTIONS (`### -> ##`): recurring section-transition essays that
+ * should sit at the same H2 level as their peers. Wording is kept; only the level moves.
+ * Only the `### ` occurrence is promoted, so an existing `## <same text>` is untouched.
+ */
+const PROMOTE_BY_SLUG: Record<string, string[]> = {
+  // Reflection essays between product groups. Most are already `##`; two drifted to `###`.
+  'baby-gear-released-2026-so-far': ['The Bigger Story', 'A Bigger Shift Happening'],
+};
+
 const APOS = /['‘’ʼ]/g;
 const APOS_CLASS = "['‘’ʼ]";
 
@@ -81,8 +91,18 @@ function demoteFaqQuestions(content: string): string {
     .join('\n');
 }
 
-export function normalizeStructure(content: string): string {
-  return demoteFaqQuestions(demoteSubblocks(content));
+/** 3. Promote configured section-transition essays `### Label` -> `## Label`. */
+function promoteHeadings(content: string, labels: string[]): string {
+  let out = content;
+  for (const label of labels) {
+    out = out.replace(new RegExp(`^([ \\t]*)### (${flex(label)})[ \\t]*$`, 'gm'), '$1## $2');
+  }
+  return out;
+}
+
+export function normalizeStructure(content: string, slug = ''): string {
+  const promoted = promoteHeadings(content, PROMOTE_BY_SLUG[slug] ?? []);
+  return demoteFaqQuestions(demoteSubblocks(promoted));
 }
 
 /** A compact heading outline (level + text) for the dry-run diff. */
@@ -107,7 +127,7 @@ async function main() {
     process.exit(1);
   }
   const content: string = post.content ?? '';
-  const next = normalizeStructure(content);
+  const next = normalizeStructure(content, post.slug);
 
   console.log(`Post: ${post.title} (${post.slug})\n`);
 
