@@ -114,6 +114,8 @@
     "catalog:fix-silver-cross-clic-apply": "tsx scripts/fixSilverCrossClic.ts --apply",
     "catalog:add-orbit-baby": "tsx scripts/addOrbitBabyMacroBaby.ts",
     "catalog:add-orbit-baby-apply": "tsx scripts/addOrbitBabyMacroBaby.ts --apply",
+    "catalog:rename-orbit-g5-carseat": "tsx scripts/renameOrbitBabyG5CarSeat.ts",
+    "catalog:rename-orbit-g5-carseat-apply": "tsx scripts/renameOrbitBabyG5CarSeat.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
     "catalog:gt3-mixx-apply": "tsx scripts/addGt3AdapterUnhideMixx.ts --apply",
     "catalog:add-bombi": "tsx scripts/addBombiGear.ts",
