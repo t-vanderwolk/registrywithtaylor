@@ -45,7 +45,7 @@ const ITEMS: SeedItem[] = [
       'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-triv-lx%2F77435%2F2699230&partnerpropertyid=7490466',
     imageUrl:
       'https://images.ctfassets.net/50gzycvace50/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585/cbcd605c058df3c3151ce1df6a948f72/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
-    price: 1300.0,
+    price: 950.0,
   },
   {
     externalId: 'nuna-flex',
