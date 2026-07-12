@@ -15,6 +15,8 @@ const babylistAffiliate = (productUrl: string) =>
 const PIPA_URBN_BUNDLES: Array<{ token: string; url: string }> = [
   { token: 'mixx next', url: 'https://www.babylist.com/gp/nuna-mixx-next-pipa-urbn/36335/1925316' },
   { token: 'trvl lx', url: 'https://www.babylist.com/gp/nuna-trvl-lx-pipa-urbn/46285/1871702' },
+  // TRIV lx is currently sold only as the TRIV lx + PIPA urbn travel system.
+  { token: 'triv lx', url: 'https://www.babylist.com/gp/nuna-pipa-urbn-triv-lx/77435/2699230' },
   { token: 'triv next', url: 'https://www.babylist.com/gp/nuna-triv-next-pipa-urbn/36336/2902985' },
   { token: 'swiv', url: 'https://www.babylist.com/gp/nuna-swiv-pipa-urbn-travel-system/83844/3316520' },
 ];
