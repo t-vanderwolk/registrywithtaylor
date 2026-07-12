@@ -92,20 +92,30 @@ export default function ResourcesPage() {
           </div>
         </MarketingSection>
 
-        {/* ── INTRO ── */}
+        {/* ── INTRO (pain hook, matches /about) ── */}
         <MarketingSection tone="white" spacing="spacious" container="narrow">
           <div className="mx-auto max-w-2xl space-y-5 text-center">
             <RevealOnScroll>
-              <p className="academy-script-note academy-script-note--sm academy-script-note--tilt-left">
-                The baby aisle is not the boss of you.
+              <p className="font-serif text-[1.6rem] leading-snug tracking-[-0.02em] text-neutral-900">
+                Does any of this sound familiar?
               </p>
             </RevealOnScroll>
-            <RevealOnScroll delayMs={80}>
-              <Body className="mx-auto max-w-xl text-[1.12rem] leading-8 text-neutral-600">
-                Most of the baby aisle panic comes from vocabulary, not the gear. Once you know what makes a
-                stroller modular, what a travel system really is, and why an adapter matters, the whole thing gets a lot
-                less scary. Start here, then let a free tool do the sorting for you.
-              </Body>
+            <RevealOnScroll delayMs={70}>
+              <p className="text-[1rem] leading-[1.85] text-neutral-600">
+                You have spent hours on baby forums, watched 30 reviews of the same stroller, and added and removed the
+                same car seat from your registry three times. And you are still not sure you are making the right call.
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll delayMs={130}>
+              <p className="text-[1rem] leading-[1.85] text-neutral-600">
+                Your friends all have different opinions. The influencer you follow gets paid to recommend things. And
+                every time you feel close to a decision, someone tells you there is a better option.
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll delayMs={190}>
+              <p className="text-[1.05rem] font-semibold text-[var(--color-accent-dark)]">
+                That is exactly why this guide exists. Start here, then let a free tool do the sorting for you.
+              </p>
             </RevealOnScroll>
           </div>
         </MarketingSection>
