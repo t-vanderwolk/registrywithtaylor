@@ -116,10 +116,15 @@ function sentences(text: string): string[] {
 
 function underlineOk(s: string): boolean {
   if (s.length < 14 || s.length > 120) return false;
-  if (/\]|\[|\(\(|`|\|/.test(s)) return false; // no brackets, code, table pipes
+  if (/\]|\[|\(\(|`|\||\*/.test(s)) return false; // no brackets, code, pipes, bold/italic
   if (/\]\(/.test(s)) return false; // no links
   if (!/[.!?]$/.test(s)) return false; // must be a full sentence
   return true;
+}
+
+/** Sign-off / attribution lines that must never be underlined. */
+function isSignoff(s: string): boolean {
+  return /taylor-?made baby co|^\s*xoxo|^love,?\s*taylor|^—\s*taylor|^-\s*t\b/i.test(s);
 }
 
 export type AnnotateResult = {
@@ -148,10 +153,17 @@ export function annotate(input: string): AnnotateResult {
     const b = blocks[bi];
     const text = blockText(lines, b);
     const sents = sentences(text);
-    // Intro → last sentence (thesis); closing → last sentence (payoff).
-    const candidate = sents[sents.length - 1];
-    if (!candidate || !underlineOk(candidate)) continue;
-    if (underlines.includes(candidate)) continue;
+    // Prefer the last clean sentence (thesis / payoff); fall back toward the
+    // front of the block if the final one is a sign-off, has markup, etc.
+    let candidate: string | null = null;
+    for (let si = sents.length - 1; si >= 0; si--) {
+      const s = sents[si];
+      if (underlineOk(s) && !isSignoff(s) && !underlines.includes(s)) {
+        candidate = s;
+        break;
+      }
+    }
+    if (!candidate) continue;
     // Wrap that exact sentence within the block.
     const joined = lines.slice(b.start, b.end + 1).join('\n');
     if (!joined.includes(candidate)) continue;
