@@ -33,6 +33,21 @@ function norm(value: string | null | undefined) {
   return (value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+function escapeRegex(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Whole-word (token) match, so an ultra-short name like "m" (from "M+") does not
+ * match the wrong open-box (e.g. a Helix "attachment"). Substring fallback kept for
+ * names of 4+ chars.
+ */
+function nameMatches(haystack: string, wantName: string): boolean {
+  if (!wantName) return false;
+  if (new RegExp(`\\b${escapeRegex(wantName)}\\b`).test(haystack)) return true;
+  return wantName.length >= 4 && haystack.includes(wantName);
+}
+
 export async function resolveBlogGoodBuyGearOffers(
   products: ProductRef[],
 ): Promise<Record<string, BlogGoodBuyGearOffer>> {
@@ -79,7 +94,7 @@ export async function resolveBlogGoodBuyGearOffers(
         const rowBrand = canonicalBrand(r.enrichment?.canonicalBrand ?? r.brand ?? '').toLowerCase();
         if (rowBrand !== wantBrand) return false;
         const haystack = norm(`${r.enrichment?.canonicalName ?? ''} ${r.title ?? ''}`);
-        return haystack.includes(wantName);
+        return nameMatches(haystack, wantName);
       })
       .filter((r) => {
         const url = r.affiliateUrl ?? r.productUrl;
