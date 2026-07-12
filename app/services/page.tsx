@@ -210,8 +210,10 @@ export default function ServicesPage() {
                   <Body className="mt-3 max-w-2xl text-neutral-600">{SERVICES_INCLUDES.intro}</Body>
                 </div>
                 <span className="price-seal self-center sm:mt-1 sm:self-start">
+                  <span className="price-seal__eyebrow">Virtual Consult</span>
+                  <span className="price-seal__deal">Limited-Time Deal</span>
+                  <span className="price-seal__from">Starting at</span>
                   <span className="price-seal__price">$75</span>
-                  <span className="price-seal__label">1-Hour Session</span>
                 </span>
               </div>
             </RevealOnScroll>

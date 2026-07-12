@@ -4144,9 +4144,10 @@ a.tool-open-box-badge:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 9rem;
-  height: 9rem;
+  width: 9.5rem;
+  height: 9.5rem;
   flex: none;
+  padding: 0.5rem;
   border-radius: 9999px;
   text-align: center;
   color: #fff;
@@ -4180,24 +4181,50 @@ a.tool-open-box-badge:hover {
   border: 1.5px solid rgba(255, 255, 255, 0.42);
   pointer-events: none;
 }
+/* Stacked, GoodBuy-Gear order: label + deal on top, price prominent + last. */
+.price-seal__eyebrow {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #fff;
+}
+.price-seal__deal {
+  margin-top: 0.32rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, 0.96);
+}
+.price-seal__from {
+  margin-top: 0.42rem;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.88);
+}
 .price-seal__price {
+  margin-top: 0.05rem;
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 2.5rem;
+  font-size: 2.35rem;
   line-height: 1;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: #fff;
 }
-.price-seal__label {
-  margin-top: 0.28rem;
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.94);
-}
 @media (max-width: 640px) {
-  .price-seal { width: 7.25rem; height: 7.25rem; }
+  .price-seal { width: 8.25rem; height: 8.25rem; }
+  .price-seal__eyebrow { font-size: 0.55rem; }
+  .price-seal__deal { font-size: 0.44rem; }
   .price-seal__price { font-size: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) {

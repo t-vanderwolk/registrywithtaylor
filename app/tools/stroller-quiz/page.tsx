@@ -54,8 +54,10 @@ const quizFaqs: FAQEntry[] = QUIZ_FAQ.map((f) => ({ question: f.question, answer
 function PriceBadge({ className = '' }: { className?: string }) {
   return (
     <span className={`price-seal ${className}`}>
+      <span className="price-seal__eyebrow">Virtual Consult</span>
+      <span className="price-seal__deal">Limited-Time Deal</span>
+      <span className="price-seal__from">Starting at</span>
       <span className="price-seal__price">$75</span>
-      <span className="price-seal__label">1-Hour Session</span>
     </span>
   );
 }
