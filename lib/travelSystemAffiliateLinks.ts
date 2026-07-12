@@ -300,7 +300,8 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
 
   // Stokke
   'Stokke:::Yoyo 3': {
-    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=stokke'),
+    babylistUrl: babylistTracked('https://www.babylist.com/gp/stokke-yoyo-stroller-from-6-months/55557/2073006'),
+    amazonUrl: 'https://amzn.to/3SR3vwZ',
   },
 
   // Thule

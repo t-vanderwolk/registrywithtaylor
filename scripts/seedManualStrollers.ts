@@ -66,6 +66,18 @@ const ITEMS: SeedItem[] = [
     path: 'Home > Newborn Must-Haves > Strollers > Travel Strollers',
     productType: 'travel stroller',
   },
+  {
+    externalId: 'stokke-yoyo-3',
+    brand: 'Stokke',
+    title: 'Stokke YOYO 3 Stroller',
+    path: 'Home > Newborn Must-Haves > Strollers > Travel Strollers',
+    productType: 'travel stroller',
+    affiliateUrl:
+      'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fstokke-yoyo-stroller-from-6-months%2F55557%2F2073006&partnerpropertyid=7490466',
+    imageUrl:
+      'https://images.ctfassets.net/50gzycvace50/cb41003a6962336a39b29833e4fd64c7d2cef0c58bffc0954cbcff2f4cf49821/616c331ee2f8d0da7ce2557d3b8a22f7/cb41003a6962336a39b29833e4fd64c7d2cef0c58bffc0954cbcff2f4cf49821.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
+    price: 499.0,
+  },
 ];
 
 async function main() {
