@@ -11,7 +11,7 @@ import {
   isExcludedStrollerFinderProduct,
   isExcludedStrollerFinderModel,
 } from '@/lib/catalog/strollerFinderRules';
-import { hasPublicCoreRetailer, isGoodBuyGearOffer, isBombiOffer, isAmazonOffer, isAmazonUrl } from '@/lib/catalog/publicRetailerVisibility';
+import { hasPublicCoreRetailer, isGoodBuyGearOffer, isGoodBuyGearUrl, isBombiOffer, isAmazonOffer, isAmazonUrl } from '@/lib/catalog/publicRetailerVisibility';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
@@ -59,7 +59,7 @@ export type PublicStrollerProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'macrobaby' | 'bombi' | 'amazon';
+  source: 'babylist' | 'macrobaby' | 'bombi' | 'amazon' | 'goodbuygear';
   retailers: {
     babylist: RetailerOffer | null;
     amazon: RetailerOffer | null;
@@ -214,6 +214,9 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     amazon: Offer | null;
     anb: Offer | null;
     gbg: Offer | null;
+    /** A hand-added (manual_tmbc) GoodBuy Gear open-box link — shoppable as its
+     *  own primary CTA, unlike bulk-imported GBG offers which are badge-only. */
+    gbgShop: Offer | null;
   };
 
   const groups = new Map<string, Group>();
@@ -247,7 +250,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
 
     let group = groups.get(key);
     if (!group) {
-      group = { category, brand, model, babylist: null, macrobaby: null, bombi: null, amazon: null, anb: null, gbg: null };
+      group = { category, brand, model, babylist: null, macrobaby: null, bombi: null, amazon: null, anb: null, gbg: null, gbgShop: null };
       groups.set(key, group);
     }
 
@@ -282,7 +285,12 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     } else if (row.provider === PROVIDER_MANUAL) {
       // Route a hand-added product's link into the retailer slot that matches its
       // host so it shows the right buy button (Amazon / Babylist / MacroBaby).
-      if (isAmazonUrl(row.affiliateUrl)) {
+      if (isGoodBuyGearUrl(row.affiliateUrl)) {
+        // Open-box product: the GoodBuy Gear link is both the badge and the
+        // shoppable primary CTA (bulk-imported GBG offers stay badge-only).
+        if (cheaper(group.gbg)) group.gbg = offer;
+        if (!group.gbgShop) group.gbgShop = offer;
+      } else if (isAmazonUrl(row.affiliateUrl)) {
         if (!group.amazon) group.amazon = offer;
       } else if (/babylist|pxf\.io/i.test(row.affiliateUrl ?? '')) {
         if (!group.babylist) { group.babylist = offer; group.category = category; }
@@ -336,9 +344,12 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const macrobaby = isPublicMacroBabyOffer(group.macrobaby) ? group.macrobaby : null;
     const bombi = isPublicBombiOffer(group.bombi) ? group.bombi : null;
     const amazon = isPublicAmazonOffer(group.amazon) ? group.amazon : null;
+    // A hand-added open-box product surfaces on its GoodBuy Gear link alone.
+    const gbgShop = group.gbgShop && (group.gbgShop.url || group.gbgShop.price != null) ? group.gbgShop : null;
     // Babylist / MacroBaby / Bombi are preferred; a stroller with only an Amazon
-    // link (e.g. a hand-added product) still surfaces on Amazon alone.
-    const primary = babylist ?? macrobaby ?? bombi ?? amazon;
+    // link (e.g. a hand-added product) still surfaces on Amazon alone; an
+    // open-box-only product surfaces on GoodBuy Gear.
+    const primary = babylist ?? macrobaby ?? bombi ?? amazon ?? gbgShop;
     if (!primary) continue;
 
     // Prefer the catalog's own Amazon link (manual override); fall back to the
@@ -348,16 +359,20 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       name: primary.title,
       model: group.model,
       price: primary.price,
-      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazon?.image ?? group.anb?.image ?? group.gbg?.image ?? null,
+      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazon?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
       affiliateUrl: primary.url,
-      source: babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : 'amazon',
+      source: babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : amazon ? 'amazon' : 'goodbuygear',
       retailers: {
         babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
         amazon: amazonUrl ? { price: amazon?.price ?? null, url: amazonUrl } : null,
         macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
         bombi: bombi ? { price: bombi.price, url: bombi.url } : null,
         anb: null,
-        goodbuygear: group.gbg ? { price: group.gbg.price, url: group.gbg.url } : null,
+        goodbuygear: group.gbg
+          ? { price: group.gbg.price, url: group.gbg.url }
+          : gbgShop
+            ? { price: gbgShop.price, url: gbgShop.url }
+            : null,
       },
     };
 

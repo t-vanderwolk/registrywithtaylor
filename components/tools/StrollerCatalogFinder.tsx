@@ -282,6 +282,24 @@ function ProductCard({
               )}
             </a>
           ))}
+          {offers.length === 0 && openBoxOffer?.url ? (
+            <a
+              href={openBoxOffer.url}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              onClick={() =>
+                trackToolAffiliateClick('stroller-finder', {
+                  product: `${brand} ${displayTitle}`.trim(),
+                  retailer: 'goodbuygear',
+                  brand,
+                  url: openBoxOffer.url,
+                })
+              }
+              className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
+            >
+              <span>Shop open box at GoodBuy Gear →</span>
+            </a>
+          ) : null}
           {product.model ? (
             <Link href={compatHref(brand, product.model)} className="tool-utility-link">
               Compatible car seats →
