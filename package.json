@@ -116,6 +116,7 @@
     "catalog:add-orbit-baby-apply": "tsx scripts/addOrbitBabyMacroBaby.ts --apply",
     "catalog:rename-orbit-g5-carseat": "tsx scripts/renameOrbitBabyG5CarSeat.ts",
     "catalog:rename-orbit-g5-carseat-apply": "tsx scripts/renameOrbitBabyG5CarSeat.ts --apply",
+    "blog:export": "tsx scripts/exportBlogPosts.ts",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
     "catalog:gt3-mixx-apply": "tsx scripts/addGt3AdapterUnhideMixx.ts --apply",
     "catalog:add-bombi": "tsx scripts/addBombiGear.ts",

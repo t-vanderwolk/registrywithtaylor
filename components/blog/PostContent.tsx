@@ -20,6 +20,7 @@ import Pros from '@/components/content-widgets/Pros';
 import SpecTable from '@/components/content-widgets/SpecTable';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
 import BlogPoll from '@/components/blog/BlogPoll';
+import BlogThisOrThat from '@/components/blog/BlogThisOrThat';
 import Takeaways from '@/components/content-widgets/Takeaways';
 import { chunkArray } from '@/lib/chunkArray';
 import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
@@ -419,6 +420,19 @@ function renderStyledBlock(
 ) {
   if (block.type === 'poll') {
     return <BlogPoll key={`${postId}-poll-${index}`} question={block.question} options={block.options} />;
+  }
+
+  if (block.type === 'thisorthat') {
+    return (
+      <BlogThisOrThat
+        key={`${postId}-tot-${index}`}
+        question={block.question}
+        optionA={block.optionA}
+        verdictA={block.verdictA}
+        optionB={block.optionB}
+        verdictB={block.verdictB}
+      />
+    );
   }
 
   if (block.type === 'callout') {

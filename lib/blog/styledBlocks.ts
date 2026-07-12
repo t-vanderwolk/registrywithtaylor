@@ -13,7 +13,8 @@ export type StyledBlockId =
   | 'faq'
   | 'decision'
   | 'takeaways'
-  | 'poll';
+  | 'poll'
+  | 'thisorthat';
 
 export type StyledBlockDefinition = {
   id: StyledBlockId;
@@ -103,10 +104,18 @@ export type ParsedStyledBlock =
       type: 'poll';
       question: string;
       options: string[];
+    }
+  | {
+      type: 'thisorthat';
+      question: string | null;
+      optionA: string;
+      verdictA: string;
+      optionB: string;
+      verdictB: string;
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways|poll)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways|poll|thisorthat)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
@@ -256,6 +265,19 @@ Answer: Focus on how the product fits your daily routine, not how impressive it 
 Question: Do you need the lightest option or the one with the smoothest push?
 Option: Choose the lighter model if you will lift it into the car constantly.
 Result: Day-to-day convenience usually matters more than one premium feature you rarely use.
+:::`,
+  },
+  {
+    id: 'thisorthat',
+    label: 'This or That',
+    description:
+      'An interactive two-way toggle. Reader taps between two options and sees a one-line verdict for the one they picked.',
+    snippet: `:::thisorthat
+Question: Which one fits your life?
+Option A: Compact stroller
+Verdict A: Best if you're city-based, take transit, and lift into a trunk daily.
+Option B: Full-size stroller
+Verdict B: Best if you want maximum comfort, storage, and one stroller from newborn on.
 :::`,
   },
   {
@@ -472,6 +494,38 @@ export function parseStyledBlock(
         type: 'poll',
         question: question || 'What matters most to you?',
         options: options.slice(0, 12),
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'thisorthat') {
+    let question: string | null = null;
+    let optionA = '';
+    let verdictA = '';
+    let optionB = '';
+    let verdictB = '';
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) return;
+      const label = parsedLine.normalizedLabel;
+      const value = parsedLine.value;
+      if (label === 'question' || label === 'prompt') question = value;
+      else if (label === 'option a' || label === 'a' || label === 'left') optionA = value;
+      else if (label === 'verdict a' || label === 'result a' || label === 'a verdict') verdictA = value;
+      else if (label === 'option b' || label === 'b' || label === 'right') optionB = value;
+      else if (label === 'verdict b' || label === 'result b' || label === 'b verdict') verdictB = value;
+    });
+
+    return {
+      block: {
+        type: 'thisorthat',
+        question,
+        optionA: optionA || 'This',
+        verdictA: verdictA || 'A solid pick for the right routine.',
+        optionB: optionB || 'That',
+        verdictB: verdictB || 'A solid pick for the right routine.',
       },
       nextIndex: cursor,
     };
