@@ -42,7 +42,7 @@ const ITEMS: SeedItem[] = [
     affiliateUrl:
       'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-triv-lx%2F77435%2F2699230&partnerpropertyid=7490466',
     imageUrl:
-      'https://images.ctfassets.net/50gzycvace50/d3faed7a6b443ac9ade5a6ab266220dea7f3d8e88dd3aaabf538f4bbda6d2dd5/b3960e074651aab983d1edfa0ef5e422/d3faed7a6b443ac9ade5a6ab266220dea7f3d8e88dd3aaabf538f4bbda6d2dd5.png',
+      'https://images.ctfassets.net/50gzycvace50/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585/cbcd605c058df3c3151ce1df6a948f72/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
   },
   {
     externalId: 'nuna-flex',
@@ -51,7 +51,9 @@ const ITEMS: SeedItem[] = [
     path: 'Home > Newborn Must-Haves > Strollers > Compact Strollers',
     productType: 'compact stroller',
     affiliateUrl:
-      'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-flex-system%2F77436%2F2699232&partnerpropertyid=7490466',
+      'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-flex-system-frame-adapter%2F77443%2F2699253&partnerpropertyid=7490466',
+    imageUrl:
+      'https://images.ctfassets.net/50gzycvace50/b5c5b8cf3e77a22b9ddcc6f51b7ea986c335a4525c9723dcdcc830ed499290df/477916074d209381712fea0445fe2da1/b5c5b8cf3e77a22b9ddcc6f51b7ea986c335a4525c9723dcdcc830ed499290df.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
   },
   {
     externalId: 'nuna-viaa-cabn',
