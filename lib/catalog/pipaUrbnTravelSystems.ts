@@ -19,6 +19,7 @@ const PIPA_URBN_BUNDLES: Array<{ token: string; url: string }> = [
   { token: 'triv lx', url: 'https://www.babylist.com/gp/nuna-pipa-urbn-triv-lx/77435/2699230' },
   { token: 'triv next', url: 'https://www.babylist.com/gp/nuna-triv-next-pipa-urbn/36336/2902985' },
   { token: 'swiv', url: 'https://www.babylist.com/gp/nuna-swiv-pipa-urbn-travel-system/83844/3316520' },
+  { token: 'flex', url: 'https://www.babylist.com/gp/nuna-pipa-urbn-flex-system/77436/2699232' },
 ];
 
 /**

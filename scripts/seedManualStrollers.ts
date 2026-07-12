@@ -21,13 +21,37 @@ const db = prismaBase as any;
 
 const PROVIDER = 'manual_tmbc';
 
-const ITEMS = [
+type SeedItem = {
+  externalId: string;
+  brand: string;
+  title: string;
+  path: string;
+  productType: string;
+  /** Babylist (Impact) affiliate URL. TRIV lx / FLEX are sold only as PIPA urbn systems. */
+  affiliateUrl?: string | null;
+  imageUrl?: string | null;
+};
+
+const ITEMS: SeedItem[] = [
   {
     externalId: 'nuna-triv-lx',
     brand: 'Nuna',
     title: 'Nuna TRIV LX Stroller',
     path: 'Home > Newborn Must-Haves > Strollers > Compact Strollers',
     productType: 'compact stroller',
+    affiliateUrl:
+      'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-triv-lx%2F77435%2F2699230&partnerpropertyid=7490466',
+    imageUrl:
+      'https://images.ctfassets.net/50gzycvace50/d3faed7a6b443ac9ade5a6ab266220dea7f3d8e88dd3aaabf538f4bbda6d2dd5/b3960e074651aab983d1edfa0ef5e422/d3faed7a6b443ac9ade5a6ab266220dea7f3d8e88dd3aaabf538f4bbda6d2dd5.png',
+  },
+  {
+    externalId: 'nuna-flex',
+    brand: 'Nuna',
+    title: 'Nuna FLEX Stroller',
+    path: 'Home > Newborn Must-Haves > Strollers > Compact Strollers',
+    productType: 'compact stroller',
+    affiliateUrl:
+      'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-flex-system%2F77436%2F2699232&partnerpropertyid=7490466',
   },
   {
     externalId: 'nuna-viaa-cabn',
@@ -55,6 +79,8 @@ async function main() {
         productTypePath: it.path,
         isActiveInFeed: true,
         lastSyncedAt: new Date(),
+        affiliateUrl: it.affiliateUrl ?? null,
+        imageUrl: it.imageUrl ?? null,
       },
       create: {
         provider: PROVIDER,
@@ -63,9 +89,9 @@ async function main() {
         title: it.title,
         productTypePath: it.path,
         isActiveInFeed: true,
-        affiliateUrl: null,
+        affiliateUrl: it.affiliateUrl ?? null,
         price: null,
-        imageUrl: null,
+        imageUrl: it.imageUrl ?? null,
       },
     });
     await db.productEnrichment.upsert({
