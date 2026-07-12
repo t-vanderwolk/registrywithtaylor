@@ -30,6 +30,8 @@ type SeedItem = {
   /** Babylist (Impact) affiliate URL. TRIV lx / FLEX are sold only as PIPA urbn systems. */
   affiliateUrl?: string | null;
   imageUrl?: string | null;
+  /** Babylist listing price (USD). */
+  price?: number | null;
 };
 
 const ITEMS: SeedItem[] = [
@@ -43,6 +45,7 @@ const ITEMS: SeedItem[] = [
       'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-pipa-urbn-triv-lx%2F77435%2F2699230&partnerpropertyid=7490466',
     imageUrl:
       'https://images.ctfassets.net/50gzycvace50/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585/cbcd605c058df3c3151ce1df6a948f72/9cef694938b2887cfca52cde158f1444fb24611d4f40641b4bf7d05ad7508585.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
+    price: 1300.0,
   },
   {
     externalId: 'nuna-flex',
@@ -54,6 +57,7 @@ const ITEMS: SeedItem[] = [
       'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-flex-system-frame-adapter%2F77443%2F2699253&partnerpropertyid=7490466',
     imageUrl:
       'https://images.ctfassets.net/50gzycvace50/b5c5b8cf3e77a22b9ddcc6f51b7ea986c335a4525c9723dcdcc830ed499290df/477916074d209381712fea0445fe2da1/b5c5b8cf3e77a22b9ddcc6f51b7ea986c335a4525c9723dcdcc830ed499290df.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
+    price: 400.0,
   },
   {
     externalId: 'nuna-viaa-cabn',
@@ -83,6 +87,7 @@ async function main() {
         lastSyncedAt: new Date(),
         affiliateUrl: it.affiliateUrl ?? null,
         imageUrl: it.imageUrl ?? null,
+        price: it.price ?? null,
       },
       create: {
         provider: PROVIDER,
@@ -92,7 +97,7 @@ async function main() {
         productTypePath: it.path,
         isActiveInFeed: true,
         affiliateUrl: it.affiliateUrl ?? null,
-        price: null,
+        price: it.price ?? null,
         imageUrl: it.imageUrl ?? null,
       },
     });
