@@ -34,6 +34,8 @@ type Spec = {
   handle: string;
   imageUrl: string;
   price: number;
+  /** Explicit buy URL override (else derived from handle). */
+  url?: string;
 };
 
 const SPECS: Spec[] = [
@@ -47,7 +49,8 @@ const SPECS: Spec[] = [
     tmbcCategory: 'Strollers',
     title: 'Orbit Baby G5 Stroller',
     handle: 'g5-stroller',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0325/7932/1915/files/G5_Stroller_Black_Rose_Gold_01.jpg?v=1736382285',
+    imageUrl: 'https://www.macrobaby.com/cdn/shop/files/G5_Stroller_Black_Rose_Gold_01_800x.jpg?v=1736382285',
+    url: 'https://www.macrobaby.com/products/g5-stroller?_pos=5&_psq=orbit+baby+g&_psid=39ccf00bd&_ss=e&_v=1.0&_j=taylormadebabyco.com',
     price: 1200.0,
   },
   {
@@ -83,6 +86,7 @@ async function main() {
   console.log(`── Add Orbit Baby G5 + adapter (MacroBaby) ──  (${apply ? 'APPLY' : 'dry-run'})\n`);
 
   for (const spec of SPECS) {
+    const buyUrl = spec.url ?? macroBabyUrl(spec.handle);
     console.log(`  ${spec.kind.padEnd(8)} $${spec.price}  ${spec.title}`);
     if (apply) {
       const product = await db.affiliateCatalogProduct.upsert({
@@ -90,7 +94,8 @@ async function main() {
         update: {
           brand: spec.brand,
           title: spec.title,
-          affiliateUrl: macroBabyUrl(spec.handle),
+          affiliateUrl: buyUrl,
+          productUrl: buyUrl,
           imageUrl: spec.imageUrl,
           price: spec.price,
           retailer: 'MacroBaby',
@@ -104,8 +109,8 @@ async function main() {
           sku: spec.sku,
           brand: spec.brand,
           title: spec.title,
-          affiliateUrl: macroBabyUrl(spec.handle),
-          productUrl: macroBabyUrl(spec.handle),
+          affiliateUrl: buyUrl,
+          productUrl: buyUrl,
           imageUrl: spec.imageUrl,
           price: spec.price,
           currency: 'USD',
