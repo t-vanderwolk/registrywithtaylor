@@ -592,14 +592,16 @@ export default function StrollerCatalogFinder({
             <div className="mt-8 space-y-10">
               {currentBrand.types.map((t) => (
                 <div key={t.category}>
-                  <div className="mb-5 flex items-center gap-3">
-                    <h4 className="font-serif text-[1.6rem] leading-none tracking-[-0.02em] text-neutral-900">
-                      {t.label}
-                    </h4>
-                    <span className="rounded-full bg-[var(--color-accent-dark)]/10 px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]">
-                      {t.products.length} {noun}{t.products.length === 1 ? '' : 's'}
-                    </span>
-                    <span className="h-px flex-1 bg-[var(--color-border)]" />
+                  <div className="mb-5">
+                    <div className="flex items-baseline gap-2.5">
+                      <h4 className="font-serif text-[1.6rem] leading-none tracking-[-0.02em] text-neutral-900">
+                        {t.label}
+                      </h4>
+                      <span className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]/75">
+                        {t.products.length} {noun}{t.products.length === 1 ? '' : 's'}
+                      </span>
+                    </div>
+                    <span className="mt-2.5 block h-[3px] w-12 rounded-full bg-[var(--color-cta-pink)]" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {t.products.map((item, i) => (
