@@ -69,6 +69,20 @@ const CATEGORY_ORDER = [
   'wagon',
 ];
 
+// Every stroller brand always shows this full set of category sections, in this
+// fixed order — even the buckets the brand has nothing in (an empty note shows).
+// `match` maps the API's category keys into each display bucket.
+const STROLLER_BRAND_SECTIONS: { label: string; match: string[] }[] = [
+  { label: 'Full-Size', match: ['full-size', 'full-size-non-modular'] },
+  { label: 'Compact / Mid-Size', match: ['compact'] },
+  { label: 'Single-to-Double', match: ['convertible-modular', 'convertible-non-modular'] },
+  { label: 'Double', match: ['double', 'double-travel'] },
+  { label: 'Travel', match: ['travel'] },
+  { label: 'Jogging / All-Terrain', match: ['jogging'] },
+  { label: 'Double Jogger', match: ['double-jogging'] },
+  { label: 'Umbrella', match: ['umbrella'] },
+];
+
 type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
@@ -388,6 +402,25 @@ export default function StrollerCatalogFinder({
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
   const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
 
+  // Strollers: always render the full fixed set of category sections (empty ones
+  // included), then append any leftover buckets (e.g. Wagon) that have products.
+  // Car seats keep their own single-section shape.
+  const brandSections: { label: string; products: FinderProduct[] }[] = !currentBrand
+    ? []
+    : kind === 'strollers'
+      ? (() => {
+          const covered = new Set(STROLLER_BRAND_SECTIONS.flatMap((s) => s.match));
+          const fixed = STROLLER_BRAND_SECTIONS.map((s) => ({
+            label: s.label,
+            products: currentBrand.types.filter((t) => s.match.includes(t.category)).flatMap((t) => t.products),
+          }));
+          const extras = currentBrand.types
+            .filter((t) => !covered.has(t.category))
+            .map((t) => ({ label: t.label, products: t.products }));
+          return [...fixed, ...extras];
+        })()
+      : currentBrand.types.map((t) => ({ label: t.label, products: t.products }));
+
   return (
     <section className="tool-shell">
       {/* Header */}
@@ -590,8 +623,8 @@ export default function StrollerCatalogFinder({
             </div>
 
             <div className="mt-8 space-y-10">
-              {currentBrand.types.map((t) => (
-                <div key={t.category}>
+              {brandSections.map((t) => (
+                <div key={t.label}>
                   <div className="mb-5">
                     <div className="flex items-baseline gap-2.5">
                       <h4 className="font-serif text-[1.6rem] leading-none tracking-[-0.02em] text-neutral-900">
@@ -603,11 +636,17 @@ export default function StrollerCatalogFinder({
                     </div>
                     <span className="mt-2.5 block h-[3px] w-12 rounded-full bg-[var(--color-cta-pink)]" />
                   </div>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {t.products.map((item, i) => (
-                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
-                    ))}
-                  </div>
+                  {t.products.length > 0 ? (
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {t.products.map((item, i) => (
+                        <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(--color-paper)]/40 px-4 py-5 text-[0.85rem] text-neutral-400">
+                      No {t.label.toLowerCase()} {noun}s from {currentBrand.brand} yet.
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
