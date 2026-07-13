@@ -1267,6 +1267,16 @@ export async function getTravelSystemCompatibility(
     }),
   ]
     .filter((row) => row.compatibilityType !== 'INCOMPATIBLE')
+    // Collapse brand casing/spelling variants (e.g. "CYBEX" + "Cybex") so the
+    // results group under a single brand, matching the finder's canonicalization.
+    .map((row) => {
+      const canon = canonicalBrand(row.brand);
+      if (canon === row.brand) return row;
+      // Swap the old brand spelling where it leads the display title, too.
+      const leadRe = new RegExp(`^${row.brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i');
+      const displayName = leadRe.test(row.displayName) ? row.displayName.replace(leadRe, canon) : row.displayName;
+      return { ...row, brand: canon, displayName };
+    })
     .sort(compareCompatibleCarSeats);
 
   // Stroller-first: the adapter is the selected stroller's; the car seat varies.
