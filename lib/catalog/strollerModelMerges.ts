@@ -53,8 +53,9 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'summit x3 single': 'jogging',
     // Compact / mid-size line.
     'city mini air': 'compact',
-    'city tour 2': 'compact',
-    'city tour 2 single': 'compact',
+    // Travel line.
+    'city tour 2': 'travel',
+    'city tour 2 single': 'travel',
   },
 };
 
