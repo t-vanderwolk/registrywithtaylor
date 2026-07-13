@@ -1,6 +1,7 @@
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
+import { mergeStrollerModel } from '@/lib/catalog/strollerModelMerges';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   normalizeStrollerVariantModel,
@@ -243,7 +244,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const rawBrand = (row.enrichment?.canonicalBrand || row.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
     const rawModel = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
-    const model = cleanPublicModelName(rawModel, brand);
+    const model = mergeStrollerModel(brand, cleanPublicModelName(rawModel, brand));
     if (!model) continue;
     if (isExcludedStrollerFinderModel(brand, model)) continue;
     const key = productModelKey(brand, model || row.title);
