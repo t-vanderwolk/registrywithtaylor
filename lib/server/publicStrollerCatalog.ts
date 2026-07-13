@@ -1,7 +1,7 @@
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
-import { mergeStrollerModel } from '@/lib/catalog/strollerModelMerges';
+import { mergeStrollerModel, overrideStrollerCategory } from '@/lib/catalog/strollerModelMerges';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   normalizeStrollerVariantModel,
@@ -224,7 +224,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
   const seenGroups = new Set<string>();
 
   for (const row of rows) {
-    const category = strollerCategoryFromProductType(row.enrichment?.productType);
+    let category = strollerCategoryFromProductType(row.enrichment?.productType);
     if (!category) continue;
     if (isExcludedStrollerFinderProduct({
       brand: row.brand,
@@ -247,6 +247,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const model = mergeStrollerModel(brand, cleanPublicModelName(rawModel, brand));
     if (!model) continue;
     if (isExcludedStrollerFinderModel(brand, model)) continue;
+    category = overrideStrollerCategory(brand, model, category);
     const key = productModelKey(brand, model || row.title);
 
     let group = groups.get(key);
