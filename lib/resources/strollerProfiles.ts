@@ -11,6 +11,8 @@
 
 export type StrollerSpec = { label: string; value: string };
 
+export type StrollerPriceTier = 'budget' | 'mid' | 'premium' | 'luxury';
+
 export type StrollerProfile = {
   /** Canonical brand, matched case-insensitively against the checker brand. */
   brand: string;
@@ -19,6 +21,17 @@ export type StrollerProfile = {
   /** One or two sentences in TMBC voice: warm, honest, no fluff. */
   description: string;
   specs: StrollerSpec[];
+  /**
+   * Compare-tool fields — added profile by profile. `bestFor` is the one-liner
+   * that answers "who is this for?"; `pros`/`cons` are the honest 2-4-item
+   * lists; `valueScore` (0-100, quality-per-dollar) + `priceTier` feed the
+   * default "Taylor's Top Pick" verdict when there's no curated matchup.
+   */
+  bestFor?: string;
+  pros?: string[];
+  cons?: string[];
+  priceTier?: StrollerPriceTier;
+  valueScore?: number;
 };
 
 const norm = (value: string) =>
@@ -38,7 +51,10 @@ const PROFILES: StrollerProfile[] = [
     brand: 'UPPAbaby',
     match: /\bvista\b/,
     description:
-      'The stroller everyone pictures when they say modular. Start with the bassinet, then add a RumbleSeat or a second full seat and carry up to three kids on one frame. A splurge people rarely regret.',
+      'The stroller everyone pictures when they say modular. Start with the included bassinet, then add a RumbleSeat or a second full seat and roll up to three kids on one frame. A splurge people rarely regret.',
+    bestFor: 'Planners who want one stroller to carry them from baby #1 through a second (or third) kid.',
+    priceTier: 'premium',
+    valueScore: 88,
     specs: [
       { label: 'From birth', value: 'Included bassinet' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -47,12 +63,24 @@ const PROFILES: StrollerProfile[] = [
       { label: 'Fold', value: 'One-step, stands folded' },
       { label: 'Weight', value: '~27 lb with seat' },
     ],
+    pros: [
+      'Grows from single to double to triple on one frame',
+      'Included bassinet — newborn-ready out of the box',
+      'Holds its resale value better than almost anything out there',
+    ],
+    cons: [
+      'Heavy and wide — a lot of stroller for a small trunk or a city walk-up',
+      'You feel the price',
+    ],
   },
   {
     brand: 'UPPAbaby',
     match: /\bcruz\b/,
     description:
-      'The Vista’s smaller sibling: the same plush ride and reversible seat in a narrower, lighter, single-only frame. If you’re one-and-done or navigating tight city spaces, the Cruz is the smarter buy.',
+      'The Vista’s smaller sibling: the same plush ride and reversible seat in a narrower, lighter, single-only frame. If you’re one-and-done or living somewhere tight, it’s the smarter buy.',
+    bestFor: 'One-and-done families, or anyone who loves the Vista feel but not its footprint.',
+    priceTier: 'premium',
+    valueScore: 85,
     specs: [
       { label: 'From birth', value: 'Bassinet or infant car seat' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
@@ -60,17 +88,38 @@ const PROFILES: StrollerProfile[] = [
       { label: 'Fold', value: 'One-hand, stands folded' },
       { label: 'Weight', value: '~21.5 lb' },
     ],
+    pros: [
+      'Vista comfort and reversible seat in a lighter, narrower frame',
+      'Easier to lift, fold, and park in tight spaces',
+      'One-hand fold that stands on its own',
+    ],
+    cons: [
+      'Single only — no double in its future',
+      'Bassinet is sold separately',
+    ],
   },
   {
     brand: 'UPPAbaby',
     match: /\bminu\b/,
     description:
-      'UPPAbaby’s travel stroller: a true one-hand, backpack-strap fold that still feels sturdy and reclines for naps. The one to grab for airports and rideshares.',
+      'UPPAbaby’s travel stroller: a true one-hand, backpack-strap fold that still feels sturdy and reclines for real naps. The one to grab for airports and rideshares.',
+    bestFor: 'Travel days, rideshares, and anywhere a full-size stroller is overkill.',
+    priceTier: 'mid',
+    valueScore: 83,
     specs: [
       { label: 'From birth', value: 'With Mesa seat or bassinet kit' },
       { label: 'Seat limit', value: 'Up to 50 lb' },
       { label: 'Fold', value: 'Compact, stands folded, carry strap' },
       { label: 'Weight', value: '~15 lb' },
+    ],
+    pros: [
+      'True one-hand fold with a backpack carry strap',
+      'Sturdier and comfier than most strollers this small',
+      'Reclines far enough for actual naps',
+    ],
+    cons: [
+      'Small basket',
+      'From-birth use needs the Mesa seat or the bassinet kit (both extra)',
     ],
   },
   // ── Nuna ──
@@ -101,16 +150,55 @@ const PROFILES: StrollerProfile[] = [
     ],
   },
   {
+    // Listed before the generic DEMI match so "DEMI Icon" resolves here first.
+    brand: 'Nuna',
+    match: /\bdemi\s*icon\b/,
+    description:
+      'Nuna’s premium single that stops trying to be a double and just nails everyday life with one kid. The headline is the basket — a huge, enclosed 30 lb hauler that swallows a whole day’s worth of stuff.',
+    bestFor: 'One-child families who carry more than they’ll admit and want the stroller to do the lifting.',
+    priceTier: 'premium',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or PIPA' },
+      { label: 'Seat limit', value: 'Up to 50 lb' },
+      { label: 'Seat', value: 'Reversible, parent- or world-facing' },
+      { label: 'Basket', value: 'Enclosed, up to 30 lb' },
+      { label: 'Car seats', value: 'Nuna PIPA (ring adapter included)' },
+      { label: 'Fold', value: 'One-hand, stands folded' },
+    ],
+    pros: [
+      'Enormous 30 lb enclosed basket — the real reason to buy it',
+      'PIPA ring adapter included in the box',
+      'GREENGUARD Gold–certified materials',
+    ],
+    cons: [
+      'Single only — it does not convert to a double (that’s the DEMI Next)',
+      'Premium price for one seat',
+    ],
+  },
+  {
     brand: 'Nuna',
     match: /\bdemi\b/,
     description:
-      'Nuna’s modular flagship, and the one that genuinely converts to a double. Bassinet, toddler seat, or PIPA in either spot, with more ways to configure it than almost anything else out there.',
+      'Nuna’s modular flagship, and the DEMI that genuinely converts to a double. Bassinet, toddler seat, or PIPA in either spot, with more ways to configure it than almost anything else out there.',
+    bestFor: 'Growing families who want one frame to go from one kid to two.',
+    priceTier: 'premium',
+    valueScore: 83,
     specs: [
       { label: 'From birth', value: 'Bassinet or PIPA' },
       { label: 'Configurations', value: 'Single → double (with second seat)' },
       { label: 'Seat', value: 'Reversible' },
       { label: 'Car seats', value: 'Nuna PIPA (no adapter)' },
       { label: 'Fold', value: 'One-hand, stands folded' },
+    ],
+    pros: [
+      'Truly converts from single to double',
+      'Bassinet, toddler seat, or PIPA in either position',
+      'More configurations than almost anything in its class',
+    ],
+    cons: [
+      'Gets long and heavy in the double setup',
+      'Premium price, and the second seat is extra',
     ],
   },
   {
