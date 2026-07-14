@@ -402,8 +402,8 @@ export default function StrollerCatalogFinder({
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
   const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
 
-  // Strollers: always render the full fixed set of category sections (empty ones
-  // included), then append any leftover buckets (e.g. Wagon) that have products.
+  // Strollers: render the category sections in this fixed order, skipping any the
+  // brand has nothing in; leftover buckets (e.g. Wagon) with products are appended.
   // Car seats keep their own single-section shape.
   const brandSections: { label: string; products: FinderProduct[] }[] = !currentBrand
     ? []
@@ -417,7 +417,7 @@ export default function StrollerCatalogFinder({
           const extras = currentBrand.types
             .filter((t) => !covered.has(t.category))
             .map((t) => ({ label: t.label, products: t.products }));
-          return [...fixed, ...extras];
+          return [...fixed, ...extras].filter((s) => s.products.length > 0);
         })()
       : currentBrand.types.map((t) => ({ label: t.label, products: t.products }));
 
@@ -636,17 +636,11 @@ export default function StrollerCatalogFinder({
                     </div>
                     <span className="mt-2.5 block h-[3px] w-12 rounded-full bg-[var(--color-cta-pink)]" />
                   </div>
-                  {t.products.length > 0 ? (
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      {t.products.map((item, i) => (
-                        <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(--color-paper)]/40 px-4 py-5 text-[0.85rem] text-neutral-400">
-                      No {t.label.toLowerCase()} {noun}s from {currentBrand.brand} yet.
-                    </p>
-                  )}
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {t.products.map((item, i) => (
+                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
