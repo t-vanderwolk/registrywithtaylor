@@ -51,16 +51,24 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'demi next': 'convertible-modular',
   },
   'baby jogger': {
-    // All-terrain / jogging line.
+    // Jogging / all-terrain line (three-wheel, off-pavement wheels).
     'city mini gt2': 'jogging',
     'city mini gt3': 'jogging',
+    'city mini gt': 'jogging',
     'summit x3': 'jogging',
     'summit x3 single': 'jogging',
-    // Compact / mid-size line.
+    // Compact / mid-size line (lightweight everyday).
+    'city mini': 'compact',
+    'city mini 2': 'compact',
     'city mini air': 'compact',
-    // Travel line.
+    // Travel line (compact travel fold).
     'city tour 2': 'travel',
     'city tour 2 single': 'travel',
+    'city tour lux': 'travel',
+    // Single-to-double modular line.
+    'city select': 'convertible-modular',
+    'city select 2': 'convertible-modular',
+    'city select lux': 'convertible-modular',
   },
 };
 
