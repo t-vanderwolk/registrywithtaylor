@@ -45,6 +45,11 @@ export function mergeStrollerModel(brand: string, model: string): string {
  * are StrollerCategory keys (see STROLLER_CATEGORY_LABELS).
  */
 const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
+  nuna: {
+    // DEMI Icon is a single full-size; DEMI Next is the single-to-double.
+    'demi icon': 'full-size',
+    'demi next': 'convertible-modular',
+  },
   'baby jogger': {
     // All-terrain / jogging line.
     'city mini gt2': 'jogging',
