@@ -12,23 +12,13 @@ import type { StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
  */
 const MODEL_MERGES: Record<string, Record<string, string>> = {
   'baby jogger': {
-    // City Mini GT2 (+ Double, + the plain City Mini Double) → one card.
-    'city mini gt2 double': 'City Mini GT2',
-    'city mini gt2': 'City Mini GT2',
-    'city mini double': 'City Mini GT2',
-    // City Mini GT3 (+ the "All-Terrain" descriptor) → one card.
+    // Collapse the "All-Terrain" descriptor into the GT3 card.
     'city mini gt3 all-terrain': 'City Mini GT3',
     'city mini gt3 all terrain': 'City Mini GT3',
-    'city mini gt3': 'City Mini GT3',
-    // City Tour 2 (+ Double) → one card. (City Tour 2 Single stays separate.)
-    'city tour 2 double': 'City Tour 2',
-    'city tour 2': 'City Tour 2',
-    // Summit X3 (+ Double) → one card.
-    'summit x3 double': 'Summit X3',
-    'summit x3': 'Summit X3',
-    // Summit X3 Single (+ Single Jogging) → one card.
+    // Summit X3 Single (+ "Single Jogging") → one single card.
     'summit x3 single jogging': 'Summit X3 Single',
-    'summit x3 single': 'Summit X3 Single',
+    // NOTE: the "* Double" variants keep their own names on purpose so they land
+    // in the Double section (see CATEGORY_OVERRIDES below).
   },
 };
 
@@ -69,6 +59,11 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'city select': 'convertible-modular',
     'city select 2': 'convertible-modular',
     'city select lux': 'convertible-modular',
+    // Double section (the side-by-side / double variants).
+    'city mini gt2 double': 'double',
+    'city mini double': 'double',
+    'city tour 2 double': 'double',
+    'summit x3 double': 'double',
   },
 };
 
