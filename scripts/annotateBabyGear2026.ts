@@ -73,6 +73,39 @@ export const EDITS: Edit[] = [
   },
   { before: 'The ', highlight: 'trick', after: ' is knowing', type: 'circle', note: 'closing — the trick' },
   { before: 'so much ', highlight: 'fun', after: ' to follow', type: 'circle', note: 'closing — fun to follow' },
+
+  // ── Second pass: finish the transition + reflection beats ──
+  { before: 'becomes pretty ', highlight: 'obvious', after: '.', type: 'circle', note: 'bigger story — obvious' },
+  {
+    before: '',
+    highlight: 'Travel strollers found their confidence.',
+    after: '',
+    type: 'underline',
+    note: 'travel strollers — confidence',
+  },
+  { before: '', highlight: 'Compromise', after: '.', type: 'circle', note: 'travel strollers — compromise' },
+  { before: 'becoming more ', highlight: 'capable', after: '.', type: 'circle', note: 'bigger shift — more capable' },
+  {
+    before: '',
+    highlight: 'The result is a category that no longer feels like a backup plan.',
+    after: '',
+    type: 'underline',
+    note: 'bigger shift — not a backup plan',
+  },
+  {
+    before: '',
+    highlight: "They're giving parents one less thing to think about.",
+    after: '',
+    type: 'underline',
+    note: 'what I’m seeing — one less thing',
+  },
+  {
+    before: '',
+    highlight: 'The second half should be just as interesting.',
+    after: '',
+    type: 'underline',
+    note: 'still watching — second half',
+  },
 ];
 
 const APOS = /['‘’ʼ]/g;
