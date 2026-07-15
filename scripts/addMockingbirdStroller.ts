@@ -23,6 +23,8 @@ const ITEM = {
   retailer: 'Babylist',
   affiliateUrl:
     'https://babylist.pxf.io/c/6560395/1056628/13580?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fmockingbird-single-stroller-3-0%2F77453%2F2715251&partnerpropertyid=7490466',
+  imageUrl:
+    'https://images.ctfassets.net/50gzycvace50/97ee8cd96e457358619eb7c68d128b9e503e86a6495eb581781a8aa1e74ca91d/935d658c49441ab0b980d7874a9d4cc9/97ee8cd96e457358619eb7c68d128b9e503e86a6495eb581781a8aa1e74ca91d.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240',
 };
 
 async function main() {
@@ -39,6 +41,7 @@ async function main() {
       brand: ITEM.brand,
       title: `${ITEM.brand} ${ITEM.model}`,
       affiliateUrl: ITEM.affiliateUrl,
+      imageUrl: ITEM.imageUrl,
       retailer: ITEM.retailer,
       isActiveInFeed: true,
       lastSyncedAt: new Date(),
@@ -49,6 +52,7 @@ async function main() {
       brand: ITEM.brand,
       title: `${ITEM.brand} ${ITEM.model}`,
       affiliateUrl: ITEM.affiliateUrl,
+      imageUrl: ITEM.imageUrl,
       retailer: ITEM.retailer,
       isActiveInFeed: true,
     },
