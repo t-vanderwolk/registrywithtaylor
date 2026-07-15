@@ -1242,6 +1242,131 @@ const PROFILES: StrollerProfile[] = [
     pros: ['Air tires at a budget price', 'Locking swivel front wheel', 'Flat, compact fold'],
     cons: ['Heavier, less refined than premium joggers', 'From-birth needs a car seat + adapter'],
   },
+  // ── Orbit Baby ──
+  {
+    brand: 'Orbit Baby',
+    match: /\bg5\b/,
+    description:
+      'Orbit Baby’s signature full-size: a patented SmartHub base with a seat that rotates 360° to face you or the world in one motion. Premium, modular, and unmistakably Orbit.',
+    bestFor: 'Parents who want a rotating, modular full-size and love a design that stands out.',
+    priceTier: 'premium',
+    valueScore: 80,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or infant seat' },
+      { label: 'Seat', value: '360° rotating, reversible' },
+      { label: 'Fold', value: 'Compact base' },
+      { label: 'Car seats', value: 'Orbit Baby + universal adapter' },
+    ],
+    pros: ['360° rotating seat with a one-hand spin', 'SmartHub modular base', 'Docks bassinet, seat, or car seat'],
+    cons: ['Premium price', 'Heavier, and accessories add up'],
+  },
+  {
+    brand: 'Orbit Baby',
+    match: /\bx5\b/,
+    description:
+      'Orbit Baby’s all-terrain jogger: air-filled tires and suspension built onto the same modular ecosystem, so it takes the Orbit seats and bassinet too. A jogger that plays with the whole system.',
+    bestFor: 'Active Orbit Baby families who want an all-terrain jogger that shares their ecosystem.',
+    priceTier: 'premium',
+    valueScore: 80,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'Seat', value: 'Modular (Orbit ecosystem)' },
+      { label: 'From birth', value: 'Bassinet or infant seat' },
+      { label: 'Suspension', value: 'All-wheel' },
+    ],
+    pros: ['All-terrain tires + suspension', 'Shares the Orbit modular ecosystem', 'Takes bassinet, seat, or car seat'],
+    cons: ['Premium price', 'Big footprint for a jogger'],
+  },
+  {
+    // Bare "M" / "M+" — brand-scoped, so it only matches the Orbit Baby M+.
+    brand: 'Orbit Baby',
+    match: /\bm\b/,
+    description:
+      'Orbit Baby’s lighter, travel-minded stroller: the same 360° rotating smarts in a more compact, agile frame. Orbit’s ecosystem, sized for the city.',
+    bestFor: 'City parents who want Orbit’s rotating seat in a lighter, nimbler frame.',
+    priceTier: 'premium',
+    valueScore: 80,
+    specs: [
+      { label: 'Seat', value: '360° rotating' },
+      { label: 'From birth', value: 'With bassinet or infant seat' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'Car seats', value: 'Orbit Baby + universal adapter' },
+    ],
+    pros: ['360° rotating seat', 'Lighter and nimbler than the G5', 'Modular Orbit ecosystem'],
+    cons: ['Premium price', 'Smaller brand footprint'],
+  },
+  // ── Joolz (travel) ──
+  {
+    brand: 'Joolz',
+    match: /\baer\b/,
+    description:
+      'Joolz’s cabin-approved travel stroller: about 13 lbs, a one-hand fold that fits most overhead bins, and the design polish Joolz is known for. Little, light, and lovely.',
+    bestFor: 'Design-minded parents who want a genuinely cabin-size travel stroller.',
+    priceTier: 'premium',
+    valueScore: 84,
+    specs: [
+      { label: 'Weight', value: '~13 lb' },
+      { label: 'Folded', value: 'Fits most overhead bins' },
+      { label: 'From birth', value: 'With car seat + adapter or newborn kit' },
+      { label: 'Fold', value: 'One-hand' },
+    ],
+    pros: ['~13 lbs, cabin-bag fold', 'One-hand fold that stands', 'Joolz design polish'],
+    cons: ['Small basket', 'From-birth needs a kit or car seat + adapter'],
+  },
+  // ── Zoe ──
+  {
+    brand: 'Zoe',
+    match: /.*/,
+    description:
+      'The lightweight specialist: Zoe builds featherweight single, double, and even triple strollers that fold small and cost far less than the premium names. The go-to for easy, affordable everyday hauling.',
+    bestFor: 'Parents who want a genuinely light, affordable stroller — including easy doubles and triples.',
+    priceTier: 'budget',
+    valueScore: 84,
+    specs: [
+      { label: 'Weight', value: 'Featherweight' },
+      { label: 'Configurations', value: 'Single → double → triple (by model)' },
+      { label: 'Fold', value: 'One-hand, compact' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+    ],
+    pros: ['Featherweight and easy to fold', 'Affordable singles, doubles, and triples', 'Big canopies and cup holders'],
+    cons: ['Small wheels — pavement-first', 'Basic recline and suspension'],
+  },
+  // ── Colugo ──
+  {
+    brand: 'Colugo',
+    match: /.*/,
+    description:
+      'The direct-to-consumer compact: Colugo’s strollers fold one-handed, carry on your back, and skip the retail markup. Straightforward, stylish, and travel-ready.',
+    bestFor: 'Value-minded parents who want a stylish, travel-friendly compact without the markup.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'Fold', value: 'One-hand, backpack carry' },
+      { label: 'Seat', value: 'Multi-recline' },
+      { label: 'From birth', value: 'With car seat + adapter or newborn kit' },
+      { label: 'Weight', value: 'Light' },
+    ],
+    pros: ['One-hand fold with a backpack strap', 'Direct-to-consumer value', 'Travel-ready and stylish'],
+    cons: ['Smaller brand, fewer accessories', 'Pavement-first wheels'],
+  },
+  // ── Guava Family ──
+  {
+    brand: 'Guava Family',
+    match: /.*/,
+    description:
+      'Guava’s ultra-portable: a backpack-carry fold that’s cabin-friendly and snaps to a car seat, built for parents who fly constantly. The frequent-flyer’s stroller.',
+    bestFor: 'Frequent-flyer parents who want a backpack-fold stroller that clicks to a car seat.',
+    priceTier: 'premium',
+    valueScore: 83,
+    specs: [
+      { label: 'Fold', value: 'Backpack carry, cabin-friendly' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+      { label: 'Weight', value: 'Light' },
+      { label: 'Seat', value: 'Reclines' },
+    ],
+    pros: ['Folds into a backpack', 'Cabin / travel friendly', 'Snaps to a car seat for travel'],
+    cons: ['Small seat and basket', 'Premium price for a travel frame'],
+  },
   // ── Mockingbird ──
   {
     brand: 'Mockingbird',
