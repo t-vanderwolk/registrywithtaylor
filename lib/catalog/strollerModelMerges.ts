@@ -39,6 +39,21 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     // DEMI Icon is a single full-size; DEMI Next is the single-to-double.
     'demi icon': 'full-size',
     'demi next': 'convertible-modular',
+    // Full-size line.
+    'mixx': 'full-size',
+    'mixx next': 'full-size',
+    'tavo': 'full-size',
+    'tavo next': 'full-size',
+    // Compact / mid-size line.
+    'triv': 'compact',
+    'triv lx': 'compact',
+    'swiv': 'compact',
+    'flex': 'compact',
+    // Travel line.
+    'viaa': 'travel',
+    'viaa cabn': 'travel',
+    'trvl': 'travel',
+    'trvl lx': 'travel',
   },
   'baby jogger': {
     // Jogging / all-terrain line (three-wheel, off-pavement wheels).
