@@ -58,6 +58,13 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'trvl': 'travel',
     'trvl lx': 'travel',
   },
+  thule: {
+    // Urban Glide double → the Double section; Shine → compact/mid.
+    'urban glide 3 double': 'double',
+    'urban glide 2 double': 'double',
+    'urban glide double': 'double',
+    'shine': 'compact',
+  },
   'baby jogger': {
     // Jogging / all-terrain line (three-wheel, off-pavement wheels).
     'city mini gt2': 'jogging',
