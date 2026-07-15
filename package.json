@@ -124,6 +124,8 @@
     "catalog:cleanup-strollers-delete": "tsx scripts/cleanupStrollerList.ts --delete",
     "catalog:cleanup-strollers-restore": "tsx scripts/cleanupStrollerList.ts --restore",
     "catalog:cleanup-strollers-restore-apply": "tsx scripts/cleanupStrollerList.ts --restore --apply",
+    "catalog:recat-stroller-accessories": "tsx scripts/recategorizeStrollerAccessories.ts",
+    "catalog:recat-stroller-accessories-apply": "tsx scripts/recategorizeStrollerAccessories.ts --apply",
     "blog:annotate-all": "tsx scripts/annotateAllBlogsAuto.ts",
     "blog:annotate-all-apply": "tsx scripts/annotateAllBlogsAuto.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
