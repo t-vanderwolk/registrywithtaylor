@@ -1065,6 +1065,183 @@ const PROFILES: StrollerProfile[] = [
     pros: ['Reversible seat and smooth ride', 'Foolproof KeyFit click-in', 'Self-standing fold'],
     cons: ['Heavier than the Bravo', 'Fewer configurations than premium modulars'],
   },
+  // ── Mompush ──
+  {
+    brand: 'Mompush',
+    match: /\bwiz\b/,
+    description:
+      'The value modular that overdelivers: a reversible seat, a big canopy, and a bassinet mode, at a price that undercuts the European brands by hundreds. The internet’s favorite budget full-size.',
+    bestFor: 'Budget-minded parents who want full-size, reversible-seat features without the premium price.',
+    priceTier: 'budget',
+    valueScore: 87,
+    specs: [
+      { label: 'From birth', value: 'Bassinet mode or car seat + adapter' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'One-hand, self-standing' },
+      { label: 'Extras', value: 'Bassinet + cup holder often included' },
+    ],
+    pros: ['Reversible seat + bassinet mode at a budget price', 'Big canopy and basket', 'Usually ships with extras included'],
+    cons: ['Heavier than premium frames', 'Ride isn’t as refined as the pricey modulars'],
+  },
+  {
+    brand: 'Mompush',
+    match: /\bmeteor\b/,
+    description:
+      'Mompush’s compact travel stroller: a light one-hand fold that still reclines and takes a car seat. A budget-friendly grab-and-go for trips and errands.',
+    bestFor: 'Travel and errand days when you want a light, affordable, car-seat-ready compact.',
+    priceTier: 'budget',
+    valueScore: 84,
+    specs: [
+      { label: 'Weight', value: 'Light, compact fold' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+      { label: 'Fold', value: 'One-hand' },
+      { label: 'Seat', value: 'Multi-recline' },
+    ],
+    pros: ['Light one-hand fold', 'Reclines and takes a car seat', 'Budget-friendly'],
+    cons: ['Small basket', 'Basic materials'],
+  },
+  {
+    brand: 'Mompush',
+    match: /\bultimate\b/,
+    description:
+      'Mompush’s flagship: a fuller-featured modular with a bassinet, reversible seat, and cushier ride than the Wiz — still priced well below the legacy names.',
+    bestFor: 'Parents who want near-premium modular features at a mid-size price.',
+    priceTier: 'mid',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or car seat + adapter' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'One-hand' },
+      { label: 'Extras', value: 'Bassinet included' },
+    ],
+    pros: ['Bassinet + reversible seat included', 'Cushier ride than the Wiz', 'Strong value vs legacy modulars'],
+    cons: ['Heavier full-size frame', 'Smaller brand support than the majors'],
+  },
+  // ── Britax (more) ──
+  {
+    brand: 'Britax',
+    match: /\bprism\b/,
+    description:
+      'Britax’s premium modular: a reversible seat, a taller push, and a smooth ride, with the click-in ease Britax car seats are known for.',
+    bestFor: 'Parents who want a premium-feel Britax modular with easy car-seat integration.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or infant seat' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'Car seats', value: 'Britax (click-in)' },
+    ],
+    pros: ['Reversible seat, smooth ride', 'Britax seats click right in', 'Taller, comfortable push'],
+    cons: ['Heavier than a compact', 'Fewer configs than the European modulars'],
+  },
+  {
+    brand: 'Britax',
+    match: /\bjuniper\b/,
+    description:
+      'Britax’s compact on-the-go stroller: a lightweight one-hand fold that still reclines and takes a car seat. City and travel ready without the full-size heft.',
+    bestFor: 'City and travel parents who want a light Britax compact that still takes a car seat.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'Weight', value: 'Lightweight' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+      { label: 'Fold', value: 'One-hand, compact' },
+      { label: 'Seat', value: 'Multi-recline' },
+    ],
+    pros: ['Light one-hand compact fold', 'Reclines for naps', 'Car-seat ready'],
+    cons: ['Small basket', 'Pavement-first wheels'],
+  },
+  // ── Cybex (sport) ──
+  {
+    brand: 'Cybex',
+    match: /\bavi\b/,
+    description:
+      'Cybex’s sporty three-wheeler: a lockable front wheel, a smooth glide, and a design-forward look. A lifestyle sport stroller for active, style-minded parents — not a hardcore running jogger.',
+    bestFor: 'Style-minded active parents who want a sporty three-wheeler for brisk walks.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'Wheels', value: 'Three-wheel, lockable front' },
+      { label: 'From birth', value: 'With cot or infant seat' },
+      { label: 'Seat', value: 'Multi-recline' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: ['Sporty, design-forward three-wheeler', 'Smooth glide for brisk walks', 'Lockable front wheel'],
+    cons: ['Not built for real running', 'Single-only'],
+  },
+  // ── Bombi ──
+  {
+    brand: 'Bombi',
+    match: /bee/,
+    description:
+      'Bombi’s lightweight compact: a one-hand fold, a roomy seat for its size, and a direct-to-consumer price. A no-fuss everyday stroller from a scrappy newer brand.',
+    bestFor: 'Parents who want a simple, affordable lightweight compact for daily use.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'Weight', value: 'Lightweight' },
+      { label: 'Fold', value: 'One-hand, compact' },
+      { label: 'Seat', value: 'Multi-recline' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+    ],
+    pros: ['Light one-hand fold', 'Roomy seat for a compact', 'Direct-to-consumer value'],
+    cons: ['Smaller brand, fewer accessories', 'Pavement-first wheels'],
+  },
+  // ── Evenflo (more) ──
+  {
+    brand: 'Evenflo',
+    match: /\bhummingbird\b/,
+    description:
+      'Evenflo’s featherweight: a carbon-fiber frame that folds tiny and weighs almost nothing, yet still reclines. Built for travel and one-handed everything.',
+    bestFor: 'Travel-heavy parents who want the lightest possible fold that still reclines.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'Frame', value: 'Carbon fiber, ultra-light' },
+      { label: 'Fold', value: 'Compact, self-standing' },
+      { label: 'Seat', value: 'Reclines' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+    ],
+    pros: ['Carbon-fiber frame, barely-there weight', 'Folds tiny and stands on its own', 'Still reclines for naps'],
+    cons: ['Small basket', 'Firm ride on rough ground'],
+  },
+  // ── Delta Children ──
+  {
+    brand: 'Delta Children',
+    match: /\bicon\b/,
+    description:
+      'Delta’s ultra-compact everyday and travel stroller: a light one-hand fold at a wallet-friendly price. Simple, portable, and easy to live with.',
+    bestFor: 'Budget travelers who want a tiny, no-frills compact for errands and trips.',
+    priceTier: 'budget',
+    valueScore: 81,
+    specs: [
+      { label: 'Weight', value: 'Ultra-light' },
+      { label: 'Fold', value: 'One-hand, compact' },
+      { label: 'Seat', value: 'Multi-recline' },
+      { label: 'From birth', value: 'With car seat (select models)' },
+    ],
+    pros: ['Ultra-light, tiny fold', 'Very affordable', 'Easy one-hand use'],
+    cons: ['Basic seat and basket', 'Pavement-only wheels'],
+  },
+  // ── Baby Trend ──
+  {
+    brand: 'Baby Trend',
+    match: /\bexpedition zero\b/,
+    description:
+      'Baby Trend’s budget flat-fold jogger: big air tires, a locking swivel wheel, and a flat compact fold, all at an entry-level price. A capable jogger that won’t break the bank.',
+    bestFor: 'Budget-minded active parents who want a real jogging stroller with a flat fold.',
+    priceTier: 'budget',
+    valueScore: 83,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'Front wheel', value: 'Swivel with lock' },
+      { label: 'Fold', value: 'Flat, compact' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+    ],
+    pros: ['Air tires at a budget price', 'Locking swivel front wheel', 'Flat, compact fold'],
+    cons: ['Heavier, less refined than premium joggers', 'From-birth needs a car seat + adapter'],
+  },
   // ── Mockingbird ──
   {
     brand: 'Mockingbird',
