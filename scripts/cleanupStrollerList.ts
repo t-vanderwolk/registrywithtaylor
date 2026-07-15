@@ -30,11 +30,13 @@ const db = prismaBase as any;
 
 type Row = {
   id: string;
+  provider: string;
   brand: string | null;
   title: string;
   price: number | null;
   imageUrl: string | null;
   affiliateUrl: string | null;
+  retailer: string | null;
   isActiveInFeed: boolean;
   enrichment: {
     id: string;
@@ -45,11 +47,22 @@ type Row = {
   } | null;
 };
 
-/** Matches the finder's public filter: active, not hidden/needs-review. */
+// Only these retailers actually SURFACE a stroller in the finder. GoodBuyGear
+// (open-box) and ANB Baby are badge/secondary only — a row on those alone can be
+// "public" in the DB yet never appear.
+const CORE_PROVIDERS = new Set(['babylist_impact', 'shopify_macrobaby', 'bombi_direct', 'manual_tmbc']);
+function isCoreRetailer(r: Row): boolean {
+  return Boolean(
+    r.affiliateUrl && (CORE_PROVIDERS.has(r.provider) || /babylist|macrobaby|bombi/i.test(r.retailer ?? '')),
+  );
+}
+
+/** Truly visible in the finder: active, not hidden/needs-review, AND on a core retailer. */
 function isFinderVisible(r: Row): boolean {
   const e = r.enrichment;
-  return Boolean(
-    r.isActiveInFeed && e && !e.needsReview && e.reviewStatus !== 'HIDDEN' && e.reviewStatus !== 'NEEDS_REVIEW',
+  return (
+    Boolean(r.isActiveInFeed && e && !e.needsReview && e.reviewStatus !== 'HIDDEN' && e.reviewStatus !== 'NEEDS_REVIEW') &&
+    isCoreRetailer(r)
   );
 }
 
@@ -91,7 +104,8 @@ async function main() {
   const rows: Row[] = await db.affiliateCatalogProduct.findMany({
     where: { enrichment: { is: { tmbcCategory: 'Strollers' } } },
     select: {
-      id: true, brand: true, title: true, price: true, imageUrl: true, affiliateUrl: true, isActiveInFeed: true,
+      id: true, provider: true, brand: true, title: true, price: true, imageUrl: true, affiliateUrl: true,
+      retailer: true, isActiveInFeed: true,
       enrichment: { select: { id: true, reviewStatus: true, needsReview: true, canonicalBrand: true, canonicalName: true } },
     },
   });
@@ -106,9 +120,10 @@ async function main() {
     const toRestore: Row[] = [];
     for (const g of byKey.values()) {
       if (g.some(isFinderVisible)) continue; // still has a visible card — skip
-      // Only genuine strollers — never resurrect the accessories/frames/parts.
+      // Only genuine strollers on a core retailer — un-hiding a GoodBuyGear/ANB
+      // row wouldn't surface it, and never resurrect accessories/frames/parts.
       const hidden = g.filter(
-        (r) => r.enrichment && r.enrichment.reviewStatus === 'HIDDEN' && isRealStroller(r.title),
+        (r) => r.enrichment && r.enrichment.reviewStatus === 'HIDDEN' && isRealStroller(r.title) && isCoreRetailer(r),
       );
       if (hidden.length === 0) continue;
       toRestore.push([...hidden].sort((a, b) => keepScore(b) - keepScore(a) || a.title.length - b.title.length)[0]);
