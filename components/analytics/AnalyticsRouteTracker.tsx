@@ -10,6 +10,27 @@ export default function AnalyticsRouteTracker() {
   const queryString = searchParams.toString();
   const url = queryString ? `${pathname}?${queryString}` : pathname;
 
+  // First-party page-view beacon (independent of GA): logs one bot-filtered view
+  // per route change so the admin dashboard can chart daily total + blog traffic.
+  useEffect(() => {
+    if (!pathname) return;
+    try {
+      const payload = JSON.stringify({ path: pathname });
+      if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+        navigator.sendBeacon('/api/track/pageview', new Blob([payload], { type: 'application/json' }));
+      } else {
+        void fetch('/api/track/pageview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true,
+        }).catch(() => undefined);
+      }
+    } catch {
+      // Never let analytics break navigation.
+    }
+  }, [pathname]);
+
   useEffect(() => {
     if (!GA_ID) {
       return;

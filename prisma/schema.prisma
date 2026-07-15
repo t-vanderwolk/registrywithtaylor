@@ -200,6 +200,22 @@ model ToolEvent {
   @@index([createdAt], map: "idx_toolevent_createdat")
 }
 
+// First-party, bot-filtered site-wide page-view log. One row per counted page
+// view (a route change beacon that clears the bot filter). `pageType` buckets
+// the path (blog / tool / marketing / other) so the admin dashboard can chart
+// daily TOTAL traffic and daily BLOG traffic without depending on GA4. Deduping
+// is deliberately light (bots only), so this reads like GA "views", not uniques.
+model PageView {
+  id          String   @id @default(cuid())
+  path        String
+  pageType    String
+  visitorHash String?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt], map: "idx_pageview_createdat")
+  @@index([pageType, createdAt], map: "idx_pageview_pagetype_createdat")
+}
+
 // One row per reader vote on an in-post poll. Polls are defined in post content
 // (:::poll block); votes are keyed by (post slug, poll key). voterId is a random
 // client id (localStorage) so a browser votes once per poll.
