@@ -1367,6 +1367,145 @@ const PROFILES: StrollerProfile[] = [
     pros: ['Folds into a backpack', 'Cabin / travel friendly', 'Snaps to a car seat for travel'],
     cons: ['Small seat and basket', 'Premium price for a travel frame'],
   },
+  // ── Wagons ──
+  {
+    brand: 'WonderFold',
+    match: /.*/,
+    description:
+      'The fold-flat family wagon that started the craze: zip-up sides, removable canopies, and seats for two to four kids, all collapsing into a suitcase-sized fold. Errands, farmers markets, and theme-park days, sorted.',
+    bestFor: 'Families of two-plus little ones who want one haul-everything wagon for outings and errands.',
+    priceTier: 'mid',
+    valueScore: 85,
+    specs: [
+      { label: 'Seats', value: '2–4 kids (by model)' },
+      { label: 'Wheels', value: 'All-terrain' },
+      { label: 'Handle', value: 'Push or pull' },
+      { label: 'Fold', value: 'Flat, compact' },
+    ],
+    pros: ['Seats two to four kids', 'Folds flat to a compact footprint', 'Push or pull, with removable canopies'],
+    cons: ['Heavy and bulky when loaded', 'Not a from-birth stroller on its own'],
+  },
+  {
+    brand: 'Veer',
+    match: /.*/,
+    description:
+      'The premium adventure wagon: a rugged all-terrain frame with a smooth push, real suspension, and a system of newborn, toddler, and car-seat add-ons. The wagon that thinks it’s a stroller.',
+    bestFor: 'Active families who want a do-anything premium wagon that grows with add-ons.',
+    priceTier: 'luxury',
+    valueScore: 82,
+    specs: [
+      { label: 'Seats', value: '2 kids + add-ons' },
+      { label: 'Wheels', value: 'All-terrain, suspension' },
+      { label: 'Handle', value: 'Push or pull' },
+      { label: 'Extras', value: 'Newborn / toddler / car-seat add-ons' },
+    ],
+    pros: ['Rugged all-terrain build with real suspension', 'Newborn and car-seat add-ons available', 'Premium push for a wagon'],
+    cons: ['Expensive, especially once you add on', 'Heavy'],
+  },
+  {
+    brand: 'Evenflo',
+    match: /\bxplore\b/,
+    description:
+      'Evenflo’s stroller-wagon crossover: push it like a stroller or pull it like a wagon, with a telescoping handle, canopies, and room for two. A budget-friendly way into the wagon world.',
+    bestFor: 'Two-kid families who want a budget stroller-wagon they can push or pull.',
+    priceTier: 'budget',
+    valueScore: 83,
+    specs: [
+      { label: 'Seats', value: '2 kids' },
+      { label: 'Handle', value: 'Push or pull, telescoping' },
+      { label: 'Wheels', value: 'All-terrain' },
+      { label: 'Canopy', value: 'Two canopies' },
+    ],
+    pros: ['Push like a stroller or pull like a wagon', 'Seats two with canopies', 'Budget-friendly'],
+    cons: ['Heavy when loaded', 'No true from-birth mode'],
+  },
+  {
+    // After the "Expedition Zero" jogger, so only the wagon lands here.
+    brand: 'Baby Trend',
+    match: /\bexpedition\b/,
+    description:
+      'Baby Trend’s 2-in-1 stroller wagon: convertible push/pull handles, a canopy, and seating for two at an entry-level price. A budget wagon for park days and errands.',
+    bestFor: 'Budget families who want a simple 2-in-1 stroller wagon for two kids.',
+    priceTier: 'budget',
+    valueScore: 80,
+    specs: [
+      { label: 'Seats', value: '2 kids' },
+      { label: 'Handle', value: 'Push or pull' },
+      { label: 'Wheels', value: 'All-terrain' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: ['Push or pull for two kids', 'Canopy and storage', 'Budget price'],
+    cons: ['Basic materials', 'Heavy when loaded'],
+  },
+  {
+    brand: 'Delta Children',
+    match: /\bjeep\b/,
+    description:
+      'Jeep’s rugged, budget-friendly wagons and all-terrain strollers: big knobby tires, a tough frame, and outdoorsy styling. Built for park trips and trail-ish adventures without the premium price.',
+    bestFor: 'Outdoorsy budget families who want rugged, all-terrain gear for two.',
+    priceTier: 'budget',
+    valueScore: 80,
+    specs: [
+      { label: 'Wheels', value: 'All-terrain, rugged' },
+      { label: 'Seats', value: '2–4 kids (wagon models)' },
+      { label: 'Handle', value: 'Push or pull (wagons)' },
+      { label: 'Style', value: 'Outdoorsy' },
+    ],
+    pros: ['Rugged all-terrain wheels', 'Roomy multi-kid wagon options', 'Budget-friendly'],
+    cons: ['Heavy and basic vs premium wagons', 'No true newborn mode'],
+  },
+  {
+    brand: 'Keenz',
+    match: /.*/,
+    description:
+      'The value family wagon: a zip-up, canopy-covered hauler that seats two with a big storage basket, at a price well below the boutique wagons. The practical pick for market runs and school pickups.',
+    bestFor: 'Budget-minded families who want a practical two-kid wagon for everyday hauling.',
+    priceTier: 'budget',
+    valueScore: 82,
+    specs: [
+      { label: 'Seats', value: '2 kids' },
+      { label: 'Wheels', value: 'All-terrain' },
+      { label: 'Canopy', value: 'Full zip-up' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: ['Seats two with a big basket', 'Full zip-up canopy', 'Great value vs boutique wagons'],
+    cons: ['Basic push feel', 'Heavy when loaded'],
+  },
+  // ── Inglesina ──
+  {
+    brand: 'Inglesina',
+    match: /\baptica\b/,
+    description:
+      'Inglesina’s Italian full-size: a plush, upright ride with a roomy carrycot and refined fabrics. Design-forward European styling with a comfortable, cushioned push.',
+    bestFor: 'Parents who want an Italian-designed full-size with a plush, upright ride.',
+    priceTier: 'premium',
+    valueScore: 82,
+    specs: [
+      { label: 'From birth', value: 'Carrycot or infant seat' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'Style', value: 'Italian design' },
+    ],
+    pros: ['Plush, upright ride', 'Roomy carrycot', 'Refined European fabrics'],
+    cons: ['Premium price', 'Larger fold'],
+  },
+  {
+    brand: 'Inglesina',
+    match: /\bquid\b/,
+    description:
+      'Inglesina’s ultra-compact: a barely-there fold under 13 lbs that still reclines, with the same Italian polish. A featherweight for travel and tight city living.',
+    bestFor: 'City and travel parents who want an Italian-designed featherweight compact.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'Weight', value: '~13 lb' },
+      { label: 'Folded', value: 'Cabin-friendly' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+      { label: 'Fold', value: 'One-hand' },
+    ],
+    pros: ['Under ~13 lbs, tiny fold', 'Reclines for naps', 'Italian design polish'],
+    cons: ['Small basket', 'Pavement-first wheels'],
+  },
   // ── Mockingbird ──
   {
     brand: 'Mockingbird',
