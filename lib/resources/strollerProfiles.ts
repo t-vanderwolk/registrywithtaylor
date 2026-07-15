@@ -871,6 +871,200 @@ const PROFILES: StrollerProfile[] = [
       'Heavier for its class',
     ],
   },
+  // ── Cybex (more) ──
+  {
+    brand: 'Cybex',
+    match: /\bgazelle\b/,
+    description:
+      'Cybex’s modular workhorse that turns into a double: an oversized shopping basket, an expandable frame, and a reversible seat. The rare stroller built for errands and a second kid.',
+    bestFor: 'Errand-heavy parents who want a giant basket now and the option to add a second seat later.',
+    priceTier: 'premium',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'Cot S or infant seat' },
+      { label: 'Configurations', value: 'Single → double' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Basket', value: 'Oversized shopping basket' },
+    ],
+    pros: ['Expands from single to double', 'Enormous shopping basket', 'Reversible seat'],
+    cons: ['Heavy and long once doubled', 'Ride is firmer than the plush crowd'],
+  },
+  {
+    brand: 'Cybex',
+    match: /\bcoya\b/,
+    description:
+      'Cybex’s ultra-compact luxury: a one-hand fold small enough for a cabin bag, with Platinum-level fabrics and a surprisingly plush seat. Little footprint, big-brand feel.',
+    bestFor: 'City and travel parents who want luxury materials in the smallest possible fold.',
+    priceTier: 'premium',
+    valueScore: 82,
+    specs: [
+      { label: 'Weight', value: '~13.7 lb' },
+      { label: 'Folded', value: 'Cabin-bag size' },
+      { label: 'From birth', value: 'With cot or infant seat' },
+      { label: 'Fold', value: 'One-hand, self-standing' },
+    ],
+    pros: ['Tiny one-hand, self-standing fold', 'Platinum-level fabrics', 'Plush for its size'],
+    cons: ['Small basket', 'Luxury price for a compact'],
+  },
+  // ── Bumbleride ──
+  {
+    brand: 'Bumbleride',
+    match: /\bindie\b/,
+    description:
+      'The eco-minded all-terrain: air-filled tires, real suspension, and 100% recycled fabrics. A jogger-adjacent everyday stroller for parents who hit trails and care about materials.',
+    bestFor: 'Active, sustainability-minded parents who want all-terrain wheels without a full jogger.',
+    priceTier: 'premium',
+    valueScore: 85,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'From birth', value: 'Bassinet or car seat + adapter' },
+      { label: 'Seat', value: 'Multi-recline' },
+      { label: 'Fabrics', value: '100% recycled' },
+    ],
+    pros: ['Air tires + suspension handle trails', 'Made from recycled fabrics', 'Reclines flat with the bassinet'],
+    cons: ['Air tires need occasional topping up', 'Premium price'],
+  },
+  {
+    brand: 'Bumbleride',
+    match: /\bera\b/,
+    description:
+      'Bumbleride’s city full-size: the same recycled fabrics and smooth ride as the Indie, tuned for pavement with a reversible seat and a slimmer frame.',
+    bestFor: 'City parents who love the Bumbleride ethos but want a slimmer, pavement-first frame.',
+    priceTier: 'premium',
+    valueScore: 83,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or car seat + adapter' },
+      { label: 'Seat', value: 'Reversible, multi-recline' },
+      { label: 'Fabrics', value: '100% recycled' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: ['Reversible seat, smooth city ride', 'Recycled fabrics', 'Slimmer than the Indie'],
+    cons: ['Not built for rough terrain like the Indie', 'Premium price'],
+  },
+  // ── Britax ──
+  {
+    brand: 'Britax',
+    match: /\bgrove\b/,
+    description:
+      'Britax’s modular everyday stroller: a reversible seat, a newborn-ready setup, and a compact one-hand fold, at a friendlier price than the European modulars.',
+    bestFor: 'Parents who want modular, reversible-seat features without the premium-brand price.',
+    priceTier: 'mid',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'With bassinet or infant seat' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'Compact, one-hand' },
+      { label: 'Car seats', value: 'Britax (click-in)' },
+    ],
+    pros: ['Reversible seat at a mid-size price', 'Compact one-hand fold', 'Britax car seats click right in'],
+    cons: ['Ride isn’t as plush as premium modulars', 'Newer to the modular game'],
+  },
+  {
+    brand: 'Britax',
+    match: /\bbrook\b/,
+    description:
+      'Britax’s coordinated travel system: the Willow infant seat and Brook stroller built to work together out of the box, with an easy click-in and a self-standing fold.',
+    bestFor: 'Parents who want a matched Britax travel system in one purchase.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'From birth', value: 'With Willow infant seat' },
+      { label: 'Fold', value: 'Self-standing' },
+      { label: 'Car seats', value: 'Britax Willow (click-in)' },
+      { label: 'Seat', value: 'Multi-recline' },
+    ],
+    pros: ['Infant seat + stroller built to match', 'Easy click-in travel system', 'Self-standing fold'],
+    cons: ['Best bought as a Britax bundle', 'Heavier for its class'],
+  },
+  // ── Ergobaby ──
+  {
+    brand: 'Ergobaby',
+    match: /\bmetro\b/,
+    description:
+      'Ergobaby’s compact everyday: a one-hand fold, a near-flat recline, and a comfy seat in a lightweight frame. Travel-friendly, but it still works for daily life.',
+    bestFor: 'Parents who want one lightweight, compact stroller for both errands and travel.',
+    priceTier: 'mid',
+    valueScore: 84,
+    specs: [
+      { label: 'Weight', value: '~20 lb' },
+      { label: 'From birth', value: 'Near-flat recline or car seat + adapter' },
+      { label: 'Fold', value: 'One-hand, compact' },
+      { label: 'Seat', value: 'Multi-recline' },
+    ],
+    pros: ['One-hand compact fold', 'Reclines nearly flat for newborns', 'Comfortable for a lightweight'],
+    cons: ['Smaller wheels — pavement-first', 'Basket on the smaller side'],
+  },
+  // ── Evenflo ──
+  {
+    brand: 'Evenflo',
+    match: /\bpivot xpand/,
+    description:
+      'The budget single-to-double: a modular frame that adds a second seat for far less than the premium convertibles. A lot of flexibility for the money.',
+    bestFor: 'Budget-minded growing families who want single-to-double flexibility.',
+    priceTier: 'budget',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'With SafeMax infant seat or bassinet' },
+      { label: 'Configurations', value: 'Single → double' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Car seats', value: 'Evenflo (click-in)' },
+    ],
+    pros: ['Converts to a double at a budget price', 'Reversible seat', 'Real travel system with Evenflo seats'],
+    cons: ['Heavier and bulkier than premium frames', 'Ride feel is basic'],
+  },
+  {
+    brand: 'Evenflo',
+    match: /\bshyft\b/,
+    description:
+      'Evenflo’s easy travel system: the infant seat clicks in, the stroller folds compact, and it all comes together at a wallet-friendly price.',
+    bestFor: 'First-time parents who want a simple, affordable travel system.',
+    priceTier: 'budget',
+    valueScore: 82,
+    specs: [
+      { label: 'From birth', value: 'With SafeMax infant seat' },
+      { label: 'Fold', value: 'Compact, self-standing' },
+      { label: 'Car seats', value: 'Evenflo SafeMax (click-in)' },
+      { label: 'Seat', value: 'Multi-recline' },
+    ],
+    pros: ['Simple, affordable travel system', 'Compact self-standing fold', 'Infant seat clicks right in'],
+    cons: ['Forward-facing seat only', 'Basic materials'],
+  },
+  // ── BOB ──
+  {
+    brand: 'BOB',
+    match: /\brevolution\b/,
+    description:
+      'The gold-standard jogger: air-filled tires, a locking swivel front wheel, and adjustable suspension that soaks up any terrain. Built for runners and rough ground.',
+    bestFor: 'Runners and off-pavement parents who want a true, capable jogging stroller.',
+    priceTier: 'premium',
+    valueScore: 86,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'Front wheel', value: 'Swivel with lock' },
+      { label: 'Suspension', value: 'Adjustable' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+    ],
+    pros: ['Handles any terrain at a jog', 'Adjustable suspension', 'Locking swivel front wheel'],
+    cons: ['Big and heavy — not a city compact', 'From-birth needs a car seat + adapter'],
+  },
+  // ── Chicco (more) ──
+  {
+    brand: 'Chicco',
+    match: /\bcorso\b/,
+    description:
+      'Chicco’s modular step-up: a reversible seat, a smooth ride, and the same foolproof KeyFit click-in Chicco is known for. Modular features without the European price.',
+    bestFor: 'KeyFit owners who want a reversible-seat modular that stays easy to use.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'From birth', value: 'With KeyFit infant seat or bassinet' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'Self-standing' },
+      { label: 'Car seats', value: 'Chicco KeyFit (click-in)' },
+    ],
+    pros: ['Reversible seat and smooth ride', 'Foolproof KeyFit click-in', 'Self-standing fold'],
+    cons: ['Heavier than the Bravo', 'Fewer configurations than premium modulars'],
+  },
   // ── Mockingbird ──
   {
     brand: 'Mockingbird',
