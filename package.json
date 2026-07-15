@@ -135,6 +135,8 @@
     "catalog:restore-orbit-mplus-apply": "tsx scripts/restoreOrbitBabyMPlus.ts --apply",
     "catalog:add-thule-strollers": "tsx scripts/addThuleStrollers.ts",
     "catalog:add-thule-strollers-apply": "tsx scripts/addThuleStrollers.ts --apply",
+    "catalog:add-mockingbird": "tsx scripts/addMockingbirdStroller.ts",
+    "catalog:add-mockingbird-apply": "tsx scripts/addMockingbirdStroller.ts --apply",
     "blog:annotate-all": "tsx scripts/annotateAllBlogsAuto.ts",
     "blog:annotate-all-apply": "tsx scripts/annotateAllBlogsAuto.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
