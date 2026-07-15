@@ -1531,6 +1531,329 @@ const PROFILES: StrollerProfile[] = [
       'Ride isn’t quite as plush as the premium frames',
     ],
   },
+  // ── Doona ──
+  {
+    brand: 'Doona',
+    match: /.*/,
+    description:
+      'The one that clicks: a car seat and a stroller in a single frame, so you lift baby out of the car and pop out the wheels without ever unbuckling them. A lifesaver for car-heavy, on-and-off days.',
+    bestFor: 'Car-heavy parents who want to go from car seat to stroll without waking the baby.',
+    priceTier: 'premium',
+    valueScore: 84,
+    specs: [
+      { label: 'From birth', value: 'Yes — it IS the infant seat' },
+      { label: 'Mode', value: 'Car seat + stroller in one' },
+      { label: 'Weight', value: '~16 lb' },
+      { label: 'Limit', value: 'Up to 35 lb / 32"' },
+      { label: 'Extras', value: 'FAA-approved for the cabin' },
+    ],
+    pros: [
+      'Car seat and stroller in one click — no separate frame',
+      'Go from car to sidewalk without unbuckling',
+      'FAA-approved to use on the plane',
+    ],
+    cons: [
+      'Infant-only — you’ll need a real stroller by toddlerhood',
+      'Heavy as a car seat, and a tiny basket as a stroller',
+    ],
+  },
+  // ── Babyzen ──
+  {
+    brand: 'Babyzen',
+    match: /.*/,
+    description:
+      'The original cabin-size cult classic: a one-hand fold that drops to carry-on size in seconds and swings over your shoulder. Small footprint, big frequent-flyer following.',
+    bestFor: 'Travelers and city parents who want the iconic carry-on-size fold.',
+    priceTier: 'premium',
+    valueScore: 85,
+    specs: [
+      { label: 'Weight', value: '~13.6 lb' },
+      { label: 'Folded', value: 'Fits most overhead bins' },
+      { label: 'From birth', value: 'With 0+ newborn pack or car seat + adapter' },
+      { label: 'Fold', value: 'One-hand, shoulder carry' },
+    ],
+    pros: [
+      'Legendary carry-on-size one-hand fold',
+      'Swings over your shoulder like a bag',
+      'Newborn pack and car-seat adapters available',
+    ],
+    cons: [
+      'Small basket',
+      'From-birth use needs the separate 0+ newborn pack',
+    ],
+  },
+  // ── Stokke ──
+  {
+    brand: 'Stokke',
+    match: /xplory/,
+    description:
+      'Stokke’s stroll-at-eye-level flagship: the seat sits high, so baby’s closer to you and up out of the exhaust, wrapped in the Scandinavian design Stokke is known for.',
+    bestFor: 'Parents who want baby up at eye level and love Scandinavian design.',
+    priceTier: 'luxury',
+    valueScore: 78,
+    specs: [
+      { label: 'From birth', value: 'Carrycot or car seat + adapter' },
+      { label: 'Seat', value: 'Height-adjustable, reversible' },
+      { label: 'Push', value: 'Extra-tall handle' },
+      { label: 'Style', value: 'Scandinavian design' },
+    ],
+    pros: [
+      'Raises baby up toward eye level',
+      'Reversible, height-adjustable seat',
+      'Distinctive, high-end design',
+    ],
+    cons: [
+      'Heavy and premium-priced',
+      'Large footprint',
+    ],
+  },
+  {
+    brand: 'Stokke',
+    match: /.*/,
+    description:
+      'Stokke pairs Scandinavian design with a signature high seat that brings baby closer to you — from the plush Xplory to the all-terrain Trailz. Design-led, and priced like it.',
+    bestFor: 'Design-minded parents who want a high, close-to-you seat.',
+    priceTier: 'luxury',
+    valueScore: 78,
+    specs: [
+      { label: 'From birth', value: 'Carrycot or car seat + adapter' },
+      { label: 'Seat', value: 'High, reversible' },
+      { label: 'Style', value: 'Scandinavian design' },
+      { label: 'Fold', value: 'Compact (by model)' },
+    ],
+    pros: [
+      'Signature high seat, close to you',
+      'Reversible seating',
+      'Beautiful, design-led build',
+    ],
+    cons: [
+      'Premium price',
+      'Heavier than the compact crowd',
+    ],
+  },
+  // ── Bugaboo (city) ──
+  {
+    brand: 'Bugaboo',
+    match: /\bbee\b/,
+    description:
+      'Bugaboo’s nimble city stroller: a compact, agile frame with the plush Bugaboo push, built to weave through crowds and shop aisles. The urban runabout of the lineup.',
+    bestFor: 'City parents who want the Bugaboo ride in a nimble everyday frame.',
+    priceTier: 'premium',
+    valueScore: 82,
+    specs: [
+      { label: 'From birth', value: 'Bassinet or car seat + adapter' },
+      { label: 'Seat', value: 'Reversible' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'Wheels', value: 'City-tuned' },
+    ],
+    pros: [
+      'Nimble and quick in tight city spaces',
+      'Plush Bugaboo push',
+      'Reversible seat',
+    ],
+    cons: [
+      'Smaller wheels — pavement-first',
+      'Car seat and bassinet are extra',
+    ],
+  },
+  // ── UPPAbaby (jogger + umbrella) ──
+  {
+    brand: 'UPPAbaby',
+    match: /\bridge\b/,
+    description:
+      'UPPAbaby’s first true jogger: air-filled tires, a locking front wheel, and a hand brake, all with UPPAbaby’s fit and finish. For parents who run and don’t want to switch ecosystems.',
+    bestFor: 'Running parents already living in the UPPAbaby world.',
+    priceTier: 'premium',
+    valueScore: 84,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'Front wheel', value: 'Swivel with lock' },
+      { label: 'Brake', value: 'Hand brake' },
+      { label: 'From birth', value: 'With car seat + adapter or bassinet' },
+    ],
+    pros: [
+      'True jogger with air tires and a hand brake',
+      'UPPAbaby fit and finish',
+      'Takes UPPAbaby seats and bassinet',
+    ],
+    cons: [
+      'Big footprint — not a city compact',
+      'Premium price',
+    ],
+  },
+  {
+    brand: 'UPPAbaby',
+    match: /\bg-?\s?luxe\b|\bg-?\s?lite\b|\bg-?series\b/,
+    description:
+      'UPPAbaby’s umbrella stroller: a featherweight, compact-folding frame for travel and quick trips. The lightweight backup that lives in your trunk.',
+    bestFor: 'Travel days and quick trips where you want the lightest UPPAbaby.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'Weight', value: 'Featherweight' },
+      { label: 'Fold', value: 'Umbrella, compact' },
+      { label: 'Seat', value: 'Reclines' },
+      { label: 'Use', value: 'Toddler and up' },
+    ],
+    pros: [
+      'Very light umbrella fold',
+      'Easy to carry and stow',
+      'UPPAbaby build quality',
+    ],
+    cons: [
+      'Not a from-birth stroller on its own',
+      'Small basket',
+    ],
+  },
+  // ── Baby Jogger (jogger + travel) ──
+  {
+    brand: 'Baby Jogger',
+    match: /\bsummit\b/,
+    description:
+      'Baby Jogger’s all-terrain jogger: air tires, a locking front wheel, and that signature one-hand fold. The Summit runs where the City Mini GT tops out.',
+    bestFor: 'Serious runners who still want the famous quick-fold.',
+    priceTier: 'premium',
+    valueScore: 85,
+    specs: [
+      { label: 'Tires', value: 'Air-filled, all-terrain' },
+      { label: 'Front wheel', value: 'Swivel with lock' },
+      { label: 'Fold', value: 'Signature one-hand quick-fold' },
+      { label: 'From birth', value: 'With car seat or bassinet' },
+    ],
+    pros: [
+      'True jogger with the signature quick-fold',
+      'Air tires and a locking front wheel',
+      'Comes as a single or a side-by-side double',
+    ],
+    cons: [
+      'Big footprint for the city',
+      'From-birth needs a car seat or bassinet',
+    ],
+  },
+  {
+    brand: 'Baby Jogger',
+    match: /\bcity tour\b/,
+    description:
+      'Baby Jogger’s travel compact: an ultra-light, carry-on-size fold that packs into an included bag. The City Mini’s globe-trotting little sibling.',
+    bestFor: 'Travel days when you want a carry-on-size Baby Jogger.',
+    priceTier: 'mid',
+    valueScore: 84,
+    specs: [
+      { label: 'Weight', value: '~14 lb (single)' },
+      { label: 'Folded', value: 'Cabin-friendly, travel bag included' },
+      { label: 'From birth', value: 'With car seat + adapter' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: [
+      'Carry-on-size fold with a travel bag included',
+      'Very light for its size',
+      'Reclines for naps',
+    ],
+    cons: [
+      'Small basket',
+      'Firmer ride than the full-size City Minis',
+    ],
+  },
+  // ── Maxi-Cosi ──
+  {
+    brand: 'Maxi-Cosi',
+    match: /.*/,
+    description:
+      'Maxi-Cosi’s strollers pair a smooth ride with a true click-in travel system for their own infant seats. Comfortable, mainstream, and easy to live with.',
+    bestFor: 'Parents who want a comfortable travel system that clicks to a Maxi-Cosi seat.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'From birth', value: 'With Maxi-Cosi infant seat' },
+      { label: 'Seat', value: 'Multi-recline (reversible on some)' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'Car seats', value: 'Maxi-Cosi (click-in)' },
+    ],
+    pros: [
+      'Smooth ride and easy click-in seats',
+      'Comfortable, mainstream pick',
+      'Compact fold',
+    ],
+    cons: [
+      'Fewer configurations than modular flagships',
+      'Ride and features vary by model',
+    ],
+  },
+  // ── Joovy ──
+  {
+    brand: 'Joovy',
+    match: /.*/,
+    description:
+      'Joovy’s practical, family-sized strollers: roomy seats, sit-and-stand and tandem options, and a value price. Built for real family logistics over luxury frills.',
+    bestFor: 'Growing families who want roomy, practical seating without premium prices.',
+    priceTier: 'mid',
+    valueScore: 83,
+    specs: [
+      { label: 'Configurations', value: 'Single, tandem, sit-and-stand (by model)' },
+      { label: 'Seat', value: 'Roomy, multi-recline' },
+      { label: 'Fold', value: 'Compact' },
+      { label: 'From birth', value: 'With car seat + adapter (by model)' },
+    ],
+    pros: [
+      'Roomy seats and family-friendly configs',
+      'Sit-and-stand and tandem options',
+      'Strong value for the money',
+    ],
+    cons: [
+      'Bulky when doubled up',
+      'Basic ride next to premium frames',
+    ],
+  },
+  // ── Contours ──
+  {
+    brand: 'Contours',
+    match: /.*/,
+    description:
+      'Contours specializes in flexible doubles: tandem frames with seats that reconfigure a dozen ways and accept two infant car seats. The double-focused problem-solver.',
+    bestFor: 'Two-kid families who need seats that reconfigure — with room for two car seats.',
+    priceTier: 'mid',
+    valueScore: 82,
+    specs: [
+      { label: 'Configurations', value: 'Tandem, many seat positions' },
+      { label: 'Car seats', value: 'Accepts two (with adapters)' },
+      { label: 'Seat', value: 'Multi-recline, reversible (by model)' },
+      { label: 'Fold', value: 'Compact for a double' },
+    ],
+    pros: [
+      'Seats reconfigure a dozen ways',
+      'Holds two infant car seats',
+      'Value-priced double',
+    ],
+    cons: [
+      'Long tandem footprint',
+      'Heavy when loaded',
+    ],
+  },
+  // ── Mima (travel) ──
+  {
+    brand: 'Mima',
+    match: /zigi/,
+    description:
+      'Mima’s travel stroller: the brand’s sculpted, unmistakable look shrunk into a light, compact fold. A design-forward carry-on with Mima flair.',
+    bestFor: 'Design lovers who want Mima style in a travel-size fold.',
+    priceTier: 'premium',
+    valueScore: 80,
+    specs: [
+      { label: 'Weight', value: 'Light' },
+      { label: 'Folded', value: 'Cabin-friendly' },
+      { label: 'From birth', value: 'With car seat + adapter or newborn kit' },
+      { label: 'Fold', value: 'Compact' },
+    ],
+    pros: [
+      'Mima’s distinctive look in a travel size',
+      'Light, compact fold',
+      'Reclines for naps',
+    ],
+    cons: [
+      'Small basket',
+      'Premium price for a travel frame',
+    ],
+  },
 ];
 
 /** Resolve the curated profile for a stroller, or null if none is written yet. */
