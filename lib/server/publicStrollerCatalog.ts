@@ -15,6 +15,7 @@ import {
 import { hasPublicCoreRetailer, isGoodBuyGearOffer, isGoodBuyGearUrl, isBombiOffer, isAmazonOffer, isAmazonUrl } from '@/lib/catalog/publicRetailerVisibility';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
 import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
 
 const PROVIDER_ANB = 'awin_anbbaby';
@@ -57,6 +58,8 @@ type Offer = RetailerOffer & { image: string | null; title: string };
 export type PublicStrollerProduct = {
   name: string;
   model: string;
+  /** Short TMBC summary from the curated profile (null if none written yet). */
+  summary: string | null;
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
@@ -360,6 +363,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const product: PublicStrollerProduct = {
       name: primary.title,
       model: group.model,
+      summary: getStrollerProfile(group.brand, group.model)?.description ?? null,
       price: primary.price,
       image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazon?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
       affiliateUrl: primary.url,

@@ -603,7 +603,7 @@ const PROFILES: StrollerProfile[] = [
   {
     // GT / all-terrain variants first, then the lighter base City Mini.
     brand: 'Baby Jogger',
-    match: /\bcity mini gt\b/,
+    match: /\bcity mini gt/,
     description:
       'The all-terrain City Mini: that famous one-hand quick-fold plus forever-air tires that shrug off gravel, grass, and beat-up sidewalks. The everyday workhorse that can also go off the pavement.',
     bestFor: 'Everyday parents who want the legendary quick-fold plus wheels that handle rough ground.',

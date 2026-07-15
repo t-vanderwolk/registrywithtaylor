@@ -87,6 +87,7 @@ type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
   model: string;
+  summary?: string | null;
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
@@ -260,6 +261,9 @@ function ProductCard({
           <p className="tool-product-card__brand">{brand}</p>
         ) : null}
         <p className="tool-product-card__title">{displayTitle}</p>
+        {product.summary ? (
+          <p className="tool-product-card__summary">{product.summary}</p>
+        ) : null}
         {displayPrice != null ? (
           <p className="tool-product-card__price">
             ${displayPrice.toFixed(2)}
