@@ -13,7 +13,7 @@ const str = (value: unknown, max = 512) =>
  * Bucket a pathname into a coarse page type for the daily-traffic charts.
  * Keep in sync with the dashboard's legend.
  */
-export function pageTypeFromPath(path: string): string {
+function pageTypeFromPath(path: string): string {
   const p = path.split('?')[0].split('#')[0].toLowerCase();
   if (p === '/blog' || p.startsWith('/blog/')) return 'blog';
   if (p.startsWith('/tools/')) return 'tool';
