@@ -17,6 +17,9 @@ const MODEL_MERGES: Record<string, Record<string, string>> = {
     'city mini gt3 all terrain': 'City Mini GT3',
     // Summit X3 Single (+ "Single Jogging") → one single card.
     'summit x3 single jogging': 'Summit X3 Single',
+    // Collapse redundant "Single" variants into their base card.
+    'city tour 2 single': 'City Tour 2',
+    'city mini gt3 single': 'City Mini GT3',
     // NOTE: the "* Double" variants keep their own names on purpose so they land
     // in the Double section (see CATEGORY_OVERRIDES below).
   },
