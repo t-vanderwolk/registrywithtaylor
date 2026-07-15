@@ -129,6 +129,8 @@
     "catalog:audit-nuna-mixx": "tsx scripts/auditNunaMixxTavo.ts",
     "catalog:fix-nuna-mixx": "tsx scripts/fixNunaMixxNext.ts",
     "catalog:fix-nuna-mixx-apply": "tsx scripts/fixNunaMixxNext.ts --apply",
+    "catalog:hide-butterfly-og": "tsx scripts/hideBugabooButterflyOriginal.ts",
+    "catalog:hide-butterfly-og-apply": "tsx scripts/hideBugabooButterflyOriginal.ts --apply",
     "blog:annotate-all": "tsx scripts/annotateAllBlogsAuto.ts",
     "blog:annotate-all-apply": "tsx scripts/annotateAllBlogsAuto.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
