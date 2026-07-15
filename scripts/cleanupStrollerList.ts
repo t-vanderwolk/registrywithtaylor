@@ -7,10 +7,14 @@
  *   --hide     mark the extras HIDDEN (reversible; survives a feed re-import)
  *   --delete   hard-delete the rows (irreversible; feed rows may return on the
  *              next import, so --hide is usually the durable choice)
+ *   --restore  UNDO: for any model whose variants were all hidden (so it vanished
+ *              from the finder), un-hide the best one so the model reappears.
  *
  *   npx tsx scripts/cleanupStrollerList.ts             # dry run (report only)
  *   npx tsx scripts/cleanupStrollerList.ts --hide
  *   npx tsx scripts/cleanupStrollerList.ts --delete
+ *   npx tsx scripts/cleanupStrollerList.ts --restore   # dry run of the undo
+ *   npx tsx scripts/cleanupStrollerList.ts --restore --apply
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" npm run catalog:cleanup-strollers-hide
@@ -32,8 +36,28 @@ type Row = {
   imageUrl: string | null;
   affiliateUrl: string | null;
   isActiveInFeed: boolean;
-  enrichment: { id: string; reviewStatus: string | null; canonicalBrand: string | null; canonicalName: string | null } | null;
+  enrichment: {
+    id: string;
+    reviewStatus: string | null;
+    needsReview: boolean | null;
+    canonicalBrand: string | null;
+    canonicalName: string | null;
+  } | null;
 };
+
+/** Matches the finder's public filter: active, not hidden/needs-review. */
+function isFinderVisible(r: Row): boolean {
+  const e = r.enrichment;
+  return Boolean(
+    r.isActiveInFeed && e && !e.needsReview && e.reviewStatus !== 'HIDDEN' && e.reviewStatus !== 'NEEDS_REVIEW',
+  );
+}
+
+function variantKey(r: Row): string {
+  const brand = canonicalStrollerBrand((r.enrichment?.canonicalBrand || r.brand || '').trim());
+  const rawModel = r.enrichment?.canonicalName || parseStrollerModel(r.title, brand) || r.title;
+  return productModelKey(brand, normalizeStrollerVariantModel(rawModel, brand) || rawModel);
+}
 
 /** Higher = keep. Prefer rows that actually carry a buy link, price, image. */
 function keepScore(r: Row): number {
@@ -48,15 +72,50 @@ function keepScore(r: Row): number {
 async function main() {
   const hide = process.argv.includes('--hide');
   const del = process.argv.includes('--delete');
-  const apply = hide || del;
+  const restore = process.argv.includes('--restore');
+  const applyFlag = process.argv.includes('--apply');
+  const apply = restore ? applyFlag : hide || del;
 
   const rows: Row[] = await db.affiliateCatalogProduct.findMany({
     where: { enrichment: { is: { tmbcCategory: 'Strollers' } } },
     select: {
       id: true, brand: true, title: true, price: true, imageUrl: true, affiliateUrl: true, isActiveInFeed: true,
-      enrichment: { select: { id: true, reviewStatus: true, canonicalBrand: true, canonicalName: true } },
+      enrichment: { select: { id: true, reviewStatus: true, needsReview: true, canonicalBrand: true, canonicalName: true } },
     },
   });
+
+  // ── Restore (undo an over-aggressive --hide) ──────────────────────────────
+  // For every model group with NO finder-visible row, un-hide the best hidden
+  // one so the model reappears. Leaves models that still show one alone.
+  if (restore) {
+    const byKey = new Map<string, Row[]>();
+    for (const r of rows) (byKey.get(variantKey(r)) ?? byKey.set(variantKey(r), []).get(variantKey(r))!).push(r);
+
+    const toRestore: Row[] = [];
+    for (const g of byKey.values()) {
+      if (g.some(isFinderVisible)) continue; // still has a visible card — skip
+      const hidden = g.filter((r) => r.enrichment && r.enrichment.reviewStatus === 'HIDDEN');
+      if (hidden.length === 0) continue;
+      toRestore.push([...hidden].sort((a, b) => keepScore(b) - keepScore(a) || a.title.length - b.title.length)[0]);
+    }
+
+    console.log(`── Restore vanished strollers ──  (${apply ? 'APPLY' : 'dry-run'})\n`);
+    console.log(`  models with no visible variant: ${toRestore.length}\n`);
+    for (const r of toRestore.slice(0, 120)) console.log(`    ✚ ${r.brand ?? '?'} — ${r.title}`);
+    if (toRestore.length > 120) console.log(`    …and ${toRestore.length - 120} more`);
+
+    if (!apply) {
+      console.log('\n  (dry run — nothing changed. Re-run with --restore --apply.)');
+      return;
+    }
+    const enrichmentIds = toRestore.map((r) => r.enrichment!.id);
+    const res = await db.productEnrichment.updateMany({
+      where: { id: { in: enrichmentIds } },
+      data: { reviewStatus: 'REVIEWED', isPublic: true, needsReview: false },
+    });
+    console.log(`\n  Restored ${res.count} model(s) to the finder.`);
+    return;
+  }
 
   const hidden = rows.filter((r) => r.enrichment?.reviewStatus === 'HIDDEN');
   const visible = rows.filter((r) => r.enrichment?.reviewStatus !== 'HIDDEN');
