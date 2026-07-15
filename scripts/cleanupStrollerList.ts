@@ -61,12 +61,14 @@ function variantKey(r: Row): string {
 
 // Accessories / parts / frames that were correctly hidden — never restore these.
 const ACCESSORY_RE =
-  /\b(rain ?shield|rain ?cover|weather ?shield|sun ?canopy|canopy|snack ?tray|cup ?holder|cupholder|piggy ?back|pannier|caddy|blanket|footie|play ?mat|bumper ?bar|belly bar|cooler|hood|wall hook|\bhook\b|latch|doll|sibling seat|second seat|carry ?cot|\bcot\b|bassinet|stroller seat|\bseat\b|\bframe\b|chassis|\bbase\b|adapter|adaptor|organi[sz]er|footmuff|\bliner\b|\bbag\b|\bboard\b|\bkit\b|\bstand\b|sleeve|\bcover\b|\btrim\b|cushion|\bmat\b|\bnet\b|play mat|carry cot)\b/i;
+  /\b(rain ?shield|rain ?cover|weather ?shield|sun ?canopy|canopy|snack ?tray|cup ?holder|cupholder|piggy ?back|pannier|caddy|blanket|footie|play ?mat|bumper ?bar|belly bar|cooler|cooling|\bfan\b|hood|wall hook|\bhook\b|latch|doll|sibling seat|second seat|carry ?cot|\bcot\b|bassinet|stroller seat|\bseat\b|\bframe\b|chassis|\bbase\b|adapter|adaptor|attachment|connector|organi[sz]er|footmuff|\bliner\b|\bbag\b|\bboard\b|\bkit\b|\bstand\b|sleeve|\bcover\b|\btrim\b|cushion|\bmat\b|\bnet\b|\blight\b|glove|warmmuff|trailer|multisport)\b/i;
 const STROLLER_WORD_RE = /\b(stroller|jogger|wagon|pram|pushchair|buggy)\b/i;
+// Products that were intentionally removed/hidden earlier — don't resurrect them.
+const NAME_DENY_RE = /\b(chariot|wayfinder|bike trailer)\b/i;
 
 /** A row worth restoring: reads like an actual stroller, not a part/accessory. */
 function isRealStroller(title: string): boolean {
-  return STROLLER_WORD_RE.test(title) && !ACCESSORY_RE.test(title);
+  return STROLLER_WORD_RE.test(title) && !ACCESSORY_RE.test(title) && !NAME_DENY_RE.test(title);
 }
 
 /** Higher = keep. Prefer rows that actually carry a buy link, price, image. */
