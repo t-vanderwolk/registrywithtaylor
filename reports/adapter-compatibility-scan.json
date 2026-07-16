@@ -1,14 +1,16 @@
 {
-  "generatedAt": "2026-07-08T22:31:31.377Z",
+  "generatedAt": "2026-07-16T01:29:20.707Z",
   "totals": {
-    "adapterProducts": 149,
-    "adaptersWithMatchedStroller": 85,
-    "adaptersNamingSeatBrand": 117,
-    "strollerRows": 266,
-    "infantCarSeatRows": 61,
-    "candidatePairs": 548,
-    "newToWrite": 16,
-    "alreadyPresent": 532,
+    "adapterProducts": 150,
+    "skippedNonCarSeatAdapters": 5,
+    "universalFallbackAdapters": 11,
+    "adaptersWithMatchedStroller": 84,
+    "adaptersNamingSeatBrand": 129,
+    "strollerRows": 263,
+    "infantCarSeatRows": 63,
+    "candidatePairs": 641,
+    "newToWrite": 34,
+    "alreadyPresent": 607,
     "existingGeneratedRowsWithoutCurrentAdapterMatch": 0,
     "generatedRowsToPrune": 0
   },
@@ -43,27 +45,6 @@
       ]
     },
     {
-      "title": "Bugaboo Butterfly 2 Tray Adapter in Black",
-      "strollers": [
-        "Bugaboo Butterfly 2 [model: butterfly 2]"
-      ],
-      "seatBrands": []
-    },
-    {
-      "title": "Bugaboo Dragonfly Adapter for Stand in Black",
-      "strollers": [
-        "Bugaboo Dragonfly [model: dragonfly]"
-      ],
-      "seatBrands": []
-    },
-    {
-      "title": "Bugaboo Kangaroo Upper Newborn Adapter",
-      "strollers": [
-        "Bugaboo Kangaroo [model: kangaroo]"
-      ],
-      "seatBrands": []
-    },
-    {
       "title": "Bumbleride Era Car Seat Adapter Maxi Cosi/Cybex/Nuna/Clek",
       "strollers": [
         "Bumbleride Era [model: era]"
@@ -78,7 +59,6 @@
     {
       "title": "Bumbleride Indie Twin Car Seat Adapter, Set",
       "strollers": [
-        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -89,7 +69,6 @@
     {
       "title": "Bumbleride Indie Twin Car Seat Adapter, Single",
       "strollers": [
-        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -163,11 +142,6 @@
       ]
     },
     {
-      "title": "Frida Mom Colostrum Collection Pump Adapter Set",
-      "strollers": [],
-      "seatBrands": []
-    },
-    {
       "title": "Inglesina Quid³ Car Seat Adapter",
       "strollers": [
         "Inglesina Quid³ [model: quid3]"
@@ -184,7 +158,11 @@
       "strollers": [
         "Joolz Hub2 [model: hub2]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "UPPAbaby Minu V3 Stroller, Mesa V3 & Car Seat Adapters in Savannah",
@@ -253,7 +231,11 @@
       "strollers": [
         "UPPAbaby Cruz V2 [model: cruz v2]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "UPPAbaby Vista Lower Adapters",
@@ -267,35 +249,55 @@
       "strollers": [
         "UPPAbaby Vista V3 [model: vista v3]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "\"UPPAbaby Vista V3 Stroller, RumbleSeat V3 & Upper Adapters in Callum Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
       "strollers": [
         "UPPAbaby Vista V3 [model: vista v3]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "\"UPPAbaby Vista V3 Stroller, RumbleSeat V3 & Upper Adapters in Kenzi Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
       "strollers": [
         "UPPAbaby Vista V3 [model: vista v3]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "\"UPPAbaby Vista V3 Stroller, RumbleSeat V3 & Upper Adapters in Greyson Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
       "strollers": [
         "UPPAbaby Vista V3 [model: vista v3]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "\"UPPAbaby Vista V3 Stroller, RumbleSeat V3 & Upper Adapters in Owen Size 16.3\"\" x 25.7\"\" x 33.8\"\"\"",
       "strollers": [
         "UPPAbaby Vista V3 [model: vista v3]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "Veer Infant Car Seat Adapter for Cruiser Wagon Size Cybex/Maxi-Cosi/Nuna",
@@ -322,11 +324,6 @@
       ]
     },
     {
-      "title": "Veer Switchback Second Seat Adapter Kit",
-      "strollers": [],
-      "seatBrands": []
-    },
-    {
       "title": "Larktale Car Seat Adapter in Black Maxi Cosi, Clek & Nuna - Caravan - Black",
       "strollers": [],
       "seatBrands": [
@@ -337,7 +334,9 @@
     },
     {
       "title": "Nuna Flex System Frame + Adapter in Caviar",
-      "strollers": [],
+      "strollers": [
+        "Nuna FLEX [model: flex]"
+      ],
       "seatBrands": []
     },
     {
@@ -501,14 +500,22 @@
       "strollers": [
         "Silver Cross Wave [model: wave]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "SILVER CROSS Coast/Wave Lower Car Seat Adapter",
       "strollers": [
         "Silver Cross Wave [model: wave]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "BABY JOGGER City Mini 2/City Mini GT2 City GO/Graco Car Seat Adapter - Jet - Black",
@@ -556,8 +563,7 @@
       "title": "BABY JOGGER City Tour 2 Car Seat Adapter For City Go / Graco - Black - Black",
       "strollers": [
         "Baby Jogger City Tour 2 [model: city tour 2]",
-        "Baby Jogger City Tour 2 Double [model: city tour 2]",
-        "Baby Jogger City Tour 2 Single [model: city tour 2]"
+        "Baby Jogger City Tour 2 Double [model: city tour 2]"
       ],
       "seatBrands": [
         "Graco"
@@ -630,8 +636,7 @@
       "title": "Baby Jogger City Tour 2 Car Seat Adapter for Baby Jogger City GO and Graco",
       "strollers": [
         "Baby Jogger City Tour 2 [model: city tour 2]",
-        "Baby Jogger City Tour 2 Double [model: city tour 2]",
-        "Baby Jogger City Tour 2 Single [model: city tour 2]"
+        "Baby Jogger City Tour 2 Double [model: city tour 2]"
       ],
       "seatBrands": [
         "Graco"
@@ -659,7 +664,6 @@
     {
       "title": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
       "strollers": [
-        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -672,7 +676,6 @@
     {
       "title": "BUMBLERIDE Indie Twin Adapter SET – Maxi Cosi / Cybex / Nuna / Clek",
       "strollers": [
-        "Bumbleride Indie Twin Double [model: indie twin]",
         "Bumbleride Indie Twin [model: indie twin]"
       ],
       "seatBrands": [
@@ -1000,6 +1003,19 @@
       ]
     },
     {
+      "title": "Orbit Baby Car Seat Adapter for Orbit Baby Stroller (Maxi-Cosi / Cybex / Nuna / Clek)",
+      "strollers": [
+        "Orbit Baby G5 [model: G5]",
+        "Orbit Baby M+ [model: M+]"
+      ],
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Clek",
+        "Maxi-Cosi"
+      ]
+    },
+    {
       "title": "Baby Jogger - Car Seat Adapter for City Mini 2 Double/City Mini Gt 2 Double",
       "strollers": [],
       "seatBrands": []
@@ -1284,7 +1300,11 @@
         "UPPAbaby Cruz V2 [model: cruz v2]",
         "UPPAbaby Vista V2 [model: vista v2]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     },
     {
       "title": "Inglesina - Quid³ Stroller Car Seat Adapter",
@@ -1352,137 +1372,285 @@
       "strollers": [
         "Mima Miro [model: miro]"
       ],
-      "seatBrands": []
+      "seatBrands": [
+        "Nuna",
+        "Cybex",
+        "Maxi-Cosi"
+      ]
     }
   ],
   "newCompatibilityRows": [
     {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Clek Liing",
-      "adapterTitle": "Bumbleride Indie Twin Car Seat Adapter, Set",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2230680&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-car-seat-adapter-set%2F65697%2F2230680&intsrc=CATF_8981",
-      "adapterPrice": 110
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Nuna PIPA Aire",
-      "adapterTitle": "Bumbleride Indie Twin Car Seat Adapter, Set",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2230680&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbumbleride-indie-twin-car-seat-adapter-set%2F65697%2F2230680&intsrc=CATF_8981",
-      "adapterPrice": 110
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Nuna PIPA RX",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Cybex Aton G",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Maxi-Cosi Mico Luxe",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Maxi-Cosi Mico Pro",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Maxi-Cosi Coral XP",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Clek Liingo",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Cybex Aton G2",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Cybex Cloud G Pro Comfort Extend",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Nuna PIPA Aire rx",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Cybex Cloud T",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
-    },
-    {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Maxi-Cosi Peri 180",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
-      "carSeat": "Nuna PIPA urbn",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "stroller": "Joolz Hub2",
+      "carSeat": "CYBEX Aton G2 Swivel",
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Cybex Cloud T Comfort Extend",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
     },
     {
-      "stroller": "Bumbleride Indie Twin Double",
+      "stroller": "Joolz Hub2",
       "carSeat": "Maxi-Cosi Ambra",
-      "adapterTitle": "BUMBLERIDE Indie Twin Adapter Single – Maxi Cosi / Cybex / Clek / Nuna",
+      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Cybex Aton G",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Cybex Aton G2",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Cybex Cloud G Pro Comfort Extend",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "CYBEX Aton G2 Swivel",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Cybex Cloud T Comfort Extend",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "UPPAbaby Cruz V2",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
+      "provider": "babylist_impact",
+      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
+      "adapterPrice": 34.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Cybex Aton G",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
       "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Findie-twin-adapter-single-maxi-cosi-cybex-clek-nuna%3Fvariant%3D32471710302294",
-      "adapterPrice": 49
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Cybex Aton G2",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Cybex Cloud G Pro Comfort Extend",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "CYBEX Aton G2 Swivel",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Cybex Cloud T Comfort Extend",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Silver Cross Wave",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
+      "provider": "awin_anbbaby",
+      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
+      "adapterPrice": 59.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Cybex Aton G",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Maxi-Cosi Mico Luxe",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Maxi-Cosi Mico Pro",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Maxi-Cosi Coral XP",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Cybex Aton G2",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Cybex Cloud G Pro Comfort Extend",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Cybex Cloud T",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Maxi-Cosi Peri 180",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "CYBEX Aton G2 Swivel",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Cybex Cloud T Comfort Extend",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
+    },
+    {
+      "stroller": "Mima Miro",
+      "carSeat": "Maxi-Cosi Ambra",
+      "adapterTitle": "Mima Miro Car Seat Adapter Set",
+      "provider": "shopify_macrobaby",
+      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
+      "adapterPrice": 49.99
     }
   ],
   "existingGeneratedRowsWithoutCurrentAdapterMatch": []
