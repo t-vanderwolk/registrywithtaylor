@@ -264,6 +264,18 @@ export function adapterTitleMatchesStrollerModel(
     ) {
       return { matched: true, matchedModel: 'cruiser', matchKind: 'core' };
     }
+
+    // BOB's infant-seat adapter is sold generically for the single jogging line
+    // ("BOB Gear Single Jogging Stroller Adapter for Select Britax Infant Car
+    // Seats") and names no model. It fits the BOB Revolution Flex, so match any
+    // BOB Revolution model.
+    if (
+      strollerBrandKey === 'bob' &&
+      /\bsingle jogging stroller\b/.test(normalizeText(title)) &&
+      /\brevolution\b/.test(normalizeText(strollerModel))
+    ) {
+      return { matched: true, matchedModel: 'revolution', matchKind: 'core' };
+    }
   }
 
   const full = normalizeText(strollerModel);
