@@ -24,8 +24,24 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import prismaBase from '@/lib/server/prisma';
-import { adapterTitleMatchesStrollerModel } from '@/lib/catalog/adapterModelMatching';
+import { adapterTitleMatchesStrollerModel, isCarSeatAdapter } from '@/lib/catalog/adapterModelMatching';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+
+// Brand-own "car seat adapter" products that name NO seat brand in the title are
+// the universal Maxi-Cosi / Nuna / Cybex adapter for these European frames. Used
+// only under --universal, so the default scan stays conservative. This also
+// covers the two-piece UPPER + LOWER car-seat adapters that single-to-double and
+// double frames ship (each piece maps to the same universal seat set).
+const BRAND_UNIVERSAL_SEATS: Record<string, string[]> = {
+  bugaboo: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  uppababy: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  'silver cross': ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  joolz: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  mima: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  inglesina: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  stokke: ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  'mountain buggy': ['Maxi-Cosi', 'Nuna', 'Cybex'],
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
@@ -274,6 +290,7 @@ async function hasAffiliateCatalogProduct() {
 
 async function main() {
   const apply = process.argv.includes('--apply');
+  const universal = process.argv.includes('--universal');
 
   if (!(await hasAffiliateCatalogProduct())) {
     console.log('── Scan catalog adapters → model-specific compatibility ──');
@@ -302,6 +319,8 @@ async function main() {
   const seenPair = new Set<string>();
   let adaptersWithStroller = 0;
   let adaptersWithSeatBrand = 0;
+  let skippedNonSeat = 0;
+  let universalApplied = 0;
   const report: Array<{ title: string; strollers: string[]; seatBrands: string[] }> = [];
 
   // Chicco / Graco / Peg Perego seats only fit the Cybex Gazelle line — never
@@ -313,15 +332,37 @@ async function main() {
     const title = a.title || '';
     const adapterSeatText = [title, a.description].filter(Boolean).join(' ');
 
+    // Skip non-car-seat "adapter" products (bassinet / stand / tray / board /
+    // second-seat) — they never create a travel-system compatibility row.
+    if (!isCarSeatAdapter(title)) {
+      skippedNonSeat += 1;
+      continue;
+    }
+
     const strollerMatches: StrollerMatch[] = strollers
       .map((stroller) => ({ stroller, match: adapterTitleMatchesStrollerModel(title, stroller.model, stroller.brand) }))
       .filter(({ match }) => match.matched)
       .map(({ stroller, match }) => ({ stroller, matchedModel: match.matchedModel ?? stroller.model }));
-    const seatMatches: SeatMatch[] =
+    let seatMatches: SeatMatch[] =
       titleBrandSeatMatches(title, a.brand, seats) ??
       seats
         .map((seat) => adapterTextMatchesCarSeat(adapterSeatText, seat))
         .filter((match): match is SeatMatch => Boolean(match));
+
+    // Universal fallback (opt-in): a brand-own car-seat adapter that names no
+    // seat brand maps to that brand's universal Maxi-Cosi / Nuna / Cybex set.
+    // Covers the two-piece UPPER + LOWER adapters on double / single-to-double
+    // frames. Only runs under --universal and only when a stroller matched.
+    if (universal && seatMatches.length === 0 && strollerMatches.length) {
+      const universalBrands = BRAND_UNIVERSAL_SEATS[canonicalBrand(a.brand).toLowerCase()];
+      if (universalBrands) {
+        const brandKeys = new Set(universalBrands.map((brand) => canonicalBrand(brand)));
+        seatMatches = seats
+          .filter((seat) => brandKeys.has(canonicalBrand(seat.brand)))
+          .map<SeatMatch>((seat) => ({ seat, matchedModel: `universal:${canonicalBrand(seat.brand)}` }));
+        if (seatMatches.length) universalApplied += 1;
+      }
+    }
     const seatBrands = unique(seatMatches.map(({ seat }) => canonicalBrand(seat.brand)));
 
     if (strollerMatches.length) adaptersWithStroller += 1;
@@ -393,6 +434,8 @@ async function main() {
   }));
   const totals = {
     adapterProducts: adapters.length,
+    skippedNonCarSeatAdapters: skippedNonSeat,
+    universalFallbackAdapters: universalApplied,
     adaptersWithMatchedStroller: adaptersWithStroller,
     adaptersNamingSeatBrand: adaptersWithSeatBrand,
     strollerRows: strollers.length,
@@ -410,9 +453,9 @@ async function main() {
     existingGeneratedRowsWithoutModelMatch,
   });
 
-  console.log('── Scan catalog adapters → model-specific compatibility ──');
+  console.log(`── Scan catalog adapters → model-specific compatibility ──  (${universal ? 'universal ON' : 'universal off'})`);
   console.log(
-    `  adapter products: ${adapters.length}   with a matched stroller: ${adaptersWithStroller}   naming a seat brand: ${adaptersWithSeatBrand}`,
+    `  adapter products: ${adapters.length}   skipped (non car-seat): ${skippedNonSeat}   with a matched stroller: ${adaptersWithStroller}   naming a seat brand: ${adaptersWithSeatBrand}${universal ? `   universal fallback used: ${universalApplied}` : ''}`,
   );
   console.log(`  Stroller rows: ${strollers.length}   infant CarSeat rows: ${seats.length}`);
   console.log(

@@ -8,6 +8,7 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import { requireAdminSession } from '@/lib/server/session';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { isCarSeatAdapter } from '@/lib/catalog/adapterModelMatching';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 import { GET as getCarSeatCatalog } from '@/app/api/catalog/carseats/route';
 import { GET as getStrollerCatalog } from '@/app/api/catalog/strollers/route';
@@ -557,6 +558,9 @@ function getAdapterHealth(
 
   for (const adapter of adapters) {
     const title = adapter.title || '';
+    // Non-car-seat "adapter" products (bassinet / stand / tray / board / second
+    // seat) never make a compatibility row, so they aren't ambiguous — skip them.
+    if (!isCarSeatAdapter(title)) continue;
     const adapterBrand = canonicalBrand(adapter.brand).toLowerCase();
     const normalizedTitle = normalizeAdapterText(title);
     const strollerMatches = strollers.filter((stroller) => {

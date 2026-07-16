@@ -190,6 +190,38 @@ function phraseMatchesTitle(titleTokens: string[], phrase: string, fullModel: st
   return true;
 }
 
+// Adapters whose title contains "adapter" but which are NOT infant car-seat
+// adapters, so they must never produce a travel-system compatibility row:
+// bassinet / newborn / carrycot adapters, stands, trays, cup holders, ride-along
+// boards, wagon parts, organizers, second-/toddler-seat adapters, etc.
+const NON_CAR_SEAT_ADAPTER_RE =
+  /\b(stand|tray|cup ?holders?|cupholders?|snack|breast ?pump|\bpump\b|glider|ride ?along|riding board|piggy ?back|wagon|organi[sz]ers?|parent (?:console|tray)|phone|\bbag\b|basket|footmuff|second seat|toddler seat|stroller seat|\bboard\b)\b/i;
+// A newborn / bassinet adapter (not a car-seat adapter) unless it also clearly
+// says "car seat" (a few double frames sell an "upper/lower car seat adapter").
+const BASSINET_ADAPTER_RE = /\b(bassinet|carry ?cot|carrycot|\bcot\b|newborn)\b/i;
+// A positive "this is a car seat adapter" signal.
+const CAR_SEAT_SIGNAL_RE = /\b(car ?seats?|infant (?:car )?seats?)\b/i;
+
+/**
+ * True when an "adapter" product is an INFANT CAR-SEAT adapter (the kind that
+ * creates a travel-system compatibility row) rather than a bassinet/stand/tray/
+ * board/second-seat accessory. Upper/lower car-seat adapters for single-to-double
+ * and double frames (which ship as two pieces) still count — they carry the car-
+ * seat signal or read as a bare "<model> Lower Adapter".
+ */
+export function isCarSeatAdapter(title: string): boolean {
+  const t = title || '';
+  if (!/\badapters?\b/i.test(t)) return false;
+  // Newborn / bassinet adapters are out unless the title says "car seat".
+  if (BASSINET_ADAPTER_RE.test(t) && !CAR_SEAT_SIGNAL_RE.test(t)) return false;
+  // Explicit car-seat wording always qualifies (incl. "Upper/Lower Car Seat Adapter").
+  if (CAR_SEAT_SIGNAL_RE.test(t)) return true;
+  // Otherwise, exclude the known non-seat accessory adapters.
+  if (NON_CAR_SEAT_ADAPTER_RE.test(t)) return false;
+  // A bare "<model> Adapter" / "<model> Lower Adapter" defaults to a seat adapter.
+  return true;
+}
+
 export type AdapterModelMatch = {
   matched: boolean;
   matchedModel: string | null;
