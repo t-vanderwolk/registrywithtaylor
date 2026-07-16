@@ -1,23 +1,26 @@
 {
-  "generatedAt": "2026-07-16T01:29:20.707Z",
+  "generatedAt": "2026-07-16T18:52:52.223Z",
   "totals": {
     "adapterProducts": 150,
     "skippedNonCarSeatAdapters": 5,
     "universalFallbackAdapters": 11,
-    "adaptersWithMatchedStroller": 84,
+    "adaptersWithMatchedStroller": 89,
     "adaptersNamingSeatBrand": 129,
     "strollerRows": 263,
     "infantCarSeatRows": 63,
-    "candidatePairs": 641,
-    "newToWrite": 34,
-    "alreadyPresent": 607,
+    "candidatePairs": 655,
+    "newToWrite": 0,
+    "alreadyPresent": 655,
     "existingGeneratedRowsWithoutCurrentAdapterMatch": 0,
     "generatedRowsToPrune": 0
   },
   "parsedAdapters": [
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Select Britax Infant Car Seats in Black",
-      "strollers": [],
+      "strollers": [
+        "BOB Revolution Flex 3.0 Duallie [model: revolution]",
+        "BOB Revolution Flex 3.0 [model: revolution]"
+      ],
       "seatBrands": [
         "Britax"
       ]
@@ -707,21 +710,30 @@
     },
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Britax Infant Car Seats - Gray",
-      "strollers": [],
+      "strollers": [
+        "BOB Revolution Flex 3.0 Duallie [model: revolution]",
+        "BOB Revolution Flex 3.0 [model: revolution]"
+      ],
       "seatBrands": [
         "Britax"
       ]
     },
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Graco Infant Car Seats - Gray -- Available End Of June",
-      "strollers": [],
+      "strollers": [
+        "BOB Revolution Flex 3.0 Duallie [model: revolution]",
+        "BOB Revolution Flex 3.0 [model: revolution]"
+      ],
       "seatBrands": [
         "Graco"
       ]
     },
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Chicco Infant Car Seats - Gray -- Available End Of June",
-      "strollers": [],
+      "strollers": [
+        "BOB Revolution Flex 3.0 Duallie [model: revolution]",
+        "BOB Revolution Flex 3.0 [model: revolution]"
+      ],
       "seatBrands": [
         "Chicco"
       ]
@@ -948,7 +960,10 @@
     },
     {
       "title": "BOB Gear Single Jogging Stroller Adapter for Peg Perego Infant Car Seats - Gray -- Available End Of June",
-      "strollers": [],
+      "strollers": [
+        "BOB Revolution Flex 3.0 Duallie [model: revolution]",
+        "BOB Revolution Flex 3.0 [model: revolution]"
+      ],
       "seatBrands": [
         "Peg Perego"
       ]
@@ -1379,279 +1394,6 @@
       ]
     }
   ],
-  "newCompatibilityRows": [
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Cybex Aton G",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Maxi-Cosi Mico Luxe",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Maxi-Cosi Mico Pro",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Cybex Aton G2",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Cybex Cloud G Pro Comfort Extend",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Maxi-Cosi Peri 180",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "CYBEX Aton G2 Swivel",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Cybex Cloud T Comfort Extend",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Joolz Hub2",
-      "carSeat": "Maxi-Cosi Ambra",
-      "adapterTitle": "Joolz Hub2 car seat adapter set in Black",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2402313&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fjoolz-hub2-car-seat-adapter-set%2F72244%2F2402313&intsrc=CATF_8981",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Cybex Aton G",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Cybex Aton G2",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Cybex Cloud G Pro Comfort Extend",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Cybex Cloud T",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "CYBEX Aton G2 Swivel",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Cybex Cloud T Comfort Extend",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "UPPAbaby Cruz V2",
-      "carSeat": "Maxi-Cosi Ambra",
-      "adapterTitle": "UPPAbaby Upper Adapters for Cruz V2",
-      "provider": "babylist_impact",
-      "adapterUrl": "https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2074020&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fuppababy-upper-adapters-for-cruz-v2%2F55566%2F2074020&intsrc=CATF_8981",
-      "adapterPrice": 34.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Cybex Aton G",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Cybex Aton G2",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Cybex Cloud G Pro Comfort Extend",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Cybex Cloud T",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "CYBEX Aton G2 Swivel",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Cybex Cloud T Comfort Extend",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Silver Cross Wave",
-      "carSeat": "Maxi-Cosi Ambra",
-      "adapterTitle": "SILVER CROSS Coast / Wave Main Car Seat Adapter",
-      "provider": "awin_anbbaby",
-      "adapterUrl": "https://www.awin1.com/cread.php?awinmid=75150&awinaffid=2588613&ued=https%3A%2F%2Fwww.anbbaby.com%2Fproducts%2Fsilver-cross-coast-wave-main-car-seat-adapter-2019%3Fvariant%3D29511571996758",
-      "adapterPrice": 59.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Cybex Aton G",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Maxi-Cosi Mico Luxe",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Maxi-Cosi Mico Pro",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Maxi-Cosi Coral XP",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Cybex Aton G2",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Cybex Cloud G Pro Comfort Extend",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Cybex Cloud T",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Maxi-Cosi Peri 180",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "CYBEX Aton G2 Swivel",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Cybex Cloud T Comfort Extend",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    },
-    {
-      "stroller": "Mima Miro",
-      "carSeat": "Maxi-Cosi Ambra",
-      "adapterTitle": "Mima Miro Car Seat Adapter Set",
-      "provider": "shopify_macrobaby",
-      "adapterUrl": "https://www.macrobaby.com/products/mima-miro-car-seat-adapter-set?_j=taylormadebabyco.com",
-      "adapterPrice": 49.99
-    }
-  ],
+  "newCompatibilityRows": [],
   "existingGeneratedRowsWithoutCurrentAdapterMatch": []
 }

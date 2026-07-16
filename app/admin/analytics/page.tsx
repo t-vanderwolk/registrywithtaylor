@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
-import DailyCountsCharts from '@/components/admin/analytics/DailyCountsCharts';
 import prisma from '@/lib/server/prisma';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
-import { getDailyAnalytics } from '@/lib/server/dailyAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -77,7 +75,6 @@ export default async function AdminAnalyticsPage() {
     mostViewedPost,
     postsByViews,
     revenueAnalytics,
-    dailyAnalytics,
   ] = await Promise.all([
     prisma.post.count(),
     prisma.post.groupBy({
@@ -111,11 +108,8 @@ export default async function AdminAnalyticsPage() {
       },
     }),
     getBlogRevenueAnalytics(),
-    getDailyAnalytics(30),
   ]);
   const revenueLeaderRows = revenueAnalytics.posts.slice(0, 12);
-  // Most-recent-first per-day table (last 14 rows keep it scannable).
-  const dailyTableRows = [...dailyAnalytics.points].reverse().slice(0, 14);
   const views28dMap = new Map<string, number>(
     views28dByPost.map((row) => [row.postId, row._count._all]),
   );
@@ -239,56 +233,6 @@ export default async function AdminAnalyticsPage() {
         <AdminKpiCard label="Views (28d, deduped)" value={views28d.toLocaleString()} />
         <AdminKpiCard label="Total views (all-time)" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
       </section>
-
-      <AdminHeader
-        eyebrow="Daily counts"
-        title={`Traffic & engagement — last ${dailyAnalytics.days} days`}
-        subtitle="First-party, bot-filtered daily counts for site traffic, blog readership, free-tool usage, and affiliate clicks. Total page views start logging from the deploy of the page-view tracker forward."
-      />
-
-      <section className="admin-kpi-grid" aria-label="Daily count totals">
-        <AdminKpiCard label={`Total page views (${dailyAnalytics.days}d)`} value={dailyAnalytics.totals.totalTraffic.toLocaleString()} />
-        <AdminKpiCard label={`Blog traffic (${dailyAnalytics.days}d)`} value={dailyAnalytics.totals.blogTraffic.toLocaleString()} />
-        <AdminKpiCard label={`Blog post views (${dailyAnalytics.days}d)`} value={dailyAnalytics.totals.blogPostViews.toLocaleString()} />
-        <AdminKpiCard label={`Outbound clicks (${dailyAnalytics.days}d)`} value={dailyAnalytics.totals.outboundClicks.toLocaleString()} />
-        <AdminKpiCard label={`Affiliate clicks (${dailyAnalytics.days}d)`} value={dailyAnalytics.totals.affiliateClicks.toLocaleString()} />
-        <AdminKpiCard label={`Tool opens (${dailyAnalytics.days}d)`} value={(dailyAnalytics.totals.toolFinder + dailyAnalytics.totals.toolChecker + dailyAnalytics.totals.toolQuiz).toLocaleString()} />
-      </section>
-
-      <DailyCountsCharts points={dailyAnalytics.points} days={dailyAnalytics.days} />
-
-      <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Daily breakdown (most recent 14 days)</h2>
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'date', label: 'Date' },
-            { key: 'totalTraffic', label: 'Total views', align: 'right' },
-            { key: 'blogTraffic', label: 'Blog traffic', align: 'right' },
-            { key: 'blogPostViews', label: 'Post views', align: 'right' },
-            { key: 'outboundClicks', label: 'Outbound', align: 'right' },
-            { key: 'affiliateClicks', label: 'Affiliate', align: 'right' },
-            { key: 'toolFinder', label: 'Finder', align: 'right' },
-            { key: 'toolChecker', label: 'Checker', align: 'right' },
-            { key: 'toolQuiz', label: 'Quiz', align: 'right' },
-          ]}
-          emptyState={<p className="admin-body p-6">No daily data yet.</p>}
-        >
-          {dailyTableRows.map((row) => (
-            <tr key={row.date} className="admin-row">
-              <td className="admin-micro">{row.date}</td>
-              <td className="text-right text-admin">{row.totalTraffic.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.blogTraffic.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.blogPostViews.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.outboundClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.affiliateClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.toolFinder.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.toolChecker.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.toolQuiz.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
 
       <AdminSurface variant="muted" className="admin-stack">
         <p className="admin-eyebrow">How these numbers compare to GA &amp; Search Console</p>
