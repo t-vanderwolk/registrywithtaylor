@@ -334,6 +334,14 @@ function strollerIncludesAdapter(brand: string | null | undefined, model?: strin
   return true;
 }
 
+// Only the universal in-box adapter (Maxi-Cosi / Nuna / Cybex / Clek) ships with
+// the stroller. Any other seat brand needs a separately-sold adapter, so it never
+// gets the "Included with your stroller" note.
+const UNIVERSAL_INCLUDED_SEATS = new Set(['maxi-cosi', 'nuna', 'cybex', 'clek']);
+function seatAdapterIsIncluded(seatBrand: string | null | undefined) {
+  return UNIVERSAL_INCLUDED_SEATS.has((seatBrand ?? '').trim().toLowerCase());
+}
+
 function AdapterCallout({
   item,
   adapterIncluded = false,
@@ -396,6 +404,7 @@ function ResultCard({
   productKind,
   parentStroller,
   pipaUrbnSelected,
+  selectedSeatBrand,
 }: {
   item: CompatibleCarSeatResult | CompatibleStrollerResult;
   productKind: 'stroller' | 'carSeat';
@@ -403,6 +412,8 @@ function ResultCard({
   parentStroller?: { brand: string; model: string } | null;
   /** True when the selected car seat is the PIPA urbn (travel-system-only). */
   pipaUrbnSelected?: boolean;
+  /** When viewing a car seat's compatible strollers, that car seat's brand. */
+  selectedSeatBrand?: string | null;
 }) {
   const babylistUrl =
     item.babylistUrl || item.babylistPrice != null
@@ -454,8 +465,11 @@ function ResultCard({
           item={item}
           adapterIncluded={
             productKind === 'carSeat'
-              ? strollerIncludesAdapter(parentStroller?.brand, parentStroller?.model)
-              : strollerIncludesAdapter(item.brand, item.model)
+              ? // viewing a stroller's seats: this card IS the seat → check its brand
+                strollerIncludesAdapter(parentStroller?.brand, parentStroller?.model) &&
+                seatAdapterIsIncluded(item.brand)
+              : // viewing a seat's strollers: this card IS the stroller → check the selected seat
+                strollerIncludesAdapter(item.brand, item.model) && seatAdapterIsIncluded(selectedSeatBrand)
           }
         />
 
@@ -537,12 +551,14 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
   brandLabel,
   parentStroller,
   pipaUrbnSelected,
+  selectedSeatBrand,
 }: {
   items: T[];
   productKind: 'stroller' | 'carSeat';
   brandLabel: string;
   parentStroller?: { brand: string; model: string } | null;
   pipaUrbnSelected?: boolean;
+  selectedSeatBrand?: string | null;
 }) {
   return (
     <div className="space-y-6">
@@ -585,6 +601,7 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
                           productKind={productKind}
                           parentStroller={parentStroller}
                           pipaUrbnSelected={pipaUrbnSelected}
+                          selectedSeatBrand={selectedSeatBrand}
                         />
                       ))}
                     </div>
@@ -680,6 +697,7 @@ export default async function TravelSystemResultsPage({
                 brandLabel={isStrollerFirst ? 'Brand' : 'Stroller brand'}
                 parentStroller={isStrollerFirst ? { brand: selected.brand, model: selected.model } : null}
                 pipaUrbnSelected={!isStrollerFirst && isTravelSystemOnlySeat(selected.brand, selected.model)}
+                selectedSeatBrand={isStrollerFirst ? null : selected.brand}
               />
             ) : (
               <div className="rounded-[1.6rem] border border-dashed border-[rgba(0,0,0,0.14)] bg-[#fcfaf7] px-6 py-8 text-center">
