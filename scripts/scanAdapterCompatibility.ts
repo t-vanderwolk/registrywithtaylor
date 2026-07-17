@@ -328,14 +328,6 @@ async function main() {
   const RESTRICTED_SEAT_RE = /chicco|graco|peg[\s-]?perego/i;
   const isGazelleLine = (brand: string, model: string) => /cybex/i.test(brand) && /gazelle/i.test(model);
 
-  // Cybex strollers only take the universal adapter set (Cybex / Nuna / Maxi-Cosi
-  // / Clek) — never a direct fit, and never Britax/Chicco/Graco/Peg. This
-  // supersedes the Gazelle exception above for any Cybex frame.
-  const CYBEX_UNIVERSAL_SEATS = new Set(
-    ['Cybex', 'Nuna', 'Maxi-Cosi', 'Clek'].map((b) => canonicalBrand(b).toLowerCase()),
-  );
-  const isCybexStroller = (brand: string) => canonicalBrand(brand).toLowerCase() === 'cybex';
-
   for (const a of adapters) {
     const title = a.title || '';
     const adapterSeatText = [title, a.description].filter(Boolean).join(' ');
@@ -383,8 +375,6 @@ async function main() {
 
     for (const { stroller } of strollerMatches) {
       for (const { seat } of seatMatches) {
-        // Cybex strollers: only the universal 4 seat brands, nothing else.
-        if (isCybexStroller(stroller.brand) && !CYBEX_UNIVERSAL_SEATS.has(canonicalBrand(seat.brand).toLowerCase())) continue;
         if (RESTRICTED_SEAT_RE.test(seat.brand) && !isGazelleLine(stroller.brand, stroller.model)) continue;
         const key = `${stroller.id}:::${seat.id}`;
         if (seenPair.has(key)) continue;

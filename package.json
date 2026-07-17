@@ -141,8 +141,6 @@
     "catalog:restore-mockingbird-apply": "tsx scripts/restoreMockingbird.ts --apply",
     "catalog:unhide-gazelle-s": "tsx scripts/unhideCybexGazelleS.ts",
     "catalog:unhide-gazelle-s-apply": "tsx scripts/unhideCybexGazelleS.ts --apply",
-    "catalog:fix-cybex-compat": "tsx scripts/fixCybexStrollerCompat.ts",
-    "catalog:fix-cybex-compat-apply": "tsx scripts/fixCybexStrollerCompat.ts --apply",
     "blog:annotate-all": "tsx scripts/annotateAllBlogsAuto.ts",
     "blog:annotate-all-apply": "tsx scripts/annotateAllBlogsAuto.ts --apply",
     "catalog:gt3-mixx": "tsx scripts/addGt3AdapterUnhideMixx.ts",
