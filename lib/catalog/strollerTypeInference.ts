@@ -67,20 +67,20 @@ export function inferStrollerCategory(
     return matched;
   };
 
-  // ── Double jogging (running double) ──
-  if (has(/\bbob\b/, 'BOB stroller line is jogging/double-jogging')) {
+  // ── Double (all-terrain / running doubles now fold into the Double section) ──
+  if (has(/\bbob\b/, 'BOB stroller line is jogging')) {
     if (has(/\b(duallie|double|renegade|wagon)\b/, 'BOB double/wagon wording')) {
-      return { expectedCategory: 'double-jogging', confidence: 'high', reasons };
+      return { expectedCategory: 'double', confidence: 'high', reasons };
     }
     return { expectedCategory: 'jogging', confidence: 'high', reasons };
   }
   if (
     has(
       /\b(duallie|double jogging|jogging stroller double|urban glide\s*\d*\s*double|summit x3 double|alterrain duallie|indie twin)\b/,
-      'double jogging model language',
+      'double model language',
     )
   ) {
-    return { expectedCategory: 'double-jogging', confidence: 'high', reasons };
+    return { expectedCategory: 'double', confidence: 'high', reasons };
   }
 
   // ── Jogging / all-terrain (single) ──

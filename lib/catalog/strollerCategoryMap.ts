@@ -12,9 +12,8 @@ const PRODUCT_TYPE_TO_CATEGORY: Record<string, StrollerCategory> = {
   'travel stroller': 'travel',
   'jogging stroller': 'jogging',
   'double stroller': 'double',
-  'double jogging stroller': 'double-jogging',
-  // Double travel folds into the single "Double" bucket; Double Jogging remains
-  // separate because it behaves like a running stroller first.
+  // Double travel and double jogging both fold into the single "Double" bucket.
+  'double jogging stroller': 'double',
   'double travel stroller': 'double',
   'single-to-double stroller': 'convertible-modular',
   wagon: 'wagon',

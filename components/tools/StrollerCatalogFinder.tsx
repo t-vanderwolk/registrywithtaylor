@@ -63,7 +63,6 @@ const CATEGORY_ORDER = [
   'convertible-modular',
   'convertible-non-modular',
   'double',
-  'double-jogging',
   'jogging',
   'umbrella',
   'wagon',
@@ -72,14 +71,13 @@ const CATEGORY_ORDER = [
 // Every stroller brand always shows this full set of category sections, in this
 // fixed order — even the buckets the brand has nothing in (an empty note shows).
 // `match` maps the API's category keys into each display bucket.
-const STROLLER_BRAND_SECTIONS: { label: string; match: string[] }[] = [
+export const STROLLER_BRAND_SECTIONS: { label: string; match: string[] }[] = [
   { label: 'Full-Size', match: ['full-size', 'full-size-non-modular'] },
   { label: 'Compact / Mid-Size', match: ['compact'] },
   { label: 'Single-to-Double', match: ['convertible-modular', 'convertible-non-modular'] },
-  { label: 'Double', match: ['double', 'double-travel'] },
+  { label: 'Double', match: ['double', 'double-travel', 'double-jogging'] },
   { label: 'Travel', match: ['travel'] },
   { label: 'Jogging / All-Terrain', match: ['jogging'] },
-  { label: 'Double Jogger', match: ['double-jogging'] },
   { label: 'Umbrella', match: ['umbrella'] },
 ];
 

@@ -296,7 +296,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Alterrain Duallie',
     description: 'Double jogging stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['alterrain duallie', 'bob alterrain duallie', 'bob alterrain pro duallie'],
   },
   {
@@ -307,7 +307,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Summit X3 Double',
     description: 'Double jogging stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['summit x3 double', 'baby jogger summit x3 double'],
   },
   {
@@ -318,7 +318,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Chariot Cross 2',
     description: 'Double multisport jogging stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['chariot cross', 'chariot cross 2', 'thule chariot cross 2'],
   },
   {
@@ -397,7 +397,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Indie Twin',
     description: 'Double all-terrain stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['indie twin', 'bumbleride indie twin'],
   },
   {
@@ -764,7 +764,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Revolution Flex Duallie',
     description: 'Double jogging stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['duallie', 'revolution flex duallie', 'bob revolution duallie', 'bob revolution flex 3.0 duallie'],
   },
   // ── Britax ───────────────────────────────────────────────────────────────────
@@ -1220,7 +1220,7 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     shortLabel: 'Urban Glide 2 Double',
     description: 'Double jogging stroller',
     icon: 'terrain',
-    strollerCategory: 'double-jogging',
+    strollerCategory: 'double',
     aliases: ['urban glide 2 double', 'thule urban glide 2 double'],
   },
   // ── UPPAbaby (additional) ────────────────────────────────────────────────────

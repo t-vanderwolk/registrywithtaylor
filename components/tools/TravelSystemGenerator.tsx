@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
-import { BRAND_LOGOS } from './StrollerCatalogFinder';
+import { BRAND_LOGOS, STROLLER_BRAND_SECTIONS } from './StrollerCatalogFinder';
 import type {
   TravelSystemCarSeatOption,
   TravelSystemStrollerOption,
@@ -307,6 +307,49 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     router.push(travelSystemResultsHref(lookupMode, option));
   };
 
+  const renderBrowseCard = (option: TravelSystemStrollerOption | TravelSystemCarSeatOption) => {
+    const value = buildOptionValue(option);
+    const babylist = browseLookup[`${option.brand}:::${option.model}`];
+    const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
+    const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
+    const priceSource =
+      option.babylistPrice != null || babylist?.babylistPrice != null
+        ? 'Babylist'
+        : option.macroBabyPrice != null
+          ? 'MacroBaby'
+          : null;
+    return (
+      <BrowseCard
+        key={value}
+        option={option}
+        image={image}
+        price={price}
+        priceSource={priceSource}
+        cta={browseCta}
+        onSelect={() => goToResults(option)}
+      />
+    );
+  };
+
+  // Mirror the Stroller Finder: within a stroller brand, group by category using
+  // the finder's exact section order/labels; anything uncategorized falls into a
+  // trailing "More" bucket so nothing is hidden. Car seats stay a flat list.
+  const brandStrollerSections = (() => {
+    if (lookupMode !== 'stroller' || !selectorBrand) return [];
+    const items = [...(optionGroups[selectorBrand] ?? [])] as TravelSystemStrollerOption[];
+    const used = new Set<TravelSystemStrollerOption>();
+    const sections = STROLLER_BRAND_SECTIONS.map((section) => {
+      const secItems = items
+        .filter((o) => section.match.includes(o.strollerCategory ?? ''))
+        .sort((a, b) => a.model.localeCompare(b.model));
+      secItems.forEach((o) => used.add(o));
+      return { label: section.label, items: secItems };
+    }).filter((s) => s.items.length > 0);
+    const leftover = items.filter((o) => !used.has(o)).sort((a, b) => a.model.localeCompare(b.model));
+    if (leftover.length) sections.push({ label: 'More', items: leftover });
+    return sections;
+  })();
+
   return (
     <section className="tool-shell">
       <div className="mb-6 flex flex-col gap-3">
@@ -411,33 +454,34 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 <span className="text-neutral-300">/</span>
                 <span className="text-neutral-500">{selectorBrand}</span>
               </nav>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {[...(optionGroups[selectorBrand] ?? [])]
-                  .sort((a, b) => a.model.localeCompare(b.model))
-                  .map((option) => {
-                    const value = buildOptionValue(option);
-                    const babylist = browseLookup[`${option.brand}:::${option.model}`];
-                    const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
-                    const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
-                    const priceSource =
-                      option.babylistPrice != null || babylist?.babylistPrice != null
-                        ? 'Babylist'
-                        : option.macroBabyPrice != null
-                          ? 'MacroBaby'
-                          : null;
-                    return (
-                      <BrowseCard
-                        key={value}
-                        option={option}
-                        image={image}
-                        price={price}
-                        priceSource={priceSource}
-                        cta={browseCta}
-                        onSelect={() => goToResults(option)}
-                      />
-                    );
-                  })}
-              </div>
+              {lookupMode === 'stroller' ? (
+                <div className="mt-4 space-y-8">
+                  {brandStrollerSections.map((section) => (
+                    <div key={section.label}>
+                      <div className="mb-4">
+                        <div className="flex items-baseline gap-2.5">
+                          <h4 className="font-serif text-[1.4rem] leading-none tracking-[-0.02em] text-neutral-900">
+                            {section.label}
+                          </h4>
+                          <span className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-dark)]/75">
+                            {section.items.length} stroller{section.items.length === 1 ? '' : 's'}
+                          </span>
+                        </div>
+                        <span className="mt-2 block h-[3px] w-12 rounded-full bg-[var(--color-cta-pink)]" />
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {section.items.map(renderBrowseCard)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {[...(optionGroups[selectorBrand] ?? [])]
+                    .sort((a, b) => a.model.localeCompare(b.model))
+                    .map(renderBrowseCard)}
+                </div>
+              )}
             </div>
           )}
 

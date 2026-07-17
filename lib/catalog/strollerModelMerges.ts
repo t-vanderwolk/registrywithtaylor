@@ -84,10 +84,9 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'city select': 'convertible-modular',
     'city select 2': 'convertible-modular',
     'city select lux': 'convertible-modular',
-    // Double Jogger section (all-terrain / three-wheel doubles).
-    'city mini gt2 double': 'double-jogging',
-    'summit x3 double': 'double-jogging',
-    // Double section (everyday / travel side-by-side doubles).
+    // Double section (all side-by-side / double variants).
+    'city mini gt2 double': 'double',
+    'summit x3 double': 'double',
     'city mini double': 'double',
     'city tour 2 double': 'double',
   },

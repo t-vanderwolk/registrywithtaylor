@@ -6,6 +6,8 @@ export type TravelSystemStrollerOption = {
   model: string;
   displayName: string;
   summary: string | null;
+  /** Finder StrollerCategory key, so the checker can group by category per brand. */
+  strollerCategory?: string | null;
   babylistImage?: string | null;
   babylistUrl?: string | null;
   babylistPrice?: number | null;
