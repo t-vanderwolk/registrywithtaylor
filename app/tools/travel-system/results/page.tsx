@@ -368,7 +368,7 @@ function AdapterCallout({
           <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
         ) : null}
         <div className="min-w-0">
-          <p className="tool-adapter-callout__eyebrow">{adapterIncluded ? 'Adapter' : 'Adapter needed'}</p>
+          <p className="tool-adapter-callout__eyebrow">{adapterIncluded ? 'Adapter' : 'Adapter sold separately'}</p>
           <p className="tool-adapter-callout__name">Car seat adapter</p>
           {adapterIncluded ? (
             <p className="text-[0.68rem] font-semibold text-[rgba(58,99,72,0.92)]">
