@@ -444,17 +444,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         {/* Bio block */}
         <MarketingSection tone="blush" spacing="default" container="default">
           <RevealOnScroll>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.28fr)] md:gap-12">
-              {/* Image column */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/taylor2.png"
-                alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
-                width={560}
-                height={700}
-                className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)] md:sticky md:top-28"
-              />
-
+            <div className="mx-auto grid max-w-5xl items-start gap-8 md:grid-cols-[minmax(0,1.28fr)_minmax(0,0.92fr)] md:gap-12">
               {/* Text column */}
               <div>
                 <h2 className="font-serif text-[clamp(1.5rem,2.4vw,1.9rem)] leading-tight tracking-[-0.02em] text-neutral-900">
@@ -486,6 +476,16 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                   <footer className="mt-2 not-italic text-[0.8rem] font-semibold text-neutral-500">— Taylor</footer>
                 </blockquote>
               </div>
+
+              {/* Image column */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/taylor2.png"
+                alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
+                width={560}
+                height={700}
+                className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)] md:sticky md:top-28"
+              />
             </div>
           </RevealOnScroll>
 
