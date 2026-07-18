@@ -117,7 +117,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'What is a baby gear consultant?',
     answer:
-      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor Vanderwolk at Taylor-Made Baby Co. brings hands-on experience from Strolleria and Pottery Barn Kids, plus certification as a Tot Squad specialist through Target’s Baby Concierge programme. She works with families virtually across the US.',
+      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor at Taylor-Made Baby Co. brings hands-on experience from Strolleria and Pottery Barn Kids, plus certification as a Tot Squad specialist through Target’s Baby Concierge programme. She works with families virtually across the US.',
   },
   {
     question: 'How much does a baby registry consultation cost?',
@@ -316,7 +316,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           className="homepage-hero"
           eyebrow="Contact"
           title="Contact a Baby Gear & Registry Consultant"
-          subtitle="Get personalised baby gear, registry, and nursery guidance from certified consultant Taylor Vanderwolk. Every message is read personally — response within 24 hours."
+          subtitle="Personalised baby gear, registry, and nursery guidance from Taylor — a certified baby gear consultant. Every message is read personally, with a reply within 24 hours."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact consultation workspace"
           contentClassName="homepage-hero-content"
@@ -335,17 +335,30 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
             </ol>
           </nav>
 
+          {/* Credentials panel */}
           <RevealOnScroll>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-[0.9rem] font-semibold text-neutral-800">
-                Taylor Vanderwolk — Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 500+ Families Helped
+            <div className="mx-auto max-w-2xl rounded-[1.75rem] border border-[rgba(215,161,175,0.3)] bg-[linear-gradient(180deg,#ffffff_0%,#fdf6f4_100%)] px-6 py-8 text-center shadow-[0_18px_44px_rgba(72,49,56,0.08)] sm:px-9">
+              <p className="font-serif text-[1.35rem] tracking-[-0.01em] text-neutral-900">Taylor</p>
+              <p className="mt-1.5 text-[0.85rem] font-medium leading-6 text-neutral-600">
+                Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 500+ Families Helped
               </p>
-              <p className="mt-2 text-[0.78rem] uppercase tracking-[0.14em] text-[var(--color-accent-dark)]/80">
-                Free Intro Call · Virtual · US Nationwide · Response Within 24 Hours · Zero Affiliate Commission
+              <span aria-hidden className="mx-auto mt-5 block h-px w-14 bg-[var(--color-cta-pink)]/45" />
+              <p className="mt-5 text-[0.7rem] uppercase tracking-[0.17em] text-[var(--color-accent-dark)]/80">
+                Free Intro Call · Virtual · US Nationwide · 24-Hour Response · Zero Affiliate Commission
               </p>
-              <p className="mt-3 text-[0.9rem] text-neutral-600">
+              <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                {TRUST_BADGES.map((badge) => (
+                  <div
+                    key={badge}
+                    className="flex items-center justify-center rounded-full border border-[rgba(0,0,0,0.06)] bg-white/90 px-3 py-2 text-[0.72rem] font-semibold leading-tight text-neutral-700 shadow-[0_4px_14px_rgba(72,49,56,0.04)]"
+                  >
+                    {badge}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-[0.88rem] text-neutral-600">
                 Prefer to talk it through? Call or text{' '}
-                <a href="tel:+14807124347" className="link-underline font-medium text-[var(--color-accent-dark)]">
+                <a href="tel:+14807124347" className="link-underline font-semibold text-[var(--color-accent-dark)]">
                   480-712-4347
                 </a>
                 .
@@ -353,34 +366,20 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
             </div>
           </RevealOnScroll>
 
-          {/* Trust badges */}
-          <RevealOnScroll>
-            <div className="mx-auto mt-6 grid max-w-3xl grid-cols-2 gap-2.5 sm:grid-cols-3">
-              {TRUST_BADGES.map((badge) => (
-                <div
-                  key={badge}
-                  className="rounded-[1rem] border border-[rgba(0,0,0,0.07)] bg-white/85 px-3 py-2.5 text-center text-[0.74rem] font-semibold leading-tight text-neutral-700 shadow-[0_6px_18px_rgba(72,49,56,0.04)]"
-                >
-                  {badge}
-                </div>
-              ))}
-            </div>
-          </RevealOnScroll>
-
           {/* Intro copy */}
           <RevealOnScroll>
-            <div className="mx-auto mt-10 max-w-2xl">
+            <div className="mx-auto mt-12 max-w-2xl">
               <h2 className="font-serif text-[1.7rem] leading-tight tracking-[-0.02em] text-neutral-900">
-Real Baby Gear &amp; Registry Help — Response Within 24 Hours
+                Real Baby Gear &amp; Registry Help — Response Within 24 Hours
               </h2>
-              <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
+              <p className="mt-4 text-[0.97rem] leading-8 text-neutral-700">
                 Whether you have a quick stroller question, need a full registry review, or want ongoing baby planning
                 support from pregnancy through the fourth trimester — this is where to start.
               </p>
-              <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
-                Taylor Vanderwolk reads every message personally. There are no automated responses, no assistants
-                handling initial enquiries, and no generic reply templates. You send your question. She reads it. You
-                hear back within 24 hours — with a specific, practical answer.
+              <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
+                Taylor reads every message personally. There are no automated responses, no assistants handling initial
+                enquiries, and no generic reply templates. You send your question. She reads it. You hear back within 24
+                hours — with a specific, practical answer.
               </p>
             </div>
           </RevealOnScroll>
@@ -457,12 +456,12 @@ Real Baby Gear &amp; Registry Help — Response Within 24 Hours
                 />
                 <div>
                   <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                    About Taylor Vanderwolk — Baby Gear &amp; Registry Consultant
+                    About Taylor — Baby Gear &amp; Registry Consultant
                   </h2>
-                  <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
-                    This contact form goes directly to Taylor Vanderwolk — a certified baby gear specialist and baby
-                    registry consultant with real, hands-on experience helping expecting parents make stroller, car
-                    seat, registry, and nursery decisions.
+                  <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
+                    This contact form goes directly to Taylor — a certified baby gear specialist and baby registry
+                    consultant with real, hands-on experience helping expecting parents make stroller, car seat,
+                    registry, and nursery decisions.
                   </p>
                 </div>
               </div>
@@ -483,7 +482,7 @@ Real Baby Gear &amp; Registry Help — Response Within 24 Hours
               <blockquote className="mt-6 rounded-[1.3rem] border border-[rgba(215,161,175,0.25)] bg-white/80 px-5 py-4 text-[0.95rem] italic leading-7 text-neutral-700">
                 “My approach is calm, practical, and built around what actually fits your home, your routines, and your
                 budget. Your registry does not need to impress the internet. It just needs to work when life gets real.”
-                <footer className="mt-2 not-italic text-[0.8rem] font-semibold text-neutral-500">— Taylor Vanderwolk</footer>
+                <footer className="mt-2 not-italic text-[0.8rem] font-semibold text-neutral-500">— Taylor</footer>
               </blockquote>
             </div>
           </RevealOnScroll>
