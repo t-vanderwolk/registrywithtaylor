@@ -47,7 +47,7 @@ function isServiceKey(value: string): value is ServiceKey {
 
 const TRUST_BADGES = [
   'Tot Squad Certified Specialist',
-  '7+ Years Baby Gear Experience',
+  'Hands-On Baby Gear Experience',
   '500+ Families Helped',
   'Zero Affiliate Commission',
   'Response Within 24 Hours',
@@ -117,7 +117,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'What is a baby gear consultant?',
     answer:
-      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor Vanderwolk at Taylor-Made Baby Co. has 7+ years of hands-on experience at Strolleria, Pottery Barn Kids, and as a certified Tot Squad specialist through Target’s Baby Concierge programme. She works with families virtually across the US.',
+      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor Vanderwolk at Taylor-Made Baby Co. brings hands-on experience from Strolleria and Pottery Barn Kids, plus certification as a Tot Squad specialist through Target’s Baby Concierge programme. She works with families virtually across the US.',
   },
   {
     question: 'How much does a baby registry consultation cost?',
@@ -193,7 +193,7 @@ const contactPageSchema = {
     name: 'Taylor Vanderwolk',
     jobTitle: 'Baby Gear Consultant',
     description:
-      'Certified Tot Squad specialist and baby registry consultant with 7+ years hands-on experience at Strolleria, Pottery Barn Kids, and Target Baby Concierge.',
+      'Certified Tot Squad specialist and baby registry consultant with hands-on experience at Strolleria, Pottery Barn Kids, and Target Baby Concierge.',
     email: 'hello@taylormadebabyco.com',
     telephone: '+14807124347',
     url: `${SITE_URL}/about`,
@@ -227,7 +227,7 @@ const localBusinessSchema = {
       '@id': `${SITE_URL}/#organization`,
       name: 'Taylor-Made Baby Co.',
       description:
-        'Expert baby gear guidance for expecting parents — registry, stroller, car seat, and nursery planning from certified specialist Taylor Vanderwolk. Virtual consultations, US Nationwide.',
+        'Independent, hands-on baby gear guidance for expecting parents — registry, stroller, car seat, and nursery planning from certified specialist Taylor Vanderwolk. Virtual consultations, US Nationwide.',
       url: `${SITE_URL}/`,
       telephone: '+14807124347',
       email: 'hello@taylormadebabyco.com',
@@ -338,7 +338,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto max-w-2xl text-center">
               <p className="text-[0.9rem] font-semibold text-neutral-800">
-                Taylor Vanderwolk — Certified Tot Squad Specialist · 7+ Years Baby Gear Experience · 500+ Families Helped
+                Taylor Vanderwolk — Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 500+ Families Helped
               </p>
               <p className="mt-2 text-[0.78rem] uppercase tracking-[0.14em] text-[var(--color-accent-dark)]/80">
                 Free Intro Call · Virtual · US Nationwide · Response Within 24 Hours · Zero Affiliate Commission
@@ -371,7 +371,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto mt-10 max-w-2xl">
               <h2 className="font-serif text-[1.7rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                Expert Baby Gear &amp; Registry Help — Response Within 24 Hours
+Real Baby Gear &amp; Registry Help — Response Within 24 Hours
               </h2>
               <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
                 Whether you have a quick stroller question, need a full registry review, or want ongoing baby planning
@@ -461,8 +461,8 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                   </h2>
                   <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
                     This contact form goes directly to Taylor Vanderwolk — a certified baby gear specialist and baby
-                    registry consultant with 7+ years of hands-on experience helping expecting parents make stroller,
-                    car seat, registry, and nursery decisions.
+                    registry consultant with real, hands-on experience helping expecting parents make stroller, car
+                    seat, registry, and nursery decisions.
                   </p>
                 </div>
               </div>
