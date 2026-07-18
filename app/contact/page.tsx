@@ -446,14 +446,26 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         <MarketingSection tone="blush" spacing="default" container="narrow">
           <RevealOnScroll>
             <div className="mx-auto max-w-2xl">
-              <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                About Taylor Vanderwolk — Baby Gear &amp; Registry Consultant
-              </h2>
-              <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
-                This contact form goes directly to Taylor Vanderwolk — a certified baby gear specialist and baby
-                registry consultant with 7+ years of hands-on experience helping expecting parents make stroller, car
-                seat, registry, and nursery decisions.
-              </p>
+              <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/taylor2.png"
+                  alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
+                  width={132}
+                  height={165}
+                  className="h-[165px] w-[132px] flex-none rounded-[1.2rem] object-cover shadow-[0_10px_28px_rgba(72,49,56,0.12)]"
+                />
+                <div>
+                  <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
+                    About Taylor Vanderwolk — Baby Gear &amp; Registry Consultant
+                  </h2>
+                  <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
+                    This contact form goes directly to Taylor Vanderwolk — a certified baby gear specialist and baby
+                    registry consultant with 7+ years of hands-on experience helping expecting parents make stroller,
+                    car seat, registry, and nursery decisions.
+                  </p>
+                </div>
+              </div>
               <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
                 Before founding Taylor-Made Baby Co., Taylor worked as a specialist at Strolleria (the leading US baby
                 specialty retailer), as a nursery advisor at Pottery Barn Kids, and as a certified consultant in the Tot
