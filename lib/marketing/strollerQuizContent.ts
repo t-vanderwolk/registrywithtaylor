@@ -12,7 +12,7 @@ export const QUIZ_HERO = {
   eyebrow: 'Free Tool · Instant Results · No Sign-Up',
   h1: 'Best Stroller Quiz: Find Your Perfect Stroller Match in 8 Questions',
   attribution:
-    'Recommendations powered by Taylor Vanderwolk, Certified Tot Squad Specialist with hands-on baby gear experience and 200+ families helped.',
+    'Recommendations powered by Taylor, Certified Tot Squad Specialist with hands-on baby gear experience and 200+ families helped.',
   freebadges: ['Free', 'Instant results', 'No sign-up required', 'Independent, zero affiliate commission'],
 };
 
@@ -20,7 +20,7 @@ export const QUIZ_INTRO = {
   heading: 'Answer 8 Questions to Find Your Perfect Stroller',
   paragraphs: [
     'Choosing a stroller is one of the most researched, and most confusing, decisions expecting parents face. There are hundreds of options, dozens of brands, and an overwhelming number of conflicting reviews online.',
-    'This quiz cuts through all of it. Answer 8 questions about your lifestyle, home, vehicle, budget, and family plans. The quiz recommends your stroller type and top brand matches, based on the same criteria Taylor Vanderwolk uses in her personal baby registry consultations.',
+    'This quiz cuts through all of it. Answer 8 questions about your lifestyle, home, vehicle, budget, and family plans. The quiz recommends your stroller type and top brand matches, based on the same criteria Taylor uses in her personal baby registry consultations.',
   ],
 };
 
@@ -143,9 +143,9 @@ export const QUIZ_CONSULT_CTA = {
 
 export const QUIZ_CREATOR = {
   eyebrow: 'Who built this',
-  heading: 'About the Quiz Creator, Taylor Vanderwolk',
+  heading: 'About the Quiz Creator, Taylor',
   bio: [
-    'This stroller quiz was built by Taylor Vanderwolk, a certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria (the leading US baby specialty retailer), Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
+    'This stroller quiz was built by Taylor, a certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
     'The quiz recommendations reflect the same framework Taylor uses in every personal consultation, matching strollers to real homes, real vehicles, and real lifestyles rather than to a generic best-of list.',
   ],
   credentials: [
@@ -224,7 +224,7 @@ export const QUIZ_FAQ = [
   {
     question: 'How does the stroller quiz work?',
     answer:
-      'The Taylor-Made Baby Co. stroller quiz asks 8 questions about your lifestyle, home type, vehicle, budget, family plans, and terrain preferences. Based on your answers, the quiz recommends the stroller type and specific brands most suited to your situation. Recommendations are built by certified baby gear specialist Taylor Vanderwolk using the same criteria she applies in her 1-hour personal consultations. The quiz is free and requires no sign-up.',
+      'The Taylor-Made Baby Co. stroller quiz asks 8 questions about your lifestyle, home type, vehicle, budget, family plans, and terrain preferences. Based on your answers, the quiz recommends the stroller type and specific brands most suited to your situation. Recommendations are built by certified baby gear specialist Taylor using the same criteria she applies in her 1-hour personal consultations. The quiz is free and requires no sign-up.',
   },
   {
     question: 'What stroller brands does the quiz cover?',
@@ -234,7 +234,7 @@ export const QUIZ_FAQ = [
   {
     question: 'Is the stroller quiz free?',
     answer:
-      'Yes. The Taylor-Made Baby Co. stroller quiz is completely free, requires no sign-up, and delivers instant results. For a deeper, fully personalised stroller recommendation that accounts for your specific vehicle make and model, apartment dimensions, and car seat compatibility, book a 1-hour virtual baby registry consultation with Taylor Vanderwolk at $75.',
+      'Yes. The Taylor-Made Baby Co. stroller quiz is completely free, requires no sign-up, and delivers instant results. For a deeper, fully personalised stroller recommendation that accounts for your specific vehicle make and model, apartment dimensions, and car seat compatibility, book a 1-hour virtual baby registry consultation with Taylor at $75.',
   },
   {
     question: 'How accurate is the quiz recommendation?',
@@ -259,12 +259,12 @@ export const QUIZ_FAQ = [
   {
     question: 'What if I need more than a quiz result?',
     answer:
-      'After completing the stroller quiz, you can book a 1-hour virtual baby registry consultation with Taylor Vanderwolk at $75. The consultation covers your full registry: strollers, car seats, nursery, feeding gear, and registry strategy, with personalised recommendations based on your specific home, vehicle, and lifestyle. Written follow-up notes are included in every session.',
+      'After completing the stroller quiz, you can book a 1-hour virtual baby registry consultation with Taylor at $75. The consultation covers your full registry: strollers, car seats, nursery, feeding gear, and registry strategy, with personalised recommendations based on your specific home, vehicle, and lifestyle. Written follow-up notes are included in every session.',
   },
   {
     question: 'Can I get a personalised stroller recommendation for my specific car?',
     answer:
-      'The stroller quiz provides a type recommendation based on your vehicle category. For a recommendation verified against your specific car make, model, boot dimensions, and LATCH system, book a 1-hour virtual baby registry consultation with Taylor Vanderwolk. Taylor checks stroller compatibility against your specific vehicle as part of every consultation.',
+      'The stroller quiz provides a type recommendation based on your vehicle category. For a recommendation verified against your specific car make, model, boot dimensions, and LATCH system, book a 1-hour virtual baby registry consultation with Taylor. Taylor checks stroller compatibility against your specific vehicle as part of every consultation.',
   },
 ];
 
