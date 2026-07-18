@@ -157,11 +157,11 @@ export default function AboutPage() {
             <RevealOnScroll>
               <div className="flex justify-center">
                 <Image
-                  src="/assets/taylor.jpeg"
-                  alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Expert"
-                  width={280}
-                  height={340}
-                  className="rounded-2xl object-cover shadow-md"
+                  src="/assets/taylor2.png"
+                  alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
+                  width={420}
+                  height={525}
+                  className="w-full max-w-[420px] rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)]"
                   priority
                 />
               </div>
