@@ -80,11 +80,6 @@ export const strollerCategories: StrollerCategoryEntry[] = [
     blurb: 'Two seats, side by side or front to back. For twins, or for a toddler plus a brand new baby.',
   },
   {
-    name: 'Double Jogging',
-    slug: 'double-jogging',
-    blurb: 'Two seats built to run. All terrain tires, a hand brake, and the stamina for the long haul.',
-  },
-  {
     name: 'Stroller Wagon',
     slug: 'wagon',
     blurb: 'Part stroller, part cargo ship. Seats a couple of kids and swallows everything else you are carrying.',
