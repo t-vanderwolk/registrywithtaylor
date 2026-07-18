@@ -48,7 +48,7 @@ function isServiceKey(value: string): value is ServiceKey {
 const TRUST_BADGES = [
   'Tot Squad Certified Specialist',
   'Hands-On Baby Gear Experience',
-  '500+ Families Helped',
+  '200+ Families Helped',
   'Zero Affiliate Commission',
   'Response Within 24 Hours',
   'Virtual · US Nationwide',
@@ -76,7 +76,7 @@ const CREDENTIALS = [
   'Tot Squad Certified Specialist — the certification behind Target’s Baby Concierge programme',
   'Strolleria Baby Gear Specialist — years comparing 100+ strollers and travel systems hands-on',
   'Pottery Barn Kids Nursery Advisor — real furniture and nursery planning experience',
-  '500+ Families Helped — across virtual consultations and in-person retail',
+  '200+ Families Helped — across virtual consultations and in-person retail',
   'Zero Affiliate Commission — every recommendation is independent, no brand deals',
 ];
 
@@ -335,53 +335,53 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
             </ol>
           </nav>
 
-          {/* Credentials panel */}
+          {/* Intro */}
           <RevealOnScroll>
-            <div className="mx-auto max-w-2xl rounded-[1.75rem] border border-[rgba(215,161,175,0.3)] bg-[linear-gradient(180deg,#ffffff_0%,#fdf6f4_100%)] px-6 py-8 text-center shadow-[0_18px_44px_rgba(72,49,56,0.08)] sm:px-9">
-              <p className="font-serif text-[1.35rem] tracking-[-0.01em] text-neutral-900">Taylor</p>
-              <p className="mt-1.5 text-[0.85rem] font-medium leading-6 text-neutral-600">
-                Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 500+ Families Helped
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/80">
+                Baby Gear &amp; Registry Help
               </p>
-              <span aria-hidden className="mx-auto mt-5 block h-px w-14 bg-[var(--color-cta-pink)]/45" />
-              <p className="mt-5 text-[0.7rem] uppercase tracking-[0.17em] text-[var(--color-accent-dark)]/80">
-                Free Intro Call · Virtual · US Nationwide · 24-Hour Response · Zero Affiliate Commission
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-                {TRUST_BADGES.map((badge) => (
-                  <div
-                    key={badge}
-                    className="flex items-center justify-center rounded-full border border-[rgba(0,0,0,0.06)] bg-white/90 px-3 py-2 text-[0.72rem] font-semibold leading-tight text-neutral-700 shadow-[0_4px_14px_rgba(72,49,56,0.04)]"
-                  >
-                    {badge}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-6 text-[0.88rem] text-neutral-600">
-                Prefer to talk it through? Call or text{' '}
-                <a href="tel:+14807124347" className="link-underline font-semibold text-[var(--color-accent-dark)]">
-                  480-712-4347
-                </a>
-                .
-              </p>
-            </div>
-          </RevealOnScroll>
-
-          {/* Intro copy */}
-          <RevealOnScroll>
-            <div className="mx-auto mt-12 max-w-2xl">
-              <h2 className="font-serif text-[1.7rem] leading-tight tracking-[-0.02em] text-neutral-900">
+              <h2 className="mt-3 font-serif text-[clamp(1.8rem,3.1vw,2.35rem)] leading-tight tracking-[-0.02em] text-neutral-900">
                 Real Baby Gear &amp; Registry Help — Response Within 24 Hours
               </h2>
-              <p className="mt-4 text-[0.97rem] leading-8 text-neutral-700">
+              <p className="mt-5 text-[0.99rem] leading-8 text-neutral-700">
                 Whether you have a quick stroller question, need a full registry review, or want ongoing baby planning
                 support from pregnancy through the fourth trimester — this is where to start.
               </p>
-              <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
-                Taylor reads every message personally. There are no automated responses, no assistants handling initial
-                enquiries, and no generic reply templates. You send your question. She reads it. You hear back within 24
-                hours — with a specific, practical answer.
+              <p className="mt-4 text-[0.99rem] leading-8 text-neutral-700">
+                Taylor reads every message personally. No automated responses, no assistants handling initial enquiries,
+                no generic templates. You send your question. She reads it. You hear back within 24 hours — with a
+                specific, practical answer.
               </p>
+              <p className="mt-7 text-[0.86rem] font-semibold text-neutral-800">
+                Taylor — Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 200+ Families Helped
+              </p>
+              <span aria-hidden className="mx-auto mt-4 block h-px w-14 bg-[var(--color-cta-pink)]/45" />
             </div>
+          </RevealOnScroll>
+
+          {/* Trust badges */}
+          <RevealOnScroll>
+            <div className="mx-auto mt-7 grid max-w-3xl grid-cols-2 gap-2.5 sm:grid-cols-3">
+              {TRUST_BADGES.map((badge) => (
+                <div
+                  key={badge}
+                  className="flex items-center justify-center rounded-full border border-[rgba(215,161,175,0.3)] bg-white/80 px-3 py-2 text-center text-[0.72rem] font-semibold leading-tight text-neutral-700 shadow-[0_4px_14px_rgba(72,49,56,0.04)]"
+                >
+                  {badge}
+                </div>
+              ))}
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-[0.88rem] text-neutral-600">
+              Prefer to talk it through? Call or text{' '}
+              <a href="tel:+14807124347" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                480-712-4347
+              </a>
+              .
+            </p>
           </RevealOnScroll>
         </MarketingSection>
 
@@ -442,48 +442,50 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         </MarketingSection>
 
         {/* Bio block */}
-        <MarketingSection tone="blush" spacing="default" container="narrow">
+        <MarketingSection tone="blush" spacing="default" container="default">
           <RevealOnScroll>
-            <div className="mx-auto max-w-2xl">
-              <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/taylor2.png"
-                  alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
-                  width={132}
-                  height={165}
-                  className="h-[165px] w-[132px] flex-none rounded-[1.2rem] object-cover shadow-[0_10px_28px_rgba(72,49,56,0.12)]"
-                />
-                <div>
-                  <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                    About Taylor — Baby Gear &amp; Registry Consultant
-                  </h2>
-                  <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
-                    This contact form goes directly to Taylor — a certified baby gear specialist and baby registry
-                    consultant with real, hands-on experience helping expecting parents make stroller, car seat,
-                    registry, and nursery decisions.
-                  </p>
-                </div>
+            <div className="mx-auto grid max-w-5xl items-start gap-8 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.28fr)] md:gap-12">
+              {/* Image column */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/taylor2.png"
+                alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
+                width={560}
+                height={700}
+                className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)] md:sticky md:top-28"
+              />
+
+              {/* Text column */}
+              <div>
+                <h2 className="font-serif text-[clamp(1.5rem,2.4vw,1.9rem)] leading-tight tracking-[-0.02em] text-neutral-900">
+                  About Taylor — Baby Gear &amp; Registry Consultant
+                </h2>
+                <p className="mt-4 text-[0.97rem] leading-8 text-neutral-700">
+                  This contact form goes directly to Taylor — a certified baby gear specialist and baby registry
+                  consultant with real, hands-on experience helping expecting parents make stroller, car seat, registry,
+                  and nursery decisions.
+                </p>
+                <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
+                  Before founding Taylor-Made Baby Co., Taylor worked as a specialist at Strolleria, as a nursery advisor
+                  at Pottery Barn Kids, and as a certified consultant in the Tot Squad programme — the baby concierge
+                  service powering 200+ Target Baby stores nationwide. She has since appeared on the BabyQuip Tiny
+                  Travels podcast discussing real-life baby gear decision-making.
+                </p>
+                <ul className="mt-6 space-y-2.5">
+                  {CREDENTIALS.map((c) => (
+                    <li key={c} className="flex gap-2.5 text-[0.92rem] leading-7 text-neutral-700">
+                      <span aria-hidden className="text-[var(--color-cta-pink)]">★</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+                <blockquote className="mt-6 rounded-[1.3rem] border border-[rgba(215,161,175,0.25)] bg-white/80 px-5 py-4 text-[0.95rem] italic leading-7 text-neutral-700">
+                  “My approach is calm, practical, and built around what actually fits your home, your routines, and your
+                  budget. Your registry does not need to impress the internet. It just needs to work when life gets
+                  real.”
+                  <footer className="mt-2 not-italic text-[0.8rem] font-semibold text-neutral-500">— Taylor</footer>
+                </blockquote>
               </div>
-              <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
-                Before founding Taylor-Made Baby Co., Taylor worked as a specialist at Strolleria (the leading US baby
-                specialty retailer), as a nursery advisor at Pottery Barn Kids, and as a certified consultant in the Tot
-                Squad programme — the baby concierge service powering 200+ Target Baby stores nationwide. She has since
-                appeared on the BabyQuip Tiny Travels podcast discussing real-life baby gear decision-making.
-              </p>
-              <ul className="mt-5 space-y-2.5">
-                {CREDENTIALS.map((c) => (
-                  <li key={c} className="flex gap-2.5 text-[0.92rem] leading-7 text-neutral-700">
-                    <span aria-hidden className="text-[var(--color-cta-pink)]">★</span>
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-              <blockquote className="mt-6 rounded-[1.3rem] border border-[rgba(215,161,175,0.25)] bg-white/80 px-5 py-4 text-[0.95rem] italic leading-7 text-neutral-700">
-                “My approach is calm, practical, and built around what actually fits your home, your routines, and your
-                budget. Your registry does not need to impress the internet. It just needs to work when life gets real.”
-                <footer className="mt-2 not-italic text-[0.8rem] font-semibold text-neutral-500">— Taylor</footer>
-              </blockquote>
             </div>
           </RevealOnScroll>
 
@@ -568,7 +570,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                   Send Me the Free Guide →
                 </Link>
                 <p className="mt-2 text-[0.78rem] text-neutral-500">
-                  No spam. Unsubscribe anytime. Sent to 500+ expecting parents.
+                  No spam. Unsubscribe anytime. Sent to 200+ expecting parents.
                 </p>
               </div>
             </div>
