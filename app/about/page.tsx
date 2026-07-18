@@ -141,6 +141,13 @@ export default function AboutPage() {
               <a href="/book" className={CTA_CLASS}>Book a Consultation ($75)</a>
               <a href="#free-guide" className="inline-flex items-center justify-center rounded-full border border-[#e2a9b6] px-7 py-3 text-sm font-semibold text-[var(--color-accent-dark)] transition hover:bg-[#fdf1f4]">Get the Free Guide</a>
             </div>
+            <p className="mt-5 text-center text-[0.9rem] leading-7 text-neutral-600">
+              Have a question before you book?{' '}
+              <a href="/contact" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                Contact Taylor
+              </a>{' '}
+              — she reads every message personally and replies within 24 hours.
+            </p>
           </div>
         </MarketingSection>
 

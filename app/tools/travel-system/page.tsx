@@ -3,6 +3,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import SectionIntro from '@/components/ui/SectionIntro';
+import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import {
   getTravelSystemCarSeats,
@@ -43,6 +44,8 @@ export default async function TravelSystemCompatibilityPage() {
             <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
           </div>
         </MarketingSection>
+
+        <ToolContactPrompt prompt="Still unsure whether your car seat truly fits your stroller — or which adapter you actually need? Message Taylor and she'll confirm the real-world fit for your setup." />
       </main>
     </SiteShell>
   );

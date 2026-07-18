@@ -312,6 +312,13 @@ export default function StrollerQuizPage() {
               <Link href="/book" className={CTA_CLASS}>Book a Baby Registry Consultation</Link>
               <Link href="#free-checklist" className={CTA_GHOST}>Free Stroller Checklist</Link>
             </div>
+            <p className="mt-5 text-[0.85rem] leading-7 text-neutral-600">
+              Not sure the quiz nailed it?{' '}
+              <Link href="/contact" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                Message Taylor
+              </Link>{' '}
+              — a certified baby gear consultant reads every question and replies within 24 hours.
+            </p>
             <div className="mt-8 flex flex-col items-center gap-3">
               <PriceBadge />
               <p className="text-[0.76rem] text-neutral-500">US Nationwide · Full refund if cancelled 24+ hrs before</p>

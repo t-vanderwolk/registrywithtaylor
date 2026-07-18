@@ -3,6 +3,7 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerCatalogFinder from '@/components/tools/StrollerCatalogFinder';
 import SectionIntro from '@/components/ui/SectionIntro';
+import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -39,6 +40,8 @@ export default async function StrollerFinderPage({
             <StrollerCatalogFinder initialCategory={initialCategory} />
           </div>
         </MarketingSection>
+
+        <ToolContactPrompt prompt="Torn between two strollers, or not sure a model fits your car and life? Send it to Taylor and get a straight answer — no sales pressure." />
       </main>
     </SiteShell>
   );
