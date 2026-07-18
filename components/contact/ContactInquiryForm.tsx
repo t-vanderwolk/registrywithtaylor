@@ -121,19 +121,25 @@ export default function ContactInquiryForm({
             name="fullName"
             type="text"
             className={inputClassName}
+            aria-label="Full name"
+            aria-required="true"
+            autoComplete="name"
             required
           />
         </div>
 
         <div className="space-y-2">
           <label htmlFor="email" className={labelClassName}>
-            Email *
+            Email Address *
           </label>
           <input
             id="email"
             name="email"
             type="email"
             className={inputClassName}
+            aria-label="Email address"
+            aria-required="true"
+            autoComplete="email"
             required
           />
         </div>
@@ -289,10 +295,27 @@ export default function ContactInquiryForm({
           </div>
         )}
 
+        <div className="space-y-2">
+          <label htmlFor="challenge" className={labelClassName}>
+            What&rsquo;s your biggest challenge right now?
+          </label>
+          <select id="challenge" name="challenge" className={inputClassName} defaultValue="">
+            <option value="" disabled>
+              Select one
+            </option>
+            <option value="registry">Building my registry from scratch</option>
+            <option value="stroller">Stroller decision</option>
+            <option value="car-seat">Car seat for my vehicle</option>
+            <option value="nursery">Nursery planning</option>
+            <option value="full-planning">Full pregnancy planning support</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
         {!selectedServiceLabel && (
           <div className="space-y-2">
             <label htmlFor="notes" className={labelClassName}>
-              How can I support you?
+              Tell me more — Taylor reads every word
             </label>
             <textarea
               id="notes"
@@ -308,11 +331,11 @@ export default function ContactInquiryForm({
           type="submit"
           disabled={submitState.type === 'submitting'}
         >
-          {submitState.type === 'submitting' ? 'Sending Inquiry...' : 'Submit Inquiry'}
+          {submitState.type === 'submitting' ? 'Sending…' : 'Send My Question to Taylor →'}
         </button>
 
         <p className="text-sm text-neutral-600 text-center">
-          I personally review every inquiry and respond within 24 hours.
+          ✓ Taylor personally reads every message ✓ Response within 24 hours ✓ No automated replies
         </p>
 
         {(submitState.type === 'success' || submitState.type === 'error') && (
