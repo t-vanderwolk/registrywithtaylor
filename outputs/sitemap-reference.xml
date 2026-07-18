@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Reference snapshot of the FIXED (non-database) routes in the live production
+  sitemap for taylormadebabyco.com, generated 2026-07-17.
+
+  This is for your records only. Do NOT upload this file to Google Search
+  Console — it is missing the dynamic entries (every blog post and every
+  travel-system results page) that the live sitemap adds from the database.
+
+  In Search Console, submit the live sitemap URL instead:
+      https://www.taylormadebabyco.com/sitemap.xml
+  It is generated on every request and is always complete and current.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.taylormadebabyco.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/services</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/book</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/resources</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-quiz</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/travel-system</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/blog</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/refund</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=full-size</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=compact</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=travel</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=umbrella</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=jogging</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=double</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=wagon</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taylormadebabyco.com/tools/stroller-finder?category=convertible-modular</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+</urlset>
