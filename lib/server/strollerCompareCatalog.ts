@@ -5,6 +5,7 @@ import {
   STROLLER_CATEGORY_LABELS,
   type StrollerCategory,
 } from '@/lib/guides/travelSystemCompatibility';
+import { resolveCompareAttributes, type BasketSize } from '@/lib/catalog/strollerCompareAttributes';
 
 /**
  * A single stroller row for the side-by-side Compare tool. Combines the public,
@@ -30,6 +31,10 @@ export type StrollerCompareItem = {
   foldType: string | null;
   suitableFromBirth: boolean;
   suitableForJogging: boolean;
+  modular: boolean;
+  travelSystemCompatible: boolean;
+  fitsOverheadBin: boolean;
+  basketCapacity: BasketSize;
 };
 
 type SpecRow = {
@@ -54,10 +59,12 @@ function categoryLabel(category: string | null | undefined): string | null {
 export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]> {
   const options = await getTravelSystemStrollers();
 
-  // One batched query for every spec row, keyed by brand|model (case-insensitive).
+  // One batched query for specs + compatibility counts, keyed by brand|model.
+  // A stroller with at least one compatibility row is "travel system compatible".
   let specMap = new Map<string, SpecRow>();
+  let compatibleKeys = new Set<string>();
   try {
-    const specRows = await prisma.stroller.findMany({
+    const strollerRows = await prisma.stroller.findMany({
       select: {
         brand: true,
         model: true,
@@ -70,16 +77,23 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
             suitableForJogging: true,
           },
         },
+        _count: { select: { compatibilities: true } },
       },
     });
     specMap = new Map(
-      specRows
+      strollerRows
         .filter((row) => row.spec)
         .map((row) => [specKey(row.brand, row.model), row.spec as SpecRow]),
     );
+    compatibleKeys = new Set(
+      strollerRows
+        .filter((row) => row._count.compatibilities > 0)
+        .map((row) => specKey(row.brand, row.model)),
+    );
   } catch {
-    // If the spec relation isn't available yet, fall back to spec-less rows.
+    // If the spec relation isn't available yet, fall back gracefully.
     specMap = new Map();
+    compatibleKeys = new Set();
   }
 
   const seen = new Set<string>();
@@ -90,8 +104,10 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
     if (seen.has(id)) continue;
     seen.add(id);
 
-    const spec = specMap.get(specKey(option.brand, option.model)) ?? null;
+    const key = specKey(option.brand, option.model);
+    const spec = specMap.get(key) ?? null;
     const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? null;
+    const attrs = resolveCompareAttributes(option.brand, option.model, option.strollerCategory ?? null);
 
     items.push({
       id,
@@ -110,6 +126,10 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       foldType: spec?.foldType ?? null,
       suitableFromBirth: spec?.suitableFromBirth ?? false,
       suitableForJogging: spec?.suitableForJogging ?? false,
+      modular: attrs.modular,
+      travelSystemCompatible: compatibleKeys.has(key),
+      fitsOverheadBin: attrs.fitsOverheadBin,
+      basketCapacity: attrs.basketCapacity,
     });
   }
 
