@@ -601,10 +601,11 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto max-w-2xl rounded-[1.4rem] bg-[var(--color-accent-dark)] px-6 py-7 text-center text-white shadow-[0_14px_34px_rgba(72,49,56,0.12)]">
               <p className="font-serif text-[1.35rem] leading-snug">
-                The form is the first step. A conversation is where the clarity begins.
+                Partnerships, press, or deeper support — this is the direct line to Taylor.
               </p>
               <p className="mt-2 text-[0.92rem] leading-7 text-white/85">
-                One message to Taylor — she reads it, responds within 24 hours, and tells you exactly what you need next.
+                One message — she reads it personally, responds within 24 hours, and points you to the right next step.
+                Ready to book your $75 Registry Consult instead? That’s on the booking page.
               </p>
             </div>
           </RevealOnScroll>
