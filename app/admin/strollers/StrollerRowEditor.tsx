@@ -14,6 +14,9 @@ export type StrollerSpec = {
   suitableForJogging: boolean;
   budgetMin: number | null;
   budgetMax: number | null;
+  modular: boolean | null;
+  fitsOverheadBin: boolean | null;
+  basketCapacityLiters: number | null;
 } | null;
 
 export type StrollerRow = {
@@ -145,6 +148,17 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
               <Check name="isExpandable" label="Expandable" defaultChecked={spec?.isExpandable} />
               <Check name="suitableFromBirth" label="Suitable from birth" defaultChecked={spec?.suitableFromBirth ?? true} />
               <Check name="suitableForJogging" label="Jogging" defaultChecked={spec?.suitableForJogging} />
+            </fieldset>
+
+            <p className="admin-eyebrow sm:col-span-2 mt-1">Compare specs</p>
+
+            <label className={labelCls}>
+              Basket capacity (litres)
+              <input name="basketCapacityLiters" type="number" step="0.1" defaultValue={spec?.basketCapacityLiters ?? ''} className={field} />
+            </label>
+            <fieldset className="flex flex-wrap items-end gap-x-4 gap-y-2">
+              <Check name="modular" label="Modular" defaultChecked={spec?.modular ?? false} />
+              <Check name="fitsOverheadBin" label="Fits overhead bin" defaultChecked={spec?.fitsOverheadBin ?? false} />
             </fieldset>
 
             <div className="flex flex-wrap items-center gap-3 sm:col-span-2">

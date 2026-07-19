@@ -82,6 +82,10 @@ export async function updateStroller(formData: FormData) {
     suitableForJogging: bool(formData, 'suitableForJogging'),
     budgetMin: intNum(formData, 'budgetMin'),
     budgetMax: intNum(formData, 'budgetMax'),
+    // Compare-tool dimensions.
+    modular: bool(formData, 'modular'),
+    fitsOverheadBin: bool(formData, 'fitsOverheadBin'),
+    basketCapacityLiters: num(formData, 'basketCapacityLiters'),
   };
 
   await db.strollerSpec.upsert({

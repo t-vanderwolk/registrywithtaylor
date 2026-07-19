@@ -73,6 +73,9 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
             suitableForJogging: r.spec.suitableForJogging,
             budgetMin: r.spec.budgetMin,
             budgetMax: r.spec.budgetMax,
+            modular: r.spec.modular ?? null,
+            fitsOverheadBin: r.spec.fitsOverheadBin ?? null,
+            basketCapacityLiters: r.spec.basketCapacityLiters ?? null,
           }
         : null,
     }));

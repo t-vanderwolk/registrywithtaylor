@@ -195,7 +195,10 @@ export default function StrollerCompare({
       render: (i) => <SpecValue text={formatWeight(i.maxWeightLbs)} best={highestMax != null && i.maxWeightLbs === highestMax} />,
     },
     { label: 'Fold', render: (i) => <SpecValue text={i.foldType} /> },
-    { label: 'Basket capacity', render: (i) => <SpecValue text={i.basketCapacity} /> },
+    {
+      label: 'Basket capacity',
+      render: (i) => <SpecValue text={i.basketCapacityLiters != null ? `${i.basketCapacityLiters} L` : i.basketCapacity} />,
+    },
     { label: 'Modular', render: (i) => <BoolValue value={i.modular} /> },
     { label: 'Travel system compatible', render: (i) => <BoolValue value={i.travelSystemCompatible} /> },
     { label: 'Fits overhead bin', render: (i) => <BoolValue value={i.fitsOverheadBin} /> },

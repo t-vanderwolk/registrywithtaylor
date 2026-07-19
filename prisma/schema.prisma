@@ -509,6 +509,10 @@ model StrollerSpec {
   suitableForJogging  Boolean   @default(false)
   budgetMin           Int?
   budgetMax           Int?
+  // ── Compare-tool dimensions (manually curated, nullable until filled) ──
+  modular             Boolean?  // accepts a bassinet and/or reverses / adds a 2nd seat
+  fitsOverheadBin     Boolean?  // folds small enough for an airplane carry-on
+  basketCapacityLiters Float?   // exact storage-basket volume in litres
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 }

@@ -34,7 +34,10 @@ export type StrollerCompareItem = {
   modular: boolean;
   travelSystemCompatible: boolean;
   fitsOverheadBin: boolean;
+  /** Qualitative fallback bucket (Small/Medium/Large). */
   basketCapacity: BasketSize;
+  /** Exact litres when curated in the DB; otherwise null (UI falls back to the bucket). */
+  basketCapacityLiters: number | null;
 };
 
 type SpecRow = {
@@ -43,6 +46,10 @@ type SpecRow = {
   foldType: string | null;
   suitableFromBirth: boolean;
   suitableForJogging: boolean;
+  // Compare-tool overrides (may be absent until the migration + seed run).
+  modular: boolean | null;
+  fitsOverheadBin: boolean | null;
+  basketCapacityLiters: number | null;
 };
 
 const specKey = (brand: string, model: string) => `${brand.trim().toLowerCase()}|${model.trim().toLowerCase()}`;
@@ -64,7 +71,12 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
   let specMap = new Map<string, SpecRow>();
   let compatibleKeys = new Set<string>();
   try {
-    const strollerRows = await prisma.stroller.findMany({
+    // Cast to `any` for the select: the compare-spec columns land in the
+    // generated client only after the Heroku build regenerates it (same pattern
+    // as app/admin/strollers/actions.ts). Result is typed manually below.
+    const strollerRows = (await (prisma as unknown as {
+      stroller: { findMany: (args: unknown) => Promise<unknown> };
+    }).stroller.findMany({
       select: {
         brand: true,
         model: true,
@@ -75,11 +87,14 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
             foldType: true,
             suitableFromBirth: true,
             suitableForJogging: true,
+            modular: true,
+            fitsOverheadBin: true,
+            basketCapacityLiters: true,
           },
         },
         _count: { select: { compatibilities: true } },
       },
-    });
+    })) as Array<{ brand: string; model: string; spec: SpecRow | null; _count: { compatibilities: number } }>;
     specMap = new Map(
       strollerRows
         .filter((row) => row.spec)
@@ -126,10 +141,12 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       foldType: spec?.foldType ?? null,
       suitableFromBirth: spec?.suitableFromBirth ?? false,
       suitableForJogging: spec?.suitableForJogging ?? false,
-      modular: attrs.modular,
+      // Prefer curated DB values; fall back to the category-derived defaults.
+      modular: spec?.modular ?? attrs.modular,
       travelSystemCompatible: compatibleKeys.has(key),
-      fitsOverheadBin: attrs.fitsOverheadBin,
+      fitsOverheadBin: spec?.fitsOverheadBin ?? attrs.fitsOverheadBin,
       basketCapacity: attrs.basketCapacity,
+      basketCapacityLiters: spec?.basketCapacityLiters ?? null,
     });
   }
 
