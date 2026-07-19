@@ -3,6 +3,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerQuiz from '@/components/tools/StrollerQuiz';
+import ToolsNav from '@/components/tools/ToolsNav';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import AnnotationReveal from '@/components/ui/AnnotationReveal';
@@ -67,6 +68,8 @@ export default function StrollerQuizPage() {
     <SiteShell currentPath="/tools/stroller-quiz">
       <main className="site-main">
         <PageViewTracker path="/tools/stroller-quiz" pageType="other" />
+
+        <ToolsNav current="quiz" />
         <AnnotationReveal />
         <script
           type="application/ld+json"

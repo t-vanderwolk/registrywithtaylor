@@ -2,6 +2,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
+import ToolsNav from '@/components/tools/ToolsNav';
 import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -31,6 +32,8 @@ export default async function TravelSystemCompatibilityPage() {
     <SiteShell currentPath="/tools/travel-system">
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system" pageType="other" />
+
+        <ToolsNav current="checker" />
 
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <SectionIntro
