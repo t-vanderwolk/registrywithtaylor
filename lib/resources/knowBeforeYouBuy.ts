@@ -316,6 +316,14 @@ export const freeTools: ToolCardEntry[] = [
     imageAlt: 'Stroller finder',
   },
   {
+    title: 'Compare Strollers',
+    description: 'Line up two or three strollers side by side — weight, fold, basket, modular, travel-system, and more.',
+    href: '/tools/compare',
+    cta: 'Compare Side by Side',
+    image: '/assets/hero/hero-03.jpg',
+    imageAlt: 'Compare strollers side by side',
+  },
+  {
     title: 'Travel System Checker',
     description: 'See which infant car seats fit your stroller before you buy the wrong adapter.',
     href: '/tools/travel-system',

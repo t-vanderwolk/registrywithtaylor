@@ -3,7 +3,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerCatalogFinder from '@/components/tools/StrollerCatalogFinder';
-import ToolsNav from '@/components/tools/ToolsNav';
+import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -30,9 +30,10 @@ export default async function StrollerFinderPage({
       <main className="site-main">
         <PageViewTracker path="/tools/stroller-finder" pageType="other" />
 
-        <ToolsNav current="finder" />
-
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
+          <div className="mx-auto mb-6 max-w-4xl">
+            <ToolBreadcrumb current="Stroller Finder" />
+          </div>
           <SectionIntro
             eyebrow="Tool"
             title="Stroller Finder"

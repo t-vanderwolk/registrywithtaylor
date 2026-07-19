@@ -3,7 +3,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerQuiz from '@/components/tools/StrollerQuiz';
-import ToolsNav from '@/components/tools/ToolsNav';
+import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import NewsletterCapture from '@/components/email/NewsletterCapture';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import AnnotationReveal from '@/components/ui/AnnotationReveal';
@@ -56,8 +56,6 @@ export default function StrollerQuizPage() {
     <SiteShell currentPath="/tools/stroller-quiz">
       <main className="site-main">
         <PageViewTracker path="/tools/stroller-quiz" pageType="other" />
-
-        <ToolsNav current="quiz" />
         <AnnotationReveal />
         <script
           type="application/ld+json"
@@ -67,15 +65,7 @@ export default function StrollerQuizPage() {
         {/* Hero: breadcrumb + H1 + expert attribution + the quiz tool */}
         <MarketingSection tone="ivory" spacing="spacious" reveal={false}>
           <div className="mx-auto max-w-3xl">
-            <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.16em] text-neutral-500">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li><Link href="/" className="link-underline hover:text-[var(--color-accent-dark)]">Home</Link></li>
-                <li aria-hidden className="text-neutral-300">/</li>
-                <li><Link href="/tools" className="link-underline hover:text-[var(--color-accent-dark)]">Baby Gear Tools</Link></li>
-                <li aria-hidden className="text-neutral-300">/</li>
-                <li aria-current="page" className="text-[var(--color-accent-dark)]">Stroller Quiz</li>
-              </ol>
-            </nav>
+            <ToolBreadcrumb current="Stroller Quiz" />
 
             <p className="mkt-eyebrow mt-6">{QUIZ_HERO.eyebrow}</p>
             <h1 className="mt-3 font-serif text-[clamp(2rem,4.4vw,3rem)] leading-[1.05] tracking-[-0.03em] text-neutral-900">

@@ -2,7 +2,7 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
-import ToolsNav from '@/components/tools/ToolsNav';
+import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
@@ -33,9 +33,10 @@ export default async function TravelSystemCompatibilityPage() {
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system" pageType="other" />
 
-        <ToolsNav current="checker" />
-
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
+          <div className="mx-auto mb-6 max-w-4xl">
+            <ToolBreadcrumb current="Travel System Checker" />
+          </div>
           <SectionIntro
             eyebrow="Tool"
             title="Travel System Compatibility"

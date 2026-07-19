@@ -282,7 +282,7 @@ export default function StrollerCompare({
                         product={item.displayName}
                         retailer="babylist"
                         brand={item.brand}
-                        className="inline-flex items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-4 py-2 text-[0.78rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
+                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on Babylist
                       </ToolAffiliateLink>
@@ -293,7 +293,7 @@ export default function StrollerCompare({
                         product={item.displayName}
                         retailer="macrobaby"
                         brand={item.brand}
-                        className="inline-flex items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-4 py-2 text-[0.78rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
+                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on MacroBaby
                       </ToolAffiliateLink>
@@ -305,7 +305,7 @@ export default function StrollerCompare({
                         product={item.displayName}
                         retailer="amazon"
                         brand={item.brand}
-                        className="inline-flex items-center justify-center rounded-full border border-[#e2a9b6] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-dark)] transition hover:bg-[#fdf1f4]"
+                        className="tool-btn tool-btn--ghost min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on Amazon
                       </ToolAffiliateLink>

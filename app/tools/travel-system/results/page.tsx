@@ -6,7 +6,6 @@ import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
-import ToolsNav from '@/components/tools/ToolsNav';
 import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
@@ -219,8 +218,6 @@ function EmptyState({
     <SiteShell currentPath="/tools/travel-system">
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system/results" pageType="other" />
-
-        <ToolsNav current="checker" />
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <div className="mx-auto max-w-3xl rounded-[1.6rem] border border-[rgba(215,161,175,0.22)] bg-white/94 px-6 py-10 text-center shadow-[0_18px_42px_rgba(72,49,56,0.08)]">
             <p className="tool-eyebrow">Travel system results</p>
@@ -677,8 +674,6 @@ export default async function TravelSystemResultsPage({
     <SiteShell currentPath="/tools/travel-system">
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system/results" pageType="other" />
-
-        <ToolsNav current="checker" />
 
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <SectionIntro

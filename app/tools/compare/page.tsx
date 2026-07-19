@@ -2,11 +2,13 @@ import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerCompare from '@/components/tools/StrollerCompare';
+import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
-import ToolsNav from '@/components/tools/ToolsNav';
-import SectionIntro from '@/components/ui/SectionIntro';
+import CheckIcon from '@/components/ui/CheckIcon';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
+
+const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required', 'Independent, zero affiliate commission'];
 
 export const dynamic = 'force-dynamic';
 
@@ -73,19 +75,33 @@ export default async function StrollerComparePage({
       <main className="site-main">
         <PageViewTracker path="/tools/compare" pageType="other" />
 
-        <ToolsNav current="compare" />
-
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(compareSchema) }} />
 
-        <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
-          <SectionIntro
-            eyebrow="Tool"
-            title="Compare Strollers Side by Side"
-            description="Line up two or three strollers and see how they stack up on weight, fold, price, and newborn or jogging readiness — then see where to buy each one."
-            contentWidthClassName="max-w-4xl"
-          />
+        <MarketingSection tone="ivory" spacing="spacious" reveal={false}>
+          <div className="mx-auto max-w-3xl">
+            <ToolBreadcrumb current="Compare Strollers" />
 
-          <div className="mt-10">
+            <p className="mkt-eyebrow mt-6">Free Tool · Instant Results · No Sign-Up</p>
+            <h1 className="mt-3 font-serif text-[clamp(2rem,4.4vw,3rem)] leading-[1.05] tracking-[-0.03em] text-neutral-900">
+              Stroller Comparison Tool: Compare Strollers Side by Side
+            </h1>
+            <p className="mt-5 max-w-2xl text-[1rem] leading-[1.8] text-neutral-600">
+              Line up two or three strollers and see how they stack up — weight, fold, price, basket, modular, travel-system,
+              overhead-bin, newborn and jogging readiness — with live prices and where to buy each one.
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[0.78rem] font-medium text-[var(--color-accent-dark)]">
+              {HERO_BADGES.map((badge) => (
+                <li key={badge} className="inline-flex items-center gap-1.5">
+                  <span aria-hidden className="text-[var(--color-accent-dark)]">
+                    <CheckIcon />
+                  </span>
+                  {badge}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-5xl">
             <StrollerCompare catalog={catalog} initialIds={initialIds} />
           </div>
         </MarketingSection>

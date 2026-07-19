@@ -16,6 +16,7 @@ const exploreLinks = [
 const resourceLinks = [
   { label: 'Stroller Quiz', href: '/tools/stroller-quiz' },
   { label: 'Stroller Finder', href: '/tools/stroller-finder' },
+  { label: 'Compare Strollers', href: '/tools/compare' },
   { label: 'Travel System Tool', href: '/tools/travel-system' },
 ];
 
