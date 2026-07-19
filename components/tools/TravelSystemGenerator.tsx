@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
@@ -15,6 +16,7 @@ import {
 import {
   findTravelSystemOptionBySlug,
   travelSystemResultsHref,
+  travelSystemSlug,
 } from '@/lib/travelSystemRouting';
 
 type TravelSystemGeneratorProps = {
@@ -75,6 +77,7 @@ function BrowseCard({
   priceSource,
   cta,
   onSelect,
+  compareHref,
 }: {
   option: { brand: string; model: string };
   image: string | null;
@@ -82,38 +85,52 @@ function BrowseCard({
   priceSource: 'Babylist' | 'MacroBaby' | null;
   cta: string;
   onSelect: () => void;
+  /** When set (strollers only), shows a Compare pill that deep-links the compare tool. */
+  compareHref?: string | null;
 }) {
   const displayTitle = displayNameWithoutBrand(option.model, option.brand);
 
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="group tool-card tool-card--interactive tool-product-card text-left"
-    >
-      <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt={option.model} className="tool-product-card__image" />
-        ) : (
-          <span className="tool-product-card__image-fallback">{option.brand}</span>
-        )}
-      </div>
-      <div className="tool-product-card__body tool-product-card__body--compact">
-        <p className="tool-product-card__brand">{option.brand}</p>
-        <p className="tool-product-card__title tool-product-card__title--compact">{displayTitle}</p>
-        {price != null ? (
-          <p className="tool-product-card__price">
-            ${price.toFixed(2)}
-            {priceSource ? <span>via {priceSource}</span> : null}
-          </p>
-        ) : null}
-        <span className="mt-1 inline-flex items-center gap-1 text-[0.64rem] font-semibold text-[var(--color-accent-dark)]">
-          {cta}
-          <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
-        </span>
-      </div>
-    </button>
+    <div className="relative">
+      <button
+        type="button"
+        onClick={onSelect}
+        className="group tool-card tool-card--interactive tool-product-card w-full text-left"
+      >
+        <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
+          {image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={image} alt={option.model} className="tool-product-card__image" />
+          ) : (
+            <span className="tool-product-card__image-fallback">{option.brand}</span>
+          )}
+        </div>
+        <div className="tool-product-card__body tool-product-card__body--compact">
+          <p className="tool-product-card__brand">{option.brand}</p>
+          <p className="tool-product-card__title tool-product-card__title--compact">{displayTitle}</p>
+          {price != null ? (
+            <p className="tool-product-card__price">
+              ${price.toFixed(2)}
+              {priceSource ? <span>via {priceSource}</span> : null}
+            </p>
+          ) : null}
+          <span className="mt-1 inline-flex items-center gap-1 text-[0.64rem] font-semibold text-[var(--color-accent-dark)]">
+            {cta}
+            <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
+          </span>
+        </div>
+      </button>
+
+      {compareHref ? (
+        <Link
+          href={compareHref}
+          aria-label={`Compare ${option.brand} ${displayTitle}`}
+          className="absolute right-2 top-2 z-10 rounded-full border border-[rgba(215,161,175,0.5)] bg-white/95 px-2.5 py-1 text-[0.62rem] font-semibold text-[var(--color-accent-dark)] shadow-sm transition hover:bg-[#fdf1f4]"
+        >
+          Compare →
+        </Link>
+      ) : null}
+    </div>
   );
 }
 
@@ -327,6 +344,11 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         priceSource={priceSource}
         cta={browseCta}
         onSelect={() => goToResults(option)}
+        compareHref={
+          lookupMode === 'stroller'
+            ? `/tools/compare?ids=${encodeURIComponent(travelSystemSlug(option))}`
+            : null
+        }
       />
     );
   };
