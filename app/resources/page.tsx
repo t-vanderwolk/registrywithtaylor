@@ -127,10 +127,10 @@ export default function ResourcesPage() {
               <p className="mkt-eyebrow">Choose your path</p>
               <H2 className="mt-3 font-serif">Where would you like to start?</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                Three quick doors in, depending on how far along you are.
+                Four quick doors in, depending on how far along you are.
               </Body>
             </RevealOnScroll>
-            <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-3">
+            <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
               {startCards.map((c, i) => (
                 <RevealOnScroll key={c.href} delayMs={Math.min(i * 70, 210)}>
                   <Link

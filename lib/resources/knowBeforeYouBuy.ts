@@ -34,6 +34,12 @@ export const startCards: StartCard[] = [
     href: '/tools/stroller-finder',
   },
   {
+    prompt: 'Torn between a few strollers?',
+    action: 'Compare Strollers Side by Side',
+    cta: 'Compare Strollers',
+    href: '/tools/compare',
+  },
+  {
     prompt: 'Already picked your stroller?',
     action: 'Find the car seats that click right in.',
     cta: 'Travel System Checker',
