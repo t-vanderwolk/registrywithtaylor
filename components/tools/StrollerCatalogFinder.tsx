@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
-import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
+import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
@@ -112,6 +112,11 @@ type Kind = 'strollers' | 'carseats';
 // regardless of brand/model casing (e.g. "Cybex MIOS" → cybex-mios).
 function compatHref(brand: string, model: string) {
   return travelSystemResultsHref('stroller', { brand, model });
+}
+
+// Pre-select this stroller in the Compare tool (up to 3 can be added there).
+function compareHref(brand: string, model: string) {
+  return `/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand, model }))}`;
 }
 
 function displayNameWithoutBrand(displayName: string, brand: string) {
@@ -317,9 +322,14 @@ function ProductCard({
             </a>
           ) : null}
           {product.model ? (
-            <Link href={compatHref(brand, product.model)} className="tool-utility-link">
-              Compatible car seats →
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <Link href={compatHref(brand, product.model)} className="tool-utility-link">
+                Compatible car seats →
+              </Link>
+              <Link href={compareHref(brand, product.model)} className="tool-utility-link">
+                Compare →
+              </Link>
+            </div>
           ) : null}
         </div>
       </div>

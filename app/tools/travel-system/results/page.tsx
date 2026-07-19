@@ -25,7 +25,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { findTravelSystemOptionBySlug } from '@/lib/travelSystemRouting';
+import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
 
@@ -550,6 +550,15 @@ function ResultCard({
             </>
           )}
         </div>
+
+        {productKind === 'stroller' ? (
+          <Link
+            href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
+            className="tool-utility-link mt-2"
+          >
+            Compare →
+          </Link>
+        ) : null}
       </div>
     </article>
   );
