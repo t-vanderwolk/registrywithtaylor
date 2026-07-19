@@ -51,18 +51,6 @@ const CTA_GHOST =
 
 const quizFaqs: FAQEntry[] = QUIZ_FAQ.map((f) => ({ question: f.question, answer: f.answer }));
 
-/** Reusable round price seal ("$75 · 1-Hour Session") so the price appears as one luxe badge, not repeated inline text. */
-function PriceBadge({ className = '' }: { className?: string }) {
-  return (
-    <span className={`price-seal ${className}`}>
-      <span className="price-seal__eyebrow">Virtual Consult</span>
-      <span className="price-seal__deal">Limited-Time Deal</span>
-      <span className="price-seal__from">Starting at</span>
-      <span className="price-seal__price">$75</span>
-    </span>
-  );
-}
-
 export default function StrollerQuizPage() {
   return (
     <SiteShell currentPath="/tools/stroller-quiz">
@@ -323,7 +311,6 @@ export default function StrollerQuizPage() {
               — a certified baby gear consultant reads every question and replies within 24 hours.
             </p>
             <div className="mt-8 flex flex-col items-center gap-3">
-              <PriceBadge />
               <p className="text-[0.76rem] text-neutral-500">US Nationwide · Full refund if cancelled 24+ hrs before</p>
             </div>
           </RevealOnScroll>

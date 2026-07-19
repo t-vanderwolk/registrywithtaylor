@@ -352,12 +352,6 @@ export default function ResourcesPage() {
               <Link href="/tools/stroller-quiz" className={CTA_GHOST}>Take the Stroller Quiz</Link>
             </div>
             <div className="mt-6 flex flex-col items-center gap-2">
-              <span className="price-seal">
-                <span className="price-seal__eyebrow">Virtual Consult</span>
-                <span className="price-seal__deal">Limited-Time Deal</span>
-                <span className="price-seal__from">Starting at</span>
-                <span className="price-seal__price">$75</span>
-              </span>
               <p className="text-[0.76rem] text-neutral-500">$75 · US Nationwide · Full refund if cancelled 24+ hrs before</p>
             </div>
           </RevealOnScroll>
