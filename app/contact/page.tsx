@@ -8,6 +8,7 @@ import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
+import { ABOUT_REVIEWS } from '@/lib/marketing/aboutContent';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 
 export const metadata = buildMarketingMetadata({
@@ -153,21 +154,6 @@ const CONTACT_FAQS: FAQEntry[] = [
     question: 'What happens after I submit the contact form?',
     answer:
       'After submitting the form, Taylor reads your message personally and responds within 24 hours. Based on what you share, she will point you to the most appropriate next step: booking the 1-hour Registry Consult ($75) on the booking page, deeper ongoing planning support after your consult, or a partnership, media, or press conversation. The response will be specific to what you wrote — not a template. You will know exactly what to do next when Taylor replies.',
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    quote:
-      'Taylor took what could have been a very overwhelming experience and made it so simple and easy! She was an absolute joy to work with and incredibly knowledgeable.',
-    name: 'Amanda M.',
-    source: 'Strolleria · Verified review',
-  },
-  {
-    quote:
-      'We had an amazing experience with Taylor. She listened to what we were looking for, and was so honest and transparent about all of the baby gear we were considering.',
-    name: 'Kathryn G.',
-    source: 'Strolleria · Verified review',
   },
 ];
 
@@ -495,17 +481,31 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           </RevealOnScroll>
 
           {/* Testimonials */}
-          <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
-            {TESTIMONIALS.map((t) => (
-              <RevealOnScroll key={t.name}>
-                <figure className="h-full rounded-[1.3rem] border border-[rgba(0,0,0,0.07)] bg-white/90 p-5 shadow-[0_8px_22px_rgba(72,49,56,0.04)]">
-                  <blockquote className="text-[0.92rem] leading-7 text-neutral-700">“{t.quote}”</blockquote>
-                  <figcaption className="mt-3 text-[0.78rem] font-semibold text-neutral-500">
-                    {t.name} · {t.source}
+          <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
+            {ABOUT_REVIEWS.map((r) => (
+              <RevealOnScroll key={r.author}>
+                <figure className="h-full rounded-2xl border border-[rgba(0,0,0,0.07)] bg-white/90 p-6 shadow-[0_8px_22px_rgba(72,49,56,0.04)]">
+                  <div className="text-[var(--color-accent-dark)]" aria-hidden>
+                    ★★★★★
+                  </div>
+                  <blockquote className="mt-3 text-[0.95rem] leading-7 text-neutral-700">“{r.quote}”</blockquote>
+                  <figcaption className="mt-4 text-[0.85rem]">
+                    <span className="font-semibold text-neutral-900">{r.author}</span>
+                    <span className="mt-0.5 block text-[0.8rem] text-neutral-500">{r.source}</span>
                   </figcaption>
                 </figure>
               </RevealOnScroll>
             ))}
+          </div>
+          <div className="mt-6 text-center">
+            <a
+              href="https://www.strolleria.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-[var(--color-accent-dark)]"
+            >
+              See all reviews on Strolleria →
+            </a>
           </div>
         </MarketingSection>
 
