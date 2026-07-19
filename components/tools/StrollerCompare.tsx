@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
 import type { StrollerCompareItem } from '@/lib/server/strollerCompareCatalog';
 
@@ -36,13 +36,19 @@ function BoolValue({ value }: { value: boolean }) {
   );
 }
 
-type AddPickerProps = {
+/**
+ * Full-width search bar for adding a stroller. Rendered OUTSIDE any horizontally
+ * scrolling / overflow container so its results dropdown is never clipped.
+ */
+function AddBar({
+  catalog,
+  selectedIds,
+  onAdd,
+}: {
   catalog: StrollerCompareItem[];
   selectedIds: string[];
   onAdd: (id: string) => void;
-};
-
-function AddPicker({ catalog, selectedIds, onAdd }: AddPickerProps) {
+}) {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -61,32 +67,25 @@ function AddPicker({ catalog, selectedIds, onAdd }: AddPickerProps) {
     if (!q) return available.slice(0, 8);
     return available
       .filter((item) => `${item.brand} ${item.model} ${item.displayName}`.toLowerCase().includes(q))
-      .slice(0, 10);
+      .slice(0, 12);
   }, [catalog, selectedIds, query]);
 
   return (
-    <div ref={boxRef} className="relative">
-      <div className="flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-[1.4rem] border border-dashed border-[rgba(215,161,175,0.5)] bg-white/60 p-5 text-center">
-        <span className="text-[2rem] leading-none text-[var(--color-accent-dark)]/60" aria-hidden>
-          +
-        </span>
-        <p className="text-sm font-semibold text-neutral-700">Add a stroller</p>
-        <input
-          type="text"
-          value={query}
-          onFocus={() => setOpen(true)}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            setOpen(true);
-          }}
-          placeholder="Search brand or model…"
-          aria-label="Search strollers to compare"
-          className="w-full rounded-full border border-[rgba(0,0,0,0.12)] bg-white px-4 py-2 text-sm text-neutral-800 outline-none focus:border-[var(--color-accent-dark)]"
-        />
-      </div>
-
+    <div ref={boxRef} className="relative mx-auto max-w-xl">
+      <input
+        type="text"
+        value={query}
+        onFocus={() => setOpen(true)}
+        onChange={(event) => {
+          setQuery(event.target.value);
+          setOpen(true);
+        }}
+        placeholder="Search a stroller by brand or model to add…"
+        aria-label="Search strollers to compare"
+        className="w-full rounded-full border border-[rgba(215,161,175,0.5)] bg-white px-5 py-3 text-sm text-neutral-800 shadow-[0_6px_18px_rgba(72,49,56,0.05)] outline-none focus:border-[var(--color-accent-dark)]"
+      />
       {open && matches.length > 0 ? (
-        <ul className="absolute left-0 right-0 z-20 mt-2 max-h-72 overflow-auto rounded-[1rem] border border-[rgba(0,0,0,0.1)] bg-white p-1.5 shadow-[0_18px_40px_rgba(72,49,56,0.14)]">
+        <ul className="absolute left-0 right-0 z-30 mt-2 max-h-80 overflow-auto rounded-[1rem] border border-[rgba(0,0,0,0.1)] bg-white p-1.5 shadow-[0_18px_40px_rgba(72,49,56,0.16)]">
           {matches.map((item) => (
             <li key={item.id}>
               <button
@@ -124,7 +123,7 @@ function AddPicker({ catalog, selectedIds, onAdd }: AddPickerProps) {
 function ProductColumn({ item, onRemove }: { item: StrollerCompareItem; onRemove: () => void }) {
   const price = formatPrice(item.babylistPrice ?? item.macroBabyPrice ?? null);
   return (
-    <div className="relative flex min-h-[16rem] flex-col rounded-[1.4rem] border border-[rgba(215,161,175,0.28)] bg-white p-4 shadow-[0_10px_28px_rgba(72,49,56,0.06)]">
+    <div className="relative flex flex-col rounded-[1.4rem] border border-[rgba(215,161,175,0.28)] bg-white p-4 shadow-[0_10px_28px_rgba(72,49,56,0.06)]">
       <button
         type="button"
         onClick={onRemove}
@@ -166,8 +165,7 @@ export default function StrollerCompare({
     const params = new URLSearchParams();
     if (selectedIds.length) params.set('ids', selectedIds.join(','));
     const query = params.toString();
-    const url = query ? `/tools/compare?${query}` : '/tools/compare';
-    window.history.replaceState(null, '', url);
+    window.history.replaceState(null, '', query ? `/tools/compare?${query}` : '/tools/compare');
   }, [selectedIds]);
 
   const selected = selectedIds.map((id) => byId.get(id)!).filter(Boolean);
@@ -177,18 +175,15 @@ export default function StrollerCompare({
   const remove = (id: string) => setSelectedIds((ids) => ids.filter((existing) => existing !== id));
   const reset = () => setSelectedIds([]);
 
-  const showAddSlot = selected.length < MAX_COLUMNS;
-  const columnCount = selected.length + (showAddSlot ? 1 : 0);
+  const columns = Math.max(selected.length, 1);
+  const gridStyle = { gridTemplateColumns: `minmax(9rem,0.8fr) repeat(${columns}, minmax(11rem, 1fr))` };
 
-  // "Best" flags across the current selection.
   const ownWeights = selected.map((s) => s.ownWeightLbs).filter((w): w is number => w != null);
   const maxWeights = selected.map((s) => s.maxWeightLbs).filter((w): w is number => w != null);
   const lightest = ownWeights.length ? Math.min(...ownWeights) : null;
   const highestMax = maxWeights.length ? Math.max(...maxWeights) : null;
 
-  const gridStyle = { gridTemplateColumns: `minmax(9rem,0.8fr) repeat(${Math.max(columnCount, 1)}, minmax(11rem, 1fr))` };
-
-  const rows: { label: string; render: (item: StrollerCompareItem) => React.ReactNode }[] = [
+  const rows: { label: string; render: (item: StrollerCompareItem) => ReactNode }[] = [
     { label: 'Price', render: (i) => <SpecValue text={formatPrice(i.babylistPrice ?? i.macroBabyPrice ?? null)} /> },
     { label: 'Type', render: (i) => <SpecValue text={i.categoryLabel} /> },
     {
@@ -206,25 +201,22 @@ export default function StrollerCompare({
 
   return (
     <div>
-      {/* Column header: products + add slot */}
-      <div className="overflow-x-auto pb-1">
-        <div className="grid min-w-[36rem] items-stretch gap-4" style={gridStyle}>
-          <div className="flex items-end pb-2">
-            {selected.length > 0 ? (
-              <button
-                type="button"
-                onClick={reset}
-                className="link-underline text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-neutral-400 hover:text-[var(--color-accent-dark)]"
-              >
-                Clear all
-              </button>
-            ) : null}
-          </div>
-          {selected.map((item) => (
-            <ProductColumn key={item.id} item={item} onRemove={() => remove(item.id)} />
-          ))}
-          {showAddSlot ? <AddPicker catalog={catalog} selectedIds={selectedIds} onAdd={add} /> : null}
-        </div>
+      {/* Add / status bar (kept out of any overflow container so the dropdown is never clipped) */}
+      <div className="flex flex-col items-center gap-2">
+        {selected.length < MAX_COLUMNS ? (
+          <AddBar catalog={catalog} selectedIds={selectedIds} onAdd={add} />
+        ) : (
+          <p className="text-sm font-medium text-neutral-500">Comparing 3 strollers — remove one to swap in another.</p>
+        )}
+        {selected.length > 0 ? (
+          <button
+            type="button"
+            onClick={reset}
+            className="link-underline text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-neutral-400 hover:text-[var(--color-accent-dark)]"
+          >
+            Clear all
+          </button>
+        ) : null}
       </div>
 
       {selected.length === 0 ? (
@@ -238,9 +230,19 @@ export default function StrollerCompare({
         </div>
       ) : (
         <>
+          {/* Product columns */}
+          <div className="mt-8 overflow-x-auto">
+            <div className="grid min-w-[30rem] items-stretch gap-4" style={gridStyle}>
+              <div aria-hidden />
+              {selected.map((item) => (
+                <ProductColumn key={item.id} item={item} onRemove={() => remove(item.id)} />
+              ))}
+            </div>
+          </div>
+
           {/* Spec table */}
           <div className="mt-6 overflow-x-auto">
-            <div className="min-w-[36rem] overflow-hidden rounded-[1.4rem] border border-[rgba(0,0,0,0.07)] bg-white/95">
+            <div className="min-w-[30rem] overflow-hidden rounded-[1.4rem] border border-[rgba(0,0,0,0.07)] bg-white/95">
               {rows.map((row, index) => (
                 <div
                   key={row.label}
@@ -251,7 +253,6 @@ export default function StrollerCompare({
                   {selected.map((item) => (
                     <div key={item.id}>{row.render(item)}</div>
                   ))}
-                  {showAddSlot ? <div aria-hidden /> : null}
                 </div>
               ))}
             </div>
@@ -259,8 +260,8 @@ export default function StrollerCompare({
 
           {/* Buy + compatibility actions */}
           <div className="mt-4 overflow-x-auto">
-            <div className="grid min-w-[36rem] items-start gap-4" style={gridStyle}>
-              <div />
+            <div className="grid min-w-[30rem] items-start gap-4" style={gridStyle}>
+              <div aria-hidden />
               {selected.map((item) => {
                 const babylist = item.babylistUrl;
                 const amazon = item.amazonUrl;
@@ -311,7 +312,6 @@ export default function StrollerCompare({
                   </div>
                 );
               })}
-              {showAddSlot ? <div aria-hidden /> : null}
             </div>
           </div>
         </>
