@@ -136,24 +136,37 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const selection = await loadSelection(searchParams);
 
+  // Every variant of this page is an interactive tool output — the parameterised
+  // results (?stroller / ?carSeat) as well as the empty state. Keeping them all
+  // noindex avoids a contradictory signal where an indexable ?stroller= page
+  // canonicalises to the bare /results path, which is itself noindexed. Google is
+  // told, consistently, not to index any of them (but to follow the links out).
+  const noIndexRobots = { index: false, follow: true } as const;
+
   if (selection.status === 'stroller') {
-    return buildMarketingMetadata({
-      title: `Compatible Infant Car Seats for ${selection.result.stroller.displayName} | Taylor-Made Baby Co.`,
-      description: `See direct-fit and adapter-required infant car seats for ${selection.result.stroller.displayName}.`,
-      path: '/tools/travel-system/results',
-      imagePath: '/assets/hero/hero-03.jpg',
-      imageAlt: 'Travel system compatibility results',
-    });
+    return {
+      ...buildMarketingMetadata({
+        title: `Compatible Infant Car Seats for ${selection.result.stroller.displayName} | Taylor-Made Baby Co.`,
+        description: `See direct-fit and adapter-required infant car seats for ${selection.result.stroller.displayName}.`,
+        path: '/tools/travel-system/results',
+        imagePath: '/assets/hero/hero-03.jpg',
+        imageAlt: 'Travel system compatibility results',
+      }),
+      robots: noIndexRobots,
+    };
   }
 
   if (selection.status === 'carSeat') {
-    return buildMarketingMetadata({
-      title: `Compatible Strollers for ${selection.result.carSeat.displayName} | Taylor-Made Baby Co.`,
-      description: `See direct-fit and adapter-required strollers for ${selection.result.carSeat.displayName}.`,
-      path: '/tools/travel-system/results',
-      imagePath: '/assets/hero/hero-03.jpg',
-      imageAlt: 'Travel system compatibility results',
-    });
+    return {
+      ...buildMarketingMetadata({
+        title: `Compatible Strollers for ${selection.result.carSeat.displayName} | Taylor-Made Baby Co.`,
+        description: `See direct-fit and adapter-required strollers for ${selection.result.carSeat.displayName}.`,
+        path: '/tools/travel-system/results',
+        imagePath: '/assets/hero/hero-03.jpg',
+        imageAlt: 'Travel system compatibility results',
+      }),
+      robots: noIndexRobots,
+    };
   }
 
   return {
@@ -164,10 +177,7 @@ export async function generateMetadata({
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: 'Travel system compatibility results',
     }),
-    robots: {
-      index: false,
-      follow: true,
-    },
+    robots: noIndexRobots,
   };
 }
 
