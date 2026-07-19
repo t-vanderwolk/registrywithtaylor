@@ -291,7 +291,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         <Hero
           className="homepage-hero"
           eyebrow="Contact"
-          title="Contact Taylor"
+          title="Contact Taylor, Your Baby Gear & Registry Consultant"
           subtitle="Reach Taylor directly for partnerships and collaborations, media & press, or deeper and ongoing support after your consult. This is not the booking form — ready to book your $75 Registry Consult? Head to the booking page. Every message is read personally, with a reply within 24 hours."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact Taylor at Taylor-Made Baby Co."
@@ -556,7 +556,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto max-w-2xl">
               <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                Download the Free Baby Prep Starter Guide
+                Download the Free Baby Prep Starter Guide — Registry, Gear &amp; Nursery Clarity in One Place
               </h2>
               <p className="mt-3 text-[0.97rem] leading-7 text-neutral-700">
                 The Baby Prep Starter Guide is the calm, practical starting point Taylor gives every new client before
