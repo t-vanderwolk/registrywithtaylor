@@ -599,13 +599,16 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         {/* Closing */}
         <MarketingSection tone="blush" spacing="tight" container="narrow">
           <RevealOnScroll>
-            <div className="mx-auto max-w-2xl rounded-[1.4rem] bg-[var(--color-accent-dark)] px-6 py-7 text-center text-white shadow-[0_14px_34px_rgba(72,49,56,0.12)]">
-              <p className="font-serif text-[1.35rem] leading-snug">
-                Partnerships, press, or deeper support — this is the direct line to Taylor.
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="mx-auto block h-px w-16 bg-[rgba(148,100,112,0.35)]" />
+              <p className="mt-6 font-serif text-[clamp(1.35rem,2.6vw,1.8rem)] leading-snug tracking-[-0.02em] text-neutral-900">
+                Partnerships, press, or deeper support — the direct line to Taylor.
               </p>
-              <p className="mt-2 text-[0.92rem] leading-7 text-white/85">
-                One message — she reads it personally, responds within 24 hours, and points you to the right next step.
-                Ready to book your $75 Registry Consult instead? That’s on the booking page.
+              <p className="mx-auto mt-3 max-w-xl text-[0.95rem] leading-7 text-neutral-600">
+                One message, read personally, with a reply within 24 hours. Ready to book your $75 Registry Consult instead?{' '}
+                <Link href="/book" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                  Head to the booking page →
+                </Link>
               </p>
             </div>
           </RevealOnScroll>

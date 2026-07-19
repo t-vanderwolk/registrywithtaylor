@@ -80,6 +80,19 @@ const academyGuideRedirects = [
   { source: '/academy/postpartum/first-weeks-essentials', destination: '/learn', permanent: true },
 ];
 
+// When Academy is hidden (launch-phase), every /academy and /guides URL ultimately
+// lands on /services. Sending them straight there in one 301 avoids a redirect
+// chain (/academy → /learn → /services) that Search Console flags. When Academy is
+// re-enabled, the /learn destination redirects above take over to preserve equity.
+const academyDisabledFlatten = [
+  { source: '/academy', destination: '/services', permanent: true },
+  { source: '/academy/:path*', destination: '/services', permanent: true },
+  { source: '/guides', destination: '/services', permanent: true },
+  { source: '/guides/:path*', destination: '/services', permanent: true },
+];
+
+const academyEnabled = process.env.NEXT_PUBLIC_ACADEMY_ENABLED === 'true';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -108,11 +121,14 @@ const nextConfig = {
         destination: 'https://www.taylormadebabyco.com/:path*',
         permanent: true,
       },
+      // While Academy is hidden, collapse every /academy + /guides URL to a
+      // single 301 → /services (no /learn hop). When enabled, fall back to the
+      // /learn destination redirects that preserve each URL's SEO equity.
       // Academy → Learn must come BEFORE the legacy guide redirects
       // so the more-specific patterns take precedence.
-      ...academyToLearnRedirects,
-      // Guide → Learn (updated from old guide → academy destinations)
-      ...academyGuideRedirects,
+      ...(academyEnabled
+        ? [...academyToLearnRedirects, ...academyGuideRedirects]
+        : academyDisabledFlatten),
       {
         source: '/blog/untitled-post-5',
         destination: '/blog/nuna-demi-icon-has-arrived',
