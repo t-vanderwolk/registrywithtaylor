@@ -153,33 +153,31 @@ export default function AboutPage() {
 
         {/* Bio */}
         <MarketingSection tone="ivory" spacing="spacious" container="default">
-          <div className="mx-auto max-w-3xl space-y-8">
-            <RevealOnScroll>
-              <div className="flex justify-center">
+          <RevealOnScroll>
+            <div className="mx-auto grid max-w-5xl items-start gap-8 md:grid-cols-[minmax(0,1.28fr)_minmax(0,0.92fr)] md:gap-12">
+              {/* Text column */}
+              <div className="space-y-6">
+                <H2 className="font-serif text-neutral-900">Taylor, Your Baby Registry Consultant</H2>
+                <Body className="text-lg font-medium text-neutral-900">{ABOUT_QUOTABLE}</Body>
+                <div className="space-y-6 text-left">
+                  {ABOUT_BIO.map((p, i) => (
+                    <Body key={i} className="text-neutral-700">{p}</Body>
+                  ))}
+                </div>
+              </div>
+              {/* Image column */}
+              <div className="md:sticky md:top-28">
                 <Image
                   src="/assets/taylor2.png"
                   alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
-                  width={420}
-                  height={525}
-                  className="w-full max-w-[420px] rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)]"
+                  width={560}
+                  height={700}
+                  className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)]"
                   priority
                 />
               </div>
-            </RevealOnScroll>
-            <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">Taylor, Your Baby Registry Consultant</H2>
-            </RevealOnScroll>
-            <RevealOnScroll delayMs={60}>
-              <Body className="text-lg font-medium text-neutral-900">{ABOUT_QUOTABLE}</Body>
-            </RevealOnScroll>
-            <RevealOnScroll delayMs={120}>
-              <div className="space-y-6 text-left">
-                {ABOUT_BIO.map((p, i) => (
-                  <Body key={i} className="text-neutral-700">{p}</Body>
-                ))}
-              </div>
-            </RevealOnScroll>
-          </div>
+            </div>
+          </RevealOnScroll>
         </MarketingSection>
 
         {/* Origin story */}
