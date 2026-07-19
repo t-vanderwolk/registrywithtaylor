@@ -75,7 +75,7 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
             budgetMax: r.spec.budgetMax,
             modular: r.spec.modular ?? null,
             fitsOverheadBin: r.spec.fitsOverheadBin ?? null,
-            basketCapacityLiters: r.spec.basketCapacityLiters ?? null,
+            basketCapacityLbs: r.spec.basketCapacityLbs ?? null,
           }
         : null,
     }));

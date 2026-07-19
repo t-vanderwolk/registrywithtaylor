@@ -36,8 +36,8 @@ export type StrollerCompareItem = {
   fitsOverheadBin: boolean;
   /** Qualitative fallback bucket (Small/Medium/Large). */
   basketCapacity: BasketSize;
-  /** Exact litres when curated in the DB; otherwise null (UI falls back to the bucket). */
-  basketCapacityLiters: number | null;
+  /** Basket weight limit in lbs when curated in the DB; otherwise null (UI falls back to the bucket). */
+  basketCapacityLbs: number | null;
 };
 
 type SpecRow = {
@@ -49,7 +49,7 @@ type SpecRow = {
   // Compare-tool overrides (may be absent until the migration + seed run).
   modular: boolean | null;
   fitsOverheadBin: boolean | null;
-  basketCapacityLiters: number | null;
+  basketCapacityLbs: number | null;
 };
 
 const specKey = (brand: string, model: string) => `${brand.trim().toLowerCase()}|${model.trim().toLowerCase()}`;
@@ -89,7 +89,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
             suitableForJogging: true,
             modular: true,
             fitsOverheadBin: true,
-            basketCapacityLiters: true,
+            basketCapacityLbs: true,
           },
         },
         _count: { select: { compatibilities: true } },
@@ -146,7 +146,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       travelSystemCompatible: compatibleKeys.has(key),
       fitsOverheadBin: spec?.fitsOverheadBin ?? attrs.fitsOverheadBin,
       basketCapacity: attrs.basketCapacity,
-      basketCapacityLiters: spec?.basketCapacityLiters ?? null,
+      basketCapacityLbs: spec?.basketCapacityLbs ?? null,
     });
   }
 

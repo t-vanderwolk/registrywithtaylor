@@ -16,7 +16,7 @@ export type StrollerSpec = {
   budgetMax: number | null;
   modular: boolean | null;
   fitsOverheadBin: boolean | null;
-  basketCapacityLiters: number | null;
+  basketCapacityLbs: number | null;
 } | null;
 
 export type StrollerRow = {
@@ -153,8 +153,8 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
             <p className="admin-eyebrow sm:col-span-2 mt-1">Compare specs</p>
 
             <label className={labelCls}>
-              Basket capacity (litres)
-              <input name="basketCapacityLiters" type="number" step="0.1" defaultValue={spec?.basketCapacityLiters ?? ''} className={field} />
+              Basket weight limit (lbs)
+              <input name="basketCapacityLbs" type="number" step="0.1" defaultValue={spec?.basketCapacityLbs ?? ''} className={field} />
             </label>
             <fieldset className="flex flex-wrap items-end gap-x-4 gap-y-2">
               <Check name="modular" label="Modular" defaultChecked={spec?.modular ?? false} />

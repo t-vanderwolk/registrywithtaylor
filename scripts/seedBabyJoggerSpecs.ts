@@ -6,10 +6,10 @@
  * from Baby Jogger's official spec sheets / help centre and major retailers
  * (July 2026). See the source list in the accompanying chat message.
  *
- * Note on basket capacity: Baby Jogger publishes basket *weight* limits (lb), not
- * volume. `basketCapacityLiters` here is an approximate physical-size estimate;
- * the exact weight limit is recorded in each summary. Everything else (weights,
- * child limits, fold, from-birth, jogging, modular) is from published specs.
+ * `basketCapacityLbs` is the storage-basket WEIGHT limit (lbs) as Baby Jogger
+ * publishes it: 10 lb across the City line, 15 lb on City Select 2. The two City
+ * Tour travel baskets have no published lb rating, so they fall back to the
+ * Compare tool's qualitative bucket.
  *
  *   npx tsx scripts/seedBabyJoggerSpecs.ts            # dry run (default)
  *   npx tsx scripts/seedBabyJoggerSpecs.ts --apply
@@ -39,7 +39,7 @@ type Spec = {
   suitableForJogging: boolean;
   modular: boolean;
   fitsOverheadBin: boolean;
-  basketCapacityLiters: number; // approximate (BJ publishes lb limits)
+  basketCapacityLbs?: number; // basket weight limit (lbs), where published
 };
 
 // Ordered most-specific → general (first match wins).
@@ -51,7 +51,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban', 'trail'],
     maxWeightLbs: 65, ownWeightLbs: 30.6, budgetMin: 550, budgetMax: 650,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 24,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city mini gt2/,
@@ -60,7 +60,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban', 'trail'],
     maxWeightLbs: 65, ownWeightLbs: 21.4, budgetMin: 380, budgetMax: 450,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 24,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city mini gt3/,
@@ -69,7 +69,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban', 'trail'],
     maxWeightLbs: 65, ownWeightLbs: 21.8, budgetMin: 400, budgetMax: 480,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 24,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city mini double/,
@@ -78,7 +78,7 @@ const SPECS: Spec[] = [
     priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
     maxWeightLbs: 50, ownWeightLbs: 28, budgetMin: 430, budgetMax: 520,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 20,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city mini air/,
@@ -87,7 +87,7 @@ const SPECS: Spec[] = [
     priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
     maxWeightLbs: 50, ownWeightLbs: 20.5, budgetMin: 280, budgetMax: 360,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 22,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city mini 2/,
@@ -96,7 +96,7 @@ const SPECS: Spec[] = [
     priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
     maxWeightLbs: 50, ownWeightLbs: 19.3, budgetMin: 300, budgetMax: 380,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 22,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /city tour 2 double/,
@@ -105,7 +105,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
     maxWeightLbs: 45, ownWeightLbs: 23, budgetMin: 450, budgetMax: 550,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 14,
+    modular: false, fitsOverheadBin: false,
   },
   {
     match: /city tour 2/,
@@ -114,7 +114,7 @@ const SPECS: Spec[] = [
     priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
     maxWeightLbs: 45, ownWeightLbs: 14, budgetMin: 250, budgetMax: 320,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: false, fitsOverheadBin: true, basketCapacityLiters: 12,
+    modular: false, fitsOverheadBin: true,
   },
   {
     match: /city select 2/,
@@ -123,7 +123,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
     maxWeightLbs: 45, ownWeightLbs: 26.4, budgetMin: 550, budgetMax: 650,
     isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
-    modular: true, fitsOverheadBin: false, basketCapacityLiters: 30,
+    modular: true, fitsOverheadBin: false, basketCapacityLbs: 15,
   },
   {
     match: /city sights/,
@@ -132,7 +132,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
     maxWeightLbs: 50, ownWeightLbs: 24.4, budgetMin: 400, budgetMax: 480,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
-    modular: true, fitsOverheadBin: false, basketCapacityLiters: 25,
+    modular: true, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /summit x3 double/,
@@ -141,7 +141,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['trail', 'suburban', 'city'],
     maxWeightLbs: 50, ownWeightLbs: 40, budgetMin: 650, budgetMax: 750,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 25,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
   {
     match: /summit x3/,
@@ -150,7 +150,7 @@ const SPECS: Spec[] = [
     priceRange: 'premium', foldType: 'one-hand', lifestyle: ['trail', 'suburban', 'city'],
     maxWeightLbs: 75, ownWeightLbs: 28.5, budgetMin: 420, budgetMax: 500,
     isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
-    modular: false, fitsOverheadBin: false, basketCapacityLiters: 25,
+    modular: false, fitsOverheadBin: false, basketCapacityLbs: 10,
   },
 ];
 
@@ -178,7 +178,7 @@ async function main() {
     }
     matched += 1;
 
-    const specData = {
+    const specData: Record<string, unknown> = {
       priceRange: spec.priceRange,
       foldType: spec.foldType,
       lifestyle: spec.lifestyle,
@@ -191,11 +191,12 @@ async function main() {
       suitableForJogging: spec.suitableForJogging,
       modular: spec.modular,
       fitsOverheadBin: spec.fitsOverheadBin,
-      basketCapacityLiters: spec.basketCapacityLiters,
     };
+    if (spec.basketCapacityLbs != null) specData.basketCapacityLbs = spec.basketCapacityLbs;
 
+    const basketLabel = spec.basketCapacityLbs != null ? `${spec.basketCapacityLbs}lb` : '—';
     console.log(
-      `${apply ? 'SET ' : 'PLAN'}  Baby Jogger ${stroller.model}  ·  ${spec.priceRange} · ${spec.ownWeightLbs}lb · max ${spec.maxWeightLbs}lb · fold ${spec.foldType} · birth ${spec.suitableFromBirth} · jog ${spec.suitableForJogging} · modular ${spec.modular} · overhead ${spec.fitsOverheadBin} · basket ~${spec.basketCapacityLiters}L`,
+      `${apply ? 'SET ' : 'PLAN'}  Baby Jogger ${stroller.model}  ·  ${spec.priceRange} · ${spec.ownWeightLbs}lb · max ${spec.maxWeightLbs}lb · fold ${spec.foldType} · birth ${spec.suitableFromBirth} · jog ${spec.suitableForJogging} · modular ${spec.modular} · overhead ${spec.fitsOverheadBin} · basket ${basketLabel}`,
     );
 
     if (apply) {

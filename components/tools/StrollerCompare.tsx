@@ -251,7 +251,7 @@ export default function StrollerCompare({
     { label: 'Fold', render: (i) => <SpecValue text={i.foldType} /> },
     {
       label: 'Basket capacity',
-      render: (i) => <SpecValue text={i.basketCapacityLiters != null ? `${i.basketCapacityLiters} L` : i.basketCapacity} />,
+      render: (i) => <SpecValue text={i.basketCapacityLbs != null ? `${i.basketCapacityLbs} lb limit` : i.basketCapacity} />,
     },
     { label: 'Modular', render: (i) => <BoolValue value={i.modular} /> },
     { label: 'Travel system compatible', render: (i) => <BoolValue value={i.travelSystemCompatible} /> },

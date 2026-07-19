@@ -85,7 +85,7 @@ export async function updateStroller(formData: FormData) {
     // Compare-tool dimensions.
     modular: bool(formData, 'modular'),
     fitsOverheadBin: bool(formData, 'fitsOverheadBin'),
-    basketCapacityLiters: num(formData, 'basketCapacityLiters'),
+    basketCapacityLbs: num(formData, 'basketCapacityLbs'),
   };
 
   await db.strollerSpec.upsert({
