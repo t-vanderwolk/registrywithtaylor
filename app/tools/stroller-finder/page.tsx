@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
@@ -38,6 +39,15 @@ export default async function StrollerFinderPage({
             description="Every stroller, sorted by brand and then by type — with live Babylist prices, photos, and links."
             contentWidthClassName="max-w-4xl"
           />
+
+          <div className="mt-4 text-center">
+            <Link
+              href="/tools/compare"
+              className="link-underline text-sm font-semibold text-[var(--color-accent-dark)]"
+            >
+              Torn between a few? Compare strollers side by side →
+            </Link>
+          </div>
 
           <div className="mt-10">
             <StrollerCatalogFinder initialCategory={initialCategory} />

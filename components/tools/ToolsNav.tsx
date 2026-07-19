@@ -8,11 +8,12 @@ import Link from 'next/link';
  * link takes them back to the hub they came from.
  */
 
-export type ToolKey = 'quiz' | 'finder' | 'checker';
+export type ToolKey = 'quiz' | 'finder' | 'compare' | 'checker';
 
 const TOOLS: { key: ToolKey; href: string; label: string; blurb: string }[] = [
   { key: 'quiz', href: '/tools/stroller-quiz', label: 'Stroller Quiz', blurb: 'Find your match' },
   { key: 'finder', href: '/tools/stroller-finder', label: 'Stroller Finder', blurb: 'Browse by brand' },
+  { key: 'compare', href: '/tools/compare', label: 'Compare Strollers', blurb: 'Side by side' },
   { key: 'checker', href: '/tools/travel-system', label: 'Travel System Checker', blurb: 'Car seat fit' },
 ];
 

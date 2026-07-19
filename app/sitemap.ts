@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.95 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'daily', priority: 0.9 },
+    { url: buildUrl('/tools/compare'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/tools/travel-system'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/blog'), changeFrequency: 'weekly', priority: 0.9 },
     { url: buildUrl('/contact'), changeFrequency: 'monthly', priority: 0.7 },

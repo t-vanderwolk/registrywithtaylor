@@ -3,7 +3,7 @@ import { AnalyticsEvents } from '@/lib/analytics/events';
 import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
 import { sendToolEventBeacon } from '@/lib/analytics/toolEventBeacon';
 
-export type ToolName = 'stroller-finder' | 'travel-system-checker' | 'stroller-quiz';
+export type ToolName = 'stroller-finder' | 'travel-system-checker' | 'stroller-quiz' | 'stroller-compare';
 
 type Extra = Record<string, string | number | boolean | null | undefined>;
 
