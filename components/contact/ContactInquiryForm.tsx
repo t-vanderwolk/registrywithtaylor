@@ -297,17 +297,16 @@ export default function ContactInquiryForm({
 
         <div className="space-y-2">
           <label htmlFor="challenge" className={labelClassName}>
-            What&rsquo;s your biggest challenge right now?
+            What are you reaching out about?
           </label>
           <select id="challenge" name="challenge" className={inputClassName} defaultValue="">
             <option value="" disabled>
               Select one
             </option>
-            <option value="registry">Building my registry from scratch</option>
-            <option value="stroller">Stroller decision</option>
-            <option value="car-seat">Car seat for my vehicle</option>
-            <option value="nursery">Nursery planning</option>
-            <option value="full-planning">Full pregnancy planning support</option>
+            <option value="partnership">Brand partnership or collaboration</option>
+            <option value="press">Media or press inquiry</option>
+            <option value="ongoing-support">Ongoing support after my consult</option>
+            <option value="consult-question">A question before I book my $75 consult</option>
             <option value="other">Something else</option>
           </select>
         </div>

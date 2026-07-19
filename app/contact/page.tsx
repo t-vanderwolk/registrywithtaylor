@@ -58,7 +58,7 @@ const PROCESS_STEPS = [
   {
     n: '01',
     title: 'Fill in the short form (90 seconds)',
-    body: 'The form asks for your name, email, due date, and your biggest baby planning challenge. You don’t need to know the right terminology or have done any research. Just describe where you are. Taylor reads every field before she replies.',
+    body: 'The form asks for your name, email, and what you’re reaching out about — a partnership, a press or media request, ongoing support after your consult, or a quick question before you book. Just describe where you are in your own words. Taylor reads every field before she replies.',
   },
   {
     n: '02',
@@ -68,7 +68,7 @@ const PROCESS_STEPS = [
   {
     n: '03',
     title: 'You get a clear next step — specific to your situation',
-    body: 'Taylor’s response will identify the right level of support for where you are: the free 30-minute intro call, the $75 Registry Consult, the TMBC Academy self-guided programme, or a custom ongoing arrangement. No pressure, no upsell. A clear next step.',
+    body: 'Taylor’s response will point you to the right path — a partnership or press conversation, deeper ongoing support after your consult, or a custom arrangement for where you are. Ready to book the $75 Registry Consult itself? That happens on the booking page. No pressure, no upsell. Just a clear next step.',
   },
 ];
 
@@ -82,25 +82,25 @@ const CREDENTIALS = [
 
 const BOOKING_TIERS = [
   {
-    service: 'Introductory Call',
-    duration: '30 minutes',
-    price: 'Free',
-    includes: 'Your top questions · Situation assessment · Recommended next step',
-    booking: 'Start with the form below',
-  },
-  {
     service: 'Registry Consult',
     duration: '1 Hour',
     price: '$75',
     includes: 'Full registry · Stroller · Car seat · Nursery · Written follow-up notes · Virtual',
-    booking: 'Book directly',
+    booking: 'Book on the booking page',
   },
   {
     service: 'Ongoing Support',
     duration: 'Ongoing',
     price: 'Custom',
-    includes: 'Full pregnancy planning through the fourth trimester · Contact to discuss',
-    booking: 'Start with the form below',
+    includes: 'Deeper pregnancy planning through the fourth trimester · After your consult',
+    booking: 'Message Taylor to discuss',
+  },
+  {
+    service: 'Partnerships & Press',
+    duration: 'By enquiry',
+    price: 'Let’s talk',
+    includes: 'Brand partnerships · Collaborations · Media & press requests',
+    booking: 'Message Taylor via the form',
   },
 ];
 
@@ -122,7 +122,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'How much does a baby registry consultation cost?',
     answer:
-      'Taylor-Made Baby Co. offers a complimentary 30-minute introductory call with no obligation — you complete a short intake form and Taylor schedules a focused session around your specific questions. The Registry Consult service is $75 for a full 1-hour virtual session covering your complete registry, stroller shortlist, car seat compatibility, and nursery setup, with written follow-up notes included. Longer-term planning support is available — contact Taylor via the form to discuss.',
+      'The Registry Consult is $75 for a full 1-hour virtual session covering your complete registry, stroller shortlist, car seat compatibility, and nursery setup, with written follow-up notes included. You book it directly on the booking page. Deeper, ongoing planning support is available after your consult — message Taylor via the contact form to discuss what that looks like for you.',
   },
   {
     question: 'Can I get baby gear advice virtually?',
@@ -132,7 +132,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'How quickly does Taylor respond to enquiries?',
     answer:
-      'Taylor personally reviews every contact form submission and responds within 24 hours — with no automated responses, no assistant filtering, and no generic templates. Every reply comes directly from Taylor, with context from your specific message already read. Most enquiries receive a response the same business day. After her reply, she will direct you to the right level of support for your situation: the free intro call, the $75 Registry Consult, or ongoing planning support.',
+      'Taylor personally reviews every contact form submission and responds within 24 hours — with no automated responses, no assistant filtering, and no generic templates. Every reply comes directly from Taylor, with context from your specific message already read. Most enquiries receive a response the same business day. After her reply, she will point you to the right path: the $75 Registry Consult (booked on the booking page), deeper ongoing support after your consult, or a partnership, media, or press conversation.',
   },
   {
     question: 'What baby topics can I get help with?',
@@ -152,7 +152,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'What happens after I submit the contact form?',
     answer:
-      'After submitting the form, Taylor reads your message personally and responds within 24 hours. Based on what you share, she will direct you to the most appropriate next step: the complimentary 30-minute introductory call (no cost), the 1-hour Registry Consult ($75), the TMBC Academy self-guided programme, or a custom ongoing planning arrangement. The response will be specific to what you wrote — not a template. You will know exactly what to do next when Taylor replies.',
+      'After submitting the form, Taylor reads your message personally and responds within 24 hours. Based on what you share, she will point you to the most appropriate next step: booking the 1-hour Registry Consult ($75) on the booking page, deeper ongoing planning support after your consult, or a partnership, media, or press conversation. The response will be specific to what you wrote — not a template. You will know exactly what to do next when Taylor replies.',
   },
 ];
 
@@ -243,16 +243,6 @@ const localBusinessSchema = {
         itemListElement: [
           {
             '@type': 'Offer',
-            name: 'Complimentary 30-Minute Consultation',
-            description:
-              'Free introductory call. Taylor reviews your intake form and addresses your top baby planning questions.',
-            price: '0',
-            priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
-            url: `${SITE_URL}/contact`,
-          },
-          {
-            '@type': 'Offer',
             name: 'Registry Consult — 1-Hour Virtual Session',
             description:
               'Full registry, stroller, car seat, and nursery planning consultation. Written follow-up notes included.',
@@ -315,10 +305,10 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         <Hero
           className="homepage-hero"
           eyebrow="Contact"
-          title="Contact a Baby Gear & Registry Consultant"
-          subtitle="Personalised baby gear, registry, and nursery guidance from Taylor — a certified baby gear consultant. Every message is read personally, with a reply within 24 hours."
+          title="Contact Taylor"
+          subtitle="Reach Taylor directly for partnerships and collaborations, media & press, or deeper and ongoing support after your consult. This is not the booking form — ready to book your $75 Registry Consult? Head to the booking page. Every message is read personally, with a reply within 24 hours."
           image="/assets/hero/hero-06.jpg"
-          imageAlt="Contact consultation workspace"
+          imageAlt="Contact Taylor at Taylor-Made Baby Co."
           contentClassName="homepage-hero-content"
           staggerContent
         />
@@ -339,24 +329,39 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto max-w-2xl text-center">
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[var(--color-accent-dark)]/80">
-                Baby Gear &amp; Registry Help
+                Partnerships · Press · Ongoing Support
               </p>
               <h2 className="mt-3 font-serif text-[clamp(1.8rem,3.1vw,2.35rem)] leading-tight tracking-[-0.02em] text-neutral-900">
-                Real Baby Gear &amp; Registry Help — Response Within 24 Hours
+                Reach Taylor Directly — Response Within 24 Hours
               </h2>
               <p className="mt-5 text-[0.99rem] leading-8 text-neutral-700">
-                Whether you have a quick stroller question, need a full registry review, or want ongoing baby planning
-                support from pregnancy through the fourth trimester — this is where to start.
+                This is the place for partnership and collaboration ideas, media and press inquiries, and clients who
+                want deeper or ongoing support after their $75 Registry Consult.
               </p>
               <p className="mt-4 text-[0.99rem] leading-8 text-neutral-700">
                 Taylor reads every message personally. No automated responses, no assistants handling initial enquiries,
-                no generic templates. You send your question. She reads it. You hear back within 24 hours — with a
-                specific, practical answer.
+                no generic templates. You send your note. She reads it. You hear back within 24 hours.
               </p>
               <p className="mt-7 text-[0.86rem] font-semibold text-neutral-800">
                 Taylor — Certified Tot Squad Specialist · Former Strolleria Baby Gear Specialist · 200+ Families Helped
               </p>
               <span aria-hidden className="mx-auto mt-4 block h-px w-14 bg-[var(--color-cta-pink)]/45" />
+            </div>
+          </RevealOnScroll>
+
+          {/* Not the booking form */}
+          <RevealOnScroll>
+            <div className="mx-auto mt-8 max-w-2xl rounded-[1.35rem] border border-[rgba(215,161,175,0.35)] bg-[linear-gradient(180deg,#fff6f4_0%,#fdeef1_100%)] px-6 py-5 text-center shadow-[0_8px_24px_rgba(72,49,56,0.05)]">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/85">
+                This is not the booking form
+              </p>
+              <p className="mt-2 text-[0.95rem] leading-7 text-neutral-700">
+                Ready to book your 1-hour Registry Consult ($75 · Virtual · US Nationwide)? Book it directly on the
+                booking page — no need to message first.{' '}
+                <Link href="/book" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                  Book your $75 consult →
+                </Link>
+              </p>
             </div>
           </RevealOnScroll>
 
@@ -390,11 +395,11 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
           <RevealOnScroll>
             <div className="mx-auto mb-6 max-w-2xl text-center">
               <h2 className="font-serif text-[1.6rem] leading-tight tracking-[-0.02em] text-neutral-900">
-                Ready for Ongoing Baby Gear &amp; Registry Support?
+                Partnerships, Press &amp; Ongoing Support — Message Taylor
               </h2>
               <p className="mt-2 text-[0.97rem] leading-7 text-neutral-700">
-                Whether it’s one question or a full pregnancy planning partnership — start here and Taylor will find the
-                right level for your situation.
+                Brand partnerships, media &amp; press requests, deeper support after your consult, or a quick question
+                before you book — start here and Taylor will point you to the right path.
               </p>
             </div>
           </RevealOnScroll>
