@@ -291,7 +291,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
         <Hero
           className="homepage-hero"
           eyebrow="Contact"
-          title="Contact Taylor, Your Baby Gear & Registry Consultant"
+          title="Contact Taylor for Baby Gear & Registry Help"
           subtitle="Reach Taylor directly for partnerships and collaborations, media & press, or deeper and ongoing support after your consult. This is not the booking form — ready to book your $75 Registry Consult? Head to the booking page. Every message is read personally, with a reply within 24 hours."
           image="/assets/hero/hero-06.jpg"
           imageAlt="Contact Taylor at Taylor-Made Baby Co."
