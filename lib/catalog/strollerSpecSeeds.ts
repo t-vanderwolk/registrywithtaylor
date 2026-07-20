@@ -711,6 +711,131 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       isExpandable: false, suitableForJogging: false, modular: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // GRACO — gracobaby.com. Graco publishes per-seat limits on its doubles
+  // (front seat higher than rear); maxWeightLbs stores the front-seat figure.
+  // Ordering: /nest2grow/ must precede /modes nest/, which would otherwise
+  // swallow it.
+  // ─────────────────────────────────────────────────────────────────────────
+  Graco: [
+    {
+      match: /nest2grow/,
+      summary:
+        'Graco’s single-that-becomes-a-double: infant, bassinet and toddler modes, then a second seat when you need it. 50 lb in the front seat and 45 lb in the rear — the affordable answer to the premium convertibles.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 34.6, budgetMin: 300, budgetMax: 420,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /modes nest/,
+      summary:
+        'A modular full-size Graco with infant, bassinet and toddler modes on one frame, up to 50 lb. Covers newborn through preschool without buying a second stroller.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      maxWeightLbs: 50, budgetMin: 250, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /pramette/,
+      summary:
+        'The pram mode is the point: a true flat bassinet for the newborn months that converts to a toddler seat, up to 50 lb, at a fraction of what a European pram costs.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 230, budgetMax: 350,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /ready2grow/,
+      summary:
+        'The tandem workhorse: a dozen riding configurations including a bench and standing platform, 50 lb in front and 40 lb in back, on a 32.4 lb frame. Takes two infant seats, so it works from birth for twins.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 32.4, budgetMin: 230, budgetMax: 350,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /ready2jet/,
+      summary:
+        'Graco’s travel compact: a small fold and light frame built for airports and car trunks rather than daily neighbourhood miles.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 150, budgetMax: 250,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+    {
+      match: /fastaction/,
+      summary:
+        'The budget jogger: rubber tires, a locking front wheel and a genuine one-hand fold, up to 50 lb, and it clicks onto a Graco infant seat from birth. The cheapest honest way into stroller running.',
+      priceRange: 'budget', foldType: 'one-hand', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 180, budgetMax: 260,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /outpace/,
+      summary:
+        'Graco’s all-terrain jogger — bigger wheels and a sturdier frame for gravel paths and running days, at a budget price.',
+      priceRange: 'budget', foldType: 'one-hand', lifestyle: ['trail', 'suburban'],
+      budgetMin: 200, budgetMax: 300,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /merge/,
+      summary:
+        'A slim, lightweight everyday Graco built for narrow aisles and quick errands rather than all-day outings.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 130, budgetMax: 220,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // GUAVA FAMILY — guavafamily.com. Both catalog entries are the same Roam
+  // crossover; it folds unusually small but is NOT airline carry-on approved.
+  // ─────────────────────────────────────────────────────────────────────────
+  'Guava Family': [
+    {
+      match: /roam/,
+      summary:
+        'A jogger that folds like a travel stroller: the 3D nesting fold packs down about half the size of a normal running stroller without pulling the wheels off. 28.5 lb, up to 60 lb. It folds small, but it is too big to carry on — plan to gate-check it.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['trail', 'travel', 'suburban'],
+      maxWeightLbs: 60, ownWeightLbs: 28.5, budgetMin: 500, budgetMax: 650,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // INGENUITY — kids2 / ingenuitybaby.com
+  // ─────────────────────────────────────────────────────────────────────────
+  Ingenuity: [
+    {
+      match: /3dsuite|3d suite/,
+      summary:
+        'A budget modular: bassinet, infant-seat and toddler configurations on one frame, aimed at parents who want the convertible format without the convertible price.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['city', 'suburban'],
+      budgetMin: 180, budgetMax: 300,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // INGLESINA — inglesina.us
+  // ─────────────────────────────────────────────────────────────────────────
+  Inglesina: [
+    {
+      match: /quid/,
+      summary:
+        'Fourteen pounds, folds to roughly the size of a backpack and fits most overhead bins. Up to 50 lb, but it starts around 3 months rather than birth — a second stroller for travel, not a first stroller.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 14, budgetMin: 260, budgetMax: 350,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
