@@ -19,6 +19,8 @@
     "catalog:compare-specs-apply": "tsx scripts/seedStrollerCompareSpecs.ts --apply",
     "catalog:baby-jogger-specs": "tsx scripts/seedBabyJoggerSpecs.ts",
     "catalog:baby-jogger-specs-apply": "tsx scripts/seedBabyJoggerSpecs.ts --apply",
+    "catalog:baby-trend-specs": "tsx scripts/seedBabyTrendSpecs.ts",
+    "catalog:baby-trend-specs-apply": "tsx scripts/seedBabyTrendSpecs.ts --apply",
     "strollers:import": "tsx scripts/importStrollersFromCatalog.ts",
     "strollers:import-dry": "tsx scripts/importStrollersFromCatalog.ts --dry-run",
     "seed:affiliate-canon": "tsx scripts/seedAffiliateCanon.ts",
