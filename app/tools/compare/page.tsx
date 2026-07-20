@@ -8,7 +8,9 @@ import CheckIcon from '@/components/ui/CheckIcon';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
 
-const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required', 'Independent, zero affiliate commission'];
+// No "zero affiliate commission" claim here — this tool carries affiliate buy
+// links, so that badge would contradict the disclosure used elsewhere on the site.
+const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required'];
 
 export const dynamic = 'force-dynamic';
 
