@@ -30,7 +30,7 @@ export const servicesStructuredData = {
       name: 'Baby Registry Consultation',
       serviceType: 'Baby Registry Consulting',
       description:
-        'One hour virtual baby registry consultation for expecting parents covering stroller selection and compatibility, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, a certified Tot Squad specialist with hands-on baby gear experience and 200+ families helped. Independent and unsponsored, with written follow up notes.',
+        'One hour virtual baby registry consultation for expecting parents covering stroller selection and compatibility, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, a certified Tot Squad specialist with hands-on baby gear experience and 200+ families helped. Independent, with no brand sponsorships or paid placements, and written follow up notes.',
       provider: { '@id': PERSON_ID },
       brand: { '@id': ORG_ID },
       offers: {

@@ -39,7 +39,7 @@ export const ABOUT_BIO = [
   'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
   'Baby gear decisions arrive fast and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
   'My role is not to hand you a checklist and move on. It is to sit with you in the details, your home layout, your vehicle, your family plans, your comfort with risk and spending, and help you make the specific choices that will serve you best.',
-  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, independent recommendations. No brand sponsorships, no affiliate pressure, no generic advice.',
+  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, independent recommendations. No brand sponsorships, no paid placements, no generic advice. Where I link to products, some of those are affiliate links, and what I recommend to you never changes because of it.',
 ];
 
 export const ABOUT_ORIGIN = {
@@ -56,7 +56,7 @@ export const ABOUT_ORIGIN = {
 
 export const ABOUT_STATS = [
   { value: '200+', label: 'Families Helped' },
-  { value: '100%', label: 'Independent & Unsponsored' },
+  { value: '0', label: 'Brand Sponsorships & Paid Placements' },
   { value: '5 Stars', label: 'Strolleria Rating' },
   { value: '$75', label: 'Full 1-Hour Session' },
 ];
@@ -140,7 +140,7 @@ export const ABOUT_COMPARE = {
   columns: ['Taylor-Made', 'YouTube / Influencers', 'Reddit / Forums', 'Parenting Apps', 'Big-Box Staff'],
   rows: [
     { feature: 'Personalised to YOUR home and car', values: ['yes', 'no', 'no', 'no', 'partial'] },
-    { feature: 'Independent, no affiliate links', values: ['yes', 'no', 'partial', 'partial', 'no'] },
+    { feature: 'No brand sponsorships or paid placements', values: ['yes', 'no', 'partial', 'partial', 'no'] },
     { feature: 'Verified professional credentials', values: ['yes', 'varies', 'no', 'no', 'varies'] },
     { feature: 'Written follow-up notes included', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Based on current product range', values: ['yes', 'varies', 'varies', 'partial', 'yes'] },
@@ -192,7 +192,7 @@ export const ABOUT_FAQ = [
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',
     answer:
-      'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no affiliate commissions, no partnerships that influence recommendations. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a certified Target Baby Concierge specialist through Tot Squad.',
+      'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no paid placements, no partnerships that influence recommendations, and no brand pays to be recommended. Some product links on this site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you — that income never determines what gets recommended. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a certified Target Baby Concierge specialist through Tot Squad.',
   },
   {
     question: 'Is Taylor a certified baby gear specialist?',

@@ -106,7 +106,7 @@ export const SERVICES_COMPARE = {
   rows: [
     { feature: 'Tailored to YOUR vehicle', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Stroller compatibility verified', values: ['yes', 'partial', 'no', 'no', 'partial'] },
-    { feature: 'Zero affiliate income', values: ['yes', 'no', 'varies', 'varies', 'no'] },
+    { feature: 'No brand sponsorships or paid placements', values: ['yes', 'no', 'varies', 'varies', 'no'] },
     { feature: 'Written notes included', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Car seat safety context', values: ['yes', 'partial', 'partial', 'no', 'partial'] },
     { feature: 'Full registry strategy', values: ['yes', 'no', 'partial', 'partial', 'no'] },
@@ -172,12 +172,12 @@ export const SERVICES_AVAILABILITY = {
 
 export const SERVICES_CREDENTIALS = {
   heading: 'Why Book with Taylor?',
-  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and receives zero commission from any brand she recommends.',
+  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and takes no sponsorships or paid placements from the brands she recommends.',
   items: [
     { title: 'Tot Squad Certified Specialist', body: 'The credential behind Target’s Baby Concierge programme, 200+ stores nationwide.' },
     { title: 'Strolleria Baby Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a leading baby specialty showroom.' },
     { title: 'Pottery Barn Kids Nursery Advisor', body: 'Furniture sizing, safe sleep layout, and nursery design for real rooms.' },
-    { title: 'Zero Affiliate Commission', body: 'Every recommendation is based on your situation. No sponsorship. No paid placements.' },
+    { title: 'No Brand Deals or Paid Placements', body: 'Every recommendation is based on your situation. No brand pays to be recommended, and nothing in your session is sponsored.' },
   ],
 } as const;
 
@@ -188,7 +188,7 @@ export const SERVICES_PRICING = {
     'Pre-session personal intake review',
     'Stroller, car seat, nursery and registry guidance',
     'Written follow-up notes after the session',
-    'Independent advice, zero brand sponsorship',
+    'Independent advice, no brand sponsorship',
     'Full refund if cancelled 24+ hours before',
   ],
   contact: 'info@taylormadebabyco.com',
@@ -222,7 +222,7 @@ export const SERVICES_FAQ = [
   {
     question: 'What does a baby registry consultation include?',
     answer:
-      'Every Taylor-Made Baby Co. consultation includes: pre-session intake review by Taylor personally, a 1-hour video call covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy, and written follow-up notes summarising your recommendations and next steps. No upselling, no brand sponsorship, no affiliate recommendations.',
+      'Every Taylor-Made Baby Co. consultation includes: pre-session intake review by Taylor personally, a 1-hour video call covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy, and written follow-up notes summarising your recommendations and next steps. No upselling, no brand sponsorship, and no product is recommended because it pays.',
   },
   {
     question: 'Is the baby registry consultation virtual or in-person?',
@@ -247,7 +247,7 @@ export const SERVICES_FAQ = [
   {
     question: 'What stroller and car seat brands does Taylor cover?',
     answer:
-      'Taylor has hands-on experience with all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Chicco, Graco, Maxi-Cosi, and Britax. Every recommendation is based on your vehicle, home, lifestyle, and budget, not on brand sponsorship or affiliate commission. Taylor-Made Baby Co. is fully independent.',
+      'Taylor has hands-on experience with all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Chicco, Graco, Maxi-Cosi, and Britax. Every recommendation is based on your vehicle, home, lifestyle, and budget. No brand sponsors Taylor-Made Baby Co. or pays to be recommended. Some product links on the site are affiliate links that may earn a commission at no extra cost to you, and that never influences what Taylor recommends in your session.',
   },
   {
     question: 'Is Taylor-Made Baby Co. available outside of Phoenix, AZ?',

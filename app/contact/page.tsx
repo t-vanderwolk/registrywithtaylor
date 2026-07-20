@@ -50,7 +50,7 @@ const TRUST_BADGES = [
   'Tot Squad Certified Specialist',
   'Hands-On Baby Gear Experience',
   '200+ Families Helped',
-  'Zero Affiliate Commission',
+  'No Brand Sponsorships',
   'Response Within 24 Hours',
   'Virtual · US Nationwide',
 ];
@@ -78,7 +78,7 @@ const CREDENTIALS = [
   'Strolleria Baby Gear Specialist — years comparing 100+ strollers and travel systems hands-on',
   'Pottery Barn Kids Nursery Advisor — real furniture and nursery planning experience',
   '200+ Families Helped — across virtual consultations and in-person retail',
-  'Zero Affiliate Commission — every recommendation is independent, no brand deals',
+  'No Brand Sponsorships — no brand pays to be recommended, and no paid placements',
 ];
 
 const BOOKING_TIERS = [
@@ -148,7 +148,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'Is Taylor-Made Baby Co. affiliated with any baby gear brands?',
     answer:
-      'No. Taylor-Made Baby Co. provides fully independent guidance and accepts zero affiliate commission from any baby gear brand. Recommendations are based solely on fit for the parent’s specific home, car, routine, and budget — the same framework Taylor applied during her years as a hands-on specialist at Strolleria and as a certified Tot Squad consultant. No sponsorship, no paid placements, no brand deals influence any recommendation Taylor gives.',
+      'No. Taylor-Made Baby Co. accepts no sponsorships, paid placements, or brand partnerships, and no brand pays to be recommended. Recommendations are based solely on fit for the parent’s specific home, car, routine, and budget — the same framework Taylor applied during her years as a hands-on specialist at Strolleria and as a certified Tot Squad consultant. Some product links on the site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you. That income never influences which products Taylor recommends.',
   },
   {
     question: 'What happens after I submit the contact form?',

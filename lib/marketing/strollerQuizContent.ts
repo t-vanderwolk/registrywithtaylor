@@ -13,7 +13,9 @@ export const QUIZ_HERO = {
   h1: 'Best Stroller Quiz: Find Your Perfect Stroller Match in 8 Questions',
   attribution:
     'Recommendations powered by Taylor, Certified Tot Squad Specialist with hands-on baby gear experience and 200+ families helped.',
-  freebadges: ['Free', 'Instant results', 'No sign-up required', 'Independent, zero affiliate commission'],
+  // No "zero affiliate commission" claim — this tool links to retailers through
+  // affiliate links. The honest version of the claim lives in QUIZ_TRUST below.
+  freebadges: ['Free', 'Instant results', 'No sign-up required', 'No brand sponsorships'],
 };
 
 export const QUIZ_INTRO = {
@@ -162,8 +164,8 @@ export const QUIZ_CREATOR = {
       body: 'Real-world stroller recommendation experience across 200+ personal consultations.',
     },
     {
-      title: 'Zero Affiliate Commission',
-      body: 'Every quiz recommendation is independent: no sponsorship, no paid placements, no brand deals.',
+      title: 'No Brand Deals or Paid Placements',
+      body: 'No brand pays to appear here. Some buy links are affiliate links that may earn a commission, and that never changes which stroller the quiz recommends.',
     },
   ],
 };
@@ -229,7 +231,7 @@ export const QUIZ_FAQ = [
   {
     question: 'What stroller brands does the quiz cover?',
     answer:
-      'The stroller quiz covers all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Babyzen YOYO, Chicco, and Graco. Recommendations are based on your specific answers, not on brand sponsorship or affiliate arrangements. Taylor-Made Baby Co. is fully independent and receives zero commission from any stroller brand.',
+      'The stroller quiz covers all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Babyzen YOYO, Chicco, and Graco. Recommendations are based on your specific answers. No brand pays to be included or ranked, and there are no sponsorships or paid placements. Some buy links are affiliate links, which means Taylor-Made Baby Co. may earn a commission at no extra cost to you — that never affects which stroller the quiz recommends.',
   },
   {
     question: 'Is the stroller quiz free?',

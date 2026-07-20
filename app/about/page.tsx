@@ -315,7 +315,7 @@ export default function AboutPage() {
                 </Body>
                 <Body className="text-neutral-700">This is not a template registry. It is not a sales floor disguised as advice. It is not an affiliate blog dressed up as expertise.</Body>
                 <Body className="text-neutral-700">
-                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with real retail and hands-on family experience, who receives zero commission from any brand she recommends.
+                  Taylor-Made Baby Co. is structured, one-on-one baby registry consulting from a specialist with real retail and hands-on family experience, who takes no sponsorships or paid placements from the brands she recommends.
                 </Body>
                 <Body className="text-neutral-700">Because when baby prep fits your real life, the next season feels a whole lot steadier.</Body>
               </div>

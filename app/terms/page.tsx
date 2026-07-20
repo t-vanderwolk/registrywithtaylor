@@ -109,9 +109,12 @@ export default function TermsPage() {
           </li>
           <li>Recommendations are based on information available at the time of your consultation. Product availability, pricing, and safety ratings may change after your session.</li>
           <li>
-            Taylor-Made Baby Co. is independent and receives no commission or sponsorship from any product brand.
-            All recommendations reflect Taylor&rsquo;s honest professional opinion and are not guarantees of
-            product quality or safety outcomes.
+            Taylor-Made Baby Co. accepts no sponsorships, paid placements, or brand partnerships, and no brand
+            pays to be recommended. Some links on this site are affiliate links, which means Taylor-Made Baby Co.
+            may earn a commission if you purchase through them, at no additional cost to you. Affiliate
+            relationships never influence which products are recommended. All recommendations reflect
+            Taylor&rsquo;s honest professional opinion and are not guarantees of product quality or safety
+            outcomes.
           </li>
         </ul>
       </LegalSection>
