@@ -6,7 +6,7 @@ import { getRequestIp, isLikelyBot, visitorHashFrom } from '@/lib/server/viewTra
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const TOOLS = new Set(['stroller-finder', 'travel-system-checker', 'stroller-quiz']);
+const TOOLS = new Set(['stroller-finder', 'travel-system-checker', 'stroller-quiz', 'stroller-compare']);
 const EVENTS = new Set(['opened', 'selection', 'result_viewed']);
 const DAY_MS = 24 * 60 * 60 * 1000;
 

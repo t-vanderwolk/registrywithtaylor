@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import type { StrollerCompareItem } from '@/lib/server/strollerCompareCatalog';
 
 const MAX_COLUMNS = 3;
@@ -214,6 +215,14 @@ export default function StrollerCompare({
   const gridRef = useRef<HTMLDivElement>(null);
   const focusActiveAdd = () => gridRef.current?.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
 
+  // Fire once when the tool mounts. A deep-linked comparison (from the finder,
+  // checker or a shared URL) arrives with slots already filled, so record that
+  // separately from a cold start.
+  useEffect(() => {
+    trackToolOpened('stroller-compare', { seededSlots: initialIds.length, deepLinked: initialIds.length > 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Keep the URL in sync so a comparison can be shared and the back button works.
   useEffect(() => {
     const params = new URLSearchParams();
@@ -224,10 +233,41 @@ export default function StrollerCompare({
 
   const selected = selectedIds.map((id) => byId.get(id)!).filter(Boolean);
 
-  const add = (id: string) =>
+  // A comparison only becomes a "result" once two strollers sit side by side.
+  // Log each distinct set once so re-renders and removals don't inflate it.
+  const loggedSets = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (selectedIds.length < 2) return;
+    const key = [...selectedIds].sort().join('|');
+    if (loggedSets.current.has(key)) return;
+    loggedSets.current.add(key);
+    trackToolResultViewed('stroller-compare', {
+      value: `${selectedIds.length}-way`,
+      strollers: selectedIds.map((id) => byId.get(id)?.displayName ?? id).join(' vs '),
+    });
+  }, [selectedIds, byId]);
+
+  // Tracking calls stay outside the state updaters — updaters can run twice
+  // under StrictMode, which would double-count every selection.
+  const nameOf = (id: string) => byId.get(id)?.displayName ?? id;
+
+  const add = (id: string) => {
+    if (selectedIds.includes(id) || selectedIds.length >= MAX_COLUMNS) return;
+    trackToolSelection('stroller-compare', 'stroller', nameOf(id), { slot: selectedIds.length + 1 });
     setSelectedIds((ids) => (ids.includes(id) || ids.length >= MAX_COLUMNS ? ids : [...ids, id]));
-  const remove = (id: string) => setSelectedIds((ids) => ids.filter((existing) => existing !== id));
-  const reset = () => setSelectedIds([]);
+  };
+
+  const remove = (id: string) => {
+    if (!selectedIds.includes(id)) return;
+    trackToolSelection('stroller-compare', 'removed', nameOf(id));
+    setSelectedIds((ids) => ids.filter((existing) => existing !== id));
+  };
+
+  const reset = () => {
+    if (!selectedIds.length) return;
+    trackToolSelection('stroller-compare', 'cleared', `${selectedIds.length} slots`);
+    setSelectedIds([]);
+  };
 
   const columns = Math.max(selected.length, 1);
   const gridStyle = { gridTemplateColumns: `minmax(9rem,0.8fr) repeat(${columns}, minmax(11rem, 1fr))` };

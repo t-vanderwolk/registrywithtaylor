@@ -155,6 +155,7 @@ export default async function AdminAnalyticsPage() {
     'stroller-finder': 'Stroller Finder',
     'travel-system-checker': 'Travel System Checker',
     'stroller-quiz': 'Stroller Quiz',
+    'stroller-compare': 'Stroller Compare',
   };
   type ToolRow = { tool: string; label: string; opens: number; selections: number; results: number; clicks: number };
   let toolRows: ToolRow[] = [];
@@ -197,6 +198,59 @@ export default async function AdminAnalyticsPage() {
     toolRows = Object.keys(TOOL_LABELS).map((tool) => ensure(tool));
   } catch {
     toolRows = [];
+  }
+
+  // Compare-tool detail: which strollers people actually put head to head, and
+  // whether they compare two or all three. Both come from the same ToolEvent
+  // rows the funnel above reads, filtered to tool = 'stroller-compare'.
+  type ComparedRow = { name: string; picks: number };
+  let comparedRows: ComparedRow[] = [];
+  const compareDepth = { twoWay: 0, threeWay: 0 };
+  let compareAbandoned = 0;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const [picks, depths]: [
+      Array<{ value: string | null; _count: { _all: number } }>,
+      Array<{ value: string | null; _count: { _all: number } }>,
+    ] = await Promise.all([
+      db.toolEvent.groupBy({
+        by: ['value'],
+        where: {
+          tool: 'stroller-compare',
+          event: 'selection',
+          kind: 'stroller',
+          createdAt: { gte: since28d },
+        },
+        _count: { _all: true },
+      }),
+      db.toolEvent.groupBy({
+        by: ['value'],
+        where: { tool: 'stroller-compare', event: 'result_viewed', createdAt: { gte: since28d } },
+        _count: { _all: true },
+      }),
+    ]);
+
+    // Sorted in JS rather than via a groupBy orderBy on _count — the distinct
+    // set is bounded by the catalog, and this can't fail silently at runtime.
+    comparedRows = picks
+      .filter((p) => p.value)
+      .map((p) => ({ name: p.value as string, picks: p._count._all }))
+      .sort((a, b) => b.picks - a.picks || a.name.localeCompare(b.name))
+      .slice(0, 12);
+
+    for (const d of depths) {
+      if (d.value === '3-way') compareDepth.threeWay += d._count._all;
+      else if (d.value === '2-way') compareDepth.twoWay += d._count._all;
+    }
+
+    // Opens that never reached a two-stroller comparison — the drop-off that
+    // matters most for this tool.
+    const compareRow = toolRows.find((r) => r.tool === 'stroller-compare');
+    const comparisons = compareDepth.twoWay + compareDepth.threeWay;
+    compareAbandoned = Math.max((compareRow?.opens ?? 0) - comparisons, 0);
+  } catch {
+    comparedRows = [];
   }
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
@@ -289,7 +343,7 @@ export default async function AdminAnalyticsPage() {
       <AdminHeader
         eyebrow="Free Tools"
         title="Tool usage funnel (28 days)"
-        subtitle="Bot-filtered usage of the Stroller Finder, Travel System Checker, and Stroller Quiz. Opens are counted once per visitor per tool per day; selections and results count every interaction."
+        subtitle="Bot-filtered usage of the Stroller Finder, Travel System Checker, Stroller Quiz, and Stroller Compare. Opens are counted once per visitor per tool per day; selections and results count every interaction."
       />
 
       <AdminSurface className="admin-stack">
@@ -305,7 +359,7 @@ export default async function AdminAnalyticsPage() {
           emptyState={
             <p className="admin-body p-6">
               No tool usage logged yet. This fills in once the tool-event table is deployed and visitors start
-              using the Finder, Checker, or Quiz.
+              using the Finder, Checker, Quiz, or Compare tool.
             </p>
           }
         >
@@ -316,6 +370,41 @@ export default async function AdminAnalyticsPage() {
               <td className="text-right text-admin">{row.selections.toLocaleString()}</td>
               <td className="text-right text-admin">{row.results.toLocaleString()}</td>
               <td className="text-right text-admin">{row.clicks.toLocaleString()}</td>
+            </tr>
+          ))}
+        </AdminTable>
+      </AdminSurface>
+
+      <AdminHeader
+        eyebrow="Stroller Compare"
+        title="What people put head to head (28 days)"
+        subtitle="A comparison is counted once two strollers sit side by side, so a visitor who adds one stroller and leaves shows up as a drop-off rather than a comparison. Each distinct set is counted once per session."
+      />
+
+      <section className="admin-kpi-grid" aria-label="Stroller Compare metrics">
+        <AdminKpiCard label="2-stroller comparisons" value={compareDepth.twoWay.toLocaleString()} />
+        <AdminKpiCard label="3-stroller comparisons" value={compareDepth.threeWay.toLocaleString()} />
+        <AdminKpiCard label="Opens without a comparison" value={compareAbandoned.toLocaleString()} />
+      </section>
+
+      <AdminSurface className="admin-stack">
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'name', label: 'Stroller' },
+            { key: 'picks', label: 'Times added', align: 'right' },
+          ]}
+          emptyState={
+            <p className="admin-body p-6">
+              No comparisons logged yet. This fills in once the Compare tool is deployed and visitors start
+              adding strollers to a comparison.
+            </p>
+          }
+        >
+          {comparedRows.map((row) => (
+            <tr key={row.name} className="admin-row">
+              <td className="text-admin">{row.name}</td>
+              <td className="text-right text-admin">{row.picks.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>
