@@ -1205,6 +1205,138 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       isExpandable: false, suitableForJogging: false, modular: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // ORBIT BABY — orbitbaby.com. The G5's frame weight is quoted inconsistently
+  // across retailers (some list boxed weight), so it stays unset.
+  // ─────────────────────────────────────────────────────────────────────────
+  'Orbit Baby': [
+    {
+      match: /x5/,
+      summary:
+        'A luxury all-terrain jogger at 25 lb, up to 50 lb, built on the same aerospace-aluminium frame language as the rest of the line. The rare running stroller that doesn’t look like sports equipment.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 25, budgetMin: 900, budgetMax: 1200,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /g5/,
+      summary:
+        'The SmartHub rotates the seat a full 360° — face you, face out, or swing sideways for loading, without unclipping anything. From birth to 50 lb on an aerospace-grade aluminium frame. It is a heavy stroller; that build is the trade-off.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 1000, budgetMax: 1400,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /./,
+      summary:
+        'Orbit Baby’s design-led approach to the everyday stroller — engineered frames and the brand’s signature rotating-seat thinking.',
+      priceRange: 'luxury', lifestyle: ['city', 'suburban'],
+      budgetMin: 700, budgetMax: 1100,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PEG PEREGO — pegperego.com
+  // ─────────────────────────────────────────────────────────────────────────
+  'Peg Perego': [
+    {
+      match: /ypsi/,
+      summary:
+        'Italian-made and deceptively capable: 22.5 lb, up to 50 lb, and it takes a second seat to become a double. Reversible seat and a true from-birth setup with the Primo Viaggio.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 22.5, budgetMin: 550, budgetMax: 750,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /volo/,
+      summary:
+        '12 lb — among the lightest strollers you can buy — and it fits most airline overhead bins. Reclining seat, usable from birth up to 50 lb, so it is not just an umbrella stroller with a badge.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 12, budgetMin: 250, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /vivace/,
+      summary:
+        'A full-featured reversible stroller at 20.72 lb, up to 50 lb — lighter than most full-size frames without giving up the seat recline or canopy.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 20.7, budgetMin: 500, budgetMax: 650,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /city loop/,
+      summary:
+        'A modular built around air travel: 19.2 lb as chassis plus seat, and the frame alone is compact enough to make flying with a car seat genuinely workable.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      ownWeightLbs: 19.2, budgetMin: 500, budgetMax: 700,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /selfie|z4/,
+      summary:
+        'Peg Perego’s compact end: a small fold and light frame with the brand’s Italian build quality, aimed at city streets and travel days.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 350, budgetMax: 550,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // RADIO FLYER — radioflyer.com. Voya wagons publish a total capacity rather
+  // than a per-seat limit, so maxWeightLbs stays unset and the total lives in
+  // the summary.
+  // ─────────────────────────────────────────────────────────────────────────
+  'Radio Flyer': [
+    {
+      match: /voya|wagon/,
+      summary:
+        'A stroller wagon with extra-tall sides, dual canopies and a push-or-pull handle, rated to 200 lb across two seats. Riders start at 6 months once they can sit unassisted — this is not a newborn stroller.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+      budgetMin: 300, budgetMax: 450,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SAFETY 1ST — budget line; per-model specs aren't published consistently.
+  // ─────────────────────────────────────────────────────────────────────────
+  'Safety 1st': [
+    {
+      match: /wagon|summit|quad/,
+      summary:
+        'A budget four-seat stroller wagon for park days and school runs — the wagon format without the boutique price. From 6 months, once riders sit unassisted.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+      budgetMin: 200, budgetMax: 320,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /umbrella|disney/,
+      summary:
+        'A classic umbrella stroller with character styling — feather-light, simple to fold, and cheap enough to keep in a second car.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 40, budgetMax: 90,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /./,
+      summary:
+        'Safety 1st keeps it simple: a quick one-hand fold and a light frame at an entry-level price, for everyday errands rather than all-day outings.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 100, budgetMax: 200,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
