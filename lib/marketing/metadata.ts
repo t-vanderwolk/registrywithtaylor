@@ -4,11 +4,17 @@ export const SITE_NAME = 'Taylor-Made Baby Co.';
 export const SITE_URL = 'https://www.taylormadebabyco.com';
 export const SITE_LOGO_PATH = '/assets/logos/tmbcblocks2.png';
 export const SITE_LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;
-export const SITE_FAVICON_PATH = '/assets/logos/tmbcfavicon.ico';
-export const SITE_FAVICON_PNG_PATH = '/assets/logos/tmbcfavicon-32.png';
-export const SITE_APPLE_ICON_PATH = '/assets/logos/tmbcfavicon-180.png';
-export const SITE_ICON_192_PATH = '/assets/logos/tmbcfavicon-192.png';
-export const SITE_ICON_512_PATH = '/assets/logos/tmbcfavicon-512.png';
+/**
+ * Icon cache-buster. Browsers and Google cache favicons aggressively — often for
+ * weeks — so bump this whenever the icon artwork changes, otherwise the old one
+ * keeps rendering long after deploy.
+ */
+const ICON_VERSION = '3';
+export const SITE_FAVICON_PATH = `/assets/logos/tmbcfavicon.ico?v=${ICON_VERSION}`;
+export const SITE_FAVICON_PNG_PATH = `/assets/logos/tmbcfavicon-32.png?v=${ICON_VERSION}`;
+export const SITE_APPLE_ICON_PATH = `/assets/logos/tmbcfavicon-180.png?v=${ICON_VERSION}`;
+export const SITE_ICON_192_PATH = `/assets/logos/tmbcfavicon-192.png?v=${ICON_VERSION}`;
+export const SITE_ICON_512_PATH = `/assets/logos/tmbcfavicon-512.png?v=${ICON_VERSION}`;
 export const DEFAULT_SITE_TITLE = 'Taylor-Made Baby Co. | Baby Gear & Registry Guidance';
 export const DEFAULT_SITE_DESCRIPTION =
   'Personalized help with registries, strollers, car seats, nursery planning, and home prep. Expert guidance on what to buy, what to skip, and what can wait.';
