@@ -950,6 +950,130 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: false, fitsOverheadBin: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MAXI-COSI — maxicosi.com
+  // ─────────────────────────────────────────────────────────────────────────
+  'Maxi-Cosi': [
+    {
+      match: /tayla/,
+      summary:
+        'A 5-in-1 modular: bassinet, infant seat and toddler modes on one 26.2 lb frame, up to 50 lb, with a 25 lb basket that handles a real grocery run. Covers birth through toddler without a second purchase.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 26.2, budgetMin: 400, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 25,
+    },
+    {
+      match: /lila/,
+      summary:
+        'The all-in-one that grows sideways: 28 lb, up to 50 lb, and a Duo seat kit turns it into a double when baby number two arrives. Bassinet and car-seat ready from birth.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 28, budgetMin: 400, budgetMax: 550,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /oxford/,
+      summary:
+        '16 lb, one-hand fold, and sized to the IATA carry-on recommendation so it goes in the overhead bin on most airlines. Up to 50 lb and 45" tall, so it lasts well past the travel-stroller years.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 16, budgetMin: 250, budgetMax: 380,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /fame/,
+      summary:
+        'A modular Maxi-Cosi built to take a bassinet and an infant seat on the same chassis, aimed at parents who want one frame to cover the whole stretch.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 350, budgetMax: 500,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MERCEDES — licensed design-brand strollers with no reliable published
+  // spec sheet; brand-level fields only, no invented numbers.
+  // ─────────────────────────────────────────────────────────────────────────
+  Mercedes: [
+    {
+      match: /./,
+      summary:
+        'A licensed Mercedes-branded stroller — design-led styling and premium finishes, aimed at parents who want the badge on the pram too.',
+      priceRange: 'premium', lifestyle: ['city', 'suburban'],
+      budgetMin: 400, budgetMax: 700,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MIMA — mimakidsusa.com. Note the Xari's unusually low 18 kg (≈39 lb) limit;
+  // the separate Xari Max goes to 55 lb but isn't in the catalog.
+  // ─────────────────────────────────────────────────────────────────────────
+  Mima: [
+    {
+      match: /xari/,
+      summary:
+        'The sculpted one people buy on looks — and it earns it, with a bassinet that converts to a seat and a genuinely distinctive silhouette. 29.5 lb, but note the capacity tops out around 39 lb, lower than most rivals, so it ages out sooner.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city'],
+      maxWeightLbs: 39, ownWeightLbs: 29.5, budgetMin: 1000, budgetMax: 1400,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /zigi/,
+      summary:
+        '17.2 lb with a compact fold most airlines accept as cabin luggage, up to 48 lb. Mima styling in a travel frame — check with your airline before you count on the bin.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, ownWeightLbs: 17.2, budgetMin: 500, budgetMax: 700,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /creo/,
+      summary:
+        'Mima’s more practical modular: the design language of the Xari on a frame built around everyday use and a bassinet from birth.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 700, budgetMax: 1000,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /miro/,
+      summary:
+        'A lighter, city-sized Mima for parents who want the look without the full pram footprint.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 500, budgetMax: 800,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MOCKINGBIRD — hellomockingbird.com. Ordering: single-to-double must come
+  // first or /single/ swallows it.
+  // ─────────────────────────────────────────────────────────────────────────
+  Mockingbird: [
+    {
+      match: /single to double|double/,
+      summary:
+        'The direct-to-consumer convertible: 44 configurations for one, two or three kids, 35 lb in double mode, and a 25 lb basket. 50 lb in single mode but 45 lb per seat once you add the second — worth knowing before you commit.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 35, budgetMin: 550, budgetMax: 750,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 25,
+    },
+    {
+      match: /single|./,
+      summary:
+        '27 lb, up to 50 lb, with a reversible seat, bassinet mode and an XL basket rated to 25 lb — most of a boutique stroller’s feature list at roughly half the boutique price.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 27, budgetMin: 400, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 25,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
