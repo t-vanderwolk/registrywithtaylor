@@ -1525,7 +1525,186 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: false, fitsOverheadBin: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // BABYZEN — retired as a catalog brand (the YOYO now sits under Stokke), but
+  // one legacy row remains. Kept in sync with the Stokke YOYO entry.
+  // ─────────────────────────────────────────────────────────────────────────
+  Babyzen: [
+    {
+      match: /yoyo/,
+      summary:
+        'The stroller that defined the cabin-size category: a one-handed fold that goes in the overhead bin, up to 48 lb. Now sold under Stokke.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, budgetMin: 450, budgetMax: 650,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // DOONA — doona.com. The Liki is a folding trike rather than a stroller, so
+  // its numbers look unusual next to the rest of the catalog.
+  // ─────────────────────────────────────────────────────────────────────────
+  Doona: [
+    {
+      match: /liki|trike/,
+      summary:
+        'A folding tricycle rather than a stroller: push it like a buggy while they are small, then let them pedal. The S3 tops out at 37 lb, so it is a toddler product with a short runway — not a from-birth ride.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 37, budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EGG — UK design brand; US specs aren't published consistently.
+  // ─────────────────────────────────────────────────────────────────────────
+  Egg: [
+    {
+      match: /./,
+      summary:
+        'A British design-led pram: sculpted styling, a carrycot from birth and a reversible seat, for parents shopping on looks as much as spec.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 800, budgetMax: 1200,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // JOOVY — joovy.com. Both the Caboose and Qool publish per-seat and total
+  // limits; maxWeightLbs stores per-seat.
+  // ─────────────────────────────────────────────────────────────────────────
+  Joovy: [
+    {
+      match: /caboose/,
+      summary:
+        'The sit-and-stand answer to two kids at different ages: a proper seat in front, a bench and standing platform behind. 29 lb, 45 lb per seat (90 lb total), and far narrower than a side-by-side.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 45, ownWeightLbs: 29, budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /qool/,
+      summary:
+        'Configures as a single, double or triple — one of the few strollers that genuinely handles three kids. 30.6 lb, 55 lb per seat (135 lb total), with bassinet and car-seat options from birth.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, ownWeightLbs: 30.6, budgetMin: 500, budgetMax: 750,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /roo/,
+      summary:
+        'A twin frame built to carry two infant car seats and nothing else — light, narrow and cheap next to a full twin travel system, for the newborn months only.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // RÖMER — Britax Römer's European line; the main Britax range is seeded
+  // separately under the "Britax" key.
+  // ─────────────────────────────────────────────────────────────────────────
+  Romer: [
+    {
+      match: /./,
+      summary:
+        'Britax Römer’s European range — the same safety-first engineering as the Britax line, in a frame tuned for city streets.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      budgetMin: 400, budgetMax: 700,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // VEER — goveer.com. Ordering: the Switch&Jog / Switch&Roll strollers must
+  // match before the Cruiser wagon catch-all.
+  // ─────────────────────────────────────────────────────────────────────────
+  Veer: [
+    {
+      match: /switch.?jog|jogging/,
+      summary:
+        'Veer’s jogger: the Switch seat system on a running frame, so the same seat moves between wagon and stroller duty instead of buying twice.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      budgetMin: 700, budgetMax: 1000,
+      isExpandable: false, suitableForJogging: true,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /switch/,
+      summary:
+        'A stroller built around Veer’s swappable seat system — one seat, multiple bases, so the setup grows with how you actually get around.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      budgetMin: 600, budgetMax: 900,
+      isExpandable: false, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /./,
+      summary:
+        'The wagon that pushes like a stroller: 55 lb per seat across two seats, all-terrain wheels and a handle that switches between push and pull. Riders need to sit unassisted, so plan on 6 months and up unless you add the infant accessories.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 55, budgetMin: 700, budgetMax: 1000,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // ZOE — zoebaby.com
+  // ─────────────────────────────────────────────────────────────────────────
+  Zoe: [
+    {
+      match: /traveler/,
+      summary:
+        '13 lb with a one-handed compact fold that slides into an overhead bin — and a 60 lb capacity, the highest of any travel stroller here, so it lasts years past the ones it competes with.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 60, ownWeightLbs: 13, budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /./,
+      summary:
+        'Zoe builds light, packable strollers at prices that undercut the boutique travel brands — built for airports, holidays and small car boots.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 200, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
 };
+
+// WonderFold products are split across two brand strings in the catalog
+// ("WonderFold" and "WonderFold Wagon"), so the same seeds cover both.
+const WONDERFOLD_SEEDS: StrollerSpecSeed[] = [
+  {
+    match: /w4|w6|l4|quad/,
+    summary:
+      'The four-seat hauler: 99 lb per bench and 300 lb total, with a push handle, canopies and enough room for a whole crew. Riders need to sit unassisted, so it starts around 6 months.',
+    priceRange: 'luxury', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+    maxWeightLbs: 99, budgetMin: 700, budgetMax: 1100,
+    isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /./,
+    summary:
+      'A two-seat stroller wagon with a proper push handle rather than a pull rope — 99 lb per bench, removable canopies, and a fold that still fits a car boot. From 6 months.',
+    priceRange: 'premium', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+    maxWeightLbs: 99, budgetMin: 500, budgetMax: 800,
+    isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+];
+
+STROLLER_SPEC_SEEDS['WonderFold'] = WONDERFOLD_SEEDS;
+STROLLER_SPEC_SEEDS['WonderFold Wagon'] = WONDERFOLD_SEEDS;
 
 // Delta Children products are split across two brand strings in the catalog
 // ("Delta Children" and "Delta"), so the same seeds are registered under both.
