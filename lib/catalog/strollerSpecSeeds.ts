@@ -287,6 +287,180 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: false, fitsOverheadBin: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // BRITAX — us.britax.com + retailer spec sheets. The "BOB - Wayfinder" row is
+  // a duplicate of BOB's own Wayfinder and is deliberately left unmatched.
+  // ─────────────────────────────────────────────────────────────────────────
+  Britax: [
+    {
+      match: /prism/,
+      summary:
+        'Britax’s full-size modular: six ways to ride, a one-step compact fold, telescoping handlebar, all-wheel suspension and an all-season insert so it works from birth. 24.4 lb, up to 50 lb.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 24.38, budgetMin: 450, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /grove/,
+      summary:
+        'A lightweight modular with six ways to ride: CozyFit insert for the newborn stage, bumper bar, SafeWash fabrics and a 24 lb frame. Up to 50 lb.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 24, budgetMin: 380, budgetMax: 450,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /brook/,
+      summary:
+        'Britax’s ultra-lightweight modular — four ways to stroll with a SafeWash insert, usable from birth up to 50 lb. The easy-living option in the modular line.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 300, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /juniper/,
+      summary:
+        'Britax’s on-the-go compact: under 15 lb with a FastPack system, one-hand RapidFold, built-in carry handle and a UPF 50+ water-resistant canopy. Up to 50 lb.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 14.9, budgetMin: 200, budgetMax: 280,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /b lively/,
+      summary:
+        'The everyday Britax workhorse: 20 lb, up to 55 lb, one-hand fold, all-wheel suspension and a big UV50+ canopy. Clicks straight onto a B-Safe infant seat, so it works from birth.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, ownWeightLbs: 20, budgetMin: 250, budgetMax: 320,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /b clever/,
+      summary:
+        'The narrower, more compact Britax: 21 lb, up to 50 lb, one-hand fold, ventilated seat and all-wheel suspension. Takes a B-Safe infant seat from birth.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 21, budgetMin: 250, budgetMax: 320,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // BUGABOO — bugaboo.com + Bugaboo service articles. Note the Butterfly and Ant
+  // seats start at 6 months, so neither is a from-birth stroller on its own.
+  // ─────────────────────────────────────────────────────────────────────────
+  Bugaboo: [
+    {
+      match: /donkey/,
+      summary:
+        'Bugaboo’s single-to-double: starts as a roomy single with a bassinet, then slides out to side-by-side twin duty without changing the frame. About 33 lb with the seat, 48 lb per seat, and a cavernous basket.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 48, ownWeightLbs: 33.3, budgetMin: 1300, budgetMax: 1600,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /butterfly/,
+      summary:
+        'Bugaboo’s 16 lb cabin-size travel stroller: folds one-handed into an IATA carry-on-compatible package that genuinely fits an overhead bin. Up to 48 lb — but the seat starts at 6 months, so it is not a from-birth stroller.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, ownWeightLbs: 16, budgetMin: 450, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /dragonfly/,
+      summary:
+        'The city modular: bassinet and seat on a light 21 lb frame with a compact fold and a genuinely big 22 lb basket. Up to 48 lb, from birth with the included bassinet.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 48, ownWeightLbs: 21, budgetMin: 800, budgetMax: 1000,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 22,
+    },
+    {
+      match: /fox 5/,
+      summary:
+        'Bugaboo’s flagship all-terrain 2-in-1: bassinet and seat in the box, one-hand fold, big wheels and premium suspension. Around 24 lb, up to 50 lb on the seat. The plush, buy-once option.',
+      priceRange: 'luxury', foldType: 'one-hand', lifestyle: ['city', 'suburban', 'trail'],
+      maxWeightLbs: 50, ownWeightLbs: 24, budgetMin: 1300, budgetMax: 1500,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /fox/,
+      summary:
+        'The previous-generation Fox all-terrain 2-in-1: bassinet and seat included, one-hand fold and suspension built for rougher pavement. Around 22 lb, up to 48 lb.',
+      priceRange: 'luxury', foldType: 'one-hand', lifestyle: ['city', 'suburban', 'trail'],
+      maxWeightLbs: 48, ownWeightLbs: 22, budgetMin: 900, budgetMax: 1200,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /bee/,
+      summary:
+        'The classic Bugaboo city stroller: 19.6 lb, reversible seat, one-hand fold and a bassinet option for the newborn stage. From birth up to 40 lb.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city'],
+      maxWeightLbs: 40, ownWeightLbs: 19.6, budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /\bant\b/,
+      summary:
+        'Bugaboo’s lightest, most compact: 15.8 lb, folds to 20.6 x 14.9 x 9.1" — small enough for an overhead bin — with a 6.6 lb under-seat basket plus an 11 lb rear luggage basket. Up to 50 lb; the seat starts at 6 months.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 15.8, budgetMin: 450, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true, basketCapacityLbs: 6.6,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // BUMBLERIDE — bumbleride.com. Eco-minded all-terrain line; the Era is unusual
+  // in being usable from birth with no attachments (infant-safe lay-flat seat).
+  // ─────────────────────────────────────────────────────────────────────────
+  Bumbleride: [
+    {
+      match: /indie twin/,
+      summary:
+        'The all-terrain double: air-filled tires and all-wheel suspension on a frame narrow enough for most doorways, 55 lb per seat. Handles trails and light jogging with the front wheels locked.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['trail', 'suburban', 'city'],
+      maxWeightLbs: 55, budgetMin: 850, budgetMax: 1000,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /indie/,
+      summary:
+        'Bumbleride’s all-terrain single: 24 lb, up to 55 lb, air-filled tires and all-wheel suspension, and rated for light jogging on level ground with the front wheel locked. Made with recycled, eco-certified fabrics.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['trail', 'suburban', 'city'],
+      maxWeightLbs: 55, ownWeightLbs: 24, budgetMin: 600, budgetMax: 700,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /\bera\b/,
+      summary:
+        'The reversible-seat city stroller that is ready from birth with no attachments — the seat itself lays flat and infant-safe. 27 lb, up to 55 lb, all-wheel suspension and air-filled tires.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, ownWeightLbs: 27, budgetMin: 650, budgetMax: 750,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /speed/,
+      summary:
+        'Bumbleride’s proper running stroller: 26 lb, up to 65 lb, with Speed3 steering (run, jog or walk), 16" rear and 12" front air-filled tires and all-wheel suspension. Built for longer distances.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['trail', 'suburban', 'city'],
+      maxWeightLbs: 65, ownWeightLbs: 26, budgetMin: 700, budgetMax: 800,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
 };
 
 export function findStrollerSpecSeed(brand: string, model: string): StrollerSpecSeed | null {
