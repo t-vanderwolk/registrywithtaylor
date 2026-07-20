@@ -1337,6 +1337,194 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       isExpandable: false, suitableForJogging: false, modular: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SILVER CROSS — silvercrossus.com. Ordering: /jet double/ before /jet/.
+  // ─────────────────────────────────────────────────────────────────────────
+  'Silver Cross': [
+    {
+      match: /wave/,
+      summary:
+        'Built as a double from the start and sold as a single: the tandem seat and carrycot are in the box, and both seats take up to 55 lb. If a second baby is even a maybe, this is the one that already handles it.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, budgetMin: 1000, budgetMax: 1400,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /jet double/,
+      summary:
+        'A side-by-side that still folds small — the Jet thinking stretched to two seats, for parents who fly or live somewhere tight.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /jet/,
+      summary:
+        'Cabin-approved and genuinely from birth — it lies flat, takes a car seat, and folds into the included cover to go in the overhead locker. Up to 55 lb, so it outlasts most travel strollers.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 55, budgetMin: 400, budgetMax: 600,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /dune|reef/,
+      summary:
+        'Silver Cross’s all-terrain modular: a full carrycot from birth, bigger wheels for rough ground, and a seat that reverses. The British pram tradition with a trail-ready frame.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'city', 'suburban'],
+      budgetMin: 900, budgetMax: 1300,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /clic/,
+      summary:
+        'The compact of the range: a quick, small fold aimed at car boots, city flats and travel days.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+    {
+      match: /comet|breez|cove|nia/,
+      summary:
+        'Silver Cross styling on a lighter everyday frame — an easy fold and city-sized footprint without stepping up to the full pram.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 300, budgetMax: 550,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // STOKKE — the YOYO moved here from Babyzen. The base YOYO³ starts at
+  // 6 months; the 0+ newborn pack is a separate purchase.
+  // ─────────────────────────────────────────────────────────────────────────
+  Stokke: [
+    {
+      match: /yoyo/,
+      summary:
+        'The original cabin-size stroller and still the benchmark: folds one-handed into an overhead bin, up to 48 lb. The standard version starts at 6 months — the newborn pack is sold separately.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, budgetMin: 500, budgetMax: 700,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /xplory|trailz|beat/,
+      summary:
+        'Stokke’s signature high seat brings baby up to table height and closer to you — the design decision the brand is known for, on a full-size frame.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 900, budgetMax: 1300,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // THULE — thule.com. The Urban Glide 3 caps at 49 lb per child and 75 lb
+  // including cargo. Ordering: /urban glide/ before the generic /glide/.
+  // ─────────────────────────────────────────────────────────────────────────
+  Thule: [
+    {
+      match: /urban glide/,
+      summary:
+        'The runner’s pick: full suspension, air-filled tyres and a locking swivel wheel, up to 49 lb per child (75 lb including cargo). Handles daily miles better than almost anything at the price.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['trail', 'suburban', 'city'],
+      maxWeightLbs: 49, ownWeightLbs: 25, budgetMin: 550, budgetMax: 750,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /chariot/,
+      summary:
+        'The convertible trailer: strolling, jogging, cycling and skiing kits on one chassis. Overkill for pavement-only families, unrivalled for everyone else.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+      budgetMin: 900, budgetMax: 1400,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /sleek/,
+      summary:
+        'Thule’s city modular: bassinet from birth, a second seat option, and a smoother ride than the urban-stroller norm thanks to the brand’s outdoor engineering.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      budgetMin: 700, budgetMax: 900,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /spring|glide/,
+      summary:
+        'A lighter Thule for everyday use — three-wheel manoeuvrability and a one-hand fold, without the full jogger footprint.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['suburban', 'city'],
+      budgetMin: 400, budgetMax: 600,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // UPPABABY — uppababy.com. UPPAbaby publishes "true weight" (canopy, wheels
+  // and basket included), so these are directly comparable to rivals' figures.
+  // Ordering: /minu duo/ before /minu/.
+  // ─────────────────────────────────────────────────────────────────────────
+  UPPAbaby: [
+    {
+      match: /vista/,
+      summary:
+        'The default recommendation for a reason: bassinet included, takes up to three kids as your family grows, 27.6 lb, up to 50 lb per seat, and a 30 lb basket that genuinely swallows a shop. Expensive, and worth it if you are having more than one.',
+      priceRange: 'luxury', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 27.6, budgetMin: 1000, budgetMax: 1300,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 30,
+    },
+    {
+      match: /cruz/,
+      summary:
+        'The Vista’s one-child sibling: 26.5 lb, up to 50 lb, same build quality and bassinet compatibility on a narrower frame. The pick if you are confident you are stopping at one.',
+      priceRange: 'luxury', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 26.5, budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /minu duo/,
+      summary:
+        'A side-by-side double that keeps the Minu’s compact fold — narrow enough for standard doorways, which most doubles are not.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /minu/,
+      summary:
+        '16.7 lb and IATA-compliant, so the folded size genuinely meets carry-on requirements rather than merely getting close. Full-size feel in a travel frame.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 16.7, budgetMin: 450, budgetMax: 600,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /ridge/,
+      summary:
+        'UPPAbaby’s all-terrain jogger: 29.2 lb, air-filled tyres and a hand brake for hills. Built for running and rough ground rather than supermarket aisles.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 29.2, budgetMin: 600, budgetMax: 800,
+      isExpandable: false, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /g luxe|gluxe/,
+      summary:
+        'UPPAbaby’s umbrella stroller: minimal weight, a simple fold and a proper recline — the grab-and-go option for holidays and second cars.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 200, budgetMax: 320,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
