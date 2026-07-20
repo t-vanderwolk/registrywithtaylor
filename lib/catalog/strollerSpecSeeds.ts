@@ -629,6 +629,88 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: true, fitsOverheadBin: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // DFY — dfyordinary.com
+  // ─────────────────────────────────────────────────────────────────────────
+  DFY: [
+    {
+      match: /r1/,
+      summary:
+        'Big-stroller features in a compact frame: a reversible seat, a magnetic pop-off back panel and the tallest telescopic handle on the market. 25 lb with the seat on, up to 48 lb, from birth. The basket is rated to 6.6 lb, so it is a diaper bag rather than a grocery run.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 48, ownWeightLbs: 25, budgetMin: 420, budgetMax: 520,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 6.6,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // ERGOBABY — ergobaby.com. Both Metro generations are built to fold into an
+  // overhead bin; the Metro 3 Deluxe is explicitly IATA carry-on compatible.
+  // ─────────────────────────────────────────────────────────────────────────
+  Ergobaby: [
+    {
+      match: /metro 3/,
+      summary:
+        'The lightest of the Metros at 16.7 lb, up to 50 lb, with a one-hand fold, near-flat recline and an adjustable handlebar. Carry-on compatible for most airlines, and it works from birth with an infant insert or a car seat.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 16.7, budgetMin: 300, budgetMax: 400,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /metro/,
+      summary:
+        'The travel stroller that folds down for overhead airplane storage: 18.1 lb, up to 50 lb, car-seat compatible and usable from birth with the newborn insert. Airline rules vary, so confirm with yours before you count on the bin.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 18.1, budgetMin: 280, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EVENFLO — evenflo.com. The Hummingbird's frame weight isn't published in a
+  // form I trust yet, so its weight fields stay unset.
+  // ─────────────────────────────────────────────────────────────────────────
+  Evenflo: [
+    {
+      match: /xplore/,
+      summary:
+        'The all-terrain stroller wagon: 34.7 lb, seats two at 55 lb each, and pushes or pulls over grass and gravel. Riders need to sit unassisted — it starts around 6 months, not birth.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 55, ownWeightLbs: 34.7, budgetMin: 280, budgetMax: 400,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /xpand/,
+      summary:
+        'The value single-to-double: starts as a single, adds a second seat when baby number two arrives, and takes 55 lb per seat on a 30.2 lb frame. Bassinet and car-seat ready from birth, at roughly half the price of the premium convertibles.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      maxWeightLbs: 55, ownWeightLbs: 30.2, budgetMin: 280, budgetMax: 400,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /shyft|intuiti/,
+      summary:
+        'Evenflo’s modular travel system: a true pram mode for the newborn stage that converts to a toddler seat, up to 55 lb, paired with the rotating LiteMax NXT infant seat.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, budgetMin: 350, budgetMax: 500,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /hummingbird/,
+      summary:
+        'A carbon-fiber lightweight built to be picked up one-handed — the featherweight end of the Evenflo line, for travel days and quick errands.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 250, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
