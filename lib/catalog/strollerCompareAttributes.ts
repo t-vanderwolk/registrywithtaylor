@@ -40,7 +40,9 @@ const OVERRIDES: Override[] = [
   { brand: 'Stokke', match: /yoyo/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'gb', match: /pockit/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'Joolz', match: /\baer\b/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
-  { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
+  // The TRVL is NOT carry-on: Nuna states its folded size does not meet the
+  // IATA cabin standard, so it's a gate-check stroller despite the name.
+  { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: false, basketCapacity: 'Small' },
   { brand: 'Cybex', match: /libelle/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'Cybex', match: /(eezy|orfeo|beezy)/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'Bugaboo', match: /butterfly/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },

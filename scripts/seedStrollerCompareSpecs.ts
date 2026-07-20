@@ -33,7 +33,8 @@ const SEEDS: Seed[] = [
   { brand: 'Stokke', match: /yoyo/, modular: false, fitsOverheadBin: true },
   { brand: 'gb', match: /pockit/, modular: false, fitsOverheadBin: true },
   { brand: 'Joolz', match: /\baer\b/, modular: false, fitsOverheadBin: true },
-  { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: true },
+  // Not carry-on — Nuna's folded size misses the IATA cabin standard.
+  { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: false },
   { brand: 'Cybex', match: /libelle/, modular: false, fitsOverheadBin: true },
   { brand: 'Cybex', match: /(eezy|orfeo|beezy)/, modular: false, fitsOverheadBin: true },
   { brand: 'Bugaboo', match: /butterfly/, modular: false, fitsOverheadBin: true },

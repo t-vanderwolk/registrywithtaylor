@@ -1074,6 +1074,137 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: true, fitsOverheadBin: false, basketCapacityLbs: 25,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MOMCOZY — newer budget brand with no published spec sheet; brand-level
+  // fields only.
+  // ─────────────────────────────────────────────────────────────────────────
+  Momcozy: [
+    {
+      match: /./,
+      summary:
+        'Momcozy’s take on the everyday stroller: budget-friendly, light, and built around quick one-hand folds for parents doing school runs and errands.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['city', 'travel'],
+      budgetMin: 150, budgetMax: 300,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MOMPUSH — mompush.com. The Wiz and Meteor share a 50 lb seat limit and a
+  // 10 lb basket — small, so it's worth surfacing in Compare.
+  // ─────────────────────────────────────────────────────────────────────────
+  Mompush: [
+    {
+      match: /wiz|meteor/,
+      summary:
+        'A 2-in-1 that includes the bassinet instead of selling it separately: pramette mode for the newborn stage, a reversible seat after, 22.3 lb and up to 50 lb. The basket is only rated to 10 lb, so it is a diaper-bag shelf rather than a grocery hauler.',
+      priceRange: 'budget', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 22.3, budgetMin: 230, budgetMax: 350,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 10,
+    },
+    {
+      match: /lithe double|ultimate/,
+      summary:
+        'Mompush’s double: two seats on a frame that still folds down small, at a price well under the convertible-stroller bracket.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['city', 'suburban'],
+      budgetMin: 300, budgetMax: 450,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /lithe|velo/,
+      summary:
+        'The lightweight of the range — a compact fold and low frame weight aimed at travel days, car trunks and airport terminals.',
+      priceRange: 'budget', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 180, budgetMax: 300,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // NUNA — nunababy.com. Nuna quotes frame weights "without insert, arm bar and
+  // canopy", so the real-world number is a little higher than listed here.
+  // The BMW co-branded variants fall through to the base model rules.
+  //
+  // NOTE: the TRVL is commonly assumed to be a carry-on stroller, but Nuna
+  // states its folded size does NOT meet the IATA cabin standard — it is a
+  // gate-check stroller. fitsOverheadBin is false on purpose.
+  // ─────────────────────────────────────────────────────────────────────────
+  Nuna: [
+    {
+      match: /demi/,
+      summary:
+        'Nuna’s convertible flagship: starts single, takes a second seat, bassinet or rider board, and reconfigures for one, two or three kids. 26 lb, up to 50 lb, from birth.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 26, budgetMin: 800, budgetMax: 1000,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /mixx/,
+      summary:
+        'The full-size Nuna: a flat-lay seat that works as a bassinet from birth, all-wheel suspension and a compact fold for a 28.3 lb frame. Up to 50 lb.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 28.3, budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /tavo/,
+      summary:
+        'The no-adapter travel system: a Nuna PIPA seat clicks straight onto the frame with nothing extra to buy or lose. 23.2 lb, up to 50 lb.',
+      priceRange: 'premium', foldType: 'standard', lifestyle: ['suburban', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 23.2, budgetMin: 500, budgetMax: 650,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /triv/,
+      summary:
+        'The lightest of Nuna’s full-feature strollers at 18.4 lb, up to 50 lb, with a compact standing fold. City manoeuvrability without dropping to a bare travel stroller.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 50, ownWeightLbs: 18.4, budgetMin: 550, budgetMax: 700,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      fitsOverheadBin: false,
+    },
+    {
+      match: /trvl (double|dubl)/,
+      summary:
+        'The double version of Nuna’s self-folding compact — two seats side by side that still collapse with one hand. A gate-check stroller, not a carry-on.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, budgetMin: 600, budgetMax: 800,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /trvl/,
+      summary:
+        '13.6 lb and it folds itself at the press of a button, up to 50 lb. Despite the name, Nuna is clear that the folded size does not meet the IATA cabin standard — use it through the airport, then gate-check it in the included bag.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 13.6, budgetMin: 400, budgetMax: 550,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /swiv/,
+      summary:
+        'The one with wheels that spin a full 360° — genuinely useful in tight shops and lifts. 21.8 lb, up to 50 lb, with a 22 lb basket.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 50, ownWeightLbs: 21.8, budgetMin: 500, budgetMax: 650,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false, basketCapacityLbs: 22,
+    },
+    {
+      match: /viaa|cabn/,
+      summary:
+        'Nuna’s cabin-minded compact: a small fold and light frame built for families who fly often.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 400, budgetMax: 600,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
