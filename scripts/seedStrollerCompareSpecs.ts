@@ -29,7 +29,8 @@ type Seed = {
 
 const SEEDS: Seed[] = [
   // ── Airline carry-on / overhead-bin travel strollers ──────────────────────
-  { brand: 'Babyzen', match: /yoyo/, modular: false, fitsOverheadBin: true },
+  // The YOYO is now sold under Stokke (Babyzen retired as a catalog brand).
+  { brand: 'Stokke', match: /yoyo/, modular: false, fitsOverheadBin: true },
   { brand: 'gb', match: /pockit/, modular: false, fitsOverheadBin: true },
   { brand: 'Joolz', match: /\baer\b/, modular: false, fitsOverheadBin: true },
   { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: true },

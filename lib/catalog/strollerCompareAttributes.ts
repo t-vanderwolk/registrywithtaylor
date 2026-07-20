@@ -35,7 +35,9 @@ type Override = {
 
 const OVERRIDES: Override[] = [
   // ── Airline carry-on / overhead-bin travel strollers ──────────────────────
-  { brand: 'Babyzen', match: /yoyo/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
+  // The YOYO moved from Babyzen to Stokke — keep the Stokke rule ABOVE Stokke's
+  // modular pram rule so the YOYO doesn't get treated as an Xplory.
+  { brand: 'Stokke', match: /yoyo/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'gb', match: /pockit/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'Joolz', match: /\baer\b/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
   { brand: 'Nuna', match: /trvl/, modular: false, fitsOverheadBin: true, basketCapacity: 'Small' },
