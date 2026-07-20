@@ -461,7 +461,272 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: false, fitsOverheadBin: false,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // CHICCO — chiccousa.com. Doubles and the Presto have no published frame
+  // weight, so those fields are intentionally left unset.
+  // ─────────────────────────────────────────────────────────────────────────
+  Chicco: [
+    {
+      match: /bravofor2/,
+      summary:
+        'Chicco’s stand-and-ride double: one seat plus a rear bench and standing platform for a big sibling, and it still clicks a KeyFit infant seat on top for the newborn stage.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 300, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /cortina/,
+      summary:
+        'Chicco’s side-by-side double built around the KeyFit — it takes two infant seats, so it works from birth for twins, with independent reclines and a full-length canopy.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 300, budgetMax: 400,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /corso/,
+      summary:
+        'Chicco’s modular: bassinet-style and parent-facing configurations plus a quick fold, on a 24.8 lb frame up to 50 lb. Clicks straight onto a KeyFit, so it covers newborn through toddler.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 24.8, budgetMin: 350, budgetMax: 450,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /\btre\b/,
+      summary:
+        'Chicco’s jogger: flat-free pneumatic tires, a locking swivel front wheel, adjustable handle and a one-hand fold. 28.5 lb, up to 50 lb, and KeyFit-compatible from birth.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 28.5, budgetMin: 350, budgetMax: 420,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: true,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /presto/,
+      summary:
+        'Chicco’s self-folding compact — it collapses itself at the push of a button, for parents who are done wrestling a stroller at the curb.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 250, budgetMax: 350,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /bravo/,
+      summary:
+        'The travel-system standard: 24.9 lb, up to 50 lb, a true one-hand quick fold and EVA flat-free tires. Clicks onto a KeyFit for the newborn stage — the reason it lands on so many registries.',
+      priceRange: 'mid', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 24.9, budgetMin: 200, budgetMax: 280,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // CYBEX — cybex-online.com. The Libelle and Coya are genuinely cabin-size, but
+  // like most compact seats they start at 6 months, not birth.
+  // Note ordering: /beezy/ must precede /eezy/, /e gazelle/ must precede /gazelle/.
+  // ─────────────────────────────────────────────────────────────────────────
+  Cybex: [
+    {
+      match: /e gazelle/,
+      summary:
+        'The Gazelle S with electric assist — the same 20-plus modular configurations and single-to-double conversion, with motor help for hills and heavy loads.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 1400, budgetMax: 1700,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /gazelle/,
+      summary:
+        'Cybex’s all-in-one: over 20 modular configurations, a second seat option that turns it into a double, a near-flat recline and a genuinely huge shopper basket. 28.4 lb, up to 50 lb.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, ownWeightLbs: 28.4, budgetMin: 700, budgetMax: 900,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /priam/,
+      summary:
+        'Cybex’s flagship: 28.1 lb, up to 55 lb, with a bassinet option, one-hand fold and the design-forward build the brand is known for. The splurge of the Cybex line.',
+      priceRange: 'luxury', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, ownWeightLbs: 28.1, budgetMin: 1000, budgetMax: 1300,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /mios/,
+      summary:
+        'The city-slim Cybex: 22.5 lb, up to 55 lb, with a compact one-hand fold, reversible seat and bassinet option. Built for tight sidewalks and small elevators.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['city'],
+      maxWeightLbs: 55, ownWeightLbs: 22.5, budgetMin: 800, budgetMax: 1000,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /balios/,
+      summary:
+        'Cybex’s full-size family stroller: up to 55 lb, bassinet-compatible from birth, with a 22 lb shopping basket that actually holds a grocery run.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 55, budgetMin: 600, budgetMax: 750,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 22,
+    },
+    {
+      match: /melio/,
+      summary:
+        'A 13 lb featherweight on a carbon-look frame, up to 55 lb, with a compact fold and full recline. Light enough to carry up stairs one-handed.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 55, ownWeightLbs: 13.4, budgetMin: 500, budgetMax: 620,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /libelle/,
+      summary:
+        'The 13.7 lb cabin-size travel stroller: folds tiny enough to go in the overhead bin and works with Cybex infant seats. Like most compact seats, it starts at 6 months — check your airline before you count on the bin.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, ownWeightLbs: 13.7, budgetMin: 280, budgetMax: 380,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /coya/,
+      summary:
+        'Cybex’s luxe cabin-size compact: 14.6 lb, carry-on friendly fold and a design-piece frame. Starts at 6 months, so it is a second stroller rather than a first.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, ownWeightLbs: 14.6, budgetMin: 600, budgetMax: 750,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true,
+    },
+    {
+      match: /beezy/,
+      summary:
+        'Cybex’s value lightweight: a simple compact fold and full recline in a sub-15 lb frame. A grab-and-go second stroller, from 6 months.',
+      priceRange: 'mid', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 48, budgetMin: 280, budgetMax: 350,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /eezy/,
+      summary:
+        'The one with the 360° rotating seat — spin baby to face you or the world without unclipping anything, on a compact-folding frame up to 55 lb.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['city', 'travel'],
+      maxWeightLbs: 55, budgetMin: 450, budgetMax: 550,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /\beos\b/,
+      summary:
+        'Cybex’s full-size all-rounder: bassinet-ready from birth with a roomy seat and big basket, aimed at parents who want one stroller to do everything.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city', 'suburban'],
+      budgetMin: 600, budgetMax: 800,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+  ],
 };
+
+// Delta Children products are split across two brand strings in the catalog
+// ("Delta Children" and "Delta"), so the same seeds are registered under both.
+const DELTA_CHILDREN_SEEDS: StrollerSpecSeed[] = [
+  {
+    match: /jeep sport all terrain|all terrain stroller wagon/,
+    summary:
+      'Jeep-branded all-terrain stroller wagon: 33 lb, 55 lb per seat (110 lb total), a five-position leatherette handlebar that flips between push and pull, plus a canopy and a small mountain of storage. Riders need to sit up on their own, so it is not a from-birth stroller.',
+    priceRange: 'mid', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+    maxWeightLbs: 55, ownWeightLbs: 33, budgetMin: 200, budgetMax: 280,
+    isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /wrangler/,
+    summary:
+      'The deluxe Jeep wagon: seating for two at 55 lb per seat (110 lb total) with dual leatherette handlebars for push or pull. A park-and-errands hauler, not a newborn stroller.',
+    priceRange: 'mid', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+    maxWeightLbs: 55, budgetMin: 300, budgetMax: 400,
+    isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /adventureglyde|glyde/,
+    summary:
+      'A Jeep-branded glider stroller — the front wheels glide rather than jog, so it handles grass and gravel on a budget frame. Not a running stroller.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['suburban', 'trail'],
+    budgetMin: 130, budgetMax: 200,
+    isExpandable: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /jeep sport|cross country|adventure/,
+    summary:
+      'Jeep-branded all-terrain jogger on a steel frame: big front wheel, up to 50 lb, at a price that undercuts the specialist joggers. A budget way into stroller running.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+    maxWeightLbs: 50, budgetMin: 130, budgetMax: 200,
+    isExpandable: false, suitableForJogging: true,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /aries/,
+    summary:
+      'A budget-friendly Jeep all-terrain stroller — rugged looks and larger wheels without the specialist-jogger price tag.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['suburban', 'trail'],
+    budgetMin: 130, budgetMax: 200,
+    isExpandable: false, modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /side by side/,
+    summary:
+      'A budget side-by-side double: two independent seats on a simple, light frame. The affordable answer for two under two.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['city', 'suburban'],
+    budgetMin: 130, budgetMax: 200,
+    isExpandable: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /umbrella/,
+    summary:
+      'A classic umbrella stroller: barely-there weight, a simple fold and a price that makes it an easy second stroller for the car trunk or grandma’s house.',
+    priceRange: 'budget', foldType: 'compact', lifestyle: ['travel', 'city'],
+    budgetMin: 40, budgetMax: 90,
+    isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /carriage|2 in 1/,
+    summary:
+      'A budget 2-in-1 carriage: a pram-style bassinet mode for the newborn months that converts to a toddler seat later.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['city', 'suburban'],
+    budgetMin: 130, budgetMax: 220,
+    isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+    modular: true, fitsOverheadBin: false,
+  },
+  {
+    match: /icon/,
+    summary:
+      'Delta’s everyday-and-travel compact: a light frame and simple fold aimed at errands and trips, at an entry-level price.',
+    priceRange: 'budget', foldType: 'compact', lifestyle: ['travel', 'city'],
+    budgetMin: 100, budgetMax: 180,
+    isExpandable: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+  {
+    match: /classic|gap/,
+    summary:
+      'A simple, affordable everyday stroller — light, easy to fold and priced as a practical first or second stroller.',
+    priceRange: 'budget', foldType: 'standard', lifestyle: ['city', 'suburban'],
+    budgetMin: 100, budgetMax: 200,
+    isExpandable: false, suitableForJogging: false,
+    modular: false, fitsOverheadBin: false,
+  },
+];
+
+STROLLER_SPEC_SEEDS['Delta Children'] = DELTA_CHILDREN_SEEDS;
+STROLLER_SPEC_SEEDS['Delta'] = DELTA_CHILDREN_SEEDS;
 
 export function findStrollerSpecSeed(brand: string, model: string): StrollerSpecSeed | null {
   const brandKey = Object.keys(STROLLER_SPEC_SEEDS).find(
