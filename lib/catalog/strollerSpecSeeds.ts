@@ -836,6 +836,120 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: false, fitsOverheadBin: true,
     },
   ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // JOIE — joiebaby.com. Only the Chive has specs I could confirm for the US
+  // market; the rest of the range gets a conservative catch-all with no
+  // invented numbers. The catch-all must stay LAST.
+  // ─────────────────────────────────────────────────────────────────────────
+  Joie: [
+    {
+      match: /chive/,
+      summary:
+        'A single that becomes a double with more than 20 seating modes, 50 lb per seat (100 lb total), and a 2-in-1 carry cot for the newborn stage. Note the rear seat drops to 35 lb when it faces you.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 50, budgetMin: 400, budgetMax: 550,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /rosemary double/,
+      summary:
+        'Joie’s side-by-side double: two independent seats on a frame narrow enough for most doorways, without the convertible-stroller price.',
+      priceRange: 'mid', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      budgetMin: 300, budgetMax: 450,
+      isExpandable: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      // Catch-all for the rest of the Joie range — sets only what's safe to say
+      // about the brand, leaving weights for per-model research later.
+      match: /./,
+      summary:
+        'Joie builds practical, well-priced everyday strollers — the sensible middle ground between bargain-bin and boutique.',
+      priceRange: 'mid', lifestyle: ['city', 'suburban'],
+      budgetMin: 200, budgetMax: 400,
+      isExpandable: false, suitableForJogging: false, fitsOverheadBin: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // JOOLZ — joolz.com. Joolz publishes in kg; converted here. Both the Day+ and
+  // Geo3 cap at 22 kg (≈48 lb), and the Geo's 15 kg basket is the biggest in the
+  // catalog so far.
+  // Ordering: /aer/ before the rest so Aer+ / Aer² don't fall through.
+  // ─────────────────────────────────────────────────────────────────────────
+  Joolz: [
+    {
+      match: /\baer/,
+      summary:
+        '13.2 lb, folds to cabin size and lands in the overhead bin on most airlines. Up to 50 lb, with an 11 lb basket, and a from-birth cot sold separately. The travel stroller people actually keep using at home.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 13.2, budgetMin: 450, budgetMax: 600,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true, basketCapacityLbs: 11,
+    },
+    {
+      match: /geo/,
+      summary:
+        'The all-terrain Joolz and the one to pick if you actually load a stroller up: a 33 lb basket limit, bigger wheels, and a bassinet from birth. 28.7 lb, up to 48 lb, and it converts to a twin.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'suburban', 'city'],
+      maxWeightLbs: 48, ownWeightLbs: 28.7, budgetMin: 900, budgetMax: 1200,
+      isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 33,
+    },
+    {
+      match: /day/,
+      summary:
+        'The Dutch pram silhouette with a bassinet included: 29.5 lb complete, up to 48 lb, big wheels and an upright seat height that brings baby closer to you. An 11 lb basket.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['city', 'suburban'],
+      maxWeightLbs: 48, ownWeightLbs: 29.5, budgetMin: 900, budgetMax: 1200,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false, basketCapacityLbs: 11,
+    },
+    {
+      match: /hub/,
+      summary:
+        'Joolz sized for the city: 19.4 lb with a reversible seat, one-hand fold and an XL basket, slotting between a compact and a full-size pram.',
+      priceRange: 'premium', foldType: 'one-hand', lifestyle: ['city'],
+      maxWeightLbs: 48, ownWeightLbs: 19.4, budgetMin: 600, budgetMax: 800,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: true, fitsOverheadBin: false,
+    },
+    {
+      match: /dot/,
+      summary:
+        'A compact Joolz built for travel days — small fold, light frame, easy to live with away from home.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      budgetMin: 400, budgetMax: 600,
+      isExpandable: false, suitableForJogging: false, modular: false,
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // LARKTALE — larktale.com. Stroller wagons: riders must sit unassisted, so
+  // none of these are from-birth.
+  // ─────────────────────────────────────────────────────────────────────────
+  Larktale: [
+    {
+      match: /quad/,
+      summary:
+        'The four-seater wagon: room for a whole crew at 65 lb per seat, with a one-hand compact fold that still fits a trunk. From 6 months, once riders can sit on their own.',
+      priceRange: 'luxury', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 65, budgetMin: 700, budgetMax: 900,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
+      match: /caravan|coupe/,
+      summary:
+        'A stroller-wagon hybrid that pushes like a stroller instead of dragging like a wagon: 65 lb per seat, 152 lb total, and a genuinely compact fold. From 6 months.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 65, budgetMin: 500, budgetMax: 700,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+  ],
 };
 
 // Delta Children products are split across two brand strings in the catalog
