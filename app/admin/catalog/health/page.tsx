@@ -9,6 +9,7 @@ import AdminTable from '@/components/admin/ui/AdminTable';
 import { requireAdminSession } from '@/lib/server/session';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isCarSeatAdapter } from '@/lib/catalog/adapterModelMatching';
+import { isUniversalAdapterBrand } from '@/lib/catalog/universalAdapters';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 import { GET as getCarSeatCatalog } from '@/app/api/catalog/carseats/route';
 import { GET as getStrollerCatalog } from '@/app/api/catalog/strollers/route';
@@ -313,12 +314,18 @@ export default async function CatalogHealthPage() {
 
             <AdminSurface className="admin-stack">
               <SectionTitle title="Adapter Health" count={health.adapterProducts.length} />
-              <div className="grid gap-3 md:grid-cols-4">
+              <div className="grid gap-3 md:grid-cols-5">
                 <MiniMetric label="Adapter products" value={health.adapterProducts.length} />
                 <MiniMetric label="Unapplied candidates" value={health.adapterCandidateCount} />
-                <MiniMetric label="Ambiguous products" value={health.ambiguousAdapters.length} />
+                <MiniMetric label="Universal (covered)" value={health.universalCoveredCount} />
+                <MiniMetric label="Needs attention" value={health.ambiguousAdapters.length} />
                 <MiniMetric label="Catalog-written rows" value={health.catalogWrittenAdapterRows} />
               </div>
+              <p className="admin-micro">
+                Universal click-and-go adapters name no seat brand by design — one adapter fits the shared
+                Maxi-Cosi / Nuna / CYBEX / Clek group, and catalog:universal-adapter-compatibility already seeds
+                those rows. They are counted separately so the list below stays actionable.
+              </p>
               <AdminTable
                 density="compact"
                 columns={[
@@ -463,7 +470,7 @@ async function loadCatalogHealth() {
     }),
   ]);
 
-  const { adapterCandidateCount, ambiguousAdapters } = getAdapterHealth(adapterProducts, strollers, seats, compatRows);
+  const { adapterCandidateCount, ambiguousAdapters, universalCoveredCount } = getAdapterHealth(adapterProducts, strollers, seats, compatRows);
   const publicKeys = new Set(publicProducts.map((p) => `${p.area}|${p.brand.toLowerCase()}|${normalizePublicModel(p.model)}`));
   const compatStrollerIds = new Set(compatRows.map((row: { strollerId: string }) => row.strollerId));
 
@@ -479,6 +486,7 @@ async function loadCatalogHealth() {
     adapterProducts,
     adapterCandidateCount,
     ambiguousAdapters,
+    universalCoveredCount,
     catalogWrittenAdapterRows,
     orphanStrollers: strollers
       .filter((st) => !compatStrollerIds.has(st.id))
@@ -555,6 +563,7 @@ function getAdapterHealth(
   const existingSet = new Set(compatRows.map((row) => `${row.strollerId}:::${row.carSeatId}`));
   const candidatePairs = new Set<string>();
   const ambiguousAdapters: Array<AdapterProduct & { reason: string }> = [];
+  let universalCoveredCount = 0;
 
   for (const adapter of adapters) {
     const title = adapter.title || '';
@@ -568,6 +577,16 @@ function getAdapterHealth(
       return modelVariants(stroller.model).some((model) => model.length >= 2 && normalizedTitle.includes(model));
     });
     const seatBrands = seatBrandsInTitle(title);
+
+    // Universal ("click-and-go") adapters legitimately name no seat brand — one
+    // adapter fits the whole shared Maxi-Cosi / Nuna / CYBEX / Clek group, and
+    // scripts/applyUniversalAdapterCompatibility already seeds those rows. They
+    // are covered, not broken, so they don't belong in the ambiguous list.
+    if (!seatBrands.length && isUniversalAdapterBrand(adapter.brand)) {
+      universalCoveredCount += 1;
+      continue;
+    }
+
     if (!strollerMatches.length || !seatBrands.length) {
       ambiguousAdapters.push({
         ...adapter,
@@ -589,7 +608,7 @@ function getAdapterHealth(
     }
   }
 
-  return { adapterCandidateCount: candidatePairs.size, ambiguousAdapters };
+  return { adapterCandidateCount: candidatePairs.size, ambiguousAdapters, universalCoveredCount };
 }
 
 function seatBrandsInTitle(title: string): string[] {
