@@ -27,12 +27,18 @@ import { resolve } from 'node:path';
 import prismaBase from '@/lib/server/prisma';
 import { getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
 import { STROLLER_CATEGORY_LABELS } from '@/lib/guides/travelSystemCompatibility';
+import { canonicalStrollerBrand } from '@/lib/catalog/strollerFinderRules';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-const norm = (v: string) => v.toLowerCase().replace(/\s+/g, ' ').trim();
-const key = (brand: string, model: string) => `${norm(brand)}|${norm(model)}`;
+// Key on the CANONICAL brand + a punctuation-stripped model so the Stroller
+// table and the finder catalog line up despite "CYBEX"/"Cybex" and stray
+// punctuation. Without this most rows fell into "(uncategorized)".
+const normModel = (v: string) => v.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+const key = (brand: string, model: string) =>
+  `${normModel(canonicalStrollerBrand(brand))}|${normModel(model)}`;
 const has = (v: string | null | undefined) => typeof v === 'string' && v.trim().length > 0;
 
 function argValue(flag: string): string | null {
@@ -143,13 +149,15 @@ async function main() {
         b.missingImage.length ? `${b.missingImage.length} missing image` : null,
       ].filter(Boolean);
       console.log(`   • ${b.brand} ${b.model}  —  ${bits.join(', ')}`);
-      // show which seat pairings are short, deduped by seat brand
+      // show which seat pairings are short, deduped by CANONICAL seat brand so
+      // "CYBEX" and "Cybex" collapse into one line instead of two.
       const seatBrands = new Map<string, { link: boolean; image: boolean }>();
       for (const r of b.adapterRows) {
-        const flag = seatBrands.get(r.seat_brand) ?? { link: true, image: true };
+        const sb = canonicalBrand(r.seat_brand);
+        const flag = seatBrands.get(sb) ?? { link: true, image: true };
         if (!has(r.adapter_url)) flag.link = false;
         if (!has(r.adapter_image)) flag.image = false;
-        seatBrands.set(r.seat_brand, flag);
+        seatBrands.set(sb, flag);
       }
       for (const [sb, f] of seatBrands) {
         if (f.link && f.image) continue;
@@ -179,7 +187,7 @@ async function main() {
     if (b.category === 'umbrella') continue;
     for (const r of b.adapterRows) {
       csv.push(
-        [catLabel(b.category), `${b.brand} ${b.model}`, r.seat_brand, r.seat_model, r.type, has(r.adapter_url), has(r.adapter_image)].map(esc).join(','),
+        [catLabel(b.category), `${b.brand} ${b.model}`, canonicalBrand(r.seat_brand), r.seat_model, r.type, has(r.adapter_url), has(r.adapter_image)].map(esc).join(','),
       );
     }
   }
