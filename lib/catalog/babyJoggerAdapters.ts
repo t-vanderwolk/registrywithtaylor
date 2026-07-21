@@ -17,6 +17,30 @@
  *   • Britax is offered for the City Select 2 only.
  */
 
+/**
+ * The shared "euro" click-and-go group. Nuna, Maxi-Cosi, CYBEX and Clek infant
+ * seats all use the same adapter-bar geometry, so an adapter sold for ANY one of
+ * them physically accepts all four. Baby Jogger markets these adapters under
+ * whichever brand names it chooses ("…for Nuna infant car seats", "…for
+ * Maxi-Cosi/Cybex"), but the part is the same standard.
+ *
+ * Britax, Chicco, Graco and Peg Perego are NOT part of this group — they use
+ * their own mounts and need their own adapters.
+ */
+export const EURO_ADAPTER_GROUP = ['Nuna', 'Maxi-Cosi', 'Cybex', 'Clek'] as const;
+
+/** Expands any euro-group member in a seat-brand list to the full group. */
+function withEuroGroup(brands: string[]): string[] {
+  const touchesEuro = brands.some((b) =>
+    EURO_ADAPTER_GROUP.some((e) => e.toLowerCase() === b.toLowerCase()),
+  );
+  if (!touchesEuro) return brands;
+  const rest = brands.filter(
+    (b) => !EURO_ADAPTER_GROUP.some((e) => e.toLowerCase() === b.toLowerCase()),
+  );
+  return [...rest, ...EURO_ADAPTER_GROUP];
+}
+
 export type BabyJoggerAdapterRule = {
   /** Matches the catalog stroller model (already lowercased + de-punctuated). */
   match: RegExp;
@@ -123,7 +147,9 @@ const normalize = (value: string) =>
 export function babyJoggerSeatBrands(model: string): { seatBrands: string[]; source: string | null } {
   const m = normalize(model);
   const hit = BABY_JOGGER_ADAPTERS.find((rule) => rule.match.test(m) && !(rule.exclude?.test(m) ?? false));
-  return hit ? { seatBrands: hit.seatBrands, source: hit.source } : { seatBrands: [], source: null };
+  // Any euro-group seat listed on the adapter implies the whole group, since
+  // they share one adapter standard.
+  return hit ? { seatBrands: withEuroGroup(hit.seatBrands), source: hit.source } : { seatBrands: [], source: null };
 }
 
 /** Documented reason a frame has no adapter, if it is a known no-adapter model. */
