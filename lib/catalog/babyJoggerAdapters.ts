@@ -102,9 +102,19 @@ export const BABY_JOGGER_ADAPTERS: BabyJoggerAdapterRule[] = [
     source: 'City Mini Air + Nuna',
   },
   {
-    // City Mini 2 / GT2 singles → Chicco KeyFit only. Baby Jogger does not sell
-    // a Graco or euro-group adapter for the SINGLE City Mini frames.
-    match: /city mini (2|gt2)/,
+    // City Mini 2 SINGLE → Chicco KeyFit, plus the euro group. The Maxi-Cosi /
+    // CYBEX adapter's own canonical URL lists "city mini 2, city mini 2 double,
+    // and city mini GT2 double" — so the single City Mini 2 is covered, even
+    // though the product title only names the doubles.
+    match: /city mini 2/,
+    exclude: /double/,
+    seatBrands: ['Chicco', 'Maxi-Cosi', 'Cybex'],
+    source: 'City Mini 2/GT2/Elite 2 + Chicco KeyFit; Maxi-Cosi/Cybex adapter (canonical incl. City Mini 2 single)',
+  },
+  {
+    // City Mini GT2 SINGLE → Chicco KeyFit only. The euro adapter's canonical
+    // lists the GT2 in DOUBLE form only, so the single GT2 does not get it.
+    match: /city mini gt2/,
     exclude: /double/,
     seatBrands: ['Chicco'],
     source: 'City Mini 2, GT2 & City Elite 2 + Chicco KeyFit',
