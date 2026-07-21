@@ -606,8 +606,13 @@ function normalizeAdapterText(value: string) {
 
 function modelVariants(model: string): string[] {
   const full = normalizeAdapterText(model);
+  // Marketing qualifiers that appear in the CATALOG model name but never in the
+  // adapter's title — e.g. catalog "Corso Flex Convertible" vs adapter "Corso
+  // Flex Infant Car Seat Adapter". Seat-count words (single / double / twin /
+  // quad) are deliberately NOT stripped: they distinguish genuinely different
+  // frames, and dropping them would pair a single-seat adapter with a double.
   const core = full
-    .replace(/\b(all terrain|stroller|complete|seat)\b/g, ' ')
+    .replace(/\b(all terrain|stroller|complete|seat|convertible|modular|edition|special)\b/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
   return core && core !== full ? [full, core] : [full];

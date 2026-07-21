@@ -195,7 +195,7 @@ function phraseMatchesTitle(titleTokens: string[], phrase: string, fullModel: st
 // bassinet / newborn / carrycot adapters, stands, trays, cup holders, ride-along
 // boards, wagon parts, organizers, second-/toddler-seat adapters, etc.
 const NON_CAR_SEAT_ADAPTER_RE =
-  /\b(stand|tray|cup ?holders?|cupholders?|snack|breast ?pump|\bpump\b|glider|ride ?along|riding board|piggy ?back|wagon|organi[sz]ers?|parent (?:console|tray)|phone|\bbag\b|basket|footmuff|second seat|toddler seat|stroller seat|\bboard\b)\b/i;
+  /\b(stand|tray|cup ?holders?|cupholders?|snack|breast ?pump|\bpump\b|glider|ride ?along|riding board|piggy ?back|wagon|organi[sz]ers?|parent (?:console|tray)|phone|\bbag\b|basket|footmuff|second seat|toddler seat|stroller seat|\bboard\b|high ?chair|booster|\blemo\b)\b/i;
 // A newborn / bassinet adapter (not a car-seat adapter) unless it also clearly
 // says "car seat" (a few double frames sell an "upper/lower car seat adapter").
 const BASSINET_ADAPTER_RE = /\b(bassinet|carry ?cot|carrycot|\bcot\b|newborn)\b/i;
