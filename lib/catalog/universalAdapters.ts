@@ -20,7 +20,12 @@ export type UniversalAdapterRule = {
   family: string;
   /**
    * Extra infant-seat brands this stroller's adapter supports beyond the shared
-   * Nuna / CYBEX / Clek / Maxi-Cosi / Britax group.
+   * Nuna / CYBEX / Clek / Maxi-Cosi group.
+   *
+   * Britax is NOT part of the shared group (see SHARED_ADAPTER_EXPANSION_BRANDS
+   * in lib/server/travelSystemCompatibility). It may only be listed here when
+   * the stroller's MANUFACTURER specifically states Britax compatibility —
+   * never as a general euro-group assumption.
    */
   extraSeatBrands?: string[];
   /** Models to exclude even when `model` matches (e.g. a direct-fit-only frame). */
@@ -38,8 +43,8 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // "Hub2" model string.
   { brand: 'Joolz', model: /\b(dot|geo)\b|\bhub\d*\b/i, family: 'Dot / Geo / Hub' },
   { brand: 'Mima', model: /\b(miro|xari|zigi|creo)\b/i, family: 'Miro / Xari / Zigi / Creo' },
-  // Zoe frames all take the shared euro group (Nuna / Maxi-Cosi / CYBEX / Clek /
-  // Britax) via Zoe's Nuna/euro car seat adapters.
+  // Zoe frames all take the shared euro group (Nuna / Maxi-Cosi / CYBEX / Clek)
+  // via Zoe's Nuna/euro car seat adapters.
   { brand: 'Zoe', model: null, family: 'all Zoe strollers' },
   // Tour / Twin / Trio / Tribe additionally take Graco + Chicco (Graco/Chicco
   // adapter) and UPPAbaby Mesa/Aria (UPPAbaby adapter).
@@ -83,7 +88,7 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // the Baby Jogger car seat adapter (Graco City GO is handled separately).
   { brand: 'Baby Jogger', model: /\b(city prix|city mini air)\b/i, family: 'City Prix / City Mini Air' },
   // WonderFold W & L Series wagons take a 360° car seat adapter: shared Nuna /
-  // CYBEX / Clek / Maxi-Cosi / Britax group PLUS Graco / Chicco / UPPAbaby Mesa.
+  // CYBEX / Clek / Maxi-Cosi group PLUS Graco / Chicco / UPPAbaby Mesa.
   // (Brand match is startsWith, so this also covers the "WonderFold Wagon" rows.)
   { brand: 'WonderFold', model: null, family: 'W & L Series', extraSeatBrands: ['Graco', 'Chicco', 'UPPAbaby'] },
   // Veer Switchback (&Roll / &Jog) takes Maxi-Cosi / Nuna / Clek / CYBEX (shared
@@ -117,7 +122,7 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // via the Caravan car seat adapter, plus a separate Chicco adapter.
   { brand: 'Larktale', model: /\bcaravan\b/i, family: 'Caravan', extraSeatBrands: ['Chicco'] },
   // Mockingbird makes no car seat of its own. The Single / Single-to-Double take
-  // the shared Nuna / Maxi-Cosi / CYBEX / Clek / Britax group via the Mockingbird
+  // the shared Nuna / Maxi-Cosi / CYBEX / Clek group via the Mockingbird
   // Car Seat Adapter, PLUS Graco / Chicco / Baby Jogger / UPPAbaby via the other
   // Mockingbird adapter variants and Joie via the Joie ICS adapter.
   { brand: 'Mockingbird', model: null, family: 'Single / Single-to-Double', extraSeatBrands: ['Graco', 'Chicco', 'Baby Jogger', 'UPPAbaby', 'Joie'] },
