@@ -51,7 +51,10 @@ const NOT_A_STROLLER_RE = /\bcollection\b|carry\s?cot|\bcarrycot\b|footmuff|comf
 // Infant (bucket) seats attach to strollers → seatType INFANT (belong in the
 // travel-system checker). Everything else in the Car Seats section is a
 // convertible / all-in-one and must NOT be flagged INFANT.
-const INFANT_SEAT_RE = /\b(aton|pipa|key\s?fit|keyfit|cloud|mesa|doona|coral|snug\s?ride|snugride|cabrio\s?fix|cabriofix|aria|nido|gemm|via\b)\b/i;
+// NB: keep in sync with scripts/fixCarSeatTypes. "gomax" was missing here, which
+// mis-typed Graco's GoMax infant carrier as CONVERTIBLE and hid it from the
+// travel-system engine (which filters seatType = 'INFANT').
+const INFANT_SEAT_RE = /\b(aton|pipa|key\s?fit|keyfit|cloud|mesa|doona|coral|snug\s?ride|snugride|snug\s?fit|snugfit|go\s?max|gomax|mico|peri|cabrio\s?fix|cabriofix|aria|nido|gemm|via\b)\b/i;
 
 type LinkKind = 'babylist' | 'amazon' | 'macrobaby' | 'shop';
 type Category = 'stroller' | 'carseat' | 'other';

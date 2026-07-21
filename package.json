@@ -19,6 +19,8 @@
     "catalog:compare-specs-apply": "tsx scripts/seedStrollerCompareSpecs.ts --apply",
     "catalog:baby-jogger-prune": "tsx scripts/pruneBabyJoggerCompatibility.ts",
     "catalog:baby-jogger-prune-apply": "tsx scripts/pruneBabyJoggerCompatibility.ts --apply",
+    "catalog:fix-seat-types": "tsx scripts/fixCarSeatTypes.ts",
+    "catalog:fix-seat-types-apply": "tsx scripts/fixCarSeatTypes.ts --apply",
     "catalog:baby-jogger-compat": "tsx scripts/applyBabyJoggerCompatibility.ts",
     "catalog:baby-jogger-compat-apply": "tsx scripts/applyBabyJoggerCompatibility.ts --apply",
     "catalog:product-images": "tsx scripts/setProductImages.ts",
