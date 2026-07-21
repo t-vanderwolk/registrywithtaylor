@@ -119,6 +119,17 @@ function stripTrailingConfig(value: string) {
   return parts.join(' ');
 }
 
+// A trailing "v<n>" version token (Minu V2, Vista V3, Cruz V2). Versions share
+// the same infant-seat adapter as their base model, so an adapter titled for the
+// bare model ("UPPAbaby Minu Car Seat Adapters", "UPPAbaby Vista Lower Adapters")
+// fits every version. Strip ONLY the "v<n>" token so the model root remains.
+const VERSION_SUFFIX_RE = /^v\d+$/;
+function stripTrailingVersion(value: string) {
+  const parts = normalizeText(value).split(' ').filter(Boolean);
+  if (parts.length > 1 && VERSION_SUFFIX_RE.test(parts[parts.length - 1])) parts.pop();
+  return parts.join(' ');
+}
+
 // An "electric" power variant (Cybex e-Gazelle S / eGazelle) shares the base
 // model's infant-seat adapter (the "Gazelle S" adapter). Drop a leading
 // "e"/"electric" token so the powered model matches the base-model adapter.
@@ -265,6 +276,18 @@ export function adapterTitleMatchesStrollerModel(
       return { matched: true, matchedModel: 'cruiser', matchKind: 'core' };
     }
 
+    // Veer's convertible stroller is the SWITCHBACK; the catalog stores its
+    // configurations as "Switch&Jog" / "Switch&Roll" (→ "switch and jog/roll").
+    // Veer's adapters are titled for the "Switchback", so a Veer stroller whose
+    // model starts with "switch" matches any Switchback adapter title.
+    if (
+      strollerBrandKey === 'veer' &&
+      /\bswitch/.test(normalizeText(strollerModel)) &&
+      titleTokens.includes('switchback')
+    ) {
+      return { matched: true, matchedModel: 'switchback', matchKind: 'core' };
+    }
+
     // BOB's infant-seat adapter is sold generically for the single jogging line
     // ("BOB Gear Single Jogging Stroller Adapter for Select Britax Infant Car
     // Seats") and names no model. It fits the BOB Revolution Flex, so match any
@@ -310,6 +333,15 @@ export function adapterTitleMatchesStrollerModel(
   if (electricStripped !== core && isTrustworthyShortCandidate(electricStripped)) {
     pushCandidate(electricStripped, electricStripped, 'core');
   }
+
+  // Version variant → base-model adapter (Minu V2 → "minu", Vista V3 → "vista").
+  // Trusted even as a single word: we removed a specific "v<n>" token, not a
+  // generic word, so the root is a real model. The version guard in
+  // phraseMatchesTitle still prevents a bare "vista" from matching a title that
+  // names a *different* version (e.g. "vista v2"), so this only attaches
+  // version-less adapter titles.
+  const versionStripped = stripTrailingVersion(core);
+  if (versionStripped !== core) pushCandidate(versionStripped, versionStripped, 'core');
 
   for (const candidate of candidates) {
     if (!phraseMatchesTitle(titleTokens, candidate.phrase, candidate.context)) continue;
