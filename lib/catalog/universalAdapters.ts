@@ -121,6 +121,19 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // Car Seat Adapter, PLUS Graco / Chicco / Baby Jogger / UPPAbaby via the other
   // Mockingbird adapter variants and Joie via the Joie ICS adapter.
   { brand: 'Mockingbird', model: null, family: 'Single / Single-to-Double', extraSeatBrands: ['Graco', 'Chicco', 'Baby Jogger', 'UPPAbaby', 'Joie'] },
+  // Inglesina Quid³ takes the Quid³ Car Seat Adapter, which Inglesina lists for
+  // Nuna (Pipa Aire / Rx / urbn), Maxi-Cosi (Peri 180, Mico Pro / Luxe), CYBEX
+  // (Cloud G / G Lux / T / Q, Aton G) and Clek (Liing / Liingo) only — Chicco is
+  // explicitly NOT compatible, so no extraSeatBrands. Inglesina's own Darwin
+  // infant seat isn't sold in the US, so the frame has no same-brand seat.
+  // No trailing \b: the model is stored as "Quid³", and a superscript is a
+  // non-word char (boundary matches) while a normalized "Quid3" is not (it
+  // wouldn't). Leaving the boundary off matches Quid, Quid³ and Quid3 alike.
+  { brand: 'Inglesina', model: /\bquid/i, family: 'Quid³' },
+  // DFY R1 takes the R1 Car Seat Adapters. DFY's tested list is the same shared
+  // euro group: Maxi-Cosi (Mico Luxe), CYBEX (Aton G, Cloud Q / G / T), Nuna
+  // (Pipa Rx, Pipa Aire Rx) and Clek (Liing). No extra brands.
+  { brand: 'DFY', model: /\br1\b/i, family: 'R1' },
 ];
 
 /** True when a stroller row is covered by a universal-adapter family. */
