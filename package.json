@@ -17,6 +17,8 @@
     "catalog:recategorize-dry": "tsx scripts/recategorizeAffiliateCatalog.ts --dry-run",
     "catalog:compare-specs": "tsx scripts/seedStrollerCompareSpecs.ts",
     "catalog:compare-specs-apply": "tsx scripts/seedStrollerCompareSpecs.ts --apply",
+    "catalog:baby-jogger-prune": "tsx scripts/pruneBabyJoggerCompatibility.ts",
+    "catalog:baby-jogger-prune-apply": "tsx scripts/pruneBabyJoggerCompatibility.ts --apply",
     "catalog:baby-jogger-compat": "tsx scripts/applyBabyJoggerCompatibility.ts",
     "catalog:baby-jogger-compat-apply": "tsx scripts/applyBabyJoggerCompatibility.ts --apply",
     "catalog:product-images": "tsx scripts/setProductImages.ts",
