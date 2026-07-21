@@ -84,9 +84,16 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // Guava Roam takes Nuna / Maxi-Cosi / CYBEX (+ Chicco / Graco / Britax) via the
   // Roam car seat adapter.
   { brand: 'Guava Family', model: /\broam\b/i, family: 'Roam' },
-  // Older Baby Jogger frames not already covered take Maxi-Cosi / CYBEX / Nuna via
-  // the Baby Jogger car seat adapter (Graco City GO is handled separately).
-  { brand: 'Baby Jogger', model: /\b(city prix|city mini air)\b/i, family: 'City Prix / City Mini Air' },
+  // NOTE: Baby Jogger was REMOVED from this list. It makes its own infant seat
+  // (City GO 2) and sells a different adapter per stroller + seat-brand combo —
+  // there is no shared click-and-go adapter, so the universal inference does not
+  // apply. Its pairings are transcribed from the manufacturer's adapter
+  // catalogue in lib/catalog/babyJoggerAdapters and applied by
+  // scripts/applyBabyJoggerCompatibility.
+  //
+  // The old rule claimed Maxi-Cosi / CYBEX / Nuna for the City Prix and City
+  // Mini Air. Baby Jogger publishes NO adapter for the City Prix at all, and
+  // only a Nuna adapter for the City Mini Air.
   // WonderFold W & L Series wagons take a 360° car seat adapter: shared Nuna /
   // CYBEX / Clek / Maxi-Cosi group PLUS Graco / Chicco / UPPAbaby Mesa.
   // (Brand match is startsWith, so this also covers the "WonderFold Wagon" rows.)
