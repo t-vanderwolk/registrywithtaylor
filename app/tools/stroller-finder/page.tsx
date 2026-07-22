@@ -8,14 +8,38 @@ import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 
-export const metadata = buildMarketingMetadata({
-  title: 'Stroller Finder — Browse by Brand | Taylor-Made Baby Co.',
-  description:
-    'Explore strollers by brand and model — see what makes each one stand out, the price range, and where to buy.',
-  path: '/tools/stroller-finder',
-  imagePath: '/assets/hero/hero-03.jpg',
-  imageAlt: 'Stroller finder by brand',
-});
+// Per-brand metadata so each ?brand= view is a distinct, indexable page with its
+// own title + self-referencing canonical, instead of all collapsing onto the base
+// finder. Category views keep the base metadata (they carry their own canonical
+// via the category deep-links).
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ brand?: string | string[] }>;
+}) {
+  const { brand } = await searchParams;
+  const brandName = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
+
+  if (brandName) {
+    return buildMarketingMetadata({
+      title: `${brandName} Strollers — Compare Models, Prices & Compatibility | Taylor-Made Baby Co.`,
+      description: `Every ${brandName} stroller in one place — models by type, live prices, photos, where to buy, and which infant car seats each one fits.`,
+      path: `/tools/stroller-finder?brand=${encodeURIComponent(brandName)}`,
+      imagePath: '/assets/hero/hero-03.jpg',
+      imageAlt: `${brandName} strollers`,
+      keywords: [`${brandName} strollers`, `${brandName} stroller comparison`, `${brandName} travel system`],
+    });
+  }
+
+  return buildMarketingMetadata({
+    title: 'Stroller Finder — Browse by Brand | Taylor-Made Baby Co.',
+    description:
+      'Explore strollers by brand and model — see what makes each one stand out, the price range, and where to buy.',
+    path: '/tools/stroller-finder',
+    imagePath: '/assets/hero/hero-03.jpg',
+    imageAlt: 'Stroller finder by brand',
+  });
+}
 
 export default async function StrollerFinderPage({
   searchParams,

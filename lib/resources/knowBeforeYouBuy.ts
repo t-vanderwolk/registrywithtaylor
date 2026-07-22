@@ -13,6 +13,11 @@ export function strollerFinderCategoryHref(categorySlug: string) {
   return `${STROLLER_FINDER_BASE}?category=${encodeURIComponent(categorySlug)}`;
 }
 
+/** Deep-link to the Stroller Finder opened on a specific brand's page. */
+export function strollerFinderBrandHref(brand: string) {
+  return `${STROLLER_FINDER_BASE}?brand=${encodeURIComponent(brand)}`;
+}
+
 export type StartCard = {
   prompt: string;
   action: string;

@@ -19,6 +19,8 @@
     "catalog:compare-specs-apply": "tsx scripts/seedStrollerCompareSpecs.ts --apply",
     "catalog:baby-jogger-prune": "tsx scripts/pruneBabyJoggerCompatibility.ts",
     "catalog:baby-jogger-prune-apply": "tsx scripts/pruneBabyJoggerCompatibility.ts --apply",
+    "catalog:normalize-brands": "tsx scripts/normalizeBrandCasing.ts",
+    "catalog:normalize-brands-apply": "tsx scripts/normalizeBrandCasing.ts --apply",
     "catalog:audit-stroller-adapters": "tsx scripts/auditStrollerAdapters.ts",
     "catalog:fix-seat-types": "tsx scripts/fixCarSeatTypes.ts",
     "catalog:fix-seat-types-apply": "tsx scripts/fixCarSeatTypes.ts --apply",

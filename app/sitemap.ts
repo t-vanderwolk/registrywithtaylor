@@ -6,7 +6,8 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
-import { strollerCategories, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { strollerCategories, strollerFinderCategoryHref, strollerFinderBrandHref } from '@/lib/resources/knowBeforeYouBuy';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
 
@@ -44,11 +45,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Travel-system results pages — one per public stroller and per infant car
   // seat, e.g. /tools/travel-system/results?stroller=uppababy-vista-v3
   let travelSystemEntries: MetadataRoute.Sitemap = [];
+  let brandEntries: MetadataRoute.Sitemap = [];
   try {
     const [strollers, carSeats] = await Promise.all([
       getTravelSystemStrollers(),
       getTravelSystemCarSeats(),
     ]);
+
+    // Stroller Finder brand landing pages, e.g. /tools/stroller-finder?brand=Cybex —
+    // one discoverable page per brand, deduped and canonicalized (so "CYBEX" and
+    // "Cybex" collapse to a single entry).
+    const brandNames = Array.from(
+      new Set(strollers.map((option) => canonicalBrand(option.brand)).filter(Boolean)),
+    ).sort();
+    brandEntries = brandNames.map((brand) => ({
+      url: buildUrl(strollerFinderBrandHref(brand)),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
+
     travelSystemEntries = [
       ...strollers.map((option) => ({
         url: buildUrl(travelSystemResultsHref('stroller', option)),
@@ -83,7 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...categoryEntries, ...travelSystemEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [...staticEntries, ...categoryEntries, ...brandEntries, ...travelSystemEntries, ...blogEntries].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }

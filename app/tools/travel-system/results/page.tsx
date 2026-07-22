@@ -6,6 +6,7 @@ import SiteShell from '@/components/SiteShell';
 import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
 import {
@@ -222,6 +223,9 @@ function ResultsBreadcrumb({
   brand: string;
   current: string;
 }) {
+  // Canonicalize so the link (and label) matches the sitemap/finder brand page
+  // even if this stroller row still carries a casing variant (e.g. "CYBEX").
+  const brandName = canonicalBrand(brand);
   const crumbClass = 'link-underline hover:text-[var(--color-accent-dark)]';
   const sep = (
     <li aria-hidden className="text-neutral-300">
@@ -252,8 +256,8 @@ function ResultsBreadcrumb({
             </li>
             {sep}
             <li>
-              <Link href={`/tools/stroller-finder?brand=${encodeURIComponent(brand)}`} className={crumbClass}>
-                {brand}
+              <Link href={`/tools/stroller-finder?brand=${encodeURIComponent(brandName)}`} className={crumbClass}>
+                {brandName}
               </Link>
             </li>
           </>
