@@ -20,10 +20,11 @@ export const metadata = buildMarketingMetadata({
 export default async function StrollerFinderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string | string[] }>;
+  searchParams: Promise<{ category?: string | string[]; brand?: string | string[] }>;
 }) {
-  const { category } = await searchParams;
+  const { category, brand } = await searchParams;
   const initialCategory = (Array.isArray(category) ? category[0] : category)?.trim() || null;
+  const initialBrand = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
 
   return (
     <SiteShell currentPath="/tools/stroller-finder">
@@ -51,7 +52,7 @@ export default async function StrollerFinderPage({
           </div>
 
           <div className="mt-10">
-            <StrollerCatalogFinder initialCategory={initialCategory} />
+            <StrollerCatalogFinder initialCategory={initialCategory} initialBrand={initialBrand} />
           </div>
         </MarketingSection>
 

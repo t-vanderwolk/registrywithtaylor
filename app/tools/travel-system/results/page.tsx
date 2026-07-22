@@ -207,6 +207,72 @@ function AmazonMark() {
   );
 }
 
+/**
+ * In-tool breadcrumb on the compatibility results page. For a stroller-first
+ * result it links back to that stroller's brand page in the finder, so a shopper
+ * who drilled Finder → brand → stroller → "check compatibility" can return to the
+ * same brand list in one click. Car-seat-first results link back to the checker.
+ */
+function ResultsBreadcrumb({
+  kind,
+  brand,
+  current,
+}: {
+  kind: 'stroller' | 'carSeat';
+  brand: string;
+  current: string;
+}) {
+  const crumbClass = 'link-underline hover:text-[var(--color-accent-dark)]';
+  const sep = (
+    <li aria-hidden className="text-neutral-300">
+      /
+    </li>
+  );
+  return (
+    <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.16em] text-neutral-500">
+      <ol className="flex flex-wrap items-center gap-2">
+        <li>
+          <Link href="/" className={crumbClass}>
+            Home
+          </Link>
+        </li>
+        {sep}
+        <li>
+          <Link href="/resources" className={crumbClass}>
+            Baby Gear Tools
+          </Link>
+        </li>
+        {sep}
+        {kind === 'stroller' ? (
+          <>
+            <li>
+              <Link href="/tools/stroller-finder" className={crumbClass}>
+                Stroller Finder
+              </Link>
+            </li>
+            {sep}
+            <li>
+              <Link href={`/tools/stroller-finder?brand=${encodeURIComponent(brand)}`} className={crumbClass}>
+                {brand}
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link href="/tools/travel-system" className={crumbClass}>
+              Travel System Checker
+            </Link>
+          </li>
+        )}
+        {sep}
+        <li aria-current="page" className="text-[var(--color-accent-dark)]">
+          {current}
+        </li>
+      </ol>
+    </nav>
+  );
+}
+
 function EmptyState({
   title,
   description,
@@ -685,6 +751,13 @@ export default async function TravelSystemResultsPage({
         <PageViewTracker path="/tools/travel-system/results" pageType="other" />
 
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
+          <div className="mx-auto mb-6 max-w-4xl">
+            <ResultsBreadcrumb
+              kind={isStrollerFirst ? 'stroller' : 'carSeat'}
+              brand={selected.brand}
+              current={displayNameWithoutBrand(selected.displayName, selected.brand)}
+            />
+          </div>
           <SectionIntro
             eyebrow="Travel System Results"
             title="Your Travel System Results"
