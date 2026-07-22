@@ -340,17 +340,21 @@ function ProductCard({
 export default function StrollerCatalogFinder({
   initialCategory = null,
   initialBrand = null,
+  initialMode = null,
 }: {
   /** When set (from ?category=), open the finder in category view on that bucket. */
   initialCategory?: string | null;
   /** When set (from ?brand=), open the finder on that brand's page — used by the
    *  "back to <brand>" breadcrumb on the compatibility results page. */
   initialBrand?: string | null;
+  /** When 'category' (from ?view=category), open the type picker with nothing
+   *  selected — used by the Compare tool's "Browse by type" link. */
+  initialMode?: 'brand' | 'category' | null;
 } = {}) {
   const kind: Kind = 'strollers'; // finder is strollers-only; car seats live in the checker
   const [brands, setBrands] = useState<FinderBrand[]>([]);
   const [loading, setLoading] = useState(true);
-  const [mode, setMode] = useState<Mode>(initialCategory ? 'category' : 'brand');
+  const [mode, setMode] = useState<Mode>(initialCategory || initialMode === 'category' ? 'category' : 'brand');
   const [selectedBrand, setSelectedBrand] = useState<string | null>(initialBrand);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [query, setQuery] = useState('');

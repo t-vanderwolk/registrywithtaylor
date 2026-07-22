@@ -44,11 +44,12 @@ export async function generateMetadata({
 export default async function StrollerFinderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string | string[]; brand?: string | string[] }>;
+  searchParams: Promise<{ category?: string | string[]; brand?: string | string[]; view?: string | string[] }>;
 }) {
-  const { category, brand } = await searchParams;
+  const { category, brand, view } = await searchParams;
   const initialCategory = (Array.isArray(category) ? category[0] : category)?.trim() || null;
   const initialBrand = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
+  const initialMode = (Array.isArray(view) ? view[0] : view)?.trim() === 'category' ? 'category' : null;
 
   return (
     <SiteShell currentPath="/tools/stroller-finder">
@@ -76,7 +77,7 @@ export default async function StrollerFinderPage({
           </div>
 
           <div className="mt-10">
-            <StrollerCatalogFinder initialCategory={initialCategory} initialBrand={initialBrand} />
+            <StrollerCatalogFinder initialCategory={initialCategory} initialBrand={initialBrand} initialMode={initialMode} />
           </div>
         </MarketingSection>
 

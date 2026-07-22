@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
@@ -82,6 +83,18 @@ export default async function StrollerComparePage({
         <MarketingSection tone="ivory" spacing="spacious" reveal={false}>
           <div className="mx-auto max-w-3xl">
             <ToolBreadcrumb current="Compare Strollers" />
+
+            {/* Quick path back to browsing strollers — by brand or by type — for
+                shoppers who want to pick different models to compare. */}
+            <nav aria-label="Browse strollers" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8rem]">
+              <span className="text-neutral-500">Browse all strollers:</span>
+              <Link href="/tools/stroller-finder" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                By brand →
+              </Link>
+              <Link href="/tools/stroller-finder?view=category" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                By type →
+              </Link>
+            </nav>
 
             <p className="mkt-eyebrow mt-6">Free Tool · Instant Results · No Sign-Up</p>
             <h1 className="mt-3 font-serif text-[clamp(2rem,4.4vw,3rem)] leading-[1.05] tracking-[-0.03em] text-neutral-900">
