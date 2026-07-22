@@ -262,11 +262,19 @@ function ResultsBreadcrumb({
             </li>
           </>
         ) : (
-          <li>
-            <Link href="/tools/travel-system" className={crumbClass}>
-              Travel System Checker
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link href="/tools/travel-system" className={crumbClass}>
+                Travel System Checker
+              </Link>
+            </li>
+            {sep}
+            <li>
+              <Link href={`/tools/travel-system?carSeatBrand=${encodeURIComponent(brandName)}`} className={crumbClass}>
+                {brandName}
+              </Link>
+            </li>
+          </>
         )}
         {sep}
         <li aria-current="page" className="text-[var(--color-accent-dark)]">

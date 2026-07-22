@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useDeferredValue, useEffect, useId, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import { BRAND_LOGOS, STROLLER_BRAND_SECTIONS } from './StrollerCatalogFinder';
 import type {
@@ -172,7 +172,15 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   >({});
   const deferredSearchQuery = useDeferredValue(searchQuery.trim().toLowerCase());
 
+  // Reset the browse view when the USER toggles Stroller/Car Seat. A ?carSeatBrand=
+  // deep link changes the mode programmatically on mount and sets this flag so the
+  // resulting reset is skipped once, preserving the deep-linked brand.
+  const skipNextModeReset = useRef(false);
   useEffect(() => {
+    if (skipNextModeReset.current) {
+      skipNextModeReset.current = false;
+      return;
+    }
     setSearchQuery('');
     setSelectedValue('');
     setSelectorBrand(null);
@@ -214,6 +222,28 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     if (cBrand && cModel) {
       const carSeat = findOptionByBrandModel(carSeats, cBrand, cModel);
       if (carSeat) router.replace(travelSystemResultsHref('carSeat', carSeat));
+      return;
+    }
+
+    // ?carSeatBrand=<brand> with NO model opens the checker's car-seat browse
+    // view on that brand — the "car seat brand page" the results-page breadcrumb
+    // links back to. Matched case-insensitively so "CYBEX"/"Cybex" both resolve.
+    if (cBrand) {
+      const match = carSeats.find((c) => c.brand.trim().toLowerCase() === cBrand.trim().toLowerCase());
+      if (match) {
+        // Mode changes stroller→carSeat, which would trigger the reset effect —
+        // skip that one reset so the deep-linked brand survives.
+        skipNextModeReset.current = true;
+        setLookupMode('carSeat');
+        setSelectorBrand(match.brand);
+      }
+      return;
+    }
+    // Same for strollers, for symmetry with the finder's ?brand= deep link. Mode
+    // stays 'stroller' (the default) so no reset fires — no skip flag needed.
+    if (sBrand) {
+      const match = strollers.find((s) => s.brand.trim().toLowerCase() === sBrand.trim().toLowerCase());
+      if (match) setSelectorBrand(match.brand);
     }
     // Runs once on mount; the option lists are stable page props.
     // eslint-disable-next-line react-hooks/exhaustive-deps
