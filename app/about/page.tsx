@@ -2,7 +2,6 @@ import Image from 'next/image';
 import SiteShell from '@/components/SiteShell';
 import MarketingSection from '@/components/layout/MarketingSection';
 import Hero from '@/components/ui/Hero';
-import FinalCTA from '@/components/layout/FinalCTA';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import AnnotationReveal from '@/components/ui/AnnotationReveal';
 import CheckIcon from '@/components/ui/CheckIcon';
@@ -524,8 +523,6 @@ export default function AboutPage() {
             </div>
           </div>
         </MarketingSection>
-
-        <FinalCTA />
       </main>
     </SiteShell>
   );
