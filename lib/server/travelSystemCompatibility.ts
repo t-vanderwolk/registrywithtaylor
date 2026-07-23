@@ -548,6 +548,13 @@ function isClosedEcosystemStroller(brand: string) {
 // Nuna + Joie only — no adapter, no Maxi-Cosi / CYBEX / Clek inference.
 const DIRECT_FIT_ONLY_STROLLERS: { brand: string; model: RegExp }[] = [
   { brand: 'silver cross', model: /\bclic\b/i },
+  // Britax's modular line (Brook / Brook+ / Grove / Juniper / Juniper+ / Phases /
+  // Prism) accepts a hand-picked list of seat MODELS per Britax's 03.2026 chart
+  // — NOT the whole shared euro group, and never Clek. Its exact pairings are
+  // seeded from lib/catalog/britaxAdapters via scripts/applyBritaxCompatibility;
+  // flagging these frames direct-fit-only keeps the Nuna trigger from expanding
+  // them onto Clek / every Maxi-Cosi / every CYBEX seat.
+  { brand: 'britax', model: /brook|grove|juniper|phases|prism/i },
 ];
 function isDirectFitOnlyStroller(brand: string, model: string) {
   const normalizedBrand = normalizeBrand(brand);

@@ -1,11 +1,13 @@
 /**
- * Add the Britax infant car seats that share the Maxi-Cosi / Nuna / CYBEX / Clek
- * click-and-go adapter standard. Once these rows exist, the travel-system
- * checker surfaces them on every stroller that already lists a Nuna seat (the
- * shared-adapter trigger), using the same adapter as the other shared brands.
+ * SUPERSEDED for Britax's modular stroller line by
+ * scripts/applyBritaxCompatibility.ts, which seeds the exact per-model pairings
+ * from Britax's own 03.2026 chart (lib/catalog/britaxAdapters).
  *
- * Pairs with SHARED_ADAPTER_BRANDS / SHARED_ADAPTER_EXPANSION_BRANDS in
- * lib/server/travelSystemCompatibility.ts (both now include 'britax').
+ * NOTE: Britax is NOT in SHARED_ADAPTER_BRANDS / SHARED_ADAPTER_EXPANSION_BRANDS
+ * — the engine deliberately excludes it from the shared Maxi-Cosi / Nuna / CYBEX
+ * / Clek euro-group inference. This script only backfills a couple of Britax
+ * infant seats + the discontinued B-Safe rows (so legacy owners can still look
+ * up their seat); it does NOT define the strollers' compatibility.
  *
  * Idempotent: upserts by the CarSeat (brand, model) unique key.
  *

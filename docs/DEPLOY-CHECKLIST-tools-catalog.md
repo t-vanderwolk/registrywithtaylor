@@ -60,6 +60,25 @@ Compat first, then prune — prune removes rows the manufacturer doesn't publish
 - [ ] `heroku run "npm run catalog:baby-jogger-prune" -a registrywithtaylor`
 - [ ] `heroku run "npm run catalog:baby-jogger-prune-apply" -a registrywithtaylor`
 
+## 4b. Britax compatibility (US chart 03.2026)
+
+Britax makes its own seats and lists specific seat MODELS per frame (never whole
+brands, never Clek), so its pairings are transcribed cell-by-cell in
+`lib/catalog/britaxAdapters` and applied explicitly. Apply first, then prune to
+clear stale rows (legacy B-Safe, Clek/Chicco/Graco, wrong Maxi-Cosi/CYBEX/Nuna
+models, and everything on the seat-less Juniper).
+
+- [ ] `heroku run "npm run catalog:britax-compat" -a registrywithtaylor`
+- [ ] confirm the dry-run matches Brook/Brook+/Grove (direct), Phases (Arbor
+      only), Juniper (no seat), Juniper+ (adapter S15054400), Prism (included),
+      then:
+- [ ] `heroku run "npm run catalog:britax-compat-apply" -a registrywithtaylor`
+- [ ] `heroku run "npm run catalog:britax-prune" -a registrywithtaylor`
+- [ ] `heroku run "npm run catalog:britax-prune-apply" -a registrywithtaylor`
+
+> The engine now flags these Britax frames as direct-fit-only, so the shared
+> Nuna euro-group inference will not expand them past the chart.
+
 ## 5. Universal adapter compatibility (incl. new Inglesina Quid³ / DFY R1)
 
 - [ ] `heroku run "npm run catalog:universal-adapter-compatibility" -a registrywithtaylor`
