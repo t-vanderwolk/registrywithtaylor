@@ -502,6 +502,16 @@ const DIRECT_DEFAULT_BRANDS = new Set([
 
 const SHARED_ADAPTER_BRANDS = new Set(['clek', 'cybex', 'maxi-cosi', 'nuna']);
 
+// Strollers whose infant-seat adapter ships in the box and is NOT sold
+// separately — e.g. the Mercedes-Benz (Hartan-built) travel systems. Like the
+// Nuna PIPA urbn bundle, you cannot buy the adapter on its own, so matches read
+// "Included with stroller — not sold separately" and carry no standalone
+// adapter buy link, image, or price.
+const ADAPTER_INCLUDED_WITH_STROLLER_BRANDS = new Set(['mercedes', 'mercedes baby']);
+function adapterIncludedWithStroller(strollerBrand: string) {
+  return ADAPTER_INCLUDED_WITH_STROLLER_BRANDS.has(normalizeBrand(strollerBrand));
+}
+
 /**
  * Brands that share the same click-and-go infant-seat adapter standard.
  * If a non-Nuna stroller is compatible with any seat from this group,
@@ -593,6 +603,13 @@ function getAdapterType(
 ) {
   if (!adapterRequired) {
     return null;
+  }
+
+  // Bundled-adapter strollers (e.g. Mercedes/Hartan): the adapter ships with the
+  // stroller and is not sold separately, so say so instead of naming a buyable
+  // adapter. Wins over the shared-adapter / note-derived labels below.
+  if (adapterIncludedWithStroller(strollerBrand)) {
+    return 'Included with stroller — not sold separately';
   }
 
   if (usesSharedInfantSeatAdapter(carSeatBrand)) {
@@ -1180,9 +1197,15 @@ export async function getTravelSystemCompatibility(
         compatibilityType: normalizeCompatibilityType(row.compatibilityType),
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(stroller.brand, row.brand, row.adapterRequired, row.adapterType, row.notes),
-        adapterImage: row.adapterImage,
-        adapterUrl: isAnbAdapterUrl(row.adapterBabylistUrl) ? null : row.adapterBabylistUrl,
-        adapterPrice: row.adapterPrice,
+        // Bundled-adapter strollers (Mercedes/Hartan): no standalone adapter to
+        // buy, so drop the adapter link, image, and price.
+        adapterImage: adapterIncludedWithStroller(stroller.brand) ? null : row.adapterImage,
+        adapterUrl: adapterIncludedWithStroller(stroller.brand)
+          ? null
+          : isAnbAdapterUrl(row.adapterBabylistUrl)
+            ? null
+            : row.adapterBabylistUrl,
+        adapterPrice: adapterIncludedWithStroller(stroller.brand) ? null : row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
         babylistUrl: row.babylistUrl,
@@ -1439,9 +1462,15 @@ export async function getTravelSystemCompatibilityByCarSeat(
         compatibilityType: normalizeCompatibilityType(row.compatibilityType),
         adapterRequired: row.adapterRequired,
         adapterType: getAdapterType(row.brand, carSeat.brand, row.adapterRequired, row.adapterType, row.notes),
-        adapterImage: row.adapterImage,
-        adapterUrl: isAnbAdapterUrl(row.adapterBabylistUrl) ? null : row.adapterBabylistUrl,
-        adapterPrice: row.adapterPrice,
+        // Bundled-adapter strollers (Mercedes/Hartan): no standalone adapter to
+        // buy, so drop the adapter link, image, and price.
+        adapterImage: adapterIncludedWithStroller(row.brand) ? null : row.adapterImage,
+        adapterUrl: adapterIncludedWithStroller(row.brand)
+          ? null
+          : isAnbAdapterUrl(row.adapterBabylistUrl)
+            ? null
+            : row.adapterBabylistUrl,
+        adapterPrice: adapterIncludedWithStroller(row.brand) ? null : row.adapterPrice,
         notes: row.notes,
         confidence: normalizeCompatibilityConfidence(row.confidence),
         babylistUrl: row.babylistUrl,

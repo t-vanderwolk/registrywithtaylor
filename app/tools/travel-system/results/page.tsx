@@ -430,9 +430,19 @@ function seatAdapterIsIncluded(seatBrand: string | null | undefined) {
   return UNIVERSAL_INCLUDED_SEATS.has((seatBrand ?? '').trim().toLowerCase());
 }
 
+// Bundled-adapter strollers whose adapter ships in the box and is NOT sold
+// separately (e.g. Mercedes/Hartan travel systems). Unlike Cybex/Nuna/Bugaboo —
+// which include an adapter but still sell spares — you cannot buy this adapter on
+// its own, so the callout shows "not sold separately" and no shop link at all.
+const STROLLERS_WITH_BUNDLED_ONLY_ADAPTER = new Set(['mercedes', 'mercedes baby']);
+function strollerAdapterNotSoldSeparately(brand: string | null | undefined) {
+  return STROLLERS_WITH_BUNDLED_ONLY_ADAPTER.has((brand ?? '').trim().toLowerCase());
+}
+
 function AdapterCallout({
   item,
   adapterIncluded = false,
+  adapterBundledOnly = false,
 }: {
   item: Pick<
     CompatibleCarSeatResult | CompatibleStrollerResult,
@@ -440,14 +450,23 @@ function AdapterCallout({
   >;
   /** True when the stroller already comes with the adapter (Cybex / Nuna / Bugaboo). */
   adapterIncluded?: boolean;
+  /**
+   * True when the adapter ships with the stroller AND is not sold separately
+   * (Mercedes/Hartan) — no shop link, and we never show "link unavailable".
+   */
+  adapterBundledOnly?: boolean;
 }) {
   if (!item.adapterRequired) {
     return null;
   }
 
+  const showsAsIncluded = adapterBundledOnly || adapterIncluded;
+
   // Always surface the adapter image + shop link, even when the stroller ships
   // with a universal adapter (Cybex / Nuna / Bugaboo). For those, we add a small
   // "included with your stroller" note so shoppers know it's not an extra buy.
+  // Bundled-only strollers (Mercedes/Hartan) go a step further: the adapter can't
+  // be bought at all, so there's no link and no "unavailable" fallback.
   return (
     <div className="tool-adapter-callout">
       <div className="tool-adapter-callout__details">
@@ -456,20 +475,24 @@ function AdapterCallout({
           <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
         ) : null}
         <div className="min-w-0">
-          <p className="tool-adapter-callout__eyebrow">{adapterIncluded ? 'Adapter' : 'Adapter sold separately'}</p>
+          <p className="tool-adapter-callout__eyebrow">{showsAsIncluded ? 'Adapter' : 'Adapter sold separately'}</p>
           <p className="tool-adapter-callout__name">Car seat adapter</p>
-          {adapterIncluded ? (
+          {adapterBundledOnly ? (
+            <p className="text-[0.68rem] font-semibold text-[rgba(58,99,72,0.92)]">
+              Included with stroller — not sold separately
+            </p>
+          ) : adapterIncluded ? (
             <p className="text-[0.68rem] font-semibold text-[rgba(58,99,72,0.92)]">
               Included with your stroller
             </p>
           ) : null}
-          {item.adapterPrice != null ? (
+          {!adapterBundledOnly && item.adapterPrice != null ? (
             <p className="tool-adapter-callout__price">${item.adapterPrice.toFixed(2)}</p>
           ) : null}
         </div>
       </div>
 
-      {item.adapterUrl ? (
+      {adapterBundledOnly ? null : item.adapterUrl ? (
         <ToolAffiliateLink
           tool="travel-system-checker"
           href={item.adapterUrl}
@@ -558,6 +581,13 @@ function ResultCard({
                 seatAdapterIsIncluded(item.brand)
               : // viewing a seat's strollers: this card IS the stroller → check the selected seat
                 strollerIncludesAdapter(item.brand, item.model) && seatAdapterIsIncluded(selectedSeatBrand)
+          }
+          adapterBundledOnly={
+            productKind === 'carSeat'
+              ? // this card is the seat → the stroller being viewed is the parent
+                strollerAdapterNotSoldSeparately(parentStroller?.brand)
+              : // this card is the stroller
+                strollerAdapterNotSoldSeparately(item.brand)
           }
         />
 
