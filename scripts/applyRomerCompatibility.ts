@@ -67,7 +67,7 @@ function rowData(fit: RomerFit, strollerLabel: string) {
       adapterRequired: false,
       adapterType: null as string | null,
       confidence: 'HIGH',
-      notes: `Same-brand direct fit on the Romer ${strollerLabel} (Romer stroller compatibility chart).`,
+      notes: `Clicks straight onto the Romer ${strollerLabel} — no adapter needed (Romer stroller compatibility chart).`,
     };
   }
   return {

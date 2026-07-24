@@ -18,10 +18,8 @@
  * DIRECT_FIT_ONLY in lib/server/travelSystemCompatibility so the shared Nuna
  * euro-group inference never expands them past this list.
  *
- * The chart does not state which pairings need an adapter, so we default to:
- *   own-brand Romer seats = direct fit; every other brand = adapter-required
- *   (Romer sells a car seat adapter). Flip a rule's `fit` if Romer documents
- *   otherwise.
+ * NO ADAPTER is needed on the Romer frames — every listed seat clicks straight
+ * on, cross-brand included. So all pairings are DIRECT.
  *
  * Single source of truth shared by:
  *   • scripts/applyRomerCompatibility.ts  — seeds the Compatibility rows
@@ -50,7 +48,8 @@ const ROMER_COMPATIBLE: RomerSeatGroup[] = [
     ],
   },
   {
-    fit: 'adapter',
+    // No adapter needed — these all click straight onto the Romer frame.
+    fit: 'direct',
     seats: [
       // "Pipa Series" — every Nuna Pipa infant seat.
       { kind: 'family', brand: 'Nuna', pattern: /pipa/i, label: 'Nuna Pipa Series' },
