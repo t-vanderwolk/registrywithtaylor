@@ -26,6 +26,7 @@ export type StrollerRow = {
   displayName: string | null;
   summary: string | null;
   amazonUrl: string | null;
+  imageUrl: string | null;
   babylistUrl: string | null;
   babylistImage: string | null;
   babylistPrice: number | null;
@@ -49,13 +50,14 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
   const [open, setOpen] = useState(false);
   const s = stroller;
   const spec = s.spec;
+  const previewImage = s.imageUrl || s.babylistImage;
 
   return (
     <div className="rounded-xl border border-[rgba(0,0,0,0.07)] bg-white p-4">
       <div className="flex items-start gap-4">
-        {s.babylistImage ? (
+        {previewImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={s.babylistImage} alt="" className="h-16 w-16 shrink-0 rounded-lg bg-neutral-50 object-contain" />
+          <img src={previewImage} alt="" className="h-16 w-16 shrink-0 rounded-lg bg-neutral-50 object-contain" />
         ) : (
           <div className="h-16 w-16 shrink-0 rounded-lg bg-neutral-100" />
         )}
@@ -68,6 +70,7 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
           </p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {s.amazonUrl ? <span className="rounded-full bg-[rgba(198,167,94,0.16)] px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.1em] text-[#7a5b1e]">Amazon link</span> : null}
+            {s.imageUrl ? <span className="rounded-full bg-[rgba(120,80,140,0.14)] px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.1em] text-[#6b4b7a]">Custom image</span> : null}
             {s.summary ? <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.1em] text-neutral-600">Summary</span> : null}
             {spec ? <span className="rounded-full bg-[rgba(216,137,160,0.14)] px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.1em] text-[var(--color-accent-dark)]">Specs</span> : null}
           </div>
@@ -93,6 +96,15 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
             <label className={labelCls}>
               Amazon affiliate link
               <input name="amazonUrl" defaultValue={s.amazonUrl ?? ''} placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+            </label>
+
+            <label className={`${labelCls} sm:col-span-2`}>
+              Image URL
+              <input name="imageUrl" defaultValue={s.imageUrl ?? ''} placeholder="https://…/product.jpg — overrides the Babylist image on the tools" className={field} />
+              <span className="text-[0.68rem] text-neutral-400">
+                Paste a direct image link (jpg/png/webp). Leave blank to use the synced Babylist image.
+                {s.babylistImage && !s.imageUrl ? ' Currently showing the Babylist image.' : ''}
+              </span>
             </label>
 
             <label className={`${labelCls} sm:col-span-2`}>

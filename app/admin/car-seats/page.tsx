@@ -58,6 +58,7 @@ export default async function AdminCarSeatsPage({ searchParams }: { searchParams
       seatType: r.seatType,
       summary: r.summary,
       amazonUrl: r.amazonUrl ?? null,
+      imageUrl: r.imageUrl ?? null,
       babylistUrl: r.babylistUrl ?? null,
       babylistImage: r.babylistImage ?? null,
       babylistPrice: r.babylistPrice ?? null,
@@ -125,6 +126,10 @@ export default async function AdminCarSeatsPage({ searchParams }: { searchParams
                 <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
                   Amazon affiliate link
                   <input name="amazonUrl" placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+                </label>
+                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                  Image URL
+                  <input name="imageUrl" placeholder="https://…/product.jpg (optional — overrides the Babylist image)" className={field} />
                 </label>
                 <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
                   Summary

@@ -40,6 +40,7 @@ export async function createCarSeat(formData: FormData) {
       seatType: seatTypeRaw && SEAT_TYPES.has(seatTypeRaw) ? seatTypeRaw : 'INFANT',
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
+      imageUrl: str(formData, 'imageUrl'),
     },
   });
   revalidatePath('/admin/car-seats');
@@ -59,6 +60,7 @@ export async function updateCarSeat(formData: FormData) {
       seatType: seatTypeRaw && SEAT_TYPES.has(seatTypeRaw) ? seatTypeRaw : 'INFANT',
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
+      imageUrl: str(formData, 'imageUrl'),
     },
   });
   revalidatePath('/admin/car-seats');

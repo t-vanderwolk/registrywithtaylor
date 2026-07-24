@@ -220,10 +220,10 @@ async function loadBabylistMap(table: 'Stroller' | 'CarSeat'): Promise<Map<strin
     const rows =
       table === 'Stroller'
         ? await prisma.$queryRaw<BabylistLookupRow[]>`
-            SELECT "brand", "model", "babylistUrl", "babylistPrice", "babylistImage" FROM "Stroller"
+            SELECT "brand", "model", "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "Stroller"
           `
         : await prisma.$queryRaw<BabylistLookupRow[]>`
-            SELECT "brand", "model", "babylistUrl", "babylistPrice", "babylistImage" FROM "CarSeat"
+            SELECT "brand", "model", "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "CarSeat"
           `;
 
     const map = new Map<string, BabylistFields>();
@@ -675,7 +675,7 @@ async function findStrollerByBrandAndModel(brand: string, model: string) {
       "summary",
       "babylistUrl",
       "babylistPrice",
-      "babylistImage"
+      COALESCE("imageUrl", "babylistImage") AS "babylistImage"
     FROM "Stroller"
     WHERE LOWER("brand") = LOWER(${brand})
     ORDER BY
@@ -702,7 +702,7 @@ async function findCarSeatByBrandAndModel(brand: string, model: string) {
       "summary",
       "babylistUrl",
       "babylistPrice",
-      "babylistImage"
+      COALESCE("imageUrl", "babylistImage") AS "babylistImage"
     FROM "CarSeat"
     WHERE "seatType" = 'INFANT'
       AND LOWER("brand") = LOWER(${brand})
@@ -738,7 +738,7 @@ async function getSameBrandDefaultCarSeats(
       "summary",
       "babylistUrl",
       "babylistPrice",
-      "babylistImage"
+      COALESCE("imageUrl", "babylistImage") AS "babylistImage"
     FROM "CarSeat"
     WHERE "seatType" = 'INFANT'
       AND LOWER("brand") = LOWER(${stroller.brand})
@@ -767,7 +767,7 @@ async function getSameBrandDefaultStrollers(
       "summary",
       "babylistUrl",
       "babylistPrice",
-      "babylistImage"
+      COALESCE("imageUrl", "babylistImage") AS "babylistImage"
     FROM "Stroller"
     WHERE LOWER("brand") = LOWER(${carSeat.brand})
     ORDER BY LOWER("model")
@@ -821,7 +821,7 @@ async function getSharedAdapterInferredSeats(
         "summary",
         "babylistUrl",
         "babylistPrice",
-        "babylistImage"
+        COALESCE("imageUrl", "babylistImage") AS "babylistImage"
       FROM "CarSeat"
       WHERE "seatType" = 'INFANT'
         AND LOWER("brand") = LOWER(${brand})
@@ -864,7 +864,7 @@ async function getSharedAdapterInferredStrollers(
       stroller."summary",
       stroller."babylistUrl",
       stroller."babylistPrice",
-      stroller."babylistImage"
+      COALESCE(stroller."imageUrl", stroller."babylistImage") AS "babylistImage"
     FROM "Compatibility" AS compat
     INNER JOIN "Stroller" AS stroller ON stroller."id" = compat."strollerId"
     INNER JOIN "CarSeat" AS seat ON seat."id" = compat."carSeatId"
@@ -905,14 +905,14 @@ export async function getTravelSystemCarSeats() {
     let rows: CarSeatRow[];
     try {
       rows = await prisma.$queryRaw<CarSeatRow[]>`
-        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice","babylistImage","amazonUrl"
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage","amazonUrl"
         FROM "CarSeat"
         WHERE "seatType" = 'INFANT'
         ORDER BY LOWER("brand"), LOWER("model")
       `;
     } catch {
       rows = await prisma.$queryRaw<CarSeatRow[]>`
-        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice","babylistImage"
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage"
         FROM "CarSeat"
         WHERE "seatType" = 'INFANT'
         ORDER BY LOWER("brand"), LOWER("model")
@@ -1147,7 +1147,7 @@ export async function getTravelSystemCompatibility(
         seat."displayName" AS "displayName",
         seat."babylistUrl" AS "babylistUrl",
         seat."babylistPrice" AS "babylistPrice",
-        seat."babylistImage" AS "babylistImage",
+        COALESCE(seat."imageUrl", seat."babylistImage") AS "babylistImage",
         compat."compatibilityType"::text AS "compatibilityType",
         compat."adapterRequired" AS "adapterRequired",
         compat."adapterType" AS "adapterType",

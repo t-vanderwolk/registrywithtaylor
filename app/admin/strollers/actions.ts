@@ -51,6 +51,7 @@ export async function createStroller(formData: FormData) {
       displayName: str(formData, 'displayName') ?? `${brand} ${model}`,
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
+      imageUrl: str(formData, 'imageUrl'),
     },
   });
   revalidatePath('/admin/strollers');
@@ -68,6 +69,7 @@ export async function updateStroller(formData: FormData) {
       displayName: str(formData, 'displayName'),
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
+      imageUrl: str(formData, 'imageUrl'),
     },
   });
 
