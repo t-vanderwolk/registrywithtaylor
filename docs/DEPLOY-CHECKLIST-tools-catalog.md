@@ -79,6 +79,21 @@ models, and everything on the seat-less Juniper).
 > The engine now flags these Britax frames as direct-fit-only, so the shared
 > Nuna euro-group inference will not expand them past the chart.
 
+## 4c. Romer compatibility (romerbaby.com chart)
+
+Romer makes its own seats (Juni, Sera). The Tura and Lani share one list:
+Romer (direct), plus Nuna Pipa Series / Cybex / Britax / BOB Gear via adapter —
+never Maxi-Cosi or Clek. Transcribed in `lib/catalog/romerAdapters`.
+
+- [ ] `heroku run "npm run catalog:romer-compat" -a registrywithtaylor`
+- [ ] confirm the dry run matches the chart, then:
+- [ ] `heroku run "npm run catalog:romer-compat-apply" -a registrywithtaylor`
+- [ ] `heroku run "npm run catalog:romer-prune" -a registrywithtaylor`
+- [ ] `heroku run "npm run catalog:romer-prune-apply" -a registrywithtaylor`
+
+> Like Britax, these frames are flagged direct-fit-only so the Nuna trigger
+> can't expand them onto the euro group.
+
 ## 5. Universal adapter compatibility (incl. new Inglesina Quid³ / DFY R1)
 
 - [ ] `heroku run "npm run catalog:universal-adapter-compatibility" -a registrywithtaylor`

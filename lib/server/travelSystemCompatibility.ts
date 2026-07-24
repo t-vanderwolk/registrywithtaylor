@@ -555,6 +555,11 @@ const DIRECT_FIT_ONLY_STROLLERS: { brand: string; model: RegExp }[] = [
   // flagging these frames direct-fit-only keeps the Nuna trigger from expanding
   // them onto Clek / every Maxi-Cosi / every CYBEX seat.
   { brand: 'britax', model: /brook|grove|juniper|phases|prism/i },
+  // Romer's Tura / Lani accept a specific cross-brand list per romerbaby.com
+  // (Romer / Nuna Pipa / Cybex / Britax / BOB) — NOT Maxi-Cosi or Clek. Seeded
+  // from lib/catalog/romerAdapters via scripts/applyRomerCompatibility; flag
+  // direct-fit-only so the Nuna trigger can't add the euro group.
+  { brand: 'romer', model: /\btura\b|\blani\b/i },
 ];
 function isDirectFitOnlyStroller(brand: string, model: string) {
   const normalizedBrand = normalizeBrand(brand);
