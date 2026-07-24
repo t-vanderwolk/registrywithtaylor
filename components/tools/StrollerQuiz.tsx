@@ -172,32 +172,6 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: 'storage',
-    question: 'Where will the stroller usually live at home?',
-    answers: [
-      {
-        label: 'By the door in a small entryway',
-        sublabel: 'It can\'t be a big thing in the way',
-        scores: { compact: 3, travel: 1 },
-      },
-      {
-        label: 'A garage, mudroom, or roomy closet',
-        sublabel: 'Plenty of space to park it',
-        scores: { 'full-size': 2, jogging: 2, convertible: 1 },
-      },
-      {
-        label: 'Wherever it fits — space is limited',
-        sublabel: 'Smaller is safer for us',
-        scores: { compact: 2, travel: 1 },
-      },
-      {
-        label: 'It\'ll move between our place and others\'',
-        sublabel: 'Grandparents, daycare, or two homes',
-        scores: { travel: 4, compact: 1 },
-      },
-    ],
-  },
-  {
     id: 'active',
     question: 'How would you describe your outdoor life?',
     subtext: 'Picture what you\'ll actually do, not what you hope to.',
@@ -225,32 +199,6 @@ const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: 'ground',
-    question: 'What is the ground like where you\'ll walk the most?',
-    answers: [
-      {
-        label: 'Smooth and paved',
-        sublabel: 'Sidewalks, shops, flat paths',
-        scores: { compact: 2, 'full-size': 1 },
-      },
-      {
-        label: 'Bumpy — gravel, grass, dirt, or cobblestones',
-        sublabel: 'Little wheels would get stuck',
-        scores: { jogging: 3, 'full-size': 1, 'double-jogging': 2 },
-      },
-      {
-        label: 'Hilly — lots of up and down',
-        sublabel: 'A good push really matters here',
-        scores: { 'full-size': 2, jogging: 2, 'double-jogging': 1 },
-      },
-      {
-        label: 'Snow or rough weather part of the year',
-        sublabel: 'It needs to handle the seasons',
-        scores: { jogging: 2, 'full-size': 1 },
-      },
-    ],
-  },
-  {
     id: 'flights',
     question: 'How often do you picture flying with the baby?',
     answers: [
@@ -268,58 +216,6 @@ const QUESTIONS: Question[] = [
         label: 'Rarely or never',
         sublabel: 'We mostly stay close to home',
         scores: { 'full-size': 2, jogging: 1 },
-      },
-    ],
-  },
-  {
-    id: 'caregivers',
-    question: 'Besides you, who will be pushing the stroller?',
-    answers: [
-      {
-        label: 'Mostly just me and my partner',
-        sublabel: 'It pretty much stays with us',
-        scores: { 'full-size': 1, compact: 1 },
-      },
-      {
-        label: 'Grandparents, a nanny, or daycare — often',
-        sublabel: 'It needs to be easy for anyone to fold',
-        scores: { compact: 2, travel: 2 },
-      },
-      {
-        label: 'It\'ll bounce between a few different people',
-        sublabel: 'Lots of hands, lots of different cars',
-        scores: { travel: 4, compact: 1 },
-      },
-      {
-        label: 'Not totally sure yet',
-        sublabel: 'Still figuring that part out',
-        scores: { compact: 1, 'full-size': 1 },
-      },
-    ],
-  },
-  {
-    id: 'outings',
-    question: 'What does a typical outing look like for you?',
-    answers: [
-      {
-        label: 'Quick in-and-out',
-        sublabel: 'A store run, an appointment, a short errand',
-        scores: { compact: 3, travel: 1 },
-      },
-      {
-        label: 'Long days out',
-        sublabel: 'Parks, the zoo, shopping, all-day adventures',
-        scores: { 'full-size': 3 },
-      },
-      {
-        label: 'Mostly walks to get out of the house',
-        sublabel: 'Fresh air and a change of scenery',
-        scores: { 'full-size': 2, jogging: 1 },
-      },
-      {
-        label: 'A bit of everything',
-        sublabel: 'It really depends on the day',
-        scores: { 'full-size': 1, compact: 1 },
       },
     ],
   },
@@ -347,59 +243,6 @@ const QUESTIONS: Question[] = [
         label: 'A cramped seat my baby outgrows quickly',
         sublabel: 'Comfort and lasting a while matter to me',
         scores: { 'full-size': 3 },
-      },
-    ],
-  },
-  {
-    id: 'horizon',
-    question: 'How long do you want this stroller to last?',
-    answers: [
-      {
-        label: 'Just the early months, then we\'ll see',
-        sublabel: 'Happy to reassess down the road',
-        scores: { compact: 2, travel: 1 },
-      },
-      {
-        label: 'Years — well into the toddler stage',
-        sublabel: 'One stroller we can really live with',
-        scores: { 'full-size': 3, convertible: 1 },
-      },
-      {
-        label: 'Long enough to grow with another kid',
-        sublabel: 'Planning for a bigger family',
-        scores: { convertible: 4 },
-      },
-      {
-        label: 'No strong feeling either way',
-        sublabel: 'Whatever makes the most sense',
-        scores: { 'full-size': 1, compact: 1 },
-      },
-    ],
-  },
-  {
-    id: 'priority',
-    question: 'If you could only have one, what matters most?',
-    subtext: 'Go with the one you\'d actually pick.',
-    answers: [
-      {
-        label: 'Easy and light — grab it and go',
-        sublabel: 'Quick fold, simple to carry',
-        scores: { compact: 3, travel: 1 },
-      },
-      {
-        label: 'A smooth, comfy ride for the baby',
-        sublabel: 'Cushioned, roomy, and nice to push',
-        scores: { 'full-size': 3 },
-      },
-      {
-        label: 'Tough enough for anything',
-        sublabel: 'Weather, terrain, the great outdoors',
-        scores: { jogging: 5, 'double-jogging': 5 },
-      },
-      {
-        label: 'Room to grow with our family',
-        sublabel: 'It can turn into a double later on',
-        scores: { convertible: 4, 'full-size': 1 },
       },
     ],
   },
