@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
@@ -510,12 +511,23 @@ function AdapterCallout({
   );
 }
 
+function CompareGlyph() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.5" y="5" width="7" height="14" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <rect x="13.5" y="5" width="7" height="14" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 3.2v17.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="2 2.2" />
+    </svg>
+  );
+}
+
 function ResultCard({
   item,
   productKind,
   parentStroller,
   pipaUrbnSelected,
   selectedSeatBrand,
+  index = 0,
 }: {
   item: CompatibleCarSeatResult | CompatibleStrollerResult;
   productKind: 'stroller' | 'carSeat';
@@ -525,6 +537,8 @@ function ResultCard({
   pipaUrbnSelected?: boolean;
   /** When viewing a car seat's compatible strollers, that car seat's brand. */
   selectedSeatBrand?: string | null;
+  /** Position in its grid, for the staggered entrance animation. */
+  index?: number;
 }) {
   const babylistUrl =
     item.babylistUrl || item.babylistPrice != null
@@ -549,7 +563,10 @@ function ResultCard({
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
 
   return (
-    <article className="tool-card tool-product-card">
+    <article
+      className="tool-card tool-card--interactive tool-product-card tool-product-card--rich"
+      style={{ '--card-i': String(Math.min(index, 11)) } as CSSProperties}
+    >
       <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -660,12 +677,22 @@ function ResultCard({
         </div>
 
         {productKind === 'stroller' ? (
-          <Link
-            href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
-            className="tool-utility-link mt-2"
-          >
-            Compare →
-          </Link>
+          <div className="tool-card-secondary">
+            <Link
+              href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
+              className="tool-card-secondary__action"
+              aria-label={`Compare the ${item.brand} ${displayTitle} against other strollers`}
+            >
+              <span className="tool-card-secondary__icon" aria-hidden="true">
+                <CompareGlyph />
+              </span>
+              <span className="tool-card-secondary__text">
+                <span className="tool-card-secondary__title">Compare</span>
+                <span className="tool-card-secondary__hint">Line up side by side</span>
+              </span>
+              <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
         ) : null}
       </div>
     </article>
@@ -721,10 +748,11 @@ function ResultsSection<T extends CompatibleCarSeatResult | CompatibleStrollerRe
                       {brandLabel}: {brand}
                     </p>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      {brandItems.map((item) => (
+                      {brandItems.map((item, i) => (
                         <ResultCard
                           key={`${item.brand}-${item.model}-${item.compatibilityType}`}
                           item={item}
+                          index={i}
                           productKind={productKind}
                           parentStroller={parentStroller}
                           pipaUrbnSelected={pipaUrbnSelected}

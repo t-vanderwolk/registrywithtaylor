@@ -277,7 +277,7 @@ function ProductCard({
 
   return (
     <div
-      className="tool-card tool-card--interactive tool-product-card tool-product-card--finder"
+      className="tool-card tool-card--interactive tool-product-card tool-product-card--rich"
       style={{ '--card-i': String(Math.min(index, 11)) } as CSSProperties}
     >
       <div className="tool-card__media tool-product-card__media">
