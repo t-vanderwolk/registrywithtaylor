@@ -46,7 +46,10 @@ const BRITAX_SEATS = {
   willow: { brand: 'Britax', model: 'Willow' },
   willowS: { brand: 'Britax', model: 'Willow S' },
   willowSC: { brand: 'Britax', model: 'Willow SC' },
-  cypress: { brand: 'Britax', model: 'Cypress' },
+  // The chart's column is labelled just "Cypress"; the catalog (and Britax's
+  // retail listings) carry it as "Cypress S". Same seat — use the catalog name
+  // so we match the real product instead of creating an empty placeholder.
+  cypress: { brand: 'Britax', model: 'Cypress S' },
   arbor: { brand: 'Britax', model: 'Arbor' },
 } as const;
 const NUNA = {
