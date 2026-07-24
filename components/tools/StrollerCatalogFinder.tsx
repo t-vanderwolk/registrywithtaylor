@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 
@@ -213,16 +213,43 @@ export function OpenBoxBadge({
   );
 }
 
+function CarSeatGlyph() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M7 3.5h3.2a2 2 0 0 1 1.98 1.7l1.02 6.8H8.2a2 2 0 0 1-1.98-1.7L5.2 5.2A1.5 1.5 0 0 1 6.68 3.5H7Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path d="M13.2 12H18a2 2 0 0 1 2 2.2l-.3 2.8H11l-.7-5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M9.5 20.5h8.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CompareGlyph() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.5" y="5" width="7" height="14" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <rect x="13.5" y="5" width="7" height="14" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 3.2v17.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="2 2.2" />
+    </svg>
+  );
+}
+
 function ProductCard({
   brand,
   product,
   showBrand = false,
   kind = 'strollers',
+  index = 0,
 }: {
   brand: string;
   product: FinderProduct;
   showBrand?: boolean;
   kind?: Kind;
+  index?: number;
 }) {
   // Each retailer shows only when it actually carries this model. Babylist is
   // the visible product-card CTA; open-box stays separate as a sticker badge.
@@ -249,7 +276,10 @@ function ProductCard({
   const displayTitle = displayNameWithoutBrand(product.model || product.name, brand);
 
   return (
-    <div className="tool-card tool-card--interactive tool-product-card">
+    <div
+      className="tool-card tool-card--interactive tool-product-card tool-product-card--finder"
+      style={{ '--card-i': String(Math.min(index, 11)) } as CSSProperties}
+    >
       <div className="tool-card__media tool-product-card__media">
         <OpenBoxBadge offer={openBoxOffer} />
         {product.image ? (
@@ -322,12 +352,34 @@ function ProductCard({
             </a>
           ) : null}
           {product.model ? (
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <Link href={compatHref(brand, product.model)} className="tool-utility-link">
-                Compatible car seats →
+            <div className="tool-card-secondary">
+              <Link
+                href={compatHref(brand, product.model)}
+                className="tool-card-secondary__action"
+                aria-label={`See car seats compatible with the ${brand} ${displayTitle}`}
+              >
+                <span className="tool-card-secondary__icon" aria-hidden="true">
+                  <CarSeatGlyph />
+                </span>
+                <span className="tool-card-secondary__text">
+                  <span className="tool-card-secondary__title">Compatible car seats</span>
+                  <span className="tool-card-secondary__hint">See what clicks in</span>
+                </span>
+                <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
               </Link>
-              <Link href={compareHref(brand, product.model)} className="tool-utility-link">
-                Compare →
+              <Link
+                href={compareHref(brand, product.model)}
+                className="tool-card-secondary__action"
+                aria-label={`Compare the ${brand} ${displayTitle} against other strollers`}
+              >
+                <span className="tool-card-secondary__icon" aria-hidden="true">
+                  <CompareGlyph />
+                </span>
+                <span className="tool-card-secondary__text">
+                  <span className="tool-card-secondary__title">Compare</span>
+                  <span className="tool-card-secondary__hint">Line up side by side</span>
+                </span>
+                <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
               </Link>
             </div>
           ) : null}
@@ -514,7 +566,7 @@ export default function StrollerCatalogFinder({
             {searchResults.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {searchResults.map((p, i) => (
-                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} />
+                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} index={i} />
                 ))}
               </div>
             ) : (
@@ -574,7 +626,7 @@ export default function StrollerCatalogFinder({
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {currentCategory.products.map((p, i) => (
-                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} />
+                  <ProductCard key={`${p.brand}-${p.model}-${i}`} brand={p.brand} product={p} showBrand kind={kind} index={i} />
                 ))}
               </div>
             </div>
@@ -658,7 +710,7 @@ export default function StrollerCatalogFinder({
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {t.products.map((item, i) => (
-                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} />
+                      <ProductCard key={`${item.name}-${i}`} brand={currentBrand.brand} product={item} kind={kind} index={i} />
                     ))}
                   </div>
                 </div>
