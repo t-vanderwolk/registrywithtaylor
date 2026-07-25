@@ -166,14 +166,35 @@ export default function AboutPage() {
               </div>
               {/* Image column */}
               <div className="md:sticky md:top-28">
-                <Image
-                  src="/assets/taylor2.png"
-                  alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
-                  width={560}
-                  height={700}
-                  className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)]"
-                  priority
-                />
+                <div className="group relative mx-auto max-w-sm md:mx-0">
+                  {/* Offset blush accent panel behind the portrait */}
+                  <div
+                    aria-hidden
+                    className="absolute -inset-2.5 -z-10 translate-x-3 translate-y-3 rounded-[2.1rem] bg-gradient-to-br from-[rgba(216,137,160,0.28)] via-[rgba(216,137,160,0.14)] to-[rgba(198,167,94,0.16)] transition-transform duration-500 ease-out group-hover:translate-x-2 group-hover:translate-y-2"
+                  />
+                  {/* White mat frame with a soft blush ring */}
+                  <div className="relative overflow-hidden rounded-[1.85rem] border border-[rgba(216,137,160,0.38)] bg-white p-2 shadow-[0_26px_60px_rgba(72,49,56,0.18)]">
+                    <Image
+                      src="/assets/taylor2.png"
+                      alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
+                      width={560}
+                      height={700}
+                      className="w-full rounded-[1.45rem] object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.035]"
+                      priority
+                    />
+                    {/* Inner highlight + gentle bottom vignette for depth */}
+                    <div aria-hidden className="pointer-events-none absolute inset-2 rounded-[1.45rem] ring-1 ring-inset ring-white/40" />
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-2 bottom-2 h-24 rounded-b-[1.45rem] bg-gradient-to-t from-[rgba(47,34,39,0.22)] to-transparent"
+                    />
+                  </div>
+                  {/* Floating credential chip */}
+                  <span className="absolute -bottom-3 left-5 inline-flex items-center gap-1.5 rounded-full border border-[rgba(216,137,160,0.45)] bg-white/95 px-3.5 py-1.5 text-[0.66rem] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] shadow-[0_8px_20px_rgba(72,49,56,0.14)] backdrop-blur">
+                    <span aria-hidden className="text-[0.7rem]">✦</span>
+                    Certified Baby Gear Specialist
+                  </span>
+                </div>
               </div>
             </div>
           </RevealOnScroll>
