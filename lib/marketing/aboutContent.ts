@@ -69,7 +69,7 @@ export const ABOUT_CREDENTIALS: Array<{ name: string; body: string; link?: { lab
   },
   {
     name: 'Strolleria Baby Gear Specialist',
-    body: 'Strolleria is the largest independent baby specialty retailer in the US. Taylor’s hands-on product knowledge includes years comparing strollers, car seats, and infant gear side by side in a premium retail environment.',
+    body: 'Taylor’s hands-on product knowledge includes years comparing strollers, car seats, and infant gear side by side in a premium retail environment.',
     link: { label: 'Strolleria', href: 'https://www.strolleria.com' },
   },
   {
