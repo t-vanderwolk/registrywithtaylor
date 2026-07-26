@@ -38,17 +38,35 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
   let strollers: StrollerRow[] = [];
   let total = 0;
   let dbError = false;
+  // Base select of columns that always exist; imageUrl is the new (deploy-gated)
+  // column, so we try WITH it and fall back WITHOUT it if the migration hasn't
+  // run yet — otherwise the whole manager (incl. the compatibility links) breaks.
+  const baseSelect = {
+    id: true, brand: true, model: true, displayName: true, summary: true,
+    amazonUrl: true, babylistUrl: true, babylistImage: true, babylistPrice: true,
+    spec: true, _count: { select: { compatibilities: true } },
+  } as const;
+  const findArgs = {
+    where,
+    orderBy: [{ brand: 'asc' }, { model: 'asc' }],
+    take: PAGE_SIZE,
+    skip: (page - 1) * PAGE_SIZE,
+  };
   try {
-    const [rows, count] = await Promise.all([
-      db.stroller.findMany({
-        where,
-        include: { spec: true, _count: { select: { compatibilities: true } } },
-        orderBy: [{ brand: 'asc' }, { model: 'asc' }],
-        take: PAGE_SIZE,
-        skip: (page - 1) * PAGE_SIZE,
-      }),
-      db.stroller.count({ where }),
-    ]);
+    let rows: unknown[];
+    let count: number;
+    try {
+      [rows, count] = await Promise.all([
+        db.stroller.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true } }),
+        db.stroller.count({ where }),
+      ]);
+    } catch {
+      // imageUrl column not deployed yet — retry without it.
+      [rows, count] = await Promise.all([
+        db.stroller.findMany({ ...findArgs, select: baseSelect }),
+        db.stroller.count({ where }),
+      ]);
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     strollers = (rows as any[]).map((r) => ({
       id: r.id,

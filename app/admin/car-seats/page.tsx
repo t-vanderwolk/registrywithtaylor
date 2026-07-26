@@ -38,17 +38,33 @@ export default async function AdminCarSeatsPage({ searchParams }: { searchParams
   let carSeats: CarSeatRow[] = [];
   let total = 0;
   let dbError = false;
+  // imageUrl is the new (deploy-gated) column — try WITH it, fall back WITHOUT it
+  // if the migration hasn't run yet, so the manager never fully breaks.
+  const baseSelect = {
+    id: true, brand: true, model: true, displayName: true, seatType: true, summary: true,
+    amazonUrl: true, babylistUrl: true, babylistImage: true, babylistPrice: true,
+    _count: { select: { compatibilities: true } },
+  } as const;
+  const findArgs = {
+    where,
+    orderBy: [{ brand: 'asc' }, { model: 'asc' }],
+    take: PAGE_SIZE,
+    skip: (page - 1) * PAGE_SIZE,
+  };
   try {
-    const [rows, count] = await Promise.all([
-      db.carSeat.findMany({
-        where,
-        include: { _count: { select: { compatibilities: true } } },
-        orderBy: [{ brand: 'asc' }, { model: 'asc' }],
-        take: PAGE_SIZE,
-        skip: (page - 1) * PAGE_SIZE,
-      }),
-      db.carSeat.count({ where }),
-    ]);
+    let rows: unknown[];
+    let count: number;
+    try {
+      [rows, count] = await Promise.all([
+        db.carSeat.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true } }),
+        db.carSeat.count({ where }),
+      ]);
+    } catch {
+      [rows, count] = await Promise.all([
+        db.carSeat.findMany({ ...findArgs, select: baseSelect }),
+        db.carSeat.count({ where }),
+      ]);
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     carSeats = (rows as any[]).map((r) => ({
       id: r.id,
