@@ -40,6 +40,8 @@
     "catalog:brook-seat-links-apply": "tsx scripts/setBrookSeatAmazonLinks.ts --apply",
     "catalog:fix-nuna-direct": "tsx scripts/fixNunaOwnBrandDirectFit.ts",
     "catalog:fix-nuna-direct-apply": "tsx scripts/fixNunaOwnBrandDirectFit.ts --apply",
+    "catalog:thule-adapters": "tsx scripts/applyThuleAdapterLinks.ts",
+    "catalog:thule-adapters-apply": "tsx scripts/applyThuleAdapterLinks.ts --apply",
     "catalog:product-images": "tsx scripts/setProductImages.ts",
     "catalog:product-images-apply": "tsx scripts/setProductImages.ts --apply",
     "catalog:stroller-specs": "tsx scripts/seedStrollerSpecs.ts",
