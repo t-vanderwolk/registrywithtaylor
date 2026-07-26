@@ -55,9 +55,21 @@ type CompatRow = {
   adapter_required: boolean;
   adapter_url: string | null;
   adapter_image: string | null;
+  adapter_type: string | null;
+  notes: string | null;
   seat_brand: string;
   seat_model: string;
 };
+
+// Bundled / included adapters ship with the stroller and are NOT sold separately
+// (Mercedes-Benz/Hartan; anything whose adapter is "included with stroller", e.g.
+// the Britax Prism). They legitimately have no adapter link or image, so they are
+// not a coverage gap — skip them.
+function adapterIsBundled(r: CompatRow): boolean {
+  if (/^\s*mercedes/i.test(r.brand)) return true;
+  const hay = `${r.adapter_type ?? ''} ${r.notes ?? ''}`;
+  return /\bincluded\b|not sold separately/i.test(hay);
+}
 
 async function main() {
   const categoryFilter = argValue('--category');
@@ -77,6 +89,8 @@ async function main() {
            c."adapterRequired"   AS adapter_required,
            c."adapterBabylistUrl" AS adapter_url,
            c."adapterImage"       AS adapter_image,
+           c."adapterType"        AS adapter_type,
+           c."notes"              AS notes,
            cs."brand" AS seat_brand, cs."model" AS seat_model
     FROM "Stroller" s
     JOIN "Compatibility" c ON c."strollerId" = s."id"
@@ -104,7 +118,7 @@ async function main() {
       byStroller.get(k) ??
       ({ brand: r.brand, model: r.model, category: categoryOf.get(k) ?? null, adapterRows: [], missingLink: [], missingImage: [], totalRows: 0 } as Bucket);
     b.totalRows += 1;
-    const needsAdapter = r.type === 'ADAPTER' || r.adapter_required === true;
+    const needsAdapter = (r.type === 'ADAPTER' || r.adapter_required === true) && !adapterIsBundled(r);
     if (needsAdapter) {
       b.adapterRows.push(r);
       if (!has(r.adapter_url)) b.missingLink.push(r);
