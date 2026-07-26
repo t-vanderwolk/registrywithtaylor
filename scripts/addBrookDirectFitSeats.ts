@@ -1,6 +1,7 @@
 /**
- * Add specific DIRECT-fit infant car seats to the Britax Brook line
- * (Brook / Brook+ Modular Baby), per Taylor's request:
+ * Add specific DIRECT-fit infant car seats to the Britax Brook + Grove line
+ * (Brook / Brook+ Modular Baby / Grove — they share one chart list), per
+ * Taylor's request:
  *   Cybex Aton 2, Cybex Aton M, Cybex Cloud Q, Maxi-Cosi Coral XP, Maxi-Cosi Mico 30.
  *
  * For each seat it links the BEST EXISTING catalog seat — preferring one that has
@@ -41,15 +42,21 @@ const hasRetailer = (s: SeatRow) =>
   !!(s.babylistUrl || s.babylistPrice != null || s.macroBabyUrl || s.macroBabyPrice != null || s.bombiUrl || s.amazonUrl);
 
 async function main() {
-  console.log(`── Add Brook direct-fit seats ──  (${APPLY ? 'APPLY' : 'dry run'})\n`);
+  console.log(`── Add Brook / Grove direct-fit seats ──  (${APPLY ? 'APPLY' : 'dry run'})\n`);
 
   const strollers: Array<{ id: string; brand: string; model: string; displayName: string | null }> =
     await db.stroller.findMany({
-      where: { brand: { equals: 'Britax', mode: 'insensitive' }, model: { contains: 'brook', mode: 'insensitive' } },
+      where: {
+        brand: { equals: 'Britax', mode: 'insensitive' },
+        OR: [
+          { model: { contains: 'brook', mode: 'insensitive' } },
+          { model: { contains: 'grove', mode: 'insensitive' } },
+        ],
+      },
       select: { id: true, brand: true, model: true, displayName: true },
     });
   if (strollers.length === 0) {
-    console.error('No Britax Brook stroller found.');
+    console.error('No Britax Brook / Grove stroller found.');
     process.exitCode = 1;
     return;
   }
@@ -101,7 +108,7 @@ async function main() {
     adapterRequired: false,
     adapterType: null as string | null,
     confidence: 'HIGH',
-    notes: 'Direct fit — clicks straight onto the Britax Brook, no adapter needed.',
+    notes: 'Direct fit — clicks straight on, no adapter needed (Britax Brook / Grove).',
   };
 
   let created = 0, updated = 0, unchanged = 0;
