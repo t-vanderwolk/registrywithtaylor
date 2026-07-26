@@ -4,11 +4,13 @@
  * Taylor's request:
  *   Cybex Aton 2, Cybex Aton M, Cybex Cloud Q, Maxi-Cosi Coral XP, Maxi-Cosi Mico 30.
  *
- * For each seat it links the BEST EXISTING catalog seat — preferring one that has
- * a public retailer (Babylist / MacroBaby / Bombi / Amazon), because the checker
- * only surfaces compatible seats a shopper can actually buy. If no seat exists at
- * all it creates a placeholder (which will NOT surface until it has a buy link —
- * add one in Admin → Car Seats).
+ * For each seat it links the BEST EXISTING catalog seat — preferring an exact
+ * model match, then one that carries a Babylist/Amazon link on the seat row. The
+ * checker only surfaces seats a shopper can buy; MacroBaby/Bombi availability is
+ * joined from the affiliate catalog at runtime (not stored on the CarSeat row),
+ * so a seat with no Babylist/Amazon link here may still surface via MacroBaby.
+ * If no seat exists at all it creates a placeholder (which won't surface until it
+ * has a buy link — add one in Admin → Car Seats).
  *
  *   npx tsx scripts/addBrookDirectFitSeats.ts            # dry run
  *   npx tsx scripts/addBrookDirectFitSeats.ts --apply
@@ -32,14 +34,11 @@ const TARGET_SEATS: Array<{ brand: string; model: string }> = [
   { brand: 'Maxi-Cosi', model: 'Mico 30' },
 ];
 
-type SeatRow = {
-  id: string; brand: string; model: string;
-  babylistUrl: string | null; babylistPrice: number | null;
-  macroBabyUrl: string | null; macroBabyPrice: number | null;
-  bombiUrl: string | null; amazonUrl: string | null;
-};
-const hasRetailer = (s: SeatRow) =>
-  !!(s.babylistUrl || s.babylistPrice != null || s.macroBabyUrl || s.macroBabyPrice != null || s.bombiUrl || s.amazonUrl);
+// Only columns that exist on the CarSeat model. (MacroBaby/Bombi come from the
+// affiliate catalog at query time, so they can't be checked here.)
+const SEAT_SELECT = { id: true, brand: true, model: true, babylistUrl: true, babylistPrice: true, amazonUrl: true } as const;
+type SeatRow = { id: string; brand: string; model: string; babylistUrl: string | null; babylistPrice: number | null; amazonUrl: string | null };
+const hasSeatLink = (s: SeatRow) => !!(s.babylistUrl || s.babylistPrice != null || s.amazonUrl);
 
 async function main() {
   console.log(`── Add Brook / Grove direct-fit seats ──  (${APPLY ? 'APPLY' : 'dry run'})\n`);
@@ -63,14 +62,11 @@ async function main() {
 
   const allSeats: SeatRow[] = await db.carSeat.findMany({
     where: { seatType: 'INFANT', brand: { in: ['Cybex', 'Maxi-Cosi'], mode: 'insensitive' } },
-    select: {
-      id: true, brand: true, model: true,
-      babylistUrl: true, babylistPrice: true, macroBabyUrl: true, macroBabyPrice: true, bombiUrl: true, amazonUrl: true,
-    },
+    select: SEAT_SELECT,
   });
 
-  // Resolve each target to the best existing seat (retailer first, then closest model), else create.
-  const resolved: Array<{ target: { brand: string; model: string }; seat: SeatRow; created: boolean; willSurface: boolean }> = [];
+  // Resolve each target to the best existing seat (exact model, then any buy link), else create.
+  const resolved: Array<{ target: { brand: string; model: string }; seat: SeatRow; created: boolean }> = [];
   for (const target of TARGET_SEATS) {
     const wantBrand = norm(target.brand);
     const wantModel = norm(target.model);
@@ -78,10 +74,10 @@ async function main() {
       (s) => norm(s.brand) === wantBrand && (norm(s.model) === wantModel || norm(s.model).includes(wantModel)),
     );
     candidates.sort((a, b) => {
-      const ar = hasRetailer(a) ? 1 : 0, br = hasRetailer(b) ? 1 : 0;
-      if (ar !== br) return br - ar; // retailer first
       const ae = norm(a.model) === wantModel ? 1 : 0, be = norm(b.model) === wantModel ? 1 : 0;
-      return be - ae; // exact model next
+      if (ae !== be) return be - ae; // exact model first
+      const al = hasSeatLink(a) ? 1 : 0, bl = hasSeatLink(b) ? 1 : 0;
+      return bl - al; // then one with a buy link
     });
 
     let seat = candidates[0];
@@ -91,16 +87,13 @@ async function main() {
       if (APPLY) {
         seat = await db.carSeat.create({
           data: { brand: target.brand, model: target.model, seatType: 'INFANT', summary: `${target.brand} ${target.model} infant car seat.` },
-          select: {
-            id: true, brand: true, model: true,
-            babylistUrl: true, babylistPrice: true, macroBabyUrl: true, macroBabyPrice: true, bombiUrl: true, amazonUrl: true,
-          },
+          select: SEAT_SELECT,
         });
       } else {
-        seat = { id: `(new) ${target.brand} ${target.model}`, brand: target.brand, model: target.model, babylistUrl: null, babylistPrice: null, macroBabyUrl: null, macroBabyPrice: null, bombiUrl: null, amazonUrl: null };
+        seat = { id: `(new) ${target.brand} ${target.model}`, brand: target.brand, model: target.model, babylistUrl: null, babylistPrice: null, amazonUrl: null };
       }
     }
-    resolved.push({ target, seat, created, willSurface: hasRetailer(seat) });
+    resolved.push({ target, seat, created });
   }
 
   const data = {
@@ -115,10 +108,9 @@ async function main() {
   for (const stroller of strollers) {
     const label = stroller.displayName || `${stroller.brand} ${stroller.model}`;
     console.log(`  ${label}`);
-    for (const { target, seat, created: seatCreated, willSurface } of resolved) {
-      const tag = seatCreated ? ' [new placeholder]' : hasRetailer(seat) ? '' : ' [no retailer]';
-      const surface = willSurface ? '' : '  ⚠ will NOT surface until it has a buy link';
-      console.log(`    → ${target.brand} ${target.model}  ↔ catalog: ${seat.brand} ${seat.model}${tag}${surface}`);
+    for (const { target, seat, created: seatCreated } of resolved) {
+      const link = seatCreated ? 'new placeholder — no buy link' : hasSeatLink(seat) ? 'has Babylist/Amazon link' : 'no Babylist/Amazon (may surface via MacroBaby)';
+      console.log(`    → ${target.brand} ${target.model}  ↔ catalog: ${seat.brand} ${seat.model}  [${link}]`);
       if (seat.id.startsWith('(new) ')) continue;
 
       const found = await db.compatibility.findFirst({
@@ -139,10 +131,10 @@ async function main() {
   }
 
   console.log(`\n${APPLY ? 'Applied' : 'Dry run'} — ${created} new, ${updated} updated, ${unchanged} already correct.`);
-  const wontSurface = resolved.filter((r) => !r.willSurface);
-  if (wontSurface.length) {
-    console.log(`\n⚠ ${wontSurface.length} seat(s) have no retailer and will NOT appear until you add a buy link in Admin → Car Seats:`);
-    for (const r of wontSurface) console.log(`   · ${r.target.brand} ${r.target.model}`);
+  const placeholders = resolved.filter((r) => r.created);
+  if (placeholders.length) {
+    console.log(`\n⚠ ${placeholders.length} seat(s) had no catalog match and were created as placeholders — add a buy link in Admin → Car Seats so they surface:`);
+    for (const r of placeholders) console.log(`   · ${r.target.brand} ${r.target.model}`);
   }
   if (!APPLY) console.log('\nRe-run with --apply to write these rows.');
 
