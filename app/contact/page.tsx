@@ -471,7 +471,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
               {/* Image column */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/taylor2.png"
+                src="/assets/taylor.png"
                 alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
                 width={560}
                 height={700}

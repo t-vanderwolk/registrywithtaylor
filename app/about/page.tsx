@@ -175,7 +175,7 @@ export default function AboutPage() {
                   {/* White mat frame with a soft blush ring */}
                   <div className="relative overflow-hidden rounded-[1.85rem] border border-[rgba(216,137,160,0.38)] bg-white p-2 shadow-[0_26px_60px_rgba(72,49,56,0.18)]">
                     <Image
-                      src="/assets/taylor2.png"
+                      src="/assets/taylor.png"
                       alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
                       width={560}
                       height={700}
