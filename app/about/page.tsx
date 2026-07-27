@@ -179,6 +179,7 @@ export default function AboutPage() {
                       alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
                       width={560}
                       height={700}
+                      sizes="(max-width: 768px) 90vw, 384px"
                       className="w-full rounded-[1.45rem] object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.035]"
                       priority
                     />
