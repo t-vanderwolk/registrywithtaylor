@@ -7,6 +7,7 @@ import Hero from '@/components/ui/Hero';
 import MarketingSurface from '@/components/ui/MarketingSurface';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ContactInquiryForm from '@/components/contact/ContactInquiryForm';
+import TaylorPortrait from '@/components/marketing/TaylorPortrait';
 import FAQAccordion, { type FAQEntry } from '@/components/faq/FAQAccordion';
 import { ABOUT_REVIEWS } from '@/lib/marketing/aboutContent';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
@@ -469,14 +470,9 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
               </div>
 
               {/* Image column */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/taylor.png"
-                alt="Taylor Vanderwolk, certified baby gear & registry consultant at Taylor-Made Baby Co."
-                width={560}
-                height={700}
-                className="w-full rounded-[1.75rem] object-cover shadow-[0_20px_48px_rgba(72,49,56,0.16)] md:sticky md:top-28"
-              />
+              <div className="md:sticky md:top-28">
+                <TaylorPortrait />
+              </div>
             </div>
           </RevealOnScroll>
 
