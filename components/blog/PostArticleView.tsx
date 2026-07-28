@@ -18,6 +18,7 @@ import { getAffiliatePartnerLookup } from '@/lib/server/affiliatePartners';
 import AffiliateDisclosure from '@/components/blog/AffiliateDisclosure';
 import BlogShareBar from '@/components/blog/BlogShareBar';
 import BlogCatalogProductRecap from '@/components/blog/BlogCatalogProductRecap';
+import BlogServiceRecap from '@/components/blog/BlogServiceRecap';
 import BlogSoftCTA from '@/components/blog/BlogSoftCTA';
 import BlogViewTracker from '@/components/blog/BlogViewTracker';
 import BlogArticleCompass from '@/components/blog/BlogArticleCompass';
@@ -307,6 +308,7 @@ export default async function PostArticleView({
     block.type === 'catalog-product' ? [{ brand: block.brand, productName: block.productName }] : [],
   );
   const catalogProductCount = catalogProductBlockRefs.length;
+  const serviceBlockCount = articleStyledBlocks.filter((block) => block.type === 'service').length;
   const [productCatalogMap, strollerCompatHrefs, carSeatCompatHrefs, goodBuyGearOffers] = await Promise.all([
     resolveBlogProductCatalogLinks(
       articleStyledBlocks.flatMap((block) =>
@@ -492,7 +494,9 @@ export default async function PostArticleView({
         ) : undefined
       }
       affiliateCta={
-        catalogProductCount > 0 ? (
+        catalogProductCount > 0 || post.affiliateBrands.length > 0 || serviceBlockCount > 0 ? (
+          <>
+            {catalogProductCount > 0 ? (
           // The Gear Picks section now shows the actual product cards (the ones
           // covered in the guide) instead of generic brand-website links.
           <div className="blog-section-soft mt-16 px-6">
@@ -567,6 +571,11 @@ export default async function PostArticleView({
               })}
             </div>
           </div>
+        ) : null}
+            {serviceBlockCount > 0 ? (
+              <BlogServiceRecap content={articleContent} />
+            ) : null}
+          </>
         ) : undefined
       }
       discussionSection={commentsSection}
