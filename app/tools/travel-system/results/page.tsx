@@ -680,7 +680,7 @@ function ResultCard({
           <div className="tool-card-secondary">
             <Link
               href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
-              className="tool-card-secondary__action"
+              className="tool-card-secondary__action tool-card-secondary__action--compare"
               aria-label={`Compare the ${item.brand} ${displayTitle} against other strollers`}
             >
               <span className="tool-card-secondary__icon" aria-hidden="true">

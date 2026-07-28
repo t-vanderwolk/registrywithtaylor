@@ -4080,9 +4080,9 @@ img {
 .tool-card-secondary {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin-top: 0.2rem;
-  padding-top: 0.75rem;
+  padding-top: 0.8rem;
   border-top: 1px dashed rgba(215, 161, 175, 0.4);
 }
 .tool-card-secondary__action {
@@ -4156,6 +4156,50 @@ img {
   transform: translateX(3px);
   opacity: 1;
 }
+
+/* Two visually distinct secondary actions so they never read as a matched pair:
+   rose = the signature "compatible car seats" check; gold = "compare". Each gets
+   its own accent bar, tint, icon chip, hover glow and arrow colour. */
+.tool-card-secondary__action--compat {
+  border-color: rgba(216, 137, 160, 0.42);
+  border-left: 3px solid var(--color-cta-pink);
+  background: linear-gradient(180deg, #fff7f8 0%, #fdedf0 100%);
+}
+.tool-card-secondary__action--compat .tool-card-secondary__icon {
+  background: rgba(216, 137, 160, 0.18);
+  color: #a24a63;
+}
+.tool-card-secondary__action--compat:hover {
+  border-color: rgba(180, 95, 119, 0.6);
+  box-shadow: 0 12px 22px rgba(180, 95, 119, 0.17);
+}
+.tool-card-secondary__action--compat:hover .tool-card-secondary__icon {
+  background: var(--color-cta-pink);
+  color: #fff;
+}
+.tool-card-secondary__action--compat .tool-card-secondary__arrow { color: #b06579; }
+
+.tool-card-secondary__action--compare {
+  border-color: rgba(196, 156, 94, 0.44);
+  border-left: 3px solid var(--color-gold-soft);
+  background: linear-gradient(180deg, #fffdf6 0%, #f7efdf 100%);
+}
+.tool-card-secondary__action--compare .tool-card-secondary__icon {
+  background: rgba(196, 156, 94, 0.2);
+  color: #8a6720;
+}
+.tool-card-secondary__action--compare:hover {
+  border-color: rgba(150, 116, 52, 0.6);
+  box-shadow: 0 12px 22px rgba(150, 116, 52, 0.17);
+}
+.tool-card-secondary__action--compare:hover .tool-card-secondary__icon {
+  background: var(--color-gold-soft);
+  color: #fff;
+}
+.tool-card-secondary__action--compare .tool-card-secondary__title { color: #4a3a1e; }
+.tool-card-secondary__action--compare .tool-card-secondary__hint { color: #9a8353; }
+.tool-card-secondary__action--compare .tool-card-secondary__arrow { color: #a07d2e; }
+
 @media (prefers-reduced-motion: reduce) {
   .tool-product-card--rich { animation: none; }
   .tool-product-card--rich:hover .tool-product-card__image,

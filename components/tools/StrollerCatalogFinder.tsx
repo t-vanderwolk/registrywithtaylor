@@ -355,7 +355,7 @@ function ProductCard({
             <div className="tool-card-secondary">
               <Link
                 href={compatHref(brand, product.model)}
-                className="tool-card-secondary__action"
+                className="tool-card-secondary__action tool-card-secondary__action--compat"
                 aria-label={`See car seats compatible with the ${brand} ${displayTitle}`}
               >
                 <span className="tool-card-secondary__icon" aria-hidden="true">
@@ -369,7 +369,7 @@ function ProductCard({
               </Link>
               <Link
                 href={compareHref(brand, product.model)}
-                className="tool-card-secondary__action"
+                className="tool-card-secondary__action tool-card-secondary__action--compare"
                 aria-label={`Compare the ${brand} ${displayTitle} against other strollers`}
               >
                 <span className="tool-card-secondary__icon" aria-hidden="true">
