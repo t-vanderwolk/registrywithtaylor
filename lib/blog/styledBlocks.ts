@@ -10,6 +10,7 @@ export type StyledBlockId =
   | 'spec-table'
   | 'product'
   | 'catalog-product'
+  | 'service'
   | 'faq'
   | 'decision'
   | 'takeaways'
@@ -90,6 +91,22 @@ export type ParsedStyledBlock =
       comingSoon: boolean;
     }
   | {
+      type: 'service';
+      /** Eyebrow describing the kind of offering (e.g. "Registry Platform", "Subscription"). */
+      category: string | null;
+      brand: string | null;
+      name: string;
+      tagline: string | null;
+      /** Free-text price so "$14.99/mo", "Free", "From $99/yr" all render cleanly. */
+      price: string | null;
+      bestFor: string | null;
+      /** "What's included" checklist. */
+      includes: string[];
+      links: Array<{ label: string; url: string }>;
+      badge: string | null;
+      imageUrl: string | null;
+    }
+  | {
       type: 'faq';
       question: string;
       answer: string;
@@ -115,7 +132,7 @@ export type ParsedStyledBlock =
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|product|faq|decision|takeaways|poll|thisorthat)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|service|product|faq|decision|takeaways|poll|thisorthat)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
@@ -246,6 +263,25 @@ Product: Dragonfly Plus
 Note: Best premium compact stroller
 Babylist: https://babylist.pxf.io/...
 Amazon: https://amzn.to/...
+:::`,
+  },
+  {
+    id: 'service',
+    label: 'Service / Club Card',
+    description:
+      'A card for anything that is not a physical product — registry platforms, subscriptions, clubs, memberships, or independent baby stores. Shows a logo, the type of offering, price, a "what\'s included" checklist, and a link.',
+    snippet: `:::service
+Service: Registry Platform
+Brand: Babylist
+Title: Babylist Universal Registry
+Tagline: One registry that pulls gifts from every store into a single list.
+Price: Free
+Includes: Add gifts from any store | Group gifting & cash funds | Free Hello Baby box
+Best for: Parents who want one flexible registry instead of five separate ones.
+Link: Start your registry | https://example.com/babylist
+Link 2: See what's inside | https://example.com/hello-baby-box
+Badge: Editor's pick
+Image: https://example.com/babylist-logo.png
 :::`,
   },
   {
@@ -603,6 +639,93 @@ export function parseStyledBlock(
         price,
         priceSource,
         comingSoon,
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'service') {
+    let category: string | null = null;
+    let brand: string | null = null;
+    let name = '';
+    let tagline: string | null = null;
+    let price: string | null = null;
+    let bestFor: string | null = null;
+    let badge: string | null = null;
+    let imageUrl: string | null = null;
+    const includes: string[] = [];
+    const links: Array<{ label: string; url: string }> = [];
+
+    const pushLink = (raw: string, fallbackLabel: string) => {
+      const [rawLabel, rawUrl] = raw.split('|').map((entry) => entry.trim());
+      // "Link: https://..." (url only) or "Link: Label | https://..."
+      if (!rawUrl && /^(https?:\/\/|\/)/i.test(rawLabel)) {
+        links.push({ label: fallbackLabel, url: rawLabel });
+        return;
+      }
+      if (rawLabel && rawUrl && /^(https?:\/\/|\/)/i.test(rawUrl)) {
+        links.push({ label: rawLabel, url: rawUrl });
+      }
+    };
+
+    const pushIncludes = (raw: string) => {
+      raw
+        .split('|')
+        .map((entry) => entry.trim().replace(/^[-*]\s+/, '').trim())
+        .filter(Boolean)
+        .forEach((entry) => includes.push(entry));
+    };
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+
+      if (!parsedLine) {
+        // Bare "- item" bullets count toward the includes checklist.
+        const listItem = line.replace(/^[-*]\s+/, '').trim();
+        if (listItem && listItem !== line.trim()) includes.push(listItem);
+        return;
+      }
+
+      const label = parsedLine.normalizedLabel;
+      const value = parsedLine.value;
+
+      if (label === 'service' || label === 'type' || label === 'category' || label === 'kind') category = value;
+      else if (label === 'brand' || label === 'provider' || label === 'company' || label === 'store') brand = value;
+      else if (label === 'title' || label === 'name') name = value;
+      else if (label === 'tagline' || label === 'note' || label === 'summary' || label === 'description') tagline = value;
+      else if (label === 'price' || label === 'cost' || label === 'pricing') price = value;
+      else if (label === 'best for' || label === 'good for') bestFor = value;
+      else if (
+        label === 'includes' ||
+        label === 'included' ||
+        label === "what's included" ||
+        label === 'whats included' ||
+        label === 'what is included' ||
+        label === 'features' ||
+        label === 'perks'
+      )
+        pushIncludes(value);
+      else if (label === 'badge' || label === 'highlight' || label === 'status' || label === 'tag') badge = value;
+      else if (label === 'image' || label === 'image url' || label === 'logo' || label === 'photo') imageUrl = value;
+      else if (label === 'link' || label === 'cta' || label === 'shop' || label === 'join' || label === 'url' || label === 'link 1')
+        pushLink(value, 'Learn more');
+      else if (label === 'link 2' || label === 'link2' || label === 'cta 2' || label === 'secondary link')
+        pushLink(value, 'Learn more');
+    });
+
+    return {
+      block: {
+        type: 'service',
+        category,
+        brand,
+        name: name || 'Featured service',
+        tagline,
+        price,
+        bestFor,
+        includes,
+        links,
+        badge,
+        imageUrl,
       },
       nextIndex: cursor,
     };

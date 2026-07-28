@@ -7,6 +7,7 @@ import BlogCatalogProductCard from '@/components/blog/BlogCatalogProductCard';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogDivider from '@/components/blog/BlogDivider';
 import BlogProductInsightCard from '@/components/blog/BlogProductInsightCard';
+import BlogServiceCard from '@/components/blog/BlogServiceCard';
 import GuideSignoffMark from '@/components/blog/GuideSignoffMark';
 import { renderBrandWordmarkText } from '@/components/ui/BrandWordmark';
 import Advice from '@/components/content-widgets/Advice';
@@ -582,6 +583,25 @@ function renderStyledBlock(
         openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
         openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
         layout="inline"
+        position={index + 1}
+      />
+    );
+  }
+
+  if (block.type === 'service') {
+    return (
+      <BlogServiceCard
+        key={`${postId}-service-${index}`}
+        category={block.category}
+        brand={block.brand}
+        name={block.name}
+        tagline={block.tagline}
+        price={block.price}
+        bestFor={block.bestFor}
+        includes={block.includes}
+        links={block.links}
+        badge={block.badge}
+        imageUrl={block.imageUrl}
         position={index + 1}
       />
     );

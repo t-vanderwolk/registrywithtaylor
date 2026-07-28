@@ -3457,6 +3457,184 @@ img {
   pointer-events: none;
 }
 
+/* ── Blog service / club / subscription / platform / store card ────────────
+   For anything that is not a physical product. Horizontal editorial card so it
+   reads distinctly from the vertical product cards: logo panel on the left, an
+   eyebrow for the kind of offering, a "what's included" checklist, and CTAs. */
+.blog-service-card {
+  --svc-accent: #b45f77;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  margin: 2.25rem 0;
+  border: 1px solid rgba(215, 161, 175, 0.28);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(72, 49, 56, 0.08);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+}
+.blog-service-card.is-revealed { opacity: 1; transform: none; }
+.blog-service-card:hover { box-shadow: 0 20px 46px rgba(72, 49, 56, 0.13); }
+@media (max-width: 640px) {
+  .blog-service-card { grid-template-columns: 1fr; }
+}
+.blog-service-card__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  padding: 1.4rem;
+  background: linear-gradient(155deg, #fdf4ee 0%, #f7e7ec 100%);
+  border-right: 1px solid rgba(215, 161, 175, 0.16);
+}
+@media (max-width: 640px) {
+  .blog-service-card__media {
+    min-height: 9.5rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(215, 161, 175, 0.16);
+  }
+}
+.blog-service-card__image {
+  width: 100%;
+  max-width: 86%;
+  max-height: 9.5rem;
+  object-fit: contain;
+}
+.blog-service-card__fallback {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.55rem;
+  letter-spacing: 0.04em;
+  color: #8b6671;
+  text-align: center;
+  line-height: 1.1;
+}
+.blog-service-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  border-radius: 999px;
+  background: #2f2227;
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.blog-service-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.35rem 1.4rem 1.45rem;
+}
+.blog-service-card__eyebrow {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  background: rgba(244, 208, 218, 0.42);
+  padding: 0.24rem 0.62rem;
+  color: var(--svc-accent);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.blog-service-card__brand {
+  color: #b45f77;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.blog-service-card__title {
+  color: #2f2227;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 650;
+  line-height: 1.1;
+}
+.blog-service-card__tagline {
+  color: #6f6169;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.blog-service-card__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: #8a6720;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.blog-service-card__includes {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.blog-service-card__includes-label {
+  color: #7c4c58;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.blog-service-card__include {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #4b3a40;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+.blog-service-card__include svg {
+  flex-shrink: 0;
+  margin-top: 0.12rem;
+  color: var(--svc-accent);
+}
+.blog-service-card__bestfor {
+  margin-top: 0.2rem;
+  color: #6f6169;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+.blog-service-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+.blog-service-card__actions .tool-btn {
+  flex: 1 1 auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-service-card {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ── Blog spec comparison table ────────────────────────────────────────── */
 .tmbc-spec-table {
   margin: 2.5rem 0;
