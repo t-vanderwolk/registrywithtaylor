@@ -9,9 +9,10 @@ export const SITE_LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;
  * weeks — so bump this whenever the icon artwork changes, otherwise the old one
  * keeps rendering long after deploy.
  */
-const ICON_VERSION = '3';
+const ICON_VERSION = '4';
 export const SITE_FAVICON_PATH = `/assets/logos/tmbcfavicon.ico?v=${ICON_VERSION}`;
 export const SITE_FAVICON_PNG_PATH = `/assets/logos/tmbcfavicon-32.png?v=${ICON_VERSION}`;
+export const SITE_FAVICON_PNG_96_PATH = `/assets/logos/tmbcfavicon-96.png?v=${ICON_VERSION}`;
 export const SITE_APPLE_ICON_PATH = `/assets/logos/tmbcfavicon-180.png?v=${ICON_VERSION}`;
 export const SITE_ICON_192_PATH = `/assets/logos/tmbcfavicon-192.png?v=${ICON_VERSION}`;
 export const SITE_ICON_512_PATH = `/assets/logos/tmbcfavicon-512.png?v=${ICON_VERSION}`;

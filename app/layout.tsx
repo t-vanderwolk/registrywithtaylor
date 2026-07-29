@@ -12,6 +12,7 @@ import {
   SITE_APPLE_ICON_PATH,
   SITE_FAVICON_PATH,
   SITE_FAVICON_PNG_PATH,
+  SITE_FAVICON_PNG_96_PATH,
   SITE_ICON_192_PATH,
   SITE_ICON_512_PATH,
   SITE_LOGO_URL,
@@ -65,12 +66,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: SITE_FAVICON_PATH, sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+      { url: SITE_FAVICON_PATH, sizes: 'any', type: 'image/x-icon' },
       { url: SITE_FAVICON_PNG_PATH, sizes: '32x32', type: 'image/png' },
+      { url: SITE_FAVICON_PNG_96_PATH, sizes: '96x96', type: 'image/png' },
       { url: SITE_ICON_192_PATH, sizes: '192x192', type: 'image/png' },
       { url: SITE_ICON_512_PATH, sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: [{ url: SITE_FAVICON_PATH, sizes: '16x16 32x32 48x48', type: 'image/x-icon' }],
+    shortcut: [{ url: SITE_FAVICON_PATH, sizes: 'any', type: 'image/x-icon' }],
     apple: [{ url: SITE_APPLE_ICON_PATH, sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
