@@ -81,6 +81,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
                 links: [
                   { label: 'Waitlist & Enrollment', href: '/admin/members' },
                   { label: 'Consultations', href: '/admin/consultations' },
+                  { label: 'Gift Certificates', href: '/admin/gifts' },
                   { label: 'Inquiries', href: '/admin/inquiries' },
                 ],
               },

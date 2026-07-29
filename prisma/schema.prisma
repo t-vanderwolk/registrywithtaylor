@@ -904,3 +904,42 @@ enum CatalogReviewStatus {
   REVIEWED
   HIDDEN
 }
+
+/// A prepaid Registry Consult purchased as a gift. One row per gift purchase.
+/// Lifecycle: PENDING_PAYMENT → ISSUED (paid) → REDEEMED (recipient booked).
+model GiftCertificate {
+  id                    String            @id @default(cuid())
+  code                  String            @unique
+  status                GiftStatus        @default(PENDING_PAYMENT)
+  amountCents           Int               @default(7500)
+  currency              String            @default("usd")
+
+  purchaserName         String
+  purchaserEmail        String
+  recipientName         String
+  recipientEmail        String?
+  giftMessage           String?
+  /// 'now' = we email the recipient immediately; 'self' = purchaser delivers it.
+  deliveryMode          String            @default("now")
+
+  stripeSessionId       String?           @unique
+  stripePaymentIntentId String?
+
+  issuedAt              DateTime?
+  redeemedAt            DateTime?
+  redeemedBookingRef    String?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@index([status])
+  @@index([purchaserEmail])
+  @@index([recipientEmail])
+  @@index([createdAt])
+}
+
+enum GiftStatus {
+  PENDING_PAYMENT
+  ISSUED
+  REDEEMED
+  REFUNDED
+}

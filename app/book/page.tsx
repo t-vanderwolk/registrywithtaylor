@@ -45,6 +45,12 @@ export default function BookPage() {
             </Link>
             .
           </p>
+          <p className="mx-auto mt-4 max-w-xl text-[0.9rem] leading-6 text-neutral-600">
+            Booking for someone else?{' '}
+            <Link href="/gift" className="font-semibold text-[var(--color-accent-dark)] underline underline-offset-2">
+              Give it as a gift →
+            </Link>
+          </p>
         </section>
 
         <section className="mx-auto max-w-2xl px-6 pb-4 pt-6">
