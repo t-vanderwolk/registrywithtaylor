@@ -27,6 +27,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
 import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
@@ -545,19 +546,33 @@ function ResultCard({
       ? babylistAffiliateUrl(item.brand, item.model, productKind, item.babylistUrl)
       : null;
   const macroBabyUrl = item.macroBabyUrl ?? null;
+  // Travel-system-only seats (e.g. Nuna PIPA urbn) aren't sold solo — never give
+  // them a solo buy button; their bundle link is handled separately below.
+  const isTravelSystemOnly =
+    productKind === 'carSeat' && Boolean((item as CompatibleCarSeatResult).travelSystemOnly);
   const primaryCta = babylistUrl
     ? { label: 'Babylist', url: babylistUrl, source: 'babylist' as const }
     : macroBabyUrl
       ? { label: 'MacroBaby', url: macroBabyUrl, source: 'macrobaby' as const }
       : item.bombiUrl
         ? { label: 'Shop Bombi', url: item.bombiUrl, source: 'bombi' as const }
-        : null;
+        : // Guarantee a primary: fall back to an affiliate-tracked Babylist brand store.
+          isTravelSystemOnly
+          ? null
+          : {
+              label: 'Shop on Babylist',
+              url: babylistBrandShopUrl(item.brand, productKind === 'carSeat' ? 'carseat' : 'stroller'),
+              source: 'babylist' as const,
+            };
   // When shopping the PIPA urbn (travel-system-only), each Nuna stroller card
   // links to its matching "<stroller> + PIPA urbn" bundle instead of the solo
   // stroller listing — that's the only way to buy the urbn.
   const urbnBundleUrl =
     productKind === 'stroller' && pipaUrbnSelected ? getPipaUrbnTravelSystemUrl(item.brand, item.model) : null;
-  const amazonUrl = primaryCta ? item.amazonUrl ?? null : null;
+  // Guarantee Amazon too: real product link, else a tagged Amazon search.
+  const amazonUrl = isTravelSystemOnly
+    ? null
+    : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);

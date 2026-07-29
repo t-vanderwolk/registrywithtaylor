@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
+import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
 
 type CatalogProductButton = {
   key: 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
@@ -108,6 +109,22 @@ export default function BlogCatalogProductCard({
   if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
   if (shop2Url) available.push({ key: 'shop2', url: shop2Url, label: shop2Retailer ? `Shop ${shop2Retailer}` : 'Shop now' });
   if (amazonUrl) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
+
+  // Guarantee a shoppable primary (Babylist/MacroBaby/shop) AND an Amazon button
+  // on every live card. When an exact retailer link is missing, fall back to an
+  // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
+  // (Skipped for coming-soon cards, which intentionally show no buy buttons.)
+  if (!comingSoon) {
+    const hasPrimary = available.some((b) => b.key === 'babylist' || b.key === 'macrobaby' || b.key === 'shop' || b.key === 'shop2');
+    const hasAmazon = available.some((b) => b.key === 'amazon');
+    const fallbackKind = compatStrollersHref ? 'carseat' : 'stroller';
+    if (!hasPrimary) {
+      available.unshift({ key: 'babylist', url: babylistBrandShopUrl(brand, fallbackKind), label: 'Shop on Babylist' });
+    }
+    if (!hasAmazon) {
+      available.push({ key: 'amazon', url: amazonSearchShopUrl(`${brand} ${productName}`), label: 'Shop on Amazon' });
+    }
+  }
 
   const defaultOrder: Record<CatalogProductButton['key'], number> = { babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
   available.sort((a, b) => {

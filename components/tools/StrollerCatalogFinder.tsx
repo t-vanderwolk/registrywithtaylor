@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
+import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -259,6 +260,22 @@ function ProductCard({
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }
+  const hadRealOffers = offers.length > 0;
+  // Guarantee every card shows a shoppable primary (Babylist/MacroBaby/Bombi) AND
+  // an Amazon button. When an exact retailer link is missing, fall back to an
+  // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
+  const fallbackKind = kind === 'carseats' ? 'carseat' : 'stroller';
+  const fallbackQuery = `${brand} ${product.model || product.name}`.trim();
+  const hasPrimaryOffer = offers.some((o) => o.meta.key === 'babylist' || o.meta.key === 'macrobaby' || o.meta.key === 'bombi');
+  const hasAmazonOffer = offers.some((o) => o.meta.key === 'amazon');
+  const babylistMeta = RETAILER_CTAS.find((m) => m.key === 'babylist')!;
+  const amazonMeta = RETAILER_CTAS.find((m) => m.key === 'amazon')!;
+  if (!hasPrimaryOffer) {
+    offers.unshift({ meta: babylistMeta, offer: { url: babylistBrandShopUrl(brand, fallbackKind), price: null } });
+  }
+  if (!hasAmazonOffer) {
+    offers.push({ meta: amazonMeta, offer: { url: amazonSearchShopUrl(fallbackQuery), price: null } });
+  }
   const openBoxOffer = retailers?.goodbuygear ?? null;
   const displayPrice =
     retailers?.babylist?.price ??
@@ -333,7 +350,7 @@ function ProductCard({
               )}
             </a>
           ))}
-          {offers.length === 0 && openBoxOffer?.url ? (
+          {!hadRealOffers && openBoxOffer?.url ? (
             <a
               href={openBoxOffer.url}
               target="_blank"
