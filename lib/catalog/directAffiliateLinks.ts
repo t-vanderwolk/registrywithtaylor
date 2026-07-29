@@ -28,22 +28,24 @@ const MIMA_LINKS: Record<string, string> = {
 };
 const MIMA_FALLBACK = mimaAwin('https://mimakidsusa.com/collections/strollers');
 
-// ── Silver Cross (direct, affiliate_pid=4762) ────────────────────────────────
-const sc = (slug: string) => `https://silvercrossus.com/product/${slug}/?affiliate_pid=4762`;
+// ── Silver Cross (direct, ref=4762) ──────────────────────────────────────────
+const sc = (slug: string) => `https://silvercrossus.com/product/${slug}/?ref=4762`;
 
+// Current Silver Cross US lineup. Jet 5 and Dune are discontinued — omitted so
+// their cards fall back to the (live) strollers listing rather than a dead page.
 const SILVER_CROSS_LINKS: Record<string, string> = {
   reef: sc('silver-cross-reef-2-foldable-stroller'),
   'reef 2': sc('silver-cross-reef-2-foldable-stroller'),
   wave: sc('wave-3-single-to-double-stroller'),
   'wave 3': sc('wave-3-single-to-double-stroller'),
-  jet: sc('jet-5-super-compact-stroller'),
-  'jet 5': sc('jet-5-super-compact-stroller'),
-  dune: sc('silver-crosss-dune-compact-folding-stroller'),
-  'dune 2': sc('silver-crosss-dune-compact-folding-stroller'),
+  nia: sc('nia-compact-folding-traveling-stroller'),
+  cove: sc('cove-2-full-size-stroller'),
+  'cove 2': sc('cove-2-full-size-stroller'),
+  breez: sc('breez-compact-stroller'),
 };
 // Valid, affiliate-tracked Silver Cross strollers listing for models without an
-// exact product URL (Clic, Comet, Jet Double, …).
-const SILVER_CROSS_FALLBACK = 'https://silvercrossus.com/category/strollers/?affiliate_pid=4762';
+// exact product URL (Clic, Comet, discontinued Jet/Dune, …).
+const SILVER_CROSS_FALLBACK = 'https://silvercrossus.com/category/strollers/?ref=4762';
 
 /**
  * The direct brand affiliate link for a Mima / Silver Cross product, or null for
