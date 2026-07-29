@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
 import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 
 type CatalogProductButton = {
-  key: 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
+  key: 'direct' | 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
   url: string;
   label: string;
   variant: 'primary' | 'secondary';
@@ -124,10 +125,19 @@ export default function BlogCatalogProductCard({
     if (!hasAmazon) {
       available.push({ key: 'amazon', url: amazonSearchShopUrl(`${brand} ${productName}`), label: 'Shop on Amazon' });
     }
+    // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+    // affiliate link; Babylist stays as a secondary button.
+    const directUrl = getDirectAffiliateLink(brand, productName);
+    if (directUrl) {
+      available.push({ key: 'direct', url: directUrl, label: directShopLabel(brand) });
+    }
   }
 
-  const defaultOrder: Record<CatalogProductButton['key'], number> = { babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
+  const defaultOrder: Record<CatalogProductButton['key'], number> = { direct: -1, babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
   available.sort((a, b) => {
+    // A direct brand link always leads.
+    if (a.key === 'direct' && b.key !== 'direct') return -1;
+    if (b.key === 'direct' && a.key !== 'direct') return 1;
     if (primaryRetailer) {
       if (a.key === primaryRetailer && b.key !== primaryRetailer) return -1;
       if (b.key === primaryRetailer && a.key !== primaryRetailer) return 1;

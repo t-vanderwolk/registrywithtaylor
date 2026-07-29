@@ -28,6 +28,7 @@ import {
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
@@ -573,6 +574,9 @@ function ResultCard({
   const amazonUrl = isTravelSystemOnly
     ? null
     : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
+  // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+  // affiliate link; Babylist drops to a secondary button.
+  const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
@@ -662,6 +666,18 @@ function ResultCard({
             </ToolAffiliateLink>
           ) : (
             <>
+              {directUrl ? (
+                <ToolAffiliateLink
+                  tool="travel-system-checker"
+                  href={directUrl}
+                  product={`${item.brand} ${displayTitle}`.trim()}
+                  retailer="direct"
+                  brand={item.brand}
+                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                >
+                  Shop {item.brand}
+                </ToolAffiliateLink>
+              ) : null}
               {primaryCta ? (
                 <ToolAffiliateLink
                   tool="travel-system-checker"
@@ -669,7 +685,7 @@ function ResultCard({
                   product={`${item.brand} ${displayTitle}`.trim()}
                   retailer={primaryCta.source}
                   brand={item.brand}
-                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                  className={`tool-btn ${directUrl ? 'tool-btn--secondary' : 'tool-btn--primary ml-auto'} min-h-0 px-3 py-2 text-[0.68rem]`}
                 >
                   {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
                   {primaryCta.label}

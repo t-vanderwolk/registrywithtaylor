@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -255,7 +256,7 @@ function ProductCard({
   // Each retailer shows only when it actually carries this model. Babylist is
   // the visible product-card CTA; open-box stays separate as a sticker badge.
   const retailers = product.retailers ?? null;
-  const offers: Array<{ meta: (typeof RETAILER_CTAS)[number]; offer: RetailerOffer }> = [];
+  const offers: Array<{ meta: { key: string; shopLabel: string; btnClass: string }; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
@@ -275,6 +276,15 @@ function ProductCard({
   }
   if (!hasAmazonOffer) {
     offers.push({ meta: amazonMeta, offer: { url: amazonSearchShopUrl(fallbackQuery), price: null } });
+  }
+  // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+  // affiliate link; Babylist stays available as a secondary button.
+  const directUrl = getDirectAffiliateLink(brand, product.model);
+  if (directUrl) {
+    offers.unshift({
+      meta: { key: 'direct', shopLabel: directShopLabel(brand), btnClass: 'tool-btn--secondary' },
+      offer: { url: directUrl, price: null },
+    });
   }
   const openBoxOffer = retailers?.goodbuygear ?? null;
   const displayPrice =
