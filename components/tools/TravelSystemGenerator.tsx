@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
-import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { BRAND_LOGOS, STROLLER_BRAND_SECTIONS } from './StrollerCatalogFinder';
 import type {
   TravelSystemCarSeatOption,
@@ -18,6 +18,10 @@ import {
   travelSystemResultsHref,
   travelSystemSlug,
 } from '@/lib/travelSystemRouting';
+import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
+import { AmazonMark, BabylistHeartIcon } from './StrollerCatalogFinder';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -78,6 +82,10 @@ function BrowseCard({
   cta,
   onSelect,
   compareHref,
+  primaryUrl,
+  primaryLabel,
+  primaryIsBabylist,
+  amazonUrl,
 }: {
   option: { brand: string; model: string };
   image: string | null;
@@ -87,49 +95,82 @@ function BrowseCard({
   onSelect: () => void;
   /** When set (strollers only), shows a Compare pill that deep-links the compare tool. */
   compareHref?: string | null;
+  primaryUrl?: string | null;
+  primaryLabel?: string;
+  primaryIsBabylist?: boolean;
+  amazonUrl?: string | null;
 }) {
   const displayTitle = displayNameWithoutBrand(option.model, option.brand);
+  const fullName = `${option.brand} ${displayTitle}`.trim();
+  const track = (retailer: string, url: string | null | undefined) =>
+    trackToolAffiliateClick('travel-system-checker', { product: fullName, retailer, brand: option.brand, url });
 
   return (
-    <div className="relative">
-      <button
-        type="button"
-        onClick={onSelect}
-        className="group tool-card tool-card--interactive tool-product-card w-full text-left"
-      >
-        <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
-          {image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={image} alt={option.model} className="tool-product-card__image" />
-          ) : (
-            <span className="tool-product-card__image-fallback">{option.brand}</span>
-          )}
-        </div>
-        <div className="tool-product-card__body tool-product-card__body--compact">
-          <p className="tool-product-card__brand">{option.brand}</p>
-          <p className="tool-product-card__title tool-product-card__title--compact">{displayTitle}</p>
-          {price != null ? (
-            <p className="tool-product-card__price">
-              ${price.toFixed(2)}
-              {priceSource ? <span>via {priceSource}</span> : null}
-            </p>
-          ) : null}
-          <span className="mt-1 inline-flex items-center gap-1 text-[0.64rem] font-semibold text-[var(--color-accent-dark)]">
-            {cta}
-            <span aria-hidden className="transition duration-200 group-hover:translate-x-0.5">→</span>
-          </span>
-        </div>
-      </button>
-
+    <div className="tool-card tool-card--interactive tool-product-card tool-product-card--rich">
       {compareHref ? (
-        <Link
-          href={compareHref}
-          aria-label={`Compare ${option.brand} ${displayTitle}`}
-          className="absolute right-2 top-2 z-10 rounded-full border border-[rgba(215,161,175,0.5)] bg-white/95 px-2.5 py-1 text-[0.62rem] font-semibold text-[var(--color-accent-dark)] shadow-sm transition hover:bg-[#fdf1f4]"
-        >
+        <Link href={compareHref} aria-label={`Compare ${fullName}`} className="tool-product-card__compare-pill">
           Compare →
         </Link>
       ) : null}
+      <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt={option.model} className="tool-product-card__image" />
+        ) : (
+          <span className="tool-product-card__image-fallback">{option.brand}</span>
+        )}
+      </div>
+      <div className="tool-product-card__body">
+        <p className="tool-product-card__brand">{option.brand}</p>
+        <p className="tool-product-card__title">{displayTitle}</p>
+        {price != null ? (
+          <p className="tool-product-card__price">
+            ${price.toFixed(2)}
+            {priceSource ? <span>via {priceSource}</span> : null}
+          </p>
+        ) : null}
+        <div className="tool-product-card__actions">
+          {primaryUrl ? (
+            <a
+              href={primaryUrl}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              onClick={() => track('babylist', primaryUrl)}
+              className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
+            >
+              {primaryIsBabylist ? <BabylistHeartIcon className="shrink-0" /> : null}
+              <span>{primaryLabel ?? 'Add to Babylist'} →</span>
+            </a>
+          ) : null}
+          {amazonUrl ? (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              onClick={() => track('amazon', amazonUrl)}
+              className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
+            >
+              <span>Shop on</span>
+              <AmazonMark className="shrink-0 translate-y-[1px]" />
+              <span aria-hidden="true">→</span>
+            </a>
+          ) : null}
+          <div className="tool-card-secondary">
+            <button
+              type="button"
+              onClick={onSelect}
+              className="tool-card-secondary__action tool-card-secondary__action--compat w-full"
+              aria-label={`${cta} for ${fullName}`}
+            >
+              <span className="tool-card-secondary__text">
+                <span className="tool-card-secondary__title">{cta}</span>
+                <span className="tool-card-secondary__hint">See what clicks in</span>
+              </span>
+              <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -365,6 +406,45 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         : option.macroBabyPrice != null
           ? 'MacroBaby'
           : null;
+
+    // Affiliate CTAs, matching the finder/results cards: a primary (direct →
+    // Babylist → MacroBaby → Bombi → Babylist brand-store fallback) plus Amazon.
+    // Travel-system-only seats (PIPA urbn) never get a solo buy link.
+    const kind: 'stroller' | 'carSeat' = lookupMode === 'stroller' ? 'stroller' : 'carSeat';
+    const shopKind = lookupMode === 'stroller' ? 'stroller' : 'carseat';
+    const isTsOnly = lookupMode === 'carSeat' && Boolean((option as TravelSystemCarSeatOption).travelSystemOnly);
+    const directUrl = isTsOnly ? null : getDirectAffiliateLink(option.brand, option.model);
+    const realBabylist = option.babylistUrl
+      ? babylistAffiliateUrl(option.brand, option.model, kind, option.babylistUrl)
+      : null;
+    const primaryKey = directUrl
+      ? 'direct'
+      : realBabylist
+        ? 'babylist'
+        : option.macroBabyUrl
+          ? 'macrobaby'
+          : option.bombiUrl
+            ? 'bombi'
+            : 'babylist';
+    const primaryUrl = isTsOnly
+      ? null
+      : primaryKey === 'direct'
+        ? directUrl
+        : primaryKey === 'macrobaby'
+          ? option.macroBabyUrl
+          : primaryKey === 'bombi'
+            ? option.bombiUrl
+            : realBabylist ?? babylistBrandShopUrl(option.brand, shopKind);
+    const primaryLabel =
+      primaryKey === 'direct'
+        ? directShopLabel(option.brand)
+        : primaryKey === 'macrobaby'
+          ? 'Shop MacroBaby'
+          : primaryKey === 'bombi'
+            ? 'Shop Bombi'
+            : 'Add to Babylist';
+    const amazonUrl = isTsOnly ? null : option.amazonUrl ?? amazonSearchShopUrl(`${option.brand} ${option.model}`);
+
     return (
       <BrowseCard
         key={value}
@@ -379,6 +459,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
             ? `/tools/compare?ids=${encodeURIComponent(travelSystemSlug(option))}`
             : null
         }
+        primaryUrl={primaryUrl}
+        primaryLabel={primaryLabel}
+        primaryIsBabylist={primaryKey === 'babylist'}
+        amazonUrl={amazonUrl}
       />
     );
   };

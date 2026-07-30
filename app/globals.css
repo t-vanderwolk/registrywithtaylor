@@ -3340,6 +3340,7 @@ img {
 .tool-brand-card:hover .tool-brand-card__count { color: #704756; }
 
 .tool-product-card {
+  position: relative;
   overflow: visible;
   border-color: rgba(215, 161, 175, 0.24);
   background: #fff;
@@ -3455,6 +3456,45 @@ img {
   cursor: default;
   opacity: 0.6;
   pointer-events: none;
+}
+
+/* ── Shared "Compare" corner pill ──────────────────────────────────────────
+   The single, global Compare CTA: a small rounded badge pinned to the top-right
+   corner of every product card (finder, travel-system checker, quiz, blog). */
+.tool-product-card__compare-pill {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(215, 161, 175, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(72, 49, 56, 0.1);
+  backdrop-filter: blur(2px);
+  transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+.tool-product-card__compare-pill:hover {
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(72, 49, 56, 0.14);
+}
+.tool-product-card__compare-pill:focus-visible {
+  outline: 2px solid rgba(120, 52, 70, 0.58);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-product-card__compare-pill { transition: none; }
+  .tool-product-card__compare-pill:hover { transform: none; }
 }
 
 /* ── Blog service / club / subscription / platform / store card ────────────

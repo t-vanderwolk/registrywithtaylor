@@ -307,6 +307,15 @@ function ProductCard({
       className="tool-card tool-card--interactive tool-product-card tool-product-card--rich"
       style={{ '--card-i': String(Math.min(index, 11)) } as CSSProperties}
     >
+      {product.model ? (
+        <Link
+          href={compareHref(brand, product.model)}
+          className="tool-product-card__compare-pill"
+          aria-label={`Compare the ${brand} ${displayTitle} against other strollers`}
+        >
+          Compare →
+        </Link>
+      ) : null}
       <div className="tool-card__media tool-product-card__media">
         <OpenBoxBadge offer={openBoxOffer} />
         {product.image ? (
@@ -391,20 +400,6 @@ function ProductCard({
                 <span className="tool-card-secondary__text">
                   <span className="tool-card-secondary__title">Compatible car seats</span>
                   <span className="tool-card-secondary__hint">See what clicks in</span>
-                </span>
-                <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
-              </Link>
-              <Link
-                href={compareHref(brand, product.model)}
-                className="tool-card-secondary__action tool-card-secondary__action--compare"
-                aria-label={`Compare the ${brand} ${displayTitle} against other strollers`}
-              >
-                <span className="tool-card-secondary__icon" aria-hidden="true">
-                  <CompareGlyph />
-                </span>
-                <span className="tool-card-secondary__text">
-                  <span className="tool-card-secondary__title">Compare</span>
-                  <span className="tool-card-secondary__hint">Line up side by side</span>
                 </span>
                 <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
               </Link>

@@ -6,6 +6,7 @@ import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
 import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
+import { travelSystemSlug } from '@/lib/travelSystemRouting';
 
 type CatalogProductButton = {
   key: 'direct' | 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
@@ -164,6 +165,15 @@ export default function BlogCatalogProductCard({
         .filter(Boolean)
         .join(' ')}
     >
+      {compatHref ? (
+        <Link
+          href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: displayBrand, model: productName }))}`}
+          className="tool-product-card__compare-pill"
+          aria-label={`Compare the ${fullName} against other strollers`}
+        >
+          Compare →
+        </Link>
+      ) : null}
       <div className={`tool-card__media tool-product-card__media${isInline ? ' tool-product-card__media--compact' : ''}`}>
         {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
         {!comingSoon && (openBoxUrl || openBoxPrice != null) ? (

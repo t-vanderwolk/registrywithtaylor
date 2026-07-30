@@ -586,6 +586,15 @@ function ResultCard({
       className="tool-card tool-card--interactive tool-product-card tool-product-card--rich"
       style={{ '--card-i': String(Math.min(index, 11)) } as CSSProperties}
     >
+      {productKind === 'stroller' ? (
+        <Link
+          href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
+          className="tool-product-card__compare-pill"
+          aria-label={`Compare the ${item.brand} ${displayTitle} against other strollers`}
+        >
+          Compare →
+        </Link>
+      ) : null}
       <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -706,25 +715,6 @@ function ResultCard({
             </>
           )}
         </div>
-
-        {productKind === 'stroller' ? (
-          <div className="tool-card-secondary">
-            <Link
-              href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: item.brand, model: item.model }))}`}
-              className="tool-card-secondary__action tool-card-secondary__action--compare"
-              aria-label={`Compare the ${item.brand} ${displayTitle} against other strollers`}
-            >
-              <span className="tool-card-secondary__icon" aria-hidden="true">
-                <CompareGlyph />
-              </span>
-              <span className="tool-card-secondary__text">
-                <span className="tool-card-secondary__title">Compare</span>
-                <span className="tool-card-secondary__hint">Line up side by side</span>
-              </span>
-              <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
-        ) : null}
       </div>
     </article>
   );

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { OpenBoxBadge, BabylistHeartIcon, AmazonMark } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
+import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -893,6 +893,13 @@ export default function StrollerQuiz() {
               const babylistUrl = babylistAffiliateUrl(pick.brand, pick.model, 'stroller', live?.babylistUrl);
               return (
                 <div key={i} className="tool-card tool-product-card">
+                  <Link
+                    href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: pick.brand, model: pick.model }))}`}
+                    className="tool-product-card__compare-pill"
+                    aria-label={`Compare the ${pick.brand} ${pick.model} against other strollers`}
+                  >
+                    Compare →
+                  </Link>
                   <div className="tool-card__media tool-product-card__media">
                     <OpenBoxBadge offer={openBoxOffer} />
                     {imgSrc ? (
@@ -1006,6 +1013,13 @@ export default function StrollerQuiz() {
                   const babylistUrl = babylistAffiliateUrl(s.brand, s.model, 'stroller', s.affiliateUrl);
                   return (
                     <div key={`${s.brand}-${s.model}-${i}`} className="tool-card tool-product-card">
+                      <Link
+                        href={`/tools/compare?ids=${encodeURIComponent(travelSystemSlug({ brand: s.brand, model: s.model }))}`}
+                        className="tool-product-card__compare-pill"
+                        aria-label={`Compare the ${s.brand} ${s.model} against other strollers`}
+                      >
+                        Compare →
+                      </Link>
                       <div className="tool-card__media tool-product-card__media">
                         <OpenBoxBadge offer={s.retailers?.goodbuygear ?? null} />
                         {s.image ? (
