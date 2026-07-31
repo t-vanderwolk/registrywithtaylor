@@ -1,11 +1,14 @@
 import 'server-only';
 
 /**
- * Stripe is loaded via a runtime dynamic import with a non-literal specifier.
- * That keeps type-checking/bundling from statically resolving it (so the app
- * builds even where the package isn't installed), while Node resolves the real
- * `stripe` package at runtime on the server. All Stripe access is funneled
- * through here so the untyped surface stays contained.
+ * Stripe is loaded through Node's native `require` at runtime (via `eval` so the
+ * bundler never sees the specifier and leaves it entirely alone). The real
+ * `stripe` package — a normal dependency in package.json — is resolved from
+ * node_modules on the server dyno. This is deliberately opaque to Next's build
+ * tracer: a statically-analysable import would get bundled and can fail to
+ * resolve in the compiled server output, and it also lets the app type-check
+ * where the package isn't installed. All Stripe access funnels through here so
+ * the untyped surface stays contained.
  */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,9 +16,10 @@ type AnyStripe = any;
 
 let cached: AnyStripe | null = null;
 
-async function loadStripeCtor(): Promise<AnyStripe> {
-  const spec = 'stripe' as string; // non-literal on purpose — see file header
-  const mod: AnyStripe = await import(spec);
+function loadStripeCtor(): AnyStripe {
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-eval
+  const nodeRequire = eval('require') as (id: string) => AnyStripe;
+  const mod: AnyStripe = nodeRequire('stripe');
   return mod?.default ?? mod;
 }
 
@@ -25,7 +29,7 @@ export async function getStripe(): Promise<AnyStripe> {
   if (!key) {
     throw new Error('STRIPE_SECRET_KEY is not configured.');
   }
-  const StripeCtor = await loadStripeCtor();
+  const StripeCtor = loadStripeCtor();
   cached = new StripeCtor(key);
   return cached;
 }
