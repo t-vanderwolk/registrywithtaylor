@@ -25,9 +25,14 @@ function loadStripeCtor(): AnyStripe {
 
 export async function getStripe(): Promise<AnyStripe> {
   if (cached) return cached;
-  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  // GIFT_STRIPE_SECRET_KEY takes precedence so the gift feature uses a key we
+  // control directly. STRIPE_SECRET_KEY on this app is managed/overwritten by an
+  // external Stripe→Heroku credential sync (it force-syncs a restricted key),
+  // so we can't rely on it. Falls back to STRIPE_SECRET_KEY if the gift var is
+  // unset (e.g. local dev).
+  const key = (process.env.GIFT_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY)?.trim();
   if (!key) {
-    throw new Error('STRIPE_SECRET_KEY is not configured.');
+    throw new Error('GIFT_STRIPE_SECRET_KEY is not configured.');
   }
   const StripeCtor = loadStripeCtor();
   cached = new StripeCtor(key);
@@ -35,9 +40,10 @@ export async function getStripe(): Promise<AnyStripe> {
 }
 
 export function getStripeWebhookSecret(): string {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
+  // Same rationale as the secret key — prefer the gift-owned var.
+  const secret = (process.env.GIFT_STRIPE_WEBHOOK_SECRET || process.env.STRIPE_WEBHOOK_SECRET)?.trim();
   if (!secret) {
-    throw new Error('STRIPE_WEBHOOK_SECRET is not configured.');
+    throw new Error('GIFT_STRIPE_WEBHOOK_SECRET is not configured.');
   }
   return secret;
 }
