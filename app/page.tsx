@@ -638,6 +638,33 @@ export default function HomePage() {
 
         <HomeJournalPreview />
 
+        {/* ── Gift a Registry Consult ─────────────────────────────── */}
+        <section className="bg-white py-14 md:py-16">
+          <div className="mx-auto max-w-4xl px-6">
+            <RevealOnScroll>
+              <div className="flex flex-col items-center gap-5 rounded-[1.6rem] border border-[rgba(215,161,175,0.25)] bg-[linear-gradient(180deg,#fffdfb_0%,#fbeef2_100%)] px-8 py-10 text-center shadow-[0_14px_36px_rgba(72,49,56,0.06)] sm:flex-row sm:justify-between sm:text-left">
+              <div>
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent-dark)]">
+                  For someone expecting
+                </p>
+                <h2 className="mt-2 font-serif text-[1.8rem] leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-[2.1rem]">
+                  Gift a Registry Consult
+                </h2>
+                <p className="mt-2 max-w-md text-[0.95rem] leading-7 text-neutral-600">
+                  The baby shower gift that actually helps — a prepaid 1-hour session they book on their own time.
+                </p>
+              </div>
+              <Link
+                href="/gift"
+                className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[var(--color-cta-pink-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]"
+              >
+                Gift a Consult — $75 →
+              </Link>
+              </div>
+            </RevealOnScroll>
+          </div>
+        </section>
+
         <section className="bg-[linear-gradient(180deg,#fdf9f5_0%,var(--color-paper)_100%)] py-20 md:py-24">
           <div className="mx-auto max-w-3xl px-6">
             <NewsletterCapture />

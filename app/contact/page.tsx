@@ -543,6 +543,13 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
               <p className="mt-2 text-[0.78rem] text-neutral-500">
                 1 Hour · Virtual · US Nationwide · Full refund if cancelled 24+ hours before
               </p>
+              <p className="mt-3 text-[0.85rem] text-neutral-600">
+                Buying for an expecting friend?{' '}
+                <Link href="/gift" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                  Gift a Registry Consult
+                </Link>
+                .
+              </p>
             </div>
           </RevealOnScroll>
         </MarketingSection>

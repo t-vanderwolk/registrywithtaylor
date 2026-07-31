@@ -422,6 +422,13 @@ export default function AboutPage() {
             <div className="text-center">
               <a href="/book" className={CTA_CLASS}>Book Your Registry Consultation</a>
               <p className="mt-2 text-sm text-neutral-500">$75 · 1 hour · virtual · US nationwide · full refund if cancelled 24 hours before.</p>
+              <p className="mt-4 text-sm text-neutral-600">
+                Know someone expecting?{' '}
+                <a href="/gift" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                  Gift a Registry Consult
+                </a>{' '}
+                — a baby shower gift they’ll actually use.
+              </p>
             </div>
           </div>
         </MarketingSection>

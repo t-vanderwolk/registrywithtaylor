@@ -113,6 +113,34 @@ const academyFaqs: FAQEntry[] = [
   },
 ];
 
+const giftFaqs: FAQEntry[] = [
+  {
+    question: 'Can I buy a Registry Consult as a gift?',
+    answer:
+      'Yes. You can gift a prepaid 1-hour virtual Registry Consult for $75 — a thoughtful baby shower or new-parent gift. Purchase it on the Gift a Consult page in about a minute, and the recipient books their own time later. No scheduling needed on your end.',
+  },
+  {
+    question: 'How does the recipient redeem their gift?',
+    answer:
+      'After you purchase, the recipient receives a personalized certificate with a unique redemption code (we email it to them, or you can choose to deliver it yourself). They enter the code on the redeem page and book a time for their session — the consult is already paid for, so there’s nothing more for them to pay.',
+  },
+  {
+    question: 'Do I need to pick a date or time when I buy a gift?',
+    answer:
+      'No. Gifting is payment only — you never choose a time. The recipient picks a session that works for their schedule whenever they’re ready to redeem, so it’s perfect even if you don’t know their availability.',
+  },
+  {
+    question: 'Does a gifted Registry Consult expire?',
+    answer:
+      'The certificate is intended for use within a reasonable window while the recipient is preparing for baby. If a code ever gives you trouble, just reply to the certificate email or reach out through the contact form and Taylor will help sort it out.',
+  },
+  {
+    question: 'Can I include a personal message with the gift?',
+    answer:
+      'Yes. When you purchase, you can add a short note that appears on the recipient’s certificate — a nice touch for a shower or a “congratulations” gift.',
+  },
+];
+
 const generalFaqs: FAQEntry[] = [
   {
     question: 'What areas does Taylor serve?',
@@ -192,6 +220,27 @@ export default function FAQPage() {
             ) : null}
 
             <RevealOnScroll delayMs={200}>
+              <div className="space-y-6">
+                <div>
+                  <SectionDivider />
+                  <H2 className="text-neutral-900">Gifting a Registry Consult</H2>
+                </div>
+                <FAQAccordion items={giftFaqs} />
+                <p className="text-[0.9rem] text-neutral-600">
+                  Ready to gift one?{' '}
+                  <Link href="/gift" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                    Gift a Registry Consult
+                  </Link>
+                  , or{' '}
+                  <Link href="/redeem" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                    redeem a gift code
+                  </Link>
+                  .
+                </p>
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delayMs={240}>
               <div className="space-y-6">
                 <div>
                   <SectionDivider />
