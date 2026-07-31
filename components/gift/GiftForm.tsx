@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useState, type FormEvent } from 'react';
 
-type Mode = 'myself' | 'gift';
 type Delivery = 'now' | 'self';
 
 const inputClass =
@@ -11,7 +9,6 @@ const inputClass =
 const labelClass = 'mb-1.5 block text-[0.8rem] font-semibold text-neutral-700';
 
 export default function GiftForm() {
-  const [mode, setMode] = useState<Mode>('myself');
   const [delivery, setDelivery] = useState<Delivery>('now');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,37 +47,7 @@ export default function GiftForm() {
 
   return (
     <div>
-      {/* Who is this for */}
-      <fieldset className="grid gap-3 sm:grid-cols-2">
-        <legend className="sr-only">Who is this booking for?</legend>
-        <ToggleCard
-          checked={mode === 'myself'}
-          onClick={() => setMode('myself')}
-          title="I'm booking for myself"
-          hint="Pick a time and pay — you're all set."
-        />
-        <ToggleCard
-          checked={mode === 'gift'}
-          onClick={() => setMode('gift')}
-          title="I'm giving this as a gift"
-          hint="Purchase now; they book their own time."
-        />
-      </fieldset>
-
-      {mode === 'myself' ? (
-        <div className="mt-6 text-center">
-          <p className="text-[0.95rem] leading-7 text-neutral-600">
-            Great — you&rsquo;ll pick your time and pay on the next step.
-          </p>
-          <Link
-            href="/book"
-            className="mt-4 inline-flex items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-6 py-3 text-[0.95rem] font-semibold text-white transition hover:bg-[var(--color-cta-pink-hover)]"
-          >
-            Continue to booking →
-          </Link>
-        </div>
-      ) : (
-        <form className="mt-6 space-y-5" onSubmit={handleGiftSubmit}>
+        <form className="space-y-5" onSubmit={handleGiftSubmit}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className={labelClass} htmlFor="recipientName">Recipient&rsquo;s name</label>
@@ -133,7 +100,6 @@ export default function GiftForm() {
             Secure checkout via Stripe. The recipient books their own time after redeeming.
           </p>
         </form>
-      )}
     </div>
   );
 }

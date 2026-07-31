@@ -507,6 +507,13 @@ export default function ServicesPage() {
               <Link href="#free-guide" className={CTA_GHOST}>Free Stroller Guide</Link>
             </div>
             <p className="mt-4 text-[0.76rem] text-neutral-500">$75 · 1 Hour · Virtual · US Nationwide · Full refund 24+ hrs before</p>
+            <p className="mt-6 text-[0.9rem] text-neutral-700">
+              Shopping for an expecting friend?{' '}
+              <Link href="/gift" className="link-underline font-semibold text-[var(--color-accent-dark)]">
+                Gift a Registry Consult
+              </Link>{' '}
+              — the perfect baby shower gift.
+            </p>
           </RevealOnScroll>
         </section>
       </main>

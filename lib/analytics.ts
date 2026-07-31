@@ -4,7 +4,7 @@ import { event as sendGoogleAnalyticsEvent, pageview as sendGoogleAnalyticsPagev
 type AnalyticsPayloadValue = string | number | boolean | null | undefined;
 
 export type AnalyticsPayload = Record<string, AnalyticsPayloadValue>;
-export type AnalyticsPageType = 'homepage' | 'blog' | 'guide' | 'services' | 'contact' | 'book' | 'other';
+export type AnalyticsPageType = 'homepage' | 'blog' | 'guide' | 'services' | 'contact' | 'book' | 'gift' | 'other';
 
 type PageAnalyticsContext = {
   path: string;
@@ -206,6 +206,10 @@ export function getAnalyticsPageType(path: string): AnalyticsPageType {
 
   if (normalizedPath === '/contact' || normalizedPath.startsWith('/contact/')) {
     return 'contact';
+  }
+
+  if (normalizedPath === '/gift' || normalizedPath === '/redeem') {
+    return 'gift';
   }
 
   if (BOOKING_PATH_PREFIXES.some((prefix) => normalizedPath === prefix || normalizedPath.startsWith(`${prefix}/`))) {
