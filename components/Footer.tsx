@@ -6,6 +6,7 @@ import { ACADEMY_ENABLED } from '@/lib/featureFlags';
 
 const exploreLinks = [
   { label: 'Services', href: '/services' },
+  { label: 'Gift a Consult', href: '/gift' },
   { label: 'Journal', href: '/blog' },
   { label: 'About', href: '/about' },
   ...(ACADEMY_ENABLED ? [{ label: 'Academy', href: '/academy' }] : []),

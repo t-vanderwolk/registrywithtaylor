@@ -19,6 +19,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/'), changeFrequency: 'weekly', priority: 1.0 },
     { url: buildUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
     { url: buildUrl('/book'), changeFrequency: 'monthly', priority: 0.8 },
+    // Gift a Registry Consult — buyer-facing landing; /redeem is intentionally
+    // low-priority (recipients reach it from their certificate, not search).
+    { url: buildUrl('/gift'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: buildUrl('/redeem'), changeFrequency: 'yearly', priority: 0.2 },
     { url: buildUrl('/about'), changeFrequency: 'monthly', priority: 0.8 },
     // "Know Before You Buy" — the educational entry point before the tools.
     { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.95 },
