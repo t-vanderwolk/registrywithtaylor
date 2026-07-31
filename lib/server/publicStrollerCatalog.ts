@@ -411,7 +411,8 @@ export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<Tra
         brand: brandRow.brand,
         model: product.model,
         displayName: `${brandRow.brand} ${product.model}`.replace(/\s+/g, ' ').trim(),
-        summary: null,
+        // Same curated summary the finder shows, so the checker cards match.
+        summary: getStrollerProfile(brandRow.brand, product.model)?.description ?? null,
         strollerCategory: typeRow.category,
         babylistUrl: product.retailers.babylist?.url ?? null,
         babylistImage: product.source === 'babylist' ? product.image : null,
