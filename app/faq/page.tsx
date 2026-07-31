@@ -8,7 +8,7 @@ import { H2 } from '@/components/ui/MarketingHeading';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import SectionDivider from '@/components/ui/SectionDivider';
 import MotionCtaContent from '@/components/ui/MotionCtaContent';
-import { buildMarketingMetadata } from '@/lib/marketing/metadata';
+import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 import { isAcademyEnabled } from '@/lib/featureFlags';
 
 export const metadata = buildMarketingMetadata({
@@ -161,9 +161,35 @@ const generalFaqs: FAQEntry[] = [
 
 export default function FAQPage() {
   const academyEnabled = isAcademyEnabled();
+
+  // FAQPage schema mirrors the visible sections (academy only when enabled) so
+  // every question — including gifting — is eligible for FAQ rich results.
+  const faqSchemaEntries: FAQEntry[] = [
+    ...consultationFaqs,
+    ...servicesFaqs,
+    ...carSeatFaqs,
+    ...(academyEnabled ? academyFaqs : []),
+    ...giftFaqs,
+    ...generalFaqs,
+  ];
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${SITE_URL}/faq#faq`,
+    mainEntity: faqSchemaEntries.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  };
+
   return (
     <SiteShell currentPath="/faq">
       <main className="site-main">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+        />
         <Hero
           className="homepage-hero"
           eyebrow="FAQ"
