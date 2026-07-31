@@ -99,6 +99,10 @@ export default function GiftForm() {
           <p className="text-center text-[0.78rem] leading-6 text-neutral-500">
             Secure checkout via Stripe. The recipient books their own time after redeeming.
           </p>
+          <p className="text-center text-[0.72rem] leading-5 text-neutral-400">
+            Gift certificates are valid for 12 months from purchase, non-refundable, and transferable. Locks in
+            today’s price. See our <a href="/terms" className="underline underline-offset-2">Terms</a> for details.
+          </p>
         </form>
     </div>
   );

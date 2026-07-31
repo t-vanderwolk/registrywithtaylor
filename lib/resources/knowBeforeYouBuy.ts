@@ -156,7 +156,7 @@ export const carSeatGlossary: GlossaryTerm[] = [
   {
     term: 'Car Seat Adapter',
     definition: 'A little bracket that lets a certain car seat click onto a certain stroller.',
-    whyItMatters: 'Same brand usually just clicks. Mix two brands and you almost always need the exact adapter, which is the number one thing people order wrong.',
+    whyItMatters: 'Same-brand systems are often designed to connect directly — but not always. Mix two brands and you almost always need the exact adapter, which is the number one thing people order wrong. Always confirm compatibility for your exact stroller and infant-seat models.',
   },
   {
     term: 'Load Leg',
@@ -209,7 +209,7 @@ export const strollerGlossary: GlossaryTerm[] = [
   {
     term: 'Bassinet',
     definition: 'A flat, enclosed carrycot that snaps on so a newborn can lie all the way down.',
-    whyItMatters: 'Fully flat is best for tiny lungs and spines. Some even double as a safe place to sleep overnight.',
+    whyItMatters: 'A fully flat recline supports a newborn-friendly stroller setup. Only use a bassinet for sleep when the manufacturer explicitly approves that specific bassinet and configuration for overnight sleep.',
   },
   {
     term: 'Near Flat Recline',

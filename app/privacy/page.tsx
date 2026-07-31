@@ -35,11 +35,11 @@ export default function PrivacyPage() {
           head={['Category', 'What We Collect & Why']}
           rows={[
             ['Contact Information', 'Name, email address, and any other details you provide when booking a consultation, filling out our intake form, or subscribing to our email list. Used to schedule your session, send follow-up notes, and deliver requested content.'],
-            ['Booking & Intake Form Data', 'Due date, home setup details, vehicle type, budget range, stroller/gear questions, and current registry items. Used solely to prepare personalised recommendations before your consultation.'],
-            ['Payment Information', 'Payment is processed by a third-party processor (e.g., Stripe or Square). We do not store your full credit card number, CVV, or bank account details on our servers.'],
+            ['Booking & Intake Form Data', 'Due date, home setup details, vehicle type, budget range, stroller/gear questions, and current registry items. Used solely to prepare personalized recommendations before your consultation.'],
+            ['Payment Information', 'Payment is processed by Stripe, our third-party payment processor. We do not store your full credit card number, CVV, or bank account details on our servers.'],
             ['Email Subscription Data', 'Email address and preferences provided when signing up for our free Baby Prep Starter Guide or newsletter. Used to deliver the requested content and relevant updates.'],
-            ['Website Usage Data', 'Pages visited, time on site, device type, browser, and IP address — collected automatically via cookies and analytics tools (e.g., Google Analytics). Used to improve our website experience.'],
-            ['Communications', 'Any messages, emails, or enquiries you send us directly. Used to respond to your questions and provide support.'],
+            ['Website Usage Data', 'Pages visited, time on site, device type, browser, and IP address — collected automatically via cookies and Google Analytics. Used to improve our website experience.'],
+            ['Communications', 'Any messages, emails, or inquiries you send us directly. Used to respond to your questions and provide support.'],
           ]}
         />
       </LegalSection>
@@ -63,9 +63,9 @@ export default function PrivacyPage() {
         <ul className="list-disc space-y-2 pl-5">
           <li>
             <span className="font-medium text-charcoal">Service Providers:</span> We use trusted third-party tools
-            to operate our business, including scheduling software (e.g., Calendly), email marketing (e.g.,
-            Flodesk or Mailchimp), payment processing (e.g., Stripe or Square), and website hosting. These
-            providers access your data only as needed to perform services on our behalf and are bound by
+            to operate our business, including scheduling (Calendly), transactional and consultation email
+            (SendGrid), payment processing (Stripe), website analytics (Google Analytics), and website hosting.
+            These providers access your data only as needed to perform services on our behalf and are bound by
             confidentiality obligations.
           </li>
           <li>

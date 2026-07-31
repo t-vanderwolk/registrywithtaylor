@@ -30,7 +30,7 @@ export async function generateMetadata({
     const brand = canonicalBrand(carSeat);
     return buildMarketingMetadata({
       title: `${brand} Car Seat Compatibility — Which Strollers Fit | Taylor-Made Baby Co.`,
-      description: `See every stroller that works with ${brand} infant car seats — direct-fit and adapter-required — with live prices and where to buy.`,
+      description: `See which strollers work with ${brand} infant car seats — direct-fit and adapter-required — with live prices and where to buy.`,
       path: `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}`,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${brand} car seat compatibility`,
@@ -85,6 +85,14 @@ export default async function TravelSystemCompatibilityPage() {
           <div className="mt-10">
             <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
           </div>
+
+          <p className="mx-auto mt-8 max-w-4xl text-[0.8rem] leading-6 text-neutral-500">
+            Compatibility is based on manufacturer documentation and our current stored data, and reflects
+            stated fit — not a physical test by Taylor-Made Baby Co. unless noted. Product generations and
+            adapter requirements can change. Confirm the exact model names and follow the car seat and
+            stroller manuals before purchase or use. This tool is educational and does not replace guidance
+            from a certified Child Passenger Safety Technician (CPST) or professional car seat installation.
+          </p>
         </MarketingSection>
 
         <ToolContactPrompt prompt="Still unsure whether your car seat truly fits your stroller — or which adapter you actually need? Message Taylor and she'll confirm the real-world fit for your setup." />

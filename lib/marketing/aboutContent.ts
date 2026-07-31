@@ -39,7 +39,7 @@ export const ABOUT_BIO = [
   'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
   'Baby gear decisions arrive fast and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
   'My role is not to hand you a checklist and move on. It is to sit with you in the details, your home layout, your vehicle, your family plans, your comfort with risk and spending, and help you make the specific choices that will serve you best.',
-  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalised, independent recommendations. No brand sponsorships, no paid placements, no generic advice. Where I link to products, some of those are affiliate links, and what I recommend to you never changes because of it.',
+  'That is a responsibility I do not take lightly. And it is why every family I work with receives personalized, independent recommendations — never chosen because a brand paid to be included, and never generic. Where I link to products, some of those are affiliate links, and what I recommend to you never changes because of it.',
 ];
 
 export const ABOUT_ORIGIN = {

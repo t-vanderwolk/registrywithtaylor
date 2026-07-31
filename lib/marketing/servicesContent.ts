@@ -49,20 +49,20 @@ export const SERVICES_WHY = {
   paragraphs: [
     'Baby gear decisions arrive fast, compound quickly, and carry more weight than most first-time parents expect.',
     'The stroller you choose affects whether you can fit through your apartment door, whether it clips into your specific car seat, and whether you can navigate the neighbourhood you walk every day. The car seat you choose is a safety decision that most parents make without ever having the full picture.',
-    'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Instagram recommendations are paid to say what they say. And by the time you realise a purchase was wrong, the return window has closed.',
+    'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Many online recommendations are shaped by sponsorships, affiliate incentives, or limited personal context. And by the time you realize a purchase was wrong, the return window has closed.',
     'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. Before you spend a dollar.',
   ],
 } as const;
 
 export const SERVICES_ROI = {
   heading: 'The Real Cost of Getting Baby Gear Wrong',
-  intro: 'Most families do not realise how expensive a single wrong decision is until they are living with it.',
+  intro: 'Most families do not realize how expensive a single wrong decision is until they are living with it.',
   rows: [
-    { mistake: 'Wrong car seat for your car', cost: '$600 to $1,100', why: 'Bought based on Instagram, not LATCH compatibility', prevents: 'Taylor checks car seat fit against your exact vehicle model' },
+    { mistake: 'Wrong car seat for your car', cost: '$600 to $1,100', why: 'Bought on hype, not real fit for the car', prevents: 'Taylor flags fit considerations using seat and vehicle dimensions and manufacturer guidance' },
     { mistake: 'Infant seat that lasts 6 months', cost: '$180 to $350', why: 'Did not account for baby’s weight trajectory', prevents: 'Taylor explains the convertible vs infant decision honestly' },
-    { mistake: 'Nursery furniture too big', cost: '$400 to $900', why: 'Ordered from a catalogue, not a real room', prevents: 'Taylor plans around your actual room dimensions' },
+    { mistake: 'Nursery furniture too big', cost: '$400 to $900', why: 'Ordered from a catalog, not a real room', prevents: 'Taylor plans around your actual room dimensions' },
     { mistake: 'Duplicate registry items', cost: '$200 to $500', why: 'Multiple people bought variations of the same thing', prevents: 'Taylor structures the registry so guests buy distinctly' },
-    { mistake: 'Travel system not compatible', cost: '$250 to $700', why: 'Did not verify car seat clips to stroller frame', prevents: 'Taylor confirms compatibility before you register' },
+    { mistake: 'Travel system not compatible', cost: '$250 to $700', why: 'Did not confirm the seat connects to the stroller frame', prevents: 'Taylor checks stated compatibility before you register' },
   ],
   total: { label: 'Total preventable waste', cost: '$1,630 to $3,550', note: 'One consultation: $75' },
 } as const;
@@ -106,14 +106,14 @@ export const SERVICES_COMPARE = {
   rows: [
     { feature: 'Tailored to YOUR vehicle', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Stroller compatibility verified', values: ['yes', 'partial', 'no', 'no', 'partial'] },
-    { feature: 'No brand sponsorships or paid placements', values: ['yes', 'no', 'varies', 'varies', 'no'] },
+    { feature: 'Never pay-to-recommend in your session', values: ['yes', 'no', 'varies', 'varies', 'no'] },
     { feature: 'Written notes included', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Car seat safety context', values: ['yes', 'partial', 'partial', 'no', 'partial'] },
     { feature: 'Full registry strategy', values: ['yes', 'no', 'partial', 'partial', 'no'] },
     { feature: 'One-to-one session', values: ['yes', 'no', 'no', 'no', 'partial'] },
     { feature: 'Nursery sizing for real room', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Covers feeding + travel', values: ['yes', 'partial', 'partial', 'partial', 'no'] },
-    { feature: 'Independent from all brands', values: ['yes', 'no', 'varies', 'varies', 'no'] },
+    { feature: 'Independent recommendations', values: ['yes', 'no', 'varies', 'varies', 'no'] },
   ] as Array<{ feature: string; values: Array<'yes' | 'no' | 'partial' | 'varies'> }>,
 } as const;
 
@@ -172,12 +172,12 @@ export const SERVICES_AVAILABILITY = {
 
 export const SERVICES_CREDENTIALS = {
   heading: 'Why Book with Taylor?',
-  lead: 'Taylor is a certified baby registry consultant with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad. She has helped 200+ families, and takes no sponsorships or paid placements from the brands she recommends.',
+  lead: 'Taylor is a Tot Squad–certified specialist — the credential behind Target’s Baby Concierge program — with hands-on baby gear experience at Strolleria and Pottery Barn Kids. She has helped 200+ families. Her consultation recommendations are independent and never chosen because a brand paid to be included.',
   items: [
-    { title: 'Tot Squad Certified Specialist', body: 'The credential behind Target’s Baby Concierge programme, 200+ stores nationwide.' },
-    { title: 'Strolleria Baby Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a leading baby specialty showroom.' },
-    { title: 'Pottery Barn Kids Nursery Advisor', body: 'Furniture sizing, safe sleep layout, and nursery design for real rooms.' },
-    { title: 'No Brand Deals or Paid Placements', body: 'Every recommendation is based on your situation. No brand pays to be recommended, and nothing in your session is sponsored.' },
+    { title: 'Tot Squad–Certified Specialist', body: 'The credential behind Target’s Baby Concierge program, 200+ stores nationwide.' },
+    { title: 'Former Strolleria Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a respected baby specialty showroom.' },
+    { title: 'Former Pottery Barn Kids Nursery Advisor', body: 'Furniture sizing, safe sleep layout, and nursery design for real rooms.' },
+    { title: 'Independent Recommendations', body: 'Every recommendation is based on your situation, never chosen because a brand paid to be included. Some links are affiliate links, which never changes what Taylor recommends.' },
   ],
 } as const;
 
@@ -188,7 +188,7 @@ export const SERVICES_PRICING = {
     'Pre-session personal intake review',
     'Stroller, car seat, nursery and registry guidance',
     'Written follow-up notes after the session',
-    'Independent advice, no brand sponsorship',
+    'Independent advice — never pay-to-recommend',
     'Full refund if cancelled 24+ hours before',
   ],
   contact: 'info@taylormadebabyco.com',
@@ -222,7 +222,7 @@ export const SERVICES_FAQ = [
   {
     question: 'What does a baby registry consultation include?',
     answer:
-      'Every Taylor-Made Baby Co. consultation includes: pre-session intake review by Taylor personally, a 1-hour video call covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy, and written follow-up notes summarising your recommendations and next steps. No upselling, no brand sponsorship, and no product is recommended because it pays.',
+      'Every Taylor-Made Baby Co. consultation includes: pre-session intake review by Taylor personally, a 1-hour video call covering stroller selection, car seat compatibility, nursery planning, feeding gear, and registry strategy, and written follow-up notes summarizing your recommendations and next steps. No upselling, and no product is recommended because it paid to be included.',
   },
   {
     question: 'Is the baby registry consultation virtual or in-person?',
@@ -247,7 +247,7 @@ export const SERVICES_FAQ = [
   {
     question: 'What stroller and car seat brands does Taylor cover?',
     answer:
-      'Taylor has hands-on experience with all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Chicco, Graco, Maxi-Cosi, and Britax. Every recommendation is based on your vehicle, home, lifestyle, and budget. No brand sponsors Taylor-Made Baby Co. or pays to be recommended. Some product links on the site are affiliate links that may earn a commission at no extra cost to you, and that never influences what Taylor recommends in your session.',
+      'Taylor has hands-on experience with all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Chicco, Graco, Maxi-Cosi, and Britax. Every recommendation is based on your vehicle, home, lifestyle, and budget. No brand pays to be recommended in your consultation. Some product links on the site are affiliate links that may earn a commission at no extra cost to you, and that never influences what Taylor recommends in your session.',
   },
   {
     question: 'Is Taylor-Made Baby Co. available outside of Phoenix, AZ?',

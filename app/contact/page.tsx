@@ -48,10 +48,10 @@ function isServiceKey(value: string): value is ServiceKey {
 }
 
 const TRUST_BADGES = [
-  'Tot Squad Certified Specialist',
+  'Tot Squad–Certified Specialist',
   'Hands-On Baby Gear Experience',
   '200+ Families Helped',
-  'No Brand Sponsorships',
+  'Independent Recommendations',
   'Response Within 24 Hours',
   'Virtual · US Nationwide',
 ];
@@ -75,11 +75,11 @@ const PROCESS_STEPS = [
 ];
 
 const CREDENTIALS = [
-  'Tot Squad Certified Specialist — the certification behind Target’s Baby Concierge programme',
-  'Strolleria Baby Gear Specialist — years comparing 100+ strollers and travel systems hands-on',
-  'Pottery Barn Kids Nursery Advisor — real furniture and nursery planning experience',
+  'Tot Squad–Certified Specialist — the certification behind Target’s Baby Concierge program',
+  'Former Strolleria Gear Specialist — years comparing 100+ strollers and travel systems hands-on',
+  'Former Pottery Barn Kids Nursery Advisor — real furniture and nursery planning experience',
   '200+ Families Helped — across virtual consultations and in-person retail',
-  'No Brand Sponsorships — no brand pays to be recommended, and no paid placements',
+  'Independent Recommendations — no brand pays to be recommended in a consultation; affiliate links are disclosed',
 ];
 
 const BOOKING_TIERS = [
@@ -109,7 +109,7 @@ const BOOKING_TIERS = [
 const LEAD_MAGNET_BULLETS = [
   'Registry strategy overview — what to add now, what to wait on, what to skip entirely',
   'Stroller type decision tree — 6 questions that narrow 300 options to 3',
-  'Car seat compatibility checklist — LATCH, base fit, and vehicle considerations',
+  'Car seat compatibility checklist — base type, fit, and vehicle considerations from manufacturer specs',
   'Nursery planning timeline — what to buy by trimester',
   'Baby gear budget guide — where to spend, where to save, what to borrow',
   'Taylor’s one-line verdict on the 10 most-bought baby gear items',
@@ -149,7 +149,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'Is Taylor-Made Baby Co. affiliated with any baby gear brands?',
     answer:
-      'No. Taylor-Made Baby Co. accepts no sponsorships, paid placements, or brand partnerships, and no brand pays to be recommended. Recommendations are based solely on fit for the parent’s specific home, car, routine, and budget — the same framework Taylor applied during her years as a hands-on specialist at Strolleria and as a certified Tot Squad consultant. Some product links on the site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you. That income never influences which products Taylor recommends.',
+      'Consultation recommendations are independent and never chosen because a brand paid to be included. They are based solely on fit for the parent’s specific home, car, routine, and budget — the same framework Taylor applied during her years as a hands-on specialist at Strolleria and as a Tot Squad–certified specialist. Some product links on the site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you, and that never influences what Taylor recommends. Taylor-Made Baby Co. may also work with select brands on clearly disclosed editorial or content partnerships, which are always separate from what Taylor recommends in your session.',
   },
   {
     question: 'What happens after I submit the contact form?',

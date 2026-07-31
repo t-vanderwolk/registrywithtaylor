@@ -15,7 +15,7 @@ export const QUIZ_HERO = {
     'Recommendations powered by Taylor, Certified Tot Squad Specialist with hands-on baby gear experience and 200+ families helped.',
   // No "zero affiliate commission" claim — this tool links to retailers through
   // affiliate links. The honest version of the claim lives in QUIZ_TRUST below.
-  freebadges: ['Free', 'Instant results', 'No sign-up required', 'No brand sponsorships'],
+  freebadges: ['Free', 'Instant results', 'No sign-up required', 'Independent results'],
 };
 
 export const QUIZ_INTRO = {
@@ -164,8 +164,8 @@ export const QUIZ_CREATOR = {
       body: 'Real-world stroller recommendation experience across 200+ personal consultations.',
     },
     {
-      title: 'No Brand Deals or Paid Placements',
-      body: 'No brand pays to appear here. Some buy links are affiliate links that may earn a commission, and that never changes which stroller the quiz recommends.',
+      title: 'Independent Results',
+      body: 'No brand pays to be recommended by the quiz. Some buy links are affiliate links that may earn a commission, and that never changes which stroller the quiz recommends.',
     },
   ],
 };
@@ -231,7 +231,7 @@ export const QUIZ_FAQ = [
   {
     question: 'What stroller brands does the quiz cover?',
     answer:
-      'The stroller quiz covers all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Babyzen YOYO, Chicco, and Graco. Recommendations are based on your specific answers. No brand pays to be included or ranked, and there are no sponsorships or paid placements. Some buy links are affiliate links, which means Taylor-Made Baby Co. may earn a commission at no extra cost to you — that never affects which stroller the quiz recommends.',
+      'The stroller quiz covers all major brands including UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, Mockingbird, Doona, Babyzen YOYO, Chicco, and Graco. Recommendations are based on your specific answers. No brand pays to be included or ranked. Some buy links are affiliate links, which means Taylor-Made Baby Co. may earn a commission at no extra cost to you — that never affects which stroller the quiz recommends.',
   },
   {
     question: 'Is the stroller quiz free?',

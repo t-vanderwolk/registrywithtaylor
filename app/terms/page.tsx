@@ -82,7 +82,7 @@ export default function TermsPage() {
 
       <LegalSection n="04" title="Payment Terms">
         <p>
-          All consultation fees are due in full at the time of booking. By completing a booking, you authorise
+          All consultation fees are due in full at the time of booking. By completing a booking, you authorize
           Taylor-Made Baby Co. (or its payment processor) to charge the applicable fee to your provided payment
           method.
         </p>
@@ -91,6 +91,21 @@ export default function TermsPage() {
           <li>All prices are listed in US Dollars (USD) and are exclusive of any applicable taxes in your jurisdiction.</li>
           <li>Payment is processed by a third-party payment processor. Taylor-Made Baby Co. does not store your full payment card details.</li>
           <li>If a payment fails, your booking will not be confirmed. You will be notified and given the opportunity to re-submit payment.</li>
+        </ul>
+      </LegalSection>
+
+      <LegalSection n="04a" title="Gift Certificates">
+        <p>
+          You may purchase a Registry Consult as a gift. The following terms apply to all gift certificates and
+          redemption codes:
+        </p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>Each gift certificate is valid for one (1) Registry Consult at the price paid at the time of purchase, regardless of any later change to the standard fee.</li>
+          <li>Gift certificates expire twelve (12) months after the date of purchase and must be redeemed and the session booked before that date.</li>
+          <li>Gift certificates are non-refundable and have no cash value. Once purchased, the amount paid cannot be returned to the purchaser.</li>
+          <li>Gift certificates are transferable — the purchaser may give the certificate and its redemption code to another person, who may then redeem it.</li>
+          <li>Redemption codes are single-use. Booking a session with a code marks it redeemed. If you believe a code was lost or used in error, contact info@taylormadebabyco.com and we will help resolve it.</li>
+          <li>The booked session is governed by the same scheduling, cancellation, and rescheduling terms as any other consultation (see below).</li>
         </ul>
       </LegalSection>
 
@@ -109,12 +124,13 @@ export default function TermsPage() {
           </li>
           <li>Recommendations are based on information available at the time of your consultation. Product availability, pricing, and safety ratings may change after your session.</li>
           <li>
-            Taylor-Made Baby Co. accepts no sponsorships, paid placements, or brand partnerships, and no brand
-            pays to be recommended. Some links on this site are affiliate links, which means Taylor-Made Baby Co.
-            may earn a commission if you purchase through them, at no additional cost to you. Affiliate
-            relationships never influence which products are recommended. All recommendations reflect
-            Taylor&rsquo;s honest professional opinion and are not guarantees of product quality or safety
-            outcomes.
+            Consultation recommendations are independent and are never chosen because a brand paid to be
+            included. Some links on this site are affiliate links, which means Taylor-Made Baby Co. may earn a
+            commission if you purchase through them, at no additional cost to you, and this never influences
+            which products are recommended. Taylor-Made Baby Co. may also work with select brands on clearly
+            disclosed editorial or content partnerships, which are separate from consultation recommendations.
+            All recommendations reflect Taylor&rsquo;s honest professional opinion and are not guarantees of
+            product quality or safety outcomes.
           </li>
         </ul>
       </LegalSection>
@@ -134,7 +150,7 @@ export default function TermsPage() {
         <p className="font-medium text-charcoal">You may not:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>Reproduce, distribute, publish, sell, or create derivative works from our content without our prior written consent.</li>
-          <li>Use our content in any commercial context, including paid workshops, coaching programmes, or client-facing materials.</li>
+          <li>Use our content in any commercial context, including paid workshops, coaching programs, or client-facing materials.</li>
           <li>Claim authorship of or misrepresent the source of our content.</li>
           <li>Scrape, copy, or systematically extract content from our website using automated tools.</li>
         </ul>
