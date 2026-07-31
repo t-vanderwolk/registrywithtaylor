@@ -215,7 +215,7 @@ export function OpenBoxBadge({
   );
 }
 
-function CarSeatGlyph() {
+export function CarSeatGlyph() {
   return (
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path

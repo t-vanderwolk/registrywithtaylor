@@ -21,7 +21,7 @@ import {
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
-import { AmazonMark, BabylistHeartIcon } from './StrollerCatalogFinder';
+import { AmazonMark, BabylistHeartIcon, CarSeatGlyph } from './StrollerCatalogFinder';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -82,6 +82,8 @@ function BrowseCard({
   cta,
   onSelect,
   compareHref,
+  summary,
+  showBrand = false,
   primaryUrl,
   primaryLabel,
   primaryIsBabylist,
@@ -95,6 +97,8 @@ function BrowseCard({
   onSelect: () => void;
   /** When set (strollers only), shows a Compare pill that deep-links the compare tool. */
   compareHref?: string | null;
+  summary?: string | null;
+  showBrand?: boolean;
   primaryUrl?: string | null;
   primaryLabel?: string;
   primaryIsBabylist?: boolean;
@@ -121,8 +125,9 @@ function BrowseCard({
         )}
       </div>
       <div className="tool-product-card__body">
-        <p className="tool-product-card__brand">{option.brand}</p>
+        {showBrand ? <p className="tool-product-card__brand">{option.brand}</p> : null}
         <p className="tool-product-card__title">{displayTitle}</p>
+        {summary ? <p className="tool-product-card__summary">{summary}</p> : null}
         {price != null ? (
           <p className="tool-product-card__price">
             ${price.toFixed(2)}
@@ -162,6 +167,9 @@ function BrowseCard({
               className="tool-card-secondary__action tool-card-secondary__action--compat w-full"
               aria-label={`${cta} for ${fullName}`}
             >
+              <span className="tool-card-secondary__icon" aria-hidden="true">
+                <CarSeatGlyph />
+              </span>
               <span className="tool-card-secondary__text">
                 <span className="tool-card-secondary__title">{cta}</span>
                 <span className="tool-card-secondary__hint">See what clicks in</span>
@@ -395,7 +403,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
     router.push(travelSystemResultsHref(lookupMode, option));
   };
 
-  const renderBrowseCard = (option: TravelSystemStrollerOption | TravelSystemCarSeatOption) => {
+  const renderBrowseCard = (
+    option: TravelSystemStrollerOption | TravelSystemCarSeatOption,
+    showBrand = false,
+  ) => {
     const value = buildOptionValue(option);
     const babylist = browseLookup[`${option.brand}:::${option.model}`];
     const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
@@ -453,6 +464,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         price={price}
         priceSource={priceSource}
         cta={browseCta}
+        summary={option.summary}
+        showBrand={showBrand}
         onSelect={() => goToResults(option)}
         compareHref={
           lookupMode === 'stroller'
@@ -526,29 +539,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 {activeOptions.length} match{activeOptions.length === 1 ? '' : 'es'}
               </p>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {activeOptions.map((option) => {
-                  const value = buildOptionValue(option);
-                  const babylist = browseLookup[`${option.brand}:::${option.model}`];
-                  const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
-                  const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
-                  const priceSource =
-                    option.babylistPrice != null || babylist?.babylistPrice != null
-                      ? 'Babylist'
-                      : option.macroBabyPrice != null
-                        ? 'MacroBaby'
-                        : null;
-                  return (
-                    <BrowseCard
-                      key={value}
-                      option={option}
-                      image={image}
-                      price={price}
-                      priceSource={priceSource}
-                      cta={browseCta}
-                      onSelect={() => goToResults(option)}
-                    />
-                  );
-                })}
+                {activeOptions.map((option) => renderBrowseCard(option, true))}
               </div>
             </div>
           ) : !selectorBrand ? (
@@ -606,7 +597,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                         <span className="mt-2 block h-[3px] w-12 rounded-full bg-[var(--color-cta-pink)]" />
                       </div>
                       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {section.items.map(renderBrowseCard)}
+                        {section.items.map((o) => renderBrowseCard(o))}
                       </div>
                     </div>
                   ))}
@@ -615,7 +606,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                 <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {[...(optionGroups[selectorBrand] ?? [])]
                     .sort((a, b) => a.model.localeCompare(b.model))
-                    .map(renderBrowseCard)}
+                    .map((o) => renderBrowseCard(o))}
                 </div>
               )}
             </div>
