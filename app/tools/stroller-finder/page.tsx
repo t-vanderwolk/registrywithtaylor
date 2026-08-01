@@ -63,7 +63,7 @@ export default async function StrollerFinderPage({
           <SectionIntro
             eyebrow="Tool"
             title="Stroller Finder"
-            description="Every stroller, sorted by brand and then by type — with live Babylist prices, photos, and links."
+            description="Browse our growing stroller catalog by brand and type — with live Babylist prices, photos, and shopping links."
             contentWidthClassName="max-w-4xl"
           />
 

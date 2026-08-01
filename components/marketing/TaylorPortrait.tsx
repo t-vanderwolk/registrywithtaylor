@@ -24,7 +24,7 @@ export default function TaylorPortrait({
       <div className="relative overflow-hidden rounded-[1.55rem] border border-[rgba(216,137,160,0.34)] bg-white p-1.5 shadow-[0_20px_46px_rgba(72,49,56,0.15)]">
         <Image
           src="/assets/taylor.png"
-          alt="Taylor Vanderwolk, Baby Registry Consultant and Certified Baby Gear Specialist"
+          alt="Taylor Vanderwolk, baby registry consultant and Tot Squad-certified baby gear specialist"
           width={560}
           height={700}
           sizes="(max-width: 768px) 76vw, 304px"
@@ -36,7 +36,7 @@ export default function TaylorPortrait({
       {/* Centered credential chip */}
       <span className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-[rgba(216,137,160,0.42)] bg-white/95 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] shadow-[0_8px_20px_rgba(72,49,56,0.14)] backdrop-blur">
         <span aria-hidden>✦</span>
-        Certified Baby Gear Specialist
+        Tot Squad-Certified Specialist
       </span>
     </div>
   );

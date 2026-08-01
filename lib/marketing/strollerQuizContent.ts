@@ -147,7 +147,7 @@ export const QUIZ_CREATOR = {
   eyebrow: 'Who built this',
   heading: 'About the Quiz Creator, Taylor',
   bio: [
-    'This stroller quiz was built by Taylor, a certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
+    'This stroller quiz was built by Taylor, a Tot Squad-certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
     'The quiz recommendations reflect the same framework Taylor uses in every personal consultation, matching strollers to real homes, real vehicles, and real lifestyles rather than to a generic best-of list.',
   ],
   credentials: [
@@ -226,7 +226,7 @@ export const QUIZ_FAQ = [
   {
     question: 'How does the stroller quiz work?',
     answer:
-      'The Taylor-Made Baby Co. stroller quiz asks 8 questions about your lifestyle, home type, vehicle, budget, family plans, and terrain preferences. Based on your answers, the quiz recommends the stroller type and specific brands most suited to your situation. Recommendations are built by certified baby gear specialist Taylor using the same criteria she applies in her 1-hour personal consultations. The quiz is free and requires no sign-up.',
+      'The Taylor-Made Baby Co. stroller quiz asks 8 questions about your lifestyle, home type, vehicle, budget, family plans, and terrain preferences. Based on your answers, the quiz recommends the stroller type and specific brands most suited to your situation. Recommendations are built by Tot Squad-certified baby gear specialist Taylor using the same criteria she applies in her 1-hour personal consultations. The quiz is free and requires no sign-up.',
   },
   {
     question: 'What stroller brands does the quiz cover?',

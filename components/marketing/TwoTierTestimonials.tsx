@@ -56,7 +56,7 @@ export default function TwoTierTestimonials({
       <div className="mt-8 sm:mt-10">
         <div className="flex items-center justify-between">
           <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--color-accent-dark)]/78">
-            Strolleria · Verified Reviews
+            Reviews from Taylor’s time at Strolleria
           </p>
           <p className="text-[0.84rem] leading-6 text-neutral-600 md:hidden">Swipe for more</p>
         </div>

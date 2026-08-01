@@ -34,7 +34,7 @@ export const homeStructuredData = {
         height: 1024,
       },
       description:
-        'Taylor-Made Baby Co. is an expert baby registry consulting service for expecting parents, offering personalized stroller, car seat, nursery, and registry guidance from a verified Target Baby Concierge specialist.',
+        'Taylor-Made Baby Co. is an expert baby registry consulting service for expecting parents, offering personalized stroller, car seat, nursery, and registry guidance from a Tot Squad-certified Target Baby Concierge specialist.',
       foundingDate: '2022',
       founder: { '@id': PERSON_ID },
       areaServed: { '@type': 'Country', name: 'United States' },

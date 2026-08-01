@@ -28,7 +28,7 @@ import {
 export const metadata = buildMarketingMetadata({
   title: 'Best Stroller Quiz for Expecting Parents: Find Your Match | Taylor-Made Baby Co.',
   description:
-    'Answer 8 questions and get your personalised stroller recommendation from certified baby gear expert Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
+    'Answer 8 questions and get your personalised stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
   path: '/tools/stroller-quiz',
   imagePath: '/assets/editorial/strollers.png',
   imageAlt: 'Best Stroller Quiz by Taylor-Made Baby Co.',
@@ -298,7 +298,7 @@ export default function StrollerQuizPage() {
               <Link href="/contact" className="link-underline font-semibold text-[var(--color-accent-dark)]">
                 Message Taylor
               </Link>{' '}
-              — a certified baby gear consultant reads every question and replies within 24 hours.
+              — a Tot Squad-certified baby gear specialist reads every question and replies within 24 hours.
             </p>
             <div className="mt-8 flex flex-col items-center gap-3">
               <p className="text-[0.76rem] text-neutral-500">US Nationwide · Full refund if cancelled 24+ hrs before</p>

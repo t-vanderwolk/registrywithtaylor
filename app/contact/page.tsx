@@ -15,7 +15,7 @@ import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 export const metadata = buildMarketingMetadata({
   title: 'Contact a Baby Gear Consultant | Taylor-Made Baby Co.',
   description:
-    'Get personalised baby gear, registry & nursery guidance from certified consultant Taylor Vanderwolk. Every message read personally — response within 24 hours.',
+    'Get personalized baby gear, registry & nursery guidance from Tot Squad-certified specialist Taylor Vanderwolk. Every message read personally — response within 24 hours.',
   path: '/contact',
   imagePath: '/assets/hero/hero-06.jpg',
   imageAlt: 'Contact a baby gear & registry consultant — Taylor-Made Baby Co.',
@@ -164,7 +164,7 @@ const contactPageSchema = {
   '@id': `${SITE_URL}/contact#page`,
   name: 'Contact Taylor-Made Baby Co.',
   description:
-    'Reach out for personalised baby gear guidance, registry strategy, nursery planning, or consultation support from certified baby gear specialist Taylor Vanderwolk. Every message is personally read — response within 24 hours.',
+    'Reach out for personalised baby gear guidance, registry strategy, nursery planning, or consultation support from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Every message is personally read — response within 24 hours.',
   url: `${SITE_URL}/contact`,
   inLanguage: 'en-US',
   breadcrumb: {
@@ -214,7 +214,7 @@ const localBusinessSchema = {
       '@id': `${SITE_URL}/#organization`,
       name: 'Taylor-Made Baby Co.',
       description:
-        'Independent, hands-on baby gear guidance for expecting parents — registry, stroller, car seat, and nursery planning from certified specialist Taylor Vanderwolk. Virtual consultations, US Nationwide.',
+        'Independent, hands-on baby gear guidance for expecting parents — registry, stroller, car seat, and nursery planning from Tot Squad-certified specialist Taylor Vanderwolk. Virtual consultations, US Nationwide.',
       url: `${SITE_URL}/`,
       telephone: '+14807124347',
       email: 'hello@taylormadebabyco.com',
@@ -443,13 +443,13 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                   About Taylor — Baby Gear &amp; Registry Consultant
                 </h2>
                 <p className="mt-4 text-[0.97rem] leading-8 text-neutral-700">
-                  This contact form goes directly to Taylor — a certified baby gear specialist and baby registry
+                  This contact form goes directly to Taylor — a Tot Squad-certified baby gear specialist and baby registry
                   consultant with real, hands-on experience helping expecting parents make stroller, car seat, registry,
                   and nursery decisions.
                 </p>
                 <p className="mt-3 text-[0.97rem] leading-8 text-neutral-700">
                   Before founding Taylor-Made Baby Co., Taylor worked as a specialist at Strolleria, as a nursery advisor
-                  at Pottery Barn Kids, and as a certified consultant in the Tot Squad programme — the baby concierge
+                  at Pottery Barn Kids, and as a certified specialist in the Tot Squad program — the baby concierge
                   service powering 200+ Target Baby stores nationwide. She has since appeared on the BabyQuip Tiny
                   Travels podcast discussing real-life baby gear decision-making.
                 </p>

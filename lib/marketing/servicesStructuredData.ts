@@ -127,7 +127,7 @@ export const servicesStructuredData = {
       '@id': `${SERVICES_URL}#howto`,
       name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
       description:
-        'Book a 1-hour virtual baby registry consultation with certified specialist Taylor Vanderwolk in 4 simple steps.',
+        'Book a 1-hour virtual baby registry consultation with Tot Squad-certified specialist Taylor Vanderwolk in 4 simple steps.',
       totalTime: 'PT1H',
       estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
       tool: [

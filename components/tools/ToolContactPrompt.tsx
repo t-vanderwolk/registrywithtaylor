@@ -27,7 +27,7 @@ export default function ToolContactPrompt({ prompt }: ToolContactPromptProps) {
           </Link>
         </div>
         <p className="mt-3 text-[0.78rem] text-neutral-500">
-          A certified baby gear consultant reads every question and replies within 24 hours.
+          A Tot Squad-certified baby gear specialist reads every question and replies within 24 hours.
         </p>
       </div>
     </section>

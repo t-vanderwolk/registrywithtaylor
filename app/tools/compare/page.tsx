@@ -119,6 +119,13 @@ export default async function StrollerComparePage({
           <div className="mx-auto mt-10 max-w-5xl">
             <StrollerCompare catalog={catalog} initialIds={initialIds} />
           </div>
+
+          <p className="mx-auto mt-8 max-w-3xl text-[0.8rem] leading-6 text-neutral-500">
+            <span className="font-semibold text-neutral-600">How to read this:</span> pick two or three strollers
+            and scan each row to see how they differ. Specs come from manufacturer information and our current
+            stored data; retailer prices and specifications can change at any time, so confirm the latest details
+            on the retailer’s page before buying.
+          </p>
         </MarketingSection>
 
         <ToolContactPrompt prompt="Still torn after comparing? Send Taylor your top two and how you'll actually use a stroller — she'll tell you which one fits your life, not just the spec sheet." />

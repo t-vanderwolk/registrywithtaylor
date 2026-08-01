@@ -84,7 +84,7 @@ export const aboutStructuredData = {
       url: ABOUT_URL,
       name: 'About Taylor Vanderwolk, Baby Registry Consultant',
       description:
-        'Meet Taylor Vanderwolk, a certified baby registry consultant and baby gear expert with hands-on experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Independent, unsponsored guidance for expecting parents.',
+        'Meet Taylor Vanderwolk, a baby registry consultant and baby gear expert with hands-on experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Independent, unsponsored guidance for expecting parents.',
       isPartOf: { '@type': 'WebSite', url: SITE_URL, name: SITE_NAME },
       primaryImageOfPage: { '@type': 'ImageObject', url: HERO_IMAGE },
       mainEntity: { '@id': PERSON_ID },
@@ -193,7 +193,7 @@ export const aboutStructuredData = {
       '@id': `${ABOUT_URL}#howto`,
       name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
       description:
-        'A 4 step process to book and complete a 1 hour virtual baby registry consultation with certified specialist Taylor Vanderwolk.',
+        'A 4 step process to book and complete a 1 hour virtual baby registry consultation with Tot Squad-certified specialist Taylor Vanderwolk.',
       totalTime: 'PT1H',
       estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
       tool: [

@@ -59,7 +59,7 @@ function CompareCell({ value }: { value: 'yes' | 'no' | 'partial' | 'varies' }) 
 export const metadata = buildMarketingMetadata({
   title: 'About Taylor Vanderwolk, Baby Registry Consultant | Taylor-Made Baby Co.',
   description:
-    'Meet Taylor Vanderwolk, certified baby registry consultant and Tot Squad specialist with hands-on baby gear expertise. Book your $75 registry consult.',
+    'Meet Taylor Vanderwolk, baby registry consultant and Tot Squad specialist with hands-on baby gear expertise. Book your $75 registry consult.',
   path: '/about',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'Taylor Vanderwolk baby registry consultant workspace',

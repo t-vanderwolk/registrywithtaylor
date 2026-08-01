@@ -28,7 +28,7 @@ export const revalidate = 3600;
 export const metadata = buildMarketingMetadata({
   title: 'Baby Registry Consultant for Expecting Parents | Taylor-Made Baby Co.',
   description:
-    'Expert baby registry consultant for expecting parents. Personalized stroller, car seat, nursery, and registry guidance from a verified Target Baby Concierge specialist. Book a $75 one hour virtual session.',
+    'Expert baby registry consultant for expecting parents. Personalized stroller, car seat, nursery, and registry guidance from a Tot Squad-certified Target Baby Concierge specialist. Book a $75 one hour virtual session.',
   path: '/',
   imagePath: '/assets/hero/hero-01.jpg',
   imageAlt: 'Taylor-Made Baby Co. baby gear planning editorial image.',
@@ -320,7 +320,7 @@ export default function HomePage() {
         <Hero
           className="homepage-hero"
           title="Baby Registry Consultant for Expecting Parents"
-          subtitle="Strollers, car seats, nursery, and registry guidance from a verified Target Baby Concierge specialist, built around your home, your budget, and your real life."
+          subtitle="Strollers, car seats, nursery, and registry guidance from a Tot Squad-certified Target Baby Concierge specialist, built around your home, your budget, and your real life."
           primaryCta={{ label: 'Book a Registry Consult', href: '/book' }}
           secondaryCta={{ label: 'Read the Journal', href: '/blog' }}
           tagline="Strollers | Car Seats | Registry | Nursery Setup"
