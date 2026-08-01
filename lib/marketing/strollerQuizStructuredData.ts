@@ -28,7 +28,7 @@ export const strollerQuizStructuredData = {
       '@id': TOOL_ID,
       name: 'Best Stroller Quiz, Taylor-Made Baby Co.',
       description:
-        'Answer 8 questions to get a personalised stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Covers lifestyle, home, vehicle, budget, and family plans. Free, with no sign-up required.',
+        'Answer 8 questions to get a personalized stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Covers lifestyle, home, vehicle, budget, and family plans. Free, with no sign-up required.',
       url: QUIZ_URL,
       applicationCategory: 'LifestyleApplication',
       operatingSystem: 'Web browser',
@@ -48,7 +48,7 @@ export const strollerQuizStructuredData = {
       audience: { '@type': 'Audience', audienceType: 'Expecting parents choosing a stroller' },
       isAccessibleForFree: true,
       featureList: [
-        'Personalised stroller recommendation',
+        'Personalized stroller recommendation',
         '8-question quiz format',
         'Vehicle compatibility consideration',
         'Budget range filtering',
@@ -63,7 +63,7 @@ export const strollerQuizStructuredData = {
       url: QUIZ_URL,
       name: 'Best Stroller Quiz for Expecting Parents, Find Your Perfect Match',
       description:
-        'Answer 8 questions and get your personalised stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
+        'Answer 8 questions and get your personalized stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
       isPartOf: { '@type': 'WebSite', url: SITE_URL, name: SITE_NAME },
       mainEntity: { '@id': TOOL_ID },
       breadcrumb: { '@id': BREADCRUMB_ID },

@@ -39,7 +39,7 @@ function babylistTracked(destUrl: string): string {
 
 /**
  * Affiliate-tracked link to any babylist.com page (product or store category).
- * Use for curated picks that live outside the stroller/car-seat catalogue — e.g.
+ * Use for curated picks that live outside the stroller/car-seat catalog — e.g.
  * nursery essentials — where there's no synced SKU to resolve.
  */
 export function babylistShopLink(destUrl: string): string {

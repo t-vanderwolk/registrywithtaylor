@@ -301,7 +301,7 @@ export default async function PostArticleView({
   );
   const ctaPartnerLookup = await getAffiliatePartnerLookup(ctaPartnerIds);
 
-  // Wire blog product cards to the affiliate catalogue: match each product block
+  // Wire blog product cards to the affiliate catalog: match each product block
   // to a catalog row and pass the live buy link + image + price down to the cards.
   const articleStyledBlocks = extractStyledBlocks(articleContent);
   const catalogProductBlockRefs = articleStyledBlocks.flatMap((block) =>

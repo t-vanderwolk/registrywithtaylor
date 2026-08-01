@@ -15,7 +15,6 @@ import {
   ABOUT_AVAILABILITY,
   ABOUT_BEFORE_AFTER,
   ABOUT_BIO,
-  ABOUT_COMPARE,
   ABOUT_CREDENTIALS,
   ABOUT_FAQ,
   ABOUT_GEAR,
@@ -26,7 +25,6 @@ import {
   ABOUT_REVIEWS,
   ABOUT_STATS,
   ABOUT_STEPS,
-  ABOUT_VALUE_STACK,
 } from '@/lib/marketing/aboutContent';
 
 const ABOUT_PAGE_PARTNERS: { name: string; logo: string; href?: string }[] = [
@@ -49,12 +47,6 @@ const ABOUT_PAGE_PARTNERS: { name: string; logo: string; href?: string }[] = [
 
 const CTA_CLASS =
   'inline-flex items-center justify-center rounded-full bg-[var(--color-cta-pink)] px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[var(--color-cta-pink-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-dark)]';
-
-function CompareCell({ value }: { value: 'yes' | 'no' | 'partial' | 'varies' }) {
-  if (value === 'yes') return <span className="font-semibold text-[var(--color-accent-dark)]">✓</span>;
-  if (value === 'no') return <span className="text-neutral-300">✗</span>;
-  return <span className="text-xs uppercase tracking-wide text-neutral-500">{value === 'partial' ? 'Partial' : 'Varies'}</span>;
-}
 
 export const metadata = buildMarketingMetadata({
   title: 'About Taylor Vanderwolk, Baby Registry Consultant | Taylor-Made Baby Co.',
@@ -313,66 +305,6 @@ export default function AboutPage() {
                 <Body className="text-neutral-700">Because when baby prep fits your real life, the next season feels a whole lot steadier.</Body>
               </div>
             </RevealOnScroll>
-          </div>
-        </MarketingSection>
-
-        {/* Value stack */}
-        <MarketingSection tone="ivory" spacing="spacious" container="default">
-          <div className="mx-auto max-w-3xl space-y-6">
-            <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">What You Get for $75</H2>
-            </RevealOnScroll>
-            <Body className="text-neutral-700">{ABOUT_VALUE_STACK.intro}</Body>
-            <div className="overflow-hidden rounded-2xl border border-black/5 bg-white">
-              {ABOUT_VALUE_STACK.rows.map((r) => (
-                <div key={r.item} className="flex items-center justify-between gap-4 border-b border-black/5 px-5 py-3">
-                  <span className="text-neutral-700">{r.item}</span>
-                  <span className="whitespace-nowrap text-sm text-neutral-500">{r.value}</span>
-                </div>
-              ))}
-              <div className="flex items-center justify-between gap-4 bg-[#fbeef2] px-5 py-4 font-semibold text-neutral-900">
-                <span>{ABOUT_VALUE_STACK.totalLabel}</span>
-                <span className="whitespace-nowrap">
-                  <span className="text-neutral-400 line-through">{ABOUT_VALUE_STACK.totalValue}</span> → {ABOUT_VALUE_STACK.price}
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <a href="/book" className={CTA_CLASS}>Book Your Registry Consultation ($75)</a>
-            </div>
-          </div>
-        </MarketingSection>
-
-        {/* Taylor vs alternatives */}
-        <MarketingSection tone="white" spacing="spacious" container="default">
-          <div className="mx-auto max-w-4xl space-y-6">
-            <RevealOnScroll>
-              <H2 className="font-serif text-neutral-900">Why Not Just Use YouTube, Reddit, or a Parenting App?</H2>
-            </RevealOnScroll>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[680px] border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-black/10">
-                    <th className="p-3 text-left font-semibold text-neutral-900">Feature</th>
-                    {ABOUT_COMPARE.columns.map((c) => (
-                      <th key={c} className="p-3 text-center font-semibold text-neutral-700">{c}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {ABOUT_COMPARE.rows.map((r) => (
-                    <tr key={r.feature} className="border-b border-black/5">
-                      <td className="p-3 text-left text-neutral-700">{r.feature}</td>
-                      {r.values.map((v, i) => (
-                        <td key={i} className="p-3 text-center">
-                          <CompareCell value={v} />
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </MarketingSection>
 

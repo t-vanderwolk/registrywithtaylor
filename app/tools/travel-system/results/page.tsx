@@ -574,7 +574,7 @@ function ResultCard({
   const amazonUrl = isTravelSystemOnly
     ? null
     : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
-  // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+  // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist drops to a secondary button.
   const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;

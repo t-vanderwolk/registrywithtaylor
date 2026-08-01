@@ -99,7 +99,7 @@ const BOOKING_TIERS = [
   },
   {
     service: 'Partnerships & Press',
-    duration: 'By enquiry',
+    duration: 'By inquiry',
     price: 'Let’s talk',
     includes: 'Brand partnerships · Collaborations · Media & press requests',
     booking: 'Message Taylor via the form',
@@ -119,7 +119,7 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'What is a baby gear consultant?',
     answer:
-      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor at Taylor-Made Baby Co. brings hands-on experience from Strolleria and Pottery Barn Kids, plus certification as a Tot Squad specialist through Target’s Baby Concierge programme. She works with families virtually across the US.',
+      'A baby gear consultant is a specialist who helps expecting parents choose the right strollers, car seats, nursery furniture, and registry products based on their specific home, vehicle, lifestyle, and budget — rather than a generic “best of” list. Taylor at Taylor-Made Baby Co. brings hands-on experience from Strolleria and Pottery Barn Kids, plus certification as a Tot Squad specialist through Target’s Baby Concierge program. She works with families virtually across the US.',
   },
   {
     question: 'How much does a baby registry consultation cost?',
@@ -129,12 +129,12 @@ const CONTACT_FAQS: FAQEntry[] = [
   {
     question: 'Can I get baby gear advice virtually?',
     answer:
-      'Yes. All consultations at Taylor-Made Baby Co. are available virtually and work exactly as well online as in person. Sessions are built around your specific home layout, vehicle make and model, daily routine, and budget — not a generic checklist. Taylor works with expecting parents across the US, from city apartments to suburban homes, covering the same stroller, car seat, nursery, and registry decisions regardless of location. Response to initial enquiries within 24 hours.',
+      'Yes. All consultations at Taylor-Made Baby Co. are available virtually and work exactly as well online as in person. Sessions are built around your specific home layout, vehicle make and model, daily routine, and budget — not a generic checklist. Taylor works with expecting parents across the US, from city apartments to suburban homes, covering the same stroller, car seat, nursery, and registry decisions regardless of location. Response to initial inquiries within 24 hours.',
   },
   {
-    question: 'How quickly does Taylor respond to enquiries?',
+    question: 'How quickly does Taylor respond to inquiries?',
     answer:
-      'Taylor personally reviews every contact form submission and responds within 24 hours — with no automated responses, no assistant filtering, and no generic templates. Every reply comes directly from Taylor, with context from your specific message already read. Most enquiries receive a response the same business day. After her reply, she will point you to the right path: the $75 Registry Consult (booked on the booking page), deeper ongoing support after your consult, or a partnership, media, or press conversation.',
+      'Taylor personally reviews every contact form submission and responds within 24 hours — with no automated responses, no assistant filtering, and no generic templates. Every reply comes directly from Taylor, with context from your specific message already read. Most inquiries receive a response the same business day. After her reply, she will point you to the right path: the $75 Registry Consult (booked on the booking page), deeper ongoing support after your consult, or a partnership, media, or press conversation.',
   },
   {
     question: 'What baby topics can I get help with?',
@@ -164,7 +164,7 @@ const contactPageSchema = {
   '@id': `${SITE_URL}/contact#page`,
   name: 'Contact Taylor-Made Baby Co.',
   description:
-    'Reach out for personalised baby gear guidance, registry strategy, nursery planning, or consultation support from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Every message is personally read — response within 24 hours.',
+    'Reach out for personalized baby gear guidance, registry strategy, nursery planning, or consultation support from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Every message is personally read — response within 24 hours.',
   url: `${SITE_URL}/contact`,
   inLanguage: 'en-US',
   breadcrumb: {
@@ -326,7 +326,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Sea
                 want deeper or ongoing support after their $75 Registry Consult.
               </p>
               <p className="mt-4 text-[0.99rem] leading-8 text-neutral-700">
-                Taylor reads every message personally. No automated responses, no assistants handling initial enquiries,
+                Taylor reads every message personally. No automated responses, no assistants handling initial inquiries,
                 no generic templates. You send your note. She reads it. You hear back within 24 hours.
               </p>
               <p className="mt-7 text-[0.86rem] font-semibold text-neutral-800">

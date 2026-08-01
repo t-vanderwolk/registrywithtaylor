@@ -1,5 +1,5 @@
 /**
- * Resolve blog product cards to the affiliate catalogue.
+ * Resolve blog product cards to the affiliate catalog.
  *
  * Given the (brand, productName) pairs parsed from a post's product blocks, match
  * each to an affiliateCatalogProduct row and return the live affiliate buy link,

@@ -22,7 +22,7 @@ export default function RefundPage() {
       effectiveDate="July 1, 2026"
     >
       <LegalSection n="01" title="Refund Summary — At a Glance">
-        <p>The following table summarises our refund policy for all consultation bookings:</p>
+        <p>The following table summarizes our refund policy for all consultation bookings:</p>
         <LegalTable
           head={['Situation', 'Refund', 'Timeline / Notes']}
           rows={[
@@ -54,7 +54,7 @@ export default function RefundPage() {
         <p className="font-medium text-charcoal">Cancellations made less than 24 hours before the scheduled session</p>
         <p>
           No refund will be issued. The consultation fee is forfeited to cover the preparation time Taylor has
-          already invested in reviewing your intake form and preparing personalised recommendations for your
+          already invested in reviewing your intake form and preparing personalized recommendations for your
           session.
         </p>
         <p>
@@ -141,7 +141,7 @@ export default function RefundPage() {
         </ul>
       </LegalSection>
 
-      <LegalSection n="09" title="Contact & Refund Enquiries">
+      <LegalSection n="09" title="Contact & Refund Inquiries">
         <p>For all refund requests, questions, or concerns, please contact:</p>
         <LegalContact />
         <p>Response time: Within 2 business days.</p>

@@ -214,7 +214,7 @@ export default function ProfileSettingsPanel({ onClose, onSaved, initialTab }: P
                     onChange={(e) => setDueDate(e.target.value)}
                   />
                   <span className={styles.hint}>
-                    Used for your countdown and to personalise your dashboard.
+                    Used for your countdown and to personalize your dashboard.
                     You can update this any time.
                   </span>
                 </div>

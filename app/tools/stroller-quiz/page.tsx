@@ -28,7 +28,7 @@ import {
 export const metadata = buildMarketingMetadata({
   title: 'Best Stroller Quiz for Expecting Parents: Find Your Match | Taylor-Made Baby Co.',
   description:
-    'Answer 8 questions and get your personalised stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
+    'Answer 8 questions and get your personalized stroller recommendation from Tot Squad-certified baby gear specialist Taylor Vanderwolk. Free, instant results, then book a 1-hour consultation for $75.',
   path: '/tools/stroller-quiz',
   imagePath: '/assets/editorial/strollers.png',
   imageAlt: 'Best Stroller Quiz by Taylor-Made Baby Co.',

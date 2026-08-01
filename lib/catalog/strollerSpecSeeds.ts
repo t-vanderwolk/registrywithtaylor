@@ -47,7 +47,7 @@ export const normalizeModel = (value: string) =>
 /** Brand key → ordered seeds (most-specific model regex first; first match wins). */
 export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
   // ─────────────────────────────────────────────────────────────────────────
-  // BABY JOGGER — babyjogger.com spec sheets + help centre.
+  // BABY JOGGER — babyjogger.com spec sheets + help center.
   // Basket weight limits: 10 lb across the City line, 15 lb on City Select 2.
   // ─────────────────────────────────────────────────────────────────────────
   'Baby Jogger': [
@@ -1695,7 +1695,7 @@ const WONDERFOLD_SEEDS: StrollerSpecSeed[] = [
   {
     match: /./,
     summary:
-      'A two-seat stroller wagon with a proper push handle rather than a pull rope — 99 lb per bench, removable canopies, and a fold that still fits a car boot. From 6 months.',
+      'A two-seat stroller wagon with a proper push handle rather than a pull rope — 99 lb per bench, removable canopies, and a fold that still fits a car trunk. From 6 months.',
     priceRange: 'premium', foldType: 'compact', lifestyle: ['trail', 'suburban'],
     maxWeightLbs: 99, budgetMin: 500, budgetMax: 800,
     isExpandable: false, suitableFromBirth: false, suitableForJogging: false,

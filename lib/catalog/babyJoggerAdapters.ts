@@ -1,6 +1,6 @@
 /**
  * Baby Jogger car-seat adapter matrix — transcribed from the manufacturer's own
- * adapter catalogue:
+ * adapter catalog:
  *   https://www.babyjogger.com/accessories/car-seat-adapters/  (14 adapters)
  *
  * WHY THIS IS NOT A "UNIVERSAL ADAPTER" BRAND
@@ -142,7 +142,7 @@ export const BABY_JOGGER_ADAPTERS: BabyJoggerAdapterRule[] = [
 export const BABY_JOGGER_NO_ADAPTER: Array<{ match: RegExp; note: string }> = [
   {
     match: /city prix/,
-    note: 'No car-seat adapter appears in Baby Jogger’s adapter catalogue for the City Prix.',
+    note: 'No car-seat adapter appears in Baby Jogger’s adapter catalog for the City Prix.',
   },
   {
     match: /city tour 2 double/,

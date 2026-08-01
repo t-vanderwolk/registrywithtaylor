@@ -113,7 +113,7 @@ const workbookPrompts = [
 ];
 
 // Shoppable nursery essentials — curated picks with Babylist affiliate links.
-// These live outside the stroller/car-seat catalogue, so each carries its own
+// These live outside the stroller/car-seat catalog, so each carries its own
 // Babylist link + image (no live lookup). Momcozy is a direct product page; the
 // rest open the curated Babylist store category.
 const nurseryPicks: BabylistPreviewItem[] = [

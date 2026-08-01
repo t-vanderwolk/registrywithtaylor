@@ -1,5 +1,5 @@
 /**
- * Direct brand affiliate links for brands where a direct programme pays better
+ * Direct brand affiliate links for brands where a direct program pays better
  * than Babylist and should therefore be the PRIMARY shop button (Babylist stays
  * as a secondary option). Currently: Mima (via Awin) and Silver Cross (direct).
  *

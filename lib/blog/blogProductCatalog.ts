@@ -1,6 +1,6 @@
 /**
  * Shared, client-safe types + key for wiring blog product cards to the affiliate
- * catalogue. The server resolver (lib/server/blogCatalogLinks.ts) produces a
+ * catalog. The server resolver (lib/server/blogCatalogLinks.ts) produces a
  * Record<key, BlogCatalogMatch>; the client PostContent looks matches up by the
  * same key. Keep this module free of any server-only imports (prisma, etc.).
  */

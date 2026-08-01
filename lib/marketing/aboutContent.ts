@@ -26,7 +26,7 @@ export const ABOUT_BEFORE_AFTER = {
     'Clear stroller, car seat, and nursery decisions made',
     'A registry that fits your real home and real budget',
     'Confident in every item, and why it is there',
-    'Personalised guidance based on your exact situation',
+    'Personalized guidance based on your exact situation',
     'Money saved on gear you do not actually need',
     'Ready for your baby shower, and your new baby',
   ],
@@ -49,14 +49,14 @@ export const ABOUT_ORIGIN = {
     'Years of working at Strolleria, one of the most respected baby specialty retailers in the US, and later as a Nursery Advisor at Pottery Barn Kids and a certified Target Baby Concierge specialist through Tot Squad, I watched the same thing happen over and over.',
     'Families would walk in with a registry built from Instagram. Stressed, overloaded, and often on the verge of just buying the most popular stroller because they had given up trying to make a confident decision.',
     'Twenty minutes of real conversation would completely change their direction. The right stroller for their building. The car seat that actually fit their SUV. The bassinet that made sense for their bedroom. Not the most popular option, the right option for them.',
-    'Over time, I realised most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
+    'Over time, I realized most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
     'Taylor-Made Baby Co. is that conversation, available to every expecting parent, wherever they are, without pressure, sponsorship, or agenda.',
   ],
 };
 
 export const ABOUT_STATS = [
   { value: '200+', label: 'Families Helped' },
-  { value: '0', label: 'Brand Sponsorships & Paid Placements' },
+  { value: '$0', label: 'Pay-to-Recommend in Consults' },
   { value: '5 Stars', label: 'Strolleria Rating' },
   { value: '$75', label: 'Full 1-Hour Session' },
 ];
@@ -105,7 +105,7 @@ export const ABOUT_STEPS = [
   {
     n: '04',
     title: 'Written Follow-Up Notes',
-    body: 'After your session, Taylor sends written notes summarising your recommendations, key decisions, and next steps so you can share with your partner and revisit whenever needed. Included in every consultation at no extra charge.',
+    body: 'After your session, Taylor sends written notes summarizing your recommendations, key decisions, and next steps so you can share with your partner and revisit whenever needed. Included in every consultation at no extra charge.',
   },
 ];
 
@@ -113,8 +113,8 @@ export const ABOUT_GEAR = [
   { title: 'Strollers', body: 'Full-size, lightweight, travel systems, and doubles, matched to your vehicle, home, and lifestyle. Brand comparisons across UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, and more.' },
   { title: 'Car Seats', body: 'Infant versus convertible, LATCH compatibility, safety comparisons, height and weight limits, and installation considerations for your specific vehicle.' },
   { title: 'Sleep Spaces', body: 'Crib versus bassinet, safe sleep setup, nursery layout, and what you actually need versus what is nice to have, without the risk of unsafe sleep products.' },
-  { title: 'Nursery Planning', body: 'Furniture sizing for your space, storage organisation, lighting, flow, and baby monitor selection for rooms of every size.' },
-  { title: 'Feeding Gear', body: 'Breast pumps, bottles, sterilisers, high chairs, and feeding organisation tools for the newborn stage and beyond.' },
+  { title: 'Nursery Planning', body: 'Furniture sizing for your space, storage organization, lighting, flow, and baby monitor selection for rooms of every size.' },
+  { title: 'Feeding Gear', body: 'Breast pumps, bottles, sterilizers, high chairs, and feeding organization tools for the newborn stage and beyond.' },
   { title: 'Registry Strategy', body: 'Where to register, what to add first, what to skip, how to time your registry for your baby shower, and how to structure it so guests buy items you actually need.' },
   { title: 'Travel Gear', body: 'Diaper bags, travel cribs, baby carriers and wraps, and airport preparation for life with a newborn.' },
   { title: 'Babyproofing', body: 'Gate selection, outlet covers, furniture anchors, timed and sequenced for your specific home layout and baby’s developmental stage.' },
@@ -125,7 +125,7 @@ export const ABOUT_VALUE_STACK = {
     'The average family makes 6 to 8 major baby gear decisions before their baby arrives. Each one typically costs $100 to $1,200. A single wrong stroller choice costs more than ten consultations.',
   rows: [
     { item: '1-hour video consultation with Taylor', value: '$150 to $250' },
-    { item: 'Pre-session intake review and personalised preparation', value: '$50 to $80' },
+    { item: 'Pre-session intake review and personalized preparation', value: '$50 to $80' },
     { item: 'Written follow-up notes with recommendations and next steps', value: '$40 to $60' },
     { item: 'Stroller and car seat compatibility check for your vehicle', value: '$75 to $120' },
     { item: 'Registry strategy, what to add, skip, and wait on', value: '$60 to $100' },
@@ -139,14 +139,14 @@ export const ABOUT_VALUE_STACK = {
 export const ABOUT_COMPARE = {
   columns: ['Taylor-Made', 'YouTube / Influencers', 'Reddit / Forums', 'Parenting Apps', 'Big-Box Staff'],
   rows: [
-    { feature: 'Personalised to YOUR home and car', values: ['yes', 'no', 'no', 'no', 'partial'] },
+    { feature: 'Personalized to YOUR home and car', values: ['yes', 'no', 'no', 'no', 'partial'] },
     { feature: 'No brand sponsorships or paid placements', values: ['yes', 'no', 'partial', 'partial', 'no'] },
     { feature: 'Verified professional credentials', values: ['yes', 'varies', 'no', 'no', 'varies'] },
     { feature: 'Written follow-up notes included', values: ['yes', 'no', 'no', 'no', 'no'] },
     { feature: 'Based on current product range', values: ['yes', 'varies', 'varies', 'partial', 'yes'] },
     { feature: 'Car seat compatibility check', values: ['yes', 'partial', 'partial', 'no', 'partial'] },
     { feature: 'Covers your full registry', values: ['yes', 'partial', 'partial', 'partial', 'no'] },
-    { feature: 'One-to-one personalised guidance', values: ['yes', 'no', 'no', 'no', 'partial'] },
+    { feature: 'One-to-one personalized guidance', values: ['yes', 'no', 'no', 'no', 'partial'] },
   ] as Array<{ feature: string; values: Array<'yes' | 'no' | 'partial' | 'varies'> }>,
 };
 
@@ -187,7 +187,7 @@ export const ABOUT_FAQ = [
   {
     question: 'Who is Taylor?',
     answer:
-      'Taylor is a baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalised registries that fit their real homes, budgets, and routines.',
+      'Taylor is a baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalized registries that fit their real homes, budgets, and routines.',
   },
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',

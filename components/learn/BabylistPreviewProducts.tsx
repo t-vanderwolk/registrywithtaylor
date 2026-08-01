@@ -7,7 +7,7 @@ export type BabylistPreviewItem = {
   /** Section/category label shown above the product name. */
   label: string;
   blurb?: string;
-  /** Catalogue items (strollers / car seats): resolve live price + photo + link. */
+  /** Catalog items (strollers / car seats): resolve live price + photo + link. */
   brand?: string;
   model?: string;
   kind?: 'stroller' | 'carSeat';
@@ -25,7 +25,7 @@ type Live = { babylistUrl: string | null; babylistPrice: number | null; babylist
 
 /**
  * Renders a grid of shoppable Babylist product cards for a free-preview lesson.
- * Pulls live price/photo/link from the synced catalogue via /api/babylist/lookup;
+ * Pulls live price/photo/link from the synced catalog via /api/babylist/lookup;
  * every card still gets a Babylist affiliate link via babylistAffiliateUrl, so it
  * works even before a product is synced.
  */
@@ -36,7 +36,7 @@ export default function BabylistPreviewProducts({
   heading?: string;
   items: BabylistPreviewItem[];
 }) {
-  // Only catalogue items (brand + model, no explicit href) need the live lookup.
+  // Only catalog items (brand + model, no explicit href) need the live lookup.
   const key = items
     .filter((i) => i.brand && i.model && !i.href)
     .map((i) => `${i.brand}:::${i.model}`)

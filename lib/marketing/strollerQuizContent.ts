@@ -37,7 +37,7 @@ export const QUIZ_HOW_IT_WORKS = {
     },
     {
       title: 'Your vehicle, not the most popular option',
-      body: 'Car seat compatibility and boot space are the two most common sources of wrong stroller purchases. The quiz accounts for your vehicle type to filter out options that will not fit your specific car.',
+      body: 'Car seat compatibility and trunk space are the two most common sources of wrong stroller purchases. The quiz accounts for your vehicle type to filter out options that will not fit your specific car.',
     },
     {
       title: 'Your budget, including your future plans',
@@ -147,13 +147,13 @@ export const QUIZ_CREATOR = {
   eyebrow: 'Who built this',
   heading: 'About the Quiz Creator, Taylor',
   bio: [
-    'This stroller quiz was built by Taylor, a Tot Squad-certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge programme powered by Tot Squad.',
+    'This stroller quiz was built by Taylor, a Tot Squad-certified baby gear specialist and baby registry consultant with hands-on stroller experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad.',
     'The quiz recommendations reflect the same framework Taylor uses in every personal consultation, matching strollers to real homes, real vehicles, and real lifestyles rather than to a generic best-of list.',
   ],
   credentials: [
     {
       title: 'Tot Squad Certified Specialist',
-      body: 'Certification behind Target’s Baby Concierge programme, serving 200+ stores nationwide.',
+      body: 'Certification behind Target’s Baby Concierge program, serving 200+ stores nationwide.',
     },
     {
       title: 'Strolleria Baby Gear Specialist',
@@ -211,7 +211,7 @@ export const QUIZ_LEAD_MAGNET = {
   body:
     'Completed the quiz but want a checklist to take to the shop or use when comparing online? Download the free Stroller Buying Checklist, the exact questions Taylor asks before recommending any stroller.',
   bullets: [
-    'Vehicle boot measurement guide: length, width, depth',
+    'Vehicle trunk measurement guide: length, width, depth',
     'LATCH compatibility checklist for car seat pairing',
     'Lift and doorway clearance measurement guide',
     'Fold type comparison: what to test in-store',
@@ -236,7 +236,7 @@ export const QUIZ_FAQ = [
   {
     question: 'Is the stroller quiz free?',
     answer:
-      'Yes. The Taylor-Made Baby Co. stroller quiz is completely free, requires no sign-up, and delivers instant results. For a deeper, fully personalised stroller recommendation that accounts for your specific vehicle make and model, apartment dimensions, and car seat compatibility, book a 1-hour virtual baby registry consultation with Taylor at $75.',
+      'Yes. The Taylor-Made Baby Co. stroller quiz is completely free, requires no sign-up, and delivers instant results. For a deeper, fully personalized stroller recommendation that accounts for your specific vehicle make and model, apartment dimensions, and car seat compatibility, book a 1-hour virtual baby registry consultation with Taylor at $75.',
   },
   {
     question: 'How accurate is the quiz recommendation?',
@@ -251,7 +251,7 @@ export const QUIZ_FAQ = [
   {
     question: 'What is the best stroller for an SUV?',
     answer:
-      'For SUV owners, boot space and travel system compatibility are the primary factors. Full-size systems including UPPAbaby VISTA V2, Nuna MIXX Next, and Bugaboo Fox 5 work with most SUVs. The stroller quiz includes a vehicle type question to account for your car category. For exact boot measurement verification, book a consultation where Taylor checks your specific make and model.',
+      'For SUV owners, trunk space and travel system compatibility are the primary factors. Full-size systems including UPPAbaby VISTA V2, Nuna MIXX Next, and Bugaboo Fox 5 work with most SUVs. The stroller quiz includes a vehicle type question to account for your car category. For fit against your exact trunk dimensions, book a consultation where Taylor talks through your specific make and model.',
   },
   {
     question: 'Can I use the quiz if I already have a partial stroller shortlist?',
@@ -261,12 +261,12 @@ export const QUIZ_FAQ = [
   {
     question: 'What if I need more than a quiz result?',
     answer:
-      'After completing the stroller quiz, you can book a 1-hour virtual baby registry consultation with Taylor at $75. The consultation covers your full registry: strollers, car seats, nursery, feeding gear, and registry strategy, with personalised recommendations based on your specific home, vehicle, and lifestyle. Written follow-up notes are included in every session.',
+      'After completing the stroller quiz, you can book a 1-hour virtual baby registry consultation with Taylor at $75. The consultation covers your full registry: strollers, car seats, nursery, feeding gear, and registry strategy, with personalized recommendations based on your specific home, vehicle, and lifestyle. Written follow-up notes are included in every session.',
   },
   {
-    question: 'Can I get a personalised stroller recommendation for my specific car?',
+    question: 'Can I get a personalized stroller recommendation for my specific car?',
     answer:
-      'The stroller quiz provides a type recommendation based on your vehicle category. For a recommendation verified against your specific car make, model, boot dimensions, and LATCH system, book a 1-hour virtual baby registry consultation with Taylor. Taylor checks stroller compatibility against your specific vehicle as part of every consultation.',
+      'The stroller quiz provides a type recommendation based on your vehicle category. For a recommendation considered against your specific car make, model, and trunk dimensions, book a 1-hour virtual baby registry consultation with Taylor. Taylor talks through stroller fit for your specific vehicle as part of every consultation.',
   },
 ];
 

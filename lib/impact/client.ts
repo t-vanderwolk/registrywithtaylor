@@ -376,7 +376,7 @@ export async function searchBabylistProducts(
 const ACCESSORY_DENYLIST = [
   'adapter', 'cup holder', 'cupholder', 'tray', 'travel bag', 'storage bag',
   'carry bag', 'seat liner', 'liner', 'footmuff', 'bassinet', 'rocker',
-  'second seat', 'rumble seat', 'organizer', 'organiser', 'cage', 'parasol',
+  'second seat', 'rumble seat', 'organizer', 'organizer', 'cage', 'parasol',
   'rain cover', 'rain shield', 'weather shield', 'sun shade', 'sunshade',
   'snack', 'cushion', 'mosquito', 'replacement', 'wheel', 'tire', 'glider board',
   'ride along', 'stand', 'caddy', 'console', 'hook', 'cover only', 'bundle',

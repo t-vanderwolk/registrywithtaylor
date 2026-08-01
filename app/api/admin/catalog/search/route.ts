@@ -24,7 +24,7 @@ type Row = {
 /**
  * GET /api/admin/catalog/search?q=vista
  *
- * Admin-only. Searches the affiliate catalogue by brand/title/canonical name and
+ * Admin-only. Searches the affiliate catalog by brand/title/canonical name and
  * returns the fields the blog editor needs to insert a catalog-linked product
  * block: brand + name (used by the render-time resolver to re-match the live
  * link) plus the Babylist/MacroBaby affiliate URL, manual Amazon URL, image, and

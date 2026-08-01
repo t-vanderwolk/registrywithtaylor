@@ -256,7 +256,7 @@ Link: Shop at Amazon | https://example.com/amazon-bugaboo
   {
     id: 'catalog-product',
     label: 'Catalog Product Card',
-    description: 'A shop-style product card matched to your affiliate catalogue (live image, price, Babylist + Amazon buttons). Add manual links as fallback for products not in the catalogue.',
+    description: 'A shop-style product card matched to your affiliate catalog (live image, price, Babylist + Amazon buttons). Add manual links as fallback for products not in the catalog.',
     snippet: `:::catalog-product
 Brand: Bugaboo
 Product: Dragonfly Plus

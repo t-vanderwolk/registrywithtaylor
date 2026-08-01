@@ -79,7 +79,7 @@ export default function ServicesPage() {
           className="homepage-hero services-hero"
           eyebrow="$75 · 1-Hour Virtual Session · US Nationwide"
           title="One Hour. Clear Answers. $75."
-          subtitle="Taylor-Made Baby Co. helps expecting parents make confident baby gear decisions in a single virtual session at $75, covering strollers, car seats, nursery, feeding gear, and registry strategy, personalised to your real home and budget."
+          subtitle="Taylor-Made Baby Co. helps expecting parents make confident baby gear decisions in a single virtual session at $75, covering strollers, car seats, nursery, feeding gear, and registry strategy, personalized to your real home and budget."
           primaryCta={{ label: 'Book Your Consultation, $75', href: '/book' }}
           secondaryCta={{ label: 'Contact Taylor', href: '/contact' }}
           tagline="Registry Strategy • Strollers • Car Seats • Feeding • Sleep • Nursery"
@@ -347,9 +347,11 @@ export default function ServicesPage() {
           <div className="mx-auto max-w-5xl space-y-6">
             <RevealOnScroll>
               <p className="mkt-eyebrow">Client stories</p>
-              <H2 className="mt-3 font-serif">What Families Actually Saved, Beyond the Session</H2>
+              <H2 className="mt-3 font-serif">What One Wrong Decision Can Cost</H2>
               <Body className="mt-3 max-w-2xl text-neutral-600">
-                The $75 consultation pays for itself when it prevents a single wrong purchase. Here is the real-world math from three verified client sessions.
+                The $75 consultation pays for itself when it prevents a single wrong purchase. Below are real reviews
+                from Taylor’s time at Strolleria, alongside illustrative estimates of what each kind of mistake tends
+                to cost — general ranges, not figures confirmed by the reviewer.
               </Body>
             </RevealOnScroll>
             <div className="grid gap-5 lg:grid-cols-3">

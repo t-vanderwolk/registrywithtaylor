@@ -30,7 +30,7 @@ export default function DueDateCountdown({ dueDateIso, onAddDueDate }: Props) {
       <div className={styles.wrap}>
         <div className={styles.prompt}>
           <p className={styles.promptText}>
-            Add your due date to see a personalised countdown.{' '}
+            Add your due date to see a personalized countdown.{' '}
             {onAddDueDate && (
               <button type="button" onClick={onAddDueDate}>
                 Add due date →

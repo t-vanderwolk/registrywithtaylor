@@ -5,7 +5,7 @@
  *
  * This is a curated, expandable roster: add a profile object and it appears
  * automatically. Matching is brand + a model regex (tested against the
- * normalized model), so colour/year variants ("Vista V2", "Vista V3") resolve to
+ * normalized model), so color/year variants ("Vista V2", "Vista V3") resolve to
  * one profile. Strollers without a profile fall back to their catalog summary.
  *
  * Voice: witty, wise, real. Say the honest thing, skip the spec-sheet drone.

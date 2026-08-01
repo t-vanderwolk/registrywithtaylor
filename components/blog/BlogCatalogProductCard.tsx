@@ -126,7 +126,7 @@ export default function BlogCatalogProductCard({
     if (!hasAmazon) {
       available.push({ key: 'amazon', url: amazonSearchShopUrl(`${brand} ${productName}`), label: 'Shop on Amazon' });
     }
-    // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+    // Brands with a direct program (Mima, Silver Cross) lead with their direct
     // affiliate link; Babylist stays as a secondary button.
     const directUrl = getDirectAffiliateLink(brand, productName);
     if (directUrl) {

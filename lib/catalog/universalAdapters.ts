@@ -88,7 +88,7 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // (City GO 2) and sells a different adapter per stroller + seat-brand combo —
   // there is no shared click-and-go adapter, so the universal inference does not
   // apply. Its pairings are transcribed from the manufacturer's adapter
-  // catalogue in lib/catalog/babyJoggerAdapters and applied by
+  // catalog in lib/catalog/babyJoggerAdapters and applied by
   // scripts/applyBabyJoggerCompatibility.
   //
   // The old rule claimed Maxi-Cosi / CYBEX / Nuna for the City Prix and City

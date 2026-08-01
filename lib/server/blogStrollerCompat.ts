@@ -4,7 +4,7 @@
  * (e.g. "Hub 2" vs "Hub2", "MIOS Comfort Collection" vs "MIOS"), so we match by
  * squashed brand + model/displayName and return the option's OWN results href —
  * which is guaranteed to resolve on the checker. Products with no matching
- * stroller (e.g. a "coming soon" pick not in the catalogue) get no link.
+ * stroller (e.g. a "coming soon" pick not in the catalog) get no link.
  */
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';

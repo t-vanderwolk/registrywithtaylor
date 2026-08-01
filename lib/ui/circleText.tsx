@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
  * TMBC signature body annotations, available site-wide (marketing pages + blog).
  *
  *   (( word ))       → hand-drawn pink circle around a word or short phrase.
- *   [[ sentence ]]   → pink underline (same colour + weight as the circle) that
+ *   [[ sentence ]]   → pink underline (same color + weight as the circle) that
  *                      follows line wraps + sweeps in left→right on scroll.
  *   **bold**  *italic*
  *

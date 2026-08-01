@@ -32,7 +32,7 @@ export const SERVICES_DECISIONS = [
   },
   {
     title: 'Registry strategy: where, what, and when',
-    body: 'Which retailer to use, what to prioritise for the shower, what to self-purchase, and how to structure your list so guests buy what you need.',
+    body: 'Which retailer to use, what to prioritize for the shower, what to self-purchase, and how to structure your list so guests buy what you need.',
   },
   {
     title: 'What to skip entirely',
@@ -40,7 +40,7 @@ export const SERVICES_DECISIONS = [
   },
   {
     title: 'What feeding gear fits your plan',
-    body: 'Whether you plan to breastfeed, formula feed, or combine, the right pump, bottles, steriliser, and high chair for your approach.',
+    body: 'Whether you plan to breastfeed, formula feed, or combine, the right pump, bottles, sterilizer, and high chair for your approach.',
   },
 ] as const;
 
@@ -50,7 +50,7 @@ export const SERVICES_WHY = {
     'Baby gear decisions arrive fast, compound quickly, and carry more weight than most first-time parents expect.',
     'The stroller you choose affects whether you can fit through your apartment door, whether it clips into your specific car seat, and whether you can navigate the neighbourhood you walk every day. The car seat you choose is a safety decision that most parents make without ever having the full picture.',
     'Generic registry checklists do not answer these questions. YouTube reviews do not know your car. Many online recommendations are shaped by sponsorships, affiliate incentives, or limited personal context. And by the time you realize a purchase was wrong, the return window has closed.',
-    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalised to your specific home, vehicle, lifestyle, and budget. Before you spend a dollar.',
+    'A baby registry consultation with Taylor-Made Baby Co. is one focused hour where all of that gets resolved, personalized to your specific home, vehicle, lifestyle, and budget. Before you spend a dollar.',
   ],
 } as const;
 
@@ -69,7 +69,7 @@ export const SERVICES_ROI = {
 
 export const SERVICES_INCLUDES = {
   heading: 'What Your Baby Registry Consultation Includes',
-  intro: 'Every consultation is fully personalised. Taylor reviews your intake form before the session so the full hour is spent on recommendations, not background questions.',
+  intro: 'Every consultation is fully personalized. Taylor reviews your intake form before the session so the full hour is spent on recommendations, not background questions.',
   items: [
     { title: 'Pre-Session Intake Review', body: 'Taylor personally reviews your due date, home setup, vehicle type, budget, and gear questions before the session begins. You arrive to a consultant who is already prepared for you specifically.' },
     { title: '1-Hour Video Consultation', body: 'A structured session via Zoom or Google Meet covering your biggest gear decisions in priority order. No upselling, no pressure, no brand agenda.' },
@@ -86,9 +86,9 @@ export const SERVICES_COVERAGE = {
     { name: 'Strollers', body: 'Full-size, lightweight, travel systems, double strollers. Brands like UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger, and Mockingbird. Matched to your vehicle, lifestyle, and home.' },
     { name: 'Car Seats', body: 'Infant vs convertible, LATCH compatibility, height and weight limits, vehicle-specific installation notes, and honest safety comparisons beyond crash test data.' },
     { name: 'Nursery Setup', body: 'Crib vs bassinet, safe sleep configuration, furniture that fits your real room, monitor selection, storage, and layout for spaces of every size.' },
-    { name: 'Feeding Gear', body: 'Breast pump types, bottle comparisons, steriliser options, high chair timing, formula equipment, and newborn feeding organisation.' },
+    { name: 'Feeding Gear', body: 'Breast pump types, bottle comparisons, sterilizer options, high chair timing, formula equipment, and newborn feeding organization.' },
     { name: 'Travel & On-the-Go', body: 'Diaper bags, travel cribs, baby carriers vs wraps vs structured carriers, and how to fly with a newborn without losing your mind.' },
-    { name: 'Registry Strategy', body: 'Where to register, what to prioritise, what to leave off, how to time your registry for the baby shower, and how to structure it so guests buy what you actually need.' },
+    { name: 'Registry Strategy', body: 'Where to register, what to prioritize, what to leave off, how to time your registry for the baby shower, and how to structure it so guests buy what you actually need.' },
   ],
 } as const;
 
@@ -139,23 +139,23 @@ export const SERVICES_TESTIMONIALS = [
   {
     headline: 'Nearly bought a $1,200 stroller that would not fit the car.',
     quote: 'We ended up buying something completely different than what our online research led us to. Taylor identified that the travel system we had in our cart was not compatible with our SUV’s LATCH points. We switched to a different system that actually worked, and saved several hundred dollars in the process.',
-    saving: 'Estimated saving: $300 to $600 on a wrong stroller plus potential car seat reinstall costs.',
+    saving: 'Illustrative cost of this kind of mistake: roughly $300 to $600 on a wrong stroller plus potential car seat reinstall costs.',
     author: 'Kathryn G.',
-    source: 'Strolleria Verified Review',
+    source: 'Review from Taylor’s time at Strolleria',
   },
   {
-    headline: 'Realised a full nursery set would not fit her bedroom.',
-    quote: 'She spent 3+ hours with me as we walked through everything. We realised the full nursery furniture set I had chosen would not fit the dimensions of our actual bedroom. Taylor helped me redesign around a smaller crib and a dresser that doubled as a changing table, saving space and money.',
-    saving: 'Estimated saving: $400 to $700 on oversized nursery furniture.',
+    headline: 'Realized a full nursery set would not fit her bedroom.',
+    quote: 'She spent 3+ hours with me as we walked through everything. We realized the full nursery furniture set I had chosen would not fit the dimensions of our actual bedroom. Taylor helped me redesign around a smaller crib and a dresser that doubled as a changing table, saving space and money.',
+    saving: 'Illustrative cost of this kind of mistake: roughly $400 to $700 on oversized nursery furniture.',
     author: 'Amanda M.',
-    source: 'Strolleria Verified Review',
+    source: 'Review from Taylor’s time at Strolleria',
   },
   {
     headline: 'Removed 40+ items from the registry she would never have used.',
     quote: 'Taylor completely changed what we wanted for our whole stroller setup and helped us strip our registry back from 140 items to about 60, keeping only what we would actually use. The process of removing things was as valuable as adding them.',
-    saving: 'Estimated saving: $200 to $400 in duplicate and unnecessary registry items.',
+    saving: 'Illustrative cost of this kind of mistake: roughly $200 to $400 in duplicate and unnecessary registry items.',
     author: 'Jennifer R.',
-    source: 'Strolleria Verified Review',
+    source: 'Review from Taylor’s time at Strolleria',
   },
 ] as const;
 
@@ -196,7 +196,7 @@ export const SERVICES_PRICING = {
 
 export const SERVICES_ADDONS = [
   { title: 'Registry Review Add-On', tag: 'Included with consultation', body: 'Already have a registry and need expert review? Taylor goes through your existing list, flags redundant items, identifies gaps, and refines your choices based on your real situation. Included as part of your consultation session.' },
-  { title: 'Private Planning Package', tag: 'Custom pricing, enquire', body: 'Extended multi-session support covering registry, nursery, newborn preparation, and ongoing planning. Custom scope and pricing. Contact info@taylormadebabyco.com to discuss.' },
+  { title: 'Private Planning Package', tag: 'Custom pricing, inquire', body: 'Extended multi-session support covering registry, nursery, newborn preparation, and ongoing planning. Custom scope and pricing. Contact info@taylormadebabyco.com to discuss.' },
 ] as const;
 
 export const SERVICES_LEAD_MAGNET = {
@@ -204,7 +204,7 @@ export const SERVICES_LEAD_MAGNET = {
   body: 'The single most common question in every consultation is about strollers. Before you book, or even if you never book, this free guide gives you the framework Taylor uses in every session to narrow the stroller decision for your specific situation.',
   bullets: [
     '7 questions to ask before choosing any stroller',
-    'The vehicle compatibility checklist (LATCH + boot space)',
+    'The vehicle compatibility checklist (seat fit + trunk space)',
     'Full-size vs lightweight vs travel system, who each is for',
     'Brand guide: UPPAbaby, Nuna, Bugaboo, Cybex, Baby Jogger side by side',
     'Double stroller timing, when to buy and which type',

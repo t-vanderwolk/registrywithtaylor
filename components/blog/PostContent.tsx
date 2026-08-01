@@ -61,7 +61,7 @@ type PostContentProps = {
     }
   >;
   contextualInternalLinks?: ContextualInternalLink[];
-  /** Live affiliate-catalogue matches keyed by blogProductKey(brand, productName). */
+  /** Live affiliate-catalog matches keyed by blogProductKey(brand, productName). */
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   /** Travel-system checker hrefs keyed by blogProductKey(brand, productName). */
   strollerCompatHrefs?: Record<string, string>;
@@ -267,7 +267,7 @@ function renderInlineContent(
         </span>,
       );
     } else if (underlineText) {
-      // [[ sentence ]] → pink underline (same colour + weight as the circle) for
+      // [[ sentence ]] → pink underline (same color + weight as the circle) for
       // standout sentences too long to circle.
       nodes.push(
         <span key={key} className="tmbc-underline">

@@ -1,12 +1,12 @@
 /**
  * Resolve GoodBuy Gear (open-box) offers for blog product cards.
  *
- * The main blog catalogue resolver deliberately excludes GoodBuy Gear (it's an
+ * The main blog catalog resolver deliberately excludes GoodBuy Gear (it's an
  * open-box marketplace, not the primary buy link). This companion resolver pulls
  * the matching `impact_goodbuygear` offer for each product so the card can show
  * an "Open Box from $X at GoodBuy Gear" badge — mirroring the Resource tools.
  *
- * Read-only. Degrades to {} if the catalogue tables aren't reachable.
+ * Read-only. Degrades to {} if the catalog tables aren't reachable.
  */
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';

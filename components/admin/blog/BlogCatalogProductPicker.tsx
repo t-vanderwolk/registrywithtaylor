@@ -68,8 +68,8 @@ export default function BlogCatalogProductPicker({ onInsert }: { onInsert: (snip
       <div className="admin-stack gap-1.5">
         <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-admin">Catalog product</h3>
         <p className="admin-micro">
-          Search the affiliate catalogue and insert a product card wired to the live buy link. The card refreshes its
-          price and link automatically from the catalogue.
+          Search the affiliate catalog and insert a product card wired to the live buy link. The card refreshes its
+          price and link automatically from the catalog.
         </p>
       </div>
 

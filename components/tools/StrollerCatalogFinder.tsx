@@ -277,7 +277,7 @@ function ProductCard({
   if (!hasAmazonOffer) {
     offers.push({ meta: amazonMeta, offer: { url: amazonSearchShopUrl(fallbackQuery), price: null } });
   }
-  // Brands with a direct programme (Mima, Silver Cross) lead with their direct
+  // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist stays available as a secondary button.
   const directUrl = getDirectAffiliateLink(brand, product.model);
   if (directUrl) {

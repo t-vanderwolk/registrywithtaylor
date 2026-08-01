@@ -60,7 +60,7 @@ export default function TermsPage() {
         <ul className="list-disc space-y-2 pl-5">
           <li>
             You will complete the pre-session intake form accurately and honestly before your scheduled
-            appointment. Taylor uses this information to prepare personalised recommendations — incomplete or
+            appointment. Taylor uses this information to prepare personalized recommendations — incomplete or
             inaccurate intake information may limit the effectiveness of your session.
           </li>
           <li>
