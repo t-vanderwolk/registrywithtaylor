@@ -89,6 +89,11 @@ const academyDisabledFlatten = [
   { source: '/academy/:path*', destination: '/services', permanent: true },
   { source: '/guides', destination: '/services', permanent: true },
   { source: '/guides/:path*', destination: '/services', permanent: true },
+  // /learn is the canonical Academy destination when enabled; while it's hidden,
+  // send every /learn URL to /services too so old crawls (e.g. /learn/stroller-foundations)
+  // resolve instead of 404-ing.
+  { source: '/learn', destination: '/services', permanent: true },
+  { source: '/learn/:path*', destination: '/services', permanent: true },
 ];
 
 const academyEnabled = process.env.NEXT_PUBLIC_ACADEMY_ENABLED === 'true';
@@ -137,7 +142,7 @@ const nextConfig = {
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
       {
         source: '/request-invite',
-        destination: '/learn/waitlist',
+        destination: '/services',
         permanent: true,
       },
       {
@@ -147,7 +152,7 @@ const nextConfig = {
       },
       {
         source: '/car-seats-simplified',
-        destination: '/learn/gear/car-seat-foundations',
+        destination: '/resources',
         permanent: true,
       },
       // /consultation funnel retired — all booking goes through /book (Calendly).
