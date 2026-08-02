@@ -803,6 +803,17 @@ export const TRAVEL_SYSTEM_ENTITIES: TravelSystemEntity[] = [
     aliases: ['butterfly 2', 'bugaboo butterfly 2'],
   },
   {
+    id: 'bugaboo-butterfly-2-plus',
+    type: 'stroller',
+    brand: 'Bugaboo',
+    label: 'Bugaboo Butterfly 2 Plus',
+    shortLabel: 'Butterfly 2 Plus',
+    description: 'Compact stroller with full recline',
+    icon: 'plane',
+    strollerCategory: 'compact',
+    aliases: ['butterfly 2 plus', 'bugaboo butterfly 2 plus'],
+  },
+  {
     id: 'bugaboo-donkey-3',
     type: 'stroller',
     brand: 'Bugaboo',
