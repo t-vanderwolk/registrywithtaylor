@@ -1,0 +1,98 @@
+# robots.txt for https://www.taylormadebabyco.com/
+# Last updated: 2026-08-02
+
+# ---- Default rule for all crawlers ----
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /api/
+Disallow: /_next/static/
+Disallow: /cdn-cgi/
+Disallow: /*?*utm_
+Disallow: /*?*fbclid
+
+# ---- Googlebot ----
+User-agent: Googlebot
+Allow: /
+
+# ---- Bingbot ----
+User-agent: Bingbot
+Allow: /
+
+# ---- AI / LLM crawlers: explicitly allowed (for AEO / answer-engine visibility) ----
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+# ---- Block aggressive/low-value scrapers (optional hardening) ----
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ---- LLMs.txt reference for AI/answer-engine crawlers ----
+# See: https://www.taylormadebabyco.com/llms.txt
+
+# ---- Sitemap ----
+Sitemap: https://www.taylormadebabyco.com/sitemap.xml
