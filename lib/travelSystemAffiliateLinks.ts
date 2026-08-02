@@ -76,7 +76,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
     amazonUrl: amazonDp('B0B1QRC69X'),
   },
   'Bugaboo:::Butterfly 2': {
-    babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
+    babylistUrl: babylistTracked('https://www.babylist.com/gp/bugaboo-butterfly-2-plus-stroller/86187/3571867'),
     amazonUrl: amazonDp('B0F8RBF72G'),
   },
   // Donkey 6 / Bee 6 not found as exact Amazon listings → no amazonUrl.
