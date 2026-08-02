@@ -4256,7 +4256,9 @@ img {
 .tool-open-box-badge {
   position: absolute;
   top: 0.6rem;
-  right: 0.6rem;
+  /* Top-left corner so it never collides with the top-right compare pill. */
+  left: 0.6rem;
+  right: auto;
   z-index: 10;
   display: inline-flex;
   flex-direction: column;
