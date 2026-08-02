@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { OpenBoxBadge, BabylistHeartIcon, AmazonMark } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import { isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 
@@ -950,7 +951,7 @@ export default function StrollerQuiz() {
                           <span>Add to Babylist →</span>
                         </a>
                       ) : null}
-                      {links.amazonUrl ? (
+                      {links.amazonUrl && isAmazonAllowedForBrand(pick.brand) ? (
                         <a
                           href={links.amazonUrl}
                           target="_blank"
@@ -1049,7 +1050,7 @@ export default function StrollerQuiz() {
                             <BabylistHeartIcon className="shrink-0" />
                             <span>Add to Babylist →</span>
                           </a>
-                          {links.amazonUrl && (
+                          {links.amazonUrl && isAmazonAllowedForBrand(s.brand) && (
                             <a
                               href={links.amazonUrl}
                               target="_blank"

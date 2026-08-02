@@ -27,7 +27,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
@@ -349,7 +349,9 @@ function SelectedSummaryCard({
       : option.bombiUrl
         ? { label: 'Shop Bombi', url: option.bombiUrl, source: 'bombi' as const }
         : null;
-  const selectedAmazonUrl = selectedPrimaryCta ? option.amazonUrl ?? null : null;
+  // Nuna and other brands that don't authorize Amazon third-party sales get no Amazon CTA.
+  const selectedAmazonUrl =
+    selectedPrimaryCta && isAmazonAllowedForBrand(option.brand) ? option.amazonUrl ?? null : null;
 
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">
@@ -571,9 +573,11 @@ function ResultCard({
   const urbnBundleUrl =
     productKind === 'stroller' && pipaUrbnSelected ? getPipaUrbnTravelSystemUrl(item.brand, item.model) : null;
   // Guarantee Amazon too: real product link, else a tagged Amazon search.
-  const amazonUrl = isTravelSystemOnly
-    ? null
-    : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
+  // Nuna and other brands that don't authorize Amazon third-party sales get none.
+  const amazonUrl =
+    isTravelSystemOnly || !isAmazonAllowedForBrand(item.brand)
+      ? null
+      : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist drops to a secondary button.
   const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);

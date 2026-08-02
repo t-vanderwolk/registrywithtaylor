@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
-import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { travelSystemSlug } from '@/lib/travelSystemRouting';
 
@@ -110,7 +110,9 @@ export default function BlogCatalogProductCard({
   if (macrobabyUrl) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
   if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
   if (shop2Url) available.push({ key: 'shop2', url: shop2Url, label: shop2Retailer ? `Shop ${shop2Retailer}` : 'Shop now' });
-  if (amazonUrl) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
+  // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — never show an Amazon CTA.
+  const amazonAllowed = isAmazonAllowedForBrand(brand);
+  if (amazonUrl && amazonAllowed) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
 
   // Guarantee a shoppable primary (Babylist/MacroBaby/shop) AND an Amazon button
   // on every live card. When an exact retailer link is missing, fall back to an
@@ -123,7 +125,7 @@ export default function BlogCatalogProductCard({
     if (!hasPrimary) {
       available.unshift({ key: 'babylist', url: babylistBrandShopUrl(brand, fallbackKind), label: 'Shop on Babylist' });
     }
-    if (!hasAmazon) {
+    if (!hasAmazon && amazonAllowed) {
       available.push({ key: 'amazon', url: amazonSearchShopUrl(`${brand} ${productName}`), label: 'Shop on Amazon' });
     }
     // Brands with a direct program (Mima, Silver Cross) lead with their direct

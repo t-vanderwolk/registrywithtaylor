@@ -50,3 +50,14 @@ export function amazonSearchShopUrl(query: string): string {
   const q = query.replace(/\s+/g, ' ').trim();
   return `https://www.amazon.com/s?k=${encodeURIComponent(q)}&tag=${AMAZON_TAG}`;
 }
+
+/**
+ * Brands that don't authorize third-party Amazon sales, so we never show an
+ * Amazon CTA for them (real link or tagged search). Nuna enforces this.
+ */
+const AMAZON_SUPPRESSED_BRANDS = new Set(['nuna']);
+
+/** True when an Amazon CTA is allowed for this brand. */
+export function isAmazonAllowedForBrand(brand: string | null | undefined): boolean {
+  return !AMAZON_SUPPRESSED_BRANDS.has((brand ?? '').trim().toLowerCase());
+}

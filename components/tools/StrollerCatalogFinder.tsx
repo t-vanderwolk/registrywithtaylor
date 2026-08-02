@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
-import { babylistBrandShopUrl, amazonSearchShopUrl } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
@@ -267,6 +267,14 @@ function ProductCard({
   // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
   const fallbackKind = kind === 'carseats' ? 'carseat' : 'stroller';
   const fallbackQuery = `${brand} ${product.model || product.name}`.trim();
+  // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — drop any
+  // real Amazon offer and never add the fallback Amazon search for them.
+  const amazonAllowed = isAmazonAllowedForBrand(brand);
+  if (!amazonAllowed) {
+    for (let i = offers.length - 1; i >= 0; i--) {
+      if (offers[i].meta.key === 'amazon') offers.splice(i, 1);
+    }
+  }
   const hasPrimaryOffer = offers.some((o) => o.meta.key === 'babylist' || o.meta.key === 'macrobaby' || o.meta.key === 'bombi');
   const hasAmazonOffer = offers.some((o) => o.meta.key === 'amazon');
   const babylistMeta = RETAILER_CTAS.find((m) => m.key === 'babylist')!;
@@ -274,7 +282,7 @@ function ProductCard({
   if (!hasPrimaryOffer) {
     offers.unshift({ meta: babylistMeta, offer: { url: babylistBrandShopUrl(brand, fallbackKind), price: null } });
   }
-  if (!hasAmazonOffer) {
+  if (!hasAmazonOffer && amazonAllowed) {
     offers.push({ meta: amazonMeta, offer: { url: amazonSearchShopUrl(fallbackQuery), price: null } });
   }
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
