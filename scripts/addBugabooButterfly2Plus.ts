@@ -38,9 +38,9 @@ const PRODUCT = {
   externalId: 'manual-bugaboo-butterfly-2-plus',
   // Babylist product page, affiliate-tracked via the TMBC Impact tracker.
   affiliateUrl: babylistShopLink('https://www.babylist.com/gp/bugaboo-butterfly-2-plus-stroller/86187/3571867'),
-  // Optional: paste a product image URL (Babylist/Amazon) to show on the card.
-  // Leaving null renders a brand fallback tile until an image is set in admin.
-  imageUrl: null as string | null,
+  // Product image (Bugaboo CDN).
+  imageUrl:
+    'https://images.ctfassets.net/50gzycvace50/56037f460016ec11be51c2e1565b40942097e05b5392dbc18d7511b67ac2c35b/b007ff17a9faac245e7173f3f3a298ce/56037f460016ec11be51c2e1565b40942097e05b5392dbc18d7511b67ac2c35b.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240' as string | null,
   retailer: 'Babylist',
   tmbcCategory: 'Strollers',
   productType: 'Compact',
