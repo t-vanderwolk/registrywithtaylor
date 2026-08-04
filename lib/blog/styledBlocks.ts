@@ -15,7 +15,13 @@ export type StyledBlockId =
   | 'decision'
   | 'takeaways'
   | 'poll'
-  | 'thisorthat';
+  | 'thisorthat'
+  | 'quick-answer'
+  | 'feature-list'
+  | 'decision-cards'
+  | 'note'
+  | 'checklist'
+  | 'verdict';
 
 export type StyledBlockDefinition = {
   id: StyledBlockId;
@@ -129,14 +135,63 @@ export type ParsedStyledBlock =
       verdictA: string;
       optionB: string;
       verdictB: string;
+    }
+  | {
+      /** Prominent editorial summary box. Freeform body, no named fields. */
+      type: 'quick-answer';
+      body: string;
+    }
+  | {
+      /** Understated info note. Freeform body, no named fields. */
+      type: 'note';
+      body: string;
+    }
+  | {
+      /** Two-column feature grid with a subtle marker per item. */
+      type: 'feature-list';
+      title: string | null;
+      features: string[];
+    }
+  | {
+      /** Editorial option cards (heading + explanation), sorted numerically. */
+      type: 'decision-cards';
+      title: string | null;
+      cards: Array<{ heading: string; body: string }>;
+    }
+  | {
+      /** Non-interactive checklist rows with empty visual checkboxes. */
+      type: 'checklist';
+      title: string | null;
+      items: string[];
+    }
+  | {
+      /** Closing summary: category label → recommendation, original order. */
+      type: 'verdict';
+      rows: Array<{ label: string; value: string }>;
     };
 
 const STYLED_BLOCK_OPEN_PATTERN =
-  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|service|product|faq|decision|takeaways|poll|thisorthat)\s*$/i;
+  /^:::(callout|advice|pullquote|quote|pros|cons|comparison|spec-table|catalog-product|service|product|faq|decision|takeaways|poll|thisorthat|quick-answer|feature-list|decision-cards|note|checklist|verdict)\s*$/i;
 const STYLED_BLOCK_CLOSE = ':::';
 
 function trimNonEmptyLines(lines: string[]) {
   return lines.map((line) => line.trim()).filter(Boolean);
+}
+
+/** Trim only leading/trailing blank lines — preserves interior line breaks and paragraph gaps. */
+function trimBlankEdges(lines: string[]) {
+  const copy = [...lines];
+  while (copy.length && copy[0].trim() === '') copy.shift();
+  while (copy.length && copy[copy.length - 1].trim() === '') copy.pop();
+  return copy.map((line) => line.replace(/\s+$/, ''));
+}
+
+/** Split a pipe-delimited value into trimmed, non-empty parts. */
+function splitPipeValues(value: string) {
+  return value
+    .split('|')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
 }
 
 function normalizeBlockType(rawType: string) {
@@ -324,6 +379,69 @@ Verdict B: Best if you want maximum comfort, storage, and one stroller from newb
 - Start with the routine, not the brand.
 - Pick the option that removes the most friction.
 - Skip features that sound impressive but change very little.
+:::`,
+  },
+  {
+    id: 'quick-answer',
+    label: 'Quick Answer',
+    description:
+      'A prominent editorial summary box that answers the reader’s core question up front. Freeform text — supports bold, italics, and links.',
+    snippet: `:::quick-answer
+The **Nuna SENA Aire** is the best all-around pick. Choose the **PAAL** if you travel often, or the **COVE Aire Go** for small bedrooms.
+:::`,
+  },
+  {
+    id: 'feature-list',
+    label: 'Feature List',
+    description:
+      'A clean two-column list of features or highlights, each with a subtle marker. Separate items with a pipe ( | ).',
+    snippet: `:::feature-list
+Title: What you get
+Features: Optional changing station | Breathable mesh sides | One-hand fold | Machine-washable liner
+:::`,
+  },
+  {
+    id: 'decision-cards',
+    label: 'Decision Cards',
+    description:
+      'A row of editorial option cards. Each "Option N" becomes one card — text before the first pipe is the heading, text after is the explanation.',
+    snippet: `:::decision-cards
+Title: Which one is right for you?
+Option 1: Best all-around | The SENA Aire is dependable at home and on the road.
+Option 2: Best for travel | The PAAL is the lightest crib Nuna makes.
+Option 3: Best for small spaces | The COVE Aire Go has the narrowest footprint.
+:::`,
+  },
+  {
+    id: 'note',
+    label: 'Note',
+    description:
+      'A small, understated info note — quieter than a callout. Freeform text with support for bold, italics, and links.',
+    snippet: `:::note
+Prices reflect typical retail as of publication and can shift during sale events.
+:::`,
+  },
+  {
+    id: 'checklist',
+    label: 'Checklist',
+    description:
+      'A print-friendly checklist with empty checkboxes. Each "Item N" becomes one row; long lists wrap into two columns on wide screens.',
+    snippet: `:::checklist
+Title: Before you buy
+Item 1: Measure the space next to your bed.
+Item 2: Decide if you need a changing station.
+Item 3: Weigh it against your full gear budget.
+:::`,
+  },
+  {
+    id: 'verdict',
+    label: 'Verdict',
+    description:
+      'A strong closing summary. Each line is a category label and your recommendation (Label: Pick) — categories render in the order you write them.',
+    snippet: `:::verdict
+Best overall: Nuna SENA Aire
+Best for frequent travel: Nuna PAAL
+Best for small bedrooms: Nuna COVE Aire Go
 :::`,
   },
 ];
@@ -563,6 +681,123 @@ export function parseStyledBlock(
         optionB: optionB || 'That',
         verdictB: verdictB || 'A solid pick for the right routine.',
       },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'quick-answer' || type === 'note') {
+    // Freeform: preserve line breaks / paragraph gaps, render inline markdown downstream.
+    return {
+      block: { type, body: trimBlankEdges(bodyLines).join('\n') },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'feature-list') {
+    let title: string | null = null;
+    const features: string[] = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (parsedLine && parsedLine.normalizedLabel === 'title') {
+        title = parsedLine.value;
+        return;
+      }
+      if (parsedLine && (parsedLine.normalizedLabel === 'features' || parsedLine.normalizedLabel === 'feature')) {
+        splitPipeValues(parsedLine.value).forEach((entry) => features.push(entry));
+        return;
+      }
+      // Bare "- feature" bullets also count.
+      const listItem = line.replace(/^[-*]\s+/, '').trim();
+      if (!parsedLine && listItem && listItem !== line.trim()) features.push(listItem);
+    });
+
+    return {
+      block: { type: 'feature-list', title, features },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'decision-cards') {
+    let title: string | null = null;
+    const numbered: Array<{ order: number; heading: string; body: string }> = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) return;
+      if (parsedLine.normalizedLabel === 'title') {
+        title = parsedLine.value;
+        return;
+      }
+      const optionMatch = parsedLine.normalizedLabel.match(/^option\s*(\d+)?$/);
+      if (!optionMatch) return;
+
+      const order = optionMatch[1] ? Number.parseInt(optionMatch[1], 10) : numbered.length + 1;
+      // Split on the FIRST pipe only: left = heading, right = explanation.
+      const pipeIndex = parsedLine.value.indexOf('|');
+      const heading = (pipeIndex === -1 ? parsedLine.value : parsedLine.value.slice(0, pipeIndex)).trim();
+      const body = pipeIndex === -1 ? '' : parsedLine.value.slice(pipeIndex + 1).trim();
+      if (heading) numbered.push({ order, heading, body });
+    });
+
+    numbered.sort((a, b) => a.order - b.order);
+
+    return {
+      block: {
+        type: 'decision-cards',
+        title,
+        cards: numbered.map(({ heading, body }) => ({ heading, body })),
+      },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'checklist') {
+    let title: string | null = null;
+    const numbered: Array<{ order: number; text: string }> = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (parsedLine && parsedLine.normalizedLabel === 'title') {
+        title = parsedLine.value;
+        return;
+      }
+      if (parsedLine) {
+        const itemMatch = parsedLine.normalizedLabel.match(/^item\s*(\d+)?$/);
+        if (itemMatch) {
+          const order = itemMatch[1] ? Number.parseInt(itemMatch[1], 10) : numbered.length + 1;
+          if (parsedLine.value) numbered.push({ order, text: parsedLine.value });
+          return;
+        }
+      }
+      // Bare "- item" bullets also count.
+      const listItem = line.replace(/^[-*]\s+/, '').trim();
+      if (!parsedLine && listItem && listItem !== line.trim()) {
+        numbered.push({ order: numbered.length + 1, text: listItem });
+      }
+    });
+
+    numbered.sort((a, b) => a.order - b.order);
+
+    return {
+      block: { type: 'checklist', title, items: numbered.map((n) => n.text) },
+      nextIndex: cursor,
+    };
+  }
+
+  if (type === 'verdict') {
+    const rows: Array<{ label: string; value: string }> = [];
+
+    contentLines.forEach((line) => {
+      const parsedLine = parseKeyValueLine(line);
+      if (!parsedLine) return;
+      // A bare "Title:" is not a verdict category — skip it so it doesn't render as a row.
+      if (parsedLine.normalizedLabel === 'title') return;
+      rows.push({ label: parsedLine.label, value: parsedLine.value });
+    });
+
+    return {
+      block: { type: 'verdict', rows },
       nextIndex: cursor,
     };
   }

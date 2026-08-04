@@ -22,6 +22,14 @@ import SpecTable from '@/components/content-widgets/SpecTable';
 import ContentPullQuote from '@/components/content-widgets/PullQuote';
 import BlogPoll from '@/components/blog/BlogPoll';
 import BlogThisOrThat from '@/components/blog/BlogThisOrThat';
+import {
+  QuickAnswer,
+  Note as BlogNote,
+  FeatureList as BlogFeatureList,
+  DecisionCards as BlogDecisionCards,
+  Checklist as BlogChecklist,
+  Verdict as BlogVerdict,
+} from '@/components/blog/BlogEditorialBlocks';
 import Takeaways from '@/components/content-widgets/Takeaways';
 import { chunkArray } from '@/lib/chunkArray';
 import { filterRenderableGuideProductBlocks } from '@/lib/guides/renderableProductExamples';
@@ -410,6 +418,30 @@ function renderGuideProductGrid(products: GuideProductBlock[], postId: string, s
   );
 }
 
+/**
+ * Render a freeform block body (quick-answer / note) into paragraphs, preserving
+ * blank-line paragraph breaks and single line breaks, with inline markdown applied.
+ */
+function renderFreeformBody(body: string, keyPrefix: string, highlightBrandWordmark: boolean): ReactNode[] {
+  return body
+    .split(/\n{2,}/)
+    .map((para) => para.trim())
+    .filter(Boolean)
+    .map((para, paraIndex) => {
+      const lines = para.split('\n');
+      return (
+        <p key={`${keyPrefix}-p-${paraIndex}`}>
+          {lines.map((line, lineIndex) => (
+            <span key={`${keyPrefix}-p-${paraIndex}-l-${lineIndex}`}>
+              {lineIndex > 0 ? <br /> : null}
+              {renderInlineContent(line, `${keyPrefix}-${paraIndex}-${lineIndex}`, highlightBrandWordmark)}
+            </span>
+          ))}
+        </p>
+      );
+    });
+}
+
 function renderStyledBlock(
   block: ParsedStyledBlock,
   postId: string,
@@ -624,6 +656,75 @@ function renderStyledBlock(
         question={renderInlineContent(block.question, `${postId}-decision-question-${index}`, highlightBrandWordmark)}
         option={renderInlineContent(block.option, `${postId}-decision-option-${index}`, highlightBrandWordmark)}
         result={renderInlineContent(block.result, `${postId}-decision-result-${index}`, highlightBrandWordmark)}
+      />
+    );
+  }
+
+  if (block.type === 'quick-answer') {
+    if (!block.body.trim()) return null;
+    return (
+      <QuickAnswer key={`${postId}-quick-answer-${index}`}>
+        {renderFreeformBody(block.body, `${postId}-quick-answer-body-${index}`, highlightBrandWordmark)}
+      </QuickAnswer>
+    );
+  }
+
+  if (block.type === 'note') {
+    if (!block.body.trim()) return null;
+    return (
+      <BlogNote key={`${postId}-note-${index}`}>
+        {renderFreeformBody(block.body, `${postId}-note-body-${index}`, highlightBrandWordmark)}
+      </BlogNote>
+    );
+  }
+
+  if (block.type === 'feature-list') {
+    return (
+      <BlogFeatureList
+        key={`${postId}-feature-list-${index}`}
+        title={block.title ? renderInlineContent(block.title, `${postId}-feature-title-${index}`, highlightBrandWordmark) : undefined}
+        features={block.features.map((feature, featureIndex) =>
+          renderInlineContent(feature, `${postId}-feature-${index}-${featureIndex}`, highlightBrandWordmark),
+        )}
+      />
+    );
+  }
+
+  if (block.type === 'decision-cards') {
+    return (
+      <BlogDecisionCards
+        key={`${postId}-decision-cards-${index}`}
+        title={block.title ? renderInlineContent(block.title, `${postId}-decision-cards-title-${index}`, highlightBrandWordmark) : undefined}
+        cards={block.cards.map((card, cardIndex) => ({
+          heading: renderInlineContent(card.heading, `${postId}-decision-card-heading-${index}-${cardIndex}`, highlightBrandWordmark),
+          body: card.body
+            ? renderInlineContent(card.body, `${postId}-decision-card-body-${index}-${cardIndex}`, highlightBrandWordmark)
+            : null,
+        }))}
+      />
+    );
+  }
+
+  if (block.type === 'checklist') {
+    return (
+      <BlogChecklist
+        key={`${postId}-checklist-${index}`}
+        title={block.title ? renderInlineContent(block.title, `${postId}-checklist-title-${index}`, highlightBrandWordmark) : undefined}
+        items={block.items.map((item, itemIndex) =>
+          renderInlineContent(item, `${postId}-checklist-item-${index}-${itemIndex}`, highlightBrandWordmark),
+        )}
+      />
+    );
+  }
+
+  if (block.type === 'verdict') {
+    return (
+      <BlogVerdict
+        key={`${postId}-verdict-${index}`}
+        rows={block.rows.map((row, rowIndex) => ({
+          label: renderInlineContent(row.label, `${postId}-verdict-label-${index}-${rowIndex}`, highlightBrandWordmark),
+          value: renderInlineContent(row.value, `${postId}-verdict-value-${index}-${rowIndex}`, highlightBrandWordmark),
+        }))}
       />
     );
   }
