@@ -139,6 +139,14 @@ const nextConfig = {
         destination: '/blog/nuna-demi-icon-has-arrived',
         permanent: true,
       },
+      {
+        // "slug-" placeholder was left in the published URL. Run
+        // scripts/fixNunaTravelCribPostMeta.ts to rename the DB slug, then this
+        // 301 catches old inbound links.
+        source: '/blog/slug-nuna-travel-crib-showdown-sena-paal-cove',
+        destination: '/blog/nuna-travel-crib-showdown-sena-paal-cove',
+        permanent: true,
+      },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
       {
         source: '/request-invite',
