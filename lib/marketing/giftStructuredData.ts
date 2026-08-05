@@ -31,7 +31,9 @@ export const giftStructuredData = {
       description:
         'Gift a prepaid 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk. The perfect baby shower or new-parent gift: you purchase in minutes, the recipient gets a certificate and books their own time. Covers strollers, car seats, nursery, feeding gear, and registry strategy, with independent guidance and written follow up notes.',
       category: 'Gift Certificate',
-      brand: { '@id': ORG_ID },
+      // Brand carries an explicit name (in addition to the shared Org @id) so
+      // Google Merchant listings has the required brand.name field.
+      brand: { '@type': 'Brand', '@id': ORG_ID, name: SITE_NAME },
       image: HERO_IMAGE,
       url: GIFT_URL,
       offers: {
@@ -46,6 +48,26 @@ export const giftStructuredData = {
         priceValidUntil: '2026-12-31',
         validFrom: '2026-01-01',
         seller: { '@id': ORG_ID },
+        // Digital gift certificate: delivered instantly by email at no cost, so
+        // "shipping" is free with same-day delivery. Satisfies the Merchant
+        // listings shippingDetails requirement for a non-physical product.
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
+          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
+            transitTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
+          },
+        },
+        // Gift certificates are non-refundable (see /refund), so returns are not
+        // permitted. Provides the required hasMerchantReturnPolicy field honestly.
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'US',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+        },
       },
       isRelatedTo: { '@id': SERVICE_ID },
       logo: SITE_LOGO_URL,

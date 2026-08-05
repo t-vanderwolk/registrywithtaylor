@@ -147,6 +147,22 @@ const nextConfig = {
         destination: '/blog/nuna-travel-crib-showdown-sena-paal-cove',
         permanent: true,
       },
+      {
+        // Duplicated "blog-blog" prefix on the compact strollers guide. After
+        // renaming the DB slug to best-compact-strollers-2026 (in the admin
+        // editor), this 301 preserves backlinks/indexing from the old URL.
+        source: '/blog/blog-best-compact-strollers-2026',
+        destination: '/blog/best-compact-strollers-2026',
+        permanent: true,
+      },
+      {
+        // Newborn sleep guide: shorten the long slug to a cleaner, higher-intent
+        // URL. After renaming the DB slug to bassinet-vs-crib-vs-pack-and-play
+        // (in the admin editor), this 301 preserves the old URL's equity.
+        source: '/blog/blog-newborn-sleep-setups-bassinet-crib-pack-and-play',
+        destination: '/blog/bassinet-vs-crib-vs-pack-and-play',
+        permanent: true,
+      },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
       {
         source: '/request-invite',
