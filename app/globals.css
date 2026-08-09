@@ -3981,6 +3981,7 @@ img {
 
 /* ── Blog spec comparison table ────────────────────────────────────────── */
 .tmbc-spec-table {
+  position: relative;
   margin: 2.5rem 0;
   border: 1px solid rgba(215, 161, 175, 0.26);
   border-radius: 22px;
@@ -4015,28 +4016,41 @@ img {
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #7c4c58;
-  background: rgba(244, 208, 218, 0.35);
+  /* Solid (opaque) so scrolling cells don't bleed through the frozen header. */
+  background: #f7dfe6;
   border-bottom: 1px solid rgba(215, 161, 175, 0.3);
 }
+/* Corner is frozen in BOTH directions (top-left), so it must sit above every
+   other sticky element. */
 .tmbc-spec-table__corner {
+  left: 0;
+  z-index: 4;
   font-size: 0.64rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: #b45f77;
 }
 .tmbc-spec-table__product {
+  z-index: 2;
   font-family: var(--font-serif);
   font-size: 0.98rem;
   color: #2f2227;
+  min-width: 8.5rem;
 }
+/* Freeze the spec-label column on the left so row labels stay visible while the
+   product columns scroll horizontally. Needs a solid background + separator. */
 .tmbc-spec-table__spec {
+  position: sticky;
+  left: 0;
+  z-index: 3;
   padding: 0.66rem 0.9rem;
   text-align: left;
   font-weight: 700;
   color: #6f6169;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.6);
+  background: #fef8f5;
   border-bottom: 1px solid rgba(215, 161, 175, 0.16);
+  box-shadow: 1px 0 0 rgba(215, 161, 175, 0.28);
 }
 .tmbc-spec-table__cell {
   padding: 0.66rem 0.9rem;
@@ -4044,12 +4058,69 @@ img {
   border-bottom: 1px solid rgba(215, 161, 175, 0.16);
   border-left: 1px solid rgba(215, 161, 175, 0.12);
 }
+/* Zebra striping must stay opaque on the frozen spec column, so set the label
+   cell explicitly rather than relying on the translucent cell rule alone. */
 .tmbc-spec-table__table tbody tr:nth-child(even) .tmbc-spec-table__cell {
   background: rgba(252, 246, 242, 0.7);
+}
+.tmbc-spec-table__table tbody tr:nth-child(even) .tmbc-spec-table__spec {
+  background: #f8efe9;
 }
 .tmbc-spec-table__table tbody tr:last-child .tmbc-spec-table__spec,
 .tmbc-spec-table__table tbody tr:last-child .tmbc-spec-table__cell {
   border-bottom: none;
+}
+
+/* Right-edge "there's more →" fade, shown only on touch-width screens where the
+   table overflows. Pinned to the figure (which stays put) rather than the scroll
+   container (which moves with the content). Purely decorative. */
+.tmbc-spec-table::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2.25rem;
+  background: linear-gradient(90deg, rgba(253, 246, 242, 0) 0%, rgba(253, 246, 242, 0.94) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+@media (max-width: 640px) {
+  .tmbc-spec-table__scroll {
+    padding: 0.4rem;
+  }
+  .tmbc-spec-table::after {
+    opacity: 1;
+  }
+  .tmbc-spec-table__table {
+    font-size: 0.82rem;
+  }
+  .tmbc-spec-table__corner,
+  .tmbc-spec-table__product,
+  .tmbc-spec-table__spec,
+  .tmbc-spec-table__cell {
+    padding: 0.5rem 0.6rem;
+  }
+  .tmbc-spec-table__product {
+    font-size: 0.9rem;
+    min-width: 7rem;
+  }
+  /* Cap the frozen label column so it never eats more than ~40% of the viewport
+     and lets a product column peek in beside it. */
+  .tmbc-spec-table__spec {
+    max-width: 38vw;
+    white-space: normal;
+  }
+  .tmbc-spec-table__title {
+    padding: 0.85rem 1rem 0.3rem;
+    font-size: 1.05rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-spec-table__scroll::after {
+    transition: none;
+  }
 }
 
 /* ── Blog product cards (inline float + reveal + compat link) ───────────── */
