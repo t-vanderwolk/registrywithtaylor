@@ -172,9 +172,9 @@ export const SERVICES_AVAILABILITY = {
 
 export const SERVICES_CREDENTIALS = {
   heading: 'Why Book with Taylor?',
-  lead: 'Taylor is a Tot Squad–certified specialist — the credential behind Target’s Baby Concierge program — with hands-on baby gear experience at Strolleria and Pottery Barn Kids. She has helped 200+ families. Her consultation recommendations are independent and never chosen because a brand paid to be included.',
+  lead: 'Taylor is a Gugu Guru certified specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and Target’s Baby Concierge program. She has helped 200+ families. Her consultation recommendations are independent and never chosen because a brand paid to be included.',
   items: [
-    { title: 'Tot Squad–Certified Specialist', body: 'The credential behind Target’s Baby Concierge program, 200+ stores nationwide.' },
+    { title: 'Gugu Guru Certified Specialist', body: 'A recognized baby registry and gear certification.' },
     { title: 'Former Strolleria Gear Specialist', body: 'Years comparing strollers and car seats hands-on in a respected baby specialty showroom.' },
     { title: 'Former Pottery Barn Kids Nursery Advisor', body: 'Furniture sizing, safe sleep layout, and nursery design for real rooms.' },
     { title: 'Independent Recommendations', body: 'Every recommendation is based on your situation, never chosen because a brand paid to be included. Some links are affiliate links, which never changes what Taylor recommends.' },

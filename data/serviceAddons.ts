@@ -133,7 +133,7 @@ export const serviceAddonGroups: ServiceAddonGroup[] = [
       },
       {
         label: 'SAFETY & INSTALLATION',
-        title: 'CPST Car Seat Installation & Safety Checks',
+        title: 'Car Seat Installation & Safety Checks — via Lani (CPST-Certified)',
         iconSrc: serviceIcons.carSeat,
         description:
           'Car seat support with Lani Car Seat Consulting, including in-person installation in Phoenix and virtual safety checks nationwide.',

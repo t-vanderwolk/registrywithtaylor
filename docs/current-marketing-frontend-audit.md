@@ -385,7 +385,7 @@ Section order:
    Assessment: useful inventory, but broadens scope substantially.
 
 9. Add-on group: Home & Safety Preparation
-   Visible copy hierarchy: title and description, then cards for Home & Nursery Preparation, Gear Cleaning & Reset Strategy, CPST Installation & Safety Checks, In-Home Baby & Toddler Proofing Installation, Sibling & Pet Preparation.
+   Visible copy hierarchy: title and description, then cards for Home & Nursery Preparation, Gear Cleaning & Reset Strategy, Car Seat Installation & Safety Checks (via Lani), In-Home Baby & Toddler Proofing Installation, Sibling & Pet Preparation.
    Funnel role: service expansion.
    Type: conversion / service catalog.
    Pattern: same as above.

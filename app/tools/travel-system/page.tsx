@@ -1,12 +1,17 @@
+import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import TravelSystemGenerator from '@/components/tools/TravelSystemGenerator';
 import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
-import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
+import { Body, Eyebrow, H1, H2 } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import {
+  travelSystemStructuredData,
+  TRAVEL_SYSTEM_FAQS,
+} from '@/lib/marketing/travelSystemStructuredData';
 import {
   getTravelSystemCarSeats,
   getTravelSystemStrollers,
@@ -51,12 +56,18 @@ export async function generateMetadata({
   }
 
   return buildMarketingMetadata({
-    title: 'Travel System Compatibility | Taylor-Made Baby Co.',
+    title: 'Stroller & Car Seat Compatibility Checker (Free) | TMBC',
     description:
-      'Select your stroller to see which infant car seats are compatible and what adapters you may need.',
+      'Check stroller & infant car seat compatibility in minutes — free tool by a certified baby gear consultant. Avoid the wrong adapter. Try it free.',
     path: '/tools/travel-system',
     imagePath: '/assets/hero/hero-03.jpg',
-    imageAlt: 'Travel system compatibility tool',
+    imageAlt: 'Stroller and infant car seat clicking together to form a travel system',
+    keywords: [
+      'stroller car seat compatibility checker',
+      'travel system compatibility tool',
+      'what car seat fits my stroller',
+      'stroller and car seat adapter finder',
+    ],
   });
 }
 
@@ -71,16 +82,33 @@ export default async function TravelSystemCompatibilityPage() {
       <main className="site-main">
         <PageViewTracker path="/tools/travel-system" pageType="other" />
 
+        {/* Organization + Service + BreadcrumbList + HowTo + FAQPage schema. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(travelSystemStructuredData) }}
+        />
+
         <MarketingSection tone="white" spacing="spacious" reveal={false} variant="full">
           <div className="mx-auto mb-6 max-w-4xl">
             <ToolBreadcrumb current="Travel System Checker" />
           </div>
-          <SectionIntro
-            eyebrow="Tool"
-            title="Travel System Compatibility"
-            description="Start with your stroller or your infant car seat to see what works together — and where adapters start to matter."
-            contentWidthClassName="max-w-4xl"
-          />
+
+          <div className="mx-auto max-w-4xl text-center">
+            <Eyebrow>Free Tool</Eyebrow>
+            <H1 className="mt-3">
+              Stroller &amp; Car Seat Compatibility Checker — Find Your Perfect Travel System Match
+            </H1>
+            <Body className="mx-auto mt-4 max-w-2xl text-neutral-600">
+              Answer a couple of quick questions and know instantly whether your stroller and car seat
+              click together — free, no account, no spiraling through 47 tabs.
+            </Body>
+            {/* GEO / AEO direct-answer: a standalone, extractable definition sentence. */}
+            <p className="mx-auto mt-6 max-w-2xl rounded-2xl border-l-[3px] border-[var(--color-accent-dark)] bg-[var(--color-sand)] px-4 py-3 text-left text-[0.95rem] font-medium leading-6 text-[var(--color-charcoal)]">
+              A travel system works when your car seat clicks directly onto your stroller, or connects
+              with a manufacturer-approved adapter — this free tool tells you which applies to your exact
+              setup in under two minutes.
+            </p>
+          </div>
 
           <div className="mt-10">
             <TravelSystemGenerator strollers={strollers} carSeats={carSeats} />
@@ -93,6 +121,28 @@ export default async function TravelSystemCompatibilityPage() {
             stroller manuals before purchase or use. This tool is educational and does not replace guidance
             from a certified Child Passenger Safety Technician (CPST) or professional car seat installation.
           </p>
+        </MarketingSection>
+
+        <MarketingSection tone="ivory" spacing="spacious">
+          <div className="mx-auto max-w-3xl">
+            <Eyebrow>FAQ</Eyebrow>
+            <H2 className="mt-3">
+              Frequently Asked Questions About Travel System Compatibility
+            </H2>
+            <dl className="mt-8 space-y-4">
+              {TRAVEL_SYSTEM_FAQS.map((faq) => (
+                <div
+                  key={faq.question}
+                  className="rounded-[18px] border border-[var(--color-border)] bg-white/70 px-5 py-4 shadow-[0_10px_28px_rgba(70,53,58,0.05)]"
+                >
+                  <dt className="font-serif text-[1.08rem] font-semibold leading-snug text-[var(--color-charcoal)]">
+                    {faq.question}
+                  </dt>
+                  <dd className="mt-2 text-[0.95rem] leading-7 text-neutral-600">{faq.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </MarketingSection>
 
         <ToolContactPrompt prompt="Still unsure whether your car seat truly fits your stroller — or which adapter you actually need? Message Taylor and she'll confirm the real-world fit for your setup." />

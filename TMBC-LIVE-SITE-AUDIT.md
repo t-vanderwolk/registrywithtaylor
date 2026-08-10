@@ -34,7 +34,7 @@ The live site is more polished than the codebase audit alone suggests — the de
 - The credential strip — Strolleria, Pottery Barn Kids, Target Baby Concierge — builds instant trust for new visitors.
 - Testimonials are strong and feel real. The Strolleria verified reviews in particular are credible and specific.
 - The email capture ("Get the Free Baby Prep Starter Guide") is well-placed and clearly valued.
-- The "What Taylor helps you sort" section (Stroller Strategy, CPST, Registry Strategy, Nursery Setup) is concise and scannable.
+- The "What Taylor helps you sort" section (Stroller Strategy, Car Seats, Registry Strategy, Nursery Setup) is concise and scannable.
 
 **What's broken:**
 
@@ -151,7 +151,7 @@ This is the entire business model problem crystallized in one sentence. The only
 
 **The writing is strong.** "When you invite me into that space — into your home, your routines, your questions at 10 p.m. — you're trusting me with more than a checklist. You're trusting me with your story." This is excellent personal brand copy. It earns trust.
 
-**The credentials are real and specific.** Strolleria, Pottery Barn Kids, Target Baby Concierge, CPST certification — these are named institutions with recognizable authority in the baby gear space.
+**The credentials are real and specific.** Strolleria, Pottery Barn Kids, Target Baby Concierge, Gugu Guru certification — these are named institutions with recognizable authority in the baby gear space.
 
 **What's missing:**
 

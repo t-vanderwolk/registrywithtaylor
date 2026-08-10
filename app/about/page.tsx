@@ -51,7 +51,7 @@ const CTA_CLASS =
 export const metadata = buildMarketingMetadata({
   title: 'About Taylor Vanderwolk, Baby Registry Consultant | Taylor-Made Baby Co.',
   description:
-    'Meet Taylor Vanderwolk, baby registry consultant and Tot Squad specialist with hands-on baby gear expertise. Book your $75 registry consult.',
+    'Meet Taylor Vanderwolk, baby registry consultant and Gugu Guru certified specialist with hands-on baby gear expertise. Book your $75 registry consult.',
   path: '/about',
   imagePath: '/assets/hero/hero-05.jpg',
   imageAlt: 'Taylor Vanderwolk baby registry consultant workspace',
@@ -60,7 +60,7 @@ export const metadata = buildMarketingMetadata({
     'Taylor Vanderwolk',
     'baby gear expert',
     'baby registry help',
-    'Tot Squad certified specialist',
+    'Gugu Guru certified specialist',
     'Target Baby Concierge',
     'stroller consultant',
   ],
@@ -78,7 +78,7 @@ export default function AboutPage() {
 
         <Hero
           className="homepage-hero"
-          eyebrow="Tot Squad Certified Specialist"
+          eyebrow="Gugu Guru Certified Specialist"
           title="Meet Taylor, Your Baby Gear Expert"
           subtitle="I help expecting parents build confident baby registries and make the right stroller, car seat, nursery, and gear decisions, without the overwhelm, the algorithm noise, or the sponsored advice."
           primaryCta={{ label: 'Book a Registry Consultation ($75)', href: '/book' }}

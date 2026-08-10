@@ -35,7 +35,7 @@ import {
 export const metadata = buildMarketingMetadata({
   title: 'Baby Registry Consultation, $75 Virtual Session | Taylor-Made Baby Co.',
   description:
-    'Book a 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, and registry strategy. Book your session today.',
+    'Book a 1-hour virtual baby registry consultation with Gugu Guru certified specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, and registry strategy. Book your session today.',
   path: '/services',
   imagePath: '/assets/hero/hero-03.jpg',
   imageAlt: 'Baby registry consultation with Taylor Vanderwolk, baby registry consultant',

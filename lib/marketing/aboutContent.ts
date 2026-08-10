@@ -33,10 +33,10 @@ export const ABOUT_BEFORE_AFTER = {
 };
 
 export const ABOUT_QUOTABLE =
-  'Taylor is a baby registry consultant and Tot Squad-certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
+  'Taylor is a baby registry consultant and Gugu Guru certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
 
 export const ABOUT_BIO = [
-  'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program powered by Tot Squad, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
+  'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
   'Baby gear decisions arrive fast and compound quickly. The early choices shape the first year in ways most families only understand after the fact, and by then, returning a travel system is harder than it sounds.',
   'My role is not to hand you a checklist and move on. It is to sit with you in the details, your home layout, your vehicle, your family plans, your comfort with risk and spending, and help you make the specific choices that will serve you best.',
   'That is a responsibility I do not take lightly. And it is why every family I work with receives personalized, independent recommendations — never chosen because a brand paid to be included, and never generic. Where I link to products, some of those are affiliate links, and what I recommend to you never changes because of it.',
@@ -46,7 +46,7 @@ export const ABOUT_ORIGIN = {
   heading: 'Why I Started Taylor-Made Baby Co.',
   paragraphs: [
     'I did not start in a boardroom. I started on a retail floor.',
-    'Years of working at Strolleria, one of the most respected baby specialty retailers in the US, and later as a Nursery Advisor at Pottery Barn Kids and a certified Target Baby Concierge specialist through Tot Squad, I watched the same thing happen over and over.',
+    'Years of working at Strolleria, one of the most respected baby specialty retailers in the US, and later as a Nursery Advisor at Pottery Barn Kids and a Target Baby Concierge specialist, I watched the same thing happen over and over.',
     'Families would walk in with a registry built from Instagram. Stressed, overloaded, and often on the verge of just buying the most popular stroller because they had given up trying to make a confident decision.',
     'Twenty minutes of real conversation would completely change their direction. The right stroller for their building. The car seat that actually fit their SUV. The bassinet that made sense for their bedroom. Not the most popular option, the right option for them.',
     'Over time, I realized most expecting parents never get that conversation. They get an algorithm. They get an affiliate link. They get a paid recommendation.',
@@ -63,9 +63,9 @@ export const ABOUT_STATS = [
 
 export const ABOUT_CREDENTIALS: Array<{ name: string; body: string; link?: { label: string; href: string } }> = [
   {
-    name: 'Tot Squad Certified Specialist',
-    body: 'The formal baby gear certification behind Target’s Baby Concierge program, operating across 200+ stores nationwide. Taylor is a certified Tot Squad specialist, the same credential that powers in-store baby gear guidance at Target.',
-    link: { label: 'Tot Squad', href: 'https://www.totsquad.com' },
+    name: 'Gugu Guru Certified Specialist',
+    body: 'A recognized baby registry and gear certification. Taylor is Gugu Guru certified, which brings a structured, up-to-date framework to every stroller, car seat, nursery, and registry recommendation.',
+    link: { label: 'Gugu Guru', href: 'https://gugu-guru.thinkific.com/courses/BabyConcierge' },
   },
   {
     name: 'Strolleria Baby Gear Specialist',
@@ -78,7 +78,7 @@ export const ABOUT_CREDENTIALS: Array<{ name: string; body: string; link?: { lab
   },
   {
     name: 'Target Baby Concierge',
-    body: 'In-store and virtual baby gear consulting delivered through Target’s nationwide Baby Concierge program, powered by Tot Squad.',
+    body: 'In-store and virtual baby gear consulting delivered through Target’s nationwide Baby Concierge program.',
   },
   {
     name: 'BabyQuip Tiny Travels Podcast Featured Guest',
@@ -187,17 +187,17 @@ export const ABOUT_FAQ = [
   {
     question: 'Who is Taylor?',
     answer:
-      'Taylor is a baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalized registries that fit their real homes, budgets, and routines.',
+      'Taylor is a baby registry consultant and Gugu Guru certified specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalized registries that fit their real homes, budgets, and routines.',
   },
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',
     answer:
-      'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no paid placements, no partnerships that influence recommendations, and no brand pays to be recommended. Some product links on this site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you — that income never determines what gets recommended. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a certified Target Baby Concierge specialist through Tot Squad.',
+      'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no paid placements, no partnerships that influence recommendations, and no brand pays to be recommended. Some product links on this site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you — that income never determines what gets recommended. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a Target Baby Concierge specialist.',
   },
   {
-    question: 'Is Taylor a Tot Squad-certified baby gear specialist?',
+    question: 'Is Taylor a Gugu Guru certified baby gear specialist?',
     answer:
-      'Yes. Taylor is a certified Tot Squad Specialist, the credential that powers Target’s Baby Concierge program across 200+ Target stores nationwide. She has additionally worked as a Baby Gear Specialist at Strolleria and a Nursery Advisor at Pottery Barn Kids, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
+      'Yes. Taylor is Gugu Guru certified. She has additionally worked as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and in Target’s Baby Concierge program, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
   },
   {
     question: 'How do I book a consultation with Taylor?',

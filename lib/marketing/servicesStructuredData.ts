@@ -30,7 +30,7 @@ export const servicesStructuredData = {
       name: 'Baby Registry Consultation',
       serviceType: 'Baby Registry Consulting',
       description:
-        'One hour virtual baby registry consultation for expecting parents covering stroller selection and compatibility, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, a certified Tot Squad specialist with hands-on baby gear experience and 200+ families helped. Independent, with no brand sponsorships or paid placements, and written follow up notes.',
+        'One hour virtual baby registry consultation for expecting parents covering stroller selection and compatibility, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, a Gugu Guru certified specialist with hands-on baby gear experience and 200+ families helped. Independent, with no brand sponsorships or paid placements, and written follow up notes.',
       provider: { '@id': PERSON_ID },
       brand: { '@id': ORG_ID },
       offers: {
@@ -107,7 +107,7 @@ export const servicesStructuredData = {
       url: SERVICES_URL,
       name: 'Baby Registry Consultation, Expert Help for Expecting Parents',
       description:
-        'Book a 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, feeding gear, and registry strategy for expecting parents across the United States.',
+        'Book a 1-hour virtual baby registry consultation with Gugu Guru certified specialist Taylor Vanderwolk for $75. Strollers, car seats, nursery, feeding gear, and registry strategy for expecting parents across the United States.',
       isPartOf: { '@type': 'WebSite', url: SITE_URL, name: SITE_NAME },
       primaryImageOfPage: { '@type': 'ImageObject', url: HERO_IMAGE },
       about: { '@id': SERVICE_ID },
@@ -127,7 +127,7 @@ export const servicesStructuredData = {
       '@id': `${SERVICES_URL}#howto`,
       name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
       description:
-        'Book a 1-hour virtual baby registry consultation with Tot Squad-certified specialist Taylor Vanderwolk in 4 simple steps.',
+        'Book a 1-hour virtual baby registry consultation with Gugu Guru certified specialist Taylor Vanderwolk in 4 simple steps.',
       totalTime: 'PT1H',
       estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
       tool: [

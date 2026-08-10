@@ -35,7 +35,7 @@ export const aboutStructuredData = {
       familyName: 'Vanderwolk',
       jobTitle: 'Baby Registry Consultant',
       description:
-        'Baby registry consultant and certified Tot Squad specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co., having helped 200+ expecting parents build confident baby registries.',
+        'Baby registry consultant and Gugu Guru certified specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co., having helped 200+ expecting parents build confident baby registries.',
       disambiguatingDescription:
         'Taylor-Made Baby Co. is an independent baby registry consulting service founded by Taylor Vanderwolk. It is not affiliated with TaylorMade Golf, TaylorMade Audio, or any other brand using the TaylorMade name.',
       url: ABOUT_URL,
@@ -49,15 +49,15 @@ export const aboutStructuredData = {
       alumniOf: [
         { '@type': 'Organization', name: 'Strolleria', url: 'https://www.strolleria.com', description: 'Leading independent baby specialty retailer in the US' },
         { '@type': 'Organization', name: 'Pottery Barn Kids', description: 'Nursery Advisor role, furniture sizing and safe sleep' },
-        { '@type': 'Organization', name: 'Target Baby Concierge (powered by Tot Squad)', description: 'Baby gear concierge program across 200+ Target stores' },
-        { '@type': 'Organization', name: 'Tot Squad', url: 'https://www.totsquad.com', description: 'Certification body for the Target Baby Concierge program' },
+        { '@type': 'Organization', name: 'Target Baby Concierge', description: 'Baby gear concierge program across 200+ Target stores' },
+        { '@type': 'Organization', name: 'Gugu Guru', url: 'https://gugu-guru.thinkific.com/courses/BabyConcierge', description: 'Baby registry and gear certification program' },
       ],
       hasCredential: [
         {
           '@type': 'EducationalOccupationalCredential',
           credentialCategory: 'certification',
-          name: 'Tot Squad Certified Baby Gear Specialist',
-          recognizedBy: { '@type': 'Organization', name: 'Tot Squad', url: 'https://www.totsquad.com' },
+          name: 'Gugu Guru Certified Baby Gear Specialist',
+          recognizedBy: { '@type': 'Organization', name: 'Gugu Guru', url: 'https://gugu-guru.thinkific.com/courses/BabyConcierge' },
         },
       ],
       knowsAbout: [
@@ -106,7 +106,7 @@ export const aboutStructuredData = {
       name: 'Baby Registry Consultation',
       serviceType: 'Baby Registry Consulting',
       description:
-        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, certified Tot Squad specialist who has helped 200+ families.',
+        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Taylor Vanderwolk, Gugu Guru certified specialist who has helped 200+ families.',
       provider: { '@id': PERSON_ID },
       offers: {
         '@type': 'Offer',
@@ -193,7 +193,7 @@ export const aboutStructuredData = {
       '@id': `${ABOUT_URL}#howto`,
       name: 'How to Book a Baby Registry Consultation with Taylor-Made Baby Co.',
       description:
-        'A 4 step process to book and complete a 1 hour virtual baby registry consultation with Tot Squad-certified specialist Taylor Vanderwolk.',
+        'A 4 step process to book and complete a 1 hour virtual baby registry consultation with Gugu Guru certified specialist Taylor Vanderwolk.',
       totalTime: 'PT1H',
       estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '75' },
       tool: [

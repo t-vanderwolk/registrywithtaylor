@@ -95,7 +95,7 @@ Once deployed, this page is strong: personalized header, warm copy, brand-colore
 
 **What's working:**
 - Personal voice and clear methodology (Real life over registry noise / Fit over features / Buy with purpose)
-- CPST certification mentioned — strong authority signal
+- Gugu Guru certification mentioned — strong authority signal
 - Strolleria background gives retail credibility
 - Trusted partners section (Lani Car Seats, AZ Childproofers)
 - Newsletter capture present

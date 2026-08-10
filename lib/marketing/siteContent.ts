@@ -197,26 +197,12 @@ export const trustStripItems = [
     title: 'Target Baby Concierge Consultant',
     description: 'Experience helping parents sort big decisions before they end up comparing everything at once.',
     logos: [
-      {
-        src: '/assets/brand/totsquad.png',
-        alt: 'Tot Squad logo',
-        label: 'Tot Squad',
-        width: 1065,
-        height: 228,
-      },
     ],
   },
   {
     title: 'Private Baby Planning Advisor',
     description: 'Advice shaped by actual homes, routines, budgets, cars, and all the variables roundups tend to ignore.',
     logos: [
-      {
-        src: '/assets/brand/tot-squad.png',
-        alt: 'Tot Squad logo',
-        label: 'Tot Squad',
-        width: 1334,
-        height: 345,
-      },
     ],
   },
 ] as const;

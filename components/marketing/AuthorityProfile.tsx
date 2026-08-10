@@ -20,13 +20,6 @@ const experienceLogos = [
     width: 860,
     height: 164,
   },
-  {
-    src: '/assets/brand/totsquad.png',
-    alt: 'Baby Concierge powered by Tot Squad logo',
-    label: 'Tot Squad',
-    width: 1065,
-    height: 228,
-  },
 ] as const;
 
 type AuthorityProfileProps = {

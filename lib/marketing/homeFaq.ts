@@ -30,7 +30,7 @@ export const HOME_FAQ: HomeFaqItem[] = [
   {
     question: 'What is a Target Baby Concierge Specialist?',
     answer:
-      'Target Baby Concierge Specialists are trained baby gear advisors placed in Target stores through the Baby Concierge program powered by Tot Squad. Taylor is a certified Tot Squad specialist, and it is the same expertise she brings to virtual consultations at Taylor-Made Baby Co.',
+      'Target Baby Concierge Specialists are trained baby gear advisors placed in Target stores through the Baby Concierge program. Taylor is a Gugu Guru certified specialist, and it is the same expertise she brings to virtual consultations at Taylor-Made Baby Co.',
   },
   {
     question: 'When should I book a baby registry consultation?',

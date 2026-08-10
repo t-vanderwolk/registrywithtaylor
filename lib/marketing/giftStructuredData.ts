@@ -29,7 +29,7 @@ export const giftStructuredData = {
       '@id': GIFT_ID,
       name: 'Baby Registry Consultation Gift Certificate',
       description:
-        'Gift a prepaid 1-hour virtual baby registry consultation with certified Tot Squad specialist Taylor Vanderwolk. The perfect baby shower or new-parent gift: you purchase in minutes, the recipient gets a certificate and books their own time. Covers strollers, car seats, nursery, feeding gear, and registry strategy, with independent guidance and written follow up notes.',
+        'Gift a prepaid 1-hour virtual baby registry consultation with Gugu Guru certified specialist Taylor Vanderwolk. The perfect baby shower or new-parent gift: you purchase in minutes, the recipient gets a certificate and books their own time. Covers strollers, car seats, nursery, feeding gear, and registry strategy, with independent guidance and written follow up notes.',
       category: 'Gift Certificate',
       // Brand carries an explicit name (in addition to the shared Org @id) so
       // Google Merchant listings has the required brand.name field.

@@ -24,10 +24,6 @@ function authorityLogoClassName(label: string) {
     return 'max-h-9';
   }
 
-  if (label === 'Tot Squad') {
-    return 'max-h-8';
-  }
-
   if (label === 'Pottery Barn Kids') {
     return 'max-h-7';
   }

@@ -40,8 +40,8 @@ full of em-dashes — **all copy must be rewritten in TMBC style (no em/en dashe
 All 11 signals **MISSING** on `/about`: named expert, verifiable credential, 7+ years, 200+ families,
 podcast citation w/ show name, Person/AboutPage/Breadcrumb schema, entity disambiguation (not
 TaylorMade Golf), one-line quotable "Who is Taylor Vanderwolk?" answer, outbound credential links
-(totsquad.com, strolleria.com).
-Note: `lib/marketing/homeStructuredData.ts` already contains a **Person** (alumniOf Strolleria/PBK/Target/Tot Squad + credential), **Service**, and **FAQPage** — but on the **homepage**, not `/about`. Reuse this as the pattern and reconcile `@id`s so both pages describe the same entity.
+(gugu-guru.thinkific.com, strolleria.com).
+Note: `lib/marketing/homeStructuredData.ts` already contains a **Person** (alumniOf Strolleria/PBK/Target + Gugu Guru credential), **Service**, and **FAQPage** — but on the **homepage**, not `/about`. Reuse this as the pattern and reconcile `@id`s so both pages describe the same entity.
 
 ### D. Content sections (E-E-A-T page)
 | Brief section | On page now? | Status |
@@ -102,7 +102,7 @@ Rebuild `app/about/page.tsx` section order (content in a new `lib/marketing/abou
 4. Bio rewrite — named, 7+ years, 200+ families, credentials named; open with the one-line quotable "Who is Taylor Vanderwolk?" answer for AI extraction.
 5. Origin story ("Why I Started…").
 6. Social-proof stats bar (200+ / 7+ / 5★ / $75) — small stat-row component.
-7. Credentials block (5 cards) with **outbound links** Tot Squad→totsquad.com, Strolleria→strolleria.com (rel="noopener").
+7. Credentials block (5 cards) with **outbound links** Gugu Guru→gugu-guru.thinkific.com, Strolleria→strolleria.com (rel="noopener").
 8. How It Works — 4 steps (new component, feeds the HowTo schema).
 9. "What Taylor Helps You Choose" — replace thin bullets with the 8 descriptive categories.
 10. Approach + Differentiator — keep, update H2s + weave keywords.
@@ -144,7 +144,7 @@ Post-deploy: submit `/about` in Google Search Console, validate schema, watch Co
 3. **Stats (200+, 7+ years, $75)**: client-provided facts — safe to state. Don't invent new numbers.
 4. **Schema dedupe**: homepage already emits Person + Service + FAQPage. Use consistent `@id`s so we consolidate the entity rather than create duplicates; avoid two different FAQPage graphs competing.
 5. **Podcast embed**: episode id `7e2c0icuRxEKotUPdB0aOS` (Spotify) — confirm it matches the live `PodcastFeature`.
-6. **Outbound links**: add `rel="noopener"` (not nofollow) to totsquad.com/strolleria.com so they pass entity association, per the brief's GEO intent.
+6. **Outbound links**: add `rel="noopener"` (not nofollow) to gugu-guru.thinkific.com/strolleria.com so they pass entity association, per the brief's GEO intent.
 
 ---
 
