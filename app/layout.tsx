@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
 
             <Script id="google-analytics-init" strategy="afterInteractive">
