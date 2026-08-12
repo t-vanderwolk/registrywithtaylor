@@ -20,6 +20,7 @@ import {
   SITE_URL,
 } from '@/lib/marketing/metadata';
 import { GA_ID } from '@/lib/analytics/gtag';
+import { fontVariables } from './fonts';
 import './globals.css';
 import Providers from './providers';
 
@@ -108,25 +109,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontVariables}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
-        {/* Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        {/* Single combined stylesheet loaded in <head> (parallel, non-blocking-chain)
-            instead of a render-blocking @import inside globals.css. */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;500;600;700;800&family=Great+Vibes&family=Caveat:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* Fonts are self-hosted via next/font (see app/fonts.ts) — no external,
+            render-blocking Google Fonts stylesheet. */}
 
         {/* Google Analytics */}
         {GA_ID ? (

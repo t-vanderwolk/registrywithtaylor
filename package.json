@@ -2,6 +2,11 @@
   "name": "registrywithtaylor-website",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "last 2 years",
+    "not dead",
+    "not op_mini all"
+  ],
   "scripts": {
     "dev": "next dev --webpack",
     "build": "prisma generate && next build --webpack",

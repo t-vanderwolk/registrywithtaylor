@@ -506,11 +506,11 @@ a:hover .link-underline::after {
   --color-accent-dark: #d47b91;
   --color-cta-pink: #D889A0;
   --color-cta-pink-hover: #C76B82;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-  --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-sans: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-script: "Great Vibes", cursive;
-  --font-handwritten-print: "Caveat", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --font-serif: var(--font-serif-next), "Playfair Display", ui-serif, Georgia, serif;
+  --font-accent: var(--font-accent-next), "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: var(--font-sans-next), "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-script: var(--font-script-next), "Great Vibes", cursive;
+  --font-handwritten-print: var(--font-handwritten-next), "Caveat", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
   --text-primary: #2b2628;
   --text-secondary: #625a60;
   --radius-lg: 1.25rem;
