@@ -34,8 +34,8 @@ const siteStructuredData = {
       logo: {
         '@type': 'ImageObject',
         url: SITE_LOGO_URL,
-        width: 1024,
-        height: 1024,
+        width: 640,
+        height: 640,
       },
     },
     {

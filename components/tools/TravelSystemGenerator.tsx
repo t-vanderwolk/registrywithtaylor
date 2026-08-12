@@ -119,7 +119,7 @@ function BrowseCard({
       <div className="tool-card__media tool-product-card__media tool-product-card__media--compact">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt={option.model} className="tool-product-card__image" />
+          <img loading="lazy" decoding="async" src={image} alt={option.model} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{option.brand}</span>
         )}
@@ -563,7 +563,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
                     <div className="tool-brand-card__mark">
                       {BRAND_LOGOS[brand] ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={BRAND_LOGOS[brand]} alt={brand} className="tool-brand-card__logo" />
+                        <img loading="lazy" decoding="async" src={BRAND_LOGOS[brand]} alt={brand} className="tool-brand-card__logo" />
                       ) : (
                         <span className="tool-brand-card__fallback">{brand}</span>
                       )}

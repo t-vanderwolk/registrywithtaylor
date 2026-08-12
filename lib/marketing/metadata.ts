@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const SITE_NAME = 'Taylor-Made Baby Co.';
 export const SITE_URL = 'https://www.taylormadebabyco.com';
-export const SITE_LOGO_PATH = '/assets/logos/tmbcblocks2.png';
+export const SITE_LOGO_PATH = '/assets/logos/tmbcblock.png';
 export const SITE_LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;
 /**
  * Icon cache-buster. Browsers and Google cache favicons aggressively — often for

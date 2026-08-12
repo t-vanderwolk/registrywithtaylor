@@ -905,7 +905,7 @@ export default function StrollerQuiz() {
                     <OpenBoxBadge offer={openBoxOffer} />
                     {imgSrc ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={imgSrc} alt={pick.name} className="tool-product-card__image" />
+                      <img loading="lazy" decoding="async" src={imgSrc} alt={pick.name} className="tool-product-card__image" />
                     ) : (
                       <span className="tool-product-card__image-fallback">{pick.brand}</span>
                     )}
@@ -1025,7 +1025,7 @@ export default function StrollerQuiz() {
                         <OpenBoxBadge offer={s.retailers?.goodbuygear ?? null} />
                         {s.image ? (
                           // eslint-disable-next-line @next/next/no-img-element
-                          <img src={s.image} alt={s.name} className="tool-product-card__image" />
+                          <img loading="lazy" decoding="async" src={s.image} alt={s.name} className="tool-product-card__image" />
                         ) : (
                           <span className="tool-product-card__image-fallback">{s.brand}</span>
                         )}

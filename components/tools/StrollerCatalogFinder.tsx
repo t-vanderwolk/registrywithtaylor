@@ -193,7 +193,7 @@ export function OpenBoxBadge({
       ) : null}
       <span className="tool-open-box-badge__retailer">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/goodbuygear2.png" alt="" className="tool-open-box-badge__logo" />
+        <img loading="lazy" decoding="async" src="/assets/logos/goodbuygear2.png" alt="" className="tool-open-box-badge__logo" />
       </span>
       {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
     </>
@@ -328,7 +328,7 @@ function ProductCard({
         <OpenBoxBadge offer={openBoxOffer} />
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={product.image} alt={product.name} className="tool-product-card__image" />
+          <img loading="lazy" decoding="async" src={product.image} alt={product.name} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{brand}</span>
         )}
@@ -680,7 +680,7 @@ export default function StrollerCatalogFinder({
                   <div className="tool-brand-card__mark">
                     {BRAND_LOGOS[b.brand] ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={BRAND_LOGOS[b.brand]} alt={b.brand} className="tool-brand-card__logo" />
+                      <img loading="lazy" decoding="async" src={BRAND_LOGOS[b.brand]} alt={b.brand} className="tool-brand-card__logo" />
                     ) : (
                       <span className="tool-brand-card__fallback">{b.brand}</span>
                     )}

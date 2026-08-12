@@ -358,7 +358,7 @@ function SelectedSummaryCard({
       <div className="tool-product-card__media min-h-[11rem] rounded-[1.2rem] border border-[rgba(215,161,175,0.14)]">
         {imageSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageSrc} alt={imageAlt ?? option.displayName} className="tool-product-card__image" />
+          <img loading="lazy" decoding="async" src={imageSrc} alt={imageAlt ?? option.displayName} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{option.brand}</span>
         )}
@@ -477,7 +477,7 @@ function AdapterCallout({
       <div className="tool-adapter-callout__details">
         {item.adapterImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
+          <img loading="lazy" decoding="async" src={item.adapterImage} alt="" className="tool-adapter-callout__image" />
         ) : null}
         <div className="min-w-0">
           <p className="tool-adapter-callout__eyebrow">{showsAsIncluded ? 'Adapter' : 'Adapter sold separately'}</p>
@@ -602,7 +602,7 @@ function ResultCard({
       <div className="tool-card__media tool-product-card__media tool-product-card__media--result">
         {item.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.imageUrl} alt={item.imageAlt ?? item.displayName} className="tool-product-card__image" />
+          <img loading="lazy" decoding="async" src={item.imageUrl} alt={item.imageAlt ?? item.displayName} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{item.brand}</span>
         )}

@@ -82,7 +82,7 @@ export default function BabylistPreviewProducts({
               {img ? (
                 <div className="flex h-44 w-full items-center justify-center bg-[rgba(251,247,244,0.7)] p-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={title} className="max-h-full w-auto object-contain" />
+                  <img loading="lazy" decoding="async" src={img} alt={title} className="max-h-full w-auto object-contain" />
                 </div>
               ) : null}
               <div className="flex flex-1 flex-col gap-1.5 px-5 py-4">

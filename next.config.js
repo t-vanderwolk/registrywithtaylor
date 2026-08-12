@@ -101,7 +101,22 @@ const academyEnabled = process.env.NEXT_PUBLIC_ACADEMY_ENABLED === 'true';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Drop the X-Powered-By header (tiny response-size + fingerprint win).
+  poweredByHeader: false,
+  // Gzip/brotli text responses (HTML/CSS/JS) at the Node layer.
+  compress: true,
   images: {
+    // Serve next-gen formats first; the optimizer falls back to the original
+    // for browsers that don't support them. Directly fixes PageSpeed's
+    // "Serve images in next-gen formats" audit for every <Image> on the site.
+    formats: ['image/avif', 'image/webp'],
+    // Cache the optimizer's generated variants for 30 days so repeat requests
+    // don't re-encode. (Independent of the browser cache headers below.)
+    minimumCacheTTL: 60 * 60 * 24 * 30,
+    // Trim the breakpoint set to the widths this design actually renders at, so
+    // the optimizer generates fewer, better-targeted variants.
+    deviceSizes: [360, 420, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     // Allow any external HTTPS image source.
     // This site references affiliate product images, blog embeds, partner logos,
     // and editorial images from many different CDNs — enumerating every hostname
@@ -112,6 +127,19 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+  },
+  // Long-lived browser caching for self-hosted static assets so repeat visits and
+  // Core Web Vitals field data stop re-downloading logos, hero art, and fonts.
+  // (Next already hashes + immutably caches /_next/static; this covers /assets.)
+  async headers() {
+    return [
+      {
+        source: '/assets/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ];
   },
   // Use the classic compiler (Webpack/SWC) instead of Turbopack
   async redirects() {

@@ -132,7 +132,7 @@ function AddSlot({
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-[#f6f0ec]">
                   {item.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={item.image} alt="" className="h-full w-full object-contain" />
+                    <img loading="lazy" decoding="async" src={item.image} alt="" className="h-full w-full object-contain" />
                   ) : (
                     <span className="text-[0.55rem] font-semibold text-neutral-400">{item.brand}</span>
                   )}
@@ -186,7 +186,7 @@ function ProductColumn({ item, index, onRemove }: { item: StrollerCompareItem; i
       <div className="mt-1 flex h-28 items-center justify-center">
         {item.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.image} alt={item.displayName} className="max-h-28 w-auto object-contain" />
+          <img loading="lazy" decoding="async" src={item.image} alt={item.displayName} className="max-h-28 w-auto object-contain" />
         ) : (
           <span className="text-xs font-semibold text-neutral-400">{item.brand}</span>
         )}

@@ -95,7 +95,7 @@ export default function BlogServiceCard({
         {badge ? <span className="blog-service-card__badge">{badge}</span> : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl} alt={fullName} className="blog-service-card__image" />
+          <img loading="lazy" decoding="async" src={imageUrl} alt={fullName} className="blog-service-card__image" />
         ) : (
           <span className="blog-service-card__fallback" aria-hidden="true">
             {initials(fallbackLabel) || fallbackLabel}

@@ -183,7 +183,7 @@ export default function BlogCatalogProductCard({
         ) : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl} alt={fullName} className="tool-product-card__image" />
+          <img loading="lazy" decoding="async" src={imageUrl} alt={fullName} className="tool-product-card__image" />
         ) : (
           <span className="tool-product-card__image-fallback">{displayBrand}</span>
         )}
