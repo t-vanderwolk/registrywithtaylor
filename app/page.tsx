@@ -115,6 +115,22 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
     height: 152,
     logoClassName: 'max-h-7',
   },
+  {
+    title: 'Target Baby Concierge',
+    logoSrc: '/images/partners/target.png',
+    logoAlt: 'Target Baby Concierge consultant experience',
+    width: 1065,
+    height: 228,
+    logoClassName: 'max-h-7',
+  },
+  {
+    title: 'Tot Squad',
+    logoSrc: '/images/partners/totsquad.png',
+    logoAlt: 'Tot Squad baby gear consultant experience',
+    width: 500,
+    height: 129,
+    logoClassName: 'max-h-8',
+  },
 ] as const;
 
 const homepageStrolleriaReviews = [
@@ -216,6 +232,20 @@ const authorityStripLogos = [
     width: 1101,
     height: 152,
     className: 'max-h-5',
+  },
+  {
+    src: '/images/partners/target.png',
+    alt: 'Target Baby Concierge, where Taylor guided expecting parents',
+    width: 1065,
+    height: 228,
+    className: 'max-h-5',
+  },
+  {
+    src: '/images/partners/totsquad.png',
+    alt: 'Tot Squad, where Taylor delivered baby gear consultations',
+    width: 500,
+    height: 129,
+    className: 'max-h-6',
   },
 ] as const;
 
