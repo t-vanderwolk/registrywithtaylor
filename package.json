@@ -238,6 +238,11 @@
     "seed": "node prisma/seed.cjs"
   },
   "dependencies": {
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/great-vibes": "^5.3.0",
+    "@fontsource/nunito": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
     "@next-auth/prisma-adapter": "^1.0.0",
     "@prisma/client": "^5.17.0",
     "@sendgrid/mail": "^8.1.6",
@@ -254,12 +259,12 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
-    "sass": "^1.77.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "25.2.3",
     "@types/react": "19.2.14",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.33",
+    "sass": "^1.77.0",
     "tailwindcss": "^3.4.5",
     "typescript": "5.9.3"
   },
