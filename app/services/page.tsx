@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import SiteShell from '@/components/SiteShell';
@@ -412,6 +413,41 @@ export default function ServicesPage() {
                 </RevealOnScroll>
               ))}
             </div>
+            <RevealOnScroll delayMs={120}>
+              <div className="mt-2">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-black/45">Experience includes</p>
+                <div className="mt-5 flex flex-wrap items-center gap-x-9 gap-y-5">
+                  <Image
+                    src="/assets/logos/strolleria.png"
+                    alt="Strolleria, where Taylor worked as a baby gear specialist"
+                    width={1844}
+                    height={457}
+                    className="h-6 w-auto opacity-80"
+                  />
+                  <Image
+                    src="/assets/brand/potterybarnkids.png"
+                    alt="Pottery Barn Kids, where Taylor advised on nursery design"
+                    width={1101}
+                    height={152}
+                    className="h-5 w-auto opacity-80"
+                  />
+                  <Image
+                    src="/images/partners/target.png"
+                    alt="Target Baby Concierge, where Taylor guided expecting parents"
+                    width={1065}
+                    height={228}
+                    className="h-6 w-auto opacity-80"
+                  />
+                  <Image
+                    src="/images/partners/totsquad.png"
+                    alt="Tot Squad, where Taylor delivered baby gear consultations"
+                    width={500}
+                    height={129}
+                    className="h-7 w-auto opacity-80"
+                  />
+                </div>
+              </div>
+            </RevealOnScroll>
           </div>
         </MarketingSection>
 
