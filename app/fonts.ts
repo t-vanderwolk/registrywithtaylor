@@ -1,50 +1,64 @@
 /**
- * Self-hosted fonts via next/font/google.
+ * Self-hosted fonts via next/font/local.
  *
- * Replaces the render-blocking `<link rel="stylesheet">` to Google Fonts (which
- * cost ~2.5s of render-blocking time on mobile PSI). next/font downloads the
- * font files at build time, self-hosts them, injects a preload, and applies
- * `font-display: swap` — so there is no external, render-blocking request and no
- * layout shift.
+ * The .woff2 files are vendored in app/_fonts/ (sourced from the @fontsource
+ * packages). Using next/font/local — rather than next/font/google — means the
+ * production build never fetches from fonts.gstatic.com, so builds can no longer
+ * fail on a transient Google Fonts network error. next/font still self-hosts,
+ * preloads, and applies `font-display: swap`, so there is no external,
+ * render-blocking request and no layout shift.
  *
  * Each font exposes a CSS variable that feeds the existing `--font-*` design
- * tokens in globals.css (see the `--font-serif-next` etc. references there), so
- * nothing else in the styling has to change.
+ * tokens in globals.css (see the `--font-*-next` references there), so nothing
+ * else in the styling has to change.
  */
-import { Playfair_Display, Cormorant_Garamond, Nunito, Great_Vibes, Caveat } from 'next/font/google';
+import localFont from 'next/font/local';
 
-export const fontSerif = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
+export const fontSerif = localFont({
+  src: [
+    { path: './_fonts/playfair-display-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './_fonts/playfair-display-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './_fonts/playfair-display-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-serif-next',
   display: 'swap',
 });
 
-export const fontAccent = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['500', '600'],
-  style: ['normal', 'italic'],
+export const fontAccent = localFont({
+  src: [
+    { path: './_fonts/cormorant-garamond-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './_fonts/cormorant-garamond-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './_fonts/cormorant-garamond-latin-500-italic.woff2', weight: '500', style: 'italic' },
+    { path: './_fonts/cormorant-garamond-latin-600-italic.woff2', weight: '600', style: 'italic' },
+  ],
   variable: '--font-accent-next',
   display: 'swap',
 });
 
-export const fontSans = Nunito({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+export const fontSans = localFont({
+  src: [
+    { path: './_fonts/nunito-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './_fonts/nunito-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './_fonts/nunito-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './_fonts/nunito-latin-700-normal.woff2', weight: '700', style: 'normal' },
+    { path: './_fonts/nunito-latin-800-normal.woff2', weight: '800', style: 'normal' },
+  ],
   variable: '--font-sans-next',
   display: 'swap',
 });
 
-export const fontScript = Great_Vibes({
-  subsets: ['latin'],
-  weight: '400',
+export const fontScript = localFont({
+  src: [{ path: './_fonts/great-vibes-latin-400-normal.woff2', weight: '400', style: 'normal' }],
   variable: '--font-script-next',
   display: 'swap',
 });
 
-export const fontHandwritten = Caveat({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
+export const fontHandwritten = localFont({
+  src: [
+    { path: './_fonts/caveat-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './_fonts/caveat-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './_fonts/caveat-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-handwritten-next',
   display: 'swap',
 });

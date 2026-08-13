@@ -110,6 +110,7 @@ export default function Hero({
             role={imageAlt ? undefined : 'presentation'}
             fill
             priority
+            fetchPriority="high"
             sizes="100vw"
             className={imageClassName}
           />
