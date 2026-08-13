@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/widgets.css';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 

@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/widgets.css';
 import { useEffect } from 'react';
 
 /**

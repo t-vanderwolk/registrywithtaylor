@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';

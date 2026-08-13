@@ -1,3 +1,4 @@
+import '@/styles/widgets.css';
 import type { ReactNode } from 'react';
 
 type SpecTableProps = {

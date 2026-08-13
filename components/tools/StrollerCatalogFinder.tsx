@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';

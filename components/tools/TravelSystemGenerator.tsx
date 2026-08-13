@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
