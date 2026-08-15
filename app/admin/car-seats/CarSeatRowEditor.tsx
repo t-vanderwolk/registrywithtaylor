@@ -11,6 +11,7 @@ export type CarSeatRow = {
   seatType: string;
   summary: string | null;
   amazonUrl: string | null;
+  manualBabylistUrl: string | null;
   imageUrl: string | null;
   babylistUrl: string | null;
   babylistImage: string | null;
@@ -76,6 +77,10 @@ export default function CarSeatRowEditor({ carSeat }: { carSeat: CarSeatRow }) {
             <label className={`${labelCls} sm:col-span-2`}>
               Amazon affiliate link
               <input name="amazonUrl" defaultValue={c.amazonUrl ?? ''} placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+            </label>
+            <label className={`${labelCls} sm:col-span-2`}>
+              Babylist affiliate link
+              <input name="manualBabylistUrl" defaultValue={c.manualBabylistUrl ?? ''} placeholder="https://www.babylist.com/gp/…" className={field} />
             </label>
             <label className={`${labelCls} sm:col-span-2`}>
               Image URL

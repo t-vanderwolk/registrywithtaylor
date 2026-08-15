@@ -473,6 +473,10 @@ model Stroller {
   summary         String?
   // Admin-entered Amazon affiliate link (manual override, not from any feed).
   amazonUrl       String?
+  // Admin-entered Babylist affiliate link (manual override). The feed sync that
+  // manages `babylistUrl` below can null/overwrite it, so this human-owned field
+  // is kept separate and is never touched by the sync.
+  manualBabylistUrl String?
   // Admin-entered product image URL (manual override — wins over babylistImage
   // and is never touched by the feed sync).
   imageUrl        String?
@@ -529,6 +533,10 @@ model CarSeat {
   summary         String?
   // Admin-entered Amazon affiliate link (manual override, not from any feed).
   amazonUrl       String?
+  // Admin-entered Babylist affiliate link (manual override). The feed sync that
+  // manages `babylistUrl` below can null/overwrite it, so this human-owned field
+  // is kept separate and is never touched by the sync.
+  manualBabylistUrl String?
   // Admin-entered product image URL (manual override — wins over babylistImage
   // and is never touched by the feed sync).
   imageUrl        String?

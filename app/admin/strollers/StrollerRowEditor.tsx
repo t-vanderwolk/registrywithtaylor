@@ -26,6 +26,7 @@ export type StrollerRow = {
   displayName: string | null;
   summary: string | null;
   amazonUrl: string | null;
+  manualBabylistUrl: string | null;
   imageUrl: string | null;
   babylistUrl: string | null;
   babylistImage: string | null;
@@ -96,6 +97,10 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
             <label className={labelCls}>
               Amazon affiliate link
               <input name="amazonUrl" defaultValue={s.amazonUrl ?? ''} placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+            </label>
+            <label className={labelCls}>
+              Babylist affiliate link
+              <input name="manualBabylistUrl" defaultValue={s.manualBabylistUrl ?? ''} placeholder="https://www.babylist.com/gp/…" className={field} />
             </label>
 
             <label className={`${labelCls} sm:col-span-2`}>

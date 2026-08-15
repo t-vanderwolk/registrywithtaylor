@@ -43,7 +43,7 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
   // run yet — otherwise the whole manager (incl. the compatibility links) breaks.
   const baseSelect = {
     id: true, brand: true, model: true, displayName: true, summary: true,
-    amazonUrl: true, babylistUrl: true, babylistImage: true, babylistPrice: true,
+    amazonUrl: true, manualBabylistUrl: true, babylistUrl: true, babylistImage: true, babylistPrice: true,
     spec: true, _count: { select: { compatibilities: true } },
   } as const;
   const findArgs = {
@@ -75,6 +75,7 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
       displayName: r.displayName,
       summary: r.summary,
       amazonUrl: r.amazonUrl ?? null,
+      manualBabylistUrl: r.manualBabylistUrl ?? null,
       imageUrl: r.imageUrl ?? null,
       babylistUrl: r.babylistUrl ?? null,
       babylistImage: r.babylistImage ?? null,
@@ -157,6 +158,10 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
                 <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
                   Amazon affiliate link
                   <input name="amazonUrl" placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+                </label>
+                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                  Babylist affiliate link
+                  <input name="manualBabylistUrl" placeholder="https://www.babylist.com/gp/…" className={field} />
                 </label>
                 <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
                   Image URL
