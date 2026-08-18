@@ -1,24 +1,23 @@
 # robots.txt for https://www.taylormadebabyco.com/
 # Last updated: 2026-08-02
 
-# ---- Default rule for all crawlers ----
+# ---- Default rule for all crawlers (Googlebot + Bingbot included) ----
+# NOTE: Do NOT add a bare "User-agent: Googlebot / Allow: /" group below. A named
+# group makes that crawler ignore this default group entirely, which previously
+# let Googlebot crawl /_next/static/, /admin, and /api/. Keep Google/Bing on this
+# group so the Disallow rules actually apply to them.
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /login
 Disallow: /api/
-Disallow: /_next/static/
+# Block only build-asset binaries (fonts/images under /media), NOT the JS/CSS
+# chunks Google needs to render pages. This stops the font .woff2 files from being
+# crawled and reported as "Crawled – currently not indexed".
+Disallow: /_next/static/media/
 Disallow: /cdn-cgi/
 Disallow: /*?*utm_
 Disallow: /*?*fbclid
-
-# ---- Googlebot ----
-User-agent: Googlebot
-Allow: /
-
-# ---- Bingbot ----
-User-agent: Bingbot
-Allow: /
 
 # ---- AI / LLM crawlers: explicitly allowed (for AEO / answer-engine visibility) ----
 User-agent: GPTBot

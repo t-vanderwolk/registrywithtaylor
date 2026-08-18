@@ -162,6 +162,12 @@ const nextConfig = {
       ...(academyEnabled
         ? [...academyToLearnRedirects, ...academyGuideRedirects]
         : academyDisabledFlatten),
+      // ─── Retired standalone pages → their current homes ──────────────────────
+      // These URLs 404 today but are still in Google's index ("Crawled – currently
+      // not indexed"). 301 them to /services so the equity + any inbound links land
+      // on the live page that now carries this content.
+      { source: '/how-it-works', destination: '/services', permanent: true },
+      { source: '/contact/service-private-concierge', destination: '/services', permanent: true },
       {
         source: '/blog/untitled-post-5',
         destination: '/blog/nuna-demi-icon-has-arrived',
