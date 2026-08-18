@@ -27,6 +27,12 @@ export type StartCard = {
 
 export const startCards: StartCard[] = [
   {
+    prompt: 'Just starting your registry?',
+    action: 'Build Your Baby Checklist',
+    cta: 'Build Checklist',
+    href: '/resources/baby-checklist',
+  },
+  {
     prompt: 'Not sure what kind of stroller fits your life?',
     action: 'Take the Stroller Quiz',
     cta: 'Start Quiz',
@@ -310,6 +316,15 @@ export type ToolCardEntry = {
 };
 
 export const freeTools: ToolCardEntry[] = [
+  {
+    title: 'Baby Registry Checklist',
+    description:
+      'Build a personalized baby checklist — girl, boy, gender-neutral, or twins. Save your progress, print it, and see Taylor’s take on what to register for early.',
+    href: '/resources/baby-checklist',
+    cta: 'Build Your Checklist',
+    image: '/assets/hero/hero-05.jpg',
+    imageAlt: 'Baby registry checklist planning tool',
+  },
   {
     title: 'Stroller Quiz',
     description: 'Answer a few questions and land on the stroller category that actually fits your life.',

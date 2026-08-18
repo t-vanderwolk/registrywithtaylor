@@ -1,0 +1,679 @@
+/* ============================================================================
+   Baby Checklist — feature-scoped styles.
+   Imported directly by components/checklist/BabyChecklist.tsx so this CSS only
+   loads on routes that render the checklist (never globally). Everything is
+   nested under .tmbc-checklist to avoid leaking into the rest of the site.
+   Mobile-first: base rules target phones; media queries enhance for wider screens.
+   ============================================================================ */
+
+.tmbc-checklist {
+  /* Brand palette (scoped tokens) */
+  --ck-ivory: #fffdfb;
+  --ck-blush: #f7e8ea;
+  --ck-blush-dusty: #c98791;
+  --ck-gold: #c9a56a;
+  --ck-charcoal: #4a4647;
+  --ck-gray: #777274;
+  --ck-border: #e7d7d8;
+
+  color: var(--ck-charcoal);
+  background: var(--ck-ivory);
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 1rem 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────*/
+.tmbc-checklist__head {
+  text-align: center;
+  padding: 0.5rem 0 1.25rem;
+}
+.tmbc-checklist__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.9rem, 6vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ck-charcoal);
+  margin: 0;
+}
+.tmbc-checklist__subtitle {
+  margin: 0.75rem auto 0;
+  max-width: 34rem;
+  color: var(--ck-gray);
+  font-size: 1rem;
+}
+
+/* ── Version selector (segmented) ──────────────────────────────────────────*/
+.tmbc-checklist__selector-label {
+  display: block;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ck-gray);
+  margin-bottom: 0.6rem;
+}
+.tmbc-seg {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 999px;
+  background: #fff;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tmbc-seg::-webkit-scrollbar {
+  display: none;
+}
+.tmbc-seg__btn {
+  flex: 1 0 auto;
+  min-width: 4.5rem;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ck-gray);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tmbc-seg__btn:hover {
+  color: var(--ck-charcoal);
+}
+.tmbc-seg__btn[aria-selected='true'] {
+  background: var(--ck-blush);
+  color: var(--ck-charcoal);
+}
+.tmbc-seg__btn:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: 2px;
+}
+
+/* ── Overall progress + toolbar ────────────────────────────────────────────*/
+.tmbc-checklist__toolbar {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 1rem;
+  background: #fff;
+}
+.tmbc-progress__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+.tmbc-progress__label strong {
+  font-family: var(--font-serif, Georgia, serif);
+  font-weight: 600;
+  color: var(--ck-charcoal);
+}
+.tmbc-progress__pct {
+  color: var(--ck-blush-dusty);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.tmbc-bar {
+  margin-top: 0.6rem;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--ck-blush);
+  overflow: hidden;
+}
+.tmbc-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ck-blush-dusty), var(--ck-gold));
+  transition: width 0.35s ease;
+}
+.tmbc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+.tmbc-actions__btn {
+  min-height: 40px;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ck-charcoal);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.tmbc-actions__btn:hover {
+  background: var(--ck-blush);
+  border-color: var(--ck-blush-dusty);
+}
+.tmbc-actions__btn:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: 2px;
+}
+
+/* ── Callout (twins) + disclosure ──────────────────────────────────────────*/
+.tmbc-callout {
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--ck-border);
+  border-left: 3px solid var(--ck-gold);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+.tmbc-callout__heading {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-callout__body {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ck-gray);
+}
+.tmbc-disclosure {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ck-gray);
+  background: var(--ck-blush);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem;
+}
+
+/* ── Category accordion (native <details>) ─────────────────────────────────*/
+.tmbc-cat {
+  margin-top: 1rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 1rem;
+  background: #fff;
+  overflow: hidden;
+}
+.tmbc-cat__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  min-height: 56px;
+}
+.tmbc-cat__summary::-webkit-details-marker {
+  display: none;
+}
+.tmbc-cat__summary:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: -2px;
+}
+.tmbc-cat__name {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.2rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-cat__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ck-gray);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.tmbc-cat__chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 2px solid var(--ck-blush-dusty);
+  border-bottom: 2px solid var(--ck-blush-dusty);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.tmbc-cat[open] .tmbc-cat__chevron {
+  transform: rotate(-135deg);
+}
+.tmbc-cat__body {
+  padding: 0 1.15rem 0.4rem;
+}
+
+/* ── Checklist item ────────────────────────────────────────────────────────*/
+.tmbc-item {
+  border-top: 1px solid var(--ck-border);
+  padding: 0.85rem 0;
+}
+.tmbc-item__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.tmbc-item__check {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.15rem;
+  border: 1.5px solid var(--ck-blush-dusty);
+  border-radius: 0.4rem;
+  background: #fff;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.tmbc-item__check::after {
+  content: '';
+  width: 0.42rem;
+  height: 0.72rem;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s ease;
+}
+.tmbc-item__check:checked {
+  background: var(--ck-blush-dusty);
+  border-color: var(--ck-blush-dusty);
+}
+.tmbc-item__check:checked::after {
+  transform: rotate(45deg) scale(1);
+}
+.tmbc-item__check:focus-visible {
+  outline: 2px solid var(--ck-gold);
+  outline-offset: 2px;
+}
+.tmbc-item__label {
+  flex: 1 1 auto;
+  cursor: pointer;
+  min-width: 0;
+}
+.tmbc-item__title {
+  font-weight: 600;
+  color: var(--ck-charcoal);
+}
+.tmbc-item__check:checked ~ .tmbc-item__label .tmbc-item__title {
+  color: var(--ck-gray);
+  text-decoration: line-through;
+  text-decoration-color: var(--ck-border);
+}
+.tmbc-item__note {
+  margin: 0.2rem 0 0;
+  font-size: 0.86rem;
+  color: var(--ck-gray);
+}
+
+/* ── Badges (understated editorial pills) ──────────────────────────────────*/
+.tmbc-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 999px;
+  background: var(--ck-ivory);
+  color: var(--ck-gray);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tmbc-badge--qty {
+  border-color: var(--ck-gold);
+  color: #7a5b1e;
+  background: rgba(201, 165, 106, 0.12);
+}
+
+/* ── Item detail (Taylor's Take + recommendation) ──────────────────────────*/
+.tmbc-item__toggle {
+  list-style: none;
+  margin-top: 0.5rem;
+  margin-left: 2.15rem;
+  border: none;
+  background: none;
+  padding: 0.4rem 0;
+  min-height: 40px;
+  color: var(--ck-blush-dusty);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.tmbc-item__toggle::-webkit-details-marker {
+  display: none;
+}
+.tmbc-item__toggle::after {
+  content: '';
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.tmbc-item__more[open] .tmbc-item__toggle::after {
+  transform: rotate(-135deg);
+}
+.tmbc-item__toggle:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: 2px;
+}
+.tmbc-item__detail {
+  margin: 0.55rem 0 0.15rem 2.15rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 0.75rem;
+  background: var(--ck-ivory);
+}
+.tmbc-take__label,
+.tmbc-rec__eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-gold);
+  font-weight: 700;
+  margin: 0 0 0.3rem;
+}
+.tmbc-take__body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-style {
+  margin: 0.75rem 0 0;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.6rem;
+  background: var(--ck-blush);
+  font-size: 0.85rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-style__label {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-blush-dusty);
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+.tmbc-style ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+/* ── Recommendation card (matches the blog :::catalog-product card) ─────────*/
+.tmbc-rec {
+  margin-top: 0.85rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 0.9rem;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(72, 49, 56, 0.07);
+  overflow: hidden;
+}
+.tmbc-rec__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, #ffffff, var(--ck-ivory));
+  border-bottom: 1px solid var(--ck-border);
+}
+.tmbc-rec__image {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+}
+.tmbc-rec__image-fallback {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--ck-blush-dusty);
+}
+.tmbc-rec__body {
+  padding: 0.9rem 1rem 1rem;
+}
+.tmbc-rec__brand {
+  font-size: 0.78rem;
+  color: var(--ck-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tmbc-rec__product {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  color: var(--ck-charcoal);
+  margin: 0.05rem 0 0.35rem;
+}
+.tmbc-rec__review {
+  margin: 0 0 0.5rem;
+  font-size: 0.88rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-rec__meta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ck-gray);
+}
+.tmbc-rec__meta strong {
+  color: var(--ck-charcoal);
+  font-weight: 600;
+}
+.tmbc-rec__price {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-rec__price span {
+  font-size: 0.8rem;
+  color: var(--ck-gray);
+}
+.tmbc-rec__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+.tmbc-rec__cta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 46px;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 0.7rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.tmbc-rec__cta:focus-visible {
+  outline: 2px solid var(--ck-gold);
+  outline-offset: 2px;
+}
+.tmbc-rec__cta--babylist {
+  background: var(--ck-blush-dusty);
+  color: #fff;
+}
+.tmbc-rec__cta--babylist:hover {
+  background: #b9727d;
+}
+.tmbc-rec__cta--amazon {
+  background: #fff;
+  color: var(--ck-charcoal);
+  border-color: var(--ck-border);
+}
+.tmbc-rec__cta--amazon:hover {
+  background: var(--ck-ivory);
+  border-color: var(--ck-blush-dusty);
+}
+.tmbc-rec__cta--other {
+  background: #fff;
+  color: var(--ck-charcoal);
+  border-color: var(--ck-border);
+}
+.tmbc-rec__cta--other:hover {
+  background: var(--ck-ivory);
+  border-color: var(--ck-blush-dusty);
+}
+.tmbc-rec__pending {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--ck-gray);
+  font-style: italic;
+}
+
+/* ── Consultation CTA ──────────────────────────────────────────────────────*/
+.tmbc-consult {
+  margin-top: 2rem;
+  padding: 1.6rem 1.25rem;
+  text-align: center;
+  border: 1px solid var(--ck-border);
+  border-radius: 1.1rem;
+  background: linear-gradient(180deg, #fff, #fcf5f1);
+}
+.tmbc-consult__title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem;
+  color: var(--ck-charcoal);
+}
+.tmbc-consult__body {
+  margin: 0 auto 1.1rem;
+  max-width: 32rem;
+  color: var(--ck-gray);
+  font-size: 0.95rem;
+}
+.tmbc-consult__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  background: var(--ck-blush-dusty);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.tmbc-consult__cta:hover {
+  background: #b9727d;
+}
+.tmbc-consult__secondary {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--ck-blush-dusty);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.tmbc-consult__secondary:hover {
+  text-decoration: underline;
+}
+.tmbc-consult__cta:focus-visible,
+.tmbc-consult__secondary:focus-visible {
+  outline: 2px solid var(--ck-gold);
+  outline-offset: 2px;
+}
+
+/* ── Print-only branding (hidden on screen) ────────────────────────────────*/
+.tmbc-print-brand {
+  display: none;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-bar__fill,
+  .tmbc-cat__chevron,
+  .tmbc-item__check,
+  .tmbc-item__check::after {
+    transition: none;
+  }
+}
+
+/* ── Wider screens ─────────────────────────────────────────────────────────*/
+@media (min-width: 48rem) {
+  .tmbc-checklist {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .tmbc-seg__btn {
+    flex: 1 1 0;
+  }
+}
+
+/* ── Print ─────────────────────────────────────────────────────────────────*/
+@media print {
+  .tmbc-checklist {
+    max-width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  /* Strip interactive chrome */
+  .tmbc-checklist__selector,
+  .tmbc-checklist__selector-label,
+  .tmbc-actions,
+  .tmbc-item__toggle,
+  .tmbc-rec__cta,
+  .tmbc-consult,
+  .tmbc-disclosure {
+    display: none !important;
+  }
+  /* Show branding header for print/PDF */
+  .tmbc-print-brand {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+  .tmbc-print-brand__name {
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: 16pt;
+  }
+  .tmbc-print-brand__url {
+    font-size: 10pt;
+    color: #555;
+  }
+  /* Force every category + item open and visible in print, regardless of UI state */
+  .tmbc-cat,
+  .tmbc-item,
+  .tmbc-item__detail {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .tmbc-cat__body {
+    display: block !important;
+  }
+  .tmbc-cat {
+    border: none;
+    border-top: 1px solid #ccc;
+    border-radius: 0;
+  }
+  .tmbc-cat__chevron {
+    display: none;
+  }
+  /* Keep the checkbox state legible in print */
+  .tmbc-item__check {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tmbc-item__detail {
+    background: #fff;
+    border-color: #ccc;
+  }
+}

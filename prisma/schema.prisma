@@ -951,3 +951,30 @@ enum GiftStatus {
   REDEEMED
   REFUNDED
 }
+
+// ─── Baby Checklist — admin-editable product picks ────────────────────────────
+// Mirrors lib/checklist/products.ts. When rows exist, the checklist tool uses
+// them; otherwise it falls back to the static file (so nothing breaks pre-seed).
+model ChecklistProduct {
+  id           String   @id // stable slug, e.g. "britax-galaxy360"
+  brand        String
+  product      String
+  review       String   @default("")
+  bestFor      String   @default("")
+  standout     String   @default("")
+  affiliateUrl String   @default("AFFILIATE_LINK_NEEDED") // Babylist/primary; sentinel = no live link
+  amazonUrl    String?
+  secondaryUrl      String? // any other retailer (Target, Walmart, brand-direct…) when not on Babylist/Amazon
+  secondaryRetailer String? // button label for the other retailer, e.g. "Target"
+  price        Float?
+  priceSource  String?
+  retailer     String?
+  imageUrl     String?
+  badge        String?
+  disclosure   Boolean  @default(false)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([sortOrder])
+}

@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildUrl('/about'), changeFrequency: 'monthly', priority: 0.8 },
     // "Know Before You Buy" — the educational entry point before the tools.
     { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.95 },
+    { url: buildUrl('/resources/baby-checklist'), changeFrequency: 'monthly', priority: 0.85 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/tools/compare'), changeFrequency: 'daily', priority: 0.9 },

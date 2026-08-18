@@ -16,6 +16,7 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:bootstrap": "prisma migrate deploy && prisma db seed",
+    "checklist:seed": "tsx scripts/seedChecklistProducts.ts",
     "catalog:import": "tsx scripts/importAffiliateCatalog.ts",
     "catalog:import-dry": "tsx scripts/importAffiliateCatalog.ts --dry-run",
     "catalog:recategorize": "tsx scripts/recategorizeAffiliateCatalog.ts",
