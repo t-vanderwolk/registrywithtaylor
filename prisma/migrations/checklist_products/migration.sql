@@ -8,8 +8,6 @@ CREATE TABLE IF NOT EXISTS "ChecklistProduct" (
   "standout" TEXT NOT NULL DEFAULT '',
   "affiliateUrl" TEXT NOT NULL DEFAULT 'AFFILIATE_LINK_NEEDED',
   "amazonUrl" TEXT,
-  "secondaryUrl" TEXT,
-  "secondaryRetailer" TEXT,
   "price" DOUBLE PRECISION,
   "priceSource" TEXT,
   "retailer" TEXT,
@@ -22,7 +20,3 @@ CREATE TABLE IF NOT EXISTS "ChecklistProduct" (
   CONSTRAINT "ChecklistProduct_pkey" PRIMARY KEY ("id")
 );
 CREATE INDEX IF NOT EXISTS "ChecklistProduct_sortOrder_idx" ON "ChecklistProduct"("sortOrder");
-
--- Additive columns (safe if the table already existed from an earlier deploy).
-ALTER TABLE "ChecklistProduct" ADD COLUMN IF NOT EXISTS "secondaryUrl" TEXT;
-ALTER TABLE "ChecklistProduct" ADD COLUMN IF NOT EXISTS "secondaryRetailer" TEXT;
