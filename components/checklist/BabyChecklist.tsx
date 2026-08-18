@@ -30,6 +30,9 @@ const STORAGE_PREFIX = 'tmbc-checklist-';
 // versions without one fall back to printing the live, personalized checklist.
 const CHECKLIST_PDFS: Partial<Record<ChecklistType, string>> = {
   girl: '/checklists/TMBC_Baby_Girl_Registry_Checklist.pdf',
+  boy: '/checklists/TMBC_Baby_Boy_Registry_Checklist.pdf',
+  neutral: '/checklists/TMBC_Gender_Neutral_Registry_Checklist.pdf',
+  twins: '/checklists/TMBC_Twins_Registry_Checklist.pdf',
 };
 
 const isChecklistType = (value: string | null | undefined): value is ChecklistType =>
