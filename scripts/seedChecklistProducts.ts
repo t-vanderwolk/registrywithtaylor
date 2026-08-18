@@ -32,6 +32,7 @@ async function main() {
         amazonUrl: p.amazonUrl ?? null,
         secondaryUrl: p.secondaryUrl ?? null,
         secondaryRetailer: p.secondaryRetailer ?? null,
+        checklistItemId: p.checklistItemId ?? null,
         price: p.price ?? null,
         priceSource: p.priceSource ?? null,
         retailer: p.retailer ?? null,

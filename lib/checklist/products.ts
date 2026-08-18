@@ -53,6 +53,11 @@ export type ChecklistProduct = {
   badge?: string;
   /** false = no affiliate relationship on this pick (kept for future use). */
   disclosure?: boolean;
+  /** Checklist line this pick displays under (a ChecklistItem id). Admin-set;
+   *  overrides the static recommendationId wiring in data.ts when present. */
+  checklistItemId?: string;
+  /** Relative order among picks assigned to the same checklist line. */
+  sortOrder?: number;
 };
 
 /**

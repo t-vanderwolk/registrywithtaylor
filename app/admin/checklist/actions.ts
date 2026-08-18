@@ -56,6 +56,7 @@ export async function createChecklistProduct(formData: FormData) {
       amazonUrl: str(formData, 'amazonUrl'),
       secondaryUrl: str(formData, 'secondaryUrl'),
       secondaryRetailer: str(formData, 'secondaryRetailer'),
+      checklistItemId: str(formData, 'checklistItemId'),
       price: num(formData, 'price'),
       priceSource: str(formData, 'priceSource'),
       retailer: str(formData, 'retailer'),

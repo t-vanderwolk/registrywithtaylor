@@ -7,6 +7,9 @@
 -- won't re-run — these guards make this seed self-contained.
 ALTER TABLE "ChecklistProduct" ADD COLUMN IF NOT EXISTS "secondaryUrl" TEXT;
 ALTER TABLE "ChecklistProduct" ADD COLUMN IF NOT EXISTS "secondaryRetailer" TEXT;
+-- Which checklist line a pick displays under (a ChecklistItem id). Admin-set;
+-- overrides the static recommendationId wiring in lib/checklist/data.ts.
+ALTER TABLE "ChecklistProduct" ADD COLUMN IF NOT EXISTS "checklistItemId" TEXT;
 
 INSERT INTO "ChecklistProduct" ("id", "brand", "product", "review", "bestFor", "standout", "affiliateUrl", "amazonUrl", "secondaryUrl", "secondaryRetailer", "price", "priceSource", "retailer", "imageUrl", "badge", "disclosure", "sortOrder", "updatedAt")
 VALUES ('britax-galaxy360', 'Britax', 'Galaxy360', 'A convertible seat that spins to load, so you are not folding yourself into the back seat every day. It carries a child from birth through the years you actually keep a convertible.', 'Parents who want one seat that lasts and a genuinely easier daily buckle.', '360° rotation and a wide, forgiving install.', 'AFFILIATE_LINK_NEEDED', NULL, NULL, NULL, NULL, NULL, 'Babylist', NULL, 'Taylor''s Pick', true, 0, CURRENT_TIMESTAMP)

@@ -966,6 +966,10 @@ model ChecklistProduct {
   amazonUrl    String?
   secondaryUrl      String? // any other retailer (Target, Walmart, brand-direct…) when not on Babylist/Amazon
   secondaryRetailer String? // button label for the other retailer, e.g. "Target"
+  // Which checklist line this pick displays under (a ChecklistItem id, e.g. "crib").
+  // When set, it overrides the static recommendationId wiring in lib/checklist/data.ts,
+  // so Taylor can re-slot picks from the admin without a code change.
+  checklistItemId   String?
   price        Float?
   priceSource  String?
   retailer     String?

@@ -324,15 +324,24 @@ function ChecklistRow({
   checklistType: ChecklistType;
   productMap: Record<string, ChecklistProduct>;
 }) {
+  // Admin-assigned picks (ChecklistProduct.checklistItemId === this item) take
+  // precedence over the static recommendationId wiring in data.ts, so Taylor can
+  // re-slot picks from the admin. Falls back to the static wiring when none are
+  // assigned in the DB.
+  const assigned = Object.values(productMap)
+    .filter((p) => p.checklistItemId === item.id)
+    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   const recIds =
     item.recommendationIds && item.recommendationIds.length
       ? item.recommendationIds
       : item.recommendationId
         ? [item.recommendationId]
         : [];
-  const recs = recIds
-    .map((id) => productMap[id])
-    .filter((p): p is ChecklistProduct => Boolean(p));
+  const recs = assigned.length
+    ? assigned
+    : recIds
+        .map((id) => productMap[id])
+        .filter((p): p is ChecklistProduct => Boolean(p));
   const hasMore = Boolean(item.taylorsTake || recs.length || item.styleSuggestions);
   const inputId = `tmbc-ck-${item.id}`;
 

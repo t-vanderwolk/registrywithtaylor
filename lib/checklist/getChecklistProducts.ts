@@ -37,6 +37,8 @@ export async function getChecklistProducts(): Promise<Record<string, ChecklistPr
         imageUrl: r.imageUrl ?? undefined,
         badge: r.badge ?? undefined,
         disclosure: r.disclosure ?? undefined,
+        checklistItemId: r.checklistItemId ?? undefined,
+        sortOrder: typeof r.sortOrder === 'number' ? r.sortOrder : undefined,
       };
     }
     return map;
