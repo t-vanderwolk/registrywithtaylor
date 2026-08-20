@@ -6,6 +6,7 @@ import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import BabyChecklist from '@/components/checklist/BabyChecklist';
 import { getChecklistProducts } from '@/lib/checklist/getChecklistProducts';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
+import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
 
 // ISR: the product picks are admin-editable (DB); regenerate hourly so edits go
 // live without a deploy, while the page stays cached/fast.
@@ -35,9 +36,10 @@ export const metadata = buildMarketingMetadata({
  * the near-identical variants never create duplicate-indexing problems.
  */
 export default async function BabyChecklistPage() {
-  const [products, relatedReading] = await Promise.all([
+  const [products, relatedReading, retailerLogos] = await Promise.all([
     getChecklistProducts(),
     getChecklistRelatedReading(),
+    getPartnerLogos(),
   ]);
   return (
     <SiteShell currentPath="/resources">
@@ -60,7 +62,11 @@ export default async function BabyChecklistPage() {
       </MarketingSection>
 
       <MarketingSection tone="white" spacing="spacious" container="default">
-        <BabyChecklist products={products} relatedReading={relatedReading} />
+        <BabyChecklist
+          products={products}
+          relatedReading={relatedReading}
+          retailerLogos={retailerLogos}
+        />
       </MarketingSection>
     </SiteShell>
   );

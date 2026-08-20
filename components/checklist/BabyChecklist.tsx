@@ -87,12 +87,15 @@ export default function BabyChecklist({
   initialType = DEFAULT_TYPE,
   products = staticProducts,
   relatedReading = {},
+  retailerLogos = {},
 }: {
   initialType?: ChecklistType;
   /** Product picks keyed by id — from the DB (admin-editable) with a static fallback. */
   products?: Record<string, ChecklistProduct>;
   /** Resolved blog cards per category id — built server-side from live posts. */
   relatedReading?: Record<string, RelatedReadingCard[]>;
+  /** Affiliate-partner logos (from /admin/partners), keyed by normalized name/slug. */
+  retailerLogos?: Record<string, string>;
 }) {
   const [type, setType] = useState<ChecklistType>(initialType);
   const [checked, setChecked] = useState<Checked>({});
@@ -344,6 +347,7 @@ export default function BabyChecklist({
                   onToggle={toggle}
                   checklistType={type}
                   productMap={products}
+                  retailerLogos={retailerLogos}
                 />
               ))}
             </div>
@@ -381,12 +385,14 @@ function ChecklistRow({
   onToggle,
   checklistType,
   productMap,
+  retailerLogos,
 }: {
   item: ResolvedItem;
   checked: boolean;
   onToggle: (item: ResolvedItem, isChecked: boolean) => void;
   checklistType: ChecklistType;
   productMap: Record<string, ChecklistProduct>;
+  retailerLogos: Record<string, string>;
 }) {
   // Admin-assigned picks (ChecklistProduct.checklistItemId === this item) take
   // precedence over the static recommendationId wiring in data.ts, so Taylor can
@@ -452,7 +458,13 @@ function ChecklistRow({
             )}
 
             {recs.map((rec) => (
-              <Recommendation key={rec.id} rec={rec} item={item} checklistType={checklistType} />
+              <Recommendation
+                key={rec.id}
+                rec={rec}
+                item={item}
+                checklistType={checklistType}
+                retailerLogos={retailerLogos}
+              />
             ))}
           </div>
         </details>
@@ -473,15 +485,27 @@ const RETAILER_LOGOS: Record<string, string> = {
   babyquip: '/assets/logos/babyquip.png',
 };
 
-const retailerLogo = (retailer?: string | null): string | null => {
+const retailerLogo = (
+  retailer?: string | null,
+  dynamic?: Record<string, string>,
+): string | null => {
   if (!retailer) return null;
   const key = retailer.toLowerCase().replace(/[^a-z0-9]+/g, '');
-  return RETAILER_LOGOS[key] ?? null;
+  // Curated static logos first (Babylist/Amazon icons), then admin Affiliate
+  // Partner logos (from /admin/partners) for any other retailer.
+  return RETAILER_LOGOS[key] ?? dynamic?.[key] ?? null;
 };
 
-/** Small retailer logo rendered inside a shop CTA. Renders nothing if unknown. */
-function RetailerLogo({ retailer }: { retailer?: string | null }) {
-  const src = retailerLogo(retailer);
+/** Small retailer logo rendered inside a shop CTA. Renders nothing if unknown.
+ *  `dynamic` supplies partner logos keyed by normalized name/slug. */
+function RetailerLogo({
+  retailer,
+  dynamic,
+}: {
+  retailer?: string | null;
+  dynamic?: Record<string, string>;
+}) {
+  const src = retailerLogo(retailer, dynamic);
   if (!src) return null;
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={src} alt="" aria-hidden="true" className="tmbc-rec__cta-logo" />;
@@ -491,10 +515,12 @@ function Recommendation({
   rec,
   item,
   checklistType,
+  retailerLogos,
 }: {
   rec: ChecklistProduct;
   item: ResolvedItem;
   checklistType: ChecklistType;
+  retailerLogos: Record<string, string>;
 }) {
   // Mobile-only expand: image + brand/product + price stay visible; the editorial
   // copy and shop buttons collapse behind a toggle. On desktop everything shows
@@ -618,7 +644,7 @@ function Recommendation({
                 })
               }
             >
-              <RetailerLogo retailer={otherLabel} />
+              <RetailerLogo retailer={otherLabel} dynamic={retailerLogos} />
               Shop {otherLabel} <span aria-hidden="true">→</span>
             </a>
           ) : null}
