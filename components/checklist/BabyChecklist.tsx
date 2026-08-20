@@ -618,7 +618,7 @@ function Recommendation({
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Hide details' : 'See Taylor’s take & links'}
+          {open ? 'Hide Taylor’s take' : 'See Taylor’s take'}
           <span className="tmbc-rec__toggle-icon" aria-hidden="true">▾</span>
         </button>
         <div className={`tmbc-rec__details${open ? ' tmbc-rec__details--open' : ''}`}>
@@ -629,6 +629,7 @@ function Recommendation({
         <p className="tmbc-rec__meta">
           <strong>Standout:</strong> {rec.standout}
         </p>
+        </div>
         <div className="tmbc-rec__actions">
           {babylistUrl ? (
             <a
@@ -698,7 +699,6 @@ function Recommendation({
               Shop {otherLabel} <span aria-hidden="true">→</span>
             </a>
           ) : null}
-        </div>
         </div>
       </div>
     </div>
