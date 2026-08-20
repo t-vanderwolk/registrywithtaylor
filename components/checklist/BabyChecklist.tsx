@@ -15,7 +15,7 @@ import {
   type RelatedReadingCard,
 } from '@/lib/checklist/data';
 import Image from 'next/image';
-import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
+import { resolveBlogCoverImage } from '@/lib/blog/images';
 import { getBlogCategoryLabel } from '@/lib/blogCategories';
 import {
   products as staticProducts,
@@ -65,7 +65,6 @@ function ReadingCard({ card, onNavigate }: { card: RelatedReadingCard; onNavigat
           sizes="(max-width: 640px) 100vw, 320px"
           className="tmbc-read-card__img"
           loading="lazy"
-          unoptimized={isRemoteImageUrl(cover)}
         />
       </span>
       <span className="tmbc-read-card__body">
@@ -590,13 +589,14 @@ function Recommendation({
     <div className="tmbc-rec">
       <div className="tmbc-rec__media">
         {rec.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             className="tmbc-rec__image"
             src={rec.imageUrl}
             alt={`${rec.brand} ${rec.product}`}
+            fill
+            sizes="(max-width: 640px) 90vw, 260px"
+            style={{ objectFit: 'contain' }}
             loading="lazy"
-            decoding="async"
           />
         ) : (
           <span className="tmbc-rec__image-fallback">{rec.brand}</span>
