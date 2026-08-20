@@ -347,6 +347,29 @@ export default function BabyChecklist({
                   retailerLogos={retailerLogos}
                 />
               ))}
+              {/* Mobile-only: related reading under this category's items. On
+                  desktop it lives in the sticky right column instead. */}
+              {(() => {
+                const cards = relatedReading[group.category.id];
+                if (!cards || cards.length === 0) return null;
+                return (
+                  <div className="tmbc-related tmbc-related--inline">
+                    <p className="tmbc-related__eyebrow">Straight from Taylor</p>
+                    <h4 className="tmbc-related__heading">Baby gear guidance</h4>
+                    <div className="tmbc-related__grid">
+                      {cards.map((card) => (
+                        <ReadingCard
+                          key={card.slug}
+                          card={card}
+                          onNavigate={() =>
+                            checklistAnalytics.relatedPostClicked(type, group.category.id, card.slug)
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </details>
         );

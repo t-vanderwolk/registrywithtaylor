@@ -667,8 +667,13 @@
 .tmbc-checklist__main {
   min-width: 0;
 }
+/* The sticky reading column is desktop-only; on mobile the cards render inline
+   under each open category's items instead (.tmbc-related--inline). */
 .tmbc-checklist__aside {
-  margin-top: 1.5rem;
+  display: none;
+}
+.tmbc-related--inline {
+  margin-top: 1.1rem;
 }
 @media (min-width: 1024px) {
   .tmbc-checklist {
@@ -681,9 +686,14 @@
     align-items: start;
   }
   .tmbc-checklist__aside {
+    display: block;
     position: sticky;
     top: 1.5rem;
     margin-top: 0;
+  }
+  /* Inline strip is mobile-only. */
+  .tmbc-related--inline {
+    display: none;
   }
   /* Stack the cards vertically in the narrow aside column. */
   .tmbc-related--aside .tmbc-related__grid {
