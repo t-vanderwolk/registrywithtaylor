@@ -1,5 +1,6 @@
 import prismaBase from '@/lib/server/prisma';
 import { requireAdminSession } from '@/lib/server/session';
+import ChecklistCatalogPicker from '@/components/admin/checklist/ChecklistCatalogPicker';
 import { categories, checklistItems } from '@/lib/checklist/data';
 import {
   createChecklistProduct,
@@ -95,6 +96,7 @@ function ProductRow({ r }: { r: Row }) {
 
       <form action={updateChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
         <input type="hidden" name="id" value={r.id} />
+        <ChecklistCatalogPicker />
         <label className={lbl}>Brand<input name="brand" defaultValue={r.brand} className={field} /></label>
         <label className={lbl}>Product<input name="product" defaultValue={r.product} className={field} /></label>
         <label className={`${lbl} sm:col-span-2`}>Review<textarea name="review" rows={2} defaultValue={r.review} className={field} /></label>
@@ -174,6 +176,7 @@ export default async function AdminChecklistPage() {
       <details className="mt-6 rounded-lg border border-neutral-200 bg-white p-4">
         <summary className="cursor-pointer font-semibold text-neutral-800">+ Add a product</summary>
         <form action={createChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
+          <ChecklistCatalogPicker />
           <label className={lbl}>Brand *<input name="brand" required className={field} /></label>
           <label className={lbl}>Product *<input name="product" required className={field} /></label>
           <label className={`${lbl} sm:col-span-2`}>Editorial review<textarea name="review" rows={2} className={field} /></label>
