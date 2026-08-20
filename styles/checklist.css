@@ -659,6 +659,52 @@
   }
 }
 
+/* Two-column layout: checklist (left) + a "Straight from Taylor" reading column
+   in the right section margin. Stacks to one column below 1024px. */
+.tmbc-checklist__grid {
+  display: block;
+}
+.tmbc-checklist__main {
+  min-width: 0;
+}
+.tmbc-checklist__aside {
+  margin-top: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .tmbc-checklist {
+    max-width: 72rem;
+  }
+  .tmbc-checklist__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 44rem) 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .tmbc-checklist__aside {
+    position: sticky;
+    top: 1.5rem;
+    margin-top: 0;
+  }
+  /* Stack the cards vertically in the narrow aside column. */
+  .tmbc-related--aside .tmbc-related__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+  .tmbc-related--aside .tmbc-related__grid > .tmbc-read-card {
+    flex: initial;
+    max-width: none;
+  }
+}
+@media print {
+  .tmbc-checklist__aside {
+    display: none !important;
+  }
+}
+
 /* Compact, link-only reading card — smaller sibling of the homepage JournalCard. */
 .tmbc-read-card {
   display: flex;

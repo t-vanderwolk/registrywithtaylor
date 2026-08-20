@@ -100,6 +100,9 @@ export default function BabyChecklist({
   const [type, setType] = useState<ChecklistType>(initialType);
   const [checked, setChecked] = useState<Checked>({});
   const [hydrated, setHydrated] = useState(false);
+  // Which category accordion is currently open — drives the right-hand reading
+  // column so it only shows posts relevant to what the visitor is looking at.
+  const [openCategory, setOpenCategory] = useState('');
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   // Load this version's saved progress from localStorage (client only). Runs on
@@ -231,6 +234,11 @@ export default function BabyChecklist({
     window.print();
   }, [type]);
 
+  // The right-hand reading column follows the open category. Before any toggle,
+  // fall back to the first category (rendered open by default).
+  const activeCategory = openCategory || groups[0]?.category.id || '';
+  const sidebarCards = relatedReading[activeCategory] ?? [];
+
   return (
     <div className="tmbc-checklist" ref={rootRef}>
       {/* Print/PDF-only branding header */}
@@ -239,6 +247,9 @@ export default function BabyChecklist({
         <div className="tmbc-print-brand__url">taylormadebabyco.com</div>
         <div>Baby Registry Checklist — {labelFor(type)}</div>
       </div>
+
+      <div className="tmbc-checklist__grid">
+        <div className="tmbc-checklist__main">
 
       {/* Version selector */}
       <span className="tmbc-checklist__selector-label" id="tmbc-selector-label">
@@ -307,7 +318,14 @@ export default function BabyChecklist({
         const catItems = group.items;
         const catDone = catItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
         return (
-          <details className="tmbc-cat" key={group.category.id} open={idx === 0}>
+          <details
+            className="tmbc-cat"
+            key={group.category.id}
+            open={idx === 0}
+            onToggle={(e) => {
+              if (e.currentTarget.open) setOpenCategory(group.category.id);
+            }}
+          >
             <summary className="tmbc-cat__summary">
               <span className="tmbc-cat__name">{group.category.title}</span>
               <span className="tmbc-cat__meta">
@@ -318,27 +336,6 @@ export default function BabyChecklist({
               </span>
             </summary>
             <div className="tmbc-cat__body">
-              {(() => {
-                const cards = relatedReading[group.category.id];
-                if (!cards || cards.length === 0) return null;
-                return (
-                  <div className="tmbc-related">
-                    <p className="tmbc-related__eyebrow">Straight from Taylor</p>
-                    <h4 className="tmbc-related__heading">Baby gear guidance</h4>
-                    <div className="tmbc-related__grid">
-                      {cards.map((card) => (
-                        <ReadingCard
-                          key={card.slug}
-                          card={card}
-                          onNavigate={() =>
-                            checklistAnalytics.relatedPostClicked(type, group.category.id, card.slug)
-                          }
-                        />
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
               {catItems.map((item) => (
                 <ChecklistRow
                   key={item.id}
@@ -375,6 +372,28 @@ export default function BabyChecklist({
           Explore Taylor&rsquo;s Registry Essentials
         </a>
       </section>
+        </div>
+
+        {sidebarCards.length > 0 && (
+          <aside className="tmbc-checklist__aside" aria-label="Related reading from Taylor">
+            <div className="tmbc-related tmbc-related--aside">
+              <p className="tmbc-related__eyebrow">Straight from Taylor</p>
+              <h4 className="tmbc-related__heading">Baby gear guidance</h4>
+              <div className="tmbc-related__grid">
+                {sidebarCards.map((card) => (
+                  <ReadingCard
+                    key={card.slug}
+                    card={card}
+                    onNavigate={() =>
+                      checklistAnalytics.relatedPostClicked(type, activeCategory, card.slug)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+          </aside>
+        )}
+      </div>
     </div>
   );
 }

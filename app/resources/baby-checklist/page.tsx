@@ -61,7 +61,7 @@ export default async function BabyChecklistPage() {
         </div>
       </MarketingSection>
 
-      <MarketingSection tone="white" spacing="spacious" container="default">
+      <MarketingSection tone="white" spacing="spacious" container="wide">
         <BabyChecklist
           products={products}
           relatedReading={relatedReading}
