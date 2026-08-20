@@ -58,15 +58,18 @@ export type RelatedReadingCard = {
 };
 
 /**
- * "Related reading" links shown at the top of each checklist category. Slugs are
- * live posts (verified against the sitemap). Categories without a strong match
- * (Bath Time, Clothing + Linens) are intentionally omitted rather than padded.
+ * "Related reading" links shown per checklist category — every relevant live
+ * post (verified against the sitemap), not a capped subset. Slugs with no live
+ * post are silently skipped at render. Categories without a match (Bath Time,
+ * Clothing + Linens) are omitted rather than padded.
  * To edit: add/remove { label, slug } — slug is the /blog/<slug> path.
  */
 export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = {
   sleep: [
     { label: 'Bassinet vs. crib vs. pack ’n play', slug: 'bassinet-vs-crib-vs-pack-and-play' },
+    { label: 'Pack ’n play vs. travel crib', slug: 'blog-pack-and-play-vs-travel-crib' },
     { label: 'Nuna travel crib showdown', slug: 'nuna-travel-crib-showdown-sena-paal-cove' },
+    { label: 'SlumberPod review', slug: 'slumberpod-review-travel-baby-sleep' },
   ],
   feeding: [
     { label: 'Best high chairs (2026)', slug: 'best-highchairs-2026-real-life-guide' },
@@ -74,10 +77,28 @@ export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = 
       label: 'Bottle washer showdown',
       slug: 'bottle-washer-showdown-momcozy-grownsy-bc-babycare-eufy-papablic',
     },
+    { label: 'Momcozy baby products', slug: 'momcozy-baby-products' },
   ],
   'getting-around': [
     { label: 'Best full-size strollers (2026)', slug: 'best-full-size-strollers-2026' },
+    { label: 'Best compact strollers (2026)', slug: 'best-compact-strollers-2026' },
     { label: 'Best travel strollers (2026)', slug: 'best-travel-strollers-2026' },
+    {
+      label: 'Single-to-double strollers',
+      slug: 'best-convertible-single-to-double-strollers-2026',
+    },
+    {
+      label: 'Silver Cross Nia vs. Clic vs. Jet',
+      slug: 'silver-cross-nia-vs-clic-vs-jet-travel-stroller-comparison-2026',
+    },
+    { label: 'Joolz Aer vs. Dot', slug: 'joolz-aer-vs-joolz-dot-showdown' },
+    { label: 'Nuna TRIV vs. SWIV vs. FLEX', slug: 'nuna-triv-next-vs-swiv-vs-flex-system-vs-triv-lx' },
+    { label: 'Bugaboo Dragonfly Plus review', slug: 'bugaboo-dragonfly-plus-review-2026' },
+    { label: 'Bugaboo Butterfly 2 Plus', slug: 'bugaboo-butterfly-2-plus' },
+    { label: 'Bugaboo Donkey 6', slug: 'bugaboo-donkey-6-stroller-release' },
+    { label: 'Nuna DEMI Icon', slug: 'nuna-demi-icon-has-arrived' },
+    { label: 'Silver Cross Cove 2 review', slug: 'silver-cross-cove-2-review' },
+    { label: 'Nuna VIAA CABN', slug: 'nuna-viaa-cabn-has-arrived' },
   ],
   everyday: [
     { label: 'Best diaper pails (2026)', slug: 'blog-best-diaper-pails-2026' },
@@ -87,6 +108,16 @@ export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = 
     { label: 'Taylor’s registry essentials', slug: 'taylors-registry-essentials' },
     { label: 'Registry completion discounts', slug: 'baby-registry-completion-discounts-2026' },
     { label: 'Free baby welcome boxes', slug: 'best-free-baby-welcome-boxes-2026' },
+    {
+      label: 'Independent baby store rewards',
+      slug: 'best-independent-baby-stores-rewards-programs-2026',
+    },
+    {
+      label: 'Target Baby concierge',
+      slug: 'target-baby-concierge-virtual-specialist-guide-2026',
+    },
+    { label: 'NFL newborn fan clubs', slug: 'nfl-newborn-fan-clubs' },
+    { label: 'MLB newborn fan clubs', slug: 'mlb-newborn-fan-clubs' },
   ],
 };
 

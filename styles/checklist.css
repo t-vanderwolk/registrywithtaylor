@@ -687,8 +687,6 @@
   }
   .tmbc-checklist__aside {
     display: block;
-    position: sticky;
-    top: 1.5rem;
     margin-top: 0;
   }
   /* Inline strip is mobile-only. */

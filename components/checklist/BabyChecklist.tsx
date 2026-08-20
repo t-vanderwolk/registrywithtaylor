@@ -182,6 +182,13 @@ export default function BabyChecklist({
   const done = allItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
   const pct = total ? Math.round((done / total) * 100) : 0;
 
+  // Seed the reading column to the first category (rendered open by default), and
+  // re-seed when the version changes. Toggling clears/updates it from there, so
+  // an empty right column means no category is open.
+  useEffect(() => {
+    setOpenCategory(groups[0]?.category.id ?? '');
+  }, [groups]);
+
   const selectType = useCallback(
     (next: ChecklistType) => {
       if (next === type) return;
@@ -234,10 +241,10 @@ export default function BabyChecklist({
     window.print();
   }, [type]);
 
-  // The right-hand reading column follows the open category. Before any toggle,
-  // fall back to the first category (rendered open by default).
-  const activeCategory = openCategory || groups[0]?.category.id || '';
-  const sidebarCards = relatedReading[activeCategory] ?? [];
+  // The right-hand reading column follows the open category. When no category is
+  // open (openCategory === ''), it shows nothing.
+  const activeCategory = openCategory;
+  const sidebarCards = activeCategory ? relatedReading[activeCategory] ?? [] : [];
 
   return (
     <div className="tmbc-checklist" ref={rootRef}>
@@ -324,6 +331,7 @@ export default function BabyChecklist({
             open={idx === 0}
             onToggle={(e) => {
               if (e.currentTarget.open) setOpenCategory(group.category.id);
+              else if (openCategory === group.category.id) setOpenCategory('');
             }}
           >
             <summary className="tmbc-cat__summary">
