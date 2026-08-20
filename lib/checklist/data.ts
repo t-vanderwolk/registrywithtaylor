@@ -43,6 +43,20 @@ export const categories: { id: CategoryId; title: string }[] = [
 
 export type RelatedPost = { label: string; slug: string };
 
+/** A resolved blog post rendered as a JournalCard in the checklist's related
+ *  reading strip. Built server-side (getChecklistRelatedReading) from live posts,
+ *  then passed into the client checklist as a serializable prop. */
+export type RelatedReadingCard = {
+  title: string;
+  slug: string;
+  category: string;
+  coverImage: string | null;
+  excerpt: string;
+  dateLabel: string;
+  dateTime: string;
+  readingTime: number | null;
+};
+
 /**
  * "Related reading" links shown at the top of each checklist category. Slugs are
  * live posts (verified against the sitemap). Categories without a strong match

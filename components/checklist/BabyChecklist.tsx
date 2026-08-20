@@ -10,10 +10,13 @@ import {
   TWINS_CALLOUT,
   groupedItemsForType,
   itemsForType,
-  categoryRelatedPosts,
   type ChecklistType,
   type ResolvedItem,
+  type RelatedReadingCard,
 } from '@/lib/checklist/data';
+import Image from 'next/image';
+import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
+import { getBlogCategoryLabel } from '@/lib/blogCategories';
 import {
   products as staticProducts,
   hasLiveLink,
@@ -44,13 +47,52 @@ const labelFor = (type: ChecklistType) =>
 
 type Checked = Record<string, boolean>;
 
+/**
+ * Compact, link-only related-reading card. Shares the JournalCard styling family
+ * (image panel, category tag, serif title, rose "Read" cue) but is smaller and
+ * has no save/share actions — a supporting element, not a page-taker. The whole
+ * card is a single link.
+ */
+function ReadingCard({ card, onNavigate }: { card: RelatedReadingCard; onNavigate: () => void }) {
+  const cover = resolveBlogCoverImage(card.coverImage, card.category);
+  return (
+    <a href={`/blog/${card.slug}`} className="tmbc-read-card" onClick={onNavigate}>
+      <span className="tmbc-read-card__media">
+        <Image
+          src={cover}
+          alt={card.title}
+          fill
+          sizes="(max-width: 640px) 100vw, 320px"
+          className="tmbc-read-card__img"
+          loading="lazy"
+          unoptimized={isRemoteImageUrl(cover)}
+        />
+      </span>
+      <span className="tmbc-read-card__body">
+        {card.category ? (
+          <span className="tmbc-read-card__tag">{getBlogCategoryLabel(card.category)}</span>
+        ) : (
+          <span className="tmbc-read-card__tag">Journal</span>
+        )}
+        <span className="tmbc-read-card__title">{card.title}</span>
+        <span className="tmbc-read-card__cta">
+          Read <span aria-hidden="true">→</span>
+        </span>
+      </span>
+    </a>
+  );
+}
+
 export default function BabyChecklist({
   initialType = DEFAULT_TYPE,
   products = staticProducts,
+  relatedReading = {},
 }: {
   initialType?: ChecklistType;
   /** Product picks keyed by id — from the DB (admin-editable) with a static fallback. */
   products?: Record<string, ChecklistProduct>;
+  /** Resolved blog cards per category id — built server-side from live posts. */
+  relatedReading?: Record<string, RelatedReadingCard[]>;
 }) {
   const [type, setType] = useState<ChecklistType>(initialType);
   const [checked, setChecked] = useState<Checked>({});
@@ -274,25 +316,23 @@ export default function BabyChecklist({
             </summary>
             <div className="tmbc-cat__body">
               {(() => {
-                const posts = categoryRelatedPosts[group.category.id];
-                if (!posts || posts.length === 0) return null;
+                const cards = relatedReading[group.category.id];
+                if (!cards || cards.length === 0) return null;
                 return (
                   <div className="tmbc-related">
-                    <span className="tmbc-related__label">Related reading</span>
-                    <ul className="tmbc-related__links">
-                      {posts.map((p) => (
-                        <li key={p.slug}>
-                          <a
-                            className="tmbc-related__link"
-                            href={`/blog/${p.slug}`}
-                            onClick={() => checklistAnalytics.relatedPostClicked(type, group.category.id, p.slug)}
-                          >
-                            {p.label}
-                            <span className="tmbc-related__arrow" aria-hidden="true">→</span>
-                          </a>
-                        </li>
+                    <p className="tmbc-related__eyebrow">Straight from Taylor</p>
+                    <h4 className="tmbc-related__heading">Baby gear guidance</h4>
+                    <div className="tmbc-related__grid">
+                      {cards.map((card) => (
+                        <ReadingCard
+                          key={card.slug}
+                          card={card}
+                          onNavigate={() =>
+                            checklistAnalytics.relatedPostClicked(type, group.category.id, card.slug)
+                          }
+                        />
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 );
               })()}
