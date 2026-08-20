@@ -688,6 +688,14 @@
   .tmbc-checklist__aside {
     display: block;
     margin-top: 0;
+    /* Stays in view down the checklist, and scrolls internally when a category
+       has more cards than fit (e.g. Getting Around). */
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
   }
   /* Inline strip is mobile-only. */
   .tmbc-related--inline {
