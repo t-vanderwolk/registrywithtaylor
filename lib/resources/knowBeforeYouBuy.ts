@@ -28,7 +28,7 @@ export type StartCard = {
 export const startCards: StartCard[] = [
   {
     prompt: 'Just starting your registry?',
-    action: 'Build Your Baby Checklist',
+    action: 'Build Your Baby Registry Checklist',
     cta: 'Build Checklist',
     href: '/resources/baby-checklist',
   },

@@ -531,47 +531,84 @@
   border-color: var(--ck-blush-dusty);
 }
 
-/* Related reading — category-level blog links shown at the top of each section. */
+/* Related reading — category-level blog links shown at the top of each section.
+   Styled as intentional link chips that echo the checklist's blush palette. */
 .tmbc-related {
-  margin: 0 0 1rem;
-  padding: 0.85rem 1rem;
+  margin: 0 0 1.25rem;
+  padding: 0.95rem 1.05rem 1.05rem;
   border: 1px solid var(--ck-border);
-  border-radius: 0.75rem;
-  background: linear-gradient(180deg, #fffdfb, #fdf6f7);
+  border-radius: 0.9rem;
+  background: linear-gradient(180deg, #fffdfb 0%, #fdf5f6 100%);
+  box-shadow: 0 6px 20px rgba(201, 135, 145, 0.06);
 }
 .tmbc-related__label {
-  display: block;
-  margin-bottom: 0.45rem;
-  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ck-blush-dusty);
+}
+.tmbc-related__label::after {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ck-blush-dusty), transparent);
 }
 .tmbc-related__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
+  gap: 0.55rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .tmbc-related__link {
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
+  line-height: 1.2;
   color: var(--ck-charcoal);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  background: #fff;
+  border: 1px solid var(--ck-border);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(74, 70, 71, 0.04);
+  transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease, background 0.18s ease;
+}
+.tmbc-related__link .tmbc-related__arrow {
+  color: var(--ck-blush-dusty);
+  transition: transform 0.18s ease;
 }
 .tmbc-related__link:hover {
   color: var(--ck-blush-dusty);
-  border-bottom-color: var(--ck-blush-dusty);
+  background: var(--ck-ivory);
+  border-color: var(--ck-blush-dusty);
+  box-shadow: 0 8px 18px rgba(201, 135, 145, 0.16);
+  transform: translateY(-1px);
+}
+.tmbc-related__link:hover .tmbc-related__arrow {
+  transform: translateX(3px);
+}
+.tmbc-related__link:active {
+  transform: translateY(0);
 }
 .tmbc-related__link:focus-visible {
   outline: 2px solid var(--ck-blush-dusty);
   outline-offset: 2px;
-  border-radius: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmbc-related__link,
+  .tmbc-related__arrow {
+    transition: none;
+  }
 }
 .tmbc-rec__pending {
   margin-top: 0.6rem;

@@ -156,7 +156,7 @@ export default async function AdminAnalyticsPage() {
     'travel-system-checker': 'Travel System Checker',
     'stroller-quiz': 'Stroller Quiz',
     'stroller-compare': 'Stroller Compare',
-    'baby-checklist': 'Baby Checklist',
+    'baby-checklist': 'Baby Registry Checklist',
   };
   type ToolRow = { tool: string; label: string; opens: number; selections: number; results: number; clicks: number };
   let toolRows: ToolRow[] = [];

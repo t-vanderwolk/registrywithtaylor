@@ -42,7 +42,7 @@ export default async function BabyChecklistPage() {
       <MarketingSection tone="ivory" spacing="tight" container="default">
         <div className="mx-auto max-w-2xl text-center">
           <p className="mkt-eyebrow">Free Planning Tool</p>
-          <H1 className="mt-3 font-serif">Build Your Baby Checklist</H1>
+          <H1 className="mt-3 font-serif">Build Your Baby Registry Checklist</H1>
           <Body className="mt-4 text-neutral-600">
             Start with the essentials. Skip the clutter. Make it yours.
           </Body>

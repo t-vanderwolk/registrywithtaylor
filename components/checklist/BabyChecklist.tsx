@@ -192,7 +192,7 @@ export default function BabyChecklist({
       <div className="tmbc-print-brand" aria-hidden="true">
         <div className="tmbc-print-brand__name">Taylor-Made Baby Co.</div>
         <div className="tmbc-print-brand__url">taylormadebabyco.com</div>
-        <div>Baby Checklist — {labelFor(type)}</div>
+        <div>Baby Registry Checklist — {labelFor(type)}</div>
       </div>
 
       {/* Version selector */}
@@ -288,7 +288,7 @@ export default function BabyChecklist({
                             onClick={() => checklistAnalytics.relatedPostClicked(type, group.category.id, p.slug)}
                           >
                             {p.label}
-                            <span aria-hidden="true"> →</span>
+                            <span className="tmbc-related__arrow" aria-hidden="true">→</span>
                           </a>
                         </li>
                       ))}

@@ -21,7 +21,7 @@ const navLinks: NavLink[] = [
 
 // Active free tools shown in the Resources dropdown.
 const resourceTools: NavLink[] = [
-  { label: 'Baby Checklist', href: '/resources/baby-checklist' },
+  { label: 'Baby Registry Checklist', href: '/resources/baby-checklist' },
   { label: 'Stroller Quiz', href: '/tools/stroller-quiz' },
   { label: 'Stroller Finder', href: '/tools/stroller-finder' },
   { label: 'Compare Strollers', href: '/tools/compare' },
