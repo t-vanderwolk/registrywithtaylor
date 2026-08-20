@@ -120,3 +120,18 @@ XOXO
 — Taylor
 
 Founder, Taylor-Made Baby Co.
+
+---
+
+## Deployment (for agents)
+
+The canonical deploy command for this repo — always use this exact sequence so
+GitHub (`origin`) and Heroku stay in sync:
+
+```
+git add -A && git commit -m "<message>" && git push && git push heroku main
+```
+
+`git push` publishes to GitHub; `git push heroku main` deploys to production
+(Heroku release runs `prisma migrate deploy` automatically). Never edit an
+already-applied migration — add a NEW migration for schema changes.

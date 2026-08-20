@@ -66,7 +66,7 @@ export type RelatedReadingCard = {
 export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = {
   sleep: [
     { label: 'Bassinet vs. crib vs. pack ’n play', slug: 'bassinet-vs-crib-vs-pack-and-play' },
-    { label: 'Pack ’n play vs. travel crib', slug: 'blog-pack-and-play-vs-travel-crib' },
+    { label: 'Nuna travel crib showdown', slug: 'nuna-travel-crib-showdown-sena-paal-cove' },
   ],
   feeding: [
     { label: 'Best high chairs (2026)', slug: 'best-highchairs-2026-real-life-guide' },

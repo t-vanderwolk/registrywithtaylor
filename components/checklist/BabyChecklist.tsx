@@ -431,7 +431,7 @@ function ChecklistRow({
 
       {hasMore && (
         <details className="tmbc-item__more">
-          <summary className="tmbc-item__toggle">Taylor&rsquo;s Take</summary>
+          <summary className="tmbc-item__toggle">Taylor&rsquo;s Top Picks</summary>
           <div className="tmbc-item__detail">
             {item.taylorsTake && (
               <div className="tmbc-take">
@@ -527,7 +527,7 @@ function Recommendation({
         )}
       </div>
       <div className="tmbc-rec__body">
-        <p className="tmbc-rec__eyebrow">Taylor&rsquo;s Pick</p>
+        <p className="tmbc-rec__eyebrow">{rec.badge?.trim() || 'Taylor’s Pick'}</p>
         <p className="tmbc-rec__brand">{rec.brand}</p>
         <p className="tmbc-rec__product">{rec.product}</p>
         {typeof rec.price === 'number' ? (

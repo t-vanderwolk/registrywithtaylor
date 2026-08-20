@@ -376,7 +376,6 @@
   border-radius: 0.75rem;
   background: var(--ck-ivory);
 }
-.tmbc-take__label,
 .tmbc-rec__eyebrow {
   font-size: 0.66rem;
   letter-spacing: 0.14em;
@@ -384,6 +383,15 @@
   color: var(--ck-gold);
   font-weight: 700;
   margin: 0 0 0.3rem;
+}
+/* Taylor's Take — signed in the TMBC handwritten pen, in brand pink. */
+.tmbc-take__label {
+  margin: 0 0 0.1rem;
+  font-family: var(--font-handwritten-print, 'Caveat', cursive);
+  font-size: 1.4rem;
+  line-height: 1.05;
+  font-weight: 600;
+  color: var(--color-cta-pink, var(--ck-blush-dusty));
 }
 .tmbc-take__body {
   margin: 0;
