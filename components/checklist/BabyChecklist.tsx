@@ -10,6 +10,7 @@ import {
   TWINS_CALLOUT,
   groupedItemsForType,
   itemsForType,
+  categoryRelatedPosts,
   type ChecklistType,
   type ResolvedItem,
 } from '@/lib/checklist/data';
@@ -272,6 +273,29 @@ export default function BabyChecklist({
               </span>
             </summary>
             <div className="tmbc-cat__body">
+              {(() => {
+                const posts = categoryRelatedPosts[group.category.id];
+                if (!posts || posts.length === 0) return null;
+                return (
+                  <div className="tmbc-related">
+                    <span className="tmbc-related__label">Related reading</span>
+                    <ul className="tmbc-related__links">
+                      {posts.map((p) => (
+                        <li key={p.slug}>
+                          <a
+                            className="tmbc-related__link"
+                            href={`/blog/${p.slug}`}
+                            onClick={() => checklistAnalytics.relatedPostClicked(type, group.category.id, p.slug)}
+                          >
+                            {p.label}
+                            <span aria-hidden="true"> →</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })()}
               {catItems.map((item) => (
                 <ChecklistRow
                   key={item.id}

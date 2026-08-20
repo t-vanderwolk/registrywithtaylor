@@ -41,6 +41,41 @@ export const categories: { id: CategoryId; title: string }[] = [
   { id: 'support', title: 'Support + Smart Extras' },
 ];
 
+export type RelatedPost = { label: string; slug: string };
+
+/**
+ * "Related reading" links shown at the top of each checklist category. Slugs are
+ * live posts (verified against the sitemap). Categories without a strong match
+ * (Bath Time, Clothing + Linens) are intentionally omitted rather than padded.
+ * To edit: add/remove { label, slug } — slug is the /blog/<slug> path.
+ */
+export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = {
+  sleep: [
+    { label: 'Bassinet vs. crib vs. pack ’n play', slug: 'bassinet-vs-crib-vs-pack-and-play' },
+    { label: 'Pack ’n play vs. travel crib', slug: 'blog-pack-and-play-vs-travel-crib' },
+  ],
+  feeding: [
+    { label: 'Best high chairs (2026)', slug: 'best-highchairs-2026-real-life-guide' },
+    {
+      label: 'Bottle washer showdown',
+      slug: 'bottle-washer-showdown-momcozy-grownsy-bc-babycare-eufy-papablic',
+    },
+  ],
+  'getting-around': [
+    { label: 'Best full-size strollers (2026)', slug: 'best-full-size-strollers-2026' },
+    { label: 'Best travel strollers (2026)', slug: 'best-travel-strollers-2026' },
+  ],
+  everyday: [
+    { label: 'Best diaper pails (2026)', slug: 'blog-best-diaper-pails-2026' },
+    { label: 'New baby gear in 2026', slug: 'baby-gear-released-2026-so-far' },
+  ],
+  support: [
+    { label: 'Taylor’s registry essentials', slug: 'taylors-registry-essentials' },
+    { label: 'Registry completion discounts', slug: 'baby-registry-completion-discounts-2026' },
+    { label: 'Free baby welcome boxes', slug: 'best-free-baby-welcome-boxes-2026' },
+  ],
+};
+
 export type StyleCollection = { girl: string[]; boy: string[]; neutral: string[] };
 
 export type ChecklistItem = {

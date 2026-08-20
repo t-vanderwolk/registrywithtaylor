@@ -62,6 +62,9 @@ export const checklistAnalytics = {
       source: `tool:${TOOL}`,
     });
   },
+  relatedPostClicked: (checklist_type: string, category: string, slug: string) => {
+    fire('checklist_related_post_clicked', { checklist_type, category, slug });
+  },
   printed: (checklist_type: string) => {
     fire('checklist_printed', { checklist_type });
   },

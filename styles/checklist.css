@@ -530,6 +530,49 @@
   background: var(--ck-ivory);
   border-color: var(--ck-blush-dusty);
 }
+
+/* Related reading — category-level blog links shown at the top of each section. */
+.tmbc-related {
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, #fffdfb, #fdf6f7);
+}
+.tmbc-related__label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-blush-dusty);
+}
+.tmbc-related__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tmbc-related__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ck-charcoal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.tmbc-related__link:hover {
+  color: var(--ck-blush-dusty);
+  border-bottom-color: var(--ck-blush-dusty);
+}
+.tmbc-related__link:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 .tmbc-rec__pending {
   margin-top: 0.6rem;
   font-size: 0.78rem;
