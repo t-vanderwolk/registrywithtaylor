@@ -480,11 +480,71 @@
   font-size: 0.8rem;
   color: var(--ck-gray);
 }
+/* Mobile expand toggle — hidden on desktop, where the detail is always shown. */
+.tmbc-rec__toggle {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0.35rem 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ck-blush-dusty);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.tmbc-rec__toggle-icon {
+  transition: transform 0.2s ease;
+}
+.tmbc-rec__toggle[aria-expanded='true'] .tmbc-rec__toggle-icon {
+  transform: rotate(180deg);
+}
+@media (max-width: 639px) {
+  .tmbc-rec__toggle {
+    display: inline-flex;
+  }
+  .tmbc-rec__details {
+    display: none;
+  }
+  .tmbc-rec__details--open {
+    display: block;
+  }
+}
+/* Always show the full pick in print, regardless of the mobile collapse state. */
+@media print {
+  .tmbc-rec__toggle {
+    display: none !important;
+  }
+  .tmbc-rec__details {
+    display: block !important;
+  }
+}
 .tmbc-rec__actions {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.85rem;
+}
+.tmbc-rec__cta-logo {
+  height: 18px;
+  width: auto;
+  max-width: 22px;
+  object-fit: contain;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+/* Babylist mark reads small, so give it a larger white chip so it's legible and
+   balanced against the dusty-pink filled button. */
+.tmbc-rec__cta--babylist .tmbc-rec__cta-logo {
+  height: 26px;
+  max-width: 30px;
+  background: #fff;
+  padding: 3px;
+  border-radius: 6px;
 }
 .tmbc-rec__cta {
   display: flex;
@@ -557,14 +617,37 @@
   letter-spacing: -0.02em;
   color: var(--ck-charcoal);
 }
+/* Mobile: horizontal swipe carousel with snap; peek of the next card invites the
+   swipe. Desktop (>=560px): a normal 2-up grid. */
 .tmbc-related__grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -0.25rem;
+  padding: 0.15rem 0.25rem 0.35rem;
+}
+.tmbc-related__grid::-webkit-scrollbar {
+  display: none;
+}
+.tmbc-related__grid > .tmbc-read-card {
+  flex: 0 0 74%;
+  max-width: 260px;
+  scroll-snap-align: start;
 }
 @media (min-width: 560px) {
   .tmbc-related__grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+  .tmbc-related__grid > .tmbc-read-card {
+    flex: initial;
+    max-width: none;
   }
 }
 

@@ -461,6 +461,32 @@ function ChecklistRow({
   );
 }
 
+// Retailer → logo asset (public/assets/logos). Babylist + Amazon are always
+// available; the "other retailer" gets a logo only when we have one, otherwise
+// the button falls back to text. Keys are the lowercased, alphanumeric label.
+const RETAILER_LOGOS: Record<string, string> = {
+  babylist: '/assets/logos/babylist.png',
+  amazon: '/assets/logos/amazon.png',
+  macrobaby: '/assets/logos/macrobaby-logo.webp',
+  strolleria: '/assets/logos/strolleria.png',
+  myregistry: '/assets/logos/myregistry-logo.png',
+  babyquip: '/assets/logos/babyquip.png',
+};
+
+const retailerLogo = (retailer?: string | null): string | null => {
+  if (!retailer) return null;
+  const key = retailer.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  return RETAILER_LOGOS[key] ?? null;
+};
+
+/** Small retailer logo rendered inside a shop CTA. Renders nothing if unknown. */
+function RetailerLogo({ retailer }: { retailer?: string | null }) {
+  const src = retailerLogo(retailer);
+  if (!src) return null;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt="" aria-hidden="true" className="tmbc-rec__cta-logo" />;
+}
+
 function Recommendation({
   rec,
   item,
@@ -470,6 +496,10 @@ function Recommendation({
   item: ResolvedItem;
   checklistType: ChecklistType;
 }) {
+  // Mobile-only expand: image + brand/product + price stay visible; the editorial
+  // copy and shop buttons collapse behind a toggle. On desktop everything shows
+  // (the toggle is hidden and the detail is always displayed via CSS).
+  const [open, setOpen] = useState(false);
   const babylistUrl = hasLiveLink(rec) ? rec.affiliateUrl : undefined;
   const amazonUrl =
     rec.amazonUrl ??
@@ -506,6 +536,16 @@ function Recommendation({
             {rec.priceSource ? <span> via {rec.priceSource}</span> : null}
           </p>
         ) : null}
+        <button
+          type="button"
+          className="tmbc-rec__toggle"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? 'Hide details' : 'See Taylor’s take & links'}
+          <span className="tmbc-rec__toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div className={`tmbc-rec__details${open ? ' tmbc-rec__details--open' : ''}`}>
         <p className="tmbc-rec__review">{rec.review}</p>
         <p className="tmbc-rec__meta">
           <strong>Best for:</strong> {rec.bestFor}
@@ -532,6 +572,7 @@ function Recommendation({
                 })
               }
             >
+              <RetailerLogo retailer="Babylist" />
               Babylist <span aria-hidden="true">→</span>
             </a>
           ) : (
@@ -555,6 +596,7 @@ function Recommendation({
                 })
               }
             >
+              <RetailerLogo retailer="Amazon" />
               Shop Amazon <span aria-hidden="true">→</span>
             </a>
           ) : null}
@@ -576,9 +618,11 @@ function Recommendation({
                 })
               }
             >
+              <RetailerLogo retailer={otherLabel} />
               Shop {otherLabel} <span aria-hidden="true">→</span>
             </a>
           ) : null}
+        </div>
         </div>
       </div>
     </div>
