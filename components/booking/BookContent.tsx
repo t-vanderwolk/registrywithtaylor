@@ -12,14 +12,16 @@ const CALENDLY_BASE =
 const WIDGET_SCRIPT = 'https://assets.calendly.com/assets/external/widget.js';
 
 // The scheduler is heavy (Calendly pulls in ~5 MB and blocks the main thread for
-// ~2s). We therefore load it ONLY when the visitor opts in by clicking the
-// facade below — so the page paints instantly and the widget never runs during
-// PageSpeed's lab test. The container is pre-sized so nothing shifts when the
-// real calendar swaps in (no CLS).
+// ~2s). We therefore lazy-load it on scroll: the widget initializes only once its
+// container nears the viewport, so the page paints instantly and the widget never
+// runs during PageSpeed's lab test (the calendar sits below the fold). The
+// facade below acts as the pre-sized placeholder + a manual fallback, so nothing
+// shifts when the real calendar swaps in (no CLS).
 export default function BookContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get('name') ?? '';
   const email = searchParams.get('email') ?? '';
+  const rootRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -46,7 +48,33 @@ export default function BookContent() {
     }
   }, []);
 
-  // Once the visitor opts in, inject the script (if needed) and init the widget.
+  // Lazy-load on scroll: init the widget as soon as its container nears the
+  // viewport. Keeps the heavy Calendly bundle off the initial paint but has the
+  // calendar ready by the time the visitor scrolls to it. Falls back to loading
+  // immediately if IntersectionObserver is unavailable.
+  useEffect(() => {
+    if (loaded) return;
+    const el = rootRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setLoaded(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          warm();
+          setLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loaded, warm]);
+
+  // Once loaded (via scroll or click), inject the script (if needed) and init.
   useEffect(() => {
     if (!loaded) return;
     const el = widgetRef.current;
@@ -79,7 +107,11 @@ export default function BookContent() {
   }, [loaded, calendlyUrl]);
 
   return (
-    <div className="mx-auto w-full" style={{ minWidth: '320px', minHeight: '760px', maxWidth: '900px' }}>
+    <div
+      ref={rootRef}
+      className="mx-auto w-full"
+      style={{ minWidth: '320px', minHeight: '760px', maxWidth: '900px' }}
+    >
       {loaded ? (
         <div ref={widgetRef} style={{ height: '760px' }} aria-label="Booking calendar" />
       ) : (
