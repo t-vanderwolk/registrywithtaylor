@@ -15,7 +15,7 @@ import {
   type RelatedReadingCard,
 } from '@/lib/checklist/data';
 import Image from 'next/image';
-import { resolveBlogCoverImage } from '@/lib/blog/images';
+import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
 import { getBlogCategoryLabel } from '@/lib/blogCategories';
 import {
   products as staticProducts,
@@ -65,6 +65,10 @@ function ReadingCard({ card, onNavigate }: { card: RelatedReadingCard; onNavigat
           sizes="(max-width: 640px) 100vw, 320px"
           className="tmbc-read-card__img"
           loading="lazy"
+          // Remote editorial CDNs (e.g. cylex) 403 Next's image optimizer's
+          // server-side fetch, breaking the image. Match the site-wide convention:
+          // serve remote covers as-is; only optimize local assets.
+          unoptimized={isRemoteImageUrl(cover)}
         />
       </span>
       <span className="tmbc-read-card__body">
@@ -597,6 +601,9 @@ function Recommendation({
             sizes="(max-width: 640px) 90vw, 260px"
             style={{ objectFit: 'contain' }}
             loading="lazy"
+            // Retailer CDNs can 403 the optimizer's server fetch; serve remote
+            // product images directly (site-wide convention).
+            unoptimized={isRemoteImageUrl(rec.imageUrl)}
           />
         ) : (
           <span className="tmbc-rec__image-fallback">{rec.brand}</span>

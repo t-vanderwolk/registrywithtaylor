@@ -253,6 +253,46 @@ export default async function AdminAnalyticsPage() {
   } catch {
     comparedRows = [];
   }
+
+  // Baby Registry Checklist detail: which products people actually click through
+  // to buy, and via which retailer. Sourced from OutboundClick rows tagged
+  // source = 'tool:baby-checklist' (product/brand/retailer captured on click).
+  type ChecklistProductRow = { product: string; brand: string | null; total: number; last28: number };
+  let checklistProductRows: ChecklistProductRow[] = [];
+  let checklistClickAll = 0;
+  let checklistClick28 = 0;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = prisma as any;
+    const where = { source: 'tool:baby-checklist', product: { not: null } };
+    const [allTime, last28]: [
+      Array<{ product: string | null; brand: string | null; _count: { _all: number } }>,
+      Array<{ product: string | null; _count: { _all: number } }>,
+    ] = await Promise.all([
+      db.outboundClick.groupBy({ by: ['product', 'brand'], where, _count: { _all: true } }),
+      db.outboundClick.groupBy({
+        by: ['product'],
+        where: { ...where, createdAt: { gte: since28d } },
+        _count: { _all: true },
+      }),
+    ]);
+    const last28Map = new Map(last28.map((r) => [r.product, r._count._all]));
+    checklistProductRows = allTime
+      .filter((r) => r.product)
+      .map((r) => ({
+        product: r.product as string,
+        brand: r.brand,
+        total: r._count._all,
+        last28: last28Map.get(r.product) ?? 0,
+      }))
+      .sort((a, b) => b.total - a.total || a.product.localeCompare(b.product))
+      .slice(0, 25);
+    checklistClickAll = checklistProductRows.reduce((s, r) => s + r.total, 0);
+    checklistClick28 = checklistProductRows.reduce((s, r) => s + r.last28, 0);
+  } catch {
+    checklistProductRows = [];
+  }
+
   const countsByStatus = postsByStatus.reduce<Record<PostStatusValue, number>>(
     (acc, row) => {
       acc[row.status] = row._count._all;
@@ -406,6 +446,45 @@ export default async function AdminAnalyticsPage() {
             <tr key={row.name} className="admin-row">
               <td className="text-admin">{row.name}</td>
               <td className="text-right text-admin">{row.picks.toLocaleString()}</td>
+            </tr>
+          ))}
+        </AdminTable>
+      </AdminSurface>
+
+      <AdminHeader
+        eyebrow="Baby Registry Checklist"
+        title="Products people click on /resources/baby-checklist"
+        subtitle="Real, bot-filtered outbound clicks on the checklist's product buy-buttons, by product and retailer. Use it to see which picks convert and which underperform."
+      />
+
+      <section className="admin-kpi-grid" aria-label="Baby checklist product-click metrics">
+        <AdminKpiCard label="Checklist clicks (28d)" value={checklistClick28.toLocaleString()} />
+        <AdminKpiCard label="Checklist clicks (all-time)" value={checklistClickAll.toLocaleString()} />
+        <AdminKpiCard label="Products clicked" value={String(checklistProductRows.length)} />
+      </section>
+
+      <AdminSurface className="admin-stack">
+        <AdminTable
+          density="compact"
+          columns={[
+            { key: 'product', label: 'Product' },
+            { key: 'brand', label: 'Brand' },
+            { key: 'last28', label: 'Clicks (28d)', align: 'right' },
+            { key: 'total', label: 'Clicks (all-time)', align: 'right' },
+          ]}
+          emptyState={
+            <p className="admin-body p-6">
+              No checklist product clicks logged yet. This fills in once visitors start clicking the buy-buttons on
+              the Baby Registry Checklist.
+            </p>
+          }
+        >
+          {checklistProductRows.map((row) => (
+            <tr key={`${row.brand ?? ''}-${row.product}`} className="admin-row">
+              <td className="text-admin">{row.product}</td>
+              <td className="admin-micro">{row.brand ?? '—'}</td>
+              <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
+              <td className="text-right text-admin">{row.total.toLocaleString()}</td>
             </tr>
           ))}
         </AdminTable>

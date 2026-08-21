@@ -221,7 +221,11 @@ export default function Header({ currentPath }: HeaderProps) {
               ? 'max-h-[80svh] border-t border-black/5 opacity-100'
               : 'max-h-0 border-t border-transparent opacity-0 pointer-events-none'
           }`}
-          aria-hidden={!open}
+          // `inert` (not `aria-hidden`) when closed: it hides the panel from AT,
+          // removes its links from the tab order, AND blurs any focused link when
+          // the menu closes — which is what avoids the "aria-hidden on a focused
+          // ancestor" warning.
+          inert={!open}
         >
           <nav
             id="mobile-navigation"
