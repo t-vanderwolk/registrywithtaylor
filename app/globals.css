@@ -541,6 +541,12 @@ body {
   min-height: 100vh;
 }
 
+/* Bold (**…**) inside a pull quote should add weight only — not recolor the
+   text to near-black. Let it inherit the pull quote's own color. */
+.tmbc-pullquote__text strong {
+  color: inherit;
+}
+
 html,
 body {
   width: 100%;
