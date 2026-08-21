@@ -23,7 +23,6 @@ import {
   type ChecklistProduct,
 } from '@/lib/checklist/products';
 import { checklistAnalytics } from '@/lib/checklist/analytics';
-import { amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 
 const formatPrice = (n: number): string => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 
@@ -580,11 +579,9 @@ function Recommendation({
   // (the toggle is hidden and the detail is always displayed via CSS).
   const [open, setOpen] = useState(false);
   const babylistUrl = hasLiveLink(rec) ? rec.affiliateUrl : undefined;
-  const amazonUrl =
-    rec.amazonUrl ??
-    (isAmazonAllowedForBrand(rec.brand)
-      ? amazonSearchShopUrl(`${rec.brand} ${rec.product}`)
-      : undefined);
+  // Only show the Amazon CTA when a real Amazon link is entered for this pick —
+  // no auto-generated Amazon search fallback.
+  const amazonUrl = rec.amazonUrl?.trim() ? rec.amazonUrl : undefined;
   // Any other retailer (Target, brand-direct, etc.) when the pick isn't on
   // Babylist or Amazon. Falls back to a generic "Shop" label if unnamed.
   const otherUrl = rec.secondaryUrl;
