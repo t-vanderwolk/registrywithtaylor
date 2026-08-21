@@ -347,18 +347,7 @@ export default function BabyChecklist({
               </span>
             </summary>
             <div className="tmbc-cat__body">
-              {catItems.map((item) => (
-                <ChecklistRow
-                  key={item.id}
-                  item={item}
-                  checked={Boolean(checked[item.id])}
-                  onToggle={toggle}
-                  checklistType={type}
-                  productMap={products}
-                  retailerLogos={retailerLogos}
-                />
-              ))}
-              {/* Mobile-only: related reading under this category's items. On
+              {/* Mobile-only: related reading at the top of this category. On
                   desktop it lives in the sticky right column instead. */}
               {(() => {
                 const cards = relatedReading[group.category.id];
@@ -381,6 +370,17 @@ export default function BabyChecklist({
                   </div>
                 );
               })()}
+              {catItems.map((item) => (
+                <ChecklistRow
+                  key={item.id}
+                  item={item}
+                  checked={Boolean(checked[item.id])}
+                  onToggle={toggle}
+                  checklistType={type}
+                  productMap={products}
+                  retailerLogos={retailerLogos}
+                />
+              ))}
             </div>
           </details>
         );

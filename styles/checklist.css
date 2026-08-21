@@ -671,7 +671,9 @@
   display: none;
 }
 .tmbc-related--inline {
-  margin-top: 1.1rem;
+  /* Sits at the top of each open category, above the checklist items. */
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
 }
 @media (min-width: 1024px) {
   .tmbc-checklist {
