@@ -544,7 +544,11 @@ body {
 html,
 body {
   width: 100%;
-  overflow-x: hidden;
+  /* `clip` hides horizontal overflow WITHOUT creating a scroll container, so
+     `position: sticky` descendants (e.g. the checklist reading rail) still pin
+     to the viewport. Plain `overflow-x: hidden` would force overflow-y to
+     compute as `auto`, trapping sticky elements. */
+  overflow-x: clip;
 }
 
 h1 {
