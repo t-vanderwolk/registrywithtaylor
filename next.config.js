@@ -105,6 +105,15 @@ const nextConfig = {
   poweredByHeader: false,
   // Gzip/brotli text responses (HTML/CSS/JS) at the Node layer.
   compress: true,
+  experimental: {
+    // Inline the above-the-fold critical CSS and defer the rest of the (large,
+    // global) stylesheet, instead of loading it all render-blocking. Directly
+    // targets PageSpeed's "render-blocking requests" + "reduce unused CSS".
+    // Requires the `critters` dependency (added to package.json). Runs at build
+    // time only. If the site ever shows a flash of unstyled content, remove this
+    // one key to revert.
+    optimizeCss: true,
+  },
   images: {
     // Serve next-gen formats first; the optimizer falls back to the original
     // for browsers that don't support them. Directly fixes PageSpeed's
