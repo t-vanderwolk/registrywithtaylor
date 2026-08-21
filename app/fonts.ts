@@ -33,6 +33,10 @@ export const fontAccent = localFont({
   ],
   variable: '--font-accent-next',
   display: 'swap',
+  // Decorative/secondary — not needed for above-the-fold paint. Skipping preload
+  // frees the critical path so the serif (H1) + sans (body) fonts and the CSS
+  // load first, improving LCP. Still loads on demand via font-display: swap.
+  preload: false,
 });
 
 export const fontSans = localFont({
@@ -51,6 +55,7 @@ export const fontScript = localFont({
   src: [{ path: './_fonts/great-vibes-latin-400-normal.woff2', weight: '400', style: 'normal' }],
   variable: '--font-script-next',
   display: 'swap',
+  preload: false,
 });
 
 export const fontHandwritten = localFont({
@@ -61,6 +66,7 @@ export const fontHandwritten = localFont({
   ],
   variable: '--font-handwritten-next',
   display: 'swap',
+  preload: false,
 });
 
 /** All five font CSS-variable classes, to apply once on <html>. */
