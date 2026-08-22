@@ -688,12 +688,16 @@
   .tmbc-checklist__aside {
     display: block;
     margin-top: 0;
-    /* Pinned as the checklist scrolls; the grid's natural height lets it stop
-       at the bottom of the checklist container. Desktop only (this block is
-       inside the >=1024px media query). */
+    /* Pinned as the checklist scrolls, and capped to the viewport height so the
+       column scrolls internally when its cards are taller than the screen (e.g.
+       Getting Around). Desktop only (this block is inside the >=1024px query). */
     position: sticky;
     top: 110px;
     align-self: start;
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
   }
   /* Inline strip is mobile-only. */
   .tmbc-related--inline {
