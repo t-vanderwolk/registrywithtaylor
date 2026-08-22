@@ -23,6 +23,7 @@ import {
   type ChecklistProduct,
 } from '@/lib/checklist/products';
 import { checklistAnalytics } from '@/lib/checklist/analytics';
+import { pathForType } from '@/lib/checklist/variants';
 
 const formatPrice = (n: number): string => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 
@@ -90,8 +91,16 @@ export default function BabyChecklist({
   products = staticProducts,
   relatedReading = {},
   retailerLogos = {},
+  linkSelector = false,
 }: {
   initialType?: ChecklistType;
+  /**
+   * When true, the version selector renders as real links to each version's
+   * path-based URL (/resources/baby-checklist/<girl|boy|twins>, neutral → base)
+   * so switching is a full navigation to an independently-indexed page. When
+   * false, it switches client-side (legacy in-page behavior).
+   */
+  linkSelector?: boolean;
   /** Product picks keyed by id — from the DB (admin-editable) with a static fallback. */
   products?: Record<string, ChecklistProduct>;
   /** Resolved blog cards per category id — built server-side from live posts. */
@@ -136,6 +145,10 @@ export default function BabyChecklist({
   // default version (best for performance + a clean canonical); if the visitor
   // arrived on e.g. ?type=twins, switch to it client-side.
   useEffect(() => {
+    // On path-based variant pages (linkSelector), the URL path — not ?type= —
+    // drives the version, so ignore the query param to keep content in sync with
+    // the canonical.
+    if (linkSelector) return;
     try {
       const param = new URLSearchParams(window.location.search).get('type');
       if (isChecklistType(param) && param !== initialType) {
@@ -145,7 +158,7 @@ export default function BabyChecklist({
     } catch {
       /* no-op */
     }
-  }, [initialType]);
+  }, [initialType, linkSelector]);
 
   // Fire checklist_started on load and on each version switch.
   useEffect(() => {
@@ -269,18 +282,30 @@ export default function BabyChecklist({
         role="tablist"
         aria-label="Choose your checklist"
       >
-        {CHECKLIST_TYPES.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={t.id === type}
-            className="tmbc-seg__btn"
-            onClick={() => selectType(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
+        {CHECKLIST_TYPES.map((t) =>
+          linkSelector ? (
+            <a
+              key={t.id}
+              role="tab"
+              aria-selected={t.id === type}
+              className="tmbc-seg__btn"
+              href={pathForType(t.id)}
+            >
+              {t.label}
+            </a>
+          ) : (
+            <button
+              key={t.id}
+              type="button"
+              role="tab"
+              aria-selected={t.id === type}
+              className="tmbc-seg__btn"
+              onClick={() => selectType(t.id)}
+            >
+              {t.label}
+            </button>
+          ),
+        )}
       </div>
 
       {/* Overall progress + actions */}

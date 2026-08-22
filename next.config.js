@@ -163,6 +163,28 @@ const nextConfig = {
         destination: 'https://www.taylormadebabyco.com/:path*',
         permanent: true,
       },
+      // ─── Legacy ?type= checklist deep links → path-based variant URLs ────────
+      // The Girl/Boy/Twins checklists now live at their own indexable paths.
+      // 308-redirect the old query-param deep links so links/indexing consolidate
+      // onto the path URLs. (?type=neutral stays on the base page.)
+      {
+        source: '/resources/baby-checklist',
+        has: [{ type: 'query', key: 'type', value: 'girl' }],
+        destination: '/resources/baby-checklist/girl',
+        permanent: true,
+      },
+      {
+        source: '/resources/baby-checklist',
+        has: [{ type: 'query', key: 'type', value: 'boy' }],
+        destination: '/resources/baby-checklist/boy',
+        permanent: true,
+      },
+      {
+        source: '/resources/baby-checklist',
+        has: [{ type: 'query', key: 'type', value: 'twins' }],
+        destination: '/resources/baby-checklist/twins',
+        permanent: true,
+      },
       // While Academy is hidden, collapse every /academy + /guides URL to a
       // single 301 → /services (no /learn hop). When enabled, fall back to the
       // /learn destination redirects that preserve each URL's SEO equity.

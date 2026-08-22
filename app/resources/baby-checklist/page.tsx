@@ -66,6 +66,7 @@ export default async function BabyChecklistPage() {
           products={products}
           relatedReading={relatedReading}
           retailerLogos={retailerLogos}
+          linkSelector
         />
       </MarketingSection>
     </SiteShell>

@@ -23,6 +23,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // "Know Before You Buy" — the educational entry point before the tools.
     { url: buildUrl('/resources'), changeFrequency: 'weekly', priority: 0.95 },
     { url: buildUrl('/resources/baby-checklist'), changeFrequency: 'monthly', priority: 0.85 },
+    // Path-based SEO variants of the checklist (girl / boy / twins) — each has its
+    // own metadata + canonical, so each is indexed independently.
+    { url: buildUrl('/resources/baby-checklist/girl'), changeFrequency: 'monthly', priority: 0.8 },
+    { url: buildUrl('/resources/baby-checklist/boy'), changeFrequency: 'monthly', priority: 0.8 },
+    { url: buildUrl('/resources/baby-checklist/twins'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/tools/stroller-quiz'), changeFrequency: 'monthly', priority: 0.8 },
     { url: buildUrl('/tools/stroller-finder'), changeFrequency: 'daily', priority: 0.9 },
     { url: buildUrl('/tools/compare'), changeFrequency: 'daily', priority: 0.9 },
