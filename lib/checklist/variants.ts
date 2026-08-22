@@ -40,7 +40,31 @@ export type VariantMeta = {
   eyebrow: string;
   keywords: string[];
   imageAlt: string;
+  /** Breadcrumb label for this variant (visual + BreadcrumbList schema). */
+  breadcrumbLabel: string;
+  /** Visible, on-page FAQ — also emitted as FAQPage schema for AI/PAA. */
+  faqs: { q: string; a: string }[];
 };
+
+/** Shared FAQ entries that appear on the girl and boy variants. */
+const generalFaqs = (versionLabel: string): { q: string; a: string }[] => [
+  {
+    q: `Is the ${versionLabel} checklist different from the neutral one?`,
+    a: 'The core gear is identical across every version. The difference is in styling suggestions, like nursery palette and clothing tone notes, tailored to a girl, boy, neutral, or twins theme.',
+  },
+  {
+    q: 'What should I register for differently for a baby girl vs. a baby boy?',
+    a: 'Almost nothing on the essentials list changes by gender. The real differences are aesthetic, like clothing colors and nursery palette, which is why this checklist keeps the same gear list but adjusts the style notes per version.',
+  },
+  {
+    q: 'Can I switch between the girl, boy, and twins checklist after I start?',
+    a: 'Yes. Your checked-off progress is tied to your session, and you can switch between Girl, Boy, Neutral, and Twins versions at any point while planning.',
+  },
+  {
+    q: 'Is this checklist tool free for all versions (girl, boy, neutral, twins)?',
+    a: 'Yes. All four versions are completely free to use, save progress on, and print or save as a PDF.',
+  },
+];
 
 export const VARIANTS: Record<VariantSlug, VariantMeta> = {
   girl: {
@@ -61,6 +85,8 @@ export const VARIANTS: Record<VariantSlug, VariantMeta> = {
       'newborn essentials checklist',
     ],
     imageAlt: 'Taylor-Made Baby Co. baby girl registry checklist',
+    breadcrumbLabel: 'Baby Girl Checklist',
+    faqs: generalFaqs('baby girl'),
   },
   boy: {
     type: 'boy',
@@ -80,6 +106,8 @@ export const VARIANTS: Record<VariantSlug, VariantMeta> = {
       'newborn essentials checklist',
     ],
     imageAlt: 'Taylor-Made Baby Co. baby boy registry checklist',
+    breadcrumbLabel: 'Baby Boy Checklist',
+    faqs: generalFaqs('baby boy'),
   },
   twins: {
     type: 'twins',
@@ -100,5 +128,79 @@ export const VARIANTS: Record<VariantSlug, VariantMeta> = {
       'double stroller for twins registry',
     ],
     imageAlt: 'Taylor-Made Baby Co. twins registry checklist',
+    breadcrumbLabel: 'Twins Checklist',
+    faqs: [
+      {
+        q: 'What do twins need two of on a baby registry?',
+        a: 'Twins typically need two of every core sleep and feeding item, including two cribs or bassinets, two car seats, and doubled bottles and burp cloths. A double stroller is usually the one exception, replacing two single strollers rather than adding to the list.',
+      },
+      {
+        q: 'Do twins need a double stroller or two single strollers?',
+        a: "Most families with twins find a double stroller more practical day-to-day, though the right choice depends on your vehicle's trunk size, your home's doorways, and whether your twins will be on different schedules early on.",
+      },
+      {
+        q: 'How much more expensive is a twins registry than a single-baby registry?',
+        a: 'Not everything doubles. Big shared items like a nursery setup or a play mat can stay the same, while sleep, feeding, and car-seat items typically need to be doubled. Planning by category rather than assuming a flat 2x increase on the whole registry keeps costs more predictable.',
+      },
+      {
+        q: 'When should I start a twins registry compared to a single-baby registry?',
+        a: 'Earlier is better with twins, since more items are essential from day one and twin pregnancies more often arrive ahead of the due date. Starting in the early second trimester gives more buffer than the general recommendation for a single baby.',
+      },
+      {
+        q: 'Can I switch between the girl, boy, and twins checklist after I start?',
+        a: 'Yes. Your checked-off progress is tied to your session, and you can switch between Girl, Boy, Neutral, and Twins versions at any point while planning.',
+      },
+      {
+        q: 'Is this checklist tool free for all versions (girl, boy, neutral, twins)?',
+        a: 'Yes. All four versions are completely free to use, save progress on, and print or save as a PDF.',
+      },
+    ],
   },
+};
+
+/**
+ * Twins-only "what actually doubles" guidance — a genuinely unique, extractable
+ * block (the strongest AI-Overview opportunity of the three variants). Rendered
+ * only on the twins page.
+ */
+export const TWINS_QUANTITY_GUIDANCE: {
+  heading: string;
+  intro: string;
+  columns: { title: string; note: string; items: string[] }[];
+} = {
+  heading: 'What Twins Actually Need Two Of (and What Stays Shared)',
+  intro:
+    'The biggest twins-registry mistake is assuming everything doubles. It does not. Plan by category: the items each baby uses at the same time need their own, while anything used one-at-a-time or set up once in the room can stay shared.',
+  columns: [
+    {
+      title: 'Buy two',
+      note: 'Used by both babies at the same time.',
+      items: [
+        'Car seats (one per baby — the non-negotiable)',
+        'Sleep space (two bassinets or cribs)',
+        'Bottles and bottle parts',
+        'Swaddles, sleep sacks, and burp cloths',
+      ],
+    },
+    {
+      title: 'Keep shared',
+      note: 'Used one at a time or set up once.',
+      items: [
+        'Changing table and dresser',
+        'Play mat and activity gym',
+        'Bathtub and grooming kit',
+        'Nursery furniture and décor',
+      ],
+    },
+    {
+      title: "Taylor's take",
+      note: 'The judgment calls twins parents ask about most.',
+      items: [
+        'One double stroller replaces two singles for most families',
+        'A twin-feeding pillow is worth it if you plan to tandem-feed',
+        'Two of the same monitor camera, one base',
+        'Start early — twins arrive sooner and need more from day one',
+      ],
+    },
+  ],
 };
