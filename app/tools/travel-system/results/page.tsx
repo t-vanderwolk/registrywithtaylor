@@ -28,7 +28,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
@@ -573,12 +573,10 @@ function ResultCard({
   // stroller listing — that's the only way to buy the urbn.
   const urbnBundleUrl =
     productKind === 'stroller' && pipaUrbnSelected ? getPipaUrbnTravelSystemUrl(item.brand, item.model) : null;
-  // Guarantee Amazon too: real product link, else a tagged Amazon search.
-  // Nuna and other brands that don't authorize Amazon third-party sales get none.
+  // Amazon CTA only when a real Amazon link exists — no search fallback. Nuna and
+  // other non-authorized brands, and travel-system-only seats, never show one.
   const amazonUrl =
-    isTravelSystemOnly || !isAmazonAllowedForBrand(item.brand)
-      ? null
-      : item.amazonUrl ?? amazonSearchShopUrl(`${item.brand} ${item.model}`);
+    isTravelSystemOnly || !isAmazonAllowedForBrand(item.brand) ? null : item.amazonUrl ?? null;
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist drops to a secondary button.
   const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);

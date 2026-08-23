@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
-import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
@@ -267,9 +267,8 @@ function ProductCard({
   // an Amazon button. When an exact retailer link is missing, fall back to an
   // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
   const fallbackKind = kind === 'carseats' ? 'carseat' : 'stroller';
-  const fallbackQuery = `${brand} ${product.model || product.name}`.trim();
   // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — drop any
-  // real Amazon offer and never add the fallback Amazon search for them.
+  // real Amazon offer for them.
   const amazonAllowed = isAmazonAllowedForBrand(brand);
   if (!amazonAllowed) {
     for (let i = offers.length - 1; i >= 0; i--) {
@@ -277,15 +276,12 @@ function ProductCard({
     }
   }
   const hasPrimaryOffer = offers.some((o) => o.meta.key === 'babylist' || o.meta.key === 'macrobaby' || o.meta.key === 'bombi');
-  const hasAmazonOffer = offers.some((o) => o.meta.key === 'amazon');
   const babylistMeta = RETAILER_CTAS.find((m) => m.key === 'babylist')!;
-  const amazonMeta = RETAILER_CTAS.find((m) => m.key === 'amazon')!;
   if (!hasPrimaryOffer) {
     offers.unshift({ meta: babylistMeta, offer: { url: babylistBrandShopUrl(brand, fallbackKind), price: null } });
   }
-  if (!hasAmazonOffer && amazonAllowed) {
-    offers.push({ meta: amazonMeta, offer: { url: amazonSearchShopUrl(fallbackQuery), price: null } });
-  }
+  // No Amazon search fallback: a card only shows an Amazon button when a real
+  // Amazon link exists for the product. If it's not on Amazon, we don't fake it.
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist stays available as a secondary button.
   const directUrl = getDirectAffiliateLink(brand, product.model);

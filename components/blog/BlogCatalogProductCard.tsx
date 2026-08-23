@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
-import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
-import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
+import { isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemSlug } from '@/lib/travelSystemRouting';
 
 type CatalogProductButton = {
@@ -115,27 +114,9 @@ export default function BlogCatalogProductCard({
   const amazonAllowed = isAmazonAllowedForBrand(brand);
   if (amazonUrl && amazonAllowed) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
 
-  // Guarantee a shoppable primary (Babylist/MacroBaby/shop) AND an Amazon button
-  // on every live card. When an exact retailer link is missing, fall back to an
-  // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
-  // (Skipped for coming-soon cards, which intentionally show no buy buttons.)
-  if (!comingSoon) {
-    const hasPrimary = available.some((b) => b.key === 'babylist' || b.key === 'macrobaby' || b.key === 'shop' || b.key === 'shop2');
-    const hasAmazon = available.some((b) => b.key === 'amazon');
-    const fallbackKind = compatStrollersHref ? 'carseat' : 'stroller';
-    if (!hasPrimary) {
-      available.unshift({ key: 'babylist', url: babylistBrandShopUrl(brand, fallbackKind), label: 'Shop on Babylist' });
-    }
-    if (!hasAmazon && amazonAllowed) {
-      available.push({ key: 'amazon', url: amazonSearchShopUrl(`${brand} ${productName}`), label: 'Shop on Amazon' });
-    }
-    // Brands with a direct program (Mima, Silver Cross) lead with their direct
-    // affiliate link; Babylist stays as a secondary button.
-    const directUrl = getDirectAffiliateLink(brand, productName);
-    if (directUrl) {
-      available.push({ key: 'direct', url: directUrl, label: directShopLabel(brand) });
-    }
-  }
+  // Only retailer links actually attached to this card render — no auto-generated
+  // Babylist brand-store, Amazon search, or brand-direct fallbacks. A card with no
+  // links entered shows no buy buttons.
 
   const defaultOrder: Record<CatalogProductButton['key'], number> = { direct: -1, babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
   available.sort((a, b) => {

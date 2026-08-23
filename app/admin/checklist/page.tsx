@@ -73,7 +73,11 @@ type Row = {
 
 /** One editable pick (collapsed accordion + edit/delete forms). */
 function ProductRow({ r }: { r: Row }) {
-  const live = Boolean(r.affiliateUrl && r.affiliateUrl !== 'AFFILIATE_LINK_NEEDED');
+  // A pick is "live" once it has ANY retailer link — Babylist, Amazon, or other.
+  // No single retailer (Babylist) is required.
+  const live = Boolean(
+    (r.affiliateUrl && r.affiliateUrl !== 'AFFILIATE_LINK_NEEDED') || r.amazonUrl || r.secondaryUrl,
+  );
   const placement = r.checklistItemId ? itemLabel.get(r.checklistItemId) : null;
   return (
     <details className="rounded-lg border border-neutral-200 bg-white p-4">
@@ -102,8 +106,8 @@ function ProductRow({ r }: { r: Row }) {
         <label className={`${lbl} sm:col-span-2`}>Review<textarea name="review" rows={2} defaultValue={r.review} className={field} /></label>
         <label className={lbl}>Best for<input name="bestFor" defaultValue={r.bestFor} className={field} /></label>
         <label className={lbl}>Standout<input name="standout" defaultValue={r.standout} className={field} /></label>
-        <label className={`${lbl} sm:col-span-2`}>Babylist link<input name="affiliateUrl" defaultValue={r.affiliateUrl} className={field} /></label>
-        <label className={`${lbl} sm:col-span-2`}>Amazon link<input name="amazonUrl" defaultValue={r.amazonUrl ?? ''} className={field} /></label>
+        <label className={`${lbl} sm:col-span-2`}>Babylist link (optional)<input name="affiliateUrl" defaultValue={r.affiliateUrl === 'AFFILIATE_LINK_NEEDED' ? '' : r.affiliateUrl} placeholder="https://babylist.pxf.io/…" className={field} /></label>
+        <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" defaultValue={r.amazonUrl ?? ''} className={field} /></label>
         <label className={lbl}>Other retailer name<input name="secondaryRetailer" defaultValue={r.secondaryRetailer ?? ''} placeholder="Target, Pottery Barn Kids…" className={field} /></label>
         <label className={lbl}>Other retailer link<input name="secondaryUrl" defaultValue={r.secondaryUrl ?? ''} placeholder="https://…" className={field} /></label>
         <label className={lbl}>Price<input name="price" defaultValue={r.price ?? ''} className={field} /></label>
@@ -182,8 +186,12 @@ export default async function AdminChecklistPage() {
           <label className={`${lbl} sm:col-span-2`}>Editorial review<textarea name="review" rows={2} className={field} /></label>
           <label className={lbl}>Best for<input name="bestFor" className={field} /></label>
           <label className={lbl}>Standout<input name="standout" className={field} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Babylist affiliate link<input name="affiliateUrl" placeholder="https://babylist.pxf.io/…" className={field} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Amazon link (optional — blank uses an Amazon search fallback)<input name="amazonUrl" className={field} /></label>
+          <p className="text-xs text-neutral-500 sm:col-span-2">
+            Add at least one retailer link below — Babylist, Amazon, or another retailer. None is
+            individually required; any one makes the pick live.
+          </p>
+          <label className={`${lbl} sm:col-span-2`}>Babylist link (optional)<input name="affiliateUrl" placeholder="https://babylist.pxf.io/…" className={field} /></label>
+          <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" className={field} /></label>
           <label className={lbl}>Other retailer name (optional)<input name="secondaryRetailer" placeholder="Target, Pottery Barn Kids…" className={field} /></label>
           <label className={lbl}>Other retailer link (optional)<input name="secondaryUrl" placeholder="https://…" className={field} /></label>
           <label className={lbl}>Price<input name="price" placeholder="149" className={field} /></label>

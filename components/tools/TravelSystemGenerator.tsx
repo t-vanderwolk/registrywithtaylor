@@ -20,7 +20,7 @@ import {
   travelSystemSlug,
 } from '@/lib/travelSystemRouting';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
-import { babylistBrandShopUrl, amazonSearchShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { AmazonMark, BabylistHeartIcon, CarSeatGlyph } from './StrollerCatalogFinder';
 
@@ -455,11 +455,10 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
           : primaryKey === 'bombi'
             ? 'Shop Bombi'
             : 'Add to Babylist';
-    // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — no Amazon CTA.
+    // Amazon CTA only when a real Amazon link exists (no search fallback). Nuna and
+    // other non-authorized brands, and travel-system-only seats, never show one.
     const amazonUrl =
-      isTsOnly || !isAmazonAllowedForBrand(option.brand)
-        ? null
-        : option.amazonUrl ?? amazonSearchShopUrl(`${option.brand} ${option.model}`);
+      isTsOnly || !isAmazonAllowedForBrand(option.brand) ? null : option.amazonUrl ?? null;
 
     return (
       <BrowseCard
