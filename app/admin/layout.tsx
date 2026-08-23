@@ -67,6 +67,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
                   { label: 'Compatibility', href: '/admin/catalog/compatibility' },
                   { label: 'Affiliate Catalog', href: '/admin/catalog' },
                   { label: 'Catalog Health', href: '/admin/catalog/health' },
+                  { label: 'GoodBuy Gear Audit', href: '/admin/catalog/goodbuygear' },
                 ],
               },
               {
