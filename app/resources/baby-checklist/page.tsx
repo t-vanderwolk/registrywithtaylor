@@ -7,6 +7,7 @@ import BabyChecklist from '@/components/checklist/BabyChecklist';
 import { getChecklistProducts } from '@/lib/checklist/getChecklistProducts';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
+import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 
 // ISR: the product picks are admin-editable (DB); regenerate hourly so edits go
 // live without a deploy, while the page stays cached/fast.
@@ -41,6 +42,11 @@ export default async function BabyChecklistPage() {
     getChecklistRelatedReading(),
     getPartnerLogos(),
   ]);
+  // Match each pick against GoodBuy Gear's open-box feed; picks with a match get
+  // an "Open Box … at GoodBuy Gear" badge.
+  const goodBuyGearOffers = await resolveBlogGoodBuyGearOffers(
+    Object.values(products).map((p) => ({ brand: p.brand, productName: p.product })),
+  );
   return (
     <SiteShell currentPath="/resources">
       <PageViewTracker path="/resources/baby-checklist" pageType="other" />
@@ -66,6 +72,7 @@ export default async function BabyChecklistPage() {
           products={products}
           relatedReading={relatedReading}
           retailerLogos={retailerLogos}
+          goodBuyGearOffers={goodBuyGearOffers}
           linkSelector
         />
       </MarketingSection>

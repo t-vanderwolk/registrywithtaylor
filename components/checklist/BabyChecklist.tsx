@@ -24,6 +24,49 @@ import {
 } from '@/lib/checklist/products';
 import { checklistAnalytics } from '@/lib/checklist/analytics';
 import { pathForType } from '@/lib/checklist/variants';
+import { blogProductKey } from '@/lib/blog/blogProductCatalog';
+
+type GoodBuyGearOffer = { url: string | null; price: number | null };
+
+/**
+ * "Open Box … at GoodBuy Gear" badge, shown on a pick when the checklist page
+ * finds a matching open-box offer. Reuses the shared `.tool-open-box-badge`
+ * styles from the free tools so it looks identical site-wide.
+ */
+function GoodBuyGearBadge({ offer }: { offer?: GoodBuyGearOffer | null }) {
+  if (!offer || (!offer.url && offer.price == null)) return null;
+  const priceLabel = offer.price != null ? `$${Math.round(offer.price)}` : null;
+  const label = priceLabel
+    ? `Open box from ${priceLabel} at GoodBuy Gear`
+    : 'Open box at GoodBuy Gear';
+  const inner = (
+    <>
+      <span className="tool-open-box-badge__eyebrow">Open Box</span>
+      {priceLabel ? <span className="tool-open-box-badge__price">from {priceLabel}</span> : null}
+      <span className="tool-open-box-badge__retailer">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img loading="lazy" decoding="async" src="/assets/logos/goodbuygear2.png" alt="" className="tool-open-box-badge__logo" />
+      </span>
+      {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
+    </>
+  );
+  return offer.url ? (
+    <a
+      href={offer.url}
+      target="_blank"
+      rel="sponsored nofollow noopener noreferrer"
+      className="tool-open-box-badge"
+      aria-label={label}
+      title={label}
+    >
+      {inner}
+    </a>
+  ) : (
+    <span className="tool-open-box-badge" title={label}>
+      {inner}
+    </span>
+  );
+}
 
 const formatPrice = (n: number): string => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 
@@ -91,6 +134,7 @@ export default function BabyChecklist({
   products = staticProducts,
   relatedReading = {},
   retailerLogos = {},
+  goodBuyGearOffers = {},
   linkSelector = false,
 }: {
   initialType?: ChecklistType;
@@ -107,6 +151,12 @@ export default function BabyChecklist({
   relatedReading?: Record<string, RelatedReadingCard[]>;
   /** Affiliate-partner logos (from /admin/partners), keyed by normalized name/slug. */
   retailerLogos?: Record<string, string>;
+  /**
+   * GoodBuy Gear open-box offers matched to picks, keyed by
+   * blogProductKey(brand, product). Present only when a live open-box match
+   * exists — the card then shows the "Open Box … at GoodBuy Gear" badge.
+   */
+  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
 }) {
   const [type, setType] = useState<ChecklistType>(initialType);
   const [checked, setChecked] = useState<Checked>({});
@@ -403,6 +453,7 @@ export default function BabyChecklist({
                   checklistType={type}
                   productMap={products}
                   retailerLogos={retailerLogos}
+                  goodBuyGearOffers={goodBuyGearOffers}
                 />
               ))}
             </div>
@@ -463,6 +514,7 @@ function ChecklistRow({
   checklistType,
   productMap,
   retailerLogos,
+  goodBuyGearOffers,
 }: {
   item: ResolvedItem;
   checked: boolean;
@@ -470,6 +522,7 @@ function ChecklistRow({
   checklistType: ChecklistType;
   productMap: Record<string, ChecklistProduct>;
   retailerLogos: Record<string, string>;
+  goodBuyGearOffers: Record<string, GoodBuyGearOffer>;
 }) {
   // Admin-assigned picks (ChecklistProduct.checklistItemId === this item) take
   // precedence over the static recommendationId wiring in data.ts, so Taylor can
@@ -541,6 +594,7 @@ function ChecklistRow({
                 item={item}
                 checklistType={checklistType}
                 retailerLogos={retailerLogos}
+                goodBuyGearOffer={goodBuyGearOffers[blogProductKey(rec.brand, rec.product)]}
               />
             ))}
           </div>
@@ -593,11 +647,13 @@ function Recommendation({
   item,
   checklistType,
   retailerLogos,
+  goodBuyGearOffer,
 }: {
   rec: ChecklistProduct;
   item: ResolvedItem;
   checklistType: ChecklistType;
   retailerLogos: Record<string, string>;
+  goodBuyGearOffer?: GoodBuyGearOffer;
 }) {
   // Mobile-only expand: image + brand/product + price stay visible; the editorial
   // copy and shop buttons collapse behind a toggle. On desktop everything shows
@@ -640,6 +696,13 @@ function Recommendation({
             {formatPrice(rec.price)}
             {rec.priceSource ? <span> via {rec.priceSource}</span> : null}
           </p>
+        ) : null}
+        {/* GoodBuy Gear open-box match (if any) — stays visible even when the
+            "Taylor's take" detail is collapsed on mobile. */}
+        {goodBuyGearOffer ? (
+          <div className="tmbc-rec__openbox">
+            <GoodBuyGearBadge offer={goodBuyGearOffer} />
+          </div>
         ) : null}
         <button
           type="button"

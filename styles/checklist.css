@@ -450,6 +450,9 @@
 .tmbc-rec__body {
   padding: 0.9rem 1rem 1rem;
 }
+.tmbc-rec__openbox {
+  margin-top: 0.6rem;
+}
 .tmbc-rec__brand {
   font-size: 0.78rem;
   color: var(--ck-gray);

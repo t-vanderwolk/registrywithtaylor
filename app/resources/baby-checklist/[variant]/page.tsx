@@ -11,6 +11,7 @@ import BabyChecklist from '@/components/checklist/BabyChecklist';
 import { getChecklistProducts } from '@/lib/checklist/getChecklistProducts';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
+import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 import {
   VARIANTS,
   VARIANT_SLUGS,
@@ -59,6 +60,9 @@ export default async function BabyChecklistVariantPage({ params }: VariantParams
     getChecklistRelatedReading(),
     getPartnerLogos(),
   ]);
+  const goodBuyGearOffers = await resolveBlogGoodBuyGearOffers(
+    Object.values(products).map((p) => ({ brand: p.brand, productName: p.product })),
+  );
 
   return (
     <SiteShell currentPath="/resources">
@@ -123,6 +127,7 @@ export default async function BabyChecklistVariantPage({ params }: VariantParams
           products={products}
           relatedReading={relatedReading}
           retailerLogos={retailerLogos}
+          goodBuyGearOffers={goodBuyGearOffers}
           linkSelector
         />
       </MarketingSection>
