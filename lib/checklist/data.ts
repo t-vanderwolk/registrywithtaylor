@@ -476,15 +476,27 @@ export const checklistItems: ChecklistItem[] = [
   {
     id: 'infant-car-seat',
     category: 'getting-around',
-    title: 'Infant car seat OR newborn-ready stroller setup',
+    title: 'Infant car seat',
     note: 'A safe ride home is the one true day-one item.',
     badge: 'ESSENTIAL',
     recommendationId: 'infant-car-seat-pick',
     taylorsTake: 'You cannot leave the hospital without a safe car seat install. An infant seat that clicks into your stroller keeps a sleeping baby sleeping.',
     twins: {
-      title: '2 infant car seats OR appropriate newborn-ready travel setup',
+      title: '2 infant car seats',
       label: 'BUY 2',
       note: 'Two babies, two seats — no exceptions on safety.',
+    },
+  },
+  {
+    id: 'travel-system-stroller',
+    category: 'getting-around',
+    title: 'Travel stroller',
+    note: 'A newborn-ready stroller your infant seat clicks into.',
+    badge: 'ESSENTIAL',
+    taylorsTake: 'The other half of a smooth day-one setup: a stroller that takes your infant car seat — directly or with the right adapter — so you can move a sleeping baby from car to stroller without waking them.',
+    twins: {
+      title: 'Double stroller or two travel setups for two',
+      note: 'Plan how two newborns ride from day one — side-by-side or inline.',
     },
   },
   {
@@ -516,21 +528,6 @@ export const checklistItems: ChecklistItem[] = [
       title: '1–2 carriers depending on caregivers',
       label: '1–2',
       note: 'One shared carrier often covers it; add a second if two adults wear at once.',
-    },
-  },
-  {
-    id: 'travel-stroller',
-    category: 'getting-around',
-    title: 'Lightweight / travel stroller',
-    note: 'A second, smaller stroller for trips and tight spaces.',
-    badge: 'TRAVEL FAVORITE',
-    recommendationId: 'travel-stroller-pick',
-    taylorsTake: 'Not a day-one buy. Once baby has head control, a compact fold earns its place the first time you travel or wrestle a small trunk.',
-    twins: {
-      title: 'Travel stroller strategy for later',
-      badge: 'WAIT',
-      note: 'Plan how you will handle travel with two before buying.',
-      label: 'WAIT',
     },
   },
   {
