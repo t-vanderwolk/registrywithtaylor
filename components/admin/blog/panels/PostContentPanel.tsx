@@ -12,6 +12,7 @@ import {
   type StyledBlockId,
 } from '@/lib/blog/styledBlocks';
 import BlogCatalogProductPicker from '@/components/admin/blog/BlogCatalogProductPicker';
+import ChecklistPickPicker from '@/components/admin/blog/ChecklistPickPicker';
 
 export type ContentFormatAction =
   | 'h2'
@@ -213,6 +214,8 @@ export default function PostContentPanel({
         </div>
 
         <BlogCatalogProductPicker onInsert={onInsertProductBlock} />
+
+        <ChecklistPickPicker onInsert={onInsertProductBlock} />
       </div>
 
       <AdminField
