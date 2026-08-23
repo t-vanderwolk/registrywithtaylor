@@ -26,13 +26,13 @@ export default function ThankYouPage() {
                 You&apos;re in.
               </h1>
               <p className="mt-4 text-base leading-8 text-neutral-700 sm:text-lg">
-                I&apos;ll be in touch shortly. In the meantime, if you want a calm place to keep moving, the Academy is a very good next stop.
+                I&apos;ll be in touch shortly. In the meantime, if you want a calm place to keep moving, the free baby gear tools and guides are a good next stop.
               </p>
             </div>
 
             <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href="/academy" className="btn btn--primary">
-                Visit the Academy
+              <Link href="/resources" className="btn btn--primary">
+                Browse the free tools
               </Link>
               <Link href="/" className="btn btn--secondary">
                 Return Home

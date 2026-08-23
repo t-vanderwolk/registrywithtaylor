@@ -28,8 +28,8 @@ export default function NotFound() {
             <Link href="/" className="btn btn--primary">
               Back to home
             </Link>
-            <Link href="/academy" className="btn btn--secondary">
-              Explore the Academy
+            <Link href="/resources" className="btn btn--secondary">
+              Browse the free tools
             </Link>
           </div>
         </div>

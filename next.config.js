@@ -84,16 +84,18 @@ const academyGuideRedirects = [
 // lands on /services. Sending them straight there in one 301 avoids a redirect
 // chain (/academy → /learn → /services) that Search Console flags. When Academy is
 // re-enabled, the /learn destination redirects above take over to preserve equity.
+// The Academy / Learn / Guides were all EDUCATIONAL content, so while hidden they
+// 301 to /resources (the current "Know Before You Buy" educational hub) — the
+// closest live equivalent — rather than the /services sales page. This also
+// scrubs the legacy "Academy / mentor-led / membership / waitlist" positioning
+// from Google's index once the Academy env flag is off (see NEXT_PUBLIC_ACADEMY_ENABLED).
 const academyDisabledFlatten = [
-  { source: '/academy', destination: '/services', permanent: true },
-  { source: '/academy/:path*', destination: '/services', permanent: true },
-  { source: '/guides', destination: '/services', permanent: true },
-  { source: '/guides/:path*', destination: '/services', permanent: true },
-  // /learn is the canonical Academy destination when enabled; while it's hidden,
-  // send every /learn URL to /services too so old crawls (e.g. /learn/stroller-foundations)
-  // resolve instead of 404-ing.
-  { source: '/learn', destination: '/services', permanent: true },
-  { source: '/learn/:path*', destination: '/services', permanent: true },
+  { source: '/academy', destination: '/resources', permanent: true },
+  { source: '/academy/:path*', destination: '/resources', permanent: true },
+  { source: '/guides', destination: '/resources', permanent: true },
+  { source: '/guides/:path*', destination: '/resources', permanent: true },
+  { source: '/learn', destination: '/resources', permanent: true },
+  { source: '/learn/:path*', destination: '/resources', permanent: true },
 ];
 
 const academyEnabled = process.env.NEXT_PUBLIC_ACADEMY_ENABLED === 'true';
@@ -229,8 +231,22 @@ const nextConfig = {
         permanent: true,
       },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
+      // Old invite-only / membership / mentor-led positioning is retired. These
+      // 301 to the current live equivalent so no legacy URL 404s or lingers.
       {
         source: '/request-invite',
+        destination: '/services',
+        permanent: true,
+      },
+      // Old paid "membership" model → the current services page (primary offering
+      // is the $75 Registry Strategy Session).
+      {
+        source: '/membership',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/membership/:path*',
         destination: '/services',
         permanent: true,
       },
