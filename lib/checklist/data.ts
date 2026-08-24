@@ -342,6 +342,21 @@ export const checklistItems: ChecklistItem[] = [
     twins: { title: 'Sterilization solution', note: 'A microwave bag or bin — no bulky appliance required.' },
   },
   {
+    id: 'bottle-washer',
+    category: 'feeding',
+    title: 'Bottle washer, if you want the upgrade',
+    note: 'An all-in-one countertop machine that washes, sterilizes, and dries.',
+    badge: 'NICE TO HAVE',
+    taylorsTake:
+      'A real convenience if you will be washing bottles all day — it replaces the brush-sterilize-dry shuffle with one machine. Not essential, and it does take counter space, so register it as a splurge rather than a must-have.',
+    twins: {
+      title: 'Bottle washer — a genuine time-saver for two',
+      note: 'Twice the bottles is what finally earns an all-in-one washer its counter space.',
+      taylorsTake:
+        'With two babies’ worth of bottles a day, an all-in-one washer is one of the few convenience appliances that genuinely pays off. Still a splurge — but a defensible one for twins.',
+    },
+  },
+  {
     id: 'burp-cloths',
     category: 'feeding',
     title: 'Burp cloths',
