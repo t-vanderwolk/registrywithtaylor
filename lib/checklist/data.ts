@@ -325,6 +325,18 @@ export const checklistItems: ChecklistItem[] = [
     twins: { title: 'Bottle cleaning station', note: 'A brush, a drying rack, and a routine you can do half-asleep.' },
   },
   {
+    id: 'bottle-drying-rack',
+    category: 'feeding',
+    title: 'Bottle drying rack',
+    note: 'A dedicated spot for bottles and parts to air-dry.',
+    taylorsTake:
+      'Bottles and their small parts dry faster and cleaner on a rack of their own than piled in the dish drainer. A simple everyday workhorse worth having from day one.',
+    twins: {
+      title: 'Larger bottle drying rack',
+      note: 'Two babies means more bottles drying at once — size up.',
+    },
+  },
+  {
     id: 'dishwasher-basket',
     category: 'feeding',
     title: 'Dishwasher basket',
