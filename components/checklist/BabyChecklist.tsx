@@ -746,9 +746,7 @@ function Recommendation({
               <RetailerLogo retailer="Babylist" />
               Babylist <span aria-hidden="true">→</span>
             </a>
-          ) : (
-            <p className="tmbc-rec__pending">Taylor&rsquo;s Pick — link coming soon.</p>
-          )}
+          ) : null}
           {amazonUrl ? (
             <a
               className="tmbc-rec__cta tmbc-rec__cta--amazon"
