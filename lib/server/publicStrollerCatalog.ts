@@ -17,6 +17,7 @@ import { gbgBadgeKey, applyGbgBadge } from '@/lib/catalog/gbgBadge';
 import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
 import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
 
@@ -354,7 +355,10 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
   const byBrand = new Map<string, Map<StrollerCategory, PublicStrollerProduct[]>>();
   for (const group of visibleGroups.values()) {
     const babylist = isPublicBabylistOffer(group.babylist) ? group.babylist : null;
-    const macrobaby = isPublicMacroBabyOffer(group.macrobaby) ? group.macrobaby : null;
+    const macrobaby =
+      isMacroBabyAllowedForBrand(group.brand) && isPublicMacroBabyOffer(group.macrobaby)
+        ? group.macrobaby
+        : null;
     const bombi = isPublicBombiOffer(group.bombi) ? group.bombi : null;
     const amazon = isPublicAmazonOffer(group.amazon) ? group.amazon : null;
     // A hand-added open-box product surfaces on its GoodBuy Gear link alone.

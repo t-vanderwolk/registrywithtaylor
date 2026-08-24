@@ -61,3 +61,14 @@ const AMAZON_SUPPRESSED_BRANDS = new Set(['nuna']);
 export function isAmazonAllowedForBrand(brand: string | null | undefined): boolean {
   return !AMAZON_SUPPRESSED_BRANDS.has((brand ?? '').trim().toLowerCase());
 }
+
+/**
+ * Brands we don't surface a MacroBaby CTA for, so their product cards never link
+ * to MacroBaby (Silver Cross is sold via its own direct/Babylist links instead).
+ */
+const MACROBABY_SUPPRESSED_BRANDS = new Set(['silver cross']);
+
+/** True when a MacroBaby CTA is allowed for this brand. */
+export function isMacroBabyAllowedForBrand(brand: string | null | undefined): boolean {
+  return !MACROBABY_SUPPRESSED_BRANDS.has((brand ?? '').trim().toLowerCase());
+}

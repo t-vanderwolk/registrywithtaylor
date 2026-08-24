@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
-import { isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { isAmazonAllowedForBrand, isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemSlug } from '@/lib/travelSystemRouting';
 
 type CatalogProductButton = {
@@ -107,7 +107,8 @@ export default function BlogCatalogProductCard({
   // primary, the rest secondary.
   const available: Array<Omit<CatalogProductButton, 'variant'>> = [];
   if (babylistUrl) available.push({ key: 'babylist', url: babylistUrl, label: 'Add to Babylist' });
-  if (macrobabyUrl) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
+  // Some brands (e.g. Silver Cross) aren't sold via MacroBaby — never show a MacroBaby CTA.
+  if (macrobabyUrl && isMacroBabyAllowedForBrand(brand)) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
   if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
   if (shop2Url) available.push({ key: 'shop2', url: shop2Url, label: shop2Retailer ? `Shop ${shop2Retailer}` : 'Shop now' });
   // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — never show an Amazon CTA.

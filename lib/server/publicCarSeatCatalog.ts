@@ -13,6 +13,7 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
 import { hasPublicCoreRetailer, isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { gbgBadgeKey, applyGbgBadge } from '@/lib/catalog/gbgBadge';
 import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 
@@ -156,7 +157,7 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
     })
       ? g.babylist
       : null;
-    const macrobaby = g.macrobaby && hasPublicCoreRetailer({
+    const macrobaby = isMacroBabyAllowedForBrand(g.brand) && g.macrobaby && hasPublicCoreRetailer({
       provider: PROVIDER_MACROBABY,
       retailer: 'MacroBaby',
       url: g.macrobaby.url,
