@@ -982,3 +982,23 @@ model ChecklistProduct {
 
   @@index([sortOrder])
 }
+
+// ─── GoodBuy Gear badge overrides ─────────────────────────────────────────────
+// Per product-card control over the "Open Box … at GoodBuy Gear" badge that the
+// funnel tools (stroller finder, quiz, travel-system, checklist) and blog cards
+// show automatically when a matching open-box offer exists. A row exists only
+// when the admin has forced a non-automatic state:
+//   state = 'off' → never show the badge for this product, even with a match
+//   state = 'on'  → always show it when any open-box offer/link is available
+// Absence of a row = 'auto' (default: show iff a match exists).
+// `key` is gbgBadgeKey(brand, name) — see lib/catalog/gbgBadge.ts.
+model GbgBadgeOverride {
+  key       String   @id
+  state     String   @default("off") // 'on' | 'off'
+  brand     String?  // denormalized for the admin audit list
+  name      String?  // denormalized product/model name for the admin audit list
+  surface   String?  // 'stroller' | 'carseat' | 'blog' — where it was set (informational)
+  note      String?
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}

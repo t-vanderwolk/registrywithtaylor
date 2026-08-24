@@ -13,6 +13,8 @@ import {
   isExcludedStrollerFinderModel,
 } from '@/lib/catalog/strollerFinderRules';
 import { hasPublicCoreRetailer, isGoodBuyGearOffer, isGoodBuyGearUrl, isBombiOffer, isAmazonOffer, isAmazonUrl } from '@/lib/catalog/publicRetailerVisibility';
+import { gbgBadgeKey, applyGbgBadge } from '@/lib/catalog/gbgBadge';
+import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
@@ -71,6 +73,10 @@ export type PublicStrollerProduct = {
     anb: RetailerOffer | null;
     goodbuygear: RetailerOffer | null;
   };
+  /** Raw (ungated) open-box match, regardless of any admin badge override — used
+   *  by the admin GoodBuy Gear audit. `retailers.goodbuygear` is the *displayed*
+   *  (override-gated) value. */
+  gbgMatch?: RetailerOffer | null;
 };
 
 export type PublicStrollerType = {
@@ -206,6 +212,9 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       .catch(() => []);
     rows = fallback.map((r) => ({ ...r, manualAmazonUrl: null }));
   }
+
+  // Per-product admin overrides for the GoodBuy Gear open-box badge.
+  const gbgOverrides = await getGbgBadgeOverrides();
 
   type Group = {
     category: StrollerCategory;
@@ -359,6 +368,17 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     // Prefer the catalog's own Amazon link (manual override); fall back to the
     // static per-model Amazon map.
     const amazonUrl = amazon?.url ?? getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
+    const source: PublicStrollerProduct['source'] = babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : amazon ? 'amazon' : 'goodbuygear';
+    // Raw open-box match, then gate the *badge* by the admin override. An
+    // open-box-only card (source === 'goodbuygear') keeps its link — that's its
+    // primary CTA, not a badge — so overrides only affect supplemental badges.
+    const rawGbg: RetailerOffer | null = group.gbg
+      ? { price: group.gbg.price, url: group.gbg.url }
+      : gbgShop
+        ? { price: gbgShop.price, url: gbgShop.url }
+        : null;
+    const gbgState = gbgOverrides.get(gbgBadgeKey(group.brand, group.model));
+    const showGbg = source === 'goodbuygear' ? true : applyGbgBadge(!!rawGbg, gbgState);
     const product: PublicStrollerProduct = {
       name: primary.title,
       model: group.model,
@@ -366,19 +386,16 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       price: primary.price,
       image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazon?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
       affiliateUrl: primary.url,
-      source: babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : amazon ? 'amazon' : 'goodbuygear',
+      source,
       retailers: {
         babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
         amazon: amazonUrl ? { price: amazon?.price ?? null, url: amazonUrl } : null,
         macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
         bombi: bombi ? { price: bombi.price, url: bombi.url } : null,
         anb: null,
-        goodbuygear: group.gbg
-          ? { price: group.gbg.price, url: group.gbg.url }
-          : gbgShop
-            ? { price: gbgShop.price, url: gbgShop.url }
-            : null,
+        goodbuygear: showGbg ? rawGbg : null,
       },
+      gbgMatch: rawGbg,
     };
 
     if (!byBrand.has(group.brand)) byBrand.set(group.brand, new Map());

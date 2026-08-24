@@ -11,6 +11,8 @@
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
+import { gbgBadgeKey } from '@/lib/catalog/gbgBadge';
+import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 import prisma from '@/lib/server/prisma';
 
 const GOODBUYGEAR_PROVIDER = 'impact_goodbuygear';
@@ -50,6 +52,7 @@ function nameMatches(haystack: string, wantName: string): boolean {
 
 export async function resolveBlogGoodBuyGearOffers(
   products: ProductRef[],
+  opts: { ignoreOverrides?: boolean } = {},
 ): Promise<Record<string, BlogGoodBuyGearOffer>> {
   const pairs = products.filter((p) => p.brand?.trim() && p.productName?.trim());
   if (pairs.length === 0) return {};
@@ -83,8 +86,13 @@ export async function resolveBlogGoodBuyGearOffers(
     return {};
   }
 
+  // Per-product admin overrides — a card set to 'off' never shows the badge.
+  // The admin audit passes ignoreOverrides to see the raw matches.
+  const overrides = opts.ignoreOverrides ? new Map() : await getGbgBadgeOverrides();
+
   const out: Record<string, BlogGoodBuyGearOffer> = {};
   for (const p of pairs) {
+    if (overrides.get(gbgBadgeKey(p.brand, p.productName)) === 'off') continue;
     const wantBrand = canonicalBrand(p.brand).toLowerCase();
     const wantName = norm(p.productName);
     if (!wantName) continue;
