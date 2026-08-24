@@ -230,6 +230,26 @@ const nextConfig = {
         destination: '/blog/bassinet-vs-crib-vs-pack-and-play',
         permanent: true,
       },
+      {
+        // Retired registry editorial post. Its content lives on in the current
+        // registry guide, so 301 to preserve equity + fix internal links that
+        // still point at the old slug (lib/guides, lib/internal-links).
+        source: '/blog/the-art-of-the-registry',
+        destination: '/blog/taylors-registry-essentials',
+        permanent: true,
+      },
+      {
+        // Removed posts with no direct successor → 301 to the blog index (closest
+        // relevant hub) so Search Console's 404 clears instead of lingering.
+        source: '/blog/best-infant-car-seats-2026',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/blog/nursery-lighting-guide',
+        destination: '/blog',
+        permanent: true,
+      },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
       // Old invite-only / membership / mentor-led positioning is retired. These
       // 301 to the current live equivalent so no legacy URL 404s or lingers.
