@@ -420,13 +420,32 @@
 }
 
 /* ── Recommendation card (matches the blog :::catalog-product card) ─────────*/
-.tmbc-rec {
+/* Picks grid: two compact cards per row on wider screens, one on mobile. A lone
+   pick spans the full width so it isn't stranded in a half-width column. */
+.tmbc-recs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
   margin-top: 0.85rem;
+}
+@media (min-width: 700px) {
+  .tmbc-recs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tmbc-recs .tmbc-rec:only-child {
+    grid-column: 1 / -1;
+  }
+}
+.tmbc-rec {
   border: 1px solid var(--ck-border);
   border-radius: 0.9rem;
   background: #fff;
   box-shadow: 0 10px 26px rgba(72, 49, 56, 0.07);
   overflow: hidden;
+}
+/* In the two-up grid the grid gap handles spacing (no stacked top margin). */
+.tmbc-recs .tmbc-rec {
+  margin-top: 0;
 }
 .tmbc-rec__media {
   position: relative;
@@ -436,6 +455,19 @@
   height: 170px;
   background: linear-gradient(180deg, #ffffff, var(--ck-ivory));
   border-bottom: 1px solid var(--ck-border);
+}
+/* Slightly shorter media + tighter body on the two-up cards so a pair fits
+   comfortably side by side. */
+@media (min-width: 700px) {
+  .tmbc-recs .tmbc-rec__media {
+    height: 140px;
+  }
+  .tmbc-recs .tmbc-rec__body {
+    padding: 0.75rem 0.85rem 0.85rem;
+  }
+  .tmbc-recs .tmbc-rec__product {
+    font-size: 1rem;
+  }
 }
 .tmbc-rec__image {
   object-fit: contain;

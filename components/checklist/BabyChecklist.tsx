@@ -587,16 +587,18 @@ function ChecklistRow({
               </div>
             )}
 
-            {recs.map((rec) => (
-              <Recommendation
-                key={rec.id}
-                rec={rec}
-                item={item}
-                checklistType={checklistType}
-                retailerLogos={retailerLogos}
-                goodBuyGearOffer={goodBuyGearOffers[blogProductKey(rec.brand, rec.product)]}
-              />
-            ))}
+            <div className="tmbc-recs">
+              {recs.map((rec) => (
+                <Recommendation
+                  key={rec.id}
+                  rec={rec}
+                  item={item}
+                  checklistType={checklistType}
+                  retailerLogos={retailerLogos}
+                  goodBuyGearOffer={goodBuyGearOffers[blogProductKey(rec.brand, rec.product)]}
+                />
+              ))}
+            </div>
           </div>
         </details>
       )}
